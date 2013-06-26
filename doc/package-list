@@ -1,0 +1,9 @@
+com.lumata.common.testing.exceptions
+com.lumata.common.testing.io
+com.lumata.common.testing.log
+com.lumata.common.testing.model
+com.lumata.common.testing.network
+com.lumata.common.testing.plan
+com.lumata.common.testing.selenium
+com.lumata.common.testing.system
+com.lumata.common.testing.validating

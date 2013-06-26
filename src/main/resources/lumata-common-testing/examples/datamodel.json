@@ -1,0 +1,86 @@
+{
+  "subscribers": [
+    {
+      "label": "subscription_date",
+      "validator": [{ "validationType": "DATE", "validationParam": "", "validationFormat": "yyyy-mm-dd", "validationFilter": "", "validationOp": "", "validationAllowBlank": false, "validationExpected": true }]
+    },
+    {
+      "label": "phone_number",
+      "validator": [
+		      { "validationType": "MSISDN", "validationParam": "", "validationFormat": "[0-9]+", "validationFilter": "[ ()+-]", "validationOp": "", "validationAllowBlank": true, "validationExpected": true },
+		      { "validationType": "LENGHT", "validationParam": "20", "validationFormat": "", "validationFilter": "", "validationOp": "LESS_OR_EQUAL_THAN", "validationAllowBlank": true, "validationExpected": true }
+		   ]
+    },
+    {
+      "label": "application_id",
+      "validator": [{ "validationType": "NONE", "validationParam": "", "validationFormat": "", "validationFilter": "", "validationOp": "", "validationAllowBlank": true, "validationExpected": true }]
+    },
+    {
+      "label": "mobile_os",
+      "validator": [{ "validationType": "ENUM", "validationParam": "", "validationFormat": "com.lumata.e4b.pojo.List$MOBILE_OS", "validationFilter": "", "validationOp": "", "validationAllowBlank": true, "validationExpected": true }]
+    },
+    {
+      "label": "application_name",
+      "validator": [{ "validationType": "MAP", "validationParam": "", "validationFormat": "APPLICATION_NAME", "validationFilter": "", "validationOp": "", "validationAllowBlank": true, "validationExpected": true }]
+    },
+    {
+      "label": "preferred_channel",
+      "validator": [
+		      { "validationType": "MAP", "validationParam": "", "validationFormat": "PREFERRED_CHANNEL", "validationFilter": "", "validationOp": "", "validationAllowBlank": true, "validationExpected": true },
+		      { "validationType": "LENGHT", "validationParam": "25", "validationFormat": "", "validationFilter": "", "validationOp": "LESS_OR_EQUAL_THAN", "validationAllowBlank": true, "validationExpected": true }
+		   ]
+    },
+    {
+      "label": "title",
+      "validator": [{ "validationType": "LENGHT", "validationParam": "25", "validationFormat": "", "validationFilter": "", "validationOp": "LESS_OR_EQUAL_THAN", "validationAllowBlank": true, "validationExpected": true }]
+    },
+    {
+      "label": "first_name",
+      "validator": [{ "validationType": "LENGHT", "validationParam": "255", "validationFormat": "", "validationFilter": "", "validationOp": "LESS_OR_EQUAL_THAN", "validationAllowBlank": true, "validationExpected": true }]
+    },
+    {
+      "label": "last_name",
+      "validator": [{ "validationType": "LENGHT", "validationParam": "255", "validationFormat": "", "validationFilter": "", "validationOp": "LESS_OR_EQUAL_THAN", "validationAllowBlank": true, "validationExpected": true }]
+    },
+    {
+      "label": "address_line_1",
+      "validator": [{ "validationType": "LENGHT", "validationParam": "255", "validationFormat": "", "validationFilter": "", "validationOp": "LESS_OR_EQUAL_THAN", "validationAllowBlank": true, "validationExpected": true }]
+    },
+    {
+      "label": "address_line_2",
+      "validator": [{ "validationType": "LENGHT", "validationParam": "255", "validationFormat": "", "validationFilter": "", "validationOp": "LESS_OR_EQUAL_THAN", "validationAllowBlank": true, "validationExpected": true }]
+    },
+    {
+      "label": "address_town",
+      "validator": [{ "validationType": "LENGHT", "validationParam": "255", "validationFormat": "", "validationFilter": "", "validationOp": "LESS_OR_EQUAL_THAN", "validationAllowBlank": true, "validationExpected": true }]
+    },
+    {
+      "label": "address_postcode",
+      "validator": [{ "validationType": "LENGHT", "validationParam": "255", "validationFormat": "", "validationFilter": "", "validationOp": "LESS_OR_EQUAL_THAN", "validationAllowBlank": true, "validationExpected": true }]
+    },
+    {
+      "label": "address_country",
+      "validator": [{ "validationType": "LENGHT", "validationParam": "255", "validationFormat": "", "validationFilter": "", "validationOp": "LESS_OR_EQUAL_THAN", "validationAllowBlank": true, "validationExpected": true }]
+    },
+    {
+      "label": "date_of_birth",
+      "validator": [{ "validationType": "DATE", "validationParam": "", "validationFormat": "yyyy-mm-dd", "validationFilter": "", "validationOp": "", "validationAllowBlank": true, "validationExpected": true }]
+    },
+    {
+      "label": "gender",
+      "validator": [{ "validationType": "ENUM", "validationParam": "", "validationFormat": "com.lumata.e4b.pojo.List$GENDER", "validationFilter": "", "validationOp": "", "validationAllowBlank": true, "validationExpected": true }]
+    },
+    {
+      "label": "email",
+      "validator": [{ "validationType": "EMAIL", "validationParam": "", "validationFormat": "^[\\w\\.-]+@([\\w\\-]+\\.)+[a-zA-Z]{2,4}$", "validationFilter": "", "validationAllowBlank": true, "validationOp": "", "validationExpected": true }]
+    },
+    {
+      "label": "loyalty_id",
+      "validator": [{ "validationType": "LENGHT", "validationParam": "100", "validationFormat": "", "validationFilter": "", "validationOp": "LESS_OR_EQUAL_THAN", "validationAllowBlank": true, "validationExpected": true }]
+    },
+    {
+      "label": "topics",
+      "validator": [{ "validationType": "LENGHT", "validationParam": "100", "validationFormat": "", "validationFilter": "", "validationOp": "LESS_OR_EQUAL_THAN", "validationAllowBlank": true, "validationExpected": true }]
+    }
+  ]
+}
