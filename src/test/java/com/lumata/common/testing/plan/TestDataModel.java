@@ -1,29 +1,16 @@
 package com.lumata.common.testing.plan;
 
-import java.util.Properties;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.DataModelException;
-import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.ResourcePropertiesException;
 import com.lumata.common.testing.model.DataModel;
 import com.lumata.common.testing.model.DataModel.DMLoadingType;
-import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.system.Environment.EnvLoadingType;
 import com.lumata.common.testing.system.ResourceProperties;
 
 public class TestDataModel {
-	
-	private static final  Logger logger = LoggerFactory.getLogger( TestDataModel.class );
 	
 	/** Load custom properties */
 	@BeforeClass
