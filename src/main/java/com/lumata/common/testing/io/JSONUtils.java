@@ -10,7 +10,7 @@ import com.lumata.common.testing.exceptions.IOSException;
 import com.lumata.common.testing.exceptions.JSONSException;
 
 /**
- * @author <a href="mailto:arcangelo.dipasquale@gmail.com">Arcangelo Di Pasquale</a>
+ * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
 public class JSONUtils extends JSONConfigurationUtils {
@@ -23,7 +23,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 		try {
 			
-			jsonResource = new JSONObject(IOSUtils.loadResourceAsString( resource ));			
+			jsonResource = new JSONObject(IOFileUtils.loadResourceAsString( resource ));			
 			
 			logger.debug("The Json Object has been loaded ( " + jsonResource.toString() + " )");
 			
@@ -55,7 +55,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 		try {
 			
-			jsonResource = new JSONObject(IOSUtils.loadResourceAsString( folder, resource ));			
+			jsonResource = new JSONObject(IOFileUtils.loadResourceAsString( folder, resource ));			
 			
 			logger.debug("The Json Object has been loaded ( " + jsonResource.toString() + " )");
 			
@@ -87,7 +87,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 		try {
 			
-			jsonResource = new JSONObject(IOSUtils.loadFileAsString(file));			
+			jsonResource = new JSONObject(IOFileUtils.loadFileAsString(file));			
 			
 			logger.debug("The Json Object has been loaded ( " + jsonResource.toString() + " )");
 																	
@@ -119,7 +119,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 		try {
 			
-			jsonResource = new JSONObject(IOSUtils.loadFileAsString(folder, file));			
+			jsonResource = new JSONObject(IOFileUtils.loadFileAsString(folder, file));			
 			
 			logger.debug("The Json Object has been loaded ( " + jsonResource.toString() + " )");
 																	
@@ -149,7 +149,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 		try {
 			 
-			IOSUtils.saveResource(jsonResource.toString(), jsonFile);
+			IOFileUtils.saveResource(jsonResource.toString(), jsonFile);
 			
 			logger.debug("The Json Object has been created ( " + jsonResource.toString() + " )");
 			
@@ -169,7 +169,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 		try {
 			 
-			IOSUtils.saveResource(jsonResource.toString(), folder, jsonFile);
+			IOFileUtils.saveResource(jsonResource.toString(), folder, jsonFile);
 			
 			logger.debug("The Json Object has been created ( " + jsonResource.toString() + " )");
 			
@@ -189,7 +189,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 		try {
 			 
-			IOSUtils.saveFile(jsonResource.toString(), jsonFile);
+			IOFileUtils.saveFile(jsonResource.toString(), jsonFile);
 			
 			logger.debug("The Json Object has been created ( " + jsonResource.toString() + " )");
 	 
@@ -209,7 +209,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 	
 		try {
 			 
-			IOSUtils.saveFile(jsonResource.toString(), folder, jsonFile);
+			IOFileUtils.saveFile(jsonResource.toString(), folder, jsonFile);
 			
 			logger.debug("The Json Object has been created ( " + jsonResource.toString() + " )");
 	 

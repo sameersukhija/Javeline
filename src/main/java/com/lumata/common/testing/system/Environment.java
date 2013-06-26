@@ -2,20 +2,20 @@ package com.lumata.common.testing.system;
 
 import java.util.Properties;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOSException;
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.io.IOSUtils;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 
+/**
+ * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
+ * 
+ */
 public class Environment {
 
 	private static final  Logger logger = LoggerFactory.getLogger( Environment.class );

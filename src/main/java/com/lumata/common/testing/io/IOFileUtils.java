@@ -18,8 +18,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.util.Properties;
 
 /**
  * This allows to manage the input and output.
@@ -27,9 +25,9 @@ import java.util.Properties;
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
-public class IOSUtils {
+public class IOFileUtils {
 	
-	private static final Logger logger = LoggerFactory.getLogger( IOSUtils.class );
+	private static final Logger logger = LoggerFactory.getLogger( IOFileUtils.class );
 	private static String RESOURCE_ROOT = "lumata-common-testing/";
 		
 	public static String buildResourcePath( String resource ) throws IOSException {
@@ -94,7 +92,7 @@ public class IOSUtils {
 		
 		try {
 		
-			in = Thread.currentThread().getContextClassLoader().getResourceAsStream( IOSUtils.buildResourcePath( resource ) );
+			in = Thread.currentThread().getContextClassLoader().getResourceAsStream( IOFileUtils.buildResourcePath( resource ) );
 			
 			if( in == null ) throw new IOSException( "You cannot load a not existing resource ( " + resource + " )" );
 			
@@ -120,7 +118,7 @@ public class IOSUtils {
 		
 		try {
 		
-			String path = IOSUtils.buildResourcePath( folder, resource );
+			String path = IOFileUtils.buildResourcePath( folder, resource );
 			
 			in = Thread.currentThread().getContextClassLoader().getResourceAsStream( path );
 			
@@ -148,7 +146,7 @@ public class IOSUtils {
 		
 		try {
 			
-			reader = new InputStreamReader( Thread.currentThread().getContextClassLoader().getResourceAsStream( IOSUtils.buildResourcePath( resource ) ) );
+			reader = new InputStreamReader( Thread.currentThread().getContextClassLoader().getResourceAsStream( IOFileUtils.buildResourcePath( resource ) ) );
 			
 			logger.debug( "The resource has been loaded as input stream reader ( " + resource + " )" );
 		
@@ -172,7 +170,7 @@ public class IOSUtils {
 		
 		try {
 			
-			String path = IOSUtils.buildResourcePath( folder, resource );
+			String path = IOFileUtils.buildResourcePath( folder, resource );
 			
 			reader = new InputStreamReader( Thread.currentThread().getContextClassLoader().getResourceAsStream( path ) );
 			
@@ -198,7 +196,7 @@ public class IOSUtils {
 		
 		try {
 					
-			res = IOUtils.toString( IOSUtils.loadResourceAsInputStream( resource ) );
+			res = IOUtils.toString( IOFileUtils.loadResourceAsInputStream( resource ) );
 			
 			logger.debug( "The resource has been loaded as string ( " + resource + " )" );
 			
@@ -222,9 +220,9 @@ public class IOSUtils {
 		
 		try {
 				
-			res = IOUtils.toString( IOSUtils.loadResourceAsInputStream( folder, resource ) );
+			res = IOUtils.toString( IOFileUtils.loadResourceAsInputStream( folder, resource ) );
 			
-			logger.debug( "The resource has been loaded as string ( " + IOSUtils.buildResourcePath( folder, resource ) + " )" );
+			logger.debug( "The resource has been loaded as string ( " + IOFileUtils.buildResourcePath( folder, resource ) + " )" );
 			
 		} catch( Exception e ) {
 			
@@ -246,7 +244,7 @@ public class IOSUtils {
 				
 		try {
 			
-			res = new BufferedReader( IOSUtils.loadResourceAsInputStreamReader( resource ) );
+			res = new BufferedReader( IOFileUtils.loadResourceAsInputStreamReader( resource ) );
 			
 			logger.debug( "The resource has been loaded as buffered reader ( " + resource + " )" );
 																			
@@ -270,9 +268,9 @@ public class IOSUtils {
 				
 		try {
 						
-			res = new BufferedReader( IOSUtils.loadResourceAsInputStreamReader( folder, resource ) );
+			res = new BufferedReader( IOFileUtils.loadResourceAsInputStreamReader( folder, resource ) );
 			
-			logger.debug( "The resource has been loaded as buffered reader ( " + IOSUtils.buildResourcePath( folder, resource ) + " )" );
+			logger.debug( "The resource has been loaded as buffered reader ( " + IOFileUtils.buildResourcePath( folder, resource ) + " )" );
 																			
 		} catch ( IOSException e ) {
 			
@@ -318,7 +316,7 @@ public class IOSUtils {
 		
 		try {
 		
-			file = IOSUtils.buildPath( file );
+			file = IOFileUtils.buildPath( file );
 			
 			if( folder == null ) throw new IOSException( "You cannot build a path containing a not valid folder ( " + folder + " )" );
 			
@@ -348,7 +346,7 @@ public class IOSUtils {
 		
 		try {
 		
-			in = new FileInputStream( IOSUtils.buildPath( file ) );
+			in = new FileInputStream( IOFileUtils.buildPath( file ) );
 			
 			logger.debug( "The file has been loaded as input stream ( " + file + " )" );
 		
@@ -373,7 +371,7 @@ public class IOSUtils {
 		
 		try {
 		
-			path = IOSUtils.buildPath( folder, file );
+			path = IOFileUtils.buildPath( folder, file );
 			
 			in = new FileInputStream( path );
 			
@@ -399,7 +397,7 @@ public class IOSUtils {
 		
 		try {
 			
-			reader = new FileReader( IOSUtils.buildPath( file ) );
+			reader = new FileReader( IOFileUtils.buildPath( file ) );
 			
 			logger.debug( "The file has been loaded as input stream reader ( " + file + " )" );
 			
@@ -424,7 +422,7 @@ public class IOSUtils {
 		
 		try {
 			
-			path = IOSUtils.buildPath( folder, file );
+			path = IOFileUtils.buildPath( folder, file );
 			
 			reader = new FileReader( path );
 			
@@ -450,7 +448,7 @@ public class IOSUtils {
 		
 		try {
 			
-			fl = IOUtils.toString( IOSUtils.loadFileAsInputStream( file ) );
+			fl = IOUtils.toString( IOFileUtils.loadFileAsInputStream( file ) );
 			
 			logger.debug( "The file has been loaded as string ( " + file + " )" );
 																	
@@ -474,9 +472,9 @@ public class IOSUtils {
 		
 		try {
 			
-			fl = IOUtils.toString( IOSUtils.loadFileAsInputStream( folder, file ) );
+			fl = IOUtils.toString( IOFileUtils.loadFileAsInputStream( folder, file ) );
 			
-			logger.debug( "The file has been loaded as string ( " + IOSUtils.buildPath( folder, file ) + " )" );
+			logger.debug( "The file has been loaded as string ( " + IOFileUtils.buildPath( folder, file ) + " )" );
 																	
 		} catch( Exception e ) {
 			
@@ -498,7 +496,7 @@ public class IOSUtils {
 		
 		try {
 			
-			fl = new BufferedReader( IOSUtils.loadFileAsInputStreamReader( file ) );
+			fl = new BufferedReader( IOFileUtils.loadFileAsInputStreamReader( file ) );
 			
 			logger.debug( "The file has been loaded as buffered reader ( " + file + " )" );
 																			
@@ -522,9 +520,9 @@ public class IOSUtils {
 		
 		try {
 			
-			fl = new BufferedReader( IOSUtils.loadFileAsInputStreamReader( folder, file ) );
+			fl = new BufferedReader( IOFileUtils.loadFileAsInputStreamReader( folder, file ) );
 			
-			logger.debug( "The file has been loaded as buffered reader ( " + IOSUtils.buildPath( folder, file ) + " )" );
+			logger.debug( "The file has been loaded as buffered reader ( " + IOFileUtils.buildPath( folder, file ) + " )" );
 																			
 		} catch ( IOSException e ) {
 			
@@ -573,8 +571,6 @@ public class IOSUtils {
 				logger.debug( "The path has been created ( " + file.toString() + " )" );
 			
 			} else logger.debug( "The path already exists ( " + file.toString() + " )" );
-			
-			if( file == null ) throw new IOSException( "The file is not valid ( " + path + " )" );
 
 		} catch( Exception e ) {
 			
@@ -592,13 +588,13 @@ public class IOSUtils {
 
 	public static File createPath( String path ) throws IOSException {
 						
-		return IOSUtils.buildFile( IOSUtils.buildPath( path ) );
+		return IOFileUtils.buildFile( IOFileUtils.buildPath( path ) );
 
 	}
 
 	public static File createPath( String folder, String file ) throws IOSException {
 		
-		return IOSUtils.buildFile( IOSUtils.buildPath( folder, file ) );
+		return IOFileUtils.buildFile( IOFileUtils.buildPath( folder, file ) );
 
 	}
 		
@@ -608,7 +604,7 @@ public class IOSUtils {
  
 			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
 			
-			File file = IOSUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
+			File file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
 			
 			FileOutputStream fop = new FileOutputStream( file );
 			
@@ -638,7 +634,7 @@ public class IOSUtils {
 			
 			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
 			
-			File file = IOSUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
+			File file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
 			
 			FileOutputStream fop = new FileOutputStream( file );
 			
@@ -666,7 +662,7 @@ public class IOSUtils {
  
 			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
 			
-			File file = IOSUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
+			File file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
 			
 			FileOutputStream fop = new FileOutputStream( file );
 			
@@ -696,7 +692,7 @@ public class IOSUtils {
 			
 			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
 			
-			File file = IOSUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
+			File file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
 			
 			FileOutputStream fop = new FileOutputStream( file );
 			
@@ -724,7 +720,7 @@ public class IOSUtils {
 			
 			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
 			
-			FileWriter fl = new FileWriter( IOSUtils.createPath( file ) ); 
+			FileWriter fl = new FileWriter( IOFileUtils.createPath( file ) ); 
 					
 			fl.write(content);
 			fl.flush();
@@ -752,13 +748,13 @@ public class IOSUtils {
 			
 			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
 			
-			FileWriter fl = new FileWriter( IOSUtils.createPath(folder, file) ); 
+			FileWriter fl = new FileWriter( IOFileUtils.createPath(folder, file) ); 
 					
 			fl.write(content);
 			fl.flush();
 			fl.close();
 			
-			logger.debug( "The content has been stored in the file ( " + IOSUtils.createPath(folder, file) + " )" );
+			logger.debug( "The content has been stored in the file ( " + IOFileUtils.createPath(folder, file) + " )" );
 			
 		} catch ( IOException e ) {
 			
@@ -778,7 +774,7 @@ public class IOSUtils {
 			
 			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
 			
-			FileWriter fl = new FileWriter( IOSUtils.createPath( file ) ); 
+			FileWriter fl = new FileWriter( IOFileUtils.createPath( file ) ); 
 					
 			BufferedWriter bw = new BufferedWriter(fl);
 			bw.write( String.valueOf( content ) );
@@ -806,13 +802,13 @@ public class IOSUtils {
 			
 			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
 			
-			FileWriter fl = new FileWriter( IOSUtils.createPath(folder, file) ); 
+			FileWriter fl = new FileWriter( IOFileUtils.createPath(folder, file) ); 
 					
 			BufferedWriter bw = new BufferedWriter(fl);
 			bw.write( String.valueOf( content ) );
 			bw.close();
 			
-			logger.debug( "The content has been stored in the file ( " + IOSUtils.createPath(folder, file) + " )" );
+			logger.debug( "The content has been stored in the file ( " + IOFileUtils.createPath(folder, file) + " )" );
 			
 		} catch ( IOException e ) {
 			

@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author <a href="mailto:arcangelo.dipasquale@gmail.com">Arcangelo Di Pasquale</a>
+ * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
 public class SeleniumCache {
 
-	private static Map<String, Object> cache = new HashMap();
+	private static Map<String, Object> cache = new HashMap<String, Object>();
 	
 	public static Object getCacheValue( Object key ) {
 		return SeleniumCache.cache.get(key);		

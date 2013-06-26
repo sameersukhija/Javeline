@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.IOSException;
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.io.IOSUtils;
+import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.io.JSONUtils;
 
 

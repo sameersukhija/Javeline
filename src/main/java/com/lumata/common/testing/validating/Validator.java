@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.validating.Format.Operators;
 
 /**
- * @author <a href="mailto:arcangelo.dipasquale@gmail.com">Arcangelo Di Pasquale</a>
+ * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
 public class Validator {

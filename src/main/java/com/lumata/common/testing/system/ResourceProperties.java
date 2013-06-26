@@ -10,10 +10,10 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.IOSException;
 import com.lumata.common.testing.exceptions.ResourcePropertiesException;
-import com.lumata.common.testing.io.IOSUtils;
+import com.lumata.common.testing.io.IOFileUtils;
 
 /**
- * @author <a href="mailto:arcangelo.dipasquale@gmail.com">Arcangelo Di Pasquale</a>
+ * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
 public class ResourceProperties {
@@ -28,7 +28,7 @@ public class ResourceProperties {
 		
 		try {
 			
-			BufferedReader br = IOSUtils.loadResourceAsBufferedReader( resource );
+			BufferedReader br = IOFileUtils.loadResourceAsBufferedReader( resource );
 			
 			String line;
 			Pattern pattern = Pattern.compile("\\$\\{(.+?)\\}");

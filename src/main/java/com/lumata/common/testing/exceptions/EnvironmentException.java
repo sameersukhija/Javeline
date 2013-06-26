@@ -5,7 +5,7 @@ import javax.ws.rs.core.Response;
 import com.lumata.common.testing.system.ResponseCodes;
 
 /**
- * This is thrown when a IOSExceptions occurs.
+ * This is thrown when a EnvironmentException occurs.
  *
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 

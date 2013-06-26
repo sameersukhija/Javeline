@@ -25,14 +25,14 @@ import org.slf4j.LoggerFactory;
 import com.opera.core.systems.OperaDriver;
 
 /**
- * @author <a href="mailto:arcangelo.dipasquale@gmail.com">Arcangelo Di Pasquale</a>
+ * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
 public class SeleniumWebDriver extends WebDriverBackedSelenium {
 
 	private static final  Logger logger = LoggerFactory.getLogger( SeleniumWebDriver.class );
 	
-	private Map<String, Object> cache = new HashMap();
+	private Map<String, Object> cache = new HashMap<String, Object>();
 	private String testName = "";
 	
 	public static enum BrowserType {

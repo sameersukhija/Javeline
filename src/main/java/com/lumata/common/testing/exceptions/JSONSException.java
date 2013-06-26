@@ -5,9 +5,9 @@ import javax.ws.rs.core.Response;
 import com.lumata.common.testing.system.ResponseCodes;
 
 /**
- * This is thrown by Fusion runtime when a IOSExceptions occurs.
+ * This is thrown when a IOSException occurs.
  *
- * @author <a href="mailto:arcangelo.dipasquale@gmail.com">Arcangelo Di Pasquale</a>
+ * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  */
 public class JSONSException extends Exception
 {

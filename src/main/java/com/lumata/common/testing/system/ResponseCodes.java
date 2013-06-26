@@ -1,9 +1,7 @@
 package com.lumata.common.testing.system;
 
-import java.util.Map;
-
 /**
- * @author <a href="mailto:arcangelo.dipasquale@gmail.com">Arcangelo Di Pasquale</a>
+ * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
 public enum ResponseCodes {
