@@ -1,5 +1,7 @@
 .classpath
 .project
 .settings*
-*.orig
-*/target/*
+.orig
+.directory
+target/*
+test-output/*
