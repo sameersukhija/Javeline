@@ -94,7 +94,7 @@ public class Environment {
 		
 		try {
 			
-			if( !envCfg.isNull("name") ) return envCfg.getString("name");
+			if( !envCfg.isNull("name") ) { return envCfg.getString("name"); }
 		
 		} catch( Exception e ) {
 
@@ -122,7 +122,7 @@ public class Environment {
 		
 		try {
 			
-			if( !envCfg.isNull("host") ) return envCfg.getString("host");
+			if( !envCfg.isNull("host") ) { return envCfg.getString("host"); }
 		
 		} catch( Exception e ) {
 
@@ -138,7 +138,7 @@ public class Environment {
 		
 		try {
 			
-			if( !envCfg.isNull("ip_address") )  return envCfg.getString("ip_address");
+			if( !envCfg.isNull("ip_address") ) { return envCfg.getString("ip_address"); }
 		
 		} catch( Exception e ) {
 
@@ -154,7 +154,7 @@ public class Environment {
 		
 		try {
 			
-			if( !envCfg.isNull("link") ) return envCfg.getString("link");
+			if( !envCfg.isNull("link") ) { return envCfg.getString("link"); }
 		
 		} catch( Exception e ) {
 
@@ -170,7 +170,7 @@ public class Environment {
 		
 		try {
 			
-			if( !envCfg.isNull("users") ) return envCfg.getJSONObject("users");
+			if( !envCfg.isNull("users") ) { return envCfg.getJSONObject("users"); }
 		
 		} catch( Exception e ) {
 
@@ -186,7 +186,7 @@ public class Environment {
 		
 		try {
 			
-			if( !getUsers().isNull( user.toLowerCase() ) ) return getUsers().getJSONObject( user.toLowerCase() );
+			if( !getUsers().isNull( user.toLowerCase() ) ) { return getUsers().getJSONObject( user.toLowerCase() ); }
 		
 		} catch( Exception e ) {
 
@@ -202,7 +202,7 @@ public class Environment {
 		
 		try {
 			
-			if( !getUser( user ).isNull("username") ) return getUser( user ).getString("username");
+			if( !getUser( user ).isNull("username") ) { return getUser( user ).getString("username"); }
 		
 		} catch( Exception e ) {
 
@@ -218,7 +218,7 @@ public class Environment {
 		
 		try {
 			
-			if( !getUser( user ).isNull("password") ) return getUser( user ).getString("password");
+			if( !getUser( user ).isNull("password") ) { return getUser( user ).getString("password"); }
 		
 		} catch( Exception e ) {
 
@@ -234,7 +234,7 @@ public class Environment {
 		
 		try {
 			
-			if( !envCfg.isNull( "options" ) ) return envCfg.getJSONObject( "options" );
+			if( !envCfg.isNull( "options" ) ) { return envCfg.getJSONObject( "options" ); }
 		
 		} catch( Exception e ) {
 
@@ -250,7 +250,7 @@ public class Environment {
 		
 		try {
 			
-			if( !envCfg.isNull("browsers") ) return envCfg.getJSONObject("browsers");
+			if( !envCfg.isNull("browsers") ) { return envCfg.getJSONObject("browsers"); }
 		
 		} catch( Exception e ) {
 
@@ -266,9 +266,10 @@ public class Environment {
 		
 		try {
 			
-			if( !getBrowsers().isNull( SeleniumWebDriver.BrowserType.valueOf( browser.toUpperCase() ).toString() ) ) 
+			if( !getBrowsers().isNull( SeleniumWebDriver.BrowserType.valueOf( browser.toUpperCase() ).toString() ) ) { 
 					return getBrowsers().getJSONObject( SeleniumWebDriver.BrowserType.valueOf( browser.toUpperCase() ).toString() );
-		
+			 }
+			
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
@@ -283,7 +284,7 @@ public class Environment {
 		
 		try {
 			
-			if( !getBrowser( browser ).isNull( "profile" ) ) return getBrowser( browser ).getJSONObject( "profile" );
+			if( !getBrowser( browser ).isNull( "profile" ) ) { return getBrowser( browser ).getJSONObject( "profile" ); }
 		
 		} catch( Exception e ) {
 
@@ -299,7 +300,7 @@ public class Environment {
 		
 		try {
 			
-			if( !envCfg.isNull("data_sources") ) return envCfg.getJSONObject("data_sources");
+			if( !envCfg.isNull("data_sources") ) { return envCfg.getJSONObject("data_sources"); }
 		
 		} catch( Exception e ) {
 
@@ -315,7 +316,7 @@ public class Environment {
 		
 		try {
 			
-			if( !getDataSources().isNull(dataSource) ) return getDataSources().getJSONObject(dataSource);
+			if( !getDataSources().isNull(dataSource) ) { return getDataSources().getJSONObject(dataSource); }
 		
 		} catch( Exception e ) {
 
@@ -333,7 +334,7 @@ public class Environment {
 		
 		try {
 			
-			if( getDataSources().isNull(dataSource) ) return null;
+			if( getDataSources().isNull(dataSource) ) { return null; }
 			else {
 				JSONObject ds = getDataSource( dataSource );
 				if( ds.isNull("host")) props.put("dbHost", "localhost"); else props.put("dbHost", ds.getString("host"));
