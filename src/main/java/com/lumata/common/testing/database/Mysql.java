@@ -99,7 +99,7 @@ public class Mysql {
 						
 			try {
 				
-				if( this.dbConn != null ) this.dbConn.close();
+				if( this.dbConn != null ) { this.dbConn.close(); }
 				
 			} catch ( SQLException e2 ) {
 				
@@ -128,7 +128,7 @@ public class Mysql {
 			
 		} catch ( SQLException e1 ) {	
 			
-			if( statement != null ) try { statement.close(); } catch ( SQLException e2 ) {}
+			if( statement != null ) { try { statement.close(); } catch ( SQLException e2 ) {} }
 						
 			logger.error( e1.getMessage(), e1 );
 					
@@ -155,7 +155,7 @@ public class Mysql {
 			
 		} catch ( SQLException e1 ) {	
 			
-			if( statement != null ) try { statement.close(); } catch ( SQLException e2 ) {}
+			if( statement != null ) { try { statement.close(); } catch ( SQLException e2 ) {} }
 						
 			logger.error( e1.getMessage(), e1 );
 			

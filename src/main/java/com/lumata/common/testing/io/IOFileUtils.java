@@ -35,9 +35,9 @@ public class IOFileUtils {
 		
 		try {
 		
-			if( !Format.isFile( resource ) ) throw new IOFileException( "You cannot build a not valid resource ( " + resource + " )" );
+			if( !Format.isFile( resource ) ) { throw new IOFileException( "You cannot build a not valid resource ( " + resource + " )" ); }
 			
-			if( String.valueOf( resource.charAt( 0 )).equals("/") ) resource = resource.substring( 1, resource.length());
+			if( String.valueOf( resource.charAt( 0 )).equals("/") ) { resource = resource.substring( 1, resource.length()); }
 			
 			resource = RESOURCE_ROOT + resource;
 			
@@ -59,13 +59,13 @@ public class IOFileUtils {
 		
 		try {
 		
-			if( !Format.isFile( resource ) ) throw new IOFileException( "You cannot build a not valid resource ( " + resource + " )" );
+			if( !Format.isFile( resource ) ) { throw new IOFileException( "You cannot build a not valid resource ( " + resource + " )" ); }
 			
-			if( String.valueOf( resource.charAt( 0 )).equals("/") ) resource = resource.substring( 1, resource.length());
+			if( String.valueOf( resource.charAt( 0 )).equals("/") ) { resource = resource.substring( 1, resource.length()); }
 			
-			if( folder == null ) throw new IOFileException( "You cannot build a path containing a not valid folder ( null )" );
+			if( folder == null ) { throw new IOFileException( "You cannot build a path containing a not valid folder ( null )" ); }
 			
-			if( folder.length() > 0 ) if( !String.valueOf(folder.charAt( folder.length() - 1 )).equals("/") ) folder = folder + "/";
+			if( folder.length() > 0 ) { if( !String.valueOf(folder.charAt( folder.length() - 1 )).equals("/") ) { folder = folder + "/"; } }
 			
 			resource = RESOURCE_ROOT + folder + resource;
 						
@@ -91,7 +91,7 @@ public class IOFileUtils {
 		
 			in = Thread.currentThread().getContextClassLoader().getResourceAsStream( IOFileUtils.buildResourcePath( resource ) );
 			
-			if( in == null ) throw new IOFileException( "You cannot load a not existing resource ( null )" );
+			if( in == null ) { throw new IOFileException( "You cannot load a not existing resource ( null )" ); }
 			
 			logger.debug( "The resource has been loaded as input stream ( " + resource + " )" );
 					
@@ -117,7 +117,7 @@ public class IOFileUtils {
 			
 			in = Thread.currentThread().getContextClassLoader().getResourceAsStream( path );
 			
-			if( in == null ) throw new IOFileException( "You cannot load a not existing resource ( null )" );
+			if( in == null ) { throw new IOFileException( "You cannot load a not existing resource ( null )" ); } 
 			
 			logger.debug( "The resource has been loaded as input stream ( " + path + " )" );
 					
@@ -250,9 +250,9 @@ public class IOFileUtils {
 		
 	public static String buildPath( String file ) throws IOFileException {
 		
-		if( !Format.isFile( file ) ) throw new IOFileException( "You cannot build a not valid file ( " + file + " )" );
+		if( !Format.isFile( file ) ) { throw new IOFileException( "You cannot build a not valid file ( " + file + " )" ); }
 		
-		if( String.valueOf( file.charAt( 0 )).equals("/") ) file = file.substring( 1, file.length());
+		if( String.valueOf( file.charAt( 0 )).equals("/") ) { file = file.substring( 1, file.length()); }
 					
 		logger.debug( "The file has been built ( " + file + " )" );
 		
@@ -266,9 +266,9 @@ public class IOFileUtils {
 		
 		file = IOFileUtils.buildPath( file );
 		
-		if( folder == null ) throw new IOFileException( "You cannot build a path containing a not valid folder ( null )" );
+		if( folder == null ) { throw new IOFileException( "You cannot build a path containing a not valid folder ( null )" ); }
 		
-		if( folder.length() > 0 ) if( !String.valueOf(folder.charAt( folder.length() - 1 )).equals("/") ) folder = folder + "/";
+		if( folder.length() > 0 ) { if( !String.valueOf(folder.charAt( folder.length() - 1 )).equals("/") ) { folder = folder + "/"; } }
 		
 		path = folder + file;
 		
@@ -505,7 +505,7 @@ public class IOFileUtils {
 		
 		try {
  
-			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
+			if( content == null ) { throw new IOFileException( "The content is not valid ( null )" ); }
 			
 			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
 			
@@ -525,7 +525,7 @@ public class IOFileUtils {
 		
 		} finally {
 			
-			if (fop != null) try { fop.close(); } catch ( IOException e ) {}
+			if (fop != null) { try { fop.close(); } catch ( IOException e ) {} }
 			
 		}
 		
@@ -538,13 +538,13 @@ public class IOFileUtils {
 		
 		try {
 			
-			if( folder == null ) throw new IOFileException( "The folder is not valid ( null )" );
+			if( folder == null ) { throw new IOFileException( "The folder is not valid ( null )" ); }
 			
-			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
+			if( content == null ) { throw new IOFileException( "The content is not valid ( null )" ); }
 			
 			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
 			
-			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
+			if( file == null ) { throw new IOFileException( "The file is not valid ( null )" ); }
 			
 			fop = new FileOutputStream( file );
 			
@@ -562,7 +562,7 @@ public class IOFileUtils {
 		
 		} finally {
 			
-			if (fop != null) try { fop.close(); } catch ( IOException e ) {}
+			if (fop != null) { try { fop.close(); } catch ( IOException e ) {} }
 			
 		}
 		
@@ -576,11 +576,11 @@ public class IOFileUtils {
 		
 		try {
  
-			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
+			if( content == null ) { throw new IOFileException( "The content is not valid ( null )" ); }
 			
 			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
 			
-			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
+			if( file == null ) { throw new IOFileException( "The file is not valid ( null )" ); }
 			
 			fop = new FileOutputStream( file );
 						
@@ -600,9 +600,9 @@ public class IOFileUtils {
 		
 		} finally {
 			
-			if (fop != null) try { fop.close(); } catch ( IOException e ) {}
+			if (fop != null) { try { fop.close(); } catch ( IOException e ) {} }
 			
-			if (os != null) try { os.close(); } catch ( IOException e ) {}
+			if (os != null) { try { os.close(); } catch ( IOException e ) {} }
 			
 		} 
 		
@@ -616,13 +616,13 @@ public class IOFileUtils {
 		
 		try {
 			
-			if( folder == null ) throw new IOFileException( "The folder is not valid ( null )" );
+			if( folder == null ) { throw new IOFileException( "The folder is not valid ( null )" ); }
 			
-			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
+			if( content == null ) { throw new IOFileException( "The content is not valid ( null )" ); }
 			
 			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
 			
-			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
+			if( file == null ) { throw new IOFileException( "The file is not valid ( null )" ); }
 			
 			fop = new FileOutputStream( file );
 						
@@ -640,9 +640,9 @@ public class IOFileUtils {
 		
 		} finally {
 			
-			if (fop != null) try { fop.close(); } catch ( IOException e ) {}
+			if (fop != null) { try { fop.close(); } catch ( IOException e ) {} }
 			
-			if (os != null) try { os.close(); } catch ( IOException e ) {}
+			if (os != null) { try { os.close(); } catch ( IOException e ) {} }
 			
 		}
 		
@@ -654,9 +654,9 @@ public class IOFileUtils {
 		
 		try {
 			
-			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
+			if( content == null ) { throw new IOFileException( "The content is not valid ( null )" ); }
 			
-			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
+			if( file == null ) { throw new IOFileException( "The file is not valid ( null )" ); }
 			
 			fl = new FileWriter( IOFileUtils.createPath( file ) ); 
 					
@@ -674,7 +674,7 @@ public class IOFileUtils {
 		
 		} finally {
 							
-			if (fl != null) try { fl.close(); } catch ( IOException e ) {}
+			if (fl != null) { try { fl.close(); } catch ( IOException e ) {} }
 		
 		}
 		
@@ -686,11 +686,11 @@ public class IOFileUtils {
 		
 		try {
 			
-			if( folder == null ) throw new IOFileException( "The folder is not valid ( null )" );
+			if( folder == null ) { throw new IOFileException( "The folder is not valid ( null )" ); }
 			
-			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
+			if( content == null ) { throw new IOFileException( "The content is not valid ( null )" ); }
 			
-			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
+			if( file == null ) { throw new IOFileException( "The file is not valid ( null )" ); }
 			
 			fl = new FileWriter( IOFileUtils.createPath(folder, file) ); 
 					
@@ -708,7 +708,7 @@ public class IOFileUtils {
 		
 		} finally {
 			
-			if (fl != null) try { fl.close(); } catch ( IOException e ) {}
+			if (fl != null) { try { fl.close(); } catch ( IOException e ) {} }
 		
 		}
 		
@@ -721,9 +721,9 @@ public class IOFileUtils {
 		
 		try {
 			
-			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
+			if( content == null ) { throw new IOFileException( "The content is not valid ( null )" ); }
 			
-			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
+			if( file == null ) { throw new IOFileException( "The file is not valid ( null )" ); }
 			
 			fl = new FileWriter( IOFileUtils.createPath( file ) ); 
 					
@@ -741,8 +741,8 @@ public class IOFileUtils {
 		
 		} finally {
 			
-			if (fl != null)  try { fl.close(); } catch ( IOException e ) {}
-			if (bw != null)  try { bw.close(); } catch ( IOException e ) {}
+			if (fl != null) {  try { fl.close(); } catch ( IOException e ) {} }
+			if (bw != null) {  try { bw.close(); } catch ( IOException e ) {} }
 			
 		}
 		
@@ -755,11 +755,11 @@ public class IOFileUtils {
 		
 		try {
 			
-			if( folder == null ) throw new IOFileException( "The folder is not valid ( null )" );
+			if( folder == null ) { throw new IOFileException( "The folder is not valid ( null )" ); }
 			
-			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
+			if( content == null ) { throw new IOFileException( "The content is not valid ( null )" ); }
 			
-			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
+			if( file == null ) { throw new IOFileException( "The file is not valid ( null )" ); }
 			
 			fl = new FileWriter( IOFileUtils.createPath(folder, file) ); 
 					
@@ -777,8 +777,8 @@ public class IOFileUtils {
 		
 		} finally {
 			
-			if (fl != null)  try { fl.close(); } catch ( IOException e ) {}
-			if (bw != null)  try { bw.close(); } catch ( IOException e ) {}
+			if (fl != null)  { try { fl.close(); } catch ( IOException e ) {} }
+			if (bw != null)  { try { bw.close(); } catch ( IOException e ) {} }
 			
 		}
 		

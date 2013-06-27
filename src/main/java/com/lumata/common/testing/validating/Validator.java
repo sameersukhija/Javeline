@@ -74,8 +74,9 @@ public class Validator {
 	private JSONObject loadValidator( int index ) {
 		
 		try {
-			if( validatorCfg.isNull(index) ) return null;
-			else return validatorCfg.getJSONObject(index);
+			
+			if( !validatorCfg.isNull(index) ) { return validatorCfg.getJSONObject(index); }
+			
 		} catch( Exception e ) {
 			logger.error( e.getMessage(), e );
 		} 
@@ -87,8 +88,11 @@ public class Validator {
 	private validatorType loadValidatorType( int index ) {
 		
 		try {
-			if( loadValidator( index ).isNull("validationType") ) return null;
-			else return validatorType.valueOf(loadValidator( index ).getString("validationType"));
+			
+			if( !loadValidator( index ).isNull("validationType") ) { 
+				return validatorType.valueOf(loadValidator( index ).getString("validationType"));
+			}
+			
 		} catch( Exception e ) {
 			logger.error( e.getMessage(), e );
 		} 
@@ -100,8 +104,11 @@ public class Validator {
 	private String loadValidatorParam( int index ) {
 		
 		try {
-			if( loadValidator( index ).isNull("validationParam") ) return null;
-			else return loadValidator( index ).getString("validationParam");
+			
+			if( !loadValidator( index ).isNull("validationParam") ) {
+				return loadValidator( index ).getString("validationParam");
+			}
+			
 		} catch( Exception e ) {
 			logger.error( e.getMessage(), e );
 		}
@@ -113,8 +120,11 @@ public class Validator {
 	private String loadValidatorFormat( int index ) {
 		
 		try {
-			if( loadValidator( index ).isNull("validationFormat") ) return null;
-			else return loadValidator( index ).getString("validationFormat");
+			
+			if( !loadValidator( index ).isNull("validationFormat") ) {
+				return loadValidator( index ).getString("validationFormat");
+			}
+			
 		} catch( Exception e ) {
 			logger.error( e.getMessage(), e );
 		}
@@ -126,8 +136,11 @@ public class Validator {
 	private String loadValidatorFilter( int index ) {
 		
 		try {
-			if( loadValidator( index ).isNull("validationFilter") ) return null;
-			else return loadValidator( index ).getString("validationFilter");
+			
+			if( !loadValidator( index ).isNull("validationFilter") ) {
+				return loadValidator( index ).getString("validationFilter");
+			}
+			
 		} catch( Exception e ) {
 			logger.error( e.getMessage(), e );
 		}
@@ -139,8 +152,11 @@ public class Validator {
 	private String loadValidatorOperator( int index ) {
 		
 		try {
-			if( loadValidator( index ).isNull("validationOp") ) return null;
-			else return loadValidator( index ).getString("validationOp");
+			
+			if( !loadValidator( index ).isNull("validationOp") ) {
+				return loadValidator( index ).getString("validationOp");
+			}
+			
 		} catch( Exception e ) {
 			logger.error( e.getMessage(), e );
 		}
@@ -152,8 +168,11 @@ public class Validator {
 	private boolean loadValidatorAllowBlank( int index ) {
 
 		try {
-			if( loadValidator( index ).isNull("validationAllowBlank") ) return false;
-			else return loadValidator( index ).getBoolean("validationAllowBlank");
+			
+			if( !loadValidator( index ).isNull("validationAllowBlank") ) {
+				return loadValidator( index ).getBoolean("validationAllowBlank");
+			}
+			
 		} catch( Exception e ) {
 			logger.error( e.getMessage(), e );
 		}
@@ -165,8 +184,11 @@ public class Validator {
 	private boolean loadValidatorExpected( int index ) {
 		
 		try {
-			if( loadValidator( index ).isNull("validationExpected") ) return false;
-			else return loadValidator( index ).getBoolean("validationExpected");
+			
+			if( !loadValidator( index ).isNull("validationExpected") ) {
+				return loadValidator( index ).getBoolean("validationExpected");
+			}
+			
 		} catch( Exception e ) {
 			logger.error( e.getMessage(), e );
 		}
