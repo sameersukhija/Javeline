@@ -69,9 +69,9 @@ public class SeleniumUtils {
 		
 		logger.debug( Log.CHECKING.createMessage( "element ( " + locator + " )" ) );
 		
-		int attempts = Math.round( timeout / interval );
+		float attempts = timeout / interval;
 		
-		for( int i = 1; i <= attempts; i++ ) {
+		for( int i = 1; i <= Math.round( attempts ); i++ ) {
 			
 			logger.debug( Log.CHECKING.createMessage( "( " + i + " ) element ( " + locator + " )" ) );
 			
@@ -87,7 +87,8 @@ public class SeleniumUtils {
 					case XPATH: { element = selenium.getWrappedDriver().findElement( By.xpath(locator) ); break;  }
 					case CSS: { element = selenium.getWrappedDriver().findElement( By.cssSelector(locator) ); break;  }
 					
-				}				
+				}	
+				
         		break;
             
 			} catch ( Exception e ) {}

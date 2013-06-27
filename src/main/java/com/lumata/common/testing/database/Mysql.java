@@ -120,7 +120,10 @@ public class Mysql {
 		try {
 			
 			statement = this.dbConn.createStatement();
+			
 			rs = statement.executeQuery( query );
+			
+			statement.close();
 			
 			logger.debug( "The statement has been executed");
 			
@@ -146,7 +149,10 @@ public class Mysql {
 		try {
 			
 			statement = this.dbConn.createStatement();
+			
 			rs = statement.executeUpdate( query, Statement.RETURN_GENERATED_KEYS );		
+			
+			statement.close();
 			
 			logger.debug( "The statement has been executed");
 			
