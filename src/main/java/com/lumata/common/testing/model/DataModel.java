@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.DataModelException;
-import com.lumata.common.testing.exceptions.IOSException;
+import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.JSONUtils;
 
@@ -35,7 +35,7 @@ public class DataModel {
 			
 			}
 			
-		} catch( IOSException ioe ) { 
+		} catch( IOFileException ioe ) { 
 			
 			logger.error(ioe.getMessage());
 			
@@ -69,7 +69,7 @@ public class DataModel {
 			
 			}
 			
-		} catch( IOSException ioe ) { 
+		} catch( IOFileException ioe ) { 
 			
 			logger.error(ioe.getMessage());
 			

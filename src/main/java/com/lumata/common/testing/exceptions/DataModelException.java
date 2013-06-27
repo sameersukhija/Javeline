@@ -2,7 +2,7 @@ package com.lumata.common.testing.exceptions;
 
 import javax.ws.rs.core.Response;
 
-import com.lumata.common.testing.system.ResponseCodes;
+import com.lumata.common.testing.response.ResponseCodes;
 
 /**
  * This is thrown when a DataModelException occurs.

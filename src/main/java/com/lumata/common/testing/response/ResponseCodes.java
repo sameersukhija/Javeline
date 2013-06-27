@@ -1,4 +1,4 @@
-package com.lumata.common.testing.system;
+package com.lumata.common.testing.response;
 
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>

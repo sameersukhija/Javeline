@@ -4,7 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lumata.common.testing.exceptions.IOSException;
+import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.validating.Format;
 
 import java.io.BufferedOutputStream;
@@ -28,13 +28,13 @@ import java.io.InputStreamReader;
 public class IOFileUtils {
 	
 	private static final Logger logger = LoggerFactory.getLogger( IOFileUtils.class );
-	private static String RESOURCE_ROOT = "lumata-common-testing/";
+	private final static String RESOURCE_ROOT = "lumata-common-testing/";
 		
-	public static String buildResourcePath( String resource ) throws IOSException {
+	public static String buildResourcePath( String resource ) throws IOFileException {
 		
 		try {
 		
-			if( !Format.isFile( resource ) ) throw new IOSException( "You cannot build a not valid resource ( " + resource + " )" );
+			if( !Format.isFile( resource ) ) throw new IOFileException( "You cannot build a not valid resource ( " + resource + " )" );
 			
 			if( String.valueOf( resource.charAt( 0 )).equals("/") ) resource = resource.substring( 1, resource.length());
 			
@@ -48,7 +48,7 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 		
 		}
 		
@@ -56,15 +56,15 @@ public class IOFileUtils {
 		
 	}
 	
-	public static String buildResourcePath( String folder, String resource ) throws IOSException {
+	public static String buildResourcePath( String folder, String resource ) throws IOFileException {
 		
 		try {
 		
-			if( !Format.isFile( resource ) ) throw new IOSException( "You cannot build a not valid resource ( " + resource + " )" );
+			if( !Format.isFile( resource ) ) throw new IOFileException( "You cannot build a not valid resource ( " + resource + " )" );
 			
 			if( String.valueOf( resource.charAt( 0 )).equals("/") ) resource = resource.substring( 1, resource.length());
 			
-			if( folder == null ) throw new IOSException( "You cannot build a path containing a not valid folder ( " + folder + " )" );
+			if( folder == null ) throw new IOFileException( "You cannot build a path containing a not valid folder ( null )" );
 			
 			if( folder.length() > 0 ) if( !String.valueOf(folder.charAt( folder.length() - 1 )).equals("/") ) folder = folder + "/";
 			
@@ -78,7 +78,7 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 		
 		}
 		
@@ -86,7 +86,7 @@ public class IOFileUtils {
 		
 	}
 
-	public static InputStream loadResourceAsInputStream( String resource ) throws IOSException {
+	public static InputStream loadResourceAsInputStream( String resource ) throws IOFileException {
 		
 		InputStream in = null;
 		
@@ -94,7 +94,7 @@ public class IOFileUtils {
 		
 			in = Thread.currentThread().getContextClassLoader().getResourceAsStream( IOFileUtils.buildResourcePath( resource ) );
 			
-			if( in == null ) throw new IOSException( "You cannot load a not existing resource ( " + resource + " )" );
+			if( in == null ) throw new IOFileException( "You cannot load a not existing resource ( null )" );
 			
 			logger.debug( "The resource has been loaded as input stream ( " + resource + " )" );
 					
@@ -104,7 +104,7 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 		
 		}
 		
@@ -112,7 +112,7 @@ public class IOFileUtils {
 		
 	}
 	
-	public static InputStream loadResourceAsInputStream( String folder, String resource ) throws IOSException {
+	public static InputStream loadResourceAsInputStream( String folder, String resource ) throws IOFileException {
 		
 		InputStream in = null;
 		
@@ -122,7 +122,7 @@ public class IOFileUtils {
 			
 			in = Thread.currentThread().getContextClassLoader().getResourceAsStream( path );
 			
-			if( in == null ) throw new IOSException( "You cannot load a not existing resource ( " + path + " )" );
+			if( in == null ) throw new IOFileException( "You cannot load a not existing resource ( null )" );
 			
 			logger.debug( "The resource has been loaded as input stream ( " + path + " )" );
 					
@@ -132,7 +132,7 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 		
 		}
 		
@@ -140,7 +140,7 @@ public class IOFileUtils {
 		
 	}
 	
-	public static InputStreamReader loadResourceAsInputStreamReader( String resource ) throws IOSException {
+	public static InputStreamReader loadResourceAsInputStreamReader( String resource ) throws IOFileException {
 		
 		InputStreamReader reader = null;
 		
@@ -156,7 +156,7 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 						
 		}
 		
@@ -164,7 +164,7 @@ public class IOFileUtils {
 		
 	}
 	
-	public static InputStreamReader loadResourceAsInputStreamReader( String folder, String resource ) throws IOSException {
+	public static InputStreamReader loadResourceAsInputStreamReader( String folder, String resource ) throws IOFileException {
 		
 		InputStreamReader reader = null;
 		
@@ -182,7 +182,7 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 						
 		}
 		
@@ -190,7 +190,7 @@ public class IOFileUtils {
 		
 	}
 
-	public static String loadResourceAsString( String resource ) throws IOSException {
+	public static String loadResourceAsString( String resource ) throws IOFileException {
 		
 		String res = null;
 		
@@ -206,7 +206,7 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 			
 		}	
 				
@@ -214,7 +214,7 @@ public class IOFileUtils {
 		
 	}
 	
-	public static String loadResourceAsString( String folder, String resource ) throws IOSException {
+	public static String loadResourceAsString( String folder, String resource ) throws IOFileException {
 		
 		String res = null;
 		
@@ -230,7 +230,7 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 			
 		}	
 				
@@ -238,7 +238,7 @@ public class IOFileUtils {
 		
 	}
 	
-	public static BufferedReader loadResourceAsBufferedReader( String resource ) throws IOSException  {
+	public static BufferedReader loadResourceAsBufferedReader( String resource ) throws IOFileException  {
 		
 		BufferedReader res = null;
 				
@@ -248,13 +248,13 @@ public class IOFileUtils {
 			
 			logger.debug( "The resource has been loaded as buffered reader ( " + resource + " )" );
 																			
-		} catch ( IOSException e ) {
+		} catch ( IOFileException e ) {
 			
 			logger.error(e.getMessage());
 			
 			e.printStackTrace();
 			
-			throw new IOSException(e.getMessage() );
+			throw new IOFileException(e.getMessage() );
 		
 		} 
 
@@ -262,7 +262,7 @@ public class IOFileUtils {
 		
 	}
 	
-	public static BufferedReader loadResourceAsBufferedReader( String folder, String resource ) throws IOSException  {
+	public static BufferedReader loadResourceAsBufferedReader( String folder, String resource ) throws IOFileException  {
 		
 		BufferedReader res = null;
 				
@@ -272,13 +272,13 @@ public class IOFileUtils {
 			
 			logger.debug( "The resource has been loaded as buffered reader ( " + IOFileUtils.buildResourcePath( folder, resource ) + " )" );
 																			
-		} catch ( IOSException e ) {
+		} catch ( IOFileException e ) {
 			
 			logger.error(e.getMessage());
 			
 			e.printStackTrace();
 			
-			throw new IOSException(e.getMessage() );
+			throw new IOFileException(e.getMessage() );
 		
 		} 
 
@@ -286,11 +286,11 @@ public class IOFileUtils {
 		
 	}
 		
-	public static String buildPath( String file ) throws IOSException {
+	public static String buildPath( String file ) throws IOFileException {
 		
 		try {
 		
-			if( !Format.isFile( file ) ) throw new IOSException( "You cannot build a not valid file ( " + file + " )" );
+			if( !Format.isFile( file ) ) throw new IOFileException( "You cannot build a not valid file ( " + file + " )" );
 			
 			if( String.valueOf( file.charAt( 0 )).equals("/") ) file = file.substring( 1, file.length());
 						
@@ -302,7 +302,7 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 		
 		}
 		
@@ -310,7 +310,7 @@ public class IOFileUtils {
 		
 	}
 	
-	public static String buildPath( String folder, String file ) throws IOSException {
+	public static String buildPath( String folder, String file ) throws IOFileException {
 		
 		String path = null;
 		
@@ -318,7 +318,7 @@ public class IOFileUtils {
 		
 			file = IOFileUtils.buildPath( file );
 			
-			if( folder == null ) throw new IOSException( "You cannot build a path containing a not valid folder ( " + folder + " )" );
+			if( folder == null ) throw new IOFileException( "You cannot build a path containing a not valid folder ( null )" );
 			
 			if( folder.length() > 0 ) if( !String.valueOf(folder.charAt( folder.length() - 1 )).equals("/") ) folder = folder + "/";
 			
@@ -332,7 +332,7 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 		
 		}
 		
@@ -340,7 +340,7 @@ public class IOFileUtils {
 		
 	}
 		
-	public static InputStream loadFileAsInputStream( String file ) throws IOSException {
+	public static InputStream loadFileAsInputStream( String file ) throws IOFileException {
 				
 		InputStream in = null;
 		
@@ -356,7 +356,7 @@ public class IOFileUtils {
 				
 			e.printStackTrace();
 				
-			throw new IOSException( "The file is not valid ( " + file + " )" );
+			throw new IOFileException( "The file is not valid ( " + file + " )" );
 						
 		}
 		
@@ -364,7 +364,7 @@ public class IOFileUtils {
 		
 	}
 	
-	public static InputStream loadFileAsInputStream( String folder, String file ) throws IOSException {
+	public static InputStream loadFileAsInputStream( String folder, String file ) throws IOFileException {
 		
 		InputStream in = null;
 		String path = null;
@@ -383,7 +383,7 @@ public class IOFileUtils {
 				
 			e.printStackTrace();
 				
-			throw new IOSException( "The file is not valid ( " + path + " )" );
+			throw new IOFileException( "The file is not valid ( " + path + " )" );
 						
 		}
 			
@@ -391,7 +391,7 @@ public class IOFileUtils {
 		
 	}
 	
-	public static InputStreamReader loadFileAsInputStreamReader( String file ) throws IOSException {
+	public static InputStreamReader loadFileAsInputStreamReader( String file ) throws IOFileException {
 		
 		InputStreamReader reader = null;
 		
@@ -407,7 +407,7 @@ public class IOFileUtils {
 				
 			e.printStackTrace();
 				
-			throw new IOSException( "The file is not valid ( " + file + " )" );
+			throw new IOFileException( "The file is not valid ( " + file + " )" );
 						
 		}
 		
@@ -415,7 +415,7 @@ public class IOFileUtils {
 		
 	}
 
-	public static InputStreamReader loadFileAsInputStreamReader( String folder, String file ) throws IOSException {
+	public static InputStreamReader loadFileAsInputStreamReader( String folder, String file ) throws IOFileException {
 		
 		InputStreamReader reader = null;
 		String path = null;
@@ -434,7 +434,7 @@ public class IOFileUtils {
 				
 			e.printStackTrace();
 				
-			throw new IOSException( "The file is not valid ( " + path + " )" );
+			throw new IOFileException( "The file is not valid ( " + path + " )" );
 						
 		}
 		
@@ -442,7 +442,7 @@ public class IOFileUtils {
 		
 	}
 	
-	public static String loadFileAsString( String file ) throws IOSException {
+	public static String loadFileAsString( String file ) throws IOFileException {
 		
 		String fl = null;
 		
@@ -458,7 +458,7 @@ public class IOFileUtils {
 				
 			e.printStackTrace();
 				
-			throw new IOSException( "The file is not valid ( " + file + " )" );
+			throw new IOFileException( "The file is not valid ( " + file + " )" );
 						
 		}
     		
@@ -466,7 +466,7 @@ public class IOFileUtils {
 		
 	}
 	
-	public static String loadFileAsString( String folder, String file ) throws IOSException {
+	public static String loadFileAsString( String folder, String file ) throws IOFileException {
 		
 		String fl = null;
 		
@@ -482,7 +482,7 @@ public class IOFileUtils {
 				
 			e.printStackTrace();
 				
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 						
 		}
     						
@@ -490,7 +490,7 @@ public class IOFileUtils {
 		
 	}
 	
-	public static BufferedReader loadFileAsBufferedReader( String file ) throws IOSException  {
+	public static BufferedReader loadFileAsBufferedReader( String file ) throws IOFileException  {
 		
 		BufferedReader fl = null;
 		
@@ -500,13 +500,13 @@ public class IOFileUtils {
 			
 			logger.debug( "The file has been loaded as buffered reader ( " + file + " )" );
 																			
-		} catch ( IOSException e ) {
+		} catch ( IOFileException e ) {
 			
 			logger.error(e.getMessage());
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 		
 		} 
     		
@@ -514,7 +514,7 @@ public class IOFileUtils {
 		
 	}
 	
-	public static BufferedReader loadFileAsBufferedReader( String folder, String file ) throws IOSException  {
+	public static BufferedReader loadFileAsBufferedReader( String folder, String file ) throws IOFileException  {
 		
 		BufferedReader fl = null;
 		
@@ -524,13 +524,13 @@ public class IOFileUtils {
 			
 			logger.debug( "The file has been loaded as buffered reader ( " + IOFileUtils.buildPath( folder, file ) + " )" );
 																			
-		} catch ( IOSException e ) {
+		} catch ( IOFileException e ) {
 			
 			logger.error(e.getMessage());
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 		
 		} 
 				
@@ -538,7 +538,7 @@ public class IOFileUtils {
 		
 	}
 	
-	public static File buildFile( String path ) throws IOSException {
+	public static File buildFile( String path ) throws IOFileException {
 		
 		File file = null;
 		
@@ -578,7 +578,7 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 		
 		}
 		
@@ -586,23 +586,23 @@ public class IOFileUtils {
 
 	}
 
-	public static File createPath( String path ) throws IOSException {
+	public static File createPath( String path ) throws IOFileException {
 						
 		return IOFileUtils.buildFile( IOFileUtils.buildPath( path ) );
 
 	}
 
-	public static File createPath( String folder, String file ) throws IOSException {
+	public static File createPath( String folder, String file ) throws IOFileException {
 		
 		return IOFileUtils.buildFile( IOFileUtils.buildPath( folder, file ) );
 
 	}
 		
-	public static void saveResource( String content, String resource ) throws IOSException {
+	public static void saveResource( String content, String resource ) throws IOFileException {
 		
 		try {
  
-			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
+			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
 			
 			File file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
 			
@@ -620,22 +620,24 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 		
 		}
 		
 	}
 	
-	public static void saveResource( String content, String folder, String resource ) throws IOSException {
+	public static void saveResource( String content, String folder, String resource ) throws IOFileException {
 		
 		try {
 			
-			if( folder == null ) throw new IOSException( "The folder is not valid ( " + folder + " )" );
+			if( folder == null ) throw new IOFileException( "The folder is not valid ( null )" );
 			
-			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
+			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
 			
 			File file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
 			
+			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
+			
 			FileOutputStream fop = new FileOutputStream( file );
 			
 			fop.write( content.getBytes() );
@@ -650,22 +652,24 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 		
 		}
 		
 	}
 	
-	public static void saveResource( StringBuffer content, String resource ) throws IOSException {
+	public static void saveResource( StringBuffer content, String resource ) throws IOFileException {
 		
 		try {
  
-			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
+			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
 			
 			File file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
 			
-			FileOutputStream fop = new FileOutputStream( file );
+			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
 			
+			FileOutputStream fop = new FileOutputStream( file );
+						
 			BufferedOutputStream os = new BufferedOutputStream(fop);
 			os.write( String.valueOf( content ).getBytes() );
 			os.close();			
@@ -678,24 +682,26 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 		
 		}
 		
 	}
 	
-	public static void saveResource( StringBuffer content, String folder, String resource ) throws IOSException {
+	public static void saveResource( StringBuffer content, String folder, String resource ) throws IOFileException {
 		
 		try {
 			
-			if( folder == null ) throw new IOSException( "The folder is not valid ( " + folder + " )" );
+			if( folder == null ) throw new IOFileException( "The folder is not valid ( null )" );
 			
-			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
+			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
 			
 			File file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
 			
-			FileOutputStream fop = new FileOutputStream( file );
+			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
 			
+			FileOutputStream fop = new FileOutputStream( file );
+						
 			BufferedOutputStream os = new BufferedOutputStream(fop);
 			os.write( String.valueOf( content ).getBytes() );
 			os.close();	
@@ -708,17 +714,19 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException( e.getMessage() );
+			throw new IOFileException( e.getMessage() );
 		
 		}
 		
 	}
 	
-	public static void saveFile( String content, String file ) throws IOSException {
+	public static void saveFile( String content, String file ) throws IOFileException {
 		
 		try {
 			
-			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
+			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
+			
+			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
 			
 			FileWriter fl = new FileWriter( IOFileUtils.createPath( file ) ); 
 					
@@ -734,19 +742,21 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException(e.getMessage() );
+			throw new IOFileException(e.getMessage() );
 		
 		}
 		
 	}
 	
-	public static void saveFile( String content, String folder, String file ) throws IOSException {
+	public static void saveFile( String content, String folder, String file ) throws IOFileException {
 		
 		try {
 			
-			if( folder == null ) throw new IOSException( "The folder is not valid ( " + folder + " )" );
+			if( folder == null ) throw new IOFileException( "The folder is not valid ( null )" );
 			
-			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
+			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
+			
+			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
 			
 			FileWriter fl = new FileWriter( IOFileUtils.createPath(folder, file) ); 
 					
@@ -762,17 +772,19 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException(e.getMessage() );
+			throw new IOFileException(e.getMessage() );
 		
 		}
 		
 	}
 
-	public static void saveFile( StringBuffer content, String file ) throws IOSException {
+	public static void saveFile( StringBuffer content, String file ) throws IOFileException {
 		
 		try {
 			
-			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
+			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
+			
+			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
 			
 			FileWriter fl = new FileWriter( IOFileUtils.createPath( file ) ); 
 					
@@ -788,19 +800,21 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException(e.getMessage() );
+			throw new IOFileException(e.getMessage() );
 		
 		}
 		
 	}
 	
-	public static void saveFile( StringBuffer content, String folder, String file ) throws IOSException {
+	public static void saveFile( StringBuffer content, String folder, String file ) throws IOFileException {
 		
 		try {
 			
-			if( folder == null ) throw new IOSException( "The folder is not valid ( " + folder + " )" );
+			if( folder == null ) throw new IOFileException( "The folder is not valid ( null )" );
 			
-			if( content == null ) throw new IOSException( "The content is not valid ( " + content + " )" );
+			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
+			
+			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
 			
 			FileWriter fl = new FileWriter( IOFileUtils.createPath(folder, file) ); 
 					
@@ -816,7 +830,7 @@ public class IOFileUtils {
 			
 			e.printStackTrace();
 			
-			throw new IOSException(e.getMessage() );
+			throw new IOFileException(e.getMessage() );
 		
 		}
 		

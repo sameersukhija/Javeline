@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lumata.common.testing.exceptions.IOSException;
+import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.ResourcePropertiesException;
 import com.lumata.common.testing.io.IOFileUtils;
 
@@ -82,7 +82,7 @@ public class ResourceProperties {
 			
 			throw new ResourcePropertiesException(e.getMessage());
 			
-		} catch( IOSException e ) {
+		} catch( IOFileException e ) {
 			
 			logger.error( e.getMessage() );
 			

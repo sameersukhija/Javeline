@@ -6,7 +6,7 @@ import org.openqa.grid.common.JSONConfigurationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lumata.common.testing.exceptions.IOSException;
+import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
 
 /**
@@ -17,9 +17,9 @@ public class JSONUtils extends JSONConfigurationUtils {
 	
 	private static final  Logger logger = LoggerFactory.getLogger( JSONUtils.class );
 	
-	public static JSONObject loadJSONResource( String resource ) throws JSONSException, IOSException {
+	public static JSONObject loadJSONResource( String resource ) throws JSONSException, IOFileException {
 		
-		JSONObject jsonResource = new JSONObject();
+		JSONObject jsonResource = null;
 		
 		try {
 			
@@ -35,7 +35,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			throw new JSONSException(e.getMessage());
 		
-		} catch (IOSException e) {
+		} catch (IOFileException e) {
 			
 			logger.error(e.getMessage());
 			
@@ -49,9 +49,9 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 	}
 	
-	public static JSONObject loadJSONResource( String folder, String resource ) throws JSONSException, IOSException {
+	public static JSONObject loadJSONResource( String folder, String resource ) throws JSONSException, IOFileException {
 		
-		JSONObject jsonResource = new JSONObject();
+		JSONObject jsonResource = null;
 		
 		try {
 			
@@ -67,7 +67,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			throw new JSONSException(e.getMessage());
 		
-		} catch (IOSException e) {
+		} catch (IOFileException e) {
 			
 			logger.error(e.getMessage());
 			
@@ -81,9 +81,9 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 	}
 	
-	public static JSONObject loadJSONFile( String file ) throws JSONSException, IOSException {
+	public static JSONObject loadJSONFile( String file ) throws JSONSException, IOFileException {
 		
-		JSONObject jsonResource = new JSONObject();
+		JSONObject jsonResource = null;
 		
 		try {
 			
@@ -99,7 +99,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			throw new JSONSException(e.getMessage());
 		
-		} catch (IOSException e) {
+		} catch (IOFileException e) {
 			
 			logger.error(e.getMessage());
 			
@@ -113,9 +113,9 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 	}
 	
-	public static JSONObject loadJSONFile( String folder, String file ) throws JSONSException, IOSException {
+	public static JSONObject loadJSONFile( String folder, String file ) throws JSONSException, IOFileException {
 		
-		JSONObject jsonResource = new JSONObject();
+		JSONObject jsonResource = null;
 		
 		try {
 			
@@ -131,7 +131,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			throw new JSONSException(e.getMessage());
 		
-		} catch (IOSException e) {
+		} catch (IOFileException e) {
 			
 			logger.error(e.getMessage());
 			
@@ -145,7 +145,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 	}
 	
-	public static void saveJSONResource( JSONObject jsonResource, String jsonFile ) throws JSONSException, IOSException {
+	public static void saveJSONResource( JSONObject jsonResource, String jsonFile ) throws JSONSException, IOFileException {
 		
 		try {
 			 
@@ -153,7 +153,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.debug("The Json Object has been created ( " + jsonResource.toString() + " )");
 			
-		} catch (IOSException e) {
+		} catch (IOFileException e) {
 			
 			logger.error(e.getMessage());
 			
@@ -165,7 +165,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 	}
 	
-	public static void saveJSONResource( JSONObject jsonResource, String folder, String jsonFile ) throws JSONSException, IOSException {
+	public static void saveJSONResource( JSONObject jsonResource, String folder, String jsonFile ) throws JSONSException, IOFileException {
 		
 		try {
 			 
@@ -173,7 +173,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.debug("The Json Object has been created ( " + jsonResource.toString() + " )");
 			
-		} catch (IOSException e) {
+		} catch (IOFileException e) {
 			
 			logger.error(e.getMessage());
 			
@@ -185,7 +185,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 	}
 
-	public static void saveJSONFile( JSONObject jsonResource, String jsonFile ) throws JSONSException, IOSException {
+	public static void saveJSONFile( JSONObject jsonResource, String jsonFile ) throws JSONSException, IOFileException {
 		
 		try {
 			 
@@ -193,7 +193,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.debug("The Json Object has been created ( " + jsonResource.toString() + " )");
 	 
-		} catch (IOSException e) {
+		} catch (IOFileException e) {
 			
 			logger.error(e.getMessage());
 			
@@ -205,7 +205,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 	}
 	
-	public static void saveJSONFile( JSONObject jsonResource, String folder, String jsonFile ) throws JSONSException, IOSException {
+	public static void saveJSONFile( JSONObject jsonResource, String folder, String jsonFile ) throws JSONSException, IOFileException {
 	
 		try {
 			 
@@ -213,7 +213,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.debug("The Json Object has been created ( " + jsonResource.toString() + " )");
 	 
-		} catch (IOSException e) {
+		} catch (IOFileException e) {
 			
 			logger.error(e.getMessage());
 			

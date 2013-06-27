@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.EnvironmentException;
-import com.lumata.common.testing.exceptions.IOSException;
+import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
@@ -52,7 +52,7 @@ public class Environment {
 			
 			throw new EnvironmentException( e.getMessage() );
 			
-		} catch( IOSException e ) {			
+		} catch( IOFileException e ) {			
 			
 			logger.error( e.getMessage() );			
 		
@@ -85,7 +85,7 @@ public class Environment {
 			
 			throw new EnvironmentException( e.getMessage() );
 			
-		} catch( IOSException e ) {			
+		} catch( IOFileException e ) {			
 			
 			logger.error( e.getMessage() );			
 		

@@ -2,7 +2,7 @@ package com.lumata.common.testing.exceptions;
 
 import javax.ws.rs.core.Response;
 
-import com.lumata.common.testing.system.ResponseCodes;
+import com.lumata.common.testing.response.ResponseCodes;
 
 /**
  * This is thrown when a IOSException occurs.
@@ -10,7 +10,7 @@ import com.lumata.common.testing.system.ResponseCodes;
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
-public class IOSException extends Exception
+public class IOFileException extends Exception
 {
 
 	private static final long serialVersionUID = 1L;
@@ -19,72 +19,72 @@ public class IOSException extends Exception
 	protected boolean loggable;
 	protected Response response;
       
-	public IOSException() {
+	public IOFileException() {
       super(ResponseCodes.SC_IO.getMessage());
       this.errorCode = ResponseCodes.SC_IO.getCode();
 	}
      	
-   public IOSException(String s, Response response)
+   public IOFileException(String s, Response response)
    {
       super(s);
       this.response = response;
    }
 
-   public IOSException(String s, Throwable throwable, Response response)
+   public IOFileException(String s, Throwable throwable, Response response)
    {
       super(s, throwable);
       this.response = response;
    }
 
-   public IOSException(Throwable throwable, Response response)
+   public IOFileException(Throwable throwable, Response response)
    {
       super(ResponseCodes.SC_IO.getMessage(), throwable);      
       this.response = response;
    }
 
-   public IOSException(String s, Throwable throwable)
+   public IOFileException(String s, Throwable throwable)
    {
       super(s, throwable);
       this.errorCode = ResponseCodes.SC_IO.getCode();
    }
 
-   public IOSException(Throwable throwable)
+   public IOFileException(Throwable throwable)
    {
       super(ResponseCodes.SC_IO.getMessage(), throwable);
       this.errorCode = ResponseCodes.SC_IO.getCode();
    }
 
-   public IOSException(String s)
+   public IOFileException(String s)
    {
 	   super(s);
 	   this.errorCode = ResponseCodes.SC_IO.getCode();
    }
 
-   public IOSException(int errorCode)
+   public IOFileException(int errorCode)
    {
       this.errorCode = errorCode;
    }
 
-   public IOSException(String s, int errorCode)
+   public IOFileException(String s, int errorCode)
    {
       super(s);
       this.errorCode = errorCode;
    }
    
-   public IOSException(String s, String errorType, int errorCode)
+   public IOFileException(String s, String errorType, int errorCode)
    {
       super(s);
       this.errorType = errorType;
       this.errorCode = errorCode;
    }
 
-   public IOSException(String s, Throwable throwable, int errorCode)
+   public IOFileException(String s, Throwable throwable, int errorCode)
    {
       super(s, throwable);
       this.errorCode = errorCode;
    }
 
-   public IOSException(Throwable throwable, int errorCode)
+   public IOFileException(Throwable throwable, int errorCode)
    {
       super(ResponseCodes.SC_IO.getMessage(), throwable);
       this.errorCode = errorCode;

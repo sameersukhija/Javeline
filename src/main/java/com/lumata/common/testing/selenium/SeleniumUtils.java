@@ -42,7 +42,7 @@ public class SeleniumUtils {
 		
 		ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
-                return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+                return Boolean.valueOf(((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete"));
             }
         };
         
@@ -69,7 +69,7 @@ public class SeleniumUtils {
 		
 		logger.debug( Log.CHECKING.createMessage( "element ( " + locator + " )" ) );
 		
-		long attempts = Math.round( timeout / interval );
+		long attempts = Math.round( Double.valueOf( timeout / interval ) );
 		
 		for( int i = 1; i <= attempts; i++ ) {
 			
