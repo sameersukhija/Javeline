@@ -11,8 +11,8 @@ public enum ResponseCodes {
 	*/	
 	SC_CONTINUE ( 100 ) {
 		public int getCode() { return 100; }
-		public String getType() { return new String("Information"); }
-		public String getMessage() { return new String("Continue"); }		
+		public String getType() { return "Information"; }
+		public String getMessage() { return "Continue"; }		
 	},
 	/**
 	    * Status code (101) indicating the server is switching protocols
@@ -20,16 +20,16 @@ public enum ResponseCodes {
 	*/
 	SC_SWITCHING_PROTOCOLS ( 101 ) {
 		public int getCode() { return 101; }
-		public String getType() { return new String("Information"); }
-		public String getMessage() { return new String("Switching Protocols"); }
+		public String getType() { return "Information"; }
+		public String getMessage() { return "Switching Protocols"; }
 	},
 	/**
 	    * Status code (200) indicating the request succeeded normally.
 	*/
 	SC_OK ( 200 ) {
 		public int getCode() { return 200; }
-		public String getType() { return new String("Success"); }
-		public String getMessage() { return new String("OK"); }
+		public String getType() { return "Success"; }
+		public String getMessage() { return "OK"; }
 	},
 	/**
 	    * Status code (201) indicating the request succeeded and created
@@ -37,8 +37,8 @@ public enum ResponseCodes {
 	*/
 	SC_CREATED ( 201 ) {
 		public int getCode() { return 201; }
-		public String getType() { return new String("Success"); }
-		public String getMessage() { return new String("Created"); }
+		public String getType() { return "Success"; }
+		public String getMessage() { return "Created"; }
 	},
 	/**
 	    * Status code (202) indicating that a request was accepted for
@@ -46,8 +46,8 @@ public enum ResponseCodes {
 	*/
 	SC_ACCEPTED ( 202 ) {
 		public int getCode() { return 202; }
-		public String getType() { return new String("Success"); }
-		public String getMessage() { return new String("Accepted"); }
+		public String getType() { return "Success"; }
+		public String getMessage() { return "Accepted"; }
 	},
 	/**
 	    * Status code (203) indicating that the meta information presented
@@ -55,8 +55,8 @@ public enum ResponseCodes {
 	*/
 	SC_NON_AUTHORITATIVE_INFORMATION ( 203 ) {
 		public int getCode() { return 203; }
-		public String getType() { return new String("Success"); }
-		public String getMessage() { return new String("Non-Authoritative Information"); }
+		public String getType() { return "Success"; }
+		public String getMessage() { return "Non-Authoritative Information"; }
 	},
 	/**
 	    * Status code (204) indicating that the request succeeded but that
@@ -64,8 +64,8 @@ public enum ResponseCodes {
 	*/
 	SC_NO_CONTENT ( 204 ) {
 		public int getCode() { return 204; }
-		public String getType() { return new String("Success"); }
-		public String getMessage() { return new String("No Content"); }
+		public String getType() { return "Success"; }
+		public String getMessage() { return "No Content"; }
 	},
 	/**
 	    * Status code (205) indicating that the agent <em>SHOULD</em> reset
@@ -73,8 +73,8 @@ public enum ResponseCodes {
 	*/
 	SC_RESET_CONTENT ( 205 ) {
 		public int getCode() { return 205; }
-		public String getType() { return new String("Success"); }
-		public String getMessage() { return new String("Reset Content"); }
+		public String getType() { return "Success"; }
+		public String getMessage() { return "Reset Content"; }
 	},
 	/**
 	    * Status code (206) indicating that the server has fulfilled
@@ -82,8 +82,8 @@ public enum ResponseCodes {
 	*/
 	SC_PARTIAL_CONTENT ( 206 ) {
 		public int getCode() { return 206; }
-		public String getType() { return new String("Success"); }
-		public String getMessage() { return new String("Partial Content"); }
+		public String getType() { return "Success"; }
+		public String getMessage() { return "Partial Content"; }
 	},
 	/**
 	    * Status code (300) indicating that the requested resource
@@ -92,8 +92,8 @@ public enum ResponseCodes {
 	*/
 	SC_MULTIPLE_CHOICES ( 300 ) {
 		public int getCode() { return 300; }
-		public String getType() { return new String("Redirection Error"); }
-		public String getMessage() { return new String("Multiple Choices"); }
+		public String getType() { return "Redirection Error"; }
+		public String getMessage() { return "Multiple Choices"; }
 	},
 	/**
 	    * Status code (301) indicating that the resource has permanently
@@ -102,8 +102,8 @@ public enum ResponseCodes {
 	*/
 	SC_MOVED_PERMANENTLY ( 301 ) {
 		public int getCode() { return 301; }
-		public String getType() { return new String("Redirection Error"); }
-		public String getMessage() { return new String("Moved Permanently"); }
+		public String getType() { return "Redirection Error"; }
+		public String getMessage() { return "Moved Permanently"; }
 	},
 	/**
 	    * Status code (302) indicating that the resource has temporarily
@@ -115,8 +115,8 @@ public enum ResponseCodes {
 	*/
 	SC_MOVED_TEMPORARILY ( 302 ) {
 		public int getCode() { return 302; }
-		public String getType() { return new String("Redirection Error"); }
-		public String getMessage() { return new String("Moved Temporarily"); }
+		public String getType() { return "Redirection Error"; }
+		public String getMessage() { return "Moved Temporarily"; }
 	},
 	/**
 	    * Status code (302) indicating that the resource reside
@@ -127,8 +127,8 @@ public enum ResponseCodes {
 	*/
 	SC_FOUND( 302 ) {
 		public int getCode() { return 302; }
-		public String getType() { return new String("Redirection Error"); }
-		public String getMessage() { return new String("FOUND"); }
+		public String getType() { return "Redirection Error"; }
+		public String getMessage() { return "FOUND"; }
 	},
 	/**
 	    * Status code (303) indicating that the response to the request
@@ -136,8 +136,8 @@ public enum ResponseCodes {
 	*/
 	SC_SEE_OTHER( 303 ) {
 		public int getCode() { return 303; }
-		public String getType() { return new String("Redirection Error"); }
-		public String getMessage() { return new String("See Other"); }
+		public String getType() { return "Redirection Error"; }
+		public String getMessage() { return "See Other"; }
 	},
 	/**
 	    * Status code (304) indicating that a conditional GET operation
@@ -145,8 +145,8 @@ public enum ResponseCodes {
 	*/
 	SC_NOT_MODIFIED( 304 ) {
 		public int getCode() { return 304; }
-		public String getType() { return new String("Redirection Error"); }
-		public String getMessage() { return new String("Not Modified"); }
+		public String getType() { return "Redirection Error"; }
+		public String getMessage() { return "Not Modified"; }
 	},
 	/**
 	    * Status code (305) indicating that the requested resource
@@ -155,8 +155,8 @@ public enum ResponseCodes {
 	*/
 	SC_USE_PROXY( 305 ) {
 		public int getCode() { return 305; }
-		public String getType() { return new String("Redirection Error"); }
-		public String getMessage() { return new String("Use Proxy"); }
+		public String getType() { return "Redirection Error"; }
+		public String getMessage() { return "Use Proxy"; }
 	},
 	/**
 	    * Status code (307) indicating that the requested resource
@@ -166,8 +166,8 @@ public enum ResponseCodes {
 	*/
 	SC_TEMPORARY_REDIRECT( 307 ) {
 		public int getCode() { return 307; }
-		public String getType() { return new String("Redirection Error"); }
-		public String getMessage() { return new String("Temporary Redirect"); }
+		public String getType() { return "Redirection Error"; }
+		public String getMessage() { return "Temporary Redirect"; }
 	},
 	/**
 	    * Status code (400) indicating the request sent by the client was
@@ -175,8 +175,8 @@ public enum ResponseCodes {
 	*/
 	SC_BAD_REQUEST( 400 ) {
 		public int getCode() { return 400; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Bad Request"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Bad Request"; }
 	},
 	/**
 	    * Status code (401) indicating that the request requires HTTP
@@ -184,16 +184,16 @@ public enum ResponseCodes {
 	*/
 	SC_UNAUTHORIZED( 401 ) {
 		public int getCode() { return 401; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Unauthorized"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Unauthorized"; }
 	},
 	/**
 	    * Status code (402) reserved for future use.
 	*/
 	SC_PAYMENT_REQUIRED( 402 ) {
 		public int getCode() { return 402; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Payment Required"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Payment Required"; }
 	},
 	/**
 	    * Status code (403) indicating the server understood the request
@@ -201,8 +201,8 @@ public enum ResponseCodes {
 	*/
 	SC_FORBIDDEN( 403 ) {
 		public int getCode() { return 403; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Forbidden"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Forbidden"; }
 	},
 	/**
 	    * Status code (404) indicating that the requested resource is not
@@ -210,8 +210,8 @@ public enum ResponseCodes {
 	*/
 	SC_NOT_FOUND( 404 ) {
 		public int getCode() { return 404; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Not Found"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Not Found"; }
 	},
 	/**
 	    * Status code (405) indicating that the method specified in the
@@ -220,8 +220,8 @@ public enum ResponseCodes {
 	*/
 	SC_METHOD_NOT_ALLOWED( 405 ) {
 		public int getCode() { return 405; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Method Not Allowed"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Method Not Allowed"; }
 	},
 	/**
 	    * Status code (406) indicating that the resource identified by the
@@ -231,8 +231,8 @@ public enum ResponseCodes {
 	*/
 	SC_NOT_ACCEPTABLE( 406 ) {
 		public int getCode() { return 406; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Not Acceptable"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Not Acceptable"; }
 	},
 	/**
 	 	* Status code (407) indicating that the client <em>MUST</em> first
@@ -240,8 +240,8 @@ public enum ResponseCodes {
 	*/
 	SC_PROXY_AUTHENTICATION_REQUIRED( 407 ) {
 		public int getCode() { return 407; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Proxy Authentication Required"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Proxy Authentication Required"; }
 	},
 	/**
 	    * Status code (408) indicating that the client did not produce a
@@ -249,8 +249,8 @@ public enum ResponseCodes {
 	*/
 	SC_REQUEST_TIMEOUT( 408 ) {
 		public int getCode() { return 408; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Request Time-out"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Request Time-out"; }
 	},
 	/**
 	    * Status code (409) indicating that the request could not be
@@ -259,8 +259,8 @@ public enum ResponseCodes {
 	*/
 	SC_CONFLICT( 409 ) {
 		public int getCode() { return 409; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Conflict"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Conflict"; }
 	},
 	/**
 	    * Status code (410) indicating that the resource is no longer
@@ -269,8 +269,8 @@ public enum ResponseCodes {
 	*/
 	SC_GONE( 410 ) {
 		public int getCode() { return 410; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Gone"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Gone"; }
 	},	
 	/**
 	    * Status code (411) indicating that the request cannot be handled
@@ -278,8 +278,8 @@ public enum ResponseCodes {
 	*/
 	SC_LENGTH_REQUIRED( 411 ) {
 		public int getCode() { return 411; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Length Required"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Length Required"; }
 	},
 	/**
 	    * Status code (412) indicating that the precondition given in one
@@ -288,8 +288,8 @@ public enum ResponseCodes {
 	*/
 	SC_PRECONDITION_FAILED( 412 ) {
 		public int getCode() { return 412; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Precondition Failed"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Precondition Failed"; }
 	},
 	/**
 	    * Status code (413) indicating that the server is refusing to process
@@ -298,8 +298,8 @@ public enum ResponseCodes {
 	*/
 	SC_REQUEST_ENTITY_TOO_LARGE( 413 ) {
 		public int getCode() { return 413; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Request Entity Too Large"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Request Entity Too Large"; }
 	},
 	/**
 	    * Status code (414) indicating that the server is refusing to service
@@ -308,8 +308,8 @@ public enum ResponseCodes {
 	*/
 	SC_REQUEST_URI_TOO_LONG( 414 ) {
 		public int getCode() { return 414; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Request-URI Too Large"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Request-URI Too Large"; }
 	},
 	/**
 	    * Status code (415) indicating that the server is refusing to service
@@ -318,8 +318,8 @@ public enum ResponseCodes {
 	*/
 	SC_UNSUPPORTED_MEDIA_TYPE( 415 ) {
 		public int getCode() { return 415; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Unsupported Media Type"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Unsupported Media Type"; }
 	},
 	/**
 	    * Status code (416) indicating that the server cannot serve the
@@ -327,8 +327,8 @@ public enum ResponseCodes {
 	*/
 	SC_REQUESTED_RANGE_NOT_SATISFIABLE( 416 ) {
 		public int getCode() { return 416; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Requested Range Not Satisfiable"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Requested Range Not Satisfiable"; }
 	},
 	/**
 	    * Status code (417) indicating that the server could not meet the
@@ -336,8 +336,8 @@ public enum ResponseCodes {
 	*/
 	SC_EXPECTATION_FAILED( 417 ) {
 		public int getCode() { return 417; }
-		public String getType() { return new String("Client Error"); }
-		public String getMessage() { return new String("Expectation Failed"); }
+		public String getType() { return "Client Error"; }
+		public String getMessage() { return "Expectation Failed"; }
 	},
 	/**
 	    * Status code (500) indicating an error inside the HTTP server
@@ -345,8 +345,8 @@ public enum ResponseCodes {
 	*/
 	SC_INTERNAL_SERVER_ERROR( 500 ) {
 		public int getCode() { return 500; }
-		public String getType() { return new String("Server Error"); }
-		public String getMessage() { return new String("Internal Server Error"); }
+		public String getType() { return "Server Error"; }
+		public String getMessage() { return "Internal Server Error"; }
 	},
 	/**
 	    * Status code (501) indicating the HTTP server does not support
@@ -354,8 +354,8 @@ public enum ResponseCodes {
 	*/
 	SC_NOT_IMPLEMENTED( 501 ) {
 		public int getCode() { return 501; }
-		public String getType() { return new String("Server Error"); }
-		public String getMessage() { return new String("Not Implemented"); }
+		public String getType() { return "Server Error"; }
+		public String getMessage() { return "Not Implemented"; }
 	},
 	/**
 	    * Status code (502) indicating that the HTTP server received an
@@ -364,8 +364,8 @@ public enum ResponseCodes {
 	*/
 	SC_BAD_GATEWAY( 502 ) {
 		public int getCode() { return 502; }
-		public String getType() { return new String("Server Error"); }
-		public String getMessage() { return new String("Bad Gateway"); }
+		public String getType() { return "Server Error"; }
+		public String getMessage() { return "Bad Gateway"; }
 	},
 	/**
 	    * Status code (503) indicating that the HTTP server is
@@ -373,8 +373,8 @@ public enum ResponseCodes {
 	*/
 	SC_SERVICE_UNAVAILABLE( 503 ) {
 		public int getCode() { return 503; }
-		public String getType() { return new String("Server Error"); }
-		public String getMessage() { return new String("Service Unavailable"); }
+		public String getType() { return "Server Error"; }
+		public String getMessage() { return "Service Unavailable"; }
 	},
 	/**
 	    * Status code (504) indicating that the server did not receive
@@ -383,8 +383,8 @@ public enum ResponseCodes {
 	*/
 	SC_GATEWAY_TIMEOUT( 504 ) {
 		public int getCode() { return 504; }
-		public String getType() { return new String("Server Error"); }
-		public String getMessage() { return new String("Gateway Timeout"); }
+		public String getType() { return "Server Error"; }
+		public String getMessage() { return "Gateway Timeout"; }
 	},
 	/**
 	    * Status code (505) indicating that the server does not support
@@ -393,53 +393,53 @@ public enum ResponseCodes {
 	*/
 	SC_HTTP_VERSION_NOT_SUPPORTED( 505 ) {
 		public int getCode() { return 505; }
-		public String getType() { return new String("Server Error"); }
-		public String getMessage() { return new String("Http Version Not Supported"); }
+		public String getType() { return "Server Error"; }
+		public String getMessage() { return "Http Version Not Supported"; }
 	},
 	/**
 	 * Status code (10000) indicating generic error.
 	 */	
 	SC_GENERIC_ERROR ( 10000 ) {
 		public int getCode() { return 10000; }
-		public String getType() { return new String("Generic Error"); }
-		public String getMessage() { return new String("Generic Error"); }
+		public String getType() { return "Generic Error"; }
+		public String getMessage() { return "Generic Error"; }
 	},
 	/**
 	 * Status code (10001) indicating sql error.
 	 */	
 	SC_QUERY ( 10001 ) {
 		public int getCode() { return 10001; }
-		public String getType() { return new String("SQL Error"); }
-		public String getMessage() { return new String("SQL Statement Error"); }
+		public String getType() { return "SQL Error"; }
+		public String getMessage() { return "SQL Statement Error"; }
 	},
 	/**
 	 * Status code (10002) indicating component error.
 	 */	
 	SC_COMPONENT ( 10002 ) {
 		public int getCode() { return 10001; }
-		public String getType() { return new String("Component Error"); }
-		public String getMessage() { return new String("Component Error"); }
+		public String getType() { return "Component Error"; }
+		public String getMessage() { return "Component Error"; }
 	},
 	/**
 	 * Status code (10003) indicating io error.
 	 */	
 	SC_IO ( 10003 ) {
 		public int getCode() { return 10003; }
-		public String getType() { return new String("IO Error"); }
-		public String getMessage() { return new String("IO Error"); }
+		public String getType() { return "IO Error"; }
+		public String getMessage() { return "IO Error"; }
 	},
 	/**
 	 * Status code (10004) indicating json error.
 	 */	
 	SC_JSON ( 10004 ) {
 		public int getCode() { return 10004; }
-		public String getType() { return new String("Malformed JSON"); }
-		public String getMessage() { return new String("Malformed JSON"); }
+		public String getType() { return "Malformed JSON"; }
+		public String getMessage() { return "Malformed JSON"; }
 	};
 	
 	/*SC_METHOD_NOT_ALLOWED ( 10003 ) {
 		public int getCode() { return 10003; }
-		public String getMessage() { return new String("TEST"); }
+		public String getMessage() { return "TEST"; }
 	};*/
 	
 	public abstract int getCode();

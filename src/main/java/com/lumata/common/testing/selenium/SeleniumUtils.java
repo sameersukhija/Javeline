@@ -69,9 +69,9 @@ public class SeleniumUtils {
 		
 		logger.debug( Log.CHECKING.createMessage( "element ( " + locator + " )" ) );
 		
-		float attempts = timeout / interval;
+		int attempts = Math.round( timeout / ( float ) interval );
 		
-		for( int i = 1; i <= Math.round( attempts ); i++ ) {
+		for( int i = 1; i <= attempts; i++ ) {
 			
 			logger.debug( Log.CHECKING.createMessage( "( " + i + " ) element ( " + locator + " )" ) );
 			
