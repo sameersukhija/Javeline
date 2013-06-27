@@ -600,13 +600,16 @@ public class IOFileUtils {
 		
 	public static void saveResource( String content, String resource ) throws IOFileException {
 		
+		File file;
+		FileOutputStream fop = null;
+		
 		try {
  
 			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
 			
-			File file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
+			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
 			
-			FileOutputStream fop = new FileOutputStream( file );
+			fop = new FileOutputStream( file );
 			
 			fop.write( content.getBytes() );
 			fop.flush();
@@ -615,18 +618,36 @@ public class IOFileUtils {
 			logger.debug( "The content has been stored in the resource ( " + file.getCanonicalPath() + " )" );
 			
 		} catch( Exception e ) {
-			
+						
 			logger.error(e.getMessage());
 			
 			e.printStackTrace();
 			
 			throw new IOFileException( e.getMessage() );
 		
+		} finally {
+			
+			try {
+				
+				if (fop != null) fop.close();
+				
+			} catch ( IOException e ) {
+				
+				logger.error(e.getMessage());
+				
+				e.printStackTrace();
+				
+				throw new IOFileException( e.getMessage() );
+				
+			}
 		}
 		
 	}
 	
 	public static void saveResource( String content, String folder, String resource ) throws IOFileException {
+		
+		File file;
+		FileOutputStream fop = null;
 		
 		try {
 			
@@ -634,11 +655,11 @@ public class IOFileUtils {
 			
 			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
 			
-			File file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
+			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
 			
 			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
 			
-			FileOutputStream fop = new FileOutputStream( file );
+			fop = new FileOutputStream( file );
 			
 			fop.write( content.getBytes() );
 			fop.flush();
@@ -654,21 +675,39 @@ public class IOFileUtils {
 			
 			throw new IOFileException( e.getMessage() );
 		
+		} finally {
+			
+			try {
+				
+				if (fop != null) fop.close();
+				
+			} catch ( IOException e ) {
+				
+				logger.error(e.getMessage());
+				
+				e.printStackTrace();
+				
+				throw new IOFileException( e.getMessage() );
+				
+			}
 		}
 		
 	}
 	
 	public static void saveResource( StringBuffer content, String resource ) throws IOFileException {
 		
+		File file;
+		FileOutputStream fop = null;
+		
 		try {
  
 			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
 			
-			File file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
+			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
 			
 			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
 			
-			FileOutputStream fop = new FileOutputStream( file );
+			fop = new FileOutputStream( file );
 						
 			BufferedOutputStream os = new BufferedOutputStream(fop);
 			os.write( String.valueOf( content ).getBytes() );
@@ -684,11 +723,29 @@ public class IOFileUtils {
 			
 			throw new IOFileException( e.getMessage() );
 		
+		} finally {
+			
+			try {
+				
+				if (fop != null) fop.close();
+				
+			} catch ( IOException e ) {
+				
+				logger.error(e.getMessage());
+				
+				e.printStackTrace();
+				
+				throw new IOFileException( e.getMessage() );
+				
+			}
 		}
 		
 	}
 	
 	public static void saveResource( StringBuffer content, String folder, String resource ) throws IOFileException {
+		
+		File file;
+		FileOutputStream fop = null;
 		
 		try {
 			
@@ -696,11 +753,11 @@ public class IOFileUtils {
 			
 			if( content == null ) throw new IOFileException( "The content is not valid ( null )" );
 			
-			File file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
+			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
 			
 			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
 			
-			FileOutputStream fop = new FileOutputStream( file );
+			fop = new FileOutputStream( file );
 						
 			BufferedOutputStream os = new BufferedOutputStream(fop);
 			os.write( String.valueOf( content ).getBytes() );
@@ -716,11 +773,28 @@ public class IOFileUtils {
 			
 			throw new IOFileException( e.getMessage() );
 		
+		} finally {
+			
+			try {
+				
+				if (fop != null) fop.close();
+				
+			} catch ( IOException e ) {
+				
+				logger.error(e.getMessage());
+				
+				e.printStackTrace();
+				
+				throw new IOFileException( e.getMessage() );
+				
+			}
 		}
 		
 	}
 	
 	public static void saveFile( String content, String file ) throws IOFileException {
+				
+		FileWriter fl = null;
 		
 		try {
 			
@@ -728,7 +802,7 @@ public class IOFileUtils {
 			
 			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
 			
-			FileWriter fl = new FileWriter( IOFileUtils.createPath( file ) ); 
+			fl = new FileWriter( IOFileUtils.createPath( file ) ); 
 					
 			fl.write(content);
 			fl.flush();
@@ -744,11 +818,28 @@ public class IOFileUtils {
 			
 			throw new IOFileException(e.getMessage() );
 		
+		} finally {
+			
+			try {
+				
+				if (fl != null) fl.close();
+				
+			} catch ( IOException e ) {
+				
+				logger.error(e.getMessage());
+				
+				e.printStackTrace();
+				
+				throw new IOFileException( e.getMessage() );
+				
+			}
 		}
 		
 	}
 	
 	public static void saveFile( String content, String folder, String file ) throws IOFileException {
+		
+		FileWriter fl = null;
 		
 		try {
 			
@@ -758,7 +849,7 @@ public class IOFileUtils {
 			
 			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
 			
-			FileWriter fl = new FileWriter( IOFileUtils.createPath(folder, file) ); 
+			fl = new FileWriter( IOFileUtils.createPath(folder, file) ); 
 					
 			fl.write(content);
 			fl.flush();
@@ -774,11 +865,29 @@ public class IOFileUtils {
 			
 			throw new IOFileException(e.getMessage() );
 		
+		} finally {
+			
+			try {
+				
+				if (fl != null) fl.close();
+				
+			} catch ( IOException e ) {
+				
+				logger.error(e.getMessage());
+				
+				e.printStackTrace();
+				
+				throw new IOFileException( e.getMessage() );
+				
+			}
 		}
 		
 	}
 
 	public static void saveFile( StringBuffer content, String file ) throws IOFileException {
+		
+		FileWriter fl = null;
+		BufferedWriter bw = null;
 		
 		try {
 			
@@ -786,9 +895,9 @@ public class IOFileUtils {
 			
 			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
 			
-			FileWriter fl = new FileWriter( IOFileUtils.createPath( file ) ); 
+			fl = new FileWriter( IOFileUtils.createPath( file ) ); 
 					
-			BufferedWriter bw = new BufferedWriter(fl);
+			bw = new BufferedWriter(fl);
 			bw.write( String.valueOf( content ) );
 			bw.close();	
 			
@@ -802,11 +911,30 @@ public class IOFileUtils {
 			
 			throw new IOFileException(e.getMessage() );
 		
+		} finally {
+			
+			try {
+				
+				if (fl != null) fl.close();
+				if (bw != null) bw.close();
+				
+			} catch ( IOException e ) {
+				
+				logger.error(e.getMessage());
+				
+				e.printStackTrace();
+				
+				throw new IOFileException( e.getMessage() );
+				
+			}
 		}
 		
 	}
 	
 	public static void saveFile( StringBuffer content, String folder, String file ) throws IOFileException {
+		
+		FileWriter fl = null;
+		BufferedWriter bw = null;
 		
 		try {
 			
@@ -816,9 +944,9 @@ public class IOFileUtils {
 			
 			if( file == null ) throw new IOFileException( "The file is not valid ( null )" );
 			
-			FileWriter fl = new FileWriter( IOFileUtils.createPath(folder, file) ); 
+			fl = new FileWriter( IOFileUtils.createPath(folder, file) ); 
 					
-			BufferedWriter bw = new BufferedWriter(fl);
+			bw = new BufferedWriter(fl);
 			bw.write( String.valueOf( content ) );
 			bw.close();
 			
@@ -832,6 +960,22 @@ public class IOFileUtils {
 			
 			throw new IOFileException(e.getMessage() );
 		
+		} finally {
+			
+			try {
+				
+				if (fl != null) fl.close();
+				if (bw != null) bw.close();
+				
+			} catch ( IOException e ) {
+				
+				logger.error(e.getMessage());
+				
+				e.printStackTrace();
+				
+				throw new IOFileException( e.getMessage() );
+				
+			}
 		}
 		
 	}
