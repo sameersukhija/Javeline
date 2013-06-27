@@ -714,6 +714,8 @@ public class IOFileUtils {
 			os.write( String.valueOf( content ).getBytes() );
 			os.close();			
 			
+			fop.close();
+			
 			logger.debug( "The content has been stored in the resource ( " + file.getCanonicalPath() + " )" );
 			
 		} catch( Exception e ) {
@@ -730,6 +732,16 @@ public class IOFileUtils {
 				
 				if (fop != null) fop.close();
 				
+			} catch ( IOException e ) {
+				
+				logger.error(e.getMessage());
+				
+				e.printStackTrace();
+				
+			}
+			
+			try {
+				
 				if (os != null) os.close();
 				
 			} catch ( IOException e ) {
@@ -738,10 +750,9 @@ public class IOFileUtils {
 				
 				e.printStackTrace();
 				
-				throw new IOFileException( e.getMessage() );
-				
 			}
-		}
+
+		} 
 		
 	}
 	

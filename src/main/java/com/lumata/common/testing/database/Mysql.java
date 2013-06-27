@@ -115,32 +115,24 @@ public class Mysql {
 	public ResultSet execQuery( String query ) {
 				 
 		ResultSet rs = null;
+		Statement statement = null;
 		
 		try {
 			
-			Statement statement = this.dbConn.createStatement();
+			statement = this.dbConn.createStatement();
 			rs = statement.executeQuery( query );
 			
 			logger.debug( "The statement has been executed");
 			
 		} catch ( SQLException e1 ) {	
 			
+			if( statement != null ) try { statement.close(); } catch ( SQLException e2 ) {}
+						
 			logger.error( e1.getMessage() );
 			
-			e1.printStackTrace();
+			e1.printStackTrace();			
 			
-			try {
-				
-				if( this.dbConn != null ) this.dbConn.close();
-				
-			} catch ( SQLException e2 ) {
-				
-				logger.error(e2.getMessage());
-				
-				e2.printStackTrace();
-				
-			}
-		}			
+		}		
 		 
 		return rs;
 		
@@ -149,31 +141,23 @@ public class Mysql {
 	public int execUpdate( String query ) {
 		 
 		int rs = -1;
+		Statement statement = null;
 		
 		try {
 			
-			Statement statement = this.dbConn.createStatement();
+			statement = this.dbConn.createStatement();
 			rs = statement.executeUpdate( query, Statement.RETURN_GENERATED_KEYS );		
 			
 			logger.debug( "The statement has been executed");
 			
 		} catch ( SQLException e1 ) {	
 			
+			if( statement != null ) try { statement.close(); } catch ( SQLException e2 ) {}
+						
 			logger.error( e1.getMessage() );
 			
-			e1.printStackTrace();
+			e1.printStackTrace();			
 			
-			try {
-				
-				if( this.dbConn != null ) this.dbConn.close();
-				
-			} catch ( SQLException e2 ) {
-				
-				logger.error(e2.getMessage());
-				
-				e2.printStackTrace();
-				
-			}
 		}			
 		 
 		return rs;
