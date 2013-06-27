@@ -68,7 +68,7 @@ public class ResourceProperties {
 						
 					}
 					
-				} else result[ 1 ]++;
+				} else { result[ 1 ]++; }
 				
 			}
 			

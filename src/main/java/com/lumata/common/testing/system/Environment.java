@@ -337,11 +337,11 @@ public class Environment {
 			if( getDataSources().isNull(dataSource) ) { return null; }
 			else {
 				JSONObject ds = getDataSource( dataSource );
-				if( ds.isNull("host")) props.put("dbHost", "localhost"); else props.put("dbHost", ds.getString("host"));
-				if( ds.isNull("name")) props.put("dbName", ""); else props.put("dbName", ds.getString("name"));
-				if( ds.isNull("port")) props.put("dbPort", "3306"); else props.put("dbPort", ds.getString("port"));
-				if( ds.isNull("user")) props.put("dbUser", ""); else props.put("dbUser", ds.getString("user"));
-				if( ds.isNull("password")) props.put("dbPasswd", ""); else props.put("dbPasswd", ds.getString("password"));
+				if( ds.isNull("host")) { props.put("dbHost", "localhost"); } else { props.put("dbHost", ds.getString("host")); }
+				if( ds.isNull("name")) { props.put("dbName", ""); } else { props.put("dbName", ds.getString("name")); }
+				if( ds.isNull("port")) { props.put("dbPort", "3306"); } else { props.put("dbPort", ds.getString("port")); }
+				if( ds.isNull("user")) { props.put("dbUser", ""); } else { props.put("dbUser", ds.getString("user")); }
+				if( ds.isNull("password")) { props.put("dbPasswd", ""); } else { props.put("dbPasswd", ds.getString("password")); }
 					
 				return props;
 			}

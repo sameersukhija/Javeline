@@ -139,7 +139,7 @@ public class IOFileUtils {
 		
 		try {
 			
-			reader = new InputStreamReader( Thread.currentThread().getContextClassLoader().getResourceAsStream( IOFileUtils.buildResourcePath( resource ) ) );
+			reader = new InputStreamReader( Thread.currentThread().getContextClassLoader().getResourceAsStream( IOFileUtils.buildResourcePath( resource ) ), "UTF8" );
 			
 			logger.debug( "The resource has been loaded as input stream reader ( " + resource + " )" );
 		
@@ -163,7 +163,7 @@ public class IOFileUtils {
 			
 			String path = IOFileUtils.buildResourcePath( folder, resource );
 			
-			reader = new InputStreamReader( Thread.currentThread().getContextClassLoader().getResourceAsStream( path ) );
+			reader = new InputStreamReader( Thread.currentThread().getContextClassLoader().getResourceAsStream( path ), "UTF8" );
 			
 			logger.debug( "The resource has been loaded as input stream reader ( " + path + " )" );
 		
@@ -458,7 +458,7 @@ public class IOFileUtils {
 					
 					logger.debug( "The parent path has been created ( " + parent.toString() + " )" );
 				
-				} else logger.debug( "The parent path already exists ( " + file.toString() + " )" );  
+				} else { logger.debug( "The parent path already exists ( " + file.toString() + " )" ); } 
 
 			} catch( Exception e ) {
 				
@@ -472,7 +472,7 @@ public class IOFileUtils {
 				
 				logger.debug( "The path has been created ( " + file.toString() + " )" );
 			
-			} else logger.debug( "The path already exists ( " + file.toString() + " )" );
+			} else { logger.debug( "The path already exists ( " + file.toString() + " )" ); }
 
 		} catch( Exception e ) {
 			
