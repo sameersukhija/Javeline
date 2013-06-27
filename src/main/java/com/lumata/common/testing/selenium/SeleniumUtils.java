@@ -69,7 +69,7 @@ public class SeleniumUtils {
 		
 		logger.debug( Log.CHECKING.createMessage( "element ( " + locator + " )" ) );
 		
-		long attempts = Long.valueOf( Math.round( timeout / interval ) );
+		int attempts = Math.round( timeout / interval );
 		
 		for( int i = 1; i <= attempts; i++ ) {
 			

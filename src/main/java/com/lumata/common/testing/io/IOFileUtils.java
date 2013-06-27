@@ -627,19 +627,8 @@ public class IOFileUtils {
 		
 		} finally {
 			
-			try {
-				
-				if (fop != null) fop.close();
-				
-			} catch ( IOException e ) {
-				
-				logger.error(e.getMessage());
-				
-				e.printStackTrace();
-				
-				throw new IOFileException( e.getMessage() );
-				
-			}
+			if (fop != null) try { fop.close(); } catch ( IOException e ) {}
+			
 		}
 		
 	}
@@ -677,19 +666,8 @@ public class IOFileUtils {
 		
 		} finally {
 			
-			try {
-				
-				if (fop != null) fop.close();
-				
-			} catch ( IOException e ) {
-				
-				logger.error(e.getMessage());
-				
-				e.printStackTrace();
-				
-				throw new IOFileException( e.getMessage() );
-				
-			}
+			if (fop != null) try { fop.close(); } catch ( IOException e ) {}
+			
 		}
 		
 	}
@@ -728,30 +706,10 @@ public class IOFileUtils {
 		
 		} finally {
 			
-			try {
-				
-				if (fop != null) fop.close();
-				
-			} catch ( IOException e ) {
-				
-				logger.error(e.getMessage());
-				
-				e.printStackTrace();
-				
-			}
+			if (fop != null) try { fop.close(); } catch ( IOException e ) {}
 			
-			try {
-				
-				if (os != null) os.close();
-				
-			} catch ( IOException e ) {
-				
-				logger.error(e.getMessage());
-				
-				e.printStackTrace();
-				
-			}
-
+			if (os != null) try { os.close(); } catch ( IOException e ) {}
+			
 		} 
 		
 	}
@@ -790,21 +748,10 @@ public class IOFileUtils {
 		
 		} finally {
 			
-			try {
-				
-				if (fop != null) fop.close();
-				
-				if (os != null) os.close();
-				
-			} catch ( IOException e ) {
-				
-				logger.error(e.getMessage());
-				
-				e.printStackTrace();
-				
-				throw new IOFileException( e.getMessage() );
-				
-			}
+			if (fop != null) try { fop.close(); } catch ( IOException e ) {}
+			
+			if (os != null) try { os.close(); } catch ( IOException e ) {}
+			
 		}
 		
 	}
@@ -836,20 +783,9 @@ public class IOFileUtils {
 			throw new IOFileException(e.getMessage() );
 		
 		} finally {
-			
-			try {
-				
-				if (fl != null) fl.close();
-				
-			} catch ( IOException e ) {
-				
-				logger.error(e.getMessage());
-				
-				e.printStackTrace();
-				
-				throw new IOFileException( e.getMessage() );
-				
-			}
+							
+			if (fl != null) try { fl.close(); } catch ( IOException e ) {}
+		
 		}
 		
 	}
@@ -884,19 +820,8 @@ public class IOFileUtils {
 		
 		} finally {
 			
-			try {
-				
-				if (fl != null) fl.close();
-				
-			} catch ( IOException e ) {
-				
-				logger.error(e.getMessage());
-				
-				e.printStackTrace();
-				
-				throw new IOFileException( e.getMessage() );
-				
-			}
+			if (fl != null) try { fl.close(); } catch ( IOException e ) {}
+		
 		}
 		
 	}
@@ -930,20 +855,9 @@ public class IOFileUtils {
 		
 		} finally {
 			
-			try {
-				
-				if (fl != null) fl.close();
-				if (bw != null) bw.close();
-				
-			} catch ( IOException e ) {
-				
-				logger.error(e.getMessage());
-				
-				e.printStackTrace();
-				
-				throw new IOFileException( e.getMessage() );
-				
-			}
+			if (fl != null)  try { fl.close(); } catch ( IOException e ) {}
+			if (bw != null)  try { bw.close(); } catch ( IOException e ) {}
+			
 		}
 		
 	}
@@ -979,20 +893,9 @@ public class IOFileUtils {
 		
 		} finally {
 			
-			try {
-				
-				if (fl != null) fl.close();
-				if (bw != null) bw.close();
-				
-			} catch ( IOException e ) {
-				
-				logger.error(e.getMessage());
-				
-				e.printStackTrace();
-				
-				throw new IOFileException( e.getMessage() );
-				
-			}
+			if (fl != null)  try { fl.close(); } catch ( IOException e ) {}
+			if (bw != null)  try { bw.close(); } catch ( IOException e ) {}
+			
 		}
 		
 	}
