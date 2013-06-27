@@ -14,10 +14,10 @@ public class DataModelException extends Exception
 {
 
 	private static final long serialVersionUID = 1L;
-	protected int errorCode = -1;
-	protected String errorType = "";
-	protected boolean loggable;
-	protected Response response;
+	private int errorCode = -1;
+	private String errorType = "";
+	private boolean loggable;
+	private Response response;
       
 	public DataModelException() {
       super(ResponseCodes.SC_IO.getMessage());

@@ -1,6 +1,5 @@
 package com.lumata.common.testing.database;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
@@ -8,8 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.lumata.common.testing.exceptions.IOFileException;
 
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>

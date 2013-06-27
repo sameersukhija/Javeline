@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -188,7 +189,7 @@ public class IOFileUtils {
 			
 			logger.debug( "The resource has been loaded as string ( " + resource + " )" );
 			
-		} catch( Exception e ) {
+		} catch( IOException e ) {
 			
 			logger.error( e.getMessage(), e );
 			
@@ -210,7 +211,7 @@ public class IOFileUtils {
 			
 			logger.debug( "The resource has been loaded as string ( " + IOFileUtils.buildResourcePath( folder, resource ) + " )" );
 			
-		} catch( Exception e ) {
+		} catch( IOException e ) {
 			
 			logger.error( e.getMessage(), e );
 			
@@ -225,21 +226,11 @@ public class IOFileUtils {
 	public static BufferedReader loadResourceAsBufferedReader( String resource ) throws IOFileException  {
 		
 		BufferedReader res = null;
-				
-		try {
-			
-			res = new BufferedReader( IOFileUtils.loadResourceAsInputStreamReader( resource ) );
-			
-			logger.debug( "The resource has been loaded as buffered reader ( " + resource + " )" );
-																			
-		} catch ( IOFileException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new IOFileException(e.getMessage() );
+					
+		res = new BufferedReader( IOFileUtils.loadResourceAsInputStreamReader( resource ) );
 		
-		} 
-
+		logger.debug( "The resource has been loaded as buffered reader ( " + resource + " )" ); 
+		
 		return res;
 		
 	}
@@ -247,20 +238,11 @@ public class IOFileUtils {
 	public static BufferedReader loadResourceAsBufferedReader( String folder, String resource ) throws IOFileException  {
 		
 		BufferedReader res = null;
-				
-		try {
-						
-			res = new BufferedReader( IOFileUtils.loadResourceAsInputStreamReader( folder, resource ) );
-			
-			logger.debug( "The resource has been loaded as buffered reader ( " + IOFileUtils.buildResourcePath( folder, resource ) + " )" );
-																			
-		} catch ( IOFileException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new IOFileException(e.getMessage() );
+									
+		res = new BufferedReader( IOFileUtils.loadResourceAsInputStreamReader( folder, resource ) );
 		
-		} 
+		logger.debug( "The resource has been loaded as buffered reader ( " + IOFileUtils.buildResourcePath( folder, resource ) + " )" );
+																		 
 
 		return res;
 		
@@ -268,21 +250,11 @@ public class IOFileUtils {
 		
 	public static String buildPath( String file ) throws IOFileException {
 		
-		try {
+		if( !Format.isFile( file ) ) throw new IOFileException( "You cannot build a not valid file ( " + file + " )" );
 		
-			if( !Format.isFile( file ) ) throw new IOFileException( "You cannot build a not valid file ( " + file + " )" );
-			
-			if( String.valueOf( file.charAt( 0 )).equals("/") ) file = file.substring( 1, file.length());
-						
-			logger.debug( "The file has been built ( " + file + " )" );
+		if( String.valueOf( file.charAt( 0 )).equals("/") ) file = file.substring( 1, file.length());
 					
-		} catch( Exception e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new IOFileException( e.getMessage() );
-		
-		}
+		logger.debug( "The file has been built ( " + file + " )" );
 		
 		return file;
 		
@@ -292,25 +264,15 @@ public class IOFileUtils {
 		
 		String path = null;
 		
-		try {
+		file = IOFileUtils.buildPath( file );
 		
-			file = IOFileUtils.buildPath( file );
-			
-			if( folder == null ) throw new IOFileException( "You cannot build a path containing a not valid folder ( null )" );
-			
-			if( folder.length() > 0 ) if( !String.valueOf(folder.charAt( folder.length() - 1 )).equals("/") ) folder = folder + "/";
-			
-			path = folder + file;
-			
-			logger.debug( "The path has been built ( " + path + " )" );
-					
-		} catch( Exception e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new IOFileException( e.getMessage() );
+		if( folder == null ) throw new IOFileException( "You cannot build a path containing a not valid folder ( null )" );
 		
-		}
+		if( folder.length() > 0 ) if( !String.valueOf(folder.charAt( folder.length() - 1 )).equals("/") ) folder = folder + "/";
+		
+		path = folder + file;
+		
+		logger.debug( "The path has been built ( " + path + " )" );
 		
 		return path;
 		
@@ -321,12 +283,12 @@ public class IOFileUtils {
 		InputStream in = null;
 		
 		try {
-		
+			
 			in = new FileInputStream( IOFileUtils.buildPath( file ) );
 			
 			logger.debug( "The file has been loaded as input stream ( " + file + " )" );
 		
-		} catch( Exception e ) {
+		} catch( FileNotFoundException e ) {
 				
 			logger.error( e.getMessage(), e );
 				
@@ -351,7 +313,7 @@ public class IOFileUtils {
 			
 			logger.debug( "The file has been loaded as input stream ( " + path + " )" );
 		
-		} catch( Exception e ) {
+		} catch( FileNotFoundException e ) {
 				
 			logger.error( e.getMessage(), e );
 				
@@ -373,7 +335,7 @@ public class IOFileUtils {
 			
 			logger.debug( "The file has been loaded as input stream reader ( " + file + " )" );
 			
-		} catch( Exception e ) {
+		} catch( FileNotFoundException e ) {
 				
 			logger.error( e.getMessage(), e );
 				
@@ -398,7 +360,7 @@ public class IOFileUtils {
 			
 			logger.debug( "The file has been loaded as input stream reader ( " + path + " )" );
 			
-		} catch( Exception e ) {
+		} catch( FileNotFoundException e ) {
 				
 			logger.error( e.getMessage(), e );
 				
@@ -420,7 +382,7 @@ public class IOFileUtils {
 			
 			logger.debug( "The file has been loaded as string ( " + file + " )" );
 																	
-		} catch( Exception e ) {
+		} catch( IOException e ) {
 			
 			logger.error( e.getMessage(), e );
 				
@@ -442,7 +404,7 @@ public class IOFileUtils {
 			
 			logger.debug( "The file has been loaded as string ( " + IOFileUtils.buildPath( folder, file ) + " )" );
 																	
-		} catch( Exception e ) {
+		} catch( IOException e ) {
 			
 			logger.error( e.getMessage(), e );
 				
@@ -457,21 +419,11 @@ public class IOFileUtils {
 	public static BufferedReader loadFileAsBufferedReader( String file ) throws IOFileException  {
 		
 		BufferedReader fl = null;
+				
+		fl = new BufferedReader( IOFileUtils.loadFileAsInputStreamReader( file ) );
 		
-		try {
+		logger.debug( "The file has been loaded as buffered reader ( " + file + " )" );
 			
-			fl = new BufferedReader( IOFileUtils.loadFileAsInputStreamReader( file ) );
-			
-			logger.debug( "The file has been loaded as buffered reader ( " + file + " )" );
-																			
-		} catch ( IOFileException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new IOFileException( e.getMessage() );
-		
-		} 
-    		
 		return fl;
 		
 	}
@@ -479,21 +431,11 @@ public class IOFileUtils {
 	public static BufferedReader loadFileAsBufferedReader( String folder, String file ) throws IOFileException  {
 		
 		BufferedReader fl = null;
-		
-		try {
-			
-			fl = new BufferedReader( IOFileUtils.loadFileAsInputStreamReader( folder, file ) );
-			
-			logger.debug( "The file has been loaded as buffered reader ( " + IOFileUtils.buildPath( folder, file ) + " )" );
-																			
-		} catch ( IOFileException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new IOFileException( e.getMessage() );
-		
-		} 
 				
+		fl = new BufferedReader( IOFileUtils.loadFileAsInputStreamReader( folder, file ) );
+		
+		logger.debug( "The file has been loaded as buffered reader ( " + IOFileUtils.buildPath( folder, file ) + " )" );
+			
 		return fl;
 		
 	}
@@ -574,9 +516,9 @@ public class IOFileUtils {
 			fop.close();
  
 			logger.debug( "The content has been stored in the resource ( " + file.getCanonicalPath() + " )" );
+		
+		} catch( IOException e ) {
 			
-		} catch( Exception e ) {
-						
 			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
@@ -611,8 +553,8 @@ public class IOFileUtils {
 			fop.close();
  
 			logger.debug( "The content has been stored in the resource ( " + file.getCanonicalPath() + " )" );
-			
-		} catch( Exception e ) {
+		
+		} catch( IOException e ) {
 			
 			logger.error( e.getMessage(), e );
 			
@@ -649,8 +591,8 @@ public class IOFileUtils {
 			fop.close();
 			
 			logger.debug( "The content has been stored in the resource ( " + file.getCanonicalPath() + " )" );
-			
-		} catch( Exception e ) {
+		
+		} catch( IOException e ) {
 			
 			logger.error( e.getMessage(), e );
 			
@@ -689,8 +631,8 @@ public class IOFileUtils {
 			os.close();	
  
 			logger.debug( "The content has been stored in the resource ( " + file.getCanonicalPath() + " )" );
-			
-		} catch( Exception e ) {
+		
+		} catch( IOException e ) {
 			
 			logger.error( e.getMessage(), e );
 			
