@@ -44,9 +44,7 @@ public class IOFileUtils {
 					
 		} catch( Exception e ) {
 			
-			logger.error( e.getMessage() );
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 		
@@ -74,9 +72,7 @@ public class IOFileUtils {
 					
 		} catch( Exception e ) {
 			
-			logger.error( e.getMessage() );
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 		
@@ -100,9 +96,7 @@ public class IOFileUtils {
 					
 		} catch( Exception e ) {
 			
-			logger.error( e.getMessage() );
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 		
@@ -128,9 +122,7 @@ public class IOFileUtils {
 					
 		} catch( Exception e ) {
 			
-			logger.error( e.getMessage() );
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 		
@@ -152,9 +144,7 @@ public class IOFileUtils {
 		
 		} catch( Exception e ) {
 				
-			logger.error( e.getMessage() );
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 						
@@ -178,9 +168,7 @@ public class IOFileUtils {
 		
 		} catch( Exception e ) {
 				
-			logger.error( e.getMessage() );
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 						
@@ -202,9 +190,7 @@ public class IOFileUtils {
 			
 		} catch( Exception e ) {
 			
-			logger.error( e.getMessage() );
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 			
@@ -226,9 +212,7 @@ public class IOFileUtils {
 			
 		} catch( Exception e ) {
 			
-			logger.error( e.getMessage() );
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 			
@@ -250,9 +234,7 @@ public class IOFileUtils {
 																			
 		} catch ( IOFileException e ) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException(e.getMessage() );
 		
@@ -274,9 +256,7 @@ public class IOFileUtils {
 																			
 		} catch ( IOFileException e ) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException(e.getMessage() );
 		
@@ -298,9 +278,7 @@ public class IOFileUtils {
 					
 		} catch( Exception e ) {
 			
-			logger.error( e.getMessage() );
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 		
@@ -328,9 +306,7 @@ public class IOFileUtils {
 					
 		} catch( Exception e ) {
 			
-			logger.error( e.getMessage() );
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 		
@@ -352,9 +328,7 @@ public class IOFileUtils {
 		
 		} catch( Exception e ) {
 				
-			logger.error( e.getMessage() );
-				
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 				
 			throw new IOFileException( "The file is not valid ( " + file + " )" );
 						
@@ -379,9 +353,7 @@ public class IOFileUtils {
 		
 		} catch( Exception e ) {
 				
-			logger.error( e.getMessage() );
-				
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 				
 			throw new IOFileException( "The file is not valid ( " + path + " )" );
 						
@@ -403,9 +375,7 @@ public class IOFileUtils {
 			
 		} catch( Exception e ) {
 				
-			logger.error( e.getMessage() );
-				
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 				
 			throw new IOFileException( "The file is not valid ( " + file + " )" );
 						
@@ -430,9 +400,7 @@ public class IOFileUtils {
 			
 		} catch( Exception e ) {
 				
-			logger.error( e.getMessage() );
-				
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 				
 			throw new IOFileException( "The file is not valid ( " + path + " )" );
 						
@@ -454,9 +422,7 @@ public class IOFileUtils {
 																	
 		} catch( Exception e ) {
 			
-			logger.error( e.getMessage() );
-				
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 				
 			throw new IOFileException( "The file is not valid ( " + file + " )" );
 						
@@ -478,9 +444,7 @@ public class IOFileUtils {
 																	
 		} catch( Exception e ) {
 			
-			logger.error( e.getMessage() );
-				
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 				
 			throw new IOFileException( e.getMessage() );
 						
@@ -502,9 +466,7 @@ public class IOFileUtils {
 																			
 		} catch ( IOFileException e ) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 		
@@ -526,9 +488,7 @@ public class IOFileUtils {
 																			
 		} catch ( IOFileException e ) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 		
@@ -574,9 +534,7 @@ public class IOFileUtils {
 
 		} catch( Exception e ) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 		
@@ -619,9 +577,7 @@ public class IOFileUtils {
 			
 		} catch( Exception e ) {
 						
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 		
@@ -658,9 +614,7 @@ public class IOFileUtils {
 			
 		} catch( Exception e ) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 		
@@ -698,9 +652,7 @@ public class IOFileUtils {
 			
 		} catch( Exception e ) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 		
@@ -740,9 +692,7 @@ public class IOFileUtils {
 			
 		} catch( Exception e ) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException( e.getMessage() );
 		
@@ -776,9 +726,7 @@ public class IOFileUtils {
 			
 		} catch ( IOException e ) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException(e.getMessage() );
 		
@@ -812,9 +760,7 @@ public class IOFileUtils {
 			
 		} catch ( IOException e ) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException(e.getMessage() );
 		
@@ -847,9 +793,7 @@ public class IOFileUtils {
 			
 		} catch ( IOException e ) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException(e.getMessage() );
 		
@@ -885,9 +829,7 @@ public class IOFileUtils {
 			
 		} catch ( IOException e ) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new IOFileException(e.getMessage() );
 		

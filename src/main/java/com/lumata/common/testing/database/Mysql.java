@@ -42,7 +42,9 @@ public class Mysql {
 			this.connect();
 					
 		} catch( Exception e ) {
-			logger.error( e.getMessage());
+			
+			logger.error( e.getMessage(), e );
+		
 		}
 		
 	}
@@ -75,8 +77,11 @@ public class Mysql {
 			logger.debug( "Mysql parameters has been loaded");
 			
 			this.connect();
+		
 		} catch( JSONException e ) {
-			logger.error( e.getMessage());
+
+			logger.error( e.getMessage(), e );
+			
 		}
 		
 	}
@@ -93,21 +98,18 @@ public class Mysql {
 			
 		} catch ( SQLException e1 ) {	
 			
-			logger.error( e1.getMessage() );
-			
-			e1.printStackTrace();
-			
+			logger.error( e1.getMessage(), e1 );
+						
 			try {
 				
 				if( this.dbConn != null ) this.dbConn.close();
 				
 			} catch ( SQLException e2 ) {
 				
-				logger.error(e2.getMessage());
-				
-				e2.printStackTrace();
+				logger.error( e2.getMessage(), e2 );
 				
 			}
+			
 		}	
 		 
 	}
@@ -131,10 +133,8 @@ public class Mysql {
 			
 			if( statement != null ) try { statement.close(); } catch ( SQLException e2 ) {}
 						
-			logger.error( e1.getMessage() );
-			
-			e1.printStackTrace();			
-			
+			logger.error( e1.getMessage(), e1 );
+					
 		}		
 		 
 		return rs;
@@ -160,9 +160,7 @@ public class Mysql {
 			
 			if( statement != null ) try { statement.close(); } catch ( SQLException e2 ) {}
 						
-			logger.error( e1.getMessage() );
-			
-			e1.printStackTrace();			
+			logger.error( e1.getMessage(), e1 );
 			
 		}			
 		 
@@ -180,9 +178,7 @@ public class Mysql {
 			
 		} catch (SQLException e) {
 
-			logger.error( e.getMessage() );
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 		
 		}
 				 

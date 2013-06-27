@@ -61,9 +61,7 @@ public class ResourceProperties {
 					    
 					} catch( Exception e ) {
 						
-						logger.error( e.getMessage() );
-						
-						e.printStackTrace();
+						logger.error( e.getMessage(), e );
 						
 						/* skipped */
 					    result[ 1 ]++;
@@ -76,17 +74,13 @@ public class ResourceProperties {
 			
 		} catch( IOException e ) {
 			
-			logger.error( e.getMessage() );
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new ResourcePropertiesException(e.getMessage());
 			
 		} catch( IOFileException e ) {
 			
-			logger.error( e.getMessage() );
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new ResourcePropertiesException(e.getMessage());
 						

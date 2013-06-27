@@ -87,9 +87,7 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 						        	
 						        } catch (JSONException e) {
 						            
-						        	logger.error( e.getMessage() );
-						        	
-						        	e.printStackTrace();
+						        	logger.error( e.getMessage(), e );
 						        	
 						        }
 								
@@ -101,9 +99,7 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 					
 				} catch( Exception e ) {
 					
-					logger.error( e.getMessage() );
-					
-					e.printStackTrace();
+					logger.error( e.getMessage(), e );
 					
 				}
 				

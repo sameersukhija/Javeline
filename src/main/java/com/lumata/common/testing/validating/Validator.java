@@ -77,8 +77,7 @@ public class Validator {
 			if( validatorCfg.isNull(index) ) return null;
 			else return validatorCfg.getJSONObject(index);
 		} catch( Exception e ) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 		} 
 		
 		return null;
@@ -91,8 +90,7 @@ public class Validator {
 			if( loadValidator( index ).isNull("validationType") ) return null;
 			else return validatorType.valueOf(loadValidator( index ).getString("validationType"));
 		} catch( Exception e ) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 		} 
 		
 		return null;
@@ -105,8 +103,7 @@ public class Validator {
 			if( loadValidator( index ).isNull("validationParam") ) return null;
 			else return loadValidator( index ).getString("validationParam");
 		} catch( Exception e ) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 		}
 		
 		return null;
@@ -119,8 +116,7 @@ public class Validator {
 			if( loadValidator( index ).isNull("validationFormat") ) return null;
 			else return loadValidator( index ).getString("validationFormat");
 		} catch( Exception e ) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 		}
 		
 		return null;
@@ -133,8 +129,7 @@ public class Validator {
 			if( loadValidator( index ).isNull("validationFilter") ) return null;
 			else return loadValidator( index ).getString("validationFilter");
 		} catch( Exception e ) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 		}
 		
 		return null;
@@ -147,8 +142,7 @@ public class Validator {
 			if( loadValidator( index ).isNull("validationOp") ) return null;
 			else return loadValidator( index ).getString("validationOp");
 		} catch( Exception e ) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 		}
 		
 		return null;
@@ -161,8 +155,7 @@ public class Validator {
 			if( loadValidator( index ).isNull("validationAllowBlank") ) return false;
 			else return loadValidator( index ).getBoolean("validationAllowBlank");
 		} catch( Exception e ) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 		}
 		
 		return false;
@@ -175,8 +168,7 @@ public class Validator {
 			if( loadValidator( index ).isNull("validationExpected") ) return false;
 			else return loadValidator( index ).getBoolean("validationExpected");
 		} catch( Exception e ) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 		}
 		
 		return false;

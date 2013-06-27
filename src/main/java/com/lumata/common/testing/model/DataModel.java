@@ -37,17 +37,13 @@ public class DataModel {
 			
 		} catch( IOFileException ioe ) { 
 			
-			logger.error(ioe.getMessage());
-			
-			ioe.printStackTrace();
+			logger.error(ioe.getMessage(), ioe);
 			
 			throw new DataModelException( ioe.getMessage() );
 			
 		} catch( JSONSException je ) { 
 			
-			logger.error(je.getMessage());
-			
-			je.printStackTrace();			
+			logger.error(je.getMessage(), je);
 			
 			throw new DataModelException( je.getMessage() );
 			
@@ -71,17 +67,13 @@ public class DataModel {
 			
 		} catch( IOFileException ioe ) { 
 			
-			logger.error(ioe.getMessage());
-			
-			ioe.printStackTrace();
+			logger.error(ioe.getMessage(), ioe);
 			
 			throw new DataModelException( ioe.getMessage() );
 			
 		} catch( JSONSException je ) { 
 			
-			logger.error(je.getMessage());
-			
-			je.printStackTrace();			
+			logger.error(je.getMessage(), je);
 			
 			throw new DataModelException( je.getMessage() );
 			
@@ -104,9 +96,7 @@ public class DataModel {
 		
 		} catch( JSONException je ) {
 
-			logger.error(je.getMessage());
-			
-			je.printStackTrace();
+			logger.error(je.getMessage(), je);
 		
 		}
 		
@@ -123,9 +113,7 @@ public class DataModel {
 		
 		} catch( Exception e ) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 			
 		}
 		
@@ -142,9 +130,7 @@ public class DataModel {
 		
 		} catch( Exception e ) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 			
 		}
 		

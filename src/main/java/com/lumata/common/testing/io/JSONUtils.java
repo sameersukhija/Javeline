@@ -29,18 +29,14 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 		} catch (JSONException e) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new JSONSException(e.getMessage());
 		
 		} catch (IOFileException e) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
-			
+			logger.error( e.getMessage(), e );
+		
 			throw new JSONSException(e.getMessage());
 		
 		}
@@ -61,17 +57,13 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 		} catch (JSONException e) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
-			
+			logger.error( e.getMessage(), e );
+		
 			throw new JSONSException(e.getMessage());
 		
 		} catch (IOFileException e) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new JSONSException(e.getMessage());
 		
@@ -93,17 +85,13 @@ public class JSONUtils extends JSONConfigurationUtils {
 																	
 		} catch (JSONException e) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new JSONSException(e.getMessage());
 		
 		} catch (IOFileException e) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new JSONSException(e.getMessage());
 		
@@ -125,17 +113,13 @@ public class JSONUtils extends JSONConfigurationUtils {
 																	
 		} catch (JSONException e) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new JSONSException(e.getMessage());
 		
 		} catch (IOFileException e) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new JSONSException(e.getMessage());
 		
@@ -155,9 +139,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 		} catch (IOFileException e) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new JSONSException(e.getMessage());
 		
@@ -175,9 +157,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 		} catch (IOFileException e) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new JSONSException(e.getMessage());
 		
@@ -195,9 +175,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 	 
 		} catch (IOFileException e) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new JSONSException(e.getMessage());
 		
@@ -215,9 +193,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 	 
 		} catch (IOFileException e) {
 			
-			logger.error(e.getMessage());
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new JSONSException(e.getMessage());
 		

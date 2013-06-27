@@ -46,17 +46,13 @@ public class Environment {
 									
 		} catch( JSONSException e ) {
 			
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new EnvironmentException( e.getMessage() );
 			
 		} catch( IOFileException e ) {			
 			
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new EnvironmentException( e.getMessage() );
 			
@@ -79,17 +75,13 @@ public class Environment {
 									
 		} catch( JSONSException e ) {
 			
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new EnvironmentException( e.getMessage() );
 			
 		} catch( IOFileException e ) {			
 			
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 			throw new EnvironmentException( e.getMessage() );
 			
@@ -105,9 +97,7 @@ public class Environment {
 			else return envCfg.getString("name");
 		} catch( Exception e ) {
 
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		
@@ -134,9 +124,7 @@ public class Environment {
 			else return envCfg.getString("host");
 		} catch( Exception e ) {
 
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		
@@ -151,9 +139,7 @@ public class Environment {
 			else return envCfg.getString("ip_address");
 		} catch( Exception e ) {
 
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		
@@ -168,9 +154,7 @@ public class Environment {
 			else return envCfg.getString("link");
 		} catch( Exception e ) {
 
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		
@@ -185,9 +169,7 @@ public class Environment {
 			else return envCfg.getJSONObject("users");
 		} catch( Exception e ) {
 
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		
@@ -202,9 +184,7 @@ public class Environment {
 			else return getUsers().getJSONObject( user.toLowerCase() );
 		} catch( Exception e ) {
 
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		
@@ -219,9 +199,7 @@ public class Environment {
 			else return getUser( user ).getString("username");
 		} catch( Exception e ) {
 
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		
@@ -236,9 +214,7 @@ public class Environment {
 			else return getUser( user ).getString("password");
 		} catch( Exception e ) {
 
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		
@@ -253,9 +229,7 @@ public class Environment {
 			else return envCfg.getJSONObject( "options" );
 		} catch( Exception e ) {
 
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		
@@ -270,9 +244,7 @@ public class Environment {
 			else return envCfg.getJSONObject("browsers");
 		} catch( Exception e ) {
 
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		
@@ -287,9 +259,7 @@ public class Environment {
 			else return getBrowsers().getJSONObject( SeleniumWebDriver.BrowserType.valueOf( browser.toUpperCase() ).toString() );
 		} catch( Exception e ) {
 
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		
@@ -304,9 +274,7 @@ public class Environment {
 			else return getBrowser( browser ).getJSONObject( "profile" );
 		} catch( Exception e ) {
 
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		
@@ -321,9 +289,7 @@ public class Environment {
 			else return envCfg.getJSONObject("data_sources");
 		} catch( Exception e ) {
 
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		
@@ -338,9 +304,7 @@ public class Environment {
 			else return getDataSources().getJSONObject(dataSource);
 		} catch( Exception e ) {
 
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		
@@ -366,9 +330,7 @@ public class Environment {
 			}
 		} catch( Exception e ) {
 
-			logger.error( e.getMessage() );			
-		
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		

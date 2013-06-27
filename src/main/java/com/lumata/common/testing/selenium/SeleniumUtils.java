@@ -32,7 +32,7 @@ public class SeleniumUtils {
 		
 		} catch(  InterruptedException e ) { 
 			
-			logger.error(e.getMessage()); 
+			logger.error(e.getMessage(), e); 
 		
 		} 
 		
