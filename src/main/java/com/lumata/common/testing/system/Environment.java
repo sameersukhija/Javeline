@@ -48,13 +48,13 @@ public class Environment {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new EnvironmentException( e.getMessage() );
+			throw new EnvironmentException( e.getMessage(), e );
 			
 		} catch( IOFileException e ) {			
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new EnvironmentException( e.getMessage() );
+			throw new EnvironmentException( e.getMessage(), e );
 			
 		} 			
 			
@@ -77,13 +77,13 @@ public class Environment {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new EnvironmentException( e.getMessage() );
+			throw new EnvironmentException( e.getMessage(), e );
 			
 		} catch( IOFileException e ) {			
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new EnvironmentException( e.getMessage() );
+			throw new EnvironmentException( e.getMessage(), e );
 			
 		} 			
 			
