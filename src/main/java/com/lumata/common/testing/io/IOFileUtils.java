@@ -698,6 +698,7 @@ public class IOFileUtils {
 		
 		File file;
 		FileOutputStream fop = null;
+		BufferedOutputStream os = null;
 		
 		try {
  
@@ -709,7 +710,7 @@ public class IOFileUtils {
 			
 			fop = new FileOutputStream( file );
 						
-			BufferedOutputStream os = new BufferedOutputStream(fop);
+			os = new BufferedOutputStream(fop);
 			os.write( String.valueOf( content ).getBytes() );
 			os.close();			
 			
@@ -729,6 +730,8 @@ public class IOFileUtils {
 				
 				if (fop != null) fop.close();
 				
+				if (os != null) os.close();
+				
 			} catch ( IOException e ) {
 				
 				logger.error(e.getMessage());
@@ -746,6 +749,7 @@ public class IOFileUtils {
 		
 		File file;
 		FileOutputStream fop = null;
+		BufferedOutputStream os = null;
 		
 		try {
 			
@@ -759,7 +763,7 @@ public class IOFileUtils {
 			
 			fop = new FileOutputStream( file );
 						
-			BufferedOutputStream os = new BufferedOutputStream(fop);
+			os = new BufferedOutputStream(fop);
 			os.write( String.valueOf( content ).getBytes() );
 			os.close();	
  
@@ -778,6 +782,8 @@ public class IOFileUtils {
 			try {
 				
 				if (fop != null) fop.close();
+				
+				if (os != null) os.close();
 				
 			} catch ( IOException e ) {
 				
