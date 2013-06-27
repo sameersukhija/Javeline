@@ -36,32 +36,24 @@ public class Format {
 	
 	public static boolean isLength( String value, Integer length, Operators op, boolean allowBlank ) {
 		
-		if( value.isEmpty() ) {
-			if( allowBlank ) { return true; }
-			else { return false; } 
-		}
+		if( value.isEmpty() ) { return allowBlank; } 
 				
 		switch( op ) {
 		
 			case MORE_THAN: {
-				if( value.length() >  length ) { return true; }
-				else { return false; }
+				return ( value.length() >  length );
 			}
 			case MORE_OR_EQUAL_THAN: {
-				if( value.length() >=  length ) { return true; }
-				else { return false; }
+				return ( value.length() >=  length );
 			}
 			case LESS_THAN: {
-				if( value.length() <  length ) { return true; }
-				else { return false; }
+				return( value.length() <  length );
 			}
 			case LESS_OR_EQUAL_THAN: {
-				if( value.length() <=  length ) { return true; }
-				else { return false; }
+				return( value.length() <=  length );
 			}
 			case EQUAL: {
-				if( value.length() ==  length ) { return true; }
-				else { return false; }
+				return ( value.length() ==  length );
 			}
 		
 		}
@@ -72,10 +64,7 @@ public class Format {
 	
 	public static boolean isDate(String dateStr, String dateFormat, boolean allowBlank ){
 		 
-		if(dateStr == null || dateStr.length() <= 0 ) {
-			if( allowBlank ) { return true; }
-			else { return false; }
-		}
+		if(dateStr == null || dateStr.length() <= 0 ) { return allowBlank; } 
 		
 		SimpleDateFormat sdf = new SimpleDateFormat( dateFormat );
 		 
@@ -92,10 +81,7 @@ public class Format {
 	
 	public static boolean isEmail( String value, String format, boolean allowBlank ) {
 		
-		if( value.isEmpty() ) {
-			if( allowBlank ) { return true; }
-			else { return false; } 
-		}
+		if( value.isEmpty() ) { return allowBlank; }
 		
 		if(value.matches(format)) { return true; }
 				
@@ -105,10 +91,7 @@ public class Format {
 	
 	public static boolean isMSISDN( String value, String format, String filter, boolean allowBlank ) {
 		
-		if( value.isEmpty() ) {
-			if( allowBlank ) { return true; }
-			else { return false; } 
-		}
+		if( value.isEmpty() ) { return allowBlank; }
 		
 		value = value.replaceAll(filter,"");
 		
@@ -120,10 +103,7 @@ public class Format {
 	
 	public static boolean isEnum( String value, String type, boolean allowBlank ) {
 		
-		if( value.isEmpty() ) {
-			if( allowBlank ) { return true; }
-			else { return false; } 
-		}
+		if( value.isEmpty() ) { return allowBlank; }
 		
 		try {
 			
@@ -139,10 +119,7 @@ public class Format {
 	
 	public static boolean isMapKey( String value, String type, Object obj, boolean allowBlank ) {
 		
-		if( value.isEmpty() ) {
-			if( allowBlank ) { return true; }
-			else { return false; }
-		}
+		if( value.isEmpty() ) { return allowBlank; }
 		
 		Map map;
 		
