@@ -93,8 +93,9 @@ public class Environment {
 	public String getName() {
 		
 		try {
-			if( envCfg.isNull("name") ) return null;
-			else return envCfg.getString("name");
+			
+			if( !envCfg.isNull("name") ) return envCfg.getString("name");
+		
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
@@ -120,8 +121,9 @@ public class Environment {
 	public String getHost() {
 		
 		try {
-			if( envCfg.isNull("host") ) return null;
-			else return envCfg.getString("host");
+			
+			if( !envCfg.isNull("host") ) return envCfg.getString("host");
+		
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
@@ -135,8 +137,9 @@ public class Environment {
 	public String getIPAddress() {
 		
 		try {
-			if( envCfg.isNull("ip_address") ) return null;
-			else return envCfg.getString("ip_address");
+			
+			if( !envCfg.isNull("ip_address") )  return envCfg.getString("ip_address");
+		
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
@@ -150,8 +153,9 @@ public class Environment {
 	public String getLink() {
 		
 		try {
-			if( envCfg.isNull("link") ) return null;
-			else return envCfg.getString("link");
+			
+			if( !envCfg.isNull("link") ) return envCfg.getString("link");
+		
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
@@ -165,8 +169,9 @@ public class Environment {
 	public JSONObject getUsers() {
 		
 		try {
-			if( envCfg.isNull("users") ) return null;
-			else return envCfg.getJSONObject("users");
+			
+			if( !envCfg.isNull("users") ) return envCfg.getJSONObject("users");
+		
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
@@ -180,8 +185,9 @@ public class Environment {
 	public JSONObject getUser( String user ) {
 		
 		try {
-			if( getUsers().isNull( user.toLowerCase() ) ) return null;
-			else return getUsers().getJSONObject( user.toLowerCase() );
+			
+			if( !getUsers().isNull( user.toLowerCase() ) ) return getUsers().getJSONObject( user.toLowerCase() );
+		
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
@@ -195,8 +201,9 @@ public class Environment {
 	public String getUserName( String user ) {
 		
 		try {
-			if( getUser( user ).isNull("username") ) return null;
-			else return getUser( user ).getString("username");
+			
+			if( !getUser( user ).isNull("username") ) return getUser( user ).getString("username");
+		
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
@@ -210,8 +217,9 @@ public class Environment {
 	public String getPassword( String user ) {
 		
 		try {
-			if( getUser( user ).isNull("password") ) return null;
-			else return getUser( user ).getString("password");
+			
+			if( !getUser( user ).isNull("password") ) return getUser( user ).getString("password");
+		
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
@@ -225,8 +233,9 @@ public class Environment {
 	public JSONObject getOptions() {
 		
 		try {
-			if( envCfg.isNull( "options" ) ) return null;
-			else return envCfg.getJSONObject( "options" );
+			
+			if( !envCfg.isNull( "options" ) ) return envCfg.getJSONObject( "options" );
+		
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
@@ -240,8 +249,9 @@ public class Environment {
 	public JSONObject getBrowsers() {
 		
 		try {
-			if( envCfg.isNull("browsers") ) return null;
-			else return envCfg.getJSONObject("browsers");
+			
+			if( !envCfg.isNull("browsers") ) return envCfg.getJSONObject("browsers");
+		
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
@@ -255,8 +265,10 @@ public class Environment {
 	public JSONObject getBrowser( String browser ) {
 		
 		try {
-			if( getBrowsers().isNull( SeleniumWebDriver.BrowserType.valueOf( browser.toUpperCase() ).toString() ) ) return null;
-			else return getBrowsers().getJSONObject( SeleniumWebDriver.BrowserType.valueOf( browser.toUpperCase() ).toString() );
+			
+			if( !getBrowsers().isNull( SeleniumWebDriver.BrowserType.valueOf( browser.toUpperCase() ).toString() ) ) 
+					return getBrowsers().getJSONObject( SeleniumWebDriver.BrowserType.valueOf( browser.toUpperCase() ).toString() );
+		
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
@@ -270,8 +282,9 @@ public class Environment {
 	public JSONObject getBrowserProfile( String browser ) {
 		
 		try {
-			if( getBrowser( browser ).isNull( "profile" ) ) return null;
-			else return getBrowser( browser ).getJSONObject( "profile" );
+			
+			if( !getBrowser( browser ).isNull( "profile" ) ) return getBrowser( browser ).getJSONObject( "profile" );
+		
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
@@ -285,8 +298,9 @@ public class Environment {
 	public JSONObject getDataSources() {
 		
 		try {
-			if( envCfg.isNull("data_sources") ) return null;
-			else return envCfg.getJSONObject("data_sources");
+			
+			if( !envCfg.isNull("data_sources") ) return envCfg.getJSONObject("data_sources");
+		
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
@@ -300,8 +314,9 @@ public class Environment {
 	public JSONObject getDataSource( String dataSource ) {
 		
 		try {
-			if( getDataSources().isNull(dataSource) ) return null;
-			else return getDataSources().getJSONObject(dataSource);
+			
+			if( !getDataSources().isNull(dataSource) ) return getDataSources().getJSONObject(dataSource);
+		
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
@@ -317,6 +332,7 @@ public class Environment {
 		Properties props = new Properties();
 		
 		try {
+			
 			if( getDataSources().isNull(dataSource) ) return null;
 			else {
 				JSONObject ds = getDataSource( dataSource );
@@ -328,6 +344,7 @@ public class Environment {
 					
 				return props;
 			}
+			
 		} catch( Exception e ) {
 
 			logger.error( e.getMessage(), e );
