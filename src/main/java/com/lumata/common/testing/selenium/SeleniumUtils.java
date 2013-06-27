@@ -91,7 +91,7 @@ public class SeleniumUtils {
 				
         		break;
             
-			} catch ( Exception e ) {}
+			} catch ( InterruptedException e ) {}
               
 		}
 		

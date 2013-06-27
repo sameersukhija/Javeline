@@ -19,6 +19,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 
 /**
  * This allows to manage the input and output.
@@ -143,7 +144,7 @@ public class IOFileUtils {
 			
 			logger.debug( "The resource has been loaded as input stream reader ( " + resource + " )" );
 		
-		} catch( Exception e ) {
+		} catch( UnsupportedEncodingException e ) {
 				
 			logger.error( e.getMessage(), e );
 			
@@ -167,7 +168,7 @@ public class IOFileUtils {
 			
 			logger.debug( "The resource has been loaded as input stream reader ( " + path + " )" );
 		
-		} catch( Exception e ) {
+		} catch( UnsupportedEncodingException e ) {
 				
 			logger.error( e.getMessage(), e );
 			
@@ -460,7 +461,7 @@ public class IOFileUtils {
 				
 				} else { logger.debug( "The parent path already exists ( " + file.toString() + " )" ); } 
 
-			} catch( Exception e ) {
+			} catch( NullPointerException e ) {
 				
 				logger.debug( "The file has not a parent path ( " + file.toString() + " )" );
 			

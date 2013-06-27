@@ -128,7 +128,9 @@ public class Format {
 			Field f = obj.getClass().getField(type);
 			map = (Map)f.get(obj);
 		
-		} catch( Exception e ) { return false; }
+		} catch( NoSuchFieldException e ) { return false; }
+		  catch( IllegalAccessException e ) { return false; }
+	
 		
 		if( map.containsKey(value) ) { return true; }
 		

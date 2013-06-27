@@ -26,7 +26,7 @@ public class Validator {
 	public boolean validation( String value, Object obj ) {
 		
 		
-		try {			
+		//try {			
 			
 			for( int i = 0; i < validatorCfg.length(); i++ ) {
 				
@@ -67,7 +67,7 @@ public class Validator {
 			
 			return true;
 			
-		} catch( Exception e ) { return false; }
+		//} catch( Exception e ) { return false; }
 				
 	}
 	
