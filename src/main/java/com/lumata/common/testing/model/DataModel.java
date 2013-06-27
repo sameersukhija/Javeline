@@ -39,13 +39,13 @@ public class DataModel {
 			
 			logger.error(ioe.getMessage(), ioe);
 			
-			throw new DataModelException( ioe.getMessage() );
+			throw new DataModelException( ioe.getMessage(), ioe );
 			
 		} catch( JSONSException je ) { 
 			
 			logger.error(je.getMessage(), je);
 			
-			throw new DataModelException( je.getMessage() );
+			throw new DataModelException( je.getMessage(), je );
 			
 		}
 		
@@ -69,13 +69,13 @@ public class DataModel {
 			
 			logger.error(ioe.getMessage(), ioe);
 			
-			throw new DataModelException( ioe.getMessage() );
+			throw new DataModelException( ioe.getMessage(), ioe );
 			
 		} catch( JSONSException je ) { 
 			
 			logger.error(je.getMessage(), je);
 			
-			throw new DataModelException( je.getMessage() );
+			throw new DataModelException( je.getMessage(), je );
 			
 		}
 		
@@ -91,8 +91,7 @@ public class DataModel {
 		
 		try {
 			
-			if( this.model.isNull( tableName ) ) return null;
-			else return this.model.getJSONArray( tableName );
+			if( !this.model.isNull( tableName ) ) { return this.model.getJSONArray( tableName ); }
 		
 		} catch( JSONException je ) {
 
@@ -108,8 +107,9 @@ public class DataModel {
 		
 		try {
 			
-			if( this.getModel( tableName ).getJSONObject(index).isNull("label") ) return null;
-			else return this.getModel(tableName).getJSONObject(index).getString("label");
+			if( !this.getModel( tableName ).getJSONObject(index).isNull("label") ) { 
+				return this.getModel(tableName).getJSONObject(index).getString("label");
+			}
 		
 		} catch( Exception e ) {
 			
@@ -125,8 +125,9 @@ public class DataModel {
 		
 		try {
 			
-			if( this.getModel( tableName ).getJSONObject(index).isNull("validator") ) return null;
-			else return this.getModel( tableName ).getJSONObject(index).getJSONArray("validator");
+			if( !this.getModel( tableName ).getJSONObject(index).isNull("validator") ) {
+				return this.getModel( tableName ).getJSONObject(index).getJSONArray("validator");
+			}
 		
 		} catch( Exception e ) {
 			

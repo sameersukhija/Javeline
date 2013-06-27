@@ -70,7 +70,7 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 					
 					if( browserProfile != null ) {
 						
-						if( !browserProfile.isNull( "file") ) profile = new FirefoxProfile( new File(browserProfile.getString("file")));
+						if( !browserProfile.isNull( "file") ) { profile = new FirefoxProfile( new File(browserProfile.getString("file"))); }
 						
 						if( !browserProfile.isNull( "options") ) {
 							
@@ -124,9 +124,7 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 		
 		} catch( MalformedURLException e ) {
 			
-			logger.error( e.getMessage() );
-			
-			e.printStackTrace();
+			logger.error( e.getMessage(), e );
 			
 		}
 		

@@ -76,13 +76,13 @@ public class ResourceProperties {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new ResourcePropertiesException(e.getMessage());
+			throw new ResourcePropertiesException(e.getMessage(), e);
 			
 		} catch( IOFileException e ) {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new ResourcePropertiesException(e.getMessage());
+			throw new ResourcePropertiesException(e.getMessage(), e);
 						
 		}
 		

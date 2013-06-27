@@ -37,31 +37,31 @@ public class Format {
 	public static boolean isLength( String value, Integer length, Operators op, boolean allowBlank ) {
 		
 		if( value.isEmpty() ) {
-			if( allowBlank ) return true;
-			else return false; 
+			if( allowBlank ) { return true; }
+			else { return false; } 
 		}
 				
 		switch( op ) {
 		
 			case MORE_THAN: {
-				if( value.length() >  length ) return true;
-				else return false;
+				if( value.length() >  length ) { return true; }
+				else { return false; }
 			}
 			case MORE_OR_EQUAL_THAN: {
-				if( value.length() >=  length ) return true;
-				else return false;
+				if( value.length() >=  length ) { return true; }
+				else { return false; }
 			}
 			case LESS_THAN: {
-				if( value.length() <  length ) return true;
-				else return false;
+				if( value.length() <  length ) { return true; }
+				else { return false; }
 			}
 			case LESS_OR_EQUAL_THAN: {
-				if( value.length() <=  length ) return true;
-				else return false;
+				if( value.length() <=  length ) { return true; }
+				else { return false; }
 			}
 			case EQUAL: {
-				if( value.length() ==  length ) return true;
-				else return false;
+				if( value.length() ==  length ) { return true; }
+				else { return false; }
 			}
 		
 		}
@@ -73,8 +73,8 @@ public class Format {
 	public static boolean isDate(String dateStr, String dateFormat, boolean allowBlank ){
 		 
 		if(dateStr == null || dateStr.length() <= 0 ) {
-			if( allowBlank ) return true;
-			else return false;
+			if( allowBlank ) { return true; }
+			else { return false; }
 		}
 		
 		SimpleDateFormat sdf = new SimpleDateFormat( dateFormat );
@@ -84,7 +84,7 @@ public class Format {
 		try { date = sdf.parse(dateStr); } 
 		catch ( ParseException e ) { return false; }	
 		
-		if (!sdf.format(date).equals(dateStr)) return false;
+		if (!sdf.format(date).equals(dateStr)) { return false; }
 		
 		return true;
 				
@@ -93,11 +93,11 @@ public class Format {
 	public static boolean isEmail( String value, String format, boolean allowBlank ) {
 		
 		if( value.isEmpty() ) {
-			if( allowBlank ) return true;
-			else return false; 
+			if( allowBlank ) { return true; }
+			else { return false; } 
 		}
 		
-		if(value.matches(format)) return true;
+		if(value.matches(format)) { return true; }
 				
 		return false;
 		
@@ -106,13 +106,13 @@ public class Format {
 	public static boolean isMSISDN( String value, String format, String filter, boolean allowBlank ) {
 		
 		if( value.isEmpty() ) {
-			if( allowBlank ) return true;
-			else return false; 
+			if( allowBlank ) { return true; }
+			else { return false; } 
 		}
 		
 		value = value.replaceAll(filter,"");
 		
-		if( value.matches(format)) return true;
+		if( value.matches(format)) { return true; }
 				
 		return false;
 		
@@ -121,8 +121,8 @@ public class Format {
 	public static boolean isEnum( String value, String type, boolean allowBlank ) {
 		
 		if( value.isEmpty() ) {
-			if( allowBlank ) return true;
-			else return false; 
+			if( allowBlank ) { return true; }
+			else { return false; } 
 		}
 		
 		try {
@@ -140,8 +140,8 @@ public class Format {
 	public static boolean isMapKey( String value, String type, Object obj, boolean allowBlank ) {
 		
 		if( value.isEmpty() ) {
-			if( allowBlank ) return true;
-			else return false; 
+			if( allowBlank ) { return true; }
+			else { return false; }
 		}
 		
 		Map map;
@@ -153,7 +153,7 @@ public class Format {
 		
 		} catch( Exception e ) { return false; }
 		
-		if( map.containsKey(value) ) return true;
+		if( map.containsKey(value) ) { return true; }
 		
 		return false;		
 		

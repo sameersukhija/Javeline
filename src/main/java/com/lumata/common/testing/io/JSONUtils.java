@@ -31,13 +31,13 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new JSONSException(e.getMessage());
+			throw new JSONSException(e.getMessage(), e);
 		
 		} catch (IOFileException e) {
 			
 			logger.error( e.getMessage(), e );
 		
-			throw new JSONSException(e.getMessage());
+			throw new JSONSException(e.getMessage(), e);
 		
 		}
     		
@@ -59,13 +59,13 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.error( e.getMessage(), e );
 		
-			throw new JSONSException(e.getMessage());
+			throw new JSONSException(e.getMessage(), e);
 		
 		} catch (IOFileException e) {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new JSONSException(e.getMessage());
+			throw new JSONSException(e.getMessage(), e);
 		
 		}
     		
@@ -87,13 +87,13 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new JSONSException(e.getMessage());
+			throw new JSONSException(e.getMessage(), e);
 		
 		} catch (IOFileException e) {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new JSONSException(e.getMessage());
+			throw new JSONSException(e.getMessage(), e);
 		
 		}
     		
@@ -115,13 +115,13 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new JSONSException(e.getMessage());
+			throw new JSONSException(e.getMessage(), e);
 		
 		} catch (IOFileException e) {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new JSONSException(e.getMessage());
+			throw new JSONSException(e.getMessage(), e);
 		
 		}
     		
@@ -141,7 +141,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new JSONSException(e.getMessage());
+			throw new JSONSException(e.getMessage(), e);
 		
 		}
 		
@@ -159,7 +159,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new JSONSException(e.getMessage());
+			throw new JSONSException(e.getMessage(), e);
 		
 		}
 		
@@ -177,7 +177,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new JSONSException(e.getMessage());
+			throw new JSONSException(e.getMessage(), e);
 		
 		}
 		
@@ -195,7 +195,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new JSONSException(e.getMessage());
+			throw new JSONSException(e.getMessage(), e);
 		
 		}
 		

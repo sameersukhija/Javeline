@@ -47,7 +47,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException( e.getMessage() );
+			throw new IOFileException( e.getMessage(), e );
 		
 		}
 		
@@ -75,7 +75,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException( e.getMessage() );
+			throw new IOFileException( e.getMessage(), e );
 		
 		}
 		
@@ -99,7 +99,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException( e.getMessage() );
+			throw new IOFileException( e.getMessage(), e );
 		
 		}
 		
@@ -125,7 +125,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException( e.getMessage() );
+			throw new IOFileException( e.getMessage(), e );
 		
 		}
 		
@@ -147,7 +147,7 @@ public class IOFileUtils {
 				
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException( e.getMessage() );
+			throw new IOFileException( e.getMessage(), e );
 						
 		}
 		
@@ -171,7 +171,7 @@ public class IOFileUtils {
 				
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException( e.getMessage() );
+			throw new IOFileException( e.getMessage(), e );
 						
 		}
 		
@@ -193,7 +193,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException( e.getMessage() );
+			throw new IOFileException( e.getMessage(), e );
 			
 		}	
 				
@@ -215,7 +215,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException( e.getMessage() );
+			throw new IOFileException( e.getMessage(), e );
 			
 		}	
 				
@@ -292,7 +292,7 @@ public class IOFileUtils {
 				
 			logger.error( e.getMessage(), e );
 				
-			throw new IOFileException( "The file is not valid ( " + file + " )" );
+			throw new IOFileException( "The file is not valid ( " + file + " )", e );
 						
 		}
 		
@@ -317,7 +317,7 @@ public class IOFileUtils {
 				
 			logger.error( e.getMessage(), e );
 				
-			throw new IOFileException( "The file is not valid ( " + path + " )" );
+			throw new IOFileException( "The file is not valid ( " + path + " )", e );
 						
 		}
 			
@@ -339,7 +339,7 @@ public class IOFileUtils {
 				
 			logger.error( e.getMessage(), e );
 				
-			throw new IOFileException( "The file is not valid ( " + file + " )" );
+			throw new IOFileException( "The file is not valid ( " + file + " )", e );
 						
 		}
 		
@@ -364,7 +364,7 @@ public class IOFileUtils {
 				
 			logger.error( e.getMessage(), e );
 				
-			throw new IOFileException( "The file is not valid ( " + path + " )" );
+			throw new IOFileException( "The file is not valid ( " + path + " )", e );
 						
 		}
 		
@@ -386,7 +386,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 				
-			throw new IOFileException( "The file is not valid ( " + file + " )" );
+			throw new IOFileException( "The file is not valid ( " + file + " )", e );
 						
 		}
     		
@@ -408,7 +408,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 				
-			throw new IOFileException( e.getMessage() );
+			throw new IOFileException( e.getMessage(), e );
 						
 		}
     						
@@ -478,7 +478,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException( e.getMessage() );
+			throw new IOFileException( e.getMessage(), e );
 		
 		}
 		
@@ -521,7 +521,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException( e.getMessage() );
+			throw new IOFileException( e.getMessage(), e );
 		
 		} finally {
 			
@@ -558,7 +558,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException( e.getMessage() );
+			throw new IOFileException( e.getMessage(), e );
 		
 		} finally {
 			
@@ -596,7 +596,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException( e.getMessage() );
+			throw new IOFileException( e.getMessage(), e );
 		
 		} finally {
 			
@@ -636,7 +636,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException( e.getMessage() );
+			throw new IOFileException( e.getMessage(), e );
 		
 		} finally {
 			
@@ -670,7 +670,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException(e.getMessage() );
+			throw new IOFileException(e.getMessage(), e );
 		
 		} finally {
 							
@@ -704,7 +704,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException(e.getMessage() );
+			throw new IOFileException(e.getMessage(), e );
 		
 		} finally {
 			
@@ -737,7 +737,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException(e.getMessage() );
+			throw new IOFileException(e.getMessage(), e );
 		
 		} finally {
 			
@@ -773,7 +773,7 @@ public class IOFileUtils {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new IOFileException(e.getMessage() );
+			throw new IOFileException(e.getMessage(), e );
 		
 		} finally {
 			

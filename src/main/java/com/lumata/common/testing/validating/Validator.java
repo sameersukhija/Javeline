@@ -36,27 +36,27 @@ public class Validator {
 						return true;
 					}
 					case DATE: { 
-						if( Format.isDate( value, loadValidatorFormat( i ), loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) return false; 
+						if( Format.isDate( value, loadValidatorFormat( i ), loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) { return false; } 
 						break;
 					} 
 					case MSISDN: { 
-						if( Format.isMSISDN( value, loadValidatorFormat( i ), loadValidatorFilter( i ), loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) return false; 
+						if( Format.isMSISDN( value, loadValidatorFormat( i ), loadValidatorFilter( i ), loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) { return false; } 
 						break;  
 					}
 					case LENGHT: { 
-						if( Format.isLength( value, Integer.valueOf(loadValidatorParam( i )), Operators.valueOf(loadValidatorOperator( i )), loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) return false; 
+						if( Format.isLength( value, Integer.valueOf(loadValidatorParam( i )), Operators.valueOf(loadValidatorOperator( i )), loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) { return false; } 
 						break; 
 					}
 					case ENUM: { 
-						if( Format.isEnum( value, loadValidatorFormat( i ), loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) return false; 
+						if( Format.isEnum( value, loadValidatorFormat( i ), loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) { return false; } 
 						break; 
 					}
 					case MAP: { 
-						if( Format.isMapKey( value, loadValidatorFormat( i ), obj, loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) return false; 
+						if( Format.isMapKey( value, loadValidatorFormat( i ), obj, loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) { return false; }
 						break; 
 					}
 					case EMAIL: { 
-						if( Format.isEmail( value, loadValidatorFormat( i ), loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) return false; 
+						if( Format.isEmail( value, loadValidatorFormat( i ), loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) { return false; } 
 						break; 
 					}	
 					default: return false;
