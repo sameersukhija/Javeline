@@ -27,11 +27,13 @@ import java.io.UnsupportedEncodingException;
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
-public class IOFileUtils {
+public final class IOFileUtils {
 	
 	private static final Logger logger = LoggerFactory.getLogger( IOFileUtils.class );
 	private final static String RESOURCE_ROOT = "lumata-common-testing/";
-		
+	
+	private IOFileUtils() {}
+	
 	public static String buildResourcePath( String resource ) throws IOFileException {
 		
 		try {

@@ -15,7 +15,7 @@ import com.lumata.common.testing.log.Log;
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
-public class SeleniumUtils {
+public final class SeleniumUtils {
 
 	private final static long TIMEOUT = 30000;
 	private final static long INTERVAL = 1000;
@@ -23,6 +23,8 @@ public class SeleniumUtils {
 	private static final  Logger logger = LoggerFactory.getLogger( SeleniumUtils.class );
 	
 	public enum SearchBy { ID, LINK, TAG_NAME, XPATH, CSS  }
+	
+	private SeleniumUtils() {}
 	
 	public static void waitFor( long timeout ) {
 		

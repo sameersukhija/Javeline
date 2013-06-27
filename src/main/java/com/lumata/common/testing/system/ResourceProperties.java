@@ -16,10 +16,12 @@ import com.lumata.common.testing.io.IOFileUtils;
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
-public class ResourceProperties {
+public final class ResourceProperties {
 
 	private static final  Logger logger = LoggerFactory.getLogger( ResourceProperties.class );
-		
+	
+	private ResourceProperties() {}
+	
 	public static int[] load( String resource ) throws ResourcePropertiesException {
 		
 		int[] result = new int[2];

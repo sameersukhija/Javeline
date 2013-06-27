@@ -14,6 +14,8 @@ public class RestClient {
 
 	private static final  Logger logger = LoggerFactory.getLogger( RestClient.class );
 	
+	private RestClient() {}
+	
 	public static ClientResponse<String> get( String url) {
 		
 		ClientResponse<String> response = null;

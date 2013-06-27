@@ -12,8 +12,10 @@ import java.util.regex.Pattern;
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
-public class Format {
+public final class Format {
 
+	private Format() {}
+	
 	public enum Operators { 
 		
 		MORE_THAN(">"),
