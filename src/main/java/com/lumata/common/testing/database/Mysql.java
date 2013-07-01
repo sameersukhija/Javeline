@@ -22,6 +22,8 @@ public class Mysql {
 	private int dbPort; 
 	private String dbUser;
 	private String dbPasswd;
+	
+	public enum MysqlFieldType { Field, Type, Null, Key, Default, Extra }
 		
 	public Mysql() {
 			
@@ -64,6 +66,7 @@ public class Mysql {
 	public Mysql( JSONObject dataSource ) {
 		
 		try {
+			
 			this.dbConn = null;
 			this.dbHost = dataSource.getString("host");
 			this.dbName = dataSource.getString("name");
@@ -91,7 +94,7 @@ public class Mysql {
 			
 			this.dbConn = DriverManager.getConnection( url, this.dbUser, this.dbPasswd);
 			
-			logger.debug( "The connection has been established");
+			logger.debug( "The connection has been established ( " + url + " ) ");
 			
 		} catch ( SQLException e1 ) {	
 			
@@ -122,9 +125,7 @@ public class Mysql {
 			
 			rs = statement.executeQuery( query );
 			
-			statement.close();
-			
-			logger.debug( "The statement has been executed");
+			logger.debug( "The statement has been executed ( " + query + " )" );
 			
 		} catch ( SQLException e1 ) {	
 			
@@ -147,11 +148,9 @@ public class Mysql {
 			
 			statement = this.dbConn.createStatement();
 			
-			rs = statement.executeUpdate( query, Statement.RETURN_GENERATED_KEYS );		
+			rs = statement.executeUpdate( query, Statement.RETURN_GENERATED_KEYS );
 			
-			statement.close();
-			
-			logger.debug( "The statement has been executed");
+			logger.debug( "The statement has been executed ( " + query + " )" );
 			
 		} catch ( SQLException e1 ) {	
 			
