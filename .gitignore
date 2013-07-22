@@ -3,5 +3,6 @@
 .settings*
 .orig
 .directory
+.idea
 target/*
 test-output/*
