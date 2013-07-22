@@ -284,8 +284,8 @@ public class DataModel {
 				final String FIELD_TYPE = mysqlFieldType.toString().toLowerCase();
 				
 				if( !tableLeftField.getString( FIELD_TYPE ).equals( tableRightField.getString( FIELD_TYPE ) )) {
-					logger.info( "FIELDS DIFF");
-					tableLeftFieldDiff.put( FIELD_TYPE, tableLeftField.getString( FIELD_TYPE ));										
+
+                    tableLeftFieldDiff.put( FIELD_TYPE, tableLeftField.getString( FIELD_TYPE ));
 					tableRightFieldDiff.put( FIELD_TYPE, tableRightField.getString( FIELD_TYPE ));
 				
 				}

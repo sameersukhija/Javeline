@@ -367,8 +367,6 @@ public class DataModelCompare {
 
         try {
 
-            logger.info( "Left: " + dmJsonLeft.length() + " Right: " + dmJsonRight.length() );
-
             @SuppressWarnings("unchecked")
             Iterator<String> keys1 = dmJsonLeft.keys();
             while( keys1.hasNext() ) {
@@ -615,8 +613,6 @@ public class DataModelCompare {
                         int rowLeftIndex;
                         int rowRightIndex;
                         int lastRowRightIndex = 1;
-
-                        logger.info( "LEFT: " + tableLeftContent.length() + " - RIGHT: " + tableRightContent.length() );
 
                         for( rowLeftIndex = 1; rowLeftIndex < tableLeftContent.length(); rowLeftIndex++ ) {
 
