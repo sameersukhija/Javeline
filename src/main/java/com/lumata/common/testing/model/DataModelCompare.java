@@ -699,9 +699,9 @@ public class DataModelCompare {
 
         try {
 
-            String SELECT_FIELDS = "";
+            StringBuffer SELECT_FIELDS_BUFFER = new StringBuffer();
 
-            for( int i = 0; i < header.length(); i++ ) { SELECT_FIELDS = SELECT_FIELDS + header.getString( i ) + ", "; }
+            for( int i = 0; i < header.length(); i++ ) { SELECT_FIELDS_BUFFER = SELECT_FIELDS_BUFFER.append( header.getString( i ) ).append( ", " ); }
 
             JSONArray table_header = new JSONArray( header.toString() );
 
@@ -709,13 +709,15 @@ public class DataModelCompare {
 
             table.put( table_header );
 
-            SELECT_FIELDS = SELECT_FIELDS.substring( 0, SELECT_FIELDS.length() - 2 );
+            String SELECT_FIELDS = SELECT_FIELDS_BUFFER.substring( 0, SELECT_FIELDS_BUFFER.length() - 2 );
 
-            String query = "SELECT " + SELECT_FIELDS + " FROM " + tableName + " ORDER BY " + header.getString( 0 ) + ";";
+            StringBuffer query_buffer = new StringBuffer();
+
+            query_buffer = query_buffer.append( "SELECT " ).append( SELECT_FIELDS ).append( " FROM " ).append( tableName ).append( " ORDER BY " ).append( header.getString( 0 ) ).append( ";" );
 
             Mysql mysql = new Mysql( dataSource );
 
-            ResultSet rs = mysql.execQuery( query );
+            ResultSet rs = mysql.execQuery( query_buffer.toString() );
 
             while( rs.next() ) {
 
