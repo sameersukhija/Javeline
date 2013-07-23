@@ -53,7 +53,9 @@ public class Security {
 
             for( int i = 0; i < text_in_bytes.length; i++ ) {
 
-                StringBuilder bytes = new StringBuilder( Integer.toBinaryString( text_in_bytes[ i ] ) );
+                StringBuffer bytes = new StringBuffer();
+
+                bytes.append( Integer.toBinaryString( text_in_bytes[ i ] ) );
 
                 for( int j = 0; j < bytes.length() - 1; j += 2 ) {
 
@@ -67,7 +69,7 @@ public class Security {
                 else bytes.setCharAt(bytes.length() - 1, '0');
 
                 int charCode = Integer.parseInt( bytes.toString(), 2 );
-                codified = codified + new Character((char)charCode).toString();
+                codified = codified + Character.valueOf((char)charCode).toString();
 
             }
 

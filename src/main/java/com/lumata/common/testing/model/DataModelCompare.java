@@ -26,6 +26,7 @@ public class DataModelCompare {
 	private String compareDMName;
 	private String leftDMName;
 	private String rightDMName;
+    private final static String STATUS_FIELD = "_STATUS_";
 
     public enum TABLE_STATUSES { plus, minus, difference, unknown }
 	
@@ -175,7 +176,7 @@ public class DataModelCompare {
 
         try {
 
-            if( !this.getDataModelTable( dataModelName, tableName ).isNull( "_STATUS_" ) ) { return this.getDataModelTable( dataModelName, tableName ).getString( "_STATUS_" ); }
+            if( !this.getDataModelTable( dataModelName, tableName ).isNull( STATUS_FIELD ) ) { return this.getDataModelTable( dataModelName, tableName ).getString( STATUS_FIELD ); }
 
         } catch( JSONException je ) {
 
@@ -237,7 +238,7 @@ public class DataModelCompare {
 						
 					}
 
-                    fieldMap.put( "_STATUS_", ( !field.isNull( "_STATUS_" ) ? field.getString( "_STATUS_" ) : "" ) );
+                    fieldMap.put( STATUS_FIELD, ( !field.isNull( STATUS_FIELD ) ? field.getString( STATUS_FIELD ) : "" ) );
 
 					fieldsList.add( fieldMap ); 
 					
@@ -443,14 +444,14 @@ public class DataModelCompare {
                                             if( dmDiffLeft.isNull( tableName ) || dmDiffLeft.getJSONObject( tableName ).isNull( "fields" ) ) dmDiffLeft.put( tableName, new JSONObject( "{ \"fields\": " + new JSONArray() + " }" ) );
                                             if( dmDiffRight.isNull( tableName ) || dmDiffRight.getJSONObject( tableName ).isNull( "fields" ) ) dmDiffRight.put( tableName, new JSONObject( "{ \"fields\": " + new JSONArray() + " }" ) );
 
-                                            tableLeftFieldDiff.put( "_STATUS_", TABLE_STATUSES.difference.toString() );
-                                            tableRightFieldDiff.put( "_STATUS_", TABLE_STATUSES.difference.toString() );
+                                            tableLeftFieldDiff.put( STATUS_FIELD, TABLE_STATUSES.difference.toString() );
+                                            tableRightFieldDiff.put( STATUS_FIELD, TABLE_STATUSES.difference.toString() );
 
                                             dmDiffLeft.getJSONObject( tableName ).getJSONArray( "fields" ).put( tableLeftFieldDiff );
                                             dmDiffRight.getJSONObject( tableName ).getJSONArray( "fields" ).put( tableRightFieldDiff );
 
-                                            dmDiffLeft.getJSONObject( tableName ).put( "_STATUS_", TABLE_STATUSES.difference.toString() );
-                                            dmDiffRight.getJSONObject( tableName ).put( "_STATUS_", TABLE_STATUSES.difference.toString() );
+                                            dmDiffLeft.getJSONObject( tableName ).put( STATUS_FIELD, TABLE_STATUSES.difference.toString() );
+                                            dmDiffRight.getJSONObject( tableName ).put( STATUS_FIELD, TABLE_STATUSES.difference.toString() );
 
                                         }
 
@@ -468,15 +469,15 @@ public class DataModelCompare {
                                     if( dmDiffLeft.isNull( tableName ) || dmDiffLeft.getJSONObject( tableName ).isNull( "fields" ) ) dmDiffLeft.put( tableName, new JSONObject( "{ \"fields\": " + new JSONArray() + " }" ) );
                                     if( dmDiffRight.isNull( tableName ) || dmDiffRight.getJSONObject( tableName ).isNull( "fields" )  ) dmDiffRight.put( tableName, new JSONObject( "{ \"fields\": " + new JSONArray() + " }" ) );
 
-                                    tableLeftField.put( "_STATUS_", TABLE_STATUSES.plus.toString() );
+                                    tableLeftField.put( STATUS_FIELD, TABLE_STATUSES.plus.toString() );
                                     dmDiffLeft.getJSONObject( tableName ).getJSONArray( "fields" ).put( tableLeftField );
 
                                     JSONObject tableRightField = new JSONObject( tableLeftField.toString() );
-                                    tableRightField.put( "_STATUS_", TABLE_STATUSES.minus.toString() );
+                                    tableRightField.put( STATUS_FIELD, TABLE_STATUSES.minus.toString() );
                                     dmDiffRight.getJSONObject( tableName ).getJSONArray( "fields" ).put( tableRightField );
 
-                                    dmDiffLeft.getJSONObject( tableName ).put( "_STATUS_", TABLE_STATUSES.difference.toString() );
-                                    dmDiffRight.getJSONObject( tableName ).put( "_STATUS_", TABLE_STATUSES.difference.toString() );
+                                    dmDiffLeft.getJSONObject( tableName ).put( STATUS_FIELD, TABLE_STATUSES.difference.toString() );
+                                    dmDiffRight.getJSONObject( tableName ).put( STATUS_FIELD, TABLE_STATUSES.difference.toString() );
 
                                 }
 
@@ -668,8 +669,8 @@ public class DataModelCompare {
 
                         }
 
-                        dmDiffLeft.getJSONObject( tableName ).put( "_STATUS_", TABLE_STATUSES.difference.toString() );
-                        dmDiffRight.getJSONObject( tableName ).put( "_STATUS_", TABLE_STATUSES.difference.toString() );
+                        dmDiffLeft.getJSONObject( tableName ).put( STATUS_FIELD, TABLE_STATUSES.difference.toString() );
+                        dmDiffRight.getJSONObject( tableName ).put( STATUS_FIELD, TABLE_STATUSES.difference.toString() );
 
                         logger.info( "LEFT: " + tableLeftContent.length() + " - RIGHT: " + tableRightContent.length() );
 
@@ -705,7 +706,7 @@ public class DataModelCompare {
 
             JSONArray table_header = new JSONArray( header.toString() );
 
-            table_header.put( "_STATUS_" );
+            table_header.put( STATUS_FIELD );
 
             table.put( table_header );
 
