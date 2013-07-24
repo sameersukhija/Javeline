@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
  */
 public class TestSecurity {
 
-    private static final Logger logger = LoggerFactory.getLogger(TestSecurity.class);
+    /*private static final Logger logger = LoggerFactory.getLogger(TestSecurity.class);*/
 
     @Test()
     public void encrypt_decrypt_password() {
