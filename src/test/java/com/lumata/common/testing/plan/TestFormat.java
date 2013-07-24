@@ -25,7 +25,7 @@ import com.lumata.common.testing.validating.Format.Operators;
 
 public class TestFormat {
 	
-	private static final  Logger logger = LoggerFactory.getLogger( TestFormat.class );
+	/*private static final  Logger logger = LoggerFactory.getLogger( TestFormat.class );*/
 	    
 	@Test()
 	public void isLenght_1() {		
