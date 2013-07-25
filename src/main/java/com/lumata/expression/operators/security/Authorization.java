@@ -28,7 +28,7 @@ public class Authorization {
 		selenium.click("id=gwt-debug-ButtonLoginAuthentication");
 		
 		logger.info( Log.CHECKING.createMessage( "for login success" ) );
-		
+		logger.info( password );
 		WebElement homeInfo = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-FormHomeInfo", timeout, interval);
 		if( homeInfo == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "User not logged" ) ); return false; }	
 			

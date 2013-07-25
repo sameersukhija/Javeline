@@ -42,7 +42,7 @@ public class EFOGC_6_Support_IMM_Triggers_Events {
 		
 		seleniumWebDriver = new SeleniumWebDriver( browser, env.getBrowser( browser ), env.getLink() );
 		seleniumWebDriver.windowMaximize();
-	
+		
 		Assert.assertTrue(Authorization.login(seleniumWebDriver, env.getUserName( user ), env.getPassword( user ), 30000, 500));
 		
 	}
@@ -52,20 +52,5 @@ public class EFOGC_6_Support_IMM_Triggers_Events {
 	protected void startSession(Method method) throws Exception {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}
-	
-	
-	
-	@Test()
-    public void encrypt_decrypt_password() {
-
-        String password = "password";
-
-        String encrypted_password = Security.encrypt( password );
-
-        String decrypted_password = Security.decrypt( encrypted_password );
-
-        Assert.assertEquals( password, decrypted_password );
-
-    }
 	
 }
