@@ -18,6 +18,7 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.EnvLoadingType;
 import com.lumata.common.testing.system.Security;
+import com.lumata.expression.operators.campaigns.CampaignModel;
 import com.lumata.expression.operators.security.Authorization;
 
 public class EFOGC_6_Support_IMM_Triggers_Events {
@@ -43,7 +44,7 @@ public class EFOGC_6_Support_IMM_Triggers_Events {
 		seleniumWebDriver = new SeleniumWebDriver( browser, env.getBrowser( browser ), env.getLink() );
 		seleniumWebDriver.windowMaximize();
 		
-		Assert.assertTrue(Authorization.login(seleniumWebDriver, env.getUserName( user ), env.getPassword( user ), 30000, 500));
+		Assert.assertTrue(Authorization.login(seleniumWebDriver, env.getUserName( user ), env.getPassword( user ), 60000, 500));
 		
 	}
 	
@@ -52,5 +53,12 @@ public class EFOGC_6_Support_IMM_Triggers_Events {
 	protected void startSession(Method method) throws Exception {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}
+	
+	@Test()
+	public void check_imm_triggers() {
+
+        Assert.assertTrue( CampaignModel.open(seleniumWebDriver, 30000, 500) );
+
+    }
 	
 }
