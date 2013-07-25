@@ -7,6 +7,7 @@ import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.model.DataModel.DMLoadingType;
+import com.lumata.common.testing.validating.Format;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +28,7 @@ public class DataModelCompare {
 	private String leftDMName;
 	private String rightDMName;
     private final static String STATUS_FIELD = "_STATUS_";
-
+    
     public enum TABLE_STATUSES { plus, minus, difference, unknown }
 	
 	public DataModelCompare(JSONObject dataModelCompare) {
@@ -49,8 +50,8 @@ public class DataModelCompare {
 			
 			switch( dmLoadingType ) {
 			
-				case FILE: { this.dataModelCompare = JSONUtils.loadJSONFile(compareDM + ".json"); break; }
-				case RESOURCE: { this.dataModelCompare = JSONUtils.loadJSONResource(compareDM + ".json"); break;  }
+				case FILE: { this.dataModelCompare = JSONUtils.loadJSONFile(compareDM + Format.JSON_EXTENSION); break; }
+				case RESOURCE: { this.dataModelCompare = JSONUtils.loadJSONResource(compareDM + Format.JSON_EXTENSION); break;  }
 				default: throw new DataModelException( "You cannot load a data model compare from resources different by FILE or RESOURCE" );
 			
 			}
@@ -84,8 +85,8 @@ public class DataModelCompare {
 			
 			switch( dmLoadingType ) {
 			
-				case FILE: { this.dataModelCompare = JSONUtils.loadJSONFile(folder, compareDM + ".json"); break; }
-				case RESOURCE: { this.dataModelCompare = JSONUtils.loadJSONResource(folder, compareDM + ".json"); break;  }
+				case FILE: { this.dataModelCompare = JSONUtils.loadJSONFile(folder, compareDM + Format.JSON_EXTENSION); break; }
+				case RESOURCE: { this.dataModelCompare = JSONUtils.loadJSONResource(folder, compareDM + Format.JSON_EXTENSION); break;  }
 				default: throw new DataModelException( "You cannot load a data model compare from resources different by FILE or RESOURCE" );
 			
 			}
@@ -714,7 +715,7 @@ public class DataModelCompare {
 
             StringBuffer query_buffer = new StringBuffer();
 
-            query_buffer = query_buffer.append( "SELECT " ).append( SELECT_FIELDS ).append( " FROM " ).append( tableName ).append( " ORDER BY " ).append( header.getString( 0 ) ).append( ";" );
+            query_buffer = query_buffer.append( "SELECT " ).append( SELECT_FIELDS ).append( " FROM " ).append( tableName ).append( " ORDER BY " ).append( header.getString( 0 ) ).append(";");
 
             Mysql mysql = new Mysql( dataSource );
 

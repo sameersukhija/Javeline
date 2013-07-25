@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Iterator;
 
+import com.lumata.common.testing.validating.Format;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,8 +40,8 @@ public class DataModel {
 			
 			switch( dmLoadingType ) {
 			
-				case FILE: { this.model = JSONUtils.loadJSONFile( datamodel + ".json" ); break; }
-				case RESOURCE: { this.model = JSONUtils.loadJSONResource( datamodel + ".json" ); break;  }
+				case FILE: { this.model = JSONUtils.loadJSONFile( datamodel + Format.JSON_EXTENSION ); break; }
+				case RESOURCE: { this.model = JSONUtils.loadJSONResource( datamodel + Format.JSON_EXTENSION ); break;  }
 				default: throw new DataModelException( "You cannot load a data model from resources different by FILE or RESOURCE" );
 			
 			}
@@ -72,8 +73,8 @@ public class DataModel {
 			
 			switch( dmLoadingType ) {
 			
-				case FILE: { this.model = JSONUtils.loadJSONFile( folder, datamodel + ".json" ); break; }
-				case RESOURCE: { this.model = JSONUtils.loadJSONResource( folder, datamodel + ".json" ); break;  }
+				case FILE: { this.model = JSONUtils.loadJSONFile( folder, datamodel + Format.JSON_EXTENSION ); break; }
+				case RESOURCE: { this.model = JSONUtils.loadJSONResource( folder, datamodel + Format.JSON_EXTENSION ); break;  }
 				default: throw new DataModelException( "You cannot load an environment from resources different by FILE or RESOURCE" );
 			
 			}

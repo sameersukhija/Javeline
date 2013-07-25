@@ -14,7 +14,9 @@ import java.util.regex.Pattern;
  */
 public final class Format {
 
-	private Format() {}
+    public final static String JSON_EXTENSION = ".json";
+
+    private Format() {}
 	
 	public enum Operators { 
 		

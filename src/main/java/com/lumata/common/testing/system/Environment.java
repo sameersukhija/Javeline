@@ -2,6 +2,7 @@ package com.lumata.common.testing.system;
 
 import java.util.Properties;
 
+import com.lumata.common.testing.validating.Format;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +39,8 @@ public class Environment {
 			
 			switch( loadingType ) {
 			
-				case FILE: { this.envCfg = JSONUtils.loadJSONFile( environment.toLowerCase() + ".json" ); break; }
-				case RESOURCE: { this.envCfg = JSONUtils.loadJSONResource( environment.toLowerCase() + ".json" ); break;  }
+				case FILE: { this.envCfg = JSONUtils.loadJSONFile( environment.toLowerCase() + Format.JSON_EXTENSION ); break; }
+				case RESOURCE: { this.envCfg = JSONUtils.loadJSONResource( environment.toLowerCase() + Format.JSON_EXTENSION ); break;  }
 				default: throw new EnvironmentException( "You cannot load an environment from resources different by FILE or RESOURCE" );
 			
 			}		
@@ -67,8 +68,8 @@ public class Environment {
 			
 			switch( loadingType ) {
 			
-			case FILE: { this.envCfg = JSONUtils.loadJSONFile( folder, environment.toLowerCase() + ".json" ); break; }
-			case RESOURCE: { this.envCfg = JSONUtils.loadJSONResource( folder, environment.toLowerCase() + ".json" ); break;  }
+			case FILE: { this.envCfg = JSONUtils.loadJSONFile( folder, environment.toLowerCase() + Format.JSON_EXTENSION ); break; }
+			case RESOURCE: { this.envCfg = JSONUtils.loadJSONResource( folder, environment.toLowerCase() + Format.JSON_EXTENSION ); break;  }
 			default: throw new EnvironmentException( "You cannot load an environment from resources different by FILE or RESOURCE" );
 		
 		}

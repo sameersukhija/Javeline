@@ -514,7 +514,7 @@ public final class IOFileUtils {
 			
 			fop = new FileOutputStream( file );
 			
-			fop.write( content.getBytes() );
+			fop.write( content.getBytes( "UTF-8" ) );
 			fop.flush();
 			fop.close();
  
@@ -551,7 +551,7 @@ public final class IOFileUtils {
 			
 			fop = new FileOutputStream( file );
 			
-			fop.write( content.getBytes() );
+			fop.write( content.getBytes( "UTF-8" ) );
 			fop.flush();
 			fop.close();
  
@@ -588,7 +588,7 @@ public final class IOFileUtils {
 			fop = new FileOutputStream( file );
 						
 			os = new BufferedOutputStream(fop);
-			os.write( String.valueOf( content ).getBytes() );
+			os.write( String.valueOf( content ).getBytes( "UTF-8" ) );
 			os.close();			
 			
 			fop.close();
@@ -630,7 +630,7 @@ public final class IOFileUtils {
 			fop = new FileOutputStream( file );
 						
 			os = new BufferedOutputStream(fop);
-			os.write( String.valueOf( content ).getBytes() );
+			os.write( String.valueOf( content ).getBytes( "UTF-8" ) );
 			os.close();	
  
 			logger.debug( "The content has been stored in the resource ( " + file.getCanonicalPath() + " )" );

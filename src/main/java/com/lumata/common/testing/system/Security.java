@@ -45,7 +45,7 @@ public class Security {
 
     private static String coding( String text ) {
 
-        String codified = new String();
+        StringBuffer codified = new StringBuffer();
 
         try {
 
@@ -69,13 +69,13 @@ public class Security {
                 else bytes.setCharAt(bytes.length() - 1, '0');
 
                 int charCode = Integer.parseInt( bytes.toString(), 2 );
-                codified = codified + Character.valueOf((char)charCode).toString();
+                codified.append( Character.valueOf((char)charCode).toString() );
 
             }
 
         } catch ( UnsupportedEncodingException e ) {}
 
-        return codified;
+        return codified.toString();
 
     }
 
