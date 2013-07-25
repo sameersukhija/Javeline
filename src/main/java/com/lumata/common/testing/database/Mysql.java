@@ -8,6 +8,8 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lumata.common.testing.system.Security;
+
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
@@ -72,7 +74,7 @@ public class Mysql {
 			this.dbName = dataSource.getString("name");
 			this.dbPort = dataSource.getInt("port");
 			this.dbUser = dataSource.getString("user");
-			this.dbPasswd = dataSource.getString("password");		
+			this.dbPasswd = Security.decrypt( dataSource.getString("password") );		
 				
 			logger.debug( "Mysql parameters has been loaded");
 			

@@ -30,7 +30,8 @@ import java.io.UnsupportedEncodingException;
 public final class IOFileUtils {
 	
 	private static final Logger logger = LoggerFactory.getLogger( IOFileUtils.class );
-	private final static String RESOURCE_ROOT = "lumata-common-testing/";
+	private final static String RESOURCE_ROOT = "";
+	/*private final static String RESOURCE_ROOT = "lumata-common-testing/";*/
 	
 	private IOFileUtils() {}
 	

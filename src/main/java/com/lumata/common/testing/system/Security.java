@@ -1,6 +1,8 @@
 package com.lumata.common.testing.system;
 
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 
@@ -13,6 +15,8 @@ import java.io.UnsupportedEncodingException;
  */
 public class Security {
 
+	private static final Logger logger = LoggerFactory.getLogger( Security.class );
+	
     public static String encrypt( String text ) {
 
         String  encrypted = new String();
@@ -50,12 +54,20 @@ public class Security {
         try {
 
             byte[] text_in_bytes = text.getBytes("US-ASCII");
-
+            
             for( int i = 0; i < text_in_bytes.length; i++ ) {
 
                 StringBuffer bytes = new StringBuffer();
-
-                bytes.append( Integer.toBinaryString( text_in_bytes[ i ] ) );
+                
+                StringBuffer binaryString = new StringBuffer();
+                
+                for( int k = Integer.toBinaryString( text_in_bytes[ i ] ).length(); k < 7; k++ ) {
+                	binaryString.append( "0" );
+                }
+                
+                binaryString.append( Integer.toBinaryString( text_in_bytes[ i ] ) );
+                
+                bytes.append( binaryString );
 
                 for( int j = 0; j < bytes.length() - 1; j += 2 ) {
 
@@ -69,6 +81,7 @@ public class Security {
                 else bytes.setCharAt(bytes.length() - 1, '0');
 
                 int charCode = Integer.parseInt( bytes.toString(), 2 );
+                
                 codified.append( Character.valueOf((char)charCode).toString() );
 
             }

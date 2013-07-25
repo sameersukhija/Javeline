@@ -219,7 +219,7 @@ public class Environment {
 		
 		try {
 			
-			if( !getUser( user ).isNull("password") ) { return getUser( user ).getString("password"); }
+			if( !getUser( user ).isNull("password") ) { return Security.decrypt( getUser( user ).getString("password") ); }
 		
 		} catch( Exception e ) {
 
