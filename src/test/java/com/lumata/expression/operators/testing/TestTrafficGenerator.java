@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -17,15 +16,12 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.EnvLoadingType;
-import com.lumata.common.testing.system.Security;
-import com.lumata.expression.operators.campaigns.CampaignModel;
+import com.lumata.expression.operators.operations.TrafficGenerator;
 import com.lumata.expression.operators.security.Authorization;
 
-public class EFOGC_6_Support_IMM_Triggers_Events {
+public class TestTrafficGenerator {
 
-	private static final Logger logger = LoggerFactory.getLogger(EFOGC_6_Support_IMM_Triggers_Events.class);
-	
-	private final String DEFAULT_USER = "marco_auchan";
+	private static final Logger logger = LoggerFactory.getLogger(TestTrafficGenerator.class);
 	
 	SeleniumWebDriver seleniumWebDriver; 
 	Environment env;
@@ -55,11 +51,10 @@ public class EFOGC_6_Support_IMM_Triggers_Events {
 	}
 	
 	@Test()
-	public void check_imm_triggers() {
+	public void open_customer_care() {
 
-        Assert.assertTrue( CampaignModel.open(seleniumWebDriver, 30000, 500) );
-        Assert.assertTrue( CampaignModel.create(seleniumWebDriver, 30000, 500) );
-
+		Assert.assertTrue( TrafficGenerator.open(seleniumWebDriver, 30000, 500) );		
+	
     }
 	
 }

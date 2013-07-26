@@ -30,8 +30,22 @@ public class CampaignModel extends Campaigns {
 	
 	public static boolean create( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
-		// id=gwt-debug-BtnCampaignModelAdd
-		// type id=gwt-debug-InputCampaignModelCreationName
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-BtnCampaignModelAdd") );
+		
+		WebElement campaignModelAdd = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-BtnCampaignModelAdd", timeout, interval);
+		if( campaignModelAdd == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model" ) ); return false; }	
+		
+		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "to add a new Campaign Model") );
+		campaignModelAdd.click();
+		
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-InputCampaignModelCreationName") );
+		
+		WebElement campaignModelAddName = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-InputCampaignModelCreationName", timeout, interval);
+		if( campaignModelAddName == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model" ) ); return false; }	
+		
+		logger.info( Log.PUTTING.createMessage( selenium.getTestName(), "Campaign Model Name") );
+		
+		campaignModelAddName.sendKeys( "CampaignModel1" );		
 		
 		return true;
 		
