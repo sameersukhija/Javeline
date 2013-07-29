@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.testing;
+package com.lumata.expression.operators.testing.functional;
 
 import java.lang.reflect.Method;
 
