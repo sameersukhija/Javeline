@@ -1,0 +1,9 @@
+{
+	subscriber_id: "331234567",
+	source: "HISTORY",
+	interpretor: "HISTORY",
+	event_class: "revenue",
+	event_parameters: [
+		{ "name": "recharge", "value": "1" }
+	]
+}

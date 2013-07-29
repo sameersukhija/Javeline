@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.testing;
+package com.lumata.expression.operators.testing.general;
 
 import java.lang.reflect.Method;
 
@@ -16,12 +16,12 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.EnvLoadingType;
-import com.lumata.expression.operators.operations.TrafficGenerator;
 import com.lumata.expression.operators.security.Authorization;
+import com.lumata.expression.operators.customercare.CustomerCare;
 
-public class TestTrafficGenerator {
+public class TestCustomerCare {
 
-	private static final Logger logger = LoggerFactory.getLogger(TestTrafficGenerator.class);
+	private static final Logger logger = LoggerFactory.getLogger(TestCustomerCare.class);
 	
 	SeleniumWebDriver seleniumWebDriver; 
 	Environment env;
@@ -53,7 +53,8 @@ public class TestTrafficGenerator {
 	@Test()
 	public void open_customer_care() {
 
-		Assert.assertTrue( TrafficGenerator.open(seleniumWebDriver, 30000, 500) );		
+		Assert.assertTrue( CustomerCare.open(seleniumWebDriver, 30000, 500) );
+		
 	
     }
 	
