@@ -15,12 +15,12 @@ import org.testng.annotations.Test;
  */
 public class TestSecurity {
 
-    /*private static final Logger logger = LoggerFactory.getLogger(TestSecurity.class);*/
+    private static final Logger logger = LoggerFactory.getLogger(TestSecurity.class);
 
     @Test()
     public void encrypt_decrypt_password() {
 
-        String password = "password";
+        String password = "super2010Man";
 
         String encrypted_password = Security.encrypt( password );
 
@@ -28,7 +28,7 @@ public class TestSecurity {
 
         /*Assert.assertEquals( password, decrypted_password );*/
 
-        Assert.assertEquals( "failed", decrypted_password );
+        Assert.assertEquals( password, decrypted_password );
 
     }
 
