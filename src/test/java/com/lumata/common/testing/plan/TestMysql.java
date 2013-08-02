@@ -18,14 +18,12 @@ public class TestMysql {
 					
 	@Parameters({"browser", "environment"})
 	@Test()
-	public void mysql_1( @Optional("FIREFOX") String browser, @Optional("E4B_QA") String environment ) throws EnvironmentException {		
+	public void mysql_1( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws EnvironmentException {		
 		
-		Environment env = new Environment( environment, EnvLoadingType.RESOURCE );
+		Environment env = new Environment( "lumata-common-testing/examples/", environment, EnvLoadingType.RESOURCE );
 		Assert.assertNotNull( env );
 		
-		Mysql mysql = new Mysql( env.getDataSource( "user_datas" ) );
-		
-		mysql.connect();
+		Mysql mysql = new Mysql( env.getDataSource( "qa" ) );
 		
 		mysql.execQuery( "SELECT * FROM subscribers;" );
 		

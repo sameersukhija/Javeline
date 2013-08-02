@@ -20,12 +20,16 @@ public class TestSecurity {
     @Test()
     public void encrypt_decrypt_password() {
 
-        String password = "super2010Man";
+        String password = "mysql";
 
         String encrypted_password = Security.encrypt( password );
 
+        logger.info( encrypted_password );
+        
         String decrypted_password = Security.decrypt( encrypted_password );
 
+        logger.info( decrypted_password );
+        
         /*Assert.assertEquals( password, decrypted_password );*/
 
         Assert.assertEquals( password, decrypted_password );

@@ -36,7 +36,7 @@ public class Mysql {
 			this.dbName = System.getProperty("name");
 			this.dbPort = Integer.parseInt(System.getProperty("port"));
 			this.dbUser = System.getProperty("user");
-			this.dbPasswd = System.getProperty("password");		
+			this.dbPasswd = Security.decrypt( System.getProperty("password") );		
 			
 			logger.debug( "Mysql parameters has been loaded");
 			
@@ -57,7 +57,7 @@ public class Mysql {
 		this.dbName = dataSource.getProperty("name");
 		this.dbPort = Integer.parseInt(dataSource.getProperty("port"));
 		this.dbUser = dataSource.getProperty("user");
-		this.dbPasswd = dataSource.getProperty("password");		
+		this.dbPasswd = Security.decrypt( dataSource.getProperty("password") );		
 			
 		logger.debug( "Mysql parameters has been loaded");
 		
