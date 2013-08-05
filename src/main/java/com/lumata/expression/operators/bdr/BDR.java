@@ -14,8 +14,18 @@ public class BDR {
 	private String originator;
 	private String initial_reward_qty;
 	private String reward_limitation_cause;
+	private boolean _validation;
 	
-	public BDR() {}
+	public BDR( String bdrStr) {
+				
+		String delimiter = "\\;";
+		String[] bdrToken = bdrStr.split(delimiter);
+		
+		for( int i = 0; i < bdrToken.length; i++ ) {
+			System.out.println( bdrToken[ i ] );
+		}
+		
+	}
 	
 	public String getFormatID() {
 		
@@ -89,6 +99,12 @@ public class BDR {
 		
 	}
 	
+	public boolean getValidation() {
+		
+		return this._validation;
+		
+	}
+	
 	public void setFormatID( String format_id ) {
 		
 		this.format_id = format_id;
@@ -158,6 +174,12 @@ public class BDR {
 	public void setRewardLimitationCause( String reward_limitation_cause ) {
 		
 		this.reward_limitation_cause = reward_limitation_cause;
+		
+	}
+	
+	public void setValidation( boolean validation ) {
+		
+		this._validation = validation;
 		
 	}
 

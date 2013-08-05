@@ -46,7 +46,26 @@ public enum TenantCfg {
 			
 		}
 		
+	},
+	
+	/* Sprint 2 - US: EFOGC-793,  EFOGC-11 */
+	XMLRPC {
+		
+		public ArrayList<Configuration> getCfg( Map<String, Object> options ) {
+			
+			ArrayList<Configuration> cfgList = new ArrayList<Configuration>();
+						
+			Configuration cfg;
+			
+			cfg = new Configuration( new ArrayList<String>(Arrays.asList("allow_list", "0", "xmlrpc", "NULL", "Internal", "true", "", "RW", getNow(), "Value", "Do we support the listing of XMLRPC signatures")) );
+			cfgList.add( cfg );			
+			
+			return cfgList;
+			
+		}
+		
 	};
+	
 	
 	abstract public ArrayList<Configuration> getCfg( Map<String, Object> options );
 	
@@ -61,5 +80,3 @@ public enum TenantCfg {
 	}
 	
 }
-
-// jdbc:mysql://10.120.42.12:3306/qa?connectTimeout=10000

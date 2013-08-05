@@ -42,7 +42,7 @@ public class Configuration {
 	private String time;
 	private String type;
 	private String description;
-	private boolean validation;
+	private boolean _validation;
 	
 	public Configuration( ArrayList<String> cfg ) {
 		
@@ -57,7 +57,7 @@ public class Configuration {
 		this.time = cfg.get( 8 );
 		this.type = cfg.get( 9 );
 		this.description = cfg.get( 10 );
-		this.validation = false;
+		this._validation = false;
 		
 	}
 	
@@ -74,7 +74,7 @@ public class Configuration {
 		this.time = cfg.getString( "time" );
 		this.type = cfg.getString( "type" );
 		this.description = cfg.getString( "description" );
-		this.validation = false;
+		this._validation = false;
 		
 	}
 	
@@ -146,7 +146,7 @@ public class Configuration {
 	
 	public boolean getValidation() {
 		
-		return this.validation;
+		return this._validation;
 		
 	}
 
@@ -218,7 +218,7 @@ public class Configuration {
 	
 	public void setValidation( boolean validation ) {
 		
-		this.validation = validation;
+		this._validation = validation;
 		
 	}
 
@@ -287,6 +287,8 @@ public class Configuration {
 			logger.error( e.getMessage(), e );
 		
 		}
+		
+		mysql.close();
 		
 		boolean check = true;
 		

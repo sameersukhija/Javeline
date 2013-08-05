@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -46,6 +47,7 @@ public class TestTenantCfg {
 				
 		System.out.println( bdrStorageCfg.toString() );
 				
+		Assert.assertTrue( false );
 		//Assert.assertTrue( CustomerCare.open(seleniumWebDriver, 30000, 500) );		
 	
     }

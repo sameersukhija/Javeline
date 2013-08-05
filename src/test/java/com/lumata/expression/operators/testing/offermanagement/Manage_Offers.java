@@ -1,8 +1,5 @@
-package com.lumata.expression.operators.testing.functional;
+package com.lumata.expression.operators.testing.offermanagement;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +15,10 @@ import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.EnvLoadingType;
-import com.lumata.expression.operators.database.Configuration;
-import com.lumata.expression.operators.database.TenantCfg;
 
-public class EFOGC100_MultiTenantDetailedRecords {
+public class Manage_Offers {
 
-	private static final Logger logger = LoggerFactory.getLogger( EFOGC100_MultiTenantDetailedRecords.class );
+	private static final Logger logger = LoggerFactory.getLogger( Manage_Offers.class );
 	
 	Environment env;
 	
@@ -38,8 +33,7 @@ public class EFOGC100_MultiTenantDetailedRecords {
 						
 	}
 	
-	@Parameters({"tenant1"})
-	@Test
+/*
 	public void checkConfiguration( @Optional("qa") String tenant1 ) {
 				
 		// Load BDR storage configuration
@@ -53,34 +47,26 @@ public class EFOGC100_MultiTenantDetailedRecords {
 		Assert.assertTrue( Configuration.check( bdrStorageCfg, tenant1, env ) );
 		
 	}
+	*/
 	
 	@Parameters({"tenant1"})
 	@Test
 	public void checkDBSchema( @Optional("qa") String tenant1 ) {
 				
-		// Check BDR storage schema configuration
+		// Check Offer Management schema configuration
 		
 		Mysql mysql = new Mysql( env.getDataSource( tenant1 ) );
 		
 		boolean check = true;
 		
-		if( !MysqlUtils.isTable( "bdrs" , mysql ) ) { check = false; };
-		if( !MysqlUtils.isTable( "bdr_files" , mysql ) ) { check = false; };
-		if( !MysqlUtils.isTable( "bdr_format" , mysql ) ) { check = false; };
+		if( !MysqlUtils.isTable( "offoptim_reservation" , mysql ) ) { check = false; };
+		if( !MysqlUtils.isTable( "offoptim_customer_pack" , mysql ) ) { check = false; };
+		if( !MysqlUtils.isTable( "offoptim_customer_items" , mysql ) ) { check = false; };
 		
 		mysql.close();
 		
 		Assert.assertTrue( check );
 		
 	}
-	
-	/*
-	@Test
-	public void testTestNGProgramatically(){
-	
-		Assert.assertTrue( TestNGUtils.run( new Class[] { TestFake.class, TestTenantCfg.class } ) );
-				
-	}
-	*/
 	
 }
