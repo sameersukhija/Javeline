@@ -28,10 +28,38 @@ public class MysqlUtils {
 					
 			logger.info( "The table " + table + " is " + ( check == true ? "present" : "not present" ) );
 		
-		} catch( SQLException e ) {}
+		} catch( SQLException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
 		
 		return check;  
 				
+	}
+	
+	public static Integer getMaxID( String table, String column, Mysql mysql ) throws SQLException {
+				
+		String query = "SELECT MAX( " + column + " ) MAXID FROM " + table + ";";
+		
+		Integer maxID = -1; 
+		
+		try {
+		
+			ResultSet rs = mysql.execQuery( query );
+		
+			if( rs.next() ) { maxID = rs.getInt( "MAXID" ); }
+					
+			logger.info( "The column of the table " + table + " has max id equals to " + maxID.toString() );
+		
+		} catch( SQLException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return maxID;
+		
 	}
 	
 }
