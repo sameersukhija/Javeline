@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.campaigns;
+package com.lumata.expression.operators.gui.campaigns;
 
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;

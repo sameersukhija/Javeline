@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.xmlrpc;
+package com.lumata.expression.operators.gui.xmlrpc;
 
 import org.json.JSONObject;
 import org.openqa.selenium.NoSuchElementException;
@@ -95,6 +95,15 @@ public class XMLRPC {
 		}
 		
 		return ( parametersCount - 1 );
+		
+	}
+
+	public static WebElement getResult( SeleniumWebDriver selenium, long timeout, long interval ) {
+		
+		WebElement resultElement = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, RESULT, timeout, interval);
+		if( resultElement == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Result not found" ) ); return null; }	
+		
+		return resultElement;
 		
 	}
 

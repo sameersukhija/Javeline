@@ -16,8 +16,8 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.EnvLoadingType;
-import com.lumata.expression.operators.operations.TrafficGenerator;
-import com.lumata.expression.operators.security.Authorization;
+import com.lumata.expression.operators.gui.operations.TrafficGenerator;
+import com.lumata.expression.operators.gui.security.Authorization;
 
 public class TestTrafficGenerator {
 

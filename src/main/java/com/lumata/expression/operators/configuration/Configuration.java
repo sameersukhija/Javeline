@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.database;
+package com.lumata.expression.operators.configuration;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

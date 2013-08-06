@@ -11,8 +11,8 @@ import org.testng.annotations.Test;
 
 import com.lumata.common.testing.log.Log;
 import com.lumata.expression.operators.exceptions.TrafficGeneratorEventException;
-import com.lumata.expression.operators.operations.TrafficGeneratorEvent;
-import com.lumata.expression.operators.operations.TrafficGeneratorEvent.TGELoadingType;
+import com.lumata.expression.operators.gui.operations.TrafficGeneratorEvent;
+import com.lumata.expression.operators.gui.operations.TrafficGeneratorEvent.TGELoadingType;
 
 
 

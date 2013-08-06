@@ -1,6 +1,7 @@
-package com.lumata.expression.operators.testing.functional;
+package com.lumata.expression.operators.testing.general;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,19 +17,15 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.EnvLoadingType;
-import com.lumata.expression.operators.gui.campaigns.CampaignModel;
-import com.lumata.expression.operators.gui.security.Authorization;
+import com.lumata.expression.operators.offermanagement.OfferOptimReservation;
+import com.lumata.expression.operators.offermanagement.OfferOptimReservationList;
 
-public class EFOGC_6_Support_IMM_Triggers_Events {
+public class TestOfferReservation {
 
-	private static final Logger logger = LoggerFactory.getLogger(EFOGC_6_Support_IMM_Triggers_Events.class);
-	
-	//private final String DEFAULT_USER = "marco_auchan";
+private static final Logger logger = LoggerFactory.getLogger(TestOfferReservation.class);
 	
 	SeleniumWebDriver seleniumWebDriver; 
 	Environment env;
-	//List list;
-	//User e4bUser;
 	
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment", "user"})
@@ -39,25 +36,33 @@ public class EFOGC_6_Support_IMM_Triggers_Events {
 		
 		env = new Environment( "input/environments", environment, EnvLoadingType.RESOURCE );
 		
-		seleniumWebDriver = new SeleniumWebDriver( browser, env.getBrowser( browser ), env.getLink() );
-		seleniumWebDriver.windowMaximize();
-		
-		Assert.assertTrue(Authorization.login(seleniumWebDriver, env.getUserName( user ), env.getPassword( user ), 60000, 500));
-		
 	}
 	
-	/* 	Initialize Test Name */
-	@BeforeMethod
-	protected void startSession(Method method) throws Exception {
-		seleniumWebDriver.setTestName( method.getName() ); 	
-	}
-	
+	@Parameters({"tenant1"})
 	@Test()
-	public void check_imm_triggers() {
+	public void getOfferReservationList( @Optional("qa") String tenant1 ) {
 
-        Assert.assertTrue( CampaignModel.open(seleniumWebDriver, 30000, 500) );
-        Assert.assertTrue( CampaignModel.create(seleniumWebDriver, 30000, 500) );
+		OfferOptimReservation or = new OfferOptimReservation( -1, 5 , 0, 0, 0);
+		
+		or.insert(env, tenant1);
+		
+		//OfferOptimReservationList offerResList = new OfferOptimReservationList(env, tenant1, null);
 
+		//OfferOptimReservationList offerResList = new OfferOptimReservationList(env, tenant1, null);
+		
+		//logger.info( offerResList.toString() );
+		
+		/*
+		ArrayList<OfferOptimReservation> offReservationList = OfferOptimReservation.getOfferReservationList(env, tenant1, null); 
+		
+		for( int i = 0; i < offReservationList.size(); i++ ) {
+			
+			logger.info( offReservationList.get( i ).toString() );
+			
+		}
+		*/
+		
+		
     }
 	
 }
