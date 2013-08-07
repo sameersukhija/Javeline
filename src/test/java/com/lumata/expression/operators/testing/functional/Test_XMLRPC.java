@@ -17,8 +17,8 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.EnvLoadingType;
-import com.lumata.expression.operators.configuration.Configuration;
-import com.lumata.expression.operators.configuration.TenantCfg;
+import com.lumata.expression.operators.dao.configuration.Configuration;
+import com.lumata.expression.operators.dao.configuration.TenantCfg;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPC;
 
 public class Test_XMLRPC {

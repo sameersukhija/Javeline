@@ -17,8 +17,8 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.EnvLoadingType;
-import com.lumata.expression.operators.offermanagement.OfferOptimReservation;
-import com.lumata.expression.operators.offermanagement.OfferOptimReservationList;
+import com.lumata.expression.operators.dao.offermanagement.OfferOptimReservation;
+import com.lumata.expression.operators.dao.offermanagement.OfferOptimReservationList;
 
 public class TestOfferReservation {
 

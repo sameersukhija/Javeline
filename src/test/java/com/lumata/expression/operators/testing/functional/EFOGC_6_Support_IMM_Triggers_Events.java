@@ -16,7 +16,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.EnvLoadingType;
-import com.lumata.expression.operators.gui.campaigns.CampaignModel;
+import com.lumata.expression.operators.gui.campaigns.CampaignModelForm;
 import com.lumata.expression.operators.gui.security.Authorization;
 
 public class EFOGC_6_Support_IMM_Triggers_Events {
@@ -55,8 +55,8 @@ public class EFOGC_6_Support_IMM_Triggers_Events {
 	@Test()
 	public void check_imm_triggers() {
 
-        Assert.assertTrue( CampaignModel.open(seleniumWebDriver, 30000, 500) );
-        Assert.assertTrue( CampaignModel.create(seleniumWebDriver, 30000, 500) );
+        Assert.assertTrue( CampaignModelForm.open(seleniumWebDriver, 30000, 500) );
+        //Assert.assertTrue( CampaignModelForm.create(seleniumWebDriver, 30000, 500) );
 
     }
 	

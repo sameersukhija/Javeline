@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.configuration;
+package com.lumata.expression.operators.dao.configuration;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

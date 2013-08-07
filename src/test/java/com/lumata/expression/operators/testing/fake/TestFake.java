@@ -3,13 +3,20 @@ package com.lumata.expression.operators.testing.fake;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.lumata.expression.operators.bdr.BDR;
+import com.lumata.expression.operators.gui.campaigns.CampaignModelForm.CMAction;
+import com.lumata.expression.operators.gui.campaigns.CampaignModelForm.CMEventType;
+import com.lumata.expression.operators.testing.general.TestCampaignModel;
 
 public class TestFake {
 
+	private static final Logger logger = LoggerFactory.getLogger( TestFake.class );
+	
 	/*
 	@Test
 	public static void now() {
@@ -27,9 +34,14 @@ public class TestFake {
 	@Test
 	public static void bdr() {
 		
-		BDR bdr = new BDR( "1;;3;" );
+		//BDR bdr = new BDR( "1;;3;" );
+		logger.info( CMEventType.REVENUE.getID() );
 		
+		CMAction.COMMODITIES.setValue( false );
 		
+		logger.info( String.valueOf( CMAction.COMMODITIES.getValue() ) );
+				
+		logger.info( CMAction.TOKENS.getID() );
 		//Assert.assertTrue( false );
 		
 	}

@@ -9,9 +9,9 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 
-public class Campaigns {
+public class CampaignsForm {
 
-	private static final Logger logger = LoggerFactory.getLogger(Campaigns.class);
+	private static final Logger logger = LoggerFactory.getLogger(CampaignsForm.class);
 	
 	protected static boolean select( SeleniumWebDriver selenium, long timeout, long interval ) {
 		

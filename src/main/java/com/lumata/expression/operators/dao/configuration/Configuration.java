@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.configuration;
+package com.lumata.expression.operators.dao.configuration;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

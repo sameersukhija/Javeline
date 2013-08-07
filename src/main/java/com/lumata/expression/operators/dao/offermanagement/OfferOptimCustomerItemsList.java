@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.offermanagement;
+package com.lumata.expression.operators.dao.offermanagement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

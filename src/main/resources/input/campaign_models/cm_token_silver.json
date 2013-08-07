@@ -1,0 +1,6 @@
+{
+	"name": "CModelTokenSilver",
+	"description": "",
+	"events_list": [{ "event_type":"REVENUE", "criteria": null, "action": "TOKENS.SILVER" }]
+
+}

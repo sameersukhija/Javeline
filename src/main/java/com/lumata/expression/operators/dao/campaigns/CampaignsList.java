@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.offermanagement;
+package com.lumata.expression.operators.dao.campaigns;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,19 +10,19 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.system.Environment;
 
-public class OfferOptimReservationList {
+public class CampaignsList {
 	
-	private static final Logger logger = LoggerFactory.getLogger(OfferOptimReservationList.class);
+	private static final Logger logger = LoggerFactory.getLogger(CampaignsList.class);
 	
-	private ArrayList<OfferOptimReservation> list;
+	private ArrayList<Campaigns> list;
 	
-	public OfferOptimReservationList( Environment env, String tenant, ArrayList<Integer> filteredIds ) {
+	public CampaignsList( Environment env, String tenant, ArrayList<Integer> filteredIds ) {
 				
-		this.list = new ArrayList<OfferOptimReservation>();
+		this.list = new ArrayList<Campaigns>();
 		
 		Mysql mysql = new Mysql( env.getDataSource( tenant ) );
 		
-		String query = "SELECT * FROM " + tenant + ".offoptim_reservation;";
+		String query = "SELECT * FROM " + tenant + ".campaigns;";
 		
 		ResultSet rs = mysql.execQuery( query );
 		
@@ -30,8 +30,8 @@ public class OfferOptimReservationList {
 		
 			while( rs.next() ) {
 				
-				OfferOptimReservation or = new OfferOptimReservation( rs );
-				this.list.add( or );
+				Campaigns campaign = new Campaigns( rs );
+				this.list.add( campaign );
 				
 			}
 		
@@ -45,7 +45,7 @@ public class OfferOptimReservationList {
 		
 	}
 	
-	public boolean isEquals( ArrayList<OfferOptimReservation> expectedList ) {
+	public boolean isEquals( ArrayList<Campaigns> expectedList ) {
 		
 		if( this.list.size() != expectedList.size() ) { return false; }
 		else {
