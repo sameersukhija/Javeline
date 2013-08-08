@@ -1,6 +1,7 @@
 package com.lumata.expression.operators.model.json;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,7 +89,27 @@ public class CampaignModel {
 		} 			
 			
 	}
+	
+	public static JSONObject getBasicCampaignModel() {
 		
+		JSONObject basicCM = new JSONObject();
+		
+		try {
+		
+			basicCM.put( "name", "" );
+			basicCM.put( "description", "" );
+			basicCM.put( "event_type", new JSONArray() );
+		
+		} catch( JSONException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return basicCM;
+		
+	}
+	
 	// CampaignModel ATTRIBUTES
 	public String getName() {
 		
@@ -184,6 +205,20 @@ public class CampaignModel {
 		
 		return null;
 		
+	}
+
+	public void setName( String value ) {
+		
+		try {
+			
+			cmCfg.put( "name", value );
+		
+		} catch( JSONException e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+				
 	}
 
 	/*

@@ -1,12 +1,12 @@
 package com.lumata.expression.operators.gui.campaigns;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -237,28 +237,121 @@ public class CampaignModelForm extends CampaignsForm {
 		
 	}
 	
-	public static ArrayList<CampaignModel> getCampaignModelList( SeleniumWebDriver selenium, long timeout, long interval ) {
+	public static boolean isModel( SeleniumWebDriver selenium, ArrayList<CampaignModel> cmList, CampaignModel cm ) {
 		
-		ArrayList<CampaignModel> cmList = new ArrayList<CampaignModel>();
-		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-ListCampaignModel") );
-		
-		WebElement campaignModelList = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-ListCampaignModel", timeout, interval);
-		if( campaignModelList == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Campaign Model List not found" ) ); return null; }	
-		
-		List<WebElement> availableCampaignModels = campaignModelList.findElements( By.className("contentRow") );
-		
-		logger.info( "################# >> " + availableCampaignModels.size() );
-		
-		for( int i = 0; i < availableCampaignModels.size(); i++ ) {
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "if Campaign Model exists ( " + cm.getName() + " )") );
+				
+		for( int i = 0; i < cmList.size(); i++ ) {
 			
-			List<WebElement> availableCampaignModelName = availableCampaignModels.get( i ).findElements( By.className("column_description") );
-			logger.info( availableCampaignModelName.get( 0 ).getText() );
+			CampaignModel cmElement = cmList.get( i );
+			
+			if( cmElement.getName().equals( cm.getName() ) ) { return true; }			
 			
 		}
 		
+		return false;
+		
+	}
+	
+	public static WebElement getCampaignModelTable( SeleniumWebDriver selenium, long timeout, long interval ) {
+		
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-ListCampaignModel") );
+		
+		WebElement campaignModelTable = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-ListCampaignModel", timeout, interval);
+		if( campaignModelTable == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Campaign Model Table not found" ) ); return null; }	
+		
+		return campaignModelTable;		
+		
+	}
+	
+	public static List<WebElement> getCampaignModelTableContent( SeleniumWebDriver selenium, long timeout, long interval ) {
+		
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for elements contained in id=gwt-debug-ListCampaignModel") );
+				
+		List<WebElement> availableCampaignModels = SeleniumUtils.findListForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, SeleniumUtils.SearchBy.CLASS_NAME, "gwt-debug-ListCampaignModel", "contentRow", timeout, interval); 
+		
+		return availableCampaignModels;		
+		
+	}
+	
+	public static ArrayList<Map<String, Object>> getCampaignModelList( SeleniumWebDriver selenium, long timeout, long interval ) {
+		
+		ArrayList<Map<String, Object>> cmList = new ArrayList<Map<String, Object>>();
+				
+		List<WebElement> availableCampaignModels = CampaignModelForm.getCampaignModelTableContent( selenium, timeout, interval );
+		
+		logger.info( Log.PUTTING.createMessage( selenium.getTestName(), "all discovered elements contained in id=gwt-debug-ListCampaignModel") );
+		
+		for( int i = 0; i < availableCampaignModels.size(); i++ ) {
+			
+			Map<String, Object> cmModel = new HashMap<String, Object>();
+						
+			List<WebElement> availableCampaignModelName = SeleniumUtils.findListForComponentDisplayed( selenium, SeleniumUtils.SearchBy.CLASS_NAME, availableCampaignModels.get( i ), "column_description", timeout, interval );
+			
+			// Assume only the first element found is valid
+			String name = availableCampaignModelName.get( 0 ).getText();
+			cmModel.put( "name" , ( name != null ? name : "" ) );
+			
+			List<WebElement> availableCampaignModelDescription = SeleniumUtils.findListForComponentDisplayed( selenium, SeleniumUtils.SearchBy.CLASS_NAME, availableCampaignModels.get( i ), "column_longText", timeout, interval );
+			
+			// Assume only the first element found is valid
+			String description = availableCampaignModelDescription.get( 0 ).getText();
+			cmModel.put( "description" , ( description != null ? description : "" ) );
+			
+			List<WebElement> availableCampaignModelButtons = SeleniumUtils.findListForComponentDisplayed( selenium, SeleniumUtils.SearchBy.TAG_NAME, availableCampaignModels.get( i ), "button", timeout, interval );
+			
+			for( int j = 0; j < availableCampaignModelButtons.size(); j++ ) {
+				
+				cmModel.put( availableCampaignModelButtons.get( j ).getAttribute( "title" ).toLowerCase() , availableCampaignModelButtons.get( j ) );
+				
+			}
+			
+			cmList.add( cmModel );
+				
+		}
 		
 		return cmList;
+		
+	}	
+	
+	public static Map<String, Object> searchCampaignModel( SeleniumWebDriver selenium, ArrayList<Map<String, Object>> cmList, String cmModelName, long timeout, long interval ) {
+				
+		for( int i = 0; i < cmList.size(); i++ ) {
+			
+			Map<String, Object> cmModel = cmList.get( i );
+			
+			if( cmModel.get( "name" ).equals( cmModelName ) ) { return cmModel; }
+			
+		}
+		
+		return null;
+		
+	}
+
+	public static boolean editCampaignModel( SeleniumWebDriver selenium, Map<String, Object> cmModel, long timeout, long interval ) {
+		
+		if( cmModel != null ) { ((WebElement)cmModel.get( "edit" )).click(); }
+		else { return false; }
+		
+		return true;
+		
+	}
+	
+	public static boolean copyCampaignModel( SeleniumWebDriver selenium, Map<String, Object> cmModel, long timeout, long interval ) {
+		
+		if( cmModel != null ) { ((WebElement)cmModel.get( "copy" )).click(); }
+		else { return false; }
+		
+		return true;
+		
+	}
+	
+	public static boolean deleteCampaignModel( SeleniumWebDriver selenium, Map<String, Object> cmModel, long timeout, long interval ) {
+		
+		if( cmModel != null ) { ((WebElement)cmModel.get( "delete" )).click(); }
+		else { return false; }
+		
+		return true;
 		
 	}
 	

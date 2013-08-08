@@ -1,7 +1,11 @@
 package com.lumata.expression.operators.testing.general;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -59,8 +63,37 @@ public class TestCampaignModel {
 	public void checkCampaignModelList() throws CampaignModelException {
 		
 		Assert.assertTrue( CampaignModelForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_INTERVAL) );
-		Assert.assertNotNull( CampaignModelForm.getCampaignModelList(seleniumWebDriver, TIMEOUT, ATTEMPT_INTERVAL) );
-				
+		
+		ArrayList<Map<String, Object>> cmList = CampaignModelForm.getCampaignModelList(seleniumWebDriver, TIMEOUT, ATTEMPT_INTERVAL); 
+		
+		logger.info( "######### " + String.valueOf( cmList.size() ) );
+		
+		Map<String, Object> cmModel = cmList.get( 1 );
+		
+		((WebElement)cmModel.get( "edit" )).click();
+		
+		/*
+		Assert.assertNotNull( cmList );
+		
+		for( int i = 0; i < cmList.size(); i++ ) {
+			
+			CampaignModel cm = cmList.get( i );
+			
+			logger.info( cm.getName() );
+			
+		}
+		
+		CampaignModel cmExists = new CampaignModel( CampaignModel.getBasicCampaignModel() );
+		cmExists.setName( "CModelTokenGold" );
+		
+		Assert.assertTrue( CampaignModelForm.isModel( seleniumWebDriver, cmList, cmExists ) );
+		
+		cmExists.setName( "CModelTokenGoldNotExist" );
+		
+		Assert.assertFalse( CampaignModelForm.isModel( seleniumWebDriver, cmList, cmExists ) );
+		*/
+		
+		
     }
 	
 	@Test( enabled = false )
