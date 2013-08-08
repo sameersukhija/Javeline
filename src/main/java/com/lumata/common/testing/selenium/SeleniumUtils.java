@@ -1,5 +1,7 @@
 package com.lumata.common.testing.selenium;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -22,7 +24,7 @@ public final class SeleniumUtils {
 		
 	private static final  Logger logger = LoggerFactory.getLogger( SeleniumUtils.class );
 	
-	public enum SearchBy { ID, LINK, TAG_NAME, XPATH, CSS  }
+	public enum SearchBy { ID, LINK, TAG_NAME, XPATH, CSS, CLASS_NAME  }
 	
 	private SeleniumUtils() {}
 	
@@ -88,6 +90,7 @@ public final class SeleniumUtils {
 					case TAG_NAME: { element = selenium.getWrappedDriver().findElement( By.tagName(locator) ); break;}
 					case XPATH: { element = selenium.getWrappedDriver().findElement( By.xpath(locator) ); break;  }
 					case CSS: { element = selenium.getWrappedDriver().findElement( By.cssSelector(locator) ); break;  }
+					case CLASS_NAME: { element = selenium.getWrappedDriver().findElement( By.className(locator) ); break;  }
 					
 				}	
 				
@@ -98,6 +101,82 @@ public final class SeleniumUtils {
 		}
 		
 		return element;
+		
+	}
+	
+	public static List<WebElement> findListForComponentDisplayed( SeleniumWebDriver selenium, SearchBy rootSearchBy, SearchBy searchBy, String rootLocator, String locator) {
+		
+		return findListForComponentDisplayed( selenium, rootSearchBy, searchBy, rootLocator, locator, TIMEOUT, INTERVAL );
+		
+	}
+	
+	public static List<WebElement> findListForComponentDisplayed( SeleniumWebDriver selenium, SearchBy rootSearchBy, SearchBy searchBy, String rootLocator, String locator, long timeout ) {
+				
+		return findListForComponentDisplayed( selenium, rootSearchBy, searchBy, rootLocator, locator, timeout, INTERVAL );
+		
+	}
+
+	public static List<WebElement> findListForComponentDisplayed( SeleniumWebDriver selenium, SearchBy rootSearchBy, SearchBy searchBy, String rootLocator, String locator, long timeout, long interval ) {
+		
+		List<WebElement> elements = null;			
+		
+		logger.debug( Log.CHECKING.createMessage( " for all elements ( " + locator + " ) contained ( in " + rootLocator + " )" ) );
+		
+		WebElement rootElement = SeleniumUtils.findForComponentDisplayed(selenium, rootSearchBy, rootLocator, timeout, interval);
+		
+		if( rootElement != null ) {
+			
+			switch( searchBy ) {
+			
+				case ID: { elements = rootElement.findElements( By.id(locator) ); break;}
+				case LINK: { elements = rootElement.findElements( By.linkText(locator) ); break;}
+				case TAG_NAME: { elements = rootElement.findElements( By.tagName(locator) ); break;}
+				case XPATH: { elements = rootElement.findElements( By.xpath(locator) ); break;  }
+				case CSS: { elements = rootElement.findElements( By.cssSelector(locator) ); break;  }
+				case CLASS_NAME: { elements = rootElement.findElements( By.className(locator) ); break;  }
+				
+			}
+		
+		}
+		
+		return elements;
+		
+	}
+	
+	public static List<WebElement> findListForComponentDisplayed( SeleniumWebDriver selenium, SearchBy searchBy, WebElement rootElement, String locator ) {
+		
+		return findListForComponentDisplayed( selenium, searchBy, rootElement, locator, TIMEOUT, INTERVAL );
+		
+	}
+	
+	public static List<WebElement> findListForComponentDisplayed( SeleniumWebDriver selenium, SearchBy searchBy, WebElement rootElement, String locator , long timeout ) {
+				
+		return findListForComponentDisplayed( selenium, searchBy, rootElement, locator, timeout, INTERVAL );
+		
+	}
+
+	public static List<WebElement> findListForComponentDisplayed( SeleniumWebDriver selenium, SearchBy searchBy, WebElement rootElement, String locator , long timeout, long interval ) {
+		
+		List<WebElement> elements = null;			
+		
+		logger.debug( Log.CHECKING.createMessage( " for all elements ( " + locator + " ) contained ( in " + rootElement.getText() + " )" ) );
+		
+		if( rootElement != null ) {
+				
+			switch( searchBy ) {
+			
+				case ID: { elements = rootElement.findElements( By.id(locator) ); break;}
+				case LINK: { elements = rootElement.findElements( By.linkText(locator) ); break;}
+				case TAG_NAME: { elements = rootElement.findElements( By.tagName(locator) ); break;}
+				case XPATH: { elements = rootElement.findElements( By.xpath(locator) ); break;  }
+				case CSS: { elements = rootElement.findElements( By.cssSelector(locator) ); break;  }
+				case CLASS_NAME: { elements = rootElement.findElements( By.className(locator) ); break;  }
+				
+			}
+		
+		}
+		
+		return elements;
 		
 	}
 	
