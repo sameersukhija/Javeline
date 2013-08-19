@@ -1,7 +1,15 @@
 package com.lumata.expression.operators.bdr;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class BDR {
 
+	private static final Logger logger = LoggerFactory.getLogger( BDR.class );
+	
 	private String format_id;
 	private String msisdn;
 	private String transaction_id;
@@ -16,14 +24,27 @@ public class BDR {
 	private String reward_limitation_cause;
 	private boolean _validation;
 	
+	private final String DELIMITER = "\\;";
+	private final int N_FIELDS = 12;
+	private final String[] PARAMETERS_ORDER = new String[]{ "FormatID", "MSISDN", "TransactionID", "CurrentDate", "RewardName", "RewardQty", "OperationType", "Module", "Origin", "Originator", "InitialRewardQty", "RewardLimitationCause" }; 
+	
 	public BDR( String bdrStr) {
 				
-		String delimiter = "\\;";
-		String[] bdrToken = bdrStr.split(delimiter);
-		
+		String[] bdrToken = bdrStr.split( DELIMITER, N_FIELDS );
+					
 		for( int i = 0; i < bdrToken.length; i++ ) {
-			System.out.println( bdrToken[ i ] );
+			
+			this.set( "set" + PARAMETERS_ORDER[ i ], bdrToken[ i ] );
+		
 		}
+		
+		for( int j = bdrToken.length; j < N_FIELDS; j++ ) {
+			
+			this.set( "set" + PARAMETERS_ORDER[ j ], "" );
+			
+		}
+		
+		this.setValidation( false );
 		
 	}
 	
@@ -102,6 +123,25 @@ public class BDR {
 	public boolean getValidation() {
 		
 		return this._validation;
+		
+	}
+	
+	private void set( String methodName, String value ) {
+		
+		Method method; 
+		
+		try {
+			
+			method = this.getClass().getDeclaredMethod( methodName, String.class );
+			method.invoke(this, value );
+		
+		} catch( NoSuchMethodException e ) {
+			logger.error( e.getMessage(), e );
+		} catch( IllegalAccessException e ) {
+			logger.error( e.getMessage(), e );
+		} catch( InvocationTargetException e ) {
+			logger.error( e.getMessage(), e );
+		}	
 		
 	}
 	
