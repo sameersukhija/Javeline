@@ -1,4 +1,7 @@
 package com.lumata.common.testing.network;
+import java.util.ArrayList;
+import java.util.Vector;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -6,12 +9,17 @@ import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
+import com.jcraft.jsch.ChannelSftp.LsEntry;
+import com.lumata.common.testing.exceptions.IOFileException;
+import com.lumata.common.testing.io.IOFileUtils;
 
 public class SFTPClient extends SSHClient {
 
 	private ChannelSftp channel;
 	
 	private static final Logger logger = LoggerFactory.getLogger( SFTPClient.class );
+	
+	public enum CopyType { LOCAL, REMOTE }
 	
 	public SFTPClient( String host, int port, String user, String encryptedPassword ) {
 		
@@ -43,19 +51,76 @@ public class SFTPClient extends SSHClient {
 		
 	}
 
-	public void getFile( String path, String file ) {
+	public ArrayList<LsEntry> listDirectory( String path ) {
+		
+		ArrayList<LsEntry> fileList = new ArrayList<LsEntry>();
+		
+		try {
+	        
+        	Vector<LsEntry> files = getChannel().ls( path );        
+        
+	        for( int i = 0; i < files.size(); i++ ) {
+	
+	        	fileList.add((LsEntry)files.elementAt( i ));
+	           	           
+	        }
+        
+        } catch( SftpException e ) {
+        	
+        	logger.error( e.getMessage(), e );
+        
+        }
+		
+		return fileList;
+		
+	}
+	
+	public void copyFile( String srcPath, String srcFile, String destPath, String destFile, CopyType copyType ) {
 				
 		try {
 		
-			this.channel.cd( path );
+			this.channel.cd( srcPath );
+			
+			switch( copyType ) {
+			
+				case LOCAL: {
+					
+					this.channel.put( srcFile, destPath + destFile );
+					
+					break;
+				
+				}
+				case REMOTE: {
+					
+					this.channel.get( srcFile, destPath + destFile );
+					
+					break;
+				
+				}
+			
+			}			
 		
 		} catch( SftpException e ) {
 		
 			logger.error( e.getMessage(), e );
 			
-		}
+		} 
 		
 	}
+	
+	public void printDirectory( ArrayList<LsEntry> files ) {
+		
+		for( int i = 0; i < files.size(); i++ ) {
+        	
+        	System.out.println( files.get( i ).getFilename() );
+        	
+        }
+		
+	}
+	
+	
+	
+	
 	
 	
 	/*

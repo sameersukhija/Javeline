@@ -1,5 +1,6 @@
 package com.lumata.common.testing.plan;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.testng.annotations.Test;
 import com.jcraft.jsch.ChannelSftp.LsEntry;
 import com.jcraft.jsch.SftpException;
 import com.lumata.common.testing.network.SFTPClient;
+import com.lumata.common.testing.network.SFTPClient.CopyType;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,25 +32,19 @@ public class TestSFTP {
     	
         SFTPClient sftp = new SFTPClient( host, port, user, "cmdISnJjdQ==" );
         
-        sftp.getFile( "/opt/lumata/server_test_expression-qa/cdr/" , "cdr.log" );
+        String remote_path = "/opt/lumata/server_test_expression-qa/cdr/";
+        String remote_file_name = "cdr.log.2013-08-23";
+        
+        String local_path = "/home/adipasquale/";
+        String local_file_name = remote_file_name;
+                
+        ArrayList<LsEntry> fileList = sftp.listDirectory( remote_path );
+        
+        sftp.printDirectory( fileList );
+        
+        sftp.copyFile( remote_path , remote_file_name, local_path, local_file_name, SFTPClient.CopyType.REMOTE );
     	
-        try {
         
-        	Vector<LsEntry> v = sftp.getChannel().ls( "/opt/lumata/server_test_expression-qa/cdr/" );
-        
-        
-	        for(int i = 0; i < v.size(); i++){
-	//			out.println(vv.elementAt(ii).toString());
-	
-	            Object obj= v.elementAt( i );
-	            
-	            System.out.println(((LsEntry)obj).getLongname());
-	        
-	        }
-        
-        } catch( SftpException e ) {
-        	logger.error( e.getMessage(), e );
-        }
         
         /*
     	String password = "mysql";
