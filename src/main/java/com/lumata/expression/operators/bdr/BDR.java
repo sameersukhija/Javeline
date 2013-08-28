@@ -48,6 +48,27 @@ public class BDR {
 		
 	}
 	
+	public String get( String methodName ) {
+		
+		Method method; 
+		
+		try {
+			
+			method = this.getClass().getDeclaredMethod( methodName, String.class );
+			return (String)method.invoke( this );
+		
+		} catch( NoSuchMethodException e ) {
+			logger.error( e.getMessage(), e );
+		} catch( IllegalAccessException e ) {
+			logger.error( e.getMessage(), e );
+		} catch( InvocationTargetException e ) {
+			logger.error( e.getMessage(), e );
+		}	
+		
+		return null;
+		
+	}
+
 	public String getFormatID() {
 		
 		return this.format_id;
@@ -126,7 +147,7 @@ public class BDR {
 		
 	}
 	
-	private void set( String methodName, String value ) {
+	public void set( String methodName, String value ) {
 		
 		Method method; 
 		
