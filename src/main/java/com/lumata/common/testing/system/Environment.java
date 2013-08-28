@@ -24,6 +24,7 @@ public class Environment {
 	private JSONObject envCfg;
 	
 	public enum EnvLoadingType { FILE, RESOURCE }
+	public enum ServicesType { SSH }
 	
 	/* Create an environment from a JSONObject */
 	public Environment( JSONObject environment ) {
@@ -357,5 +358,36 @@ public class Environment {
 		
 	}
 	
+	public JSONObject getServices() {
+		
+		try {
+			
+			if( !envCfg.isNull("services") ) { return envCfg.getJSONObject("services"); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public JSONObject getServiceType( ServicesType serviceType ) {
+		
+		try {
+			
+			if( !getServices().isNull( serviceType.toString() ) ) { return getServices().getJSONObject( serviceType.toString() ); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
 	
 }
