@@ -17,10 +17,11 @@ public class TestMysql {
 	private static final  Logger logger = LoggerFactory.getLogger( TestMysql.class );
 					
 	@Parameters({"browser", "environment"})
-	@Test()
-	public void mysql_1( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws EnvironmentException {		
+	@Test( enabled=false )
+	public void mysql_select( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws EnvironmentException {		
 		
 		Environment env = new Environment( "lumata-common-testing/examples/", environment, EnvLoadingType.RESOURCE );
+		
 		Assert.assertNotNull( env );
 		
 		Mysql mysql = new Mysql( env.getDataSource( "qa" ) );
@@ -30,5 +31,23 @@ public class TestMysql {
 		mysql.close();
 		
 	}	
+	
+	@Parameters({"browser", "environment"})
+	@Test()
+	public void mysql_insert( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws EnvironmentException {		
+		
+		Environment env = new Environment( "lumata-common-testing/examples/", environment, EnvLoadingType.RESOURCE );
+		
+		Assert.assertNotNull( env );
+		
+		Mysql mysql = new Mysql( env.getDataSource( "qa" ) );
+		
+		int index = mysql.execUpdate( "INSERT INTO token_label ( label ) VALUES( 'Test' );" );
+		
+		System.out.println( index );
+		
+		mysql.close();
+		
+	}
 
 }

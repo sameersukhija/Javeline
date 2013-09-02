@@ -31,6 +31,7 @@ public final class IOFileUtils {
 	
 	private static final Logger logger = LoggerFactory.getLogger( IOFileUtils.class );
 	private final static String RESOURCE_ROOT = "";
+	public enum IOLoadingType { FILE, RESOURCE };
 	/*private final static String RESOURCE_ROOT = "lumata-common-testing/";*/
 	
 	private IOFileUtils() {}

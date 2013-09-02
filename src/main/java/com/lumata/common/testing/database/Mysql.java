@@ -143,14 +143,23 @@ public class Mysql {
 	
 	public int execUpdate( String query ) {
 		 
-		int rs = -1;
+		int index = -1;
+		
 		Statement statement = null;
 		
 		try {
 			
 			statement = this.dbConn.createStatement();
 			
-			rs = statement.executeUpdate( query, Statement.RETURN_GENERATED_KEYS );
+			statement.executeUpdate( query, Statement.RETURN_GENERATED_KEYS );
+			
+			ResultSet rs = statement.getGeneratedKeys();
+			
+			while( rs.next() ) {
+				
+				index = rs.getInt( 1 );
+			
+			}			
 			
 			logger.debug( "The statement has been executed ( " + query + " )" );
 			
@@ -162,7 +171,7 @@ public class Mysql {
 			
 		}			
 		 
-		return rs;
+		return index;
 		
 	}
 	
