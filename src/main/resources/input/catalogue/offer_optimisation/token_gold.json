@@ -1,0 +1,15 @@
+{
+	"token_type": [
+		"type":"Token",
+		"token_type_name":"Token Gold",
+		"expiration_duration":100,
+		"expiration_duration_unit":"DAYS",
+		"qty_max_redeems":100,
+		"single_use_redeem_duration_timeout": 0,
+		"token_format":"gl-[0123456789abcdef]{5}",
+		"description": "Token Gold",
+		"sales_channels":[
+			{ "channel_name": "Token Gold", "active": true }
+		]
+	]
+}

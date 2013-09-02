@@ -1,0 +1,28 @@
+{
+	"sales_channels": [
+		{ 
+			"channel_name": "Token Gold",
+			"active": true
+		},
+		{ 
+			"channel_name": "Token Silver",
+			"active": true
+		},
+		{ 
+			"channel_name": "Token Bronze",
+			"active": true
+		},
+		{ 
+			"channel_name": "Token Expired",
+			"active": true
+		},
+		{ 
+			"channel_name": "Token Unlimited",
+			"active": true
+		},
+		{ 
+			"channel_name": "Token Limited",
+			"active": true
+		}
+	]
+}
