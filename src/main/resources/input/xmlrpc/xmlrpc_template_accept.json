@@ -1,0 +1,10 @@
+{
+	"url": "",
+	"call": "ACCEPT",
+	"parameters": [
+		{ "type": "login", "data": { "user": "superman", "password": "bGppYm1NSUhJMmB3" } },
+		{ "type": "string", "data": { "value": "331234567" } },
+		{ "type": "string", "data": { "value": "" } },
+		{ "type": "offer_id_list", "data": { "values": [] } }
+	]
+}

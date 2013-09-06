@@ -1,0 +1,9 @@
+{
+	"url": "",
+	"call": "REFUSE_ALL",
+	"parameters": [
+		{ "type": "login", "data": { "user": "superman", "password": "bGppYm1NSUhJMmB3" } },
+		{ "type": "string", "data": { "value": "331234567" } },
+		{ "type": "string", "data": { "value": "" } }
+	]
+}

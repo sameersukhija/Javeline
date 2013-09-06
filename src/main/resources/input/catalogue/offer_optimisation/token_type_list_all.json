@@ -1,0 +1,43 @@
+{
+	"token_type": [
+		{
+			"type":"Token",
+			"token_type_name":"Token Gold",
+			"expiration_duration":100,
+			"expiration_duration_unit":"DAYS",
+			"qty_max_redeems":100,
+			"single_use_redeem_duration_timeout": 0,
+			"token_format":"gl-[0123456789abcdef]{5}",
+			"description": "Token Gold",
+			"sales_channels":[
+				{ "channel_name": "Token Gold", "active": true }
+			]
+		},
+		{
+			"type":"Token",
+			"token_type_name":"Token Silver",
+			"expiration_duration":100,
+			"expiration_duration_unit":"DAYS",
+			"qty_max_redeems":100,
+			"single_use_redeem_duration_timeout": 0,
+			"token_format":"sl-[0123456789abcdef]{5}",
+			"description": "Token Silver",
+			"sales_channels":[
+				{ "channel_name": "Token Silver", "active": true }
+			]
+		},
+		{
+			"type":"Token",
+			"token_type_name":"Token Bronze",
+			"expiration_duration":100,
+			"expiration_duration_unit":"DAYS",
+			"qty_max_redeems":100,
+			"single_use_redeem_duration_timeout": 0,
+			"token_format":"br-[0123456789abcdef]{5}",
+			"description": "Token Bronze",
+			"sales_channels":[
+				{ "channel_name": "Token Bronze", "active": true }
+			]
+		}
+	]
+}

@@ -1,8 +1,5 @@
 package com.lumata.expression.operators.testing.dao.administration;
 
-
-import java.util.ArrayList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -21,8 +18,6 @@ import com.lumata.expression.operators.dao.administration.SalesChannelsList;
 public class TestSalesChannels {
 
 	private static final Logger logger = LoggerFactory.getLogger( TestSalesChannels.class );
-	private int TIMEOUT = 600000;
-	private int ATTEMPT_INTERVAL = 500;
 	
 	Environment env;
 	SalesChannelsList salesChannelsList;
@@ -39,26 +34,48 @@ public class TestSalesChannels {
 	}
 	
 	@Parameters({"qa"})
-	@Test
-	public void checkSalesChannel( @Optional("qa") String tenant ) {
+	@Test()
+	public void createSalesChannel( @Optional("qa") String tenant ) {
+		
+		logger.info( Log.PUTTING.createMessage( "checkSalesChannel" , "Sales Channels" ) );
+		
+		salesChannelsList = new SalesChannelsList( env, tenant, null, "input/sales_channels", "offer_sales_channels.json", IOFileUtils.IOLoadingType.RESOURCE );
+				
+	}	
+	
+	@Parameters({"qa"})
+	@Test( enabled = false )
+	public void deleteSalesChannel( @Optional("qa") String tenant ) {
 		
 		logger.info( Log.PUTTING.createMessage( "checkSalesChannel" , "Sales Channels" ) );
 		
 		salesChannelsList = new SalesChannelsList( env, tenant, null, "input/sales_channels", "offer_sales_channels.json", IOFileUtils.IOLoadingType.RESOURCE );
 		
+		int salesChannelsSize = salesChannelsList.size();
 		
-		/*
-		if( !salesChannelsList.isSalesChannel( "Token Gold" ) ) {
-			
-			salesChannelsList.insert(env, tenant, null, "Token Gold", true );
-			
-		}
-		*/
+		salesChannelsList.delete(env, tenant, null, "Token Gold ", true );
 		
+		int newSalesChannelsSize = salesChannelsList.size();
 		
-		//salesChannelsList.delete(env, tenant1, null, "Token Gold ", true );
+		Assert.assertEquals( newSalesChannelsSize, ( salesChannelsSize - 1 ) );
 		
-		//System.out.println( salesChannelsList.size() );
+	}	
+	
+	@Parameters({"qa"})
+	@Test( enabled = false )
+	public void insertSalesChannel( @Optional("qa") String tenant ) {
+		
+		logger.info( Log.PUTTING.createMessage( "checkSalesChannel" , "Sales Channels" ) );
+		
+		salesChannelsList = new SalesChannelsList( env, tenant, null, "input/sales_channels", "offer_sales_channels.json", IOFileUtils.IOLoadingType.RESOURCE );
+		
+		int salesChannelsSize = salesChannelsList.size();
+		
+		salesChannelsList.insert(env, tenant, null, "Token Gold ", true );
+		
+		int newSalesChannelsSize = salesChannelsList.size();
+		
+		Assert.assertEquals( newSalesChannelsSize, ( salesChannelsSize - 1 ) );
 		
 	}	
 	

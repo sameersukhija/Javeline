@@ -22,7 +22,7 @@ public enum TenantCfg {
 						
 			try {
 				
-				String tenant_name = (String)options.get( "tenant_name" );
+				String tenant_name = (String)options.get( "tenant" );
 				Environment env = (Environment)options.get( "environment" );
 				JSONObject dataSource = env.getDataSource( tenant_name );
 				

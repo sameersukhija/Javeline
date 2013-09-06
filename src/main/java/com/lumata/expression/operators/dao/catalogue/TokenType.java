@@ -1,5 +1,7 @@
 package com.lumata.expression.operators.dao.catalogue;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -30,93 +32,48 @@ public class TokenType {
 	
 	public TokenType() {
 		
-		this.token_type_id = -1;
-		this.token_type_name = "";
-		this.token_label_id = -1;
-		this.expiration_duration = 0;
-		this.expiration_duration_unit = "";
-		this.qty_max_redeems = 0;
-		this.single_use_redeem_duration_timeout = 0;
-		this.token_format = "";
-		this.description = "";	
-		this.salesChannelsList = new ArrayList<SalesChannels>();
+		this.set( null, null, -1, "", -1, 0, "SECONDS", 0, 0, "", "", new ArrayList<SalesChannels>() );
 		
 	}
 	
 	public TokenType( Environment env, String tenant, int token_type_id, String token_type_name, int token_label_id, int expiration_duration, String expiration_duration_unit, int qty_max_redeems, int single_use_redeem_duration_timeout, String token_format, String description, ArrayList<SalesChannels> salesChannelsList ) {
 		
-		this.token_type_id = token_type_id;
-		this.token_type_name = token_type_name;
-		this.token_label_id = token_label_id;
-		this.expiration_duration = expiration_duration;
-		this.expiration_duration_unit = expiration_duration_unit;
-		this.qty_max_redeems = qty_max_redeems;
-		this.single_use_redeem_duration_timeout = single_use_redeem_duration_timeout;
-		this.token_format = token_format;
-		this.description = description;	
-		this.salesChannelsList = salesChannelsList;	
-		
-		SalesChannelsList slc = new SalesChannelsList( env, tenant, null );
-				
-		for( int i = 0; i < salesChannelsList.size(); i++ ) {
-						
-			SalesChannels sc = slc.get( salesChannelsList.get( i ).getChannelName() );
-						
-			if( sc == null ) { 
-				
-				slc.insert(env, tenant, null, salesChannelsList.get( i ).getChannelName(), salesChannelsList.get( i ).getActive() ); 
-				
-				this.salesChannelsList.add( slc.get( salesChannelsList.get( i ).getChannelName() ) );
-				
-			} else {
-				
-				this.salesChannelsList.add( sc );
-				
-			}
-			
-		}
-			
+		this.set( env, tenant, token_type_id, token_type_name, token_label_id, expiration_duration, expiration_duration_unit, qty_max_redeems, single_use_redeem_duration_timeout, token_format, description, salesChannelsList);
+					
 	}
 	
+	public TokenType( Environment env, String tenant, ResultSet rs ) {
+		
+		try {
+					
+			this.set( env, tenant, rs.getInt("token_type_id"), rs.getString("token_type_name"), rs.getInt("token_label_id"), rs.getInt("expiration_duration"), rs.getString("expiration_duration_unit"), rs.getInt("qty_max_redeems"), rs.getInt("single_use_redeem_duration_timeout"), rs.getString("token_format"), rs.getString("description"), new ArrayList<SalesChannels>() );
+					
+		} catch( SQLException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}	
+		
+	}
+
 	public TokenType( Environment env, String tenant, JSONObject tokenType ) {
 		
 		try {
 		
-			this.token_type_id = ( tokenType.isNull( "token_type_id" ) ? -1 : tokenType.getInt( "token_type_id" ) );
-			this.token_type_name = tokenType.getString( "token_type_name" );
-			this.token_label_id = tokenType.getInt( "token_label_id" );
-			this.expiration_duration = tokenType.getInt( "expiration_duration" );
-			this.expiration_duration_unit = tokenType.getString( "expiration_duration_unit" );
-			this.qty_max_redeems = tokenType.getInt( "qty_max_redeems" );
-			this.single_use_redeem_duration_timeout = tokenType.getInt( "single_use_redeem_duration_timeout" );
-			this.token_format = tokenType.getString( "token_format" );
-			this.description = tokenType.getString( "description" );
-				
-			SalesChannelsList slc = new SalesChannelsList( env, tenant, null );
-			
 			JSONArray salesChannelsList = tokenType.getJSONArray( "salesChannels" );
+			
+			ArrayList<SalesChannels> salesChannelsArrayList = new ArrayList<SalesChannels>();
 			
 			for( int i = 0; i < salesChannelsList.length(); i++ ) {
 				
-				JSONObject salesChannels = salesChannelsList.getJSONObject( i );
+				SalesChannels salesChannels = new SalesChannels( salesChannelsList.getJSONObject( i ) );
 				
-				SalesChannels sc = slc.get( salesChannels.getString( "channel_name" ) );
-				
-				if( sc == null ) { 
-					
-					slc.insert(env, tenant, null, salesChannels.getString( "channel_name" ), Boolean.valueOf( salesChannels.getString( "active" ) ) ); 
-					
-					this.salesChannelsList.add( slc.get( salesChannels.getString( "channel_name" ) ) );
-					
-				} else {
-					
-					this.salesChannelsList.add( sc );
-					
-				}
-				
+				salesChannelsArrayList.add( salesChannels );
+								
 			}
 			
-		
+			this.set(env, tenant,( tokenType.isNull( "token_type_id" ) ? -1 : tokenType.getInt( "token_type_id" ) ), tokenType.getString( "token_type_name" ), tokenType.getInt( "token_label_id" ), tokenType.getInt( "expiration_duration" ), tokenType.getString( "expiration_duration_unit" ), tokenType.getInt( "qty_max_redeems" ), tokenType.getInt( "single_use_redeem_duration_timeout" ), tokenType.getString( "token_format" ), tokenType.getString( "description" ), salesChannelsArrayList );
+					
 		} catch( JSONException e ) {
 			
 			logger.error( e.getMessage(), e );
@@ -185,6 +142,21 @@ public class TokenType {
 		
 	}
 
+	public void set( Environment env, String tenant, int token_type_id, String token_type_name, int token_label_id, int expiration_duration, String expiration_duration_unit, int qty_max_redeems, int single_use_redeem_duration_timeout, String token_format, String description, ArrayList<SalesChannels> salesChannelsList ) {
+		
+		this.setTokenTypeID( token_type_id );
+		this.setTokenTypeName( token_type_name );
+		this.setTokenLabelID( token_label_id );
+		this.setExpirationDuration( expiration_duration );
+		this.setExpirationDurationUnit( expiration_duration_unit );
+		this.setQtyMaxRedeems( qty_max_redeems );
+		this.setSingleUseRedeemDurationTimeout( single_use_redeem_duration_timeout );
+		this.setTokenFormat( token_format );
+		this.setDescription( description );	
+		this.setSalesChannelsList( env, tenant, salesChannelsList );		
+		
+	}
+	
 	public void setTokenTypeID( int token_type_id ) {
 		
 		this.token_type_id = token_type_id;
@@ -244,10 +216,50 @@ public class TokenType {
 		this.salesChannelsList = salesChannelsList;
 		
 	}
+
+	public void setSalesChannelsList( Environment env, String tenant, ArrayList<SalesChannels> salesChannelsList ) {
+		
+		this.salesChannelsList = new ArrayList<SalesChannels>();
+		
+		SalesChannelsList slc = new SalesChannelsList( env, tenant, null );
+		
+		for( int i = 0; i < salesChannelsList.size(); i++ ) {
+			
+			SalesChannels sc = slc.get( salesChannelsList.get( i ).getChannelName() );
+						
+			if( sc == null ) { 
+				
+				slc.insert(env, tenant, null, salesChannelsList.get( i ).getChannelName(), salesChannelsList.get( i ).getActive() ); 
+				
+				this.salesChannelsList.add( slc.get( salesChannelsList.get( i ).getChannelName() ) );
+				
+			} else {
+				
+				this.salesChannelsList.add( sc );
+				
+			}
+			
+		}		
+		
+	}
 	
 	public void addSalesChannelsList( SalesChannels salesChannels ) {
 		
-		this.salesChannelsList.add( salesChannels );
+		if( this != null && !this.hasSalesChannels( salesChannels.getChannelName() ) ) { this.salesChannelsList.add( salesChannels ); }
+		
+	}
+	
+	public boolean hasSalesChannels( String salesChannels ) {
+		
+		for( int i = 0; i < this.getSalesChannelsList().size(); i++ ) {
+			
+			SalesChannels sc = this.getSalesChannelsList().get( i );
+			
+			if( ( sc.getChannelName().trim() ).equals( salesChannels.trim() ) ) { return true; }
+			
+		}		
+		
+		return false;
 		
 	}
 	

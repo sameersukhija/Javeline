@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.model.json;
+package com.lumata.expression.operators.json.configuration;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,23 +17,23 @@ import com.lumata.expression.operators.exceptions.CampaignModelException;
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
-public class CampaignModel {
+public class CampaignModelCfg {
 
-	private static final  Logger logger = LoggerFactory.getLogger( CampaignModel.class );
+	private static final  Logger logger = LoggerFactory.getLogger( CampaignModelCfg.class );
 	
 	private JSONObject cmCfg;
 	
 	public enum CMLoadingType { FILE, RESOURCE }
 	
 	/* Create an CampaignModel from a JSONObject */
-	public CampaignModel( JSONObject CampaignModel ) {
+	public CampaignModelCfg( JSONObject CampaignModel ) {
 		
 		this.cmCfg = CampaignModel;
 				
 	}
 	
 	/* Create an CampaignModel loading the JSONObject from the default folder ( <home of the project> ) or resource folder ( src/main/resources/lumata-common-testing ) */
-	public CampaignModel( String CampaignModel, CMLoadingType loadingType ) throws CampaignModelException {
+	public CampaignModelCfg( String CampaignModel, CMLoadingType loadingType ) throws CampaignModelException {
 		
 		try {
 			
@@ -62,7 +62,7 @@ public class CampaignModel {
 	}
 	
 	/* Create an CampaignModel loading the JSONObject from the file or resource folder ( src/main/resources/lumata-common-testing/folder ) */
-	public CampaignModel( String folder, String CampaignModel, CMLoadingType loadingType ) throws CampaignModelException {
+	public CampaignModelCfg( String folder, String CampaignModel, CMLoadingType loadingType ) throws CampaignModelException {
 		
 		try {
 			

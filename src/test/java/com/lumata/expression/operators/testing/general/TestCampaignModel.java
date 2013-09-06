@@ -23,8 +23,8 @@ import com.lumata.common.testing.system.Environment.EnvLoadingType;
 import com.lumata.expression.operators.exceptions.CampaignModelException;
 import com.lumata.expression.operators.gui.campaigns.CampaignModelForm;
 import com.lumata.expression.operators.gui.security.Authorization;
-import com.lumata.expression.operators.model.json.CampaignModel;
-import com.lumata.expression.operators.model.json.CampaignModel.CMLoadingType;
+import com.lumata.expression.operators.json.configuration.CampaignModelCfg;
+import com.lumata.expression.operators.json.configuration.CampaignModelCfg.CMLoadingType;
 
 
 public class TestCampaignModel {
@@ -59,7 +59,7 @@ public class TestCampaignModel {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}	
 	
-	@Test( enabled = true )
+	@Test( enabled = false )
 	public void checkCampaignModelList() throws CampaignModelException {
 		
 		Assert.assertTrue( CampaignModelForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_INTERVAL) );
@@ -68,9 +68,13 @@ public class TestCampaignModel {
 		
 		logger.info( "######### " + String.valueOf( cmList.size() ) );
 		
+		
+		
 		Map<String, Object> cmModel = cmList.get( 1 );
 		
 		((WebElement)cmModel.get( "edit" )).click();
+		
+		
 		
 		/*
 		Assert.assertNotNull( cmList );
@@ -96,12 +100,12 @@ public class TestCampaignModel {
 		
     }
 	
-	@Test( enabled = false )
+	@Test( enabled = true )
 	public void loadCampaignModel() throws CampaignModelException {
 
-		CampaignModel cm_token_gold = new CampaignModel( "input/campaign_models", "cm_token_gold", CMLoadingType.RESOURCE );
-		CampaignModel cm_token_silver = new CampaignModel( "input/campaign_models", "cm_token_silver", CMLoadingType.RESOURCE );
-		CampaignModel cm_token_bronze = new CampaignModel( "input/campaign_models", "cm_token_bronze", CMLoadingType.RESOURCE );
+		CampaignModelCfg cm_token_gold = new CampaignModelCfg( "input/campaign_models", "cm_token_gold", CMLoadingType.RESOURCE );
+		CampaignModelCfg cm_token_silver = new CampaignModelCfg( "input/campaign_models", "cm_token_silver", CMLoadingType.RESOURCE );
+		CampaignModelCfg cm_token_bronze = new CampaignModelCfg( "input/campaign_models", "cm_token_bronze", CMLoadingType.RESOURCE );
 				
 		Assert.assertTrue( CampaignModelForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_INTERVAL) );
 		Assert.assertTrue( CampaignModelForm.create(seleniumWebDriver, cm_token_gold, TIMEOUT, ATTEMPT_INTERVAL) );

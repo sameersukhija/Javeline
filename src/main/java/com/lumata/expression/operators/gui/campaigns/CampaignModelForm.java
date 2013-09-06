@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.expression.operators.model.json.CampaignModel;
+import com.lumata.expression.operators.json.configuration.CampaignModelCfg;
 
 public class CampaignModelForm extends CampaignsForm {
 
@@ -119,7 +119,7 @@ public class CampaignModelForm extends CampaignsForm {
 		
 	}
 	
-	public static boolean create( SeleniumWebDriver selenium, CampaignModel cm, long timeout, long interval ) {
+	public static boolean create( SeleniumWebDriver selenium, CampaignModelCfg cm, long timeout, long interval ) {
 		
 		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-BtnCampaignModelAdd") );
 		
@@ -237,13 +237,13 @@ public class CampaignModelForm extends CampaignsForm {
 		
 	}
 	
-	public static boolean isModel( SeleniumWebDriver selenium, ArrayList<CampaignModel> cmList, CampaignModel cm ) {
+	public static boolean isModel( SeleniumWebDriver selenium, ArrayList<CampaignModelCfg> cmList, CampaignModelCfg cm ) {
 		
 		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "if Campaign Model exists ( " + cm.getName() + " )") );
 				
 		for( int i = 0; i < cmList.size(); i++ ) {
 			
-			CampaignModel cmElement = cmList.get( i );
+			CampaignModelCfg cmElement = cmList.get( i );
 			
 			if( cmElement.getName().equals( cm.getName() ) ) { return true; }			
 			

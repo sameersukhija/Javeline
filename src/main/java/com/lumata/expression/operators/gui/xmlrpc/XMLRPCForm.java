@@ -1,5 +1,10 @@
 package com.lumata.expression.operators.gui.xmlrpc;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -7,14 +12,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.database.Mysql;
+import com.lumata.common.testing.exceptions.EnvironmentException;
+import com.lumata.common.testing.exceptions.IOFileException;
+import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.io.IOFileUtils;
+import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.common.testing.system.Security;
+import com.lumata.common.testing.validating.Format;
+import com.lumata.expression.operators.json.configuration.XMLRPCCfg;
+import com.lumata.expression.operators.json.configuration.XMLRPCCfg.ParamType;
 
 
-public class XMLRPC {
+public class XMLRPCForm {
 
-	private static final Logger logger = LoggerFactory.getLogger( XMLRPC.class );
+	private static final Logger logger = LoggerFactory.getLogger( XMLRPCForm.class );
 	
 	private static final String HOME = "html/body/div[1]/div/div/";
 	private static final String URL = HOME + "div[1]/div[2]/div/input";
@@ -26,13 +40,41 @@ public class XMLRPC {
 	private static final String REMOVE_LAST_PARAMETER = PARAMETERS_BTN + "a[2]";
 	private static final String RESULT = HOME + "div[4]/div[2]";
 	
+	public enum CALLS {
+		
+		ACCEPT( "offer_optimizer.accept" ) {
+			public String get() { return this.value; }
+			public int getNumberParametersRequired() { return 4; }
+		},
+		ALLOCATE( "offer_optimizer.allocate" ) {
+			public String get() { return this.value; }
+			public int getNumberParametersRequired() { return 3; }
+		},
+		REFUSE_ALL( "offer_optimizer.refuseAll" ) {
+			public String get() { return this.value; }
+			public int getNumberParametersRequired() { return 3; }
+		};
+		
+		CALLS( String value ) {
+			
+			this.value = value;
+			
+		}
+		
+		public String value;
+		
+		public abstract String get();
+		public abstract int getNumberParametersRequired();		
+		
+	}
+	
 	public static boolean open( SeleniumWebDriver selenium, String url, long timeout, long interval ) {
 		
 		logger.info( Log.LOADING.createMessage( "Browser" ) );
 		
 		selenium.open( url );
 		
-		if( XMLRPC.getURL(selenium, timeout, interval) == null ) { return false; }
+		if( XMLRPCForm.getURL(selenium, timeout, interval) == null ) { return false; }
 	
 		return true;
 		
@@ -87,7 +129,7 @@ public class XMLRPC {
 		
 		int parametersCount = 1;
 		
-		while( XMLRPC.getParameterElement(selenium, parametersCount, timeout, interval) != null ) {
+		while( XMLRPCForm.getParameterElement(selenium, parametersCount, timeout, interval) != null ) {
 			
 			logger.info( String.valueOf( parametersCount ) );
 			parametersCount++;
@@ -128,6 +170,21 @@ public class XMLRPC {
 		return true;
 		
 	}
+	
+	public static boolean removeAllParameters( SeleniumWebDriver selenium, long timeout, long interval ) {
+		
+		int numberParametersToDelete = XMLRPCForm.getParametersCount(selenium, 120000, 500);
+		
+		for( int i = 0; i < numberParametersToDelete; i++ ) {
+			
+			boolean removed = XMLRPCForm.removeLastParameter(selenium, timeout, interval);
+			if( !removed ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Remove All Parameters" ) ); return false; }	
+						
+		}
+		
+		return true;
+		
+	}
 
 	public static boolean setCfg( JSONObject dataSource, String tenant ) {
 		
@@ -145,7 +202,7 @@ public class XMLRPC {
 
 	public static boolean setURL( SeleniumWebDriver selenium, CharSequence value, long timeout, long interval ) {
 		
-		WebElement urlInput = XMLRPC.getURL(selenium, timeout, interval);
+		WebElement urlInput = XMLRPCForm.getURL(selenium, timeout, interval);
 		if( urlInput == null ) return false;
 		
 		logger.info( Log.PUTTING.createMessage( "URL ( " + value.toString() + " )" ) );
@@ -158,7 +215,7 @@ public class XMLRPC {
 	
 	public static boolean setCall( SeleniumWebDriver selenium, CharSequence value, long timeout, long interval ) {
 		
-		WebElement callsList = XMLRPC.getCallsList(selenium, timeout, interval);
+		WebElement callsList = XMLRPCForm.getCallsList(selenium, timeout, interval);
 		if( callsList == null ) return false;
 		
 		logger.info( Log.PUTTING.createMessage( "Call ( " + value.toString() + " )" ) );
@@ -170,7 +227,7 @@ public class XMLRPC {
 	
 	public static boolean sendCall( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
-		WebElement callButton = XMLRPC.getCallBtn(selenium, timeout, interval);
+		WebElement callButton = XMLRPCForm.getCallBtn(selenium, timeout, interval);
 		if( callButton == null ) return false;
 		
 		logger.info( Log.SELECTING.createMessage( "Call Button )" ) );
@@ -182,7 +239,7 @@ public class XMLRPC {
 	
 	public static boolean setParameter( SeleniumWebDriver selenium, int index, CharSequence value, long timeout, long interval ) {
 		
-		WebElement parameterTextArea = XMLRPC.getParameterElement(selenium, index, timeout, interval);
+		WebElement parameterTextArea = XMLRPCForm.getParameterElement(selenium, index, timeout, interval);
 		if( parameterTextArea == null ) return false;
 		
 		logger.info( Log.PUTTING.createMessage( "Set Parameter ( " + value.toString() + " )" ) );
@@ -192,16 +249,147 @@ public class XMLRPC {
 		
 	}
 	
-	public static boolean setLoginParameter( SeleniumWebDriver selenium, int index, String user, String password, long timeout, long interval ) {
+	public static boolean setLoginParameter( SeleniumWebDriver selenium, int index, JSONObject data, long timeout, long interval ) {
 		
 		StringBuffer loginParameter = new StringBuffer();
 		
-		loginParameter.append( "<authentication>\n" );
-		loginParameter.append( "<login>superman</login>\n" );
-		loginParameter.append( "<password>super2010Man</password>\n" );
-		loginParameter.append( "</authentication>" );
+		try {
+			
+			loginParameter.append( "<authentication>\n" );
+			loginParameter.append( "<login>" + data.getString( "user" ) + "</login>\n" );
+			loginParameter.append( "<password>" + Security.decrypt( data.getString( "password" ) ) + "</password>\n" );
+			loginParameter.append( "</authentication>" );
+			
+		} catch( JSONException e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return XMLRPCForm.setParameter(selenium, index, loginParameter.toString(), timeout, interval);
+		
+	}
+	
+	public static boolean setStringParameter( SeleniumWebDriver selenium, int index, JSONObject data, long timeout, long interval ) {
+		
+		StringBuffer stringParameter = new StringBuffer();
+		
+		try {
+		
+			stringParameter.append( "<string>" );
+			stringParameter.append( data.getString( "value" ) );
+			stringParameter.append( "</string>" );
+		
+		} catch( JSONException e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+			
+		return XMLRPCForm.setParameter(selenium, index, stringParameter.toString(), timeout, interval);
+		
+	}
+	
+	public static boolean setOffersListParameter( SeleniumWebDriver selenium, int index, JSONObject data, long timeout, long interval ) {
+		
+		StringBuffer offerIDListParameter = new StringBuffer();
+		
+		try {
+			
+			JSONArray values = data.getJSONArray( "values" );
+			
+			offerIDListParameter.append( "<array><data>\n" );
+			
+			for( int i = 0; i < values.length(); i++ ) {
 				
-		return XMLRPC.setParameter(selenium, index, loginParameter.toString(), timeout, interval);
+				offerIDListParameter.append( "<value><int>" + values.getString( i ) + "</int></value>\n" );
+				
+			}
+		
+			offerIDListParameter.append( "</data></array>\n" );
+			
+		} catch( JSONException e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+					
+		return XMLRPCForm.setParameter(selenium, index, offerIDListParameter.toString(), timeout, interval);
+		
+	}
+	
+	public static boolean set( SeleniumWebDriver selenium, XMLRPCCfg configuration, long timeout, long interval ) {
+		
+		try {
+			
+			XMLRPCForm.removeAllParameters( selenium, timeout, interval );
+			
+			XMLRPCForm.setCall( selenium, XMLRPCForm.CALLS.valueOf( configuration.getCall() ).get(), timeout, interval );
+		
+			JSONArray parameters = configuration.getParameters();
+						
+			for( int i = 0; i < parameters.length(); i++ ) {
+			        	
+	            XMLRPCForm.addParameter( selenium, timeout, interval );
+	         
+	            switch( ParamType.valueOf( configuration.getParamType( i ) ) ) {
+	        	
+		        	case LOGIN: {
+		        				        		
+		        		XMLRPCForm.setLoginParameter( selenium, i + 1, configuration.getParamData( i ), timeout, interval);
+		        		
+		        		break;
+		        	}
+		        	case STRING: {
+		        		
+		        		XMLRPCForm.setStringParameter( selenium, i + 1, configuration.getParamData( i ), timeout, interval);
+		        		
+		        		break;
+		        	}
+		        	case OFFER_ID_LIST: {
+		        		
+		        		XMLRPCForm.setOffersListParameter( selenium, i + 1, configuration.getParamData( i ), timeout, interval);
+		        		
+		        		break;
+		        	}
+		        	default: { XMLRPCForm.removeLastParameter( selenium, timeout, interval); }
+		        	
+	        	}
+	        	
+	        }
+			
+			
+		} catch( Exception e ) {
+			
+			logger.error( e.getMessage(), e );			
+		
+		}
+				
+		return true;
+		
+	}
+	
+	public static JSONObject getTemplate( XMLRPCForm.CALLS callType ) {
+		
+		JSONObject template = null;
+		
+		String resource_name = "xmlrpc_template_" + callType.name().toLowerCase();
+		
+		try {
+			
+			template = JSONUtils.loadJSONResource( "input/xmlrpc", resource_name + Format.JSON_EXTENSION );
+								
+		} catch( JSONSException e ) {
+			
+			logger.error( e.getMessage(), e );
+				
+		} catch( IOFileException e ) {			
+			
+			logger.error( e.getMessage(), e );
+			
+		} 	
+		
+		return template;
 		
 	}
 

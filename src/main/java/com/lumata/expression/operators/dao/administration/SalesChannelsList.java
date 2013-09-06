@@ -57,7 +57,7 @@ public class SalesChannelsList {
 								
 				SalesChannels channel = new SalesChannels( salesChannelsList.getJSONObject( i ) );
 								
-				if( !this.isSalesChannel( channel.getChannelName() ) ) { this.insert(env, tenant, filteredIds, channel.getChannelName(), channel.getActive()); }
+				this.insert(env, tenant, filteredIds, channel.getChannelName(), channel.getActive());
 				
 			}
 			
@@ -93,7 +93,7 @@ public class SalesChannelsList {
 			
 			for( int i = 0; i < this.list.size(); i++ ) {
 				
-				if( ( this.list.get( i ).getChannelName()).equals( salesChannel ) ) { return this.list.get( i ); }
+				if( ( this.list.get( i ).getChannelName().trim() ).equals( salesChannel ) ) { return this.list.get( i ); }
 				
 			}
 			
@@ -156,15 +156,24 @@ public class SalesChannelsList {
 		
 		int index = 0;
 				
-		Mysql mysql = new Mysql( env.getDataSource( tenant ) );
+		SalesChannels sc = this.get( salesChannel );
 		
-		String query = "INSERT INTO " + tenant + ".sales_channels ( channel_name, active ) VALUES( '" + salesChannel + "', '" + active + "' );";
-				
-		index = mysql.execUpdate( query );
+		if( sc == null ) { 
 		
-		mysql.close();
+			Mysql mysql = new Mysql( env.getDataSource( tenant ) );
+			
+			String query = "INSERT INTO " + tenant + ".sales_channels ( channel_name, active ) VALUES( '" + salesChannel + "', '" + active + "' );";		
+			index = mysql.execUpdate( query );
+			
+			mysql.close();
+			
+			this.load(env, tenant, filteredIds);
 		
-		this.load(env, tenant, filteredIds);
+		} else {
+			
+			index = sc.getChannelID();
+			
+		}
 		
 		return index;
 		
@@ -185,6 +194,7 @@ public class SalesChannelsList {
 			while( rs.next() ) {
 				
 				SalesChannels salesChannels = new SalesChannels( rs );
+				
 				this.list.add( salesChannels );
 				
 			}

@@ -32,7 +32,6 @@ public class TokenTypeList {
 		
 	}
 	
-	/*
 	public TokenTypeList( Environment env, String tenant, ArrayList<Integer> filteredIds, String path, String file, IOFileUtils.IOLoadingType loadingType ) {
 		
 		JSONObject salesChannels = new JSONObject();
@@ -53,7 +52,7 @@ public class TokenTypeList {
 				}
 			
 			}
-			
+			/*
 			JSONArray salesChannelsList = salesChannels.getJSONArray( "sales_channels" ); 
 		
 			for( int i = 0; i < salesChannelsList.length(); i++ ) {
@@ -63,14 +62,14 @@ public class TokenTypeList {
 				if( !this.isSalesChannel( channel.getChannelName() ) ) { this.insert(env, tenant, filteredIds, channel.getChannelName(), channel.getActive()); }
 				
 			}
-			
+			*/
 			this.load(env, tenant, filteredIds);
 			
-		} catch( JSONException e ) {
+		} /*catch( JSONException e ) {
 			
 			logger.error( e.getMessage(), e );
 			
-		} catch( JSONSException e ) {
+		}*/ catch( JSONSException e ) {
 			
 			logger.error( e.getMessage(), e );
 			
@@ -82,7 +81,7 @@ public class TokenTypeList {
 			
 		
 	}
-*/	
+
 	public TokenType get( int salesChannelIndex ) {
 		
 		return this.list.get( salesChannelIndex );
@@ -95,7 +94,7 @@ public class TokenTypeList {
 		else {
 			
 			for( int i = 0; i < this.list.size(); i++ ) {
-				System.out.println( this.list.get( i ).getTokenTypeName() );
+				
 				if( ( this.list.get( i ).getTokenTypeName()).equals( TokenType ) ) { return this.list.get( i ); }
 				
 			}
@@ -114,7 +113,10 @@ public class TokenTypeList {
 		
 	}
 
-/*
+	
+	
+	
+	/*
 	public boolean isActive( String salesChannel ) {
 		
 		if( salesChannel.length() <= 0 ) { return false; }
@@ -131,16 +133,25 @@ public class TokenTypeList {
 		return false;
 		
 	}
+	*/
 	
-	public int delete(  Environment env, String tenant, ArrayList<Integer> filteredIds, String salesChannel, boolean active ) {
+	public int delete( Environment env, String tenant, ArrayList<Integer> filteredIds, TokenType tokenType ) {
 		
 		int index = 0;
 				
 		Mysql mysql = new Mysql( env.getDataSource( tenant ) );
 		
-		String query = "DELETE FROM " + tenant + ".sales_channels WHERE channel_name = '" + salesChannel + "';";
+		String query = "DELETE FROM " + tenant + ".token_label_channel WHERE token_label_id = '" + tokenType.getTokenLabelID() + "';";
 				
 		index = mysql.execUpdate( query );
+		
+		query = "DELETE FROM " + tenant + ".token_label WHERE token_label_id = '" + tokenType.getTokenLabelID() + "';";
+		
+		index = mysql.execUpdate( query );
+		
+		query = "DELETE FROM " + tenant + ".token_type WHERE token_type_id = '" + tokenType.getTokenTypeID() + "';";
+		
+		index = mysql.execUpdate( query );		
 		
 		mysql.close();
 		
@@ -149,74 +160,100 @@ public class TokenTypeList {
 		return index;
 		
 	}
-*/
-	public int insert(  Environment env, String tenant, ArrayList<Integer> filteredIds, String tokenTypeName, int expirationDuration, String expirationDurationUnit, int qtyMaxReddems, int singleUseRedeemDurationTimeout, String tokenFormat, String description, ArrayList<String> salesChannelsList ) {
+
+	public int insert( Environment env, String tenant, ArrayList<Integer> filteredIds, JSONObject tokenType ) {
+		
+		int index = -1;
+		
+		/*
+		try {
+			
+			this.insert(env, tenant, filteredIds, tokenType.getString( "" ), expirationDuration, expirationDurationUnit, qtyMaxReddems, singleUseRedeemDurationTimeout, tokenFormat, description, salesChannelsList)
+			
+		} catch( JSONException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		*/
+		return index;
+		
+	}
+	
+	public int insert( Environment env, String tenant, ArrayList<Integer> filteredIds, TokenType tokenType ) {
+		
+		int tokenTypeID = -1; 
 		
 		Mysql mysql = new Mysql( env.getDataSource( tenant ) );
 		
-		SalesChannelsList slc = new SalesChannelsList( env, tenant, filteredIds );
+		TokenType tt = this.get( tokenType.getTokenTypeName() );
 		
-		ArrayList<Integer> salesChannelsIndex = new ArrayList<Integer>();
+		int tokenLabelID = -1;
+		 
+		if( tt == null ) {
+			
+			// Insert Token Label
+			String query = "INSERT INTO " + tenant + ".token_label ( label ) VALUES ( '" + tokenType.getTokenTypeName() + "' );";
+			
+			tokenLabelID = mysql.execUpdate( query );
+			
+			// Insert Token Type
+			query = "INSERT INTO " + tenant + ".token_type " +
+					"( " +
+					" token_type_name, " +
+					" token_label_id, " +
+					" expiration_duration, " +
+					" expiration_duration_unit, " +
+					" qty_max_redeems, " +
+					" single_use_redeem_duration_timeout, " +
+					" token_format, " +
+					" description " +
+					") " +
+					"VALUES ( '" + tokenType.getTokenTypeName() + "'," +
+					"		  " + tokenType.getTokenLabelID() + ", " +
+					"		  " + tokenType.getExpirationDuration() + ", " +
+					"		  '" + tokenType.getExpirationDurationUnit() + "', " +
+					"		  " + tokenType.getQtyMaxRedeems() + ", " +
+					"		  " + tokenType.getSingleUseRedeemDurationTimeout() + ", " +
+					"		  '" + tokenType.getTokenFormat() + "', " +
+					"		  '" + tokenType.getDescription() + "' " +
+					");";
+			
+			tokenTypeID = mysql.execUpdate( query ); 
+			
+		} else {
+			
+			tokenTypeID = tt.getTokenTypeID();
+			
+			tokenLabelID = tt.getTokenLabelID();
+			
+		}
 		
 		// Get Sales Channels Ids ( Insert Sales Channels if not exists )
-		for( int i = 0; i < salesChannelsList.size(); i++ ) {
+		SalesChannelsList slc = new SalesChannelsList( env, tenant, filteredIds );
+		
+		ArrayList<Integer> salesChannelsIDs = new ArrayList<Integer>();
+		
+		for( int i = 0; i < tokenType.getSalesChannelsList().size(); i++ ) {
 			
-			SalesChannels sc = slc.get( salesChannelsList.get( i ) );
+			if( tt == null || !tt.hasSalesChannels( tokenType.getSalesChannelsList().get( i ).getChannelName() ) ) { 
+				
+				salesChannelsIDs.add( slc.insert(env, tenant, filteredIds, ( SalesChannels )tokenType.getSalesChannelsList().get( i ) ) ); 
 			
-			if( sc != null ) {
-				
-				salesChannelsIndex.add( sc.getChannelID() );
-						
-			} else {
-				
-				salesChannelsIndex.add( slc.insert(env, tenant, filteredIds, salesChannelsList.get( i ), true ) ); 
-				
 			}
 			
 		}
 		
-		int tokenLabelIndex;
-		
-		// Insert Token Label
-		String query = "INSERT INTO " + tenant + ".token_label ( label ) VALUES ( '" + tokenTypeName + "' );";
-		
-		tokenLabelIndex = mysql.execUpdate( query ); 				
-		
-		System.out.println( "Token Label Index: " + tokenLabelIndex );
 		// Insert Token Label Channels
-		for( int j = 0; j < salesChannelsIndex.size(); j++ ) {
+		for( int j = 0; j < salesChannelsIDs.size(); j++ ) {
 			
-			query = "INSERT INTO " + tenant + ".token_label_channel VALUES ( " + tokenLabelIndex + ", " + salesChannelsIndex.get( j ) + " );";
+			String query = "INSERT INTO " + tenant + ".token_label_channel VALUES ( " + tokenLabelID + ", " + salesChannelsIDs.get( j ) + " );";
 			
 			mysql.execUpdate( query );
 							
 		}
-		
-		// Insert Token Type
-		query = "INSERT INTO " + tenant + ".token_type " +
-				"( " +
-				" token_type_name, " +
-				" token_label_id, " +
-				" expiration_duration, " +
-				" expiration_duration_unit, " +
-				" qty_max_redeems, " +
-				" single_use_redeem_duration_timeout, " +
-				" token_format, " +
-				" description " +
-				") " +
-				"VALUES ( '" + tokenTypeName + "'," +
-				"		  " + tokenLabelIndex + ", " +
-				"		  " + expirationDuration + ", " +
-				"		  '" + expirationDurationUnit + "', " +
-				"		  " + qtyMaxReddems + ", " +
-				"		  " + singleUseRedeemDurationTimeout + ", " +
-				"		  '" + tokenFormat + "', " +
-				"		  '" + description + "' " +
-				");";
-		System.out.println( query );
-		int tokenTypeIndex = mysql.execUpdate( query ); 
-		
-		return tokenTypeIndex;
+			
+		return tokenTypeID;
 		
 	}
 		
@@ -256,18 +293,8 @@ public class TokenTypeList {
 							
 				if( rs.getInt( "token_type_id" ) != token_type_id ) {
 					
-					tokenType = new TokenType();
-					tokenType.setTokenTypeID( rs.getInt("token_type_id") );
-					tokenType.setTokenTypeName( rs.getString("token_type_name") );
-					tokenType.setTokenLabelID( rs.getInt("token_label_id") );
-					tokenType.setExpirationDuration( rs.getInt("expiration_duration") );
-					tokenType.setExpirationDurationUnit( rs.getString("expiration_duration_unit") );
-					tokenType.setQtyMaxRedeems( rs.getInt("qty_max_redeems") );
-					tokenType.setSingleUseRedeemDurationTimeout( rs.getInt("single_use_redeem_duration_timeout") );
-					tokenType.setTokenFormat( rs.getString("token_format") );
-					tokenType.setDescription( rs.getString("description") );
-					tokenType.setSalesChannelsList( new ArrayList<SalesChannels>() );
-					
+					tokenType = new TokenType( env, tenant, rs );
+								
 					token_type_id = tokenType.getTokenTypeID();
 					
 					this.list.add( tokenType );
@@ -276,7 +303,7 @@ public class TokenTypeList {
 
 				SalesChannels salesChannels = new SalesChannels( rs.getInt( "channel_id" ), rs.getString( "channel_name" ), Boolean.valueOf( rs.getString( "active" ) ) );
 				
-				if( tokenType != null ) { tokenType.addSalesChannelsList( salesChannels ); }
+				tokenType.addSalesChannelsList( salesChannels );
 				
 			}
 		

@@ -245,9 +245,9 @@ public class Configuration {
 		
 	} 
 	
-	public static Boolean check( ArrayList<Configuration> cfgList, String tenantName, Environment env ) {
+	public static Boolean check( ArrayList<Configuration> cfgList, String tenant, Environment env ) {
 		
-		Mysql mysql = new Mysql( env.getDataSource( tenantName ) );
+		Mysql mysql = new Mysql( env.getDataSource( tenant ) );
 		
 		StringBuffer parameters = new StringBuffer(); 
 		
@@ -258,7 +258,7 @@ public class Configuration {
 			
 		}
 		
-		String query = "SELECT * FROM " + tenantName + ".conf WHERE name in ( " + parameters.substring( 0, parameters.length() - 2 ) + " );";
+		String query = "SELECT * FROM " + tenant + ".conf WHERE name in ( " + parameters.substring( 0, parameters.length() - 2 ) + " );";
 		
 		// Get Result
 		ResultSet rs = mysql.execQuery( query );

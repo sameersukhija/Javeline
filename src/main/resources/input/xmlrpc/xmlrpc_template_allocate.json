@@ -1,0 +1,9 @@
+{
+	"url": "",
+	"call": "ALLOCATE",
+	"parameters": [
+		{ "type": "login", "data": { "user": "superman", "password": "bGppYm1NSUhJMmB3" } },
+		{ "type": "string", "data": { "value": "331234567" } },
+		{ "type": "string", "data": { "value": "" } }
+	]
+}

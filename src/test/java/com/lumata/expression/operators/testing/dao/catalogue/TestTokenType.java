@@ -46,7 +46,10 @@ public class TestTokenType {
 		
 		logger.info( Log.PUTTING.createMessage( "checkTokenType" , "Token Type" ) );
 		
-		tokenTypesList = new TokenTypeList( env, tenant, null );
+		tokenTypesList = new TokenTypeList( env, tenant, null, "input/catalogue/offer_optimisation", "token_type_list_all.json", IOFileUtils.IOLoadingType.RESOURCE );
+		
+		
+		//tokenTypesList = new TokenTypeList( env, tenant, null );
 		
 		
 		
@@ -55,7 +58,12 @@ public class TestTokenType {
 		
 		salesChannels.add( "New Channel" );
 		
-		tokenTypesList.insert(env, tenant, null, "Token Gold", 100, "DAYS", 100, 0, "gl", "", salesChannels);
+		salesChannels.add( "Token Gold" );
+		
+		int index = tokenTypesList.insert( env, tenant, null, "Token Gold", 100, "DAYS", 100, 0, "sl", "", salesChannels );
+		
+		System.out.println( index );
+		
 		*/
 		
 	}	
