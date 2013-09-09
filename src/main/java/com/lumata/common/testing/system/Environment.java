@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 
@@ -23,7 +24,6 @@ public class Environment {
 	
 	private JSONObject envCfg;
 	
-	public enum EnvLoadingType { FILE, RESOURCE }
 	public enum ServicesType { SSH }
 	
 	/* Create an environment from a JSONObject */
@@ -34,7 +34,7 @@ public class Environment {
 	}
 	
 	/* Create an environment loading the JSONObject from the default folder ( <home of the project> ) or resource folder ( src/main/resources/lumata-common-testing ) */
-	public Environment( String environment, EnvLoadingType loadingType ) throws EnvironmentException {
+	public Environment( String environment, IOFileUtils.IOLoadingType loadingType ) throws EnvironmentException {
 		
 		try {
 			
@@ -63,7 +63,7 @@ public class Environment {
 	}
 	
 	/* Create an environment loading the JSONObject from the file or resource folder ( src/main/resources/lumata-common-testing/folder ) */
-	public Environment( String folder, String environment, EnvLoadingType loadingType ) throws EnvironmentException {
+	public Environment( String folder, String environment, IOFileUtils.IOLoadingType loadingType ) throws EnvironmentException {
 		
 		try {
 			
