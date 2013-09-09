@@ -18,7 +18,6 @@ import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.ResourcePropertiesException;
 import com.lumata.common.testing.selenium.SeleniumCache;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.system.Environment.EnvLoadingType;
 import com.lumata.common.testing.system.ResourceProperties;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.common.testing.validating.Format.Operators;
@@ -260,7 +259,7 @@ public class TestFormat {
 		String format = "com.lumata.common.testing.selenium.SeleniumWebDriver$BrowserType";
 		Assert.assertEquals( Format.isEnum( value, format, false ), false );
 	}
-	
+	/*
 	@Test()
 	public void isMapKey_1() {		
 		TestMap tm = new TestMap();
@@ -274,34 +273,34 @@ public class TestFormat {
 	}
 	
 	/** Allow blank */
-	@Test()
+/*	@Test()
 	public void isMapKey_3() {		
 		TestMap tm = new TestMap();
 		Assert.assertEquals( Format.isMapKey( "", "TEST_MAP", tm, true ), true );
 	}
 	
 	/** Null */
-	@Test( expectedExceptions = NullPointerException.class )
+/*	@Test( expectedExceptions = NullPointerException.class )
 	public void isMapKey_4() {		
 		TestMap tm = new TestMap();
 		Assert.assertEquals( Format.isMapKey( null, "TEST_MAP", tm, true ), false );
 	}
 	
 	/** Wrong Map */
-	@Test()
+/*	@Test()
 	public void isMapKey_5() {		
 		TestMap tm = new TestMap();
 		Assert.assertEquals( Format.isMapKey( "key_1", "WRONG_MAP", tm, false ), false );
 	}
 	
 	/** Wrong Class */
-	@Test()
+/*	@Test()
 	public void isMapKey_6() {		
 		TestMap tm = new TestMap();
 		Assert.assertEquals( Format.isMapKey( "key_1", "TEST_MAP", new Object(), false ), false );
 	}
-	
-	@Test()
+	*/
+/*	@Test()
 	public void isFile_1() {		
 		Assert.assertEquals( Format.isFile( "test.txt" ), true );
 	}
@@ -322,9 +321,9 @@ public class TestFormat {
 	}
 	
 	/** Not valid characters: ."'?$&* */ 
-	@Test()
+/*	@Test()
 	public void isFile_5() {		
 		Assert.assertEquals( Format.isFile( ".\"'?$&*.txt" ), false );
 	}
-	
+	*/
 }

@@ -10,11 +10,11 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.EnvironmentException;
+import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.network.RestClient;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.system.Environment.EnvLoadingType;
 
 public class TestSeleniumWebDriver {
 	
@@ -24,7 +24,7 @@ public class TestSeleniumWebDriver {
 	@Test()
 	public void loadSeleniumWebDriver_1( @Optional("FIREFOX") String browser, @Optional("E4B_QA") String environment ) throws EnvironmentException {		
 		
-		Environment env = new Environment( environment, EnvLoadingType.RESOURCE );
+		Environment env = new Environment( environment, IOFileUtils.IOLoadingType.RESOURCE );
 		Assert.assertNotNull( env );
 		
 		SeleniumWebDriver seleniumWebDriver = new SeleniumWebDriver( browser, env.getBrowserProfile( browser ), env.getLink() );

@@ -9,8 +9,8 @@ import org.testng.annotations.Test;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.EnvironmentException;
+import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.system.Environment.EnvLoadingType;
 
 public class TestMysql {
 	
@@ -20,7 +20,7 @@ public class TestMysql {
 	@Test( enabled=false )
 	public void mysql_select( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws EnvironmentException {		
 		
-		Environment env = new Environment( "lumata-common-testing/examples/", environment, EnvLoadingType.RESOURCE );
+		Environment env = new Environment( "lumata-common-testing/examples/", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
 		Assert.assertNotNull( env );
 		
@@ -36,7 +36,7 @@ public class TestMysql {
 	@Test()
 	public void mysql_insert( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws EnvironmentException {		
 		
-		Environment env = new Environment( "lumata-common-testing/examples/", environment, EnvLoadingType.RESOURCE );
+		Environment env = new Environment( "lumata-common-testing/examples/", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
 		Assert.assertNotNull( env );
 		
