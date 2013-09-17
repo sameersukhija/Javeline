@@ -23,7 +23,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 		try {
 			
-			jsonResource = new JSONObject(IOFileUtils.loadResourceAsString( resource ));			
+			jsonResource = new JSONObject(IOFileUtils.loadResourceAsString( resource ).replaceAll( "\n", ""));			
 			
 			logger.debug("The Json Object has been loaded ( " + jsonResource.toString() + " )");
 			
@@ -51,7 +51,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 		try {
 			
-			jsonResource = new JSONObject(IOFileUtils.loadResourceAsString( folder, resource ));			
+			jsonResource = new JSONObject(IOFileUtils.loadResourceAsString( folder, resource ).replaceAll( "\n", ""));			
 			
 			logger.debug("The Json Object has been loaded ( " + jsonResource.toString() + " )");
 			
@@ -79,7 +79,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 		try {
 			
-			jsonResource = new JSONObject(IOFileUtils.loadFileAsString(file));			
+			jsonResource = new JSONObject(IOFileUtils.loadFileAsString(file).replaceAll( "\n", ""));			
 			
 			logger.debug("The Json Object has been loaded ( " + jsonResource.toString() + " )");
 																	
@@ -107,7 +107,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 		try {
 			
-			jsonResource = new JSONObject(IOFileUtils.loadFileAsString(folder, file));			
+			jsonResource = new JSONObject(IOFileUtils.loadFileAsString(folder, file).replaceAll( "\n", ""));			
 			
 			logger.debug("The Json Object has been loaded ( " + jsonResource.toString() + " )");
 																	

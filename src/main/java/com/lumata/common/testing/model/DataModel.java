@@ -3,6 +3,7 @@ package com.lumata.common.testing.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Iterator;
+import java.util.Map;
 
 import com.lumata.common.testing.validating.Format;
 import org.json.JSONArray;
@@ -16,6 +17,7 @@ import com.lumata.common.testing.database.Mysql.MysqlFieldType;
 import com.lumata.common.testing.exceptions.DataModelException;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.io.JSONUtils;
 
 /**
@@ -25,11 +27,12 @@ import com.lumata.common.testing.io.JSONUtils;
 public class DataModel {
 
 	private static final  Logger logger = LoggerFactory.getLogger( DataModel.class );
-	public enum DMLoadingType { FILE, RESOURCE }
 	private JSONObject model; 
 	private String name;
+	
+	public enum DataModelOptions { VALIDATOR }
 			
-	public DataModel( String datamodel, DMLoadingType dmLoadingType ) throws DataModelException  {
+	public DataModel( String datamodel, IOFileUtils.IOLoadingType loadingType ) throws DataModelException  {
 		
 		if(  datamodel != null ) { this.name = datamodel; }
 		else { throw new DataModelException( "The datamodel name is not valid ( null )" ); }
@@ -38,7 +41,7 @@ public class DataModel {
 		
 		try {
 			
-			switch( dmLoadingType ) {
+			switch( loadingType ) {
 			
 				case FILE: { this.model = JSONUtils.loadJSONFile( datamodel + Format.JSON_EXTENSION ); break; }
 				case RESOURCE: { this.model = JSONUtils.loadJSONResource( datamodel + Format.JSON_EXTENSION ); break;  }
@@ -62,7 +65,7 @@ public class DataModel {
 		
 	}
 	
-	public DataModel( String folder, String datamodel, DMLoadingType dmLoadingType ) throws DataModelException {
+	public DataModel( String folder, String datamodel, IOFileUtils.IOLoadingType loadingType ) throws DataModelException {
 		
 		if(  datamodel != null ) { this.name = datamodel; }
 		else { throw new DataModelException( "The datamodel name is not valid ( null )" ); }
@@ -71,7 +74,7 @@ public class DataModel {
 		
 		try {
 			
-			switch( dmLoadingType ) {
+			switch( loadingType ) {
 			
 				case FILE: { this.model = JSONUtils.loadJSONFile( folder, datamodel + Format.JSON_EXTENSION ); break; }
 				case RESOURCE: { this.model = JSONUtils.loadJSONResource( folder, datamodel + Format.JSON_EXTENSION ); break;  }
@@ -95,7 +98,7 @@ public class DataModel {
 		
 	}
 	
-	public DataModel( String datamodel, JSONObject dataSource ) throws DataModelException {
+	public DataModel( String datamodel, JSONObject dataSource, Map<String, Object> options ) throws DataModelException {
 		
 		if(  datamodel != null ) { this.name = datamodel; }
 		else { throw new DataModelException( "The datamodel name is not valid ( null )" ); }
@@ -115,6 +118,16 @@ public class DataModel {
 				this.model.put( table, new JSONObject() );
 				
 				this.model.getJSONObject( table ).put( "fields", new JSONArray() );
+				
+				if( options != null && options.containsKey( DataModelOptions.VALIDATOR.toString() ) ) {
+				
+					if( (boolean)options.get( DataModelOptions.VALIDATOR.toString() )  ) { 
+						
+						this.model.getJSONObject( table ).put( "validator", new JSONArray() );
+					
+					}
+				
+				}
 				
 				String query = "DESC " + table + ";";
 				

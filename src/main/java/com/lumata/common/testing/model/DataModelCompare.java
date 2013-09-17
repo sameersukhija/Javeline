@@ -5,8 +5,8 @@ import com.lumata.common.testing.database.Mysql.MysqlFieldType;
 import com.lumata.common.testing.exceptions.DataModelException;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.io.JSONUtils;
-import com.lumata.common.testing.model.DataModel.DMLoadingType;
 import com.lumata.common.testing.validating.Format;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +39,7 @@ public class DataModelCompare {
 
 	}
 	
-	public DataModelCompare(String compareDM, DMLoadingType dmLoadingType) throws DataModelException {
+	public DataModelCompare(String compareDM, IOFileUtils.IOLoadingType loadingType ) throws DataModelException {
 		
 		if( compareDM != null ) { this.compareDMName = compareDM; }
 		else { throw new DataModelException( "The datamodel compare name is not valid ( null )" ); }
@@ -48,7 +48,7 @@ public class DataModelCompare {
 		
 		try {
 			
-			switch( dmLoadingType ) {
+			switch( loadingType ) {
 			
 				case FILE: { this.dataModelCompare = JSONUtils.loadJSONFile(compareDM + Format.JSON_EXTENSION); break; }
 				case RESOURCE: { this.dataModelCompare = JSONUtils.loadJSONResource(compareDM + Format.JSON_EXTENSION); break;  }
@@ -74,7 +74,7 @@ public class DataModelCompare {
 		
 	}
 	
-	public DataModelCompare(String folder, String compareDM, DMLoadingType dmLoadingType) throws DataModelException {
+	public DataModelCompare(String folder, String compareDM, IOFileUtils.IOLoadingType loadingType ) throws DataModelException {
 		
 		if( compareDM != null ) { this.compareDMName = compareDM; }
 		else { throw new DataModelException( "The datamodel compare name is not valid ( null )" ); }
@@ -83,7 +83,7 @@ public class DataModelCompare {
 		
 		try {
 			
-			switch( dmLoadingType ) {
+			switch( loadingType ) {
 			
 				case FILE: { this.dataModelCompare = JSONUtils.loadJSONFile(folder, compareDM + Format.JSON_EXTENSION); break; }
 				case RESOURCE: { this.dataModelCompare = JSONUtils.loadJSONResource(folder, compareDM + Format.JSON_EXTENSION); break;  }

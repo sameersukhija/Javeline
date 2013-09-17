@@ -17,10 +17,12 @@ public class Validator {
 	
 	private JSONArray validatorCfg = null;
 	
-	public enum validatorType { NONE, DATE, MSISDN, LENGHT, ENUM, MAP, EMAIL; }
+	public enum ValidatorType { NONE, DATE, MSISDN, LENGHT, ENUM, MAP, EMAIL; }
 	
 	public Validator( JSONArray validator ) {
+		
 		this.validatorCfg = validator;
+	
 	}
 	
 	public boolean validation( String value, Object obj ) {
@@ -30,33 +32,33 @@ public class Validator {
 			
 			for( int i = 0; i < validatorCfg.length(); i++ ) {
 				
-				switch( loadValidatorType( i ) ) {
+				switch( getValidatorType( i ) ) {
 				
 					case NONE: { 
 						return true;
 					}
 					case DATE: { 
-						if( Format.isDate( value, loadValidatorFormat( i ), loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) { return false; } 
+						if( Format.isDate( value, getValidatorFormat( i ), getValidatorAllowBlank( i ) ) != getValidatorExpected( i ) ) { return false; } 
 						break;
 					} 
 					case MSISDN: { 
-						if( Format.isMSISDN( value, loadValidatorFormat( i ), loadValidatorFilter( i ), loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) { return false; } 
+						if( Format.isMSISDN( value, getValidatorFormat( i ), getValidatorFilter( i ), getValidatorAllowBlank( i ) ) != getValidatorExpected( i ) ) { return false; } 
 						break;  
 					}
 					case LENGHT: { 
-						if( Format.isLength( value, Integer.valueOf(loadValidatorParam( i )), Operators.valueOf(loadValidatorOperator( i )), loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) { return false; } 
+						if( Format.isLength( value, Integer.valueOf(getValidatorParam( i )), Operators.valueOf(getValidatorOperator( i )), getValidatorAllowBlank( i ) ) != getValidatorExpected( i ) ) { return false; } 
 						break; 
 					}
 					case ENUM: { 
-						if( Format.isEnum( value, loadValidatorFormat( i ), loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) { return false; } 
+						if( Format.isEnum( value, getValidatorFormat( i ), getValidatorAllowBlank( i ) ) != getValidatorExpected( i ) ) { return false; } 
 						break; 
 					}
 					case MAP: { 
-						if( Format.isMapKey( value, loadValidatorFormat( i ), obj, loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) { return false; }
+						if( Format.isMapKey( value, getValidatorFormat( i ), obj, getValidatorAllowBlank( i ) ) != getValidatorExpected( i ) ) { return false; }
 						break; 
 					}
 					case EMAIL: { 
-						if( Format.isEmail( value, loadValidatorFormat( i ), loadValidatorAllowBlank( i ) ) != loadValidatorExpected( i ) ) { return false; } 
+						if( Format.isEmail( value, getValidatorFormat( i ), getValidatorAllowBlank( i ) ) != getValidatorExpected( i ) ) { return false; } 
 						break; 
 					}	
 					default: return false;
@@ -71,106 +73,136 @@ public class Validator {
 				
 	}
 	
-	private JSONObject loadValidator( int index ) {
+	public JSONObject getValidator( int index ) {
 		
 		try {
 			
 			if( !validatorCfg.isNull(index) ) { return validatorCfg.getJSONObject(index); }
 			
 		} catch( Exception e ) {
+			
 			logger.error( e.getMessage(), e );
+		
 		} 
 		
 		return null;
 		
 	}
 
-	private validatorType loadValidatorType( int index ) {
+	public ValidatorType getValidatorType( int index ) {
 		
 		try {
 			
-			if( !loadValidator( index ).isNull("validationType") ) { 
-				return validatorType.valueOf(loadValidator( index ).getString("validationType"));
+			if( !getValidator( index ).isNull("validationType") ) { 
+				return ValidatorType.valueOf(getValidator( index ).getString("validationType"));
 			}
 			
 		} catch( Exception e ) {
+			
 			logger.error( e.getMessage(), e );
+		
 		} 
 		
 		return null;
 		
 	}
 	
-	private String loadValidatorParam( int index ) {
+	public String getValidatorParam( int index ) {
 		
 		try {
 			
-			if( !loadValidator( index ).isNull("validationParam") ) {
-				return loadValidator( index ).getString("validationParam");
+			if( !getValidator( index ).isNull("validationParam") ) {
+				return getValidator( index ).getString("validationParam");
 			}
 			
 		} catch( Exception e ) {
+			
 			logger.error( e.getMessage(), e );
+		
 		}
 		
 		return null;
 		
 	}
 	
-	private String loadValidatorFormat( int index ) {
+	public String getValidatorFormat( int index ) {
 		
 		try {
 			
-			if( !loadValidator( index ).isNull("validationFormat") ) {
-				return loadValidator( index ).getString("validationFormat");
+			if( !getValidator( index ).isNull("validationFormat") ) {
+				return getValidator( index ).getString("validationFormat");
 			}
 			
 		} catch( Exception e ) {
+			
 			logger.error( e.getMessage(), e );
+		
 		}
 		
 		return null;
 		
 	}
 	
-	private String loadValidatorFilter( int index ) {
+	public String getValidatorFilter( int index ) {
 		
 		try {
 			
-			if( !loadValidator( index ).isNull("validationFilter") ) {
-				return loadValidator( index ).getString("validationFilter");
+			if( !getValidator( index ).isNull("validationFilter") ) {
+				return getValidator( index ).getString("validationFilter");
 			}
 			
 		} catch( Exception e ) {
+			
 			logger.error( e.getMessage(), e );
+		
 		}
 		
 		return null;
 		
 	}
 	
-	private String loadValidatorOperator( int index ) {
+	public String getValidatorOperator( int index ) {
 		
 		try {
 			
-			if( !loadValidator( index ).isNull("validationOp") ) {
-				return loadValidator( index ).getString("validationOp");
+			if( !getValidator( index ).isNull("validationOp") ) {
+				return getValidator( index ).getString("validationOp");
 			}
 			
 		} catch( Exception e ) {
+			
 			logger.error( e.getMessage(), e );
+		
 		}
 		
 		return null;
 		
 	}
 	
-	private boolean loadValidatorAllowBlank( int index ) {
+	public boolean getValidatorAllowBlank( int index ) {
 
 		try {
 			
-			if( !loadValidator( index ).isNull("validationAllowBlank") ) {
-				return loadValidator( index ).getBoolean("validationAllowBlank");
+			if( !getValidator( index ).isNull("validationAllowBlank") ) {
+				return getValidator( index ).getBoolean("validationAllowBlank");
+			}
+			
+		} catch( Exception e ) {
+			
+			logger.error( e.getMessage(), e );
+		
+		}
+		
+		return false;
+		
+	}
+
+	public boolean getValidatorExpected( int index ) {
+		
+		try {
+			
+			if( !getValidator( index ).isNull("validationExpected") ) {
+				return getValidator( index ).getBoolean("validationExpected");
 			}
 			
 		} catch( Exception e ) {
@@ -180,20 +212,116 @@ public class Validator {
 		return false;
 		
 	}
-
-	private boolean loadValidatorExpected( int index ) {
+	
+	public void setValidator( int index, JSONObject validator ) {
 		
 		try {
 			
-			if( !loadValidator( index ).isNull("validationExpected") ) {
-				return loadValidator( index ).getBoolean("validationExpected");
-			}
+			this.validatorCfg.put( index, validator );
 			
 		} catch( Exception e ) {
+			
 			logger.error( e.getMessage(), e );
+		
+		} 
+		
+	}
+
+	public void setValidatorType( int index, String validatorType ) {
+		
+		try {
+			
+			this.validatorCfg.put( index, ValidatorType.valueOf( validatorType ) );
+						
+		} catch( Exception e ) {
+			
+			logger.error( e.getMessage(), e );
+		
 		}
 		
-		return false;
+	}
+	
+	public void setValidatorParam( int index, String validatorParam ) {
+		
+		try {
+			
+			this.validatorCfg.put( index, validatorParam );
+			
+		} catch( Exception e ) {
+			
+			logger.error( e.getMessage(), e );
+		
+		}
+		
+	}
+	
+	public void setValidatorFormat( int index, String validatorFormat ) {
+		
+		try {
+			
+			this.validatorCfg.put( index, validatorFormat );
+			
+		} catch( Exception e ) {
+			
+			logger.error( e.getMessage(), e );
+		
+		}
+		
+	}
+	
+	public void setValidatorFilter( int index, String validatorFilter ) {
+		
+		try {
+			
+			this.validatorCfg.put( index, validatorFilter );
+			
+		} catch( Exception e ) {
+			
+			logger.error( e.getMessage(), e );
+		
+		}
+		
+	}
+	
+	public void setValidatorOperator( int index, String validationOp ) {
+		
+		try {
+			
+			this.validatorCfg.put( index, validationOp );
+			
+		} catch( Exception e ) {
+			
+			logger.error( e.getMessage(), e );
+		
+		}
+		
+	}
+	
+	public void setValidatorAllowBlank( int index, boolean validationAllowBlank ) {
+
+		try {
+			
+			this.validatorCfg.put( index, validationAllowBlank );
+			
+		} catch( Exception e ) {
+			
+			logger.error( e.getMessage(), e );
+		
+		}
+		
+	}
+
+	public void setValidatorExpected( int index, boolean validationExpected ) {
+		
+		try {
+			
+			this.validatorCfg.put( index, validationExpected );
+			
+		} catch( Exception e ) {
+			
+			logger.error( e.getMessage(), e );
+		
+		}
 		
 	}
 
