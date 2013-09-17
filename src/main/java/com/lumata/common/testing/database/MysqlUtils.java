@@ -2,6 +2,7 @@ package com.lumata.common.testing.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,35 @@ import org.slf4j.LoggerFactory;
 public class MysqlUtils {
 
 	private static final  Logger logger = LoggerFactory.getLogger( MysqlUtils.class );
+	
+	public static ArrayList<String> getSchema( Mysql mysql ) throws SQLException {
 		
+		ArrayList<String> schema = new ArrayList<String>();
+		
+		String query = "SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema = DATABASE();";
+		
+		try {
+		
+			ResultSet rs = mysql.execQuery( query );
+		
+			if( rs.next() ) { 
+				
+				schema.add( rs.getString( "TABLE_NAME" ) ); 
+				
+			}
+					
+			logger.info( "The schema has been loaded" );
+		
+		} catch( SQLException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return schema;
+		
+	}
+	
 	public static boolean isTable( String table, Mysql mysql ) {
 		
 		String query = "SHOW TABLES LIKE '" + table + "';";
