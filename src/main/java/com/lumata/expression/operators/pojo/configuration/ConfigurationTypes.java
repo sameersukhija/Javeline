@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.dao.configuration;
+package com.lumata.expression.operators.pojo.configuration;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 import com.lumata.common.testing.system.Environment;
 
-public enum TenantCfg {
+public enum ConfigurationTypes {
 	
 	/* Sprint 2 - US: EFOGC-100 - SubTask: EFOGC-834 */
 	BDR_STORAGE {
@@ -64,9 +64,53 @@ public enum TenantCfg {
 			
 		}
 		
+	},
+	
+	/* Sprint 5 - US: EFOGC-861 */
+	STANDARD_RETRY {
+		
+		public ArrayList<Configuration> getCfg( Map<String, Object> options ) {
+			
+			ArrayList<Configuration> cfgList = new ArrayList<Configuration>();
+						
+			Configuration cfg;
+			
+			cfg = new Configuration( new ArrayList<String>(Arrays.asList("waiting_time", "0", "inmanager", "NULL", "Admin", "30000", "NULL", "RW", "NULL", "Value", "")) );
+			cfgList.add( cfg );	
+			
+			cfg = new Configuration( new ArrayList<String>(Arrays.asList("sql_attempt_clause", "0", "inmanager", "NULL", "Admin", "(=1) {1  HOUR},(<3){8 HOUR},(=3){1 DAY},(>4){1 WEEK}", "NULL", "RW", "NULL", "Value", "")) );
+			cfgList.add( cfg );	
+			
+			return cfgList;
+			
+		}
+		
+	},
+	
+	/* Sprint 5 - US: EFOGC-861 */
+	QA_UNKNOWN_MSISDN {
+		
+		public ArrayList<Configuration> getCfg( Map<String, Object> options ) {
+			
+			ArrayList<String> subscribers = (ArrayList<String>)options.get( "subscribers" );
+			
+			ArrayList<Configuration> cfgList = new ArrayList<Configuration>();
+			
+			Configuration cfg;
+			
+			for( int i = 0; i < subscribers.size(); i++ ) {
+			
+				cfg = new Configuration( new ArrayList<String>(Arrays.asList("QA_UNKNOWN_MSISDN", String.valueOf( i ), "qa_in", "NULL", "Admin", subscribers.get( i ), "NULL", "RW", "NULL", "Value", "")) );
+				cfgList.add( cfg );	
+			
+			}
+			
+			return cfgList;
+			
+		}
+		
 	};
-	
-	
+		
 	abstract public ArrayList<Configuration> getCfg( Map<String, Object> options );
 	
 	private static String getNow() {
@@ -76,6 +120,12 @@ public enum TenantCfg {
 	    String sdate= sdf.format(now).toString(); 
 		
 		return sdate;
+		
+	}
+	
+	private static String getSchemaName( Map<String, Object> options ) {
+		
+		return (String)options.get( "schema" );
 		
 	}
 	

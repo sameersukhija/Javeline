@@ -12,7 +12,6 @@ import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.system.Environment.EnvLoadingType;
 import com.lumata.expression.operators.dao.administration.SalesChannelsList;
 
 public class TestSalesChannels {
@@ -29,7 +28,7 @@ public class TestSalesChannels {
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
-		env = new Environment( "input/environments", environment, EnvLoadingType.RESOURCE );
+		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 						
 	}
 	

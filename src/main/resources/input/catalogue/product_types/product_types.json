@@ -1,0 +1,75 @@
+{
+	"catalog_product_types": [
+		{
+		  "product_type_id": -1,
+		  "type_name":"Physical",
+		  "description":"Physical Product Type",
+		  "catalog_product_type_charateristics":[
+			  { 
+			  	"product_type_id": -1,
+			  	"characteristic_name": "IPhone", 
+			  	"characteristic_details": "<com.fduclos.actrule.client.ecatalog.descr.characteristic.ListCharacteristic>
+											  <name>IPhone</name>
+											  <charType>CHOICE</charType>
+											  <availableValues>
+											    <com.fduclos.actrule.client.ecatalog.descr.characteristic.CharacteristicValue>
+											      <value>IPhone 5</value>
+											    </com.fduclos.actrule.client.ecatalog.descr.characteristic.CharacteristicValue>
+											    <com.fduclos.actrule.client.ecatalog.descr.characteristic.CharacteristicValue>
+											      <value>IPhone 5 s</value>
+											    </com.fduclos.actrule.client.ecatalog.descr.characteristic.CharacteristicValue>
+											    <com.fduclos.actrule.client.ecatalog.descr.characteristic.CharacteristicValue>
+											      <value>IPhone 5 c</value>
+											    </com.fduclos.actrule.client.ecatalog.descr.characteristic.CharacteristicValue>
+											  </availableValues>
+											  <defaultValues/>
+											  <isMultipleSelectionAuthorized>false</isMultipleSelectionAuthorized>
+											</com.fduclos.actrule.client.ecatalog.descr.characteristic.ListCharacteristic>" 
+			  }
+		  ]
+		},
+		{
+		  "product_type_id": -1,
+		  "type_name":"Network",
+		  "description":"Network Product Type",
+		  "catalog_product_type_charateristics":[
+			  { 
+			  	"product_type_id": -1,
+			  	"characteristic_name": "SMS", 
+			  	"characteristic_details": "<com.fduclos.actrule.client.ecatalog.descr.characteristic.ListCharacteristic>
+											  <name>SMS</name>
+											  <charType>LIST</charType>
+											  <availableValues>
+											    <com.fduclos.actrule.client.ecatalog.descr.characteristic.CharacteristicValue>
+											      <value>10 SMS</value>
+											    </com.fduclos.actrule.client.ecatalog.descr.characteristic.CharacteristicValue>
+											    <com.fduclos.actrule.client.ecatalog.descr.characteristic.CharacteristicValue>
+											      <value>100 SMS</value>
+											    </com.fduclos.actrule.client.ecatalog.descr.characteristic.CharacteristicValue>
+											  </availableValues>
+											  <defaultValues/>
+											  <isMultipleSelectionAuthorized>false</isMultipleSelectionAuthorized>
+											</com.fduclos.actrule.client.ecatalog.descr.characteristic.ListCharacteristic>" 
+			  },
+			  { 
+			  	"product_type_id": -1,
+			  	"characteristic_name": "MMS", 
+			  	"characteristic_details": "<com.fduclos.actrule.client.ecatalog.descr.characteristic.ListCharacteristic>
+											  <name>MMS</name>
+											  <charType>CHOICE</charType>
+											  <availableValues>
+											    <com.fduclos.actrule.client.ecatalog.descr.characteristic.CharacteristicValue>
+											      <value>10 MMS</value>
+											    </com.fduclos.actrule.client.ecatalog.descr.characteristic.CharacteristicValue>
+											    <com.fduclos.actrule.client.ecatalog.descr.characteristic.CharacteristicValue>
+											      <value>100 MMS</value>
+											    </com.fduclos.actrule.client.ecatalog.descr.characteristic.CharacteristicValue>
+											  </availableValues>
+											  <defaultValues/>
+											  <isMultipleSelectionAuthorized>false</isMultipleSelectionAuthorized>
+											</com.fduclos.actrule.client.ecatalog.descr.characteristic.ListCharacteristic>" 
+			  }
+		  ]
+		}
+	]
+}

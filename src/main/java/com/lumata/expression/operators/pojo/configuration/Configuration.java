@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.dao.configuration;
+package com.lumata.expression.operators.pojo.configuration;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,6 +30,8 @@ import com.lumata.common.testing.system.Environment;
 public class Configuration {
 
 	private static final Logger logger = LoggerFactory.getLogger( Configuration.class );
+	
+	public enum Fields { name, position, section, process_id, auth_group, current, previous, dyn_static, time, type, description }
 	
 	private String name;
 	private String position;
@@ -63,17 +65,17 @@ public class Configuration {
 	
 	public Configuration( ResultSet cfg ) throws SQLException {
 		
-		this.name = cfg.getString( "name" );
-		this.position = cfg.getString( "position" );
-		this.section = cfg.getString( "section" );
-		this.process_id = cfg.getString( "process_id" );
-		this.auth_group = cfg.getString( "auth_group" );
-		this.current = cfg.getString( "current" );
-		this.previous = cfg.getString( "previous" );
-		this.dyn_static = cfg.getString( "dyn_static" );
-		this.time = cfg.getString( "time" );
-		this.type = cfg.getString( "type" );
-		this.description = cfg.getString( "description" );
+		this.name = cfg.getString( Configuration.Fields.name.toString() );
+		this.position = cfg.getString( Configuration.Fields.position.toString() );
+		this.section = cfg.getString( Configuration.Fields.section.toString() );
+		this.process_id = cfg.getString( Configuration.Fields.process_id.toString() );
+		this.auth_group = cfg.getString( Configuration.Fields.auth_group.toString() );
+		this.current = cfg.getString( Configuration.Fields.current.toString() );
+		this.previous = cfg.getString( Configuration.Fields.previous.toString() );
+		this.dyn_static = cfg.getString( Configuration.Fields.dyn_static.toString() );
+		this.time = cfg.getString( Configuration.Fields.time.toString() );
+		this.type = cfg.getString( Configuration.Fields.type.toString() );
+		this.description = cfg.getString( Configuration.Fields.description.toString() );
 		this._validation = false;
 		
 	}
@@ -226,29 +228,59 @@ public class Configuration {
 		
 		StringBuffer configuration = new StringBuffer();
 		
-		configuration.append( "{ " );
-		configuration.append( "name:" + this.getName() + ", " );
-		configuration.append( "position:" + this.getPosition() + ", " );
-		configuration.append( "section:" + this.getSection() + ", " );
-		configuration.append( "process_id:" + this.getProcessID() + ", " );
-		configuration.append( "auth_group:" + this.getAuthGroup() + ", " );
-		configuration.append( "current:" + this.getCurrent() + ", " );
-		configuration.append( "previous:" + this.getPrevious() + ", " );
-		configuration.append( "dyn_static:" + this.getDynStatic() + ", " );
-		configuration.append( "time:" + this.getTime() + ", " );
-		configuration.append( "type:" + this.getType() + ", " );
-		configuration.append( "description:" + this.getDescription() );
-		configuration.append( "validation:" + this.getValidation() );
-		configuration.append( " }" );
+		configuration.append( "{ " ).
+						append( "\"" ).append( Configuration.Fields.name.toString() ).append( "\": \"" ).append( this.getName() ).append( "\", " ).
+						append( "\"" ).append( Configuration.Fields.position.toString() ).append( "\": \"" ).append( this.getPosition() ).append( "\", " ).
+						append( "\"" ).append( Configuration.Fields.section.toString() ).append( "\": \"" ).append( this.getSection() ).append( "\", " ).
+						append( "\"" ).append( Configuration.Fields.process_id.toString() ).append( "\": \"" ).append( this.getProcessID() ).append( "\", " ).
+						append( "\"" ).append( Configuration.Fields.auth_group.toString() ).append( "\": \"" ).append( this.getAuthGroup() ).append( "\", " ).
+						append( "\"" ).append( Configuration.Fields.current.toString() ).append( "\": \"" ).append( this.getCurrent() ).append( "\", " ).
+						append( "\"" ).append( Configuration.Fields.previous.toString() ).append( "\": \"" ).append( this.getPrevious() ).append( "\", " ).
+						append( "\"" ).append( Configuration.Fields.dyn_static.toString() ).append( "\": \"" ).append( this.getDynStatic() ).append( "\", " ).
+						append( "\"" ).append( Configuration.Fields.time.toString() ).append( "\": \"" ).append( this.getTime() ).append( "\", " ).
+						append( "\"" ).append( Configuration.Fields.type.toString() ).append( "\": \"" ).append( this.getType() ).append( "\", " ).
+						append( "\"" ).append( Configuration.Fields.description.toString() ).append( "\": \"" ).append( this.getDescription() ).append( "\", " ).
+						append( "\"" ).append( "_validation" ).append( "\": \"" ).append( this.getValidation() ).append( "\", " ).
+						append( " }" );
 		
 		return configuration.toString();
 		
 	} 
 	
-	public static Boolean check( ArrayList<Configuration> cfgList, String tenant, Environment env ) {
+	public static int insert( ArrayList<Configuration> cfgList, Mysql mysql, String schema ) {
 		
-		Mysql mysql = new Mysql( env.getDataSource( tenant ) );
+		int index = -1;
 		
+		StringBuffer query = new StringBuffer();
+		
+		for( int i = 0; i < cfgList.size(); i++ ) {
+			
+			query = new StringBuffer();
+			
+			query.append( "INSERT INTO " ).append( schema ).
+					append( ".conf VALUES ( " ).
+					append( "'" ).append( cfgList.get( i ).getName() ).append( "', " ).
+					append( cfgList.get( i ).getPosition() ).append( ", " ).
+					append( "'" ).append( cfgList.get( i ).getSection() ).append( "', " ).
+					append( "'" ).append( cfgList.get( i ).getProcessID() ).append( "', " ).
+					append( "'" ).append( cfgList.get( i ).getAuthGroup() ).append( "', " ).
+					append( "'" ).append( cfgList.get( i ).getCurrent() ).append( "', " ).
+					append( "'" ).append( cfgList.get( i ).getPrevious() ).append( "', " ).
+					append( "'" ).append( cfgList.get( i ).getDynStatic() ).append( "', " ).
+					append( cfgList.get( i ).getTime() ).append( ", " ).
+					append( "'" ).append( cfgList.get( i ).getType() ).append( "', " ).
+					append( "'" ).append( cfgList.get( i ).getDescription() ).append( "' );" );
+		
+			logger.info( query.toString() );
+			
+		}
+				
+		return index;
+		
+	}
+	
+	public static Boolean check( ArrayList<Configuration> cfgList, Mysql mysql, String schema ) {
+				
 		StringBuffer parameters = new StringBuffer(); 
 		
 		// Build query to get current database configuration
@@ -258,7 +290,7 @@ public class Configuration {
 			
 		}
 		
-		String query = "SELECT * FROM " + tenant + ".conf WHERE name in ( " + parameters.substring( 0, parameters.length() - 2 ) + " );";
+		String query = "SELECT * FROM " + schema + ".conf WHERE name in ( " + parameters.substring( 0, parameters.length() - 2 ) + " );";
 		
 		// Get Result
 		ResultSet rs = mysql.execQuery( query );
@@ -308,6 +340,16 @@ public class Configuration {
 		if( !cfgActual.getName().equals( cfgExpected.getName() ) ) return false;
 		if( !cfgActual.getSection().equals( cfgExpected.getSection() ) ) return false;
 		if( !cfgActual.getCurrent().equals( cfgExpected.getCurrent() ) ) return false;
+		
+		return true;
+		
+	}
+	
+	public boolean compare( Configuration cfgExpected ) {
+		
+		if( !this.getName().equals( cfgExpected.getName() ) ) return false;
+		if( !this.getSection().equals( cfgExpected.getSection() ) ) return false;
+		if( !this.getCurrent().equals( cfgExpected.getCurrent() ) ) return false;
 		
 		return true;
 		

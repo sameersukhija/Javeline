@@ -18,7 +18,6 @@ import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.system.Environment.EnvLoadingType;
 import com.lumata.expression.operators.exceptions.XMLRPCException;
 import com.lumata.expression.operators.json.configuration.XMLRPCCfg;
 import com.lumata.expression.operators.json.configuration.XMLRPCCfg.ParamType;
@@ -39,7 +38,7 @@ public class Test_XMLRPCCfg {
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
-		env = new Environment( "input/environments", environment, EnvLoadingType.RESOURCE );
+		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
 	}
 	

@@ -13,11 +13,11 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.EnvironmentException;
+import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.system.Environment.EnvLoadingType;
-import com.lumata.expression.operators.dao.configuration.Configuration;
-import com.lumata.expression.operators.dao.configuration.TenantCfg;
+import com.lumata.expression.operators.pojo.configuration.Configuration;
+import com.lumata.expression.operators.pojo.configuration.ConfigurationTypes;
 
 public class TestTenantCfg {
 
@@ -32,7 +32,7 @@ public class TestTenantCfg {
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
-		env = new Environment( "input/environments", environment, EnvLoadingType.RESOURCE );
+		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 						
 	}
 		
@@ -43,7 +43,7 @@ public class TestTenantCfg {
 		options.put( "tenant_name" , "qa");
 		options.put( "environment" , env );
 		
-		ArrayList<Configuration> bdrStorageCfg = TenantCfg.BDR_STORAGE.getCfg( options );
+		ArrayList<Configuration> bdrStorageCfg = ConfigurationTypes.BDR_STORAGE.getCfg( options );
 				
 		System.out.println( bdrStorageCfg.toString() );
 				

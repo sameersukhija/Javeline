@@ -15,10 +15,9 @@ import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.system.Environment.EnvLoadingType;
 import com.lumata.expression.operators.dao.administration.SalesChannelsList;
-import com.lumata.expression.operators.dao.catalogue.TokenType;
-import com.lumata.expression.operators.dao.catalogue.TokenTypeList;
+import com.lumata.expression.operators.dao.catalog.TokenTypeDAO;
+import com.lumata.expression.operators.dao.catalog.TokenTypeDAOList;
 
 public class TestTokenType {
 
@@ -27,7 +26,7 @@ public class TestTokenType {
 	private int ATTEMPT_INTERVAL = 500;
 	
 	Environment env;
-	TokenTypeList tokenTypesList;
+	TokenTypeDAOList tokenTypesList;
 	
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment", "user"})
@@ -36,7 +35,7 @@ public class TestTokenType {
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
-		env = new Environment( "input/environments", environment, EnvLoadingType.RESOURCE );
+		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 						
 	}
 	
@@ -46,7 +45,7 @@ public class TestTokenType {
 		
 		logger.info( Log.PUTTING.createMessage( "checkTokenType" , "Token Type" ) );
 		
-		tokenTypesList = new TokenTypeList( env, tenant, null, "input/catalogue/offer_optimisation", "token_type_list_all.json", IOFileUtils.IOLoadingType.RESOURCE );
+		tokenTypesList = new TokenTypeDAOList( env, tenant, null, "input/catalogue/offer_optimisation", "token_type_list_all.json", IOFileUtils.IOLoadingType.RESOURCE );
 		
 		
 		//tokenTypesList = new TokenTypeList( env, tenant, null );

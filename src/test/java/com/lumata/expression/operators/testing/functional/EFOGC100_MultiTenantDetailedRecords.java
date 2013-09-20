@@ -15,42 +15,46 @@ import org.testng.annotations.Test;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.database.MysqlUtils;
 import com.lumata.common.testing.exceptions.EnvironmentException;
+import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.system.Environment.EnvLoadingType;
-import com.lumata.expression.operators.dao.configuration.Configuration;
-import com.lumata.expression.operators.dao.configuration.TenantCfg;
+import com.lumata.expression.operators.pojo.configuration.Configuration;
+import com.lumata.expression.operators.pojo.configuration.ConfigurationTypes;
 
 public class EFOGC100_MultiTenantDetailedRecords {
 
 	private static final Logger logger = LoggerFactory.getLogger( EFOGC100_MultiTenantDetailedRecords.class );
 	
 	Environment env;
+	Mysql mysql;
+	
 	
 	/* 	Initialize Environment */
-	@Parameters({"environment"})
+	@Parameters({"environment", "tenant"})
 	@BeforeSuite
-	public void init( @Optional("E4O_QA") String environment ) throws EnvironmentException {		
+	public void init( @Optional("E4O_QA") String environment, @Optional("qa") String tenant ) throws EnvironmentException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
-		env = new Environment( "input/environments", environment, EnvLoadingType.RESOURCE );
+		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		
+		mysql = new Mysql( env.getDataSource( tenant ) );
 						
 	}
 	
-	@Parameters({"tenant1"})
+	@Parameters({"tenant"})
 	@Test
-	public void checkConfiguration( @Optional("qa") String tenant1 ) {
+	public void checkConfiguration( @Optional("qa") String tenant ) {
 				
 		// Load BDR storage configuration
 		Map<String, Object> options = new HashMap<String, Object>();
-		options.put( "tenant_name" , tenant1);
+		options.put( "tenant_name" , tenant);
 		options.put( "environment" , env );
 		
-		ArrayList<Configuration> bdrStorageCfg = TenantCfg.BDR_STORAGE.getCfg( options );
+		ArrayList<Configuration> bdrStorageCfg = ConfigurationTypes.BDR_STORAGE.getCfg( options );
 				
 		// Check BDR storage configuration
-		Assert.assertTrue( Configuration.check( bdrStorageCfg, tenant1, env ) );
+		Assert.assertTrue( Configuration.check( bdrStorageCfg, mysql, tenant ) );
 		
 	}
 	

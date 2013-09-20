@@ -1,0 +1,25 @@
+{
+	"suppliers": [
+		{ 
+			"supplier_id": -1,
+			"name": "Mobistar",
+			"email": "info@mobistar.be",
+			"phone": "321234567",
+			"website": "www.mobistar.be"
+		},
+		{ 
+			"supplier_id": -1,
+			"name": "Tim",
+			"email": "info@tim.it",
+			"phone": "391234567",
+			"website": "www.tim.it"
+		},
+		{ 
+			"supplier_id": -1,
+			"name": "O2",
+			"email": "info@o2.de",
+			"phone": "491234567",
+			"website": "www.o2.de"
+		}
+	]
+}

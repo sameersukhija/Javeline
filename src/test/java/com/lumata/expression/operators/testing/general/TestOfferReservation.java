@@ -13,10 +13,10 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.EnvironmentException;
+import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.system.Environment.EnvLoadingType;
 import com.lumata.expression.operators.dao.offermanagement.OfferOptimReservation;
 import com.lumata.expression.operators.dao.offermanagement.OfferOptimReservationList;
 
@@ -34,7 +34,7 @@ private static final Logger logger = LoggerFactory.getLogger(TestOfferReservatio
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
-		env = new Environment( "input/environments", environment, EnvLoadingType.RESOURCE );
+		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
 	}
 	

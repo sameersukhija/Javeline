@@ -1,11 +1,9 @@
-package com.lumata.expression.operators.dao.catalogue;
+package com.lumata.expression.operators.dao.catalog;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,19 +18,19 @@ import com.lumata.expression.operators.dao.administration.SalesChannels;
 import com.lumata.expression.operators.dao.administration.SalesChannelsList;
 
 
-public class TokenTypeList {
+public class TokenTypeDAOList {
 
-	private static final Logger logger = LoggerFactory.getLogger(TokenTypeList.class);
+	private static final Logger logger = LoggerFactory.getLogger(TokenTypeDAOList.class);
 	
-	private ArrayList<TokenType> list;
+	private ArrayList<TokenTypeDAO> list;
 	
-	public TokenTypeList( Environment env, String tenant, ArrayList<Integer> filteredIds ) {
+	public TokenTypeDAOList( Environment env, String tenant, ArrayList<Integer> filteredIds ) {
 				
 		this.load(env, tenant, filteredIds);
 		
 	}
 	
-	public TokenTypeList( Environment env, String tenant, ArrayList<Integer> filteredIds, String path, String file, IOFileUtils.IOLoadingType loadingType ) {
+	public TokenTypeDAOList( Environment env, String tenant, ArrayList<Integer> filteredIds, String path, String file, IOFileUtils.IOLoadingType loadingType ) {
 		
 		JSONObject salesChannels = new JSONObject();
 				
@@ -82,13 +80,13 @@ public class TokenTypeList {
 		
 	}
 
-	public TokenType get( int salesChannelIndex ) {
+	public TokenTypeDAO get( int salesChannelIndex ) {
 		
 		return this.list.get( salesChannelIndex );
 				
 	}
 	
-	public TokenType get( String TokenType ) {
+	public TokenTypeDAO get( String TokenType ) {
 		
 		if( TokenType.length() <= 0 ) { return null; }
 		else {
@@ -135,7 +133,7 @@ public class TokenTypeList {
 	}
 	*/
 	
-	public int delete( Environment env, String tenant, ArrayList<Integer> filteredIds, TokenType tokenType ) {
+	public int delete( Environment env, String tenant, ArrayList<Integer> filteredIds, TokenTypeDAO tokenType ) {
 		
 		int index = 0;
 				
@@ -180,13 +178,13 @@ public class TokenTypeList {
 		
 	}
 	
-	public int insert( Environment env, String tenant, ArrayList<Integer> filteredIds, TokenType tokenType ) {
+	public int insert( Environment env, String tenant, ArrayList<Integer> filteredIds, TokenTypeDAO tokenType ) {
 		
 		int tokenTypeID = -1; 
 		
 		Mysql mysql = new Mysql( env.getDataSource( tenant ) );
 		
-		TokenType tt = this.get( tokenType.getTokenTypeName() );
+		TokenTypeDAO tt = this.get( tokenType.getTokenTypeName() );
 		
 		int tokenLabelID = -1;
 		 
@@ -259,7 +257,7 @@ public class TokenTypeList {
 		
 	public void load( Environment env, String tenant, ArrayList<Integer> filteredIds ) {
 				
-		this.list = new ArrayList<TokenType>();
+		this.list = new ArrayList<TokenTypeDAO>();
 		
 		Mysql mysql = new Mysql( env.getDataSource( tenant ) );
 				
@@ -287,13 +285,13 @@ public class TokenTypeList {
 		
 		try {
 		
-			TokenType tokenType = null;
+			TokenTypeDAO tokenType = null;
 			
 			while( rs.next() ) {
 							
 				if( rs.getInt( "token_type_id" ) != token_type_id ) {
 					
-					tokenType = new TokenType( env, tenant, rs );
+					tokenType = new TokenTypeDAO( env, tenant, rs );
 								
 					token_type_id = tokenType.getTokenTypeID();
 					

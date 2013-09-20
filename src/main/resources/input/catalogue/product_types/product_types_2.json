@@ -1,0 +1,33 @@
+{
+	"catalog_product_types": [
+		{
+		  "product_type_id": -1,
+		  "type_name":"Physical",
+		  "description":"Physical Product Type",
+		  "catalog_product_type_charateristics":[
+			  { 
+			  	"product_type_id": -1,
+			  	"characteristic_name": "IPhone", 
+			  	"characteristic_details": "" 
+			  }
+		  ]
+		},
+		{
+		  "product_type_id": -1,
+		  "type_name":"Network",
+		  "description":"Network Product Type",
+		  "catalog_product_type_charateristics":[
+			  { 
+			  	"product_type_id": -1,
+			  	"characteristic_name": "SMS", 
+			  	"characteristic_details": "" 
+			  },
+			  { 
+			  	"product_type_id": -1,
+			  	"characteristic_name": "MMS", 
+			  	"characteristic_details": "" 
+			  }
+		  ]
+		}
+	]
+}

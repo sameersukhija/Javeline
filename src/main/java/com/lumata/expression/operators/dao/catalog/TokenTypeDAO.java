@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.dao.catalogue;
+package com.lumata.expression.operators.dao.catalog;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,9 +15,9 @@ import com.lumata.expression.operators.dao.administration.SalesChannels;
 import com.lumata.expression.operators.dao.administration.SalesChannelsList;
 
 
-public class TokenType {
+public class TokenTypeDAO {
 
-	private static final Logger logger = LoggerFactory.getLogger(TokenType.class);
+	private static final Logger logger = LoggerFactory.getLogger(TokenTypeDAO.class);
 	
 	private int token_type_id;
 	private String token_type_name;
@@ -30,19 +30,19 @@ public class TokenType {
 	private String description;
 	private ArrayList<SalesChannels> salesChannelsList;
 	
-	public TokenType() {
+	public TokenTypeDAO() {
 		
 		this.set( null, null, -1, "", -1, 0, "SECONDS", 0, 0, "", "", new ArrayList<SalesChannels>() );
 		
 	}
 	
-	public TokenType( Environment env, String tenant, int token_type_id, String token_type_name, int token_label_id, int expiration_duration, String expiration_duration_unit, int qty_max_redeems, int single_use_redeem_duration_timeout, String token_format, String description, ArrayList<SalesChannels> salesChannelsList ) {
+	public TokenTypeDAO( Environment env, String tenant, int token_type_id, String token_type_name, int token_label_id, int expiration_duration, String expiration_duration_unit, int qty_max_redeems, int single_use_redeem_duration_timeout, String token_format, String description, ArrayList<SalesChannels> salesChannelsList ) {
 		
 		this.set( env, tenant, token_type_id, token_type_name, token_label_id, expiration_duration, expiration_duration_unit, qty_max_redeems, single_use_redeem_duration_timeout, token_format, description, salesChannelsList);
 					
 	}
 	
-	public TokenType( Environment env, String tenant, ResultSet rs ) {
+	public TokenTypeDAO( Environment env, String tenant, ResultSet rs ) {
 		
 		try {
 					
@@ -56,7 +56,7 @@ public class TokenType {
 		
 	}
 
-	public TokenType( Environment env, String tenant, JSONObject tokenType ) {
+	public TokenTypeDAO( Environment env, String tenant, JSONObject tokenType ) {
 		
 		try {
 		

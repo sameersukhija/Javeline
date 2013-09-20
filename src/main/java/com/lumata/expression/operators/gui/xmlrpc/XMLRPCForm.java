@@ -38,7 +38,7 @@ public class XMLRPCForm {
 	private static final String PARAMETERS_BTN = HOME + "div[2]/div[4]/div[1]/";
 	private static final String ADD_PARAMETER = PARAMETERS_BTN + "a[1]";
 	private static final String REMOVE_LAST_PARAMETER = PARAMETERS_BTN + "a[2]";
-	private static final String RESULT = HOME + "div[4]/div[2]";
+	private static final String RESULT = HOME + "/div[2]/div[4]/div[2]/div/p";
 	
 	public enum CALLS {
 		
@@ -140,12 +140,14 @@ public class XMLRPCForm {
 		
 	}
 
-	public static WebElement getResult( SeleniumWebDriver selenium, long timeout, long interval ) {
+	public static String getResult( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
 		WebElement resultElement = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, RESULT, timeout, interval);
-		if( resultElement == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Result not found" ) ); return null; }	
+		if( resultElement == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Result not found" ) ); return null; }
 		
-		return resultElement;
+		String result = resultElement.getText();
+				
+		return result;
 		
 	}
 
