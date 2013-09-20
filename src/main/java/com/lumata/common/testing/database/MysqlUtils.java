@@ -25,7 +25,7 @@ public class MysqlUtils {
 		
 			ResultSet rs = mysql.execQuery( query );
 		
-			if( rs.next() ) { 
+			while( rs.next() ) { 
 				
 				schema.add( rs.getString( "TABLE_NAME" ) ); 
 				
@@ -43,6 +43,34 @@ public class MysqlUtils {
 		
 	}
 	
+	public static int getTableSize( String table, Mysql mysql ) throws SQLException {
+		
+		int table_size = -1;
+		
+		String query = "SELECT COUNT(*) as COUNT FROM " + table + ";";
+		
+		try {
+		
+			ResultSet rs = mysql.execQuery( query );
+		
+			if( rs.next() ) { 
+				
+				table_size = rs.getInt( "COUNT" ); 
+				
+			}
+					
+			logger.debug( "The table " + table + " has size " + table_size );
+		
+		} catch( SQLException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return table_size;
+		
+	}
+
 	public static boolean isTable( String table, Mysql mysql ) {
 		
 		String query = "SHOW TABLES LIKE '" + table + "';";
@@ -55,7 +83,7 @@ public class MysqlUtils {
 		
 			if( rs.next() ) { check = true; }
 					
-			logger.info( "The table " + table + " is " + ( check == true ? "present" : "not present" ) );
+			logger.debug( "The table " + table + " is " + ( check == true ? "present" : "not present" ) );
 		
 		} catch( SQLException e ) {
 			
@@ -79,7 +107,7 @@ public class MysqlUtils {
 		
 			if( rs.next() ) { maxID = rs.getInt( "MAXID" ); }
 					
-			logger.info( "The column of the table " + table + " has max id equals to " + maxID.toString() );
+			logger.debug( "The column of the table " + table + " has max id equals to " + maxID.toString() );
 		
 		} catch( SQLException e ) {
 			
