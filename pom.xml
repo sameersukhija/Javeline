@@ -2,16 +2,16 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <!--  >parent>
+  <parent>
  	 <groupId>com.lumata</groupId>
  	 <artifactId>group-base</artifactId>
  	 <version>5.0-SNAPSHOT</version>
-  </parent -->
+  </parent>
 
   <groupId>com.lumata.expression</groupId>
   <artifactId>e4osystemtest</artifactId>
   <version>1.0.0</version>
-  <!--  >version>1.0.0-SNAPSHOT</version -->
+  <!--  version>1.0.0-SNAPSHOT</version -->
   <packaging>jar</packaging>
   <name>e4osystemtest</name>
 
@@ -103,13 +103,13 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-server</artifactId>
-			<version>2.31.0</version>
+			<version>2.35.0</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>2.31.0</version>
+			<version>2.35.0</version>
 		</dependency>
 		
 		<dependency>
@@ -133,15 +133,21 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-remote-driver</artifactId>
-			<version>2.31.0</version>
+			<version>2.35.0</version>
 	  	</dependency>
 	
 	  	<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-api</artifactId>
-			<version>2.31.0</version>
+			<version>2.35.0</version>
 	  	</dependency> 
     
+    	<dependency>
+			<groupId>stax</groupId>
+			<artifactId>stax</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+
     	<dependency>
 			<groupId>jp.vmi</groupId>
 			<artifactId>selenese-runner-java</artifactId>
@@ -191,11 +197,11 @@
 			<version>1.8.0.10</version>
 		</dependency>
 
-        	<dependency>
-            		<groupId>org.codeartisans</groupId>
-            		<artifactId>org.json</artifactId>
-            		<version>20130603</version>
-        	</dependency>
+       	<dependency>
+           	<groupId>org.codeartisans</groupId>
+           	<artifactId>org.json</artifactId>
+           	<version>20130603</version>
+       	</dependency>
 		
 		<dependency>
 		  	<groupId>org.freemarker</groupId>
