@@ -20,6 +20,13 @@
 			"email": "info@o2.de",
 			"phone": "491234567",
 			"website": "www.o2.de"
+		},
+		{ 
+			"supplier_id": -1,
+			"name": "Digicelhaiti",
+			"email": "info@digicelhaiti.com",
+			"phone": "491234567",
+			"website": "www.digicelgroup.com"
 		}
 	]
 }

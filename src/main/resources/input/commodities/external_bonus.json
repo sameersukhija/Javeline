@@ -1,0 +1,16 @@
+{
+  "commodities": [
+    {	
+      "type": "External",
+      "name": "Bonus",
+      "account": "freeSMS",
+      "account_type": "IN SMS",
+      "unit": "Without unit",
+      "default_validity_type": "Variable",
+      "default_period_type": "Days",
+      "default_quantity_period": "",
+      "unitary_cost": "",
+      "list_price": ""
+    }
+  ]
+}

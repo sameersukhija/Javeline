@@ -20,7 +20,7 @@ public class XMLRPCResultParser {
 
 	private static final Logger logger = LoggerFactory.getLogger( XMLRPCResultParser.class );
 	
-	public enum ResultType { FAULT, OFFERS }
+	public enum ResultType { UNKNOWN, FAULT, OFFERS }
 	
 	public enum EventType { 
 		
@@ -42,8 +42,7 @@ public class XMLRPCResultParser {
 			
 		}
 	
-	}
-	
+	}	
 	
 	private String xml;
 	private XMLInputFactory inputFactory;
@@ -107,9 +106,7 @@ public class XMLRPCResultParser {
 	
 	public Map<ResultType, Object> parse() {
 		
-		Map<ResultType, Object> result = new HashMap<ResultType, Object>();
-		
-		
+		Map<ResultType, Object> result = new HashMap<ResultType, Object>();	
 		
 		while( this.inputEventReader.hasNext() ) {
     		

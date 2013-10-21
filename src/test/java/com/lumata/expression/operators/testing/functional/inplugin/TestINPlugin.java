@@ -54,21 +54,29 @@ public class TestINPlugin {
 				
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put( "subscribers" , subscribers );
-		//options.put( "schema", tenant );
 		
-		ConfigurationDAO asynchronousINPlugin = new ConfigurationDAO( ConfigurationTypes.QA_UNKNOWN_MSISDN, options );
+		ConfigurationDAO asynchronousGlobalINPlugin = new ConfigurationDAO( ConfigurationTypes.QA_UNKNOWN_MSISDN, options );
+		
+		System.out.println( asynchronousGlobalINPlugin.toString() );
+		
+		asynchronousGlobalINPlugin.insert( mysqlGlobal );
+		
+		Assert.assertTrue( asynchronousGlobalINPlugin.check( mysqlGlobal ) );
+		
+		ConfigurationDAO asynchronousTenantINPlugin = new ConfigurationDAO( ConfigurationTypes.STANDARD_RETRY, options );
 				
-		System.out.println( asynchronousINPlugin.toString() );
+		System.out.println( asynchronousTenantINPlugin.toString() );
 		
-		asynchronousINPlugin.insert( mysqlTenant );
+		asynchronousTenantINPlugin.insert( mysqlTenant );
 		
-		Assert.assertTrue( asynchronousINPlugin.check( mysqlTenant ) );
-		
+		Assert.assertTrue( asynchronousTenantINPlugin.check( mysqlTenant ) );		
 	
     }
 	
 	@AfterSuite
 	public void closeMysqlConnections() {
+		
+		mysqlGlobal.close();
 		
 		mysqlTenant.close();
 		

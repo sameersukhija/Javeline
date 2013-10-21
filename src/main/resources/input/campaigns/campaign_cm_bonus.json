@@ -1,0 +1,28 @@
+{
+	"definition": {
+		"execution_mode": "ModelBased",
+		"campaign_model": "CMBonus",
+		"campaign_name": "CMBonus_1"
+	
+	},
+	"scheduling": {
+	
+	
+	},
+	"dialogue": {
+	
+	
+	},
+	"target": {
+	
+	
+	},
+	"limits": {
+	
+	
+	},
+	"activation": {
+	
+	
+	}
+}

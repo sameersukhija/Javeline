@@ -1,0 +1,23 @@
+{
+	"bonuses": [
+		{
+			"bonus_name": "Bonuses",
+			"unit": "none",
+			"optin": "0",
+			"in_credit": "0",
+			"handleOptOut": "false",
+			"inFeedbackRequired": "false",
+			"billable": "0",
+			"commodity_type": "freeSMS",
+			"account_type": "IN_SMS",
+			"max_value": "NULL",
+			"default_validity_type": "Variable_Days",
+			"default_period_type": "Days",
+			"default_qty_period": "-1",
+			"default_fixed_validity_from": "NULL",
+			"unitary_cost": "NULL",
+			"recommended_price": "NULL"	
+		}
+	
+	]
+}

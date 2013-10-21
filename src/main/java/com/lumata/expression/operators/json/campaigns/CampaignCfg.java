@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.json.configuration;
+package com.lumata.expression.operators.json.campaigns;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -8,8 +8,10 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.validating.Format;
+import com.lumata.expression.operators.exceptions.CampaignException;
 import com.lumata.expression.operators.exceptions.CampaignModelException;
 
 
@@ -17,23 +19,19 @@ import com.lumata.expression.operators.exceptions.CampaignModelException;
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
-public class CampaignModelCfg {
+public class CampaignCfg {
 
-	private static final  Logger logger = LoggerFactory.getLogger( CampaignModelCfg.class );
+	private static final  Logger logger = LoggerFactory.getLogger( CampaignCfg.class );
 	
 	private JSONObject cmCfg;
 	
-	public enum CMLoadingType { FILE, RESOURCE }
-	
-	/* Create an CampaignModel from a JSONObject */
-	public CampaignModelCfg( JSONObject CampaignModel ) {
+	public CampaignCfg( JSONObject CampaignModel ) {
 		
 		this.cmCfg = CampaignModel;
 				
 	}
 	
-	/* Create an CampaignModel loading the JSONObject from the default folder ( <home of the project> ) or resource folder ( src/main/resources/lumata-common-testing ) */
-	public CampaignModelCfg( String CampaignModel, CMLoadingType loadingType ) throws CampaignModelException {
+	public CampaignCfg( String CampaignModel, IOLoadingType loadingType ) throws CampaignException {
 		
 		try {
 			
@@ -41,7 +39,7 @@ public class CampaignModelCfg {
 			
 				case FILE: { this.cmCfg = JSONUtils.loadJSONFile( CampaignModel.toLowerCase() + Format.JSON_EXTENSION ); break; }
 				case RESOURCE: { this.cmCfg = JSONUtils.loadJSONResource( CampaignModel.toLowerCase() + Format.JSON_EXTENSION ); break;  }
-				default: throw new CampaignModelException( "You cannot load an CampaignModel from resources different by FILE or RESOURCE" );
+				default: throw new CampaignException( "You cannot load an Campaign from resources different by FILE or RESOURCE" );
 			
 			}		
 									
@@ -49,20 +47,20 @@ public class CampaignModelCfg {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new CampaignModelException( e.getMessage(), e );
+			throw new CampaignException( e.getMessage(), e );
 			
 		} catch( IOFileException e ) {			
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new CampaignModelException( e.getMessage(), e );
+			throw new CampaignException( e.getMessage(), e );
 			
 		} 			
 			
 	}
 	
 	/* Create an CampaignModel loading the JSONObject from the file or resource folder ( src/main/resources/lumata-common-testing/folder ) */
-	public CampaignModelCfg( String folder, String CampaignModel, CMLoadingType loadingType ) throws CampaignModelException {
+	public CampaignCfg( String folder, String CampaignModel, IOLoadingType loadingType ) throws CampaignException {
 		
 		try {
 			
@@ -70,7 +68,7 @@ public class CampaignModelCfg {
 			
 			case FILE: { this.cmCfg = JSONUtils.loadJSONFile( folder, CampaignModel.toLowerCase() + Format.JSON_EXTENSION ); break; }
 			case RESOURCE: { this.cmCfg = JSONUtils.loadJSONResource( folder, CampaignModel.toLowerCase() + Format.JSON_EXTENSION ); break;  }
-			default: throw new CampaignModelException( "You cannot load an CampaignModel from resources different by FILE or RESOURCE" );
+			default: throw new CampaignException( "You cannot load an Campaign from resources different by FILE or RESOURCE" );
 		
 		}
 									
@@ -78,18 +76,19 @@ public class CampaignModelCfg {
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new CampaignModelException( e.getMessage(), e );
+			throw new CampaignException( e.getMessage(), e );
 			
 		} catch( IOFileException e ) {			
 			
 			logger.error( e.getMessage(), e );
 			
-			throw new CampaignModelException( e.getMessage(), e );
+			throw new CampaignException( e.getMessage(), e );
 			
 		} 			
 			
 	}
 	
+	/*
 	public static JSONObject getBasicCampaignModel() {
 		
 		JSONObject basicCM = new JSONObject();
@@ -109,29 +108,13 @@ public class CampaignModelCfg {
 		return basicCM;
 		
 	}
-	
-	// CampaignModel ATTRIBUTES
-	public String getName() {
+	*/
+	// Campaign ATTRIBUTES
+	public JSONObject getDefinition() {
 		
 		try {
 			
-			if( !cmCfg.isNull("name") ) { return cmCfg.getString("name"); }
-		
-		} catch( Exception e ) {
-
-			logger.error( e.getMessage(), e );
-			
-		}
-		
-		return null;
-		
-	}
-
-	public String getDescription() {
-		
-		try {
-			
-			if( !cmCfg.isNull("description") ) { return cmCfg.getString("description"); }
+			if( !cmCfg.isNull("definition") ) { return cmCfg.getJSONObject("definition"); }
 		
 		} catch( Exception e ) {
 
@@ -143,6 +126,66 @@ public class CampaignModelCfg {
 		
 	}
 	
+	public String getExecutionMode() {
+		
+		try {
+			
+			if( !getDefinition().isNull("execution_mode") ) { return cmCfg.getString("execution_mode"); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+
+	public String getCampaignModel() {
+		
+		try {
+			
+			if( !getDefinition().isNull("campaign_model") ) { return cmCfg.getString("campaign_model"); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+
+	public String getCampaignName() {
+		
+		try {
+			
+			if( !getDefinition().isNull("campaign_name") ) { return cmCfg.getString("campaign_name"); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
 	public JSONArray getEventsList() {
 		
 		try {

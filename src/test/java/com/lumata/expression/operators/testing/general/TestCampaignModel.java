@@ -17,14 +17,14 @@ import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
+import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.expression.operators.exceptions.CampaignModelException;
 import com.lumata.expression.operators.gui.campaigns.CampaignModelForm;
 import com.lumata.expression.operators.gui.security.Authorization;
-import com.lumata.expression.operators.json.configuration.CampaignModelCfg;
-import com.lumata.expression.operators.json.configuration.CampaignModelCfg.CMLoadingType;
+import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
 
 
 public class TestCampaignModel {
@@ -103,9 +103,9 @@ public class TestCampaignModel {
 	@Test( enabled = true )
 	public void loadCampaignModel() throws CampaignModelException {
 
-		CampaignModelCfg cm_token_gold = new CampaignModelCfg( "input/campaign_models", "cm_token_gold", CMLoadingType.RESOURCE );
-		CampaignModelCfg cm_token_silver = new CampaignModelCfg( "input/campaign_models", "cm_token_silver", CMLoadingType.RESOURCE );
-		CampaignModelCfg cm_token_bronze = new CampaignModelCfg( "input/campaign_models", "cm_token_bronze", CMLoadingType.RESOURCE );
+		CampaignModelCfg cm_token_gold = new CampaignModelCfg( "input/campaign_models", "cm_token_gold", IOLoadingType.RESOURCE );
+		CampaignModelCfg cm_token_silver = new CampaignModelCfg( "input/campaign_models", "cm_token_silver", IOLoadingType.RESOURCE );
+		CampaignModelCfg cm_token_bronze = new CampaignModelCfg( "input/campaign_models", "cm_token_bronze", IOLoadingType.RESOURCE );
 				
 		Assert.assertTrue( CampaignModelForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_INTERVAL) );
 		Assert.assertTrue( CampaignModelForm.create(seleniumWebDriver, cm_token_gold, TIMEOUT, ATTEMPT_INTERVAL) );

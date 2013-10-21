@@ -78,7 +78,8 @@ public enum ConfigurationTypes {
 			cfg = new Configuration( new ArrayList<String>(Arrays.asList("waiting_time", "0", "inmanager", "NULL", "Admin", "30000", "NULL", "RW", "NULL", "Value", "")) );
 			cfgList.add( cfg );	
 			
-			cfg = new Configuration( new ArrayList<String>(Arrays.asList("sql_attempt_clause", "0", "inmanager", "NULL", "Admin", "(=1) {1  HOUR},(<3){8 HOUR},(=3){1 DAY},(>4){1 WEEK}", "NULL", "RW", "NULL", "Value", "")) );
+			//cfg = new Configuration( new ArrayList<String>(Arrays.asList("sql_attempt_clause", "0", "inmanager", "NULL", "Admin", "(=1) {1  HOUR},(<3){8 HOUR},(=3){1 DAY},(>4){1 WEEK}", "NULL", "RW", "NULL", "Value", "")) );
+			cfg = new Configuration( new ArrayList<String>(Arrays.asList("sql_attempt_clause", "0", "inmanager", "NULL", "Admin", "(>0) {1  MINUTE},(>2) {2 MINUTE}", "NULL", "RW", "NULL", "Value", "")) );
 			cfgList.add( cfg );	
 			
 			return cfgList;

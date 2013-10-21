@@ -13,35 +13,43 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.expression.operators.json.campaigns.CampaignCfg;
 import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
 
-public class CampaignModelForm extends CampaignsForm {
+public class CampaignCreationForm extends CampaignsForm {
 
-	private static final Logger logger = LoggerFactory.getLogger(CampaignModelForm.class);
+	private static final Logger logger = LoggerFactory.getLogger(CampaignCreationForm.class);
 	
-	public enum CMEventType { 
+	
+	public enum CampaignExecutionMode { 
 		
-		USSD, 
-		CALL, 
-		CAMPAIGN_END, 
-		CAMPAIGN_FOLLOWING, 
-		CAMPAIGN_START, 
-		DATA, 
-		LIFECYCLE, 
-		MESSAGE, 
-		OTHER_USAGE, 
-		REVENUE;
+		ModelBased("Model"), 
+		Notification("Notification"), 
+		RuleEngineBased("Rule Engine");
 		
-		private static String eventID = "gwt-debug-ListCampaignModelCreationETType";
-				
+		private String value;
+		
 		public String getID() {
 			
-			return eventID + "-item" + ordinal();
+			StringBuilder id = new StringBuilder();
+			
+			id.append( "gwt-debug-Campaign " )
+				.append( this.value )
+				.append( " Exec Mode-input" );
+				
+			return id.toString();
+			
+		}
+		
+		CampaignExecutionMode( String value ) {
+			
+			this.value = value;
 			
 		}
 		
 	};
 	
+	/*
 	public enum CMAction { 
 		
 		COMMODITIES( true ), 
@@ -102,23 +110,76 @@ public class CampaignModelForm extends CampaignsForm {
 		}
 		
 	};
-	
+	*/
 	public static boolean open( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
-		if( !CampaignModelForm.select(selenium, timeout, interval) ) { return false; }
+		if( !CampaignCreationForm.select(selenium, timeout, interval) ) { return false; }
 		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-InputCMCampaignModel") );
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-InputCMCampaignCreation") );
 		
-		WebElement campaignModelButton = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-InputCMCampaignModel", timeout, interval);
-		if( campaignModelButton == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot open the Campaign Model DashBoard" ) ); return false; }	
+		WebElement campaignButton = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-InputCMCampaignCreation", timeout, interval);
+		if( campaignButton == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot open the Campaign DashBoard" ) ); return false; }	
 		
-		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "for open the Campaign Model DashBoard") );
-		selenium.click( "id=gwt-debug-InputCMCampaignModel" );
+		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "for open the Campaign DashBoard") );
+		campaignButton.click();
 		
 		return true;
 		
 	}
 	
+	public static boolean create( SeleniumWebDriver selenium, CampaignCfg campaignCfg, long timeout, long interval ) {
+	
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-Add Campaign") );
+		
+		WebElement campaignAdd = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-Add Campaign", timeout, interval);
+		if( campaignAdd == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign" ) ); return false; }	
+		
+		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "to add a new Campaign") );
+		campaignAdd.click();
+		
+		CampaignCreationForm.setDefinition( selenium, campaignCfg, timeout, interval );
+		
+		return true;
+		
+	}	
+	
+	public static boolean setDefinition( SeleniumWebDriver selenium, CampaignCfg campaignCfg, long timeout, long interval ) {
+		
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for css=div.gwt-Hyperlink.selectableSC") );
+		
+		WebElement definitionSection = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.CSS, "div.gwt-Hyperlink.selectableSC", timeout, interval);
+		if( definitionSection == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot define the new Campaign" ) ); return false; }	
+		
+		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "to define a new Campaign") );
+		definitionSection.click();
+				
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for " + CampaignExecutionMode.valueOf( campaignCfg.getExecutionMode() ).getID()) );
+		
+		WebElement executionMode = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, CampaignExecutionMode.valueOf( campaignCfg.getExecutionMode() ).getID(), timeout, interval);
+		if( executionMode == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot set Campaign Execution Mode" ) ); return false; }	
+		
+		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "to set Campaign Execution Mode") );
+		executionMode.click();
+		
+		
+		
+		return true;
+		
+	}
+		
+	// gwt-debug-Campaign Model Exec Mode-input
+	// gwt-debug-Campaign Model Select in Campaign
+	// gwt-debug-Campaign Name
+	
+	
+	// gwt-debug-Campaign Configure Sample
+	// gwt-debug-Campaign Eligibility Refresh
+	// gwt-debug-Campaign Edition Save
+	// gwt-debug-Campaign Edition Activate
+	
+	
+	
+	/*
 	public static boolean create( SeleniumWebDriver selenium, CampaignModelCfg cm, long timeout, long interval ) {
 		
 		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-BtnCampaignModelAdd") );
@@ -278,7 +339,7 @@ public class CampaignModelForm extends CampaignsForm {
 		
 		ArrayList<Map<String, Object>> cmList = new ArrayList<Map<String, Object>>();
 				
-		List<WebElement> availableCampaignModels = CampaignModelForm.getCampaignModelTableContent( selenium, timeout, interval );
+		List<WebElement> availableCampaignModels = CampaignsDashboardForm.getCampaignModelTableContent( selenium, timeout, interval );
 		
 		logger.info( Log.PUTTING.createMessage( selenium.getTestName(), "all discovered elements contained in id=gwt-debug-ListCampaignModel") );
 		
@@ -354,5 +415,5 @@ public class CampaignModelForm extends CampaignsForm {
 		return true;
 		
 	}
-	
+	*/
 }

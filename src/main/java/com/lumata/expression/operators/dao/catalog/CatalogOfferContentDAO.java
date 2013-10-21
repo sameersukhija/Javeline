@@ -72,6 +72,7 @@ public class CatalogOfferContentDAO {
 		}	
 		
 	}
+	
 	public int getOfferID() {
 		
 		return this.offer_id;
