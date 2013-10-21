@@ -1,6 +1,7 @@
 package com.lumata.common.testing.validating;
 
 import java.lang.reflect.Field;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -151,6 +152,16 @@ public final class Format {
 		Matcher matcher = pattern.matcher( value );
 		
 		return matcher.matches();
+		
+	}
+	
+	public static Date getMysqlDateTime( String datetime ) throws ParseException {
+		
+		DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+		
+		Date date = formatter.parse( datetime );
+		
+		return date;
 		
 	}
 	

@@ -24,9 +24,7 @@ public class Mysql {
 	private int dbPort; 
 	private String dbUser;
 	private String dbPasswd;
-	
-	public enum MysqlFieldType { Field, Type, Null, Key, Default, Extra }
-		
+				
 	public Mysql() {
 			
 		try {

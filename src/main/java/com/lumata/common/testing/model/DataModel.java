@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.database.Mysql;
-import com.lumata.common.testing.database.Mysql.MysqlFieldType;
+import com.lumata.common.testing.database.MysqlColumn;
 import com.lumata.common.testing.exceptions.DataModelException;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
@@ -31,6 +31,26 @@ public class DataModel {
 	private String name;
 	
 	public enum DataModelOptions { VALIDATOR }
+	public enum TableAttributes { 
+		
+		FIELDS;
+		
+		public String getValue() { return this.name().toLowerCase(); }
+		
+	}
+	
+	public enum FieldAttributes { 
+		
+		FIELD, 
+		DEFAULT, 
+		EXTRA, 
+		TYPE, 
+		KEY, 
+		NULL;
+		
+		public String getValue() { return this.name().toLowerCase(); }
+		
+	};
 			
 	public DataModel( String datamodel, IOFileUtils.IOLoadingType loadingType ) throws DataModelException  {
 		
@@ -157,11 +177,11 @@ public class DataModel {
 		
 		JSONObject field = new JSONObject();
 		
-		for( MysqlFieldType mysqlFieldType : MysqlFieldType.values() ) {
+		for( MysqlColumn.Fields mysqlColumnType : MysqlColumn.Fields.values() ) {
 			
 			try {
 			
-				final String FIELD_TYPE = mysqlFieldType.toString().toLowerCase();
+				final String FIELD_TYPE = mysqlColumnType.toString().toLowerCase();
 				
 				field.put( FIELD_TYPE, ( rs_fields.getString( FIELD_TYPE ) != null ? rs_fields.getString( FIELD_TYPE ) : JSONObject.NULL ) );
 				
@@ -239,7 +259,7 @@ public class DataModel {
 								
 								JSONObject tableRightFields = tableRight.getJSONArray( "fields").getJSONObject( j );
 								
-								if( tableLeftFields.getString( MysqlFieldType.Field.toString().toLowerCase() ).equals( tableRightFields.getString( MysqlFieldType.Field.toString().toLowerCase() ) ) ) {
+								if( tableLeftFields.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ).equals( tableRightFields.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ) ) ) {
 									
 									JSONObject tableLeftFieldDiff = new JSONObject();
 									JSONObject tableRightFieldDiff = new JSONObject();
@@ -291,11 +311,11 @@ public class DataModel {
 	
 	public static boolean compareTableFields( JSONObject tableLeftField, JSONObject tableLeftFieldDiff, JSONObject tableRightField, JSONObject tableRightFieldDiff ) {
 				
-		for( MysqlFieldType mysqlFieldType : MysqlFieldType.values() ) {
+		for( MysqlColumn.Fields mysqlColumnType : MysqlColumn.Fields.values() ) {
 			
 			try {
 			
-				final String FIELD_TYPE = mysqlFieldType.toString().toLowerCase();
+				final String FIELD_TYPE = mysqlColumnType.toString().toLowerCase();
 				
 				if( !tableLeftField.getString( FIELD_TYPE ).equals( tableRightField.getString( FIELD_TYPE ) )) {
 
@@ -316,7 +336,7 @@ public class DataModel {
 			
 			try {
 				
-				final String FIELD = MysqlFieldType.Field.toString().toLowerCase();
+				final String FIELD = MysqlColumn.Fields.FIELD.toString().toLowerCase();
 				
 				tableLeftFieldDiff.put( FIELD, tableLeftField.getString( FIELD ));
 				tableRightFieldDiff.put( FIELD, tableRightField.getString( FIELD ));

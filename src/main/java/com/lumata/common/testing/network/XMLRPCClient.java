@@ -3,6 +3,7 @@ package com.lumata.common.testing.network;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import org.apache.xmlrpc.XmlRpcException;
@@ -17,15 +18,13 @@ public class XMLRPCClient {
 	
 	public static void main (String [] args) {
 		  
-		Object result;
+		//Object result;
 		
 		try {
 
 			XmlRpcClientConfigImpl xmlrpcCfg = new XmlRpcClientConfigImpl();
-			xmlrpcCfg.setServerURL( new URL("http://10.120.38.25:7070/angular/xmlrpcTest/index.html#/xmlrpc" ));
-			//xmlrpcCfg.setEnabledForExtensions( true );  
-			//xmlrpcCfg.setConnectionTimeout( 60 * 1000 );
-			//xmlrpcCfg.setReplyTimeout( 60 * 1000 );
+			//xmlrpcCfg.setServerURL( new URL("http://10.120.38.25:7070/angular/xmlrpcTest/index.html#/xmlrpc" ));
+			xmlrpcCfg.setServerURL( new URL("http://10.120.38.25:7070/xmlrpc/" ));
 			
 			//xmlrpcCfg.setBasicUserName( "superman" );
 			//xmlrpcCfg.setBasicPassword( "super2010Man" );
@@ -34,13 +33,48 @@ public class XMLRPCClient {
 			
 			xmlrpcClient.setConfig( xmlrpcCfg );
 			
+			//System.out.println( xmlrpcClient.getConfig());
+			
+			logger.info( "#############" );
+			
+			/*
+			Map<String,String> authentication = new HashMap<String,String>();
+			authentication.put("login", "superman");
+			authentication.put("password","super2010Man");
+		
+			Map<String,Object> data = new HashMap<String,Object>();
+			data.put( "authentication", authentication );
+			data.put( "string", "331234560" );
+			data.put( "string", "331234560" );
+			*/
+			
+			Vector params = new Vector();
+			params.add( new Integer(1) );
+			params.add( new String("") );
+			params.add( new String("") );
+			
+			String result = (String)xmlrpcClient.execute("offeroptimizer.allocate", params );
+			
+			
+			//String result = (String)xmlrpcClient.execute("offeroptimizer.allocate", new Object[] {data} );
+			//Object result = (Object)xmlrpcClient.execute("system.listMethods", new Vector() );
+            			
+			logger.info( "--------------------------" );
+			
+			
+			//System.out.println( xmlrpcClient.getConfig().toString());
+				
+		// -----------------------------
+			
 			/*
 			Object[] params = new Object[] { 
 					
 					new String("2")
 					
-			};*/
-		 
+			};
+			
+			*/
+			/*
 			HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("login", "superman");
             map.put("password","super2010Man");
@@ -48,34 +82,33 @@ public class XMLRPCClient {
 			//Integer result = (Integer) 
 					
 			//xmlrpcClient.execute("Calculator.add", params);
-		    
-			logger.info( "#############" );
+		    /*
+   	     	params.addElement("authentication");
+   	     	params.addElement("login");
+   	     	params.addElement("superman");
+   	     	params.addElement("password");
+	     	params.addElement("super2010Man");
+         	*/
 			
-			result = xmlrpcClient.execute("offeroptimizer.allocate", new Vector<Object>() );
-            
-			logger.info( "--------------------------" );
+			
+			//xmlrpcCfg.setEnabledForExtensions( true );  
+			//xmlrpcCfg.setConnectionTimeout( 60 * 1000 );
+			//xmlrpcCfg.setReplyTimeout( 60 * 1000 );
+			
+			//xmlrpcCfg.setBasicUserName( "superman" );
+			//xmlrpcCfg.setBasicPassword( "super2010Man" );
 			
 			/*
-			for (String a : args) {
-                Integer freq = (Integer) result.get(a);
-                result.put(a, (freq == null) ? 1 : freq + 1);
-            }
-            */
-			logger.info( "--------------------------" );
-			
-			
-			//System.out.println( xmlrpcClient.getConfig().toString());
-			
-	    /*
-	     Vector params = new Vector();
-	     params.addElement(new Integer(17));
-	     params.addElement(new Integer(13));
+		     Vector params = new Vector();
+		     params.addElement(new Integer(17));
+		     params.addElement(new Integer(13));
 
-	     Object result = server.execute("sample.sum", params);
+		     Object result = server.execute("sample.sum", params);
 
-	     int sum = ((Integer) result).intValue();
-	     System.out.println("The sum is: "+ sum);
-		*/
+		     int sum = ((Integer) result).intValue();
+		     System.out.println("The sum is: "+ sum);
+			*/
+			
 	     
 		} catch ( IOException ex ) {
             System.out.println( "Network error: The server may not exist." );
@@ -85,6 +118,7 @@ public class XMLRPCClient {
             return;
         }
 
+		/*
         if ( result == null ) {
             System.out.println( "The server didn't return XML." );
             return;
@@ -99,7 +133,7 @@ public class XMLRPCClient {
             System.out.println( "This should never happen." );
             return;
         }
-
+*/
         System.out.println( "Successfully pinged guest account." );
 
 	}

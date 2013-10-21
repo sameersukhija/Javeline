@@ -1,7 +1,8 @@
 package com.lumata.common.testing.model;
 
 import com.lumata.common.testing.database.Mysql;
-import com.lumata.common.testing.database.Mysql.MysqlFieldType;
+import com.lumata.common.testing.database.MysqlColumn;
+
 import com.lumata.common.testing.exceptions.DataModelException;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
@@ -193,9 +194,9 @@ public class DataModelCompare {
 		
 		List<String> fieldsHeaderList = new ArrayList<String>();
 		
-		for( MysqlFieldType mysqlFieldType : MysqlFieldType.values() ) {
+		for( MysqlColumn.Fields mysqlColumnType : MysqlColumn.Fields.values() ) {
 			
-			final String FIELD_TYPE = mysqlFieldType.toString().toLowerCase();
+			final String FIELD_TYPE = mysqlColumnType.toString().toLowerCase();
 
             fieldsHeaderList.add( FIELD_TYPE );
 
@@ -223,11 +224,11 @@ public class DataModelCompare {
 										
 					Map<String, String> fieldMap = new HashMap<String, String>();
 					
-					for( MysqlFieldType mysqlFieldType : MysqlFieldType.values() ) {
+					for( MysqlColumn.Fields mysqlColumnType : MysqlColumn.Fields.values() ) {
 						
 						try {
 							
-							final String FIELD_TYPE = mysqlFieldType.toString().toLowerCase();
+							final String FIELD_TYPE = mysqlColumnType.toString().toLowerCase();
 							
 							fieldMap.put( FIELD_TYPE, ( !field.isNull( FIELD_TYPE ) ? field.getString( FIELD_TYPE ) : "" ) );
 							
@@ -410,9 +411,9 @@ public class DataModelCompare {
 
                                     for( int k = 0; k < all_marked_fields.length(); k++ ) {
 
-                                        if( !all_marked_fields.getJSONObject( k ).isNull(  MysqlFieldType.Field.toString().toLowerCase() ) ) {
+                                        if( !all_marked_fields.getJSONObject( k ).isNull(  MysqlColumn.Fields.FIELD.toString().toLowerCase() ) ) {
 
-                                            if( tableLeftField.getString( MysqlFieldType.Field.toString().toLowerCase() ).equals( all_marked_fields.getJSONObject( k ).getString(  MysqlFieldType.Field.toString().toLowerCase() ) ) ) {
+                                            if( tableLeftField.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ).equals( all_marked_fields.getJSONObject( k ).getString(  MysqlColumn.Fields.FIELD.toString().toLowerCase() ) ) ) {
                                                 fieldAlreadyChecked = true;
                                                 break;
                                             }
@@ -432,12 +433,12 @@ public class DataModelCompare {
                                     // Get single field of the Right Table
                                     JSONObject tableRightField = tableRightAllFields.getJSONObject( j );
 
-                                    if( tableLeftField.getString( MysqlFieldType.Field.toString().toLowerCase() ).equals( tableRightField.getString( MysqlFieldType.Field.toString().toLowerCase() ) ) ) {
+                                    if( tableLeftField.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ).equals( tableRightField.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ) ) ) {
 
                                         JSONObject tableLeftFieldDiff = new JSONObject();
                                         JSONObject tableRightFieldDiff = new JSONObject();
 
-                                        commonFields.put( tableLeftField.getString( MysqlFieldType.Field.toString().toLowerCase() ) );
+                                        commonFields.put( tableLeftField.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ) );
 
                                         // The field is present both in the Left and in the Right Tables, but there are some difference
                                         if( DataModelCompare.compareTableFields( tableLeftField, tableRightField, tableLeftFieldDiff, tableRightFieldDiff ) ) {
@@ -504,7 +505,7 @@ public class DataModelCompare {
 
     public static boolean compareTableFields( JSONObject tableLeftField, JSONObject tableRightField, JSONObject tableLeftFieldDiff, JSONObject tableRightFieldDiff ) {
 
-        for( MysqlFieldType mysqlFieldType : MysqlFieldType.values() ) {
+        for( MysqlColumn.Fields mysqlFieldType : MysqlColumn.Fields.values() ) {
 
             try {
 
@@ -529,7 +530,7 @@ public class DataModelCompare {
 
             try {
 
-                final String FIELD = MysqlFieldType.Field.toString().toLowerCase();
+                final String FIELD = MysqlColumn.Fields.FIELD.toString().toLowerCase();
 
                 tableLeftFieldDiff.put( FIELD, tableLeftField.getString( FIELD ) != null ? tableLeftField.getString( FIELD ) : JSONObject.NULL );
                 tableRightFieldDiff.put( FIELD, tableRightField.getString( FIELD ) != null ? tableRightField.getString( FIELD ) : JSONObject.NULL );
@@ -591,9 +592,9 @@ public class DataModelCompare {
                                         // Get single field of the Right Table
                                         JSONObject tableRightField = tableRightAllFields.getJSONObject( i );
 
-                                        if( tableLeftField.getString( MysqlFieldType.Field.toString().toLowerCase() ).equals( tableRightField.getString( MysqlFieldType.Field.toString().toLowerCase() ) ) ) {
+                                        if( tableLeftField.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ).equals( tableRightField.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ) ) ) {
 
-                                            header.put( tableLeftField.getString( MysqlFieldType.Field.toString().toLowerCase() ) );
+                                            header.put( tableLeftField.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ) );
 
                                         }
 
