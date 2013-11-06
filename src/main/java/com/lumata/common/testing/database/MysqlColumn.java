@@ -64,6 +64,8 @@ public class MysqlColumn {
 			
 			public String getJSONType() { return "Boolean"; }
 			
+			public boolean getJSONTypeCasting() { return false; }
+			
 		},
 		Byte {
 			
@@ -80,6 +82,8 @@ public class MysqlColumn {
 			public String getResultSetType() { return "Byte"; }
 			
 			public String getJSONType() { return "Int"; }
+			
+			public boolean getJSONTypeCasting() { return true; }
 			
 		},
 		Short {
@@ -98,6 +102,8 @@ public class MysqlColumn {
 			
 			public String getJSONType() { return "Int"; }
 			
+			public boolean getJSONTypeCasting() { return true; }
+			
 		},
 		Integer {
 			
@@ -111,9 +117,11 @@ public class MysqlColumn {
 			
 			public String getPrimitiveType() { return "int"; }
 
-			public String getResultSetType() { return "Integer"; }
+			public String getResultSetType() { return "Int"; }
 			
 			public String getJSONType() { return "Int"; }
+			
+			public boolean getJSONTypeCasting() { return true; }
 			
 		},
 		Long {
@@ -132,6 +140,8 @@ public class MysqlColumn {
 			
 			public String getJSONType() { return "Long"; }
 			
+			public boolean getJSONTypeCasting() { return true; }
+			
 		},
 		Float {
 			
@@ -148,6 +158,8 @@ public class MysqlColumn {
 			public String getResultSetType() { return "Float"; }
 			
 			public String getJSONType() { return "Double"; }
+			
+			public boolean getJSONTypeCasting() { return true; }
 			
 		},
 		Double {
@@ -166,6 +178,8 @@ public class MysqlColumn {
 			
 			public String getJSONType() { return "Double"; }
 			
+			public boolean getJSONTypeCasting() { return true; }
+			
 		},
 		String {
 			
@@ -182,6 +196,8 @@ public class MysqlColumn {
 			public String getResultSetType() { return "String"; }
 			
 			public String getJSONType() { return "String"; }
+			
+			public boolean getJSONTypeCasting() { return false; }
 			
 		},
 		Enum {
@@ -200,6 +216,8 @@ public class MysqlColumn {
 			
 			public String getJSONType() { return "String"; }
 			
+			public boolean getJSONTypeCasting() { return false; }
+			
 		},
 		Set {
 			
@@ -217,12 +235,17 @@ public class MysqlColumn {
 			
 			public String getJSONType() { return "String"; }
 			
+			public boolean getJSONTypeCasting() { return false; }
+			
 		},
 		Timestamp {
 			
 			public String[] getPackages() {
 				
-				String[] packages = { "java.util.Timestamp" };
+				String[] packages = { 	"java.sql.Timestamp",
+										"java.text.ParseException",
+										"com.lumata.common.testing.validating.Format"
+				};
 				
 				return packages;
 				
@@ -234,12 +257,18 @@ public class MysqlColumn {
 			
 			public String getJSONType() { return "String"; }
 			
+			public boolean getJSONTypeCasting() { return false; }
+			
 		},
 		Date {
 			
 			public String[] getPackages() {
 				
-				String[] packages = { "java.util.Date", "java.text.SimpleDateFormat" };
+				String[] packages = { 	"java.util.Date", 
+										"java.text.SimpleDateFormat",  
+										"java.text.ParseException",
+										"com.lumata.common.testing.validating.Format"
+				};
 				
 				return packages;
 				
@@ -251,12 +280,15 @@ public class MysqlColumn {
 			
 			public String getJSONType() { return "String"; }
 			
+			public boolean getJSONTypeCasting() { return false; }
+			
 		};
 			
 		public abstract String[] getPackages();
 		public abstract String getPrimitiveType();
 		public abstract String getResultSetType();
-		public abstract String getJSONType();				
+		public abstract String getJSONType();
+		public abstract boolean getJSONTypeCasting();
 		
 	}
 

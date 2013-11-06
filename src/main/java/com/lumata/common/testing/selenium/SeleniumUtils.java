@@ -24,7 +24,7 @@ public final class SeleniumUtils {
 		
 	private static final  Logger logger = LoggerFactory.getLogger( SeleniumUtils.class );
 	
-	public enum SearchBy { ID, LINK, TAG_NAME, XPATH, CSS, CLASS_NAME  }
+	public enum SearchBy { ID, NAME, LINK, PARTIAL_LINK, TAG_NAME, XPATH, CSS, CLASS_NAME  }
 	
 	private SeleniumUtils() {}
 	
@@ -84,9 +84,11 @@ public final class SeleniumUtils {
 				Thread.sleep(interval);
 				
 				switch( searchBy ) {
-				
+					
 					case ID: { element = selenium.getWrappedDriver().findElement( By.id(locator) ); break;}
+					case NAME: { element = selenium.getWrappedDriver().findElement( By.name(locator) ); break;}
 					case LINK: { element = selenium.getWrappedDriver().findElement( By.linkText(locator) ); break;}
+					case PARTIAL_LINK: { element = selenium.getWrappedDriver().findElement( By.partialLinkText(locator) ); break;}
 					case TAG_NAME: { element = selenium.getWrappedDriver().findElement( By.tagName(locator) ); break;}
 					case XPATH: { element = selenium.getWrappedDriver().findElement( By.xpath(locator) ); break;  }
 					case CSS: { element = selenium.getWrappedDriver().findElement( By.cssSelector(locator) ); break;  }
@@ -125,10 +127,11 @@ public final class SeleniumUtils {
 		WebElement rootElement = SeleniumUtils.findForComponentDisplayed(selenium, rootSearchBy, rootLocator, timeout, interval);
 		
 		if( rootElement != null ) {
-			
+			System.out.println( rootElement.toString() );
 			switch( searchBy ) {
 			
 				case ID: { elements = rootElement.findElements( By.id(locator) ); break;}
+				case NAME: { elements = rootElement.findElements( By.name(locator) ); break;}
 				case LINK: { elements = rootElement.findElements( By.linkText(locator) ); break;}
 				case TAG_NAME: { elements = rootElement.findElements( By.tagName(locator) ); break;}
 				case XPATH: { elements = rootElement.findElements( By.xpath(locator) ); break;  }
@@ -138,6 +141,8 @@ public final class SeleniumUtils {
 			}
 		
 		}
+		
+		if( elements.size() <= 0 ) { elements = null; }
 		
 		return elements;
 		
