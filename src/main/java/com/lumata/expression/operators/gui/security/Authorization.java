@@ -1,5 +1,8 @@
 package com.lumata.expression.operators.gui.security;
 
+import java.util.List;
+
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +34,27 @@ public class Authorization {
 		
 		WebElement homeInfo = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-FormHomeInfo", timeout, interval);
 		if( homeInfo == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "User not logged" ) ); return false; }	
+		
+		Authorization.closeLicenseDialog( selenium );
+		
+		return true;
+		
+	}
+	
+	public static boolean closeLicenseDialog( SeleniumWebDriver selenium ) {
+		
+		logger.info( Log.CHECKING.createMessage( "for close license message button" ) );
+		
+		try {
+		
+			WebElement closeDialogBtn = SeleniumUtils.findForComponentDisplayed( selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[2]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[3]/td/table/tbody/tr/td/button", 500, 100);
+												
+			if( closeDialogBtn == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "The user cannot close license dialog" ) ); return false; }
+		
+			closeDialogBtn.click();
 			
+		} catch( NoSuchElementException e ) {}
+		
 		return true;
 		
 	}

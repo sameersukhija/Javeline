@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.testing.a;
+package com.lumata.expression.operators.testing.generators;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,12 +14,12 @@ import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.expression.operators.a.ClassGenerator;
+import com.lumata.expression.operators.generators.ClassGenerator;
 
 
-public class TestClassGenerator {
+public class GenerateClass {
 
-	private static final Logger logger = LoggerFactory.getLogger( TestClassGenerator.class );
+	private static final Logger logger = LoggerFactory.getLogger( GenerateClass.class );
 	
 	Environment env;
 	ClassGenerator generatorDAO;

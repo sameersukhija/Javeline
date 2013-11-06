@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.gui.campaigns;
+package com.lumata.expression.operators.gui.catalogue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,136 +17,64 @@ import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.expression.operators.gui.campaigns.CampaignModelForm.CMErrorAction;
 import com.lumata.expression.operators.gui.campaigns.CampaignModelForm.CMErrorActionType;
+import com.lumata.expression.operators.gui.common.ButtonImpl;
+import com.lumata.expression.operators.gui.common.Buttons;
+import com.lumata.expression.operators.gui.common.MenuBar;
+import com.lumata.expression.operators.gui.common.SectionImpl;
 import com.lumata.expression.operators.json.campaigns.CampaignCfg;
 import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
 
-public class CampaignCreationForm extends CampaignsForm {
+public class OffersForm extends CatalogueForm {
 
-	private static final Logger logger = LoggerFactory.getLogger(CampaignCreationForm.class);
-	
-	
-	public enum CampaignExecutionMode { 
+	private static final Logger logger = LoggerFactory.getLogger(OffersForm.class);
+
+	public enum OfferCreationSection {
 		
-		ModelBased("Model"), 
-		Notification("Notification"), 
-		RuleEngineBased("Rule Engine");
+		DEFINITION("Definition"),
+		OFFER_CONTENT("Offer Content"),
+		PRICES("Prices"),
+		NOTIFICATION("Notification"),
+		ELIGIBILITY_CRITERIA("Eligibility Criteria"),
+		AVAILABILITY("Availability"),
+		ACTIVATION("Activation");
 		
 		private String value;
 		
-		public String getID() {
+		public String getJsonID() {
 			
-			StringBuilder id = new StringBuilder();
-			
-			id.append( "gwt-debug-Campaign " )
-				.append( this.value )
-				.append( " Exec Mode-input" );
-				
-			return id.toString();
+			return this.value.replaceAll( " ", "_" ).toLowerCase();
 			
 		}
 		
-		CampaignExecutionMode( String value ) {
+		OfferCreationSection( String value ) {
 			
 			this.value = value;
 			
 		}
 		
-	};
+	} 
 	
-	public enum CampaignErrorAction { 
-		
-		CAMPAIGN_ALREADY_EXISTS;
-				
-	};
-	
-	public enum CampaignErrorActionType { 
-		
-		RETURN_ERROR,
-		ABORT,
-		ADD_TIMESTAMP_TO_CAMPAIGN_NAME;
-				
-	};
-	
-	/*
-	public enum CMAction { 
-		
-		COMMODITIES( true ), 
-		TOKENS( true );
-		
-		private boolean value;
-		private static String actionID = "gwt-debug-ListCampaignModelCreationEAType";
-			
-		CMAction( boolean value ) {
-			
-			this.value = value;
-			
-		}
-		
-		public boolean getValue() {
-			
-			return this.value;
-			
-		}
-		
-		public void setValue( boolean value ) {
-			
-			this.value = value;
-			
-		}
-		
-		public String getID() {
-			
-			int pos = ordinal();
-			
-			for( CMAction action : CMAction.values()) {
-				  
-				if( action.name().equals( this.name() ) ) { break; }
-				else {
-					
-					if( !action.getValue() ) { pos--; }
-					
-				}
-			
-			}
-			
-			return actionID + "-item" + pos;
-			
-		}
-		
-	};
-	
-	public enum CMActionToken { 
-		
-		BRONZE, 
-		GOLD,
-		SILVER;
-						
-		public String getID() {
-									
-			return CMAction.TOKENS.getID() + "-item" + ordinal();
-			
-		}
-		
-	};
-	*/
 	public static boolean open( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
-		if( !CampaignCreationForm.select(selenium, timeout, interval) ) { return false; }
+		if( !CatalogueForm.select(selenium, timeout, interval) ) { return false; }
 		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-InputCMCampaignCreation") );
-		
-		WebElement campaignButton = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-InputCMCampaignCreation", timeout, interval);
-		if( campaignButton == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot open the Campaign DashBoard" ) ); return false; }	
-		
-		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "for open the Campaign DashBoard") );
-		campaignButton.click();
-		
+		if( !MenuBar.select( selenium, new SectionImpl<MenuBar.CatalogSections, String, String>(MenuBar.CatalogSections.OFFERS, MenuBar.CatalogSections.OFFERS.section_id_prefix, MenuBar.CatalogSections.OFFERS.section_type), timeout, interval ) ) { return false; }
+				
 		return true;
 		
 	}
+
+	public static boolean add( SeleniumWebDriver selenium, long timeout, long interval ) {
+		
+		return Buttons.click( selenium, new ButtonImpl<Buttons.Types>(Buttons.Types.BTN_ADD), "page-OfferPageView", timeout, interval );
+		
+	}	
 	
-	public static boolean create( SeleniumWebDriver selenium, CampaignCfg campaignCfg, long timeout, long interval ) {
+	public static boolean create( SeleniumWebDriver selenium, long timeout, long interval ) {
 	
+		if( !OffersForm.add( selenium, timeout, interval ) ) { return false; }
+		
+		/*
 		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-Add Campaign") );
 		
 		WebElement campaignAdd = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-Add Campaign", timeout, interval);
@@ -154,15 +82,16 @@ public class CampaignCreationForm extends CampaignsForm {
 		
 		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "to add a new Campaign") );
 		campaignAdd.click();
+		*/
+		//OffersForm.setDefinition( selenium, campaignCfg, timeout, interval );
 		
-		CampaignCreationForm.setDefinition( selenium, campaignCfg, timeout, interval );
+		//OffersForm.setActivation( selenium, campaignCfg, timeout, interval );
 		
-		CampaignCreationForm.setActivation( selenium, campaignCfg, timeout, interval );
-		
-		return CampaignCreationForm.manageErrorAction( selenium, campaignCfg, timeout, interval );
+		return true; //OffersForm.manageErrorAction( selenium, campaignCfg, timeout, interval );
 				
 	}	
 	
+	/*
 	public static boolean setDefinition( SeleniumWebDriver selenium, CampaignCfg campaignCfg, long timeout, long interval ) {
 		
 		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for css=div.gwt-Hyperlink.selectableSC") );
@@ -278,9 +207,9 @@ public class CampaignCreationForm extends CampaignsForm {
 								
 								campaignCfg.setCampaignDescription( name_with_timestamp );
 								
-								CampaignCreationForm.setDefinition( selenium, campaignCfg, timeout, interval );
+								OffersForm.setDefinition( selenium, campaignCfg, timeout, interval );
 								
-								CampaignCreationForm.setActivation( selenium, campaignCfg, timeout, interval );
+								OffersForm.setActivation( selenium, campaignCfg, timeout, interval );
 								
 								return true;
 								

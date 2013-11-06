@@ -1,0 +1,9 @@
+{
+	"name":"TokenA",
+	"format":"gl-[0123456789abcdef]{5}",
+	"validityUnit":"days",
+	"validity":"100",
+	"usageUnlimited": true,
+	"usage":"10"
+
+}

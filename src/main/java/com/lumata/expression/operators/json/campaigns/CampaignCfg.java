@@ -130,7 +130,7 @@ public class CampaignCfg {
 		
 		try {
 			
-			if( !getDefinition().isNull("execution_mode") ) { return cmCfg.getString("execution_mode"); }
+			if( !getDefinition().isNull("execution_mode") ) { return getDefinition().getString("execution_mode"); }
 		
 		} catch( Exception e ) {
 
@@ -146,7 +146,7 @@ public class CampaignCfg {
 		
 		try {
 			
-			if( !getDefinition().isNull("campaign_model") ) { return cmCfg.getString("campaign_model"); }
+			if( !getDefinition().isNull("campaign_model") ) { return getDefinition().getString("campaign_model"); }
 		
 		} catch( Exception e ) {
 
@@ -162,7 +162,7 @@ public class CampaignCfg {
 		
 		try {
 			
-			if( !getDefinition().isNull("campaign_name") ) { return cmCfg.getString("campaign_name"); }
+			if( !getDefinition().isNull("campaign_name") ) { return getDefinition().getString("campaign_name"); }
 		
 		} catch( Exception e ) {
 
@@ -174,14 +174,66 @@ public class CampaignCfg {
 		
 	}
 
+	public String getCampaignDescription() {
+		
+		try {
+			
+			if( !getDefinition().isNull("campaign_description") ) { return getDefinition().getString("campaign_description"); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public JSONObject getErrorActions() {
+		
+		try {
+		
+			if( !cmCfg.isNull("error_actions") ) { return cmCfg.getJSONObject("error_actions"); }
+		
+		} catch( JSONException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
 	
 	
+	public void setCampaignName( String name ) {
+		
+		try {
+			
+			if( !getDefinition().isNull("campaign_name") ) { getDefinition().put( "campaign_name", name ); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+	}
 	
-	
-	
-	
-	
-	
+	public void setCampaignDescription( String description ) {
+		
+		try {
+			
+			if( !getDefinition().isNull("campaign_description") ) { getDefinition().put( "campaign_description", description ); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+	}
 	
 	
 	

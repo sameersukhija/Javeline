@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.a;
+package com.lumata.expression.operators.generators;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lumata.common.annotations.mysql.Column;
 import com.lumata.common.testing.database.MysqlColumn;
 import com.lumata.common.testing.exceptions.DataModelException;
 import com.lumata.common.testing.exceptions.IOFileException;
@@ -33,6 +32,7 @@ public class ClassGenerator {
 	private StringBuilder pojoClass;
 	
 	private StringBuilder importClasses;
+	private JSONObject importedPackages;
 		
 	private StringBuilder fieldsPojoClass;
 	private StringBuilder fieldsEnumPojoClass;
@@ -148,7 +148,8 @@ public class ClassGenerator {
 	        	jsonObjectConstructorBodyPojoClass = new StringBuilder();
 	        	
 	        	boolean addImportDate = true;
-	        		        	
+	        	boolean addImportTimestamp = true;
+	        	
 	        	logger.info( "Get Table Name" );
 	        	
 	        	String tableName = (String)table_names.next();
@@ -190,6 +191,8 @@ public class ClassGenerator {
 	        		
 	        	System.out.println( tableName );
 	        	
+	        	importedPackages = new JSONObject();
+	        	
 	        	for( int i = 0; i < fields.length(); i++ ) {
 	        		
 	        		JSONObject column = fields.getJSONObject( i );
@@ -198,8 +201,7 @@ public class ClassGenerator {
 	               	        		
 	        		
 	        		fieldsEnumFieldsPojoClass.append( mysqlColumn.getField() ).append( ", " );
-	        			        			        		
-	        		//StringBuilder methodName = this.createClassName( mysqlColumn.getField() );
+	        		 			        		
 	        		
 	        		this.addToStringField( mysqlColumn );	        			        		
 	        		
@@ -217,89 +219,33 @@ public class ClassGenerator {
 	        		// Add Enum field
 	        		//if( mysqlColumn.getMysqlType().equals( "enum" ) ) { this.addEnumField( mysqlColumn ); }
 	        		
+	        		this.addJSONObjectField( mysqlColumn, mysqlColumn.getField() );
+    					        		
 	        		switch( ClassGenerator.FieldTypes.valueOf( typeValue ) ) {
-	        		
-	        			case STRING: {
-	        				
-	        				//this.addField( ClassGenerator.FieldTypes.STRING, mysqlColumn.getField() );
-	        				
-	        				//this.addResultSetField( ClassGenerator.FieldTypes.STRING, mysqlColumn.getField() );	
-	        				
-	        				this.addJSONObjectField( ClassGenerator.FieldTypes.STRING, mysqlColumn.getField() );
-	        				
-	        				//this.addMethods( ClassGenerator.FieldTypes.STRING, methodName.toString(), mysqlColumn.getField() ); 
-	        				
-	        				break;
-	        			}
-	        			case INT: {
-	        				
-	        				//this.addField( ClassGenerator.FieldTypes.INT, mysqlColumn.getField() );
-	        				
-	        				//this.addResultSetField( ClassGenerator.FieldTypes.INT, mysqlColumn.getField() );	
-
-	        				this.addJSONObjectField( ClassGenerator.FieldTypes.INT, mysqlColumn.getField() );
-	        				
-	        				//this.addMethods( ClassGenerator.FieldTypes.INT, methodName.toString(), mysqlColumn.getField() ); 
-	        					        				
-	        				break;
-	        			}
-	        			case FLOAT: {
-	        				
-	        				//this.addField( ClassGenerator.FieldTypes.FLOAT, mysqlColumn.getField() );
-	        				
-	        				//this.addResultSetField( ClassGenerator.FieldTypes.FLOAT, mysqlColumn.getField() );	
-	        				
-	        				this.addJSONObjectField( ClassGenerator.FieldTypes.FLOAT, mysqlColumn.getField() );
-	        				
-	        				//this.addMethods( ClassGenerator.FieldTypes.FLOAT, methodName.toString(), mysqlColumn.getField() ); 
-	        				
-	        				break;
-	        			}
+	        			        			
 	        			case ENUM: {
-	        				
-	        				//this.addField( ClassGenerator.FieldTypes.STRING, mysqlColumn.getField() );
-	        				
-	        				//this.addEnumField( methodName.toString(), mysqlColumn.getType() );
-	        				
-	        				//this.addResultSetField( ClassGenerator.FieldTypes.STRING, mysqlColumn.getField() );
-	        				
-	        				this.addJSONObjectField( ClassGenerator.FieldTypes.STRING, mysqlColumn.getField() );
-	        				
-	        				//this.addMethods( ClassGenerator.FieldTypes.STRING, methodName.toString(), mysqlColumn.getField() ); 
-	        					        				
+	        					        					        				
 	        				break;
 	        			}
 	        			case TIMESTAMP: {
 	        				
-	        				//this.addField( ClassGenerator.FieldTypes.STRING, mysqlColumn.getField() );
-	        				
-	        				//this.addResultSetField( ClassGenerator.FieldTypes.STRING, mysqlColumn.getField() );
-	        				
-	        				this.addJSONObjectField( ClassGenerator.FieldTypes.STRING, mysqlColumn.getField() );
-	        				
-	        				//this.addMethods( ClassGenerator.FieldTypes.STRING, methodName.toString(), mysqlColumn.getField() ); 
+	        				if( addImportTimestamp ) { 
+	        					
+	        					this.addPackages( mysqlColumn );
+	        					addImportTimestamp = false; 
+	        					
+	        				}
 	        				
 	        				break;
 	        			}
 	        			case DATETIME: {
 	        				
-	        				//this.addField( ClassGenerator.FieldTypes.DATETIME, mysqlColumn.getField() );
-	        				
-	        				//this.addResultSetField( ClassGenerator.FieldTypes.DATETIME, mysqlColumn.getField() );
-
-	        				this.addJSONObjectField( ClassGenerator.FieldTypes.DATETIME, mysqlColumn.getField() );
-	        				
 	        				if( addImportDate ) { 
 	        					
-	        					importClasses.append( "import java.util.Date;\n" ); 
-	        					importClasses.append( "import java.text.ParseException;\n" );
-	        					importClasses.append( "import com.lumata.common.testing.validating.Format;\n" );
-	        					
+	        					this.addPackages( mysqlColumn );
 	        					addImportDate = false; 
 	        					
 	        				}
-	        					        				
-	        				//this.addMethods( ClassGenerator.FieldTypes.DATETIME, methodName.toString(), mysqlColumn.getField() ); 
 	        				
 	        				break;
 	        			}
@@ -329,7 +275,7 @@ public class ClassGenerator {
 							.append( "\n" )
 							.append( this.createDefaultConstructor( pojoClassName.toString() ) )
 							.append( this.createResultSetConstructor( pojoClassName.toString(), resultSetConstructorBodyPojoClass.toString() ))
-							.append( this.createJSONObjectConstructor( pojoClassName.toString(), jsonObjectConstructorBodyPojoClass.toString(), addImportDate ) )
+							.append( this.createJSONObjectConstructor( pojoClassName.toString(), jsonObjectConstructorBodyPojoClass.toString(), addImportDate, addImportTimestamp ) )
 							.append( methodsPojoClass )
 							.append( this.createToStringMethod() )
 							.append( "\n }" );
@@ -404,7 +350,7 @@ public class ClassGenerator {
 		
 	}
 	
-	public StringBuilder createJSONObjectConstructor( String className, String body, boolean addImportDate ) {
+	public StringBuilder createJSONObjectConstructor( String className, String body, boolean addImportDate, boolean addImportTimestamp ) {
 		
 		StringBuilder constructor = new StringBuilder();
 		
@@ -413,7 +359,7 @@ public class ClassGenerator {
 					.append( "( " )
 					.append( "JSONObject jo" )
 					.append( " ) throws JSONException" )
-					.append( ( addImportDate == false ) ? ", ParseException" : "" )
+					.append( ( addImportDate == false || addImportTimestamp == false ) ? ", ParseException" : "" )
 					.append( " {\n\n" )
 					.append( body )
 					.append( "\n\t}\n" );
@@ -478,11 +424,11 @@ public class ClassGenerator {
 		}
 				
 		method.append( "\tpublic " )
-				.append( ( methodType.equals( ClassGenerator.MethodTypes.set ) ? "void": mysqlColumn.getJavaType() ) )
+				.append( ( methodType.equals( ClassGenerator.MethodTypes.set ) ? "void": ( mysqlColumn.getJavaType().equals( MysqlColumn.JavaTypes.Enum.name() ) || mysqlColumn.getJavaType().equals( MysqlColumn.JavaTypes.Set.name() ) ? MysqlColumn.JavaTypes.String.name() : mysqlColumn.getJavaType() ) ) )
 				.append( " " )
 				.append( ( methodType.equals( ClassGenerator.MethodTypes.set ) ? mysqlColumn.getSetMethod() : mysqlColumn.getGetMethod() ) )
 				.append( "(")
-				.append( ( methodType.equals( ClassGenerator.MethodTypes.set ) ? " " + mysqlColumn.getJavaType() + " " + mysqlColumn.getField() + " ": "" ) )
+				.append( ( methodType.equals( ClassGenerator.MethodTypes.set ) ? " " + ( mysqlColumn.getJavaType().equals( MysqlColumn.JavaTypes.Enum.name() ) || mysqlColumn.getJavaType().equals( MysqlColumn.JavaTypes.Set.name() ) ? MysqlColumn.JavaTypes.String.name() : mysqlColumn.getJavaType() ) + " " + mysqlColumn.getField() + " ": "" ) )
 				.append(") {" )
 				.append( "\n\n\t\t" )
 				.append( body )
@@ -506,6 +452,27 @@ public class ClassGenerator {
 		
 	}
 
+	public void addPackages( MysqlColumn mysqlColumn ) {
+		
+		String[] packages = MysqlColumn.JavaTypes.valueOf( mysqlColumn.getJavaType() ).getPackages();
+		
+		for( int i = 0; i < packages.length; i++ ) {
+			
+			if( importedPackages.isNull( packages[ i ] ) ) {
+			
+				try {
+				
+					importedPackages.put( packages[ i ], "" );
+					importClasses.append( "import " ).append( packages[ i ] ).append( ";\n" ); 
+				
+				} catch( JSONException e ) {}
+				
+			}
+			
+		}
+	
+	}
+	
 	public void addField( MysqlColumn mysqlColumn ) {
 		
 		if( add_annotation ) {
@@ -514,7 +481,7 @@ public class ClassGenerator {
 			
 		}
 		
-		fieldsPojoClass.append( "\tprivate " ).append( mysqlColumn.getJavaType() ).append( " " ).append( mysqlColumn.getField() ).append( ";\n" );
+		fieldsPojoClass.append( "\tprivate " ).append( ( mysqlColumn.getJavaType().equals( MysqlColumn.JavaTypes.Enum.name() ) || mysqlColumn.getJavaType().equals( MysqlColumn.JavaTypes.Set.name() ) ? MysqlColumn.JavaTypes.String.name() : mysqlColumn.getJavaType() ) ).append( " " ).append( mysqlColumn.getField() ).append( ";\n" );
 		
 		if( add_annotation ) { fieldsPojoClass.append("\n"); }
 				
@@ -523,10 +490,8 @@ public class ClassGenerator {
 	public void addMethods( MysqlColumn mysqlColumn ) {
 		
 		methodsPojoClass.append( "\n" )
-						/*.append( this.createMethod( ClassGenerator.MethodTypes.get, fieldType, methodName, field ) )*/
 						.append( this.createMethod( ClassGenerator.MethodTypes.get, mysqlColumn ) )
 						.append( "\n\n" )
-						/*.append( this.createMethod( ClassGenerator.MethodTypes.set, fieldType, methodName, field ) )*/
 						.append( this.createMethod( ClassGenerator.MethodTypes.set, mysqlColumn ) )
 						.append( "\n" );
 				
@@ -548,41 +513,43 @@ public class ClassGenerator {
 				
 	}
 	
-	public void addJSONObjectField( ClassGenerator.FieldTypes fieldType, String fieldName ) {
+	public void addJSONObjectField( MysqlColumn mysqlColumn/*ClassGenerator.FieldTypes fieldType*/, String fieldName ) {
 		
 		boolean datetime_field = false;
-		boolean float_field = false;
+		boolean timestamp_field = false;
+		//String jsonType = "String";
 		
-		if( fieldType.equals( ClassGenerator.FieldTypes.DATETIME ) ) {
+		if( mysqlColumn.getJavaType().equals( MysqlColumn.JavaTypes.Timestamp.name() ) ) {
 			
-			fieldType = ClassGenerator.FieldTypes.STRING;
+			timestamp_field = true;
+			
+		}
+	
+		if( mysqlColumn.getJavaType().equals( MysqlColumn.JavaTypes.Date.name() ) ||
+			mysqlColumn.getJavaType().equals( MysqlColumn.JavaTypes.Timestamp.name() )	
+		) {
 			
 			datetime_field = true;
 			
 		}
-		
-		if( fieldType.equals( ClassGenerator.FieldTypes.FLOAT ) ) {
-			
-			fieldType = ClassGenerator.FieldTypes.DOUBLE;
-			
-			float_field = true;
-			
-		}
-			
+					
 		jsonObjectConstructorBodyPojoClass.append( "\t\tthis." )
 											.append( fieldName )
 											.append( " = " )
+											.append( ( timestamp_field == true ) ? "new Timestamp( " : "" )
 											.append( ( datetime_field == true ) ? "Format.getMysqlDateTime( " : "" )
-											.append( ( float_field == true ) ? "(float)" : "" )
+											.append( ( MysqlColumn.JavaTypes.valueOf( mysqlColumn.getJavaType() ).getJSONTypeCasting() == true ) ? "(" + MysqlColumn.JavaTypes.valueOf( mysqlColumn.getJavaType() ).getPrimitiveType() + ")" : "" )
 											.append( "jo.get" )
-											.append( Character.toString( fieldType.getValue().charAt(0) ).toUpperCase() )
-											.append( fieldType.getValue().substring(1) )
+											.append( MysqlColumn.JavaTypes.valueOf( mysqlColumn.getJavaType() ).getJSONType() )
+											//.append( Character.toString( fieldType.getValue().charAt(0) ).toUpperCase() )
+											//.append( fieldType.getValue().substring(1) )
 											.append( "( " )
 											.append( pojoClassName )
 											.append( ".Fields." )
 											.append( fieldName )
 											.append( ".name() )" )
-											.append( ( datetime_field == true ) ? " )" : "" )		
+											.append( ( datetime_field == true ) ? " )" : "" )
+											.append( ( timestamp_field == true ) ? ".getTime() )" : "" )
 											.append( ";\n" );
 				
 	}

@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,8 +51,10 @@ public class CampaignModelForm extends CampaignsForm {
 		TOKENS( true );
 		
 		private boolean value;
-		private static String actionID = "gwt-debug-ListCampaignModelCreationEAType";
-			
+		private static String actionValueID = "gwt-debug-TextCampaignModelCreationEAValue";
+		private static String actionTypeID = "gwt-debug-ListCampaignModelCreationEAType";
+		private static String actionUnitID = "gwt-debug-ListCampaignModelCreationEAUnit";
+					
 		CMAction( boolean value ) {
 			
 			this.value = value;
@@ -83,7 +88,37 @@ public class CampaignModelForm extends CampaignsForm {
 			
 			}
 			
-			return actionID + "-item" + pos;
+			return actionTypeID + "-item" + pos;
+			
+		}
+		
+		public String getActionValueID() {
+			
+			return actionValueID;
+			
+		}
+		
+		public String getActionTypeID() {
+			
+			return actionTypeID;
+			
+		}
+		
+		public String getActionUnitID() {
+			
+			return actionUnitID;
+			
+		}
+		
+	};
+	
+	public enum CMActionCommodities { 
+		
+		POINTS;
+						
+		public String getID() {
+									
+			return CMAction.COMMODITIES.getID() + "-item" + ordinal();
 			
 		}
 		
@@ -101,6 +136,20 @@ public class CampaignModelForm extends CampaignsForm {
 			
 		}
 		
+	};
+	
+	public enum CMErrorAction { 
+		
+		MODEL_ALREADY_EXISTS;
+				
+	};
+	
+	public enum CMErrorActionType { 
+		
+		RETURN_ERROR,
+		ABORT,
+		ADD_TIMESTAMP_TO_MODEL_NAME;
+				
 	};
 	
 	public static boolean open( SeleniumWebDriver selenium, long timeout, long interval ) {
@@ -165,9 +214,7 @@ public class CampaignModelForm extends CampaignsForm {
 										
 					selenium.click("id=" + CMEventType.valueOf( eventType ).getID() );
 					
-					String criteria = cm.getCriteria( i );
-					
-					
+					String criteria = cm.getCriteria( i );				
 					
 					logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-BtnCampaignModelCreationEAAdd") );
 					
@@ -187,11 +234,11 @@ public class CampaignModelForm extends CampaignsForm {
 					selenium.mouseOver( "id=gwt-debug-ListCampaignModelCreationEAType-item0" );					  
 					selenium.click( "id=gwt-debug-ListCampaignModelCreationEAType-item0-item0" );
 					
-					String action = cm.getAction( i );
+					String actionName = cm.getActionName( i );
 					
 					String delimiter = "\\.";
 					
-					String[] actionLevel = action.split( delimiter );
+					String[] actionLevel = actionName.split( delimiter );
 					
 					logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-ListCampaignModelCreationEAType") );
 					
@@ -202,7 +249,13 @@ public class CampaignModelForm extends CampaignsForm {
 					
 					switch( CMAction.valueOf( actionLevel[ 0 ] ) ) {
 					
-						case COMMODITIES: { break; }
+						case COMMODITIES: { 
+							selenium.mouseOver( CMAction.COMMODITIES.getID() );
+							selenium.click( CMActionCommodities.valueOf( actionLevel[ 1 ] ).getID() );
+							selenium.type( CMAction.COMMODITIES.getActionValueID(), cm.getActionValue( i ) );
+							selenium.select( CMAction.COMMODITIES.getActionUnitID(), cm.getActionOption( i ) );
+							break; 
+						}
 						case TOKENS: {
 							selenium.mouseOver( CMAction.TOKENS.getID() );
 							selenium.click( CMActionToken.valueOf( actionLevel[ 1 ] ).getID() );
@@ -220,8 +273,11 @@ public class CampaignModelForm extends CampaignsForm {
 			WebElement campaignModelSave = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-BtnCampaignModelCreationSave", timeout, interval);
 			if( campaignModelSave == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model" ) ); return false; }	
 			
-			campaignModelSave.click();			
+			campaignModelSave.click();
 			
+			return CampaignModelForm.manageErrorAction( selenium, cm, timeout, interval );
+			
+						
 		} else {
 			
 			logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-BtnCampaignModelCreationCancel") );
@@ -232,6 +288,106 @@ public class CampaignModelForm extends CampaignsForm {
 			campaignModelCancel.click();			
 						
 		}
+				
+		return true;
+		
+	}
+	
+	public static boolean manageErrorAction( SeleniumWebDriver selenium, CampaignModelCfg cm, long timeout, long interval ) {
+		
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for error message") );
+		
+		WebElement messageError = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "/html/body/div[6]/div/div", timeout, interval);
+		
+		if( messageError != null ) { 
+			
+			JSONObject error_actions = cm.getErrorActions();
+			
+			if( error_actions == null ) {
+				
+				logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model ( Wrong json configuration )" ) );
+				
+				return false;
+								
+			} else {
+				
+				try {
+					
+					if( messageError.getText().equals( "Model name already exist" ) && !error_actions.isNull( CMErrorAction.MODEL_ALREADY_EXISTS.name() ) ) {
+						
+						switch( CMErrorActionType.valueOf( error_actions.getString( CMErrorAction.MODEL_ALREADY_EXISTS.name() ) ) ) {
+						
+							case RETURN_ERROR:{
+								
+								logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model ( Model name already exist )" ) );
+								
+								return false;
+								
+							}
+							case ADD_TIMESTAMP_TO_MODEL_NAME:{
+								
+								cm.setName( cm.getName() + "_" + String.valueOf( TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) ) );
+								
+								logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-InputCampaignModelCreationName") );
+								
+								WebElement campaignModelAddName = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-InputCampaignModelCreationName", timeout, interval);
+								if( campaignModelAddName == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model" ) ); return false; }	
+								
+								logger.info( Log.PUTTING.createMessage( selenium.getTestName(), "Campaign Model Name") );
+								
+								campaignModelAddName.sendKeys( cm.getName() );
+								
+								logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-BtnCampaignModelCreationSave") );
+								
+								WebElement campaignModelSave = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-BtnCampaignModelCreationSave", timeout, interval);
+								if( campaignModelSave == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model" ) ); return false; }	
+								
+								campaignModelSave.click();
+								
+								logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for new error message") );
+								
+								WebElement newMessageError = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "/html/body/div[6]/div/div", timeout, interval);
+								
+								if( newMessageError != null ) {
+									
+									logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model ( " + newMessageError.getText() + " )" ) );
+									
+									return false;
+									
+								} else {
+									
+									return true;
+									
+								}
+								
+							}
+							case ABORT:{
+								
+								logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-BtnCampaignModelCreationCancel") );
+								
+								WebElement campaignModelCancel = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-BtnCampaignModelCreationCancel", timeout, interval);
+								if( campaignModelCancel == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model" ) ); return false; }	
+								
+								campaignModelCancel.click();
+								
+								return true;
+																
+							}
+							
+						}
+						
+					}  
+					
+				} catch( Exception e ) {}
+				
+			}
+			
+			logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model ( " + messageError.getText() + " )" ) ); 
+			
+			return false; 
+			
+		
+		}	
 				
 		return true;
 		

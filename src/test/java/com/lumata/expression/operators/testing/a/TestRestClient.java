@@ -28,7 +28,7 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.network.RestClient;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.expression.operators.a.ClassGenerator;
+import com.lumata.expression.operators.generators.ClassGenerator;
 import com.lumata.expression.operators.gui.xmlrpc.HTTPXMLRPCForm;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultParser;
 

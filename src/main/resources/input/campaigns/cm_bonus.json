@@ -1,0 +1,8 @@
+{
+	"name": "CMBonus",
+	"description": "",
+	"events_list": [{ "event_type":"REVENUE", "criteria": null, "action": { "name": "COMMODITIES.POINTS", "value": "100", "option":"/recharge" }}],
+	"error_actions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+}

@@ -190,14 +190,78 @@ public class CampaignModelCfg {
 		
 	}
 	
-	public String getAction( int index ) {
+	public JSONObject getAction( int index ) {
 		
 		try {
 			
-			if( !getEventsList().isNull( index ) ) { return getEventsList().getJSONObject(index).getString("action"); }
+			if( !getEventsList().isNull( index ) ) { return getEventsList().getJSONObject(index).getJSONObject("action"); }
 		
 		} catch( Exception e ) {
 
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+
+	public String getActionName( int index ) {
+		
+		try {
+			
+			if( !getAction( index ).isNull( "name" ) ) { return getAction(index).getString("name"); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public String getActionValue( int index ) {
+		
+		try {
+			
+			if( !getAction( index ).isNull( "value" ) ) { return getAction(index).getString("value"); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}	
+	
+	public String getActionOption( int index ) {
+		
+		try {
+			
+			if( !getAction( index ).isNull( "option" ) ) { return getAction(index).getString("option"); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}	
+	
+	public JSONObject getErrorActions() {
+		
+		try {
+		
+			if( !cmCfg.isNull("error_actions") ) { return cmCfg.getJSONObject("error_actions"); }
+		
+		} catch( JSONException e ) {
+			
 			logger.error( e.getMessage(), e );
 			
 		}

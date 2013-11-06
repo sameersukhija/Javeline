@@ -72,7 +72,8 @@ public class HTTPXMLRPCForm {
 	
 	public enum EventParameterTypes {
 		
-		recharge
+		recharge,
+		event_storage_policy;
 		
 	}
 	

@@ -1,7 +1,9 @@
-package com.lumata.expression.operators.operations;
+package com.lumata.expression.operators.testing.generators;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+
 import org.jboss.resteasy.client.ClientResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,12 +38,12 @@ public class GenerateTokens {
 	@Test
 	public void generateTokens() {
 				
-		int tokens_to_generate = 10;
+		int tokens_to_generate = 3;
 		
 		ArrayList<String> params = new ArrayList<String>();
 		params.add( HTTPXMLRPCForm.getAuthenticationParam( env.getUserName( "superman" ), env.getPassword( "superman" )) );
-		params.add( HTTPXMLRPCForm.getCustoEventParam( "331234561", HTTPXMLRPCForm.EventTypes.revenue, new HashMap<HTTPXMLRPCForm.EventParameterTypes, String>() { { put( HTTPXMLRPCForm.EventParameterTypes.recharge, "1" ); } } ) );
-		
+		params.add( HTTPXMLRPCForm.getCustoEventParam( "3363541269", HTTPXMLRPCForm.EventTypes.revenue, new LinkedHashMap<HTTPXMLRPCForm.EventParameterTypes, String>() { { put( HTTPXMLRPCForm.EventParameterTypes.recharge, "1" ); put( HTTPXMLRPCForm.EventParameterTypes.event_storage_policy, "store" ); } } ) );
+																																										
 		for( int i = 0; i < tokens_to_generate; i++ ) {
 			
 			ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.eventmanager_generateCustomEvent.call( env.getLink() + "xmlrpc/" , params );

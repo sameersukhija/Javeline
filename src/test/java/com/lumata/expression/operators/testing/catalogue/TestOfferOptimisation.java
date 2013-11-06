@@ -16,7 +16,7 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.expression.operators.gui.catalogue.OfferOptimisationForm;
+import com.lumata.expression.operators.gui.catalogue.TokenTypeForm;
 import com.lumata.expression.operators.gui.security.Authorization;
 
 public class TestOfferOptimisation {
@@ -48,7 +48,7 @@ public class TestOfferOptimisation {
 	@Test
 	public void createTokenType( @Optional("qa") String tenant1 ) {
 		
-		Assert.assertTrue( OfferOptimisationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_INTERVAL) );
+		Assert.assertTrue( TokenTypeForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_INTERVAL) );
 		
 	}
 	

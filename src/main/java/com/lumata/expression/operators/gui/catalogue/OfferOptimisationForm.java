@@ -7,32 +7,42 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.expression.operators.json.catalogue.TokenTypeCfg;
 
 public class OfferOptimisationForm extends CatalogueForm {
 
 	private static final Logger logger = LoggerFactory.getLogger(CatalogueForm.class);
-	
+		
 	public static boolean open( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
 		if( !CatalogueForm.select(selenium, timeout, interval) ) { return false; }
 		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for xpath=html/body/div[4]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[3]/td/table/tbody/tr/td[1]/button") );
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for xpath=html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[3]/table/tbody/tr[1]/td/table/tbody/tr/td[6]/table/tbody/tr[2]/td[2]") );
 		
-		WebElement digestError = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[4]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[3]/td/table/tbody/tr/td[1]/button", timeout, interval);
-		if( digestError != null ) { digestError.click(); }
+		WebElement offerOptimisationForm = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[3]/table/tbody/tr[1]/td/table/tbody/tr/td[6]/table/tbody/tr[2]/td[2]", timeout, interval);
+		if( offerOptimisationForm == null ) { return false; }
+			
+		offerOptimisationForm.click();
 		
-		//xpath=(//button[@type='button'])[293]
-		/*
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-InputCMCampaignModel") );
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for class_name=gwt-Frame") );
 		
-		WebElement campaignModelButton = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-InputCMCampaignModel", timeout, interval);
-		if( campaignModelButton == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot open the Campaign Model DashBoard" ) ); return false; }	
+		WebElement angularFrame = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.CLASS_NAME, "gwt-Frame", timeout, interval);
+		if( angularFrame == null ) { return false; }
 		
-		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "for open the Campaign Model DashBoard") );
-		selenium.click( "id=gwt-debug-InputCMCampaignModel" );
-		*/
+		selenium.getWrappedDriver().switchTo().frame(angularFrame);
+				
 		return true;
 		
 	}
 	
+	public static boolean close( SeleniumWebDriver selenium, long timeout, long interval ) {
+		
+		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "for parent frame") );
+		
+		selenium.selectFrame("relative=top");
+		
+		return true;
+		
+	}
+
 }

@@ -22,7 +22,7 @@ import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.expression.operators.testing.a.TestClassGenerator;
+import com.lumata.expression.operators.testing.generators.GenerateClass;
 
 public class InsertSubscribers {
 
@@ -44,7 +44,7 @@ private static final Logger logger = LoggerFactory.getLogger( InsertSubscribers.
 		
 	}
 		
-	@Test( priority = 2, enabled = false )
+	@Test( priority = 2, enabled = true )
 	public void insertSubscribers() throws DataModelException, IOFileException, SQLException {
 		
 		logger.info( Log.PUTTING.createMessage( "insertSubscribers" , "Insert Subscribers" ) );
