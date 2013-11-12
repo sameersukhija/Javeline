@@ -1,25 +1,17 @@
 package com.lumata.expression.operators.generators;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lumata.common.testing.exceptions.EnvironmentException;
-import com.lumata.common.testing.exceptions.IOFileException;
-import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.validating.Format;
 
 public class VouchersGenerator {
 
 	private static final Logger logger = LoggerFactory.getLogger( VouchersGenerator.class );
-	
+		
+	private final int DEFAULT_START_INDEX = 1;
+	private final int DEFAULT_END_INDEX = 100;
 	
 	private int entries;
 	
@@ -38,39 +30,33 @@ public class VouchersGenerator {
 	}
 	
 	public void generate( String folder, String voucherFileName, String voucherCodePrefix, IOFileUtils.IOLoadingType savingType ) {
+	
+		this.generate( folder, voucherFileName, voucherCodePrefix, DEFAULT_START_INDEX, DEFAULT_END_INDEX, savingType );
+		
+	}	
+	
+	public void generate( String folder, String voucherFileName, String voucherCodePrefix, int start_index, int end_index, IOFileUtils.IOLoadingType savingType ) {
     	
 		try {
 		
 			logger.info( Log.PUTTING.createMessage( "Voucher csv file" ) );
 						
-			final int ENTRIES = 50;
-			final int START_INDEX = 51;
 			final int LISTS = 1;
 			final String EXTENSION = ".csv";
 			final String IMPORT_FILE = "import_" + voucherFileName + EXTENSION;
-			//final String DELETE_FILE = "delete_" + PRODUCT_TYPES_LIST;
+			//final String DELETE_FILE = "delete_" + voucherFileName + EXTENSION;
 			
 			StringBuffer output;
 			
-			int splitValue =  ENTRIES / LISTS;			
+			int splitValue =  end_index / LISTS;			
 						
 			for( int l = 1; l <= LISTS; l++ ) {
 				
 				output = new StringBuffer();
-				//DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				//Calendar now = Calendar.getInstance();
-				//Calendar random_future_date = Calendar.getInstance();
-				
-				/*
-				for( FIELDS field : FIELDS.values() ) {
-					output.append( field ).append(";");
-				}
-				*/
-				//output.append( "\n" );
-				
-				for( int i = ((l - 1) * splitValue ) + 1; i <= ( l * splitValue ); i++ ) {
+								
+				for( int i = ((l - 1) * splitValue ); i < ( l * splitValue ); i++ ) {
 					
-					String voucher_code = voucherCodePrefix + ( i + START_INDEX );
+					String voucher_code = voucherCodePrefix + ( i + start_index );
 					
 					output.append( voucher_code ).append( "\n" );
 						      
@@ -78,8 +64,7 @@ public class VouchersGenerator {
 				
 				logger.info( output.toString() );
 				
-				IOFileUtils.saveResource( output, folder, IMPORT_FILE );
-				
+				IOFileUtils.saveResource( output, folder, IMPORT_FILE );			
 				
 			}
 					

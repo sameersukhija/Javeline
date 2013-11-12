@@ -12,7 +12,7 @@ public class GenerateVouchers {
 		
 		VouchersGenerator vouchersGenerator = new VouchersGenerator();
 		
-		vouchersGenerator.generate("output/catalog", "VOUCHERS_LIST", "offer_voucher", IOLoadingType.RESOURCE);
+		vouchersGenerator.generate("input/catalogue/vouchers", "VOUCHERS_LIST", "voucher", 1, 2, IOLoadingType.RESOURCE);
 		
 	}
 	
