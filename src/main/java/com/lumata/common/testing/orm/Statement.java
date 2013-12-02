@@ -147,7 +147,7 @@ public class Statement {
 		    
 			try {
 			
-				IEnumFields field = new EnumFields<>( place_holder.getKey() );
+				IEnumFields field = new EnumFields<Enum<?>>( place_holder.getKey() );
 			
 				Object entity = this.entities.get( field.table() );
 			
@@ -277,7 +277,7 @@ public class Statement {
 		StringBuilder content = new StringBuilder();
 		StringBuilder table_field = new StringBuilder();
 		
-		IEnumFields field = new EnumFields<>( expr.getField() );
+		IEnumFields field = new EnumFields<Enum<?>>( expr.getField() );
 		
 		table_field.append( field.col().table() )
 					.append( "." )
