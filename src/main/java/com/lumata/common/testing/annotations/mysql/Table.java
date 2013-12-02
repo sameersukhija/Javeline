@@ -1,4 +1,4 @@
-package com.lumata.common.annotations.mysql;
+package com.lumata.common.testing.annotations.mysql;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

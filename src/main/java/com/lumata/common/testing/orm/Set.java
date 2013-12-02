@@ -13,7 +13,7 @@ public class Set implements ISet {
 	@Override
 	public IWhere where( List<String> filter ) {
 		
-		this.statement.setSearch( filter );
+		//this.statement.setSearch( filter );
 		
 		return new Where(statement);
 		
@@ -27,9 +27,9 @@ public class Set implements ISet {
 	}
 	
 	@Override
-	public String build( Object entity ) {
+	public String build() {
 		
-		return this.statement.get( entity );
+		return this.statement.build();
 				
 	}
 	

@@ -2,6 +2,6 @@ package com.lumata.common.testing.orm;
 
 public interface ISelect {
 	
-	IFrom from();
+	IFrom from( Object entity );
 	
 }

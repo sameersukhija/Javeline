@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 /**
  * This allows to manage the input and output.
@@ -789,7 +790,40 @@ public final class IOFileUtils {
 		
 	}
 	
+	public static void searchFile( String rootDir, String fileName, List<String> fileList ) throws IOFileException {
+		 
+		if( rootDir == null || rootDir.isEmpty() ) {
+			throw new IOFileException( "The root directory is not valid." );
+		}
 		
+		if( fileName == null ) {
+			throw new IOFileException( "The file name is not valid." );
+		}
+		
+		File directory = new File( rootDir );
+		
+		File[] files = directory.listFiles();
+         
+    	for( File file : files ) {
+             
+    		if( file.isFile() ) {
+               
+        		if( file.getAbsolutePath().endsWith( fileName ) ) { 
+        			
+        			fileList.add( file.getAbsolutePath() );        			
+        		
+        		}
+            
+        	} else if( file.isDirectory() ) {
+        	
+        		IOFileUtils.searchFile( file.getAbsolutePath(), fileName, fileList );
+        		
+        	}
+        	             
+        }
+    	
+    }	
+	
 	/*
 		
 	public static int countFileLine( String path ) throws IOSException {

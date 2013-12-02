@@ -2,24 +2,14 @@ package com.lumata.common.testing.orm;
 
 import com.lumata.common.testing.orm.Statement.MysqlStatement;
 
-public class Where implements IWhere {
+public class GroupBy implements IGroupBy {
 
 	Statement statement;
 	
-	Where( Statement statement ) {
+	GroupBy( Statement statement ) {
 		this.statement = statement;
 	}
 
-	@Override
-	public IGroupBy groupBy( Enum<?>... group ) {
-		
-		this.statement.append( Statement.MysqlStatement.GROUP_BY.getName() )
-						.append( statement.fields( group ) );
-		
-		return new GroupBy(statement);
-		
-	}
-	
 	@Override
 	public IHaving having( IExprFV expr ) {
 		
@@ -78,12 +68,12 @@ public class Where implements IWhere {
 		return new QueryTemplate(statement);
 				
 	}
-		
+	
 	@Override
 	public String build() {
 		
 		return this.statement.build();
-				
+		
 	}
-	
+
 }

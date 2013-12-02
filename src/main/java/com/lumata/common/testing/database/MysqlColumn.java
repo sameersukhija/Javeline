@@ -19,6 +19,7 @@ public class MysqlColumn {
 	private String[] type_values;
 	private String mysql_type;
 	private String java_type;
+	private String category_type;
 	private boolean is_null;
 	private String key;
 	private String default_value;
@@ -46,6 +47,10 @@ public class MysqlColumn {
 		
 	}
 	
+	public enum CategoryTypes {
+		Boolean, Number, String, Collection, Date;
+	}
+	
 	public enum JavaTypes {
 		
 		Boolean {
@@ -66,6 +71,8 @@ public class MysqlColumn {
 			
 			public boolean getJSONTypeCasting() { return false; }
 			
+			public String getCategoryTypes() { return CategoryTypes.Boolean.name(); }
+			
 		},
 		Byte {
 			
@@ -84,6 +91,8 @@ public class MysqlColumn {
 			public String getJSONType() { return "Int"; }
 			
 			public boolean getJSONTypeCasting() { return true; }
+			
+			public String getCategoryTypes() { return CategoryTypes.Number.name(); }
 			
 		},
 		Short {
@@ -104,6 +113,8 @@ public class MysqlColumn {
 			
 			public boolean getJSONTypeCasting() { return true; }
 			
+			public String getCategoryTypes() { return CategoryTypes.Number.name(); }
+			
 		},
 		Integer {
 			
@@ -122,6 +133,8 @@ public class MysqlColumn {
 			public String getJSONType() { return "Int"; }
 			
 			public boolean getJSONTypeCasting() { return true; }
+			
+			public String getCategoryTypes() { return CategoryTypes.Number.name(); }
 			
 		},
 		Long {
@@ -142,6 +155,8 @@ public class MysqlColumn {
 			
 			public boolean getJSONTypeCasting() { return true; }
 			
+			public String getCategoryTypes() { return CategoryTypes.Number.name(); }
+			
 		},
 		Float {
 			
@@ -160,6 +175,8 @@ public class MysqlColumn {
 			public String getJSONType() { return "Double"; }
 			
 			public boolean getJSONTypeCasting() { return true; }
+			
+			public String getCategoryTypes() { return CategoryTypes.Number.name(); }
 			
 		},
 		Double {
@@ -180,6 +197,8 @@ public class MysqlColumn {
 			
 			public boolean getJSONTypeCasting() { return true; }
 			
+			public String getCategoryTypes() { return CategoryTypes.Number.name(); }
+			
 		},
 		String {
 			
@@ -198,6 +217,8 @@ public class MysqlColumn {
 			public String getJSONType() { return "String"; }
 			
 			public boolean getJSONTypeCasting() { return false; }
+			
+			public String getCategoryTypes() { return CategoryTypes.String.name(); }
 			
 		},
 		Enum {
@@ -218,6 +239,8 @@ public class MysqlColumn {
 			
 			public boolean getJSONTypeCasting() { return false; }
 			
+			public String getCategoryTypes() { return CategoryTypes.Collection.name(); }
+			
 		},
 		Set {
 			
@@ -236,6 +259,8 @@ public class MysqlColumn {
 			public String getJSONType() { return "String"; }
 			
 			public boolean getJSONTypeCasting() { return false; }
+			
+			public String getCategoryTypes() { return CategoryTypes.Collection.name(); }
 			
 		},
 		Timestamp {
@@ -259,13 +284,15 @@ public class MysqlColumn {
 			
 			public boolean getJSONTypeCasting() { return false; }
 			
+			public String getCategoryTypes() { return CategoryTypes.Date.name(); }
+			
 		},
 		Date {
 			
 			public String[] getPackages() {
 				
 				String[] packages = { 	"java.util.Date", 
-										"java.text.SimpleDateFormat",  
+										/*"java.text.SimpleDateFormat",*/  
 										"java.text.ParseException",
 										"com.lumata.common.testing.validating.Format"
 				};
@@ -282,6 +309,8 @@ public class MysqlColumn {
 			
 			public boolean getJSONTypeCasting() { return false; }
 			
+			public String getCategoryTypes() { return CategoryTypes.Date.name(); }
+			
 		};
 			
 		public abstract String[] getPackages();
@@ -289,6 +318,7 @@ public class MysqlColumn {
 		public abstract String getResultSetType();
 		public abstract String getJSONType();
 		public abstract boolean getJSONTypeCasting();
+		public abstract String getCategoryTypes();
 		
 	}
 
@@ -410,6 +440,12 @@ public class MysqlColumn {
 		
 	}
 	
+	public String getCategoryType() {
+		
+		return this.category_type;
+		
+	}
+	
 	public boolean getNull() {
 	
 		return this.is_null;
@@ -513,6 +549,12 @@ public class MysqlColumn {
 		
 	}
 	
+	public void setCategoryType( String category_type ) {
+		
+		this.category_type = category_type;
+		
+	}
+	
 	public void setNull( boolean is_null ) {
 		
 		this.is_null = is_null;
@@ -577,6 +619,7 @@ public class MysqlColumn {
 			 this.setType( values.group( 0 ) );
 			 this.setMysqlType( values.group( 1 ) );
 			 this.setJavaType( MysqlColumn.MysqlTypes.valueOf( this.getMysqlType().toUpperCase() ).toJavaType().toString() );
+			 this.setCategoryType( MysqlColumn.JavaTypes.valueOf( this.getJavaType() ).getCategoryTypes() );
 			 
 			 switch( MysqlColumn.JavaTypes.valueOf( this.getJavaType() ) ) {
 			 

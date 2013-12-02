@@ -1,37 +1,31 @@
 package com.lumata.common.testing.orm;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lumata.common.annotations.mysql.Column;
-import com.lumata.common.annotations.mysql.Table;
+import com.lumata.common.testing.annotations.mysql.Column;
 import com.lumata.common.testing.database.MysqlColumn;
 
 public class Statement {
 
 	private static final Logger logger = LoggerFactory.getLogger( Statement.class );
 	
-	private MysqlStatement mysqlStatement;
+	private StringBuilder content;
 	
-	private List<String> fields;
-	private List<String> search;
-	private List<String> order;
-	
-	private Table table;
-	
-	private StringBuilder field_list;
-	private StringBuilder value_list;
-	private StringBuilder search_list;
-	private StringBuilder order_list;
+	public Map<String, Object> entities;
+	public Map<Object, String> place_holders;
 	
 	public enum MysqlStatement { 
 		
-		SELECT, INSERT_INTO, UPDATE, DELETE;
+		SELECT, INSERT_INTO, UPDATE, DELETE,
+		FROM, JOIN, ON, WHERE, AND, OR, 
+		GROUP_BY, HAVING, ORDER_BY, LIMIT;
 		
 		public StringBuilder getName() {
 			
@@ -42,299 +36,307 @@ public class Statement {
 		}
 		
 	}
+	
+	public enum MysqlSelectFuncType {
+		
+		MAX,
+		MIN, 
+		AVG,
+		ALL,
+		MID,
+		NOW,
+		SUM,
+		ROUND,
+		COUNT,
+		UCASE,
+		LCASE,
+		CONCAT,
+		DISTINCT;
+		
+		public enum ValueTypes { Single_Field, Single_Value, Multiple_Values, Enum }
+		
+		private Enum<?> field;
+		private String value;
+		private Object[] object_array;
+		private ValueTypes value_type;
+		
+		public Enum<?> getField() {
+			
+			return this.field;
+			
+		}
 
-	public enum MysqlStatementOptions { 
-		
-		FROM, WHERE, AND, VALUES, SET, ORDER_BY;
-		
-		public StringBuilder getName() {
+		public String getValue() {
 			
-			StringBuilder tag = new StringBuilder();
+			return this.value;
 			
-			return tag.append( " " ).append( this.name().replaceAll( "_", " " ) ).append( " " );
+		}
+		
+		public Object[] getObjectArray() {
+			
+			return this.object_array;
+			
+		}
+		
+		public ValueTypes getValueType() {
+			
+			return this.value_type;
+			
+		}
+		
+		
+		public Enum<?> setField( Enum<?> field ) {
+			
+			this.field = field;
+			
+			return this;
+			
+		}
+
+		public Enum<?> setValue( String value ) {
+			
+			this.value = value ;
+			
+			return this;
+			
+		}
+		
+		public Enum<?> setObjectArray( Object... object_array ) {
+			
+			this.object_array = object_array;
+			
+			return this;
+			
+		}
+		
+		public void setValueType( ValueTypes value_type ) {
+			
+			this.value_type = value_type;
 			
 		}
 		
 	}
-		
-	public Statement( MysqlStatement mysqlStatement ) {
-		initialize( mysqlStatement );
-	}
 	
-	private Statement initialize( MysqlStatement mysqlStatement ) {
-		
-		this.mysqlStatement = mysqlStatement;
-		
-		this.setFields( null );
-		this.setSearch( null );
-		this.setOrder( null );
-		
-		this.field_list = new StringBuilder();
-		this.value_list = new StringBuilder();
-		this.search_list = new StringBuilder();
-		this.order_list = new StringBuilder();
-		
-		return this;
-				
-	}
-	
-	public String get( Object entity ) {
-		
-		StringBuilder query = new StringBuilder();
-		
-		this.parseEntity( entity, mysqlStatement );
-		
-		switch( this.mysqlStatement ) {
-		
-			case SELECT: {
-				
-				query.append( Statement.MysqlStatement.SELECT.getName() )
-						.append( ( this.field_list != null && this.field_list.length() > 0 ? this.field_list.substring( 0, this.field_list.length() -2 ) : "" ) )
-						.append( Statement.MysqlStatementOptions.FROM.getName() )
-						.append( this.table.value() )
-						.append( ( this.search_list != null && this.search_list.length() > 0 ? this.search_list : "" )  )
-						.append( ( this.order_list != null && this.order_list.length() > 0 ? Statement.MysqlStatementOptions.ORDER_BY.getName() + this.order_list.substring( 0, this.order_list.length() -2 ) : "" ) )
-						.append( ";" );
-						
-				break;
-			}
-			case INSERT_INTO: {
-				
-				query.append( Statement.MysqlStatement.INSERT_INTO.getName() )
-						.append( this.table.value() )
-						.append( " ( " )
-						.append( ( this.field_list != null && this.field_list.length() > 0 ? this.field_list.substring( 0, this.field_list.length() -2 ) : "" ) )
-						.append( " )" )
-						.append( Statement.MysqlStatementOptions.VALUES.getName() )
-						.append( "( " )
-						.append( ( this.value_list != null && this.value_list.length() > 0 ? this.value_list.substring( 0, this.value_list.length() -2 ) : "" ) )
-						.append( " )" )
-						.append( ";" );
-						
-				break;
-			}
-			case UPDATE: {
-				
-				query.append( Statement.MysqlStatement.UPDATE.getName() )
-						.append( this.table.value() )
-						.append( Statement.MysqlStatementOptions.SET.getName() )
-						.append( ( this.field_list != null && this.field_list.length() > 0 ? this.field_list.substring( 0, this.field_list.length() -2 ) : "" ) )
-						.append( ( this.search_list != null && this.search_list.length() > 0 ? this.search_list : "" )  )
-						.append( ( this.order_list != null && this.order_list.length() > 0 ? Statement.MysqlStatementOptions.ORDER_BY.getName() + this.order_list.substring( 0, this.order_list.length() -2 ) : "" ) )
-						.append( ";" );
-				
-				break;
-			}
-			case DELETE: {
-				
-				query.append( Statement.MysqlStatement.DELETE.getName().toString().trim() )
-						.append( Statement.MysqlStatementOptions.FROM.getName() )
-						.append( this.table.value() )
-						.append( ( this.search_list != null && this.search_list.length() > 0 ? this.search_list : "" )  )
-						.append( ( this.order_list != null && this.order_list.length() > 0 ? Statement.MysqlStatementOptions.ORDER_BY.getName() + this.order_list.substring( 0, this.order_list.length() -2 ) : "" ) )
-						.append( ";" );
-						
-				break;
-			}
-		
-		}		
-		
-		return query.toString().trim();
-		
-	}
-	
-	public Statement setFields( List<String> fields ) {
-		
-		this.fields = fields;
-
-		return this;
-		
-	}
-	
-	public Statement setSearch( List<String> search ) {
-		
-		this.search = search;
-		
-		return this;
-		
+	public Statement() {
+		this.content = new StringBuilder();
+		this.entities = new HashMap<String, Object>();
+		this.place_holders = new HashMap<Object, String>();
 	}
 
-	public Statement setOrder( List<String> order ) {
+	public Statement append( StringBuilder content ) {
 		
-		this.order = order;
+		this.content.append( content );
 		
 		return this;
 		
 	}
-
-	private void parseEntity( Object entity, Statement.MysqlStatement mysqlStatement ) {
-				
-		boolean where = true;
+	
+	public Statement append( String content ) {
 		
-		this.table = (Table)entity.getClass().getAnnotation( Table.class );
-				
-		if( this.table != null ) {
+		this.content.append( content );
+		
+		return this;
+		
+	}
+	
+	public String build() {
+	
+		String query = this.content.append(";").toString().trim();
+		System.out.println( this.place_holders.toString() );
+		for (Map.Entry<Object, String> place_holder : place_holders.entrySet()) {
+		    
+			try {
 			
-			for( Field field : entity.getClass().getDeclaredFields() ) {
-			    
-				Column col;
-			    
-				if( ( col = field.getAnnotation(Column.class) ) != null ) {
-			        
-					boolean addField = true;
-					boolean addSearch = false;
-					boolean addOrder = false;
+				IEnumFields field = new EnumFields<>( (Enum<?>)place_holder.getKey() );
+			
+				Object entity = this.entities.get( field.table() );
+			
+				Method method = entity.getClass().getDeclaredMethod( field.col().getMethod() );
+			
+				Object value = method.invoke( entity );
+				
+				query = query.replaceAll( "\"?" + place_holder.getValue() + "\"?", ( value == null ? "NULL" : String.valueOf( method.invoke( entity ) ) ) );
+				
+			} catch( NoSuchMethodException e ) {
+				logger.error( e.getMessage(), e );
+			} catch (IllegalAccessException e) {
+				logger.error( e.getMessage(), e );
+			} catch (InvocationTargetException e) {
+				logger.error( e.getMessage(), e );
+			} 
+			
+		}
+		
+		return query;
+	
+	}
+	
+	public String fields( final Enum<?>... fields ) {
+		
+		Type typeFunc = MysqlSelectFuncType.class;
+		
+		StringBuilder content = new StringBuilder();
+		
+		if( fields != null ) {
+			
+			for( int i = 0; i < fields.length; i++ ) {
+								
+				StringBuilder field_value = new StringBuilder();
+				boolean function = false;
+				
+				function = typeFunc.equals( fields[ i ].getClass() );
+				
+				if( function ) { 
+					
+					switch( MysqlSelectFuncType.valueOf( fields[ i ].name() ).getValueType() ) {
+					
+						case Single_Field: {
+							field_value.append( Statement.field( MysqlSelectFuncType.valueOf( fields[ i ].name() ).getField() ) );
+							break;
+						}
+						case Single_Value: {
+							field_value.append( MysqlSelectFuncType.valueOf( fields[ i ].name() ).getValue() );
+							break;
+						}
+						case Multiple_Values: {
+							field_value.append( Statement.field( null, MysqlSelectFuncType.valueOf( fields[ i ].name() ).getObjectArray() ) );
+							break;
+						}
+						
+					}
 										
-			    	if( this.fields != null && this.fields.size() > 0 && !this.fields.contains( col.field() ) ) { 
-			    		
-			    		addField = false; 
-			    		
-			    	}
-			    	
-			    	if( this.search != null && this.search.size() > 0 && this.search.contains( col.field() ) ) { 
-			    		
-			    		addSearch = true; 
-			    		
-			    	}
-			    	
-			    	if( this.order != null && this.order.size() > 0 && this.order.contains( col.field() ) ) { 
-			    		
-			    		addOrder = true; 
-			    		
-			    	}
-			    	
-			    	switch( mysqlStatement ) {
-			    	
-			    		case SELECT: {
-			    			
-			    			if( addField ) { 
-			    				this.field_list
-			    					.append( this.table.value() )
-			    					.append( "." )
-			    					.append( col.field() )
-			    					.append( ", " ); 
-			    			}
-			    			
-			    			break;
-			    		
-			    		}
-			    		case INSERT_INTO: {
-			    			
-			    			if( addField ) { 
-			    				
-			    				this.field_list.append( col.field() ).append( ", " ); 
-			    				this.value_list.append( this.setValue( col, entity ) ).append( ", " );
-			    			
-			    			}
-			    			
-			    			break;
-			    		
-			    		}
-			    		case UPDATE: {
-				    		
-			    			if( addField ) { 
-			    				
-			    				this.field_list.append( this.setFieldValue( col, entity) ).append( ", " ); 
-			    				
-			    			}
-			    			
-			    			break;
-			    			
-			    		}
-			    		case DELETE: {
-				    		
-			    			if( addField ) { this.setFieldValue( col, entity).append( ", " ); }
-			    			
-			    			break;
-			    			
-			    		}
-			    	
-			    	}
-			    	
-			    	if( addSearch ) { 
-			    		
-			    		if( where ) {
-			    			
-			    			this.search_list.append( " WHERE " );
-			    			
-			    			where = false;
-			    			
-			    		} else {
-			    			
-			    			this.search_list.append( " AND " );
-			    			
-			    		}
-			    		
-			    		this.search_list.append( this.setFieldValue( col, entity ) );
-			    		
-			    	}
-			    	
-			    	if( addOrder ) { 
-			    			this.order_list
-			    					.append( this.table.value() )
-			    					.append( "." )
-			    					.append( col.field() )
-			    					.append( ", " ); 
-			    	}
-			    	
+				} else { 
+					field_value = Statement.field( fields[ i ] );
 				}
 				
-			}	
-						
+				content.append( ( function == true ? fields[ i ].name() + "( " : "" ) )
+						.append( field_value )
+						.append( ( function == true ? " )" : "" ) )
+						.append( ", " );
+						    					
+			}
+			
 		}
 		
+		return content.substring( 0, content.length() - 2 );
+		
 	}
 		
-	private StringBuilder setFieldValue( Column col, Object entity ) {
+	public static StringBuilder field( Enum<?> field ) {
 		
-		StringBuilder field = new StringBuilder();
+		IEnumFields field_enum = new EnumFields<>( field );
+		StringBuilder field_value = new StringBuilder();
+	
+		field_value.append( field_enum.col().table() )
+					.append( "." )
+					.append( field_enum.col().field() );
 		
-		field.append( this.table.value() )
-				.append( "." )
-				.append( col.field() )
-				.append( " = " )
-				.append( this.setValue( col, entity) );
-		
-		return field;
-		
+		return field_value;
+	
 	}
 	
-	private StringBuilder setValue( Column col, Object entity ) {
+	public static String field( Column col, Object... values ) {
 		
-		StringBuilder value = new StringBuilder();
-		
-		try { 
-			
-			Method m = entity.getClass().getMethod( col.getMethod() );			
-			
-			boolean isNumber = false;
-			
-			if( 
-				MysqlColumn.JavaTypes.valueOf( col.javaType() ).equals( MysqlColumn.JavaTypes.Short ) || 
-				MysqlColumn.JavaTypes.valueOf( col.javaType() ).equals( MysqlColumn.JavaTypes.Integer ) 
-			
-			) {
+		StringBuilder field_value = new StringBuilder();
 				
-				isNumber = true;
+		if( values != null ) {
+			
+			for( int i = 0; i < values.length; i++ ) {
+				
+				if( values[ i ] != null && values[ i ].getClass().isEnum() ) { 
+	
+					field_value.append( Statement.field( (Enum<?>)values[ i ] ) ); 
+				
+				} else { 
+									
+					if( values[ i ] == null ) { field_value.append( "NULL" ); }
+					else {
+						
+						String value = String.valueOf( values[ i ] );
+											
+						if( col != null && col.categoryType().equals( MysqlColumn.CategoryTypes.Number.name() ) ) { 
+							field_value.append( value ); 
+						} else { field_value.append( "\"" ).append( value ).append( "\"" ); }					 
+				
+					}
+					
+				}
+				
+				field_value.append( ", " );
 				
 			}
 			
-			String returnedValue = String.valueOf( m.invoke(entity) );
-						
-			value.append( ( isNumber == true || returnedValue == "null" ? "" : "'" ) )
-					.append( ( returnedValue == null ? "null" : returnedValue ) )
-					.append( ( isNumber == true || returnedValue == "null" ? "" : "'" ) );			
+		}
+				
+		return field_value.substring( 0, ( field_value.length() > 2 ? field_value.length() - 2 : field_value.length() ));
+				
+	}
+	
+	public static String expr( IExprFV expr ) {
+		
+		StringBuilder content = new StringBuilder();
+		StringBuilder table_field = new StringBuilder();
+		
+		IEnumFields field = new EnumFields<>( expr.getField() );
+		
+		table_field.append( field.col().table() )
+					.append( "." )
+					.append( field.col().field() );
 					
-		} catch( NoSuchMethodException e ) {
-			logger.error( e.getMessage(), e );		
-		} catch( InvocationTargetException e ) {
-			logger.error( e.getMessage(), e );
-		} catch( IllegalAccessException e ) {
-			logger.error( e.getMessage(), e );
+		if( expr.getUsePlaceHolder() ) { 
+			
+			StringBuilder place_holder = new StringBuilder();
+			
+			place_holder.append( "::" ).append( table_field ).append( "::" );
+						
+			expr.setValue( place_holder.toString() );
+			
 		}
 		
-		return value;
+		content.append( table_field )
+				.append( expr.getOp().value() );
 		
+		if( expr.getOp().equals( Op.Types.in ) ) { 
+			
+			content.append( "( " )
+					.append( Statement.field( field.col(), expr.getValues() ) )
+					.append( " )" );					
+			
+		} else { content.append( Statement.field( field.col(), expr.getValue() ) ); }
+		
+		return content.toString();
+		
+	}
+	
+	public static String expr( IExprFF expr ) {
+		
+		StringBuilder content = new StringBuilder();
+		
+		IEnumFields left_field = new EnumFields<>( expr.getLeftField() );
+		IEnumFields rgiht_field = new EnumFields<>( expr.getRightField() );
+		
+		content.append( left_field.col().table() )
+				.append( "." )
+				.append( left_field.col().field() )
+				.append( expr.getOp().value() )
+				.append( rgiht_field.col().table() )
+				.append( "." )
+				.append( rgiht_field.col().field() );
+		
+		return content.toString();
+		
+	}
+		
+	public void addEntity( Object entity, String table ) {
+		this.entities.put( table, entity );
+	}
+	
+	public void addPlaceHolder( Object field, String place_holder ) {
+		this.place_holders.put( field, place_holder );
+	}
+	
+	public void addAllPlaceHolders( Map<Object, String> place_holders ) {
+		this.place_holders.putAll( place_holders );
 	}
 	
 }

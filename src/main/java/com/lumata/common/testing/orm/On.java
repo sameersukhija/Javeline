@@ -1,13 +1,55 @@
 package com.lumata.common.testing.orm;
 
+import com.lumata.common.testing.annotations.mysql.Table;
 import com.lumata.common.testing.orm.Statement.MysqlStatement;
 
-public class Where implements IWhere {
+public class On implements IOn {
 
 	Statement statement;
 	
-	Where( Statement statement ) {
+	public On( Statement statement ) {
 		this.statement = statement;
+	}
+
+	@Override
+	public IWhere where( IExprFV expr ) {
+		
+		this.statement.append( MysqlStatement.WHERE.getName() )
+						.append( Statement.expr( expr ) );
+		
+		if( expr.getUsePlaceHolder() ) { this.statement.addPlaceHolder( expr.getField(), (String)expr.getValue() ); }
+			
+		return new Where(statement);
+		
+	}
+
+	@Override
+	public IWhere where( IExprFV expr, ICondFV... cond ) {
+		
+		this.where( expr );
+		
+		for( int i = 0; i < cond.length; i++ ) {
+			
+			this.statement.append( cond[ i ].build() );
+			
+			this.statement.addAllPlaceHolders( cond[ i ].getPlaceHolders() );
+			
+		}
+		
+		return new Where(statement);
+		
+	}
+
+	@Override
+	public IJoin join( Object entity ) {
+		
+		Table table = (Table)entity.getClass().getAnnotation( Table.class );
+		
+		this.statement.append( MysqlStatement.JOIN.getName() )
+						.append( table.value() );
+		
+		return new Join(statement);
+		
 	}
 
 	@Override
@@ -48,7 +90,7 @@ public class Where implements IWhere {
 		return new Having(statement);
 		
 	}
-	
+
 	@Override
 	public IOrderBy orderBy( Enum<?>... order ) {
 		
@@ -72,13 +114,6 @@ public class Where implements IWhere {
 		
 	}
 	
-	@Override
-	public IQueryTemplate template() {
-		
-		return new QueryTemplate(statement);
-				
-	}
-		
 	@Override
 	public String build() {
 		

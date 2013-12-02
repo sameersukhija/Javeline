@@ -2,20 +2,25 @@ package com.lumata.common.testing.orm;
 
 import java.util.List;
 
-import com.lumata.common.testing.orm.Statement.MysqlStatement;
-
 public class Query {
 
 	public static ISelect select() {
-				
-		return select( null );
+		
+		Statement statement = new Statement();
+		
+		statement.append( Statement.MysqlStatement.SELECT.getName() )
+			.append( "( * )" );
+		
+		return new Select(statement);
 		
 	}
 
-	public static ISelect select( final List<String> fields ) {
+	public static ISelect select( final Enum<?>... fields ) {
 		
-		Statement statement = new Statement(MysqlStatement.SELECT);
-		statement.setFields(fields);
+		Statement statement = new Statement();
+				
+		statement.append( Statement.MysqlStatement.SELECT.getName() )
+					.append( statement.fields( fields ) );
 		
 		return new Select(statement);
 		
@@ -29,8 +34,8 @@ public class Query {
 
 	public static IInsert insert( final List<String> fields ) {
 		
-		Statement statement = new Statement(MysqlStatement.INSERT_INTO);
-		statement.setFields(fields);
+		Statement statement = new Statement();
+		//statement.setFields(fields);
 		
 		return new Insert(statement);
 		
@@ -44,8 +49,8 @@ public class Query {
 
 	public static IUpdate update( final List<String> fields ) {
 		
-		Statement statement = new Statement(MysqlStatement.UPDATE);
-		statement.setFields(fields);
+		Statement statement = new Statement();
+		//statement.setFields(fields);
 		
 		return new Update(statement);
 		
@@ -53,7 +58,7 @@ public class Query {
 	
 	public static IDelete delete() {
 		
-		Statement statement = new Statement(MysqlStatement.DELETE);
+		Statement statement = new Statement();
 		
 		return new Delete(statement);
 		

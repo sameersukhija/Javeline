@@ -16,9 +16,9 @@ public class Values implements IValues {
 	}
 		
 	@Override
-	public String build( Object entity ) {
+	public String build() {
 		
-		return this.statement.get( entity );
+		return this.statement.build();
 				
 	}
 

@@ -1,4 +1,4 @@
-package com.lumata.common.annotations.mysql;
+package com.lumata.common.testing.annotations.mysql;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,6 +14,7 @@ public @interface Column {
 	String type() default "";
 	String mysqlType() default "";
 	String javaType() default "";
+	String categoryType() default "";
 	boolean unsigned() default false;
 	boolean isNull() default true;
 	String key()  default "";

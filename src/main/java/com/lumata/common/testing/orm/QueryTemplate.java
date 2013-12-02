@@ -16,9 +16,9 @@ public class QueryTemplate implements IQueryTemplate {
 	}
 	
 	@Override
-	public String build( Object entity ) {
+	public String build() {
 		
-		return this.statement.get( entity );
+		return this.statement.build();
 				
 	}
 

@@ -1,10 +1,10 @@
 package com.lumata.common.testing.orm;
 
-public class Order implements IOrder {
+public class Limit implements ILimit {
 
 	Statement statement;
 	
-	Order( Statement statement ) {
+	Limit( Statement statement ) {
 		this.statement = statement;
 	}
 
@@ -16,9 +16,9 @@ public class Order implements IOrder {
 	}
 	
 	@Override
-	public String build(Object entity) {
+	public String build() {
 		
-		return this.statement.get( entity );
+		return this.statement.build();
 		
 	}
 
