@@ -224,7 +224,7 @@ public class Statement {
 		
 	public static StringBuilder field( Enum<?> field ) {
 		
-		IEnumFields field_enum = new EnumFields<>( field );
+		IEnumFields field_enum = new EnumFields<Enum<?>>( field );
 		StringBuilder field_value = new StringBuilder();
 	
 		field_value.append( field_enum.col().table() )
@@ -312,8 +312,8 @@ public class Statement {
 		
 		StringBuilder content = new StringBuilder();
 		
-		IEnumFields left_field = new EnumFields<>( expr.getLeftField() );
-		IEnumFields rgiht_field = new EnumFields<>( expr.getRightField() );
+		IEnumFields left_field = new EnumFields<Enum<?>>( expr.getLeftField() );
+		IEnumFields rgiht_field = new EnumFields<Enum<?>>( expr.getRightField() );
 		
 		content.append( left_field.col().table() )
 				.append( "." )
