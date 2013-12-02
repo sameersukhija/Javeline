@@ -19,7 +19,7 @@ public class Statement {
 	private StringBuilder content;
 	
 	public Map<String, Object> entities;
-	public Map<Object, String> place_holders;
+	public Map<Enum<?>, String> place_holders;
 	
 	public enum MysqlStatement { 
 		
@@ -120,7 +120,7 @@ public class Statement {
 	public Statement() {
 		this.content = new StringBuilder();
 		this.entities = new HashMap<String, Object>();
-		this.place_holders = new HashMap<Object, String>();
+		this.place_holders = new HashMap<Enum<?>, String>();
 	}
 
 	public Statement append( StringBuilder content ) {
@@ -142,12 +142,12 @@ public class Statement {
 	public String build() {
 	
 		String query = this.content.append(";").toString().trim();
-		System.out.println( this.place_holders.toString() );
-		for (Map.Entry<Object, String> place_holder : place_holders.entrySet()) {
+		
+		for (Map.Entry<Enum<?>, String> place_holder : place_holders.entrySet()) {
 		    
 			try {
 			
-				IEnumFields field = new EnumFields<>( (Enum<?>)place_holder.getKey() );
+				IEnumFields field = new EnumFields<>( place_holder.getKey() );
 			
 				Object entity = this.entities.get( field.table() );
 			
@@ -331,11 +331,11 @@ public class Statement {
 		this.entities.put( table, entity );
 	}
 	
-	public void addPlaceHolder( Object field, String place_holder ) {
+	public void addPlaceHolder( Enum<?> field, String place_holder ) {
 		this.place_holders.put( field, place_holder );
 	}
 	
-	public void addAllPlaceHolders( Map<Object, String> place_holders ) {
+	public void addAllPlaceHolders( Map<Enum<?>, String> place_holders ) {
 		this.place_holders.putAll( place_holders );
 	}
 	

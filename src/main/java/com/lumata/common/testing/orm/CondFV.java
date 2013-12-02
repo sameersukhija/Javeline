@@ -8,13 +8,13 @@ import com.lumata.common.testing.orm.Statement.MysqlStatement;
 public class CondFV implements ICondFV {
 	
 	private StringBuilder condition;
-	private Map<Object, String> place_holders;
+	private Map<Enum<?>, String> place_holders;
 		
 	CondFV( final MysqlStatement type, final IExprFV... expr_list ) {
 		
 		this.condition = new StringBuilder();
 		
-		this.place_holders = new HashMap<Object, String >();
+		this.place_holders = new HashMap<Enum<?>, String >();
 		
 		this.append( type, expr_list );
 		
@@ -24,7 +24,7 @@ public class CondFV implements ICondFV {
 		
 		this.condition = new StringBuilder();
 		
-		this.place_holders = new HashMap<Object, String >();
+		this.place_holders = new HashMap<Enum<?>, String >();
 		
 		this.append( type, cond_list );
 		
@@ -69,7 +69,7 @@ public class CondFV implements ICondFV {
 		
 	}
 	
-	public Map<Object, String> getPlaceHolders() {
+	public Map<Enum<?>, String> getPlaceHolders() {
 		return this.place_holders;
 	}
 	

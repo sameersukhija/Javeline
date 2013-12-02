@@ -8,7 +8,7 @@ public interface ICondFV {
 
 	ICondFV append( MysqlStatement type, IExprFV... expr_list );
 	ICondFV append( MysqlStatement type, ICondFV... cond );
-	Map<Object, String> getPlaceHolders();
+	Map<Enum<?>, String> getPlaceHolders();
 	String build();
 	
 }
