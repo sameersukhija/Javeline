@@ -212,8 +212,9 @@ private static final Logger logger = LoggerFactory.getLogger( InsertSubscribers.
 			.append( createCDRByMonthAndYear( "33123450", Calendar.getInstance().get(Calendar.YEAR), Calendar.AUGUST, false ) )
 			.append( createCDRByMonthAndYear( "33123450", Calendar.getInstance().get(Calendar.YEAR), Calendar.SEPTEMBER, false ) )
 			.append( createCDRByMonthAndYear( "33123450", Calendar.getInstance().get(Calendar.YEAR), Calendar.OCTOBER, false ) )
+			.append( createCDRByMonthAndYear( "33123450", Calendar.getInstance().get(Calendar.YEAR), Calendar.NOVEMBER, false ) )
 			;
-				
+		
 		IOFileUtils.saveResource( cdr.toString(), "output/cdr", "cdr_test_2.txt" );
 		
 	}

@@ -1,7 +1,6 @@
 package com.lumata.expression.operators.testing.generators;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import org.jboss.resteasy.client.ClientResponse;
@@ -38,19 +37,36 @@ public class GenerateTokens {
 	@Test
 	public void generateTokens() {
 				
-		int tokens_to_generate = 10;
+		int tokens_to_generate = 10000;
 		
 		ArrayList<String> params = new ArrayList<String>();
 		params.add( HTTPXMLRPCForm.getAuthenticationParam( env.getUserName( "superman" ), env.getPassword( "superman" )) );
-		params.add( HTTPXMLRPCForm.getCustoEventParam( "331234561", HTTPXMLRPCForm.EventTypes.revenue, new LinkedHashMap<HTTPXMLRPCForm.EventParameterTypes, String>() { { put( HTTPXMLRPCForm.EventParameterTypes.recharge, "1" ); put( HTTPXMLRPCForm.EventParameterTypes.event_storage_policy, "store" ); } } ) );
-																																										
-		for( int i = 0; i < tokens_to_generate; i++ ) {
-			
-			ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.eventmanager_generateCustomEvent.call( env.getLink() + "xmlrpc/" , params );
+		params.add( HTTPXMLRPCForm.getCustoEventParam( "393409429107", HTTPXMLRPCForm.EventTypes.revenue, new LinkedHashMap<HTTPXMLRPCForm.EventParameterTypes, String>() { { put( HTTPXMLRPCForm.EventParameterTypes.recharge, "1" ); put( HTTPXMLRPCForm.EventParameterTypes.event_storage_policy, "store" ); } } ) );
 		
-			logger.info( "TOKEN RESPONSE: " + response.getEntity().toString() );
+		long startTime = System.currentTimeMillis();
+				
+		for( int i = 0; i < tokens_to_generate; i++ ) {
+						
+			ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.eventmanager_generateCustomEvent.call( env.getLink() + "xmlrpc/" , params );
+						
+			//logger.info( "TOKEN RESPONSE: " + response.getEntity().toString() );
+			
+			try {
+			
+				Thread.sleep( 2 );
+			
+			} catch(  InterruptedException e ) {
+				logger.error( e.getMessage(), e );				  
+			}
 			
 		}
+		
+		long diffTime = System.currentTimeMillis() - startTime;  
+        int decSeconds = (int)(diffTime % 1000 / 100);  
+        int seconds = (int)(diffTime / 1000 % 60);  
+        int minutes = (int)(diffTime / 60000 % 60);  
+        int hours = (int)(diffTime / 3600000);
+        String s = String.format("%d:%02d:%02d.%d", hours, minutes, seconds, decSeconds);
 				
 	}
 	

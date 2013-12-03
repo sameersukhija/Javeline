@@ -11,7 +11,7 @@
   <groupId>com.lumata.expression</groupId>
   <artifactId>e4osystemtest</artifactId>
   <!--  version>1.0.0</version -->
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>e4osystemtest</name>
 
@@ -212,8 +212,20 @@
         <dependency>
             <groupId>com.lumata.common</groupId>
             <artifactId>lumata-common-testing</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>1.0.1</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-core</artifactId>
+            <version>5.7.0</version>
+        </dependency>
+        
+         <dependency>
+            <groupId>com.lumatagroup.expression</groupId>
+            <artifactId>expression-commons</artifactId>
+            <version>2.4.0.3.0-SNAPSHOT</version>
+        </dependency>        
 
   	</dependencies>
   	
@@ -235,7 +247,7 @@
 	        	<artifactId>maven-surefire-plugin</artifactId>
 	        	<version>2.14.1</version>
 	        	<configuration>
-	          		<skipTests>false</skipTests>
+	          		<skipTests>true</skipTests>
 	        	</configuration>
 	      	</plugin>
 	      		

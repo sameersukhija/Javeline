@@ -50,8 +50,7 @@ public class ConfigureCampaign {
 	Mysql mysqlGlobal;
 	Mysql mysqlTenant;
 	JSONObject commodities;
-	
-	
+		
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment", "tenant", "user"})
 	@BeforeClass
@@ -83,8 +82,7 @@ public class ConfigureCampaign {
 	protected void startSession(Method method) throws Exception {
 		//seleniumWebDriver.setTestName( method.getName() ); 	
 	}
-	
-	
+		
 	@Parameters({"tenant"})
 	@Test(enabled=true, priority = 1 )
 	public void setRetryStrategy( @Optional("qa") String tenant ) {
@@ -102,7 +100,7 @@ public class ConfigureCampaign {
     }
 	
 	@Parameters({"tenant"})
-	@Test(enabled=false, priority = 2 )
+	@Test(enabled=true, priority = 2 )
 	public void insertUnknownMSISDN( @Optional("qa") String tenant ) {
 
 		// Unknown msisdn list
@@ -155,6 +153,5 @@ public class ConfigureCampaign {
 		// Logout
 		//Authorization.logout(seleniumWebDriver);
 	}
-	
-	
+		
 }

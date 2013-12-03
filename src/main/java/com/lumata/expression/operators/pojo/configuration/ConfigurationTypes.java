@@ -112,6 +112,17 @@ public enum ConfigurationTypes {
 		
 	};
 		
+	/*
+	 mysql> select * from qa.conf where name like 'throttling%';
+		+----------------------------------+----------+---------+------------+------------+---------+----------+------------+---------------------+-------+-------------------------------------------------------+
+		| name                             | position | section | process_id | auth_group | current | previous | dyn_static | time                | type  | description                                           |
+		+----------------------------------+----------+---------+------------+------------+---------+----------+------------+---------------------+-------+-------------------------------------------------------+
+		| throttling_drop_feature          |        0 | xmlrpc  | NULL       | Internal   | true    | NULL     | RO         | NULL                | Value | Enable the drop strategy when applying the throttling |
+		| throttling_max_number_per_second |        0 | xmlrpc  | NULL       | Internal   | 1000    | 0        | RO         | 2013-11-20 15:33:24 | Value | Max number of accepted XMLRPC messages per second     |
+		+----------------------------------+----------+---------+------------+------------+---------+----------+------------+---------------------+-------+-------------------------------------------------------+
+		2 rows in set (0.00 sec)
+	 */
+	
 	abstract public ArrayList<Configuration> getCfg( Map<String, Object> options );
 	
 	private static String getNow() {

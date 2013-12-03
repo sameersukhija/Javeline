@@ -56,7 +56,7 @@ public class OffersForm extends CatalogueForm {
 	
 	public static boolean open( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
-		if( !CatalogueForm.select(selenium, timeout, interval) ) { return false; }
+		if( !CatalogueForm.open(selenium, timeout, interval) ) { return false; }
 		
 		if( !MenuBar.select( selenium, new SectionImpl<MenuBar.CatalogSections, String, String>(MenuBar.CatalogSections.OFFERS, MenuBar.CatalogSections.OFFERS.section_id_prefix, MenuBar.CatalogSections.OFFERS.section_type), timeout, interval ) ) { return false; }
 				

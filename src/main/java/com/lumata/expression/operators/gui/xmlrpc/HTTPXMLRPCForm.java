@@ -46,8 +46,13 @@ public class HTTPXMLRPCForm {
 			
 			public String getName() { return "offeroptimizer.refuseAll"; }
 			
+		},
+		offeroptimizer_getTokensList {
+			
+			public String getName() { return "offeroptimizer.getTokensList"; }
+			
 		};
-		
+				
 		public abstract String getName();
 		
 		public ClientResponse<String> call( String url, ArrayList<String> params ) {

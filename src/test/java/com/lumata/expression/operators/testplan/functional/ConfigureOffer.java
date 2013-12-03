@@ -25,7 +25,6 @@ import com.lumata.common.testing.system.Environment;
 import com.lumata.expression.operators.exceptions.CampaignException;
 import com.lumata.expression.operators.exceptions.CommoditiesException;
 import com.lumata.expression.operators.exceptions.TokenTypeException;
-import com.lumata.expression.operators.gui.campaigns.CampaignCreationForm;
 import com.lumata.expression.operators.gui.catalogue.TokenTypeForm;
 import com.lumata.expression.operators.gui.catalogue.OffersForm;
 import com.lumata.expression.operators.gui.security.Authorization;
@@ -93,10 +92,10 @@ public class ConfigureOffer {
 		TokenTypeCfg tokenType = new TokenTypeCfg( "input/catalogue/token_type", "token_type_a", IOLoadingType.RESOURCE );
 		
 		Assert.assertTrue( TokenTypeForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
-		Assert.assertTrue( TokenTypeForm.selectTokenTypeTab(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
-		Assert.assertTrue( TokenTypeForm.addTokenType(seleniumWebDriver, tokenType, TIMEOUT, ATTEMPT_TIMEOUT) );
-		Assert.assertTrue( TokenTypeForm.close(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
-		Assert.assertTrue( CampaignCreationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
+		//Assert.assertTrue( TokenTypeForm.selectTokenTypeTab(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
+		//Assert.assertTrue( TokenTypeForm.addTokenType(seleniumWebDriver, tokenType, TIMEOUT, ATTEMPT_TIMEOUT) );
+		//Assert.assertTrue( TokenTypeForm.close(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
+		//Assert.assertTrue( CampaignCreationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
 				
 	}
 	

@@ -7,22 +7,34 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.expression.operators.json.catalogue.TokenTypeCfg;
+import com.lumata.expression.operators.gui.common.MenuBar;
+import com.lumata.expression.operators.gui.common.SectionImpl;
 
-public class OfferOptimisationForm extends CatalogueForm {
 
+public class OfferOptimisationForm {
+
+	public enum OfferOptimisationSection { 
+		
+		RULES("Rules"), 
+		TOKEN_TYPE("Token type");
+		
+		private String value;
+		
+		OfferOptimisationSection( String value ) {
+			this.value = value;
+		}
+		
+		public String value() { return this.value; }
+		
+	}
+	
 	private static final Logger logger = LoggerFactory.getLogger(CatalogueForm.class);
 		
-	public static boolean open( SeleniumWebDriver selenium, long timeout, long interval ) {
+	public static boolean open( SeleniumWebDriver selenium, OfferOptimisationSection section, long timeout, long interval ) {
 		
-		if( !CatalogueForm.select(selenium, timeout, interval) ) { return false; }
+		if( !CatalogueForm.open(selenium, timeout, interval) ) { return false; }
 		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for xpath=html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[3]/table/tbody/tr[1]/td/table/tbody/tr/td[6]/table/tbody/tr[2]/td[2]") );
-		
-		WebElement offerOptimisationForm = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[3]/table/tbody/tr[1]/td/table/tbody/tr/td[6]/table/tbody/tr[2]/td[2]", timeout, interval);
-		if( offerOptimisationForm == null ) { return false; }
-			
-		offerOptimisationForm.click();
+		if( !MenuBar.select( selenium, new SectionImpl<MenuBar.CatalogSections, String, String>(MenuBar.CatalogSections.OFFER_OPTIMISATION, MenuBar.CatalogSections.OFFER_OPTIMISATION.section_id_prefix, MenuBar.CatalogSections.OFFER_OPTIMISATION.section_type), timeout, interval ) ) { return false; }
 		
 		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for class_name=gwt-Frame") );
 		
@@ -30,6 +42,13 @@ public class OfferOptimisationForm extends CatalogueForm {
 		if( angularFrame == null ) { return false; }
 		
 		selenium.getWrappedDriver().switchTo().frame(angularFrame);
+		
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for link=" + section.value() ) );
+		
+		WebElement sectionForm = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.LINK, section.value(), timeout, interval);
+		if( sectionForm == null ) { return false; }
+			
+		sectionForm.click();
 				
 		return true;
 		

@@ -1,12 +1,7 @@
 package com.lumata.expression.operators.gui.campaigns;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -15,10 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.expression.operators.gui.campaigns.CampaignModelForm.CMErrorAction;
-import com.lumata.expression.operators.gui.campaigns.CampaignModelForm.CMErrorActionType;
 import com.lumata.expression.operators.json.campaigns.CampaignCfg;
-import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
 
 public class CampaignCreationForm extends CampaignsForm {
 

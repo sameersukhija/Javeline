@@ -9,20 +9,13 @@ import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.expression.operators.json.catalogue.TokenTypeCfg;
 
-public class TokenTypeForm extends OfferOptimisationForm {
+public class TokenTypeForm {
 
 	private static final Logger logger = LoggerFactory.getLogger(CatalogueForm.class);
-		
-	public static boolean selectTokenTypeTab( SeleniumWebDriver selenium, long timeout, long interval ) {
-		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for link=Token type") );
-		
-		WebElement tokenTypeForm = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.LINK, "Token type", timeout, interval);
-		if( tokenTypeForm == null ) { return false; }
 			
-		tokenTypeForm.click();
+	public static boolean open( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
-		return true;
+		return OfferOptimisationForm.open(selenium, OfferOptimisationForm.OfferOptimisationSection.TOKEN_TYPE, timeout, interval);
 		
 	}
 	

@@ -54,7 +54,7 @@ public class TestINPlugin {
 				
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put( "subscribers" , subscribers );
-		
+		/*
 		ConfigurationDAO asynchronousGlobalINPlugin = new ConfigurationDAO( ConfigurationTypes.QA_UNKNOWN_MSISDN, options );
 		
 		System.out.println( asynchronousGlobalINPlugin.toString() );
@@ -62,7 +62,7 @@ public class TestINPlugin {
 		asynchronousGlobalINPlugin.insert( mysqlGlobal );
 		
 		Assert.assertTrue( asynchronousGlobalINPlugin.check( mysqlGlobal ) );
-		
+		*/
 		ConfigurationDAO asynchronousTenantINPlugin = new ConfigurationDAO( ConfigurationTypes.STANDARD_RETRY, options );
 				
 		System.out.println( asynchronousTenantINPlugin.toString() );

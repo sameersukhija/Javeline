@@ -279,6 +279,39 @@ public class Configuration {
 		
 	}
 	
+	public static int update( ArrayList<Configuration> cfgList, Mysql mysql, String schema ) {
+		
+		int index = -1;
+		
+		StringBuffer query = new StringBuffer();
+		
+		for( int i = 0; i < cfgList.size(); i++ ) {
+			
+			query = new StringBuffer();
+			
+			query.append( "UPDATE " ).append( schema ).
+					append( ".conf SET " ).
+					append( "position = " ).append( cfgList.get( i ).getPosition() ).append( ", " ).
+					append( "section = '" ).append( cfgList.get( i ).getSection() ).append( "', " ).
+					append( "process_id = '" ).append( cfgList.get( i ).getProcessID() ).append( "', " ).
+					append( "auth_group = '" ).append( cfgList.get( i ).getAuthGroup() ).append( "', " ).
+					append( "current = '" ).append( cfgList.get( i ).getCurrent() ).append( "', " ).
+					append( "previous = '" ).append( cfgList.get( i ).getPrevious() ).append( "', " ).
+					append( "dyn_static = '" ).append( cfgList.get( i ).getDynStatic() ).append( "', " ).
+					append( "time = " ).append( cfgList.get( i ).getTime() ).append( ", " ).
+					append( "type = '" ).append( cfgList.get( i ).getType() ).append( "', " ).
+					append( "description = " ).append( cfgList.get( i ).getPosition() ).append( ", " ).
+					append( "position = '" ).append( cfgList.get( i ).getDescription() ).
+					append( "' WHERE name = '" ).append( cfgList.get( i ).getName() ).append( ";" );
+				
+			logger.info( query.toString() );
+			
+		}
+				
+		return index;
+		
+	}
+	
 	public static Boolean check( ArrayList<Configuration> cfgList, Mysql mysql, String schema ) {
 				
 		StringBuffer parameters = new StringBuffer(); 
