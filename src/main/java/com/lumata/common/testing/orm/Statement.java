@@ -24,7 +24,7 @@ public class Statement {
 	public enum MysqlStatement { 
 		
 		SELECT, INSERT_INTO, UPDATE, DELETE,
-		FROM, JOIN, ON, WHERE, AND, OR, 
+		FROM, JOIN, ON, VALUES, WHERE, AND, OR, 
 		GROUP_BY, HAVING, ORDER_BY, LIMIT;
 		
 		public StringBuilder getName() {
@@ -313,15 +313,15 @@ public class Statement {
 		StringBuilder content = new StringBuilder();
 		
 		IEnumFields left_field = new EnumFields<Enum<?>>( expr.getLeftField() );
-		IEnumFields rgiht_field = new EnumFields<Enum<?>>( expr.getRightField() );
+		IEnumFields right_field = new EnumFields<Enum<?>>( expr.getRightField() );
 		
 		content.append( left_field.col().table() )
 				.append( "." )
 				.append( left_field.col().field() )
 				.append( expr.getOp().value() )
-				.append( rgiht_field.col().table() )
+				.append( right_field.col().table() )
 				.append( "." )
-				.append( rgiht_field.col().field() );
+				.append( right_field.col().field() );
 		
 		return content.toString();
 		

@@ -12,7 +12,7 @@ public class From implements IFrom {
 	}
 
 	@Override
-	public IJoin join( Object entity ) {
+	public IJoin join( final Object entity ) {
 		
 		Table table = (Table)entity.getClass().getAnnotation( Table.class );
 		
@@ -26,7 +26,7 @@ public class From implements IFrom {
 	}
 	
 	@Override
-	public IWhere where( IExprFV expr ) {
+	public IWhere where( final IExprFV expr ) {
 		
 		this.statement.append( MysqlStatement.WHERE.getName() )
 						.append( Statement.expr( expr ) );
@@ -38,7 +38,7 @@ public class From implements IFrom {
 	}
 
 	@Override
-	public IWhere where( IExprFV expr, ICondFV... cond ) {
+	public IWhere where( final IExprFV expr, final ICondFV... cond ) {
 		
 		this.where( expr );
 		
@@ -55,7 +55,7 @@ public class From implements IFrom {
 	}
 
 	@Override
-	public IGroupBy groupBy( Enum<?>... group ) {
+	public IGroupBy groupBy( final Enum<?>... group ) {
 		
 		this.statement.append( Statement.MysqlStatement.GROUP_BY.getName() )
 						.append( statement.fields( group ) );
@@ -65,7 +65,7 @@ public class From implements IFrom {
 	}
 	
 	@Override
-	public IHaving having( IExprFV expr ) {
+	public IHaving having( final IExprFV expr ) {
 		
 		this.statement.append( MysqlStatement.HAVING.getName() )
 						.append( Statement.expr( expr ) );
@@ -77,7 +77,7 @@ public class From implements IFrom {
 	}
 
 	@Override
-	public IHaving having( IExprFV expr, ICondFV... cond ) {
+	public IHaving having( final IExprFV expr, final ICondFV... cond ) {
 		
 		this.having( expr );
 		
@@ -94,7 +94,7 @@ public class From implements IFrom {
 	}
 
 	@Override
-	public IOrderBy orderBy( Enum<?>... order ) {
+	public IOrderBy orderBy( final Enum<?>... order ) {
 		
 		this.statement.append( Statement.MysqlStatement.ORDER_BY.getName() )
 						.append( statement.fields( order ) );
@@ -104,7 +104,7 @@ public class From implements IFrom {
 	}
 	
 	@Override
-	public ILimit limit( Integer... limit ) {
+	public ILimit limit( final Integer... limit ) {
 		
 		this.statement.append( MysqlStatement.LIMIT.getName() );
 		

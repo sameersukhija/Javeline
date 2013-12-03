@@ -2,6 +2,8 @@ package com.lumata.common.testing.orm;
 
 import java.util.List;
 
+import com.lumata.common.testing.annotations.mysql.Table;
+
 public class Query {
 
 	public static ISelect select() {
@@ -26,18 +28,31 @@ public class Query {
 		
 	}
 	
-	public static IInsert insert() {
-		
-		return insert( null );
-		
-	}
-
-	public static IInsert insert( final List<String> fields ) {
+	public static IInsert insert( final Object entity ) {
 		
 		Statement statement = new Statement();
-		//statement.setFields(fields);
 		
-		return new Insert(statement);
+		Table table = (Table)entity.getClass().getAnnotation( Table.class );
+		
+		statement.addEntity( entity, table.value() );
+		
+		statement.append( Statement.MysqlStatement.INSERT_INTO.getName() )
+					.append( table.value() );
+		
+		return new Insert(statement, true);
+		
+	}
+	
+	public static IInsert insert( final Object entity, final Enum<?>... fields ) {
+		
+		Statement statement = new Statement();
+		
+		statement.append( Statement.MysqlStatement.INSERT_INTO.getName() )
+					.append( "( " )			
+					.append( statement.fields( fields ) )
+					.append( " )" );
+							
+		return new Insert(statement, false);
 		
 	}
 	
