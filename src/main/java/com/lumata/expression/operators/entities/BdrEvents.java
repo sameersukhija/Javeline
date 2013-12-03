@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.testing.pojo.autogenerator;
+package com.lumata.expression.operators.entities;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
