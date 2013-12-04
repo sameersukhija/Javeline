@@ -66,16 +66,17 @@ public class GenerateSMSThread implements Runnable {
 							
 			try {
 				
-				Thread.sleep( this.sleep );
+			    if (0 != this.sleep) {
+			        Thread.sleep( this.sleep );
+			    }
+			    Thread.yield();
 				
 				//long smsID = (long)(Math.random() * (interval_right - interval_left)) + interval_left;
 				
-				long smsID = interval_left + this.requests; 
+				long smsID = interval_left + this.requests++; 
 						
 				DialogManagerMessage dmMessage = DialogManagerMessageUtils.newValidDialogManagerMessage(smsID, 1L);
 				Message message = session.createObjectMessage(dmMessage);
-				
-				this.requests++;
 				
 				producer.send( destination, message, DeliveryMode.PERSISTENT, ObjectMessage.DEFAULT_PRIORITY, ObjectMessage.DEFAULT_TIME_TO_LIVE );
 								

@@ -26,10 +26,10 @@ public class RunGenerateSMS {
 	MessageProducer producer;
 	ArrayList<GenerateSMSThread> threads;
 	
-	final int N_THREADS = 50;
-	final int THREAD_SLEEP = 100;
-	final long INTERVAL_ID_SIZE = 100000;
-	final int EXECUTION_TIME = 1000;
+	final int N_THREADS = 4;
+	final int THREAD_SLEEP = 0;
+	final long INTERVAL_ID_SIZE = 1000000;
+	final int EXECUTION_TIME = 100000;
 	
 	RunGenerateSMS() {
 		
@@ -39,7 +39,7 @@ public class RunGenerateSMS {
 			connection = connectionFactory.createConnection();
 			connection.start();
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			destination = session.createQueue("1.SMS.1");
+			destination = session.createQueue("1.SMS.10");
 			producer = session.createProducer(destination);
 		
 		} catch( JMSException e ) {}		
