@@ -1,6 +1,6 @@
 package com.lumata.expression.operators.dm;
 
-import java.util.concurrent.ThreadPoolExecutor;
+//import java.util.concurrent.ThreadPoolExecutor;
 
 import javax.jms.Connection;
 import javax.jms.Destination;
@@ -62,8 +62,8 @@ public class DialogManagerConnection {
 	
 	public void setActiveMQConnectionFactory( String connection_factory ) {
 		connectionFactory = new ActiveMQConnectionFactory( connection_factory );
-		connectionFactory.setMaxThreadPoolSize(1000);
-		connectionFactory.setRejectedTaskHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+		//connectionFactory.setMaxThreadPoolSize(1000);
+		//connectionFactory.setRejectedTaskHandler(new ThreadPoolExecutor.CallerRunsPolicy());
 	}
 	
 	public void setConnection() {
