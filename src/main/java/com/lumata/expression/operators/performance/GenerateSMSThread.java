@@ -3,16 +3,14 @@ package com.lumata.expression.operators.performance;
 import java.text.ParseException;
 
 import javax.jms.DeliveryMode;
-import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
-import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
-import javax.jms.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lumata.expression.operators.dm.DialogManagerConnection;
 import com.lumata.expression.operators.dm.DialogManagerMessageUtils;
 import com.lumatagroup.expression.e4o.commons.jms.message.DialogManagerMessage;
 
@@ -28,11 +26,9 @@ public class GenerateSMSThread implements Runnable {
 	private long id;
 	private long interval_left;
 	private long interval_right;
-	MessageProducer producer;
-	Session session;
-	Destination destination;
+	DialogManagerConnection dmConnection;
 	
-	public GenerateSMSThread(long id, int p, long sleep, long interval_left, long interval_right, MessageProducer producer, Session session, Destination destination ) {
+	public GenerateSMSThread(long id, int p, long sleep, long interval_left, long interval_right, DialogManagerConnection dmConnection ) {
 	
 		t = new Thread(this);
 		t.setPriority(p);
@@ -42,9 +38,7 @@ public class GenerateSMSThread implements Runnable {
 		this.requests = 0;
 		this.fails = 0;
 		this.sleep = sleep;
-		this.producer = producer;
-		this.session = session;
-		this.destination = destination;
+		this.dmConnection = dmConnection;
 			
 	}
 	
@@ -76,12 +70,13 @@ public class GenerateSMSThread implements Runnable {
 			    Thread.yield();
 						
 				DialogManagerMessage dmMessage = DialogManagerMessageUtils.newValidDialogManagerMessage(smsID, 1L);
-				Message message = session.createObjectMessage(dmMessage);
+				Message message = dmConnection.getSession().createObjectMessage(dmMessage);
 				
-				producer.send( destination, message, DeliveryMode.PERSISTENT, ObjectMessage.DEFAULT_PRIORITY, ObjectMessage.DEFAULT_TIME_TO_LIVE );
+				dmConnection.getProducer().send( dmConnection.getDestination(), message, DeliveryMode.PERSISTENT, ObjectMessage.DEFAULT_PRIORITY, ObjectMessage.DEFAULT_TIME_TO_LIVE );
 					
 				++smsID;
 				++requests;
+				
 			} catch (InterruptedException | JMSException | ParseException e) {
 				this.fails++;
 			}

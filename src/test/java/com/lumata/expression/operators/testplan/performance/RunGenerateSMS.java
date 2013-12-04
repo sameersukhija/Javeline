@@ -2,63 +2,53 @@ package com.lumata.expression.operators.testplan.performance;
 
 import java.util.ArrayList;
 
-import javax.jms.Connection;
-import javax.jms.Destination;
 import javax.jms.JMSException;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
+import com.lumata.expression.operators.dm.DialogManagerConnection;
 import com.lumata.expression.operators.performance.GenerateSMSThread;
 
 public class RunGenerateSMS {
 
 	private static final Logger logger = LoggerFactory.getLogger( RunGenerateSMS.class );
-	
-	Connection connection;
-	Session session;
-	Destination destination;
-	MessageProducer producer;
+		
+	ArrayList<DialogManagerConnection> dmConnections;
 	ArrayList<GenerateSMSThread> threads;
 	
-	final int N_THREADS = 4;
+	final int N_THREADS = 10;
 	final int THREAD_SLEEP = 0;
 	final long INTERVAL_ID_SIZE = 1000000;
-	final int EXECUTION_TIME = 500000;
-	final long ID = 0;
+	final int EXECUTION_TIME = 30000;
+	final long ID = 10;
+	final String QUEUE = "1.SMS.1";
+	final String CONNECTION_FACTORY = "failover:tcp://10.120.44.26:61616";
+	//final String CONNECTION_FACTORY = "failover:(tcp://10.120.44.26:61616)?connection.useAsyncSend=true";
 	
 	RunGenerateSMS() {
-		
-		try {
-			
-			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("failover:tcp://10.120.44.26:61616");
-			connection = connectionFactory.createConnection();
-			connection.start();
-			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			destination = session.createQueue("1.SMS.1");
-			producer = session.createProducer(destination);
-		
-		} catch( JMSException e ) {}		
-		
+				
+		dmConnections = new ArrayList<DialogManagerConnection>();
+		threads = new ArrayList<GenerateSMSThread>();
+				
 	}
 	
 	private void initializeThreads() {
 		
-		Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
-		
-		threads = new ArrayList<GenerateSMSThread>();
+		Thread.currentThread().setPriority(Thread.MAX_PRIORITY);	
 				
 		for( int i = 0; i < N_THREADS; i++ ) {
-		    GenerateSMSThread t = new GenerateSMSThread(ID, Thread.MAX_PRIORITY, THREAD_SLEEP, ( i * INTERVAL_ID_SIZE ), ( (( i + 1 ) * INTERVAL_ID_SIZE ) - 1 ), producer, session, destination);
-		    t.startThread();
 		    
-			threads.add( t );
+			DialogManagerConnection dmConnection = new DialogManagerConnection( CONNECTION_FACTORY, QUEUE );
+			dmConnections.add( dmConnection );
 			
+			GenerateSMSThread t = new GenerateSMSThread(ID, Thread.MAX_PRIORITY, THREAD_SLEEP, ( i * INTERVAL_ID_SIZE ), ( (( i + 1 ) * INTERVAL_ID_SIZE ) - 1 ), dmConnections.get( i ) );
+			t.startThread();
+			    			    
+			threads.add( t );
+									
 		}
 		
 	}
@@ -76,17 +66,19 @@ public class RunGenerateSMS {
 	private void stopThreads() {
 		
 		for( int i = 0; i < N_THREADS; i++ ) {
-			threads.get( i ).stopThread();
 			
-		}
-		
-		try {
+			try {
+				
+				dmConnections.get( i ).getSession().close();
+				
+				dmConnections.get( i ).getConnection().close();			
+				
+				threads.get( i ).stopThread();
+							
+			} catch( JMSException e ) {}			
 			
-			session.close();
-			connection.close();
+		}	
 		
-		} catch( JMSException e ) {}
-
 	}
 		
 	private void printResult() {
