@@ -25,16 +25,18 @@ public class GenerateSMSThread implements Runnable {
 	private int requests;
 	private int fails;
 	private long sleep;
+	private long id;
 	private long interval_left;
 	private long interval_right;
 	MessageProducer producer;
 	Session session;
 	Destination destination;
 	
-	public GenerateSMSThread( int p, long sleep, long interval_left, long interval_right, MessageProducer producer, Session session, Destination destination ) {
+	public GenerateSMSThread(long id, int p, long sleep, long interval_left, long interval_right, MessageProducer producer, Session session, Destination destination ) {
 	
 		t = new Thread(this);
 		t.setPriority(p);
+		this.id = id;
 		this.interval_left = interval_left;
 		this.interval_right = interval_right;
 		this.requests = 0;
@@ -59,6 +61,8 @@ public class GenerateSMSThread implements Runnable {
 	}
 	
 	public void run() {
+	    
+	    long smsID = id * interval_left;
 	
 		while( running ) {
 			
@@ -70,23 +74,17 @@ public class GenerateSMSThread implements Runnable {
 			        Thread.sleep( this.sleep );
 			    }
 			    Thread.yield();
-				
-				//long smsID = (long)(Math.random() * (interval_right - interval_left)) + interval_left;
-				
-				long smsID = interval_left + this.requests++; 
 						
 				DialogManagerMessage dmMessage = DialogManagerMessageUtils.newValidDialogManagerMessage(smsID, 1L);
 				Message message = session.createObjectMessage(dmMessage);
 				
 				producer.send( destination, message, DeliveryMode.PERSISTENT, ObjectMessage.DEFAULT_PRIORITY, ObjectMessage.DEFAULT_TIME_TO_LIVE );
-								
-			} catch (InterruptedException e) {
+					
+				++smsID;
+				++requests;
+			} catch (InterruptedException | JMSException | ParseException e) {
 				this.fails++;
-			} catch (JMSException e) {
-				this.fails++;
-			} catch (ParseException e) {
-				this.fails++;
-			}			
+			}
 			
 			//System.out.println("***** time spent: " + (System.currentTimeMillis() - start));
 		

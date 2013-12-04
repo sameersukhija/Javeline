@@ -29,7 +29,8 @@ public class RunGenerateSMS {
 	final int N_THREADS = 4;
 	final int THREAD_SLEEP = 0;
 	final long INTERVAL_ID_SIZE = 1000000;
-	final int EXECUTION_TIME = 100000;
+	final int EXECUTION_TIME = 500000;
+	final long ID = 0;
 	
 	RunGenerateSMS() {
 		
@@ -39,7 +40,7 @@ public class RunGenerateSMS {
 			connection = connectionFactory.createConnection();
 			connection.start();
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			destination = session.createQueue("1.SMS.10");
+			destination = session.createQueue("1.SMS.1");
 			producer = session.createProducer(destination);
 		
 		} catch( JMSException e ) {}		
@@ -53,21 +54,13 @@ public class RunGenerateSMS {
 		threads = new ArrayList<GenerateSMSThread>();
 				
 		for( int i = 0; i < N_THREADS; i++ ) {
-			
-			threads.add( new GenerateSMSThread( Thread.MAX_PRIORITY, THREAD_SLEEP, ( i * INTERVAL_ID_SIZE ), ( (( i + 1 ) * INTERVAL_ID_SIZE ) - 1 ), producer, session, destination) );
+		    GenerateSMSThread t = new GenerateSMSThread(ID, Thread.MAX_PRIORITY, THREAD_SLEEP, ( i * INTERVAL_ID_SIZE ), ( (( i + 1 ) * INTERVAL_ID_SIZE ) - 1 ), producer, session, destination);
+		    t.startThread();
+		    
+			threads.add( t );
 			
 		}
 		
-	}
-	
-	private void startThreads() {
-		
-		for( int i = 0; i < N_THREADS; i++ ) {
-			
-			threads.get( i ).startThread();
-						
-		}
-
 	}
 	
 	private void waitExecution() {
@@ -125,8 +118,6 @@ public class RunGenerateSMS {
 		RunGenerateSMS generateSMS = new RunGenerateSMS();
 		
 		generateSMS.initializeThreads();
-		
-		generateSMS.startThreads();
 		
 		generateSMS.waitExecution();
 		
