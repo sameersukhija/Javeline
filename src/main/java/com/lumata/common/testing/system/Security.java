@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -90,6 +92,31 @@ public class Security {
 
         return codified.toString();
 
+    }
+    
+    public static String getMD5( String password ) {
+    	
+    	StringBuilder md5_password = new StringBuilder();
+    	    	
+    	try {
+			
+    		MessageDigest md = MessageDigest.getInstance("MD5");
+			
+    		md.update( password.getBytes() );
+			
+    		byte[] digest = md.digest();
+			    		
+    		for( byte b : digest ) {
+				
+    			md5_password.append(Integer.toHexString((int) (b & 0xff)));
+			}
+					
+		} catch (NoSuchAlgorithmException e) {
+			logger.error( e.getMessage(), e );
+		}	
+    	
+    	return md5_password.toString();
+    	
     }
 
 }
