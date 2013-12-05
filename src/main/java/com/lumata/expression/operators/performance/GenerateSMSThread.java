@@ -77,9 +77,9 @@ public class GenerateSMSThread implements Runnable {
 				++smsID;
 				++requests;
 				
-			} catch (InterruptedException | JMSException | ParseException e) {
+			} catch ( InterruptedException | JMSException | ParseException e) {
 				this.fails++;
-			}
+			} 
 			
 			//System.out.println("***** time spent: " + (System.currentTimeMillis() - start));
 		

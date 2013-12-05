@@ -78,7 +78,7 @@ public class GenerateSMSThreadPool implements Callable<String> {
 				
 			} catch ( InterruptedException | JMSException | ParseException e) {
 				this.fails++;
-			}
+			} 
 			
 			//System.out.println("***** time spent: " + (System.currentTimeMillis() - start));
 		

@@ -51,6 +51,21 @@ public class HTTPXMLRPCForm {
 			
 			public String getName() { return "offeroptimizer.getTokensList"; }
 			
+		},
+		user_create {
+			
+			public String getName() { return "user.create"; }
+			
+		},
+		user_update {
+			
+			public String getName() { return "user.update"; }
+			
+		},
+		user_delete {
+			
+			public String getName() { return "user.delete"; }
+			
 		};
 				
 		public abstract String getName();
@@ -148,6 +163,54 @@ public class HTTPXMLRPCForm {
 								.append("</custoEvent></value></param>");
 		
 		return 	custoEventPOSTBody.toString();
+		
+	}
+
+	public static String getUser( String user, String password, String agency, Map<String, String> groups ) {
+		
+		StringBuilder userBody = new StringBuilder();
+		
+		userBody.append( "<param><value><user>" )
+					.append( "<name>" ).append( user ).append( "</name>" )
+					.append( "<password>" ).append( password ).append( "</password>" )
+					.append( "<agency>" ).append( agency ).append( "</agency>" )
+					.append( HTTPXMLRPCForm.getGroups( groups ) )
+					.append( "</user></value></param>" );		
+		
+		return userBody.toString();		
+		
+	}
+	
+	
+	public static String getGroups( Map<String, String> groups ) {
+		
+		StringBuilder groupsBody = new StringBuilder();
+		StringBuilder paramsBody = new StringBuilder();
+		
+		for( Map.Entry<String, String> group : groups.entrySet()) {
+			
+			paramsBody.append( HTTPXMLRPCForm.getGroup( group.getKey(), group.getValue() ) );
+			
+		}
+	 		
+		groupsBody.append( "<groups>" )
+	      			.append( paramsBody )
+	    			.append( "</groups>" );
+		
+		return groupsBody.toString();
+		
+	}
+	
+	public static String getGroup( String group_name, String access_level ) {
+		
+		StringBuilder groupBody = new StringBuilder();
+		
+		groupBody.append( "<group>" )
+	      			.append( "<groupName>" ).append( group_name ).append( "</groupName>" )
+	      			.append( "<accessLevel>" ).append( access_level ).append( "</accessLevel>" )
+	    			.append( "</group>" );
+		
+		return groupBody.toString();
 		
 	}
 	
