@@ -22,10 +22,10 @@ public class RunGenerateSMSPool {
 	
 	ExecutorService pool;
 		
-	final int N_THREADS = 1;
-	final int THREAD_SLEEP = 100;
+	final int N_THREADS = 10;
+	final int THREAD_SLEEP = 10;
 	final long INTERVAL_ID_SIZE = 1000000;
-	final int EXECUTION_TIME = 1000;
+	final int EXECUTION_TIME = 500000;
 	final long ID = 10;
 	final String QUEUE = "1.SMS.1";
 	final String CONNECTION_FACTORY = "failover:tcp://10.120.44.26:61616";
