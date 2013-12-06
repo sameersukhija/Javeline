@@ -83,10 +83,9 @@ public class GenerateSMSThreadPool implements Runnable {
 			}
 		
 	    } catch ( InterruptedException e ) {
+	    	dmConnection.close();
 	    	running = false;
-		}
-	    
-	    dmConnection.close();
+		}   
 	    
 	}
 	
