@@ -107,6 +107,7 @@ public class GenerateSMSThreadPool implements Runnable {
 					
 				} catch ( JMSException | ParseException e) {
 					this.fails++;
+					logger.error( e.getMessage(), e );
 				} 
 								
 			}

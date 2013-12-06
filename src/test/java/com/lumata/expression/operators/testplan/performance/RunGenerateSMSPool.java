@@ -21,7 +21,7 @@ public class RunGenerateSMSPool {
 	ExecutorService pool;
 		
 	final int N_THREADS = 50;
-	final int THREAD_SLEEP = 2;
+	final int THREAD_SLEEP = 20;
 	final long INTERVAL_PRINT_RESULT = 0;
 	final long INTERVAL_ID_SIZE = 1000000;
 	final int EXECUTION_TIME = 500000;
