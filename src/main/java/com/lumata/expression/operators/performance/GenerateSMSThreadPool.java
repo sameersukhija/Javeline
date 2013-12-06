@@ -1,7 +1,9 @@
 package com.lumata.expression.operators.performance;
 
+import java.text.DateFormat;
 import java.text.ParseException;
-import java.util.concurrent.Callable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
@@ -19,24 +21,25 @@ public class GenerateSMSThreadPool implements Runnable {
 
 	private static final Logger logger = LoggerFactory.getLogger( GenerateSMSThreadPool.class );
 	
-	//private Thread t;
 	private volatile boolean running = true;
+	private long id;
+	private long thread_number;
+	private long sleep;
+	private long interval_id_size;
+	private long sleep_to_print_result;
 	private int requests;
 	private int fails;
-	private long sleep;
-	private long id;
-	private long interval_left;
-	private long interval_right;
 	DialogManagerConnection dmConnection;
 	
-	public GenerateSMSThreadPool(long id, int p, long sleep, long interval_left, long interval_right, DialogManagerConnection dmConnection ) {
+	public GenerateSMSThreadPool(long id, int thread_number, long sleep, long interval_id_size, long sleep_to_print_result, DialogManagerConnection dmConnection ) {
 	
 		this.id = id;
-		this.interval_left = interval_left;
-		this.interval_right = interval_right;
-		this.requests = 0;
-		this.fails = 0;
+		this.thread_number = thread_number;
 		this.sleep = sleep;
+		this.interval_id_size = interval_id_size;
+		this.sleep_to_print_result = sleep_to_print_result;
+		this.requests = 0;
+		this.fails = 0;		
 		this.dmConnection = dmConnection;
 			
 	}
@@ -55,7 +58,13 @@ public class GenerateSMSThreadPool implements Runnable {
 	
 	public void run() {
 	    
-	    long smsID = id * interval_left;
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				
+		long last_update_time = System.currentTimeMillis();
+		
+		System.out.println( formatter.format( new Date( last_update_time ) ) + " - Thread ( " + thread_number + " ) started" );
+		
+	    long smsID = id * ( thread_number * interval_id_size );
 	
 	    try {
 			
@@ -76,6 +85,26 @@ public class GenerateSMSThreadPool implements Runnable {
 					++smsID;
 					++requests;
 					
+					long curr_time = System.currentTimeMillis();
+					
+					if( sleep_to_print_result > 0 && ( curr_time - last_update_time > sleep_to_print_result ) ) {
+						
+						last_update_time = curr_time;
+						
+						StringBuilder curr_result = new StringBuilder();
+						
+						curr_result.append( formatter.format( new Date( curr_time ) ) )
+									.append( " - Thread ( " )
+									.append( thread_number )
+									.append( " ) -> requests: " )
+									.append( requests )
+									.append( " - fails: " )
+									.append( fails );
+						
+						System.out.println( curr_result );
+						
+					}
+					
 				} catch ( JMSException | ParseException e) {
 					this.fails++;
 				} 
@@ -83,9 +112,18 @@ public class GenerateSMSThreadPool implements Runnable {
 			}
 		
 	    } catch ( InterruptedException e ) {
-	    	dmConnection.close();
+	    	
 	    	running = false;
-		}   
+	    	
+	    	dmConnection.close();
+	    	
+	    	try { Thread.sleep( 1000 ); } catch (InterruptedException e1) {}
+	    		    	
+	    	long curr_time = System.currentTimeMillis();
+	    	
+	    	System.out.println( formatter.format( new Date( curr_time ) ) + " - Thread ( " + thread_number + " ) stopped" );
+
+	    }   
 	    
 	}
 	

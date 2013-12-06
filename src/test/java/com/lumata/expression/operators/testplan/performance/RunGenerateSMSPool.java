@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,12 +16,13 @@ public class RunGenerateSMSPool {
 
 	private static final Logger logger = LoggerFactory.getLogger( RunGenerateSMSPool.class );
 		
-	ArrayList<DialogManagerConnection> dmConnections;
+	ArrayList<GenerateSMSThreadPool> smsThreadPool;
 	
 	ExecutorService pool;
 		
-	final int N_THREADS = 10;
-	final int THREAD_SLEEP = 10;
+	final int N_THREADS = 50;
+	final int THREAD_SLEEP = 2;
+	final long INTERVAL_PRINT_RESULT = 0;
 	final long INTERVAL_ID_SIZE = 1000000;
 	final int EXECUTION_TIME = 500000;
 	final long ID = 10;
@@ -32,7 +32,7 @@ public class RunGenerateSMSPool {
 	
 	RunGenerateSMSPool() {
 				
-		dmConnections = new ArrayList<DialogManagerConnection>();
+		smsThreadPool = new ArrayList<GenerateSMSThreadPool>();
 				
 	}
 	
@@ -41,11 +41,15 @@ public class RunGenerateSMSPool {
 		pool = Executors.newFixedThreadPool( N_THREADS );
 						
 		for( int i = 0; i < N_THREADS; i++ ) {
-		    
-			DialogManagerConnection dmConnection = new DialogManagerConnection( CONNECTION_FACTORY, QUEUE );
-			dmConnections.add( dmConnection );
+						
+			final int THREAD_NUMBER = i;
 			
-			pool.execute( new GenerateSMSThreadPool(ID, Thread.MAX_PRIORITY, THREAD_SLEEP, ( i * INTERVAL_ID_SIZE ), ( (( i + 1 ) * INTERVAL_ID_SIZE ) - 1 ), dmConnections.get( i ) ) );
+			DialogManagerConnection dmConnection = new DialogManagerConnection( CONNECTION_FACTORY, QUEUE );
+						
+			GenerateSMSThreadPool smsThread = new GenerateSMSThreadPool( ID, THREAD_NUMBER, THREAD_SLEEP, INTERVAL_ID_SIZE, INTERVAL_PRINT_RESULT, dmConnection );
+			smsThreadPool.add( smsThread );
+			
+			pool.submit( smsThread );
 									
 		}		
 		
@@ -68,10 +72,7 @@ public class RunGenerateSMSPool {
 		System.out.println( "STOP" );
 						
 	}
-	
-	
-	
-	/*	
+			
 	private void printResult() {
 		
 		StringBuilder result = new StringBuilder();
@@ -80,14 +81,14 @@ public class RunGenerateSMSPool {
 		
 		for( int i = 0; i < N_THREADS; i++ ) {
 			
-			total = total + threads.get( i ).getRequestsCount();
+			total = total + smsThreadPool.get( i ).getRequestsCount();
 			
 			result.append( "Thread ( " )
 					.append( i )
 					.append( " ) -> requests: " )
-					.append( threads.get( i ).getRequestsCount() )
+					.append( smsThreadPool.get( i ).getRequestsCount() )
 					.append( " - fails: " )
-					.append( threads.get( i ).getFailsCount() )
+					.append( smsThreadPool.get( i ).getFailsCount() )
 					.append( "\n" );
 			
 		}
@@ -95,7 +96,8 @@ public class RunGenerateSMSPool {
 		System.out.println( "\nTotal: " + total + "\n" + result.toString() );
 		
 	}
-	*/
+	
+	
 	public static void main(String args[]) throws EnvironmentException, IOFileException {
 		
 		RunGenerateSMSPool generateSMS = new RunGenerateSMSPool();
@@ -106,12 +108,8 @@ public class RunGenerateSMSPool {
 		
 		generateSMS.stopThreadPool();
 		
-		//generateSMS.waitExecution();
-		
-		//generateSMS.stopThreads();
-		
-		//generateSMS.printResult();
-		
+		generateSMS.printResult();
+				
 	}
 	
 }
