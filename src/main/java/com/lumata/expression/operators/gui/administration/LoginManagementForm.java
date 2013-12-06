@@ -27,5 +27,11 @@ public class LoginManagementForm {
 		MANAGER, EDITOR, READER 
 	}
 	
+	public enum GroupProperties {
+		isRemovable,
+		canBeSelectedInGroupList,
+		canUsersBeAdded,
+		hasAgencies;
+	}	
 	
 }

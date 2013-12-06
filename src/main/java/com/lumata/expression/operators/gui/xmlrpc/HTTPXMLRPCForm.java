@@ -170,10 +170,14 @@ public class HTTPXMLRPCForm {
 		
 		StringBuilder userBody = new StringBuilder();
 		
+		StringBuilder agencyTag = new StringBuilder();
+		
+		if( agency != null ) { agencyTag.append( "<agency>" ).append( agency ).append( "</agency>" ); }
+		
 		userBody.append( "<param><value><user>" )
 					.append( "<name>" ).append( user ).append( "</name>" )
 					.append( "<password>" ).append( password ).append( "</password>" )
-					.append( "<agency>" ).append( agency ).append( "</agency>" )
+					.append( agencyTag )
 					.append( HTTPXMLRPCForm.getGroups( groups ) )
 					.append( "</user></value></param>" );		
 		

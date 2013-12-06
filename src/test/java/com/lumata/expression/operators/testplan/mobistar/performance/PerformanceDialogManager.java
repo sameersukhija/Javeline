@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.testplan.mobistar;
+package com.lumata.expression.operators.testplan.mobistar.performance;
 
 import javax.jms.Connection;
 import javax.jms.Destination;

@@ -2,12 +2,12 @@ package com.lumata.expression.operators.gui.xmlrpc;
 
 public class XMLRPCResultFault {
 
-	int code;
+	String code;
 	String message;
 	
 	XMLRPCResultFault() {}
 	
-	public int getCode() {
+	public String getCode() {
 		
 		return this.code;
 		
@@ -19,7 +19,7 @@ public class XMLRPCResultFault {
 		
 	}
 	
-	public void setCode( int code ) {
+	public void setCode( String code ) {
 		
 		this.code = code;
 		

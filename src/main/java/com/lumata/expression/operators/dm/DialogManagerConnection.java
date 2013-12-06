@@ -107,4 +107,16 @@ public class DialogManagerConnection {
 	
 	}	
 	
+	public void close() {
+		
+		try {
+			
+			this.session.close();
+			
+			this.connection.close();
+			
+		} catch( JMSException e ) {}
+			
+	}
+	
 }

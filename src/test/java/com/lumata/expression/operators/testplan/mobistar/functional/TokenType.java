@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.testplan.mobistar;
+package com.lumata.expression.operators.testplan.mobistar.functional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +16,9 @@ import com.lumata.common.testing.system.Environment;
 import com.lumata.expression.operators.gui.catalogue.TokenTypeForm;
 import com.lumata.expression.operators.gui.security.Authorization;
 
-public class TC_TokenType {
+public class TokenType {
 
-	private static final Logger logger = LoggerFactory.getLogger( TC_TokenType.class );
+	private static final Logger logger = LoggerFactory.getLogger( TokenType.class );
 	private int TIMEOUT = 600000;
 	private int ATTEMPT_INTERVAL = 500;
 	

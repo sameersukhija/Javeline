@@ -15,7 +15,7 @@ import com.lumata.expression.operators.dm.DialogManagerConnection;
 import com.lumata.expression.operators.dm.DialogManagerMessageUtils;
 import com.lumatagroup.expression.e4o.commons.jms.message.DialogManagerMessage;
 
-public class GenerateSMSThreadPool implements Callable<String> {
+public class GenerateSMSThreadPool implements Runnable {
 
 	private static final Logger logger = LoggerFactory.getLogger( GenerateSMSThreadPool.class );
 	
@@ -53,53 +53,41 @@ public class GenerateSMSThreadPool implements Callable<String> {
 		
 	}
 	
-	public String call() {
+	public void run() {
 	    
 	    long smsID = id * interval_left;
 	
-		while( running ) {
+	    try {
 			
-			//long start = System.currentTimeMillis();
-							
-			try {
+	    	while( running ) {
 				
-			    if (0 != this.sleep) {
-			        Thread.sleep( this.sleep );
-			    }
-			    Thread.yield();
-						
-				DialogManagerMessage dmMessage = DialogManagerMessageUtils.newValidDialogManagerMessage(smsID, 1L);
-				Message message = dmConnection.getSession().createObjectMessage(dmMessage);
-				
-				dmConnection.getProducer().send( dmConnection.getDestination(), message, DeliveryMode.PERSISTENT, ObjectMessage.DEFAULT_PRIORITY, ObjectMessage.DEFAULT_TIME_TO_LIVE );
+				try {
 					
-				++smsID;
-				++requests;
-				
-			} catch ( InterruptedException | JMSException | ParseException e) {
-				this.fails++;
-			} 
-			
-			//System.out.println("***** time spent: " + (System.currentTimeMillis() - start));
+				    if (0 != this.sleep) {
+				        Thread.sleep( this.sleep );
+				    }
+				    Thread.yield();
+							
+					DialogManagerMessage dmMessage = DialogManagerMessageUtils.newValidDialogManagerMessage(smsID, 1L);
+					Message message = dmConnection.getSession().createObjectMessage(dmMessage);
+					
+					dmConnection.getProducer().send( dmConnection.getDestination(), message, DeliveryMode.PERSISTENT, ObjectMessage.DEFAULT_PRIORITY, ObjectMessage.DEFAULT_TIME_TO_LIVE );
+						
+					++smsID;
+					++requests;
+					System.out.println( "test" );
+				} catch ( JMSException | ParseException e) {
+					this.fails++;
+				} 
+								
+			}
 		
+	    } catch ( InterruptedException e ) {
+	    	running = false;
 		}
-		
-		return "Run";
-
+	    
+	    dmConnection.close();
+	    
 	}
-	
-	/*
-	public synchronized void stopThread() {
-		
-		running = false;
-	
-	}
-	
-	public void startThread() {
-	
-		t.start();
-
-	}
-	*/
 	
 }

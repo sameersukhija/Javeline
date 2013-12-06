@@ -2,6 +2,8 @@ package com.lumata.expression.operators.gui.xmlrpc;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +15,7 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
+import org.apache.commons.lang.WordUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +24,10 @@ public class XMLRPCResultParser {
 	private static final Logger logger = LoggerFactory.getLogger( XMLRPCResultParser.class );
 	
 	public enum ResultType { UNKNOWN, FAULT, OFFERS }
+	
+	private ResultType currentObjectType;
+	private Object currentObject;
+	private String currentMethod;
 	
 	public enum EventType { 
 		
@@ -122,100 +129,99 @@ public class XMLRPCResultParser {
 					}
 					case START_ELEMENT: {
 						
-						logger.info( "##### START_ELEMENT #####" );
+						//logger.info( "##### START_ELEMENT #####" );
 						
-						StartElement startElement = event.asStartElement(); 
+						StartElement startElement = event.asStartElement(); 						
 						
-						switch( ResultType.valueOf( startElement.getName().getLocalPart().toUpperCase() ) ) {
-						
-							case FAULT: {
-								
-								
-								
-								break;
+						try {
+						       
+							ResultType currentEventType = ResultType.valueOf( startElement.getName().getLocalPart().toUpperCase() );
+							currentObjectType = currentEventType;
+							
+							switch( currentEventType ) {
+							
+								case FAULT: {
+									currentObject = new XMLRPCResultFault();
+								}
+							
 							}
-							case OFFERS: {
-								
-								
-								break;
-							}
+							
+							result.put( currentObjectType, currentObject );
 						
+						} catch (IllegalArgumentException ex) {  
+						
+							currentMethod = "set" + WordUtils.capitalizeFully( startElement.getName().getLocalPart() );
+							//logger.info( currentMethod );
+							
 						}
-						
-						logger.info( startElement.getName().getLocalPart() );
+											
+						//logger.info( startElement.getName().getLocalPart() );						
 						
 						break;
 					}
 					case CHARACTERS: {
+											
+						//logger.info( "##### CHARACTERS #####" );
 						
-						logger.info( "##### CHARACTERS #####" );
+						Characters charsElement = event.asCharacters();
 						
+						//logger.info( charsElement.getData() );
+		
+						if( result.size() > 0 ) {
+												
+							switch( currentObjectType ) {
+							
+								case FAULT: {
+									
+									try {
+																			
+										XMLRPCResultFault entity = (XMLRPCResultFault)result.get( currentObjectType );
+										
+										Method method = entity.getClass().getDeclaredMethod( currentMethod, String.class );
+										
+										method.invoke( entity, charsElement.getData() );
+																			
+									} catch ( NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+										
+										//logger.info( e.getMessage(), e );
+									
+									}
+									
+								}
+							
+							}
+							
+						}
+												
 						break;
 					}					
 					case END_ELEMENT: {
 						
-						logger.info( "##### END_ELEMENT #####" );
+						//logger.info( "##### END_ELEMENT #####" );
+						
+						EndElement endElement = event.asEndElement();
+						
+						//logger.info( endElement.getName().getLocalPart() );
 						
 						break;
 					}
 					case END_DOCUMENT: {
 						
-						logger.info( "##### END_DOCUMENT #####" );
+						//logger.info( "##### END_DOCUMENT #####" );
 						
 						break;
 					}
+					
 				}
-				
-				/*
-				logger.info( "EVENT: " + event.getEventType() + " - " + XMLRPCResultParser.EventType.get( event.getEventType() ).toString() );
-				
-	    		if( event.isStartElement() ) { 
-	    			
-	    			StartElement startElement = event.asStartElement(); 
-	    			
-	    			logger.info( "##### START ELEMENT #####" );
-	    			
-	    			logger.info( startElement.getName().getLocalPart() );
-	    			
-	    			logger.info( startElement.getName().getNamespaceURI() );
-	    			
-	    			logger.info( startElement.getName().getPrefix() );  
-	    			        			
-	    		}
-	    		
-	    		if( event.isCharacters() ) { 
-	    			
-	    			Characters characters = event.asCharacters(); 
-	    			
-	    			logger.info( "##### CHARACTERS #####" );
-	    			
-	    			logger.info( characters.getData() );
-	    		        			        			
-	    		}
-	    		
-	    		if( event.isEndElement() ) { 
-	    			
-	    			EndElement endElement = event.asEndElement(); 
-	    			
-	    			logger.info( "##### END ELEMENT #####" );
-	    			
-	    			logger.info( endElement.getName().getLocalPart() );
-	    			
-	    			logger.info( endElement.getName().getNamespaceURI() );
-	    			
-	    			logger.info( endElement.getName().getPrefix() );  
-	    			        			
-	    		}
-	    		*/
-			
+						
 			} catch ( XMLStreamException e ) {
 	    		
 	    		logger.error( e.getMessage(), e );
 	    		
-	    	}
+	    	} 
 			
     	}
-		
+				
 		return result;
 		
 	}
