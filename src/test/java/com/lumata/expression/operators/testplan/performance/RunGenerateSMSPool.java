@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.expression.operators.dm.DialogManagerConnection;
-import com.lumata.expression.operators.performance.GenerateSMSThread;
 import com.lumata.expression.operators.performance.GenerateSMSThreadPool;
 
 public class RunGenerateSMSPool {
