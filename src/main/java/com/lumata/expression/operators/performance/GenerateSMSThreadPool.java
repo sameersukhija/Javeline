@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.Callable;
 
 import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
@@ -21,23 +22,28 @@ public class GenerateSMSThreadPool implements Runnable {
 
 	private static final Logger logger = LoggerFactory.getLogger( GenerateSMSThreadPool.class );
 	
+	//Thread t;
 	private volatile boolean running = true;
 	private long id;
 	private long thread_number;
 	private long sleep;
 	private long interval_id_size;
 	private long sleep_to_print_result;
+	private long max_requests;
 	private int requests;
 	private int fails;
 	DialogManagerConnection dmConnection;
 	
-	public GenerateSMSThreadPool(long id, int thread_number, long sleep, long interval_id_size, long sleep_to_print_result, DialogManagerConnection dmConnection ) {
+	public GenerateSMSThreadPool(long id, int thread_number, int priority, long sleep, long max_requests, long interval_id_size, long sleep_to_print_result, DialogManagerConnection dmConnection ) {
 	
+		//t = new Thread( this );
+		//t.setPriority( priority );
 		this.id = id;
 		this.thread_number = thread_number;
 		this.sleep = sleep;
 		this.interval_id_size = interval_id_size;
 		this.sleep_to_print_result = sleep_to_print_result;
+		this.max_requests = max_requests;
 		this.requests = 0;
 		this.fails = 0;		
 		this.dmConnection = dmConnection;
@@ -105,6 +111,8 @@ public class GenerateSMSThreadPool implements Runnable {
 						
 					}
 					
+					if( max_requests > 0  && requests >= max_requests ) { running = false; }
+					
 				} catch ( JMSException | ParseException e) {
 					this.fails++;
 					logger.error( e.getMessage(), e );
@@ -124,7 +132,7 @@ public class GenerateSMSThreadPool implements Runnable {
 	    	
 	    	System.out.println( formatter.format( new Date( curr_time ) ) + " - Thread ( " + thread_number + " ) stopped" );
 
-	    }   
+	    }
 	    
 	}
 	
