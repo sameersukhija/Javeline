@@ -67,13 +67,13 @@ public class Mysql {
 		
 		try {
 			
-			this.dbConn = null;
-			this.dbHost = dataSource.getString("host");
-			this.dbName = dataSource.getString("name");
-			this.dbPort = dataSource.getInt("port");
-			this.dbUser = dataSource.getString("user");
-			this.dbPasswd = Security.decrypt( dataSource.getString("password") );		
-				
+			this.setConnection( null );
+			this.setHost( dataSource.getString("host") );
+			this.setName( dataSource.getString("name") );
+			this.setPort( dataSource.getInt("port") );
+			this.setUser( dataSource.getString("user") );
+			this.setPassword( Security.decrypt( dataSource.getString("password") ) );
+							
 			logger.debug( "Mysql parameters has been loaded");
 			
 			this.connect();
@@ -187,6 +187,54 @@ public class Mysql {
 		
 		}
 				 
+	}
+	
+	public Connection getConnection() {
+		return this.dbConn;
+	}
+	
+	public String getHost() {
+		return this.dbHost;
+	}
+	
+	public String getName() {
+		return this.dbName;
+	}
+	
+	public int getPort() {
+		return this.dbPort;
+	}
+	
+	public String getUser() {
+		return this.dbUser;
+	}
+	
+	public String getPassword() {
+		return this.dbPasswd;
+	}
+	
+	public void setConnection( Connection dbConn ) {
+		this.dbConn = dbConn;
+	}
+	
+	public void setHost( String dbHost ) {
+		this.dbHost = dbHost;
+	}
+	
+	public void setName( String dbName ) {
+		this.dbName = dbName;
+	}
+	
+	public void setPort( int dbPort ) {
+		this.dbPort = dbPort;
+	}
+	
+	public void setUser( String dbUser ) {
+		this.dbUser = dbUser;
+	}
+	
+	public void setPassword( String dbPasswd ) {
+		this.dbPasswd = dbPasswd;
 	}
 	
 }
