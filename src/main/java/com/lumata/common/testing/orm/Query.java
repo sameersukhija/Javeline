@@ -11,7 +11,7 @@ public class Query {
 		Statement statement = new Statement();
 		
 		statement.append( Statement.MysqlStatement.SELECT.getName() )
-			.append( "( * )" );
+			.append( "*" );
 		
 		return new Select(statement);
 		
