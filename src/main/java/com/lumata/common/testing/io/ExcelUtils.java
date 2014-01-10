@@ -48,16 +48,20 @@ public class ExcelUtils {
 		
 			if( row == null ) continue;
 			
+			List<String> sheetRow = new ArrayList<String>();
+			
 			for( int j = row.getFirstCellNum(); j < row.getLastCellNum(); j++ )	{
 		
 				if( row.getCell( j ) == null ) continue;
 		
 				String cell = row.getCell(j).toString();
 
-				sheetAsList.add( Arrays.asList( cell ) );
-							
+				sheetRow.add( cell );
+											
 			}
-	
+			
+			sheetAsList.add( sheetRow );
+				
 		}
 		
 		return sheetAsList;
