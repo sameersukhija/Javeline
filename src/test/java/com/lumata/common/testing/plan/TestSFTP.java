@@ -31,20 +31,22 @@ public class TestSFTP {
     	int port = 22;
     	
         SFTPClient sftp = new SFTPClient( host, port, user, "cmdISnJjdQ==" );
-        
-        String remote_path = "/opt/lumata/server_test_expression-qa/cdr/";
-        String remote_file_name = "cdr.log.2013-08-23";
-        
-        String local_path = "/home/adipasquale/";
-        String local_file_name = remote_file_name;
+       
+        if( sftp.isConnected() ) {
+        	
+        	String remote_path = "/opt/lumata/server_test_expression-qa/cdr/";
+            String remote_file_name = "cdr.log.2013-12-20";
+            
+            String local_path = "/home/adipasquale/";
+            String local_file_name = remote_file_name;
                 
-        ArrayList<LsEntry> fileList = sftp.listDirectory( remote_path );
-        
-        sftp.printDirectory( fileList );
-        
-        sftp.copyFile( remote_path , remote_file_name, local_path, local_file_name, SFTPClient.CopyType.REMOTE );
-    	
-        
+            ArrayList<LsEntry> fileList = sftp.listDirectory( remote_path );
+            
+            sftp.printDirectory( fileList );
+            
+            sftp.copyFile( remote_path , remote_file_name, local_path, local_file_name, SFTPClient.CopyType.REMOTE );
+        	        	
+        }
         
         /*
     	String password = "mysql";

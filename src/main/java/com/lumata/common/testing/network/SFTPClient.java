@@ -10,8 +10,6 @@ import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 import com.jcraft.jsch.ChannelSftp.LsEntry;
-import com.lumata.common.testing.exceptions.IOFileException;
-import com.lumata.common.testing.io.IOFileUtils;
 
 public class SFTPClient extends SSHClient {
 
@@ -22,14 +20,18 @@ public class SFTPClient extends SSHClient {
 	public enum CopyType { LOCAL, REMOTE }
 	
 	public SFTPClient( String host, int port, String user, String encryptedPassword ) {
-		
+	
 		super( host, port, user, encryptedPassword );
-		
+				
 		try {
-		
-			Channel channel = this.session.openChannel("sftp");
-			channel.connect();
-			this.setChannel(channel);
+			
+			if( this.isConnected() ) {
+			
+				Channel channel = this.session.openChannel("sftp");
+				channel.connect();
+				this.setChannel(channel);
+			
+			}
 			
 		} catch( JSchException e ) {
 			
@@ -51,6 +53,12 @@ public class SFTPClient extends SSHClient {
 		
 	}
 
+	public boolean isConnected() {
+	
+		return this.session.isConnected();
+		
+	}
+	
 	public ArrayList<LsEntry> listDirectory( String path ) {
 		
 		ArrayList<LsEntry> fileList = new ArrayList<LsEntry>();
