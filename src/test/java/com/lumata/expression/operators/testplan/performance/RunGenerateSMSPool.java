@@ -20,11 +20,12 @@ public class RunGenerateSMSPool {
 	
 	ExecutorService pool;
 		
-	final int N_THREADS = 50;
-	final int THREAD_SLEEP = 20;
-	final long INTERVAL_PRINT_RESULT = 0;
+	final int N_THREADS = 1;
+	final int THREAD_SLEEP = 1000;
+	final int MAX_REQUESTS = 1;
+	final long INTERVAL_PRINT_RESULT = 1000;
 	final long INTERVAL_ID_SIZE = 1000000;
-	final int EXECUTION_TIME = 500000;
+	final int EXECUTION_TIME = 1100;
 	final long ID = 10;
 	final String QUEUE = "1.SMS.1";
 	final String CONNECTION_FACTORY = "failover:tcp://10.120.44.26:61616";
@@ -39,20 +40,20 @@ public class RunGenerateSMSPool {
 	private void startThreadPool() {
 		
 		pool = Executors.newFixedThreadPool( N_THREADS );
-						
+		/*				
 		for( int i = 0; i < N_THREADS; i++ ) {
 						
 			final int THREAD_NUMBER = i;
 			
 			DialogManagerConnection dmConnection = new DialogManagerConnection( CONNECTION_FACTORY, QUEUE );
 						
-			GenerateSMSThreadPool smsThread = new GenerateSMSThreadPool( ID, THREAD_NUMBER, THREAD_SLEEP, INTERVAL_ID_SIZE, INTERVAL_PRINT_RESULT, dmConnection );
+			GenerateSMSThreadPool smsThread = new GenerateSMSThreadPool( ID, THREAD_NUMBER, Thread.MAX_PRIORITY, THREAD_SLEEP, MAX_REQUESTS, INTERVAL_ID_SIZE, INTERVAL_PRINT_RESULT, dmConnection );
 			smsThreadPool.add( smsThread );
 			
 			pool.submit( smsThread );
 									
 		}		
-		
+		*/
 	}
 	
 	private void waitExecution() {
@@ -96,8 +97,7 @@ public class RunGenerateSMSPool {
 		System.out.println( "\nTotal: " + total + "\n" + result.toString() );
 		
 	}
-	
-	
+		
 	public static void main(String args[]) throws EnvironmentException, IOFileException {
 		
 		RunGenerateSMSPool generateSMS = new RunGenerateSMSPool();
