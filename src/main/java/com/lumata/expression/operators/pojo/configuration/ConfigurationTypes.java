@@ -1,14 +1,19 @@
 package com.lumata.expression.operators.pojo.configuration;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.ss.usermodel.Workbook;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.lumata.common.testing.exceptions.IOFileException;
+import com.lumata.common.testing.io.ExcelUtils;
 import com.lumata.common.testing.system.Environment;
 
 public enum ConfigurationTypes {
@@ -106,6 +111,49 @@ public enum ConfigurationTypes {
 			
 			}
 			
+			return cfgList;
+			
+		}
+		
+	},
+	
+	ALL_STANDARD_PARAMETERS_FROM_FILE {
+		
+		public ArrayList<Configuration> getCfg( Map<String, Object> options ) {
+				
+			ArrayList<Configuration> cfgList = new ArrayList<Configuration>();
+			
+			try {
+				
+				Workbook workbook = ExcelUtils.load( "input/configuration", "properties_default_fields.xls" );
+				
+				List<List<String>> sheet = ExcelUtils.loadSheet( workbook.getSheetAt( 0 ) );
+				
+				for( int i = 1; i < sheet.size(); i++ ) {
+					
+					Configuration cfg = new Configuration();
+					cfg.setSection( sheet.get( i ).get( 1 ) );
+					cfg.setName( sheet.get( i ).get( 2 ) );
+					cfg.setPosition( sheet.get( i ).get( 3 ) );
+					cfg.setProcessID( sheet.get( i ).get( 4 ) );
+					cfg.setAuthGroup( sheet.get( i ).get( 5 ) );
+					cfg.setCurrent( sheet.get( i ).get( 6 ) );
+					cfg.setPrevious( "NULL" );
+					cfg.setDynStatic( sheet.get( i ).get( 7 ) );
+					cfg.setTime( "NULL" );
+					cfg.setType( sheet.get( i ).get( 8 ) );
+					cfg.setDescription( sheet.get( i ).get( 9 ) );
+										
+					cfgList.add( cfg );	
+										
+				}
+			
+			} catch( IOFileException | IOException e ) {
+				
+				System.out.println( e.getMessage() );
+				
+			}	
+						
 			return cfgList;
 			
 		}

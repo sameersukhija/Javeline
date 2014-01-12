@@ -8,7 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.database.Mysql;
+import static com.lumata.common.testing.orm.Query.select;
+import static com.lumata.common.testing.orm.Filter.*;
 import com.lumata.common.testing.system.Environment;
+import com.lumata.expression.operators.entities.Conf;
 
 /*
 	CREATE TABLE `conf` (
@@ -45,6 +48,12 @@ public class Configuration {
 	private String type;
 	private String description;
 	private boolean _validation;
+	
+	public Configuration() {
+		
+		this._validation = false;
+		
+	}
 	
 	public Configuration( ArrayList<String> cfg ) {
 		

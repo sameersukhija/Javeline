@@ -23,7 +23,7 @@ public class XMLRPCResultParser {
 
 	private static final Logger logger = LoggerFactory.getLogger( XMLRPCResultParser.class );
 	
-	public enum ResultType { UNKNOWN, FAULT, OFFERS }
+	public enum ResultType { UNKNOWN, FAULT, BOOLEAN, OFFERS, SUBSCRIBER }
 	
 	private ResultType currentObjectType;
 	private Object currentObject;
@@ -141,16 +141,27 @@ public class XMLRPCResultParser {
 							switch( currentEventType ) {
 							
 								case FAULT: {
-									currentObject = new XMLRPCResultFault();
+									currentObject = new XMLRPCResultFault(); break;
 								}
-							
+								case BOOLEAN: {
+									currentObject = new XMLRPCResultSuccess(); 
+									String method = startElement.getName().getLocalPart().replaceAll("_", " " ).replaceAll( "([A-Z])" , " $1" );
+									currentMethod = "set" + WordUtils.capitalizeFully( method ).replaceAll( " " , "" );
+									break;
+								}
+								case SUBSCRIBER: {
+									currentObject = new XMLRPCSubscriber(); break;								
+								}
+								
 							}
 							
 							result.put( currentObjectType, currentObject );
 						
 						} catch (IllegalArgumentException ex) {  
 						
-							currentMethod = "set" + WordUtils.capitalizeFully( startElement.getName().getLocalPart() );
+							String method = startElement.getName().getLocalPart().replaceAll("_", " " ).replaceAll( "([A-Z])" , " $1" );
+							currentMethod = "set" + WordUtils.capitalizeFully( method ).replaceAll( " " , "" );
+							
 							//logger.info( currentMethod );
 							
 						}
@@ -173,19 +184,23 @@ public class XMLRPCResultParser {
 							
 								case FAULT: {
 									
-									try {
-																			
-										XMLRPCResultFault entity = (XMLRPCResultFault)result.get( currentObjectType );
-										
-										Method method = entity.getClass().getDeclaredMethod( currentMethod, String.class );
-										
-										method.invoke( entity, charsElement.getData() );
-																			
-									} catch ( NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
-										
-										//logger.info( e.getMessage(), e );
+									this.invokeMethod( (XMLRPCResultFault)result.get( currentObjectType ), charsElement.getData() );
 									
-									}
+									break;
+									
+								}
+								case BOOLEAN: {
+									
+									this.invokeMethod( (XMLRPCResultSuccess)result.get( currentObjectType ), charsElement.getData() );
+																		
+									break;
+									
+								}
+								case SUBSCRIBER: {
+									
+									this.invokeMethod( (XMLRPCSubscriber)result.get( currentObjectType ), charsElement.getData() );
+																		
+									break;
 									
 								}
 							
@@ -223,6 +238,22 @@ public class XMLRPCResultParser {
     	}
 				
 		return result;
+		
+	}
+	
+	private void invokeMethod( Object entity, String value ) {
+		
+		try {
+						
+			Method method = entity.getClass().getDeclaredMethod( currentMethod, String.class );
+			
+			method.invoke( entity, value );
+												
+		} catch ( NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+			
+			logger.info( e.getMessage(), e );
+		
+		}
 		
 	}
 	

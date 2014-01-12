@@ -52,6 +52,21 @@ public class HTTPXMLRPCForm {
 			public String getName() { return "offeroptimizer.getTokensList"; }
 			
 		},
+		subscribermanager_getSubscriber {
+			
+			public String getName() { return "subscribermanager.getSubscriber"; }
+			
+		},
+		subscribermanager_createSubscriber {
+			
+			public String getName() { return "subscribermanager.createSubscriber"; }
+			
+		},
+		subscribermanager_deleteSubscriber {
+			
+			public String getName() { return "subscribermanager.deleteSubscriber"; }
+			
+		},
 		user_create {
 			
 			public String getName() { return "user.create"; }
@@ -215,6 +230,34 @@ public class HTTPXMLRPCForm {
 	    			.append( "</group>" );
 		
 		return groupBody.toString();
+		
+	}
+	
+	public static String getSubscriber( Map<String, Object> params ) {
+		
+		StringBuilder subscriberBody = new StringBuilder();
+		
+		subscriberBody.append( "<param><value><subscriber>" );
+		
+		if( params.containsKey( XMLRPCSubscriber.Params.msisdn.name() ) ) { subscriberBody.append( "<msisdn>" ).append( params.get( XMLRPCSubscriber.Params.msisdn.name() ) ).append( "</msisdn>" ); }
+		
+		if( params.containsKey( XMLRPCSubscriber.Params.subscription_date.name() ) ) { subscriberBody.append( "<subscription_date>" ).append( params.get( XMLRPCSubscriber.Params.subscription_date.name() ) ).append( "</subscription_date>" ); }
+		
+		if( params.containsKey( XMLRPCSubscriber.Params.profile.name() ) ) { subscriberBody.append( "<profile>" ).append( params.get( XMLRPCSubscriber.Params.profile.name() ) ).append( "</profile>" ); }
+		
+		if( params.containsKey( XMLRPCSubscriber.Params.subprofile.name() ) ) { subscriberBody.append( "<subprofile>" ).append( params.get( XMLRPCSubscriber.Params.subprofile.name() ) ).append( "</subprofile>" ); }
+		
+		if( params.containsKey( XMLRPCSubscriber.Params.rate_plan.name() ) ) { subscriberBody.append( "<rate_plan>" ).append( params.get( XMLRPCSubscriber.Params.rate_plan.name() ) ).append( "</rate_plan>" ); }
+		
+		if( params.containsKey( XMLRPCSubscriber.Params.status.name() ) ) { subscriberBody.append( "<status>" ).append( params.get( XMLRPCSubscriber.Params.status.name() ) ).append( "</status>" ); }
+		
+		if( params.containsKey( XMLRPCSubscriber.Params.in_tag.name() ) ) { subscriberBody.append( "<in_tag>" ).append( params.get( XMLRPCSubscriber.Params.in_tag.name() ) ).append( "</in_tag>" ); }
+		
+		if( params.containsKey( XMLRPCSubscriber.Params.network.name() ) ) { subscriberBody.append( "<network>" ).append( params.get( XMLRPCSubscriber.Params.network.name() ) ).append( "</network>" ); }
+				
+		subscriberBody.append( "</subscriber></value></param>" );		
+		
+		return subscriberBody.toString();		
 		
 	}
 	
