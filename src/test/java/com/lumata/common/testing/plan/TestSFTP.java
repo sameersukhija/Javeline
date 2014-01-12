@@ -44,7 +44,7 @@ public class TestSFTP {
             
             sftp.printDirectory( fileList );
             
-            sftp.copyFile( remote_path , remote_file_name, local_path, local_file_name, SFTPClient.CopyType.REMOTE );
+            sftp.copyFile( remote_path , remote_file_name, local_path, local_file_name, SFTPClient.CopyType.REMOTE_TO_LOCAL );
         	        	
         }        
         
@@ -67,7 +67,7 @@ public class TestSFTP {
 			String remote_path = "/nfsdata/files/cdr/incoming/REVENUE_CDR/";
             String remote_file_name = local_file_name;
                         
-            sftp.copyFile( local_path, local_file_name, remote_path , remote_file_name, SFTPClient.CopyType.LOCAL );
+            sftp.copyFile( local_path, local_file_name, remote_path , remote_file_name, SFTPClient.CopyType.LOCAL_TO_REMOTE );
         	        	
         }        
         
