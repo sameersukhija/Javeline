@@ -23,8 +23,8 @@ public class TestSFTP {
 
     private static final Logger logger = LoggerFactory.getLogger(TestSFTP.class);
 
-    @Test()
-    public void ssh() {
+    @Test( enabled = false )
+    public void ssh_copy_remote_to_local() {
 
     	String user = "root";
     	String host = "10.120.38.25";
@@ -46,25 +46,32 @@ public class TestSFTP {
             
             sftp.copyFile( remote_path , remote_file_name, local_path, local_file_name, SFTPClient.CopyType.REMOTE );
         	        	
-        }
-        
-        /*
-    	String password = "mysql";
-
-        String encrypted_password = Security.encrypt( password );
-
-        logger.info( encrypted_password );
-        
-        String decrypted_password = Security.decrypt( encrypted_password );
-
-        logger.info( decrypted_password );
-        
-        /*Assert.assertEquals( password, decrypted_password );*/
-
-        //Assert.assertEquals( password, decrypted_password );
-        
+        }        
         
     }
+    
+    @Test( enabled = true )
+    public void ssh_copy_local_to_remote() {
+
+    	String user = "root";
+    	String host = "10.120.38.25";
+    	int port = 22;
+    	
+        SFTPClient sftp = new SFTPClient( host, port, user, "cmdISnJjdQ==" );
+       
+        if( sftp.isConnected() ) {
+        	
+        	String local_path = System.getProperty( "user.dir" ) + "/src/main/resources/lumata-common-testing/";
+			String local_file_name = "save.properties";
+			System.out.println( local_path );
+			String remote_path = "/nfsdata/files/cdr/incoming/REVENUE_CDR/";
+            String remote_file_name = local_file_name;
+                        
+            sftp.copyFile( local_path, local_file_name, remote_path , remote_file_name, SFTPClient.CopyType.LOCAL );
+        	        	
+        }        
+        
+    }   
 
 
 }

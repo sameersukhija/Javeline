@@ -17,7 +17,7 @@ public class SFTPClient extends SSHClient {
 	
 	private static final Logger logger = LoggerFactory.getLogger( SFTPClient.class );
 	
-	public enum CopyType { LOCAL, REMOTE }
+	public enum CopyType { LOCAL_TO_REMOTE, REMOTE_TO_LOCAL }
 	
 	public SFTPClient( String host, int port, String user, String encryptedPassword ) {
 	
@@ -86,19 +86,21 @@ public class SFTPClient extends SSHClient {
 	public void copyFile( String srcPath, String srcFile, String destPath, String destFile, CopyType copyType ) {
 				
 		try {
-		
-			this.channel.cd( srcPath );
-			
+					
 			switch( copyType ) {
 			
-				case LOCAL: {
+				case LOCAL_TO_REMOTE: {
 					
-					this.channel.put( srcFile, destPath + destFile );
+					this.channel.cd( destPath );
+					
+					this.channel.put( srcPath + srcFile, destFile );
 					
 					break;
 				
 				}
-				case REMOTE: {
+				case REMOTE_TO_LOCAL: {
+					
+					this.channel.cd( srcPath );
 					
 					this.channel.get( srcFile, destPath + destFile );
 					
