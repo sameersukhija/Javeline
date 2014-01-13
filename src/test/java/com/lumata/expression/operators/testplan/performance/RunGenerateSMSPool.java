@@ -40,7 +40,7 @@ public class RunGenerateSMSPool {
 	private void startThreadPool() {
 		
 		pool = Executors.newFixedThreadPool( N_THREADS );
-		/*				
+						
 		for( int i = 0; i < N_THREADS; i++ ) {
 						
 			final int THREAD_NUMBER = i;
@@ -53,7 +53,7 @@ public class RunGenerateSMSPool {
 			pool.submit( smsThread );
 									
 		}		
-		*/
+		
 	}
 	
 	private void waitExecution() {

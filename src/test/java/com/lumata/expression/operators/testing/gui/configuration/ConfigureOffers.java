@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.testplan.functional;
+package com.lumata.expression.operators.testing.gui.configuration;
 
 import java.lang.reflect.Method;
 
@@ -30,9 +30,9 @@ import com.lumata.expression.operators.gui.catalogue.OffersForm;
 import com.lumata.expression.operators.gui.security.Authorization;
 import com.lumata.expression.operators.json.catalogue.TokenTypeCfg;
 
-public class ConfigureOffer {
+public class ConfigureOffers {
 
-	private static final Logger logger = LoggerFactory.getLogger( ConfigureOffer.class );
+	private static final Logger logger = LoggerFactory.getLogger( ConfigureOffers.class );
 	
 	private int TIMEOUT = 60000;
 	private int ATTEMPT_TIMEOUT = 500;
@@ -53,10 +53,6 @@ public class ConfigureOffer {
 		
 		// Create environment configuration
 		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-		
-		// Create mysql connections with global and tenant database
-		//mysqlGlobal = new Mysql( env.getDataSource( "global" ) );		
-		//mysqlTenant = new Mysql( env.getDataSource( tenant ) );
 		
 		// Load Commodities configuration to set
 		token_type = JSONUtils.loadJSONResource( "input/catalogue/token_type", "token_type_a.json" );

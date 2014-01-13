@@ -18,9 +18,9 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
 
 
-public class PerformanceDialogManager {
+public class Performance_DialogManager {
 
-	private static final Logger logger = LoggerFactory.getLogger( PerformanceDialogManager.class );
+	private static final Logger logger = LoggerFactory.getLogger( Performance_DialogManager.class );
 	
 	Environment env;	
 	Connection connection = null;

@@ -1,7 +1,5 @@
 package com.lumata.expression.operators.gui.security;
 
-import java.util.List;
-
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
