@@ -1,5 +1,9 @@
 package com.lumata.expression.operators.dao.configuration;
 
+import static com.lumata.common.testing.orm.Filter.and;
+import static com.lumata.common.testing.orm.Filter.op;
+import static com.lumata.common.testing.orm.Query.select;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.database.Mysql;
+import com.lumata.expression.operators.entities.Conf;
 import com.lumata.expression.operators.pojo.configuration.Configuration;
 import com.lumata.expression.operators.pojo.configuration.ConfigurationTypes;
 
@@ -134,6 +139,47 @@ public class ConfigurationDAO {
 		}
 		
 		return check;
+				
+	}
+	
+	public void checkAll( Mysql mysql ) {
+		
+		Conf confTable = new Conf();
+		
+		for( int i = 0; i < this.list.size(); i++ ) {
+			
+			Configuration conf = this.list.get( i );
+			
+			String query = select().
+							from( confTable ).
+							where( 
+									op( Conf.Fields.name ).eq( conf.getName() ),
+									and( op( Conf.Fields.position ).eq( conf.getPosition() ) ),
+									and( op( Conf.Fields.section ).eq( conf.getSection() ) ),
+									and( op( Conf.Fields.process_id ).eq( conf.getProcessID() ) ),
+									and( op( Conf.Fields.auth_group ).eq( conf.getAuthGroup() ) ),
+									and( op( Conf.Fields.current ).eq( conf.getCurrent() ) ),
+									and( op( Conf.Fields.previous ).eq( conf.getPrevious() ) ),
+									and( op( Conf.Fields.dyn_static ).eq( conf.getDynStatic() ) ),
+									and( op( Conf.Fields.time ).eq( conf.getTime() ) ),
+									and( op( Conf.Fields.type ).eq( conf.getType() ) ),
+									and( op( Conf.Fields.description ).eq( conf.getDescription() ) )
+							).
+							build();
+			System.out.println( query );
+			ResultSet rs = mysql.execQuery( query );
+			
+			try {
+			
+				if( rs.first() ) { conf.setValidation( true ); }
+			
+			} catch( SQLException e ) {
+				
+				logger.error( e.getMessage(), e );
+			
+			}
+			
+		}		
 				
 	}
 	
