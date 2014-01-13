@@ -81,7 +81,7 @@ public class ConfigureOffer {
 	public void selectOffersForm( @Optional("qa") String tenant ) throws TokenTypeException {
 		
 		Assert.assertTrue( OffersForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
-		Assert.assertTrue( OffersForm.create(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
+		//Assert.assertTrue( OffersForm.create(seleniumWebDriver, offerCfg, TIMEOUT, ATTEMPT_TIMEOUT) );
 				
 	}
 	
