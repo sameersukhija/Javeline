@@ -83,26 +83,24 @@ public class SFTPClient extends SSHClient {
 		
 	}
 	
-	public void copyFile( String srcPath, String srcFile, String destPath, String destFile, CopyType copyType ) {
+	public void copyFile( String localPath, String localFile, String remotePath, String remoteFile, CopyType copyType ) {
 				
 		try {
 					
+			this.channel.cd( remotePath );
+			
 			switch( copyType ) {
 			
 				case LOCAL_TO_REMOTE: {
-					
-					this.channel.cd( destPath );
-					
-					this.channel.put( srcPath + srcFile, destFile );
+														
+					this.channel.put( localPath + localFile, remoteFile );
 					
 					break;
 				
 				}
 				case REMOTE_TO_LOCAL: {
-					
-					this.channel.cd( srcPath );
-					
-					this.channel.get( srcFile, destPath + destFile );
+										
+					this.channel.get( remoteFile, localPath + localFile );
 					
 					break;
 				
