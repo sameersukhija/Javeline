@@ -35,7 +35,7 @@ public class BDRList {
 			String bdr_remote_file_name = this.generateBDRFileName( date );
 			String bdr_local_file_name = bdr_remote_file_name.replaceAll( "\\.", "_" ) + ".txt";
 			
-			sftpClient.copyFile( CDR_REMOTE_DIR, bdr_remote_file_name, CDR_LOCAL_DIR, bdr_local_file_name, SFTPClient.CopyType.REMOTE );
+			sftpClient.copyFile( CDR_REMOTE_DIR, bdr_remote_file_name, CDR_LOCAL_DIR, bdr_local_file_name, SFTPClient.CopyType.REMOTE_TO_LOCAL );
 			
 			BufferedReader br = IOFileUtils.loadFileAsBufferedReader( CDR_LOCAL_DIR, bdr_local_file_name );
 			
