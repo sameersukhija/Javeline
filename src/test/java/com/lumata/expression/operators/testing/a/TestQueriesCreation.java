@@ -43,50 +43,13 @@ public class TestQueriesCreation {
 	@Test( enabled = false, priority = 1 )
 	public void selectQuery() {
 		
-		//Agencies agencies = new Agencies();
-		//BdrEvents bdr_events = new BdrEvents();
-		//agencies.setId( (short)1 );
-		//agencies.setName( "pippo" );
+		Agencies agencies = new Agencies();
+		agencies.setId( (short)1 );
+		agencies.setName( "pippo" );
 		
-		/*
-		//String query = Query.select().from().build( agencies );
-		
-		//System.out.println( query );
-		
-		/*
-		String complexQuery = Query.select( Agencies.Fields.id, Agencies.Fields.name )
-									.from( agencies )
-									.join( bdr_events )									
-									.where( op(Agencies.Fields.name.name()).eq( "1" ) )									
-									/*.where( op(Agencies.Fields.name.name()).eq( "1" ),
-											and(op(Agencies.Fields.name.name()).eq( "1" )),
-											or(op(Agencies.Fields.name.name()).eq( "1" ))
-									)*/
-		/*							.order( Agencies.Fields.id.name(), Agencies.Fields.name.name() )
-									.limit( 1, 2 )
-									.build();
-		*/
+		BdrEvents bdr_events = new BdrEvents();
 		
 		
-		/*
-		System.out.println( 
-				select().
-				from( agencies ).
-				where( 
-						op( Agencies.Fields.name ).eq(), 
-						and( op( Agencies.Fields.name ).eq() )
-				)
-				.build() );
-		*/
-		/*
-		long elapsed_time = 0;
-		
-		for( int i = 0; i < 10; i++ ) {
-		
-			Date d1 = new Date();
-		*/	
-			
-		/*
 		String complexQuery = select( 	max(Agencies.Fields.id),
 											min(Agencies.Fields.id),
 											avg(Agencies.Fields.id),
@@ -154,34 +117,8 @@ public class TestQueriesCreation {
 									.limit( 1, 2 )
 									.build();
 		
-			System.out.println( complexQuery );
-			*/
-			/*	
-			Date d2 = new Date();
-			
-			elapsed_time = elapsed_time + ( d2.getTime() - d1.getTime() );			
-			
-			System.out.println( elapsed_time );
-			
-		}	
-				
 		System.out.println( complexQuery );
-		
-		
-		/*		
-		//.where( and( op( Agencies.Fields.id ).eq(1) ) )		
-		/*
-		IQueryTemplate queryTpl = Query.select().from().template();
-		
-		agencies.setName( "pluto" );
-		
-		System.out.println( queryTpl.build( agencies ) );
-		
-		BdrEvents bdrEvents = new BdrEvents();
-		
-		System.out.println( queryTpl.build( bdrEvents ) );
-		*/
-		
+			
 	}
 			
 	@Test( enabled = true, priority = 2 )

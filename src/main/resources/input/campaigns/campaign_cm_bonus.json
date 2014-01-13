@@ -2,8 +2,8 @@
 	"definition": {
 		"execution_mode": "ModelBased",
 		"campaign_model": "CMBonus",
-		"campaign_name": "CMBonus_1"
-	
+		"campaign_name": "CMBonus1",
+		"campaign_description": "CMBonus1"
 	},
 	"scheduling": {
 	
@@ -24,5 +24,8 @@
 	"activation": {
 	
 	
+	},
+	"error_actions": {
+		"CAMPAIGN_ALREADY_EXISTS": "ADD_TIMESTAMP_TO_CAMPAIGN_NAME"	
 	}
 }
