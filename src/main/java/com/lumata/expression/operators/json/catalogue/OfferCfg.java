@@ -32,14 +32,14 @@ public class OfferCfg {
 				
 	}
 	
-	public OfferCfg( String tokenType, IOLoadingType loadingType ) throws OfferException {
+	public OfferCfg( String offerCfg, IOLoadingType loadingType ) throws OfferException {
 		
 		try {
 			
 			switch( loadingType ) {
 			
-				case FILE: { this.ttCfg = JSONUtils.loadJSONFile( tokenType.toLowerCase() + Format.JSON_EXTENSION ); break; }
-				case RESOURCE: { this.ttCfg = JSONUtils.loadJSONResource( tokenType.toLowerCase() + Format.JSON_EXTENSION ); break;  }
+				case FILE: { this.ttCfg = JSONUtils.loadJSONFile( offerCfg.toLowerCase() + Format.JSON_EXTENSION ); break; }
+				case RESOURCE: { this.ttCfg = JSONUtils.loadJSONResource( offerCfg.toLowerCase() + Format.JSON_EXTENSION ); break;  }
 				default: throw new OfferException( "You cannot load an Offer from resources different by FILE or RESOURCE" );
 			
 			}		
@@ -60,14 +60,14 @@ public class OfferCfg {
 			
 	}
 	
-	public OfferCfg( String folder, String tokenType, IOLoadingType loadingType ) throws OfferException {
+	public OfferCfg( String folder, String offerCfg, IOLoadingType loadingType ) throws OfferException {
 		
 		try {
 			
 			switch( loadingType ) {
 			
-				case FILE: { this.ttCfg = JSONUtils.loadJSONFile( folder, tokenType.toLowerCase() + Format.JSON_EXTENSION ); break; }
-				case RESOURCE: { this.ttCfg = JSONUtils.loadJSONResource( folder, tokenType.toLowerCase() + Format.JSON_EXTENSION ); break;  }
+				case FILE: { this.ttCfg = JSONUtils.loadJSONFile( folder, offerCfg.toLowerCase() + Format.JSON_EXTENSION ); break; }
+				case RESOURCE: { this.ttCfg = JSONUtils.loadJSONResource( folder, offerCfg.toLowerCase() + Format.JSON_EXTENSION ); break;  }
 				default: throw new OfferException( "You cannot load an Offer from resources different by FILE or RESOURCE" );
 			
 			}
@@ -88,6 +88,8 @@ public class OfferCfg {
 			
 	}
 	
+	
+	/*
 	public static ArrayList<OfferCfg> createTokenTypeList(  String folder, String tokenType, IOLoadingType loadingType ) throws OfferException {
 		
 		ArrayList<OfferCfg> list = new ArrayList<OfferCfg>();
@@ -121,12 +123,14 @@ public class OfferCfg {
 		return list;
 		
 	}
+	*/
 	
-	public String getName() {
+	
+	public JSONObject getDefinition() {
 		
 		try {
 			
-			if( !ttCfg.isNull("name") ) { return ttCfg.getString("name"); }
+			if( !ttCfg.isNull("definition") ) { return ttCfg.getJSONObject("definition"); }
 		
 		} catch( Exception e ) {
 
@@ -138,6 +142,89 @@ public class OfferCfg {
 		
 	}
 	
+	public String getOfferName() {
+		
+		try {
+			
+			if( !getDefinition().isNull("offer_name") ) { return getDefinition().getString("offer_name"); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public String getOfferDescription() {
+		
+		try {
+			
+			if( !getDefinition().isNull("offer_description") ) { return getDefinition().getString("offer_description"); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public String getImageUrlOfOffer() {
+		
+		try {
+			
+			if( !getDefinition().isNull("image_url_of_offer") ) { return getDefinition().getString("image_url_of_offer"); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public String getPreviousOfTheOfferImage() {
+		
+		try {
+			
+			if( !getDefinition().isNull("previous_of_the_offer_image") ) { return getDefinition().getString("previous_of_the_offer_image"); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public String getTermsAndConditions() {
+		
+		try {
+			
+			if( !getDefinition().isNull("terms_and_conditions") ) { return getDefinition().getString("terms_and_conditions"); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+	
+	
+
+	/*
 	public String getFormat() {
 		
 		try {
@@ -217,5 +304,5 @@ public class OfferCfg {
 		return null;
 		
 	}
-
+	*/
 }

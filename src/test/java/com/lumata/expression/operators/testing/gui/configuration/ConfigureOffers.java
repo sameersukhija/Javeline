@@ -3,6 +3,7 @@ package com.lumata.expression.operators.testing.gui.configuration;
 import java.lang.reflect.Method;
 
 import org.json.JSONObject;
+import org.openqa.selenium.JavascriptExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -24,10 +25,12 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.expression.operators.exceptions.CampaignException;
 import com.lumata.expression.operators.exceptions.CommoditiesException;
+import com.lumata.expression.operators.exceptions.OfferException;
 import com.lumata.expression.operators.exceptions.TokenTypeException;
 import com.lumata.expression.operators.gui.catalogue.TokenTypeForm;
 import com.lumata.expression.operators.gui.catalogue.OffersForm;
 import com.lumata.expression.operators.gui.security.Authorization;
+import com.lumata.expression.operators.json.catalogue.OfferCfg;
 import com.lumata.expression.operators.json.catalogue.TokenTypeCfg;
 
 public class ConfigureOffers {
@@ -39,31 +42,30 @@ public class ConfigureOffers {
 	
 	SeleniumWebDriver seleniumWebDriver;
 	Environment env;
-	Mysql mysqlGlobal;
-	Mysql mysqlTenant;
-	JSONObject token_type;
+	OfferCfg offerCfg;
 	
 	
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment", "tenant", "user"})
 	@BeforeSuite
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment, @Optional("qa") String tenant, @Optional("superman") String user ) throws EnvironmentException, CommoditiesException, JSONSException, IOFileException {		
+	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment, @Optional("qa") String tenant, @Optional("superman") String user ) throws EnvironmentException, OfferException, JSONSException, IOFileException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
 		// Create environment configuration
 		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
-		// Load Commodities configuration to set
-		token_type = JSONUtils.loadJSONResource( "input/catalogue/token_type", "token_type_a.json" );
+		// Load Offer configuration to set
+		offerCfg = new OfferCfg( "input/catalogue/offers", "offer_configuration", IOFileUtils.IOLoadingType.RESOURCE );
 		
 		// Create Selenium WebDriver instance
 		seleniumWebDriver = new SeleniumWebDriver( browser, env.getBrowser( browser ), env.getLink() );
 		seleniumWebDriver.windowMaximize();
+		//((JavascriptExecutor)seleniumWebDriver.getWrappedDriver()).executeScript("window.resizeTo(1280,1024);");
 		
 		// Login
 		Assert.assertTrue(Authorization.login(seleniumWebDriver, env.getUserName( user ), env.getPassword( user ), TIMEOUT, ATTEMPT_TIMEOUT));
-		
+					
 	}
 	
 	/* 	Initialize TestCase Name */
@@ -74,13 +76,17 @@ public class ConfigureOffers {
 	
 	@Parameters({"tenant"})
 	@Test(enabled=true, priority = 1)
-	public void selectOffersForm( @Optional("qa") String tenant ) throws TokenTypeException {
+	public void configureOffers( @Optional("qa") String tenant ) throws TokenTypeException {
 		
 		Assert.assertTrue( OffersForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
-		Assert.assertTrue( OffersForm.create(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
+		Assert.assertTrue( OffersForm.create(seleniumWebDriver, offerCfg, TIMEOUT, ATTEMPT_TIMEOUT) );
+		
+		System.out.println( offerCfg.toString() );
 				
 	}
 	
+	
+	/*
 	@Parameters({"tenant"})
 	@Test(enabled=false, priority = 1)
 	public void selectOfferOptimisation( @Optional("qa") String tenant ) throws TokenTypeException {
@@ -104,6 +110,6 @@ public class ConfigureOffers {
 		//Assert.assertTrue( CampaignCreationForm.create(seleniumWebDriver, new CampaignCfg( "input/campaigns", "campaign_cm_bonus", IOLoadingType.RESOURCE ), TIMEOUT, ATTEMPT_TIMEOUT) );
 			
 	}
-	
+	*/
 	
 }

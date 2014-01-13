@@ -23,6 +23,7 @@ import com.lumata.expression.operators.gui.common.MenuBar;
 import com.lumata.expression.operators.gui.common.SectionImpl;
 import com.lumata.expression.operators.json.campaigns.CampaignCfg;
 import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
+import com.lumata.expression.operators.json.catalogue.OfferCfg;
 
 public class OffersForm extends CatalogueForm {
 
@@ -70,9 +71,20 @@ public class OffersForm extends CatalogueForm {
 		
 	}	
 	
-	public static boolean create( SeleniumWebDriver selenium, long timeout, long interval ) {
+	public static boolean create( SeleniumWebDriver selenium, OfferCfg offerCfg, long timeout, long interval ) {
 	
 		if( !OffersForm.add( selenium, timeout, interval ) ) { return false; }
+		
+		OffersForm.setDefinition( selenium, offerCfg, timeout, interval );
+		
+		// gwt-debug-Anchor-actrule-button-definition
+		// gwt-debug-Anchor-actrule-catalog-offer-prices
+		// gwt-debug-Anchor-actrule-catalog-product-steps-stockValidity
+		// gwt-debug-Anchor-actrule-campaign-creationEdition-steps-activation
+		
+		// gwt-debug-TextBox-VPOfferEdit-offerNameTB
+		
+		
 		
 		/*
 		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-Add Campaign") );
@@ -90,6 +102,22 @@ public class OffersForm extends CatalogueForm {
 		return true; //OffersForm.manageErrorAction( selenium, campaignCfg, timeout, interval );
 				
 	}	
+	
+	public static boolean setDefinition( SeleniumWebDriver selenium, OfferCfg offerCfg, long timeout, long interval ) {
+	
+		WebElement offerDefinition = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-Anchor-actrule-button-definition", timeout, interval);
+		if( offerDefinition == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot define a new Offer" ) ); return false; }	
+		
+		WebElement offerName = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-TextBox-VPOfferEdit-offerNameTB", timeout, interval);
+		if( offerName == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot define a new Offer Name" ) ); return false; }	
+		
+		offerName.sendKeys( offerCfg.getOfferName() );
+		
+		return true;
+		
+	}	
+	
+	
 	
 	/*
 	public static boolean setDefinition( SeleniumWebDriver selenium, CampaignCfg campaignCfg, long timeout, long interval ) {
