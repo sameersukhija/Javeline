@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import static com.lumata.common.testing.orm.Filter.*;
 import static com.lumata.common.testing.orm.Query.*;
+import static com.lumata.common.testing.orm.Val.*;
 import com.lumata.common.testing.moke.Agencies;
 import com.lumata.common.testing.moke.BdrEvents;
 
@@ -13,7 +14,7 @@ public class TestQueriesCreation {
 
 	private static final Logger logger = LoggerFactory.getLogger( TestQueriesCreation.class );
 	
-	@Test( enabled = true, priority = 1 )
+	@Test( enabled = false, priority = 1 )
 	public void selectSimpleQuery() {
 		
 		Agencies agencies = new Agencies();
@@ -104,7 +105,18 @@ public class TestQueriesCreation {
 		System.out.println( complexQuery );
 			
 	}
-			
+		
+	@Test( enabled = true, priority = 1 )
+	public void selectQuerySpecialValues() {
+		
+		Agencies agencies = new Agencies();
+		
+		String query = select().from( agencies ).where( op( Agencies.Fields.name ).is( NULL ) ).build();
+		
+		System.out.println( query );
+		
+	}
+	
 	@Test( enabled = false, priority = 2 )
 	public void insertQuery() {
 

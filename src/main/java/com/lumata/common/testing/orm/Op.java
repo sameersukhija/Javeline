@@ -9,6 +9,8 @@ public class Op implements IOp {
 		let(" <= "),
 		gt(" > "),
 		get(" >= "),
+		is(" IS "),
+		is_not(" IS NOT"),
 		in(" IN ");
 		
 		private String value;
@@ -28,7 +30,7 @@ public class Op implements IOp {
 	Op( final Enum<?> field ) {
 		this.field = field;
 	}
-
+	
 	@Override
 	public ExprFV eq() {
 		
@@ -160,6 +162,60 @@ public class Op implements IOp {
 		
 		ExprFF expr = new ExprFF( field, Op.Types.get, right_field );
 				
+		return expr;
+	
+	}
+	
+	@Override
+	public ExprFV is() {
+		
+		ExprFV expr = new ExprFV( field, Op.Types.is );
+				
+		return expr;
+	
+	}
+
+	@Override
+	public ExprFV is( final Object value ) {
+		
+		ExprFV expr = new ExprFV( field, Op.Types.is, value );
+				
+		return expr;
+	
+	}
+	
+	@Override
+	public ExprFF is( final Enum<?> right_field ) {
+		
+		ExprFF expr = new ExprFF( field, Op.Types.is, right_field );
+		
+		return expr;
+	
+	}
+	
+	@Override
+	public ExprFV is_not() {
+		
+		ExprFV expr = new ExprFV( field, Op.Types.is_not );
+				
+		return expr;
+	
+	}
+
+	@Override
+	public ExprFV is_not( final Object value ) {
+		
+		ExprFV expr = new ExprFV( field, Op.Types.is_not, value );
+				
+		return expr;
+	
+	}
+	
+	@Override
+	public ExprFF is_not( final Enum<?> right_field ) {
+		
+		ExprFF expr = new ExprFF( field, Op.Types.is_not, right_field );
+		
 		return expr;
 	
 	}

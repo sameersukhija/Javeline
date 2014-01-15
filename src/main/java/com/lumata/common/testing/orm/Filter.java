@@ -5,6 +5,8 @@ import com.lumata.common.testing.orm.Statement.MysqlStatement;
 
 public class Filter {
 	
+	//public static Type NULL {};
+	
 	public static IOp op( final Enum<?> field ) {
 		
 		return new Op(field);
