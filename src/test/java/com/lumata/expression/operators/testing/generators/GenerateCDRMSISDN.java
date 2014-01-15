@@ -52,7 +52,7 @@ public class GenerateCDRMSISDN {
 		
 	}
 	
-	@Test( priority = 2, enabled = true )
+	@Test( priority = 2, enabled = false )
 	public void moveCDRMSISDN() throws IOFileException {
 			
 		try {
@@ -66,7 +66,7 @@ public class GenerateCDRMSISDN {
 				String local_path = System.getProperty( "user.dir" ) + "/src/main/resources/input/cdr/";
 				String local_file_name = "import_CDR_MSISDN_EVENTS.csv";
 				
-				String remote_path = "/nfsdata/files/cdr/incoming/REVENUE_CDR/";
+				String remote_path = "/nfsdata/files/cdr/deposit/REVENUE_CDR/";
 	            String remote_file_name = local_file_name;
 	            
 	            sftp.copyFile( local_path, local_file_name, remote_path , remote_file_name, SFTPClient.CopyType.LOCAL_TO_REMOTE );

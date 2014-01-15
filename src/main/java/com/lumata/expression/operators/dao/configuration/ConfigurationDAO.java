@@ -6,6 +6,7 @@ import static com.lumata.common.testing.orm.Query.select;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.database.Mysql;
+import com.lumata.common.testing.orm.Val;
 import com.lumata.expression.operators.entities.Conf;
 import com.lumata.expression.operators.pojo.configuration.Configuration;
 import com.lumata.expression.operators.pojo.configuration.ConfigurationTypes;
@@ -149,21 +151,21 @@ public class ConfigurationDAO {
 		for( int i = 0; i < this.list.size(); i++ ) {
 			
 			Configuration conf = this.list.get( i );
-			
+				
 			String query = select().
 							from( confTable ).
 							where( 
-									op( Conf.Fields.name ).eq( conf.getName() ),
-									and( op( Conf.Fields.position ).eq( conf.getPosition() ) ),
-									and( op( Conf.Fields.section ).eq( conf.getSection() ) ),
-									and( op( Conf.Fields.process_id ).eq( conf.getProcessID() ) ),
-									and( op( Conf.Fields.auth_group ).eq( conf.getAuthGroup() ) ),
-									and( op( Conf.Fields.current ).eq( conf.getCurrent() ) ),
-									and( op( Conf.Fields.previous ).eq( conf.getPrevious() ) ),
-									and( op( Conf.Fields.dyn_static ).eq( conf.getDynStatic() ) ),
-									and( op( Conf.Fields.time ).eq( conf.getTime() ) ),
-									and( op( Conf.Fields.type ).eq( conf.getType() ) ),
-									and( op( Conf.Fields.description ).eq( conf.getDescription() ) )
+									op( Conf.Fields.name ).eq( conf.getName().replaceAll( "\"", "\\\\\"" ) ),
+									and( op( Conf.Fields.position ).eq( conf.getPosition().replaceAll( "([0-9]+)[.].+", "$1" )) ),
+									and( op( Conf.Fields.section ).eq( conf.getSection().replaceAll( "\"", "\\\\\"" ) ) ),
+									and( op( Conf.Fields.process_id ).eq( conf.getProcessID().replaceAll( "\"", "\\\\\"" ) ) ),
+									and( op( Conf.Fields.auth_group ).eq( conf.getAuthGroup().replaceAll( "\"", "\\\\\"" ) ) ),
+									and( op( Conf.Fields.current ).eq( conf.getCurrent().replaceAll( "\"", "\\\\\"" ) ) ),
+									and( op( Conf.Fields.previous ).eq( conf.getPrevious().replaceAll( "\"", "\\\\\"" ) ) ),
+									and( op( Conf.Fields.dyn_static ).eq( conf.getDynStatic().replaceAll( "\"", "\\\\\"" ) ) ),
+									and( op( Conf.Fields.time ).eq( conf.getTime().replaceAll( "\"", "\\\\\"" ) ) ),
+									and( op( Conf.Fields.type ).eq( conf.getType().replaceAll( "\"", "\\\\\"" ) ) ),
+									and( op( Conf.Fields.description ).eq( conf.getDescription().replaceAll( "\"", "\\\\\"" ) ) )
 							).
 							build();
 			System.out.println( query );
