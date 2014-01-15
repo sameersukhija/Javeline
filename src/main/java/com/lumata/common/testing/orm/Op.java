@@ -10,7 +10,7 @@ public class Op implements IOp {
 		gt(" > "),
 		get(" >= "),
 		is(" IS "),
-		is_not(" IS NOT"),
+		is_not(" IS NOT "),
 		in(" IN ");
 		
 		private String value;

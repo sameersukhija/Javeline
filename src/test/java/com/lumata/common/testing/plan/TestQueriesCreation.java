@@ -115,6 +115,10 @@ public class TestQueriesCreation {
 		
 		System.out.println( query );
 		
+		query = select().from( agencies ).where( op( Agencies.Fields.name ).is_not( NULL ) ).build();
+		
+		System.out.println( query );
+		
 	}
 	
 	@Test( enabled = false, priority = 2 )
