@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +29,7 @@ public class CDRMSISDNGenerator {
 		final SimpleDateFormat dt = new SimpleDateFormat( date_format );
 		final Calendar date = Calendar.getInstance();
 		final Calendar original_validity_date = Calendar.getInstance();
-		final Calendar original_deactivation_date = Calendar.getInstance();
+		//final Calendar original_deactivation_date = Calendar.getInstance();
 		
 		final String EXTENSION = ".csv";
 		final String IMPORT_FILE = "import_" + cdrFileName + EXTENSION;

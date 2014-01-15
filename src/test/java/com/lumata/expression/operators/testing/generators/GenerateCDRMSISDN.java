@@ -1,7 +1,5 @@
 package com.lumata.expression.operators.testing.generators;
 
-import java.util.ArrayList;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -11,7 +9,6 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.jcraft.jsch.ChannelSftp.LsEntry;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
@@ -22,8 +19,6 @@ import com.lumata.common.testing.network.SFTPClient;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.ServicesType;
 import com.lumata.expression.operators.generators.CDRMSISDNGenerator;
-import com.lumata.expression.operators.generators.CDRVouchersGenerator;
-import com.lumata.expression.operators.generators.VouchersGenerator;
 
 public class GenerateCDRMSISDN {
 
@@ -52,7 +47,7 @@ public class GenerateCDRMSISDN {
 		
 	}
 	
-	@Test( priority = 2, enabled = false )
+	@Test( priority = 2, enabled = true )
 	public void moveCDRMSISDN() throws IOFileException {
 			
 		try {
