@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
@@ -162,6 +164,22 @@ public final class Format {
 		Date date = formatter.parse( datetime );
 		
 		return date;
+		
+	}
+	
+	public static boolean isNumeric( String value ) {
+		
+		try {  
+			
+			double d = Double.parseDouble( value );  
+		
+		} catch( NumberFormatException nfe ) {  
+			
+			return false;  
+		
+		}  
+		  
+		return true;  
 		
 	}
 	
