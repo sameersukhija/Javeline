@@ -71,7 +71,7 @@ public class XMLRPC_Subscriber {
 		
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams );		
 		resultFault = XMLRPC_Subscriber.getFault( responseParser );
-				
+		System.out.println( "### Case 1: " + resultFault.getCode() + " - " + resultFault.getMessage() );		
 		Assert.assertEquals( resultFault.getCode(), "5" );
 		Assert.assertEquals( resultFault.getMessage(), "missing mandatory param subscription_date" );
 		
@@ -80,7 +80,7 @@ public class XMLRPC_Subscriber {
 		
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams );		
 		resultFault = XMLRPC_Subscriber.getFault( responseParser );
-		
+		System.out.println( "### Case 2: " + resultFault.getCode() + " - " + resultFault.getMessage() );
 		Assert.assertEquals( resultFault.getCode(), "5" );
 		Assert.assertEquals( resultFault.getMessage(), "missing mandatory param rate_plan" );
 				
@@ -89,7 +89,7 @@ public class XMLRPC_Subscriber {
 		
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams );		
 		resultFault = XMLRPC_Subscriber.getFault( responseParser );
-		
+		System.out.println( "### Case 3: " + resultFault.getCode() + " - " + resultFault.getMessage() );
 		Assert.assertEquals( resultFault.getCode(), "5" );
 		Assert.assertEquals( resultFault.getMessage(), "missing mandatory param status" );
 		
@@ -98,7 +98,7 @@ public class XMLRPC_Subscriber {
 		
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams );		
 		resultFault = XMLRPC_Subscriber.getFault( responseParser );
-		
+		System.out.println( "### Case 4: " + resultFault.getCode() + " - " + resultFault.getMessage() );
 		Assert.assertEquals( resultFault.getCode(), "5" );
 		Assert.assertEquals( resultFault.getMessage(), "missing mandatory param in_tag" );
 
@@ -107,7 +107,7 @@ public class XMLRPC_Subscriber {
 		
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams );		
 		resultFault = XMLRPC_Subscriber.getFault( responseParser );
-		
+		System.out.println( "### Case 5: " + resultFault.getCode() + " - " + resultFault.getMessage() );
 		Assert.assertEquals( resultFault.getCode(), "5" );
 		Assert.assertEquals( resultFault.getMessage(), "invalid mandatory param network" );
 	
@@ -116,6 +116,7 @@ public class XMLRPC_Subscriber {
 		
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams );		
 		resultFault = XMLRPC_Subscriber.getFault( responseParser );
+		System.out.println( "### Case 6: " + resultFault.getCode() + " - " + resultFault.getMessage() );
 		
 		// Actual
 		Assert.assertEquals( resultFault.getCode(), "6" );
@@ -128,7 +129,7 @@ public class XMLRPC_Subscriber {
 		// Case 7
 		subscriberParams.put( XMLRPCSubscriber.Params.profile.name(), "prepaid" );
 		subscriberParams.put( XMLRPCSubscriber.Params.subprofile.name(), "" );
-		
+		System.out.println( "### Case 7: " + resultFault.getCode() + " - " + resultFault.getMessage() );
 		subscriberParams.put( XMLRPCSubscriber.Params.subscription_date.name(), "2014-01-45" );
 		
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams );		
@@ -144,7 +145,7 @@ public class XMLRPC_Subscriber {
 		
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams );		
 		resultFault = XMLRPC_Subscriber.getFault( responseParser );
-		
+		System.out.println( "### Case 8: " + resultFault.getCode() + " - " + resultFault.getMessage() );
 		Assert.assertEquals( resultFault.getCode(), "6" );
 		Assert.assertEquals( resultFault.getMessage(), "invalid rate_plan NOT EXISTS" );
 		
@@ -155,7 +156,7 @@ public class XMLRPC_Subscriber {
 		
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams );		
 		resultFault = XMLRPC_Subscriber.getFault( responseParser );
-		System.out.println( resultFault.getCode() + " - " + resultFault.getMessage() );
+		System.out.println( "### Case 9: " + resultFault.getCode() + " - " + resultFault.getMessage() );
 		Assert.assertEquals( resultFault.getCode(), "6" );
 		Assert.assertEquals( resultFault.getMessage(), "invalid status NOT EXISTS" );		
 		

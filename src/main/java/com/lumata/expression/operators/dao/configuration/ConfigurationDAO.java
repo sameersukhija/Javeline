@@ -1,12 +1,12 @@
 package com.lumata.expression.operators.dao.configuration;
 
+import static com.lumata.common.testing.orm.Query.select;
 import static com.lumata.common.testing.orm.Filter.and;
 import static com.lumata.common.testing.orm.Filter.op;
-import static com.lumata.common.testing.orm.Query.select;
+import static com.lumata.common.testing.orm.Val.NULL;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -148,40 +148,51 @@ public class ConfigurationDAO {
 		
 		Conf confTable = new Conf();
 		
+		int fails = 0;
+		
 		for( int i = 0; i < this.list.size(); i++ ) {
 			
 			Configuration conf = this.list.get( i );
+			
+			if( conf.getName().startsWith( "JDBC_url" ) ) { 
 				
+				conf.setCurrent( conf.getCurrent().replaceAll( "//db/operator" , "//" + mysql.getHost() + ":" + mysql.getPort() + "/" + mysql.getName() ) );
+							
+			}
+			
 			String query = select().
 							from( confTable ).
 							where( 
-									op( Conf.Fields.name ).eq( conf.getName().replaceAll( "\"", "\\\\\"" ) ),
-									and( op( Conf.Fields.position ).eq( conf.getPosition().replaceAll( "([0-9]+)[.].+", "$1" )) ),
-									and( op( Conf.Fields.section ).eq( conf.getSection().replaceAll( "\"", "\\\\\"" ) ) ),
-									and( op( Conf.Fields.process_id ).eq( conf.getProcessID().replaceAll( "\"", "\\\\\"" ) ) ),
-									and( op( Conf.Fields.auth_group ).eq( conf.getAuthGroup().replaceAll( "\"", "\\\\\"" ) ) ),
-									and( op( Conf.Fields.current ).eq( conf.getCurrent().replaceAll( "\"", "\\\\\"" ) ) ),
-									and( op( Conf.Fields.previous ).eq( conf.getPrevious().replaceAll( "\"", "\\\\\"" ) ) ),
-									and( op( Conf.Fields.dyn_static ).eq( conf.getDynStatic().replaceAll( "\"", "\\\\\"" ) ) ),
-									and( op( Conf.Fields.time ).eq( conf.getTime().replaceAll( "\"", "\\\\\"" ) ) ),
-									and( op( Conf.Fields.type ).eq( conf.getType().replaceAll( "\"", "\\\\\"" ) ) ),
-									and( op( Conf.Fields.description ).eq( conf.getDescription().replaceAll( "\"", "\\\\\"" ) ) )
+									op( Conf.Fields.name ).eq( conf.getName() ),
+									and( op( Conf.Fields.position ).eq( conf.getPosition()) ),
+									and( op( Conf.Fields.section ).eq( conf.getSection() ) ),
+									and( op( Conf.Fields.process_id ).eq( conf.getProcessID() ) ),
+									and( op( Conf.Fields.auth_group ).eq( conf.getAuthGroup() ) ),
+									and( op( Conf.Fields.current ).eq( conf.getCurrent() ) ),
+									and( ( conf.getPrevious() != null && !conf.getPrevious().equals( "NULL" ) ? op( Conf.Fields.previous ).eq( conf.getPrevious() ) : op( Conf.Fields.previous ).is( NULL ) ) ),
+									and( op( Conf.Fields.dyn_static ).eq( conf.getDynStatic() ) ),
+									and( ( conf.getTime() != null && !conf.getTime().equals( "NULL" ) ? op( Conf.Fields.time ).eq( conf.getTime() ) : op( Conf.Fields.time ).is( NULL ) ) ),
+									and( op( Conf.Fields.type ).eq( conf.getType() ) ),
+									and( op( Conf.Fields.description ).eq( conf.getDescription() ) )
 							).
 							build();
-			System.out.println( query );
+			
 			ResultSet rs = mysql.execQuery( query );
 			
 			try {
 			
 				if( rs.first() ) { conf.setValidation( true ); }
+				else { System.out.println( query ); fails++; }
 			
 			} catch( SQLException e ) {
 				
 				logger.error( e.getMessage(), e );
 			
 			}
-			
-		}		
+						
+		}	
+		
+		System.out.println( "FAILS: " + fails );
 				
 	}
 	

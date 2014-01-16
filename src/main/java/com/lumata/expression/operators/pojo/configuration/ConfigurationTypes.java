@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.ExcelUtils;
 import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.validating.Format;
 
 public enum ConfigurationTypes {
 	
@@ -129,20 +130,23 @@ public enum ConfigurationTypes {
 				
 				List<List<String>> sheet = ExcelUtils.loadSheet( workbook.getSheetAt( 0 ) );
 				
+				String numeric_pattern = "([0-9]+)[.]{0,1}.[0-9]*";
+				
 				for( int i = 1; i < sheet.size(); i++ ) {
 					
 					Configuration cfg = new Configuration();
-					cfg.setSection( sheet.get( i ).get( 1 ) );
-					cfg.setName( sheet.get( i ).get( 2 ) );
-					cfg.setPosition( sheet.get( i ).get( 3 ) );
-					cfg.setProcessID( sheet.get( i ).get( 4 ) );
-					cfg.setAuthGroup( sheet.get( i ).get( 5 ) );
-					cfg.setCurrent( sheet.get( i ).get( 6 ) );
+					cfg.setSection( sheet.get( i ).get( 1 ).replaceAll( "\"", "\\\\\"" ) );
+					cfg.setName( sheet.get( i ).get( 2 ).replaceAll( "\"", "\\\\\"" ) );
+					cfg.setPosition( sheet.get( i ).get( 3 ).replaceAll( numeric_pattern, "$1" ) );
+					cfg.setProcessID( sheet.get( i ).get( 4 ).replaceAll( "\"", "\\\\\"" ) );
+					cfg.setAuthGroup( sheet.get( i ).get( 5 ).replaceAll( "\"", "\\\\\"" ) );
+					String current = sheet.get( i ).get( 6 ).replaceAll( "\"", "\\\\\"" );
+					cfg.setCurrent( ( Format.isNumeric( current ) ? current.replaceAll( numeric_pattern, "$1" ) : current ) );
 					cfg.setPrevious( "NULL" );
 					cfg.setDynStatic( sheet.get( i ).get( 7 ) );
 					cfg.setTime( "NULL" );
-					cfg.setType( sheet.get( i ).get( 8 ) );
-					cfg.setDescription( sheet.get( i ).get( 9 ) );
+					cfg.setType( sheet.get( i ).get( 8 ).replaceAll( "\"", "\\\\\"" ) );
+					cfg.setDescription( sheet.get( i ).get( 9 ).replaceAll( "\"", "\\\\\"" ) );
 										
 					cfgList.add( cfg );	
 										
