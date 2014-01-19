@@ -12,9 +12,9 @@ public class XMLRPCChannel {
 	String address;
 	String active;
 		
-	XMLRPCChannel() {}
+	public XMLRPCChannel() {}
 	
-	XMLRPCChannel( String name, String address, String active ) {
+	public XMLRPCChannel( String name, String address, String active ) {
 		this.setName(name);
 		this.setAddress(address);
 		this.setActive(active);

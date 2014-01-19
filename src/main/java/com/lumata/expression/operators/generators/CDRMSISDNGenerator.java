@@ -3,6 +3,8 @@ package com.lumata.expression.operators.generators;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import org.slf4j.Logger;
@@ -42,6 +44,8 @@ public class CDRMSISDNGenerator {
 		
 		final int MIN_DELAY = 100;
 		final int MAX_DELAY = 1000;
+		
+		final ArrayList<String> TYPES = new ArrayList<String>( Arrays.asList( "reload", "paiement", "invoice" ));
 				
 		Subscribers subscribersTable = new Subscribers();
 		
@@ -65,6 +69,8 @@ public class CDRMSISDNGenerator {
 				final Calendar random_deactivation_date = Calendar.getInstance();
 				random_deactivation_date.set( ( random_validity_date.get( Calendar.YEAR ) + ( 1 + (int)( Math.random() * 3 ) ) ), ( random_validity_date.get( Calendar.MONTH ) + ( 1 + (int)( Math.random() * 12 ) ) ), ( random_validity_date.get( Calendar.DATE ) + ( 1 + (int)( Math.random() * 12 ) ) ) );
 				
+				final String random_type = TYPES.get( ( (int)( Math.random() * ( TYPES.size() - 1 ) ) ) );
+				
 						/* msisdn */
 				output.append( msisdn ).append( "|" )
 						/* date */
@@ -78,7 +84,7 @@ public class CDRMSISDNGenerator {
 						/* deactivation_date */
 						.append( dt.format( random_deactivation_date.getTime() ) ).append( "|" )
 						/* type */
-						.append( "string" ).append( "|" )
+						.append( random_type ).append( "|" )
 						/* delay */
 						.append( random_delay ).append( "\n" );
 				

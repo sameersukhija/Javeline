@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +20,7 @@ import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.validating.Format;
 
 public enum ConfigurationTypes {
-	
+			
 	/* Sprint 2 - US: EFOGC-100 - SubTask: EFOGC-834 */
 	BDR_STORAGE {
 		
@@ -119,37 +121,50 @@ public enum ConfigurationTypes {
 	},
 	
 	ALL_STANDARD_PARAMETERS_FROM_FILE {
-		
+				
 		public ArrayList<Configuration> getCfg( Map<String, Object> options ) {
 				
 			ArrayList<Configuration> cfgList = new ArrayList<Configuration>();
+					
+			final int CATEGORY = 0;
+			final int SECTION = 1;
+			final int NAME = 2;
+			final int POSITION = 3;
+			final int PROCESS_ID = 4;
+			final int AUTH_GROUP = 5;
+			final int CURRENT = 6;
+			final int DYN_STATIC = 7;
+			final int TYPE = 8;
+			final int DESCRIPTION = 9;
+			final int CHAR = 10;
+			final int ON_LINE_HELP = 11;
 			
 			try {
 				
-				Workbook workbook = ExcelUtils.load( "input/configuration", "properties_default_fields.xls" );
+				Workbook workbook = ExcelUtils.load( "input/configuration", "properties_default_fields_1.xls" );
 				
 				List<List<String>> sheet = ExcelUtils.loadSheet( workbook.getSheetAt( 0 ) );
-				
+								
 				String numeric_pattern = "([0-9]+)[.]{0,1}.[0-9]*";
-				
+								
 				for( int i = 1; i < sheet.size(); i++ ) {
-					
+										
 					Configuration cfg = new Configuration();
-					cfg.setSection( sheet.get( i ).get( 1 ).replaceAll( "\"", "\\\\\"" ) );
-					cfg.setName( sheet.get( i ).get( 2 ).replaceAll( "\"", "\\\\\"" ) );
-					cfg.setPosition( sheet.get( i ).get( 3 ).replaceAll( numeric_pattern, "$1" ) );
-					cfg.setProcessID( sheet.get( i ).get( 4 ).replaceAll( "\"", "\\\\\"" ) );
-					cfg.setAuthGroup( sheet.get( i ).get( 5 ).replaceAll( "\"", "\\\\\"" ) );
-					String current = sheet.get( i ).get( 6 ).replaceAll( "\"", "\\\\\"" );
+					cfg.setSection( sheet.get( i ).get( SECTION ).replaceAll( "\"", "\\\\\"" ) );
+					cfg.setName( sheet.get( i ).get( NAME ).replaceAll( "\"", "\\\\\"" ) );
+					cfg.setPosition( sheet.get( i ).get( POSITION ).replaceAll( numeric_pattern, "$1" ) );
+					cfg.setProcessID( sheet.get( i ).get( PROCESS_ID ).replaceAll( "\"", "\\\\\"" ) );
+					cfg.setAuthGroup( sheet.get( i ).get( AUTH_GROUP ).replaceAll( "\"", "\\\\\"" ) );
+					String current = sheet.get( i ).get( CURRENT ).replaceAll( "\"", "\\\\\"" );
 					cfg.setCurrent( ( Format.isNumeric( current ) ? current.replaceAll( numeric_pattern, "$1" ) : current ) );
 					cfg.setPrevious( "NULL" );
-					cfg.setDynStatic( sheet.get( i ).get( 7 ) );
+					cfg.setDynStatic( sheet.get( i ).get( DYN_STATIC ) );
 					cfg.setTime( "NULL" );
-					cfg.setType( sheet.get( i ).get( 8 ).replaceAll( "\"", "\\\\\"" ) );
-					cfg.setDescription( sheet.get( i ).get( 9 ).replaceAll( "\"", "\\\\\"" ) );
+					cfg.setType( sheet.get( i ).get( TYPE ).replaceAll( "\"", "\\\\\"" ) );
+					cfg.setDescription( sheet.get( i ).get( DESCRIPTION ).replaceAll( "\"", "\\\\\"" ) );
 										
 					cfgList.add( cfg );	
-										
+															
 				}
 			
 			} catch( IOFileException | IOException e ) {

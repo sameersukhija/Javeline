@@ -31,8 +31,8 @@ public class XMLRPCSubscriber {
 	String network;
 	String last_param_name;
 	Map<String, String> params;
-	ArrayList<XMLRPCChannel> channels;
-	ArrayList<XMLRPCRelation> relations;
+	Map<String, XMLRPCChannel> channels;
+	Map<String, XMLRPCRelation> relations;
 	
 	XMLRPCSubscriber() {
 		params = new HashMap<String, String>();
@@ -89,6 +89,18 @@ public class XMLRPCSubscriber {
 	public String getParam( String param_name ) {
 		
 		return this.params.get( param_name );
+		
+	}
+	
+	public Map<String, XMLRPCChannel> getChannels() {
+		
+		return this.channels;
+		
+	}
+
+	public XMLRPCChannel getChannel( String channel_name ) {
+		
+		return this.channels.get( channel_name );
 		
 	}
 	

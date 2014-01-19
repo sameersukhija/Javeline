@@ -10,9 +10,9 @@ public class XMLRPCRelation {
 	String type;
 	String sponsor;
 			
-	XMLRPCRelation() {}
+	public XMLRPCRelation() {}
 	
-	XMLRPCRelation( String type, String sponsor ) {
+	public XMLRPCRelation( String type, String sponsor ) {
 		this.setType(type);
 		this.setSponsor(sponsor);
 	}

@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.network.RestClient;
 
-
 public class HTTPXMLRPCForm {
 
 	private static final Logger logger = LoggerFactory.getLogger( HTTPXMLRPCForm.class );
@@ -233,6 +232,7 @@ public class HTTPXMLRPCForm {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static String getSubscriber( Map<String, Object> params ) {
 		
 		StringBuilder subscriberBody = new StringBuilder();
@@ -254,10 +254,79 @@ public class HTTPXMLRPCForm {
 		if( params.containsKey( XMLRPCSubscriber.Params.in_tag.name() ) ) { subscriberBody.append( "<in_tag>" ).append( params.get( XMLRPCSubscriber.Params.in_tag.name() ) ).append( "</in_tag>" ); }
 		
 		if( params.containsKey( XMLRPCSubscriber.Params.network.name() ) ) { subscriberBody.append( "<network>" ).append( params.get( XMLRPCSubscriber.Params.network.name() ) ).append( "</network>" ); }
+		
+		if( params.containsKey( XMLRPCSubscriber.Params.channels.name() ) ) { subscriberBody.append( HTTPXMLRPCForm.getChannels( ( Map<String, XMLRPCChannel> )params.get( XMLRPCSubscriber.Params.channels.name() ) ) ); }
+		
+		if( params.containsKey( XMLRPCSubscriber.Params.relations.name() ) ) { subscriberBody.append( HTTPXMLRPCForm.getRelations( ( Map<String, XMLRPCRelation> )params.get( XMLRPCSubscriber.Params.relations.name() ) ) ); }
 				
 		subscriberBody.append( "</subscriber></value></param>" );		
 		
 		return subscriberBody.toString();		
+		
+	}
+	
+	public static String getChannels( Map<String, XMLRPCChannel> channels ) {
+		
+		StringBuilder channelBody = new StringBuilder();
+		StringBuilder paramsBody = new StringBuilder();
+		
+		for( Map.Entry<String, XMLRPCChannel> channel : channels.entrySet()) {
+			
+			paramsBody.append( HTTPXMLRPCForm.getChannel( channel.getValue() ) );
+			
+		}
+		
+		channelBody.append( "<channels>" )
+	      			.append( paramsBody )
+	    			.append( "</channels>" );
+		
+		return channelBody.toString();
+		
+	}
+	
+	public static String getChannel( XMLRPCChannel channel ) {
+		
+		StringBuilder channelBody = new StringBuilder();
+		
+		channelBody.append( "<channel>" )
+	      			.append( "<name>" ).append( channel.getName() ).append( "</name>" )
+	      			.append( "<address>" ).append( channel.getAddress() ).append( "</address>" )
+	      			.append( "<active>" ).append( channel.getActive() ).append( "</active>" )
+	    			.append( "</channel>" );
+		
+		return channelBody.toString();
+		
+	}
+	
+	public static String getRelations( Map<String, XMLRPCRelation> relations ) {
+		
+		StringBuilder relationBody = new StringBuilder();
+		StringBuilder paramsBody = new StringBuilder();
+		
+		for( Map.Entry<String, XMLRPCRelation> relation : relations.entrySet()) {
+			
+			paramsBody.append( HTTPXMLRPCForm.getRelation( relation.getValue() ) );
+			
+		}
+		
+		relationBody.append( "<relations>" )
+	      			.append( paramsBody )
+	    			.append( "</relations>" );
+		
+		return relationBody.toString();
+		
+	}
+	
+	public static String getRelation( XMLRPCRelation relation ) {
+		
+		StringBuilder relationBody = new StringBuilder();
+		
+		relationBody.append( "<relation>" )
+	      			.append( "<type>" ).append( relation.getType() ).append( "</type>" )
+	      			.append( "<sponsor>" ).append( relation.getSponsor() ).append( "</sponsor>" )
+	      			.append( "</relation>" );
+		
+		return relationBody.toString();
 		
 	}
 	
