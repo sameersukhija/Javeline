@@ -259,6 +259,13 @@ public class TestFormat {
 		String format = "com.lumata.common.testing.selenium.SeleniumWebDriver$BrowserType";
 		Assert.assertEquals( Format.isEnum( value, format, false ), false );
 	}
+	
+	public void isNumeric_1() {		
+		String value = null;
+		String format = "com.lumata.common.testing.selenium.SeleniumWebDriver$BrowserType";
+		Assert.assertEquals( Format.isEnum( value, format, false ), false );
+	}
+	
 	/*
 	@Test()
 	public void isMapKey_1() {		

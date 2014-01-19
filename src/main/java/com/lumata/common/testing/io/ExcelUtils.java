@@ -42,26 +42,36 @@ public class ExcelUtils {
 		
 		List<List<String>> sheetAsList = new ArrayList<List<String>>();
 		
-		for( int i=sheet.getFirstRowNum(); i < sheet.getLastRowNum(); i++ ) {
-		
-			Row row = sheet.getRow(i);
-		
-			if( row == null ) continue;
-			
-			List<String> sheetRow = new ArrayList<String>();
-			
-			for( int j = row.getFirstCellNum(); j < row.getLastCellNum(); j++ )	{
-		
-				if( row.getCell( j ) == null ) continue;
-		
-				String cell = row.getCell(j).toString();
-
-				sheetRow.add( cell );
-											
-			}
-			
-			sheetAsList.add( sheetRow );
+		if( sheet != null ) {
 				
+			Row first_row = sheet.getRow( 0 );
+			
+			final int first_column = first_row.getFirstCellNum();
+			final int last_column = first_row.getLastCellNum();
+			
+			for( int i = sheet.getFirstRowNum(); i < sheet.getLastRowNum(); i++ ) {
+			
+				Row row = sheet.getRow( i );
+			
+				if( row == null ) continue;
+				
+				List<String> sheetRow = new ArrayList<String>();
+				
+				String cell;
+				
+				for( int j = first_column; j <= last_column; j++ )	{
+							
+					if( row.getCell( j ) == null ) { cell = "NULL";  }
+					else { cell = row.getCell(j).toString(); }
+				
+					sheetRow.add( cell );
+												
+				}
+				
+				sheetAsList.add( sheetRow );
+					
+			}
+		
 		}
 		
 		return sheetAsList;
