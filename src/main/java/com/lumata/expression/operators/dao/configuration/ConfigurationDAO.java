@@ -169,11 +169,12 @@ public class ConfigurationDAO {
 									and( op( Conf.Fields.process_id ).eq( conf.getProcessID() ) ),
 									and( op( Conf.Fields.auth_group ).eq( conf.getAuthGroup() ) ),
 									and( op( Conf.Fields.current ).eq( conf.getCurrent() ) ),
-									and( ( conf.getPrevious() != null && !conf.getPrevious().equals( "NULL" ) ? op( Conf.Fields.previous ).eq( conf.getPrevious() ) : op( Conf.Fields.previous ).is( NULL ) ) ),
+									//and( ( conf.getCurrent() != null && !conf.getCurrent().equals( "NULL" ) ? op( Conf.Fields.current ).eq( conf.getCurrent() ) : and( op( Conf.Fields.current ).eq( conf.getCurrent() ), op( Conf.Fields.current ).is( NULL ) ) ) ),
+									//and( ( conf.getPrevious() != null && !conf.getPrevious().equals( "NULL" ) ? op( Conf.Fields.previous ).eq( conf.getPrevious() ) : op( Conf.Fields.previous ).is( NULL ) ) ),
 									and( op( Conf.Fields.dyn_static ).eq( conf.getDynStatic() ) ),
-									and( ( conf.getTime() != null && !conf.getTime().equals( "NULL" ) ? op( Conf.Fields.time ).eq( conf.getTime() ) : op( Conf.Fields.time ).is( NULL ) ) ),
+									//and( ( conf.getTime() != null && !conf.getTime().equals( "NULL" ) ? op( Conf.Fields.time ).eq( conf.getTime() ) : op( Conf.Fields.time ).is( NULL ) ) ),
 									and( op( Conf.Fields.type ).eq( conf.getType() ) ),
-									and( op( Conf.Fields.description ).eq( conf.getDescription() ) )
+									and( op( Conf.Fields.description ).eq( conf.getDescription().replaceAll( "(\\\\r\\\\n|\\\\n)" , ". " ) ) )
 							).
 							build();
 			

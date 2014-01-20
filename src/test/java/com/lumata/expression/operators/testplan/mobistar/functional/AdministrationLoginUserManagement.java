@@ -32,6 +32,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Security;
 import com.lumata.expression.operators.entities.Groups;
+import com.lumata.expression.operators.exceptions.XMLRPCParserException;
 import com.lumata.expression.operators.gui.administration.LoginManagementForm;
 import com.lumata.expression.operators.gui.xmlrpc.HTTPXMLRPCForm;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultFault;
@@ -60,7 +61,7 @@ public class AdministrationLoginUserManagement {
 	}
 	
 	@Test
-	public void createUser() throws IOFileException, InterruptedException {
+	public void createUser() throws IOFileException, InterruptedException, XMLRPCParserException  {
 		
 		String user_prefix = "lumata_user";
 		String password = "password";

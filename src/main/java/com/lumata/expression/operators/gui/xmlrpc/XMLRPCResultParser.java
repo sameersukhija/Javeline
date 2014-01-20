@@ -19,6 +19,8 @@ import org.apache.commons.lang.WordUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lumata.expression.operators.exceptions.XMLRPCParserException;
+
 public class XMLRPCResultParser {
 
 	private static final Logger logger = LoggerFactory.getLogger( XMLRPCResultParser.class );
@@ -111,7 +113,7 @@ public class XMLRPCResultParser {
     	
 	}
 	
-	public Map<ResultType, Object> parse() {
+	public Map<ResultType, Object> parse() throws XMLRPCParserException {
 		
 		Map<ResultType, Object> result = new HashMap<ResultType, Object>();	
 		
@@ -232,6 +234,8 @@ public class XMLRPCResultParser {
 			} catch ( XMLStreamException e ) {
 	    		
 	    		logger.error( e.getMessage(), e );
+	    		
+	    		throw new XMLRPCParserException( e.getMessage(), e ); 
 	    		
 	    	} 
 			
