@@ -1,18 +1,21 @@
 package com.lumata.expression.operators.generators;
 
-import java.util.ArrayList;
+import org.testng.annotations.Test;
 
 public class CDRGenerator {
 
-	private ArrayList<FieldType> fields;
-	private ArrayList<String> datetime_format;
-	private ArrayList<String> code_prefix;
-	
-	
-	public enum FieldType {
-		MSISDN, CODE, DATETIME, LOCATION;
+	@Test
+	public void test() {
+		
+		CDR cdr = new CDR();
+		
+		cdr.setMsisdn( "312345901" );
+		//cdr.setDate( "2014-01-30" );
+		
+		cdr.add( CDR.Types.CALL );
+		
+		cdr.print();
+		
 	}
-	
-	
 	
 }
