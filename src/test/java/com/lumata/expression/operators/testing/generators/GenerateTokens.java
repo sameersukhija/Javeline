@@ -37,11 +37,11 @@ public class GenerateTokens {
 	@Test
 	public void generateTokens() {
 				
-		int tokens_to_generate = 66;
+		int tokens_to_generate = 1;
 		
 		ArrayList<String> params = new ArrayList<String>();
 		params.add( HTTPXMLRPCForm.getAuthenticationParam( env.getUserName( "superman" ), env.getPassword( "superman" )) );
-		params.add( HTTPXMLRPCForm.getCustoEventParam( "331234561", HTTPXMLRPCForm.EventTypes.revenue, new LinkedHashMap<HTTPXMLRPCForm.EventParameterTypes, String>() { { put( HTTPXMLRPCForm.EventParameterTypes.recharge, "1" ); put( HTTPXMLRPCForm.EventParameterTypes.event_storage_policy, "store" ); } } ) );
+		params.add( HTTPXMLRPCForm.getCustoEventParam( "331234501", HTTPXMLRPCForm.EventTypes.revenue, new LinkedHashMap<HTTPXMLRPCForm.EventParameterTypes, String>() { { put( HTTPXMLRPCForm.EventParameterTypes.recharge, "1" ); put( HTTPXMLRPCForm.EventParameterTypes.event_storage_policy, "store" ); } } ) );
 		//params.add( HTTPXMLRPCForm.getCustoEventParam( "393409429107", HTTPXMLRPCForm.EventTypes.revenue, new LinkedHashMap<HTTPXMLRPCForm.EventParameterTypes, String>() { { put( HTTPXMLRPCForm.EventParameterTypes.recharge, "1" ); put( HTTPXMLRPCForm.EventParameterTypes.event_storage_policy, "store" ); } } ) );
 		
 		long startTime = System.currentTimeMillis();

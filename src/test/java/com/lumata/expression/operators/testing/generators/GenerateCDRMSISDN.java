@@ -1,5 +1,7 @@
 package com.lumata.expression.operators.testing.generators;
 
+import java.util.Calendar;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -25,7 +27,25 @@ public class GenerateCDRMSISDN {
 	private static final Logger logger = LoggerFactory.getLogger( GenerateCDRMSISDN.class );
 	
 	Environment env;
-	Mysql mysql;
+	Mysql mysql;	
+	
+	final String DATE_FORMAT = "yyyy-MM-dd";
+	final Calendar DATE = Calendar.getInstance();
+	Calendar MAX_VALIDITY_DATE = Calendar.getInstance();
+	Calendar MAX_DEACTIVATION_DATE = Calendar.getInstance();
+		
+	final String EXTENSION = ".csv";
+	final String CDR_FILE = "REVENUE_CDR" + EXTENSION;
+	final String CDR_FOLDER = "input/cdr";
+	
+	final int MIN_AMOUNT = 10;
+	final int MAX_AMOUNT = 100;
+			
+	final int MIN_BALANCE = 1;
+	final int MAX_BALANCE = 1000;
+	
+	final int MIN_DELAY = 100;
+	final int MAX_DELAY = 1000;
 	
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment", "tenant" })
@@ -39,7 +59,7 @@ public class GenerateCDRMSISDN {
 		mysql = new Mysql( env.getDataSource( tenant ) );
 				
 	}
-	
+
 	@Test( priority = 1, enabled = true )
 	public void generateCDRMSISDN() throws IOFileException {
 		

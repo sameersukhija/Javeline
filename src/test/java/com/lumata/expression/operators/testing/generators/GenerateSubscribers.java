@@ -41,13 +41,13 @@ public class GenerateSubscribers {
 	public void generateSubscribers() {
 		
 		// Number of subscribers to generate
-		final int SUBSCRIBERS_TO_GENERATE = 2;
+		final int SUBSCRIBERS_TO_GENERATE = 20;
 		
 		// Max MSISDN length
 		int MSISDN_MAX_LENGTH = 10;
 		
 		// MSISDN PREFIX
-		final String SUBSCRIBER_PREFIX = "33123";
+		final String SUBSCRIBER_PREFIX = "33123459";
 		
 		logger.info( Log.PUTTING.createMessage( "generateSubscribers" , "Insert Subscribers" ) );
 			
