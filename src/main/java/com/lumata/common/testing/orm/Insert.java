@@ -3,11 +3,9 @@ package com.lumata.common.testing.orm;
 public class Insert implements IInsert {
 
 	Statement statement;
-	boolean all_fields;
 	
-	Insert( Statement statement, boolean all_fields ) {
+	Insert( Statement statement ) {
 		this.statement = statement;
-		this.all_fields = all_fields;
 	}
 	
 	@Override
@@ -20,9 +18,12 @@ public class Insert implements IInsert {
 	}
 	
 	@Override
-	public IValues values( final Object... values) {
-		
-		this.statement.append( Statement.MysqlStatement.VALUES.getName() );
+	public IValues values( final Object... values ) {
+				
+		this.statement.append( Statement.MysqlStatement.VALUES.getName() )
+						.append( "( " )
+						.append( Statement.expr( this.statement.fields, values ) )
+						.append( " )" );
 		
 		return new Values(statement);
 		

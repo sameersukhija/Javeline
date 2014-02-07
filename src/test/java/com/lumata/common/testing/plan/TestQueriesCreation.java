@@ -106,7 +106,7 @@ public class TestQueriesCreation {
 			
 	}
 		
-	@Test( enabled = true, priority = 1 )
+	@Test( enabled = false, priority = 2 )
 	public void selectQuerySpecialValues() {
 		
 		Agencies agencies = new Agencies();
@@ -121,16 +121,20 @@ public class TestQueriesCreation {
 		
 	}
 	
-	@Test( enabled = false, priority = 2 )
+	@Test( enabled = true, priority = 3 )
 	public void insertQuery() {
 
-		/*
+		
 		Agencies agencies = new Agencies();
 				
-		String querySimpleInsert = insert( agencies, Agencies.Fields.name ).values().build();
+		//String querySimpleInsert = insert( agencies, Agencies.Fields.name ).values( 1, 2, 3 ).build();
+		
+		//System.out.println( querySimpleInsert );
+		
+		String querySimpleInsert = insert( agencies ).values( 1, 2, 3 ).build();
 		
 		System.out.println( querySimpleInsert );
-		*/
+		
 		
 		/*
 		Agencies agencies = new Agencies();

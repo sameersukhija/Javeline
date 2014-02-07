@@ -19,6 +19,7 @@ public class Statement {
 	private StringBuilder content;
 	
 	public Map<String, Object> entities;
+	public Enum[] fields;
 	public Map<Enum<?>, String> place_holders;
 	
 	public enum MysqlStatement { 
@@ -216,7 +217,7 @@ public class Statement {
 						    					
 			}
 			
-		}
+		} else { return ""; }
 		
 		return content.substring( 0, content.length() - 2 );
 		
@@ -272,6 +273,62 @@ public class Statement {
 				
 	}
 	
+	public static String expr( final Enum<?>[] fields, final Object... values ) {
+		
+		StringBuilder content = new StringBuilder();
+		
+		for( int i = 0; i < fields.length; i++ ) {
+			
+			System.out.println( fields[ i ].name() );
+			
+		}
+		
+		if( values != null ) {
+			
+			for( int i = 0; i < values.length; i++ ) {
+				
+				content.append( values[i] ).append( ", " );
+			
+			}
+			
+			content.setLength( content.length() - 2 );
+		
+		}
+		
+		/*
+		StringBuilder table_field = new StringBuilder();
+		
+		IEnumFields field = new EnumFields<Enum<?>>( expr.getField() );
+		
+		table_field.append( field.col().table() )
+					.append( "." )
+					.append( field.col().field() );
+					
+		if( expr.getUsePlaceHolder() ) { 
+			
+			StringBuilder place_holder = new StringBuilder();
+			
+			place_holder.append( "::" ).append( table_field ).append( "::" );
+						
+			expr.setValue( place_holder.toString() );
+			
+		}
+		
+		content.append( table_field )
+				.append( expr.getOp().value() );
+		
+		if( expr.getOp().equals( Op.Types.in ) ) { 
+			
+			content.append( "( " )
+					.append( Statement.field( field.col(), expr.getValues() ) )
+					.append( " )" );					
+			
+		} else { content.append( Statement.field( field.col(), expr.getValue() ) ); }
+		*/
+		return content.toString();
+		
+	}
+		
 	public static String expr( IExprFV expr ) {
 		
 		StringBuilder content = new StringBuilder();
@@ -329,6 +386,10 @@ public class Statement {
 		
 	public void addEntity( Object entity, String table ) {
 		this.entities.put( table, entity );
+	}
+	
+	public void addFields( Enum<?>... fields ) {
+		this.fields = fields;
 	}
 	
 	public void addPlaceHolder( Enum<?> field, String place_holder ) {

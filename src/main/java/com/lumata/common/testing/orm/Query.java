@@ -1,5 +1,7 @@
 package com.lumata.common.testing.orm;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import com.lumata.common.testing.annotations.mysql.Table;
@@ -29,17 +31,28 @@ public class Query {
 	}
 	
 	public static IInsert insert( final Object entity ) {
+				
+		Enum<?>[] fields = null;
 		
-		Statement statement = new Statement();
+		try {
+			
+			Method method = entity.getClass().getDeclaredMethod( "getEntityFields" );
+			
+			fields = (Enum<?>[])method.invoke( entity );
 		
-		Table table = (Table)entity.getClass().getAnnotation( Table.class );
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
 		
-		statement.addEntity( entity, table.value() );
-		
-		statement.append( Statement.MysqlStatement.INSERT_INTO.getName() )
-					.append( table.value() );
-		
-		return new Insert(statement, true);
+		return Query.insert( entity, fields );
 		
 	}
 	
@@ -47,12 +60,17 @@ public class Query {
 		
 		Statement statement = new Statement();
 		
+		statement.addFields( fields );
+		
+		Table table = (Table)entity.getClass().getAnnotation( Table.class );
+		
 		statement.append( Statement.MysqlStatement.INSERT_INTO.getName() )
-					.append( "( " )			
+					.append( table.value() )
+					.append( " ( " )			
 					.append( statement.fields( fields ) )
 					.append( " )" );
 							
-		return new Insert(statement, false);
+		return new Insert(statement);
 		
 	}
 	
