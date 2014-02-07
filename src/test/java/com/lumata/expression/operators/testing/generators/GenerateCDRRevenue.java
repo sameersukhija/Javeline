@@ -80,6 +80,8 @@ public class GenerateCDRRevenue {
 		cdr.setMaxBalance( MAX_BALANCE );
 		cdr.setMinDelay( MIN_DELAY );
 		cdr.setMaxDelay( MAX_DELAY );
+		
+		// Set property to store and upload file
 		cdr.setPath( CDR_FOLDER );
 		cdr.setFileName( CDR_FILE );
 		

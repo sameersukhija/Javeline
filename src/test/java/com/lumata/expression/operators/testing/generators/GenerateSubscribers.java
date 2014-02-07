@@ -41,13 +41,13 @@ public class GenerateSubscribers {
 	public void generateSubscribers() {
 		
 		// Number of subscribers to generate
-		final int SUBSCRIBERS_TO_GENERATE = 20;
+		final int SUBSCRIBERS_TO_GENERATE = 100000;
 		
 		// Max MSISDN length
 		int MSISDN_MAX_LENGTH = 10;
 		
 		// MSISDN PREFIX
-		final String SUBSCRIBER_PREFIX = "33123459";
+		final String SUBSCRIBER_PREFIX = "33999";
 		
 		logger.info( Log.PUTTING.createMessage( "generateSubscribers" , "Insert Subscribers" ) );
 			
@@ -59,19 +59,23 @@ public class GenerateSubscribers {
 		if( MSISDN_MAX_LENGTH < MSISDN_LENGTH ) { MSISDN_MAX_LENGTH = MSISDN_LENGTH; }
 		
 		StringBuilder query = new StringBuilder();
-				
+		
 		for( int i = 1; i <= SUBSCRIBERS_TO_GENERATE; i++ ) {
 		
 			SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	        String subscription_date = DATE_FORMAT.format( new Date() );
 			
-			String msisdn = SUBSCRIBER_PREFIX + String.format( "%0" + ( MSISDN_MAX_LENGTH - SUBSCRIBERS_PREFIX_DIGITS - (int)( Math.log10( i ) ) ) + "d" , i );
+	        String format = "%0" + ( MSISDN_MAX_LENGTH - SUBSCRIBERS_PREFIX_DIGITS ) + "d";
+			
+	        String msisdn = SUBSCRIBER_PREFIX + String.format( format, i );
 			
 			query = GenerateSubscribers.getInsertSubscriberQuery( msisdn, subscription_date);
 			mysql.execUpdate( query.toString() );
+			//System.out.println( query );
 			
 			query = GenerateSubscribers.getInsertSubsNotifQuery( msisdn, 1 );
 			mysql.execUpdate( query.toString() );
+			//System.out.println( query );
 			
 		}
 				
