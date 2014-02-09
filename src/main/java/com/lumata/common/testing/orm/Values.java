@@ -5,7 +5,7 @@ public class Values implements IValues {
 	Statement statement;
 	
 	Values( Statement statement ) {
-		this.statement = statement;
+		this.statement = statement;		
 	}
 	
 	@Override

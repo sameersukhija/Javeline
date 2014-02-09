@@ -165,5 +165,11 @@ public class Agencies {
 		return str.toString();
 
 	}
+	
+	public Enum[] getEntityFields() {
+		
+		return Agencies.Fields.values();
+		
+	}
 
  }

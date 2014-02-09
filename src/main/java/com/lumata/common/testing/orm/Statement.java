@@ -151,7 +151,7 @@ public class Statement {
 				IEnumFields field = new EnumFields<Enum<?>>( place_holder.getKey() );
 			
 				Object entity = this.entities.get( field.table() );
-			
+				
 				Method method = entity.getClass().getDeclaredMethod( field.col().getMethod() );
 			
 				Object value = method.invoke( entity );
@@ -164,7 +164,7 @@ public class Statement {
 				logger.error( e.getMessage(), e );
 			} catch (InvocationTargetException e) {
 				logger.error( e.getMessage(), e );
-			} 
+			}
 			
 		}
 		
@@ -273,62 +273,66 @@ public class Statement {
 				
 	}
 	
-	public static String expr( final Enum<?>[] fields, final Object... values ) {
+	public String expr( final boolean use_place_holders, final Object... values ) {
 		
 		StringBuilder content = new StringBuilder();
-		
-		for( int i = 0; i < fields.length; i++ ) {
-			
-			System.out.println( fields[ i ].name() );
-			
-		}
-		
+						
 		if( values != null ) {
 			
-			for( int i = 0; i < values.length; i++ ) {
+			for( int i = 0; i < this.fields.length; i++ ) {
 				
-				content.append( values[i] ).append( ", " );
-			
+				IEnumFields field = new EnumFields<Enum<?>>( this.fields[ i ] );
+				
+				if( use_place_holders ) {
+					
+					StringBuilder table_field = new StringBuilder();
+					
+					table_field.append( field.col().table() )
+								.append( "." )
+								.append( field.col().field() );
+					
+					String place_holder = "::" + table_field + "::";
+					
+					this.addPlaceHolder( fields[ i ], place_holder );
+				
+					content.append( place_holder ).append( ", " );
+				
+				} else {
+					content.append( Statement.field( field.col(), ( values.length <= i ) ? null : values[i] ) ).append( ", " );
+				}
+				
 			}
 			
 			content.setLength( content.length() - 2 );
 		
 		}
-		
-		/*
-		StringBuilder table_field = new StringBuilder();
-		
-		IEnumFields field = new EnumFields<Enum<?>>( expr.getField() );
-		
-		table_field.append( field.col().table() )
-					.append( "." )
-					.append( field.col().field() );
-					
-		if( expr.getUsePlaceHolder() ) { 
-			
-			StringBuilder place_holder = new StringBuilder();
-			
-			place_holder.append( "::" ).append( table_field ).append( "::" );
-						
-			expr.setValue( place_holder.toString() );
-			
-		}
-		
-		content.append( table_field )
-				.append( expr.getOp().value() );
-		
-		if( expr.getOp().equals( Op.Types.in ) ) { 
-			
-			content.append( "( " )
-					.append( Statement.field( field.col(), expr.getValues() ) )
-					.append( " )" );					
-			
-		} else { content.append( Statement.field( field.col(), expr.getValue() ) ); }
-		*/
-		return content.toString();
+	
+		return content.toString();		 
 		
 	}
+
+	public String expr( final Row... rows ) {
 		
+		StringBuilder content = new StringBuilder();
+						
+		if( rows != null ) {			
+			
+			for( int i = 0; i < rows.length; i++ ) {
+				
+				content.append( "( " )
+						.append( this.expr( false, rows[i].getValues() ) )
+						.append( " ), " );
+				
+			}
+			
+			content.setLength( content.length() - 2 );
+		
+		}
+	
+		return content.toString();		 
+		
+	}
+	
 	public static String expr( IExprFV expr ) {
 		
 		StringBuilder content = new StringBuilder();

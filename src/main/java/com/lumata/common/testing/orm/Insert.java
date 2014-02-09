@@ -1,5 +1,7 @@
 package com.lumata.common.testing.orm;
 
+import java.util.Arrays;
+
 public class Insert implements IInsert {
 
 	Statement statement;
@@ -11,7 +13,10 @@ public class Insert implements IInsert {
 	@Override
 	public IValues values() {
 		
-		this.statement.append( Statement.MysqlStatement.VALUES.getName() );
+		this.statement.append( Statement.MysqlStatement.VALUES.getName() )
+						.append( "( " )
+						.append( this.statement.expr( true, (Object)null ) )
+						.append( " )" );
 		
 		return new Values(statement);
 		
@@ -19,11 +24,22 @@ public class Insert implements IInsert {
 	
 	@Override
 	public IValues values( final Object... values ) {
-				
-		this.statement.append( Statement.MysqlStatement.VALUES.getName() )
-						.append( "( " )
-						.append( Statement.expr( this.statement.fields, values ) )
-						.append( " )" );
+		
+		this.statement.append( Statement.MysqlStatement.VALUES.getName() );		
+		
+		try {
+			
+			Row rows = (Row)values[0];
+			
+			this.statement.append( this.statement.expr( Arrays.copyOf( values, values.length, Row[].class) ) );
+			
+		} catch ( ClassCastException e ) {
+			
+			this.statement.append( "( " )
+							.append( this.statement.expr( false, values ) )
+							.append( " )" );
+			
+		}
 		
 		return new Values(statement);
 		

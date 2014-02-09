@@ -60,9 +60,11 @@ public class Query {
 		
 		Statement statement = new Statement();
 		
-		statement.addFields( fields );
-		
 		Table table = (Table)entity.getClass().getAnnotation( Table.class );
+		
+		statement.addEntity( entity, table.value() );
+		
+		statement.addFields( fields );
 		
 		statement.append( Statement.MysqlStatement.INSERT_INTO.getName() )
 					.append( table.value() )

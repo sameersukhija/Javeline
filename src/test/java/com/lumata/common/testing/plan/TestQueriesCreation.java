@@ -126,14 +126,23 @@ public class TestQueriesCreation {
 
 		
 		Agencies agencies = new Agencies();
-				
-		//String querySimpleInsert = insert( agencies, Agencies.Fields.name ).values( 1, 2, 3 ).build();
-		
-		//System.out.println( querySimpleInsert );
+		agencies.setId( (short)5 ); 
 		
 		String querySimpleInsert = insert( agencies ).values( 1, 2, 3 ).build();
 		
 		System.out.println( querySimpleInsert );
+		
+		querySimpleInsert = insert( agencies ).values().build();
+		
+		System.out.println( querySimpleInsert );
+		
+		querySimpleInsert = insert( agencies, Agencies.Fields.name, Agencies.Fields.id ).values().build();
+		
+		System.out.println( querySimpleInsert );
+		
+		String queryComplexInsert = insert( agencies, Agencies.Fields.name, Agencies.Fields.id ).values( row(1,1), row(4,5) ).build();
+		
+		System.out.println( queryComplexInsert );
 		
 		
 		/*
