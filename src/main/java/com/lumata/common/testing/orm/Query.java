@@ -2,7 +2,6 @@ package com.lumata.common.testing.orm;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
 
 import com.lumata.common.testing.annotations.mysql.Table;
 
@@ -75,17 +74,17 @@ public class Query {
 		return new Insert(statement);
 		
 	}
-	
-	public static IUpdate update() {
 		
-		return update( null );
-		
-	}
-
-	public static IUpdate update( final List<String> fields ) {
+	public static IUpdate update( final Object entity ) {
 		
 		Statement statement = new Statement();
-		//statement.setFields(fields);
+		
+		Table table = (Table)entity.getClass().getAnnotation( Table.class );
+		
+		statement.addEntity( entity, table.value() );
+		
+		statement.append( Statement.MysqlStatement.UPDATE.getName() )
+					.append( table.value() );
 		
 		return new Update(statement);
 		
@@ -94,6 +93,8 @@ public class Query {
 	public static IDelete delete() {
 		
 		Statement statement = new Statement();
+		
+		statement.append( Statement.MysqlStatement.DELETE.getName().toString().trim() );
 		
 		return new Delete(statement);
 		

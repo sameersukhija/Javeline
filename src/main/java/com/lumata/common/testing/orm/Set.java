@@ -1,6 +1,6 @@
 package com.lumata.common.testing.orm;
 
-import java.util.List;
+import com.lumata.common.testing.orm.Statement.MysqlStatement;
 
 public class Set implements ISet {
 
@@ -11,9 +11,29 @@ public class Set implements ISet {
 	}
 	
 	@Override
-	public IWhere where( List<String> filter ) {
+	public IWhere where( final IExprFV expr ) {
 		
-		//this.statement.setSearch( filter );
+		this.statement.append( MysqlStatement.WHERE.getName() )
+						.append( Statement.expr( expr ) );
+		
+		if( expr.getUsePlaceHolder() ) { this.statement.addPlaceHolder( expr.getField(), (String)expr.getValue() ); }
+		
+		return new Where(statement);
+		
+	}
+
+	@Override
+	public IWhere where( final IExprFV expr, final ICondFV... cond ) {
+		
+		this.where( expr );
+		
+		for( int i = 0; i < cond.length; i++ ) {
+			
+			this.statement.append( cond[ i ].build() );
+			
+			this.statement.addAllPlaceHolders( cond[ i ].getPlaceHolders() );
+							
+		}
 		
 		return new Where(statement);
 		

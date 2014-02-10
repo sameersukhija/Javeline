@@ -2,6 +2,6 @@ package com.lumata.common.testing.orm;
 
 public interface IDelete {
 	
-	IFrom from();
+	IFrom from( final Object entity );
 	
 }

@@ -29,6 +29,7 @@ public class Insert implements IInsert {
 		
 		try {
 			
+			@SuppressWarnings("unused")
 			Row rows = (Row)values[0];
 			
 			this.statement.append( this.statement.expr( Arrays.copyOf( values, values.length, Row[].class) ) );

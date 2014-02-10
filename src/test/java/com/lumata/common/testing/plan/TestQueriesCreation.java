@@ -1,7 +1,7 @@
 package com.lumata.common.testing.plan;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 import static com.lumata.common.testing.orm.Filter.*;
@@ -12,7 +12,7 @@ import com.lumata.common.testing.moke.BdrEvents;
 
 public class TestQueriesCreation {
 
-	private static final Logger logger = LoggerFactory.getLogger( TestQueriesCreation.class );
+	//private static final Logger logger = LoggerFactory.getLogger( TestQueriesCreation.class );
 	
 	@Test( enabled = false, priority = 1 )
 	public void selectSimpleQuery() {
@@ -25,34 +25,33 @@ public class TestQueriesCreation {
 		
 	}
 	
-	@Test( enabled = false, priority = 1 )
+	@Test( enabled = true, priority = 1 )
 	public void selectQuery() {
 		
 		Agencies agencies = new Agencies();
 		agencies.setId( (short)1 );
 		agencies.setName( "pippo" );
 		
-		BdrEvents bdr_events = new BdrEvents();
-		
+		BdrEvents bdr_events = new BdrEvents();		
 		
 		String complexQuery = select( 	max(Agencies.Fields.id),
-											min(Agencies.Fields.id),
-											avg(Agencies.Fields.id),
-											all(Agencies.Fields.id),
-											count(),
-											//count(Agencies.Fields.id),
-											ucase(Agencies.Fields.id),
-											lcase(Agencies.Fields.id),
-											round(Agencies.Fields.id, 1),
-											now(),
-											mid(Agencies.Fields.id, 3 ),
-											//mid(Agencies.Fields.id, 1, 2),
-											//sum( Agencies.Fields.id ),
-											sum( " - ( Agencies.Fields.id * 20 ) + BdrEvents.Fields.msisdn " ),
-											distinct(Agencies.Fields.id),
-											concat(Agencies.Fields.id, "pippo1", 3),
-											Agencies.Fields.id, 
-											Agencies.Fields.name 
+										min(Agencies.Fields.id),
+										avg(Agencies.Fields.id),
+										all(Agencies.Fields.id),
+										count(),
+										//count(Agencies.Fields.id),
+										ucase(Agencies.Fields.id),
+										lcase(Agencies.Fields.id),
+										round(Agencies.Fields.id, 1),
+										now(),
+										mid(Agencies.Fields.id, 3 ),
+										//mid(Agencies.Fields.id, 1, 2),
+										//sum( Agencies.Fields.id ),
+										sum( " - ( Agencies.Fields.id * 20 ) + BdrEvents.Fields.msisdn " ),
+										distinct(Agencies.Fields.id),
+										concat(Agencies.Fields.id, "pippo1", 3),
+										Agencies.Fields.id, 
+										Agencies.Fields.name 
 									)
 								   .from( agencies )
 								   .join( bdr_events )
@@ -106,7 +105,7 @@ public class TestQueriesCreation {
 			
 	}
 		
-	@Test( enabled = false, priority = 2 )
+	@Test( enabled = true, priority = 2 )
 	public void selectQuerySpecialValues() {
 		
 		Agencies agencies = new Agencies();
@@ -123,7 +122,6 @@ public class TestQueriesCreation {
 	
 	@Test( enabled = true, priority = 3 )
 	public void insertQuery() {
-
 		
 		Agencies agencies = new Agencies();
 		agencies.setId( (short)5 ); 
@@ -136,86 +134,54 @@ public class TestQueriesCreation {
 		
 		System.out.println( querySimpleInsert );
 		
-		querySimpleInsert = insert( agencies, Agencies.Fields.name, Agencies.Fields.id ).values().build();
+		querySimpleInsert = insert( agencies, Agencies.Fields.name, Agencies.Fields.id ).values( 1, 2 ).build();
 		
 		System.out.println( querySimpleInsert );
 		
 		String queryComplexInsert = insert( agencies, Agencies.Fields.name, Agencies.Fields.id ).values( row(1,1), row(4,5) ).build();
 		
 		System.out.println( queryComplexInsert );
-		
-		
-		/*
-		Agencies agencies = new Agencies();
-		//agencies.setId( new Short( "1" ) );
-		agencies.setName( "pluto" );
-		agencies.setAddress( "address" );
-		agencies.setPhone( "331234561" );
-		
-		String query = Query.insert().values().build();
-		
-		System.out.println( query );
-		
-		Mysql mysql = new Mysql( env.getDataSource( "qa" ) );
-		
-		//mysql.execUpdate( query );
-		
-		String complexQuery = Query.insert(Arrays.asList(Agencies.Fields.name.name()))
-									.values()
-									.build();
-
-		System.out.println( complexQuery );
-	*/	 		
+				
 	}
 	
-	@Test( enabled = false, priority = 3 )
-	public void update() {
-/*
+	@Test( enabled = true, priority = 4 )
+	public void updateQuery() {
+		
 		Agencies agencies = new Agencies();
 		agencies.setId( new Short( "1" ) );
-		agencies.setName( "pippo" );
-		agencies.setAddress( "address" );
-		agencies.setPhone( "331234561" );
+		agencies.setName( "Eros" );
 		
-		String query = Query.update().set().build();
-				
-		System.out.println( query );
+		String querySimpleUpdate = update( agencies ).set( op( Agencies.Fields.name ).eq("Lumata"), op( Agencies.Fields.id ).eq(1) ).build();
 		
-		String complexQuery = Query.update(Arrays.asList(Agencies.Fields.name.name()))
-				.set()
-				.where(Arrays.asList(Agencies.Fields.name.name()))
-				//.order(Arrays.asList(Agencies.Fields.name.name()))
-				.build();
+		System.out.println( querySimpleUpdate );
+		
+		querySimpleUpdate = update( agencies ).set().build();
+		
+		System.out.println( querySimpleUpdate );
+		
+		querySimpleUpdate = update( agencies ).set().where( op( Agencies.Fields.id ).eq(1) ).build();
+		
+		System.out.println( querySimpleUpdate );
+		
 
-		System.out.println( complexQuery );
-*/
 	}	
 	
-	@Test( enabled = false, priority = 4 )
-	public void delete() {
-/*
+	@Test( enabled = true, priority = 5 )
+	public void deleteQuery() {
+
 		Agencies agencies = new Agencies();
 		agencies.setId( new Short( "1" ) );
-		agencies.setName( "pippo" );
-		agencies.setAddress( "address" );
-		agencies.setPhone( "331234561" );
+		agencies.setName( "Eros" );
 		
-		String query = Query.delete().from().build();
+		String querySimpleDelete = delete().from( agencies ).build();
+		
+		System.out.println( querySimpleDelete );
 				
-		System.out.println( query );
-
-		Mysql mysql = new Mysql( env.getDataSource( "qa" ) );
+		querySimpleDelete = delete().from( agencies ).where( op( Agencies.Fields.id ).eq(1) ).build();
 		
-		//mysql.execUpdate( query );
+		System.out.println( querySimpleDelete );
+				
 		
-		String complexQuery = Query.delete()
-				.from()
-				//.where(Arrays.asList(Agencies.Fields.name.name()))
-				//.order(Arrays.asList(Agencies.Fields.name.name()))
-				.build();
-
-		System.out.println( complexQuery );
-*/		
 	}
 	
 }

@@ -39,7 +39,7 @@ public class CondFF implements ICondFF {
 		for( int i = 0; i < expr_list.length; i++ ) {
 			
 			this.condition.append( MysqlStatement.valueOf( type.name() ).getName() )
-							.append( this.statement.expr( expr_list[ i ] ) );
+							.append( Statement.expr( expr_list[ i ] ) );
 		}		
 		
 		return this;

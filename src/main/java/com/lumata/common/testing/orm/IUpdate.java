@@ -4,4 +4,6 @@ public interface IUpdate {
 	
 	ISet set();
 	
+	ISet set( final IExprFV... expr );
+	
 }

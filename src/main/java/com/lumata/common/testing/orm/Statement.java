@@ -19,13 +19,13 @@ public class Statement {
 	private StringBuilder content;
 	
 	public Map<String, Object> entities;
-	public Enum[] fields;
+	public Enum<?>[] fields;
 	public Map<Enum<?>, String> place_holders;
 	
 	public enum MysqlStatement { 
 		
 		SELECT, INSERT_INTO, UPDATE, DELETE,
-		FROM, JOIN, ON, VALUES, WHERE, AND, OR, 
+		FROM, JOIN, ON, VALUES, WHERE, AND, OR, SET, 
 		GROUP_BY, HAVING, ORDER_BY, LIMIT;
 		
 		public StringBuilder getName() {
@@ -156,8 +156,9 @@ public class Statement {
 			
 				Object value = method.invoke( entity );
 				
-				query = query.replaceAll( "\"?" + place_holder.getValue() + "\"?", ( value == null ? "NULL" : String.valueOf( method.invoke( entity ) ) ) );
-				
+				if( value == null ) { query = query.replaceAll( "\"?" + place_holder.getValue() + "\"?", "NULL" ); }
+				else { query = query.replaceAll( place_holder.getValue(), String.valueOf( method.invoke( entity ) ) ); }				
+								
 			} catch( NoSuchMethodException e ) {
 				logger.error( e.getMessage(), e );
 			} catch (IllegalAccessException e) {
@@ -285,15 +286,9 @@ public class Statement {
 				
 				if( use_place_holders ) {
 					
-					StringBuilder table_field = new StringBuilder();
+					String place_holder = Statement.getPlaceHolder( this.fields[ i ] );
 					
-					table_field.append( field.col().table() )
-								.append( "." )
-								.append( field.col().field() );
-					
-					String place_holder = "::" + table_field + "::";
-					
-					this.addPlaceHolder( fields[ i ], place_holder );
+					this.addPlaceHolder( fields[ i ], place_holder.toString() );
 				
 					content.append( place_holder ).append( ", " );
 				
@@ -333,28 +328,36 @@ public class Statement {
 		
 	}
 	
+	public static String expr( IExprFV... expr ) {
+		
+		StringBuilder content = new StringBuilder();
+		
+		for( int i = 0; i < expr.length; i++ ) {
+			
+			content.append( Statement.expr( expr[i] ) )
+					.append( ", " );
+		
+		}	
+		
+		if( content.length() > 0 ) { content.setLength( content.length() - 2 ); }
+		
+		return content.toString();
+		
+	}
+	
 	public static String expr( IExprFV expr ) {
 		
 		StringBuilder content = new StringBuilder();
-		StringBuilder table_field = new StringBuilder();
-		
+				
 		IEnumFields field = new EnumFields<Enum<?>>( expr.getField() );
 		
-		table_field.append( field.col().table() )
-					.append( "." )
-					.append( field.col().field() );
-					
 		if( expr.getUsePlaceHolder() ) { 
 			
-			StringBuilder place_holder = new StringBuilder();
-			
-			place_holder.append( "::" ).append( table_field ).append( "::" );
-						
-			expr.setValue( place_holder.toString() );
+			expr.setValue( Statement.getPlaceHolder( expr.getField() ) );
 			
 		}
 		
-		content.append( table_field )
+		content.append( Statement.field( expr.getField() ) )
 				.append( expr.getOp().value() );
 		
 		if( expr.getOp().equals( Op.Types.in ) ) { 
@@ -387,7 +390,17 @@ public class Statement {
 		return content.toString();
 		
 	}
+	
+	public static String getPlaceHolder( Enum<?> field ) {
+				
+		StringBuilder place_holder = new StringBuilder();
 		
+		place_holder.append( "::" ).append( Statement.field( field ) ).append( "::" );
+		
+		return place_holder.toString();
+		
+	}
+	
 	public void addEntity( Object entity, String table ) {
 		this.entities.put( table, entity );
 	}
