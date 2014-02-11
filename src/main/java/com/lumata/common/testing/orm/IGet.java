@@ -6,6 +6,8 @@ public interface IGet {
 	
 	IExprFV get( Object value );
 	
+	IExprFV get( ISelect select );
+	
 	IExprFF get( Enum<?> field );
 	
 }

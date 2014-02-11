@@ -6,6 +6,8 @@ public interface IEq {
 	
 	IExprFV eq( Object value );
 	
+	IExprFV eq( ISelect select );
+	
 	IExprFF eq( Enum<?> field );
 	
 }

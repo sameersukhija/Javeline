@@ -6,6 +6,8 @@ public interface IGt {
 	
 	IExprFV gt( Object value );
 	
+	IExprFV gt( ISelect select );
+		
 	IExprFF gt( Enum<?> field );
-	
+		
 }

@@ -6,6 +6,8 @@ public interface ILt {
 	
 	IExprFV lt( Object value );
 	
+	IExprFV lt( ISelect select );
+
 	IExprFF lt( Enum<?> field );
-	
+		
 }

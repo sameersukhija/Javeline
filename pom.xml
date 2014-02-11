@@ -17,8 +17,9 @@
 	<name>lumata-common-testing</name>	
 	
 	<properties>
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    	<java.opt>1.7</java.opt>
+  	</properties>
   
 	<dependencies>
 		<dependency>

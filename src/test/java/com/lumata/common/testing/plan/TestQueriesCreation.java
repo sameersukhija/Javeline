@@ -14,7 +14,9 @@ public class TestQueriesCreation {
 
 	//private static final Logger logger = LoggerFactory.getLogger( TestQueriesCreation.class );
 	
-	@Test( enabled = false, priority = 1 )
+	final boolean test_enabled = false;
+	
+	@Test( enabled = test_enabled, priority = 1 )
 	public void selectSimpleQuery() {
 		
 		Agencies agencies = new Agencies();
@@ -25,7 +27,7 @@ public class TestQueriesCreation {
 		
 	}
 	
-	@Test( enabled = true, priority = 1 )
+	@Test( enabled = test_enabled, priority = 1 )
 	public void selectQuery() {
 		
 		Agencies agencies = new Agencies();
@@ -105,7 +107,7 @@ public class TestQueriesCreation {
 			
 	}
 		
-	@Test( enabled = true, priority = 2 )
+	@Test( enabled = test_enabled, priority = 2 )
 	public void selectQuerySpecialValues() {
 		
 		Agencies agencies = new Agencies();
@@ -120,7 +122,20 @@ public class TestQueriesCreation {
 		
 	}
 	
-	@Test( enabled = true, priority = 3 )
+	@Test( enabled = true, priority = 1 )
+	public void selectQuerySpecialStatements() {
+		
+		Agencies agencies = new Agencies();
+		BdrEvents bdr_events = new BdrEvents();
+		
+		String query = select().from( agencies ).where( op( Agencies.Fields.name ).is( select().from( bdr_events ).sub() ) ).build();
+		
+		System.out.println( query );
+				
+		
+	}
+	
+	@Test( enabled = test_enabled, priority = 3 )
 	public void insertQuery() {
 		
 		Agencies agencies = new Agencies();
@@ -144,7 +159,7 @@ public class TestQueriesCreation {
 				
 	}
 	
-	@Test( enabled = true, priority = 4 )
+	@Test( enabled = test_enabled, priority = 4 )
 	public void updateQuery() {
 		
 		Agencies agencies = new Agencies();
@@ -166,7 +181,7 @@ public class TestQueriesCreation {
 
 	}	
 	
-	@Test( enabled = true, priority = 5 )
+	@Test( enabled = test_enabled, priority = 5 )
 	public void deleteQuery() {
 
 		Agencies agencies = new Agencies();

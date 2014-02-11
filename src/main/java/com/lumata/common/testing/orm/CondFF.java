@@ -29,7 +29,7 @@ public class CondFF implements ICondFF {
 	}	
 
 	@Override
-	public void setStatement( Statement statement ) {
+	public void setStatement( final Statement statement ) {
 		this.statement = statement;
 	}	
 	
@@ -46,22 +46,22 @@ public class CondFF implements ICondFF {
 	}
 	
 	@Override
-	public ICondFF append( final MysqlStatement type, final ICondFF... cond ) {
+	public ICondFF append( final MysqlStatement type, final ICondFF... cond_list ) {
 		
-		if( cond.length > 0 ) {
+		if( cond_list.length > 0 ) {
 		
-			StringBuilder cond_list = new StringBuilder();
+			StringBuilder conditions = new StringBuilder();
 						
-			for( int i = 1; i < cond.length; i++ ) {
+			for( int i = 1; i < cond_list.length; i++ ) {
 				
-				cond_list.append( cond[ i ].build() ).append( ", " );
+				conditions.append( cond_list[ i ].build() ).append( ", " );
 				
 			}
 						
 			this.condition.append( MysqlStatement.valueOf( type.name() ).getName() )
 							.append( "(" )
-							.append( cond[ 0 ].build().replaceFirst( "AND " , "" ).replaceFirst( "OR " , "" ) )
-							.append( ( cond_list.length() > 0 ? cond_list.substring( 0, cond_list.length() - 2 ) : "" ) )
+							.append( cond_list[ 0 ].build().replaceFirst( "AND " , "" ).replaceFirst( "OR " , "" ) )
+							.append( ( conditions.length() > 0 ? conditions.substring( 0, conditions.length() - 2 ) : "" ) )
 							.append( " )");		
 		
 		}

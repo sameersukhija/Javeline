@@ -6,6 +6,8 @@ public interface IIs {
 	
 	IExprFV is( Object value );
 	
+	IExprFV is( Sub select );
+	
 	IExprFF is( Enum<?> field );
 	
 }

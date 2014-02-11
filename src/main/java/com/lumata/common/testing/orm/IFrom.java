@@ -1,21 +1,21 @@
 package com.lumata.common.testing.orm;
 
-public interface IFrom extends IQueryTemplate, IBuild {
+public interface IFrom extends IQueryTemplate, ISub, IBuild {
 	
-	IWhere where( IExprFV expr );
+	IWhere where( final IExprFV expr );
 	
-	IWhere where( IExprFV expr, ICondFV... cond );
+	IWhere where( final IExprFV expr, ICondFV... cond );
 	
-	IJoin join( Object entity );
+	IJoin join( final Object entity );
 	
-	IGroupBy groupBy( Enum<?>... order );
+	IGroupBy groupBy( final Enum<?>... order );
 	
-	IHaving having( IExprFV expr );
+	IHaving having( final IExprFV expr );
 	
-	IHaving having( IExprFV expr, ICondFV... cond );
+	IHaving having( final IExprFV expr, ICondFV... cond );
 	
-	IOrderBy orderBy( Enum<?>... order );
+	IOrderBy orderBy( final Enum<?>... order );
 	
-	ILimit limit( Integer... limit );
+	ILimit limit( final Integer... limit );
 	
 }

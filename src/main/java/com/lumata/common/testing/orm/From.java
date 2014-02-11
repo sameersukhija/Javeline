@@ -10,20 +10,6 @@ public class From implements IFrom {
 	From( Statement statement ) {
 		this.statement = statement;
 	}
-
-	@Override
-	public IJoin join( final Object entity ) {
-		
-		Table table = (Table)entity.getClass().getAnnotation( Table.class );
-		
-		this.statement.addEntity( entity, table.value() );
-		
-		this.statement.append( MysqlStatement.JOIN.getName() )
-						.append( table.value() );
-		
-		return new Join(statement);
-		
-	}
 	
 	@Override
 	public IWhere where( final IExprFV expr ) {
@@ -51,6 +37,20 @@ public class From implements IFrom {
 		}
 		
 		return new Where(statement);
+		
+	}
+	
+	@Override
+	public IJoin join( final Object entity ) {
+		
+		Table table = (Table)entity.getClass().getAnnotation( Table.class );
+		
+		this.statement.addEntity( entity, table.value() );
+		
+		this.statement.append( MysqlStatement.JOIN.getName() )
+						.append( table.value() );
+		
+		return new Join(statement);
 		
 	}
 
@@ -115,11 +115,18 @@ public class From implements IFrom {
 		return new Limit(statement);
 		
 	}
-	
+
 	@Override
 	public IQueryTemplate template() {
 		
 		return new QueryTemplate(statement);
+				
+	}
+	
+	@Override
+	public Sub sub() {
+		
+		return new Sub( this.statement.build() );
 				
 	}
 	

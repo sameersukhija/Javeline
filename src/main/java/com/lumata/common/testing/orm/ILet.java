@@ -6,6 +6,8 @@ public interface ILet {
 	
 	IExprFV let( Object value );
 	
+	IExprFV let( ISelect select );
+		
 	IExprFF let( Enum<?> field );
-	
+		
 }
