@@ -97,9 +97,9 @@ public final class SeleniumUtils {
 					
 				}	
 				
-        		break;
+        		if( element != null ) { break; }
             
-			} catch ( InterruptedException | StaleElementReferenceException e ) {}
+			} catch ( Exception e ) {}
               
 		}
 		
