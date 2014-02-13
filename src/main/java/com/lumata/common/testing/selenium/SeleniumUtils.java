@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -98,7 +99,7 @@ public final class SeleniumUtils {
 				
         		break;
             
-			} catch ( InterruptedException e ) {}
+			} catch ( InterruptedException | StaleElementReferenceException e ) {}
               
 		}
 		
@@ -171,6 +172,7 @@ public final class SeleniumUtils {
 			switch( searchBy ) {
 			
 				case ID: { elements = rootElement.findElements( By.id(locator) ); break;}
+				case NAME: { elements = rootElement.findElements( By.name(locator) ); break;}
 				case LINK: { elements = rootElement.findElements( By.linkText(locator) ); break;}
 				case TAG_NAME: { elements = rootElement.findElements( By.tagName(locator) ); break;}
 				case XPATH: { elements = rootElement.findElements( By.xpath(locator) ); break;  }

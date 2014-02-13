@@ -76,6 +76,7 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 							
 							JSONObject profileOpts = browserProfile.getJSONObject("options");
 							
+							@SuppressWarnings("unchecked")
 							Iterator<String> keys = profileOpts.keys();
 							while( keys.hasNext() ) {
 						        
