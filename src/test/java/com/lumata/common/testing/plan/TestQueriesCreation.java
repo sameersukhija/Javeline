@@ -4,11 +4,13 @@ package com.lumata.common.testing.plan;
 //import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
+import com.lumata.common.testing.generators.container.Agencies;
+import com.lumata.common.testing.generators.container.BdrEvents;
+
 import static com.lumata.common.testing.orm.Filter.*;
 import static com.lumata.common.testing.orm.Query.*;
 import static com.lumata.common.testing.orm.Val.*;
-import com.lumata.common.testing.moke.Agencies;
-import com.lumata.common.testing.moke.BdrEvents;
+
 
 public class TestQueriesCreation {
 

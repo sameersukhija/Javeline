@@ -503,13 +503,13 @@ public class MysqlColumn {
 	public void set( String table, JSONObject column ) {
 		
 		this.setTable( table );
-		this.setField( column.getString( MysqlColumn.Fields.FIELD.getValue() ) );
-		this.setType( column.getString( MysqlColumn.Fields.TYPE.getValue() ) );
+		this.setField( ( column.isNull( MysqlColumn.Fields.FIELD.getValue() ) ? null : column.getString( MysqlColumn.Fields.FIELD.getValue() ) ) );
+		this.setType( ( column.isNull( MysqlColumn.Fields.TYPE.getValue() ) ? null : column.getString( MysqlColumn.Fields.TYPE.getValue() ) ) );
 		this.generateTypeValues( this.getType() );
 		this.setNull( ( column.getString( MysqlColumn.Fields.NULL.getValue() ).toUpperCase() == "YES" ? true : false  ) );
-		this.setKey( column.getString( MysqlColumn.Fields.KEY.getValue() ) );
-		this.setDefaultValue( column.getString( MysqlColumn.Fields.DEFAULT.getValue() ) );
-		this.setExtra( column.getString( MysqlColumn.Fields.EXTRA.getValue() ) );
+		this.setKey( ( column.isNull( MysqlColumn.Fields.KEY.getValue() ) ? null : column.getString( MysqlColumn.Fields.KEY.getValue() ) ) );
+		this.setDefaultValue( ( column.isNull( MysqlColumn.Fields.DEFAULT.getValue() ) ? null : column.getString( MysqlColumn.Fields.DEFAULT.getValue() ) ) );
+		this.setExtra( ( column.isNull( MysqlColumn.Fields.EXTRA.getValue() ) ? null : column.getString( MysqlColumn.Fields.EXTRA.getValue() ) ) );
 		
 	}
 	

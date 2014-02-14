@@ -22,7 +22,7 @@ public class ClassGenerator {
 	
 	private final boolean add_annotation = true;
 		
-	private final String packageClass = "com.lumata.expression.operators.testing.pojo.autogenerator"; 
+	private String packageClass; 
 	
 	private StringBuilder loggerClass;
 	
@@ -100,13 +100,15 @@ public class ClassGenerator {
 	
 	public ClassGenerator() {}
 	
-	public void createDAO( Environment env, String tenant ) throws DataModelException, IOFileException {
+	public void createDAO( Environment env, String db_name, String package_path ) throws DataModelException, IOFileException {
 		
 		logger.info( "Get JSON Data Model" );
 		
-		DataModel dataModel = new DataModel( tenant, env.getDataSource( tenant ), null );
+		DataModel dataModel = new DataModel( db_name, env.getDataSource( db_name ), null );
 			
 		JSONObject schema = dataModel.getDataModel();
+		
+		packageClass = package_path;
 		
 		// Store Data Model
 		//IOFileUtils.saveResource( schema.toString(), "output/data_model", "datamodel.json" );
@@ -180,7 +182,7 @@ public class ClassGenerator {
 	        	fieldsEnumFieldsPojoClass = new StringBuilder();
 	        	fieldsEnumFieldsPojoClass.append( "\tpublic enum Fields { " );
 	        		
-	        	System.out.println( tableName );
+	        	//System.out.println( tableName );
 	        	
 	        	importedPackages = new JSONObject();
 	        	
@@ -269,6 +271,7 @@ public class ClassGenerator {
 							.append( this.createResultSetConstructor( pojoClassName.toString(), resultSetConstructorBodyPojoClass.toString() ))
 							.append( this.createJSONObjectConstructor( pojoClassName.toString(), jsonObjectConstructorBodyPojoClass.toString(), addImportDate, addImportTimestamp ) )
 							.append( methodsPojoClass )
+							.append( this.createGetEntityFields() )
 							.append( this.createToStringMethod() )
 							.append( "\n }" );
 				        		        	
@@ -431,6 +434,18 @@ public class ClassGenerator {
 		
 	}
 
+	public StringBuilder createGetEntityFields( ) {
+		
+		StringBuilder toStringMethod = new StringBuilder();
+					
+		toStringMethod.append( "\n\tpublic Fields[] getEntityFields() {\n\n\t\t" )
+						.append( "return " ).append( pojoClassName ).append( ".Fields.values();" )
+						.append( "\n\n\t}\n" );
+				
+		return toStringMethod;
+		
+	}
+	
 	public StringBuilder createToStringMethod( ) {
 		
 		StringBuilder toStringMethod = new StringBuilder();
@@ -489,7 +504,7 @@ public class ClassGenerator {
 	}
 
 	public void addResultSetField( MysqlColumn mysqlColumn/*ClassGenerator.FieldTypes fieldType, String fieldName*/ ) {
-		System.out.println( "FIELD: " + mysqlColumn.getType()  + "JAVATYPE: " + mysqlColumn.getJavaType()  );
+		//System.out.println( "FIELD: " + mysqlColumn.getType()  + "JAVATYPE: " + mysqlColumn.getJavaType()  );
 		resultSetConstructorBodyPojoClass.append( "\t\tthis." )
 											.append( mysqlColumn.getField() )
 											.append( " = rs.get" )
