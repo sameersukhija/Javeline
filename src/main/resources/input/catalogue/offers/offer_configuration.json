@@ -9,12 +9,27 @@
 	"offer_content": {
 	},
 	"prices": {
+		"channels": [
+			"Ch A",
+			"Ch B",
+			"Ch C",
+			"Ch D",
+			"Ch E",
+		]
 	},
 	"notifications": {
 	},
 	"eligibility_criteria": {
 	},
 	"availability": {
+		"stock_availability": "100",
+		"channels_availability": [
+			{ "channel_name": "Ch A", "channel_value": "10" }, 
+			{ "channel_name": "Ch B", "channel_value": "10" },
+			{ "channel_name": "Ch C", "channel_value": "30" },
+			{ "channel_name": "Ch D", "channel_value": "25" },
+			{ "channel_name": "Ch E", "channel_value": "25" }
+		]
 	},
 	"activation": {
 	},

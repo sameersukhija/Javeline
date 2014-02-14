@@ -24,10 +24,12 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.expression.operators.exceptions.CampaignException;
 import com.lumata.expression.operators.exceptions.CommoditiesException;
+import com.lumata.expression.operators.exceptions.OfferException;
 import com.lumata.expression.operators.exceptions.TokenTypeException;
 import com.lumata.expression.operators.gui.catalogue.TokenTypeForm;
 import com.lumata.expression.operators.gui.catalogue.OffersForm;
 import com.lumata.expression.operators.gui.security.Authorization;
+import com.lumata.expression.operators.json.catalogue.OfferCfg;
 import com.lumata.expression.operators.json.catalogue.TokenTypeCfg;
 
 public class ConfigureOffer {
@@ -41,13 +43,14 @@ public class ConfigureOffer {
 	Environment env;
 	Mysql mysqlGlobal;
 	Mysql mysqlTenant;
+	OfferCfg offerCfg;
 	JSONObject token_type;
 	
 	
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment", "tenant", "user"})
 	@BeforeSuite
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment, @Optional("qa") String tenant, @Optional("superman") String user ) throws EnvironmentException, CommoditiesException, JSONSException, IOFileException {		
+	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment, @Optional("qa") String tenant, @Optional("superman") String user ) throws EnvironmentException, OfferException, CommoditiesException, JSONSException, IOFileException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
@@ -59,6 +62,7 @@ public class ConfigureOffer {
 		//mysqlTenant = new Mysql( env.getDataSource( tenant ) );
 		
 		// Load Commodities configuration to set
+		offerCfg = new OfferCfg( "input/catalogue/offers", "offer_configuration", IOLoadingType.RESOURCE );
 		token_type = JSONUtils.loadJSONResource( "input/catalogue/token_type", "token_type_a.json" );
 		
 		// Create Selenium WebDriver instance
@@ -81,7 +85,7 @@ public class ConfigureOffer {
 	public void selectOffersForm( @Optional("qa") String tenant ) throws TokenTypeException {
 		
 		Assert.assertTrue( OffersForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
-		//Assert.assertTrue( OffersForm.create(seleniumWebDriver, offerCfg, TIMEOUT, ATTEMPT_TIMEOUT) );
+		Assert.assertTrue( OffersForm.create(seleniumWebDriver, offerCfg, TIMEOUT, ATTEMPT_TIMEOUT) );
 				
 	}
 	

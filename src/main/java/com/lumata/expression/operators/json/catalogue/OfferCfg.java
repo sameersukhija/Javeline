@@ -2,6 +2,8 @@ package com.lumata.expression.operators.json.catalogue;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +26,11 @@ public class OfferCfg {
 	
 	public enum TokenTypeValidity { seconds, minutes, hours, days }
 		
-	private JSONObject ttCfg;
+	private JSONObject offCfg;
 	
 	public OfferCfg( JSONObject tokenType ) {
 		
-		this.ttCfg = tokenType;
+		this.offCfg = tokenType;
 				
 	}
 	
@@ -38,8 +40,8 @@ public class OfferCfg {
 			
 			switch( loadingType ) {
 			
-				case FILE: { this.ttCfg = JSONUtils.loadJSONFile( offerCfg.toLowerCase() + Format.JSON_EXTENSION ); break; }
-				case RESOURCE: { this.ttCfg = JSONUtils.loadJSONResource( offerCfg.toLowerCase() + Format.JSON_EXTENSION ); break;  }
+				case FILE: { this.offCfg = JSONUtils.loadJSONFile( offerCfg.toLowerCase() + Format.JSON_EXTENSION ); break; }
+				case RESOURCE: { this.offCfg = JSONUtils.loadJSONResource( offerCfg.toLowerCase() + Format.JSON_EXTENSION ); break;  }
 				default: throw new OfferException( "You cannot load an Offer from resources different by FILE or RESOURCE" );
 			
 			}		
@@ -66,8 +68,8 @@ public class OfferCfg {
 			
 			switch( loadingType ) {
 			
-				case FILE: { this.ttCfg = JSONUtils.loadJSONFile( folder, offerCfg.toLowerCase() + Format.JSON_EXTENSION ); break; }
-				case RESOURCE: { this.ttCfg = JSONUtils.loadJSONResource( folder, offerCfg.toLowerCase() + Format.JSON_EXTENSION ); break;  }
+				case FILE: { this.offCfg = JSONUtils.loadJSONFile( folder, offerCfg.toLowerCase() + Format.JSON_EXTENSION ); break; }
+				case RESOURCE: { this.offCfg = JSONUtils.loadJSONResource( folder, offerCfg.toLowerCase() + Format.JSON_EXTENSION ); break;  }
 				default: throw new OfferException( "You cannot load an Offer from resources different by FILE or RESOURCE" );
 			
 			}
@@ -130,7 +132,7 @@ public class OfferCfg {
 		
 		try {
 			
-			if( !ttCfg.isNull("definition") ) { return ttCfg.getJSONObject("definition"); }
+			if( !offCfg.isNull("definition") ) { return offCfg.getJSONObject("definition"); }
 		
 		} catch( Exception e ) {
 
@@ -222,8 +224,148 @@ public class OfferCfg {
 		
 	}
 	
+	public JSONObject getPrices() {
+		
+		try {
+		
+			if( !offCfg.isNull("prices") ) { return offCfg.getJSONObject("prices"); }
+		
+		} catch( JSONException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
 	
+	public JSONArray getPriceChannels() {
+		
+		try {
+		
+			if( !getPrices().isNull("channels") ) { return getPrices().getJSONArray("channels"); }
+		
+		} catch( JSONException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
 
+	public JSONObject getAvailability() {
+		
+		try {
+		
+			if( !offCfg.isNull("availability") ) { return offCfg.getJSONObject("availability"); }
+		
+		} catch( JSONException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public String getAvailabilityGlobalStockValue() {
+		
+		try {
+		
+			if( !getAvailability().isNull("stock_availability") ) { return getAvailability().getString("stock_availability"); }
+		
+		} catch( JSONException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public JSONArray getAvailabilityChannels() {
+		
+		try {
+		
+			if( !getAvailability().isNull("channels_availability") ) { return getAvailability().getJSONArray("channels_availability"); }
+		
+		} catch( JSONException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public String getAvailabilityChannelName( JSONObject availability_channel ) {
+		
+		try {
+		
+			if( !availability_channel.isNull("channel_name") ) { return availability_channel.getString("channel_name"); }
+		
+		} catch( JSONException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public String getAvailabilityChannelValue( JSONObject availability_channel ) {
+		
+		try {
+		
+			if( !availability_channel.isNull("channel_value") ) { return availability_channel.getString("channel_value"); }
+		
+		} catch( JSONException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public JSONObject getErrorActions() {
+		
+		try {
+		
+			if( !offCfg.isNull("error_actions") ) { return offCfg.getJSONObject("error_actions"); }
+		
+		} catch( JSONException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
+
+	public void setOfferName( String name ) {
+		
+		try {
+			
+			if( !getDefinition().isNull("offer_name") ) { getDefinition().put( "offer_name", name ); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+	}
+	
 	/*
 	public String getFormat() {
 		

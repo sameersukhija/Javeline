@@ -42,7 +42,7 @@ public class GenerateClass {
 		
 		logger.info( Log.PUTTING.createMessage( "createDAO" , "Create DAO Classes" ) );
 				
-		generatorDAO.createDAO( env, tenant );
+		generatorDAO.createDAO( env, tenant, "" );
 				
 	}		
 	
