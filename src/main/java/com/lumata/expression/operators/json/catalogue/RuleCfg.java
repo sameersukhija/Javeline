@@ -1,8 +1,10 @@
 package com.lumata.expression.operators.json.catalogue;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,9 +30,9 @@ public class RuleCfg {
 	
 	private JSONObject rlCfg;
 	
-	public RuleCfg( JSONObject tokenType ) {
+	public RuleCfg( JSONObject rlCfg ) {
 		
-		this.rlCfg = tokenType;
+		this.rlCfg = rlCfg;
 				
 	}
 	
@@ -90,22 +92,38 @@ public class RuleCfg {
 			
 	}
 	
-	public static ArrayList<RuleCfg> createTokenTypeList(  String folder, String rule, IOLoadingType loadingType ) throws RuleException {
+	public static ArrayList<RuleCfg> createTokenTypeList(  String folder, String path, IOLoadingType loadingType ) throws RuleException {
 		
 		ArrayList<RuleCfg> list = new ArrayList<RuleCfg>();
 		
 		try {
 			
-			JSONObject token_type_list;
+			JSONObject rule_list;
 			
 			switch( loadingType ) {
 			
-				case FILE: { token_type_list = JSONUtils.loadJSONFile( folder, rule.toLowerCase() + Format.JSON_EXTENSION ); break; }
-				case RESOURCE: { token_type_list = JSONUtils.loadJSONResource( folder, rule.toLowerCase() + Format.JSON_EXTENSION ); break;  }
+				case FILE: { rule_list = JSONUtils.loadJSONFile( folder, path.toLowerCase() + Format.JSON_EXTENSION ); break; }
+				case RESOURCE: { rule_list = JSONUtils.loadJSONResource( folder, path.toLowerCase() + Format.JSON_EXTENSION ); break;  }
 				default: throw new RuleException( "You cannot load an Campaign from resources different by FILE or RESOURCE" );
 			
 			}
+			
+			@SuppressWarnings("unchecked")
+			Iterator<String> rules = rule_list.keys();
+			while( rules.hasNext() ) {
+				
+				String rule = (String)rules.next();
+				
+				list.add( new RuleCfg( rule_list.getJSONObject( rule ) ) );
+												
+			}
 									
+		} catch (JSONException e) {
+			
+			logger.error( e.getMessage(), e );
+			
+			throw new RuleException( e.getMessage(), e );
+		
 		} catch( JSONSException e ) {
 			
 			logger.error( e.getMessage(), e );

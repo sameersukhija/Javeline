@@ -1,12 +1,9 @@
 package com.lumata.expression.operators.gui.catalogue;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -15,14 +12,10 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.expression.operators.gui.campaigns.CampaignModelForm.CMErrorAction;
-import com.lumata.expression.operators.gui.campaigns.CampaignModelForm.CMErrorActionType;
 import com.lumata.expression.operators.gui.common.ButtonImpl;
 import com.lumata.expression.operators.gui.common.Buttons;
 import com.lumata.expression.operators.gui.common.MenuBar;
 import com.lumata.expression.operators.gui.common.SectionImpl;
-import com.lumata.expression.operators.json.campaigns.CampaignCfg;
-import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
 import com.lumata.expression.operators.json.catalogue.OfferCfg;
 
 public class OffersForm extends CatalogueForm {
@@ -55,6 +48,20 @@ public class OffersForm extends CatalogueForm {
 		
 	} 
 	
+	public enum OfferErrorAction { 
+		
+		OFFER_ALREADY_EXISTS;
+				
+	};
+	
+	public enum OfferErrorActionType { 
+		
+		RETURN_ERROR,
+		ABORT,
+		ADD_TIMESTAMP_TO_OFFER_NAME;
+				
+	};
+	
 	public static boolean open( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
 		if( !CatalogueForm.open(selenium, timeout, interval) ) { return false; }
@@ -73,142 +80,175 @@ public class OffersForm extends CatalogueForm {
 	
 	public static boolean create( SeleniumWebDriver selenium, OfferCfg offerCfg, long timeout, long interval ) {
 	
+		// select offer creation tab
 		if( !OffersForm.add( selenium, timeout, interval ) ) { return false; }
 		
+		// configure offer definition
 		OffersForm.setDefinition( selenium, offerCfg, timeout, interval );
 		
-		// gwt-debug-Anchor-actrule-button-definition
-		// gwt-debug-Anchor-actrule-catalog-offer-prices
-		// gwt-debug-Anchor-actrule-catalog-product-steps-stockValidity
-		// gwt-debug-Anchor-actrule-campaign-creationEdition-steps-activation
+		// configure offer prices
+		OffersForm.setPrices( selenium, offerCfg, timeout, interval );
 		
-		// gwt-debug-TextBox-VPOfferEdit-offerNameTB
+		// configure offer availability
+		OffersForm.setAvailability( selenium, offerCfg, timeout, interval );
 		
-		
-		
-		/*
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-Add Campaign") );
-		
-		WebElement campaignAdd = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-Add Campaign", timeout, interval);
-		if( campaignAdd == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign" ) ); return false; }	
-		
-		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "to add a new Campaign") );
-		campaignAdd.click();
-		*/
-		//OffersForm.setDefinition( selenium, campaignCfg, timeout, interval );
-		
-		//OffersForm.setActivation( selenium, campaignCfg, timeout, interval );
-		
-		return true; //OffersForm.manageErrorAction( selenium, campaignCfg, timeout, interval );
+		// configure offer definition
+		OffersForm.setActivation( selenium, offerCfg, timeout, interval );
+				
+		return OffersForm.manageErrorAction( selenium, offerCfg, timeout, interval );
 				
 	}	
 	
 	public static boolean setDefinition( SeleniumWebDriver selenium, OfferCfg offerCfg, long timeout, long interval ) {
 	
+		// select offer definition section
 		WebElement offerDefinition = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-Anchor-actrule-button-definition", timeout, interval);
 		if( offerDefinition == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot define a new Offer" ) ); return false; }	
 		
+		// set offer name
 		WebElement offerName = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-TextBox-VPOfferEdit-offerNameTB", timeout, interval);
 		if( offerName == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot define a new Offer Name" ) ); return false; }	
-		
+		offerName.clear();
 		offerName.sendKeys( offerCfg.getOfferName() );
+				
+		return true;
+		
+	}	
+	
+	public static boolean setPrices( SeleniumWebDriver selenium, OfferCfg offerCfg, long timeout, long interval ) {
+		
+		// select offer price section
+		WebElement offerPrices = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-Anchor-actrule-catalog-offer-prices", timeout, interval);
+		if( offerPrices == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot define some prices" ) ); return false; }	
+		offerPrices.click();
+		
+		// add price
+		WebElement offerPricesBtnAdd = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.CSS, "tr.cycle1.headers > td.column_description > button[name=\"btn-add\"]", timeout, interval);
+		if( offerPricesBtnAdd == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new price" ) ); return false; }	
+		offerPricesBtnAdd.click();
+		
+		JSONArray price_channels = offerCfg.getPriceChannels();
+		
+		for( int i = 0; i < price_channels.length(); i++ ) {
+			
+			try {
+			
+				// add channel price 
+				WebElement offerPricesChannelBtnAdd = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr[" + ( i > 1 ? ( 3 + ( i - 1 ) ) : 3 ) + "]/td/button", timeout, interval);
+				if( offerPricesChannelBtnAdd == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new channel price" ) ); return false; }	
+				offerPricesChannelBtnAdd.click();
+
+				// set channel price
+				WebElement offerPricesChannelComboAdd = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-ListBox-PricesEditionPopUp-lChan", timeout, interval);
+				if( offerPricesChannelComboAdd == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new channel price" ) ); return false; }	
+				selenium.select("id=gwt-debug-ListBox-PricesEditionPopUp-lChan", "label=" + (String)price_channels.get( i ) );
+				
+				// save channel price
+				WebElement offerPricesChannelAddBtnOk = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[9]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button", timeout, interval);
+				if( offerPricesChannelAddBtnOk == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new channel price" ) ); return false; }	
+				offerPricesChannelAddBtnOk.click();
+			
+			} catch (JSONException e) {}
+			
+		}
+		
+		// save prices
+		WebElement offerPricesChannelAddConfirm = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button", timeout, interval);
+		if( offerPricesChannelAddConfirm == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new channel price" ) ); return false; }	
+		offerPricesChannelAddConfirm.click();		
 		
 		return true;
 		
 	}	
 	
-	
-	
-	/*
-	public static boolean setDefinition( SeleniumWebDriver selenium, CampaignCfg campaignCfg, long timeout, long interval ) {
+	public static boolean setAvailability( SeleniumWebDriver selenium, OfferCfg offerCfg, long timeout, long interval ) {
 		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for css=div.gwt-Hyperlink.selectableSC") );
+		// open Availability tab
+		WebElement offerAvailability = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-Anchor-actrule-catalog-product-steps-stockValidity", timeout, interval);
+		if( offerAvailability == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot define availability" ) ); return false; }	
+		offerAvailability.click();
 		
-		WebElement definitionSection = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.CSS, "div.gwt-Hyperlink.selectableSC", timeout, interval);
-		if( definitionSection == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot define the new Campaign" ) ); return false; }	
+		// edit availability
+		WebElement offerAvailabilityEdit = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[4]/td/table/tbody/tr[2]/td[2]/table/tbody/tr/td[2]/button", timeout, interval);
+		if( offerAvailabilityEdit == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot define availability" ) ); return false; }	
+		offerAvailabilityEdit.click();
 		
-		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "to define a new Campaign") );
-		definitionSection.click();
+		// set availability
+		WebElement offerAvailabilityEditField = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-TextBox-VPOfferEdit-qtyTB", timeout, interval);
+		if( offerAvailabilityEditField == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot define availability" ) ); return false; }	
+		selenium.type( "id=gwt-debug-TextBox-VPOfferEdit-qtyTB" , offerCfg.getAvailabilityGlobalStockValue() );
+		
+		// close set availability dialog
+		WebElement offerAvailabilityEditBtnSave = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button", timeout, interval);
+		if( offerAvailabilityEditBtnSave == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot define availability" ) ); return false; }	
+		offerAvailabilityEditBtnSave.click();
+		
+		JSONArray channel_availability_list = offerCfg.getAvailabilityChannels();
+		
+		for( int i = 0; i < channel_availability_list.length(); i++ ) {
+		
+			try {
 			
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for " + CampaignExecutionMode.valueOf( campaignCfg.getExecutionMode() ).getID()) );
-		
-		WebElement executionMode = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, CampaignExecutionMode.valueOf( campaignCfg.getExecutionMode() ).getID(), timeout, interval);
-		if( executionMode == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot set Campaign Execution Mode" ) ); return false; }	
-		
-		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "to set Campaign Execution Mode") );
-		executionMode.click();
-		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for gwt-debug-Campaign Model Select in Campaign" ) );
-		
-		WebElement campaignModel = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-Campaign Model Select in Campaign", timeout, interval);
-		if( campaignModel == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot set Campaign Model" ) ); return false; }	
-		
-		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "to set Campaign Model") );
-		selenium.select( "id=gwt-debug-Campaign Model Select in Campaign" ,  campaignCfg.getCampaignModel() );
-		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for gwt-debug-Campaign Name" ) );
-		
-		WebElement campaignName = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-Campaign Name", timeout, interval);
-		if( campaignName == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot set Campaign Name" ) ); return false; }	
-		
-		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "to set Campaign Name") );
-		selenium.type( "id=gwt-debug-Campaign Name" , campaignCfg.getCampaignName() );
-		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for gwt-debug-Campaign Description" ) );
-		
-		WebElement campaignDescription = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-Campaign Description", timeout, interval);
-		if( campaignDescription == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot set Campaign Description" ) ); return false; }	
-		
-		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "to set Campaign Model") );
-		selenium.type( "id=gwt-debug-Campaign Description" ,  campaignCfg.getCampaignDescription() );		
-		
-		return true;
-		
-	}
-		
-	public static boolean setTarget( SeleniumWebDriver selenium, CampaignCfg campaignCfg, long timeout, long interval ) {
-		
-		
-		
-		return true;
-		
-	}
-	
-	public static boolean setActivation( SeleniumWebDriver selenium, CampaignCfg campaignCfg, long timeout, long interval ) {
-		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for link=Activation") );
-		
-		WebElement definitionSection = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.LINK, "Activation", timeout, interval);
-		if( definitionSection == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot activate the new Campaign" ) ); return false; }	
-		
-		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "to activate a new Campaign") );
-		definitionSection.click();
-			
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-Campaign Edition Activate" ) );
-		
-		WebElement activateBtn = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-Campaign Edition Activate", timeout, interval);
-		if( activateBtn == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot activate Campaign Model" ) ); return false; }	
-		
-		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "to activate Campaign Model") );
-		activateBtn.click();
+				JSONObject channel_availability = channel_availability_list.getJSONObject( i );
 				
+				// open set channel availability dialog																					   
+				WebElement offerAvailabilityEditChannel = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[3]/td/table/tbody/tr[" + ( i > 1 ? ( 3 + ( i - 1 ) ) : 3 ) + "]/td/button", timeout, interval);
+				if( offerAvailabilityEditChannel == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot define channel availability" ) ); return false; }	
+				offerAvailabilityEditChannel.click();
+						 
+				// choose channel
+				WebElement offerAvailabilityEditChannelList = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-ListBox-VPOfferEdit-channelsLB", timeout, interval);
+				if( offerAvailabilityEditChannelList == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot define channel availability" ) ); return false; }	
+				selenium.select("id=gwt-debug-ListBox-VPOfferEdit-channelsLB", "label=" + offerCfg.getAvailabilityChannelName(channel_availability));
+				
+				// set channel availability
+				WebElement offerAvailabilityEditChannelAvailability = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-TextBox-VPOfferEdit-qtyTB", timeout, interval);
+				if( offerAvailabilityEditChannelAvailability == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot define channel availability" ) ); return false; }	
+				selenium.type( "id=gwt-debug-TextBox-VPOfferEdit-qtyTB", offerCfg.getAvailabilityChannelValue(channel_availability) );
+						
+				// close channel availability dialog
+				WebElement offerAvailabilitySaveChannelAvailability = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button", timeout, interval);
+				if( offerAvailabilitySaveChannelAvailability == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot define channel availability" ) ); return false; }	
+				offerAvailabilitySaveChannelAvailability.click();
+		
+			} catch (JSONException e) {}
+			
+		}
+		
+		
+		return true;
+		
+	}	
+		
+	public static boolean setActivation( SeleniumWebDriver selenium, OfferCfg offerCfg, long timeout, long interval ) {
+		
+		// select offer definition section
+		WebElement offerActivation = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-Anchor-actrule-campaign-creationEdition-steps-activation", timeout, interval);
+		if( offerActivation == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot activate the Offer" ) ); return false; }	
+		offerActivation.click();
+				
+		// activate offer
+		WebElement offerActivationConfirm = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[3]/td/table/tbody/tr/td[5]/button", timeout, interval);
+		if( offerActivationConfirm == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot activate the Offer" ) ); return false; }	
+		offerActivationConfirm.click();		
+		
 		return true;
 		
 	}
-	
-	public static boolean manageErrorAction( SeleniumWebDriver selenium, CampaignCfg campaignCfg, long timeout, long interval ) {
+		
+	public static boolean manageErrorAction( SeleniumWebDriver selenium, OfferCfg offerCfg, long timeout, long interval ) {
 		
 		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for error message") );
 		
-		WebElement messageError = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "/html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/div/div/table/tbody/tr[7]/td/table/tbody/tr/td/div", timeout, interval);
+		WebElement messageError = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[6]/div/div", timeout, interval);
 		
 		if( messageError != null ) { 
 			
-			JSONObject error_actions = campaignCfg.getErrorActions();
+			JSONObject error_actions = offerCfg.getErrorActions();
 			
 			if( error_actions == null ) {
 				
-				logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign ( Wrong json configuration )" ) );
+				logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Offer ( Wrong json configuration )" ) );
 				
 				return false;
 								
@@ -216,40 +256,37 @@ public class OffersForm extends CatalogueForm {
 				
 				try {
 					
-					if( messageError.getText().equals( "Campaign name already exist" ) && !error_actions.isNull( CampaignErrorAction.CAMPAIGN_ALREADY_EXISTS.name() ) ) {
+					if( messageError.getText().equals( "Cannot add offer, name is already used." ) && !error_actions.isNull( OfferErrorAction.OFFER_ALREADY_EXISTS.name() ) ) {
 						
-						switch( CampaignErrorActionType.valueOf( error_actions.getString( CampaignErrorAction.CAMPAIGN_ALREADY_EXISTS.name() ) ) ) {
+						switch( OfferErrorActionType.valueOf( error_actions.getString( OfferErrorAction.OFFER_ALREADY_EXISTS.name() ) ) ) {
 						
 							case RETURN_ERROR:{
 								
-								logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign ( Campaign name already exist )" ) );
+								logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Offer ( Offer name already exist )" ) );
 								
 								return false;
 								
 							}
-							case ADD_TIMESTAMP_TO_CAMPAIGN_NAME:{
+							case ADD_TIMESTAMP_TO_OFFER_NAME:{
 								
-								String name_with_timestamp = campaignCfg.getCampaignName() + "_" + String.valueOf( TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) );
+								String name_with_timestamp = offerCfg.getOfferName() + "_" + String.valueOf( TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) );
 								
-								campaignCfg.setCampaignName( name_with_timestamp );
+								offerCfg.setOfferName( name_with_timestamp );
 								
-								campaignCfg.setCampaignDescription( name_with_timestamp );
+								OffersForm.setDefinition( selenium, offerCfg, timeout, interval );
 								
-								OffersForm.setDefinition( selenium, campaignCfg, timeout, interval );
-								
-								OffersForm.setActivation( selenium, campaignCfg, timeout, interval );
+								OffersForm.setActivation( selenium, offerCfg, timeout, interval );
 								
 								return true;
 								
 							}
 							case ABORT:{
 								
-								logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-Campaign Edition Cancel") );
+								logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=btn-cancel") );
 								
-								WebElement campaignCancel = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-Campaign Edition Cancel", timeout, interval);
-								if( campaignCancel == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign" ) ); return false; }	
-								
-								campaignCancel.click();
+								WebElement offerCancel = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.NAME, "btn-cancel", timeout, interval);
+								if( offerCancel == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Abort offer creation" ) ); return false; }	
+								offerCancel.click();
 								
 								return true;
 																
@@ -263,7 +300,7 @@ public class OffersForm extends CatalogueForm {
 				
 			}
 			
-			logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign ( " + messageError.getText() + " )" ) ); 
+			logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Offer ( " + messageError.getText() + " )" ) ); 
 			
 			return false; 
 			
@@ -273,243 +310,5 @@ public class OffersForm extends CatalogueForm {
 		return true;
 		
 	}
-	
-	
-	/*
-	public static boolean create( SeleniumWebDriver selenium, CampaignModelCfg cm, long timeout, long interval ) {
 		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-BtnCampaignModelAdd") );
-		
-		WebElement campaignModelAdd = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-BtnCampaignModelAdd", timeout, interval);
-		if( campaignModelAdd == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model" ) ); return false; }	
-		
-		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "to add a new Campaign Model") );
-		campaignModelAdd.click();
-		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-InputCampaignModelCreationName") );
-		
-		WebElement campaignModelAddName = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-InputCampaignModelCreationName", timeout, interval);
-		if( campaignModelAddName == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model" ) ); return false; }	
-		
-		logger.info( Log.PUTTING.createMessage( selenium.getTestName(), "Campaign Model Name") );
-		
-		campaignModelAddName.sendKeys( cm.getName() );
-		
-		logger.info( Log.GETTING.createMessage( selenium.getTestName(), "for events parameter") );
-		JSONArray eventsList = cm.getEventsList();
-		
-		if( eventsList.length() > 0 ) {
-			 
-			logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-BtnCampaignModelCreationEventAdd") );
-			
-			WebElement campaignModelAddEvents = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-BtnCampaignModelCreationEventAdd", timeout, interval);
-			if( campaignModelAddEvents == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model" ) ); return false; }	
-													   
-			for( int i = 0; i < eventsList.length(); i++ ) {
-				
-				campaignModelAddEvents.click();
-				
-				logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-ListCampaignModelCreationETType") );
-				
-				WebElement campaignModelAddEventType = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-ListCampaignModelCreationETType", timeout, interval);
-				if( campaignModelAddEventType == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model" ) ); return false; }	
-				
-				campaignModelAddEventType.click();
-				
-				String eventType = cm.getEventType( i );
-				
-				if( eventType != null ) {
-										
-					selenium.click("id=" + CMEventType.valueOf( eventType ).getID() );
-					
-					String criteria = cm.getCriteria( i );
-					
-					
-					
-					logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-BtnCampaignModelCreationEAAdd") );
-					
-					WebElement campaignModelAddActionBtn = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-BtnCampaignModelCreationEAAdd", timeout, interval);
-					if( campaignModelAddActionBtn == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model" ) ); return false; }	
-					
-					campaignModelAddActionBtn.click();
-										
-					logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-ListCampaignModelCreationEAType") );
-					
-					WebElement campaignModelActionTypeList = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-ListCampaignModelCreationEAType", timeout, interval);
-					if( campaignModelActionTypeList == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model" ) ); return false; }	
-					
-					campaignModelActionTypeList.click();
-					
-					// Strange behavior. Need select the first option before to have all other correct ids after
-					selenium.mouseOver( "id=gwt-debug-ListCampaignModelCreationEAType-item0" );					  
-					selenium.click( "id=gwt-debug-ListCampaignModelCreationEAType-item0-item0" );
-					
-					String action = cm.getAction( i );
-					
-					String delimiter = "\\.";
-					
-					String[] actionLevel = action.split( delimiter );
-					
-					logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-ListCampaignModelCreationEAType") );
-					
-					campaignModelActionTypeList = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-ListCampaignModelCreationEAType", timeout, interval);
-					if( campaignModelActionTypeList == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model" ) ); return false; }	
-					
-					campaignModelActionTypeList.click();
-					
-					switch( CMAction.valueOf( actionLevel[ 0 ] ) ) {
-					
-						case COMMODITIES: { break; }
-						case TOKENS: {
-							selenium.mouseOver( CMAction.TOKENS.getID() );
-							selenium.click( CMActionToken.valueOf( actionLevel[ 1 ] ).getID() );
-							break;
-						}
-						
-					}				
-					
-				}
-				
-			}
-			
-			logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-BtnCampaignModelCreationSave") );
-			
-			WebElement campaignModelSave = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-BtnCampaignModelCreationSave", timeout, interval);
-			if( campaignModelSave == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model" ) ); return false; }	
-			
-			campaignModelSave.click();			
-			
-		} else {
-			
-			logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-BtnCampaignModelCreationCancel") );
-			
-			WebElement campaignModelCancel = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-BtnCampaignModelCreationCancel", timeout, interval);
-			if( campaignModelCancel == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Campaign Model" ) ); return false; }	
-			
-			campaignModelCancel.click();			
-						
-		}
-				
-		return true;
-		
-	}
-	
-	public static boolean isModel( SeleniumWebDriver selenium, ArrayList<CampaignModelCfg> cmList, CampaignModelCfg cm ) {
-		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "if Campaign Model exists ( " + cm.getName() + " )") );
-				
-		for( int i = 0; i < cmList.size(); i++ ) {
-			
-			CampaignModelCfg cmElement = cmList.get( i );
-			
-			if( cmElement.getName().equals( cm.getName() ) ) { return true; }			
-			
-		}
-		
-		return false;
-		
-	}
-	
-	public static WebElement getCampaignModelTable( SeleniumWebDriver selenium, long timeout, long interval ) {
-		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-ListCampaignModel") );
-		
-		WebElement campaignModelTable = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-ListCampaignModel", timeout, interval);
-		if( campaignModelTable == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Campaign Model Table not found" ) ); return null; }	
-		
-		return campaignModelTable;		
-		
-	}
-	
-	public static List<WebElement> getCampaignModelTableContent( SeleniumWebDriver selenium, long timeout, long interval ) {
-		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for elements contained in id=gwt-debug-ListCampaignModel") );
-				
-		List<WebElement> availableCampaignModels = SeleniumUtils.findListForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, SeleniumUtils.SearchBy.CLASS_NAME, "gwt-debug-ListCampaignModel", "contentRow", timeout, interval); 
-		
-		return availableCampaignModels;		
-		
-	}
-	
-	public static ArrayList<Map<String, Object>> getCampaignModelList( SeleniumWebDriver selenium, long timeout, long interval ) {
-		
-		ArrayList<Map<String, Object>> cmList = new ArrayList<Map<String, Object>>();
-				
-		List<WebElement> availableCampaignModels = CampaignsDashboardForm.getCampaignModelTableContent( selenium, timeout, interval );
-		
-		logger.info( Log.PUTTING.createMessage( selenium.getTestName(), "all discovered elements contained in id=gwt-debug-ListCampaignModel") );
-		
-		for( int i = 0; i < availableCampaignModels.size(); i++ ) {
-			
-			Map<String, Object> cmModel = new HashMap<String, Object>();
-						
-			List<WebElement> availableCampaignModelName = SeleniumUtils.findListForComponentDisplayed( selenium, SeleniumUtils.SearchBy.CLASS_NAME, availableCampaignModels.get( i ), "column_description", timeout, interval );
-			
-			// Assume only the first element found is valid
-			String name = availableCampaignModelName.get( 0 ).getText();
-			cmModel.put( "name" , ( name != null ? name : "" ) );
-			
-			List<WebElement> availableCampaignModelDescription = SeleniumUtils.findListForComponentDisplayed( selenium, SeleniumUtils.SearchBy.CLASS_NAME, availableCampaignModels.get( i ), "column_longText", timeout, interval );
-			
-			// Assume only the first element found is valid
-			String description = availableCampaignModelDescription.get( 0 ).getText();
-			cmModel.put( "description" , ( description != null ? description : "" ) );
-			
-			List<WebElement> availableCampaignModelButtons = SeleniumUtils.findListForComponentDisplayed( selenium, SeleniumUtils.SearchBy.TAG_NAME, availableCampaignModels.get( i ), "button", timeout, interval );
-			
-			for( int j = 0; j < availableCampaignModelButtons.size(); j++ ) {
-				
-				cmModel.put( availableCampaignModelButtons.get( j ).getAttribute( "title" ).toLowerCase() , availableCampaignModelButtons.get( j ) );
-				
-			}
-			
-			cmList.add( cmModel );
-				
-		}
-		
-		return cmList;
-		
-	}	
-	
-	public static Map<String, Object> searchCampaignModel( SeleniumWebDriver selenium, ArrayList<Map<String, Object>> cmList, String cmModelName, long timeout, long interval ) {
-				
-		for( int i = 0; i < cmList.size(); i++ ) {
-			
-			Map<String, Object> cmModel = cmList.get( i );
-			
-			if( cmModel.get( "name" ).equals( cmModelName ) ) { return cmModel; }
-			
-		}
-		
-		return null;
-		
-	}
-
-	public static boolean editCampaignModel( SeleniumWebDriver selenium, Map<String, Object> cmModel, long timeout, long interval ) {
-		
-		if( cmModel != null ) { ((WebElement)cmModel.get( "edit" )).click(); }
-		else { return false; }
-		
-		return true;
-		
-	}
-	
-	public static boolean copyCampaignModel( SeleniumWebDriver selenium, Map<String, Object> cmModel, long timeout, long interval ) {
-		
-		if( cmModel != null ) { ((WebElement)cmModel.get( "copy" )).click(); }
-		else { return false; }
-		
-		return true;
-		
-	}
-	
-	public static boolean deleteCampaignModel( SeleniumWebDriver selenium, Map<String, Object> cmModel, long timeout, long interval ) {
-		
-		if( cmModel != null ) { ((WebElement)cmModel.get( "delete" )).click(); }
-		else { return false; }
-		
-		return true;
-		
-	}
-	*/
 }
