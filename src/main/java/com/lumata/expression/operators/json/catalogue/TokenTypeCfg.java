@@ -1,7 +1,9 @@
 package com.lumata.expression.operators.json.catalogue;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,7 @@ import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.validating.Format;
+import com.lumata.expression.operators.exceptions.RuleException;
 import com.lumata.expression.operators.exceptions.TokenTypeException;
 
 
@@ -88,7 +91,7 @@ public class TokenTypeCfg {
 			
 	}
 	
-	public static ArrayList<TokenTypeCfg> createTokenTypeList(  String folder, String tokenType, IOLoadingType loadingType ) throws TokenTypeException {
+	public static ArrayList<TokenTypeCfg> createTokenTypeList(  String folder, String path, IOLoadingType loadingType ) throws TokenTypeException {
 		
 		ArrayList<TokenTypeCfg> list = new ArrayList<TokenTypeCfg>();
 		
@@ -98,12 +101,28 @@ public class TokenTypeCfg {
 			
 			switch( loadingType ) {
 			
-				case FILE: { token_type_list = JSONUtils.loadJSONFile( folder, tokenType.toLowerCase() + Format.JSON_EXTENSION ); break; }
-				case RESOURCE: { token_type_list = JSONUtils.loadJSONResource( folder, tokenType.toLowerCase() + Format.JSON_EXTENSION ); break;  }
+				case FILE: { token_type_list = JSONUtils.loadJSONFile( folder, path.toLowerCase() + Format.JSON_EXTENSION ); break; }
+				case RESOURCE: { token_type_list = JSONUtils.loadJSONResource( folder, path.toLowerCase() + Format.JSON_EXTENSION ); break;  }
 				default: throw new TokenTypeException( "You cannot load an Campaign from resources different by FILE or RESOURCE" );
 			
 			}
-									
+			
+			@SuppressWarnings("unchecked")
+			Iterator<String> token_types = token_type_list.keys();
+			while( token_types.hasNext() ) {
+				
+				String rule = (String)token_types.next();
+				
+				list.add( new TokenTypeCfg( token_type_list.getJSONObject( rule ) ) );
+												
+			}
+		
+		} catch (JSONException e) {
+			
+			logger.error( e.getMessage(), e );
+			
+			throw new TokenTypeException( e.getMessage(), e );
+			
 		} catch( JSONSException e ) {
 			
 			logger.error( e.getMessage(), e );
