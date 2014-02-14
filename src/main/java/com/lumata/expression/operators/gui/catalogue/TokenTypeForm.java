@@ -81,9 +81,15 @@ public class TokenTypeForm {
 			
 			tokenTypeUsage.clear();
 			
-			tokenTypeUsage.sendKeys("12");
+			tokenTypeUsage.sendKeys( tokenType.getUsage() );
 		
 		}
+		
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for name = btn-add") );
+		
+		WebElement tokenTypeSave = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.NAME, "btn-add", timeout, interval);
+		if( tokenTypeSave == null ) { return false; }
+		tokenTypeSave.click();		
 		
 		return true;
 		
