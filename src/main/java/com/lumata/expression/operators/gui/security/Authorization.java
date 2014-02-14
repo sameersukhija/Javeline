@@ -33,19 +33,19 @@ public class Authorization {
 		WebElement homeInfo = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-FormHomeInfo", timeout, interval);
 		if( homeInfo == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "User not logged" ) ); return false; }	
 		
-		Authorization.closeLicenseDialog( selenium );
+		Authorization.closeLicenseDialog( selenium, timeout, interval );
 		
 		return true;
 		
 	}
 	
-	public static boolean closeLicenseDialog( SeleniumWebDriver selenium ) {
+	public static boolean closeLicenseDialog( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
 		logger.info( Log.CHECKING.createMessage( "for close license message button" ) );
 		
 		try {
 		
-			WebElement closeDialogBtn = SeleniumUtils.findForComponentDisplayed( selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[2]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[3]/td/table/tbody/tr/td/button", 500, 100);
+			WebElement closeDialogBtn = SeleniumUtils.findForComponentDisplayed( selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[2]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[3]/td/table/tbody/tr/td/button", timeout, interval );
 												
 			if( closeDialogBtn == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "The user cannot close license dialog" ) ); return false; }
 		

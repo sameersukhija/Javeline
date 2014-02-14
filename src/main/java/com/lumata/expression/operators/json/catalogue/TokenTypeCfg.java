@@ -3,6 +3,7 @@ package com.lumata.expression.operators.json.catalogue;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -107,15 +108,13 @@ public class TokenTypeCfg {
 			
 			}
 			
-			@SuppressWarnings("unchecked")
-			Iterator<String> token_types = token_type_list.keys();
-			while( token_types.hasNext() ) {
+			JSONArray token_types = token_type_list.getJSONArray( "token_type_list" );
+			
+			for( int i = 0; i < token_types.length(); i++ ) {
 				
-				String rule = (String)token_types.next();
-				
-				list.add( new TokenTypeCfg( token_type_list.getJSONObject( rule ) ) );
-												
-			}
+				list.add( new TokenTypeCfg( token_types.getJSONObject( i ) ) );
+								
+			}			
 		
 		} catch (JSONException e) {
 			
