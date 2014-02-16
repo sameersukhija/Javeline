@@ -1,4 +1,4 @@
-package com.lumata.common.testing.moke;
+package com.lumata.common.testing.generators;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
