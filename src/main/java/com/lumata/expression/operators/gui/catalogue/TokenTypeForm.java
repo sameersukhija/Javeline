@@ -1,5 +1,8 @@
 package com.lumata.expression.operators.gui.catalogue;
 
+import java.util.concurrent.TimeUnit;
+
+import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,12 +10,29 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.expression.operators.gui.catalogue.OffersForm.OfferErrorAction;
+import com.lumata.expression.operators.gui.catalogue.OffersForm.OfferErrorActionType;
+import com.lumata.expression.operators.json.catalogue.OfferCfg;
 import com.lumata.expression.operators.json.catalogue.TokenTypeCfg;
 
 public class TokenTypeForm {
 
 	private static final Logger logger = LoggerFactory.getLogger(CatalogueForm.class);
-			
+		
+	public enum TokenTypeErrorAction { 
+		
+		TOKEN_TYPE_ALREADY_EXISTS;
+				
+	};
+	
+	public enum TokenTypeActionType { 
+		
+		RETURN_ERROR,
+		ABORT,
+		ADD_TIMESTAMP_TO_OFFER_NAME;
+				
+	};
+	
 	public static boolean open( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
 		return OfferOptimisationForm.open(selenium, OfferOptimisationForm.OfferOptimisationSection.TOKEN_TYPE, timeout, interval);
@@ -91,6 +111,82 @@ public class TokenTypeForm {
 		if( tokenTypeSave == null ) { return false; }
 		tokenTypeSave.click();		
 		
+		return true;
+		
+	}
+	
+	public static boolean manageErrorAction( SeleniumWebDriver selenium, TokenTypeCfg tokenType, long timeout, long interval ) {
+		
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for error message") );
+		
+		WebElement messageError = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[4]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[3]/td/table/tbody/tr/td/button", timeout, interval);
+		
+		if( messageError != null ) { 
+			
+			JSONObject error_actions = tokenType.getErrorActions();
+			
+			if( error_actions == null ) {
+				
+				logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new token type ( Wrong json configuration )" ) );
+				
+				return false;
+								
+			} else {
+				
+				try {
+					
+					if( messageError.getText().equals( "Cannot add token type, name is already used." ) && !error_actions.isNull( TokenTypeErrorAction.TOKEN_TYPE_ALREADY_EXISTS.name() ) ) {
+						
+						switch( OfferErrorActionType.valueOf( error_actions.getString( TokenTypeErrorAction.TOKEN_TYPE_ALREADY_EXISTS.name() ) ) ) {
+						
+							case RETURN_ERROR:{
+								
+								logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new token type ( token type name already exist )" ) );
+								
+								return false;
+								
+							}
+							case ADD_TIMESTAMP_TO_OFFER_NAME:{
+								
+								/*
+								String name_with_timestamp = offerCfg.getOfferName() + "_" + String.valueOf( TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) );
+								
+								offerCfg.setOfferName( name_with_timestamp );
+								
+								OffersForm.setDefinition( selenium, offerCfg, timeout, interval );
+								
+								OffersForm.setActivation( selenium, offerCfg, timeout, interval );
+								*/
+								return true;
+								
+							}
+							case ABORT:{
+								
+								logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=btn-cancel") );
+								
+								WebElement tokenTypeCancel = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[1]/div[2]/div/div/div[2]/a[1]", timeout, interval);
+								if( tokenTypeCancel == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Abort token type creation" ) ); return false; }	
+								tokenTypeCancel.click();
+								
+								return true;
+																
+							}
+							
+						}
+						
+					}  
+					
+				} catch( Exception e ) {}
+				
+			}
+			
+			logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new token type ( " + messageError.getText() + " )" ) ); 
+			
+			return false; 
+			
+		
+		}	
+			
 		return true;
 		
 	}

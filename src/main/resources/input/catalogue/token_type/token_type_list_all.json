@@ -8,7 +8,7 @@
 			"usageUnlimited": true,
 			"usage":"10",
 			"error_actions": {
-				"TOKEN_TYPE_ALREADY_EXISTS": "ADD_TIMESTAMP_TO_OFFER_NAME"	
+				"TOKEN_TYPE_ALREADY_EXISTS": "ABORT"	
 			},
 			"options": {
 				"TOKEN_TYPE_AUTOINCREMENT": true	
@@ -20,7 +20,13 @@
 			"validityUnit":"days",
 			"validity":"100",
 			"usageUnlimited": true,
-			"usage":"10"
+			"usage":"10",
+			"error_actions": {
+				"TOKEN_TYPE_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
 		},
 		{
 			"name":"TokenC",
@@ -28,7 +34,13 @@
 			"validityUnit":"days",
 			"validity":"100",
 			"usageUnlimited": true,
-			"usage":"10"
+			"usage":"10",
+			"error_actions": {
+				"TOKEN_TYPE_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
 		}
 	]
 }

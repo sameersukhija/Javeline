@@ -302,8 +302,7 @@ public class OffersForm extends CatalogueForm {
 			
 			logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new Offer ( " + messageError.getText() + " )" ) ); 
 			
-			return false; 
-			
+			return false; 			
 		
 		}	
 			

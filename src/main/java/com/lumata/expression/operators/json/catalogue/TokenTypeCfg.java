@@ -1,7 +1,6 @@
 package com.lumata.expression.operators.json.catalogue;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,7 +13,6 @@ import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.expression.operators.exceptions.RuleException;
 import com.lumata.expression.operators.exceptions.TokenTypeException;
 
 
@@ -236,4 +234,19 @@ public class TokenTypeCfg {
 		
 	}
 
+	public JSONObject getErrorActions() {
+		
+		try {
+		
+			if( !ttCfg.isNull("error_actions") ) { return ttCfg.getJSONObject("error_actions"); }
+		
+		} catch( JSONException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return null;
+		
+	}
 }

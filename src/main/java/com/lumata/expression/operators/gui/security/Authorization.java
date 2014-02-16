@@ -31,9 +31,12 @@ public class Authorization {
 		logger.info( Log.CHECKING.createMessage( "for login success" ) );
 		
 		WebElement homeInfo = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-FormHomeInfo", timeout, interval);
-		if( homeInfo == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "User not logged" ) ); return false; }	
+		if( homeInfo == null ) {			
+			logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "User not logged" ) ); 
+			return false; 
+		}	
 		
-		Authorization.closeLicenseDialog( selenium, timeout, interval );
+		Authorization.closeLicenseDialog( selenium, 1000, 100 );
 		
 		return true;
 		
