@@ -81,7 +81,7 @@ public class ConfigureOffer {
 	}
 	
 	@Parameters({"tenant"})
-	@Test(enabled=true, priority = 1)
+	@Test(enabled=false, priority = 1)
 	public void selectOffersForm( @Optional("qa") String tenant ) throws TokenTypeException {
 		
 		Assert.assertTrue( OffersForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
@@ -90,7 +90,7 @@ public class ConfigureOffer {
 	}
 	
 	@Parameters({"tenant"})
-	@Test(enabled=false, priority = 1)
+	@Test(enabled=true, priority = 1)
 	public void selectOfferOptimisation( @Optional("qa") String tenant ) throws TokenTypeException {
 		
 		TokenTypeCfg tokenType = new TokenTypeCfg( "input/catalogue/token_type", "token_type_a", IOLoadingType.RESOURCE );

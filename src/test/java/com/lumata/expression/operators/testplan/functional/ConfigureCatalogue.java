@@ -86,14 +86,14 @@ public class ConfigureCatalogue {
 		
 		Assert.assertTrue( TokenTypeForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
 		
-		//for( int i = 0; i < tokenTypeList.size(); i++ ) {
+		for( int i = 0; i < tokenTypeList.size(); i++ ) {
 			
-			Assert.assertTrue( TokenTypeForm.addTokenType(seleniumWebDriver, tokenTypeList.get( 0 ), TIMEOUT, ATTEMPT_TIMEOUT) );
+			Assert.assertTrue( TokenTypeForm.addTokenType(seleniumWebDriver, tokenTypeList.get( i ), TIMEOUT, ATTEMPT_TIMEOUT) );
 			
 			//Assert.assertTrue( TokenTypeForm.close(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
 			//Assert.assertTrue( CampaignCreationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
 			
-			//}
+		}
 		
 	}
 

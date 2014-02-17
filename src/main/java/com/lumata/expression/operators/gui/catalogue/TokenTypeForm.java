@@ -25,7 +25,7 @@ public class TokenTypeForm {
 				
 	};
 	
-	public enum TokenTypeActionType { 
+	public enum TokenTypeErrorActionType { 
 		
 		RETURN_ERROR,
 		ABORT,
@@ -111,7 +111,7 @@ public class TokenTypeForm {
 		if( tokenTypeSave == null ) { return false; }
 		tokenTypeSave.click();		
 		
-		return true;
+		return TokenTypeForm.manageErrorAction( selenium, tokenType, timeout, interval );
 		
 	}
 	
@@ -119,9 +119,18 @@ public class TokenTypeForm {
 		
 		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for error message") );
 		
-		WebElement messageError = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[4]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[3]/td/table/tbody/tr/td/button", timeout, interval);
+		selenium.selectFrame("relative=top");
 		
-		if( messageError != null ) { 
+		WebElement btnMessageError = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "//div[@class='gwt-DialogBox errorDialog']//button", 2000, 100);
+		
+		if( btnMessageError != null ) { 
+			
+			btnMessageError.click();
+			
+			WebElement angularFrame = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.CLASS_NAME, "gwt-Frame", timeout, interval);
+			if( angularFrame == null ) { return false; }
+			
+			selenium.getWrappedDriver().switchTo().frame(angularFrame);
 			
 			JSONObject error_actions = tokenType.getErrorActions();
 			
@@ -135,58 +144,54 @@ public class TokenTypeForm {
 				
 				try {
 					
-					if( messageError.getText().equals( "Cannot add token type, name is already used." ) && !error_actions.isNull( TokenTypeErrorAction.TOKEN_TYPE_ALREADY_EXISTS.name() ) ) {
+					switch( TokenTypeErrorActionType.valueOf( error_actions.getString( TokenTypeErrorAction.TOKEN_TYPE_ALREADY_EXISTS.name() ) ) ) {
 						
-						switch( OfferErrorActionType.valueOf( error_actions.getString( TokenTypeErrorAction.TOKEN_TYPE_ALREADY_EXISTS.name() ) ) ) {
-						
-							case RETURN_ERROR:{
-								
-								logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new token type ( token type name already exist )" ) );
-								
-								return false;
-								
-							}
-							case ADD_TIMESTAMP_TO_OFFER_NAME:{
-								
-								/*
-								String name_with_timestamp = offerCfg.getOfferName() + "_" + String.valueOf( TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) );
-								
-								offerCfg.setOfferName( name_with_timestamp );
-								
-								OffersForm.setDefinition( selenium, offerCfg, timeout, interval );
-								
-								OffersForm.setActivation( selenium, offerCfg, timeout, interval );
-								*/
-								return true;
-								
-							}
-							case ABORT:{
-								
-								logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=btn-cancel") );
-								
-								WebElement tokenTypeCancel = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[1]/div[2]/div/div/div[2]/a[1]", timeout, interval);
-								if( tokenTypeCancel == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Abort token type creation" ) ); return false; }	
-								tokenTypeCancel.click();
-								
-								return true;
-																
-							}
+						case RETURN_ERROR:{
+							
+							logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new token type ( token type name already exist )" ) );
+							
+							return false;
 							
 						}
+						case ADD_TIMESTAMP_TO_OFFER_NAME:{
+							
+							/*
+							String name_with_timestamp = offerCfg.getOfferName() + "_" + String.valueOf( TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) );
+							
+							offerCfg.setOfferName( name_with_timestamp );
+							
+							OffersForm.setDefinition( selenium, offerCfg, timeout, interval );
+							
+							OffersForm.setActivation( selenium, offerCfg, timeout, interval );
+							*/
+							return true;
+							
+						}
+						case ABORT:{
+							
+							logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for name=btn-cancel") );
+							
+							WebElement tokenTypeCancel = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[1]/div[2]/div/div/div[2]/a[1]", timeout, interval);
+							if( tokenTypeCancel == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Abort token type creation" ) ); return false; }	
+							tokenTypeCancel.click();
+							
+							return true;
+															
+						}
 						
-					}  
-					
+					}
+				
 				} catch( Exception e ) {}
 				
 			}
-			
-			logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Cannot add a new token type ( " + messageError.getText() + " )" ) ); 
-			
-			return false; 
-			
+							
+		}
+	
+		WebElement angularFrame = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.CLASS_NAME, "gwt-Frame", timeout, interval);
+		if( angularFrame == null ) { return false; }
 		
-		}	
-			
+		selenium.getWrappedDriver().switchTo().frame(angularFrame);
+		
 		return true;
 		
 	}
