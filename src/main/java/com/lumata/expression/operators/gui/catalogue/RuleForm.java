@@ -1,7 +1,13 @@
 package com.lumata.expression.operators.gui.catalogue;
 
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,6 +66,21 @@ public class RuleForm {
 			return false;
 		}
 		selenium.select("name=tokenType", "label=" + rule.getTokenTypeName());
+
+		WebElement ruleChannleList = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "//select[@multiple]", timeout, interval);
+		if (ruleChannleList == null) {
+			return false;
+		}
+		try {
+			JSONArray channleList = rule.getChannelNameList();
+			Select available = new Select(ruleChannleList);
+			for (int i = 0; i < channleList.length(); i++) {
+				String channel = channleList.getString(i);
+				available.selectByVisibleText(channel);
+			}
+		} catch (JSONException e) {
+			logger.error(Log.FAILED.createMessage(selenium.getTestName(), "Cannot add a new rule"), e);
+		}
 
 		WebElement ruleAlgorithmName = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.NAME, "algorithm", timeout, interval);
 		if (ruleAlgorithmName == null) {
@@ -133,17 +154,12 @@ public class RuleForm {
 			}
 			numOfOffersToDrawUnlimited0.click();
 		}
-		System.out.println("---------------------------->1");
 		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for name = btn-add"));
 		WebElement ruleSave = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.NAME, "btn-add", timeout, interval);
-		System.out.println("---------------------------->3");
 		if (ruleSave == null) {
-			System.out.println("---------------------------->3");
 			return false;
 		}
-		System.out.println("---------------------------->4");
 		ruleSave.click();
-		System.out.println("---------------------------->5");
 		return manageErrorAction(selenium, rule, timeout, interval);
 
 	}
@@ -211,6 +227,7 @@ public class RuleForm {
 					}
 
 				} catch (Exception e) {
+					logger.error(Log.FAILED.createMessage(selenium.getTestName(), "Cannot add a new rule"), e);
 				}
 
 			}
