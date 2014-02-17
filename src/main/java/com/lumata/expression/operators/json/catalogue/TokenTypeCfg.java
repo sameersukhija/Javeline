@@ -249,4 +249,19 @@ public class TokenTypeCfg {
 		return null;
 		
 	}
+	
+	public void setName( String name ) {
+		
+		try {
+			
+			if( !ttCfg.isNull("name") ) { ttCfg.put( "name" , name ); }
+		
+		} catch( Exception e ) {
+
+			logger.error( e.getMessage(), e );
+			
+		}
+				
+	}
+	
 }

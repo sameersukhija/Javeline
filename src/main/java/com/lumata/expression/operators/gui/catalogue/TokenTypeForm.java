@@ -12,6 +12,7 @@ import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.expression.operators.gui.catalogue.OffersForm.OfferErrorAction;
 import com.lumata.expression.operators.gui.catalogue.OffersForm.OfferErrorActionType;
+import com.lumata.expression.operators.gui.common.AngularFrame;
 import com.lumata.expression.operators.json.catalogue.OfferCfg;
 import com.lumata.expression.operators.json.catalogue.TokenTypeCfg;
 
@@ -29,7 +30,7 @@ public class TokenTypeForm {
 		
 		RETURN_ERROR,
 		ABORT,
-		ADD_TIMESTAMP_TO_OFFER_NAME;
+		ADD_TIMESTAMP_TO_TOKEN_TYPE_NAME;
 				
 	};
 	
@@ -119,7 +120,7 @@ public class TokenTypeForm {
 		
 		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for error message") );
 		
-		selenium.selectFrame("relative=top");
+		AngularFrame.close( selenium, timeout, interval );
 		
 		WebElement btnMessageError = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "//div[@class='gwt-DialogBox errorDialog']//button", 2000, 100);
 		
@@ -127,10 +128,7 @@ public class TokenTypeForm {
 			
 			btnMessageError.click();
 			
-			WebElement angularFrame = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.CLASS_NAME, "gwt-Frame", timeout, interval);
-			if( angularFrame == null ) { return false; }
-			
-			selenium.getWrappedDriver().switchTo().frame(angularFrame);
+			if( !AngularFrame.open( selenium, timeout, interval ) ) { return false; }
 			
 			JSONObject error_actions = tokenType.getErrorActions();
 			
@@ -153,17 +151,24 @@ public class TokenTypeForm {
 							return false;
 							
 						}
-						case ADD_TIMESTAMP_TO_OFFER_NAME:{
+						case ADD_TIMESTAMP_TO_TOKEN_TYPE_NAME:{
+														
+							String name_with_timestamp = tokenType.getName() + "_" + String.valueOf( TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) );
+														
+							tokenType.setName( name_with_timestamp );							
 							
-							/*
-							String name_with_timestamp = offerCfg.getOfferName() + "_" + String.valueOf( TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) );
+							WebElement tokenTypeName = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.NAME, "name", timeout, interval);
+							if( tokenTypeName == null ) { return false; }
 							
-							offerCfg.setOfferName( name_with_timestamp );
+							tokenTypeName.clear();
+							tokenTypeName.sendKeys(tokenType.getName());
 							
-							OffersForm.setDefinition( selenium, offerCfg, timeout, interval );
+							logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for name=btn-add") );
 							
-							OffersForm.setActivation( selenium, offerCfg, timeout, interval );
-							*/
+							WebElement tokenTypeSave = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.NAME, "btn-add", timeout, interval);
+							if( tokenTypeSave == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "Abort token type creation" ) ); return false; }	
+							tokenTypeSave.click();
+							
 							return true;
 							
 						}
@@ -186,13 +191,8 @@ public class TokenTypeForm {
 			}
 							
 		}
-	
-		WebElement angularFrame = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.CLASS_NAME, "gwt-Frame", timeout, interval);
-		if( angularFrame == null ) { return false; }
-		
-		selenium.getWrappedDriver().switchTo().frame(angularFrame);
-		
-		return true;
+			
+		return AngularFrame.open( selenium, timeout, interval );
 		
 	}
 	

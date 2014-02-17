@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.expression.operators.gui.common.AngularFrame;
 import com.lumata.expression.operators.gui.common.MenuBar;
 import com.lumata.expression.operators.gui.common.SectionImpl;
 
@@ -36,12 +37,7 @@ public class OfferOptimisationForm {
 		
 		if( !MenuBar.select( selenium, new SectionImpl<MenuBar.CatalogSections, String, String>(MenuBar.CatalogSections.OFFER_OPTIMISATION, MenuBar.CatalogSections.OFFER_OPTIMISATION.section_id_prefix, MenuBar.CatalogSections.OFFER_OPTIMISATION.section_type), timeout, interval ) ) { return false; }
 		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for class_name=gwt-Frame") );
-		
-		WebElement angularFrame = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.CLASS_NAME, "gwt-Frame", timeout, interval);
-		if( angularFrame == null ) { return false; }
-		
-		selenium.getWrappedDriver().switchTo().frame(angularFrame);
+		if( !AngularFrame.open( selenium, timeout, interval ) ) { return false; }
 		
 		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for link=" + section.value() ) );
 		
@@ -56,12 +52,8 @@ public class OfferOptimisationForm {
 	
 	public static boolean close( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
-		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "for parent frame") );
-		
-		selenium.selectFrame("relative=top");
-		
-		return true;
-		
+		return AngularFrame.close( selenium, timeout, interval );
+				
 	}
 
 }
