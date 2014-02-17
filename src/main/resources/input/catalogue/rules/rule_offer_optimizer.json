@@ -1,0 +1,48 @@
+{
+	"rule_list": [{		
+		"name":"RuleA",
+		"description":"RuleA",
+		"tokenTypeName":"TokenA",
+		"channelNamesList":[],
+		"offerSelectionAlgorithmId":"Best Offer",
+		"requestorIdsList":[1,7],
+		"keepOffersConsistent": true,
+		"previousOffersDrawnIncluded":true,
+		"duplicatedOfferWithinSingleDrawEnabled": true,
+		"numOfOffersToDrawUnlimited": true,
+		"numOfOffersToDraw": -1,
+		"allocationExpiration": 1,
+		"allocationExpirationUnit":"SECONDS"
+	},
+	{
+		"name":"RuleB",
+		"description":"RuleB",
+		"tokenTypeName":"TokenA",
+		"channelNamesList":[],
+		"offerSelectionAlgorithmId":"History based",
+		"requestorIdsList":[1,7],
+		"keepOffersConsistent": true,
+		"previousOffersDrawnIncluded":true,
+		"duplicatedOfferWithinSingleDrawEnabled": true,
+		"numOfOffersToDrawUnlimited": true,
+		"numOfOffersToDraw": -1,
+		"allocationExpiration": 1,
+		"allocationExpirationUnit":"SECONDS"
+	},
+	{
+		"name":"RuleC",
+		"description":"RuleC",
+		"tokenTypeName":"TokenA",
+		"channelNamesList":[],
+		"offerSelectionAlgorithmId":"Stock based",
+		"requestorIdsList":[1,7],
+		"keepOffersConsistent": true,
+		"previousOffersDrawnIncluded":true,
+		"duplicatedOfferWithinSingleDrawEnabled": true,
+		"numOfOffersToDrawUnlimited": true,
+		"numOfOffersToDraw": -1,
+		"allocationExpiration": 1,
+		"allocationExpirationUnit":"SECONDS"
+	}	
+	]
+}
