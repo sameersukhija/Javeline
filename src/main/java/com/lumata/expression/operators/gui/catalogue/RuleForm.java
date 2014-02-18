@@ -1,11 +1,8 @@
 package com.lumata.expression.operators.gui.catalogue;
 
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
@@ -55,11 +52,12 @@ public class RuleForm {
 		}
 		ruleName.sendKeys(rule.getName());
 
-		//TODO: 
-		//		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for name = Description") );		
-		//		WebElement ruleDesc = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.NAME, "description", timeout, interval);
-		//		if( ruleDesc == null ) { return false; }			
-		//		ruleDesc.sendKeys(rule.getDescription());	
+		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for name = description"));
+		WebElement ruleDesc = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "//textarea[@name='description']", timeout, interval);
+		if (ruleDesc == null) {
+			return false;
+		}
+		ruleDesc.sendKeys(rule.getDescription());	
 
 		WebElement ruleTokenTypeName = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.NAME, "tokenType", timeout, interval);
 		if (ruleTokenTypeName == null) {
