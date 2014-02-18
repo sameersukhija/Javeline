@@ -24,6 +24,7 @@ import com.lumata.expression.operators.exceptions.TokenTypeException;
 import com.lumata.expression.operators.gui.catalogue.OffersForm;
 import com.lumata.expression.operators.gui.catalogue.RuleForm;
 import com.lumata.expression.operators.gui.catalogue.TokenTypeForm;
+import com.lumata.expression.operators.gui.common.AngularFrame;
 import com.lumata.expression.operators.gui.security.Authorization;
 import com.lumata.expression.operators.json.catalogue.RuleCfg;
 import com.lumata.expression.operators.json.catalogue.TokenTypeCfg;
@@ -62,6 +63,7 @@ public class AllocateTest {
 	private void setUpConfiguration() throws TokenTypeException, RuleException {
 //		configureChannels();
 //		configureTokenType();
+//		AngularFrame.close(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 		configureRuleSet();
 	}
 

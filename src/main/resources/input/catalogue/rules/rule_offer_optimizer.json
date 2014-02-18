@@ -12,7 +12,10 @@
 		"numOfOffersToDrawUnlimited": true,
 		"numOfOffersToDraw": -1,
 		"allocationExpiration": 1,
-		"allocationExpirationUnit":"SECONDS"
+		"allocationExpirationUnit":"SECONDS",
+		"error_actions": {
+				"RULE_ALREADY_EXISTS": "ABORT"	
+		}
 	},
 	{
 		"name":"RuleB",
@@ -27,7 +30,10 @@
 		"numOfOffersToDrawUnlimited": true,
 		"numOfOffersToDraw": -1,
 		"allocationExpiration": 1,
-		"allocationExpirationUnit":"SECONDS"
+		"allocationExpirationUnit":"SECONDS",
+		"error_actions": {
+				"RULE_ALREADY_EXISTS": "ABORT"	
+		}
 	},
 	{
 		"name":"RuleC",
@@ -42,7 +48,10 @@
 		"numOfOffersToDrawUnlimited": true,
 		"numOfOffersToDraw": -1,
 		"allocationExpiration": 1,
-		"allocationExpirationUnit":"SECONDS"
+		"allocationExpirationUnit":"SECONDS",
+		"error_actions": {
+				"RULE_ALREADY_EXISTS": "ABORT"	
+		}
 	}	
 	]
 }

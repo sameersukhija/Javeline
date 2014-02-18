@@ -210,10 +210,10 @@ public class RuleForm {
 
 						logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for name=btn-cancel"));
 
-						WebElement tokenTypeCancel = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[1]/div[2]/div/div/div[2]/a[1]", timeout,
-								interval);
+						//WebElement tokenTypeCancel = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "//div[@class='e4ol-actions']/a[@class='gwt-Button'][1]", timeout,interval);
+						WebElement tokenTypeCancel = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[1]/div[2]/div/div/div/div/div[2]/a[1]", timeout,interval);						
 						if (tokenTypeCancel == null) {
-							logger.error(Log.FAILED.createMessage(selenium.getTestName(), "Abort token type creation"));
+							logger.error(Log.FAILED.createMessage(selenium.getTestName(), "Abort rule creation"));
 							return false;
 						}
 						tokenTypeCancel.click();
