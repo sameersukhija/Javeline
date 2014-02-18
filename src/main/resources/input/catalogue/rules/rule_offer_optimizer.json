@@ -3,7 +3,7 @@
 		"name":"RuleA",
 		"description":"RuleA",
 		"tokenTypeName":"TokenA",
-		"channelNamesList":[],
+		"channelNamesList":["Token Gold","Token Silver","Token Bronze","Token Unlimited"],
 		"offerSelectionAlgorithmId":"Best Offer",
 		"requestorIdsList":[1,7],
 		"keepOffersConsistent": true,
@@ -12,13 +12,16 @@
 		"numOfOffersToDrawUnlimited": true,
 		"numOfOffersToDraw": -1,
 		"allocationExpiration": 1,
-		"allocationExpirationUnit":"SECONDS"
+		"allocationExpirationUnit":"SECONDS",
+		"error_actions": {
+				"RULE_ALREADY_EXISTS": "ABORT"	
+		}
 	},
 	{
 		"name":"RuleB",
 		"description":"RuleB",
 		"tokenTypeName":"TokenA",
-		"channelNamesList":[],
+		"channelNamesList":["Token Gold","Token Silver","Token Bronze","Token Unlimited"],
 		"offerSelectionAlgorithmId":"History based",
 		"requestorIdsList":[1,7],
 		"keepOffersConsistent": true,
@@ -27,13 +30,16 @@
 		"numOfOffersToDrawUnlimited": true,
 		"numOfOffersToDraw": -1,
 		"allocationExpiration": 1,
-		"allocationExpirationUnit":"SECONDS"
+		"allocationExpirationUnit":"SECONDS",
+		"error_actions": {
+				"RULE_ALREADY_EXISTS": "ABORT"	
+		}
 	},
 	{
 		"name":"RuleC",
 		"description":"RuleC",
 		"tokenTypeName":"TokenA",
-		"channelNamesList":[],
+		"channelNamesList":["Token Gold","Token Silver","Token Bronze","Token Unlimited"],
 		"offerSelectionAlgorithmId":"Stock based",
 		"requestorIdsList":[1,7],
 		"keepOffersConsistent": true,
@@ -42,7 +48,10 @@
 		"numOfOffersToDrawUnlimited": true,
 		"numOfOffersToDraw": -1,
 		"allocationExpiration": 1,
-		"allocationExpirationUnit":"SECONDS"
+		"allocationExpirationUnit":"SECONDS",
+		"error_actions": {
+				"RULE_ALREADY_EXISTS": "ABORT"	
+		}
 	}	
 	]
 }
