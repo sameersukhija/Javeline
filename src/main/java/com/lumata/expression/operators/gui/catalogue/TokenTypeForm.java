@@ -10,10 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.expression.operators.gui.catalogue.OffersForm.OfferErrorAction;
-import com.lumata.expression.operators.gui.catalogue.OffersForm.OfferErrorActionType;
 import com.lumata.expression.operators.gui.common.AngularFrame;
-import com.lumata.expression.operators.json.catalogue.OfferCfg;
 import com.lumata.expression.operators.json.catalogue.TokenTypeCfg;
 
 public class TokenTypeForm {

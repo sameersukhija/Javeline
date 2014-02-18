@@ -95,8 +95,8 @@ public class ConfigureCatalogue {
 	}
 
 	@Parameters({"tenant"})
-	@Test(enabled=false, priority = 1)
-	public void selectOffersForm( @Optional("qa") String tenant ) throws TokenTypeException {
+	@Test(enabled=false, priority = 2)
+	public void configureOffers( @Optional("qa") String tenant ) throws TokenTypeException {
 		
 		Assert.assertTrue( OffersForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
 		Assert.assertTrue( OffersForm.create(seleniumWebDriver, offerCfg, TIMEOUT, ATTEMPT_TIMEOUT) );
@@ -104,7 +104,7 @@ public class ConfigureCatalogue {
 	}
 
 	@Parameters({"tenant"})
-	@Test(enabled=false, priority = 2)
+	@Test(enabled=false, priority = 3)
 	public void setTokenType( @Optional("qa") String tenant ) throws CampaignException {
 			
 		//Assert.assertTrue( CampaignCreationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );

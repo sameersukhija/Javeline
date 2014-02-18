@@ -1,11 +1,8 @@
 package com.lumata.expression.operators.gui.catalogue;
 
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;

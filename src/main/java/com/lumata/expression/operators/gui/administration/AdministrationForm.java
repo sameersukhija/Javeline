@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.expression.operators.gui.common.MenuBar;
+import com.lumata.expression.operators.gui.common.SectionImpl;
 
 public class AdministrationForm {
 
@@ -25,6 +27,12 @@ public class AdministrationForm {
 		
 		return true;
 		
+	}
+	
+	public static boolean open( SeleniumWebDriver selenium, long timeout, long interval ) {
+		
+		return MenuBar.select( selenium, new SectionImpl<MenuBar.HomeSections, String, String>(MenuBar.HomeSections.ADMINSTRATION, MenuBar.HomeSections.ADMINSTRATION.section_id_prefix, MenuBar.HomeSections.ADMINSTRATION.section_type), timeout, interval );
+						
 	}
 	
 }
