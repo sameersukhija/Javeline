@@ -1,0 +1,34 @@
+{
+	"definition": {
+		"offer_name": "OFF_2",
+		"offer_description": "",
+		"image_url_of_offer": "",
+		"previous_of_the_offer_image": "",
+		"terms_and_conditions": ""
+	},
+	"offer_content": {
+	},
+	"prices": {
+		"channels": [
+			"Token Gold",
+			"Token Silver",
+			"Token Bronze",
+			"Token Unlimited"
+		]
+	},
+	"notifications": {
+	},
+	"eligibility_criteria": {
+	},	
+	"availability": {
+		"stock_availability": ""
+	},
+	"activation": {
+	},
+	"error_actions": {
+		"OFFER_ALREADY_EXISTS": "ADD_TIMESTAMP_TO_OFFER_NAME"	
+	},
+	"options": {
+		"OFFER_AUTOINCREMENT": true	
+	}
+}
