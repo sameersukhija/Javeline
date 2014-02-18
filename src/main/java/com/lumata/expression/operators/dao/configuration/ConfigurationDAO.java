@@ -144,7 +144,7 @@ public class ConfigurationDAO {
 				
 	}
 	
-	public void checkAll( Mysql mysql ) {
+	public int checkAll( Mysql mysql ) {
 		
 		Conf confTable = new Conf();
 		
@@ -181,10 +181,10 @@ public class ConfigurationDAO {
 			ResultSet rs = mysql.execQuery( query );
 			
 			try {
-			
+				
 				if( rs.first() ) { conf.setValidation( true ); }
-				else { System.out.println( query ); fails++; }
-			
+				else {  fails++;  }
+								
 			} catch( SQLException e ) {
 				
 				logger.error( e.getMessage(), e );
@@ -193,7 +193,7 @@ public class ConfigurationDAO {
 						
 		}	
 		
-		System.out.println( "FAILS: " + fails );
+		return fails;
 				
 	}
 	

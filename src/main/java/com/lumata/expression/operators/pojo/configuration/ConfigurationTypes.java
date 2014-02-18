@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -101,6 +99,7 @@ public enum ConfigurationTypes {
 		
 		public ArrayList<Configuration> getCfg( Map<String, Object> options ) {
 			
+			@SuppressWarnings("unchecked")
 			ArrayList<String> subscribers = (ArrayList<String>)options.get( "subscribers" );
 			
 			ArrayList<Configuration> cfgList = new ArrayList<Configuration>();
@@ -120,13 +119,43 @@ public enum ConfigurationTypes {
 		
 	},
 	
+	DM_DELAYED_NOTIFICATIONS {
+		
+		public ArrayList<Configuration> getCfg( Map<String, Object> options ) {
+			
+			ArrayList<Configuration> cfgList = new ArrayList<Configuration>();
+			
+			Configuration cfg;
+			
+			cfg = new Configuration( new ArrayList<String>(Arrays.asList("age_in_days_delay_bonus", "0", "notif", "NULL", "Admin", "30", "NULL", "RW", "NULL", "Value", "age in days after which the message has been deleted")) );
+			cfgList.add( cfg );	
+			
+			cfg = new Configuration( new ArrayList<String>(Arrays.asList("max_message_number_delay_bonus", "0", "notif", "NULL", "Admin", "500", "NULL", "RW", "NULL", "Value", "Maximum number record deleted on every clenaup.")) );
+			cfgList.add( cfg );	
+			
+			cfg = new Configuration( new ArrayList<String>(Arrays.asList("task_70", "0", "system", "NULL", "Internal", "DelayedBonusCleanUpTask,com.act750.notif.sms.task.DelayedBonusCleanUpTask", "NULL", "RW_INITIAL", "NULL", "Value", "Scheduled task")) );
+			cfgList.add( cfg );	
+			
+			cfg = new Configuration( new ArrayList<String>(Arrays.asList("task_71", "0", "system", "NULL", "Internal", "DelayedExpiredBonusCleanUpTask,com.act750.notif.sms.task.DelayedExpiredBonusCleanUpTask", "NULL", "RW_INITIAL", "NULL", "Value", "Scheduled task")) );
+			cfgList.add( cfg );	
+
+			cfg = new Configuration( new ArrayList<String>(Arrays.asList("Task_Group_7", "0", "system", "NULL", "Internal", "DelayedBonusCleanUpTask,DelayedExpiredBonusCleanUpTask;0 1 * * *", "NULL", "RW_INITIAL", "NULL", "Value", "Group of scheduled tasks")) );
+			cfgList.add( cfg );	
+			
+			return cfgList;
+			
+		}		
+		
+	},
+	
+	
 	ALL_STANDARD_PARAMETERS_FROM_FILE {
 				
 		public ArrayList<Configuration> getCfg( Map<String, Object> options ) {
 				
 			ArrayList<Configuration> cfgList = new ArrayList<Configuration>();
 					
-			final int CATEGORY = 0;
+			//final int CATEGORY = 0;
 			final int SECTION = 1;
 			final int NAME = 2;
 			final int POSITION = 3;
@@ -136,8 +165,8 @@ public enum ConfigurationTypes {
 			final int DYN_STATIC = 7;
 			final int TYPE = 8;
 			final int DESCRIPTION = 9;
-			final int CHAR = 10;
-			final int ON_LINE_HELP = 11;
+			//final int CHAR = 10;
+			//final int ON_LINE_HELP = 11;
 			
 			try {
 				
@@ -178,7 +207,7 @@ public enum ConfigurationTypes {
 		}
 		
 	};
-		
+	
 	/*
 	 mysql> select * from qa.conf where name like 'throttling%';
 		+----------------------------------+----------+---------+------------+------------+---------+----------+------------+---------------------+-------+-------------------------------------------------------+

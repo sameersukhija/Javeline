@@ -55,9 +55,11 @@ public class GenerateTokensWithAllSubscribers {
 		
 		int calls_count = 0;
 		
+		final int MAX_CALLS = 10000;
+		
 		try {
 			
-			while( rs.next() ) {
+			while( rs.next() && calls_count <= MAX_CALLS ) {
 				
 				String msisdn = rs.getString( Subscribers.Fields.msisdn.name() );
 				
@@ -71,9 +73,7 @@ public class GenerateTokensWithAllSubscribers {
 				ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.eventmanager_generateCustomEvent.call( env.getLink() + "xmlrpc/" , params );
 				
 				calls_count++;
-				
-				if( calls_count > 1000 ) { break; }
-				
+							
 				Thread.sleep( 100 );
 				
 			}
