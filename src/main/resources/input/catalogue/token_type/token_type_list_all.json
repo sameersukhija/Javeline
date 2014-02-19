@@ -8,7 +8,7 @@
 			"usageUnlimited": true,
 			"usage":"10",
 			"error_actions": {
-				"TOKEN_TYPE_ALREADY_EXISTS": "ABORT"	
+				"TOKEN_TYPE_ALREADY_EXISTS": "ADD_TIMESTAMP_TO_TOKEN_TYPE_NAME"	
 			},
 			"options": {
 				"TOKEN_TYPE_AUTOINCREMENT": true	

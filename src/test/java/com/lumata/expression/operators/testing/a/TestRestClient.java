@@ -14,7 +14,7 @@ import javax.xml.stream.events.XMLEvent;
 
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlString;
-import org.codehaus.stax2.XMLInputFactory2;
+//import org.codehaus.stax2.XMLInputFactory2;
 import org.jboss.resteasy.client.ClientResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
