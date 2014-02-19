@@ -24,6 +24,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.expression.operators.dao.administration.SalesChannelsList;
+import com.lumata.expression.operators.exceptions.CampaignModelException;
 import com.lumata.expression.operators.exceptions.OfferException;
 import com.lumata.expression.operators.exceptions.RuleException;
 import com.lumata.expression.operators.exceptions.TokenTypeException;
@@ -180,9 +181,9 @@ public class AllocateAcceptTest {
 		configureOffers();
 	}
 	
-	private void configureCampaignModel(){
+	private void configureCampaignModel() throws CampaignModelException{
 
-		CampaignModelCfg cm_bonus = new CampaignModelCfg( "input/campaigns", "cm_bonus", IOLoadingType.RESOURCE );
+		CampaignModelCfg cm_bonus = new CampaignModelCfg( "input/campaigns", "cm_rulea", IOLoadingType.RESOURCE );
 				
 		Assert.assertTrue( CampaignModelForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
 		Assert.assertTrue( CampaignModelForm.create(seleniumWebDriver, cm_bonus, TIMEOUT, ATTEMPT_TIMEOUT) );	
@@ -190,7 +191,8 @@ public class AllocateAcceptTest {
 	
 	@Test
 	public void testAllocate() throws Exception {
-		setUpConfiguration();
+//		setUpConfiguration();
 //		String msisdn = createSubscriber(10);
+		configureCampaignModel();
 	}
 }

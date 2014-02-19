@@ -1,0 +1,6 @@
+{
+	"name": "CModelTokenBronze",
+	"description": "",
+	"events_list": [{ "event_type":"REVENUE", "criteria": null, "action": { "name": "Rulesets.RuleA"} }]
+
+}
