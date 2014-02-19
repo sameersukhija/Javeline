@@ -11,6 +11,7 @@ import com.jcraft.jsch.ChannelSftp.LsEntry;
 import com.jcraft.jsch.SftpException;
 import com.lumata.common.testing.network.SFTPClient;
 import com.lumata.common.testing.network.SFTPClient.CopyType;
+import com.lumata.common.testing.network.SSHExecClient;
 
 /**
  * Created with IntelliJ IDEA.
@@ -50,7 +51,7 @@ public class TestSFTP {
         
     }
     
-    @Test( enabled = true )
+    @Test( enabled = false )
     public void ssh_copy_local_to_remote() {
 
     	String user = "root";
@@ -72,6 +73,5 @@ public class TestSFTP {
         }        
         
     }   
-
 
 }

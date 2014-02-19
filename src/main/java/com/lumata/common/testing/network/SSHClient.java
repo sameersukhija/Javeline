@@ -5,6 +5,7 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
@@ -13,8 +14,11 @@ import com.lumata.common.testing.system.Security;
 public class SSHClient {
 
 	private static final Logger logger = LoggerFactory.getLogger( SSHClient.class );
-	
+		
 	protected Session session;
+	protected Channel channel;
+
+	public enum Types { sftp, exec }
 	
 	public SSHClient( String host, int port, String user, String encryptedPassword ) {
 		
@@ -45,6 +49,24 @@ public class SSHClient {
 		config.put("StrictHostKeyChecking", "no");
     	
     	this.session.setConfig( config );
+		
+	}
+	
+	public Channel getChannel() {
+		
+		return this.channel;
+		
+	}
+	
+	public void setChannel( Channel channel ) {
+		
+		this.channel = channel;
+		
+	}
+
+	public boolean isConnected() {
+	
+		return this.session.isConnected();
 		
 	}
 	

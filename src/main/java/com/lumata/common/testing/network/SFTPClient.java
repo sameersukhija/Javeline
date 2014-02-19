@@ -13,7 +13,7 @@ import com.jcraft.jsch.ChannelSftp.LsEntry;
 
 public class SFTPClient extends SSHClient {
 
-	private ChannelSftp channel;
+	private ChannelSftp sftpChannel;
 	
 	private static final Logger logger = LoggerFactory.getLogger( SFTPClient.class );
 	
@@ -27,9 +27,9 @@ public class SFTPClient extends SSHClient {
 			
 			if( this.isConnected() ) {
 			
-				Channel channel = this.session.openChannel("sftp");
-				channel.connect();
-				this.setChannel(channel);
+				this.setChannel( this.session.openChannel(SSHClient.Types.sftp.name()) );
+				this.channel.connect();
+				this.setSftpChannel(this.channel);
 			
 			}
 			
@@ -40,32 +40,27 @@ public class SFTPClient extends SSHClient {
 		}
 	
 	}
-	
-	public ChannelSftp getChannel() {
+
+	public ChannelSftp getSftpChannel() {
 		
-		return this.channel;
-		
-	}
-	
-	public void setChannel( Channel channel ) {
-		
-		this.channel = (ChannelSftp)channel;
+		return this.sftpChannel;
 		
 	}
 
-	public boolean isConnected() {
-	
-		return this.session.isConnected();
+	public void setSftpChannel( Channel channel ) {
+		
+		this.sftpChannel = (ChannelSftp)channel;
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ArrayList<LsEntry> listDirectory( String path ) {
 		
 		ArrayList<LsEntry> fileList = new ArrayList<LsEntry>();
 		
 		try {
 	        
-        	Vector<LsEntry> files = getChannel().ls( path );        
+        	Vector<LsEntry> files = getSftpChannel().ls( path );        
         
 	        for( int i = 0; i < files.size(); i++ ) {
 	
@@ -87,20 +82,20 @@ public class SFTPClient extends SSHClient {
 				
 		try {
 					
-			this.channel.cd( remotePath );
+			this.sftpChannel.cd( remotePath );
 			
 			switch( copyType ) {
 			
 				case LOCAL_TO_REMOTE: {
 														
-					this.channel.put( localPath + localFile, remoteFile );
+					this.sftpChannel.put( localPath + localFile, remoteFile );
 					
 					break;
 				
 				}
 				case REMOTE_TO_LOCAL: {
 										
-					this.channel.get( remoteFile, localPath + localFile );
+					this.sftpChannel.get( remoteFile, localPath + localFile );
 					
 					break;
 				
