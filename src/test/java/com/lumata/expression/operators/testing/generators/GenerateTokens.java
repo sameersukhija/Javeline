@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import org.jboss.resteasy.client.ClientResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.impl.StaticLoggerBinder;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -28,10 +29,15 @@ public class GenerateTokens {
 	@BeforeSuite
 	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws EnvironmentException {		
 		
-		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
+		logger.debug( Log.LOADING.createMessage( "init" , "environment" ) );
 		
 		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-						
+			
+		final StaticLoggerBinder binder = StaticLoggerBinder.getSingleton();
+
+		System.out.println(binder.getLoggerFactory());
+		System.out.println(binder.getLoggerFactoryClassStr());
+				
 	}
 	
 	@Test
