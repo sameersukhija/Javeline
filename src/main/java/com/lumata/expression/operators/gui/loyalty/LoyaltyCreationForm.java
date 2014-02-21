@@ -47,7 +47,25 @@ public class LoyaltyCreationForm {
 		if (programSave == null) { return false; }
 		programSave.click();
 		
-		// TODO ...
+		WebElement addBadgeType = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
+				"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td/table/tbody/tr[4]/td/button", timeout, interval);
+		if (addBadgeType == null) { return false; }
+		addBadgeType.click();
+
+		WebElement badgeNameInput = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
+				"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td[2]/input", timeout, interval);
+		if (badgeNameInput == null) { return false; }
+		badgeNameInput.sendKeys("Gold");
+
+		WebElement badgeTypeSave = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
+				"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button", timeout, interval);
+		if (badgeTypeSave == null) { return false; }
+		badgeTypeSave.click();
+		
+		WebElement badgeTypeClose = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
+				"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/button", timeout, interval);
+		if (badgeTypeClose == null) { return false; }
+		badgeTypeClose.click();
 		
 		return true;
 	}
