@@ -70,6 +70,13 @@ public class LoyaltyCreationForm {
 		return true;
 	}
 
+	public static boolean manage(SeleniumWebDriver selenium, long timeout, long interval) {
+		
+		// TODO...
+		
+		return true;
+	}
+	
 	public static void main(String[] args) throws Exception {
 		
 		System.out.println(com.lumata.common.testing.system.Security.decrypt("bGppYm1NSUhJMmB3"));
