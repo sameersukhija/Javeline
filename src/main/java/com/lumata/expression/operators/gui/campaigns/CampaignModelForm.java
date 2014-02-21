@@ -23,20 +23,6 @@ public class CampaignModelForm extends CampaignsForm {
 
 	private static final Logger logger = LoggerFactory.getLogger(CampaignModelForm.class);
 
-	public enum CMEventType {
-
-		USSD, CALL, CAMPAIGN_END, CAMPAIGN_FOLLOWING, CAMPAIGN_START, DATA, LIFECYCLE, MESSAGE, OTHER_USAGE, REVENUE;
-
-		private static String eventID = "gwt-debug-ListCampaignModelCreationETType";
-
-		public String getID() {
-
-			return eventID + "-item" + ordinal();
-
-		}
-
-	};
-
 
 	public enum CMErrorAction {
 
