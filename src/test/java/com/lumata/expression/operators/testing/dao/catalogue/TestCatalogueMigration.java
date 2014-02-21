@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.DataModelException;
 import com.lumata.common.testing.exceptions.EnvironmentException;
-import com.lumata.common.testing.exceptions.ResourcePropertiesException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.model.DataModel;
 import com.lumata.common.testing.model.DataModel.DataModelOptions;
