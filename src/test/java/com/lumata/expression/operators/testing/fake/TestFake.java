@@ -1,19 +1,8 @@
 package com.lumata.expression.operators.testing.fake;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
-import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import com.lumata.expression.operators.bdr.BDR;
-import com.lumata.expression.operators.gui.campaigns.CampaignModelForm.CMAction;
-import com.lumata.expression.operators.gui.campaigns.CampaignModelForm.CMEventType;
-import com.lumata.expression.operators.testing.general.TestCampaignModel;
 
 public class TestFake {
 

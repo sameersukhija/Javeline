@@ -13,275 +13,323 @@ import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.expression.operators.exceptions.CampaignModelException;
 
-
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
 public class CampaignModelCfg {
 
-	private static final  Logger logger = LoggerFactory.getLogger( CampaignModelCfg.class );
-	
+	private static final Logger logger = LoggerFactory.getLogger(CampaignModelCfg.class);
+
 	private JSONObject cmCfg;
-	
+
 	/* Create an CampaignModel from a JSONObject */
-	public CampaignModelCfg( JSONObject CampaignModel ) {
-		
+	public CampaignModelCfg(JSONObject CampaignModel) {
+
 		this.cmCfg = CampaignModel;
-				
+
 	}
-	
+
 	/* Create an CampaignModel loading the JSONObject from the default folder ( <home of the project> ) or resource folder ( src/main/resources/lumata-common-testing ) */
-	public CampaignModelCfg( String CampaignModel, IOLoadingType loadingType ) throws CampaignModelException {
-		
+	public CampaignModelCfg(String CampaignModel, IOLoadingType loadingType) throws CampaignModelException {
+
 		try {
-			
-			switch( loadingType ) {
-			
-				case FILE: { this.cmCfg = JSONUtils.loadJSONFile( CampaignModel.toLowerCase() + Format.JSON_EXTENSION ); break; }
-				case RESOURCE: { this.cmCfg = JSONUtils.loadJSONResource( CampaignModel.toLowerCase() + Format.JSON_EXTENSION ); break;  }
-				default: throw new CampaignModelException( "You cannot load an CampaignModel from resources different by FILE or RESOURCE" );
-			
-			}		
-									
-		} catch( JSONSException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new CampaignModelException( e.getMessage(), e );
-			
-		} catch( IOFileException e ) {			
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new CampaignModelException( e.getMessage(), e );
-			
-		} 			
-			
+
+			switch (loadingType) {
+
+			case FILE: {
+				this.cmCfg = JSONUtils.loadJSONFile(CampaignModel.toLowerCase() + Format.JSON_EXTENSION);
+				break;
+			}
+			case RESOURCE: {
+				this.cmCfg = JSONUtils.loadJSONResource(CampaignModel.toLowerCase() + Format.JSON_EXTENSION);
+				break;
+			}
+			default:
+				throw new CampaignModelException("You cannot load an CampaignModel from resources different by FILE or RESOURCE");
+
+			}
+
+		} catch (JSONSException e) {
+
+			logger.error(e.getMessage(), e);
+
+			throw new CampaignModelException(e.getMessage(), e);
+
+		} catch (IOFileException e) {
+
+			logger.error(e.getMessage(), e);
+
+			throw new CampaignModelException(e.getMessage(), e);
+
+		}
+
 	}
-	
+
 	/* Create an CampaignModel loading the JSONObject from the file or resource folder ( src/main/resources/lumata-common-testing/folder ) */
-	public CampaignModelCfg( String folder, String CampaignModel, IOLoadingType loadingType ) throws CampaignModelException {
-		
+	public CampaignModelCfg(String folder, String CampaignModel, IOLoadingType loadingType) throws CampaignModelException {
+
 		try {
-			
-			switch( loadingType ) {
-			
-			case FILE: { this.cmCfg = JSONUtils.loadJSONFile( folder, CampaignModel.toLowerCase() + Format.JSON_EXTENSION ); break; }
-			case RESOURCE: { this.cmCfg = JSONUtils.loadJSONResource( folder, CampaignModel.toLowerCase() + Format.JSON_EXTENSION ); break;  }
-			default: throw new CampaignModelException( "You cannot load an CampaignModel from resources different by FILE or RESOURCE" );
-		
+
+			switch (loadingType) {
+
+			case FILE: {
+				this.cmCfg = JSONUtils.loadJSONFile(folder, CampaignModel.toLowerCase() + Format.JSON_EXTENSION);
+				break;
+			}
+			case RESOURCE: {
+				this.cmCfg = JSONUtils.loadJSONResource(folder, CampaignModel.toLowerCase() + Format.JSON_EXTENSION);
+				break;
+			}
+			default:
+				throw new CampaignModelException("You cannot load an CampaignModel from resources different by FILE or RESOURCE");
+
+			}
+
+		} catch (JSONSException e) {
+
+			logger.error(e.getMessage(), e);
+
+			throw new CampaignModelException(e.getMessage(), e);
+
+		} catch (IOFileException e) {
+
+			logger.error(e.getMessage(), e);
+
+			throw new CampaignModelException(e.getMessage(), e);
+
 		}
-									
-		} catch( JSONSException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new CampaignModelException( e.getMessage(), e );
-			
-		} catch( IOFileException e ) {			
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new CampaignModelException( e.getMessage(), e );
-			
-		} 			
-			
+
 	}
-	
+
 	public static JSONObject getBasicCampaignModel() {
-		
+
 		JSONObject basicCM = new JSONObject();
-		
+
 		try {
-		
-			basicCM.put( "name", "" );
-			basicCM.put( "description", "" );
-			basicCM.put( "event_type", new JSONArray() );
-		
-		} catch( JSONException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
+
+			basicCM.put("name", "");
+			basicCM.put("description", "");
+			basicCM.put("event_type", new JSONArray());
+
+		} catch (JSONException e) {
+
+			logger.error(e.getMessage(), e);
+
 		}
-		
+
 		return basicCM;
-		
+
 	}
-	
+
 	// CampaignModel ATTRIBUTES
 	public String getName() {
-		
-		try {
-			
-			if( !cmCfg.isNull("name") ) { return cmCfg.getString("name"); }
-		
-		} catch( Exception e ) {
 
-			logger.error( e.getMessage(), e );
-			
+		try {
+
+			if (!cmCfg.isNull("name")) {
+				return cmCfg.getString("name");
+			}
+
+		} catch (Exception e) {
+
+			logger.error(e.getMessage(), e);
+
 		}
-		
+
 		return null;
-		
+
 	}
 
 	public String getDescription() {
-		
-		try {
-			
-			if( !cmCfg.isNull("description") ) { return cmCfg.getString("description"); }
-		
-		} catch( Exception e ) {
 
-			logger.error( e.getMessage(), e );
-			
+		try {
+
+			if (!cmCfg.isNull("description")) {
+				return cmCfg.getString("description");
+			}
+
+		} catch (Exception e) {
+
+			logger.error(e.getMessage(), e);
+
 		}
-		
+
 		return null;
-		
+
 	}
-	
+
 	public JSONArray getEventsList() {
-		
-		try {
-			
-			if( !cmCfg.isNull("events_list") ) { return cmCfg.getJSONArray("events_list"); }
-		
-		} catch( Exception e ) {
 
-			logger.error( e.getMessage(), e );
-			
-		}
-		
-		return null;
-		
-	}
-	
-	public String getEventType( int index ) {
-		
 		try {
-			
-			if( !getEventsList().isNull( index ) ) { return getEventsList().getJSONObject(index).getString("event_type"); }
-		
-		} catch( Exception e ) {
 
-			logger.error( e.getMessage(), e );
-			
-		}
-		
-		return null;
-		
-	}
-	
-	public String getCriteria( int index ) {
-		
-		try {
-			
-			if( !getEventsList().isNull( index ) ) { return getEventsList().getJSONObject(index).getString("criteria"); }
-		
-		} catch( Exception e ) {
+			if (!cmCfg.isNull("events_list")) {
+				return cmCfg.getJSONArray("events_list");
+			}
 
-			logger.error( e.getMessage(), e );
-			
-		}
-		
-		return null;
-		
-	}
-	
-	public JSONObject getAction( int index ) {
-		
-		try {
-			
-			if( !getEventsList().isNull( index ) ) { return getEventsList().getJSONObject(index).getJSONObject("action"); }
-		
-		} catch( Exception e ) {
+		} catch (Exception e) {
 
-			logger.error( e.getMessage(), e );
-			
+			logger.error(e.getMessage(), e);
+
 		}
-		
+
 		return null;
-		
+
 	}
 
-	public String getActionName( int index ) {
-		
-		try {
-			
-			if( !getAction( index ).isNull( "name" ) ) { return getAction(index).getString("name"); }
-		
-		} catch( Exception e ) {
+	public String getEventType(int index) {
 
-			logger.error( e.getMessage(), e );
-			
+		try {
+
+			if (!getEventsList().isNull(index)) {
+				return getEventsList().getJSONObject(index).getString("event_type");
+			}
+
+		} catch (Exception e) {
+
+			logger.error(e.getMessage(), e);
+
 		}
-		
+
 		return null;
-		
+
 	}
-	
-	public String getActionValue( int index ) {
-		
-		try {
-			
-			if( !getAction( index ).isNull( "value" ) ) { return getAction(index).getString("value"); }
-		
-		} catch( Exception e ) {
 
-			logger.error( e.getMessage(), e );
-			
-		}
-		
-		return null;
-		
-	}	
-	
-	public String getActionOption( int index ) {
-		
-		try {
-			
-			if( !getAction( index ).isNull( "option" ) ) { return getAction(index).getString("option"); }
-		
-		} catch( Exception e ) {
+	public String getCriteria(int index) {
 
-			logger.error( e.getMessage(), e );
-			
+		try {
+
+			if (!getEventsList().isNull(index)) {
+				return getEventsList().getJSONObject(index).getString("criteria");
+			}
+
+		} catch (Exception e) {
+
+			logger.error(e.getMessage(), e);
+
 		}
-		
+
 		return null;
-		
-	}	
-	
+
+	}
+
+	public JSONArray getActionList(int index) {
+
+		try {
+
+			if (!getEventsList().getJSONObject(index).isNull("action_list")) {
+				return getEventsList().getJSONObject(index).getJSONArray("action_list");
+			}
+
+		} catch (Exception e) {
+
+			logger.error(e.getMessage(), e);
+
+		}
+
+		return null;
+
+	}
+
+	public JSONObject getAction(int eventIndex, int actionIndex) {
+
+		try {
+
+			if (!getEventsList().isNull(eventIndex) && !getActionList(eventIndex).getJSONObject(actionIndex).isNull("action")) {
+				return getActionList(eventIndex).getJSONObject(actionIndex).getJSONObject("action");
+			}
+
+		} catch (Exception e) {
+
+			logger.error(e.getMessage(), e);
+
+		}
+
+		return null;
+
+	}
+
+	public String getActionName(int eventIndex, int actionIndex) {
+
+		try {
+			if (!getEventsList().isNull(eventIndex) && !getActionList(eventIndex).getJSONObject(actionIndex).isNull("name")) {
+				return getActionList(eventIndex).getJSONObject(actionIndex).getString("name");
+			}
+
+		} catch (Exception e) {
+
+			logger.error(e.getMessage(), e);
+
+		}
+
+		return null;
+
+	}
+
+	public String getActionValue(int eventIndex, int actionIndex) {
+
+		try {
+			if (!getEventsList().isNull(eventIndex) && !getActionList(eventIndex).getJSONObject(actionIndex).isNull("value")) {
+				return getActionList(eventIndex).getJSONObject(actionIndex).getString("value");
+			}
+
+		} catch (Exception e) {
+
+			logger.error(e.getMessage(), e);
+
+		}
+
+		return null;
+
+	}
+
+	public String getActionOption(int eventIndex, int actionIndex) {
+
+		try {
+			if (!getEventsList().isNull(eventIndex) && !getActionList(eventIndex).getJSONObject(actionIndex).isNull("option")) {
+				return getActionList(eventIndex).getJSONObject(actionIndex).getString("option");
+			}
+
+		} catch (Exception e) {
+
+			logger.error(e.getMessage(), e);
+
+		}
+
+		return null;
+
+	}
+
 	public JSONObject getErrorActions() {
-		
+
 		try {
-		
-			if( !cmCfg.isNull("error_actions") ) { return cmCfg.getJSONObject("error_actions"); }
-		
-		} catch( JSONException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
+
+			if (!cmCfg.isNull("error_actions")) {
+				return cmCfg.getJSONObject("error_actions");
+			}
+
+		} catch (JSONException e) {
+
+			logger.error(e.getMessage(), e);
+
 		}
-		
+
 		return null;
-		
+
 	}
 
-	public void setName( String value ) {
-		
-		try {
-			
-			cmCfg.put( "name", value );
-		
-		} catch( JSONException e ) {
+	public void setName(String value) {
 
-			logger.error( e.getMessage(), e );
-			
+		try {
+
+			cmCfg.put("name", value);
+
+		} catch (JSONException e) {
+
+			logger.error(e.getMessage(), e);
+
 		}
-				
+
 	}
 
 	/*
