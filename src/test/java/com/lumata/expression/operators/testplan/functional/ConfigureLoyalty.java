@@ -66,9 +66,9 @@ public class ConfigureLoyalty {
 	public void configureBadges(@Optional("tenant") String tenant) throws TokenTypeException {
 		
 		// open section from menu and popup
-		LoyaltyCreationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		Assert.assertTrue(LoyaltyCreationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
 		
 		// create program
-		LoyaltyCreationForm.create(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		Assert.assertTrue(LoyaltyCreationForm.create(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
 	}
 }
