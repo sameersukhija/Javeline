@@ -1,6 +1,7 @@
 package com.lumata.expression.operators.gui.loyalty;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
@@ -116,6 +117,33 @@ public class LoyaltyCreationForm {
 				"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[3]/td/button", timeout, interval);
 		if (addAwarded == null) { return false; }
 		addAwarded.click();
+
+		WebElement eventType = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
+				"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td[1]/div/table/tbody/tr/td", timeout, interval);
+		if (eventType == null) { return false; }
+		eventType.click();
+
+		WebElement selectRevenue = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
+				"html/body/div[8]/div/table/tbody/tr[2]/td[2]/div/div/table/tbody/tr[9]/td", timeout, interval);
+		if (selectRevenue == null) { return false; }
+		selectRevenue.click();
+		
+		WebElement addAction = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
+				"//*[@id='gwt-debug-BtnCampaignModelCreationEAAdd']", timeout, interval);
+		if (addAction == null) { return false; }
+		addAction.click();
+		
+		WebElement selectUnitRecharge = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
+				"//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']", timeout, interval);
+		if (selectUnitRecharge == null) { return false; }
+		Select select = new Select(selectUnitRecharge);
+		// select.deselectAll();
+		select.selectByVisibleText("/recharge");
+		
+		WebElement points = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
+				"//*[@id='gwt-debug-TextCampaignModelCreationEAValue']", timeout, interval);
+		if (points == null) { return false; }
+		points.sendKeys("1");
 
 		// TODO...
 		
