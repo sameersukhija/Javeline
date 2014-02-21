@@ -64,6 +64,11 @@ public class ConfigureLoyalty {
 	@Parameters({"tenant"})
 	@Test(enabled=true, priority = 1)
 	public void configureBadges(@Optional("tenant") String tenant) throws TokenTypeException {
+		
+		// open section from menu and popup
 		LoyaltyCreationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		
+		// create program
+		LoyaltyCreationForm.create(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 	}
 }
