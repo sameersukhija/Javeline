@@ -22,6 +22,8 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lumata.common.testing.io.IOFileUtils;
+import com.lumata.common.testing.log.Log;
 import com.opera.core.systems.OperaDriver;
 
 /**
@@ -70,11 +72,31 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 					
 					if( browserProfile != null ) {
 						
-						if( !browserProfile.isNull( "file") ) { profile = new FirefoxProfile( new File(browserProfile.getString("file"))); }
+						JSONObject browserProfileInfo = browserProfile.getJSONObject( "profile" );
 						
-						if( !browserProfile.isNull( "options") ) {
+						if( !browserProfileInfo.isNull("file") ) { 
 							
-							JSONObject profileOpts = browserProfile.getJSONObject("options");
+							JSONObject browserProfileFileInfo = browserProfileInfo.getJSONObject( "file" );
+							
+							StringBuilder path = new StringBuilder();
+									
+							if( IOFileUtils.IOLoadingType.valueOf( browserProfileFileInfo.getString("loading_type").toUpperCase() ).equals( IOFileUtils.IOLoadingType.RESOURCE ) ) {
+								
+								path.append( System.getProperty( "user.dir" ) ).append( "/src/main/resources/" );
+								
+							}
+							
+							path.append( IOFileUtils.buildPath( browserProfileFileInfo.getString("folder_name"), browserProfileFileInfo.getString("file_name") ) );
+							
+							profile = new FirefoxProfile( new File( path.toString() ) ); 
+							
+							logger.debug( Log.LOADING.createMessage( "Firefox profile ( " + browserProfileInfo.getString("file") + " )" ) );
+						
+						}
+						
+						if( !browserProfileInfo.isNull("options") ) {
+							
+							JSONObject profileOpts = browserProfileInfo.getJSONObject("options");
 							
 							@SuppressWarnings("unchecked")
 							Iterator<String> keys = profileOpts.keys();
@@ -85,6 +107,8 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 									String key = keys.next().toString();
    	
 						        	profile.setPreference( key, profileOpts.getString(key) );
+						        	
+						        	logger.debug( Log.LOADING.createMessage( "Firefox profile option ( " + key + " )" ) );
 						        	
 						        } catch (JSONException e) {
 						            

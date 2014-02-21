@@ -248,12 +248,43 @@ public final class IOFileUtils {
 		res = new BufferedReader( IOFileUtils.loadResourceAsInputStreamReader( folder, resource ) );
 		
 		logger.debug( "The resource has been loaded as buffered reader ( " + IOFileUtils.buildResourcePath( folder, resource ) + " )" );
-																		 
-
+		
 		return res;
 		
 	}
-		
+
+    public static File loadResourceAsFile( String resource ) throws IOException, IOFileException {
+                
+     	final File file = File.createTempFile( "tmp_file", "txt", new File( System.getProperty( "user.home" ) ) );
+         
+     	file.deleteOnExit();
+         
+     	try( FileOutputStream out = new FileOutputStream(file) ) {
+             IOUtils.copy( IOFileUtils.loadResourceAsInputStream( resource ), out);
+     	}
+     	
+     	logger.debug( "The resource has been loaded as file ( " + file.getAbsolutePath() + " )" );
+		     	
+     	return file;
+        
+    } 
+    
+    public static File loadResourceAsFile( String folder, String resource ) throws IOException, IOFileException {
+        
+    	final File file = File.createTempFile( "tmp_file", "txt", new File( System.getProperty( "user.home" ) ) );
+        
+    	file.deleteOnExit();
+        
+    	try( FileOutputStream out = new FileOutputStream(file) ) {
+            IOUtils.copy( IOFileUtils.loadResourceAsInputStream( folder, resource ), out);
+        }
+    	
+    	logger.debug( "The resource has been loaded as file ( " + file.getAbsolutePath() + " )" );
+		    	
+        return file;
+        
+    }    
+	
 	public static String buildPath( String file ) throws IOFileException {
 		
 		if( !Format.isFile( file ) ) { throw new IOFileException( "You cannot build a not valid file ( " + file + " )" ); }
