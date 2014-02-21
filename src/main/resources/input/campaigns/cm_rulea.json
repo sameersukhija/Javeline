@@ -4,7 +4,7 @@
 	"events_list": [
 		{ "event_type":"lifecycle.data", "criteria": null, "action_list": [
 			{ "name": "Commodities.Credit.Points" , "value": "100", "option":"/session"},
-			{ "name": "Commodities.Credit.Points" , "value": "200", "option":"/invoice"}
+			{ "name": "Commodities.Credit.Points" , "value": "200", "option":"/call since campaign start"}
 		]  },
 		{ "event_type":"CALL", "criteria": null, "action_list": [{ "name": "Rulesets.RuleA"},{ "name": "Commodities.Credit.Points" , "value": "100", "option":"/call"}]  },
 		{ "event_type":"Message", "criteria": null, "action_list": [{ "name": "Rulesets.RuleB"},{ "name": "Rulesets.RuleC"}]  }

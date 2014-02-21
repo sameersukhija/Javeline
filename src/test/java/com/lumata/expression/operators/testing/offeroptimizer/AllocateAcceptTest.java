@@ -10,7 +10,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -71,8 +73,13 @@ public class AllocateAcceptTest {
 		System.out.println("TENANT: " + env.getDataSource(tenant).toString());
 	}
 
-	@AfterSuite
-	public void close() {
+	@BeforeClass
+	public void onStartup(){
+		
+	}
+	
+	@AfterClass
+	public void onClose() {
 		if (null != mysql) {
 			mysql.close();
 		}
