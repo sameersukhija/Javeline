@@ -198,8 +198,8 @@ public class AllocateAcceptTest {
 	
 	@Test
 	public void testAllocate() throws Exception {
-//		setUpConfiguration();
-//		String msisdn = createSubscriber(10);
+		setUpConfiguration();
+		String msisdn = createSubscriber(10);
 		configureCampaignModel();
 	}
 }
