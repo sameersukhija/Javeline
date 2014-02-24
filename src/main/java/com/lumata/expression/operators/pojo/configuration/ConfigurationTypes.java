@@ -148,6 +148,22 @@ public enum ConfigurationTypes {
 		
 	},
 	
+	MULTITHREADING {
+		
+		public ArrayList<Configuration> getCfg( Map<String, Object> options ) {
+			
+			ArrayList<Configuration> cfgList = new ArrayList<Configuration>();
+						
+			Configuration cfg;
+			
+			cfg = new Configuration( new ArrayList<String>(Arrays.asList("notifbulk_thread_number", "0", "user_datas", "NULL", "Internal", "2", "NULL", "RW", getNow(), "Value", "Number of threads for notif bulk provisioning")) );
+			cfgList.add( cfg );			
+			
+			return cfgList;
+			
+		}
+		
+	},
 	
 	ALL_STANDARD_PARAMETERS_FROM_FILE {
 				

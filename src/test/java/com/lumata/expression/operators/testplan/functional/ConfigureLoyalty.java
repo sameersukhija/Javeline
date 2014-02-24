@@ -70,5 +70,8 @@ public class ConfigureLoyalty {
 		
 		// create program
 		Assert.assertTrue(LoyaltyCreationForm.create(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
+		
+		// manage program
+		Assert.assertTrue(LoyaltyCreationForm.manage(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
 	}
 }
