@@ -120,6 +120,12 @@ public class SalesChannels {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return SalesChannels.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

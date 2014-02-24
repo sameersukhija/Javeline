@@ -120,6 +120,12 @@ public class DynamicProfiles {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return DynamicProfiles.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

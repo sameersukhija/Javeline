@@ -120,6 +120,12 @@ public class NbRelations {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return NbRelations.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

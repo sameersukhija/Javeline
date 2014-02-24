@@ -248,6 +248,12 @@ public class DailyPostpaid {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return DailyPostpaid.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

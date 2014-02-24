@@ -120,6 +120,12 @@ public class CampaignInfos {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CampaignInfos.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

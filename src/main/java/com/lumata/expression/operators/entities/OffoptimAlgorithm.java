@@ -151,6 +151,12 @@ public class OffoptimAlgorithm {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return OffoptimAlgorithm.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

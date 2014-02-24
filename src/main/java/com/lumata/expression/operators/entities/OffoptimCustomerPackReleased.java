@@ -154,6 +154,12 @@ public class OffoptimCustomerPackReleased {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return OffoptimCustomerPackReleased.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

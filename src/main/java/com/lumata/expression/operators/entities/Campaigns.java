@@ -650,6 +650,12 @@ public class Campaigns {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Campaigns.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

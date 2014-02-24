@@ -89,6 +89,12 @@ public class RulesetChannel {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return RulesetChannel.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

@@ -247,6 +247,12 @@ public class StatsSubsData {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return StatsSubsData.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

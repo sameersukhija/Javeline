@@ -120,6 +120,12 @@ public class SupportedRatePlan {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return SupportedRatePlan.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

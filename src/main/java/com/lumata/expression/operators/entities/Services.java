@@ -89,6 +89,12 @@ public class Services {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Services.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

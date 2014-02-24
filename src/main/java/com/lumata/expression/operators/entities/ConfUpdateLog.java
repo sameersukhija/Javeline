@@ -154,6 +154,12 @@ public class ConfUpdateLog {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return ConfUpdateLog.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

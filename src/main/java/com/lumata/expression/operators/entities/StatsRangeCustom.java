@@ -185,6 +185,12 @@ public class StatsRangeCustom {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return StatsRangeCustom.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

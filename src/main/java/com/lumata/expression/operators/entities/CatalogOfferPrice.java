@@ -120,6 +120,12 @@ public class CatalogOfferPrice {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CatalogOfferPrice.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

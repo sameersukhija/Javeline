@@ -185,6 +185,12 @@ public class StatsSubsBundle {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return StatsSubsBundle.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

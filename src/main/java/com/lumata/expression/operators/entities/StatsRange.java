@@ -185,6 +185,12 @@ public class StatsRange {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return StatsRange.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

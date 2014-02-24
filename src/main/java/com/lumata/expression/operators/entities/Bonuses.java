@@ -12,7 +12,7 @@ import com.lumata.common.testing.annotations.mysql.Column;
 @Table( "bonuses" )
 public class Bonuses { 
 
-	public enum Fields { bonus_id, bonus_name, unit, optin, in_credit, handleOptOut, inFeedbackRequired, commodity_type, account_type, max_value, default_validity_type, default_period_type, default_qty_period, default_fixed_validity_from, unitary_cost, recommended_price }
+	public enum Fields { bonus_id, bonus_name, unit, operations, in_credit, handleOptOut, inFeedbackRequired, commodity_type, account_type, max_value, default_validity_type, default_period_type, default_qty_period, default_fixed_validity_from, unitary_cost, recommended_price, expiryNotifDays, expiryNotif }
 
 	@Column(
 			table = "bonuses",
@@ -67,20 +67,20 @@ public class Bonuses {
 
 	@Column(
 			table = "bonuses",
-			field = "optin",
-			type = "tinyint(4)",
-			mysqlType = "tinyint",
-			javaType = "Byte",
-			categoryType = "Number",
+			field = "operations",
+			type = "set('CREDIT','DEBIT','SET','ACTIVATE','DEACTIVATE')",
+			mysqlType = "set",
+			javaType = "Set",
+			categoryType = "Collection",
 			isNull = false,
 			key = "",
-			defaultValue = "0",
+			defaultValue = "null",
 			extra = "",
-			length = 4,
-			getMethod = "getOptin",
-			setMethod = "setOptin"
+			length = 5,
+			getMethod = "getOperations",
+			setMethod = "setOperations"
 	)
-	private Byte optin;
+	private String operations;
 
 	@Column(
 			table = "bonuses",
@@ -286,6 +286,40 @@ public class Bonuses {
 	)
 	private Float recommended_price;
 
+	@Column(
+			table = "bonuses",
+			field = "expiryNotifDays",
+			type = "smallint(3) unsigned",
+			mysqlType = "smallint",
+			javaType = "Short",
+			categoryType = "Number",
+			isNull = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 3,
+			getMethod = "getExpiryNotifDays",
+			setMethod = "setExpiryNotifDays"
+	)
+	private Short expiryNotifDays;
+
+	@Column(
+			table = "bonuses",
+			field = "expiryNotif",
+			type = "blob",
+			mysqlType = "blob",
+			javaType = "String",
+			categoryType = "String",
+			isNull = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 0,
+			getMethod = "getExpiryNotif",
+			setMethod = "setExpiryNotif"
+	)
+	private String expiryNotif;
+
 
 	public Bonuses() {} 
 
@@ -294,7 +328,7 @@ public class Bonuses {
 		this.bonus_id = rs.getShort( Bonuses.Fields.bonus_id.name() );
 		this.bonus_name = rs.getString( Bonuses.Fields.bonus_name.name() );
 		this.unit = rs.getString( Bonuses.Fields.unit.name() );
-		this.optin = rs.getByte( Bonuses.Fields.optin.name() );
+		this.operations = rs.getString( Bonuses.Fields.operations.name() );
 		this.in_credit = rs.getBoolean( Bonuses.Fields.in_credit.name() );
 		this.handleOptOut = rs.getString( Bonuses.Fields.handleOptOut.name() );
 		this.inFeedbackRequired = rs.getString( Bonuses.Fields.inFeedbackRequired.name() );
@@ -307,6 +341,8 @@ public class Bonuses {
 		this.default_fixed_validity_from = rs.getString( Bonuses.Fields.default_fixed_validity_from.name() );
 		this.unitary_cost = rs.getFloat( Bonuses.Fields.unitary_cost.name() );
 		this.recommended_price = rs.getFloat( Bonuses.Fields.recommended_price.name() );
+		this.expiryNotifDays = rs.getShort( Bonuses.Fields.expiryNotifDays.name() );
+		this.expiryNotif = rs.getString( Bonuses.Fields.expiryNotif.name() );
 
 	}
 
@@ -315,7 +351,7 @@ public class Bonuses {
 		this.bonus_id = (short)jo.getInt( Bonuses.Fields.bonus_id.name() );
 		this.bonus_name = jo.getString( Bonuses.Fields.bonus_name.name() );
 		this.unit = jo.getString( Bonuses.Fields.unit.name() );
-		this.optin = (byte)jo.getInt( Bonuses.Fields.optin.name() );
+		this.operations = jo.getString( Bonuses.Fields.operations.name() );
 		this.in_credit = jo.getBoolean( Bonuses.Fields.in_credit.name() );
 		this.handleOptOut = jo.getString( Bonuses.Fields.handleOptOut.name() );
 		this.inFeedbackRequired = jo.getString( Bonuses.Fields.inFeedbackRequired.name() );
@@ -328,6 +364,8 @@ public class Bonuses {
 		this.default_fixed_validity_from = jo.getString( Bonuses.Fields.default_fixed_validity_from.name() );
 		this.unitary_cost = (float)jo.getDouble( Bonuses.Fields.unitary_cost.name() );
 		this.recommended_price = (float)jo.getDouble( Bonuses.Fields.recommended_price.name() );
+		this.expiryNotifDays = (short)jo.getInt( Bonuses.Fields.expiryNotifDays.name() );
+		this.expiryNotif = jo.getString( Bonuses.Fields.expiryNotif.name() );
 
 	}
 
@@ -367,15 +405,15 @@ public class Bonuses {
 
 	}
 
-	public Byte getOptin() {
+	public String getOperations() {
 
-		return this.optin;
+		return this.operations;
 
 	}
 
-	public void setOptin( Byte optin ) {
+	public void setOperations( String operations ) {
 
-		this.optin = optin;
+		this.operations = operations;
 
 	}
 
@@ -523,6 +561,36 @@ public class Bonuses {
 
 	}
 
+	public Short getExpiryNotifDays() {
+
+		return this.expiryNotifDays;
+
+	}
+
+	public void setExpiryNotifDays( Short expiryNotifDays ) {
+
+		this.expiryNotifDays = expiryNotifDays;
+
+	}
+
+	public String getExpiryNotif() {
+
+		return this.expiryNotif;
+
+	}
+
+	public void setExpiryNotif( String expiryNotif ) {
+
+		this.expiryNotif = expiryNotif;
+
+	}
+
+	public Fields[] getEntityFields() {
+
+		return Bonuses.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();
@@ -531,7 +599,7 @@ public class Bonuses {
 			.append( "\"bonus_id\": \"" ).append( this.getBonusId() ).append( "\", " )
 			.append( "\"bonus_name\": \"" ).append( this.getBonusName() ).append( "\", " )
 			.append( "\"unit\": \"" ).append( this.getUnit() ).append( "\", " )
-			.append( "\"optin\": \"" ).append( this.getOptin() ).append( "\", " )
+			.append( "\"operations\": \"" ).append( this.getOperations() ).append( "\", " )
 			.append( "\"in_credit\": \"" ).append( this.getInCredit() ).append( "\", " )
 			.append( "\"handleOptOut\": \"" ).append( this.getHandleOptOut() ).append( "\", " )
 			.append( "\"inFeedbackRequired\": \"" ).append( this.getInFeedbackRequired() ).append( "\", " )
@@ -543,7 +611,9 @@ public class Bonuses {
 			.append( "\"default_qty_period\": \"" ).append( this.getDefaultQtyPeriod() ).append( "\", " )
 			.append( "\"default_fixed_validity_from\": \"" ).append( this.getDefaultFixedValidityFrom() ).append( "\", " )
 			.append( "\"unitary_cost\": \"" ).append( this.getUnitaryCost() ).append( "\", " )
-			.append( "\"recommended_price\": \"" ).append( this.getRecommendedPrice() ).append( "\"" )
+			.append( "\"recommended_price\": \"" ).append( this.getRecommendedPrice() ).append( "\", " )
+			.append( "\"expiryNotifDays\": \"" ).append( this.getExpiryNotifDays() ).append( "\", " )
+			.append( "\"expiryNotif\": \"" ).append( this.getExpiryNotif() ).append( "\"" )
 			.append( " }" );
 
 		return str.toString();

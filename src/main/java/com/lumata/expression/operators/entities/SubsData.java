@@ -58,6 +58,12 @@ public class SubsData {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return SubsData.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

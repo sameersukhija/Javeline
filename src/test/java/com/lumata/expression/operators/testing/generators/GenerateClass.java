@@ -26,7 +26,7 @@ public class GenerateClass {
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment"})
 	@BeforeSuite
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws EnvironmentException {		
+	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment ) throws EnvironmentException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
@@ -38,11 +38,11 @@ public class GenerateClass {
 	
 	@Parameters({"qa"})
 	@Test()
-	public void createDAO( @Optional("qa") String tenant ) throws DataModelException, IOFileException {
+	public void createDAO( @Optional("tenant") String tenant ) throws DataModelException, IOFileException {
 		
 		logger.info( Log.PUTTING.createMessage( "createDAO" , "Create DAO Classes" ) );
 				
-		generatorDAO.createDAO( env, tenant, "" );
+		generatorDAO.createDAO( env, tenant, "com.lumata.expression.operators.entities" );
 				
 	}		
 	

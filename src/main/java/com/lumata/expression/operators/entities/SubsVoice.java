@@ -58,6 +58,12 @@ public class SubsVoice {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return SubsVoice.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

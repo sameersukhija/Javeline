@@ -371,6 +371,12 @@ public class CatalogProducts {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CatalogProducts.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

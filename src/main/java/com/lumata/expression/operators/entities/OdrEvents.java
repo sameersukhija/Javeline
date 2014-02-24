@@ -185,6 +185,12 @@ public class OdrEvents {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return OdrEvents.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

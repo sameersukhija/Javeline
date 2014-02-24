@@ -434,6 +434,12 @@ public class Subscribers {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Subscribers.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

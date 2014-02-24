@@ -433,6 +433,12 @@ public class StatsSubsVoice {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return StatsSubsVoice.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

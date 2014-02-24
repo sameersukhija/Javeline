@@ -182,6 +182,12 @@ public class GuiUsers {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return GuiUsers.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

@@ -185,6 +185,12 @@ public class BdrEvents {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return BdrEvents.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

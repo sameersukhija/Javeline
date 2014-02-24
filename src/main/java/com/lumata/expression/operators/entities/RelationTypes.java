@@ -89,6 +89,12 @@ public class RelationTypes {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return RelationTypes.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

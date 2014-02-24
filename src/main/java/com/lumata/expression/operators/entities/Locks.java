@@ -154,6 +154,12 @@ public class Locks {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Locks.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

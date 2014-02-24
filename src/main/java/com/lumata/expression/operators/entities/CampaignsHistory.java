@@ -278,6 +278,12 @@ public class CampaignsHistory {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CampaignsHistory.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

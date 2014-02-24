@@ -588,6 +588,12 @@ public class OverallVoice {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return OverallVoice.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

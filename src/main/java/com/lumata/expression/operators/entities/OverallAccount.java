@@ -464,6 +464,12 @@ public class OverallAccount {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return OverallAccount.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

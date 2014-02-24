@@ -247,6 +247,12 @@ public class ProductStock {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return ProductStock.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

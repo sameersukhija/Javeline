@@ -216,6 +216,12 @@ public class KpiCampaign {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return KpiCampaign.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

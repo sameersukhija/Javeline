@@ -247,6 +247,12 @@ public class StatsChurn {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return StatsChurn.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

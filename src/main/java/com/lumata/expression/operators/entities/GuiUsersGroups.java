@@ -120,6 +120,12 @@ public class GuiUsersGroups {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return GuiUsersGroups.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

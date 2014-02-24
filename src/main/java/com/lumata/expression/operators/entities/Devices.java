@@ -402,6 +402,12 @@ public class Devices {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Devices.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

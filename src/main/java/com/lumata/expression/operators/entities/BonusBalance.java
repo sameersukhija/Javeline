@@ -279,6 +279,12 @@ public class BonusBalance {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return BonusBalance.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

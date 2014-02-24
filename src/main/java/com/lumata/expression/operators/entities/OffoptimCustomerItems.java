@@ -216,6 +216,12 @@ public class OffoptimCustomerItems {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return OffoptimCustomerItems.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

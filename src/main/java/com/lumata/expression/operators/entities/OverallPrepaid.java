@@ -557,6 +557,12 @@ public class OverallPrepaid {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return OverallPrepaid.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

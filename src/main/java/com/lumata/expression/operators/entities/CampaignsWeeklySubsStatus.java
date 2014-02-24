@@ -2724,6 +2724,12 @@ public class CampaignsWeeklySubsStatus {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CampaignsWeeklySubsStatus.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

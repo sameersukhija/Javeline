@@ -496,6 +496,12 @@ public class CatalogOffers {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CatalogOffers.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

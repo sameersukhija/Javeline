@@ -89,6 +89,12 @@ public class LoyaltySubsTest {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return LoyaltySubsTest.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

@@ -185,6 +185,12 @@ public class RevenueEvents {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return RevenueEvents.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

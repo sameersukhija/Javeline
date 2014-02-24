@@ -247,6 +247,12 @@ public class RecommendedCampaigns {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return RecommendedCampaigns.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

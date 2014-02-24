@@ -495,6 +495,12 @@ public class OverallData {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return OverallData.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

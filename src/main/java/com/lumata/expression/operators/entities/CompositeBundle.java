@@ -89,6 +89,12 @@ public class CompositeBundle {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CompositeBundle.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

@@ -278,6 +278,12 @@ public class SubscribersAll {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return SubscribersAll.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

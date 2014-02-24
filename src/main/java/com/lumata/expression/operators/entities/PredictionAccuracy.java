@@ -371,6 +371,12 @@ public class PredictionAccuracy {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return PredictionAccuracy.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

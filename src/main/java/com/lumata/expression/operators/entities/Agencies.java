@@ -151,6 +151,12 @@ public class Agencies {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Agencies.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

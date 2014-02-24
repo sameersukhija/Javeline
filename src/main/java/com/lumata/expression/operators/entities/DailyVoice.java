@@ -403,6 +403,12 @@ public class DailyVoice {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return DailyVoice.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

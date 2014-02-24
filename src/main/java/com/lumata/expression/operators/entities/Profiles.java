@@ -151,6 +151,12 @@ public class Profiles {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Profiles.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

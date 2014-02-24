@@ -120,6 +120,12 @@ public class CatalogProductTypes {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CatalogProductTypes.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

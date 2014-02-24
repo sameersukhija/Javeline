@@ -185,6 +185,12 @@ public class CollectedFilesStats {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CollectedFilesStats.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

@@ -58,6 +58,12 @@ public class Integers {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Integers.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

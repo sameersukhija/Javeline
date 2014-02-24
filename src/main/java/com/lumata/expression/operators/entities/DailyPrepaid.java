@@ -372,6 +372,12 @@ public class DailyPrepaid {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return DailyPrepaid.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

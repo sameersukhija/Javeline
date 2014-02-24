@@ -247,6 +247,12 @@ public class CampaignNotif {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CampaignNotif.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

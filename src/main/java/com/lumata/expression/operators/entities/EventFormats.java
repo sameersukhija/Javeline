@@ -123,6 +123,12 @@ public class EventFormats {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return EventFormats.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

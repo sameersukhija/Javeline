@@ -89,6 +89,12 @@ public class GroupsTabs {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return GroupsTabs.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

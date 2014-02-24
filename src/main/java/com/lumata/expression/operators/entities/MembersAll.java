@@ -185,6 +185,12 @@ public class MembersAll {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return MembersAll.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

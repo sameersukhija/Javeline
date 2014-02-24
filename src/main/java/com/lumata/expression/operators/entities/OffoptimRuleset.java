@@ -368,6 +368,12 @@ public class OffoptimRuleset {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return OffoptimRuleset.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

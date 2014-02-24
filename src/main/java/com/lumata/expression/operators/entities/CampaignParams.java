@@ -89,6 +89,12 @@ public class CampaignParams {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CampaignParams.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

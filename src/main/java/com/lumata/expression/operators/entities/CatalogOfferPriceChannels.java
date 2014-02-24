@@ -89,6 +89,12 @@ public class CatalogOfferPriceChannels {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CatalogOfferPriceChannels.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

@@ -340,6 +340,12 @@ public class CollectedFiles {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CollectedFiles.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

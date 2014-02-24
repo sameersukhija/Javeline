@@ -123,6 +123,12 @@ public class FilesDataBackup {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return FilesDataBackup.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

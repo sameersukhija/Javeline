@@ -371,6 +371,12 @@ public class StatsSubsAccount {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return StatsSubsAccount.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

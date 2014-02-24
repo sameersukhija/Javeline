@@ -402,6 +402,12 @@ public class OverallPostpaid {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return OverallPostpaid.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

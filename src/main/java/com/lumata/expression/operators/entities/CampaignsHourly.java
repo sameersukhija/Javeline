@@ -278,6 +278,12 @@ public class CampaignsHourly {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CampaignsHourly.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

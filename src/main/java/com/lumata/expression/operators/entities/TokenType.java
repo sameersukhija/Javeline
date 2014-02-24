@@ -12,7 +12,7 @@ import com.lumata.common.testing.annotations.mysql.Column;
 @Table( "token_type" )
 public class TokenType { 
 
-	public enum Fields { token_type_id, token_type_name, token_label_id, expiration_duration, expiration_duration_unit, qty_max_redeems, single_use_redeem_duration_timeout, token_format, description }
+	public enum Fields { token_type_id, token_type_name, token_label_id, expiration_duration, expiration_duration_unit, qty_max_redeems, single_use_redeem_duration_timeout, token_format, description, image_url }
 
 	@Column(
 			table = "token_type",
@@ -167,6 +167,23 @@ public class TokenType {
 	)
 	private String description;
 
+	@Column(
+			table = "token_type",
+			field = "image_url",
+			type = "varchar(255)",
+			mysqlType = "varchar",
+			javaType = "String",
+			categoryType = "String",
+			isNull = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 255,
+			getMethod = "getImageUrl",
+			setMethod = "setImageUrl"
+	)
+	private String image_url;
+
 
 	public TokenType() {} 
 
@@ -181,6 +198,7 @@ public class TokenType {
 		this.single_use_redeem_duration_timeout = rs.getInt( TokenType.Fields.single_use_redeem_duration_timeout.name() );
 		this.token_format = rs.getString( TokenType.Fields.token_format.name() );
 		this.description = rs.getString( TokenType.Fields.description.name() );
+		this.image_url = rs.getString( TokenType.Fields.image_url.name() );
 
 	}
 
@@ -195,6 +213,7 @@ public class TokenType {
 		this.single_use_redeem_duration_timeout = (int)jo.getInt( TokenType.Fields.single_use_redeem_duration_timeout.name() );
 		this.token_format = jo.getString( TokenType.Fields.token_format.name() );
 		this.description = jo.getString( TokenType.Fields.description.name() );
+		this.image_url = jo.getString( TokenType.Fields.image_url.name() );
 
 	}
 
@@ -306,6 +325,24 @@ public class TokenType {
 
 	}
 
+	public String getImageUrl() {
+
+		return this.image_url;
+
+	}
+
+	public void setImageUrl( String image_url ) {
+
+		this.image_url = image_url;
+
+	}
+
+	public Fields[] getEntityFields() {
+
+		return TokenType.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();
@@ -319,7 +356,8 @@ public class TokenType {
 			.append( "\"qty_max_redeems\": \"" ).append( this.getQtyMaxRedeems() ).append( "\", " )
 			.append( "\"single_use_redeem_duration_timeout\": \"" ).append( this.getSingleUseRedeemDurationTimeout() ).append( "\", " )
 			.append( "\"token_format\": \"" ).append( this.getTokenFormat() ).append( "\", " )
-			.append( "\"description\": \"" ).append( this.getDescription() ).append( "\"" )
+			.append( "\"description\": \"" ).append( this.getDescription() ).append( "\", " )
+			.append( "\"image_url\": \"" ).append( this.getImageUrl() ).append( "\"" )
 			.append( " }" );
 
 		return str.toString();

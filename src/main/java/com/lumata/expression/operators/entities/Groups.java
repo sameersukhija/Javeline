@@ -151,6 +151,12 @@ public class Groups {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Groups.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

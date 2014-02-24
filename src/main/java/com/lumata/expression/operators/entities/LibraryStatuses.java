@@ -120,6 +120,12 @@ public class LibraryStatuses {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return LibraryStatuses.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

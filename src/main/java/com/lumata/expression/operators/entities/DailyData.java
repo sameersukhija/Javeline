@@ -248,6 +248,12 @@ public class DailyData {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return DailyData.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

@@ -213,6 +213,12 @@ public class RangeDev {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return RangeDev.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

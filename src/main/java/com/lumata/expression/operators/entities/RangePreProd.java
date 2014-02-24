@@ -213,6 +213,12 @@ public class RangePreProd {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return RangePreProd.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

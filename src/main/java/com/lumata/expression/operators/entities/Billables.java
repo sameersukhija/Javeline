@@ -151,6 +151,12 @@ public class Billables {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Billables.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

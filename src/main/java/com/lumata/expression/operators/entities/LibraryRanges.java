@@ -213,6 +213,12 @@ public class LibraryRanges {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return LibraryRanges.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

@@ -120,6 +120,12 @@ public class CampaignExpectedKpi {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CampaignExpectedKpi.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

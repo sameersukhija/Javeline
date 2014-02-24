@@ -247,6 +247,12 @@ public class VoucherCodes {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return VoucherCodes.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

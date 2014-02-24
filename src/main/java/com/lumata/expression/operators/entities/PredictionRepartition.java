@@ -185,6 +185,12 @@ public class PredictionRepartition {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return PredictionRepartition.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

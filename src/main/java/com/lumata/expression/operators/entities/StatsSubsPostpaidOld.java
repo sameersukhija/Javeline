@@ -278,6 +278,12 @@ public class StatsSubsPostpaidOld {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return StatsSubsPostpaidOld.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

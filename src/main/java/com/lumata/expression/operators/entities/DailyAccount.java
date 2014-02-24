@@ -310,6 +310,12 @@ public class DailyAccount {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return DailyAccount.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

@@ -140,7 +140,7 @@ public class DailyBonus {
 	@Column(
 			table = "daily_bonus",
 			field = "event_type",
-			type = "enum('Credit','Debit','Expiration')",
+			type = "enum('Credit','Debit','Expiration','Set','Activation','Deactivation')",
 			mysqlType = "enum",
 			javaType = "Enum",
 			categoryType = "Collection",
@@ -148,7 +148,7 @@ public class DailyBonus {
 			key = "PRI",
 			defaultValue = "Credit",
 			extra = "",
-			length = 3,
+			length = 6,
 			getMethod = "getEventType",
 			setMethod = "setEventType"
 	)
@@ -307,6 +307,12 @@ public class DailyBonus {
 	public void setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+	}
+
+	public Fields[] getEntityFields() {
+
+		return DailyBonus.Fields.values();
 
 	}
 

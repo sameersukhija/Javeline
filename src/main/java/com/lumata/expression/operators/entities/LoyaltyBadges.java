@@ -433,6 +433,12 @@ public class LoyaltyBadges {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return LoyaltyBadges.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

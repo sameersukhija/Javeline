@@ -309,6 +309,12 @@ public class StatsPurchase {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return StatsPurchase.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

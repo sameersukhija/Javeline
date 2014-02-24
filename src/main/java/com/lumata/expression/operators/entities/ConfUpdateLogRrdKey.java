@@ -58,6 +58,12 @@ public class ConfUpdateLogRrdKey {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return ConfUpdateLogRrdKey.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

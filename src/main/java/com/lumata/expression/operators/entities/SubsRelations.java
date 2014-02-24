@@ -120,6 +120,12 @@ public class SubsRelations {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return SubsRelations.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

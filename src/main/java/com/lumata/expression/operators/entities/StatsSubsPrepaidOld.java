@@ -464,6 +464,12 @@ public class StatsSubsPrepaidOld {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return StatsSubsPrepaidOld.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

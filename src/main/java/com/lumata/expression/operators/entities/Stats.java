@@ -279,6 +279,12 @@ public class Stats {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Stats.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

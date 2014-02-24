@@ -217,6 +217,12 @@ public class DailyBundle {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return DailyBundle.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

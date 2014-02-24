@@ -182,6 +182,12 @@ public class ScheduledTasks {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return ScheduledTasks.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

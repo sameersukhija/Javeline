@@ -371,6 +371,12 @@ public class Conf {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Conf.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

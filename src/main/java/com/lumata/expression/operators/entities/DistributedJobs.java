@@ -464,6 +464,12 @@ public class DistributedJobs {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return DistributedJobs.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

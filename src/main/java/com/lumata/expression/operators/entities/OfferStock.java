@@ -247,6 +247,12 @@ public class OfferStock {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return OfferStock.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

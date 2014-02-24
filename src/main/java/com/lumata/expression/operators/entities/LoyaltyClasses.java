@@ -182,6 +182,12 @@ public class LoyaltyClasses {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return LoyaltyClasses.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

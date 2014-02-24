@@ -155,6 +155,12 @@ public class EventFiles {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return EventFiles.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

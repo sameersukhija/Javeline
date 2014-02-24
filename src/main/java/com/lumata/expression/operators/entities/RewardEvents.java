@@ -55,7 +55,7 @@ public class RewardEvents {
 	@Column(
 			table = "reward_events",
 			field = "event_type",
-			type = "enum('CREDIT','DEBIT','EXPIRATION','PURCHASE')",
+			type = "enum('CREDIT','DEBIT','EXPIRATION','PURCHASE','SET','ACTIVATION','DEACTIVATION')",
 			mysqlType = "enum",
 			javaType = "Enum",
 			categoryType = "Collection",
@@ -63,7 +63,7 @@ public class RewardEvents {
 			key = "",
 			defaultValue = "CREDIT",
 			extra = "",
-			length = 4,
+			length = 7,
 			getMethod = "getEventType",
 			setMethod = "setEventType"
 	)
@@ -555,6 +555,12 @@ public class RewardEvents {
 	public void setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+	}
+
+	public Fields[] getEntityFields() {
+
+		return RewardEvents.Fields.values();
 
 	}
 

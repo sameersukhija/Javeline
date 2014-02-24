@@ -182,6 +182,12 @@ public class Suppliers {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Suppliers.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

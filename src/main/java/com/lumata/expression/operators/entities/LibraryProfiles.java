@@ -89,6 +89,12 @@ public class LibraryProfiles {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return LibraryProfiles.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

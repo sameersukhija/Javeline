@@ -120,6 +120,12 @@ public class Statuses {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Statuses.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

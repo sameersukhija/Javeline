@@ -120,6 +120,12 @@ public class OffoptimCustomerPack {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return OffoptimCustomerPack.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

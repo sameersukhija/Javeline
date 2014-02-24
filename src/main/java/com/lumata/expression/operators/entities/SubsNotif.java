@@ -120,6 +120,12 @@ public class SubsNotif {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return SubsNotif.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

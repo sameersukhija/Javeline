@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "token" )
 public class Token { 
 
-	public enum Fields { token_code, msisdn, token_label_id, ruleset_id, event_id, event_date, expiration_date, consumed_date, qty_current_redeems, qty_max_redeems, last_redeem_date, single_use_redeem_duration_timeout, qty_incident, qty_use, has_offers_associated, consumed_notes, module_id, feature_id }
+	public enum Fields { token_code, msisdn, token_label_id, ruleset_id, event_id, event_date, expiration_date, consumed_date, qty_current_redeems, qty_max_redeems, last_redeem_date, single_use_redeem_duration_timeout, qty_incident, qty_use, has_offers_associated, description, image_url, consumed_notes, module_id, feature_id }
 
 	@Column(
 			table = "token",
@@ -274,6 +274,40 @@ public class Token {
 
 	@Column(
 			table = "token",
+			field = "description",
+			type = "text",
+			mysqlType = "text",
+			javaType = "String",
+			categoryType = "String",
+			isNull = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 0,
+			getMethod = "getDescription",
+			setMethod = "setDescription"
+	)
+	private String description;
+
+	@Column(
+			table = "token",
+			field = "image_url",
+			type = "varchar(255)",
+			mysqlType = "varchar",
+			javaType = "String",
+			categoryType = "String",
+			isNull = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 255,
+			getMethod = "getImageUrl",
+			setMethod = "setImageUrl"
+	)
+	private String image_url;
+
+	@Column(
+			table = "token",
 			field = "consumed_notes",
 			type = "varchar(256)",
 			mysqlType = "varchar",
@@ -343,6 +377,8 @@ public class Token {
 		this.qty_incident = rs.getByte( Token.Fields.qty_incident.name() );
 		this.qty_use = rs.getByte( Token.Fields.qty_use.name() );
 		this.has_offers_associated = rs.getByte( Token.Fields.has_offers_associated.name() );
+		this.description = rs.getString( Token.Fields.description.name() );
+		this.image_url = rs.getString( Token.Fields.image_url.name() );
 		this.consumed_notes = rs.getString( Token.Fields.consumed_notes.name() );
 		this.module_id = rs.getByte( Token.Fields.module_id.name() );
 		this.feature_id = rs.getString( Token.Fields.feature_id.name() );
@@ -366,6 +402,8 @@ public class Token {
 		this.qty_incident = (byte)jo.getInt( Token.Fields.qty_incident.name() );
 		this.qty_use = (byte)jo.getInt( Token.Fields.qty_use.name() );
 		this.has_offers_associated = (byte)jo.getInt( Token.Fields.has_offers_associated.name() );
+		this.description = jo.getString( Token.Fields.description.name() );
+		this.image_url = jo.getString( Token.Fields.image_url.name() );
 		this.consumed_notes = jo.getString( Token.Fields.consumed_notes.name() );
 		this.module_id = (byte)jo.getInt( Token.Fields.module_id.name() );
 		this.feature_id = jo.getString( Token.Fields.feature_id.name() );
@@ -552,6 +590,30 @@ public class Token {
 
 	}
 
+	public String getDescription() {
+
+		return this.description;
+
+	}
+
+	public void setDescription( String description ) {
+
+		this.description = description;
+
+	}
+
+	public String getImageUrl() {
+
+		return this.image_url;
+
+	}
+
+	public void setImageUrl( String image_url ) {
+
+		this.image_url = image_url;
+
+	}
+
 	public String getConsumedNotes() {
 
 		return this.consumed_notes;
@@ -588,6 +650,12 @@ public class Token {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Token.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();
@@ -608,6 +676,8 @@ public class Token {
 			.append( "\"qty_incident\": \"" ).append( this.getQtyIncident() ).append( "\", " )
 			.append( "\"qty_use\": \"" ).append( this.getQtyUse() ).append( "\", " )
 			.append( "\"has_offers_associated\": \"" ).append( this.getHasOffersAssociated() ).append( "\", " )
+			.append( "\"description\": \"" ).append( this.getDescription() ).append( "\", " )
+			.append( "\"image_url\": \"" ).append( this.getImageUrl() ).append( "\", " )
 			.append( "\"consumed_notes\": \"" ).append( this.getConsumedNotes() ).append( "\", " )
 			.append( "\"module_id\": \"" ).append( this.getModuleId() ).append( "\", " )
 			.append( "\"feature_id\": \"" ).append( this.getFeatureId() ).append( "\"" )

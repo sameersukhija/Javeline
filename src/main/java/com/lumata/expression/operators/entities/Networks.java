@@ -89,6 +89,12 @@ public class Networks {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return Networks.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

@@ -278,6 +278,12 @@ public class CampaignRewards {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CampaignRewards.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

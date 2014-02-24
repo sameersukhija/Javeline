@@ -151,6 +151,12 @@ public class CatalogOfferContent {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CatalogOfferContent.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

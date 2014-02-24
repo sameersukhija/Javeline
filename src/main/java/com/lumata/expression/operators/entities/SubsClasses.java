@@ -185,6 +185,12 @@ public class SubsClasses {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return SubsClasses.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

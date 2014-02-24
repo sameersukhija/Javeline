@@ -89,6 +89,12 @@ public class FilesData {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return FilesData.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

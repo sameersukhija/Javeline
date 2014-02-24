@@ -526,6 +526,12 @@ public class StatsCampaignArchive {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return StatsCampaignArchive.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

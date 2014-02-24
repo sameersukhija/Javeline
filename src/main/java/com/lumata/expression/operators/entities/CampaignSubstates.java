@@ -120,6 +120,12 @@ public class CampaignSubstates {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CampaignSubstates.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

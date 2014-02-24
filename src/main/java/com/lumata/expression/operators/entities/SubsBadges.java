@@ -247,6 +247,12 @@ public class SubsBadges {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return SubsBadges.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

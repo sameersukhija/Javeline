@@ -213,6 +213,12 @@ public class BonusCampaignLimits {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return BonusCampaignLimits.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

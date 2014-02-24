@@ -151,6 +151,12 @@ public class FilesMeta {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return FilesMeta.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

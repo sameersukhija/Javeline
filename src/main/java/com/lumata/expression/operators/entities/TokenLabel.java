@@ -89,6 +89,12 @@ public class TokenLabel {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return TokenLabel.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

@@ -12,7 +12,7 @@ import com.lumata.common.testing.annotations.mysql.Column;
 @Table( "loyalty_badges_types" )
 public class LoyaltyBadgesTypes { 
 
-	public enum Fields { badge_type_id, badge_type_name }
+	public enum Fields { badge_type_id, program_id, badge_type_name }
 
 	@Column(
 			table = "loyalty_badges_types",
@@ -30,6 +30,23 @@ public class LoyaltyBadgesTypes {
 			setMethod = "setBadgeTypeId"
 	)
 	private Byte badge_type_id;
+
+	@Column(
+			table = "loyalty_badges_types",
+			field = "program_id",
+			type = "tinyint(4)",
+			mysqlType = "tinyint",
+			javaType = "Byte",
+			categoryType = "Number",
+			isNull = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 4,
+			getMethod = "getProgramId",
+			setMethod = "setProgramId"
+	)
+	private Byte program_id;
 
 	@Column(
 			table = "loyalty_badges_types",
@@ -54,6 +71,7 @@ public class LoyaltyBadgesTypes {
 	public LoyaltyBadgesTypes( ResultSet rs ) throws SQLException {
 
 		this.badge_type_id = rs.getByte( LoyaltyBadgesTypes.Fields.badge_type_id.name() );
+		this.program_id = rs.getByte( LoyaltyBadgesTypes.Fields.program_id.name() );
 		this.badge_type_name = rs.getString( LoyaltyBadgesTypes.Fields.badge_type_name.name() );
 
 	}
@@ -61,6 +79,7 @@ public class LoyaltyBadgesTypes {
 	public LoyaltyBadgesTypes( JSONObject jo ) throws JSONException {
 
 		this.badge_type_id = (byte)jo.getInt( LoyaltyBadgesTypes.Fields.badge_type_id.name() );
+		this.program_id = (byte)jo.getInt( LoyaltyBadgesTypes.Fields.program_id.name() );
 		this.badge_type_name = jo.getString( LoyaltyBadgesTypes.Fields.badge_type_name.name() );
 
 	}
@@ -77,6 +96,18 @@ public class LoyaltyBadgesTypes {
 
 	}
 
+	public Byte getProgramId() {
+
+		return this.program_id;
+
+	}
+
+	public void setProgramId( Byte program_id ) {
+
+		this.program_id = program_id;
+
+	}
+
 	public String getBadgeTypeName() {
 
 		return this.badge_type_name;
@@ -89,12 +120,19 @@ public class LoyaltyBadgesTypes {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return LoyaltyBadgesTypes.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();
 
 		str.append( "{ " )
 			.append( "\"badge_type_id\": \"" ).append( this.getBadgeTypeId() ).append( "\", " )
+			.append( "\"program_id\": \"" ).append( this.getProgramId() ).append( "\", " )
 			.append( "\"badge_type_name\": \"" ).append( this.getBadgeTypeName() ).append( "\"" )
 			.append( " }" );
 

@@ -216,6 +216,12 @@ public class StatsBonus {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return StatsBonus.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

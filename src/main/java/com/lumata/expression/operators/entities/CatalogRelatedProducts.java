@@ -89,6 +89,12 @@ public class CatalogRelatedProducts {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return CatalogRelatedProducts.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

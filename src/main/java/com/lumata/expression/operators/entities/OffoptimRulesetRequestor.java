@@ -89,6 +89,12 @@ public class OffoptimRulesetRequestor {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return OffoptimRulesetRequestor.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

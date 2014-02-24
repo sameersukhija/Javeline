@@ -402,6 +402,12 @@ public class PurchaseRepartition {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return PurchaseRepartition.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

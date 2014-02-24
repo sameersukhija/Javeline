@@ -279,6 +279,12 @@ public class DailySubs {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return DailySubs.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();

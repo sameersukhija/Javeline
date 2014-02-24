@@ -433,6 +433,12 @@ public class BonusesAll {
 
 	}
 
+	public Fields[] getEntityFields() {
+
+		return BonusesAll.Fields.values();
+
+	}
+
 	public String toString() {
 
 		StringBuilder str = new StringBuilder();
