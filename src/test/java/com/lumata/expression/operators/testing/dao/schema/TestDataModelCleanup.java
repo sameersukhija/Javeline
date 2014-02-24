@@ -1,17 +1,21 @@
 package com.lumata.expression.operators.testing.dao.schema;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.beust.jcommander.internal.Sets;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.database.MysqlUtils;
 import com.lumata.common.testing.exceptions.DataModelException;
@@ -47,16 +51,50 @@ public class TestDataModelCleanup {
 	@AfterClass
 	public void cleanup() throws SQLException {
 		logger.info("starting database restore");
+		deleteAllTable();
+		mysql.close();
+	}
+
+	private Set<String> deleteAllTable() throws SQLException {
 		SchemaMetadata tmp = getSchemaMetadata();
-		originalSchemaMetadata.tableDifference(tmp);
+		Set<String> diffTable = originalSchemaMetadata.tableDifference(tmp);
+		for (String table : diffTable) {
+			String sql = "delete from " + table;
+			mysql.execUpdate(sql);
+		}
+		return diffTable;
 	}
 
 	@Test
-	public void changeDb() {
+	public void changeDb() throws SQLException {
 		logger.info("changing database ");
 		String now = new Date().toString();
 		String sql = "insert into sales_channels(channel_name) values ('test" + now + "')";
 		mysql.execUpdate(sql);
+
+		// Check data in DB
+		String retrieveQuery = "select * from sales_channels";
+		ResultSet rs = mysql.execQuery(retrieveQuery);
+		Assert.assertNotNull(rs);
+		rs.last();
+		Assert.assertEquals(rs.getRow(), 1);
+		//Cleanup
+		try {
+			Set<String> diffTable = deleteAllTable();
+			Assert.assertEquals(diffTable.size(), 1);
+			String modTable = diffTable.iterator().next();
+			Assert.assertNotNull(modTable);
+			Assert.assertEquals(modTable, "sales_channels");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// Verify table has been deleted
+		retrieveQuery = "select * from sales_channels";
+		rs = mysql.execQuery(retrieveQuery);
+		Assert.assertNotNull(rs);
+		rs.last();
+		Assert.assertEquals(rs.getRow(), 0);
 
 	}
 
