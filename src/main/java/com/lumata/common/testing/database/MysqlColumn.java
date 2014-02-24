@@ -21,6 +21,7 @@ public class MysqlColumn {
 	private String java_type;
 	private String category_type;
 	private boolean is_null;
+	private boolean is_autoincrement;
 	private String key;
 	private String default_value;
 	private String extra;
@@ -452,6 +453,12 @@ public class MysqlColumn {
 		
 	}
 	
+	public boolean getAutoincrement() {
+		
+		return this.is_autoincrement;
+		
+	}
+	
 	public String getKey() {
 	
 		return this.key; 
@@ -561,6 +568,12 @@ public class MysqlColumn {
 		
 	}
 	
+	public void setAutoincrement( boolean is_autoincrement ) {
+		
+		this.is_autoincrement = is_autoincrement;
+		
+	}
+	
 	public void setKey( String key ) {
 				
 		this.key = key;
@@ -575,6 +588,19 @@ public class MysqlColumn {
 	public void setExtra( String extra ) {
 		
 		this.extra = extra;
+		
+		if( extra != null ) {
+			
+			switch( extra ) {
+			
+				case "auto_increment": {
+					this.setAutoincrement( true );
+					break;
+				}
+			
+			}
+			
+		}
 		
 	}
 	

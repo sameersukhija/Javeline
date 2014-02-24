@@ -17,6 +17,7 @@ public class Statement {
 	private static final Logger logger = LoggerFactory.getLogger( Statement.class );
 	
 	private StringBuilder content;
+	private MysqlStatement mysqlStatementType;
 	
 	public Map<String, Object> entities;
 	public Enum<?>[] fields;
@@ -84,8 +85,7 @@ public class Statement {
 			return this.value_type;
 			
 		}
-		
-		
+				
 		public Enum<?> setField( Enum<?> field ) {
 			
 			this.field = field;
@@ -122,6 +122,14 @@ public class Statement {
 		this.content = new StringBuilder();
 		this.entities = new HashMap<String, Object>();
 		this.place_holders = new HashMap<Enum<?>, String>();
+	}
+
+	public MysqlStatement getMysqlStatementType() {
+		return this.mysqlStatementType;
+	}
+
+	public void setMysqlStatementType( MysqlStatement mysqlStatementType ) {
+		this.mysqlStatementType = mysqlStatementType;
 	}
 
 	public Statement append( StringBuilder content ) {
@@ -281,21 +289,56 @@ public class Statement {
 		if( values != null ) {
 			
 			for( int i = 0; i < this.fields.length; i++ ) {
+			
+				boolean skip = false;
 				
 				IEnumFields field = new EnumFields<Enum<?>>( this.fields[ i ] );
+				Column col = field.col();
 				
-				if( use_place_holders ) {
+				if( this.getMysqlStatementType().equals( MysqlStatement.INSERT_INTO ) && col.isAutoincrement() && use_place_holders ) {
 					
-					String place_holder = Statement.getPlaceHolder( this.fields[ i ] );
+					try {
+						
+						Object entity = this.entities.get( field.table() );
+						
+						Method method = entity.getClass().getDeclaredMethod( field.col().getMethod() );
 					
-					this.addPlaceHolder( fields[ i ], place_holder.toString() );
+						Object value = method.invoke( entity );
+						
+						if( value == null ) { String f = Statement.field( this.fields[ i ] ) + ", ";
+							
+							int index = this.content.indexOf( f );
+							this.content.replace( index, index + f.length(), "" );
+							skip = true;
+							
+						}
+										
+					} catch( NoSuchMethodException e ) {
+						logger.error( e.getMessage(), e );
+					} catch (IllegalAccessException e) {
+						logger.error( e.getMessage(), e );
+					} catch (InvocationTargetException e) {
+						logger.error( e.getMessage(), e );
+					}				
+					
+				} 
 				
-					content.append( place_holder ).append( ", " );
+				if( !skip ) {
+								
+					if( use_place_holders ) {
+						
+						String place_holder = Statement.getPlaceHolder( this.fields[ i ] );
+						
+						this.addPlaceHolder( fields[ i ], place_holder.toString() );
+					
+						content.append( place_holder ).append( ", " );
+					
+					} else {
+						content.append( Statement.field( col, ( values.length <= i ) ? null : values[i] ) ).append( ", " );
+					}
 				
-				} else {
-					content.append( Statement.field( field.col(), ( values.length <= i ) ? null : values[i] ) ).append( ", " );
 				}
-				
+							
 			}
 			
 			content.setLength( content.length() - 2 );

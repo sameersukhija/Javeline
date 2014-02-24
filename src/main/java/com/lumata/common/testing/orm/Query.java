@@ -4,12 +4,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import com.lumata.common.testing.annotations.mysql.Table;
+import com.lumata.common.testing.orm.Statement.MysqlStatement;
 
 public class Query {
 
 	public static ISelect select() {
 		
 		Statement statement = new Statement();
+		
+		statement.setMysqlStatementType( MysqlStatement.SELECT );
 		
 		statement.append( Statement.MysqlStatement.SELECT.getName() )
 			.append( "*" );
@@ -21,7 +24,9 @@ public class Query {
 	public static ISelect select( final Enum<?>... fields ) {
 		
 		Statement statement = new Statement();
-				
+			
+		statement.setMysqlStatementType( MysqlStatement.SELECT );
+		
 		statement.append( Statement.MysqlStatement.SELECT.getName() )
 					.append( statement.fields( fields ) );
 		
@@ -59,6 +64,8 @@ public class Query {
 		
 		Statement statement = new Statement();
 		
+		statement.setMysqlStatementType( MysqlStatement.INSERT_INTO );
+		
 		Table table = (Table)entity.getClass().getAnnotation( Table.class );
 		
 		statement.addEntity( entity, table.value() );
@@ -79,6 +86,8 @@ public class Query {
 		
 		Statement statement = new Statement();
 		
+		statement.setMysqlStatementType( MysqlStatement.UPDATE );
+		
 		Table table = (Table)entity.getClass().getAnnotation( Table.class );
 		
 		statement.addEntity( entity, table.value() );
@@ -93,6 +102,8 @@ public class Query {
 	public static IDelete delete() {
 		
 		Statement statement = new Statement();
+		
+		statement.setMysqlStatementType( MysqlStatement.DELETE );
 		
 		statement.append( Statement.MysqlStatement.DELETE.getName().toString().trim() );
 		

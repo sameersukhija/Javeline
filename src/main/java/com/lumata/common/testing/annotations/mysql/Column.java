@@ -17,6 +17,7 @@ public @interface Column {
 	String categoryType() default "";
 	boolean unsigned() default false;
 	boolean isNull() default true;
+	boolean isAutoincrement() default false;
 	String key()  default "";
 	String defaultValue() default "";
 	String extra() default "";

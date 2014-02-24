@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import com.lumata.common.testing.generators.container.Agencies;
 import com.lumata.common.testing.generators.container.BdrEvents;
+import com.lumata.common.testing.generators.container.TokenLabel;
 
 import static com.lumata.common.testing.orm.Filter.*;
 import static com.lumata.common.testing.orm.Query.*;
@@ -16,7 +17,7 @@ public class TestQueriesCreation {
 
 	//private static final Logger logger = LoggerFactory.getLogger( TestQueriesCreation.class );
 	
-	final boolean test_enabled = false;
+	final boolean test_enabled = true;
 	
 	@Test( enabled = test_enabled, priority = 1 )
 	public void selectSimpleQuery() {
@@ -124,7 +125,7 @@ public class TestQueriesCreation {
 		
 	}
 	
-	@Test( enabled = true, priority = 1 )
+	@Test( enabled = test_enabled, priority = 1 )
 	public void selectQuerySpecialStatements() {
 		
 		Agencies agencies = new Agencies();
@@ -137,28 +138,34 @@ public class TestQueriesCreation {
 		
 	}
 	
-	@Test( enabled = test_enabled, priority = 3 )
+	@Test( enabled = true, priority = 3 )
 	public void insertQuery() {
-		
+				
 		Agencies agencies = new Agencies();
 		agencies.setId( (short)5 ); 
 		
 		String querySimpleInsert = insert( agencies ).values( 1, 2, 3 ).build();
 		
-		System.out.println( querySimpleInsert );
+		System.out.println( "1: " + querySimpleInsert );
 		
 		querySimpleInsert = insert( agencies ).values().build();
 		
-		System.out.println( querySimpleInsert );
+		System.out.println( "2: " + querySimpleInsert );
 		
 		querySimpleInsert = insert( agencies, Agencies.Fields.name, Agencies.Fields.id ).values( 1, 2 ).build();
 		
-		System.out.println( querySimpleInsert );
+		System.out.println( "3: " + querySimpleInsert );
 		
 		String queryComplexInsert = insert( agencies, Agencies.Fields.name, Agencies.Fields.id ).values( row(1,1), row(4,5) ).build();
 		
-		System.out.println( queryComplexInsert );
+		System.out.println( "4: " + queryComplexInsert );
 				
+		TokenLabel tl = new TokenLabel();
+		
+		querySimpleInsert = insert( tl ).values().build();
+		
+		System.out.println( "5: " + querySimpleInsert );
+		
 	}
 	
 	@Test( enabled = test_enabled, priority = 4 )

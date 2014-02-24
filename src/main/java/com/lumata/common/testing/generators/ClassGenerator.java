@@ -87,6 +87,7 @@ public class ClassGenerator {
 		categoryType,
 		unsigned,
 		isNull,
+		isAutoincrement,
 		key,
 		defaultValue,
 		extra,
@@ -392,6 +393,7 @@ public class ClassGenerator {
 							.append("\t\t\t").append( AnnotationColumn.javaType.name() ).append( " = \"" ).append( mysqlColumn.getJavaType() ).append("\",\n")
 							.append("\t\t\t").append( AnnotationColumn.categoryType.name() ).append( " = \"" ).append( mysqlColumn.getCategoryType() ).append("\",\n")
 							.append("\t\t\t").append( AnnotationColumn.isNull.name() ).append( " = " ).append( mysqlColumn.getNull() ).append(",\n")
+							.append("\t\t\t").append( AnnotationColumn.isAutoincrement.name() ).append( " = " ).append( mysqlColumn.getAutoincrement() ).append(",\n")
 							.append("\t\t\t").append( AnnotationColumn.key.name() ).append( " = \"" ).append( mysqlColumn.getKey() ).append("\",\n")
 							.append("\t\t\t").append( AnnotationColumn.defaultValue.name() ).append( " = \"" ).append( mysqlColumn.getDefaultValue() ).append("\",\n")
 							.append("\t\t\t").append( AnnotationColumn.extra.name() ).append( " = \"" ).append( mysqlColumn.getExtra() ).append("\",\n")
