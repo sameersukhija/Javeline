@@ -1,10 +1,15 @@
 package com.lumata.expression.operators.gui.loyalty;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
@@ -34,11 +39,41 @@ public class LoyaltyCreationForm {
 		return true;
 	}
 
-	public static boolean create(SeleniumWebDriver selenium, long timeout, long interval) {
-				
+	public static boolean create(SeleniumWebDriver selenium, Mysql mysql, long timeout, long interval) {
+		
+		Integer loyaltyProgramsCount = 0;
+		ResultSet rs = mysql.execQuery("SELECT COUNT(*) FROM loyalty_programs");
+		try {
+			while (rs.next()) {
+				loyaltyProgramsCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "SQL error: " + e.getMessage()));
+			return false;
+		}
+		
 		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for addNewProgramPopup"));
 		WebElement addNewProgramPopup = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
-				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[5]/td/button", timeout, interval);
+				//"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[5]/td/button", timeout, interval);
+				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[" + 2 + loyaltyProgramsCount + "]/td/button", timeout, interval);
+				//"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody", timeout, interval);
+		if (addNewProgramPopup == null) { return false; }
+		addNewProgramPopup.click();
+		
+		/*logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for addNewProgramPopup - Add"));
+		
+		System.out.println("TEST - size: " + addNewProgramPopup.findElements(By.xpath("//button[@title='Add']")).size());
+		
+		// skip error: Element is not currently visible and so may not be interacted with
+		for (WebElement we : addNewProgramPopup.findElements(By.xpath("//button[@title='Add']"))) {
+			try {
+				we.click();
+			} catch (Exception e) {
+				// System.out.println("TEST - we.click() " + e.getMessage());
+			}
+		}*/
+		
+		addNewProgramPopup = addNewProgramPopup.findElement(By.xpath("//button[@title='Add']"));
 		if (addNewProgramPopup == null) { return false; }
 		addNewProgramPopup.click();
 
@@ -191,6 +226,9 @@ public class LoyaltyCreationForm {
 	
 	public static void main(String[] args) throws Exception {
 		
-		System.out.println(com.lumata.common.testing.system.Security.decrypt("bGppYm1NSUhJMmB3"));
+		//System.out.println(com.lumata.common.testing.system.Security.decrypt("bGppYm1NSUhJMmB3"));
+		//System.out.println(com.lumata.common.testing.system.Security.decrypt("cmdISnJjdQ=="));
+		
+		System.out.println(com.lumata.common.testing.system.Security.encrypt("mkt"));
 	}
 }

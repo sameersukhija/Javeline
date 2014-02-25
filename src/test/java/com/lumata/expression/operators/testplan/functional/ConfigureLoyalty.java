@@ -11,6 +11,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
@@ -35,6 +36,7 @@ public class ConfigureLoyalty {
 	
 	SeleniumWebDriver seleniumWebDriver;
 	Environment env;
+	Mysql mysql;
 	
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment", "tenant", "user"})
@@ -46,7 +48,9 @@ public class ConfigureLoyalty {
 		
 		// Create environment configuration
 		env = new Environment("input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE);
-				
+		
+		mysql = new Mysql(env.getDataSource(tenant));
+		
 		// Create Selenium WebDriver instance
 		seleniumWebDriver = new SeleniumWebDriver( browser, env.getBrowser( browser ), env.getLink() );
 		seleniumWebDriver.windowMaximize();
@@ -69,7 +73,7 @@ public class ConfigureLoyalty {
 		Assert.assertTrue(LoyaltyCreationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
 		
 		// create program
-		Assert.assertTrue(LoyaltyCreationForm.create(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
+		Assert.assertTrue(LoyaltyCreationForm.create(seleniumWebDriver, mysql, TIMEOUT, ATTEMPT_TIMEOUT));
 		
 		// manage program
 		Assert.assertTrue(LoyaltyCreationForm.manage(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
