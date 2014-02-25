@@ -208,19 +208,18 @@ public class AllocateAcceptTest {
 	private void createTokens(String msisdn, int tokenNUmber) {
 		logger.info("Creating " + tokenNUmber + " tokens for subscriber " + msisdn);
 		ArrayList<String> params = new ArrayList<String>();
-		params.add(HTTPXMLRPCForm.getAuthenticationParam(env.getUserName("superman"), env.getPassword("super2010Man")));
+		params.add(HTTPXMLRPCForm.getAuthenticationParam(env.getUserName("superman"), env.getPassword("superman")));
 		params.add(HTTPXMLRPCForm.getCustoEventParam(msisdn, HTTPXMLRPCForm.EventTypes.revenue, new LinkedHashMap<HTTPXMLRPCForm.EventParameterTypes, String>() {
 			{
 				put(HTTPXMLRPCForm.EventParameterTypes.recharge, "1");
-				put(HTTPXMLRPCForm.EventParameterTypes.event_storage_policy, "store");
+//				put(HTTPXMLRPCForm.EventParameterTypes.event_storage_policy, "store");
 			}
 		}));
-
 		for (int i = 0; i < tokenNUmber; i++) {
 			ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.eventmanager_generateCustomEvent.call(env.getLink() + "xmlrpc/", params);
 			String responseText = response.getEntity().toString();
-			if (responseText.contains("fault")) {
-				logger.error("create event response: " + responseText);
+			if (!responseText.contains("Success")) {
+				logger.error("Error creating event|param request= " + params+" \n response="+responseText);
 				Assert.fail();
 			}
 
