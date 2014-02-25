@@ -316,7 +316,7 @@ public class OffersForm extends CatalogueForm {
 
 		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for error message"));
 
-		WebElement messageError = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[6]/div/div", timeout, interval);
+		WebElement messageError = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH, "html/body/div[6]/div/div", 5000, interval);
 
 		if (messageError != null) {
 
@@ -331,7 +331,6 @@ public class OffersForm extends CatalogueForm {
 			} else {
 
 				try {
-
 					if (messageError.getText().equals("Cannot add offer, name is already used.") && !error_actions.isNull(OfferErrorAction.OFFER_ALREADY_EXISTS.name())) {
 
 						switch (OfferErrorActionType.valueOf(error_actions.getString(OfferErrorAction.OFFER_ALREADY_EXISTS.name()))) {

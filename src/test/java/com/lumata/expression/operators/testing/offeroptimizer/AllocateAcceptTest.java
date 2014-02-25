@@ -5,13 +5,14 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.jboss.resteasy.client.ClientResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
@@ -30,12 +31,14 @@ import com.lumata.expression.operators.exceptions.CampaignModelException;
 import com.lumata.expression.operators.exceptions.OfferException;
 import com.lumata.expression.operators.exceptions.RuleException;
 import com.lumata.expression.operators.exceptions.TokenTypeException;
+import com.lumata.expression.operators.gui.campaigns.CampaignCreationForm;
 import com.lumata.expression.operators.gui.campaigns.CampaignModelForm;
 import com.lumata.expression.operators.gui.catalogue.OffersForm;
 import com.lumata.expression.operators.gui.catalogue.RuleForm;
 import com.lumata.expression.operators.gui.catalogue.TokenTypeForm;
-import com.lumata.expression.operators.gui.common.AngularFrame;
 import com.lumata.expression.operators.gui.security.Authorization;
+import com.lumata.expression.operators.gui.xmlrpc.HTTPXMLRPCForm;
+import com.lumata.expression.operators.json.campaigns.CampaignCfg;
 import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
 import com.lumata.expression.operators.json.catalogue.OfferCfg;
 import com.lumata.expression.operators.json.catalogue.RuleCfg;
@@ -74,10 +77,10 @@ public class AllocateAcceptTest {
 	}
 
 	@BeforeClass
-	public void onStartup(){
-		
+	public void onStartup() {
+
 	}
-	
+
 	@AfterClass
 	public void onClose() {
 		if (null != mysql) {
@@ -110,7 +113,6 @@ public class AllocateAcceptTest {
 			OfferCfg offerCfg1 = new OfferCfg("input/catalogue/offers", "offer_1", IOLoadingType.RESOURCE);
 			Assert.assertTrue(OffersForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
 			Assert.assertTrue(OffersForm.create(seleniumWebDriver, offerCfg1, TIMEOUT, ATTEMPT_TIMEOUT));
-
 		}
 		for (int i = 0; i < 3; i++) {
 			OfferCfg offerCfg2 = new OfferCfg("input/catalogue/offers", "offer_2", IOLoadingType.RESOURCE);
@@ -169,37 +171,71 @@ public class AllocateAcceptTest {
 
 				query = GenerateSubscribers.getInsertSubsNotifQuery(msisdn, 1);
 				mysql.execUpdate(query.toString());
+				logger.info("Create subscriber " + msisdn);
 				return msisdn;
 			}
 		}
 		throw new Exception("Not able to find a clean subscriber");
 	}
-	
-	private void createTokens(String msisdn){
-		
+
+	private void configureCampaignModel() throws CampaignModelException {
+		logger.info("configuring campaing model");
+		CampaignModelCfg cm_bonus = new CampaignModelCfg("input/campaigns", "cm_offer_optimizer_test", IOLoadingType.RESOURCE);
+		Assert.assertTrue(CampaignModelForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
+		Assert.assertTrue(CampaignModelForm.create(seleniumWebDriver, cm_bonus, TIMEOUT, ATTEMPT_TIMEOUT));
+		logger.info("end configuring campaing model");
+	}
+
+	private void configureCampaign() throws Exception {
+		logger.info("configuring campaing");
+		CampaignCfg campaignCfg = new CampaignCfg("input/campaigns", "campaign_offer_optimizer_test", IOLoadingType.RESOURCE);
+		Assert.assertTrue(CampaignCreationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
+		Assert.assertTrue(CampaignCreationForm.create(seleniumWebDriver, campaignCfg, TIMEOUT, ATTEMPT_TIMEOUT));
+		logger.info("end configuring campaing ");
 	}
 
 	private void setUpConfiguration() throws Exception {
-		configureChannels();
-		configureTokenType();
-		AngularFrame.close(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-		configureRuleSet();
-		AngularFrame.close(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-		configureOffers();
+		//		configureChannels();
+		//		configureTokenType();
+		//		AngularFrame.close(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		//		configureRuleSet();
+		//		AngularFrame.close(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		//		configureOffers();
+		//		configureCampaignModel();
+		//		configureCampaign();
 	}
-	
-	private void configureCampaignModel() throws CampaignModelException{
 
-		CampaignModelCfg cm_bonus = new CampaignModelCfg( "input/campaigns", "cm_rulea", IOLoadingType.RESOURCE );
-				
-		Assert.assertTrue( CampaignModelForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
-		Assert.assertTrue( CampaignModelForm.create(seleniumWebDriver, cm_bonus, TIMEOUT, ATTEMPT_TIMEOUT) );	
+	private void createTokens(String msisdn, int tokenNUmber) {
+		logger.info("Creating " + tokenNUmber + " tokens for subscriber " + msisdn);
+		ArrayList<String> params = new ArrayList<String>();
+		params.add(HTTPXMLRPCForm.getAuthenticationParam(env.getUserName("superman"), env.getPassword("super2010Man")));
+		params.add(HTTPXMLRPCForm.getCustoEventParam(msisdn, HTTPXMLRPCForm.EventTypes.revenue, new LinkedHashMap<HTTPXMLRPCForm.EventParameterTypes, String>() {
+			{
+				put(HTTPXMLRPCForm.EventParameterTypes.recharge, "1");
+				put(HTTPXMLRPCForm.EventParameterTypes.event_storage_policy, "store");
+			}
+		}));
+
+		for (int i = 0; i < tokenNUmber; i++) {
+			ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.eventmanager_generateCustomEvent.call(env.getLink() + "xmlrpc/", params);
+			String responseText = response.getEntity().toString();
+			if (responseText.contains("fault")) {
+				logger.error("create event response: " + responseText);
+				Assert.fail();
+			}
+
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				logger.error(e.getMessage(), e);
+			}
+		}
 	}
-	
+
 	@Test
 	public void testAllocate() throws Exception {
 		setUpConfiguration();
 		String msisdn = createSubscriber(10);
-		configureCampaignModel();
+		createTokens(msisdn, 5);
 	}
 }

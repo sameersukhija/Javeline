@@ -1,0 +1,31 @@
+{
+	"definition": {
+		"execution_mode": "ModelBased",
+		"campaign_model": "OfferOptimizerTest",
+		"campaign_name": "OfferOptimizerTest",
+		"campaign_description": "OfferOptimizerTest"
+	},
+	"scheduling": {
+	
+	
+	},
+	"dialogue": {
+	
+	
+	},
+	"target": {
+	
+	
+	},
+	"limits": {
+	
+	
+	},
+	"activation": {
+	
+	
+	},
+	"error_actions": {
+		"CAMPAIGN_ALREADY_EXISTS": "ABORT"	
+	}
+}

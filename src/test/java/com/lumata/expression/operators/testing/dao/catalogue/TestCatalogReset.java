@@ -36,7 +36,7 @@ public class TestCatalogReset {
 	
 	@Parameters({"environment", "tenant"})
 	@BeforeMethod
-	public void init( @Optional("E4O_QA") String environment, @Optional("qa") String tenant ) throws EnvironmentException {
+	public void init( @Optional("E4O_VM") String environment, @Optional("tenant") String tenant ) throws EnvironmentException {
 		
 		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
@@ -46,7 +46,7 @@ public class TestCatalogReset {
 	
 	@Parameters({"tenant"})
 	@Test( priority = 1, enabled = true )
-	public void resetCatalogOfferContent( @Optional("qa") String tenant ) throws SQLException {
+	public void resetCatalogOfferContent( @Optional("tenant") String tenant ) throws SQLException {
 		
 		CatalogOfferContentDAOList catalogOfferContentDAOList = new CatalogOfferContentDAOList();
 		
@@ -60,7 +60,7 @@ public class TestCatalogReset {
 	
 	@Parameters({"tenant"})
 	@Test( priority = 2, enabled = true )
-	public void resetCatalogOfferPrice( @Optional("qa") String tenant ) throws SQLException {
+	public void resetCatalogOfferPrice( @Optional("tenant") String tenant ) throws SQLException {
 		
 		CatalogOfferPriceDAOList catalogOfferPriceDAOList = new CatalogOfferPriceDAOList();
 		
@@ -74,7 +74,7 @@ public class TestCatalogReset {
 	
 	@Parameters({"tenant"})
 	@Test( priority = 3, enabled = true )
-	public void resetCatalogOffers( @Optional("qa") String tenant ) throws SQLException {
+	public void resetCatalogOffers( @Optional("tenant") String tenant ) throws SQLException {
 		
 		CatalogOffersDAOList catalogOffersDAOList = new CatalogOffersDAOList();
 		
@@ -88,7 +88,7 @@ public class TestCatalogReset {
 	
 	@Parameters({"tenant"})
 	@Test( priority = 4, enabled = true )
-	public void resetCatalogPrices( @Optional("qa") String tenant ) throws SQLException {
+	public void resetCatalogPrices( @Optional("tenant") String tenant ) throws SQLException {
 		
 		CatalogPricesDAOList catalogPricesDAOList = new CatalogPricesDAOList();
 		
@@ -96,13 +96,13 @@ public class TestCatalogReset {
 		
 		Assert.assertEquals( catalogPricesDAOList.size(), 0 );
 		
-		Assert.assertEquals( MysqlUtils.getTableSize( "catalog_prices" , mysql ) , 0 );
+		Assert.assertEquals( MysqlUtils.getTableSize( "catalog_offer_price" , mysql ) , 0 );
 		
 	}
 	
 	@Parameters({"tenant"})
 	@Test( priority = 5, enabled = true )
-	public void resetCatalogPricesList( @Optional("qa") String tenant ) throws SQLException {
+	public void resetCatalogPricesList( @Optional("tenant") String tenant ) throws SQLException {
 		
 		CatalogPricesListDAOList catalogPricesListDAOList = new CatalogPricesListDAOList();
 		
@@ -110,13 +110,13 @@ public class TestCatalogReset {
 		
 		Assert.assertEquals( catalogPricesListDAOList.size(), 0 );
 		
-		Assert.assertEquals( MysqlUtils.getTableSize( "catalog_prices_list" , mysql ) , 0 );
+		Assert.assertEquals( MysqlUtils.getTableSize( "catalog_offer_price_prices" , mysql ) , 0 );
 		
 	}
 	
 	@Parameters({"tenant"})
 	@Test( priority = 6, enabled = true )
-	public void resetCatalogProductCharacteristics( @Optional("qa") String tenant ) throws SQLException {
+	public void resetCatalogProductCharacteristics( @Optional("tenant") String tenant ) throws SQLException {
 		
 		CatalogProductCharacteristicsDAOList catalogProductCharacteristicsDAOList = new CatalogProductCharacteristicsDAOList();
 		
@@ -130,7 +130,7 @@ public class TestCatalogReset {
 	
 	@Parameters({"tenant"})
 	@Test( priority = 7, enabled = true )
-	public void resetCatalogProductSpecificCharacteristics( @Optional("qa") String tenant ) throws SQLException {
+	public void resetCatalogProductSpecificCharacteristics( @Optional("tenant") String tenant ) throws SQLException {
 		
 		CatalogProductSpecificCharacteristicsDAOList catalogProductSpecificCharacteristicsDAOList = new CatalogProductSpecificCharacteristicsDAOList();
 		
@@ -144,7 +144,7 @@ public class TestCatalogReset {
 	
 	@Parameters({"tenant"})
 	@Test( priority = 8, enabled = true )
-	public void resetCatalogProductTypeCharacteristics( @Optional("qa") String tenant ) throws SQLException {
+	public void resetCatalogProductTypeCharacteristics( @Optional("tenant") String tenant ) throws SQLException {
 		
 		CatalogProductTypeCharacteristicsDAOList catalogProductTypeCharacteristicsDAOList = new CatalogProductTypeCharacteristicsDAOList();
 		
@@ -158,7 +158,7 @@ public class TestCatalogReset {
 	
 	@Parameters({"tenant"})
 	@Test( priority = 9, enabled = true )
-	public void resetCatalogProductTypes( @Optional("qa") String tenant ) throws SQLException {
+	public void resetCatalogProductTypes( @Optional("tenant") String tenant ) throws SQLException {
 		
 		CatalogProductTypesDAOList catalogProductTypesDAOList = new CatalogProductTypesDAOList();
 		
@@ -172,7 +172,7 @@ public class TestCatalogReset {
 	
 	@Parameters({"tenant"})
 	@Test( priority = 10, enabled = true )
-	public void resetCatalogProducts( @Optional("qa") String tenant ) throws SQLException {
+	public void resetCatalogProducts( @Optional("tenant") String tenant ) throws SQLException {
 		
 		CatalogProductsDAOList catalogProductsDAOList = new CatalogProductsDAOList();
 		
@@ -186,7 +186,7 @@ public class TestCatalogReset {
 	
 	@Parameters({"tenant"})
 	@Test( priority = 11, enabled = true )
-	public void resetCatalogRelatedOffers( @Optional("qa") String tenant ) throws SQLException {
+	public void resetCatalogRelatedOffers( @Optional("tenant") String tenant ) throws SQLException {
 		
 		CatalogRelatedOffersDAOList catalogRelatedOffersDAOList = new CatalogRelatedOffersDAOList();
 		
@@ -200,7 +200,7 @@ public class TestCatalogReset {
 	
 	@Parameters({"tenant"})
 	@Test( priority = 12, enabled = true )
-	public void resetCatalogRelatedProducts( @Optional("qa") String tenant ) throws SQLException {
+	public void resetCatalogRelatedProducts( @Optional("tenant") String tenant ) throws SQLException {
 		
 		CatalogRelatedProductsDAOList catalogRelatedProductsDAOList = new CatalogRelatedProductsDAOList();
 		
@@ -214,7 +214,7 @@ public class TestCatalogReset {
 	
 	@Parameters({"tenant"})
 	@Test( priority = 13, enabled = true )
-	public void resetProductStock( @Optional("qa") String tenant ) throws SQLException {
+	public void resetProductStock( @Optional("tenant") String tenant ) throws SQLException {
 		
 		ProductStockDAOList productStockDAOList = new ProductStockDAOList();
 		
@@ -228,7 +228,7 @@ public class TestCatalogReset {
 	
 	@Parameters({"tenant"})
 	@Test( priority = 14, enabled = true )
-	public void resetOfferStock( @Optional("qa") String tenant ) throws SQLException {
+	public void resetOfferStock( @Optional("tenant") String tenant ) throws SQLException {
 		
 		OfferStockDAOList offerStockDAOList = new OfferStockDAOList();
 		

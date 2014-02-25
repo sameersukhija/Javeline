@@ -151,7 +151,7 @@ public class CampaignCreationForm extends CampaignsForm {
 		
 		CampaignCreationForm.setActivation( selenium, campaignCfg, timeout, interval );
 		
-		return CampaignCreationForm.manageErrorAction( selenium, campaignCfg, timeout, interval );
+		return CampaignCreationForm.manageErrorAction( selenium, campaignCfg, 1000, interval );
 				
 	}	
 	
