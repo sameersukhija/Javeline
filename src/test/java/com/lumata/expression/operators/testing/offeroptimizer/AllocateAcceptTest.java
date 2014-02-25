@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jboss.resteasy.client.ClientResponse;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.beust.jcommander.internal.Lists;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
@@ -38,6 +40,9 @@ import com.lumata.expression.operators.gui.catalogue.RuleForm;
 import com.lumata.expression.operators.gui.catalogue.TokenTypeForm;
 import com.lumata.expression.operators.gui.security.Authorization;
 import com.lumata.expression.operators.gui.xmlrpc.HTTPXMLRPCForm;
+import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultParser;
+import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultSuccess;
+import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultParser.ResultType;
 import com.lumata.expression.operators.json.campaigns.CampaignCfg;
 import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
 import com.lumata.expression.operators.json.catalogue.OfferCfg;
@@ -212,14 +217,13 @@ public class AllocateAcceptTest {
 		params.add(HTTPXMLRPCForm.getCustoEventParam(msisdn, HTTPXMLRPCForm.EventTypes.revenue, new LinkedHashMap<HTTPXMLRPCForm.EventParameterTypes, String>() {
 			{
 				put(HTTPXMLRPCForm.EventParameterTypes.recharge, "1");
-//				put(HTTPXMLRPCForm.EventParameterTypes.event_storage_policy, "store");
 			}
 		}));
 		for (int i = 0; i < tokenNUmber; i++) {
 			ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.eventmanager_generateCustomEvent.call(env.getLink() + "xmlrpc/", params);
 			String responseText = response.getEntity().toString();
 			if (!responseText.contains("Success")) {
-				logger.error("Error creating event|param request= " + params+" \n response="+responseText);
+				logger.error("Error creating event|param request= " + params + " \n response=" + responseText);
 				Assert.fail();
 			}
 
@@ -231,10 +235,35 @@ public class AllocateAcceptTest {
 		}
 	}
 
+	private List<String> retrieveToken(String msisdn) {
+		List<String> tokenList = Lists.newArrayList();
+		logger.info("retrieving tokens for subscriber " + msisdn);
+
+		ArrayList<String> params = new ArrayList<String>();
+		params.add(HTTPXMLRPCForm.getAuthenticationParam(env.getUserName("superman"), env.getPassword("superman")));
+		params.add(HTTPXMLRPCForm.getStringParam(msisdn));
+		params.add(HTTPXMLRPCForm.getStringParam(""));
+		params.add(HTTPXMLRPCForm.getStringParam(""));
+
+		ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.offeroptimizer_getTokensList.call(env.getLink() + "xmlrpc/", params);
+		String responseText = response.getEntity().toString();
+		System.out.println(responseText);
+		if (!responseText.contains("tokens")) {
+			logger.error("Error retrieving tokens |param request= " + params + " \n response=" + responseText);
+			Assert.fail();
+		}
+		return tokenList;
+	}
+
 	@Test
 	public void testAllocate() throws Exception {
+		int tokenNumber = 5;
 		setUpConfiguration();
-		String msisdn = createSubscriber(10);
-		createTokens(msisdn, 5);
+		//		String msisdn = createSubscriber(10);
+		//		createTokens(msisdn, tokenNumber);
+		Thread.sleep(2000);
+		String msisdn = "3399900001";
+		List<String> tokenList = retrieveToken(msisdn);
+		Assert.assertEquals(tokenList.size(), tokenNumber);
 	}
 }
