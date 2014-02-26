@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.jboss.resteasy.client.ClientResponse;
 import org.slf4j.Logger;
@@ -38,11 +37,11 @@ import com.lumata.expression.operators.gui.campaigns.CampaignModelForm;
 import com.lumata.expression.operators.gui.catalogue.OffersForm;
 import com.lumata.expression.operators.gui.catalogue.RuleForm;
 import com.lumata.expression.operators.gui.catalogue.TokenTypeForm;
+import com.lumata.expression.operators.gui.common.AngularFrame;
 import com.lumata.expression.operators.gui.security.Authorization;
 import com.lumata.expression.operators.gui.xmlrpc.HTTPXMLRPCForm;
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultParser;
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultSuccess;
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultParser.ResultType;
+import com.lumata.expression.operators.gui.xmlrpc.XMLRPCTokenList;
+import com.lumata.expression.operators.gui.xmlrpc.XMLRPCTokenList.Token;
 import com.lumata.expression.operators.json.campaigns.CampaignCfg;
 import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
 import com.lumata.expression.operators.json.catalogue.OfferCfg;
@@ -203,11 +202,9 @@ public class AllocateAcceptTest {
 		//		configureChannels();
 		//		configureTokenType();
 		//		AngularFrame.close(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-		//		configureRuleSet();
-		//		AngularFrame.close(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-		//		configureOffers();
-		//		configureCampaignModel();
-		//		configureCampaign();
+		//				configureRuleSet();
+		//				AngularFrame.close(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		//				configureOffers();
 	}
 
 	private void createTokens(String msisdn, int tokenNUmber) {
@@ -217,14 +214,15 @@ public class AllocateAcceptTest {
 		params.add(HTTPXMLRPCForm.getCustoEventParam(msisdn, HTTPXMLRPCForm.EventTypes.revenue, new LinkedHashMap<HTTPXMLRPCForm.EventParameterTypes, String>() {
 			{
 				put(HTTPXMLRPCForm.EventParameterTypes.recharge, "1");
+				put(HTTPXMLRPCForm.EventParameterTypes.event_storage_policy, "store");
 			}
 		}));
 		for (int i = 0; i < tokenNUmber; i++) {
 			ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.eventmanager_generateCustomEvent.call(env.getLink() + "xmlrpc/", params);
 			String responseText = response.getEntity().toString();
+			org.seleniumhq.jetty7.util.log.Log.info(responseText);
 			if (!responseText.contains("Success")) {
-				logger.error("Error creating event|param request= " + params + " \n response=" + responseText);
-				Assert.fail();
+				Assert.fail("Error creating event|param request= " + params + " \n response=" + responseText);
 			}
 
 			try {
@@ -235,7 +233,7 @@ public class AllocateAcceptTest {
 		}
 	}
 
-	private List<String> retrieveToken(String msisdn) {
+	private List<String> retrieveToken(String msisdn) throws Exception {
 		List<String> tokenList = Lists.newArrayList();
 		logger.info("retrieving tokens for subscriber " + msisdn);
 
@@ -247,23 +245,57 @@ public class AllocateAcceptTest {
 
 		ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.offeroptimizer_getTokensList.call(env.getLink() + "xmlrpc/", params);
 		String responseText = response.getEntity().toString();
-		System.out.println(responseText);
+		XMLRPCTokenList xmlrpcToken = new XMLRPCTokenList(responseText);
+		Assert.assertEquals(xmlrpcToken.getTokenNumber(), 15);
+		for (Token token : xmlrpcToken.getTokenList()) {
+			Assert.assertNotNull(token);
+			Assert.assertEquals(token.getMsisdn(), msisdn);
+			Assert.assertNotNull(token.getCode());
+			tokenList.add(token.getCode());
+			Assert.assertNotNull(token.getSentDate());
+			Assert.assertNotNull(token.getExpiryDate());
+			Assert.assertEquals(token.getStatus(), "active");
+			Assert.assertEquals(token.getConsumedDate(), "");
+			Assert.assertEquals(token.getIsAlreadyAllocated(), "false");
+			Assert.assertNotNull(token.getRequestor());
+			Assert.assertNotNull(token.getRequestor().getId());
+			Assert.assertEquals(token.getRequestor().getName(), "OfferOptimizerTest");
+			Assert.assertEquals(token.getRequestor().getDescription(), "OfferOptimizerTest");
+			Assert.assertEquals(token.getRequestor().getType(), "campaign");
+		}
 		if (!responseText.contains("tokens")) {
-			logger.error("Error retrieving tokens |param request= " + params + " \n response=" + responseText);
-			Assert.fail();
+			Assert.fail("Error retrieving tokens |param request= " + params + " \n response=" + responseText);
 		}
 		return tokenList;
+	}
+
+	private void allocate(String msisdn, String code) {
+		ArrayList<String> params = new ArrayList<String>();
+		params.add(HTTPXMLRPCForm.getAuthenticationParam(env.getUserName("superman"), env.getPassword("superman")));
+		params.add(HTTPXMLRPCForm.getStringParam(msisdn));
+		params.add(HTTPXMLRPCForm.getStringParam(code));
+		System.out.println("---->"+code);
+		ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.offeroptimizer_allocate.call(env.getLink() + "xmlrpc/", params);
+		System.out.println(response.getEntity().toString());
 	}
 
 	@Test
 	public void testAllocate() throws Exception {
 		int tokenNumber = 5;
-		setUpConfiguration();
+		//		setUpConfiguration();
+		String msisdn = "3399900001";
 		//		String msisdn = createSubscriber(10);
 		//		createTokens(msisdn, tokenNumber);
-		Thread.sleep(2000);
-		String msisdn = "3399900001";
+		//				configureCampaignModel();
+		//				configureCampaign();
+
 		List<String> tokenList = retrieveToken(msisdn);
-		Assert.assertEquals(tokenList.size(), tokenNumber);
+		// Configure campaign has 3 rules, so for each event 3 token will be generated
+		int tokenNumberretrieved = tokenNumber * 3;
+		Assert.assertEquals(tokenList.size(), tokenNumberretrieved);
+		allocate(msisdn, tokenList.get(0));
+//		for (String code : tokenList) {
+//			allocate(msisdn, code);
+//		}
 	}
 }

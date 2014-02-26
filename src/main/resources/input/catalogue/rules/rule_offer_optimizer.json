@@ -20,7 +20,7 @@
 	{
 		"name":"RuleB",
 		"description":"RuleB",
-		"tokenTypeName":"TokenA",
+		"tokenTypeName":"TokenB",
 		"channelNamesList":["Token Gold","Token Silver","Token Bronze","Token Unlimited"],
 		"offerSelectionAlgorithmId":"History based",
 		"requestorIdsList":[1,7],
@@ -38,7 +38,7 @@
 	{
 		"name":"RuleC",
 		"description":"RuleC",
-		"tokenTypeName":"TokenA",
+		"tokenTypeName":"TokenC",
 		"channelNamesList":["Token Gold","Token Silver","Token Bronze","Token Unlimited"],
 		"offerSelectionAlgorithmId":"Stock based",
 		"requestorIdsList":[1,7],

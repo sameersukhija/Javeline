@@ -1,41 +1,35 @@
 package com.lumata.expression.operators.gui.xmlrpc;
 
-import java.io.ByteArrayInputStream;
-import java.lang.reflect.Method;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.apache.commons.lang.WordUtils;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
 import com.google.common.collect.Lists;
 
-public class XMLRPCTokenList {
-	private List<Token> foundTokenList = Lists.newArrayList();
+public class XMLRPCTokenList extends BaseXMLRPC<XMLRPCTokenList> {
+	private List<Token> foundTokenList = null;
 
 	public XMLRPCTokenList(String xml) throws Exception {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setValidating(false);
-		factory.setIgnoringElementContentWhitespace(true);
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		Document doc = builder.parse(new InputSource(new ByteArrayInputStream(xml.getBytes("utf-8"))));
+		super(xml);
+		foundTokenList = Lists.newArrayList();
+	}
+
+	@Override
+	public XMLRPCTokenList parse() throws Exception {
 		NodeList tokenList = doc.getElementsByTagName("token");
 		for (int i = 0; i < tokenList.getLength(); i++) {
 			Token token = getSingleToken((Element) tokenList.item(i));
 			foundTokenList.add(token);
 		}
+		return this;
 	}
 
 	private Token getSingleToken(Element token) throws Exception {
 		Token newToken = new Token();
 		Requestor requestor = null;
-		for (TokenFieldList tokenTag : TokenFieldList.values()) {			
+		for (TokenFieldList tokenTag : TokenFieldList.values()) {
 			Node tokenElement = token.getElementsByTagName(tokenTag.name()).item(0);
 			if (TokenFieldList.requestor == tokenTag) {
 				requestor = new Requestor();
@@ -43,21 +37,12 @@ public class XMLRPCTokenList {
 					Node requestorElement = ((Element) tokenElement).getElementsByTagName(requestorTag.name()).item(0);
 					setValue(requestorElement, requestor);
 				}
-				if (null != requestor) {
-					newToken.setRequestor(requestor);
-				}
+				newToken.setRequestor(requestor);
 			} else {
 				setValue(tokenElement, newToken);
-			}			
+			}
 		}
 		return newToken;
-	}
-
-	private void setValue(Node element, Object obj) throws Exception {
-		String tmp = element.getNodeName().replaceAll("_", " ");
-		String methodString = "set" + WordUtils.capitalizeFully(tmp).replaceAll(" ", "");
-		Method method = obj.getClass().getDeclaredMethod(methodString, String.class);
-		method.invoke(obj, element.getTextContent());
 	}
 
 	public int getTokenNumber() {
