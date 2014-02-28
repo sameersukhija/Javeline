@@ -263,7 +263,7 @@ public class Statement {
 					else {
 						
 						String value = String.valueOf( values[ i ] );
-											
+										
 						if( col != null && col.categoryType().equals( MysqlColumn.CategoryTypes.Number.name() ) ) { 
 							field_value.append( value ); 
 						} else { field_value.append( "\"" ).append( value ).append( "\"" ); }					 
@@ -331,8 +331,14 @@ public class Statement {
 						
 						this.addPlaceHolder( fields[ i ], place_holder.toString() );
 					
-						content.append( place_holder ).append( ", " );
-					
+						//content.append( place_holder ).append( ", " );
+						
+						if( col != null && col.categoryType().equals( MysqlColumn.CategoryTypes.Number.name() ) ) { 
+							content.append( place_holder ); 
+						} else { content.append( "\"" ).append( place_holder ).append( "\"" ); }
+						
+						content.append( ", " );
+											
 					} else {
 						content.append( Statement.field( col, ( values.length <= i ) ? null : values[i] ) ).append( ", " );
 					}
