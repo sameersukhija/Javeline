@@ -33,8 +33,68 @@ public class Query {
 		return new Select(statement);
 		
 	}
-	
+
 	public static IInsert insert( final Object entity ) {
+				
+		return Query.insert( MysqlStatement.INSERT_INTO, entity );
+		
+	}
+	
+	public static IInsert insert( final Object entity, final Enum<?>... fields ) {
+				
+		return Query.insert( MysqlStatement.INSERT_INTO, entity, fields );
+		
+	}
+	
+	public static IInsert insert_low_priority( final Object entity ) {
+		
+		return Query.insert( MysqlStatement.INSERT_LOW_PRIORITY_INTO, entity );
+		
+	}
+	
+	public static IInsert insert_low_priority( final Object entity, final Enum<?>... fields ) {
+				
+		return Query.insert( MysqlStatement.INSERT_LOW_PRIORITY_INTO, entity, fields );
+		
+	}
+	
+	public static IInsert insert_delayed( final Object entity ) {
+		
+		return Query.insert( MysqlStatement.INSERT_DELAYED_INTO, entity );
+		
+	}
+	
+	public static IInsert insert_delayed( final Object entity, final Enum<?>... fields ) {
+				
+		return Query.insert( MysqlStatement.INSERT_DELAYED_INTO, entity, fields );
+		
+	}
+	
+	public static IInsert insert_high_priority( final Object entity ) {
+		
+		return Query.insert( MysqlStatement.INSERT_HIGH_PRIORITY_INTO, entity );
+		
+	}
+	
+	public static IInsert insert_high_priority( final Object entity, final Enum<?>... fields ) {
+				
+		return Query.insert( MysqlStatement.INSERT_HIGH_PRIORITY_INTO, entity, fields );
+		
+	}
+	
+	public static IInsert insert_ignore( final Object entity ) {
+		
+		return Query.insert( MysqlStatement.INSERT_IGNORE_INTO, entity );
+		
+	}
+	
+	public static IInsert insert_ignore( final Object entity, final Enum<?>... fields ) {
+				
+		return Query.insert( MysqlStatement.INSERT_IGNORE_INTO, entity, fields );
+		
+	}
+	
+	private static IInsert insert( MysqlStatement mysqlStatement, final Object entity ) {
 				
 		Enum<?>[] fields = null;
 		
@@ -56,15 +116,15 @@ public class Query {
 			e.printStackTrace();
 		}
 		
-		return Query.insert( entity, fields );
+		return Query.insert( mysqlStatement, entity, fields );
 		
 	}
 	
-	public static IInsert insert( final Object entity, final Enum<?>... fields ) {
+	private static IInsert insert( MysqlStatement mysqlStatement, final Object entity, final Enum<?>... fields ) {
 		
 		Statement statement = new Statement();
 		
-		statement.setMysqlStatementType( MysqlStatement.INSERT_INTO );
+		statement.setMysqlStatementType( mysqlStatement );
 		
 		Table table = (Table)entity.getClass().getAnnotation( Table.class );
 		
@@ -72,7 +132,7 @@ public class Query {
 		
 		statement.addFields( fields );
 		
-		statement.append( Statement.MysqlStatement.INSERT_INTO.getName() )
+		statement.append( mysqlStatement.getName() )
 					.append( table.value() )
 					.append( " ( " )			
 					.append( statement.fields( fields ) )

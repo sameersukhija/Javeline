@@ -4,6 +4,6 @@ public interface IInsert {
 	
 	IValues values();
 	
-	IValues values( Object... values);
+	IValues values( Object... values );
 		
 }

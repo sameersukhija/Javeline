@@ -25,8 +25,9 @@ public class Statement {
 	
 	public enum MysqlStatement { 
 		
-		SELECT, INSERT_INTO, UPDATE, DELETE,
-		FROM, JOIN, ON, VALUES, WHERE, AND, OR, SET, 
+		SELECT, UPDATE, DELETE,
+		INSERT_INTO, INSERT_LOW_PRIORITY_INTO, INSERT_DELAYED_INTO, INSERT_HIGH_PRIORITY_INTO, INSERT_IGNORE_INTO,
+		FROM, JOIN, ON, VALUES, WHERE, AND, OR, SET, ON_DUPLICATE_KEY_UPDATE, 
 		GROUP_BY, HAVING, ORDER_BY, LIMIT;
 		
 		public StringBuilder getName() {
@@ -165,8 +166,8 @@ public class Statement {
 				Object value = method.invoke( entity );
 				
 				if( value == null ) { query = query.replaceAll( "\"?" + place_holder.getValue() + "\"?", "NULL" ); }
-				else { query = query.replaceAll( place_holder.getValue(), String.valueOf( method.invoke( entity ) ) ); }				
-								
+				else { query = query.replace( place_holder.getValue(), String.valueOf( value ).replaceAll( "\n", "\\n") ); }				
+				//System.out.println( "QUERY: " + query );				
 			} catch( NoSuchMethodException e ) {
 				logger.error( e.getMessage(), e );
 			} catch (IllegalAccessException e) {
@@ -348,7 +349,7 @@ public class Statement {
 			}
 			
 			content.setLength( content.length() - 2 );
-		
+			
 		}
 	
 		return content.toString();		 

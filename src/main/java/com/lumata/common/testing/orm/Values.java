@@ -9,6 +9,16 @@ public class Values implements IValues {
 	}
 	
 	@Override
+	public IOnDuplicateKeyUpdate on_duplicate_key_update( final IExprFV... expr ) {
+		
+		this.statement.append( Statement.MysqlStatement.ON_DUPLICATE_KEY_UPDATE.getName() )
+						.append( Statement.expr( expr ) );			
+		
+		return new OnDuplicateKeyUpdate(statement);
+		
+	}
+	
+	@Override
 	public IQueryTemplate template() {
 		
 		return new QueryTemplate(statement);
