@@ -331,7 +331,6 @@ public class OffersForm extends CatalogueForm {
 			} else {
 
 				try {
-
 					if (messageError.getText().equals("Cannot add offer, name is already used.") && !error_actions.isNull(OfferErrorAction.OFFER_ALREADY_EXISTS.name())) {
 
 						switch (OfferErrorActionType.valueOf(error_actions.getString(OfferErrorAction.OFFER_ALREADY_EXISTS.name()))) {

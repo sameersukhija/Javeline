@@ -1,0 +1,8 @@
+{
+	"name": "OfferOptimizerTest",
+	"description": "",
+	"events_list": [		
+		{ "event_type":"Revenue", "criteria": null, "action_list": [{ "name": "Rulesets.RuleA"},{ "name": "Rulesets.RuleB"},{ "name": "Rulesets.RuleC"}]  }
+	]
+
+}

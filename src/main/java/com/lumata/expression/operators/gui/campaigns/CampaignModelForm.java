@@ -160,7 +160,7 @@ public class CampaignModelForm extends CampaignsForm {
 
 			campaignModelSave.click();
 
-			return CampaignModelForm.manageErrorAction(selenium, cm, timeout, interval);
+			return CampaignModelForm.manageErrorAction(selenium, cm, 1000, interval);
 
 		} else {
 
