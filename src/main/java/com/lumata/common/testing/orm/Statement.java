@@ -166,7 +166,7 @@ public class Statement {
 				Object value = method.invoke( entity );
 				
 				if( value == null ) { query = query.replaceAll( "\"?" + place_holder.getValue() + "\"?", "NULL" ); }
-				else { query = query.replace( place_holder.getValue(), String.valueOf( value ).replaceAll( "\n", "\\n") ); }				
+				else { query = query.replace( place_holder.getValue(), String.valueOf( value ) ); }				
 				//System.out.println( "QUERY: " + query );				
 			} catch( NoSuchMethodException e ) {
 				logger.error( e.getMessage(), e );
