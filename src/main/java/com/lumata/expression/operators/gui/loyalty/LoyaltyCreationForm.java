@@ -42,6 +42,7 @@ public class LoyaltyCreationForm {
 	public static boolean create(SeleniumWebDriver selenium, Mysql mysql, long timeout, long interval) {
 		
 		Integer loyaltyProgramsCount = 0;
+		//ResultSet rs = mysql.execQuery("SELECT COUNT(*) FROM loyalty_programs WHERE program_type = 'BADGES'");
 		ResultSet rs = mysql.execQuery("SELECT COUNT(*) FROM loyalty_programs");
 		try {
 			while (rs.next()) {
@@ -55,7 +56,7 @@ public class LoyaltyCreationForm {
 		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for addNewProgramPopup"));
 		WebElement addNewProgramPopup = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
 				//"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[5]/td/button", timeout, interval);
-				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[" + 2 + loyaltyProgramsCount + "]/td/button", timeout, interval);
+				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[" + (2 + loyaltyProgramsCount) + "]/td/button", timeout, interval);
 				//"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody", timeout, interval);
 		if (addNewProgramPopup == null) { return false; }
 		addNewProgramPopup.click();
