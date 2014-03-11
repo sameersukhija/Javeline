@@ -79,7 +79,7 @@ public class ConfigureCatalogue {
 	}
 	
 	@Parameters({"tenant"})
-	@Test(enabled=true, priority = 1)
+	@Test(enabled=false, priority = 1)
 	public void configureTokenTypes( @Optional("qa") String tenant ) throws TokenTypeException {
 		
 		ArrayList<TokenTypeCfg> tokenTypeList = TokenTypeCfg.createTokenTypeList( "input/catalogue/token_type" , "token_type_list_all", IOLoadingType.RESOURCE );
@@ -99,8 +99,11 @@ public class ConfigureCatalogue {
 	public void configureOffers( @Optional("qa") String tenant ) throws TokenTypeException {
 		
 		Assert.assertTrue( OffersForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
-		Assert.assertTrue( OffersForm.create(seleniumWebDriver, offerCfg, TIMEOUT, ATTEMPT_TIMEOUT) );
-				
+		
+		for( int i = 0; i < 3; i++ ) {
+			Assert.assertTrue( OffersForm.create(seleniumWebDriver, offerCfg, TIMEOUT, ATTEMPT_TIMEOUT) );
+		}
+		
 	}
 
 	@Parameters({"tenant"})

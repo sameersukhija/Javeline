@@ -43,7 +43,7 @@ public class GenerateTokens {
 	@Test
 	public void generateTokens() {
 				
-		int tokens_to_generate = 1;
+		int tokens_to_generate = 20;
 		
 		ArrayList<String> params = new ArrayList<String>();
 		params.add( HTTPXMLRPCForm.getAuthenticationParam( env.getUserName( "superman" ), env.getPassword( "superman" )) );

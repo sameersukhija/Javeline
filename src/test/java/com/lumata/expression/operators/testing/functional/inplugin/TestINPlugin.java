@@ -49,8 +49,8 @@ public class TestINPlugin {
 	public void setCfg( @Optional("tenant") String tenant ) {
 
 		ArrayList<String> subscribers = new ArrayList<String>();
-		subscribers.add( "331234560" );
-		subscribers.add( "331234561" );
+		subscribers.add( "33999000001" );
+		subscribers.add( "33999000002" );
 				
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put( "subscribers" , subscribers );
