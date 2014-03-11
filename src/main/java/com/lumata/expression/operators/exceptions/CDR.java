@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.generators;
+package com.lumata.expression.operators.exceptions;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -6,7 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +27,7 @@ public class CDR {
 	private static final Logger logger = LoggerFactory.getLogger( CDR.class );
 	
 	public enum Types {
+		
 		HISTORY {
 			public List<CDR.Fields> fields() {
 				return Arrays.asList( 
@@ -65,6 +69,19 @@ public class CDR {
 						CDR.Fields.Amount,
 						CDR.Fields.Balance,
 						CDR.Fields.Terminating
+				);
+			}
+		},
+		CALL_MULTI_TENANT {
+			public List<CDR.Fields> fields() {
+				return Arrays.asList( 
+						CDR.Fields.Msisdn, 
+						CDR.Fields.Date, 
+						CDR.Fields.Duration, 
+						CDR.Fields.Amount,
+						CDR.Fields.Balance,
+						CDR.Fields.Terminating,
+						CDR.Fields.TenantId
 				);
 			}
 		}, 
@@ -130,6 +147,32 @@ public class CDR {
 						CDR.Fields.PointOfRedemption
 				);
 			}
+		},
+		MULTI_TENANT {
+			public List<CDR.Fields> fields() {
+				return Arrays.asList( 
+						CDR.Fields.Msisdn, 
+						CDR.Fields.Date,
+						CDR.Fields.Duration,
+						CDR.Fields.Amount,
+						CDR.Fields.Balance,
+						CDR.Fields.Terminating,
+						CDR.Fields.TenantId
+				);
+			}
+		},
+		TEST {
+			public List<CDR.Fields> fields() {
+				return Arrays.asList( 
+						CDR.Fields.Msisdn
+						/*CDR.Fields.Date,
+						CDR.Fields.Duration,
+						CDR.Fields.Amount,
+						CDR.Fields.Balance,
+						CDR.Fields.Terminating,
+						CDR.Fields.TenantId*/
+				);
+			}
 		};
 		
 		public abstract List<CDR.Fields> fields();
@@ -137,7 +180,10 @@ public class CDR {
 	}
 	
 	final ArrayList<String> FIELD_TYPE_VALUES = new ArrayList<String>( Arrays.asList( "reload", "paiement", "invoice" ));
-		
+	final ArrayList<String> TERMINATIONG_TYPE_VALUES = new ArrayList<String>( Arrays.asList( "YES", "NO" ));
+	
+	public enum GeneratingType { FIXED, SEQUENTIAL, RANDOM }
+	
 	public enum Fields { 
 		Msisdn, 
 		Date,
@@ -168,15 +214,25 @@ public class CDR {
 		OldSubscriptionDate,
 		Sms,
 		Code,
-		PointOfRedemption
+		PointOfRedemption,
+		TenantId;
+				
 	}
 	
+	private Map<CDR.Fields,CDR.GeneratingType> fieldGeneratingType = new HashMap<CDR.Fields,CDR.GeneratingType>();
 	private StringBuilder file_content;
 	private ArrayList<String> rows;
+	private CDR.Types cdrType;
 	private String path;
 	private String file_name;
 	
-	private String msisdn;
+	private Integer msisdn_prefix;
+	private Long msisdn_current_value;
+	private Long msisdn_left_value;
+	private Long msisdn_right_value;
+	private Long msisdn_next_value;
+	private Integer msisdnIncrement;
+	private Integer msisdn_length;
 	private String date;
 	private String validity_date;
 	private Calendar min_validity_date;
@@ -185,6 +241,8 @@ public class CDR {
 	private Calendar min_deactivation_date;
 	private Calendar max_deactivation_date;
 	private Integer duration;
+	private Integer min_duration;
+	private Integer max_duration;
 	private Integer amount;
 	private Integer min_amount;
 	private Integer max_amount;
@@ -195,9 +253,14 @@ public class CDR {
 	private Integer min_delay;
 	private Integer max_delay;
 	private String type;
-	private Boolean terminating;
+	private String terminating;
+	private Integer tenant_id;
+	private Integer min_tenant_id;
+	private Integer max_tenant_id;
 	
-	public CDR() {
+	public CDR( CDR.Types type ) {
+		
+		this.cdrType = type;
 		
 		this.file_content = new StringBuilder();
 				
@@ -205,11 +268,43 @@ public class CDR {
 		
 		this.file_name = "";
 		
+		for( CDR.Fields field : CDR.Fields.values()) {
+			fieldGeneratingType.put( field, CDR.GeneratingType.FIXED );
+		}
+		
 	}
 	
 	public String getMsisdn() {
 		
-		return ( this.msisdn != null ? this.msisdn : "" );
+		switch( this.fieldGeneratingType.get( CDR.Fields.Msisdn ) ) {
+		
+			case FIXED: { 
+				return ( this.msisdn_current_value != null ? String.valueOf( this.msisdn_current_value ) : "" ); 
+			}
+			case SEQUENTIAL: { 
+				
+				this.msisdn_current_value = this.msisdn_next_value;
+				
+				if( this.msisdn_next_value != null && this.msisdnIncrement != null ) { 
+					
+					this.msisdn_next_value = Long.valueOf( this.msisdn_next_value + this.msisdnIncrement );
+				
+				}
+				
+				return ( this.msisdn_current_value != null ? String.valueOf( this.msisdn_current_value ) : "" );
+				
+			}
+			case RANDOM: { 
+				
+				
+				
+				return ( this.msisdn_current_value != null ? String.valueOf( this.msisdn_current_value ) : "" ); 
+				
+			}
+			
+		}
+		
+		return "";
 		
 	}
 	
@@ -327,6 +422,24 @@ public class CDR {
 		
 	}
 	
+	public String getTenantId() {
+		
+		return ( this.tenant_id != null ? String.valueOf( this.tenant_id ) : "" );
+		
+	}
+	
+	public String getMinTenantId() {
+		
+		return ( this.min_tenant_id != null ? String.valueOf( this.min_tenant_id ) : "" );
+		
+	}
+	
+	public String getMaxTenantId() {
+		
+		return ( this.max_tenant_id != null ? String.valueOf( this.max_tenant_id ) : "" );
+		
+	}
+	
 	public String getPath() {
 		
 		return this.path;
@@ -339,6 +452,108 @@ public class CDR {
 		
 	}
 	
+	//******************************
+	
+	public void setMsisdn( final Long value ) {
+		
+		this.resetMsisdn();
+		
+		this.msisdn_current_value = Math.abs( value );
+		
+		this.setGeneratingType( CDR.Fields.Msisdn, CDR.GeneratingType.FIXED );
+		
+	}
+	
+	public void setMsisdn( final Integer prefix, final Integer value, final Integer length ) {
+		
+		this.resetMsisdn();
+		
+		this.msisdn_current_value = this.generateMSISDN( Math.abs( prefix ), Math.abs( value ), Math.abs( length ) );
+		
+		this.setGeneratingType( CDR.Fields.Msisdn, CDR.GeneratingType.FIXED );
+		
+	}
+	
+	public void setMsisdnSequence( final Long value, final Integer increment ) {
+		
+		this.resetMsisdn();
+		
+		this.msisdn_current_value = value;
+		
+		this.msisdn_next_value = this.msisdn_current_value;
+		
+		this.msisdnIncrement = increment;
+		
+		this.setGeneratingType( CDR.Fields.Msisdn, CDR.GeneratingType.SEQUENTIAL );
+		
+	}
+	
+	public void setMsisdnSequence( final Integer prefix, final Integer value, final Integer length, final Integer increment ) {
+		
+		this.resetMsisdn();
+		
+		this.msisdnIncrement = increment;
+				
+		this.msisdn_current_value = this.generateMSISDN( prefix, value, length );
+		
+		this.msisdn_next_value = this.msisdn_current_value;
+		
+		this.setGeneratingType( CDR.Fields.Msisdn, CDR.GeneratingType.SEQUENTIAL );
+			
+	}
+	
+	public void setMsisdnRandom( final Long min_value, final Long max_value ) {
+		
+		this.resetMsisdn();
+			
+		this.msisdn_current_value = this.generateRandomLong( min_value, max_value );
+		
+		this.setGeneratingType( CDR.Fields.Msisdn, CDR.GeneratingType.RANDOM );
+		
+	}
+	
+	public void setMsisdnRandom( final Integer prefix, final Long min_value, final Integer max_value, final Integer length ) {
+		
+		this.resetMsisdn();
+		
+		this.msisdn_prefix = prefix;
+		
+		this.msisdn_left_value = min_value;
+		
+		this.setGeneratingType( CDR.Fields.Msisdn, CDR.GeneratingType.RANDOM );
+		
+		
+		
+		//this.generateMSISDN( prefix, this.generateRandomInt( min_value, max_value ), length );
+			
+	}
+		
+	public void resetMsisdn() {
+		this.msisdn_prefix = null;
+		this.msisdn_current_value = null;
+		this.msisdn_left_value = null;
+		this.msisdn_right_value = null;
+		this.msisdn_next_value = null;
+		this.msisdnIncrement = null;
+		this.msisdn_length = null;
+	}
+	
+	
+	
+	
+	public CDR.GeneratingType getGeneratingType( CDR.Fields field ) {
+		return this.fieldGeneratingType.get( field );
+	}
+	
+	
+	public void setGeneratingType( CDR.Fields field, CDR.GeneratingType type ) {
+		this.fieldGeneratingType.put( field , type );
+	}
+	
+	
+	
+	
+	/*
 	public void setMsisdn( final String msisdn ) {
 		
 		this.msisdn = msisdn;
@@ -350,6 +565,24 @@ public class CDR {
 		this.setMsisdn( this.generateMSISDN( prefix, number, length ) );
 		
 	}
+	
+	public void setSequentialMsisdn( final String msisdn, final int increment ) {
+		
+		this.msisdn = msisdn;
+		
+	}
+	
+	public void setSequentialMsisdn( final String prefix, final int number, int length ) {
+		
+		this.setMsisdn( this.generateMSISDN( prefix, number, length ) );
+		
+	}
+
+	
+	*/
+	
+	
+	// ***************************
 	
 	public void setDate( final String date ) {
 		
@@ -469,9 +702,17 @@ public class CDR {
 		
 	}
 
-	public void setRandomDuration( final int min_duration, final int max_duration ) {
+	public void setRandomDuration() {
 		
 		this.setDuration( this.generateRandomInt( min_duration, max_duration ) );
+		
+	}
+	
+	public void setRandomDuration( final int min_duration, final int max_duration ) {
+		
+		this.min_duration = min_duration;
+		
+		this.max_duration = max_duration;
 		
 	}
 	
@@ -565,9 +806,15 @@ public class CDR {
 		
 	}
 	
-	public void setTerminating( final boolean terminating ) {
+	public void setTerminating( final String terminating ) {
 		
 		this.terminating = terminating ;
+		
+	}
+	
+	public void setRandomTerminating() {
+		
+		this.terminating = TERMINATIONG_TYPE_VALUES.get( (int)( Math.random() * TERMINATIONG_TYPE_VALUES.size() ) );
 		
 	}
 	
@@ -580,6 +827,30 @@ public class CDR {
 	public void setRandomType() {
 		
 		this.type = FIELD_TYPE_VALUES.get( (int)( Math.random() * FIELD_TYPE_VALUES.size() ) );
+		
+	}
+	
+	public void setTenantId( int tenant_id ) {
+		
+		this.tenant_id = tenant_id;
+		
+	}
+	
+	public void setRandomTenantId() {
+		
+		this.setTenantId( this.generateRandomInt( min_tenant_id, max_tenant_id ) );
+		
+	}
+	
+	public void setMinTenantId( int min_tenant_id ) {
+		
+		this.min_tenant_id = min_tenant_id;
+		
+	}
+	
+	public void setMaxTenantId( int max_tenant_id ) {
+		
+		this.max_tenant_id = max_tenant_id;
 		
 	}
 	
@@ -621,24 +892,67 @@ public class CDR {
 		
 	}
 	
-	public String generateMSISDN( final String prefix, final int number, int length ) {
+	private Long generateMSISDN( Integer prefix, Integer value, Integer length ) {
 		
-		final int SUBSCRIBERS_PREFIX_DIGITS = (int)( Math.log10( Integer.valueOf( prefix ) ) + 1 );
-		final int SUBSCRIBERS_TO_GENERATE_DIGITS = (int)( Math.log10( number ) + 1 );
+		Long msisdn = null;
+		
+		this.msisdn_prefix = prefix;
+		this.msisdn_length = length;
+		
+		final int SUBSCRIBERS_PREFIX_DIGITS = ( this.msisdn_prefix > 0 ? (int)( Math.log10( this.msisdn_prefix ) + 1 ) : 0 );
+		final int SUBSCRIBERS_TO_GENERATE_DIGITS = ( value > 0 ? (int)( Math.log10( value ) + 1 ) : 0 );
 		
 		final int MSISDN_LENGTH = SUBSCRIBERS_PREFIX_DIGITS + SUBSCRIBERS_TO_GENERATE_DIGITS;
 		
-		if( length < MSISDN_LENGTH ) { length = MSISDN_LENGTH; }
+		if( this.msisdn_length < MSISDN_LENGTH ) { this.msisdn_length = MSISDN_LENGTH; }
 		
-		String msisdn = prefix + String.format( "%0" + ( length - SUBSCRIBERS_PREFIX_DIGITS - (int)( Math.log10( number ) ) ) + "d" , number );
+		StringBuilder msisdn_str = new StringBuilder();
+		
+		msisdn_str.append( this.msisdn_prefix ).append( String.format( "%0" + ( this.msisdn_length - MSISDN_LENGTH + SUBSCRIBERS_TO_GENERATE_DIGITS ) + "d" ,  value ) );
+				
+		try {
+			
+			msisdn = Long.valueOf( msisdn_str.toString().trim() );
+					
+		} catch( NumberFormatException ne ) {
+			
+			logger.error( ne.getMessage(), ne );
+			
+		}
 		
 		return msisdn;
 		
 	}
 	
-	public void add( CDR.Types cdrType ) {
+	private int generateRandomInt( final int min_value, final int max_value ) {
 		
-		List<CDR.Fields> cdrFields = cdrType.fields();
+		return min_value + (int)( Math.random() * ( max_value - min_value ) );
+				
+	}
+
+	private Long generateRandomLong( final Long min_value, final Long max_value ) {
+		
+		return min_value + Long.valueOf( (int)( Math.random() * ( max_value - min_value ) ) );
+				
+	}
+	
+	public Calendar getRandomDate( final Calendar min_date, final Calendar max_date, final String format ) {
+		
+		Calendar random_date = Calendar.getInstance();
+		
+		int days = (int)(( max_date.getTime().getTime() - min_date.getTime().getTime() ) / (1000 * 60 * 60 * 24) );
+						
+		random_date.set( min_date.get( Calendar.YEAR ), min_date.get( Calendar.MONTH ), min_date.get( Calendar.DATE ) );
+		
+		random_date.add( Calendar.DATE, ( (int)(Math.random() * days) ) );
+				
+		return random_date;
+		
+	}
+
+	public void add() {
+		
+		List<CDR.Fields> cdrFields = this.cdrType.fields();
 		
 		StringBuilder row = new StringBuilder();
 		
@@ -647,11 +961,11 @@ public class CDR {
 			try {
 			
 				Method method = this.getClass().getDeclaredMethod( "get" + cdrFields.get( i ).name() );
-			
+				
 				Object value = method.invoke( this );
 				
 				row.append( value ).append( "|" );
-											
+								
 			} catch( NoSuchMethodException | InvocationTargetException | IllegalAccessException e ) {
 				
 				logger.error( e.getMessage(), e );
@@ -675,26 +989,6 @@ public class CDR {
 		this.file_content = new StringBuilder();
 		
 		this.rows = new ArrayList<String>();
-		
-	}
-	
-	private int generateRandomInt( final int min_value, final int max_value ) {
-		
-		return min_value + (int)( Math.random() * ( max_value - min_value ) );
-				
-	}
-	
-	public Calendar getRandomDate( final Calendar min_date, final Calendar max_date, final String format ) {
-		
-		Calendar random_date = Calendar.getInstance();
-		
-		int days = (int)(( max_date.getTime().getTime() - min_date.getTime().getTime() ) / (1000 * 60 * 60 * 24) );
-						
-		random_date.set( min_date.get( Calendar.YEAR ), min_date.get( Calendar.MONTH ), min_date.get( Calendar.DATE ) );
-		
-		random_date.add( Calendar.DATE, ( (int)(Math.random() * days) ) );
-				
-		return random_date;
 		
 	}
 	

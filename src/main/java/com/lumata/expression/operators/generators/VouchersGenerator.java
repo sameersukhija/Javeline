@@ -61,15 +61,13 @@ public class VouchersGenerator {
 					output.append( voucher_code ).append( "\n" );
 						      
 				}				
-				
-				logger.info( output.toString() );
-				
+							
 				IOFileUtils.saveResource( output, folder, IMPORT_FILE );			
 				
 			}
 					
 		} catch( Exception e ) {
-			System.out.println( e.getMessage());
+			logger.info( e.getMessage(), e );
 		}
 	
 	}
