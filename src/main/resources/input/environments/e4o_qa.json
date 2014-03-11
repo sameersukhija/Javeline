@@ -1,6 +1,10 @@
 {
    "ip_address":"",
    "users":{
+      "mkt":{
+         "username":"mkt",
+         "password":"cnRr"
+      },
       "superman":{
          "username":"superman",
          "password":"bGppYm1NSUhJMmB3"
