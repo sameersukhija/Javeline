@@ -7,14 +7,8 @@ import java.util.Calendar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lumata.common.testing.exceptions.EnvironmentException;
-import com.lumata.common.testing.exceptions.IOFileException;
-import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.validating.Format;
 
 public class ProductsGenerator {
 
@@ -39,10 +33,10 @@ public class ProductsGenerator {
 	}
 	
 	private int entries;
-	private String loadingFolder;
-	private String storingFolder;
-	private String loadingFileName;
-	private String storingFileName;
+//	private String loadingFolder;
+//	private String storingFolder;
+//	private String loadingFileName;
+//	private String storingFileName;
 	
 	public ProductsGenerator() {}
 	

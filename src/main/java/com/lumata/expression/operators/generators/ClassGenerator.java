@@ -45,6 +45,7 @@ public class ClassGenerator {
 	
 	private StringBuilder jsonObjectConstructorBodyPojoClass;
 	
+	@SuppressWarnings("serial")
 	Map<String, Boolean> ImportTypes = new HashMap<String, Boolean>() {
 		
 		{
@@ -249,6 +250,7 @@ public class ClassGenerator {
 	        				
 	        				break;
 	        			}
+	        			default: break;
 	        		
 	        		}
 	        			        		
@@ -442,8 +444,6 @@ public class ClassGenerator {
 		
 		StringBuilder toStringMethod = new StringBuilder();
 		
-		StringBuilder body = new StringBuilder();
-				
 		toStringMethod.append( "\n\tpublic String toString() {\n\n\t\tStringBuilder str = new StringBuilder();\n\n\t\tstr.append( \"{ \" )" )
 						.append( fieldsToStringPojoClass.substring( 0, fieldsToStringPojoClass.length() - 5 ) )
 						.append( "\" )\n\t\t\t.append( \" }\" );\n\n\t\treturn str.toString();\n\n\t}\n" );

@@ -9,7 +9,6 @@ import com.lumata.common.testing.io.IOFileUtils;
 public class CDRVouchersGenerator {
 
 	private static String msisdn = "331234561";
-	private static String voucher_prefix = "voucher";
 	private static String date_format = "yyyy-MM-dd HH:mm:ss";
 	private static String[] locations = { "Milan", "Grenoble", "Palermo" };
 	
