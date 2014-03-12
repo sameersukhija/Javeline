@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.expression.operators.entities.Agencies;
+import com.lumata.e4o_tenant.schema.Agencies;
 
 public class Interview {
 	

@@ -11,7 +11,6 @@ import com.lumata.common.testing.database.Mysql;
 import static com.lumata.common.testing.orm.Query.select;
 import static com.lumata.common.testing.orm.Filter.*;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.expression.operators.entities.Conf;
 
 /*
 	CREATE TABLE `conf` (

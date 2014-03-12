@@ -173,7 +173,7 @@ public class AllocateAcceptTest {
 				mysql.execUpdate(query.toString());
 				//System.out.println( query );
 
-				query = GenerateSubscribers.getInsertSubsNotifQuery(msisdn, 1);
+				query = GenerateSubscribers.getInsertSubsNotifQuery(msisdn, msisdn, 1);
 				mysql.execUpdate(query.toString());
 				logger.info("Create subscriber " + msisdn);
 				return msisdn;
