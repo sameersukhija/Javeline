@@ -3,6 +3,7 @@ package com.lumata.expression.operators.testing.generators;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
@@ -40,8 +41,11 @@ public class GenerateSubscribers {
 	@Test( priority = 1, enabled = true )
 	public void generateSubscribers() {
 		
+		final boolean INSERT_SMS_CHANNEL = false;
+		final boolean INSERT_MAIL_CHANNEL = true;
+		
 		// Number of subscribers to generate
-		final int SUBSCRIBERS_TO_GENERATE = 100000;
+		final int SUBSCRIBERS_TO_GENERATE = 20000;
 		
 		// Max MSISDN length
 		int MSISDN_MAX_LENGTH = 10;
@@ -69,13 +73,31 @@ public class GenerateSubscribers {
 			
 	        String msisdn = SUBSCRIBER_PREFIX + String.format( format, i );
 			
+	        // Insert subscriber
 			query = GenerateSubscribers.getInsertSubscriberQuery( msisdn, subscription_date);
 			mysql.execUpdate( query.toString() );
 			//System.out.println( query );
 			
-			query = GenerateSubscribers.getInsertSubsNotifQuery( msisdn, 1 );
-			mysql.execUpdate( query.toString() );
-			//System.out.println( query );
+			// Insert SubNotif SMS channel
+			if( INSERT_SMS_CHANNEL ) {
+				
+				query = GenerateSubscribers.getInsertSubsNotifQuery( msisdn, msisdn, 1 );
+				
+				mysql.execUpdate( query.toString() );
+			
+			}
+			
+			// Insert SubNotif Mail channel
+			if( INSERT_MAIL_CHANNEL ) {
+				
+				StringBuilder mail = new StringBuilder();
+				mail.append( RandomStringUtils.randomAlphanumeric(10).toLowerCase() ).append( "@lumatagroup.com" );
+				
+				query = GenerateSubscribers.getInsertSubsNotifQuery( msisdn, mail.toString(), 2 );
+				
+				mysql.execUpdate( query.toString() );
+			
+			}					
 			
 		}
 				
@@ -125,7 +147,7 @@ public class GenerateSubscribers {
 		
 	}
 	
-	public static StringBuilder getInsertSubsNotifQuery( String msisdn, int channel_id ) {
+	public static StringBuilder getInsertSubsNotifQuery( String msisdn, String value, int channel_id ) {
 		
 		StringBuilder query = new StringBuilder();
 			
@@ -136,7 +158,7 @@ public class GenerateSubscribers {
 				.append( "value (" )
 				.append( msisdn ).append( ", " )
 				.append( channel_id ).append( ", " )
-				.append( "'" ).append( msisdn ).append( "' );" );
+				.append( "'" ).append( value ).append( "' );" );
 		
 		return query;
 	

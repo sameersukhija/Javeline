@@ -14,14 +14,16 @@ import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
+
 import static com.lumata.common.testing.orm.Filter.*;
 import static com.lumata.common.testing.orm.Query.*;
+
 import com.lumata.common.testing.orm.IQueryTemplate;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.expression.operators.entities.Agencies;
-import com.lumata.expression.operators.entities.BdrEvents;
 //import com.lumata.expression.operators.testing.pojo.autogenerator.Agencies;
 //import com.lumata.expression.operators.testing.pojo.autogenerator.BdrEvents;
+import com.lumata.e4o_tenant.schema.Agencies;
+import com.lumata.e4o_tenant.schema.BdrEvents;
 
 public class TestQueriesCreation {
 
@@ -40,7 +42,7 @@ public class TestQueriesCreation {
 						
 	}
 	
-	@Test( enabled = false, priority = 1 )
+	@Test( enabled = true, priority = 1 )
 	public void selectQuery() {
 		
 		Agencies agencies = new Agencies();
@@ -121,7 +123,7 @@ public class TestQueriesCreation {
 			
 	}
 			
-	@Test( enabled = true, priority = 2 )
+	@Test( enabled = false, priority = 2 )
 	public void insertQuery() {
 
 		/*

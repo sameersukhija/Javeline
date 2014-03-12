@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils;
+import com.lumata.e4o_tenant.schema.Subscribers;
 
 import static com.lumata.common.testing.orm.Query.select;
-import com.lumata.expression.operators.entities.Subscribers;
 
 public class CDRMSISDNGenerator {
 

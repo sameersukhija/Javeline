@@ -1,35 +1,22 @@
 package com.lumata.expression.operators.testplan.mobistar.performance;
 
-import static com.lumata.common.testing.orm.Query.select;
-import static com.lumata.common.testing.orm.Filter.op;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.jboss.resteasy.client.ClientResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.expression.operators.entities.Subscribers;
 import com.lumata.expression.operators.gui.xmlrpc.HTTPXMLRPCForm;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultFault;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultParser;
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultParser.ResultType;
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultSuccess;
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCSubscriber;
 
 public class Performance_XMLRPC_getTokensList {
 
