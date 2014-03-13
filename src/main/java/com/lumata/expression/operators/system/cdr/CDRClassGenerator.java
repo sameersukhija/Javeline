@@ -82,7 +82,7 @@ public class CDRClassGenerator {
 				
 				// Define cdr subclass methods	
 				StringBuilder methods_class = new StringBuilder();
-				methods_class.append( "\tpublic int getFiledsCount() {\n\t\treturn this.FIELDS;\n\t}\n\n" );
+				methods_class.append( "\tpublic int getFieldsCount() {\n\t\treturn this.FIELDS;\n\t}\n\n" );
 				methods_class.append( this.generateMethods( cdr_class, cdr_type ) );
 				
 				// Define cdr subclass
@@ -163,7 +163,7 @@ public class CDRClassGenerator {
 								
 				if( method.isAnnotationPresent( cdr_type.fields().get( f ) ) ) {
 					//System.out.println( method.getName() );
-					System.out.println( cdr_type.fields().get( f ).getSimpleName() );
+					//System.out.println( cdr_type.fields().get( f ).getSimpleName() );
 					// Define parameter regex expression
 					StringBuilder parameter_regex = new StringBuilder();
 					
@@ -207,7 +207,7 @@ public class CDRClassGenerator {
 						Matcher matcher_calendar = pattern_calendar.matcher( matcher.group(0) );
 						
 						if( matcher_calendar.find() && import_calendar_package ) {
-							System.out.println( matcher_calendar.toString() );
+							//System.out.println( matcher_calendar.toString() );
 							import_classes.append( "import java.util.Calendar;\n" );
 							import_classes.append( "import com.lumata.expression.operators.system.cdr.CDRDateIncrement;\n" );
 							import_calendar_package = false;

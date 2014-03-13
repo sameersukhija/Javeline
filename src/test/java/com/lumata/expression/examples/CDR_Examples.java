@@ -8,12 +8,14 @@ import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.expression.operators.exceptions.CDRException;
 import com.lumata.expression.operators.system.cdr.CDRClassGenerator;
 import com.lumata.expression.operators.system.cdr.CDRDate;
+import com.lumata.expression.operators.system.cdr.CDRDate.CDRDateFormat;
+import com.lumata.expression.operators.system.cdr.CDRDateIncrement;
 import com.lumata.expression.operators.system.cdr.types.CDRHistory;
 import com.lumata.expression.operators.system.cdr.types.CDRRevenue;
 
 public class CDR_Examples {
 	
-	private final boolean generate_cdr_classes = true;
+	private final boolean generate_cdr_classes = false;
 	private final boolean generate_cdr = false;
 	
 	// CDR Types generation
@@ -34,19 +36,19 @@ public class CDR_Examples {
 		
 		System.out.println( "MSISDN Fixed Strategy" );
 		c.setMsisdnStrategyFixed( 3399900001L );
-		c.add( 5 );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
 		System.out.println( "MSISDN Increment Strategy" );
 		c.setMsisdnStrategyIncrement( 3399900001L, 20 );
-		c.add( 5 );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
 		System.out.println( "MSISDN Random Strategy" );
 		c.setMsisdnStrategyRandom( 3399900010L, 3399910000L );
-		c.add( 5 );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
@@ -55,68 +57,81 @@ public class CDR_Examples {
 		
 		System.out.println( "MSISDN Fixed Strategy with options" );
 		c.setMsisdnStrategyFixed( 3399900001L );
-		c.add( 5 );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
 		System.out.println( "MSISDN Increment Strategy with options" );
 		c.setMsisdnStrategyIncrement( 3399900001L, 20 );
-		c.add( 5 );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
 		System.out.println( "MSISDN Random Strategy with options" );
 		c.setMsisdnStrategyRandom( 3399900010L, 3399910000L );
-		c.add( 5 );
+		c.addLines( 5 );
 		c.print();
 		c.clean();		
 				
 	}
 	
 	//@Test( enabled = generate_cdr )
-	@Test( enabled = false )
+	@Test( enabled = true )
 	public void cdr_revenue_strategies() throws IOFileException, CDRException {
 		
 		CDRRevenue c = new CDRRevenue();
-		Calendar d = Calendar.getInstance();
+		Calendar date = Calendar.getInstance();
+		CDRDateIncrement increment = new CDRDateIncrement();
+		increment.setDayIncrement( 1 );
 		
-		System.out.println( "MSISDN Fixed Strategy" );
+		System.out.println( "Fixed Strategy" );
 		c.setMsisdnStrategyFixed( 3399900001L );
-		
-		c.add( 5 );
+		c.setDateStrategyFixed( date );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
-		System.out.println( "MSISDN Increment Strategy" );
+		System.out.println( "Increment Strategy" );
 		c.setMsisdnStrategyIncrement( 3399900001L, 20 );
-		c.add( 5 );
+		c.setDateStrategyIncrement( date, increment );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
-		System.out.println( "MSISDN Random Strategy" );
+		System.out.println( "Random Strategy" );
+		Calendar max_date = Calendar.getInstance();
+		System.out.println( date.get( Calendar.YEAR ) + 1 );
+		max_date.set( Calendar.YEAR , date.get( Calendar.YEAR ) + 1 );
 		c.setMsisdnStrategyRandom( 3399900010L, 3399910000L );
-		c.add( 5 );
+		c.setDateStrategyRandom( date, max_date );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
-		System.out.println( "MSISDN options setting" );
+		System.out.println( "Options setting" );
 		c.setMsisdnOptions( 39, 19 );
+		c.setDateFormat( CDRDateFormat.SQL_DATE_TIME.getFormat() );
 		
-		System.out.println( "MSISDN Fixed Strategy with options" );
+		System.out.println( "Fixed Strategy with options" );
 		c.setMsisdnStrategyFixed( 3399900001L );
-		c.add( 5 );
+		c.setDateStrategyFixed( date );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
-		System.out.println( "MSISDN Increment Strategy with options" );
+		System.out.println( "Increment Strategy with options" );
+		increment.setYearIncrement( 10 );
+		increment.setMonthIncrement( 3 );
 		c.setMsisdnStrategyIncrement( 3399900001L, 20 );
-		c.add( 5 );
+		c.setDateStrategyIncrement( date, increment );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
-		System.out.println( "MSISDN Random Strategy with options" );
+		System.out.println( "Random Strategy with options" );
 		c.setMsisdnStrategyRandom( 3399900010L, 3399910000L );
-		c.add( 5 );
+		c.setDateStrategyRandom( date, max_date );
+		c.addLines( 5 );
 		c.print();
 		c.clean();		
 				
@@ -124,7 +139,7 @@ public class CDR_Examples {
 	
 	
 	
-	@Test( enabled = true )
+	@Test( enabled = false )
 	public void set() {
 		
 		

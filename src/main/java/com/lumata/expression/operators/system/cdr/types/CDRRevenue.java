@@ -14,7 +14,7 @@ public class CDRRevenue extends CDR {
 		super();
 	} 
 
-	public int getFiledsCount() {
+	public int getFieldsCount() {
 		return this.FIELDS;
 	}
 
@@ -34,17 +34,13 @@ public class CDRRevenue extends CDR {
 		super.setMsisdnOptions( prefix, length );
 	}
 
-	@Msisdn( position = 0 )
-	public String getMsisdn()  {
-		return super.getMsisdn() ;
-	}
-
-	public void cleanMsisdnStrategyIncrement()  {
-		super.cleanMsisdnStrategyIncrement() ;
-	}
-
 	public void cleanMsisdnStrategyRandom()  {
 		super.cleanMsisdnStrategyRandom() ;
+	}
+
+	@Msisdn( position = 0 )
+	public String getMsisdn() throws CDRException  {
+		return super.getMsisdn();
 	}
 
 	public void cleanMsisdn()  {
@@ -55,17 +51,21 @@ public class CDRRevenue extends CDR {
 		super.cleanMsisdnOptions() ;
 	}
 
+	public void cleanMsisdnStrategyIncrement()  {
+		super.cleanMsisdnStrategyIncrement() ;
+	}
+
 	@Date( position = 1 )
 	public String getDate()  {
 		return super.getDate() ;
 	}
 
-	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
-		super.setDateStrategyFixed( date );
-	}
-
 	public void setDateFormat( String format ) throws CDRException  {
 		super.setDateFormat( format );
+	}
+
+	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
+		super.setDateStrategyFixed( date );
 	}
 
 	public void setDateStrategyIncrement( final Calendar date, final CDRDateIncrement increment ) throws CDRException  {

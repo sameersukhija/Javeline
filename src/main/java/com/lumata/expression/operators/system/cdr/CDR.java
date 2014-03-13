@@ -3,24 +3,12 @@ package com.lumata.expression.operators.system.cdr;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lumata.common.testing.exceptions.IOFileException;
-import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.network.SFTPClient;
-import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.system.Environment.ServicesType;
 import com.lumata.expression.operators.exceptions.CDRException;
 import com.lumata.expression.operators.system.cdr.annotations.Date;
 import com.lumata.expression.operators.system.cdr.annotations.Msisdn;
@@ -29,33 +17,14 @@ public class CDR {
 	
 	private static final Logger logger = LoggerFactory.getLogger( CDR.class );
 	
-	private enum GeneratingType { FIXED, SEQUENTIAL, RANDOM }
-	
-	private Map<Class<?>,CDR.GeneratingType> fieldGeneratingType = new HashMap<Class<?>,CDR.GeneratingType>();
-	private StringBuilder file_content;
-	private ArrayList<String> rows;
-	//private CDR.Types cdrType;
 	private String path;
 	private String file_name;
-	
-	private Integer msisdn_prefix;
-	private Long msisdn_current_value;
-	private Long msisdn_left_value;
-	private Long msisdn_right_value;
-	private Long msisdn_next_value;
-	private Integer msisdn_increment;
-	private Integer msisdn_length;
+	private StringBuilder file_content;
+	private ArrayList<String> rows;
+		
+	private CDRMsisdn msisdn;
 	private CDRDate date;
 	
-	/*
-	private Calendar date;
-	private String date_format;
-	private Calendar date_left;
-	private Calendar date_right;
-	private Calendar date_next;
-	private int date_increment;
-	private int date_increment_type;
-	*/
 	
 	
 	
@@ -81,182 +50,77 @@ public class CDR {
 	
 	public CDR() {
 		
-		this.initMsisdn();
+		this.msisdn = new CDRMsisdn();		
+		this.date = new CDRDate();
+		
 		
 		this.file_content = new StringBuilder();
 		this.rows = new ArrayList<String>();
-	}
-	
-	private void initMsisdn() {
-		
-		msisdn_prefix = null;
-		msisdn_current_value = null;
-		msisdn_left_value = null;
-		msisdn_right_value = null;
-		msisdn_next_value = null;
-		msisdn_increment = null;
-		msisdn_length = null;
 		
 	}
 	
 	@Msisdn
-	protected String getMsisdn() {
-		
-		if( this.msisdn_current_value == null && ( this.msisdn_left_value == null || this.msisdn_right_value == null )) { return ""; } 
-		else {
-			
-			if( this.msisdn_next_value != null && this.msisdn_increment != null ) {
+	protected String getMsisdn() throws CDRException {
 				
-				this.msisdn_current_value = this.msisdn_next_value;
-				
-				this.msisdn_next_value = Long.valueOf( this.msisdn_next_value + this.msisdn_increment );
-				
-			} else {
-				
-				if( this.msisdn_increment != null ) {
-					
-					this.msisdn_next_value = Long.valueOf( this.msisdn_current_value + this.msisdn_increment );
-				
-				} else {
-					
-					if( this.msisdn_left_value != null && this.msisdn_right_value != null ) {
-						
-						this.msisdn_current_value = this.generateRandomLong( this.msisdn_left_value, this.msisdn_right_value );
-						
-					}
-					
-				}
-				
-			}			
-			
-		}
-		
-		return String.valueOf( this.generateMSISDN() ); 
+		return ( this.msisdn != null ? this.msisdn.getMsisdn() : "" ); 
 		
 	}
 	
 	@Msisdn
 	protected void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException {
 		
-		if( length != null && length > 19 ) { throw new CDRException( "The msisdn length must be less than 20." ); }
-		
-		this.msisdn_prefix = ( prefix != null ? Math.abs( prefix ) : null );
-				
-		this.msisdn_length = ( length != null ? Math.abs( length ) : null );
+		if( this.msisdn != null ) { this.msisdn.setMsisdnOptions( prefix, length ); }
 		
 	}
 
 	@Msisdn
 	protected void setMsisdnStrategyFixed( final Long value ) throws CDRException {	
 		
-		this.msisdn_current_value = ( value != null ? Math.abs( value ) : null );
-		
-		this.cleanMsisdnStrategyIncrement();
-		
-		this.cleanMsisdnStrategyRandom();
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
 		
 	}
 	
 	@Msisdn
 	protected void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException {
 		
-		if( value == null ) { throw new CDRException( "The msisdn cannot be null." ); }
-		
-		if( increment == null ) { throw new CDRException( "The msisdn increment cannot be null." ); }
-		
-		this.msisdn_current_value = Math.abs( value );
-		
-		this.msisdn_increment = Math.abs( increment );
-		
-		this.cleanMsisdnStrategyRandom();
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
 		
 	}
 	
 	@Msisdn
 	protected void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException {
 		
-		if( min_value == null ) { throw new CDRException( "The min msisdn value cannot be null." ); }
-		
-		if( max_value == null ) { throw new CDRException( "The max msisdn value cannot be null." ); }
-		
-		this.msisdn_left_value = Math.abs( min_value );
-		
-		this.msisdn_right_value = Math.abs( max_value );
-		
-		this.cleanMsisdnStrategyIncrement();
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyRandom( min_value, max_value ); }
 		
 	}
 	
 	@Msisdn
 	protected void cleanMsisdn() {
 		
-		this.msisdn_current_value = null;
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdn(); }
 			
 	}
 	
 	@Msisdn
 	protected void cleanMsisdnOptions() {
 				
-		this.msisdn_prefix = null;
-		
-		this.msisdn_current_value = null;
-		
-		this.msisdn_length = null;
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 				
 	}
 	
 	@Msisdn
 	protected void cleanMsisdnStrategyIncrement() {
 		
-		this.msisdn_increment = null;
-		
-		this.msisdn_next_value = null;
-		
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement(); }
 	}
 	
 	@Msisdn
 	protected void cleanMsisdnStrategyRandom() {
 		
-		this.msisdn_left_value = null;
-		
-		this.msisdn_right_value = null;
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 		
 	}
-	
-	private Long generateMSISDN() {
-		
-		Long msisdn = this.msisdn_current_value;
-				
-		if( this.msisdn_prefix != null ) {
-			
-			final int SUBSCRIBERS_PREFIX_DIGITS = ( this.msisdn_prefix > 0 ? (int)( Math.log10( this.msisdn_prefix ) + 1 ) : 0 );
-			
-			final int SUBSCRIBERS_TO_GENERATE_DIGITS = ( this.msisdn_current_value > 0 ? (int)( Math.log10( this.msisdn_current_value ) + 1 ) : 0 );
-			
-			final int MSISDN_LENGTH = SUBSCRIBERS_PREFIX_DIGITS + SUBSCRIBERS_TO_GENERATE_DIGITS;
-			
-			if( this.msisdn_length == null || this.msisdn_length < MSISDN_LENGTH ) { this.msisdn_length = MSISDN_LENGTH; }
-			
-			StringBuilder msisdn_str = new StringBuilder();
-			
-			msisdn_str.append( this.msisdn_prefix ).append( String.format( "%0" + ( this.msisdn_length - MSISDN_LENGTH + SUBSCRIBERS_TO_GENERATE_DIGITS ) + "d" ,  this.msisdn_current_value ) );
-						
-			try {
-				
-				msisdn = Long.valueOf( msisdn_str.toString().trim() );
-						
-			} catch( NumberFormatException ne ) {
-				
-				logger.error( ne.getMessage(), ne );
-				
-			}
-			
-		} 
-		
-		return msisdn;
-		
-	}
-	
+
 	@Date
 	protected String getDate() {
 		
@@ -333,15 +197,15 @@ public class CDR {
 		
 		return min_value + Long.valueOf( (int)( Math.random() * ( max_value - min_value ) ) );
 				
-	}	
+	}
 	
-	public void add() {
+	public void addLine() {
 		
 		String[] field_values = null; 	
 		
 		try {
 			
-			int fields_count = (int)this.getClass().getDeclaredMethod( "getFiledsCount" ).invoke( this );
+			int fields_count = (int)this.getClass().getDeclaredMethod( "getFieldsCount" ).invoke( this );
 						
 			field_values = new String[ fields_count ];
 						
@@ -350,8 +214,7 @@ public class CDR {
 					InvocationTargetException | 
 					SecurityException | 
 					NoSuchMethodException e 
-				) { logger.error( e.getMessage(), e );
-		}
+				) { logger.error( e.getMessage(), e ); }
 		
 		if( field_values != null ) { 
 			
@@ -359,18 +222,15 @@ public class CDR {
 				
 				try {
 					
-					if( method.isAnnotationPresent( Msisdn.class ) ) { 
-															
-						field_values[ method.getAnnotation( Msisdn.class ).position() ] = (String)this.getClass().getMethod( "getMsisdn" ).invoke( this );	
+					for( Annotation field_type : method.getAnnotations() ) {
 						
+						int field_position = (int)field_type.getClass().getDeclaredMethod( "position" ).invoke( field_type ); 
+						
+						String getMethod = "get" + field_type.getClass().getInterfaces()[0].getSimpleName();
+						
+						field_values[ field_position ] = (String)this.getClass().getMethod( getMethod ).invoke( this );
 					}
-					
-					if( method.isAnnotationPresent( Date.class ) ) { 
-						
-						field_values[ method.getAnnotation( Date.class ).position() ] = (String)this.getClass().getMethod( "getDate" ).invoke( this );	
-						
-					}
-				
+											
 				} catch ( 	NoSuchMethodException | 
 							SecurityException | 
 							IllegalAccessException | 
@@ -404,9 +264,9 @@ public class CDR {
 		
 	}
 		
-	public void add( int lines ) {
+	public void addLines( int lines ) {
 		
-		for( int l = 0; l < lines; l++ ) { this.add(); }
+		for( int l = 0; l < lines; l++ ) { this.addLine(); }
 		
 	}
 	

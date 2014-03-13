@@ -20,37 +20,37 @@ public class CDRDateIncrement {
 	
 	public Integer getYearIncrement() {
 		
-		return this.date_increment_year;
+		return ( this.date_increment_year != null ? this.date_increment_year : 0 );
 				
 	}
 	
 	public Integer getMonthIncrement() {
 		
-		return this.date_increment_month;
+		return ( this.date_increment_month != null ? this.date_increment_month : 0 );
 				
 	}
 	
 	public Integer getDayIncrement() {
 		
-		return this.date_increment_day;
+		return ( this.date_increment_day != null ? this.date_increment_day : 0 );
 				
 	}
 	
 	public Integer getHourIncrement() {
 		
-		return this.date_increment_hour;
+		return ( this.date_increment_hour != null ? this.date_increment_hour : 0 );
 				
 	}
 	
 	public Integer getMinuteIncrement() {
 		
-		return this.date_increment_minute;
+		return ( this.date_increment_minute != null ? this.date_increment_minute : 0 );
 				
 	}
 	
 	public Integer getSecondIncrement() {
 		
-		return this.date_increment_second;
+		return ( this.date_increment_second != null ? this.date_increment_second : 0 );
 				
 	}
 	

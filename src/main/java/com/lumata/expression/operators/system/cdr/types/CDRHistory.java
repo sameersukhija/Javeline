@@ -12,7 +12,7 @@ public class CDRHistory extends CDR {
 		super();
 	} 
 
-	public int getFiledsCount() {
+	public int getFieldsCount() {
 		return this.FIELDS;
 	}
 
@@ -32,17 +32,13 @@ public class CDRHistory extends CDR {
 		super.setMsisdnOptions( prefix, length );
 	}
 
-	@Msisdn( position = 0 )
-	public String getMsisdn()  {
-		return super.getMsisdn() ;
-	}
-
-	public void cleanMsisdnStrategyIncrement()  {
-		super.cleanMsisdnStrategyIncrement() ;
-	}
-
 	public void cleanMsisdnStrategyRandom()  {
 		super.cleanMsisdnStrategyRandom() ;
+	}
+
+	@Msisdn( position = 0 )
+	public String getMsisdn() throws CDRException  {
+		return super.getMsisdn();
 	}
 
 	public void cleanMsisdn()  {
@@ -51,6 +47,10 @@ public class CDRHistory extends CDR {
 
 	public void cleanMsisdnOptions()  {
 		super.cleanMsisdnOptions() ;
+	}
+
+	public void cleanMsisdnStrategyIncrement()  {
+		super.cleanMsisdnStrategyIncrement() ;
 	}
 
 
