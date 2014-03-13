@@ -71,9 +71,9 @@ public class LoyaltyCreationForm {
 			}
 		}*/
 		
-		addNewProgramPopup = addNewProgramPopup.findElement(By.xpath("//button[@title='Add']"));
-		if (addNewProgramPopup == null) { return false; }
-		addNewProgramPopup.click();
+		//addNewProgramPopup = addNewProgramPopup.findElement(By.xpath("//button[@title='Add']"));
+		//if (addNewProgramPopup == null) { return false; }
+		//addNewProgramPopup.click();
 
 		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for programNameInput"));
 		WebElement programNameInput = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
