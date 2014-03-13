@@ -131,7 +131,8 @@ public class LoyaltyCreationForm {
 		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for editProgram"));
 		WebElement editProgram = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
 				//"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[1]/table/tbody/tr[2]/td/div/div/table/tbody/tr[3]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[6]/td[3]/table/tbody/tr/td[3]/button", timeout, interval);
-				  "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[1]/table/tbody/tr[2]/td/div/div/table/tbody/tr[1]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[6]/td[3]/table/tbody/tr/td[3]/button", timeout, interval);
+				//"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[1]/table/tbody/tr[2]/td/div/div/table/tbody/tr[1]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[6]/td[3]/table/tbody/tr/td[3]/button", timeout, interval);
+		  		  "//*[text()='BadgesProgName']/../../../../../../../../../../td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[6]/td[3]/table/tbody/tr/td[3]/button", timeout, interval);
 		if (editProgram == null) { return false; }
 		editProgram.click();
 
