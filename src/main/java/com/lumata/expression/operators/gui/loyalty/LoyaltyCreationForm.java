@@ -32,19 +32,10 @@ public class LoyaltyCreationForm extends Form {
 	}
 
 	public boolean create() {
-		
 		Integer loyaltyProgramsCount = 0;
-		ResultSet rs = mysql.execQuery("SELECT COUNT(*) FROM loyalty_programs");
-		try {
-			while (rs.next()) {
-				loyaltyProgramsCount = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "SQL error: " + e.getMessage()));
-			return false;
-		}
-		
-		return click("addNewProgramPopup", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[" + (2 + loyaltyProgramsCount) + "]/td/button")
+				
+		return ((loyaltyProgramsCount = selectLoyaltyProgramsCount()) != null)
+				&& click("addNewProgramPopup", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[" + (2 + loyaltyProgramsCount) + "]/td/button")
 				&& sendKeys("programNameInput", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input", "BadgesProgName")
 				&& sendKeys("programDescInput", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input", "BadgesProgDesc")
 				&& click("programSave", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button")
@@ -53,7 +44,7 @@ public class LoyaltyCreationForm extends Form {
 				&& click("badgeTypeSave", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button")
 				&& click("badgeTypeClose", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/button");
 	}
-
+	
 	public boolean manage() {
 
 		return click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td[2]/div/div/div")
@@ -74,6 +65,22 @@ public class LoyaltyCreationForm extends Form {
 				&& click("closeBadge", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/button");
 	}
 
+	private Integer selectLoyaltyProgramsCount() {
+		Integer loyaltyProgramsCount = 0;
+		
+		ResultSet rs = mysql.execQuery("SELECT COUNT(*) FROM loyalty_programs");
+		try {
+			while (rs.next()) {
+				loyaltyProgramsCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "SQL error: " + e.getMessage()));
+			return null;
+		}
+		
+		return loyaltyProgramsCount;
+	}
+	
 	public static void main(String[] args) throws Exception {
 		
 		//System.out.println(com.lumata.common.testing.system.Security.decrypt("bGppYm1NSUhJMmB3"));
