@@ -75,7 +75,7 @@ public class ConfigureLoyalty {
 		Assert.assertTrue(LoyaltyCreationForm.open(form));
 		
 		// create program
-		Assert.assertTrue(LoyaltyCreationForm.create(seleniumWebDriver, mysql, TIMEOUT, ATTEMPT_TIMEOUT));
+		Assert.assertTrue(LoyaltyCreationForm.create(form, mysql));
 		
 		// manage program
 		Assert.assertTrue(LoyaltyCreationForm.manage(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));

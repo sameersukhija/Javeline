@@ -40,7 +40,7 @@ public class LoyaltyCreationForm {
 		return true;
 	}
 
-	public static boolean create(SeleniumWebDriver selenium, Mysql mysql, long timeout, long interval) {
+	public static boolean create(LoyaltyCreationForm form, Mysql mysql) {
 		
 		Integer loyaltyProgramsCount = 0;
 		ResultSet rs = mysql.execQuery("SELECT COUNT(*) FROM loyalty_programs");
@@ -49,15 +49,11 @@ public class LoyaltyCreationForm {
 				loyaltyProgramsCount = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "SQL error: " + e.getMessage()));
+			logger.info(Log.CHECKING.createMessage(form.getSelenium().getTestName(), "SQL error: " + e.getMessage()));
 			return false;
 		}
 		
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for addNewProgramPopup"));
-		WebElement addNewProgramPopup = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
-				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[" + (2 + loyaltyProgramsCount) + "]/td/button", timeout, interval);
-		if (addNewProgramPopup == null) { return false; }
-		addNewProgramPopup.click();
+		if (form.click("addNewProgramPopup", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[" + (2 + loyaltyProgramsCount) + "]/td/button") == false) { return false; }
 		
 		/*logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for addNewProgramPopup - Add"));
 		
@@ -71,52 +67,20 @@ public class LoyaltyCreationForm {
 				// System.out.println("TEST - we.click() " + e.getMessage());
 			}
 		}*/
+
+		if (form.sendKeys("programNameInput", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input", "BadgesProgName") == false) { return false; }
+
+		if (form.sendKeys("programDescInput", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input", "BadgesProgDesc") == false) { return false; }
+
+		if (form.click("programSave", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button") == false) { return false; }
+
+		if (form.click("addBadgeType", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td/table/tbody/tr[4]/td/button") == false) { return false; }
+
+		if (form.sendKeys("badgeNameInput", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td[2]/input", "Gold") == false) { return false; }
 		
-		//addNewProgramPopup = addNewProgramPopup.findElement(By.xpath("//button[@title='Add']"));
-		//if (addNewProgramPopup == null) { return false; }
-		//addNewProgramPopup.click();
-
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for programNameInput"));
-		WebElement programNameInput = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
-				"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input", timeout, interval);
-		if (programNameInput == null) { return false; }
-		programNameInput.sendKeys("BadgesProgName");
-
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for programDescInput"));
-		WebElement programDescInput = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
-				"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input", timeout, interval);
-		if (programDescInput == null) { return false; }
-		programDescInput.sendKeys("BadgesProgDesc");
-
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for programSave"));
-		WebElement programSave = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
-				"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button", timeout, interval);
-		if (programSave == null) { return false; }
-		programSave.click();
+		if (form.click("badgeTypeSave", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button") == false) { return false; }
 		
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for addBadgeType"));
-		WebElement addBadgeType = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
-				"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td/table/tbody/tr[4]/td/button", timeout, interval);
-		if (addBadgeType == null) { return false; }
-		addBadgeType.click();
-
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for badgeNameInput"));
-		WebElement badgeNameInput = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
-				"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td[2]/input", timeout, interval);
-		if (badgeNameInput == null) { return false; }
-		badgeNameInput.sendKeys("Gold");
-
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for badgeTypeSave"));
-		WebElement badgeTypeSave = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
-				"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button", timeout, interval);
-		if (badgeTypeSave == null) { return false; }
-		badgeTypeSave.click();
-		
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for badgeTypeClose"));
-		WebElement badgeTypeClose = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
-				"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/button", timeout, interval);
-		if (badgeTypeClose == null) { return false; }
-		badgeTypeClose.click();
+		if (form.click("badgeTypeClose", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/button") == false) { return false; }
 		
 		return true;
 	}
@@ -236,7 +200,17 @@ public class LoyaltyCreationForm {
 		
 		return true;
 	}
-	
+
+	public boolean sendKeys(String forName, String xpath, String text) {
+		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName));
+		WebElement we = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
+				xpath, timeout, interval);
+		if (we == null) { return false; }
+		we.sendKeys(text);
+		
+		return true;
+	}
+
 	public SeleniumWebDriver getSelenium() {
 		return selenium;
 	}
