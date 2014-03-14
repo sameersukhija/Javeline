@@ -55,7 +55,7 @@ public class ConfigureLoyalty {
 		seleniumWebDriver.windowMaximize();
 		
 		// Create form
-		form = new LoyaltyCreationForm(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		form = new LoyaltyCreationForm(seleniumWebDriver, mysql, TIMEOUT, ATTEMPT_TIMEOUT);
 		
 		// Login
 		Assert.assertTrue(Authorization.login(seleniumWebDriver, env.getUserName(user), env.getPassword(user), TIMEOUT, ATTEMPT_TIMEOUT));
@@ -72,12 +72,12 @@ public class ConfigureLoyalty {
 	public void configureBadges(@Optional("tenant") String tenant) throws TokenTypeException {
 		
 		// open section from menu and popup
-		Assert.assertTrue(LoyaltyCreationForm.open(form));
+		Assert.assertTrue(form.open());
 		
 		// create program
-		Assert.assertTrue(LoyaltyCreationForm.create(form, mysql));
+		Assert.assertTrue(form.create());
 		
 		// manage program
-		Assert.assertTrue(LoyaltyCreationForm.manage(form));
+		Assert.assertTrue(form.manage());
 	}
 }
