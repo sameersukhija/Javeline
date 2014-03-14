@@ -31,13 +31,13 @@ public class LoyaltyCreationForm {
 	
 	public static boolean open(LoyaltyCreationForm form) {
 		
-		if( !LoyaltyForm.open(form.getSelenium(), form.getTimeout(), form.getInterval()) ) { return false; }
-		
-		if (form.click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table/tbody/tr/td[3]/table/tbody/tr[2]/td[2]/div/div/div") == false) { return false; }
-		
-		if (form.click("badgesAccordion", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[1]/td/a/table/tbody/tr/td[2]") == false) { return false; }
-		
-		return true;
+		if (LoyaltyForm.open(form.getSelenium(), form.getTimeout(), form.getInterval())
+				&& form.click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table/tbody/tr/td[3]/table/tbody/tr[2]/td[2]/div/div/div")
+				&& form.click("badgesAccordion", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[1]/td/a/table/tbody/tr/td[2]")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public static boolean create(LoyaltyCreationForm form, Mysql mysql) {
