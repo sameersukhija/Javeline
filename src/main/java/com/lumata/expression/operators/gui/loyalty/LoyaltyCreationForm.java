@@ -29,26 +29,12 @@ public class LoyaltyCreationForm {
 		this.interval = interval;
 	}
 	
-	public static boolean open(SeleniumWebDriver selenium, long timeout, long interval) {
+	public static boolean open(LoyaltyCreationForm form) {
 		
-		LoyaltyCreationForm form = new LoyaltyCreationForm(selenium, timeout, interval);
-		
-		if( !LoyaltyForm.open(selenium, timeout, interval) ) { return false; }
-		
-		/*logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for subSectionTab"));
-		WebElement subSectionTab = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
-				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table/tbody/tr/td[3]/table/tbody/tr[2]/td[2]/div/div/div", timeout, interval);
-		if (subSectionTab == null) { return false; }
-		subSectionTab.click();*/
+		if( !LoyaltyForm.open(form.getSelenium(), form.getTimeout(), form.getInterval()) ) { return false; }
 		
 		if (form.click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table/tbody/tr/td[3]/table/tbody/tr[2]/td[2]/div/div/div") == false) { return false; }
 		
-		/*logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for badgesAccordion"));
-		WebElement badgesAccordion = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
-				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[1]/td/a/table/tbody/tr/td[2]", timeout, interval);
-		if (badgesAccordion == null) { return false; }
-		badgesAccordion.click();*/
-
 		if (form.click("badgesAccordion", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[1]/td/a/table/tbody/tr/td[2]") == false) { return false; }
 		
 		return true;
@@ -251,6 +237,18 @@ public class LoyaltyCreationForm {
 		return true;
 	}
 	
+	public SeleniumWebDriver getSelenium() {
+		return selenium;
+	}
+
+	public long getTimeout() {
+		return timeout;
+	}
+
+	public long getInterval() {
+		return interval;
+	}
+
 	public static void main(String[] args) throws Exception {
 		
 		//System.out.println(com.lumata.common.testing.system.Security.decrypt("bGppYm1NSUhJMmB3"));

@@ -22,8 +22,6 @@ import com.lumata.common.testing.system.Environment;
 import com.lumata.expression.operators.exceptions.CommoditiesException;
 import com.lumata.expression.operators.exceptions.OfferException;
 import com.lumata.expression.operators.exceptions.TokenTypeException;
-import com.lumata.expression.operators.gui.common.MenuBar;
-import com.lumata.expression.operators.gui.common.SectionImpl;
 import com.lumata.expression.operators.gui.loyalty.LoyaltyCreationForm;
 import com.lumata.expression.operators.gui.security.Authorization;
 
@@ -37,6 +35,7 @@ public class ConfigureLoyalty {
 	SeleniumWebDriver seleniumWebDriver;
 	Environment env;
 	Mysql mysql;
+	LoyaltyCreationForm form;
 	
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment", "tenant", "user"})
@@ -55,6 +54,9 @@ public class ConfigureLoyalty {
 		seleniumWebDriver = new SeleniumWebDriver( browser, env.getBrowser( browser ), env.getLink() );
 		seleniumWebDriver.windowMaximize();
 		
+		// Create form
+		form = new LoyaltyCreationForm(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		
 		// Login
 		Assert.assertTrue(Authorization.login(seleniumWebDriver, env.getUserName(user), env.getPassword(user), TIMEOUT, ATTEMPT_TIMEOUT));
 	}
@@ -70,7 +72,7 @@ public class ConfigureLoyalty {
 	public void configureBadges(@Optional("tenant") String tenant) throws TokenTypeException {
 		
 		// open section from menu and popup
-		Assert.assertTrue(LoyaltyCreationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
+		Assert.assertTrue(LoyaltyCreationForm.open(form));
 		
 		// create program
 		Assert.assertTrue(LoyaltyCreationForm.create(seleniumWebDriver, mysql, TIMEOUT, ATTEMPT_TIMEOUT));
