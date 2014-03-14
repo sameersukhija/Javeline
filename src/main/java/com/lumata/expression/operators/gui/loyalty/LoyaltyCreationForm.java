@@ -3,7 +3,6 @@ package com.lumata.expression.operators.gui.loyalty;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
@@ -20,22 +19,38 @@ public class LoyaltyCreationForm {
 
 	private static final Logger logger = LoggerFactory.getLogger(CampaignModelForm.class);
 	
+	private SeleniumWebDriver selenium;
+	private long timeout;
+	private long interval;
+	
+	public LoyaltyCreationForm(SeleniumWebDriver selenium, long timeout, long interval) {
+		this.selenium = selenium;
+		this.timeout = timeout;
+		this.interval = interval;
+	}
+	
 	public static boolean open(SeleniumWebDriver selenium, long timeout, long interval) {
+		
+		LoyaltyCreationForm form = new LoyaltyCreationForm(selenium, timeout, interval);
 		
 		if( !LoyaltyForm.open(selenium, timeout, interval) ) { return false; }
 		
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for subSectionTab"));
+		/*logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for subSectionTab"));
 		WebElement subSectionTab = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
 				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table/tbody/tr/td[3]/table/tbody/tr[2]/td[2]/div/div/div", timeout, interval);
 		if (subSectionTab == null) { return false; }
-		subSectionTab.click();
+		subSectionTab.click();*/
 		
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for badgesAccordion"));
+		if (form.click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table/tbody/tr/td[3]/table/tbody/tr[2]/td[2]/div/div/div") == false) { return false; }
+		
+		/*logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for badgesAccordion"));
 		WebElement badgesAccordion = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
 				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[1]/td/a/table/tbody/tr/td[2]", timeout, interval);
 		if (badgesAccordion == null) { return false; }
-		badgesAccordion.click();
-				
+		badgesAccordion.click();*/
+
+		if (form.click("badgesAccordion", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[1]/td/a/table/tbody/tr/td[2]") == false) { return false; }
+		
 		return true;
 	}
 
@@ -222,6 +237,16 @@ public class LoyaltyCreationForm {
 				"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/button", timeout, interval);
 		if (closeBadge == null) { return false; }
 		closeBadge.click();
+		
+		return true;
+	}
+	
+	public boolean click(String forName, String xpath) {
+		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName));
+		WebElement we = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
+				xpath, timeout, interval);
+		if (we == null) { return false; }
+		we.click();		
 		
 		return true;
 	}
