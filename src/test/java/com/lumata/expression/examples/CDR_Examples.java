@@ -5,14 +5,11 @@ import java.util.Calendar;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.IOFileException;
+import com.lumata.e4o.system.cdr.CDR;
+import com.lumata.e4o.system.cdr.CDRClassGenerator;
+import com.lumata.e4o.system.cdr.CDRDateIncrement;
+import com.lumata.e4o.system.cdr.CDRDate.CDRDateFormat;
 import com.lumata.expression.operators.exceptions.CDRException;
-import com.lumata.expression.operators.system.cdr.CDR;
-import com.lumata.expression.operators.system.cdr.CDRClassGenerator;
-import com.lumata.expression.operators.system.cdr.CDRDate.CDRDateFormat;
-import com.lumata.expression.operators.system.cdr.CDRDateIncrement;
-//import com.lumata.expression.operators.system.cdr.types.CDRCall;
-//import com.lumata.expression.operators.system.cdr.types.CDRHistory;
-//import com.lumata.expression.operators.system.cdr.types.CDRRevenue;
 
 public class CDR_Examples {
 	
