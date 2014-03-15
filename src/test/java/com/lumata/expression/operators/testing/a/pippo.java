@@ -43,37 +43,45 @@ public class pippo {
 	Map<String, String> m1 = new HashMap<String, String>();
 	Map<String, String> m2 = new HashMap<String, String>();
 	
+	public enum pippos { A, B; }
+	
 	pippo() {}
 	
-	@Test( enabled = false )
+	@Test( enabled = true )
 	public void create_cdr_subclasses() throws IOFileException {
 		
-		CDRClassGenerator cdr_generator = new CDRClassGenerator();
-		
-		cdr_generator.generate();	
+		p( pippo.pippos.values() );
 
 	}
 	
-	@Test( enabled = true )
+	public void p( Enum<?>... e ) {
+		
+		for( int i = 0; i < e.length; i++ ) {
+			System.out.println( e[i].name() );
+		}		
+		
+	}
+	
+	@Test( enabled = false )
 	public void test_replace() throws IOFileException, CDRException {
 		
 		CDRHistory c = new CDRHistory();
 		
 		System.out.println( "MSISDN Fixed Strategy" );
 		c.setMsisdnStrategyFixed( 3399900001L );
-		c.add( 5 );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
 		System.out.println( "MSISDN Increment Strategy" );
 		c.setMsisdnStrategyIncrement( 3399900001L, 20 );
-		c.add( 5 );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
 		System.out.println( "MSISDN Random Strategy" );
 		c.setMsisdnStrategyRandom( 3399900010L, 3399910000L );
-		c.add( 5 );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
@@ -82,19 +90,19 @@ public class pippo {
 		
 		System.out.println( "MSISDN Fixed Strategy with options" );
 		c.setMsisdnStrategyFixed( 3399900001L );
-		c.add( 5 );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
 		System.out.println( "MSISDN Increment Strategy with options" );
 		c.setMsisdnStrategyIncrement( 3399900001L, 20 );
-		c.add( 5 );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
 		System.out.println( "MSISDN Random Strategy with options" );
 		c.setMsisdnStrategyRandom( 3399900010L, 3399910000L );
-		c.add( 5 );
+		c.addLines( 5 );
 		c.print();
 		c.clean();
 		
