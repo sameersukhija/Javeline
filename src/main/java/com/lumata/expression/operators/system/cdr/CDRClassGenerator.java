@@ -11,16 +11,24 @@ import java.util.regex.Pattern;
 
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils;
-
 import com.lumata.expression.operators.system.cdr.annotations.Amount;
 import com.lumata.expression.operators.system.cdr.annotations.Balance;
 import com.lumata.expression.operators.system.cdr.annotations.Date;
+import com.lumata.expression.operators.system.cdr.annotations.Download;
+import com.lumata.expression.operators.system.cdr.annotations.Duration;
 import com.lumata.expression.operators.system.cdr.annotations.Msisdn;
+import com.lumata.expression.operators.system.cdr.annotations.Sms;
+import com.lumata.expression.operators.system.cdr.annotations.TenantId;
+import com.lumata.expression.operators.system.cdr.annotations.Terminating;
+import com.lumata.expression.operators.system.cdr.annotations.Upload;
 
 public class CDRClassGenerator {	
 	
 	StringBuilder import_classes;
-	boolean import_calendar_package = true;
+	boolean import_calendar_package;
+	boolean import_enum_package;
+	
+	final String CDR_PACKAGE = "com.lumata.expression.operators.system.cdr";
 	
 	// CDR types definition
 	private enum CDRTypes {
@@ -33,6 +41,26 @@ public class CDRClassGenerator {
 			}
 		},
 		Revenue {	
+			public List<Class<? extends Annotation>> fields() {
+				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class );
+			}
+		},
+		Call {	
+			public List<Class<? extends Annotation>> fields() {
+				return Arrays.asList( Msisdn.class, Date.class, Duration.class, Amount.class, Balance.class, Terminating.class );
+			}
+		},
+		Data {	
+			public List<Class<? extends Annotation>> fields() {
+				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Download.class, Upload.class, Balance.class );
+			}
+		},
+		Message {	
+			public List<Class<? extends Annotation>> fields() {
+				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Sms.class, Balance.class );
+			}
+		},
+		OtherUsage {	
 			public List<Class<? extends Annotation>> fields() {
 				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class );
 			}
@@ -54,15 +82,18 @@ public class CDRClassGenerator {
 			
 			// Generate CDR classes 
 			for( CDRTypes cdr_type : CDRTypes.values() ) {	
+				//System.out.println( cdr_type.name() );
+				import_calendar_package = true;
+				import_enum_package = true;
 				
 				// Define package name
-				final String package_class = "com.lumata.expression.operators.system.cdr.types";
+				final String package_class = CDR_PACKAGE + ".types";
 				
 				import_classes = new StringBuilder();
 				//import_classes.append( "import org.slf4j.Logger;\n" );
 				//import_classes.append( "import org.slf4j.LoggerFactory;\n" );
-				import_classes.append( "import com.lumata.expression.operators.system.cdr.CDR;\n" );
-				import_classes.append( "import com.lumata.expression.operators.system.cdr.annotations.*;\n" );
+				import_classes.append( "import " ).append( CDR_PACKAGE ).append( ".CDR;\n" );
+				import_classes.append( "import " ).append( CDR_PACKAGE ).append( ".annotations.*;\n" );
 				import_classes.append( "import com.lumata.expression.operators.exceptions.CDRException;\n" );
 								
 				// Define cdr subclass name
@@ -112,7 +143,7 @@ public class CDRClassGenerator {
 				
 				//System.out.println( cdr_subclass.toString() );
 				
-				System.out.println( "---------------" );
+				//System.out.println( "---------------" );
 	
 				IOFileUtils.saveFile( cdr_subclass.toString(), filePath.toString(), class_name + ".java");
 				
@@ -157,7 +188,7 @@ public class CDRClassGenerator {
 		
 		// Generate specific methods for CDR type			
 		for( int f = 0; f < cdr_type.fields().size(); f++ ) {
-			System.out.println( cdr_type.fields().get( f ).getName() );
+			//System.out.println( cdr_type.fields().get( f ).getName() );
 			// Select annotated CDR parent methods
 			for( Method method : CDR.class.getDeclaredMethods() ) {
 								
@@ -169,7 +200,7 @@ public class CDRClassGenerator {
 					
 					for( Class<?> parameter : method.getParameterTypes() ) {
 						
-						parameter_regex.append( ".*" ).append( parameter.getName().replaceAll( "[a-zA-Z]+[.]", "" ) ).append( "[ _a-zA-Z0-9]+," ) ;
+						parameter_regex.append( ".*" ).append( parameter.getName().replaceAll( "[a-zA-Z]+[.]", "" ) ).append( "[ _<>?a-zA-Z0-9]+," ) ;
 						
 					}
 					
@@ -177,7 +208,7 @@ public class CDRClassGenerator {
 					
 					// Define method returned type expression
 					StringBuilder method_returned_type = new StringBuilder();					
-					method_returned_type.append( method.toString().replace( "com.lumata.expression.operators.system.cdr.CDR.", "" ).replaceAll( method.getName() + ".*" , "" ).replaceAll( "[a-zA-Z]+[.]" , "" ) );
+					method_returned_type.append( method.toString().replace( CDR_PACKAGE + ".CDR.", "" ).replaceAll( method.getName() + ".*" , "" ).replaceAll( "[a-zA-Z]+[.]" , "" ) );
 					
 					// Define method regex expression
 					StringBuilder method_regex = new StringBuilder();					
@@ -190,15 +221,16 @@ public class CDRClassGenerator {
 					
 					// Add method to CDR subclass
 					if( matcher.find() ) {
-					    //System.out.println( matcher.group(0) );
+						//System.out.println( "-----------" );
+						//System.out.println( matcher.group(0) );
 						String method_class_body = matcher.group(0).replace( method_returned_type.toString(), "" );
 						
 						for( Type param_type : method.getGenericParameterTypes() ) {
-							
-							String method_class_body_regex = param_type.toString().replaceAll( ".+[.]", "" ) + "[ ]+";
-							
+							//System.out.println( param_type.toString() );
+							String method_class_body_regex = param_type.toString().replaceAll( ".+[.](.+[ <>?]+extends).+[.](.+)", "$1 $2" ).replaceAll( ".+[.]", "" ).replace( "?" , "[?]") + "[ ]+";
+							//System.out.println( method_class_body_regex );
 							method_class_body = method_class_body.replaceAll( method_class_body_regex, "").replaceAll( "final[ ]+", "" );
-						
+							//System.out.println( method_class_body );
 						}
 						
 						// Get method from Calendar Class						
@@ -209,8 +241,18 @@ public class CDRClassGenerator {
 						if( matcher_calendar.find() && import_calendar_package ) {
 							//System.out.println( matcher_calendar.toString() );
 							import_classes.append( "import java.util.Calendar;\n" );
-							import_classes.append( "import com.lumata.expression.operators.system.cdr.CDRDateIncrement;\n" );
+							import_classes.append( "import " ).append( CDR_PACKAGE ).append( ".CDRDateIncrement;\n" );
 							import_calendar_package = false;
+						}
+						
+						// Get method from Enum Class						
+						Pattern pattern_enum = Pattern.compile( "ICDREnum" );
+						//System.out.println( method_regex.toString() );
+						Matcher matcher_enum = pattern_enum.matcher( matcher.group(0) );
+						
+						if( matcher_enum.find() && import_enum_package ) {
+							import_classes.append( "import " ).append( CDR_PACKAGE ).append( ".ICDREnum;\n" );
+							import_enum_package = false;
 						}
 						
 						methods_class.append( "\t" )
@@ -221,7 +263,7 @@ public class CDRClassGenerator {
 											.append( "super." )
 											.append( method_class_body.replaceAll( "[ ]*throws[ a-zA-Z]*", "" ) )
 											.append( ";\n\t}\n\n" );			
-						
+						//System.out.println( "-----------" );
 					}
 					
 				}					

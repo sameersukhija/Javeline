@@ -39,7 +39,7 @@ public class SectionImpl <S extends Enum<S>, section_id_prefix, section_type> im
     
     }
     
-    public String getSectionID() {
+    public String getSectionID() { 
     	return	( this.section_id_prefix + this.getSectionName() );    	  	
     }
 
