@@ -1,9 +1,9 @@
 package com.lumata.e4o.system.cdr.types;
 
 import com.lumata.e4o.system.cdr.CDR;
-import com.lumata.e4o.system.cdr.CDRDateIncrement;
-import com.lumata.e4o.system.cdr.ICDREnum;
 import com.lumata.e4o.system.cdr.annotations.*;
+import com.lumata.e4o.system.csv.types.CSVDateIncrement;
+import com.lumata.e4o.system.csv.types.ICSVEnum;
 import com.lumata.expression.operators.exceptions.CDRException;
 
 import java.util.Calendar;
@@ -70,7 +70,7 @@ public class CDRMessage extends CDR {
 		super.setDateFormat( format );
 	}
 
-	public void setDateStrategyIncrement( final Calendar date, final CDRDateIncrement increment ) throws CDRException  {
+	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
 		super.setDateStrategyIncrement( date, increment );
 	}
 
@@ -124,11 +124,11 @@ public class CDRMessage extends CDR {
 		return super.getSms();
 	}
 
-	public void setSmsStrategyFixed( final Enum<? extends ICDREnum> current_value ) throws CDRException  {
+	public void setSmsStrategyFixed( final Enum<? extends ICSVEnum> current_value ) throws CDRException  {
 		super.setSmsStrategyFixed( current_value );
 	}
 
-	public void setSmsStrategyIncrement( final Enum<? extends ICDREnum> current_value, final Integer increment ) throws CDRException  {
+	public void setSmsStrategyIncrement( final Enum<? extends ICSVEnum> current_value, final Integer increment ) throws CDRException  {
 		super.setSmsStrategyIncrement( current_value, increment );
 	}
 

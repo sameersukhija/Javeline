@@ -1,8 +1,8 @@
-package com.lumata.e4o.system.cdr;
+package com.lumata.e4o.system.csv.types;
 
 import com.lumata.expression.operators.exceptions.CDRException;
 
-public class CDRLong {
+public class CSVLong {
 
 	private Long long_current_value;
 	private Long long_left_value;
@@ -10,7 +10,7 @@ public class CDRLong {
 	private Long long_next_value;
 	private Integer long_increment;
 	
-	public CDRLong() {
+	public CSVLong() {
 			
 		long_current_value = null;
 		long_left_value = null;

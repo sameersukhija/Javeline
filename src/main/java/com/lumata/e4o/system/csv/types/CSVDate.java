@@ -1,18 +1,18 @@
-package com.lumata.e4o.system.cdr;
+package com.lumata.e4o.system.csv.types;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import com.lumata.expression.operators.exceptions.CDRException;
 
-public class CDRDate {
+public class CSVDate {
 
 	private Calendar date_current;
 	private SimpleDateFormat date_format;
 	private Calendar date_left;
 	private Calendar date_right;
 	private Calendar date_next;
-	private CDRDateIncrement date_increment;
+	private CSVDateIncrement date_increment;
 	
 	public enum CDRDateFormat {
 		
@@ -31,7 +31,7 @@ public class CDRDate {
 		
 	}
 	
-	public CDRDate() {
+	public CSVDate() {
 		
 		date_current = null;
 		date_format = new SimpleDateFormat("yyyy-MM-dd");
@@ -113,7 +113,7 @@ public class CDRDate {
 						
 	}	
 	
-	public void setDateStrategyIncrement( final Calendar date, final CDRDateIncrement increment ) throws CDRException {
+	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException {
 		
 		if( date == null ) { throw new CDRException( "The date cannot be null." ); }
 		

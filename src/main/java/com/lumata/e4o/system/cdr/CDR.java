@@ -24,6 +24,12 @@ import com.lumata.e4o.system.cdr.annotations.TenantId;
 import com.lumata.e4o.system.cdr.annotations.Terminating;
 import com.lumata.e4o.system.cdr.annotations.Upload;
 import com.lumata.e4o.system.cdr.annotations.ValidityDate;
+import com.lumata.e4o.system.csv.types.CSVDate;
+import com.lumata.e4o.system.csv.types.CSVDateIncrement;
+import com.lumata.e4o.system.csv.types.CSVEnum;
+import com.lumata.e4o.system.csv.types.CSVLong;
+import com.lumata.e4o.system.csv.types.CSVMsisdn;
+import com.lumata.e4o.system.csv.types.ICSVEnum;
 import com.lumata.expression.operators.exceptions.CDRException;
 
 public class CDR {
@@ -35,21 +41,21 @@ public class CDR {
 	private StringBuilder file_content;
 	private ArrayList<String> rows;
 		
-	private CDRMsisdn msisdn;
-	private CDRDate date;
-	private CDRDate validity_date; 
-	private CDRDate deactivation_date;
-	private CDRLong duration; 
-	private CDRLong amount; 
-	private CDRLong balance; 
-	private CDREnum terminating; 
+	private CSVMsisdn msisdn;
+	private CSVDate date;
+	private CSVDate validity_date; 
+	private CSVDate deactivation_date;
+	private CSVLong duration; 
+	private CSVLong amount; 
+	private CSVLong balance; 
+	private CSVEnum terminating; 
 	//Type,
-	private CDRLong delay;
+	private CSVLong delay;
 	//BundleName, 
 	//BundleBalance, 
 	//BundlePurchased, 
-	private CDRLong download;
-	private CDRLong upload;
+	private CSVLong download;
+	private CSVLong upload;
 	//NewRatePlan,
 	//OldRatePlan,
 	//NewProfile,
@@ -60,14 +66,14 @@ public class CDR {
 	//OldStatus,
 	//NewNetwork,
 	//OldNetwork,
-	private CDRDate new_subscription_date;
-	private CDRDate old_subscription_date;
-	private CDREnum sms;
+	private CSVDate new_subscription_date;
+	private CSVDate old_subscription_date;
+	private CSVEnum sms;
 	//Code,
 	//PointOfRedemption,
-	private CDRLong tenant_id;
+	private CSVLong tenant_id;
 	
-	public enum TERMINATING implements ICDREnum { 
+	public enum TERMINATING implements ICSVEnum { 
 		
 		YES("YES"), 
 		NO("NO"); 
@@ -84,7 +90,7 @@ public class CDR {
 		
 	}
 	
-	public enum SMS implements ICDREnum { 
+	public enum SMS implements ICSVEnum { 
 		
 		YES("YES"), 
 		NO("NO"); 
@@ -103,18 +109,18 @@ public class CDR {
 	
 	public CDR() {
 		
-		this.msisdn = new CDRMsisdn();		
-		this.date = new CDRDate();
-		this.validity_date = new CDRDate(); 
-		this.deactivation_date = new CDRDate();
-		this.duration = new CDRLong(); 
-		this.amount = new CDRLong(); 
-		this.balance = new CDRLong();
-		this.terminating = new CDREnum( TERMINATING.values() );
-		this.delay = new CDRLong();
-		this.new_subscription_date = new CDRDate();
-		this.old_subscription_date = new CDRDate();
-		this.sms = new CDREnum( SMS.values() );
+		this.msisdn = new CSVMsisdn();		
+		this.date = new CSVDate();
+		this.validity_date = new CSVDate(); 
+		this.deactivation_date = new CSVDate();
+		this.duration = new CSVLong(); 
+		this.amount = new CSVLong(); 
+		this.balance = new CSVLong();
+		this.terminating = new CSVEnum( TERMINATING.values() );
+		this.delay = new CSVLong();
+		this.new_subscription_date = new CSVDate();
+		this.old_subscription_date = new CSVDate();
+		this.sms = new CSVEnum( SMS.values() );
 		
 		this.file_content = new StringBuilder();
 		this.rows = new ArrayList<String>();
@@ -207,7 +213,7 @@ public class CDR {
 	}	
 	
 	@Date
-	protected void setDateStrategyIncrement( final Calendar date, final CDRDateIncrement increment ) throws CDRException {
+	protected void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException {
 		
 		if( this.date != null ) { this.date.setDateStrategyIncrement( date, increment ); }
 		
@@ -264,7 +270,7 @@ public class CDR {
 	}	
 	
 	@ValidityDate
-	protected void setValidityDateStrategyIncrement( final Calendar date, final CDRDateIncrement increment ) throws CDRException {
+	protected void setValidityDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException {
 		
 		if( this.validity_date != null ) { this.validity_date.setDateStrategyIncrement( date, increment ); }
 		
@@ -321,7 +327,7 @@ public class CDR {
 	}	
 	
 	@DeactivationDate
-	protected void setDeactivationDateStrategyIncrement( final Calendar date, final CDRDateIncrement increment ) throws CDRException {
+	protected void setDeactivationDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException {
 		
 		if( this.deactivation_date != null ) { this.deactivation_date.setDateStrategyIncrement( date, increment ); }
 		
@@ -514,14 +520,14 @@ public class CDR {
 	}
 	
 	@Terminating
-	protected void setTerminatingStrategyFixed( final Enum<? extends ICDREnum> current_value ) throws CDRException {
+	protected void setTerminatingStrategyFixed( final Enum<? extends ICSVEnum> current_value ) throws CDRException {
 		
 		if( this.terminating != null ) { this.terminating.setEnumStrategyFixed( current_value ); }
 		
 	}
 
 	@Terminating
-	protected void setTerminatingStrategyIncrement( final Enum<? extends ICDREnum> current_value, final Integer increment ) throws CDRException {
+	protected void setTerminatingStrategyIncrement( final Enum<? extends ICSVEnum> current_value, final Integer increment ) throws CDRException {
 		
 		if( this.terminating != null ) { this.terminating.setEnumStrategyIncrement( current_value, increment ); }
 		
@@ -728,7 +734,7 @@ public class CDR {
 	}	
 	
 	@NewSubscriptionDate
-	protected void setNewSubscriptionDateStrategyIncrement( final Calendar new_subscription_date, final CDRDateIncrement increment ) throws CDRException {
+	protected void setNewSubscriptionDateStrategyIncrement( final Calendar new_subscription_date, final CSVDateIncrement increment ) throws CDRException {
 		
 		if( this.new_subscription_date != null ) { this.new_subscription_date.setDateStrategyIncrement( new_subscription_date, increment ); }
 		
@@ -785,7 +791,7 @@ public class CDR {
 	}	
 	
 	@OldSubscriptionDate
-	protected void setOldSubscriptionDateStrategyIncrement( final Calendar old_subscription_date, final CDRDateIncrement increment ) throws CDRException {
+	protected void setOldSubscriptionDateStrategyIncrement( final Calendar old_subscription_date, final CSVDateIncrement increment ) throws CDRException {
 		
 		if( this.old_subscription_date != null ) { this.old_subscription_date.setDateStrategyIncrement( old_subscription_date, increment ); }
 		
@@ -828,14 +834,14 @@ public class CDR {
 	}
 	
 	@Sms
-	protected void setSmsStrategyFixed( final Enum<? extends ICDREnum> current_value ) throws CDRException {
+	protected void setSmsStrategyFixed( final Enum<? extends ICSVEnum> current_value ) throws CDRException {
 		
 		if( this.sms != null ) { this.sms.setEnumStrategyFixed( current_value ); }
 		
 	}
 
 	@Sms
-	protected void setSmsStrategyIncrement( final Enum<? extends ICDREnum> current_value, final Integer increment ) throws CDRException {
+	protected void setSmsStrategyIncrement( final Enum<? extends ICSVEnum> current_value, final Integer increment ) throws CDRException {
 		
 		if( this.sms != null ) { this.sms.setEnumStrategyIncrement( current_value, increment ); }
 		

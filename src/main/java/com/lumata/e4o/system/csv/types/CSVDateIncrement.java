@@ -1,6 +1,6 @@
-package com.lumata.e4o.system.cdr;
+package com.lumata.e4o.system.csv.types;
 
-public class CDRDateIncrement {
+public class CSVDateIncrement {
 
 	private Integer date_increment_year;
 	private Integer date_increment_month;
@@ -9,7 +9,7 @@ public class CDRDateIncrement {
 	private Integer date_increment_minute;
 	private Integer date_increment_second;
 	
-	public CDRDateIncrement() {
+	public CSVDateIncrement() {
 		date_increment_year = null;
 		date_increment_month = null;
 		date_increment_day = null;

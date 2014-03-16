@@ -1,8 +1,8 @@
-package com.lumata.e4o.system.cdr;
+package com.lumata.e4o.system.csv.types;
 
 import com.lumata.expression.operators.exceptions.CDRException;
 
-public class CDRMsisdn {
+public class CSVMsisdn {
 
 	private Integer msisdn_prefix;
 	private Long msisdn_current_value;
@@ -12,7 +12,7 @@ public class CDRMsisdn {
 	private Integer msisdn_increment;
 	private Integer msisdn_length;
 	
-	public CDRMsisdn() {
+	public CSVMsisdn() {
 		
 		msisdn_prefix = null;
 		msisdn_current_value = null;

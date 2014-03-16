@@ -1,10 +1,10 @@
-package com.lumata.e4o.system.cdr;
+package com.lumata.e4o.system.csv.types;
 
 import com.lumata.expression.operators.exceptions.CDRException;
 
-public class CDREnum {
+public class CSVEnum {
 
-	private Enum<? extends ICDREnum>[] enumeration;
+	private Enum<? extends ICSVEnum>[] enumeration;
 	private String enum_current_value;
 	private Integer enum_curr_pos;
 	private String enum_next_value;
@@ -13,7 +13,7 @@ public class CDREnum {
 	private Boolean enum_random;
 		
 	@SafeVarargs
-	public CDREnum( Enum<? extends ICDREnum>... enumeration ) {
+	public CSVEnum( Enum<? extends ICSVEnum>... enumeration ) {
 			
 		this.enumeration = enumeration;
 		
@@ -62,9 +62,9 @@ public class CDREnum {
 		
 	}
 
-	public void setEnumStrategyFixed( final Enum<? extends ICDREnum> value ) throws CDRException {	
+	public void setEnumStrategyFixed( final Enum<? extends ICSVEnum> value ) throws CDRException {	
 		
-		this.enum_current_value = ( value != null && enumeration != null ? ((ICDREnum)value).value() : null );
+		this.enum_current_value = ( value != null && enumeration != null ? ((ICSVEnum)value).value() : null );
 		
 		this.cleanEnumStrategyIncrement();
 		
@@ -72,13 +72,13 @@ public class CDREnum {
 		
 	}
 	
-	public void setEnumStrategyIncrement( final Enum<? extends ICDREnum> value, final Integer increment ) throws CDRException {
+	public void setEnumStrategyIncrement( final Enum<? extends ICSVEnum> value, final Integer increment ) throws CDRException {
 		
 		if( value == null ) { throw new CDRException( "The field cannot be null." ); }
 		
 		if( increment == null ) { throw new CDRException( "The field increment cannot be null." ); }
 		
-		this.enum_current_value = ((ICDREnum)value).value();
+		this.enum_current_value = ((ICSVEnum)value).value();
 		
 		this.enum_increment = Math.abs( increment );
 		
@@ -118,7 +118,7 @@ public class CDREnum {
 		
 		int enum_pos = (int)( Math.random() * enumeration.length );
 				
-		return ((ICDREnum)enumeration[enum_pos]).value();
+		return ((ICSVEnum)enumeration[enum_pos]).value();
 								
 	}
 	
@@ -132,7 +132,7 @@ public class CDREnum {
 		
 		this.enum_next_pos = ( ( this.enum_curr_pos != null ? this.enum_curr_pos : 0 ) + this.enum_increment ) % this.enumeration.length;
 		
-		this.enum_next_value = ((ICDREnum)this.enumeration[ this.enum_next_pos ]).value();
+		this.enum_next_value = ((ICSVEnum)this.enumeration[ this.enum_next_pos ]).value();
 		
 	}
 	

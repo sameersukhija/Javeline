@@ -1,6 +1,6 @@
-package com.lumata.e4o.system.cdr;
+package com.lumata.e4o.system.csv.types;
 
-public interface ICDREnum {
+public interface ICSVEnum {
 	public String name();
 	public String value();
 	public int ordinal();

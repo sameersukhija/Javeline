@@ -7,9 +7,9 @@ import org.testng.annotations.Test;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.CDRClassGenerator;
-import com.lumata.e4o.system.cdr.CDRDateIncrement;
-import com.lumata.e4o.system.cdr.CDRDate.CDRDateFormat;
-import com.lumata.e4o.system.cdr.CDRString;
+import com.lumata.e4o.system.csv.types.CSVDateIncrement;
+import com.lumata.e4o.system.csv.types.CSVString;
+import com.lumata.e4o.system.csv.types.CSVDate.CDRDateFormat;
 import com.lumata.expression.operators.exceptions.CDRException;
 
 public class CDR_Examples {
@@ -225,7 +225,7 @@ public class CDR_Examples {
 	@Test( enabled = true )
 	public void cdr_test_string() throws CDRException {
 		
-		CDRString string = new CDRString();
+		CSVString string = new CSVString();
 		
 		System.out.println( "Fixed Strategy" );
 		string.setStringStrategyFixed( "1234567890" );

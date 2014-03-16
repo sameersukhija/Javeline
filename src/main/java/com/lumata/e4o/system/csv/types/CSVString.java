@@ -1,10 +1,10 @@
-package com.lumata.e4o.system.cdr;
+package com.lumata.e4o.system.csv.types;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
 import com.lumata.expression.operators.exceptions.CDRException;
 
-public class CDRString {
+public class CSVString {
 
 	private String string_current_value;
 	private Integer string_increment_current_value;
@@ -14,7 +14,7 @@ public class CDRString {
 	
 	private final Integer DEFAULT_STRING_LENGTH = 0;
 	
-	public CDRString() {
+	public CSVString() {
 		
 		string_current_value = null;
 		string_increment_current_value = null;
