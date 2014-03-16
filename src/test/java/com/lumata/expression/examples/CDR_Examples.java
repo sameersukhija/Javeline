@@ -9,11 +9,12 @@ import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.CDRClassGenerator;
 import com.lumata.e4o.system.cdr.CDRDateIncrement;
 import com.lumata.e4o.system.cdr.CDRDate.CDRDateFormat;
+import com.lumata.e4o.system.cdr.CDRString;
 import com.lumata.expression.operators.exceptions.CDRException;
 
 public class CDR_Examples {
 	
-	private final boolean generate_cdr_classes = true;
+	private final boolean generate_cdr_classes = false;
 	private final boolean generate_cdr = false;
 	
 	// CDR Types generation
@@ -220,4 +221,36 @@ public class CDR_Examples {
 		
 	}
 	*/
+	
+	@Test( enabled = true )
+	public void cdr_test_string() throws CDRException {
+		
+		CDRString string = new CDRString();
+		
+		System.out.println( "Fixed Strategy" );
+		string.setStringStrategyFixed( "1234567890" );
+		string.setStringLength( 5 );
+		string.cleanStringLength();
+		
+		for( int i = 0; i < 5; i++ ) {
+			System.out.println( string.getString() );
+		}
+
+		System.out.println( "\nIncrement Strategy" );
+		string.setStringStrategyIncrement( "voucher", 0, 5);
+		//string.setStringLength( 5 );
+		
+		for( int i = 0; i < 5; i++ ) {
+			System.out.println( string.getString() );
+		}
+		
+		System.out.println( "\nRandom Strategy" );
+		string.setStringStrategyRandom(5);
+		
+		for( int i = 0; i < 5; i++ ) {
+			System.out.println( string.getString() );
+		}
+		
+	}
+	
 }
