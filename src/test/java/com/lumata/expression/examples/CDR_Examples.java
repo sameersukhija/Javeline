@@ -14,7 +14,7 @@ import com.lumata.expression.operators.exceptions.CDRException;
 
 public class CDR_Examples {
 	
-	private final boolean generate_cdr_classes = false;
+	private final boolean generate_cdr_classes = true;
 	private final boolean generate_cdr = false;
 	
 	// CDR Types generation
@@ -52,7 +52,7 @@ public class CDR_Examples {
 		c.clean();
 		
 		System.out.println( "MSISDN options setting" );
-		c.setMsisdnOptions( 39, 19 );
+		c.setMsisdnOptions( 39555, 19 );
 		
 		System.out.println( "MSISDN Fixed Strategy with options" );
 		c.setMsisdnStrategyFixed( 3399900001L );
@@ -80,7 +80,7 @@ public class CDR_Examples {
 		
 		CDRRevenue c = new CDRRevenue();
 		Calendar date = Calendar.getInstance();
-		CDRDateIncrement increment = new CDRDateIncrement();
+		CSVDateIncrement increment = new CSVDateIncrement();
 		increment.setDayIncrement( 1 );
 		
 		System.out.println( "Fixed Strategy" );
@@ -141,7 +141,7 @@ public class CDR_Examples {
 		
 		CDRCall c = new CDRCall();
 		Calendar date = Calendar.getInstance();
-		CDRDateIncrement increment = new CDRDateIncrement();
+		CSVDateIncrement increment = new CSVDateIncrement();
 		increment.setDayIncrement( 1 );
 				
 		System.out.println( "Fixed Strategy" );
@@ -220,9 +220,9 @@ public class CDR_Examples {
 		c.clean();	
 		
 	}
-	*/
 	
-	@Test( enabled = true )
+	
+	@Test( enabled = false )
 	public void cdr_test_string() throws CDRException {
 		
 		CSVString string = new CSVString();
@@ -252,5 +252,5 @@ public class CDR_Examples {
 		}
 		
 	}
-	
+	*/
 }
