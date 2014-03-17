@@ -27,30 +27,28 @@ public class LoyaltyCreationForm extends Form {
 	public boolean open() {
 		
 		return LoyaltyForm.open(selenium, timeout, interval)
-				&& click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table/tbody/tr/td[3]/table/tbody/tr[2]/td[2]/div/div/div")
-				&& click("badgesAccordion", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[1]/td/a/table/tbody/tr/td[2]");
+				&& click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Creation']")
+				&& click("badgesAccordion", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='Badges']");
 	}
 
 	public boolean create() {
-		Integer loyaltyProgramsCount = 0;
-				
-		return ((loyaltyProgramsCount = selectLoyaltyProgramsCount()) != null)
-				&& click("addNewProgramPopup", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[" + (2 + loyaltyProgramsCount) + "]/td/button")
+		
+		return click("addNewProgramPopup", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='Badges']/../../../../../../..//*[@title='Add']")
 				&& sendKeys("programNameInput", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input",
 						"BadgesProgName")
 				&& sendKeys("programDescInput", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input",
 						"BadgesProgDesc")
-				&& click("programSave", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button")
-				&& click("addBadgeType", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td/table/tbody/tr[4]/td/button")
+				&& click("programSave", "html/body/div[5]/div/table//*[@title='Save']")
+				&& click("addBadgeType", "html/body/div[5]/div/table//*[@title='Add']")
 				&& sendKeys("badgeNameInput", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td[2]/input",
 						"Gold")
-				&& click("badgeTypeSave", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button")
-				&& click("badgeTypeClose", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/button");
+				&& click("badgeTypeSave", "html/body/div[7]/div/table//*[@title='Save']")
+				&& click("badgeTypeClose", "html/body/div[5]/div/table//*[@title='Close']");
 	}
 	
 	public boolean manage() {
 
-		return click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td[2]/div/div/div")
+		return click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Management']")
 				&& click("editProgram", "//*[text()='BadgesProgName']/../../../../../../../../../..//*[@title='Edit']")
 				&& click("addBadge", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/div/div/table/tbody/tr/td/table/tbody/tr[8]/td/button")
 				&& sendKeys("badgeDefinitionName", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[1]/td[2]/input",
@@ -72,7 +70,7 @@ public class LoyaltyCreationForm extends Form {
 				&& click("closeBadge", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/button");
 	}
 
-	private Integer selectLoyaltyProgramsCount() {
+	/*private Integer selectLoyaltyProgramsCount() {
 		Integer loyaltyProgramsCount = 0;
 		
 		ResultSet rs = mysql.execQuery("SELECT COUNT(*) FROM loyalty_programs");
@@ -86,7 +84,7 @@ public class LoyaltyCreationForm extends Form {
 		}
 		
 		return loyaltyProgramsCount;
-	}
+	}*/
 	
 	public static void main(String[] args) throws Exception {
 		
