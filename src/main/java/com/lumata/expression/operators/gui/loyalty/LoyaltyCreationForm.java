@@ -42,8 +42,8 @@ public class LoyaltyCreationForm extends Form {
 				&& click("addBadgeType", "html/body/div[5]/div/table//*[@title='Add']")
 				&& sendKeys("badgeNameInput", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td[2]/input",
 						"Gold")
-				&& click("badgeTypeSave", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button")
-				&& click("badgeTypeClose", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/button");
+				&& click("badgeTypeSave", "html/body/div[7]/div/table//*[@title='Save']")
+				&& click("badgeTypeClose", "html/body/div[5]/div/table//*[@title='Close']");
 	}
 	
 	public boolean manage() {
