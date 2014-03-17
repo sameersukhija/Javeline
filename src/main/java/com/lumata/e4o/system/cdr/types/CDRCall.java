@@ -2,11 +2,10 @@ package com.lumata.e4o.system.cdr.types;
 
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.annotations.*;
+import com.lumata.expression.operators.exceptions.CDRException;
+import java.util.Calendar;
 import com.lumata.e4o.system.csv.types.CSVDateIncrement;
 import com.lumata.e4o.system.csv.types.ICSVEnum;
-import com.lumata.expression.operators.exceptions.CDRException;
-
-import java.util.Calendar;
 
 public class CDRCall extends CDR { 
 
@@ -62,14 +61,6 @@ public class CDRCall extends CDR {
 		return super.getDate() ;
 	}
 
-	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
-		super.setDateStrategyFixed( date );
-	}
-
-	public void setDateFormat( String format ) throws CDRException  {
-		super.setDateFormat( format );
-	}
-
 	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
 		super.setDateStrategyIncrement( date, increment );
 	}
@@ -88,6 +79,14 @@ public class CDRCall extends CDR {
 
 	public void cleanDateStrategyRandom()  {
 		super.cleanDateStrategyRandom() ;
+	}
+
+	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
+		super.setDateStrategyFixed( date );
+	}
+
+	public void setDateFormat( String format ) throws CDRException  {
+		super.setDateFormat( format );
 	}
 
 	@Duration( position = 2 )

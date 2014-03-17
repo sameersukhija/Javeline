@@ -2,14 +2,14 @@ package com.lumata.e4o.system.cdr.types;
 
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.annotations.*;
-import com.lumata.e4o.system.csv.types.CSVDateIncrement;
 import com.lumata.expression.operators.exceptions.CDRException;
-
 import java.util.Calendar;
+import com.lumata.e4o.system.csv.types.CSVDateIncrement;
+import com.lumata.e4o.system.csv.types.ICSVEnum;
 
 public class CDRRevenue extends CDR { 
 
-	private final int FIELDS = 4;
+	private final int FIELDS = 6;
 
 	public CDRRevenue() {
 		super();
@@ -61,14 +61,6 @@ public class CDRRevenue extends CDR {
 		return super.getDate() ;
 	}
 
-	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
-		super.setDateStrategyFixed( date );
-	}
-
-	public void setDateFormat( String format ) throws CDRException  {
-		super.setDateFormat( format );
-	}
-
 	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
 		super.setDateStrategyIncrement( date, increment );
 	}
@@ -87,6 +79,14 @@ public class CDRRevenue extends CDR {
 
 	public void cleanDateStrategyRandom()  {
 		super.cleanDateStrategyRandom() ;
+	}
+
+	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
+		super.setDateStrategyFixed( date );
+	}
+
+	public void setDateFormat( String format ) throws CDRException  {
+		super.setDateFormat( format );
 	}
 
 	@Amount( position = 2 )
@@ -145,6 +145,64 @@ public class CDRRevenue extends CDR {
 
 	public void cleanBalanceStrategyRandom()  {
 		super.cleanBalanceStrategyRandom() ;
+	}
+
+	@Type( position = 4 )
+	public String getType() throws CDRException  {
+		return super.getType();
+	}
+
+	public void setTypeStrategyFixed( final Enum<? extends ICSVEnum> current_value ) throws CDRException  {
+		super.setTypeStrategyFixed( current_value );
+	}
+
+	public void setTypeStrategyIncrement( final Enum<? extends ICSVEnum> current_value, final Integer increment ) throws CDRException  {
+		super.setTypeStrategyIncrement( current_value, increment );
+	}
+
+	public void setTypeStrategyRandom() throws CDRException  {
+		super.setTypeStrategyRandom();
+	}
+
+	public void cleanTypeStrategyFixed()  {
+		super.cleanTypeStrategyFixed() ;
+	}
+
+	public void cleanTypeStrategyIncrement()  {
+		super.cleanTypeStrategyIncrement() ;
+	}
+
+	public void cleanTypeStrategyRandom()  {
+		super.cleanTypeStrategyRandom() ;
+	}
+
+	@Delay( position = 5 )
+	public String getDelay() throws CDRException  {
+		return super.getDelay();
+	}
+
+	public void setDelayStrategyFixed( final Long current_value ) throws CDRException  {
+		super.setDelayStrategyFixed( current_value );
+	}
+
+	public void setDelayStrategyIncrement( final Long current_value, final Integer increment ) throws CDRException  {
+		super.setDelayStrategyIncrement( current_value, increment );
+	}
+
+	public void setDelayStrategyRandom( final Long long_left, final Long long_right ) throws CDRException  {
+		super.setDelayStrategyRandom( long_left, long_right );
+	}
+
+	public void cleanDelayStrategyFixed()  {
+		super.cleanDelayStrategyFixed() ;
+	}
+
+	public void cleanDelayStrategyIncrement()  {
+		super.cleanDelayStrategyIncrement() ;
+	}
+
+	public void cleanDelayStrategyRandom()  {
+		super.cleanDelayStrategyRandom() ;
 	}
 
 

@@ -2,10 +2,9 @@ package com.lumata.e4o.system.cdr.types;
 
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.annotations.*;
-import com.lumata.e4o.system.csv.types.CSVDateIncrement;
 import com.lumata.expression.operators.exceptions.CDRException;
-
 import java.util.Calendar;
+import com.lumata.e4o.system.csv.types.CSVDateIncrement;
 
 public class CDROtherUsage extends CDR { 
 
@@ -61,14 +60,6 @@ public class CDROtherUsage extends CDR {
 		return super.getDate() ;
 	}
 
-	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
-		super.setDateStrategyFixed( date );
-	}
-
-	public void setDateFormat( String format ) throws CDRException  {
-		super.setDateFormat( format );
-	}
-
 	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
 		super.setDateStrategyIncrement( date, increment );
 	}
@@ -87,6 +78,14 @@ public class CDROtherUsage extends CDR {
 
 	public void cleanDateStrategyRandom()  {
 		super.cleanDateStrategyRandom() ;
+	}
+
+	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
+		super.setDateStrategyFixed( date );
+	}
+
+	public void setDateFormat( String format ) throws CDRException  {
+		super.setDateFormat( format );
 	}
 
 	@Amount( position = 2 )

@@ -22,6 +22,7 @@ import com.lumata.e4o.system.cdr.annotations.OldSubscriptionDate;
 import com.lumata.e4o.system.cdr.annotations.Sms;
 import com.lumata.e4o.system.cdr.annotations.TenantId;
 import com.lumata.e4o.system.cdr.annotations.Terminating;
+import com.lumata.e4o.system.cdr.annotations.Type;
 import com.lumata.e4o.system.cdr.annotations.Upload;
 import com.lumata.e4o.system.cdr.annotations.ValidityDate;
 import com.lumata.e4o.system.csv.types.CSVDate;
@@ -51,6 +52,7 @@ public class CDR {
 	private CSVEnum terminating; 
 	//Type,
 	private CSVLong delay;
+	private CSVEnum type;
 	//BundleName, 
 	//BundleBalance, 
 	//BundlePurchased, 
@@ -107,6 +109,24 @@ public class CDR {
 	
 	}
 	
+	public enum TYPE implements ICSVEnum { 
+		
+		PAIEMENT("paiement"), 
+		INVOICE("invoice"),
+		RELOAD("reload"); 
+		
+		private String value;
+		
+		TYPE( String value ) { 
+			this.value = value; 
+		}
+		
+		public String value() {
+			return this.value;
+		}
+		
+	}
+	
 	public CDR() {
 		
 		this.msisdn = new CSVMsisdn();		
@@ -118,6 +138,7 @@ public class CDR {
 		this.balance = new CSVLong();
 		this.terminating = new CSVEnum( TERMINATING.values() );
 		this.delay = new CSVLong();
+		this.type = new CSVEnum( TYPE.values() );
 		this.new_subscription_date = new CSVDate();
 		this.old_subscription_date = new CSVDate();
 		this.sms = new CSVEnum( SMS.values() );
@@ -166,7 +187,7 @@ public class CDR {
 	@Msisdn
 	protected void cleanMsisdn() {
 		
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdn(); }
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnFixedStrategy(); }
 			
 	}
 	
@@ -608,6 +629,56 @@ public class CDR {
 	protected void cleanDelayStrategyRandom() {
 		
 		if( this.delay != null ) { this.delay.cleanLongStrategyRandom(); }
+					
+	}
+	
+	/** Type field */	
+	@Type
+	protected String getType() throws CDRException {
+		
+		return ( this.type != null ? String.valueOf( this.type.getEnum() ) : "" ); 
+		
+	}
+	
+	@Type
+	protected void setTypeStrategyFixed( final Enum<? extends ICSVEnum> current_value ) throws CDRException {
+		
+		if( this.type != null ) { this.type.setEnumStrategyFixed( current_value ); }
+		
+	}
+
+	@Type
+	protected void setTypeStrategyIncrement( final Enum<? extends ICSVEnum> current_value, final Integer increment ) throws CDRException {
+		
+		if( this.type != null ) { this.type.setEnumStrategyIncrement( current_value, increment ); }
+		
+	}
+	
+	@Type
+	protected void setTypeStrategyRandom() throws CDRException {
+		
+		if( this.type != null ) { this.type.setEnumStrategyRandom(); }
+		
+	}
+	
+	@Type
+	protected void cleanTypeStrategyFixed() {
+		
+		if( this.type != null ) { this.type.cleanEnumStrategyFixed(); }
+					
+	}
+	
+	@Type
+	protected void cleanTypeStrategyIncrement() {
+		
+		if( this.type != null ) { this.type.cleanEnumStrategyIncrement(); }
+					
+	}
+	
+	@Type
+	protected void cleanTypeStrategyRandom() {
+		
+		if( this.type != null ) { this.type.cleanEnumStrategyRandom(); }
 					
 	}
 	
