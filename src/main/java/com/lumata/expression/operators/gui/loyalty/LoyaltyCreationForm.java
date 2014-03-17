@@ -66,8 +66,8 @@ public class LoyaltyCreationForm extends Form {
 						"/recharge")
 				&& sendKeys("points", "//*[@id='gwt-debug-TextCampaignModelCreationEAValue']",
 						"1")
-				&& click("saveBadge", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td[4]/button")
-				&& click("closeBadge", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/button");
+				&& click("saveBadge", "html/body/div[7]/div/table//*[@title='Save']")
+				&& click("closeBadge", "html/body/div[5]/div/table//*[@title='Close']");
 	}
 
 	/*private Integer selectLoyaltyProgramsCount() {
