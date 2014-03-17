@@ -2,7 +2,6 @@ package com.lumata.e4o.system.cdr;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,12 +13,14 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.e4o.system.cdr.annotations.Amount;
 import com.lumata.e4o.system.cdr.annotations.Balance;
 import com.lumata.e4o.system.cdr.annotations.Date;
+import com.lumata.e4o.system.cdr.annotations.Delay;
 import com.lumata.e4o.system.cdr.annotations.Download;
 import com.lumata.e4o.system.cdr.annotations.Duration;
 import com.lumata.e4o.system.cdr.annotations.Msisdn;
 import com.lumata.e4o.system.cdr.annotations.Sms;
 import com.lumata.e4o.system.cdr.annotations.TenantId;
 import com.lumata.e4o.system.cdr.annotations.Terminating;
+import com.lumata.e4o.system.cdr.annotations.Type;
 import com.lumata.e4o.system.cdr.annotations.Upload;
 
 public class CDRClassGenerator {	
@@ -28,7 +29,8 @@ public class CDRClassGenerator {
 	boolean import_calendar_package;
 	boolean import_enum_package;
 	
-	final String CDR_PACKAGE = "com.lumata.expression.operators.system.cdr";
+	final String CDR_PACKAGE = "com.lumata.e4o.system.cdr";
+	final String CSV_PACKAGE = "com.lumata.e4o.system.csv";
 	
 	// CDR types definition
 	private enum CDRTypes {
@@ -42,7 +44,7 @@ public class CDRClassGenerator {
 		},
 		Revenue {	
 			public List<Class<? extends Annotation>> fields() {
-				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class );
+				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class, Type.class, Delay.class );
 			}
 		},
 		Call {	
@@ -205,7 +207,7 @@ public class CDRClassGenerator {
 					
 					for( Class<?> parameter : method.getParameterTypes() ) {
 						
-						parameter_regex.append( ".*" ).append( parameter.getName().replaceAll( "[a-zA-Z]+[.]", "" ) ).append( "[ _<>?a-zA-Z0-9]+," ) ;
+						parameter_regex.append( ".*" ).append( parameter.getName().replaceAll( "[0-9a-zA-Z]+[.]", "" ) ).append( "[ _<>?a-zA-Z0-9]+," ) ;
 						
 					}
 					
@@ -221,7 +223,7 @@ public class CDRClassGenerator {
 					
 					// Get method from CDR Class						
 					Pattern pattern = Pattern.compile( method_regex.toString() );
-					//System.out.println( method_regex.toString() );
+					System.out.println( method_regex.toString() );
 					Matcher matcher = pattern.matcher( cdr_class );
 					
 					// Add method to CDR subclass
@@ -230,7 +232,7 @@ public class CDRClassGenerator {
 						//System.out.println( matcher.group(0) );
 						String method_class_body = matcher.group(0).replace( method_returned_type.toString(), "" );
 						
-						for( Type param_type : method.getGenericParameterTypes() ) {
+						for( java.lang.reflect.Type param_type : method.getGenericParameterTypes() ) {
 							//System.out.println( param_type.toString() );
 							String method_class_body_regex = param_type.toString().replaceAll( ".+[.](.+[ <>?]+extends).+[.](.+)", "$1 $2" ).replaceAll( ".+[.]", "" ).replace( "?" , "[?]") + "[ ]+";
 							//System.out.println( method_class_body_regex );
@@ -246,17 +248,17 @@ public class CDRClassGenerator {
 						if( matcher_calendar.find() && import_calendar_package ) {
 							//System.out.println( matcher_calendar.toString() );
 							import_classes.append( "import java.util.Calendar;\n" );
-							import_classes.append( "import " ).append( CDR_PACKAGE ).append( ".CDRDateIncrement;\n" );
+							import_classes.append( "import " ).append( CSV_PACKAGE ).append( ".types.CSVDateIncrement;\n" );
 							import_calendar_package = false;
 						}
 						
 						// Get method from Enum Class						
-						Pattern pattern_enum = Pattern.compile( "ICDREnum" );
+						Pattern pattern_enum = Pattern.compile( "ICSVEnum" );
 						//System.out.println( method_regex.toString() );
 						Matcher matcher_enum = pattern_enum.matcher( matcher.group(0) );
 						
 						if( matcher_enum.find() && import_enum_package ) {
-							import_classes.append( "import " ).append( CDR_PACKAGE ).append( ".ICDREnum;\n" );
+							import_classes.append( "import " ).append( CSV_PACKAGE ).append( ".types.ICSVEnum;\n" );
 							import_enum_package = false;
 						}
 						

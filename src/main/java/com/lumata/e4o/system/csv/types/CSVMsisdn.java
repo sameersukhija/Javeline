@@ -107,7 +107,7 @@ public class CSVMsisdn {
 		
 	}
 	
-	public void cleanMsisdn() {
+	public void cleanMsisdnFixedStrategy() {
 		
 		this.msisdn_current_value = null;
 			
