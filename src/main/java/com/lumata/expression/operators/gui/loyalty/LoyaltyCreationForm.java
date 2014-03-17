@@ -27,15 +27,13 @@ public class LoyaltyCreationForm extends Form {
 	public boolean open() {
 		
 		return LoyaltyForm.open(selenium, timeout, interval)
-				&& click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table/tbody/tr/td[3]/table/tbody/tr[2]/td[2]/div/div/div")
-				&& click("badgesAccordion", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[1]/td/a/table/tbody/tr/td[2]");
+				&& click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Creation']")
+				&& click("badgesAccordion", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='Badges']");
 	}
 
 	public boolean create() {
-		Integer loyaltyProgramsCount = 0;
-				
-		return ((loyaltyProgramsCount = selectLoyaltyProgramsCount()) != null)
-				&& click("addNewProgramPopup", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td/div/table/tbody/tr/td/table/tbody/tr[" + (2 + loyaltyProgramsCount) + "]/td/button")
+		
+		return click("addNewProgramPopup", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='Badges']/../../../../../../..//*[@title='Add']")
 				&& sendKeys("programNameInput", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input",
 						"BadgesProgName")
 				&& sendKeys("programDescInput", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input",
@@ -72,7 +70,7 @@ public class LoyaltyCreationForm extends Form {
 				&& click("closeBadge", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/button");
 	}
 
-	private Integer selectLoyaltyProgramsCount() {
+	/*private Integer selectLoyaltyProgramsCount() {
 		Integer loyaltyProgramsCount = 0;
 		
 		ResultSet rs = mysql.execQuery("SELECT COUNT(*) FROM loyalty_programs");
@@ -86,7 +84,7 @@ public class LoyaltyCreationForm extends Form {
 		}
 		
 		return loyaltyProgramsCount;
-	}
+	}*/
 	
 	public static void main(String[] args) throws Exception {
 		
