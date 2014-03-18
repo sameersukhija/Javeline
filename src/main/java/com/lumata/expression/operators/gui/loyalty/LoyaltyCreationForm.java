@@ -60,7 +60,7 @@ public class LoyaltyCreationForm extends Form {
 				&& click("next3", "html/body/div[7]/div/table//*[@title='Next']")
 				&& click("addAwarded", "html/body/div[7]/div/table//*[@title='Add']")
 				&& click("eventType", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td[1]/div/table/tbody/tr/td")
-				&& click("selectRevenue", "//*[@id='gwt-uid-690']") // error here --> //*[text()='Revenue']
+				&& click("selectRevenue", "html/body/div[8]/div/table/tbody/tr[2]/td[2]/div/div/table//*[text()='Revenue']") // this change --> //*[@id='gwt-uid-690']
 				&& click("addAction", "//*[@id='gwt-debug-BtnCampaignModelCreationEAAdd']")
 				&& selectByVisibleText("selectUnitRecharge", "//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']",
 						"/recharge")
