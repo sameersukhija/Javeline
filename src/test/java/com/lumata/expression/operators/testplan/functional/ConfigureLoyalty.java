@@ -55,7 +55,7 @@ public class ConfigureLoyalty {
 		seleniumWebDriver.windowMaximize();
 		
 		// Create form
-		form = new LoyaltyCreationForm(seleniumWebDriver, mysql, TIMEOUT, ATTEMPT_TIMEOUT);
+		form = new LoyaltyCreationForm(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 		
 		// Login
 		Assert.assertTrue(Authorization.login(seleniumWebDriver, env.getUserName(user), env.getPassword(user), TIMEOUT, ATTEMPT_TIMEOUT));

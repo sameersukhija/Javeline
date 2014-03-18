@@ -1,27 +1,13 @@
 package com.lumata.expression.operators.gui.loyalty;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.lumata.common.testing.database.Mysql;
-import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.expression.operators.gui.campaigns.CampaignModelForm;
 import com.lumata.expression.operators.gui.catalogue.LoyaltyForm;
 import com.lumata.expression.operators.gui.common.Form;
 
 public class LoyaltyCreationForm extends Form {
 
-	private static final Logger logger = LoggerFactory.getLogger(CampaignModelForm.class);
-	
-	private Mysql mysql;
-	
-	public LoyaltyCreationForm(SeleniumWebDriver selenium, Mysql mysql, long timeout, long interval) {
+	public LoyaltyCreationForm(SeleniumWebDriver selenium, long timeout, long interval) {
 		super(selenium, timeout, interval);
-		this.mysql = mysql;
 	}
 	
 	public boolean open() {
