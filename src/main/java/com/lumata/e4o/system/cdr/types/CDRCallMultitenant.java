@@ -19,15 +19,6 @@ public class CDRCallMultitenant extends CDR {
 		return this.FIELDS;
 	}
 
-	@Msisdn( position = 0 )
-	public String getMsisdn() throws CDRException  {
-		return super.getMsisdn();
-	}
-
-	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
-		super.setMsisdnOptions( prefix, length );
-	}
-
 	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
 		super.setMsisdnStrategyFixed( value );
 	}
@@ -38,6 +29,15 @@ public class CDRCallMultitenant extends CDR {
 
 	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
 		super.setMsisdnStrategyRandom( min_value, max_value );
+	}
+
+	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
+		super.setMsisdnOptions( prefix, length );
+	}
+
+	@Msisdn( position = 0 )
+	public String getMsisdn() throws CDRException  {
+		return super.getMsisdn();
 	}
 
 	public void cleanMsisdn()  {
@@ -56,9 +56,8 @@ public class CDRCallMultitenant extends CDR {
 		super.cleanMsisdnStrategyRandom() ;
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return super.getDate() ;
+	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
+		super.setDateStrategyFixed( date );
 	}
 
 	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
@@ -69,8 +68,8 @@ public class CDRCallMultitenant extends CDR {
 		super.setDateStrategyRandom( date_left, date_right );
 	}
 
-	public void cleanDateStrategyFixed()  {
-		super.cleanDateStrategyFixed() ;
+	public void setDateFormat( String format ) throws CDRException  {
+		super.setDateFormat( format );
 	}
 
 	public void cleanDateStrategyIncrement()  {
@@ -81,17 +80,13 @@ public class CDRCallMultitenant extends CDR {
 		super.cleanDateStrategyRandom() ;
 	}
 
-	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
-		super.setDateStrategyFixed( date );
+	public void cleanDateStrategyFixed()  {
+		super.cleanDateStrategyFixed() ;
 	}
 
-	public void setDateFormat( String format ) throws CDRException  {
-		super.setDateFormat( format );
-	}
-
-	@Duration( position = 2 )
-	public String getDuration() throws CDRException  {
-		return super.getDuration();
+	@Date( position = 1 )
+	public String getDate()  {
+		return super.getDate() ;
 	}
 
 	public void setDurationStrategyFixed( final Long current_value ) throws CDRException  {
@@ -106,6 +101,11 @@ public class CDRCallMultitenant extends CDR {
 		super.setDurationStrategyRandom( long_left, long_right );
 	}
 
+	@Duration( position = 2 )
+	public String getDuration() throws CDRException  {
+		return super.getDuration();
+	}
+
 	public void cleanDurationStrategyFixed()  {
 		super.cleanDurationStrategyFixed() ;
 	}
@@ -116,11 +116,6 @@ public class CDRCallMultitenant extends CDR {
 
 	public void cleanDurationStrategyRandom()  {
 		super.cleanDurationStrategyRandom() ;
-	}
-
-	@Amount( position = 3 )
-	public String getAmount() throws CDRException  {
-		return super.getAmount();
 	}
 
 	public void setAmountStrategyFixed( final Long current_value ) throws CDRException  {
@@ -135,6 +130,11 @@ public class CDRCallMultitenant extends CDR {
 		super.setAmountStrategyRandom( long_left, long_right );
 	}
 
+	@Amount( position = 3 )
+	public String getAmount() throws CDRException  {
+		return super.getAmount();
+	}
+
 	public void cleanAmountStrategyFixed()  {
 		super.cleanAmountStrategyFixed() ;
 	}
@@ -145,11 +145,6 @@ public class CDRCallMultitenant extends CDR {
 
 	public void cleanAmountStrategyRandom()  {
 		super.cleanAmountStrategyRandom() ;
-	}
-
-	@Balance( position = 4 )
-	public String getBalance() throws CDRException  {
-		return super.getBalance();
 	}
 
 	public void setBalanceStrategyFixed( final Long current_value ) throws CDRException  {
@@ -164,6 +159,11 @@ public class CDRCallMultitenant extends CDR {
 		super.setBalanceStrategyRandom( long_left, long_right );
 	}
 
+	@Balance( position = 4 )
+	public String getBalance() throws CDRException  {
+		return super.getBalance();
+	}
+
 	public void cleanBalanceStrategyFixed()  {
 		super.cleanBalanceStrategyFixed() ;
 	}
@@ -176,11 +176,6 @@ public class CDRCallMultitenant extends CDR {
 		super.cleanBalanceStrategyRandom() ;
 	}
 
-	@Terminating( position = 5 )
-	public String getTerminating() throws CDRException  {
-		return super.getTerminating();
-	}
-
 	public void setTerminatingStrategyFixed( final Enum<? extends ICSVEnum> current_value ) throws CDRException  {
 		super.setTerminatingStrategyFixed( current_value );
 	}
@@ -191,6 +186,11 @@ public class CDRCallMultitenant extends CDR {
 
 	public void setTerminatingStrategyRandom() throws CDRException  {
 		super.setTerminatingStrategyRandom();
+	}
+
+	@Terminating( position = 5 )
+	public String getTerminating() throws CDRException  {
+		return super.getTerminating();
 	}
 
 	public void cleanTerminatingStrategyFixed()  {

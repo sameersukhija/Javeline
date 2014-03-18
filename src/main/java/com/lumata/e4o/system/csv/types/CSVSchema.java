@@ -1,36 +1,53 @@
 package com.lumata.e4o.system.csv.types;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
+import static com.lumata.common.testing.orm.Query.select;
+
+import com.lumata.common.testing.database.Mysql;
+import com.lumata.common.testing.system.Environment;
 import com.lumata.expression.operators.exceptions.CDRException;
 
 public class CSVSchema {
 
-	private ArrayList<String> values;
+	private ArrayList<String> table_values;
+	private JSONObject ds;
+	private Object table;
+	private Enum<?> table_field;
 	private String table_current_value;
 	private Integer table_curr_pos;
 	private String table_next_value;
 	private Integer table_next_pos;
-	private Integer table_increment;
-	private Boolean table_random;
+	private Integer table_increment_value;
+	private Boolean table_random_value;
 		
-	public CSVSchema( Object entity ) {
-			
-		
+	public CSVSchema( JSONObject dataSource, Object entity, Enum<?> field ) throws CDRException {
+					
+		ds = dataSource;
+		table = entity;
+		table_field = field;
+		table_values = null;
 		table_current_value = null;
-		table_random = false;
+		table_random_value = false;
 		table_next_value = null;
+		table_curr_pos = null;
 		table_next_pos = null;
-		table_increment = null;
+		table_increment_value = null;
+		
+		this.loadTable();
 						
 	}
 
-	public String getTable() throws CDRException {
+	public String getValue() throws CDRException {
 						
-		if( this.table_current_value == null && this.table_random == false ) { return ""; } 
+		if( this.table_current_value == null && this.table_random_value == false ) { return ""; } 
 		else {
 			
-			if( this.table_next_value != null && this.table_increment != null ) {
+			if( this.table_next_value != null && this.table_increment_value != null ) {
 				
 				this.table_current_value = this.table_next_value;
 				
@@ -40,13 +57,13 @@ public class CSVSchema {
 				
 			} else {
 				
-				if( this.table_increment != null ) {
+				if( this.table_increment_value != null ) {
 					
 					this.setNextTable();
 					
 				} else {
 					
-					if( this.table_random ) {
+					if( this.table_random_value ) {
 						
 						this.table_current_value = this.generateRandomTable();
 						
@@ -80,7 +97,7 @@ public class CSVSchema {
 		
 		//this.table_current_value = ((ICSVTable)value).value();
 		
-		this.table_increment = Math.abs( increment );
+		this.table_increment_value = Math.abs( increment );
 		
 		this.cleanTableStrategyRandom();
 		
@@ -88,7 +105,7 @@ public class CSVSchema {
 	
 	public void setTableStrategyRandom() throws CDRException {
 		
-		this.table_random = true;
+		this.table_random_value = true;
 		
 		this.cleanTableStrategyIncrement();
 		
@@ -102,7 +119,7 @@ public class CSVSchema {
 		
 	public void cleanTableStrategyIncrement() {
 		
-		this.table_increment = null;
+		this.table_increment_value = null;
 		
 		this.table_next_value = null;
 		
@@ -110,7 +127,7 @@ public class CSVSchema {
 	
 	public void cleanTableStrategyRandom() {
 		
-		this.table_random = false;
+		this.table_random_value = false;
 		
 	}
 
@@ -136,9 +153,27 @@ public class CSVSchema {
 		
 	}
 	
-	private void loadTable( Object entity ) {
+	private void loadTable() throws CDRException {
 		
+		if( this.table == null ) { throw new CDRException( "The schema table is not valid." ); }
 		
+		if( this.table_field == null ) { throw new CDRException( "The table field is not valid." ); }
+		
+		if( this.ds == null ) { throw new CDRException( "The data source is not valid." ); }
+		
+		String query = select( this.table_field ).from( this.table ).build();
+		
+		Mysql mysql = new Mysql( this.ds );
+						
+		ResultSet rs = mysql.execQuery( query );
+		
+		try {
+			while( rs.next() ) {
+				this.table_values.add( rs.getString( this.table_field.name() ) );
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

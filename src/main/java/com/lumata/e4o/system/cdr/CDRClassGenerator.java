@@ -13,6 +13,7 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.e4o.system.cdr.annotations.Amount;
 import com.lumata.e4o.system.cdr.annotations.Balance;
 import com.lumata.e4o.system.cdr.annotations.Date;
+import com.lumata.e4o.system.cdr.annotations.DeactivationDate;
 import com.lumata.e4o.system.cdr.annotations.Delay;
 import com.lumata.e4o.system.cdr.annotations.Download;
 import com.lumata.e4o.system.cdr.annotations.Duration;
@@ -22,6 +23,7 @@ import com.lumata.e4o.system.cdr.annotations.TenantId;
 import com.lumata.e4o.system.cdr.annotations.Terminating;
 import com.lumata.e4o.system.cdr.annotations.Type;
 import com.lumata.e4o.system.cdr.annotations.Upload;
+import com.lumata.e4o.system.cdr.annotations.ValidityDate;
 
 public class CDRClassGenerator {	
 	
@@ -44,7 +46,7 @@ public class CDRClassGenerator {
 		},
 		Revenue {	
 			public List<Class<? extends Annotation>> fields() {
-				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class, Type.class, Delay.class );
+				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class, ValidityDate.class, DeactivationDate.class, Type.class, Delay.class );
 			}
 		},
 		Call {	
@@ -223,7 +225,7 @@ public class CDRClassGenerator {
 					
 					// Get method from CDR Class						
 					Pattern pattern = Pattern.compile( method_regex.toString() );
-					System.out.println( method_regex.toString() );
+					//System.out.println( method_regex.toString() );
 					Matcher matcher = pattern.matcher( cdr_class );
 					
 					// Add method to CDR subclass

@@ -9,7 +9,7 @@ import com.lumata.e4o.system.csv.types.ICSVEnum;
 
 public class CDRRevenue extends CDR { 
 
-	private final int FIELDS = 6;
+	private final int FIELDS = 8;
 
 	public CDRRevenue() {
 		super();
@@ -17,15 +17,6 @@ public class CDRRevenue extends CDR {
 
 	public int getFieldsCount() {
 		return this.FIELDS;
-	}
-
-	@Msisdn( position = 0 )
-	public String getMsisdn() throws CDRException  {
-		return super.getMsisdn();
-	}
-
-	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
-		super.setMsisdnOptions( prefix, length );
 	}
 
 	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
@@ -38,6 +29,15 @@ public class CDRRevenue extends CDR {
 
 	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
 		super.setMsisdnStrategyRandom( min_value, max_value );
+	}
+
+	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
+		super.setMsisdnOptions( prefix, length );
+	}
+
+	@Msisdn( position = 0 )
+	public String getMsisdn() throws CDRException  {
+		return super.getMsisdn();
 	}
 
 	public void cleanMsisdn()  {
@@ -56,9 +56,8 @@ public class CDRRevenue extends CDR {
 		super.cleanMsisdnStrategyRandom() ;
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return super.getDate() ;
+	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
+		super.setDateStrategyFixed( date );
 	}
 
 	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
@@ -69,8 +68,8 @@ public class CDRRevenue extends CDR {
 		super.setDateStrategyRandom( date_left, date_right );
 	}
 
-	public void cleanDateStrategyFixed()  {
-		super.cleanDateStrategyFixed() ;
+	public void setDateFormat( String format ) throws CDRException  {
+		super.setDateFormat( format );
 	}
 
 	public void cleanDateStrategyIncrement()  {
@@ -81,17 +80,13 @@ public class CDRRevenue extends CDR {
 		super.cleanDateStrategyRandom() ;
 	}
 
-	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
-		super.setDateStrategyFixed( date );
+	public void cleanDateStrategyFixed()  {
+		super.cleanDateStrategyFixed() ;
 	}
 
-	public void setDateFormat( String format ) throws CDRException  {
-		super.setDateFormat( format );
-	}
-
-	@Amount( position = 2 )
-	public String getAmount() throws CDRException  {
-		return super.getAmount();
+	@Date( position = 1 )
+	public String getDate()  {
+		return super.getDate() ;
 	}
 
 	public void setAmountStrategyFixed( final Long current_value ) throws CDRException  {
@@ -106,6 +101,11 @@ public class CDRRevenue extends CDR {
 		super.setAmountStrategyRandom( long_left, long_right );
 	}
 
+	@Amount( position = 2 )
+	public String getAmount() throws CDRException  {
+		return super.getAmount();
+	}
+
 	public void cleanAmountStrategyFixed()  {
 		super.cleanAmountStrategyFixed() ;
 	}
@@ -116,11 +116,6 @@ public class CDRRevenue extends CDR {
 
 	public void cleanAmountStrategyRandom()  {
 		super.cleanAmountStrategyRandom() ;
-	}
-
-	@Balance( position = 3 )
-	public String getBalance() throws CDRException  {
-		return super.getBalance();
 	}
 
 	public void setBalanceStrategyFixed( final Long current_value ) throws CDRException  {
@@ -135,6 +130,11 @@ public class CDRRevenue extends CDR {
 		super.setBalanceStrategyRandom( long_left, long_right );
 	}
 
+	@Balance( position = 3 )
+	public String getBalance() throws CDRException  {
+		return super.getBalance();
+	}
+
 	public void cleanBalanceStrategyFixed()  {
 		super.cleanBalanceStrategyFixed() ;
 	}
@@ -147,9 +147,70 @@ public class CDRRevenue extends CDR {
 		super.cleanBalanceStrategyRandom() ;
 	}
 
-	@Type( position = 4 )
-	public String getType() throws CDRException  {
-		return super.getType();
+	@ValidityDate( position = 4 )
+	public String getValidityDate()  {
+		return super.getValidityDate() ;
+	}
+
+	public void setValidityDateStrategyFixed( final Calendar date ) throws CDRException  {
+		super.setValidityDateStrategyFixed( date );
+	}
+
+	public void setValidityDateFormat( String format ) throws CDRException  {
+		super.setValidityDateFormat( format );
+	}
+
+	public void setValidityDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
+		super.setValidityDateStrategyIncrement( date, increment );
+	}
+
+	public void setValidityDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
+		super.setValidityDateStrategyRandom( date_left, date_right );
+	}
+
+	public void cleanValidityDateStrategyFixed()  {
+		super.cleanValidityDateStrategyFixed() ;
+	}
+
+	public void cleanValidityDateStrategyIncrement()  {
+		super.cleanValidityDateStrategyIncrement() ;
+	}
+
+	public void cleanValidityDateStrategyRandom()  {
+		super.cleanValidityDateStrategyRandom() ;
+	}
+
+	@DeactivationDate( position = 5 )
+	public String getDeactivationDate()  {
+		return super.getDeactivationDate() ;
+	}
+
+	public void setDeactivationDateStrategyFixed( final Calendar date ) throws CDRException  {
+		super.setDeactivationDateStrategyFixed( date );
+	}
+
+	public void setDeactivationDateFormat( String format ) throws CDRException  {
+		super.setDeactivationDateFormat( format );
+	}
+
+	public void setDeactivationDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
+		super.setDeactivationDateStrategyIncrement( date, increment );
+	}
+
+	public void setDeactivationDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
+		super.setDeactivationDateStrategyRandom( date_left, date_right );
+	}
+
+	public void cleanDeactivationDateStrategyFixed()  {
+		super.cleanDeactivationDateStrategyFixed() ;
+	}
+
+	public void cleanDeactivationDateStrategyIncrement()  {
+		super.cleanDeactivationDateStrategyIncrement() ;
+	}
+
+	public void cleanDeactivationDateStrategyRandom()  {
+		super.cleanDeactivationDateStrategyRandom() ;
 	}
 
 	public void setTypeStrategyFixed( final Enum<? extends ICSVEnum> current_value ) throws CDRException  {
@@ -176,9 +237,9 @@ public class CDRRevenue extends CDR {
 		super.cleanTypeStrategyRandom() ;
 	}
 
-	@Delay( position = 5 )
-	public String getDelay() throws CDRException  {
-		return super.getDelay();
+	@Type( position = 6 )
+	public String getType() throws CDRException  {
+		return super.getType();
 	}
 
 	public void setDelayStrategyFixed( final Long current_value ) throws CDRException  {
@@ -191,6 +252,11 @@ public class CDRRevenue extends CDR {
 
 	public void setDelayStrategyRandom( final Long long_left, final Long long_right ) throws CDRException  {
 		super.setDelayStrategyRandom( long_left, long_right );
+	}
+
+	@Delay( position = 7 )
+	public String getDelay() throws CDRException  {
+		return super.getDelay();
 	}
 
 	public void cleanDelayStrategyFixed()  {
