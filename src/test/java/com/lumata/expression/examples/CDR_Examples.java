@@ -4,20 +4,25 @@ import java.util.Calendar;
 
 import org.testng.annotations.Test;
 
+import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
+import com.lumata.common.testing.io.IOFileUtils;
+import com.lumata.common.testing.system.Environment;
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.CDRClassGenerator;
 import com.lumata.e4o.system.cdr.types.CDRCall;
 import com.lumata.e4o.system.cdr.types.CDRHistory;
 import com.lumata.e4o.system.cdr.types.CDRRevenue;
 import com.lumata.e4o.system.csv.types.CSVDateIncrement;
+import com.lumata.e4o.system.csv.types.CSVSchemaTable;
 import com.lumata.e4o.system.csv.types.CSVString;
 import com.lumata.e4o.system.csv.types.CSVDate.CDRDateFormat;
+import com.lumata.e4o_tenant.schema.Profiles;
 import com.lumata.expression.operators.exceptions.CDRException;
 
 public class CDR_Examples {
 	
-	private final boolean generate_cdr_classes = true;
+	private final boolean generate_cdr_classes = false;
 	private final boolean generate_cdr = false;
 	
 	// CDR Types generation
@@ -279,6 +284,42 @@ public class CDR_Examples {
 		for( int i = 0; i < 5; i++ ) {
 			System.out.println( string.getString() );
 		}
+		
+	}
+	
+	@Test( enabled = true )
+	public void csv_schema() throws CDRException, EnvironmentException {
+		
+		Environment env = new Environment( "input/environments", "E4O_QA", IOFileUtils.IOLoadingType.RESOURCE );
+		
+		CSVSchemaTable csv_table = new CSVSchemaTable();
+		
+		csv_table.setSchemaTableOptions( env.getDataSource( "qa" ), new Profiles(), Profiles.Fields.profile );
+		
+		System.out.println( "Fixed Strategy" );
+		csv_table.setSchemaTableStrategyFixed( 0 );
+				
+		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTableValue() ); }
+
+		csv_table.setSchemaTableStrategyFixed( "postpaid" );
+		
+		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTableValue() ); }
+
+		csv_table.setSchemaTableStrategyFixed( "wrong value" );
+		
+		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTableValue() ); }
+		
+		
+		System.out.println( "\nIncrement Strategy" );
+		csv_table.setSchemaTableStrategyIncrement( 0, 5 );
+		
+		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTableValue() ); }
+		
+		
+		System.out.println( "\nRandom Strategy" );
+		csv_table.setSchemaTableStrategyRandom();
+		
+		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTableValue() ); }
 		
 	}
 	
