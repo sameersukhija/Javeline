@@ -7,6 +7,9 @@ import org.testng.annotations.Test;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.CDRClassGenerator;
+import com.lumata.e4o.system.cdr.types.CDRCall;
+import com.lumata.e4o.system.cdr.types.CDRHistory;
+import com.lumata.e4o.system.cdr.types.CDRRevenue;
 import com.lumata.e4o.system.csv.types.CSVDateIncrement;
 import com.lumata.e4o.system.csv.types.CSVString;
 import com.lumata.e4o.system.csv.types.CSVDate.CDRDateFormat;
@@ -26,7 +29,7 @@ public class CDR_Examples {
 		cdr_generator.generate();	
 
 	}
-	/*
+	
 	// CDR using
 	@Test( enabled = generate_cdr )
 	public void cdr_history_strategies() throws IOFileException, CDRException {
@@ -75,64 +78,90 @@ public class CDR_Examples {
 	}
 	
 	@Test( enabled = generate_cdr )
-	//@Test( enabled = false )
+	//@Test( enabled = true )
 	public void cdr_revenue_strategies() throws IOFileException, CDRException {
 		
-		CDRRevenue c = new CDRRevenue();
+		CDRRevenue cdrRevenue = new CDRRevenue();
+		
+		// today
 		Calendar date = Calendar.getInstance();
+		
+		// add 1 day to date
 		CSVDateIncrement increment = new CSVDateIncrement();
 		increment.setDayIncrement( 1 );
 		
 		System.out.println( "Fixed Strategy" );
-		c.setMsisdnStrategyFixed( 3399900001L );
-		c.setDateStrategyFixed( date );
-		c.addLines( 5 );
-		c.print();
-		c.clean();
+		cdrRevenue.setMsisdnStrategyFixed( 3399900001L );
+		cdrRevenue.setDateStrategyFixed( date );
+		cdrRevenue.setAmountStrategyFixed( 100L );
+		cdrRevenue.setBalanceStrategyFixed( 300L );
+		cdrRevenue.setTypeStrategyFixed( CDR.TYPE.PAIEMENT );
+		cdrRevenue.setDelayStrategyFixed( 500L );
+		cdrRevenue.addLines( 2 );
+		cdrRevenue.print();
+		cdrRevenue.clean();
 		
 		System.out.println( "Increment Strategy" );
-		c.setMsisdnStrategyIncrement( 3399900001L, 20 );
-		c.setDateStrategyIncrement( date, increment );
-		c.addLines( 5 );
-		c.print();
-		c.clean();
+		cdrRevenue.setMsisdnStrategyIncrement( 3399900001L, 20 );
+		cdrRevenue.setDateStrategyIncrement( date, increment );
+		cdrRevenue.setAmountStrategyIncrement( 100L, 10 );
+		cdrRevenue.setBalanceStrategyIncrement( 300L, 30 );
+		cdrRevenue.setTypeStrategyIncrement( CDR.TYPE.PAIEMENT, 1 );
+		cdrRevenue.setDelayStrategyIncrement( 500L, 50 );
+		cdrRevenue.addLines( 3 );
+		cdrRevenue.print();
+		cdrRevenue.clean();
 		
 		System.out.println( "Random Strategy" );
 		Calendar max_date = Calendar.getInstance();
 		System.out.println( date.get( Calendar.YEAR ) + 1 );
 		max_date.set( Calendar.YEAR , date.get( Calendar.YEAR ) + 1 );
-		c.setMsisdnStrategyRandom( 3399900010L, 3399910000L );
-		c.setDateStrategyRandom( date, max_date );
-		c.addLines( 5 );
-		c.print();
-		c.clean();
+		cdrRevenue.setMsisdnStrategyRandom( 3399900010L, 3399910000L );
+		cdrRevenue.setDateStrategyRandom( date, max_date );
+		cdrRevenue.setAmountStrategyRandom( 100L, 1000L );
+		cdrRevenue.setBalanceStrategyRandom( 300L, 3000L );
+		cdrRevenue.setTypeStrategyRandom();
+		cdrRevenue.setDelayStrategyRandom( 500L, 5000L );
+		cdrRevenue.addLines( 3 );
+		cdrRevenue.print();
+		cdrRevenue.clean();
 		
 		System.out.println( "Options setting" );
-		c.setMsisdnOptions( 39, 19 );
-		c.setDateFormat( CDRDateFormat.SQL_DATE_TIME.getFormat() );
-		
-		System.out.println( "Fixed Strategy with options" );
-		c.setMsisdnStrategyFixed( 3399900001L );
-		c.setDateStrategyFixed( date );
-		c.addLines( 5 );
-		c.print();
-		c.clean();
+		cdrRevenue.setMsisdnOptions( 39, 19 );
+		cdrRevenue.setDateFormat( CDRDateFormat.SQL_DATE_TIME.getFormat() );
 		
 		System.out.println( "Increment Strategy with options" );
-		increment.setYearIncrement( 10 );
-		increment.setMonthIncrement( 3 );
-		c.setMsisdnStrategyIncrement( 3399900001L, 20 );
-		c.setDateStrategyIncrement( date, increment );
-		c.addLines( 5 );
-		c.print();
-		c.clean();
+		cdrRevenue.setMsisdnStrategyFixed( 3399900001L );
+		cdrRevenue.setDateStrategyFixed( date );
+		cdrRevenue.setAmountStrategyFixed( 100L );
+		cdrRevenue.setBalanceStrategyFixed( 300L );
+		cdrRevenue.setTypeStrategyFixed( CDR.TYPE.PAIEMENT );
+		cdrRevenue.setDelayStrategyFixed( 500L );
+		cdrRevenue.addLines( 2 );
+		cdrRevenue.print();
+		cdrRevenue.clean();
+		
+		System.out.println( "Increment Strategy with options" );
+		cdrRevenue.setMsisdnStrategyIncrement( 3399900001L, 20 );
+		cdrRevenue.setDateStrategyIncrement( date, increment );
+		cdrRevenue.setAmountStrategyIncrement( 100L, 10 );
+		cdrRevenue.setBalanceStrategyIncrement( 300L, 30 );
+		cdrRevenue.setTypeStrategyIncrement( CDR.TYPE.PAIEMENT, 1 );
+		cdrRevenue.setDelayStrategyIncrement( 500L, 50 );
+		cdrRevenue.addLines( 3 );
+		cdrRevenue.print();
+		cdrRevenue.clean();
 		
 		System.out.println( "Random Strategy with options" );
-		c.setMsisdnStrategyRandom( 3399900010L, 3399910000L );
-		c.setDateStrategyRandom( date, max_date );
-		c.addLines( 5 );
-		c.print();
-		c.clean();		
+		cdrRevenue.setMsisdnStrategyRandom( 3399900010L, 3399910000L );
+		cdrRevenue.setDateStrategyRandom( date, max_date );
+		cdrRevenue.setAmountStrategyRandom( 100L, 1000L );
+		cdrRevenue.setBalanceStrategyRandom( 300L, 3000L );
+		cdrRevenue.setTypeStrategyRandom();
+		cdrRevenue.setDelayStrategyRandom( 500L, 5000L );
+		cdrRevenue.addLines( 3 );
+		cdrRevenue.print();
+		cdrRevenue.clean();	
 				
 	}
 		
@@ -252,5 +281,5 @@ public class CDR_Examples {
 		}
 		
 	}
-	*/
+	
 }

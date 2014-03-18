@@ -16,15 +16,6 @@ public class CDRHistory extends CDR {
 		return this.FIELDS;
 	}
 
-	@Msisdn( position = 0 )
-	public String getMsisdn() throws CDRException  {
-		return super.getMsisdn();
-	}
-
-	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
-		super.setMsisdnOptions( prefix, length );
-	}
-
 	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
 		super.setMsisdnStrategyFixed( value );
 	}
@@ -35,6 +26,15 @@ public class CDRHistory extends CDR {
 
 	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
 		super.setMsisdnStrategyRandom( min_value, max_value );
+	}
+
+	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
+		super.setMsisdnOptions( prefix, length );
+	}
+
+	@Msisdn( position = 0 )
+	public String getMsisdn() throws CDRException  {
+		return super.getMsisdn();
 	}
 
 	public void cleanMsisdn()  {

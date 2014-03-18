@@ -3,12 +3,21 @@ package com.lumata.e4o.system.cdr;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lumata.common.testing.exceptions.IOFileException;
+import com.lumata.common.testing.io.IOFileUtils;
+import com.lumata.common.testing.network.SFTPClient;
+import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.system.Environment.ServicesType;
 import com.lumata.e4o.system.cdr.annotations.Amount;
 import com.lumata.e4o.system.cdr.annotations.Balance;
 import com.lumata.e4o.system.cdr.annotations.Date;
@@ -37,7 +46,7 @@ public class CDR {
 	
 	private static final Logger logger = LoggerFactory.getLogger( CDR.class );
 	
-	private String path;
+	private String dir;
 	private String file_name;
 	private StringBuilder file_content;
 	private ArrayList<String> rows;
@@ -1088,9 +1097,59 @@ public class CDR {
 		
 	}
 	
+	public void save() throws IOFileException {
+		
+		IOFileUtils.saveResource( this.file_content.toString(), this.dir, this.file_name );
+		
+	}
 	
+	public void send( Environment remote_host, String remote_path ) {
+		
+		try {
+			
+			JSONObject ssh = remote_host.getServiceType( ServicesType.SSH );
+			
+			SFTPClient sftp = new SFTPClient( ssh.getString( "host" ), ssh.getInt( "port" ), ssh.getString( "user" ), ssh.getString( "password" ) );
+			
+			if( sftp.isConnected() ) {
+				
+				String local_path = System.getProperty( "user.dir" ) + "/src/main/resources/" + this.getDir() + "/";
+				
+	            sftp.copyFile( local_path, this.getFileName(), remote_path , this.getFileName(), SFTPClient.CopyType.LOCAL_TO_REMOTE );
+	        				
+			}
+						
+		} catch( JSONException e ) {}
+		
+	}
 	
+	public void setPath( String dir, String file_name ) {
+		
+		this.dir = dir;
+		
+		this.file_name = file_name;
+		
+	}
 	
+	public String getDir() {
+		
+		return ( this.dir != null ? this.dir : "" );
+		
+	}
+	
+	public String getFileName() {
+		
+		return ( this.file_name != null ? this.file_name : "" );
+		
+	}
+	
+	public String generateFileName() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat( "yyyyMMddHHmmss" );
+		
+		return this.getClass().getSimpleName() + "_" + sdf.format( Calendar.getInstance().getTime() ) + ".csv" ;
+		
+	}
 	
 	/*
 	
