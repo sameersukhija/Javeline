@@ -122,12 +122,6 @@ public class CSVEnum {
 								
 	}
 	
-	private int getEnumPosition() {
-		
-		return 0;
-		
-	}
-	
 	private void setNextEnum() {
 		
 		this.enum_next_pos = ( ( this.enum_curr_pos != null ? this.enum_curr_pos : 0 ) + this.enum_increment ) % this.enumeration.length;
