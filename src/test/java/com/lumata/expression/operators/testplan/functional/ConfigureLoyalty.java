@@ -69,7 +69,7 @@ public class ConfigureLoyalty {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}
 	
-	@Parameters({"tenant", "json_loyalty_create"})
+	@Parameters({"tenant", "loyaltyCreateCfg"})
 	@Test(enabled=true, priority = 1)
 	public void configureBadges(@Optional("tenant") String tenant, @Optional("loyalty_create") String loyaltyCreateCfg) throws TokenTypeException, JSONSException, IOFileException, JSONException {
 		
