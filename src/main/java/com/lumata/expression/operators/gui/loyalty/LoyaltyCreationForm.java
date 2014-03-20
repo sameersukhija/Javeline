@@ -28,9 +28,9 @@ public class LoyaltyCreationForm extends Form {
 		
 		return click("addNewProgramPopup", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='Badges']/../../../../../../..//*[@title='Add']")
 				&& sendKeys("programNameInput", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input",
-						"BadgesProgName")
+						createCfg.getProgramName())
 				&& sendKeys("programDescInput", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input",
-						"BadgesProgDesc")
+						createCfg.getProgramDesc())
 				&& click("programSave", "html/body/div[5]/div/table//*[@title='Save']")
 				&& addBadgeTypeFromList(createCfg.getTypeNameList())
 				&& click("badgeTypeClose", "html/body/div[5]/div/table//*[@title='Close']");
