@@ -82,6 +82,6 @@ public class ConfigureLoyalty {
 		Assert.assertTrue(form.create(createCfg));
 		
 		// manage program
-		Assert.assertTrue(form.manage());
+		Assert.assertTrue(form.manage(createCfg));
 	}
 }

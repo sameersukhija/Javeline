@@ -37,10 +37,11 @@ public class LoyaltyCreationForm extends Form {
 				&& click("badgeTypeClose", "html/body/div[5]/div/table//*[@title='Close']");
 	}
 	
-	public boolean manage() {
+	public boolean manage(LoyaltyCreateCfg createCfg) throws JSONException {
 
 		return click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Management']")
-				&& click("editProgram", "//*[text()='BadgesProgName']/../../../../../../../../../..//*[@title='Edit']")
+				&& clickFormat("editProgram", "//*[text()='%s']/../../../../../../../../../..//*[@title='Edit']",
+						createCfg.getProgramName())
 				&& click("addBadge", "html/body/div[5]/div/table//*[@title='Add']")
 				&& sendKeys("badgeDefinitionName", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[1]/td[2]/input",
 						"DefName")
