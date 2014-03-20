@@ -69,11 +69,11 @@ public class ConfigureLoyalty {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}
 	
-	@Parameters({"tenant"})
+	@Parameters({"tenant", "loyalty_create"})
 	@Test(enabled=true, priority = 1)
-	public void configureBadges(@Optional("tenant") String tenant) throws TokenTypeException, JSONSException, IOFileException, JSONException {
+	public void configureBadges(@Optional("tenant") String tenant, @Optional("loyalty_create") String loyaltyCreateCfg) throws TokenTypeException, JSONSException, IOFileException, JSONException {
 		
-		LoyaltyCreateCfg createCfg = new LoyaltyCreateCfg("input/loyalties", "loyalty_create");
+		LoyaltyCreateCfg createCfg = new LoyaltyCreateCfg("input/loyalties", loyaltyCreateCfg);
 		
 		// open section from menu and popup
 		Assert.assertTrue(form.open(createCfg));
