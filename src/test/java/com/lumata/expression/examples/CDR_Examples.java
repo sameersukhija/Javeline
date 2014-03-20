@@ -23,12 +23,15 @@ import com.lumata.expression.operators.exceptions.CDRException;
 public class CDR_Examples {
 	
 	private final boolean generate_cdr_classes = false;
-	private final boolean generate_cdr = false;
+	private final boolean generate_cdr = true;
 	
 	// CDR Types generation
 	@Test( enabled = generate_cdr_classes )
-	public void create_cdr_subclasses() throws IOFileException {
-		
+	public void create_cdr_subclasses() throws IOFileException, ClassNotFoundException {
+
+		System.out.println( "-----------------------------" );
+		System.out.println( "create_cdr_subclasses" );
+
 		CDRClassGenerator cdr_generator = new CDRClassGenerator();
 		
 		cdr_generator.generate();	
@@ -38,7 +41,10 @@ public class CDR_Examples {
 	// CDR using
 	@Test( enabled = generate_cdr )
 	public void cdr_history_strategies() throws IOFileException, CDRException {
-		
+
+		System.out.println( "-----------------------------" );
+		System.out.println( "cdr_history_strategies" );
+
 		CDRHistory c = new CDRHistory();
 		
 		System.out.println( "MSISDN Fixed Strategy" );
@@ -85,7 +91,10 @@ public class CDR_Examples {
 	@Test( enabled = generate_cdr )
 	//@Test( enabled = true )
 	public void cdr_revenue_strategies() throws IOFileException, CDRException {
-		
+
+		System.out.println( "-----------------------------" );
+		System.out.println( "cdr_revenue_strategies" );
+
 		CDRRevenue cdrRevenue = new CDRRevenue();
 		
 		// today
@@ -100,6 +109,8 @@ public class CDR_Examples {
 		cdrRevenue.setDateStrategyFixed( date );
 		cdrRevenue.setAmountStrategyFixed( 100L );
 		cdrRevenue.setBalanceStrategyFixed( 300L );
+		cdrRevenue.setValidityDateStrategyFixed( date );
+		cdrRevenue.setDeactivationDateStrategyFixed( date );
 		cdrRevenue.setTypeStrategyFixed( CDR.TYPE.PAIEMENT );
 		cdrRevenue.setDelayStrategyFixed( 500L );
 		cdrRevenue.addLines( 2 );
@@ -111,6 +122,8 @@ public class CDR_Examples {
 		cdrRevenue.setDateStrategyIncrement( date, increment );
 		cdrRevenue.setAmountStrategyIncrement( 100L, 10 );
 		cdrRevenue.setBalanceStrategyIncrement( 300L, 30 );
+		cdrRevenue.setValidityDateStrategyIncrement( date, increment );
+		cdrRevenue.setDeactivationDateStrategyIncrement( date, increment );
 		cdrRevenue.setTypeStrategyIncrement( CDR.TYPE.PAIEMENT, 1 );
 		cdrRevenue.setDelayStrategyIncrement( 500L, 50 );
 		cdrRevenue.addLines( 3 );
@@ -125,6 +138,8 @@ public class CDR_Examples {
 		cdrRevenue.setDateStrategyRandom( date, max_date );
 		cdrRevenue.setAmountStrategyRandom( 100L, 1000L );
 		cdrRevenue.setBalanceStrategyRandom( 300L, 3000L );
+		cdrRevenue.setValidityDateStrategyRandom( date, max_date );
+		cdrRevenue.setDeactivationDateStrategyRandom( date, max_date );
 		cdrRevenue.setTypeStrategyRandom();
 		cdrRevenue.setDelayStrategyRandom( 500L, 5000L );
 		cdrRevenue.addLines( 3 );
@@ -134,12 +149,16 @@ public class CDR_Examples {
 		System.out.println( "Options setting" );
 		cdrRevenue.setMsisdnOptions( 39, 19 );
 		cdrRevenue.setDateFormat( CDRDateFormat.SQL_DATE_TIME.getFormat() );
+		cdrRevenue.setValidityDateFormat( CDRDateFormat.SQL_DATE_TIME.getFormat() );
+		cdrRevenue.setDeactivationDateFormat( CDRDateFormat.SQL_DATE_TIME.getFormat() );
 		
 		System.out.println( "Increment Strategy with options" );
 		cdrRevenue.setMsisdnStrategyFixed( 3399900001L );
 		cdrRevenue.setDateStrategyFixed( date );
 		cdrRevenue.setAmountStrategyFixed( 100L );
 		cdrRevenue.setBalanceStrategyFixed( 300L );
+		cdrRevenue.setValidityDateStrategyFixed( date );
+		cdrRevenue.setDeactivationDateStrategyFixed( date );
 		cdrRevenue.setTypeStrategyFixed( CDR.TYPE.PAIEMENT );
 		cdrRevenue.setDelayStrategyFixed( 500L );
 		cdrRevenue.addLines( 2 );
@@ -151,6 +170,8 @@ public class CDR_Examples {
 		cdrRevenue.setDateStrategyIncrement( date, increment );
 		cdrRevenue.setAmountStrategyIncrement( 100L, 10 );
 		cdrRevenue.setBalanceStrategyIncrement( 300L, 30 );
+		cdrRevenue.setValidityDateStrategyIncrement( date, increment );
+		cdrRevenue.setDeactivationDateStrategyIncrement( date, increment );
 		cdrRevenue.setTypeStrategyIncrement( CDR.TYPE.PAIEMENT, 1 );
 		cdrRevenue.setDelayStrategyIncrement( 500L, 50 );
 		cdrRevenue.addLines( 3 );
@@ -162,6 +183,8 @@ public class CDR_Examples {
 		cdrRevenue.setDateStrategyRandom( date, max_date );
 		cdrRevenue.setAmountStrategyRandom( 100L, 1000L );
 		cdrRevenue.setBalanceStrategyRandom( 300L, 3000L );
+		cdrRevenue.setValidityDateStrategyRandom( date, max_date );
+		cdrRevenue.setDeactivationDateStrategyRandom( date, max_date );
 		cdrRevenue.setTypeStrategyRandom();
 		cdrRevenue.setDelayStrategyRandom( 500L, 5000L );
 		cdrRevenue.addLines( 3 );
@@ -170,9 +193,12 @@ public class CDR_Examples {
 				
 	}
 		
-	@Test( enabled = false )
+	@Test( enabled = generate_cdr )
 	public void cdr_call_strategies() throws CDRException {
-		
+
+		System.out.println( "-----------------------------" );
+		System.out.println( "cdr_call_strategies" );
+
 		CDRCall c = new CDRCall();
 		Calendar date = Calendar.getInstance();
 		CSVDateIncrement increment = new CSVDateIncrement();
@@ -256,9 +282,12 @@ public class CDR_Examples {
 	}
 	
 	
-	@Test( enabled = false )
+	@Test( enabled = generate_cdr )
 	public void cdr_test_string() throws CDRException {
-		
+
+		System.out.println( "-----------------------------" );
+		System.out.println( "cdr_test_string" );
+
 		CSVString string = new CSVString();
 		
 		System.out.println( "Fixed Strategy" );
@@ -287,8 +316,11 @@ public class CDR_Examples {
 		
 	}
 	
-	@Test( enabled = true )
+	@Test( enabled = false )
 	public void csv_schema() throws CDRException, EnvironmentException {
+		
+		System.out.println( "-----------------------------" );
+		System.out.println( "csv_schema" );
 		
 		Environment env = new Environment( "input/environments", "E4O_QA", IOFileUtils.IOLoadingType.RESOURCE );
 		
@@ -299,27 +331,27 @@ public class CDR_Examples {
 		System.out.println( "Fixed Strategy" );
 		csv_table.setSchemaTableStrategyFixed( 0 );
 				
-		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTableValue() ); }
+		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
 
 		csv_table.setSchemaTableStrategyFixed( "postpaid" );
 		
-		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTableValue() ); }
+		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
 
 		csv_table.setSchemaTableStrategyFixed( "wrong value" );
 		
-		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTableValue() ); }
+		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
 		
 		
 		System.out.println( "\nIncrement Strategy" );
 		csv_table.setSchemaTableStrategyIncrement( 0, 5 );
 		
-		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTableValue() ); }
+		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
 		
 		
 		System.out.println( "\nRandom Strategy" );
 		csv_table.setSchemaTableStrategyRandom();
 		
-		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTableValue() ); }
+		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
 		
 	}
 	

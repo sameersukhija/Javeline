@@ -5,12 +5,13 @@ import com.lumata.e4o.system.cdr.annotations.*;
 import com.lumata.expression.operators.exceptions.CDRException;
 import java.util.Calendar;
 import com.lumata.e4o.system.csv.types.CSVDateIncrement;
+import org.json.*;
 
-public class CDROtherUsage extends CDR { 
+public class CDRLifeCycle extends CDR { 
 
-	private final int FIELDS = 4;
+	private final int FIELDS = 3;
 
-	public CDROtherUsage() {
+	public CDRLifeCycle() {
 		super();
 	} 
 
@@ -88,62 +89,45 @@ public class CDROtherUsage extends CDR {
 		return this.date.getDate() ;
 	}
 
-	public void setAmountStrategyFixed( final Long value ) throws CDRException  {
-		if( this.amount != null ) { this.amount.setLongStrategyFixed( value ); }
+	@NewRatePlan( position = 2 )
+	public String getNewRatePlan() throws CDRException  {
+		return this.new_rate_plan.getSchemaTable();
 	}
 
-	public void cleanAmountStrategyIncrement()  {
-		if( this.amount != null ) { this.amount.cleanLongStrategyIncrement() ; }
+	public void setNewRatePlanOptions( final JSONObject dataSource, final Object entity, final Enum<?> field ) throws CDRException  {
+		if( this.new_rate_plan != null ) { this.new_rate_plan.setSchemaTableOptions( dataSource, entity, field ); }
 	}
 
-	public void cleanAmountStrategyRandom()  {
-		if( this.amount != null ) { this.amount.cleanLongStrategyRandom() ; }
+	public void setNewRatePlanStrategyFixed( final int row ) throws CDRException  {
+		if( this.new_rate_plan != null ) { this.new_rate_plan.setSchemaTableStrategyFixed( row ); }
 	}
 
-	public void setAmountStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
-		if( this.amount != null ) { this.amount.setLongStrategyIncrement( value, increment ); }
+	public void setNewRatePlanStrategyFixed( final String field_value ) throws CDRException  {
+		if( this.new_rate_plan != null ) { this.new_rate_plan.setSchemaTableStrategyFixed( field_value ); }
 	}
 
-	public void setAmountStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
-		if( this.amount != null ) { this.amount.setLongStrategyRandom( min_value, max_value ); }
+	public void cleanNewRatePlanStrategyIncrement()  {
+		if( this.new_rate_plan != null ) { this.new_rate_plan.cleanSchemaTableStrategyIncrement() ; }
 	}
 
-	public void cleanAmountStrategyFixed()  {
-		if( this.amount != null ) { this.amount.cleanLongStrategyFixed() ; }
+	public void cleanNewRatePlanStrategyRandom()  {
+		if( this.new_rate_plan != null ) { this.new_rate_plan.cleanSchemaTableStrategyRandom() ; }
 	}
 
-	@Amount( position = 2 )
-	public String getAmount() throws CDRException  {
-		return this.amount.getLong();
+	public void setNewRatePlanStrategyIncrement( final Integer start_row, final Integer increment ) throws CDRException  {
+		if( this.new_rate_plan != null ) { this.new_rate_plan.setSchemaTableStrategyIncrement( start_row, increment ); }
 	}
 
-	public void setBalanceStrategyFixed( final Long value ) throws CDRException  {
-		if( this.balance != null ) { this.balance.setLongStrategyFixed( value ); }
+	public void setNewRatePlanStrategyRandom() throws CDRException  {
+		if( this.new_rate_plan != null ) { this.new_rate_plan.setSchemaTableStrategyRandom(); }
 	}
 
-	public void cleanBalanceStrategyIncrement()  {
-		if( this.balance != null ) { this.balance.cleanLongStrategyIncrement() ; }
+	public void cleanNewRatePlanOptions()  {
+		if( this.new_rate_plan != null ) { this.new_rate_plan.cleanSchemaTableOptions() ; }
 	}
 
-	public void cleanBalanceStrategyRandom()  {
-		if( this.balance != null ) { this.balance.cleanLongStrategyRandom() ; }
-	}
-
-	public void setBalanceStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
-		if( this.balance != null ) { this.balance.setLongStrategyIncrement( value, increment ); }
-	}
-
-	public void setBalanceStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
-		if( this.balance != null ) { this.balance.setLongStrategyRandom( min_value, max_value ); }
-	}
-
-	public void cleanBalanceStrategyFixed()  {
-		if( this.balance != null ) { this.balance.cleanLongStrategyFixed() ; }
-	}
-
-	@Balance( position = 3 )
-	public String getBalance() throws CDRException  {
-		return this.balance.getLong();
+	public void cleanNewRatePlanStrategyFixed()  {
+		if( this.new_rate_plan != null ) { this.new_rate_plan.cleanSchemaTableStrategyFixed() ; }
 	}
 
 }

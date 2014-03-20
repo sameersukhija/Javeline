@@ -1,7 +1,10 @@
 package com.lumata.e4o.system.csv.types;
 
+import com.lumata.e4o.system.csv.annotations.CSVFieldLong;
+import com.lumata.e4o.system.csv.annotations.CSVMethod;
 import com.lumata.expression.operators.exceptions.CDRException;
 
+@CSVFieldLong
 public class CSVLong {
 
 	private Long long_current_value;
@@ -20,6 +23,7 @@ public class CSVLong {
 				
 	}
 
+	@CSVMethod
 	public String getLong() throws CDRException {
 		
 		if( this.long_current_value == null && ( this.long_left_value == null || this.long_right_value == null )) { return ""; } 
@@ -55,6 +59,7 @@ public class CSVLong {
 		
 	}
 
+	@CSVMethod
 	public void setLongStrategyFixed( final Long value ) throws CDRException {	
 		
 		this.long_current_value = ( value != null ? Math.abs( value ) : null );
@@ -65,6 +70,7 @@ public class CSVLong {
 		
 	}
 	
+	@CSVMethod
 	public void setLongStrategyIncrement( final Long value, final Integer increment ) throws CDRException {
 		
 		if( value == null ) { throw new CDRException( "The field cannot be null." ); }
@@ -79,6 +85,7 @@ public class CSVLong {
 		
 	}
 	
+	@CSVMethod
 	public void setLongStrategyRandom( final Long min_value, final Long max_value ) throws CDRException {
 		
 		if( min_value == null ) { throw new CDRException( "The min field value cannot be null." ); }
@@ -93,12 +100,14 @@ public class CSVLong {
 		
 	}
 	
+	@CSVMethod
 	public void cleanLongStrategyFixed() {
 		
 		this.long_current_value = null;
 			
 	}
 		
+	@CSVMethod
 	public void cleanLongStrategyIncrement() {
 		
 		this.long_increment = null;
@@ -107,6 +116,7 @@ public class CSVLong {
 		
 	}
 	
+	@CSVMethod
 	public void cleanLongStrategyRandom() {
 		
 		this.long_left_value = null;

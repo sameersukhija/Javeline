@@ -9,8 +9,11 @@ import org.json.JSONObject;
 import static com.lumata.common.testing.orm.Query.select;
 
 import com.lumata.common.testing.database.Mysql;
+import com.lumata.e4o.system.csv.annotations.CSVFieldSchemaTable;
+import com.lumata.e4o.system.csv.annotations.CSVMethod;
 import com.lumata.expression.operators.exceptions.CDRException;
 
+@CSVFieldSchemaTable
 public class CSVSchemaTable {
 
 	private ArrayList<String> table_values;
@@ -39,7 +42,8 @@ public class CSVSchemaTable {
 						
 	}
 
-	public String getSchemaTableValue() throws CDRException {
+	@CSVMethod
+	public String getSchemaTable() throws CDRException {
 						
 		if( this.table_current_value == null && this.table_random_value == false ) { return ""; } 
 		else {
@@ -76,6 +80,7 @@ public class CSVSchemaTable {
 		
 	}
 
+	@CSVMethod
 	public void setSchemaTableOptions( final JSONObject dataSource, final Object entity, final Enum<?> field ) throws CDRException {
 		
 		ds = dataSource;
@@ -86,6 +91,7 @@ public class CSVSchemaTable {
 		
 	}
 	
+	@CSVMethod
 	public void setSchemaTableStrategyFixed( final int row ) throws CDRException {	
 		
 		if( row >= this.table_values.size() ) { throw new CDRException( "The row is greater than table size" ); }
@@ -100,7 +106,8 @@ public class CSVSchemaTable {
 		
 	}
 	
-	public void setSchemaTableStrategyFixed( String field_value ) throws CDRException {	
+	@CSVMethod
+	public void setSchemaTableStrategyFixed( final String field_value ) throws CDRException {	
 		
 		this.cleanSchemaTableStrategyIncrement();
 		
@@ -110,6 +117,7 @@ public class CSVSchemaTable {
 		
 	}
 		
+	@CSVMethod
 	public void setSchemaTableStrategyIncrement( final Integer start_row, final Integer increment ) throws CDRException {
 		
 		if( start_row >= this.table_values.size() ) { throw new CDRException( "The start_row is greater than table size" ); }
@@ -126,6 +134,7 @@ public class CSVSchemaTable {
 		
 	}
 	
+	@CSVMethod
 	public void setSchemaTableStrategyRandom() throws CDRException {
 		
 		this.cleanSchemaTableStrategyIncrement();
@@ -134,6 +143,18 @@ public class CSVSchemaTable {
 		
 	}
 	
+	@CSVMethod
+	public void cleanSchemaTableOptions() {
+		
+		this.ds = null;
+		
+		this.table = null;
+		
+		this.table_field = null;
+			
+	}
+	
+	@CSVMethod
 	public void cleanSchemaTableStrategyFixed() {
 		
 		this.table_current_value = null;
@@ -142,6 +163,7 @@ public class CSVSchemaTable {
 			
 	}
 		
+	@CSVMethod
 	public void cleanSchemaTableStrategyIncrement() {
 		
 		this.cleanSchemaTableStrategyFixed();
@@ -152,6 +174,7 @@ public class CSVSchemaTable {
 		
 	}
 	
+	@CSVMethod
 	public void cleanSchemaTableStrategyRandom() {
 		
 		this.cleanSchemaTableStrategyFixed();

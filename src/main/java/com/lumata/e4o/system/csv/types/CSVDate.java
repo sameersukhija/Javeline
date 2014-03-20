@@ -3,8 +3,11 @@ package com.lumata.e4o.system.csv.types;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import com.lumata.e4o.system.csv.annotations.CSVMethod;
+import com.lumata.e4o.system.csv.annotations.CSVFieldDate;
 import com.lumata.expression.operators.exceptions.CDRException;
 
+@CSVFieldDate
 public class CSVDate {
 
 	private Calendar date_current;
@@ -42,6 +45,7 @@ public class CSVDate {
 				
 	}
 
+	@CSVMethod
 	public String getDate() {
 		
 		if( this.date_current == null && ( this.date_left == null || this.date_right == null )) { return ""; } 
@@ -97,6 +101,7 @@ public class CSVDate {
 		
 	}
 
+	@CSVMethod
 	public void setDateStrategyFixed( final Calendar date ) throws CDRException {
 		
 		this.date_current = date;
@@ -107,12 +112,14 @@ public class CSVDate {
 		
 	}
 
+	@CSVMethod
 	public void setDateFormat( String format ) throws CDRException {
 		
 		this.date_format = new SimpleDateFormat( format );
 						
 	}	
 	
+	@CSVMethod
 	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException {
 		
 		if( date == null ) { throw new CDRException( "The date cannot be null." ); }
@@ -127,6 +134,7 @@ public class CSVDate {
 		
 	}
 	
+	@CSVMethod
 	public void setDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException {
 		
 		if( date_left == null ) { throw new CDRException( "The min date cannot be null." ); }
@@ -141,12 +149,14 @@ public class CSVDate {
 		
 	}
 	
+	@CSVMethod
 	public void cleanDateStrategyFixed() {
 		
 		this.date_current = null;
 					
 	}
 	
+	@CSVMethod
 	public void cleanDateStrategyIncrement() {
 		
 		this.date_next = null;
@@ -155,6 +165,7 @@ public class CSVDate {
 					
 	}
 	
+	@CSVMethod
 	public void cleanDateStrategyRandom() {
 		
 		this.date_left = null;

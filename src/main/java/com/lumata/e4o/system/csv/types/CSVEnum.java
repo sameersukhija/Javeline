@@ -1,7 +1,10 @@
 package com.lumata.e4o.system.csv.types;
 
+import com.lumata.e4o.system.csv.annotations.CSVFieldEnum;
+import com.lumata.e4o.system.csv.annotations.CSVMethod;
 import com.lumata.expression.operators.exceptions.CDRException;
 
+@CSVFieldEnum
 public class CSVEnum {
 
 	private Enum<? extends ICSVEnum>[] enumeration;
@@ -25,6 +28,7 @@ public class CSVEnum {
 						
 	}
 
+	@CSVMethod
 	public String getEnum() throws CDRException {
 						
 		if( this.enum_current_value == null && this.enum_random == false ) { return ""; } 
@@ -62,6 +66,7 @@ public class CSVEnum {
 		
 	}
 
+	@CSVMethod
 	public void setEnumStrategyFixed( final Enum<? extends ICSVEnum> value ) throws CDRException {	
 		
 		this.enum_current_value = ( value != null && enumeration != null ? ((ICSVEnum)value).value() : null );
@@ -72,6 +77,7 @@ public class CSVEnum {
 		
 	}
 	
+	@CSVMethod
 	public void setEnumStrategyIncrement( final Enum<? extends ICSVEnum> value, final Integer increment ) throws CDRException {
 		
 		if( value == null ) { throw new CDRException( "The field cannot be null." ); }
@@ -86,6 +92,7 @@ public class CSVEnum {
 		
 	}
 	
+	@CSVMethod
 	public void setEnumStrategyRandom() throws CDRException {
 		
 		this.enum_random = true;
@@ -94,12 +101,14 @@ public class CSVEnum {
 		
 	}
 	
+	@CSVMethod
 	public void cleanEnumStrategyFixed() {
 		
 		this.enum_current_value = null;
 			
 	}
 		
+	@CSVMethod
 	public void cleanEnumStrategyIncrement() {
 		
 		this.enum_increment = null;
@@ -108,6 +117,7 @@ public class CSVEnum {
 		
 	}
 	
+	@CSVMethod
 	public void cleanEnumStrategyRandom() {
 		
 		this.enum_random = false;

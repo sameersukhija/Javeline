@@ -19,220 +19,219 @@ public class CDRCallMultitenant extends CDR {
 		return this.FIELDS;
 	}
 
-	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
-		super.setMsisdnStrategyFixed( value );
+	public void cleanMsisdnStrategyIncrement()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement() ; }
+	}
+
+	public void cleanMsisdnStrategyRandom()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom() ; }
 	}
 
 	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
-		super.setMsisdnStrategyIncrement( value, increment );
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
 	}
 
 	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
-		super.setMsisdnStrategyRandom( min_value, max_value );
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyRandom( min_value, max_value ); }
 	}
 
-	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
-		super.setMsisdnOptions( prefix, length );
+	public void cleanMsisdnFixedStrategy()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnFixedStrategy() ; }
+	}
+
+	public void cleanMsisdnOptions()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions() ; }
 	}
 
 	@Msisdn( position = 0 )
 	public String getMsisdn() throws CDRException  {
-		return super.getMsisdn();
+		return this.msisdn.getMsisdn();
 	}
 
-	public void cleanMsisdn()  {
-		super.cleanMsisdn() ;
+	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnOptions( prefix, length ); }
 	}
 
-	public void cleanMsisdnOptions()  {
-		super.cleanMsisdnOptions() ;
-	}
-
-	public void cleanMsisdnStrategyIncrement()  {
-		super.cleanMsisdnStrategyIncrement() ;
-	}
-
-	public void cleanMsisdnStrategyRandom()  {
-		super.cleanMsisdnStrategyRandom() ;
+	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
 	}
 
 	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
-		super.setDateStrategyFixed( date );
-	}
-
-	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
-		super.setDateStrategyIncrement( date, increment );
-	}
-
-	public void setDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
-		super.setDateStrategyRandom( date_left, date_right );
-	}
-
-	public void setDateFormat( String format ) throws CDRException  {
-		super.setDateFormat( format );
+		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
 
 	public void cleanDateStrategyIncrement()  {
-		super.cleanDateStrategyIncrement() ;
+		if( this.date != null ) { this.date.cleanDateStrategyIncrement() ; }
 	}
 
 	public void cleanDateStrategyRandom()  {
-		super.cleanDateStrategyRandom() ;
+		if( this.date != null ) { this.date.cleanDateStrategyRandom() ; }
+	}
+
+	public void setDateFormat( String format ) throws CDRException  {
+		if( this.date != null ) { this.date.setDateFormat( format ); }
+	}
+
+	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
+		if( this.date != null ) { this.date.setDateStrategyIncrement( date, increment ); }
+	}
+
+	public void setDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
+		if( this.date != null ) { this.date.setDateStrategyRandom( date_left, date_right ); }
 	}
 
 	public void cleanDateStrategyFixed()  {
-		super.cleanDateStrategyFixed() ;
+		if( this.date != null ) { this.date.cleanDateStrategyFixed() ; }
 	}
 
 	@Date( position = 1 )
 	public String getDate()  {
-		return super.getDate() ;
+		return this.date.getDate() ;
 	}
 
-	public void setDurationStrategyFixed( final Long current_value ) throws CDRException  {
-		super.setDurationStrategyFixed( current_value );
+	public void setDurationStrategyFixed( final Long value ) throws CDRException  {
+		if( this.duration != null ) { this.duration.setLongStrategyFixed( value ); }
 	}
 
-	public void setDurationStrategyIncrement( final Long current_value, final Integer increment ) throws CDRException  {
-		super.setDurationStrategyIncrement( current_value, increment );
+	public void cleanDurationStrategyIncrement()  {
+		if( this.duration != null ) { this.duration.cleanLongStrategyIncrement() ; }
 	}
 
-	public void setDurationStrategyRandom( final Long long_left, final Long long_right ) throws CDRException  {
-		super.setDurationStrategyRandom( long_left, long_right );
+	public void cleanDurationStrategyRandom()  {
+		if( this.duration != null ) { this.duration.cleanLongStrategyRandom() ; }
+	}
+
+	public void setDurationStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
+		if( this.duration != null ) { this.duration.setLongStrategyIncrement( value, increment ); }
+	}
+
+	public void setDurationStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
+		if( this.duration != null ) { this.duration.setLongStrategyRandom( min_value, max_value ); }
+	}
+
+	public void cleanDurationStrategyFixed()  {
+		if( this.duration != null ) { this.duration.cleanLongStrategyFixed() ; }
 	}
 
 	@Duration( position = 2 )
 	public String getDuration() throws CDRException  {
-		return super.getDuration();
+		return this.duration.getLong();
 	}
 
-	public void cleanDurationStrategyFixed()  {
-		super.cleanDurationStrategyFixed() ;
+	public void setAmountStrategyFixed( final Long value ) throws CDRException  {
+		if( this.amount != null ) { this.amount.setLongStrategyFixed( value ); }
 	}
 
-	public void cleanDurationStrategyIncrement()  {
-		super.cleanDurationStrategyIncrement() ;
+	public void cleanAmountStrategyIncrement()  {
+		if( this.amount != null ) { this.amount.cleanLongStrategyIncrement() ; }
 	}
 
-	public void cleanDurationStrategyRandom()  {
-		super.cleanDurationStrategyRandom() ;
+	public void cleanAmountStrategyRandom()  {
+		if( this.amount != null ) { this.amount.cleanLongStrategyRandom() ; }
 	}
 
-	public void setAmountStrategyFixed( final Long current_value ) throws CDRException  {
-		super.setAmountStrategyFixed( current_value );
+	public void setAmountStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
+		if( this.amount != null ) { this.amount.setLongStrategyIncrement( value, increment ); }
 	}
 
-	public void setAmountStrategyIncrement( final Long current_value, final Integer increment ) throws CDRException  {
-		super.setAmountStrategyIncrement( current_value, increment );
+	public void setAmountStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
+		if( this.amount != null ) { this.amount.setLongStrategyRandom( min_value, max_value ); }
 	}
 
-	public void setAmountStrategyRandom( final Long long_left, final Long long_right ) throws CDRException  {
-		super.setAmountStrategyRandom( long_left, long_right );
+	public void cleanAmountStrategyFixed()  {
+		if( this.amount != null ) { this.amount.cleanLongStrategyFixed() ; }
 	}
 
 	@Amount( position = 3 )
 	public String getAmount() throws CDRException  {
-		return super.getAmount();
+		return this.amount.getLong();
 	}
 
-	public void cleanAmountStrategyFixed()  {
-		super.cleanAmountStrategyFixed() ;
+	public void setBalanceStrategyFixed( final Long value ) throws CDRException  {
+		if( this.balance != null ) { this.balance.setLongStrategyFixed( value ); }
 	}
 
-	public void cleanAmountStrategyIncrement()  {
-		super.cleanAmountStrategyIncrement() ;
+	public void cleanBalanceStrategyIncrement()  {
+		if( this.balance != null ) { this.balance.cleanLongStrategyIncrement() ; }
 	}
 
-	public void cleanAmountStrategyRandom()  {
-		super.cleanAmountStrategyRandom() ;
+	public void cleanBalanceStrategyRandom()  {
+		if( this.balance != null ) { this.balance.cleanLongStrategyRandom() ; }
 	}
 
-	public void setBalanceStrategyFixed( final Long current_value ) throws CDRException  {
-		super.setBalanceStrategyFixed( current_value );
+	public void setBalanceStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
+		if( this.balance != null ) { this.balance.setLongStrategyIncrement( value, increment ); }
 	}
 
-	public void setBalanceStrategyIncrement( final Long current_value, final Integer increment ) throws CDRException  {
-		super.setBalanceStrategyIncrement( current_value, increment );
+	public void setBalanceStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
+		if( this.balance != null ) { this.balance.setLongStrategyRandom( min_value, max_value ); }
 	}
 
-	public void setBalanceStrategyRandom( final Long long_left, final Long long_right ) throws CDRException  {
-		super.setBalanceStrategyRandom( long_left, long_right );
+	public void cleanBalanceStrategyFixed()  {
+		if( this.balance != null ) { this.balance.cleanLongStrategyFixed() ; }
 	}
 
 	@Balance( position = 4 )
 	public String getBalance() throws CDRException  {
-		return super.getBalance();
-	}
-
-	public void cleanBalanceStrategyFixed()  {
-		super.cleanBalanceStrategyFixed() ;
-	}
-
-	public void cleanBalanceStrategyIncrement()  {
-		super.cleanBalanceStrategyIncrement() ;
-	}
-
-	public void cleanBalanceStrategyRandom()  {
-		super.cleanBalanceStrategyRandom() ;
-	}
-
-	public void setTerminatingStrategyFixed( final Enum<? extends ICSVEnum> current_value ) throws CDRException  {
-		super.setTerminatingStrategyFixed( current_value );
-	}
-
-	public void setTerminatingStrategyIncrement( final Enum<? extends ICSVEnum> current_value, final Integer increment ) throws CDRException  {
-		super.setTerminatingStrategyIncrement( current_value, increment );
-	}
-
-	public void setTerminatingStrategyRandom() throws CDRException  {
-		super.setTerminatingStrategyRandom();
+		return this.balance.getLong();
 	}
 
 	@Terminating( position = 5 )
 	public String getTerminating() throws CDRException  {
-		return super.getTerminating();
+		return this.terminating.getEnum();
 	}
 
-	public void cleanTerminatingStrategyFixed()  {
-		super.cleanTerminatingStrategyFixed() ;
+	public void setTerminatingStrategyFixed( final Enum<? extends ICSVEnum> value ) throws CDRException  {
+		if( this.terminating != null ) { this.terminating.setEnumStrategyFixed( value ); }
 	}
 
 	public void cleanTerminatingStrategyIncrement()  {
-		super.cleanTerminatingStrategyIncrement() ;
+		if( this.terminating != null ) { this.terminating.cleanEnumStrategyIncrement() ; }
 	}
 
 	public void cleanTerminatingStrategyRandom()  {
-		super.cleanTerminatingStrategyRandom() ;
+		if( this.terminating != null ) { this.terminating.cleanEnumStrategyRandom() ; }
+	}
+
+	public void setTerminatingStrategyIncrement( final Enum<? extends ICSVEnum> value, final Integer increment ) throws CDRException  {
+		if( this.terminating != null ) { this.terminating.setEnumStrategyIncrement( value, increment ); }
+	}
+
+	public void setTerminatingStrategyRandom() throws CDRException  {
+		if( this.terminating != null ) { this.terminating.setEnumStrategyRandom(); }
+	}
+
+	public void cleanTerminatingStrategyFixed()  {
+		if( this.terminating != null ) { this.terminating.cleanEnumStrategyFixed() ; }
+	}
+
+	public void setTenantIdStrategyFixed( final Long value ) throws CDRException  {
+		if( this.tenant_id != null ) { this.tenant_id.setLongStrategyFixed( value ); }
+	}
+
+	public void cleanTenantIdStrategyIncrement()  {
+		if( this.tenant_id != null ) { this.tenant_id.cleanLongStrategyIncrement() ; }
+	}
+
+	public void cleanTenantIdStrategyRandom()  {
+		if( this.tenant_id != null ) { this.tenant_id.cleanLongStrategyRandom() ; }
+	}
+
+	public void setTenantIdStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
+		if( this.tenant_id != null ) { this.tenant_id.setLongStrategyIncrement( value, increment ); }
+	}
+
+	public void setTenantIdStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
+		if( this.tenant_id != null ) { this.tenant_id.setLongStrategyRandom( min_value, max_value ); }
+	}
+
+	public void cleanTenantIdStrategyFixed()  {
+		if( this.tenant_id != null ) { this.tenant_id.cleanLongStrategyFixed() ; }
 	}
 
 	@TenantId( position = 6 )
 	public String getTenantId() throws CDRException  {
-		return super.getTenantId();
+		return this.tenant_id.getLong();
 	}
 
-	public void setTenantIdStrategyFixed( final Long current_value ) throws CDRException  {
-		super.setTenantIdStrategyFixed( current_value );
-	}
-
-	public void setTenantIdStrategyIncrement( final Long current_value, final Integer increment ) throws CDRException  {
-		super.setTenantIdStrategyIncrement( current_value, increment );
-	}
-
-	public void setTenantIdStrategyRandom( final Long long_left, final Long long_right ) throws CDRException  {
-		super.setTenantIdStrategyRandom( long_left, long_right );
-	}
-
-	public void cleanTenantIdStrategyFixed()  {
-		super.cleanTenantIdStrategyFixed() ;
-	}
-
-	public void cleanTenantIdStrategyIncrement()  {
-		super.cleanTenantIdStrategyIncrement() ;
-	}
-
-	public void cleanTenantIdStrategyRandom()  {
-		super.cleanTenantIdStrategyRandom() ;
-	}
-
-
- }
+}

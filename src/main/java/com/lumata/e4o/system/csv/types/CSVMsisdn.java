@@ -1,7 +1,10 @@
 package com.lumata.e4o.system.csv.types;
 
+import com.lumata.e4o.system.csv.annotations.CSVMethod;
+import com.lumata.e4o.system.csv.annotations.CSVFieldMsisdn;
 import com.lumata.expression.operators.exceptions.CDRException;
 
+@CSVFieldMsisdn
 public class CSVMsisdn {
 
 	private Integer msisdn_prefix;
@@ -24,6 +27,7 @@ public class CSVMsisdn {
 		
 	}
 
+	@CSVMethod
 	public String getMsisdn() throws CDRException {
 		
 		if( this.msisdn_current_value == null && ( this.msisdn_left_value == null || this.msisdn_right_value == null )) { return ""; } 
@@ -59,6 +63,7 @@ public class CSVMsisdn {
 		
 	}
 	
+	@CSVMethod
 	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException {
 		
 		if( length != null && length > 19 ) { throw new CDRException( "The msisdn length must be less than 20." ); }
@@ -69,6 +74,7 @@ public class CSVMsisdn {
 		
 	}
 
+	@CSVMethod
 	public void setMsisdnStrategyFixed( final Long value ) throws CDRException {	
 		
 		this.msisdn_current_value = ( value != null ? Math.abs( value ) : null );
@@ -79,6 +85,7 @@ public class CSVMsisdn {
 		
 	}
 	
+	@CSVMethod
 	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException {
 		
 		if( value == null ) { throw new CDRException( "The msisdn cannot be null." ); }
@@ -93,6 +100,7 @@ public class CSVMsisdn {
 		
 	}
 	
+	@CSVMethod
 	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException {
 		
 		if( min_value == null ) { throw new CDRException( "The min msisdn value cannot be null." ); }
@@ -107,12 +115,14 @@ public class CSVMsisdn {
 		
 	}
 	
+	@CSVMethod
 	public void cleanMsisdnFixedStrategy() {
 		
 		this.msisdn_current_value = null;
 			
 	}
 	
+	@CSVMethod
 	public void cleanMsisdnOptions() {
 				
 		this.msisdn_prefix = null;
@@ -123,6 +133,7 @@ public class CSVMsisdn {
 				
 	}
 	
+	@CSVMethod
 	public void cleanMsisdnStrategyIncrement() {
 		
 		this.msisdn_increment = null;
@@ -131,6 +142,7 @@ public class CSVMsisdn {
 		
 	}
 	
+	@CSVMethod
 	public void cleanMsisdnStrategyRandom() {
 		
 		this.msisdn_left_value = null;

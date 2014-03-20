@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD,ElementType.FIELD})
-public @interface Date {
+public @interface NewRatePlan {
 	int position() default 0;
 }

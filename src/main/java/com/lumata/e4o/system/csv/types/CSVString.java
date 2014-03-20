@@ -2,8 +2,11 @@ package com.lumata.e4o.system.csv.types;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+import com.lumata.e4o.system.csv.annotations.CSVFieldString;
+import com.lumata.e4o.system.csv.annotations.CSVMethod;
 import com.lumata.expression.operators.exceptions.CDRException;
 
+@CSVFieldString
 public class CSVString {
 
 	private String string_current_value;
@@ -24,6 +27,7 @@ public class CSVString {
 		
 	}
 
+	@CSVMethod
 	public String getString() throws CDRException {
 		
 		if( this.string_current_value == null && !this.string_random ) { return ""; } 
@@ -49,12 +53,14 @@ public class CSVString {
 		
 	}
 	
+	@CSVMethod
 	public void setStringLength( final Integer length ) throws CDRException {
 		
 		this.string_length = ( length != null ? Math.abs( length ) : DEFAULT_STRING_LENGTH );
 		
 	}
 
+	@CSVMethod
 	public void setStringStrategyFixed( final String value ) throws CDRException {	
 					
 		this.cleanStringStrategyIncrement();
@@ -65,6 +71,7 @@ public class CSVString {
 			
 	}
 	
+	@CSVMethod
 	public void setStringStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws CDRException {	
 		
 		this.cleanStringStrategyRandom();
@@ -77,6 +84,7 @@ public class CSVString {
 				
 	}
 	
+	@CSVMethod
 	public void setStringStrategyRandom( int length ) throws CDRException {
 		
 		this.cleanStringStrategyIncrement();
@@ -87,6 +95,7 @@ public class CSVString {
 				
 	}
 	
+	@CSVMethod
 	public void cleanString() {
 		
 		this.string_current_value = null;
@@ -95,6 +104,7 @@ public class CSVString {
 			
 	}
 	
+	@CSVMethod
 	public void cleanStringLength() {
 		
 		if( this.string_current_value != null ) { this.string_length = this.string_current_value.length(); }
@@ -102,6 +112,7 @@ public class CSVString {
 				
 	}
 	
+	@CSVMethod
 	public void cleanStringStrategyIncrement() {
 		
 		this.string_current_value = null;
@@ -114,6 +125,7 @@ public class CSVString {
 		
 	}
 	
+	@CSVMethod
 	public void cleanStringStrategyRandom() {
 		
 		this.string_current_value = null;
