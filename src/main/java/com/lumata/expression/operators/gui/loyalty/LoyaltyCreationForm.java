@@ -1,5 +1,8 @@
 package com.lumata.expression.operators.gui.loyalty;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.json.JSONException;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
@@ -29,10 +32,13 @@ public class LoyaltyCreationForm extends Form {
 				&& sendKeys("programDescInput", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input",
 						"BadgesProgDesc")
 				&& click("programSave", "html/body/div[5]/div/table//*[@title='Save']")
-				&& click("addBadgeType", "html/body/div[5]/div/table//*[@title='Add']")
-				&& sendKeys("badgeNameInput", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td[2]/input",
-						"Gold")
-				&& click("badgeTypeSave", "html/body/div[7]/div/table//*[@title='Save']")
+				
+				//&& click("addBadgeType", "html/body/div[5]/div/table//*[@title='Add']")
+				//&& sendKeys("badgeNameInput", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td[2]/input",
+				//		"Gold")
+				&& addBadgeTypeFromList(Arrays.asList("Gold", "Silver")) // TODO: use the configuration
+				//&& click("badgeTypeSave", "html/body/div[7]/div/table//*[@title='Save']")
+				
 				&& click("badgeTypeClose", "html/body/div[5]/div/table//*[@title='Close']");
 	}
 	
@@ -61,6 +67,19 @@ public class LoyaltyCreationForm extends Form {
 		
 	}
 
+	private boolean addBadgeTypeFromList(List<String> badgeTypeList) {
+		boolean ok = true;
+		
+		for (String badgeType : badgeTypeList) {
+			ok = click("addBadgeType", "html/body/div[5]/div/table//*[@title='Add']")
+					&& sendKeys("badgeNameInput", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td[2]/input",
+							badgeType)
+					&& click("badgeTypeSave", "html/body/div[7]/div/table//*[@title='Save']");
+		}
+		
+		return ok;
+	}
+	
 	/*private Integer selectLoyaltyProgramsCount() {
 		Integer loyaltyProgramsCount = 0;
 		
