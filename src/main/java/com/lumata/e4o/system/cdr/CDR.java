@@ -13,15 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.IOFileException;
-import com.lumata.common.testing.generators.container.VoucherCodes;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.network.SFTPClient;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.ServicesType;
-import com.lumata.e4o.system.cdr.annotations.BundleBalance;
-import com.lumata.e4o.system.cdr.annotations.BundleName;
-import com.lumata.e4o.system.cdr.annotations.BundlePurchased;
-import com.lumata.e4o.system.cdr.annotations.Location;
 /** cdr field types */
 import com.lumata.e4o.system.cdr.annotations.Msisdn;
 import com.lumata.e4o.system.cdr.annotations.Date;
@@ -51,6 +46,10 @@ import com.lumata.e4o.system.cdr.annotations.Download;
 import com.lumata.e4o.system.cdr.annotations.Duration;
 import com.lumata.e4o.system.cdr.annotations.VoucherCode;
 import com.lumata.e4o.system.csv.types.CSVBoolean;
+import com.lumata.e4o.system.cdr.annotations.BundleBalance;
+import com.lumata.e4o.system.cdr.annotations.BundleName;
+import com.lumata.e4o.system.cdr.annotations.BundlePurchased;
+import com.lumata.e4o.system.cdr.annotations.Location;
 /** csv field types */
 import com.lumata.e4o.system.csv.types.CSVMsisdn;
 import com.lumata.e4o.system.csv.types.CSVDate;
@@ -59,9 +58,11 @@ import com.lumata.e4o.system.csv.types.CSVLong;
 import com.lumata.e4o.system.csv.types.CSVString;
 import com.lumata.e4o.system.csv.types.ICSVEnum;
 import com.lumata.e4o.system.csv.types.CSVSchemaTable;
+/** schema classes */
 import com.lumata.e4o_tenant.schema.Profiles;
 import com.lumata.e4o_tenant.schema.Statuses;
 import com.lumata.e4o_tenant.schema.SupportedRatePlan;
+import com.lumata.e4o_tenant.schema.VoucherCodes;
 
 /** CDR exception */
 //import com.lumata.expression.operators.exceptions.CDRException;
