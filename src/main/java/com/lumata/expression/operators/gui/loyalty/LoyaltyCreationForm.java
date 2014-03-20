@@ -24,7 +24,7 @@ public class LoyaltyCreationForm extends Form {
 						createCfg.getAccordionName());
 	}
 
-	public boolean create() {
+	public boolean create(LoyaltyCreateCfg createCfg) throws JSONException {
 		
 		return click("addNewProgramPopup", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='Badges']/../../../../../../..//*[@title='Add']")
 				&& sendKeys("programNameInput", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input",
@@ -32,13 +32,7 @@ public class LoyaltyCreationForm extends Form {
 				&& sendKeys("programDescInput", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input",
 						"BadgesProgDesc")
 				&& click("programSave", "html/body/div[5]/div/table//*[@title='Save']")
-				
-				//&& click("addBadgeType", "html/body/div[5]/div/table//*[@title='Add']")
-				//&& sendKeys("badgeNameInput", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td[2]/input",
-				//		"Gold")
-				&& addBadgeTypeFromList(Arrays.asList("Gold", "Silver")) // TODO: use the configuration
-				//&& click("badgeTypeSave", "html/body/div[7]/div/table//*[@title='Save']")
-				
+				&& addBadgeTypeFromList(createCfg.getTypeNameList())
 				&& click("badgeTypeClose", "html/body/div[5]/div/table//*[@title='Close']");
 	}
 	

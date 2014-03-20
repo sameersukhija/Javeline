@@ -43,7 +43,7 @@ public class LoyaltyCreateCfg {
 		return root.getString("program_desc");
 	}
 
-	public List<String> getTypeName() throws JSONException {
+	public List<String> getTypeNameList() throws JSONException {
 		List<String> list = new ArrayList<String>();
 		
 		JSONArray jsonArray = root.getJSONArray("type_name_list");
@@ -62,6 +62,6 @@ public class LoyaltyCreateCfg {
 		System.out.println(cfg.getAccordionName());
 		System.out.println(cfg.getProgramName());
 		System.out.println(cfg.getProgramDesc());
-		System.out.println(cfg.getTypeName());
+		System.out.println(cfg.getTypeNameList());
 	}
 }
