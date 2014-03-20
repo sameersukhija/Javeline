@@ -2,5 +2,5 @@
 	"accordion_name": "Badges",
 	"program_name": "BadgesProgName",
 	"program_desc": "BadgesProgDesc",
-	"type_name": "Gold"
+	"type_name_list": ["Gold", "Silver"]
 }

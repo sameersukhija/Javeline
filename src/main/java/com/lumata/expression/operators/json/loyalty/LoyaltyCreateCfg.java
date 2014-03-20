@@ -1,5 +1,9 @@
 package com.lumata.expression.operators.json.loyalty;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,8 +43,16 @@ public class LoyaltyCreateCfg {
 		return root.getString("program_desc");
 	}
 
-	public String getTypeName() throws JSONException {
-		return root.getString("type_name");
+	public List<String> getTypeName() throws JSONException {
+		List<String> list = new ArrayList<String>();
+		
+		JSONArray jsonArray = root.getJSONArray("type_name_list");
+		
+		for (int i=0; i<jsonArray.length(); i++) {
+			list.add( jsonArray.getString(i) );
+		}
+		
+		return list;
 	}
 	
 	public static void main(String[] args) throws Exception {
