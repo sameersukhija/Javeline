@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD})
-public @interface Duration {
+@Target({ElementType.METHOD,ElementType.FIELD})
+public @interface NewRatePlan {
 	int position() default 0;
 }

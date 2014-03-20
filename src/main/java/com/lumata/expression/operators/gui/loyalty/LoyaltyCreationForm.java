@@ -54,6 +54,7 @@ public class LoyaltyCreationForm extends Form {
 						"1")
 				&& click("saveBadge", "html/body/div[7]/div/table//*[@title='Save']")
 				&& click("closeBadge", "html/body/div[5]/div/table//*[@title='Close']");
+		
 	}
 
 	/*private Integer selectLoyaltyProgramsCount() {
