@@ -5,12 +5,10 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.io.JSONUtils;
-import com.lumata.common.testing.validating.Format;
+import com.lumata.expression.operators.json.common.JsonConfig;
 
 /*
 
@@ -18,17 +16,15 @@ import com.lumata.common.testing.validating.Format;
 	"accordion_name": "Badges",
 	"program_name": "BadgesProgName",
 	"program_desc": "BadgesProgDesc",
-	"type_name": "Gold"
+	"type_name_list": ["Gold", "Silver"]
 }
 
  */
 
-public class LoyaltyCreateCfg {
+public class LoyaltyCreateCfg extends JsonConfig {
 
-	private JSONObject root;
-	
 	public LoyaltyCreateCfg(String path, String jsonFile) throws JSONSException, IOFileException {
-		root = JSONUtils.loadJSONResource(path, jsonFile + Format.JSON_EXTENSION);
+		super(path, jsonFile);
 	}
 	
 	public String getAccordionName() throws JSONException {

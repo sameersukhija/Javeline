@@ -1,0 +1,24 @@
+{
+	"definition": {
+		"name": "badgeDefinitionName",
+		"description": "badgeDefinitionDesc"
+	},
+
+	"scheduling": {
+	},
+	
+	"pending": {
+	},
+
+	"awarded": {
+		"event_type": "Revenue",
+		"action_plus": "1",
+		"action_unit": "/recharge"
+	},
+
+	"redeemed": {
+	},
+	
+	"activation": {
+	}
+}
