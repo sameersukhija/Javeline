@@ -16,12 +16,8 @@ public class CDRHistory extends CDR {
 		return this.FIELDS;
 	}
 
-	public void cleanMsisdnStrategyIncrement()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement() ; }
-	}
-
-	public void cleanMsisdnStrategyRandom()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom() ; }
+	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
 	}
 
 	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
@@ -30,6 +26,10 @@ public class CDRHistory extends CDR {
 
 	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyRandom( min_value, max_value ); }
+	}
+
+	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnOptions( prefix, length ); }
 	}
 
 	public void cleanMsisdnFixedStrategy()  {
@@ -45,12 +45,12 @@ public class CDRHistory extends CDR {
 		return this.msisdn.getMsisdn();
 	}
 
-	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
-		if( this.msisdn != null ) { this.msisdn.setMsisdnOptions( prefix, length ); }
+	public void cleanMsisdnStrategyIncrement()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement() ; }
 	}
 
-	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
-		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
+	public void cleanMsisdnStrategyRandom()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom() ; }
 	}
 
 }

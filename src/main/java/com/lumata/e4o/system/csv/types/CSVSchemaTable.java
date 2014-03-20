@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.json.JSONObject;
 
 import static com.lumata.common.testing.orm.Query.select;
+import static com.lumata.common.testing.orm.Filter.distinct;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.e4o.system.csv.annotations.CSVFieldSchemaTable;
@@ -27,11 +28,11 @@ public class CSVSchemaTable {
 	private Integer table_increment_value;
 	private Boolean table_random_value;
 		
-	public CSVSchemaTable() {
+	public CSVSchemaTable( final Object entity, final Enum<?> field ) {
 					
 		ds = null;
-		table = null;
-		table_field = null;
+		table = entity;
+		table_field = field;
 		table_values = null;
 		table_current_value = null;
 		table_random_value = false;
@@ -81,12 +82,10 @@ public class CSVSchemaTable {
 	}
 
 	@CSVMethod
-	public void setSchemaTableOptions( final JSONObject dataSource, final Object entity, final Enum<?> field ) throws CDRException {
+	public void setSchemaTableValues( final JSONObject dataSource ) throws CDRException {
 		
 		ds = dataSource;
-		table = entity;
-		table_field = field;
-		
+				
 		this.loadSchemaTable();
 		
 	}
@@ -225,7 +224,7 @@ public class CSVSchemaTable {
 		
 		if( this.ds == null ) { throw new CDRException( "The data source is not valid." ); }
 		
-		String query = select( this.table_field ).from( this.table ).build();
+		String query = select( distinct( this.table_field ) ).from( this.table ).build();
 		
 		Mysql mysql = new Mysql( this.ds );
 						
