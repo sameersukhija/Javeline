@@ -17,6 +17,10 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils;
+import com.lumata.e4o.system.cdr.annotations.BundleBalance;
+import com.lumata.e4o.system.cdr.annotations.BundleName;
+import com.lumata.e4o.system.cdr.annotations.BundlePurchased;
+import com.lumata.e4o.system.cdr.annotations.Location;
 import com.lumata.e4o.system.cdr.annotations.Msisdn;
 import com.lumata.e4o.system.cdr.annotations.Amount;
 import com.lumata.e4o.system.cdr.annotations.Balance;
@@ -25,13 +29,25 @@ import com.lumata.e4o.system.cdr.annotations.DeactivationDate;
 import com.lumata.e4o.system.cdr.annotations.Delay;
 import com.lumata.e4o.system.cdr.annotations.Download;
 import com.lumata.e4o.system.cdr.annotations.Duration;
+import com.lumata.e4o.system.cdr.annotations.NewNetwork;
+import com.lumata.e4o.system.cdr.annotations.NewProfile;
 import com.lumata.e4o.system.cdr.annotations.NewRatePlan;
+import com.lumata.e4o.system.cdr.annotations.NewStatus;
+import com.lumata.e4o.system.cdr.annotations.NewSubProfile;
+import com.lumata.e4o.system.cdr.annotations.NewSubscriptionDate;
+import com.lumata.e4o.system.cdr.annotations.OldNetwork;
+import com.lumata.e4o.system.cdr.annotations.OldProfile;
+import com.lumata.e4o.system.cdr.annotations.OldRatePlan;
+import com.lumata.e4o.system.cdr.annotations.OldStatus;
+import com.lumata.e4o.system.cdr.annotations.OldSubProfile;
+import com.lumata.e4o.system.cdr.annotations.OldSubscriptionDate;
 import com.lumata.e4o.system.cdr.annotations.Sms;
 import com.lumata.e4o.system.cdr.annotations.TenantId;
 import com.lumata.e4o.system.cdr.annotations.Terminating;
 import com.lumata.e4o.system.cdr.annotations.Type;
 import com.lumata.e4o.system.cdr.annotations.Upload;
 import com.lumata.e4o.system.cdr.annotations.ValidityDate;
+import com.lumata.e4o.system.cdr.annotations.VoucherCode;
 import com.lumata.e4o.system.csv.annotations.CSVMethod;
 
 public class CDRClassGenerator {	
@@ -64,10 +80,19 @@ public class CDRClassGenerator {
 				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class, ValidityDate.class, DeactivationDate.class, Type.class, Delay.class );
 			}
 		},
-		//MSISDN|DATE|NEW_RATEPLAN|OLD_RATEPLAN|NEW_PROFILE|OLD_PROFILE|NEW_SUBPROFILE|OLD_SUBPROFILE|NEW_STATUS|OLD_STATUS|NEW_NETWORK|OLD_NETWORK|NEW_SUBSCRIPTIONDATE|OLD_SUBSCRIPTIONDATE  
+		Bundle {	
+			public List<Class<? extends Annotation>> fields() {
+				return Arrays.asList( Msisdn.class, Date.class, BundleName.class, BundleBalance.class, BundlePurchased.class );
+			}
+		},
+		Voucher {	
+			public List<Class<? extends Annotation>> fields() {
+				return Arrays.asList( Msisdn.class, VoucherCode.class, Date.class, Location.class );
+			}
+		},
 		LifeCycle {	
 			public List<Class<? extends Annotation>> fields() {
-				return Arrays.asList( Msisdn.class, Date.class, NewRatePlan.class /*, Amount.class, Balance.class, ValidityDate.class, DeactivationDate.class, Type.class, Delay.class*/ );
+				return Arrays.asList( Msisdn.class, Date.class, NewRatePlan.class, OldRatePlan.class, NewProfile.class, OldProfile.class, NewSubProfile.class, OldSubProfile.class, NewStatus.class, OldStatus.class, NewNetwork.class, OldNetwork.class, NewSubscriptionDate.class, OldSubscriptionDate.class );
 			}
 		},
 		Call {	

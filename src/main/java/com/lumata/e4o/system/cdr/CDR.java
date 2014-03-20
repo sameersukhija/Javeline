@@ -13,16 +13,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.IOFileException;
+import com.lumata.common.testing.generators.container.VoucherCodes;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.network.SFTPClient;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.ServicesType;
-
+import com.lumata.e4o.system.cdr.annotations.BundleBalance;
+import com.lumata.e4o.system.cdr.annotations.BundleName;
+import com.lumata.e4o.system.cdr.annotations.BundlePurchased;
+import com.lumata.e4o.system.cdr.annotations.Location;
 /** cdr field types */
 import com.lumata.e4o.system.cdr.annotations.Msisdn;
 import com.lumata.e4o.system.cdr.annotations.Date;
+import com.lumata.e4o.system.cdr.annotations.NewNetwork;
+import com.lumata.e4o.system.cdr.annotations.NewProfile;
 import com.lumata.e4o.system.cdr.annotations.NewRatePlan;
+import com.lumata.e4o.system.cdr.annotations.NewStatus;
+import com.lumata.e4o.system.cdr.annotations.NewSubProfile;
 import com.lumata.e4o.system.cdr.annotations.NewSubscriptionDate;
+import com.lumata.e4o.system.cdr.annotations.OldNetwork;
+import com.lumata.e4o.system.cdr.annotations.OldProfile;
+import com.lumata.e4o.system.cdr.annotations.OldRatePlan;
+import com.lumata.e4o.system.cdr.annotations.OldStatus;
+import com.lumata.e4o.system.cdr.annotations.OldSubProfile;
 import com.lumata.e4o.system.cdr.annotations.OldSubscriptionDate;
 import com.lumata.e4o.system.cdr.annotations.Sms;
 import com.lumata.e4o.system.cdr.annotations.TenantId;
@@ -36,17 +49,22 @@ import com.lumata.e4o.system.cdr.annotations.DeactivationDate;
 import com.lumata.e4o.system.cdr.annotations.Delay;
 import com.lumata.e4o.system.cdr.annotations.Download;
 import com.lumata.e4o.system.cdr.annotations.Duration;
-
+import com.lumata.e4o.system.cdr.annotations.VoucherCode;
+import com.lumata.e4o.system.csv.types.CSVBoolean;
 /** csv field types */
 import com.lumata.e4o.system.csv.types.CSVMsisdn;
 import com.lumata.e4o.system.csv.types.CSVDate;
 import com.lumata.e4o.system.csv.types.CSVEnum;
 import com.lumata.e4o.system.csv.types.CSVLong;
+import com.lumata.e4o.system.csv.types.CSVString;
 import com.lumata.e4o.system.csv.types.ICSVEnum;
 import com.lumata.e4o.system.csv.types.CSVSchemaTable;
+import com.lumata.e4o_tenant.schema.Profiles;
+import com.lumata.e4o_tenant.schema.Statuses;
+import com.lumata.e4o_tenant.schema.SupportedRatePlan;
 
 /** CDR exception */
-import com.lumata.expression.operators.exceptions.CDRException;
+//import com.lumata.expression.operators.exceptions.CDRException;
 
 public class CDR {
 	
@@ -86,9 +104,21 @@ public class CDR {
 	
 	@Type
 	protected CSVEnum type;
-	//BundleName, 
-	//BundleBalance, 
-	//BundlePurchased,
+	
+	@VoucherCode
+	protected CSVString voucher_code; 
+	
+	@Location
+	protected CSVSchemaTable location;
+		
+	@BundleName
+	protected CSVString bundle_name; 
+	
+	@BundleBalance
+	protected CSVLong bundle_balance;
+	
+	@BundlePurchased
+	protected CSVBoolean bundle_purchased;
 	
 	@Download
 	protected CSVLong download;
@@ -98,16 +128,34 @@ public class CDR {
 	
 	@NewRatePlan
 	protected CSVSchemaTable new_rate_plan;
-	//OldRatePlan,
-	//NewProfile,
-	//OldProfile,
-	//NewSubProfile,
-	//OldSubProfile,
-	//NewStatus,
-	//OldStatus,
-	//NewNetwork,
-	//OldNetwork,
 	
+	@OldRatePlan
+	protected CSVSchemaTable old_rate_plan;
+	
+	@NewProfile
+	protected CSVSchemaTable new_profile;
+	
+	@OldProfile
+	protected CSVSchemaTable old_profile;
+	
+	@NewSubProfile
+	protected CSVString new_subprofile;
+	
+	@OldSubProfile
+	protected CSVString old_subprofile;
+
+	@NewStatus
+	protected CSVSchemaTable new_status;
+	
+	@OldStatus
+	protected CSVSchemaTable old_status;
+
+	@NewNetwork
+	protected CSVString new_network; 
+
+	@OldNetwork
+	protected CSVString old_network; 
+		
 	@NewSubscriptionDate
 	protected CSVDate new_subscription_date;
 	
@@ -187,6 +235,21 @@ public class CDR {
 		this.terminating = new CSVEnum( TERMINATING.values() );
 		this.delay = new CSVLong();
 		this.type = new CSVEnum( TYPE.values() );
+		this.voucher_code = new CSVString(); 
+		this.location = new CSVSchemaTable( new VoucherCodes(), VoucherCodes.Fields.location_id );
+		this.bundle_name = new CSVString(); 
+		this.bundle_balance = new CSVLong();
+		this.bundle_purchased = new CSVBoolean();
+		this.new_rate_plan = new CSVSchemaTable( new SupportedRatePlan(), SupportedRatePlan.Fields.rate_plan );
+		this.old_rate_plan = new CSVSchemaTable( new SupportedRatePlan(), SupportedRatePlan.Fields.rate_plan );
+		this.new_profile = new CSVSchemaTable( new Profiles(), Profiles.Fields.profile );
+		this.old_profile = new CSVSchemaTable( new Profiles(), Profiles.Fields.profile );
+		this.new_subprofile = new CSVString();
+		this.old_subprofile = new CSVString();
+		this.new_status = new CSVSchemaTable( new Statuses(), Statuses.Fields.status );
+		this.old_status = new CSVSchemaTable( new Statuses(), Statuses.Fields.status );
+		this.new_network = new CSVString(); 
+		this.old_network = new CSVString(); 
 		this.new_subscription_date = new CSVDate();
 		this.old_subscription_date = new CSVDate();
 		this.sms = new CSVEnum( SMS.values() );

@@ -22,8 +22,8 @@ import com.lumata.expression.operators.exceptions.CDRException;
 
 public class CDR_Examples {
 	
-	private final boolean generate_cdr_classes = false;
-	private final boolean generate_cdr = true;
+	private final boolean generate_cdr_classes = true;
+	private final boolean generate_cdr = false;
 	
 	// CDR Types generation
 	@Test( enabled = generate_cdr_classes )
@@ -315,7 +315,7 @@ public class CDR_Examples {
 		}
 		
 	}
-	
+	/*
 	@Test( enabled = false )
 	public void csv_schema() throws CDRException, EnvironmentException {
 		
@@ -354,5 +354,5 @@ public class CDR_Examples {
 		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
 		
 	}
-	
+	*/
 }
