@@ -24,7 +24,7 @@ public class LoyaltyCreateCfg {
 	private JSONObject root;
 	
 	public LoyaltyCreateCfg(String path, String jsonFile) throws JSONSException, IOFileException {
-		root = JSONUtils.loadJSONFile(path, jsonFile + Format.JSON_EXTENSION);
+		root = JSONUtils.loadJSONResource(path, jsonFile + Format.JSON_EXTENSION);
 	}
 	
 	public String getAccordionName() throws JSONException {
@@ -45,7 +45,7 @@ public class LoyaltyCreateCfg {
 	
 	public static void main(String[] args) throws Exception {
 		
-		LoyaltyCreateCfg cfg = new LoyaltyCreateCfg("/home/davide/git/e4osystemtest/src/main/resources/input/loyalties", "loyalty_create");
+		LoyaltyCreateCfg cfg = new LoyaltyCreateCfg("input/loyalties", "loyalty_create");
 		
 		System.out.println(cfg.getAccordionName());
 		System.out.println(cfg.getProgramName());

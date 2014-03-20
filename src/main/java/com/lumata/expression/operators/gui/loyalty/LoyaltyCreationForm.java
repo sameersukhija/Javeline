@@ -1,8 +1,11 @@
 package com.lumata.expression.operators.gui.loyalty;
 
+import org.json.JSONException;
+
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.expression.operators.gui.catalogue.LoyaltyForm;
 import com.lumata.expression.operators.gui.common.Form;
+import com.lumata.expression.operators.json.loyalty.LoyaltyCreateCfg;
 
 public class LoyaltyCreationForm extends Form {
 
@@ -10,11 +13,12 @@ public class LoyaltyCreationForm extends Form {
 		super(selenium, timeout, interval);
 	}
 	
-	public boolean open() {
+	public boolean open(LoyaltyCreateCfg createCfg) throws JSONException {
 		
 		return LoyaltyForm.open(selenium, timeout, interval)
 				&& click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Creation']")
-				&& click("badgesAccordion", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='Badges']");
+				&& clickFormat("badgesAccordion", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']",
+						createCfg.getAccordionName());
 	}
 
 	public boolean create() {

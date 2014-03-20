@@ -33,6 +33,10 @@ public abstract class Form {
 		return true;
 	}
 	
+	public boolean clickFormat(String forName, String xpath, Object ... params) {
+		return click(forName, String.format(xpath, params));
+	}
+	
 	public boolean sendKeys(String forName, String xpath, String text) {
 		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName));
 		WebElement we = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,

@@ -2,6 +2,7 @@ package com.lumata.expression.operators.testplan.functional;
 
 import java.lang.reflect.Method;
 
+import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -24,6 +25,7 @@ import com.lumata.expression.operators.exceptions.OfferException;
 import com.lumata.expression.operators.exceptions.TokenTypeException;
 import com.lumata.expression.operators.gui.loyalty.LoyaltyCreationForm;
 import com.lumata.expression.operators.gui.security.Authorization;
+import com.lumata.expression.operators.json.loyalty.LoyaltyCreateCfg;
 
 public class ConfigureLoyalty {
 
@@ -69,10 +71,12 @@ public class ConfigureLoyalty {
 	
 	@Parameters({"tenant"})
 	@Test(enabled=true, priority = 1)
-	public void configureBadges(@Optional("tenant") String tenant) throws TokenTypeException {
+	public void configureBadges(@Optional("tenant") String tenant) throws TokenTypeException, JSONSException, IOFileException, JSONException {
+		
+		LoyaltyCreateCfg createCfg = new LoyaltyCreateCfg("input/loyalties", "loyalty_create");
 		
 		// open section from menu and popup
-		Assert.assertTrue(form.open());
+		Assert.assertTrue(form.open(createCfg));
 		
 		// create program
 		Assert.assertTrue(form.create());
