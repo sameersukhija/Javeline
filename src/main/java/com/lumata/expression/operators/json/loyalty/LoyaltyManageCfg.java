@@ -43,7 +43,7 @@ public class LoyaltyManageCfg extends JsonConfig {
 	}
 	
 	public String getDefinitionName() throws JSONException {
-		return root.getJSONObject("definition").getString("name");
+		return getStringFromPath("definition/name");
 	}
 	
 	public static void main(String[] args) throws Exception {
