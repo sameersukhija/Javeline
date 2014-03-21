@@ -1,5 +1,9 @@
 package com.lumata.expression.operators.json.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,5 +46,17 @@ public abstract class JsonConfig {
 		}
 		
 		return "";
+	}
+	
+	public List<String> getStringList(String key) throws JSONException {
+		List<String> list = new ArrayList<String>();
+		
+		JSONArray jsonArray = root.getJSONArray(key);
+		
+		for (int i=0; i<jsonArray.length(); i++) {
+			list.add( jsonArray.getString(i) );
+		}
+		
+		return list;
 	}
 }

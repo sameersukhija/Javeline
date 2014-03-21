@@ -40,15 +40,7 @@ public class LoyaltyCreateCfg extends JsonConfig {
 	}
 
 	public List<String> getTypeNameList() throws JSONException {
-		List<String> list = new ArrayList<String>();
-		
-		JSONArray jsonArray = root.getJSONArray("type_name_list");
-		
-		for (int i=0; i<jsonArray.length(); i++) {
-			list.add( jsonArray.getString(i) );
-		}
-		
-		return list;
+		return getStringList("type_name_list");
 	}
 	
 	public static void main(String[] args) throws Exception {
