@@ -45,11 +45,31 @@ public class LoyaltyManageCfg extends JsonConfig {
 	public String getDefinitionName() throws JSONException {
 		return getStringFromPath("definition/name");
 	}
-	
+
+	public String getDefinitionDescription() throws JSONException {
+		return getStringFromPath("definition/description");
+	}
+
+	public String getAwardedEventType() throws JSONException {
+		return getStringFromPath("awarded/event_type");
+	}
+
+	public String getAwardedActionPlus() throws JSONException {
+		return getStringFromPath("awarded/action_plus");
+	}
+
+	public String getAwardedActionUnit() throws JSONException {
+		return getStringFromPath("awarded/action_unit");
+	}
+
 	public static void main(String[] args) throws Exception {
 		
 		LoyaltyManageCfg cfg = new LoyaltyManageCfg("input/loyalties", "loyalty_manage");
 		
 		System.out.println(cfg.getDefinitionName());
+		System.out.println(cfg.getDefinitionDescription());
+		System.out.println(cfg.getAwardedEventType());
+		System.out.println(cfg.getAwardedActionPlus());
+		System.out.println(cfg.getAwardedActionUnit());
 	}
 }
