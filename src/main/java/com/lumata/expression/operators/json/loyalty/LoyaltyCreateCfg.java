@@ -1,9 +1,7 @@
 package com.lumata.expression.operators.json.loyalty;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 
 import com.lumata.common.testing.exceptions.IOFileException;
