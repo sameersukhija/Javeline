@@ -26,6 +26,7 @@ import com.lumata.expression.operators.exceptions.TokenTypeException;
 import com.lumata.expression.operators.gui.loyalty.LoyaltyCreationForm;
 import com.lumata.expression.operators.gui.security.Authorization;
 import com.lumata.expression.operators.json.loyalty.LoyaltyCreateCfg;
+import com.lumata.expression.operators.json.loyalty.LoyaltyManageCfg;
 
 public class ConfigureLoyalty {
 
@@ -69,11 +70,12 @@ public class ConfigureLoyalty {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}
 	
-	@Parameters({"tenant", "loyaltyCreateCfg"})
+	@Parameters({"tenant", "loyaltyCreateCfg", "loyaltyManageCfg"})
 	@Test(enabled=true, priority = 1)
-	public void configureBadges(@Optional("tenant") String tenant, @Optional("loyalty_create") String loyaltyCreateCfg) throws TokenTypeException, JSONSException, IOFileException, JSONException {
+	public void configureBadges(@Optional("tenant") String tenant, @Optional("loyalty_create") String loyaltyCreateCfg, @Optional("loyalty_manage") String loyaltyManageCfg) throws TokenTypeException, JSONSException, IOFileException, JSONException {
 		
 		LoyaltyCreateCfg createCfg = new LoyaltyCreateCfg("input/loyalties", loyaltyCreateCfg);
+		LoyaltyManageCfg manageCfg = new LoyaltyManageCfg("input/loyalties", loyaltyManageCfg);
 		
 		// open section from menu and popup
 		Assert.assertTrue(form.open(createCfg));
@@ -82,6 +84,6 @@ public class ConfigureLoyalty {
 		Assert.assertTrue(form.create(createCfg));
 		
 		// manage program
-		Assert.assertTrue(form.manage(createCfg));
+		Assert.assertTrue(form.manage(createCfg, manageCfg));
 	}
 }

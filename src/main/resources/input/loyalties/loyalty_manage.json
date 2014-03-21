@@ -1,7 +1,7 @@
 {
 	"definition": {
-		"name": "badgeDefinitionName",
-		"description": "badgeDefinitionDesc"
+		"name": "DefName",
+		"description": "DefDesc"
 	},
 
 	"scheduling": {

@@ -9,6 +9,7 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.expression.operators.gui.catalogue.LoyaltyForm;
 import com.lumata.expression.operators.gui.common.Form;
 import com.lumata.expression.operators.json.loyalty.LoyaltyCreateCfg;
+import com.lumata.expression.operators.json.loyalty.LoyaltyManageCfg;
 
 public class LoyaltyCreationForm extends Form {
 
@@ -37,27 +38,28 @@ public class LoyaltyCreationForm extends Form {
 				&& click("badgeTypeClose", "html/body/div[5]/div/table//*[@title='Close']");
 	}
 	
-	public boolean manage(LoyaltyCreateCfg createCfg) throws JSONException {
+	public boolean manage(LoyaltyCreateCfg createCfg, LoyaltyManageCfg manageCfg) throws JSONException {
 
 		return click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Management']")
 				&& clickFormat("editProgram", "//*[text()='%s']/../../../../../../../../../..//*[@title='Edit']",
 						createCfg.getProgramName())
 				&& click("addBadge", "html/body/div[5]/div/table//*[@title='Add']")
 				&& sendKeys("badgeDefinitionName", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[1]/td[2]/input",
-						"DefName")
+						manageCfg.getDefinitionName())
 				&& sendKeys("badgeDefinitionDesc", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/input",
-						"DefDesc")
+						manageCfg.getDefinitionDescription())
 				&& click("next", "html/body/div[7]/div/table//*[@title='Next']")
 				&& click("next2", "html/body/div[7]/div/table//*[@title='Next']")
 				&& click("next3", "html/body/div[7]/div/table//*[@title='Next']")
 				&& click("addAwarded", "html/body/div[7]/div/table//*[@title='Add']")
 				&& click("eventType", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td[1]/div/table/tbody/tr/td")
-				&& click("selectRevenue", "html/body/div[8]/div/table/tbody/tr[2]/td[2]/div/div/table//*[text()='Revenue']") // this change --> //*[@id='gwt-uid-690']
+				&& clickFormat("selectRevenue", "html/body/div[8]/div/table/tbody/tr[2]/td[2]/div/div/table//*[text()='%s']",
+						manageCfg.getAwardedEventType())
 				&& click("addAction", "//*[@id='gwt-debug-BtnCampaignModelCreationEAAdd']")
 				&& selectByVisibleText("selectUnitRecharge", "//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']",
-						"/recharge")
+						manageCfg.getAwardedActionUnit())
 				&& sendKeys("points", "//*[@id='gwt-debug-TextCampaignModelCreationEAValue']",
-						"1")
+						manageCfg.getAwardedActionPlus())
 				&& click("saveBadge", "html/body/div[7]/div/table//*[@title='Save']")
 				&& click("closeBadge", "html/body/div[5]/div/table//*[@title='Close']");
 		
