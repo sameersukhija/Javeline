@@ -26,15 +26,15 @@ public class LoyaltyCreateCfg extends JsonConfig {
 	}
 	
 	public String getAccordionName() throws JSONException {
-		return root.getString("accordion_name");
+		return getStringFromPath("accordion_name");
 	}
 
 	public String getProgramName() throws JSONException {
-		return root.getString("program_name");
+		return getStringFromPath("program_name");
 	}
 
 	public String getProgramDesc() throws JSONException {
-		return root.getString("program_desc");
+		return getStringFromPath("program_desc");
 	}
 
 	public List<String> getTypeNameList() throws JSONException {
