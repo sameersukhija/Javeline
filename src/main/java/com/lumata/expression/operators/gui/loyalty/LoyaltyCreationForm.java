@@ -1,6 +1,5 @@
 package com.lumata.expression.operators.gui.loyalty;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONException;
