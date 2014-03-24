@@ -24,7 +24,7 @@ public abstract class Form {
 	}
 	
 	public void click(String forName, String xpath) throws Exception {
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName));
+		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName + ", xpath: " + xpath));
 		WebElement we = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
 				xpath, timeout, interval);
 		if (we == null) {
@@ -38,7 +38,7 @@ public abstract class Form {
 	}
 	
 	public void sendKeys(String forName, String xpath, String text) throws Exception {
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName));
+		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName + ", xpath: " + xpath));
 		WebElement we = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
 				xpath, timeout, interval);
 		if (we == null) {
@@ -48,7 +48,7 @@ public abstract class Form {
 	}
 
 	public void selectByVisibleText(String forName, String xpath, String text) throws Exception {
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName));
+		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName + ", xpath: " + xpath));
 		WebElement selectUnitRecharge = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
 				xpath, timeout, interval);
 		if (selectUnitRecharge == null) {

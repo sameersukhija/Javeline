@@ -2,8 +2,6 @@ package com.lumata.expression.operators.gui.loyalty;
 
 import java.util.List;
 
-import org.json.JSONException;
-
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.expression.operators.gui.catalogue.LoyaltyForm;
 import com.lumata.expression.operators.gui.common.Form;

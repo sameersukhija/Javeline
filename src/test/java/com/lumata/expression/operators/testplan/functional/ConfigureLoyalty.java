@@ -2,7 +2,6 @@ package com.lumata.expression.operators.testplan.functional;
 
 import java.lang.reflect.Method;
 
-import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -22,7 +21,6 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.expression.operators.exceptions.CommoditiesException;
 import com.lumata.expression.operators.exceptions.OfferException;
-import com.lumata.expression.operators.exceptions.TokenTypeException;
 import com.lumata.expression.operators.gui.loyalty.LoyaltyCreationForm;
 import com.lumata.expression.operators.gui.security.Authorization;
 import com.lumata.expression.operators.json.loyalty.LoyaltyCreateCfg;
