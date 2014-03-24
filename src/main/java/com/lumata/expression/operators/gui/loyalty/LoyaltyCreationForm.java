@@ -108,10 +108,16 @@ public class LoyaltyCreationForm extends Form {
 	}
 
 	private void addBadgeTypeFromList(List<String> badgeTypeList) throws Exception {
+		
 		for (String badgeType : badgeTypeList) {
-			click("addBadgeType", "html/body/div[5]/div/table//*[@title='Add']");
-			sendKeys("badgeNameInput", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td[2]/input",
-					badgeType);
+			
+			click("addBadgeType",
+				"html/body/div[5]/div/table//*[@title='Add']");
+			
+			sendKeys("badgeNameInput",
+				"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td[2]/input",
+				badgeType);
+			
 			click("badgeTypeSave", "html/body/div[7]/div/table//*[@title='Save']");
 		}
 	}
