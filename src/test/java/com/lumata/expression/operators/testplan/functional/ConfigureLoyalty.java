@@ -31,6 +31,7 @@ import com.lumata.expression.operators.json.loyalty.LoyaltyManageCfg;
 public class ConfigureLoyalty {
 
 	private static final Logger logger = LoggerFactory.getLogger(ConfigureLoyalty.class);
+	private static final String CFG_PATH_INPUT_LOYALTIES = "input/loyalties";
 	
 	private int TIMEOUT = 60000;
 	private int ATTEMPT_TIMEOUT = 500;
@@ -39,14 +40,20 @@ public class ConfigureLoyalty {
 	Environment env;
 	Mysql mysql;
 	LoyaltyCreationForm form;
+	LoyaltyCreateCfg createCfg;
+	LoyaltyManageCfg manageCfg;
 	
 	/* 	Initialize Environment */
-	@Parameters({"browser", "environment", "tenant", "user"})
+	@Parameters({"browser", "environment", "tenant", "user", "loyaltyCreateCfg", "loyaltyManageCfg"})
 	@BeforeSuite
-	public void init(@Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment, @Optional("tenant") String tenant, @Optional("superman") String user)
+	public void init(@Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment, @Optional("tenant") String tenant, @Optional("superman") String user, @Optional("loyalty_create") String loyaltyCreateCfg, @Optional("loyalty_manage") String loyaltyManageCfg)
 			throws EnvironmentException, OfferException, CommoditiesException, JSONSException, IOFileException {
 		
 		logger.info(Log.LOADING.createMessage("init", "environment"));
+		
+		// Loyalty configuration
+		createCfg = new LoyaltyCreateCfg(CFG_PATH_INPUT_LOYALTIES, loyaltyCreateCfg);
+		manageCfg = new LoyaltyManageCfg(CFG_PATH_INPUT_LOYALTIES, loyaltyManageCfg);
 		
 		// Create environment configuration
 		env = new Environment("input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE);
@@ -70,13 +77,9 @@ public class ConfigureLoyalty {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}
 	
-	@Parameters({"tenant", "loyaltyCreateCfg", "loyaltyManageCfg"})
 	@Test(enabled=true, priority = 1)
-	public void configureBadges(@Optional("tenant") String tenant, @Optional("loyalty_create") String loyaltyCreateCfg, @Optional("loyalty_manage") String loyaltyManageCfg) throws TokenTypeException, JSONSException, IOFileException, JSONException {
-		
-		LoyaltyCreateCfg createCfg = new LoyaltyCreateCfg("input/loyalties", loyaltyCreateCfg);
-		LoyaltyManageCfg manageCfg = new LoyaltyManageCfg("input/loyalties", loyaltyManageCfg);
-		
+	public void configureBadges() throws TokenTypeException, JSONSException, IOFileException, JSONException {
+				
 		// open section from menu and popup
 		Assert.assertTrue(form.open(createCfg));
 		
