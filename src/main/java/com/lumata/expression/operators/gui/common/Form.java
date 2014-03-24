@@ -23,38 +23,38 @@ public abstract class Form {
 		this.interval = interval;
 	}
 	
-	public boolean click(String forName, String xpath) {
+	public void click(String forName, String xpath) throws Exception {
 		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName));
 		WebElement we = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
 				xpath, timeout, interval);
-		if (we == null) { return false; }
+		if (we == null) {
+			throw new Exception("Element not found");
+		}
 		we.click();		
-		
-		return true;
 	}
 	
-	public boolean clickFormat(String forName, String xpath, Object ... params) {
-		return click(forName, String.format(xpath, params));
+	public void clickFormat(String forName, String xpath, Object ... params) throws Exception {
+		click(forName, String.format(xpath, params));
 	}
 	
-	public boolean sendKeys(String forName, String xpath, String text) {
+	public void sendKeys(String forName, String xpath, String text) throws Exception {
 		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName));
 		WebElement we = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
 				xpath, timeout, interval);
-		if (we == null) { return false; }
+		if (we == null) {
+			throw new Exception("Element not found");
+		}
 		we.sendKeys(text);
-		
-		return true;
 	}
 
-	public boolean selectByVisibleText(String forName, String xpath, String text) {
+	public void selectByVisibleText(String forName, String xpath, String text) throws Exception {
 		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName));
 		WebElement selectUnitRecharge = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
 				xpath, timeout, interval);
-		if (selectUnitRecharge == null) { return false; }
+		if (selectUnitRecharge == null) {
+			throw new Exception("Element not found");
+		}
 		Select select = new Select(selectUnitRecharge);
 		select.selectByVisibleText(text);
-		
-		return true;
 	}
 }

@@ -78,15 +78,27 @@ public class ConfigureLoyalty {
 	}
 	
 	@Test(enabled=true, priority = 1)
-	public void configureBadges() throws TokenTypeException, JSONSException, IOFileException, JSONException {
-				
-		// open section from menu and popup
-		Assert.assertTrue(form.open());
+	public void configureBadges() {
 		
-		// create program
-		Assert.assertTrue(form.create());
+		try {
+			form.open();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail("Error opening loyalty");
+		}
 		
-		// manage program
-		Assert.assertTrue(form.manage());
+		try {
+			form.create();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail("Error creating loyalty");
+		}
+		
+		try {
+			form.manage();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail("Error managing loyalty");
+		}
 	}
 }
