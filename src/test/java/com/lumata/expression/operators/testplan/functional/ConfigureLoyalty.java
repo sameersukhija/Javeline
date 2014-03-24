@@ -50,11 +50,7 @@ public class ConfigureLoyalty {
 			throws EnvironmentException, OfferException, CommoditiesException, JSONSException, IOFileException {
 		
 		logger.info(Log.LOADING.createMessage("init", "environment"));
-		
-		// Loyalty configuration
-		createCfg = new LoyaltyCreateCfg(CFG_PATH_INPUT_LOYALTIES, loyaltyCreateCfg);
-		manageCfg = new LoyaltyManageCfg(CFG_PATH_INPUT_LOYALTIES, loyaltyManageCfg);
-		
+				
 		// Create environment configuration
 		env = new Environment("input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE);
 		
@@ -64,8 +60,12 @@ public class ConfigureLoyalty {
 		seleniumWebDriver = new SeleniumWebDriver( browser, env.getBrowser( browser ), env.getLink() );
 		seleniumWebDriver.windowMaximize();
 		
+		// Loyalty configuration
+		createCfg = new LoyaltyCreateCfg(CFG_PATH_INPUT_LOYALTIES, loyaltyCreateCfg);
+		manageCfg = new LoyaltyManageCfg(CFG_PATH_INPUT_LOYALTIES, loyaltyManageCfg);
+		
 		// Create form
-		form = new LoyaltyCreationForm(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		form = new LoyaltyCreationForm(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT, createCfg, manageCfg);
 		
 		// Login
 		Assert.assertTrue(Authorization.login(seleniumWebDriver, env.getUserName(user), env.getPassword(user), TIMEOUT, ATTEMPT_TIMEOUT));
@@ -81,12 +81,12 @@ public class ConfigureLoyalty {
 	public void configureBadges() throws TokenTypeException, JSONSException, IOFileException, JSONException {
 				
 		// open section from menu and popup
-		Assert.assertTrue(form.open(createCfg));
+		Assert.assertTrue(form.open());
 		
 		// create program
-		Assert.assertTrue(form.create(createCfg));
+		Assert.assertTrue(form.create());
 		
 		// manage program
-		Assert.assertTrue(form.manage(createCfg, manageCfg));
+		Assert.assertTrue(form.manage());
 	}
 }

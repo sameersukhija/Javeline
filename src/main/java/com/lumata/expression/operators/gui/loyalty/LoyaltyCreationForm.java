@@ -12,11 +12,19 @@ import com.lumata.expression.operators.json.loyalty.LoyaltyManageCfg;
 
 public class LoyaltyCreationForm extends Form {
 
-	public LoyaltyCreationForm(SeleniumWebDriver selenium, long timeout, long interval) {
+	private LoyaltyCreateCfg createCfg;
+	private LoyaltyManageCfg manageCfg;
+	
+	public LoyaltyCreationForm(SeleniumWebDriver selenium, long timeout, long interval,
+			LoyaltyCreateCfg createCfg, LoyaltyManageCfg manageCfg) {
+		
 		super(selenium, timeout, interval);
+		
+		this.createCfg = createCfg;
+		this.manageCfg = manageCfg;
 	}
 	
-	public boolean open(LoyaltyCreateCfg createCfg) throws JSONException {
+	public boolean open() throws JSONException {
 		
 		return LoyaltyForm.open(selenium, timeout, interval)
 				&& click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Creation']")
@@ -24,7 +32,7 @@ public class LoyaltyCreationForm extends Form {
 						createCfg.getAccordionName());
 	}
 
-	public boolean create(LoyaltyCreateCfg createCfg) throws JSONException {
+	public boolean create() throws JSONException {
 		
 		return clickFormat("addNewProgramPopup", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']/../../../../../../..//*[@title='Add']",
 						createCfg.getAccordionName())
@@ -37,7 +45,7 @@ public class LoyaltyCreationForm extends Form {
 				&& click("badgeTypeClose", "html/body/div[5]/div/table//*[@title='Close']");
 	}
 	
-	public boolean manage(LoyaltyCreateCfg createCfg, LoyaltyManageCfg manageCfg) throws JSONException {
+	public boolean manage() throws JSONException {
 
 		return click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Management']")
 				&& clickFormat("editProgram", "//*[text()='%s']/../../../../../../../../../..//*[@title='Edit']",
