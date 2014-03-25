@@ -130,7 +130,9 @@ public class LoyaltyCreationForm extends Form {
 	}
 	
 	public void delete() throws Exception {
-		click("delete", "html/body/table[2]//*[text()='BadgesProgName']/../..//*[@title='Delete']");
+		clickFormat("delete",
+			"html/body/table[2]//*[text()='%s]/../..//*[@title='Delete']",
+			createCfg.getProgramName());
 	}
 	
 	/*private Integer selectLoyaltyProgramsCount() {
