@@ -92,4 +92,10 @@ public class ConfigureLoyalty {
 			Assert.fail("Error during loyalty configuration");
 		}
 	}
+	
+	@Test(enabled=true, priority = 1)
+	public void configureBadgesWithDuplicationError() {
+
+		// TODO...
+	}
 }
