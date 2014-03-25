@@ -131,7 +131,7 @@ public class LoyaltyCreationForm extends Form {
 	
 	public void delete() throws Exception {
 		clickFormat("delete",
-			"html/body/table[2]//*[text()='%s]/../..//*[@title='Delete']",
+			"html/body/table[2]//*[text()='%s']/../..//*[@title='Delete']",
 			createCfg.getProgramName());
 	}
 	
