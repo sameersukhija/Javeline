@@ -1,12 +1,16 @@
 package com.lumata.common.testing.network;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSchException;
+import com.lumata.common.testing.log.Log;
 
 public class SSHExecClient extends SSHClient {
 
@@ -28,9 +32,9 @@ public class SSHExecClient extends SSHClient {
 	
 	}
 
-	public InputStream execCommand( String command ) {
+	public ArrayList<String> execCommand( String command ) {
 		
-		InputStream in = null;
+		ArrayList<String> result = new ArrayList<String>();
 		
 		try {
 		
@@ -40,17 +44,38 @@ public class SSHExecClient extends SSHClient {
 		 
 		 	((ChannelExec)channel).setErrStream(System.err);
 		 
-			in = channel.getInputStream();
+		 	InputStream in = channel.getInputStream();
 		
 			channel.connect();
-		
+			
+			/** get command result */
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+	        String line;
+	        
+	        while(( line = reader.readLine()) != null) {
+	        	result.add( line );	            
+	        }
+	       
+	        /** get exit status */
+	        int exitStatus = ((ChannelExec)channel).getExitStatus();
+	        ((ChannelExec)channel).disconnect();
+	        session.disconnect();
+	        
+	        if( exitStatus < 0 ) {
+	        	logger.warn( Log.CHECKING.createMessage( "command executed with exit status not set" ) );
+	        } else if(exitStatus > 0){
+	        	logger.warn( Log.CHECKING.createMessage( "command executed with error ( error_code: " + exitStatus + " )" ) );	        	
+	        } else {
+	        	logger.info( Log.CHECKING.createMessage( "command executed correctly" ) );	            
+	        }
+			
 		} catch ( IOException | JSchException e) {
 		
 			logger.error( e.getMessage(), e );
 			
 		}
 		
-		return in;
+		return result;
 		
 	}
 	

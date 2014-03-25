@@ -18,7 +18,7 @@ public class SSHClient {
 	protected Session session;
 	protected Channel channel;
 
-	public enum Types { sftp, exec }
+	public enum Types { sftp, exec, shell }
 	
 	public SSHClient( String host, int port, String user, String encryptedPassword ) {
 		
