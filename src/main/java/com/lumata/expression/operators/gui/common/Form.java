@@ -1,5 +1,7 @@
 package com.lumata.expression.operators.gui.common;
 
+import java.util.Map;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
@@ -56,5 +58,9 @@ public abstract class Form {
 		}
 		Select select = new Select(selectUnitRecharge);
 		select.selectByVisibleText(text);
+	}
+	
+	public boolean isTrueKey(Map<String, String> map, String key) {
+		return map.containsKey(key) && map.get(key).equalsIgnoreCase("true");
 	}
 }
