@@ -27,7 +27,8 @@ public class LoyaltyCreationForm extends Form {
 	public void open() throws Exception {
 		
 		LoyaltyForm.open(selenium, timeout, interval);
-		openSubsection(ImmutableMap.of("clickAccordion", "true"));
+		openSubsection(ImmutableMap.of(
+				"clickAccordion", "true"));
 	}
 	
 	public void openSubsection(Map<String, String> map) throws Exception {

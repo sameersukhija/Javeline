@@ -83,7 +83,8 @@ public class ConfigureLoyalty {
 			form.open();
 			form.create();
 			form.manage();
-			form.openSubsection(ImmutableMap.of("clickAccordion", "false"));
+			form.openSubsection(ImmutableMap.of(
+					"clickAccordion", "false"));
 			form.delete();
 			
 		} catch (Exception e) {
