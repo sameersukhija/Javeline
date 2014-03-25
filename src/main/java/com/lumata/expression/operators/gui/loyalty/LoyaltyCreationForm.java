@@ -36,7 +36,7 @@ public class LoyaltyCreationForm extends Form {
 		click("subSectionTab",
 			"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Creation']");
 		
-		if (isTrueKey(map, "clickAccordion")) {
+		if (isTrueKeyOrMissing(map, "clickAccordion")) {
 		
 			clickFormat("accordion",
 				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']",

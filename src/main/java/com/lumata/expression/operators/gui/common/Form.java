@@ -63,4 +63,8 @@ public abstract class Form {
 	public boolean isTrueKey(Map<String, String> map, String key) {
 		return map.containsKey(key) && map.get(key).equalsIgnoreCase("true");
 	}
+	
+	public boolean isTrueKeyOrMissing(Map<String, String> map, String key) {
+		return map.containsKey(key) == false || map.get(key).equalsIgnoreCase("true");
+	}
 }
