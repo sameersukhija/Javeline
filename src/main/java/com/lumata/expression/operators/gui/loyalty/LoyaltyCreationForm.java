@@ -1,78 +1,141 @@
 package com.lumata.expression.operators.gui.loyalty;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
-import org.json.JSONException;
-
+import com.google.common.collect.ImmutableMap;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.expression.operators.gui.catalogue.LoyaltyForm;
 import com.lumata.expression.operators.gui.common.Form;
 import com.lumata.expression.operators.json.loyalty.LoyaltyCreateCfg;
+import com.lumata.expression.operators.json.loyalty.LoyaltyManageCfg;
 
 public class LoyaltyCreationForm extends Form {
 
-	public LoyaltyCreationForm(SeleniumWebDriver selenium, long timeout, long interval) {
+	private LoyaltyCreateCfg createCfg;
+	private LoyaltyManageCfg manageCfg;
+	
+	public LoyaltyCreationForm(SeleniumWebDriver selenium, long timeout, long interval,
+			LoyaltyCreateCfg createCfg, LoyaltyManageCfg manageCfg) {
+		
 		super(selenium, timeout, interval);
+		
+		this.createCfg = createCfg;
+		this.manageCfg = manageCfg;
 	}
 	
-	public boolean open(LoyaltyCreateCfg createCfg) throws JSONException {
+	public void open() throws Exception {
 		
-		return LoyaltyForm.open(selenium, timeout, interval)
-				&& click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Creation']")
-				&& clickFormat("badgesAccordion", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']",
-						createCfg.getAccordionName());
-	}
-
-	public boolean create(LoyaltyCreateCfg createCfg) throws JSONException {
-		
-		return clickFormat("addNewProgramPopup", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']/../../../../../../..//*[@title='Add']",
-						createCfg.getAccordionName())
-				&& sendKeys("programNameInput", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input",
-						createCfg.getProgramName())
-				&& sendKeys("programDescInput", "html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input",
-						createCfg.getProgramDesc())
-				&& click("programSave", "html/body/div[5]/div/table//*[@title='Save']")
-				&& addBadgeTypeFromList(createCfg.getTypeNameList())
-				&& click("badgeTypeClose", "html/body/div[5]/div/table//*[@title='Close']");
+		LoyaltyForm.open(selenium, timeout, interval);
+		openSubsection(ImmutableMap.of(
+				"clickAccordion", "true"));
 	}
 	
-	public boolean manage() {
-
-		return click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Management']")
-				&& click("editProgram", "//*[text()='BadgesProgName']/../../../../../../../../../..//*[@title='Edit']")
-				&& click("addBadge", "html/body/div[5]/div/table//*[@title='Add']")
-				&& sendKeys("badgeDefinitionName", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[1]/td[2]/input",
-						"DefName")
-				&& sendKeys("badgeDefinitionDesc", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/input",
-						"DefDesc")
-				&& click("next", "html/body/div[7]/div/table//*[@title='Next']")
-				&& click("next2", "html/body/div[7]/div/table//*[@title='Next']")
-				&& click("next3", "html/body/div[7]/div/table//*[@title='Next']")
-				&& click("addAwarded", "html/body/div[7]/div/table//*[@title='Add']")
-				&& click("eventType", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td[1]/div/table/tbody/tr/td")
-				&& click("selectRevenue", "html/body/div[8]/div/table/tbody/tr[2]/td[2]/div/div/table//*[text()='Revenue']") // this change --> //*[@id='gwt-uid-690']
-				&& click("addAction", "//*[@id='gwt-debug-BtnCampaignModelCreationEAAdd']")
-				&& selectByVisibleText("selectUnitRecharge", "//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']",
-						"/recharge")
-				&& sendKeys("points", "//*[@id='gwt-debug-TextCampaignModelCreationEAValue']",
-						"1")
-				&& click("saveBadge", "html/body/div[7]/div/table//*[@title='Save']")
-				&& click("closeBadge", "html/body/div[5]/div/table//*[@title='Close']");
+	public void openSubsection(Map<String, String> map) throws Exception {
 		
+		click("subSectionTab",
+			"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Creation']");
+		
+		if (isTrueKeyOrMissing(map, "clickAccordion")) {
+		
+			clickFormat("accordion",
+				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']",
+				createCfg.getAccordionName());
+		}
 	}
 
-	private boolean addBadgeTypeFromList(List<String> badgeTypeList) {
-		boolean ok = true;
+	public void create() throws Exception {
+		
+		clickFormat("addNewProgramPopup",
+			"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']/../../../../../../..//*[@title='Add']",
+			createCfg.getAccordionName());
+		
+		sendKeys("programNameInput",
+			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input",
+			createCfg.getProgramName());
+		
+		sendKeys("programDescInput",
+			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input",
+			createCfg.getProgramDesc());
+		
+		click("programSave",
+			"html/body/div[5]/div/table//*[@title='Save']");
+		
+		addBadgeTypeFromList(createCfg.getTypeNameList());
+		
+		click("badgeTypeClose",
+			"html/body/div[5]/div/table//*[@title='Close']");
+	}
+	
+	public void manage() throws Exception {
+
+		click("subSectionTab",
+			"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Management']");
+		
+		clickFormat("editProgram",
+			"//*[text()='%s']/../../../../../../../../../..//*[@title='Edit']",
+			createCfg.getProgramName());
+		
+		click("addBadge",
+			"html/body/div[5]/div/table//*[@title='Add']");
+		
+		sendKeys("badgeDef, k2, v2initionName",
+			"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[1]/td[2]/input",
+			manageCfg.getDefinitionName());
+		
+		sendKeys("badgeDefinitionDesc",
+			"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/input",
+			manageCfg.getDefinitionDescription());
+		
+		click("next", "html/body/div[7]/div/table//*[@title='Next']");
+		
+		click("next2", "html/body/div[7]/div/table//*[@title='Next']");
+		
+		click("next3", "html/body/div[7]/div/table//*[@title='Next']");
+		
+		click("addAwarded", "html/body/div[7]/div/table//*[@title='Add']");
+		
+		click("eventType",
+			"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td[1]/div/table/tbody/tr/td");
+		
+		clickFormat("selectRevenue",
+			"html/body/div[8]/div/table/tbody/tr[2]/td[2]/div/div/table//*[text()='%s']",
+			manageCfg.getAwardedEventType());
+		
+		click("addAction", "//*[@id='gwt-debug-BtnCampaignModelCreationEAAdd']");
+		
+		selectByVisibleText("selectUnitRecharge",
+			"//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']",
+			manageCfg.getAwardedActionUnit());
+		
+		sendKeys("points",
+			"//*[@id='gwt-debug-TextCampaignModelCreationEAValue']",
+			manageCfg.getAwardedActionPlus());
+		
+		click("saveBadge", "html/body/div[7]/div/table//*[@title='Save']");
+		
+		click("closeBadge", "html/body/div[5]/div/table//*[@title='Close']");
+	}
+
+	private void addBadgeTypeFromList(List<String> badgeTypeList) throws Exception {
 		
 		for (String badgeType : badgeTypeList) {
-			ok = click("addBadgeType", "html/body/div[5]/div/table//*[@title='Add']")
-					&& sendKeys("badgeNameInput", "html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td[2]/input",
-							badgeType)
-					&& click("badgeTypeSave", "html/body/div[7]/div/table//*[@title='Save']");
+			
+			click("addBadgeType",
+				"html/body/div[5]/div/table//*[@title='Add']");
+			
+			sendKeys("badgeNameInput",
+				"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td[2]/input",
+				badgeType);
+			
+			click("badgeTypeSave", "html/body/div[7]/div/table//*[@title='Save']");
 		}
-		
-		return ok;
+	}
+	
+	public void delete() throws Exception {
+		clickFormat("delete",
+			"html/body/table[2]//*[text()='%s']/../..//*[@title='Delete']",
+			createCfg.getProgramName());
 	}
 	
 	/*private Integer selectLoyaltyProgramsCount() {

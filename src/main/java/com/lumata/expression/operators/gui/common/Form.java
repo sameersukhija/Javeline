@@ -1,5 +1,7 @@
 package com.lumata.expression.operators.gui.common;
 
+import java.util.Map;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
@@ -23,38 +25,46 @@ public abstract class Form {
 		this.interval = interval;
 	}
 	
-	public boolean click(String forName, String xpath) {
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName));
+	public void click(String forName, String xpath) throws Exception {
+		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName + ", xpath: " + xpath));
 		WebElement we = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
 				xpath, timeout, interval);
-		if (we == null) { return false; }
+		if (we == null) {
+			throw new Exception("Element not found");
+		}
 		we.click();		
-		
-		return true;
 	}
 	
-	public boolean clickFormat(String forName, String xpath, Object ... params) {
-		return click(forName, String.format(xpath, params));
+	public void clickFormat(String forName, String xpath, Object ... params) throws Exception {
+		click(forName, String.format(xpath, params));
 	}
 	
-	public boolean sendKeys(String forName, String xpath, String text) {
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName));
+	public void sendKeys(String forName, String xpath, String text) throws Exception {
+		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName + ", xpath: " + xpath));
 		WebElement we = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
 				xpath, timeout, interval);
-		if (we == null) { return false; }
+		if (we == null) {
+			throw new Exception("Element not found");
+		}
 		we.sendKeys(text);
-		
-		return true;
 	}
 
-	public boolean selectByVisibleText(String forName, String xpath, String text) {
-		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName));
+	public void selectByVisibleText(String forName, String xpath, String text) throws Exception {
+		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName + ", xpath: " + xpath));
 		WebElement selectUnitRecharge = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
 				xpath, timeout, interval);
-		if (selectUnitRecharge == null) { return false; }
+		if (selectUnitRecharge == null) {
+			throw new Exception("Element not found");
+		}
 		Select select = new Select(selectUnitRecharge);
 		select.selectByVisibleText(text);
-		
-		return true;
+	}
+	
+	public boolean isTrueKey(Map<String, String> map, String key) {
+		return map.containsKey(key) && map.get(key).equalsIgnoreCase("true");
+	}
+	
+	public boolean isTrueKeyOrMissing(Map<String, String> map, String key) {
+		return map.containsKey(key) == false || map.get(key).equalsIgnoreCase("true");
 	}
 }
