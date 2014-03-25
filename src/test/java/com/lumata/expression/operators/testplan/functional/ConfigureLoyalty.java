@@ -85,7 +85,7 @@ public class ConfigureLoyalty {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			Assert.fail("Error opening loyalty");
+			Assert.fail("Error during loyalty configuration");
 		}
 	}
 }
