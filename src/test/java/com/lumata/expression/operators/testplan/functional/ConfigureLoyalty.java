@@ -80,23 +80,12 @@ public class ConfigureLoyalty {
 		
 		try {
 			form.open();
+			form.create();
+			form.manage();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail("Error opening loyalty");
-		}
-		
-		try {
-			form.create();
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail("Error creating loyalty");
-		}
-		
-		try {
-			form.manage();
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail("Error managing loyalty");
 		}
 	}
 }
