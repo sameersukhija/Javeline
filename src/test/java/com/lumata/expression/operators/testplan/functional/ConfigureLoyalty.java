@@ -11,6 +11,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.google.common.collect.ImmutableMap;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
@@ -82,7 +83,7 @@ public class ConfigureLoyalty {
 			form.open();
 			form.create();
 			form.manage();
-			form.openSubsection(/* clickAccordion */ false);
+			form.openSubsection(ImmutableMap.of("clickAccordion", "false"));
 			form.delete();
 			
 		} catch (Exception e) {

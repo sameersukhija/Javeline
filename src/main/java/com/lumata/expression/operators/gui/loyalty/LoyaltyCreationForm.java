@@ -1,7 +1,9 @@
 package com.lumata.expression.operators.gui.loyalty;
 
 import java.util.List;
+import java.util.Map;
 
+import com.google.common.collect.ImmutableMap;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.expression.operators.gui.catalogue.LoyaltyForm;
 import com.lumata.expression.operators.gui.common.Form;
@@ -25,15 +27,15 @@ public class LoyaltyCreationForm extends Form {
 	public void open() throws Exception {
 		
 		LoyaltyForm.open(selenium, timeout, interval);
-		openSubsection(true);
+		openSubsection(ImmutableMap.of("clickAccordion", "true"));
 	}
 	
-	public void openSubsection(boolean clickAccordion) throws Exception {
+	public void openSubsection(Map<String, String> map) throws Exception {
 		
 		click("subSectionTab",
 			"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Creation']");
 		
-		if (clickAccordion) {
+		if (map.containsKey("clickAccordion") && map.get("clickAccordion").equalsIgnoreCase("true")) {
 		
 			clickFormat("accordion",
 				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']",
@@ -76,7 +78,7 @@ public class LoyaltyCreationForm extends Form {
 		click("addBadge",
 			"html/body/div[5]/div/table//*[@title='Add']");
 		
-		sendKeys("badgeDefinitionName",
+		sendKeys("badgeDef, k2, v2initionName",
 			"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[1]/td[2]/input",
 			manageCfg.getDefinitionName());
 		
