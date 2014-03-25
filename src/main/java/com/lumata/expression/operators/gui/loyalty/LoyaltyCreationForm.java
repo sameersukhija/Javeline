@@ -25,13 +25,20 @@ public class LoyaltyCreationForm extends Form {
 	public void open() throws Exception {
 		
 		LoyaltyForm.open(selenium, timeout, interval);
+		openSubsection(true);
+	}
+	
+	public void openSubsection(boolean clickAccordion) throws Exception {
 		
 		click("subSectionTab",
 			"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Creation']");
 		
-		clickFormat("badgesAccordion",
-			"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']",
-			createCfg.getAccordionName());
+		if (clickAccordion) {
+		
+			clickFormat("accordion",
+				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']",
+				createCfg.getAccordionName());
+		}
 	}
 
 	public void create() throws Exception {
@@ -120,6 +127,10 @@ public class LoyaltyCreationForm extends Form {
 			
 			click("badgeTypeSave", "html/body/div[7]/div/table//*[@title='Save']");
 		}
+	}
+	
+	public void delete() throws Exception {
+		click("delete", "html/body/table[2]//*[text()='BadgesProgName']/../..//*[@title='Delete']");
 	}
 	
 	/*private Integer selectLoyaltyProgramsCount() {

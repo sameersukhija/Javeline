@@ -82,6 +82,8 @@ public class ConfigureLoyalty {
 			form.open();
 			form.create();
 			form.manage();
+			form.openSubsection(false);
+			form.delete();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
