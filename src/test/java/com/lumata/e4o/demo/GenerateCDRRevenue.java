@@ -187,11 +187,11 @@ public class GenerateCDRRevenue {
 	
 	private void store_file( CDRRevenue cdrRevenue ) throws IOFileException {
 		
-		cdrRevenue.setPath( "output/demo/cdr", cdrRevenue.generateFileName() );
+		cdrRevenue.setOutputPath( "output/demo/cdr", cdrRevenue.generateFileName() );
 		
 		cdrRevenue.save();
 		
-		logger.info( Log.PUTTING.createMessage( "The cdr file " + cdrRevenue.generateFileName() + " has been stored in " + cdrRevenue.getDir() + " folder" ) );
+		logger.info( Log.PUTTING.createMessage( "The cdr file " + cdrRevenue.generateFileName() + " has been stored in " + cdrRevenue.getOutputDir() + " folder" ) );
 		
 	}
 	

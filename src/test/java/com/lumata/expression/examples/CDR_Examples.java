@@ -10,13 +10,17 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.CDRClassGenerator;
+import com.lumata.e4o.system.cdr.types.CDRBundle;
 import com.lumata.e4o.system.cdr.types.CDRCall;
 import com.lumata.e4o.system.cdr.types.CDRHistory;
 import com.lumata.e4o.system.cdr.types.CDRRevenue;
+import com.lumata.e4o.system.cdr.types.CDRVoucher;
+import com.lumata.e4o.system.csv.types.CSVBoolean;
 import com.lumata.e4o.system.csv.types.CSVDateIncrement;
 import com.lumata.e4o.system.csv.types.CSVSchemaTable;
 import com.lumata.e4o.system.csv.types.CSVString;
 import com.lumata.e4o.system.csv.types.CSVDate.CDRDateFormat;
+import com.lumata.e4o_tenant.schema.Agencies;
 import com.lumata.e4o_tenant.schema.Profiles;
 import com.lumata.expression.operators.exceptions.CDRException;
 
@@ -281,12 +285,185 @@ public class CDR_Examples {
 		
 	}
 	
-	
 	@Test( enabled = generate_cdr )
-	public void cdr_test_string() throws CDRException {
+	//@Test( enabled = true )
+	public void cdr_bundle_strategies() throws CDRException {
 
 		System.out.println( "-----------------------------" );
-		System.out.println( "cdr_test_string" );
+		System.out.println( "cdr_bundle_strategies" );
+
+		CDRBundle cdrBundle = new CDRBundle();
+		
+		Calendar date = Calendar.getInstance();
+		
+		Calendar max_date = Calendar.getInstance();
+		max_date.set( Calendar.YEAR , date.get( Calendar.YEAR ) + 1 );
+		
+		CSVDateIncrement increment = new CSVDateIncrement();
+		increment.setDayIncrement( 1 );
+				
+		System.out.println( "Fixed Strategy" );
+		cdrBundle.setMsisdnStrategyFixed( 3399900001L );
+		cdrBundle.setDateStrategyFixed( date );
+		cdrBundle.setBundleNameStrategyFixed( "bundle" );
+		cdrBundle.setBundleBalanceStrategyFixed( 100L );
+		cdrBundle.setBundlePurchasedStrategyFixed( true );
+		cdrBundle.addLines( 2 );
+		cdrBundle.print();
+		cdrBundle.clean();
+		
+		System.out.println( "Increment Strategy" );
+		cdrBundle.setMsisdnStrategyIncrement( 3399900001L, 1 );
+		cdrBundle.setDateStrategyIncrement( date, increment );
+		cdrBundle.setBundleNameStrategyIncrement( "bundle", 0, 1 );
+		cdrBundle.setBundleBalanceStrategyIncrement( 100L, 100 );
+		cdrBundle.setBundlePurchasedStrategyIncrement( true, 1 );
+		cdrBundle.addLines( 3 );
+		cdrBundle.print();
+		cdrBundle.clean();
+
+		System.out.println( "Random Strategy" );
+		cdrBundle.setMsisdnStrategyRandom( 3399900001L, 3399910000L );
+		cdrBundle.setDateStrategyRandom( date, max_date );
+		cdrBundle.setBundleNameStrategyRandom( 7 );
+		cdrBundle.setBundleBalanceStrategyRandom( 100L, 500L );
+		cdrBundle.setBundlePurchasedStrategyRandom();
+		cdrBundle.addLines( 3 );
+		cdrBundle.print();
+		cdrBundle.clean();
+		
+		System.out.println( "Options setting" );
+		cdrBundle.setMsisdnOptions( 39, 19 );
+		cdrBundle.setDateFormat( CDRDateFormat.SQL_DATE_TIME.getFormat() );
+		
+		System.out.println( "Fixed Strategy" );
+		cdrBundle.setMsisdnStrategyFixed( 3399900001L );
+		cdrBundle.setDateStrategyFixed( date );
+		cdrBundle.setBundleNameStrategyFixed( "bundle" );
+		cdrBundle.setBundleNameLength( 10 );
+		cdrBundle.setBundleBalanceStrategyFixed( 100L );
+		cdrBundle.setBundlePurchasedStrategyFixed( true );
+		cdrBundle.addLines( 2 );
+		cdrBundle.print();
+		cdrBundle.clean();
+		
+		System.out.println( "Increment Strategy" );
+		cdrBundle.setMsisdnStrategyIncrement( 3399900001L, 1 );
+		cdrBundle.setDateStrategyIncrement( date, increment );
+		cdrBundle.setBundleNameStrategyIncrement( "bundle", 0, 1 );
+		cdrBundle.setBundleNameLength( 11 );
+		cdrBundle.setBundleBalanceStrategyIncrement( 100L, 100 );
+		cdrBundle.setBundlePurchasedStrategyIncrement( true, 1 );
+		cdrBundle.addLines( 3 );
+		cdrBundle.print();
+		cdrBundle.clean();
+
+		System.out.println( "Random Strategy" );
+		cdrBundle.setMsisdnStrategyRandom( 3399900001L, 3399910000L );
+		cdrBundle.setDateStrategyRandom( date, max_date );
+		cdrBundle.setBundleNameStrategyRandom( 7 );
+		cdrBundle.setBundleNameLength( 13 );
+		cdrBundle.setBundleBalanceStrategyRandom( 100L, 500L );
+		cdrBundle.setBundlePurchasedStrategyRandom();
+		cdrBundle.addLines( 3 );
+		cdrBundle.print();
+		cdrBundle.clean();
+
+	}
+	
+	@Test( enabled = generate_cdr )
+	//@Test( enabled = true )
+	public void cdr_voucher_strategies() throws CDRException {
+
+		System.out.println( "-----------------------------" );
+		System.out.println( "cdr_voucher_strategies" );
+
+		CDRVoucher cdrBundle = new CDRVoucher();
+		
+		Calendar date = Calendar.getInstance();
+		
+		Calendar max_date = Calendar.getInstance();
+		max_date.set( Calendar.YEAR , date.get( Calendar.YEAR ) + 1 );
+		
+		CSVDateIncrement increment = new CSVDateIncrement();
+		increment.setDayIncrement( 1 );
+		
+		
+		/*
+		System.out.println( "Fixed Strategy" );
+		cdrBundle.setMsisdnStrategyFixed( 3399900001L );
+		cdrBundle.setDateStrategyFixed( date );
+		cdrBundle.setBundleNameStrategyFixed( "bundle" );
+		cdrBundle.setBundleBalanceStrategyFixed( 100L );
+		cdrBundle.setBundlePurchasedStrategyFixed( true );
+		cdrBundle.addLines( 2 );
+		cdrBundle.print();
+		cdrBundle.clean();
+		
+		System.out.println( "Increment Strategy" );
+		cdrBundle.setMsisdnStrategyIncrement( 3399900001L, 1 );
+		cdrBundle.setDateStrategyIncrement( date, increment );
+		cdrBundle.setBundleNameStrategyIncrement( "bundle", 0, 1 );
+		cdrBundle.setBundleBalanceStrategyIncrement( 100L, 100 );
+		cdrBundle.setBundlePurchasedStrategyIncrement( true, 1 );
+		cdrBundle.addLines( 3 );
+		cdrBundle.print();
+		cdrBundle.clean();
+
+		System.out.println( "Random Strategy" );
+		cdrBundle.setMsisdnStrategyRandom( 3399900001L, 3399910000L );
+		cdrBundle.setDateStrategyRandom( date, max_date );
+		cdrBundle.setBundleNameStrategyRandom( 7 );
+		cdrBundle.setBundleBalanceStrategyRandom( 100L, 500L );
+		cdrBundle.setBundlePurchasedStrategyRandom();
+		cdrBundle.addLines( 3 );
+		cdrBundle.print();
+		cdrBundle.clean();
+		
+		System.out.println( "Options setting" );
+		cdrBundle.setMsisdnOptions( 39, 19 );
+		cdrBundle.setDateFormat( CDRDateFormat.SQL_DATE_TIME.getFormat() );
+		
+		System.out.println( "Fixed Strategy" );
+		cdrBundle.setMsisdnStrategyFixed( 3399900001L );
+		cdrBundle.setDateStrategyFixed( date );
+		cdrBundle.setBundleNameStrategyFixed( "bundle" );
+		cdrBundle.setBundleNameLength( 10 );
+		cdrBundle.setBundleBalanceStrategyFixed( 100L );
+		cdrBundle.setBundlePurchasedStrategyFixed( true );
+		cdrBundle.addLines( 2 );
+		cdrBundle.print();
+		cdrBundle.clean();
+		
+		System.out.println( "Increment Strategy" );
+		cdrBundle.setMsisdnStrategyIncrement( 3399900001L, 1 );
+		cdrBundle.setDateStrategyIncrement( date, increment );
+		cdrBundle.setBundleNameStrategyIncrement( "bundle", 0, 1 );
+		cdrBundle.setBundleNameLength( 11 );
+		cdrBundle.setBundleBalanceStrategyIncrement( 100L, 100 );
+		cdrBundle.setBundlePurchasedStrategyIncrement( true, 1 );
+		cdrBundle.addLines( 3 );
+		cdrBundle.print();
+		cdrBundle.clean();
+
+		System.out.println( "Random Strategy" );
+		cdrBundle.setMsisdnStrategyRandom( 3399900001L, 3399910000L );
+		cdrBundle.setDateStrategyRandom( date, max_date );
+		cdrBundle.setBundleNameStrategyRandom( 7 );
+		cdrBundle.setBundleNameLength( 13 );
+		cdrBundle.setBundleBalanceStrategyRandom( 100L, 500L );
+		cdrBundle.setBundlePurchasedStrategyRandom();
+		cdrBundle.addLines( 3 );
+		cdrBundle.print();
+		cdrBundle.clean();
+*/
+	}
+	
+	@Test( enabled = generate_cdr )
+	public void csv_string() throws CDRException {
+
+		System.out.println( "-----------------------------" );
+		System.out.println( "csv_string" );
 
 		CSVString string = new CSVString();
 		
@@ -315,7 +492,47 @@ public class CDR_Examples {
 		}
 		
 	}
-	/*
+	
+	@Test( enabled = generate_cdr )
+	public void csv_boolean() throws CDRException {
+
+		System.out.println( "-----------------------------" );
+		System.out.println( "csv_string" );
+
+		CSVBoolean csvBoolean = new CSVBoolean();
+		
+		System.out.println( "Fixed Strategy" );
+		csvBoolean.setBooleanStrategyFixed( true);
+		
+		for( int i = 0; i < 2; i++ ) {
+			System.out.println( csvBoolean.getBoolean() );
+		}
+
+		System.out.println( "Incremental Strategy" );
+		csvBoolean.setBooleanStrategyIncrement( true, 1 );
+		
+		for( int i = 0; i < 3; i++ ) {
+			System.out.println( csvBoolean.getBoolean() );
+		}
+		/*
+		System.out.println( "\nIncrement Strategy" );
+		string.setStringStrategyIncrement( "voucher", 0, 5);
+		//string.setStringLength( 5 );
+		
+		for( int i = 0; i < 5; i++ ) {
+			System.out.println( string.getString() );
+		}
+		
+		System.out.println( "\nRandom Strategy" );
+		string.setStringStrategyRandom(5);
+		
+		for( int i = 0; i < 5; i++ ) {
+			System.out.println( string.getString() );
+		}
+		*/
+	}
+	
+	
 	@Test( enabled = false )
 	public void csv_schema() throws CDRException, EnvironmentException {
 		
@@ -324,35 +541,35 @@ public class CDR_Examples {
 		
 		Environment env = new Environment( "input/environments", "E4O_QA", IOFileUtils.IOLoadingType.RESOURCE );
 		
-		CSVSchemaTable csv_table = new CSVSchemaTable();
+		CSVSchemaTable csv_table = new CSVSchemaTable( new Profiles(), Profiles.Fields.profile );
 		
-		csv_table.setSchemaTableOptions( env.getDataSource( "qa" ), new Profiles(), Profiles.Fields.profile );
+		csv_table.setSchemaTableValues( env.getDataSource( "qa" ) );
 		
 		System.out.println( "Fixed Strategy" );
 		csv_table.setSchemaTableStrategyFixed( 0 );
 				
-		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
+		for( int i = 0; i < 2; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
 
 		csv_table.setSchemaTableStrategyFixed( "postpaid" );
 		
-		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
+		for( int i = 0; i < 3; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
 
 		csv_table.setSchemaTableStrategyFixed( "wrong value" );
 		
-		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
+		for( int i = 0; i < 3; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
 		
 		
 		System.out.println( "\nIncrement Strategy" );
 		csv_table.setSchemaTableStrategyIncrement( 0, 5 );
 		
-		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
+		for( int i = 0; i < 3; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
 		
 		
 		System.out.println( "\nRandom Strategy" );
 		csv_table.setSchemaTableStrategyRandom();
 		
-		for( int i = 0; i < 5; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
+		for( int i = 0; i < 3; i++ ) { System.out.println( csv_table.getSchemaTable() ); }
 		
 	}
-	*/
+
 }

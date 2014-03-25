@@ -91,7 +91,7 @@ public class CSVSchemaTable {
 	}
 	
 	@CSVMethod
-	public void setSchemaTableStrategyFixed( final int row ) throws CDRException {	
+	public void setSchemaTableStrategyFixed( final Integer row ) throws CDRException {	
 		
 		if( row >= this.table_values.size() ) { throw new CDRException( "The row is greater than table size" ); }
 
@@ -105,7 +105,7 @@ public class CSVSchemaTable {
 		
 	}
 	
-	@CSVMethod
+	
 	public void setSchemaTableStrategyFixed( final String field_value ) throws CDRException {	
 		
 		this.cleanSchemaTableStrategyIncrement();

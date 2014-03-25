@@ -1,20 +1,16 @@
 package com.lumata.e4o.system.csv.types;
 
-import org.apache.commons.lang3.RandomStringUtils;
-
-import com.lumata.e4o.system.csv.annotations.CSVFieldString;
+import com.lumata.e4o.system.csv.annotations.CSVFieldBoolean;
 import com.lumata.e4o.system.csv.annotations.CSVMethod;
 import com.lumata.expression.operators.exceptions.CDRException;
 
-@CSVFieldString
+@CSVFieldBoolean
 public class CSVBoolean {
 
 	private Boolean boolean_current_value;
 	private Integer boolean_increment;
 	private Boolean boolean_random;
 	private Boolean is_boolean_incremented;
-	
-	private final Integer DEFAULT_STRING_LENGTH = 0;
 	
 	public CSVBoolean() {
 		
@@ -55,7 +51,7 @@ public class CSVBoolean {
 						
 		}
 		
-		return this.boolean_current_value.toString(); 
+		return String.valueOf( this.boolean_current_value ); 
 		
 	}
 
