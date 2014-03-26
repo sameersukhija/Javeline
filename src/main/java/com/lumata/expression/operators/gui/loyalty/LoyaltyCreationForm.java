@@ -38,18 +38,28 @@ public class LoyaltyCreationForm extends Form {
 		
 		if (isTrueKeyOrMissing(map, "clickAccordion")) {
 		
+			/* Wrong XPATH we have only one submenu ("Creation" and not "Management") 
 			clickFormat("accordion",
 				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']",
-				createCfg.getAccordionName());
+				createCfg.getAccordionName());*/
+			
+			clickFormat("accordion",
+					"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div//*[text()='%s']",
+					createCfg.getAccordionName());
 		}
 	}
 
 	public void create() throws Exception {
 		
+		/* Wrong XPATH we have only one submenu ("Creation" and not "Management")
 		clickFormat("addNewProgramPopup",
 			"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']/../../../../../../..//*[@title='Add']",
-			createCfg.getAccordionName());
-		
+			createCfg.getAccordionName());*/
+
+		clickFormat("addNewProgramPopup",
+				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div//*[text()='%s']/../../../../../../..//*[@title='Add']",
+				createCfg.getAccordionName());
+
 		sendKeys("programNameInput",
 			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input",
 			createCfg.getProgramName());
