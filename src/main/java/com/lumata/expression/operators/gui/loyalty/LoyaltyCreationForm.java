@@ -114,13 +114,14 @@ public class LoyaltyCreationForm extends Form {
 		
 		click("addAction", "//*[@id='gwt-debug-BtnCampaignModelCreationEAAdd']");
 		
-		selectByVisibleText("selectUnitRecharge",
-			"//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']",
-			manageCfg.getAwardedActionUnit());
-		
-		sendKeys("points",
-			"//*[@id='gwt-debug-TextCampaignModelCreationEAValue']",
-			manageCfg.getAwardedActionPlus());
+		// Wrong XPATH, missing select value and input field (hidden)
+		//selectByVisibleText("selectUnitRecharge",
+		//	"//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']",
+		//	manageCfg.getAwardedActionUnit());
+		//
+		//sendKeys("points",
+		//	"//*[@id='gwt-debug-TextCampaignModelCreationEAValue']",
+		//	manageCfg.getAwardedActionPlus());
 		
 		click("saveBadge", "html/body/div[7]/div/table//*[@title='Save']");
 		
