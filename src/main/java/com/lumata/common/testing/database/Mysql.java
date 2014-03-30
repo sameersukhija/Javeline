@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lumata.common.testing.system.DataSource;
 import com.lumata.common.testing.system.Security;
 
 /**
@@ -65,14 +66,20 @@ public class Mysql {
 	
 	public Mysql( JSONObject dataSource ) {
 		
+		this( new DataSource( dataSource ) );
+				
+	}
+	
+	public Mysql( DataSource dataSource ) {
+		
 		try {
 			
 			this.setConnection( null );
-			this.setHost( dataSource.getString("host") );
-			this.setName( dataSource.getString("name") );
-			this.setPort( dataSource.getInt("port") );
-			this.setUser( dataSource.getString("user") );
-			this.setPassword( Security.decrypt( dataSource.getString("password") ) );
+			this.setHost( dataSource.getHostAddress() );
+			this.setName( dataSource.getHostName() );
+			this.setPort( dataSource.getHostPort() );
+			this.setUser( dataSource.getUser() );
+			this.setPassword( Security.decrypt( dataSource.getPassword() ) );
 							
 			logger.debug( "Mysql parameters has been loaded");
 			
@@ -88,11 +95,16 @@ public class Mysql {
 	
 	public void connect() {
 		 
-		String url = "jdbc:mysql://" + this.dbHost + ":" + this.dbPort + "/" + this.dbName;
-
+		StringBuilder url = new StringBuilder();
+		
+		url.append( "jdbc:mysql://" )
+			.append( this.dbHost ).append( ":" )
+			.append( this.dbPort ).append( "/" )
+			.append( this.dbName );
+			
 		try {
 			
-			this.dbConn = DriverManager.getConnection( url, this.dbUser, this.dbPasswd);
+			this.dbConn = DriverManager.getConnection( url.toString(), this.dbUser, this.dbPasswd);
 			
 			logger.debug( "The connection has been established ( " + url + " ) ");
 			

@@ -699,6 +699,7 @@ public class MysqlColumn {
 			 		this.setLength( 0 );
 			 		break;
 			 	}
+			 	default: break;
 			 	
 			 }
 			 			 

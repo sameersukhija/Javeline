@@ -119,4 +119,32 @@ public class MysqlUtils {
 		
 	}
 	
+	public static ArrayList<MysqlKeys> getKeys( String table, Mysql mysql ) throws SQLException {
+		
+		ArrayList<MysqlKeys> keys = new ArrayList<MysqlKeys>();
+		
+		String query = "SHOW KEYS FROM " + table + " WHERE Key_name = 'PRIMARY'";
+		
+		try {
+		
+			ResultSet rs = mysql.execQuery( query );
+		
+			while( rs.next() ) { 
+				
+				keys.add( new MysqlKeys( rs ) ); 
+				
+			}
+					
+			logger.info( "The keys has been loaded" );
+		
+		} catch( SQLException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return keys;
+		
+	}
+	
 }
