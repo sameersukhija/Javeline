@@ -171,6 +171,7 @@ public class LoyaltyCreationForm extends Form {
 			createCfg.getProgramName());
 		
 		// Wait GWT deletes the record from the GUI
+		Thread.sleep(4);
 		Boolean isInvisible = (new WebDriverWait(selenium.getWrappedDriver(), 10))
 			.until(ExpectedConditions.invisibilityOfElementLocated(By.id(
 				"html/body/table[2]//*[text()='"+createCfg.getProgramName()+"']/../..//*[@title='Delete']")));

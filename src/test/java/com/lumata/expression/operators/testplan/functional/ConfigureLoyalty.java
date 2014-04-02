@@ -86,8 +86,6 @@ public class ConfigureLoyalty {
 			form.openSubsection(ImmutableMap.of(
 					"clickAccordion", "false"));
 			form.delete();
-			
-			//Thread.sleep(4000); // Wait GWT deletes the record from the GUI
 
 		} catch (Exception e) {
 			e.printStackTrace();
