@@ -7,11 +7,11 @@ import java.util.Calendar;
 import com.lumata.e4o.system.csv.types.CSVDateIncrement;
 import com.lumata.e4o.system.csv.types.ICSVEnum;
 
-public class CDRCallMultitenant extends CDR { 
+public class CDRRevenueMultitenant extends CDR { 
 
-	private final int FIELDS = 7;
+	private final int FIELDS = 9;
 
-	public CDRCallMultitenant() {
+	public CDRRevenueMultitenant() {
 		super();
 	} 
 
@@ -89,35 +89,6 @@ public class CDRCallMultitenant extends CDR {
 		return this.date.getDate();
 	}
 
-	public void setDurationStrategyFixed( final Long value ) throws CDRException  {
-		if( this.duration != null ) { this.duration.setLongStrategyFixed( value ); }
-	}
-
-	public void cleanDurationStrategyIncrement()  {
-		if( this.duration != null ) { this.duration.cleanLongStrategyIncrement(); }
-	}
-
-	public void cleanDurationStrategyRandom()  {
-		if( this.duration != null ) { this.duration.cleanLongStrategyRandom(); }
-	}
-
-	public void setDurationStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
-		if( this.duration != null ) { this.duration.setLongStrategyIncrement( value, increment ); }
-	}
-
-	public void setDurationStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
-		if( this.duration != null ) { this.duration.setLongStrategyRandom( min_value, max_value ); }
-	}
-
-	public void cleanDurationStrategyFixed()  {
-		if( this.duration != null ) { this.duration.cleanLongStrategyFixed(); }
-	}
-
-	@Duration( position = 2 )
-	public String getDuration() throws CDRException  {
-		return this.duration.getLong();
-	}
-
 	public void setAmountStrategyFixed( final Long value ) throws CDRException  {
 		if( this.amount != null ) { this.amount.setLongStrategyFixed( value ); }
 	}
@@ -142,7 +113,7 @@ public class CDRCallMultitenant extends CDR {
 		if( this.amount != null ) { this.amount.cleanLongStrategyFixed(); }
 	}
 
-	@Amount( position = 3 )
+	@Amount( position = 2 )
 	public String getAmount() throws CDRException  {
 		return this.amount.getLong();
 	}
@@ -171,38 +142,133 @@ public class CDRCallMultitenant extends CDR {
 		if( this.balance != null ) { this.balance.cleanLongStrategyFixed(); }
 	}
 
-	@Balance( position = 4 )
+	@Balance( position = 3 )
 	public String getBalance() throws CDRException  {
 		return this.balance.getLong();
 	}
 
-	@Terminating( position = 5 )
-	public String getTerminating() throws CDRException  {
-		return this.terminating.getEnum();
+	public void setValidityDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
+		if( this.validity_date != null ) { this.validity_date.setDateStrategyRandom( date_left, date_right ); }
 	}
 
-	public void setTerminatingStrategyFixed( final Enum<? extends ICSVEnum> value ) throws CDRException  {
-		if( this.terminating != null ) { this.terminating.setEnumStrategyFixed( value ); }
+	public void cleanValidityDateStrategyFixed()  {
+		if( this.validity_date != null ) { this.validity_date.cleanDateStrategyFixed(); }
 	}
 
-	public void cleanTerminatingStrategyIncrement()  {
-		if( this.terminating != null ) { this.terminating.cleanEnumStrategyIncrement(); }
+	public void setValidityDateStrategyFixed( final Calendar date ) throws CDRException  {
+		if( this.validity_date != null ) { this.validity_date.setDateStrategyFixed( date ); }
 	}
 
-	public void cleanTerminatingStrategyRandom()  {
-		if( this.terminating != null ) { this.terminating.cleanEnumStrategyRandom(); }
+	public void cleanValidityDateStrategyIncrement()  {
+		if( this.validity_date != null ) { this.validity_date.cleanDateStrategyIncrement(); }
 	}
 
-	public void setTerminatingStrategyIncrement( final Enum<? extends ICSVEnum> value, final Integer increment ) throws CDRException  {
-		if( this.terminating != null ) { this.terminating.setEnumStrategyIncrement( value, increment ); }
+	public void cleanValidityDateStrategyRandom()  {
+		if( this.validity_date != null ) { this.validity_date.cleanDateStrategyRandom(); }
 	}
 
-	public void setTerminatingStrategyRandom() throws CDRException  {
-		if( this.terminating != null ) { this.terminating.setEnumStrategyRandom(); }
+	public void setValidityDateFormat( String format ) throws CDRException  {
+		if( this.validity_date != null ) { this.validity_date.setDateFormat( format ); }
 	}
 
-	public void cleanTerminatingStrategyFixed()  {
-		if( this.terminating != null ) { this.terminating.cleanEnumStrategyFixed(); }
+	public void setValidityDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
+		if( this.validity_date != null ) { this.validity_date.setDateStrategyIncrement( date, increment ); }
+	}
+
+	@ValidityDate( position = 4 )
+	public String getValidityDate()  {
+		return this.validity_date.getDate();
+	}
+
+	public void setDeactivationDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
+		if( this.deactivation_date != null ) { this.deactivation_date.setDateStrategyRandom( date_left, date_right ); }
+	}
+
+	public void cleanDeactivationDateStrategyFixed()  {
+		if( this.deactivation_date != null ) { this.deactivation_date.cleanDateStrategyFixed(); }
+	}
+
+	public void setDeactivationDateStrategyFixed( final Calendar date ) throws CDRException  {
+		if( this.deactivation_date != null ) { this.deactivation_date.setDateStrategyFixed( date ); }
+	}
+
+	public void cleanDeactivationDateStrategyIncrement()  {
+		if( this.deactivation_date != null ) { this.deactivation_date.cleanDateStrategyIncrement(); }
+	}
+
+	public void cleanDeactivationDateStrategyRandom()  {
+		if( this.deactivation_date != null ) { this.deactivation_date.cleanDateStrategyRandom(); }
+	}
+
+	public void setDeactivationDateFormat( String format ) throws CDRException  {
+		if( this.deactivation_date != null ) { this.deactivation_date.setDateFormat( format ); }
+	}
+
+	public void setDeactivationDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
+		if( this.deactivation_date != null ) { this.deactivation_date.setDateStrategyIncrement( date, increment ); }
+	}
+
+	@DeactivationDate( position = 5 )
+	public String getDeactivationDate()  {
+		return this.deactivation_date.getDate();
+	}
+
+	@Type( position = 6 )
+	public String getType() throws CDRException  {
+		return this.type.getEnum();
+	}
+
+	public void setTypeStrategyFixed( final Enum<? extends ICSVEnum> value ) throws CDRException  {
+		if( this.type != null ) { this.type.setEnumStrategyFixed( value ); }
+	}
+
+	public void cleanTypeStrategyIncrement()  {
+		if( this.type != null ) { this.type.cleanEnumStrategyIncrement(); }
+	}
+
+	public void cleanTypeStrategyRandom()  {
+		if( this.type != null ) { this.type.cleanEnumStrategyRandom(); }
+	}
+
+	public void setTypeStrategyIncrement( final Enum<? extends ICSVEnum> value, final Integer increment ) throws CDRException  {
+		if( this.type != null ) { this.type.setEnumStrategyIncrement( value, increment ); }
+	}
+
+	public void setTypeStrategyRandom() throws CDRException  {
+		if( this.type != null ) { this.type.setEnumStrategyRandom(); }
+	}
+
+	public void cleanTypeStrategyFixed()  {
+		if( this.type != null ) { this.type.cleanEnumStrategyFixed(); }
+	}
+
+	public void setDelayStrategyFixed( final Long value ) throws CDRException  {
+		if( this.delay != null ) { this.delay.setLongStrategyFixed( value ); }
+	}
+
+	public void cleanDelayStrategyIncrement()  {
+		if( this.delay != null ) { this.delay.cleanLongStrategyIncrement(); }
+	}
+
+	public void cleanDelayStrategyRandom()  {
+		if( this.delay != null ) { this.delay.cleanLongStrategyRandom(); }
+	}
+
+	public void setDelayStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
+		if( this.delay != null ) { this.delay.setLongStrategyIncrement( value, increment ); }
+	}
+
+	public void setDelayStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
+		if( this.delay != null ) { this.delay.setLongStrategyRandom( min_value, max_value ); }
+	}
+
+	public void cleanDelayStrategyFixed()  {
+		if( this.delay != null ) { this.delay.cleanLongStrategyFixed(); }
+	}
+
+	@Delay( position = 7 )
+	public String getDelay() throws CDRException  {
+		return this.delay.getLong();
 	}
 
 	public void setTenantIdStrategyFixed( final Long value ) throws CDRException  {
@@ -229,7 +295,7 @@ public class CDRCallMultitenant extends CDR {
 		if( this.tenant_id != null ) { this.tenant_id.cleanLongStrategyFixed(); }
 	}
 
-	@TenantId( position = 6 )
+	@TenantId( position = 8 )
 	public String getTenantId() throws CDRException  {
 		return this.tenant_id.getLong();
 	}

@@ -1,19 +1,32 @@
 package com.lumata.e4o.system.cdr;
 
+import java.io.File;
+import java.io.InputStream;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.IOFileException;
+import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.IOFileUtils;
+import com.lumata.common.testing.io.JSONUtils;
+import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.network.SFTPClient;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.ServicesType;
@@ -58,11 +71,13 @@ import com.lumata.e4o.system.csv.types.CSVLong;
 import com.lumata.e4o.system.csv.types.CSVString;
 import com.lumata.e4o.system.csv.types.ICSVEnum;
 import com.lumata.e4o.system.csv.types.CSVSchemaTable;
+import com.lumata.e4o.system.environment.ExpressionKernelCommands;
 /** schema classes */
 import com.lumata.e4o_tenant.schema.Profiles;
 import com.lumata.e4o_tenant.schema.Statuses;
 import com.lumata.e4o_tenant.schema.SupportedRatePlan;
 import com.lumata.e4o_tenant.schema.VoucherCodes;
+import com.lumata.expression.operators.exceptions.CDRException;
 
 /** CDR exception */
 //import com.lumata.expression.operators.exceptions.CDRException;
@@ -71,10 +86,12 @@ public class CDR {
 	
 	private static final Logger logger = LoggerFactory.getLogger( CDR.class );
 	
-	private String dir;
+	private String output_dir;
 	private String file_name;
 	private StringBuilder file_content;
 	private ArrayList<String> rows;
+	private Environment env;
+	private String tenant;
 	
 	@Msisdn 
 	protected CSVMsisdn msisdn;	
@@ -110,7 +127,8 @@ public class CDR {
 	protected CSVString voucher_code; 
 	
 	@Location
-	protected CSVSchemaTable location;
+	//protected CSVSchemaTable location;
+	protected CSVString location;
 		
 	@BundleName
 	protected CSVString bundle_name; 
@@ -128,16 +146,20 @@ public class CDR {
 	protected CSVLong upload;
 	
 	@NewRatePlan
-	protected CSVSchemaTable new_rate_plan;
+	//protected CSVSchemaTable new_rate_plan;
+	protected CSVString new_rate_plan;
 	
 	@OldRatePlan
-	protected CSVSchemaTable old_rate_plan;
+	//protected CSVSchemaTable old_rate_plan;
+	protected CSVString old_rate_plan;
 	
 	@NewProfile
-	protected CSVSchemaTable new_profile;
+	//protected CSVSchemaTable new_profile;
+	protected CSVString new_profile;
 	
 	@OldProfile
-	protected CSVSchemaTable old_profile;
+	//protected CSVSchemaTable old_profile;
+	protected CSVString old_profile;
 	
 	@NewSubProfile
 	protected CSVString new_subprofile;
@@ -146,10 +168,12 @@ public class CDR {
 	protected CSVString old_subprofile;
 
 	@NewStatus
-	protected CSVSchemaTable new_status;
+	//protected CSVSchemaTable new_status;
+	protected CSVString new_status;
 	
 	@OldStatus
-	protected CSVSchemaTable old_status;
+	//protected CSVSchemaTable old_status;
+	protected CSVString old_status;
 
 	@NewNetwork
 	protected CSVString new_network; 
@@ -171,6 +195,14 @@ public class CDR {
 	
 	@TenantId
 	protected CSVLong tenant_id;
+	
+	public enum Parameters {
+		Env, 
+		Tenant,
+		CDRCfgDir,
+		CDRCfgFile,
+		CDROutputDir		
+	}
 	
 	public enum TERMINATING implements ICSVEnum { 
 		
@@ -206,6 +238,7 @@ public class CDR {
 	
 	}
 	
+	@Type
 	public enum TYPE implements ICSVEnum { 
 		
 		PAIEMENT("paiement"), 
@@ -237,18 +270,27 @@ public class CDR {
 		this.delay = new CSVLong();
 		this.type = new CSVEnum( TYPE.values() );
 		this.voucher_code = new CSVString(); 
-		this.location = new CSVSchemaTable( new VoucherCodes(), VoucherCodes.Fields.location_id );
+		//this.location = new CSVSchemaTable( new VoucherCodes(), VoucherCodes.Fields.location_id );
+		this.location = new CSVString(); 
 		this.bundle_name = new CSVString(); 
 		this.bundle_balance = new CSVLong();
 		this.bundle_purchased = new CSVBoolean();
-		this.new_rate_plan = new CSVSchemaTable( new SupportedRatePlan(), SupportedRatePlan.Fields.rate_plan );
-		this.old_rate_plan = new CSVSchemaTable( new SupportedRatePlan(), SupportedRatePlan.Fields.rate_plan );
-		this.new_profile = new CSVSchemaTable( new Profiles(), Profiles.Fields.profile );
-		this.old_profile = new CSVSchemaTable( new Profiles(), Profiles.Fields.profile );
+		//this.new_rate_plan = new CSVSchemaTable( new SupportedRatePlan(), SupportedRatePlan.Fields.rate_plan );
+		//this.old_rate_plan = new CSVSchemaTable( new SupportedRatePlan(), SupportedRatePlan.Fields.rate_plan );
+		//this.new_profile = new CSVSchemaTable( new Profiles(), Profiles.Fields.profile );
+		//this.old_profile = new CSVSchemaTable( new Profiles(), Profiles.Fields.profile );
+		this.download = new CSVLong(); 
+		this.upload = new CSVLong(); 
+		this.new_rate_plan = new CSVString();
+		this.old_rate_plan = new CSVString();
+		this.new_profile = new CSVString();
+		this.old_profile = new CSVString();
 		this.new_subprofile = new CSVString();
 		this.old_subprofile = new CSVString();
-		this.new_status = new CSVSchemaTable( new Statuses(), Statuses.Fields.status );
-		this.old_status = new CSVSchemaTable( new Statuses(), Statuses.Fields.status );
+		//this.new_status = new CSVSchemaTable( new Statuses(), Statuses.Fields.status );
+		//this.old_status = new CSVSchemaTable( new Statuses(), Statuses.Fields.status );
+		this.new_status = new CSVString();
+		this.old_status = new CSVString();
 		this.new_network = new CSVString(); 
 		this.old_network = new CSVString(); 
 		this.new_subscription_date = new CSVDate();
@@ -258,8 +300,37 @@ public class CDR {
 		this.file_content = new StringBuilder();
 		this.rows = new ArrayList<String>();
 		
+		this.env = null;
+		this.tenant = null;
+		
 	}
 	
+	private void setEnvironment( Environment env ) throws CDRException {
+		
+		this.env = env;
+		
+		if( this.env != null && this.tenant != null ) {
+			this.setDataSources();
+		}
+		
+	}
+
+	private void setTenant( String tenant ) throws CDRException {
+		
+		this.tenant = tenant;
+		
+		if( this.env != null && this.tenant != null ) {
+			this.setDataSources();
+		}
+		
+	}
+	
+	private void setDataSources() throws CDRException {
+		
+		//this.location.setSchemaTableValues( this.env.getDataSource( this.tenant ) );
+		
+	}
+
 	public void addLine() {
 		
 		String[] field_values = null; 	
@@ -354,7 +425,15 @@ public class CDR {
 	
 	public void save() throws IOFileException {
 		
-		IOFileUtils.saveResource( this.file_content.toString(), this.dir, this.file_name );
+		IOFileUtils.saveResource( this.file_content.toString(), this.output_dir, this.file_name );
+		
+	}
+	
+	public Boolean checkFile() throws IOFileException {
+		
+		File file = new File( "src/main/resources/" + IOFileUtils.buildResourcePath( this.output_dir, this.file_name ) );
+		
+		return ( file.exists() && file.isFile() );
 		
 	}
 	
@@ -368,7 +447,7 @@ public class CDR {
 			
 			if( sftp.isConnected() ) {
 				
-				String local_path = System.getProperty( "user.dir" ) + "/src/main/resources/" + this.getDir() + "/";
+				String local_path = System.getProperty( "user.dir" ) + "/src/main/resources/" + this.getOutputDir() + "/";
 				
 	            sftp.copyFile( local_path, this.getFileName(), remote_path , this.getFileName(), SFTPClient.CopyType.LOCAL_TO_REMOTE );
 	        				
@@ -378,17 +457,17 @@ public class CDR {
 		
 	}
 	
-	public void setPath( String dir, String file_name ) {
+	public void setOutputPath( String output_dir, String file_name ) {
 		
-		this.dir = dir;
+		this.output_dir = output_dir;
 		
 		this.file_name = file_name;
 		
 	}
 	
-	public String getDir() {
+	public String getOutputDir() {
 		
-		return ( this.dir != null ? this.dir : "" );
+		return ( this.output_dir != null ? this.output_dir : "" );
 		
 	}
 	
@@ -402,7 +481,383 @@ public class CDR {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat( "yyyyMMddHHmmss" );
 		
-		return this.getClass().getSimpleName() + "_" + sdf.format( Calendar.getInstance().getTime() ) + ".csv" ;
+		return this.getClass().getSimpleName() + "_" + sdf.format( Calendar.getInstance().getTime() ) + ".csv";
+		
+	}
+	
+	public void feeder( Calendar startDate, Calendar endDate, Map<String, Object> parameters ) throws CDRException, JSONSException, IOFileException {
+		
+		if( parameters == null ) { throw new CDRException( "invalid parameters list" ); }
+		
+		/** generate cdrs in the datetime interval */
+		for( java.util.Date date = startDate.getTime(); !startDate.after( endDate ); startDate.add(Calendar.DATE, 1), date = startDate.getTime() ) {
+           
+			Calendar elaborationDate = Calendar.getInstance();
+            elaborationDate.setTime( date );
+            
+            this.feederByDate( elaborationDate, parameters );
+            
+        }
+		
+	}
+	
+	public void feederByDate( Calendar date, Map<String, Object> parameters ) throws CDRException, JSONSException, IOFileException {
+		
+		if( parameters == null ) { throw new CDRException( "invalid parameters list" ); }
+		
+		SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+		
+		logger.info( Log.CHECKING.createMessage( "Start cdr feeder on " + sdf.format( date.getTime() ) ) );
+		
+		/** set environment */
+		if( parameters.containsKey( CDR.Parameters.Env.name() ) && parameters.containsKey( CDR.Parameters.Tenant.name() ) ) {
+			
+			this.setEnvironment( (Environment)parameters.get( CDR.Parameters.Env.name() ) );
+			this.setTenant( (String)parameters.get( CDR.Parameters.Tenant.name() ) );
+		
+		} else { 
+			
+			throw new CDRException( "the environment and tenant parameters are not present" );
+		
+		}
+		
+		/** update dynamic datetime field */
+		for( Map.Entry<String, Object> parameter : parameters.entrySet() ) {
+		   		
+			Calendar newDate = Calendar.getInstance();
+			newDate.setTime( date.getTime() );
+			
+			Pattern pattern_param_date_place_holder = Pattern.compile( "###[_0-9a-zA-Z]*date[_0-9a-zA-Z]*###" );
+			Matcher matcher_param_date_place_holder = pattern_param_date_place_holder.matcher( parameter.getKey() );
+						
+			if( matcher_param_date_place_holder.find() ) {
+				
+				if( parameter.getValue() instanceof String ) {
+					
+					/** get dynamic date setting */
+					Pattern pattern_param_current_date_place_holder = Pattern.compile( "@current|([+-][0-9])+(YEAR|MONTH|DAY|HOUR|MINUTE|SECOND)" );
+					Matcher matcher_param_current_date_place_holder = pattern_param_current_date_place_holder.matcher( (String)parameter.getValue() );
+				
+					/** initialize date values */
+					int YEAR = date.get( Calendar.YEAR ); 
+					int MONTH = date.get( Calendar.MONTH ); 
+					int DAY = date.get( Calendar.DATE ); 
+					int HOUR = date.get( Calendar.HOUR ); 
+					int MINUTE = date.get( Calendar.MINUTE ); 
+					int SECOND = date.get( Calendar.SECOND );
+					
+					/** increment date values */
+					while( matcher_param_current_date_place_holder.find() ) {
+						
+						try { 
+						
+							if( matcher_param_current_date_place_holder.group( 2 ) != null ) {
+								
+								switch( matcher_param_current_date_place_holder.group( 2 ) ) {
+								
+									case "YEAR": { 
+										YEAR = YEAR + Integer.valueOf( Integer.parseInt( matcher_param_current_date_place_holder.group( 1 ) ) );
+										break;
+									}
+									case "MONTH": { 
+										MONTH = MONTH + Integer.valueOf( Integer.parseInt( matcher_param_current_date_place_holder.group( 1 ) ) );
+										break;
+									}
+									case "DAY": { 
+										DAY = DAY + Integer.valueOf( Integer.parseInt( matcher_param_current_date_place_holder.group( 1 ) ) );
+										break;
+									}									
+									case "HOUR": { 
+										HOUR = HOUR + Integer.valueOf( Integer.parseInt( matcher_param_current_date_place_holder.group( 1 ) ) );
+										break;
+									}									
+									case "MINUTE": { 
+										MINUTE = MINUTE + Integer.valueOf( Integer.parseInt( matcher_param_current_date_place_holder.group( 1 ) ) );
+										break;
+									}									
+									case "SECOND": { 
+										SECOND = SECOND + Integer.valueOf( Integer.parseInt( matcher_param_current_date_place_holder.group( 1 ) ) );
+										break;
+									}								
+								
+								}
+								
+							}
+							
+						} catch( NumberFormatException e ) {}
+												
+					}
+					
+					/** set incremented date */
+					newDate.set( YEAR, MONTH, DAY, HOUR, MINUTE, SECOND );
+					
+					/** set new date parameter */
+					parameters.put( parameter.getKey(), newDate );
+					
+				}
+				
+			}
+			
+		}
+
+		
+		/** stop collector daemon, collector process and cdrwriter process in the remote server via ssh*/
+		ExpressionKernelCommands.collectorServiceStop( env );
+		ExpressionKernelCommands.collectorStop( env );
+    	ExpressionKernelCommands.cdrwriterStop( env );
+		
+		/** set datetime on remote server */
+    	ExpressionKernelCommands.setDatetime( env, date );
+    	
+    	/** generate cdrs from json file and put them in the remote server */
+    	this.generateCDRFromJson( parameters );
+		    	
+    	/** start collector daemon, collector process and cdrwriter process in the remote server via ssh*/
+    	ExpressionKernelCommands.cdrwriterStart( env );
+    	ExpressionKernelCommands.collectorStart( env );
+		ExpressionKernelCommands.collectorServiceStart( env );
+				
+	}
+	
+	public void generateCDRFromJson( Map<String, Object> parameters ) throws JSONSException, IOFileException, CDRException {
+		
+		if( !parameters.containsKey( CDR.Parameters.CDRCfgDir.name() ) || 
+			!parameters.containsKey( CDR.Parameters.CDRCfgFile.name() ) || 
+			!parameters.containsKey( CDR.Parameters.CDROutputDir.name() )		
+		) {
+			throw new CDRException ( "some needed parameters are not present in the json configuration file" );
+		}
+		
+		/** get json configuration file path */
+		String jsonSourceDir = (String)parameters.get( CDR.Parameters.CDRCfgDir.name() );
+		String jsonSourceFile = (String)parameters.get( CDR.Parameters.CDRCfgFile.name() );
+		
+		/** get cdrs configuration json */
+		JSONObject cdrCfg = JSONUtils.loadJSONResource( jsonSourceDir , jsonSourceFile );
+		
+		/** set environment */
+		this.setEnvironment( (Environment)parameters.get( CDR.Parameters.Env.name() ) );
+		this.setTenant( (String)parameters.get( CDR.Parameters.Tenant.name() ) );
+		
+		/** define cdr type package */
+		String cdr_types_package = this.getClass().getPackage().getName() + ".types";
+		
+		/** set cdr type configuration */
+		@SuppressWarnings("unchecked")
+		Iterator<String> cdrTypes = cdrCfg.keys();
+		
+		while( cdrTypes.hasNext() ) {
+				
+			/** cdr type class name */
+			String cdrTypeClassName = cdrTypes.next();
+			//System.out.println( cdrTypeClassName );
+			logger.info( Log.LOADING.createMessage( cdrTypeClassName + " file" ) );  
+			
+			try {
+				
+				/** get cdr class instance */
+				Class<?> cdrTypeClass = Class.forName( cdr_types_package + "." + cdrTypeClassName );				
+				Object cdrTypeClassInstance = cdrTypeClass.newInstance();
+				
+				/** get cdr type fields configuration */
+				JSONObject cdrTypeFieldsCfg = cdrCfg.getJSONObject( cdrTypeClassName );
+				
+				/** set field values */
+				@SuppressWarnings("unchecked")
+				Iterator<String> cdrTypeFields = cdrTypeFieldsCfg.keys();
+				
+				while( cdrTypeFields.hasNext() ) {
+					
+					/** get cdr type field name */
+					String cdrTypeFieldName = cdrTypeFields.next();					
+										
+					if( cdrTypeFieldsCfg.get( cdrTypeFieldName ) instanceof JSONObject ) {
+					
+						/** get method to invoke */
+						StringBuilder cdrTypeMethodName = new StringBuilder();
+						
+						cdrTypeMethodName.append( "set" )
+											.append( cdrTypeFieldName )
+											.append( "Strategy" )
+											.append( cdrTypeFieldsCfg.getJSONObject( cdrTypeFieldName ).get( "strategy" ) );
+						
+						/** invoke method */
+						for( Method cdrTypeMethod : cdrTypeClass.getMethods() ) {
+													
+							if( cdrTypeMethod.getName().equals( cdrTypeMethodName.toString() ) ) {
+								//System.out.println( cdrTypeMethodName.toString() );	
+								try {
+									// TODO
+									/*
+									System.out.println( "----------" );
+									for( Field cdrAttribute : this.getClass().getDeclaredFields() ) {
+										
+										for( Annotation cdrAttributeAnnotation : cdrAttribute.getAnnotations() ) {
+											
+											if( cdrAttributeAnnotation.getClass().getInterfaces()[0].getSimpleName().equals( cdrTypeFieldName ) ) {
+												
+												if( cdrAttribute.getType().getSimpleName().equals( "CSVSchemaTable" ) ) {
+													
+													System.out.println( "@@@@@@@@@@: " + cdrTypeFieldName );
+													
+													System.out.println( "TTTTTT: " + cdrAttribute.getType().getSimpleName() );
+													
+													try {
+														Method m = this.getClass().getMethod( "setLocationValues" );
+														cdrTypeMethod.invoke( "setLocationValues", this.env.getDataSource( this.tenant ) );
+														
+													} catch (
+															NoSuchMethodException
+															| SecurityException e) {
+														// TODO Auto-generated catch block
+														e.printStackTrace();
+														System.out.println( "PIPPO, PIPPO" );
+													}
+													
+																										
+												}
+												
+											}
+											
+										}
+										//if( cdrAttribute.isAnnotationPresent( cdrTypeAnnotation.newInstance() ) ) {
+											
+										//}
+										//System.out.println( f.getName() );
+									}*/
+									//System.out.println( "----------" );
+									/** get cdr type field paratemers */
+									Object[] fieldParameters = this.getCDRTypeParameterValues( cdrTypeFieldName, cdrTypeMethod, cdrTypeFieldsCfg.getJSONObject( cdrTypeFieldName ), parameters );
+																	
+									/** set the field value using the strategy set in the json configuration file */
+									cdrTypeMethod.invoke( cdrTypeClassInstance, fieldParameters );
+																	
+								} catch (	IllegalAccessException | 
+										 	IllegalArgumentException | 
+										 	InvocationTargetException e ) 
+								{ 	logger.error( e.getMessage(), e ); 	}
+								
+							}							
+							
+						}
+						
+					}
+					
+				}
+				
+				/** get cdr instance class */
+				CDR cdr = ((CDR)cdrTypeClassInstance);
+				
+				/** add lines to cdr file */
+				cdr.addLines( cdrTypeFieldsCfg.getInt( "linesCount" ) );
+				
+				/** set cdr output path */
+				long current_timestamp = Calendar.getInstance().getTimeInMillis();
+				String file_name = cdrTypeClassName.toLowerCase() + "_" + current_timestamp + ".csv";
+				
+				cdr.setOutputPath( (String)parameters.get( CDR.Parameters.CDROutputDir.name() ), file_name );
+				
+				/** store cdr file */
+				cdr.save();
+				
+				/** check if the file has been created */
+				/*long timeout = 10000;				
+				long spentTime = 0;
+				long checkTime = 1000;
+				
+				while( !cdr.checkFile() && spentTime < timeout ) {
+					try { Thread.sleep( checkTime ); spentTime = spentTime + checkTime; } catch (InterruptedException e) {}
+				}
+				*/
+				
+				/** send cdr file */
+				cdr.send( this.env, cdrTypeFieldsCfg.getString( "depositPath" ) );				
+				
+			} catch ( 	JSONException | 
+						ClassNotFoundException | 
+						InstantiationException | 
+						IllegalAccessException e ) 
+			{ 	logger.error( e.getMessage(), e ); 	}
+			
+		}		
+				
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Object[] getCDRTypeParameterValues( String cdrTypeFieldName, Method cdrTypeMethod, JSONObject fieldCfg, Map<String, Object> parameters ) throws JSONException {
+		
+		/** get method parameters configuration */
+		JSONArray paramsCfg = fieldCfg.getJSONArray( "parameters" );
+				
+		/** get cdr type field parameters */
+		Object[] fieldParameters = new Object[ paramsCfg.length() ];
+		
+		/** get parameters type */
+		Class<?>[] cdrMethodParamsTypes = cdrTypeMethod.getParameterTypes();
+		
+		for( int obj = 0; obj < paramsCfg.length(); obj++ ) {
+						
+			try {
+				
+				/** get parameter value */
+				Object paramValue = paramsCfg.get( obj );
+				
+				Pattern pattern_param_place_holder = Pattern.compile( "###[_0-9a-zA-Z]+###" );
+				Matcher matcher_param_place_holder = pattern_param_place_holder.matcher( (String)paramValue );
+				
+				if( matcher_param_place_holder.find() ) {
+					paramValue = parameters.get( matcher_param_place_holder.group(0) );
+				}
+				//System.out.println( cdrMethodParamsTypes[obj].getSimpleName() );				
+				/** cast parameters */
+				switch( cdrMethodParamsTypes[obj].getSimpleName() ) {
+				
+					case "Boolean": {
+						fieldParameters[ obj ] = Boolean.valueOf( (String)paramValue );
+						break;
+					}
+					case "Calendar": {
+						fieldParameters[ obj ] = paramValue;
+						break;
+					}
+					case "Enum": {
+						
+						for( @SuppressWarnings("rawtypes") Class<Enum> cl : (Class<Enum>[])this.getClass().getClasses() ) {
+							
+							for( Annotation a : cl.getAnnotations() ) {
+								
+								/** get correct enum value associated to the current field via annotation */
+								if( a.getClass().getInterfaces()[0].getSimpleName().equals( cdrTypeFieldName ) ) {
+									fieldParameters[ obj ] = Enum.valueOf( cl, String.valueOf( paramValue ).toUpperCase() );
+								}
+								
+							}
+						}
+						
+						break;
+					}
+					case "Integer": {
+						fieldParameters[ obj ] = Integer.valueOf( (String)paramValue );					
+						break;
+					}
+					case "Long": {
+						fieldParameters[ obj ] = Long.valueOf( (String)paramValue );					
+						break;
+					}
+					case "String": {
+						fieldParameters[ obj ] = String.valueOf( paramValue );					
+						break;
+					}
+									
+				}
+								
+			} catch ( NumberFormatException | JSONException e) { 
+				logger.error( e.getMessage(), e );
+			}
+			
+		}	
+		
+		return fieldParameters;
 		
 	}
 	

@@ -80,6 +80,11 @@ public class CDRClassGenerator {
 				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class, ValidityDate.class, DeactivationDate.class, Type.class, Delay.class );
 			}
 		},
+		RevenueMultitenant {	
+			public List<Class<? extends Annotation>> fields() {
+				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class, ValidityDate.class, DeactivationDate.class, Type.class, Delay.class, TenantId.class );
+			}
+		},
 		Bundle {	
 			public List<Class<? extends Annotation>> fields() {
 				return Arrays.asList( Msisdn.class, Date.class, BundleName.class, BundleBalance.class, BundlePurchased.class );
@@ -317,7 +322,7 @@ public class CDRClassGenerator {
 														.append(" != null ) { this.")
 														.append( cdr_field.getName() )
 														.append( "." )
-														.append( csv_type_method_call )
+														.append( csv_type_method_call.trim() )
 														.append( "; }" );							
 								
 								} else {
@@ -325,11 +330,11 @@ public class CDRClassGenerator {
 									cdr_type_method_body.append( "return this." )
 														.append( cdr_field.getName() )
 														.append(".")
-														.append( csv_type_method_call )
+														.append( csv_type_method_call.trim() )
 														.append( ";" );
 									
 								}
-																
+								
 								StringBuilder cdr_type_method = new StringBuilder();
 								
 								cdr_type_method.append( "\t" )
@@ -341,8 +346,7 @@ public class CDRClassGenerator {
 																				
 								/** Put cdr type method */
 								cdr_type_methods.append( cdr_type_method );
-								
-								
+																
 								/** Check needed packages */
 								
 								/** Put Calendar packages if it needs */						
@@ -370,7 +374,7 @@ public class CDRClassGenerator {
 									import_json_package = false;
 								}
 															
-							}
+							}							
 														
 						}
 										

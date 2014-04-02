@@ -68,6 +68,8 @@ public class CSVString {
 		this.cleanStringStrategyRandom();
 		
 		this.string_current_value = value;
+		
+		this.string_length = value.length();
 			
 	}
 	
@@ -78,6 +80,8 @@ public class CSVString {
 		
 		this.string_current_value = value;
 		
+		this.string_length = value.length();
+		
 		this.string_increment_current_value = Math.abs( start_value );
 		
 		this.string_increment = Math.abs( increment );
@@ -85,7 +89,7 @@ public class CSVString {
 	}
 	
 	@CSVMethod
-	public void setStringStrategyRandom( int length ) throws CDRException {
+	public void setStringStrategyRandom( final Integer length ) throws CDRException {
 		
 		this.cleanStringStrategyIncrement();
 		
