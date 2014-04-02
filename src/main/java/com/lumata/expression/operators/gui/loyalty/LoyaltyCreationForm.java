@@ -59,12 +59,11 @@ public class LoyaltyCreationForm extends Form {
 			"html/body/div[5]/div/table//*[@title='Close']");
 	}
 
-	public void duplication() throws Exception {
+	public String duplication() throws Exception {
 		
 		addNewProgram();
 		
-		System.out.println(getText("errorMessage", "html/body/div[6]/div/div"));
-		// TODO...
+		return getText("errorMessage", "html/body/div[6]/div/div");
 	}
 
 	public void manage() throws Exception {
