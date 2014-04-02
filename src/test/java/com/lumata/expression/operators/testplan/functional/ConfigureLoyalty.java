@@ -87,6 +87,8 @@ public class ConfigureLoyalty {
 					"clickAccordion", "false"));
 			form.delete();
 			
+			Thread.sleep(4000); // Wait GWT deletes the record from the GUI
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail("Error during loyalty configuration");
@@ -96,9 +98,7 @@ public class ConfigureLoyalty {
 	@Test(enabled=true, priority=1)
 	public void configureBadgesWithDuplicationError() {
 
-		try {
-			Thread.sleep(4000); // Wait GWT deletes the record from the GUI in the previous test 
-			
+		try {			
 			form.openSubsection(ImmutableMap.of(
 					"clickAccordion", "false"));
 			form.create();
