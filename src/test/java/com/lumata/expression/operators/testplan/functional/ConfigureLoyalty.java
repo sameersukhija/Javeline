@@ -100,10 +100,8 @@ public class ConfigureLoyalty {
 			form.open();
 			form.create();
 			Assert.assertEquals(form.duplication(), "The name is already used");
-			//form.manage();
-			//form.openSubsection(ImmutableMap.of(
-			//		"clickAccordion", "false"));
-			//form.delete();
+			form.closeNewProgramPopup();
+			form.delete();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

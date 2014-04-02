@@ -3,6 +3,8 @@ package com.lumata.expression.operators.gui.loyalty;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.Assert;
+
 import com.google.common.collect.ImmutableMap;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.expression.operators.gui.catalogue.LoyaltyForm;
@@ -117,6 +119,12 @@ public class LoyaltyCreationForm extends Form {
 		click("closeBadge", "html/body/div[5]/div/table//*[@title='Close']");
 	}
 
+	public void closeNewProgramPopup() throws Exception {
+		
+		click("closeProgramPopup",
+			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td[1]/button");
+	}
+	
 	private void addNewProgram() throws Exception {
 		
 		/* Wrong XPATH we have only one submenu ("Creation" and not "Management")
