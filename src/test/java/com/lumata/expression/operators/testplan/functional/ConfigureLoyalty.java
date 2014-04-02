@@ -76,7 +76,7 @@ public class ConfigureLoyalty {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}
 	
-	@Test(enabled=true, priority = 1)
+	@Test(enabled=false, priority = 1)
 	public void configureBadges() {
 		
 		try {
@@ -95,6 +95,19 @@ public class ConfigureLoyalty {
 	
 	@Test(enabled=true, priority = 1)
 	public void configureBadgesWithDuplicationError() {
+
+		try {
+			form.open();
+			form.create();
+			//form.manage();
+			//form.openSubsection(ImmutableMap.of(
+			//		"clickAccordion", "false"));
+			//form.delete();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail("Error during loyalty configuration");
+		}
 
 		// TODO...
 	}
