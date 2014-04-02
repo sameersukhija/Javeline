@@ -3,8 +3,6 @@ package com.lumata.expression.operators.gui.loyalty;
 import java.util.List;
 import java.util.Map;
 
-import org.testng.Assert;
-
 import com.google.common.collect.ImmutableMap;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.expression.operators.gui.catalogue.LoyaltyForm;
