@@ -97,7 +97,10 @@ public class ConfigureLoyalty {
 	public void configureBadgesWithDuplicationError() {
 
 		try {
-			form.open();
+			Thread.sleep(4000); // Wait GWT deletes the record from the GUI in the previous test 
+			
+			form.openSubsection(ImmutableMap.of(
+					"clickAccordion", "false"));
 			form.create();
 			Assert.assertEquals(form.duplication(), "The name is already used");
 			form.closeNewProgramPopup();
