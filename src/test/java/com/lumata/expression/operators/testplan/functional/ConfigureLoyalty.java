@@ -76,7 +76,7 @@ public class ConfigureLoyalty {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}
 	
-	@Test(enabled=false, priority = 1)
+	@Test(enabled=true, priority=1)
 	public void configureBadges() {
 		
 		try {
@@ -93,7 +93,7 @@ public class ConfigureLoyalty {
 		}
 	}
 	
-	@Test(enabled=true, priority = 1)
+	@Test(enabled=true, priority=1)
 	public void configureBadgesWithDuplicationError() {
 
 		try {
@@ -107,7 +107,5 @@ public class ConfigureLoyalty {
 			e.printStackTrace();
 			Assert.fail("Error during loyalty configuration");
 		}
-
-		// TODO...
 	}
 }
