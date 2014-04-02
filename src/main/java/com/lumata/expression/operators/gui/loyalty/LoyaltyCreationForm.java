@@ -51,25 +51,7 @@ public class LoyaltyCreationForm extends Form {
 
 	public void create() throws Exception {
 		
-		/* Wrong XPATH we have only one submenu ("Creation" and not "Management")
-		clickFormat("addNewProgramPopup",
-			"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']/../../../../../../..//*[@title='Add']",
-			createCfg.getAccordionName());*/
-
-		clickFormat("addNewProgramPopup",
-				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div//*[text()='%s']/../../../../../../..//*[@title='Add']",
-				createCfg.getAccordionName());
-
-		sendKeys("programNameInput",
-			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input",
-			createCfg.getProgramName());
-		
-		sendKeys("programDescInput",
-			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input",
-			createCfg.getProgramDesc());
-		
-		click("programSave",
-			"html/body/div[5]/div/table//*[@title='Save']");
+		addNewProgram();
 		
 		addBadgeTypeFromList(createCfg.getTypeNameList());
 		
@@ -79,20 +61,7 @@ public class LoyaltyCreationForm extends Form {
 
 	public void duplication() throws Exception {
 		
-		clickFormat("addNewProgramPopup",
-				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div//*[text()='%s']/../../../../../../..//*[@title='Add']",
-				createCfg.getAccordionName());
-		
-		sendKeys("programNameInput",
-			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input",
-			createCfg.getProgramName());
-		
-		sendKeys("programDescInput",
-			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input",
-			createCfg.getProgramDesc());
-		
-		click("programSave",
-			"html/body/div[5]/div/table//*[@title='Save']");
+		addNewProgram();
 		
 		System.out.println(getText("errorMessage", "html/body/div[6]/div/div"));
 		// TODO...
@@ -149,6 +118,29 @@ public class LoyaltyCreationForm extends Form {
 		click("closeBadge", "html/body/div[5]/div/table//*[@title='Close']");
 	}
 
+	private void addNewProgram() throws Exception {
+		
+		/* Wrong XPATH we have only one submenu ("Creation" and not "Management")
+		clickFormat("addNewProgramPopup",
+			"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']/../../../../../../..//*[@title='Add']",
+			createCfg.getAccordionName());*/
+
+		clickFormat("addNewProgramPopup",
+				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div//*[text()='%s']/../../../../../../..//*[@title='Add']",
+				createCfg.getAccordionName());
+
+		sendKeys("programNameInput",
+			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input",
+			createCfg.getProgramName());
+		
+		sendKeys("programDescInput",
+			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input",
+			createCfg.getProgramDesc());
+		
+		click("programSave",
+			"html/body/div[5]/div/table//*[@title='Save']");
+	}
+	
 	private void addBadgeTypeFromList(List<String> badgeTypeList) throws Exception {
 		
 		for (String badgeType : badgeTypeList) {
