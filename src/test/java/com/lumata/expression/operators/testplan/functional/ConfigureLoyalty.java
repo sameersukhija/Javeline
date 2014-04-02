@@ -99,6 +99,7 @@ public class ConfigureLoyalty {
 		try {
 			form.open();
 			form.create();
+			form.duplication();
 			//form.manage();
 			//form.openSubsection(ImmutableMap.of(
 			//		"clickAccordion", "false"));

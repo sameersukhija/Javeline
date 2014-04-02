@@ -76,7 +76,28 @@ public class LoyaltyCreationForm extends Form {
 		click("badgeTypeClose",
 			"html/body/div[5]/div/table//*[@title='Close']");
 	}
-	
+
+	public void duplication() throws Exception {
+		
+		clickFormat("addNewProgramPopup",
+				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div//*[text()='%s']/../../../../../../..//*[@title='Add']",
+				createCfg.getAccordionName());
+		
+		sendKeys("programNameInput",
+			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input",
+			createCfg.getProgramName());
+		
+		sendKeys("programDescInput",
+			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input",
+			createCfg.getProgramDesc());
+		
+		click("programSave",
+			"html/body/div[5]/div/table//*[@title='Save']");
+		
+		System.out.println(getText("errorMessage", "html/body/div[6]/div/div"));
+		// TODO...
+	}
+
 	public void manage() throws Exception {
 
 		click("subSectionTab",

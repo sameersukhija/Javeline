@@ -60,6 +60,16 @@ public abstract class Form {
 		select.selectByVisibleText(text);
 	}
 	
+	public String getText(String forName, String xpath) throws Exception {
+		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName + ", xpath: " + xpath));
+		WebElement we = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.XPATH,
+				xpath, timeout, interval);
+		if (we == null) {
+			throw new Exception("Element not found");
+		}
+		return we.getText();
+	}
+	
 	public boolean isTrueKey(Map<String, String> map, String key) {
 		return map.containsKey(key) && map.get(key).equalsIgnoreCase("true");
 	}
