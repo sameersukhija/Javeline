@@ -3,6 +3,10 @@ package com.lumata.expression.operators.gui.loyalty;
 import java.util.List;
 import java.util.Map;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.google.common.collect.ImmutableMap;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.expression.operators.gui.catalogue.LoyaltyForm;
@@ -165,6 +169,13 @@ public class LoyaltyCreationForm extends Form {
 		clickFormat("delete",
 			"html/body/table[2]//*[text()='%s']/../..//*[@title='Delete']",
 			createCfg.getProgramName());
+		
+		// Wait GWT deletes the record from the GUI
+		Boolean isInvisible = (new WebDriverWait(selenium.getWrappedDriver(), 10))
+			.until(ExpectedConditions.invisibilityOfElementLocated(By.id(
+				"html/body/table[2]//*[text()='"+createCfg.getProgramName()+"']/../..//*[@title='Delete']")));
+		
+		System.out.println("isInvisible: " + isInvisible);
 	}
 	
 	/*private Integer selectLoyaltyProgramsCount() {
