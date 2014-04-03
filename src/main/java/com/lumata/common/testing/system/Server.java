@@ -54,7 +54,7 @@ public class Server {
 					this.users.put( username, user );
 			    
 				}
-			
+			   	
 			}
 					
 			if( !serverCfg.isNull("browsers") ) { 

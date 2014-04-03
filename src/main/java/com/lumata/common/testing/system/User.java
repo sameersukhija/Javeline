@@ -29,7 +29,7 @@ public class User {
 			
 			if( !userCfg.isNull("password") ) { this.password = userCfg.getString("password"); }
 			
-			if( !userCfg.isNull("privateKey") ) { this.password = userCfg.getString("privateKey"); }
+			if( !userCfg.isNull("privateKey") ) { this.privateKey = userCfg.getString("privateKey"); }
 		
 		} catch( Exception e ) {
 

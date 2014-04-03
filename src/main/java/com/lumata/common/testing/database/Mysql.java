@@ -73,7 +73,7 @@ public class Mysql {
 	public Mysql( DataSource dataSource ) {
 		
 		try {
-			
+			if( dataSource == null ) { System.out.println( "NULL" ); }
 			this.setConnection( null );
 			this.setHost( dataSource.getHostAddress() );
 			this.setName( dataSource.getHostName() );

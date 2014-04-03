@@ -821,6 +821,66 @@ public final class IOFileUtils {
 		
 	}
 	
+	public static void deleteResource( String resource ) throws IOFileException {
+		
+		File file;
+		
+		try {
+ 
+			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
+			
+			if( file.delete() ) {
+    			
+				logger.debug( "The file has been deleted ( " + file.getCanonicalPath() + " )" );
+				
+			} else {
+    			
+				System.out.println("Delete operation is failed.");
+				
+				throw new IOFileException( "The file deletion has been failed" );
+    		
+			}
+    			
+		} catch( IOException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+			throw new IOFileException( e.getMessage(), e );
+		
+		} 
+		
+	}
+
+	public static void deleteResource( String folder, String resource ) throws IOFileException {
+		
+		File file;
+		
+		try {
+ 
+			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
+			
+			if( file.delete() ) {
+    			
+				logger.debug( "The file has been deleted ( " + file.getCanonicalPath() + " )" );
+				
+			} else {
+    			
+				System.out.println("Delete operation is failed.");
+				
+				throw new IOFileException( "The file deletion has been failed" );
+    		
+			}
+    			
+		} catch( IOException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+			throw new IOFileException( e.getMessage(), e );
+		
+		} 
+		
+	}
+	
 	public static void searchFile( String rootDir, String fileName, List<String> fileList ) throws IOFileException {
 		 
 		if( rootDir == null || rootDir.isEmpty() ) {

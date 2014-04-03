@@ -3,10 +3,8 @@ package com.lumata.common.testing.io;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -15,10 +13,36 @@ import org.apache.poi.ss.usermodel.Workbook;
 import com.lumata.common.testing.exceptions.IOFileException;
 
 public class ExcelUtils {
-
 	
+	public ExcelUtils() {}
 	
-	public static Workbook load( String folder, String file ) throws IOFileException, IOException {
+	public static Workbook loadAsFile( String folder, String file ) throws IOFileException, IOException {
+		
+		Workbook workbook = null;
+		
+		InputStream excel_file = IOFileUtils.loadFileAsInputStream( folder, file );
+		
+		if( excel_file != null ) {
+		
+			workbook = new HSSFWorkbook( excel_file );			
+		
+		} else {
+			
+			throw new IOFileException( "excel file not valid" );
+		
+		}
+		
+		return workbook;
+		
+	}
+	
+	public static Workbook loadAsFile( String file ) throws IOFileException, IOException {
+		
+		return ExcelUtils.loadAsFile( "", file );
+		
+	}
+	
+	public static Workbook loadAsResource( String folder, String file ) throws IOFileException, IOException {
 		
 		Workbook workbook = null;
 		
@@ -35,6 +59,12 @@ public class ExcelUtils {
 		}
 		
 		return workbook;
+		
+	}
+	
+	public static Workbook loadAsResource( String file ) throws IOFileException, IOException {
+		
+		return ExcelUtils.loadAsResource( "", file );
 		
 	}
 	

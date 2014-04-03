@@ -11,15 +11,30 @@ import org.slf4j.LoggerFactory;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSchException;
 import com.lumata.common.testing.log.Log;
+import com.lumata.common.testing.system.Service;
 
 public class SSHExecClient extends SSHClient {
 
 	private static final Logger logger = LoggerFactory.getLogger( SSHExecClient.class );
+
+	public SSHExecClient( Service service, String user ) {
 		
+		super( service, user );
+				
+		init();
+	
+	}
+	
 	public SSHExecClient( String host, int port, String user, String encryptedPassword ) {
 	
 		super( host, port, user, encryptedPassword );
 				
+		init();
+	
+	}
+	
+	private void init() {
+		
 		try {
 			
 			this.setChannel( this.session.openChannel(SSHClient.Types.exec.name()));
@@ -29,7 +44,7 @@ public class SSHExecClient extends SSHClient {
 			logger.error( e.getMessage(), e );
 			
 		}
-	
+		
 	}
 
 	public ArrayList<String> execCommand( String command ) {

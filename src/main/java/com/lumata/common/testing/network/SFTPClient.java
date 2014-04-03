@@ -10,6 +10,7 @@ import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 import com.jcraft.jsch.ChannelSftp.LsEntry;
+import com.lumata.common.testing.system.Service;
 
 public class SFTPClient extends SSHClient {
 
@@ -18,6 +19,12 @@ public class SFTPClient extends SSHClient {
 	private static final Logger logger = LoggerFactory.getLogger( SFTPClient.class );
 	
 	public enum CopyType { LOCAL_TO_REMOTE, REMOTE_TO_LOCAL }
+
+	public SFTPClient( Service service, String user ) {
+		
+		this( service.getHostAddress(), service.getHostPort(), service.getUser( user ).getUsername(), service.getUser( user ).getPassword() );
+			
+	}
 	
 	public SFTPClient( String host, int port, String user, String encryptedPassword ) {
 	

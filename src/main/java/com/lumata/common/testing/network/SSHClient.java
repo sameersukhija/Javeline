@@ -10,6 +10,7 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.lumata.common.testing.system.Security;
+import com.lumata.common.testing.system.Service;
 
 public class SSHClient {
 
@@ -19,6 +20,12 @@ public class SSHClient {
 	protected Channel channel;
 
 	public enum Types { sftp, exec, shell }
+	
+	public SSHClient( Service service, String user ) {
+		
+		this( service.getHostAddress(), service.getHostPort(), service.getUser( user ).getUsername(), service.getUser( user ).getPassword() );
+			
+	}
 	
 	public SSHClient( String host, int port, String user, String encryptedPassword ) {
 		

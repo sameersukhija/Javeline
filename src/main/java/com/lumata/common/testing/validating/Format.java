@@ -18,6 +18,8 @@ import org.apache.commons.lang.StringUtils;
 public final class Format {
 
     public final static String JSON_EXTENSION = ".json";
+    public final static String EXCEL_XLS_EXTENSION = ".xls";
+    public final static String EXCEL_XLSX_EXTENSION = ".xlsx";
 
     private Format() {}
 	
