@@ -5,11 +5,19 @@ Version:0.16:$
 Arch:x86_64-gcc3:$
 
 [PLUGINS]
+libgnome-shell-browser-plugin.so:$
+/usr/lib/mozilla/plugins/libgnome-shell-browser-plugin.so:$
+:$
+1394418744000:0:0:$
+This plugin provides integration with Gnome Shell for live extension enabling and disabling. It can be used only by extensions.gnome.org:$
+Gnome Shell Integration:$
+1
+0:application/x-gnome-shell-integration:Gnome Shell Integration Dummy Content-Type::$
 libtotem-gmp-plugin.so:$
 /usr/lib/mozilla/plugins/libtotem-gmp-plugin.so:$
 :$
-1369542426000:0:0:$
-The <a href="http://www.gnome.org/">Videos</a> 3.8.2 plugin handles video and audio streams.:$
+1387843714000:0:0:$
+The <a href="http://www.gnome.org/">Videos</a> 3.10.1 plugin handles video and audio streams.:$
 Windows Media Player Plug-in 10 (compatible; Videos):$
 13
 0:application/x-mplayer2:AVI video:avi, wma, wmv:$
@@ -28,8 +36,8 @@ Windows Media Player Plug-in 10 (compatible; Videos):$
 libtotem-narrowspace-plugin.so:$
 /usr/lib/mozilla/plugins/libtotem-narrowspace-plugin.so:$
 :$
-1369542426000:0:0:$
-The <a href="http://www.gnome.org/">Videos</a> 3.8.2 plugin handles video and audio streams.:$
+1387843714000:0:0:$
+The <a href="http://www.gnome.org/">Videos</a> 3.10.1 plugin handles video and audio streams.:$
 QuickTime Plug-in 7.6.6:$
 6
 0:video/quicktime:QuickTime video:mov:$
@@ -38,20 +46,12 @@ QuickTime Plug-in 7.6.6:$
 3:image/x-quicktime:Macintosh Quickdraw/PICT drawing:pict, pict1, pict2:$
 4:video/x-m4v:MPEG-4 video:m4v:$
 5:application/vnd.apple.mpegurl:HTTP Live Streaming playlist:m3u8:$
-libtotem-mully-plugin.so:$
-/usr/lib/mozilla/plugins/libtotem-mully-plugin.so:$
-:$
-1369542426000:0:0:$
-DivX Web Player version 1.4.0.233:$
-DivX® Web Player:$
-1
-0:video/divx:AVI video:divx:$
 libtotem-cone-plugin.so:$
 /usr/lib/mozilla/plugins/libtotem-cone-plugin.so:$
 :$
-1369542426000:0:0:$
-The <a href="http://www.gnome.org/">Videos</a> 3.8.2 plugin handles video and audio streams.:$
-VLC Multimedia Plugin (compatible Videos 3.8.2):$
+1387843714000:0:0:$
+The <a href="http://www.gnome.org/">Videos</a> 3.10.1 plugin handles video and audio streams.:$
+VLC Multimedia Plugin (compatible Videos 3.10.1):$
 23
 0:application/x-vlc-plugin:VLC Multimedia Plugin::$
 1:application/vlc:VLC Multimedia Plugin::$
@@ -76,10 +76,18 @@ VLC Multimedia Plugin (compatible Videos 3.8.2):$
 20:video/webm:WebM video:webm:$
 21:application/x-totem-plugin:Videos multimedia plugin::$
 22:audio/midi:MIDI audio:mid, midi:$
+libtotem-mully-plugin.so:$
+/usr/lib/mozilla/plugins/libtotem-mully-plugin.so:$
+:$
+1387843714000:0:0:$
+DivX Web Player version 1.4.0.233:$
+DivX® Web Player:$
+1
+0:video/divx:AVI video:divx:$
 librhythmbox-itms-detection-plugin.so:$
 /usr/lib/mozilla/plugins/librhythmbox-itms-detection-plugin.so:$
 :$
-1368697276000:0:0:$
+1387193014000:0:0:$
 This plug-in detects the presence of iTunes when opening iTunes Store URLs in a web page with Firefox.:$
 iTunes Application Detector:$
 1

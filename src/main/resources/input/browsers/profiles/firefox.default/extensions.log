@@ -1,0 +1,1 @@
+2014-04-03 17:57:30 ERROR addons.xpi: Attempted to load bootstrap scope from missing directory /home/davide/.mozilla/firefox/q5u7cumq.default/extensions/firebug@software.joehewitt.com.xpi at resource://gre/modules/XPIProvider.jsm:4167
