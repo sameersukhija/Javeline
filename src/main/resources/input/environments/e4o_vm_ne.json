@@ -1,0 +1,111 @@
+{
+  "servers": {
+    "actrule": {
+      "hostName": "e4olocalvm",
+      "hostAddress": "192.168.56.151",
+      "users": {
+        "root": {
+          "username": "root",
+          "password": "bXZ2aw=="
+        },
+        "superman": {
+          "username": "superman",
+          "password": "bGppYm1NSUhJMmB3"
+        }
+      },
+      "link": "http://192.168.56.151:7070/",
+      "browsers": {
+        "SAFARI": {
+          
+        },
+        "OPERA": {
+          
+        },
+        "FIREFOX": {
+          "profile": {
+            "file": {
+              "folderName": "input/browsers/profiles",
+              "fileName": "firefox.default",
+              "loadingType": "RESOURCE"
+            },
+            "options": {
+              "extensions.firebug.allPagesActivation": "on",
+              "extensions.firebug.defaultPanelName": "console"
+            }
+          }
+        },
+        "CHROME": {
+          
+        },
+        "IE": {
+          
+        }
+      }
+    },
+    "collector": {
+      "hostName": "e4olocalvm",
+      "hostAddress": "192.168.56.151",
+      "users": {
+        "root": {
+          "username": "root",
+          "password": "bXZ2aw=="
+        }
+      },
+      "link": "",
+      "browsers": {
+        
+      }
+    }
+  },
+  "dataSources": {
+    "global": {
+      "hostName": "global",
+      "hostAddress": "192.168.56.151",
+      "hostPort": "3306",
+      "maxActive": 100,
+      "maxIdle": 30,
+      "maxWait": 10000,
+      "user": "system",
+      "password": "bHhsa2Jy"
+    },
+    "tenant": {
+      "hostName": "tenant",
+      "hostAddress": "192.168.56.151",
+      "hostPort": "3306",
+      "maxActive": 100,
+      "maxIdle": 30,      
+      "maxWait": 10000,
+      "user": "system",
+      "password": "bHhsa2Jy"
+    },
+    "dm": {
+      "hostName": "dm",
+      "hostAddress": "192.168.56.151",
+      "hostPort": "3306",
+      "maxActive": 100,
+      "maxIdle": 30,
+      "maxWait": 10000,
+      "user": "dialog_manager",
+      "password": "aXJnSEpyY3U="
+    }
+  },
+  "services": {
+    "ssh": {
+      "actrule": {
+        "hostName": "e4olocalvm",
+        "hostAddress": "192.168.56.151",
+        "hostPort": "22",
+        "users": {
+          "root": {
+            "username": "root",
+            "password": "bXZ2aw==",
+            "privateKey": "/opt/lumata/e4o_test"
+          }
+        }
+      }
+    }
+  },
+  "options": {
+    "multiTenant": true
+  }
+}

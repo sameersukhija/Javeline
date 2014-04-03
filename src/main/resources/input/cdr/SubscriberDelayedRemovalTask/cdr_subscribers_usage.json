@@ -1,0 +1,75 @@
+{
+	"CDRRevenue": {
+		"linesCount": 5,
+		"store": true,
+		"outputDir": "output/cdr/SubscriberDelayedRemoval",
+		"send": true,
+		"depositPath": "/nfsdata/files/cdr/deposit/REVENUE_CDR/",
+		"print": false,
+		"Msisdn": {		
+			"strategy": "Increment",
+			"parameters": [ "3399900001", "1" ]		
+		},
+		"Date": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"Amount": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Balance": {		
+			"strategy": "Random",
+			"parameters": [ "500", "5000" ]		
+		},
+		"ValidityDate": {		
+			"strategy": "Fixed",
+			"parameters": [ "###validity_date###" ]		
+		},
+		"DeactivationDate": {		
+			"strategy": "Fixed",
+			"parameters": [ "###deactivation_date###" ]		
+		},
+		"Type": {		
+			"strategy": "Increment",
+			"parameters": [ "invoice", "1" ]		
+		},
+		"Delay": {		
+			"strategy": "Random",
+			"parameters": [ "300", "3000" ]		
+		}
+	},
+	"CDRData": {
+		"linesCount": 5,
+		"store": true,
+		"outputDir": "output/cdr/SubscriberDelayedRemoval",
+		"send": true,
+		"depositPath": "/nfsdata/files/cdr/deposit/DATA_CDR/",
+		"print": false,
+		"Msisdn": {		
+			"strategy": "Increment",
+			"parameters": [ "3399900001", "1" ]		
+		},
+		"Date": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"Amount": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Download": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Upload": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Balance": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		}
+	}
+	
+}
