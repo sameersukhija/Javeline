@@ -16,17 +16,20 @@ public class CDRHistory extends CDR {
 		return this.FIELDS;
 	}
 
-	@Msisdn( position = 0 )
-	public String getMsisdn() throws CDRException  {
-		return this.msisdn.getMsisdn();
+	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
+	}
+
+	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
+	}
+
+	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyRandom( min_value, max_value ); }
 	}
 
 	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnOptions( prefix, length ); }
-	}
-
-	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
-		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
 	}
 
 	public void cleanMsisdnStrategyIncrement()  {
@@ -37,12 +40,9 @@ public class CDRHistory extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
-	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
-		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
-	}
-
-	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
-		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyRandom( min_value, max_value ); }
+	@Msisdn( position = 0 )
+	public String getMsisdn() throws CDRException  {
+		return this.msisdn.getMsisdn();
 	}
 
 	public void cleanMsisdnFixedStrategy()  {

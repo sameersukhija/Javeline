@@ -30,6 +30,8 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.network.SFTPClient;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.ServicesType;
+import com.lumata.common.testing.system.NetworkEnvironment;
+import com.lumata.common.testing.system.Service;
 /** cdr field types */
 import com.lumata.e4o.system.cdr.annotations.Msisdn;
 import com.lumata.e4o.system.cdr.annotations.Date;
@@ -90,7 +92,7 @@ public class CDR {
 	private String file_name;
 	private StringBuilder file_content;
 	private ArrayList<String> rows;
-	private Environment env;
+	private NetworkEnvironment env;
 	private String tenant;
 	
 	@Msisdn 
@@ -169,11 +171,13 @@ public class CDR {
 
 	@NewStatus
 	//protected CSVSchemaTable new_status;
-	protected CSVString new_status;
+	//protected CSVString new_status;
+	protected CSVEnum new_status;
 	
 	@OldStatus
 	//protected CSVSchemaTable old_status;
-	protected CSVString old_status;
+	//protected CSVString old_status;
+	protected CSVEnum old_status;
 
 	@NewNetwork
 	protected CSVString new_network; 
@@ -195,13 +199,16 @@ public class CDR {
 	
 	@TenantId
 	protected CSVLong tenant_id;
-	
+
 	public enum Parameters {
-		Env, 
-		Tenant,
-		CDRCfgDir,
-		CDRCfgFile,
-		CDROutputDir		
+		env, 
+		tenant,
+		cfgDir,
+		cfgFile,
+		outputDir,
+		store,
+		send,
+		depositPath
 	}
 	
 	public enum TERMINATING implements ICSVEnum { 
@@ -256,6 +263,28 @@ public class CDR {
 		}
 		
 	}
+
+	@NewStatus 
+	@OldStatus
+	public enum SUBSTATUS implements ICSVEnum {
+		
+		ACTIVE("active"),
+		INACTIVE("inactive"),
+		SUSPENDED("suspended"),
+		DEACTIVATED("deactivated"),
+		TERMINATED("terminated");
+		
+		private String value;
+		
+		SUBSTATUS( String value ) { 
+			this.value = value; 
+		}
+		
+		public String value() {
+			return this.value;
+		}
+		
+	}
 	
 	public CDR() {
 		
@@ -289,8 +318,10 @@ public class CDR {
 		this.old_subprofile = new CSVString();
 		//this.new_status = new CSVSchemaTable( new Statuses(), Statuses.Fields.status );
 		//this.old_status = new CSVSchemaTable( new Statuses(), Statuses.Fields.status );
-		this.new_status = new CSVString();
-		this.old_status = new CSVString();
+		//this.new_status = new CSVString();
+		//this.old_status = new CSVString();
+		this.new_status = new CSVEnum( SUBSTATUS.values() );
+		this.old_status = new CSVEnum( SUBSTATUS.values() );		
 		this.new_network = new CSVString(); 
 		this.old_network = new CSVString(); 
 		this.new_subscription_date = new CSVDate();
@@ -305,7 +336,7 @@ public class CDR {
 		
 	}
 	
-	private void setEnvironment( Environment env ) throws CDRException {
+	private void setEnvironment( NetworkEnvironment env ) throws CDRException {
 		
 		this.env = env;
 		
@@ -393,7 +424,7 @@ public class CDR {
 			this.rows.add( row.toString() );
 		
 		}
-		
+				
 	}
 		
 	public void addLines( int lines ) {
@@ -436,7 +467,21 @@ public class CDR {
 		return ( file.exists() && file.isFile() );
 		
 	}
-	
+
+	public void send( Service remote_host, String remote_path, String sftp_user ) {
+				
+		SFTPClient sftp = new SFTPClient( remote_host, sftp_user );
+		
+		if( sftp.isConnected() ) {
+			
+			String local_path = System.getProperty( "user.dir" ) + "/src/main/resources/" + this.getOutputDir() + "/";
+			
+            sftp.copyFile( local_path, this.getFileName(), remote_path , this.getFileName(), SFTPClient.CopyType.LOCAL_TO_REMOTE );
+            		
+		}
+				
+	}
+
 	public void send( Environment remote_host, String remote_path ) {
 		
 		try {
@@ -450,7 +495,7 @@ public class CDR {
 				String local_path = System.getProperty( "user.dir" ) + "/src/main/resources/" + this.getOutputDir() + "/";
 				
 	            sftp.copyFile( local_path, this.getFileName(), remote_path , this.getFileName(), SFTPClient.CopyType.LOCAL_TO_REMOTE );
-	        				
+	            		
 			}
 						
 		} catch( JSONException e ) {}
@@ -487,15 +532,32 @@ public class CDR {
 	
 	public void feeder( Calendar startDate, Calendar endDate, Map<String, Object> parameters ) throws CDRException, JSONSException, IOFileException {
 		
-		if( parameters == null ) { throw new CDRException( "invalid parameters list" ); }
+		if( startDate == null || endDate == null || parameters == null ) { throw new CDRException( "invalid parameters list" ); }
+		
+		/** to avoid infinite cycle with startDate = endDate = some passed object */
+		Calendar untilDate = Calendar.getInstance();
+		untilDate.setTime( endDate.getTime() );
 		
 		/** generate cdrs in the datetime interval */
-		for( java.util.Date date = startDate.getTime(); !startDate.after( endDate ); startDate.add(Calendar.DATE, 1), date = startDate.getTime() ) {
+		for( java.util.Date date = startDate.getTime(); !startDate.after( untilDate ); startDate.add(Calendar.DATE, 1), date = startDate.getTime() ) {
            
 			Calendar elaborationDate = Calendar.getInstance();
             elaborationDate.setTime( date );
             
             this.feederByDate( elaborationDate, parameters );
+           
+        }
+		
+	}
+	
+	public void feeder( ArrayList<Calendar> days, Map<String, Object> parameters ) throws CDRException, JSONSException, IOFileException {
+		
+		if( parameters == null ) { throw new CDRException( "invalid parameters list" ); }
+		
+		/** generate cdrs with different days */
+		for( int d = 0; d < days.size(); d++ ) {
+           
+			this.feederByDate( days.get( d ), parameters );
             
         }
 		
@@ -510,10 +572,10 @@ public class CDR {
 		logger.info( Log.CHECKING.createMessage( "Start cdr feeder on " + sdf.format( date.getTime() ) ) );
 		
 		/** set environment */
-		if( parameters.containsKey( CDR.Parameters.Env.name() ) && parameters.containsKey( CDR.Parameters.Tenant.name() ) ) {
+		if( parameters.containsKey( CDR.Parameters.env.name() ) && parameters.containsKey( CDR.Parameters.tenant.name() ) ) {
 			
-			this.setEnvironment( (Environment)parameters.get( CDR.Parameters.Env.name() ) );
-			this.setTenant( (String)parameters.get( CDR.Parameters.Tenant.name() ) );
+			this.setEnvironment( (NetworkEnvironment)parameters.get( CDR.Parameters.env.name() ) );
+			this.setTenant( (String)parameters.get( CDR.Parameters.tenant.name() ) );
 		
 		} else { 
 			
@@ -602,42 +664,42 @@ public class CDR {
 
 		
 		/** stop collector daemon, collector process and cdrwriter process in the remote server via ssh*/
-		ExpressionKernelCommands.collectorServiceStop( env );
+		/*ExpressionKernelCommands.collectorServiceStop( env );
 		ExpressionKernelCommands.collectorStop( env );
     	ExpressionKernelCommands.cdrwriterStop( env );
 		
 		/** set datetime on remote server */
-    	ExpressionKernelCommands.setDatetime( env, date );
+    	//ExpressionKernelCommands.setDatetime( env, date );
     	
     	/** generate cdrs from json file and put them in the remote server */
     	this.generateCDRFromJson( parameters );
 		    	
     	/** start collector daemon, collector process and cdrwriter process in the remote server via ssh*/
-    	ExpressionKernelCommands.cdrwriterStart( env );
+    	/*ExpressionKernelCommands.cdrwriterStart( env );
     	ExpressionKernelCommands.collectorStart( env );
 		ExpressionKernelCommands.collectorServiceStart( env );
-				
+			*/	
 	}
 	
 	public void generateCDRFromJson( Map<String, Object> parameters ) throws JSONSException, IOFileException, CDRException {
 		
-		if( !parameters.containsKey( CDR.Parameters.CDRCfgDir.name() ) || 
-			!parameters.containsKey( CDR.Parameters.CDRCfgFile.name() ) || 
-			!parameters.containsKey( CDR.Parameters.CDROutputDir.name() )		
+		if( !parameters.containsKey( CDR.Parameters.cfgDir.name() ) || 
+			!parameters.containsKey( CDR.Parameters.cfgFile.name() ) 		
 		) {
 			throw new CDRException ( "some needed parameters are not present in the json configuration file" );
 		}
 		
 		/** get json configuration file path */
-		String jsonSourceDir = (String)parameters.get( CDR.Parameters.CDRCfgDir.name() );
-		String jsonSourceFile = (String)parameters.get( CDR.Parameters.CDRCfgFile.name() );
-		
+		String jsonSourceDir = (String)parameters.get( CDR.Parameters.cfgDir.name() );
+		String jsonSourceFile = (String)parameters.get( CDR.Parameters.cfgFile.name() );
+		System.out.println( jsonSourceDir );
+		System.out.println( jsonSourceFile );
 		/** get cdrs configuration json */
 		JSONObject cdrCfg = JSONUtils.loadJSONResource( jsonSourceDir , jsonSourceFile );
-		
+	
 		/** set environment */
-		this.setEnvironment( (Environment)parameters.get( CDR.Parameters.Env.name() ) );
-		this.setTenant( (String)parameters.get( CDR.Parameters.Tenant.name() ) );
+		this.setEnvironment( (NetworkEnvironment)parameters.get( CDR.Parameters.env.name() ) );
+		this.setTenant( (String)parameters.get( CDR.Parameters.tenant.name() ) );
 		
 		/** define cdr type package */
 		String cdr_types_package = this.getClass().getPackage().getName() + ".types";
@@ -749,17 +811,58 @@ public class CDR {
 				CDR cdr = ((CDR)cdrTypeClassInstance);
 				
 				/** add lines to cdr file */
-				cdr.addLines( cdrTypeFieldsCfg.getInt( "linesCount" ) );
+				if( cdrTypeFieldsCfg.has( "linesCount" ) ) { 
+					
+					cdr.addLines( cdrTypeFieldsCfg.getInt( "linesCount" ) ); 
 				
-				/** set cdr output path */
-				long current_timestamp = Calendar.getInstance().getTimeInMillis();
-				String file_name = cdrTypeClassName.toLowerCase() + "_" + current_timestamp + ".csv";
+					/** print the cdr in the console output */
+					if( cdrTypeFieldsCfg.has( "print" ) && (Boolean)cdrTypeFieldsCfg.get( "print" ) ) { cdr.print(); }
+									
+					/** load output dir */
+					if( cdrTypeFieldsCfg.has( "outputDir" ) ) { 
+						
+						try {
+							
+							parameters.put( CDR.Parameters.outputDir.name(), cdrTypeFieldsCfg.get( "outputDir" ) );				
 				
-				cdr.setOutputPath( (String)parameters.get( CDR.Parameters.CDROutputDir.name() ), file_name );
-				
-				/** store cdr file */
-				cdr.save();
-				
+							/** set cdr output path */
+							long current_timestamp = Calendar.getInstance().getTimeInMillis();
+							String file_name = cdrTypeClassName.toLowerCase() + "_" + current_timestamp + ".csv";
+							
+							cdr.setOutputPath( (String)parameters.get( CDR.Parameters.outputDir.name() ), file_name );
+							
+							/** store cdr file */
+							if( cdrTypeFieldsCfg.has( CDR.Parameters.store.name() ) ) {
+								
+								if( cdrTypeFieldsCfg.getBoolean( CDR.Parameters.store.name() ) ) { 
+									
+									cdr.save();
+									
+									/** send cdr file */
+									if( cdrTypeFieldsCfg.has( CDR.Parameters.send.name() ) && cdrTypeFieldsCfg.has( CDR.Parameters.depositPath.name() )) {
+										
+										if( cdrTypeFieldsCfg.getBoolean( CDR.Parameters.send.name() ) ) { 
+											
+											cdr.send( this.env.getSSHService( "actrule" ), cdrTypeFieldsCfg.getString( CDR.Parameters.depositPath.name() ), "root" );
+																						
+										}
+										
+									}
+									
+								}				
+								
+							}
+		
+						} catch (JSONException e) {
+							logger.error( e.getMessage(), e );
+						}
+						
+					} else {
+						throw new CDRException ( "output dir not present in the " + cdrTypeClassInstance.getClass().getSimpleName() + " section of the json configuration file" );
+					}
+									
+				}
+												
 				/** check if the file has been created */
 				/*long timeout = 10000;				
 				long spentTime = 0;
@@ -770,8 +873,7 @@ public class CDR {
 				}
 				*/
 				
-				/** send cdr file */
-				cdr.send( this.env, cdrTypeFieldsCfg.getString( "depositPath" ) );				
+								
 				
 			} catch ( 	JSONException | 
 						ClassNotFoundException | 
@@ -782,7 +884,7 @@ public class CDR {
 		}		
 				
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private Object[] getCDRTypeParameterValues( String cdrTypeFieldName, Method cdrTypeMethod, JSONObject fieldCfg, Map<String, Object> parameters ) throws JSONException {
 		
@@ -828,7 +930,9 @@ public class CDR {
 								
 								/** get correct enum value associated to the current field via annotation */
 								if( a.getClass().getInterfaces()[0].getSimpleName().equals( cdrTypeFieldName ) ) {
-									fieldParameters[ obj ] = Enum.valueOf( cl, String.valueOf( paramValue ).toUpperCase() );
+									try {
+										fieldParameters[ obj ] = Enum.valueOf( cl, String.valueOf( paramValue ).toUpperCase() );
+									} catch( IllegalArgumentException e ) {}
 								}
 								
 							}
