@@ -1,9 +1,5 @@
 package com.lumata.e4o.system.environment;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,15 +11,18 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.jcraft.jsch.ChannelExec;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.network.SSHExecClient;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.KernelCommands;
+import com.lumata.common.testing.system.Service;
 
 public class ExpressionKernelCommands extends KernelCommands {
 
 	private static final Logger logger = LoggerFactory.getLogger( ExpressionKernelCommands.class );
+	
+	Service service;
+	String user;
 	
 	/** process statuses */
 	private enum ProcessStatus {
@@ -37,6 +36,21 @@ public class ExpressionKernelCommands extends KernelCommands {
 		restart,
 		status,
 		stop;		
+	}
+
+	/** process statuses */
+	public enum TaskStatus {
+		OK,
+		KO,
+		ALREADY_DONE,
+		UNDEFINED;			
+	}
+	
+	/** process statuses */
+	public enum Task {
+		ExpiredData,
+		AggregadedData,
+		SubscriberDelayedRemoval;			
 	}
 	
 	/** expression scripts list */
@@ -127,14 +141,19 @@ public class ExpressionKernelCommands extends KernelCommands {
 		
 	}
 	
+	public ExpressionKernelCommands( Service service, String user ) {
+		this.service = service;
+		this.user = user;
+	}
+	
 	/** set datetime on remote server */
-	public static Boolean setDatetime( Environment env, Calendar date ) {
+	public Boolean setDatetime( Calendar date ) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		
 		Pattern patter_server_datetime = Pattern.compile( "[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{1,2}[0-9]{1,2}[:][0-9]{1,2}[:][0-9]{1,2}" );
 		 
-		ArrayList<String> result = ExpressionKernelCommands.execCommand( env, KernelCommands.getDateTime( date ) );
+		ArrayList<String> result = this.execCommand( KernelCommands.getDateTime( date ) );
 		
 		for( int i = 0; i < result.size(); i++ ) {
 			
@@ -142,6 +161,7 @@ public class ExpressionKernelCommands extends KernelCommands {
 			if( matcher_server_datetime.find() ) { 
 				
 				logger.info( Log.PUTTING.createMessage( "the datetime " + sdf.format( date.getTime() ) + " has been set correctly in the remote server" ) );
+				
 				return true; 
 			
 			}
@@ -175,23 +195,32 @@ public class ExpressionKernelCommands extends KernelCommands {
 		
 	}
 	
+	/** exec remote command */
+	private ArrayList<String> execCommand( String command ) {
+		
+		SSHExecClient sshExec = new SSHExecClient( service, user );
+		
+		return sshExec.execCommand( command );
+		
+	}
+	
 	/** remove pid files */
-	private static void removePIDFiles( Environment env, ExpressionScript process ) {
+	private void removePIDFiles( ExpressionScript process ) {
 		
 		ArrayList<String> pidFileRemoveCommands = process.getRemovePIDCommands(); 
 		
 		for( int i = 0; i < pidFileRemoveCommands.size(); i++ ) {
 			
-			ExpressionKernelCommands.execCommand( env, pidFileRemoveCommands.get( i ) );
+			this.execCommand( pidFileRemoveCommands.get( i ) );
 		
 		}
 		
 	}
 	
 	/** get collector daemon service status */
-	public static ProcessStatus collectorServiceStatus( Environment env ) {
+	public ProcessStatus collectorServiceStatus() {
 		
-		ArrayList<String> result = ExpressionKernelCommands.execCommand( env, ExpressionKernelCommands.ExpressionScript.collectorService.getSSHCommand( ProcessCommand.status ) );
+		ArrayList<String> result = this.execCommand( ExpressionKernelCommands.ExpressionScript.collectorService.getSSHCommand( ProcessCommand.status ) );
 		
 		Pattern patter_started = Pattern.compile( "[ a-zA-Z]+is up and running[ 0-9a-zA-Z]+" );
 		Pattern patter_stopped = Pattern.compile( "[ a-zA-Z]+Stopped" );
@@ -211,13 +240,13 @@ public class ExpressionKernelCommands extends KernelCommands {
 	}
 
 	/** start collector daemon service */
-	public static Boolean collectorServiceStart( Environment env ) {
+	public Boolean collectorServiceStart() {
 		
-		if( ExpressionKernelCommands.collectorServiceStatus( env ).equals( ProcessStatus.stopped ) ) {
+		if( this.collectorServiceStatus().equals( ProcessStatus.stopped ) ) {
 		
-			ExpressionKernelCommands.execCommand( env, ExpressionKernelCommands.ExpressionScript.collectorService.getSSHCommand( ProcessCommand.start ) );
+			this.execCommand( ExpressionKernelCommands.ExpressionScript.collectorService.getSSHCommand( ProcessCommand.start ) );
 			
-			return ExpressionKernelCommands.collectorServiceStatus( env ).equals( ProcessStatus.started );
+			return this.collectorServiceStatus().equals( ProcessStatus.started );
 			
 		}		
 		
@@ -226,15 +255,15 @@ public class ExpressionKernelCommands extends KernelCommands {
 	}
 	
 	/** stop collector daemon service */
-	public static Boolean collectorServiceStop( Environment env ) {		
+	public Boolean collectorServiceStop() {		
 		
-		if( ExpressionKernelCommands.collectorServiceStatus( env ).equals( ProcessStatus.started ) ) {
+		if( this.collectorServiceStatus().equals( ProcessStatus.started ) ) {
 		
-			ExpressionKernelCommands.execCommand( env, ExpressionKernelCommands.ExpressionScript.collectorService.getSSHCommand( ProcessCommand.stop ) );
+			this.execCommand( ExpressionScript.collectorService.getSSHCommand( ProcessCommand.stop ) );
 			
-			if( ExpressionKernelCommands.collectorServiceStatus( env ).equals( ProcessStatus.stopped ) ) {
+			if( this.collectorServiceStatus().equals( ProcessStatus.stopped ) ) {
 				
-				ExpressionKernelCommands.removePIDFiles( env, ExpressionKernelCommands.ExpressionScript.collectorService );
+				this.removePIDFiles( ExpressionScript.collectorService );
 				
 				return true;
 				
@@ -248,9 +277,9 @@ public class ExpressionKernelCommands extends KernelCommands {
 	
 	
 	/** get collector process status */
-	public static ProcessStatus collectorStatus( Environment env ) {
+	public ProcessStatus collectorStatus() {
 		
-		ArrayList<String> result = ExpressionKernelCommands.execCommand( env, ExpressionKernelCommands.ExpressionScript.collector.getSSHCommand( ProcessCommand.status ) );
+		ArrayList<String> result = this.execCommand( ExpressionScript.collector.getSSHCommand( ProcessCommand.status ) );
 		
 		Pattern patter_started = Pattern.compile( "[ 0-9a-zA-Z()]+running" );
 		Pattern patter_stopped = Pattern.compile( "[ a-zA-Z]stopped" );
@@ -270,13 +299,13 @@ public class ExpressionKernelCommands extends KernelCommands {
 	}
 
 	/** start collector process */
-	public static Boolean collectorStart( Environment env ) {
+	public Boolean collectorStart( Environment env ) {
 		
-		if( ExpressionKernelCommands.collectorStatus( env ).equals( ProcessStatus.stopped ) ) {
+		if( this.collectorStatus().equals( ProcessStatus.stopped ) ) {
 		
-			ExpressionKernelCommands.execCommand( env, ExpressionKernelCommands.ExpressionScript.collector.getSSHCommand( ProcessCommand.start ) );
+			this.execCommand( ExpressionScript.collector.getSSHCommand( ProcessCommand.start ) );
 			
-			return ExpressionKernelCommands.collectorStatus( env ).equals( ProcessStatus.started );
+			return this.collectorStatus().equals( ProcessStatus.started );
 		}		
 		
 		return true;
@@ -284,15 +313,15 @@ public class ExpressionKernelCommands extends KernelCommands {
 	}
 	
 	/** stop collector process */
-	public static Boolean collectorStop( Environment env ) {
+	public Boolean collectorStop() {
 		
-		if( ExpressionKernelCommands.collectorStatus( env ).equals( ProcessStatus.started ) ) {
+		if( this.collectorStatus().equals( ProcessStatus.started ) ) {
 		
-			ExpressionKernelCommands.execCommand( env, ExpressionKernelCommands.ExpressionScript.collector.getSSHCommand( ProcessCommand.stop ) );
+			this.execCommand( ExpressionScript.collector.getSSHCommand( ProcessCommand.stop ) );
 			
-			if( ExpressionKernelCommands.collectorStatus( env ).equals( ProcessStatus.stopped ) ) {
+			if( this.collectorStatus().equals( ProcessStatus.stopped ) ) {
 				
-				ExpressionKernelCommands.removePIDFiles( env, ExpressionKernelCommands.ExpressionScript.collector );
+				this.removePIDFiles( ExpressionScript.collector );
 				
 				return true;
 				
@@ -304,11 +333,10 @@ public class ExpressionKernelCommands extends KernelCommands {
 		
 	}	
 	
-	// ---
 	/** get cdrwriter process status */
-	public static ProcessStatus cdrwriterStatus( Environment env ) {
+	public ProcessStatus cdrwriterStatus() {
 		
-		ArrayList<String> result = ExpressionKernelCommands.execCommand( env, ExpressionKernelCommands.ExpressionScript.cdrwriter.getSSHCommand( ProcessCommand.status ) );
+		ArrayList<String> result = this.execCommand( ExpressionScript.cdrwriter.getSSHCommand( ProcessCommand.status ) );
 		
 		Pattern patter_started = Pattern.compile( "[ 0-9a-zA-Z()]+running" );
 		Pattern patter_stopped = Pattern.compile( "[ a-zA-Z]stopped" );
@@ -328,13 +356,13 @@ public class ExpressionKernelCommands extends KernelCommands {
 	}
 
 	/** start cdrwriter process */
-	public static Boolean cdrwriterStart( Environment env ) {
+	public Boolean cdrwriterStart() {
 		
-		if( ExpressionKernelCommands.cdrwriterStatus( env ).equals( ProcessStatus.stopped ) ) {
+		if( this.cdrwriterStatus().equals( ProcessStatus.stopped ) ) {
 		
-			ExpressionKernelCommands.execCommand( env, ExpressionKernelCommands.ExpressionScript.cdrwriter.getSSHCommand( ProcessCommand.start ) );
+			this.execCommand( ExpressionScript.cdrwriter.getSSHCommand( ProcessCommand.start ) );
 			
-			return ExpressionKernelCommands.cdrwriterStatus( env ).equals( ProcessStatus.started );
+			return this.cdrwriterStatus().equals( ProcessStatus.started );
 		}		
 		
 		return true;
@@ -342,15 +370,15 @@ public class ExpressionKernelCommands extends KernelCommands {
 	}
 	
 	/** stop cdrwriter process */
-	public static Boolean cdrwriterStop( Environment env ) {
+	public Boolean cdrwriterStop() {
 		
-		if( ExpressionKernelCommands.cdrwriterStatus( env ).equals( ProcessStatus.started ) ) {
+		if( this.cdrwriterStatus().equals( ProcessStatus.started ) ) {
 		
-			ExpressionKernelCommands.execCommand( env, ExpressionKernelCommands.ExpressionScript.cdrwriter.getSSHCommand( ProcessCommand.stop ) );
+			this.execCommand( ExpressionScript.cdrwriter.getSSHCommand( ProcessCommand.stop ) );
 			
-			if( ExpressionKernelCommands.cdrwriterStatus( env ).equals( ProcessStatus.stopped ) ) {
+			if( this.cdrwriterStatus().equals( ProcessStatus.stopped ) ) {
 				
-				ExpressionKernelCommands.removePIDFiles( env, ExpressionKernelCommands.ExpressionScript.cdrwriter );
+				this.removePIDFiles( ExpressionScript.cdrwriter );
 				
 				return true;
 				
@@ -361,5 +389,66 @@ public class ExpressionKernelCommands extends KernelCommands {
 		return true;
 		
 	}	
+	
+	/** exec tasks */
+	public TaskStatus execTask( Integer port, Integer tenantId, Task task ) {
+		
+		StringBuilder execCommand = new StringBuilder();
+		
+		/** exec task command */
+		execCommand.append( "/usr/local/java/bin/java -classpath /usr/local/actrule/lib/actruleFramework.jar:/usr/local/actrule/lib/log4j.jar com.act750.actrulefwk.management.cli.JVMRuntimeClient -host 127.0.0.1 -port " )
+					.append( port )
+					.append( " -domain act750 -tenantid " )
+					.append( tenantId )
+					.append( " -type \"Schedulers\" -paramoperations execute -value ")
+					.append( task );		
+			
+		logger.info( "executing task: " + task );
+		
+		logger.debug( "command: " + execCommand.toString() );
+		
+		ArrayList<String> result = this.execCommand( execCommand.toString() );
+		
+		/** parse result */
+		for( int i = 0; i < result.size(); i++ ) {
+						
+			Pattern pattern = Pattern.compile( ".+execute=(OK|KO|ALREADY_DONE)" );
+			
+			Matcher matcher = pattern.matcher( result.get( i ) );
+			
+			if( matcher.find() ) { 
+				
+				switch( matcher.group( 1 ) ) {
+				
+					case "OK": { 
+						
+						logger.info( "task " + task + "executed with " + TaskStatus.OK + " status" );
+						
+						return TaskStatus.OK; 
+						
+					}
+					case "KO": { 
+						
+						logger.info( "task " + task + "executed with " + TaskStatus.KO + " status" );
+						
+						return TaskStatus.KO; 
+						
+					}
+					case "ALREADY_DONE": { 
+						
+						logger.info( "task " + task + "executed with " + TaskStatus.ALREADY_DONE + " status" );
+						
+						return TaskStatus.ALREADY_DONE; 
+						
+					}				
+				}
+				
+			}
+			
+		}
+				
+		return TaskStatus.UNDEFINED;
+		
+	}
 	
 }
