@@ -8,6 +8,11 @@ public class XMLRPCChannel {
 		active;
 	}
 	
+	public enum Type {
+		SMS,
+		MAIL;
+	}
+	
 	String name;
 	String address;
 	String active;
@@ -18,6 +23,12 @@ public class XMLRPCChannel {
 		this.setName(name);
 		this.setAddress(address);
 		this.setActive(active);
+	}
+	
+	public XMLRPCChannel( Type name, String address, Boolean active ) {
+		this.setName(name.name());
+		this.setAddress(address);
+		this.setActive(active.toString());
 	}
 	
 	public String getName() {

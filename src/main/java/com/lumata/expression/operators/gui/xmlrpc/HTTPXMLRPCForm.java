@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.network.RestClient;
+import com.lumata.common.testing.system.Security;
 
 public class HTTPXMLRPCForm {
 
@@ -137,7 +138,7 @@ public class HTTPXMLRPCForm {
 		
 		authenticationPOSTBody.append("<param><value><authentication>")
 								.append("<login>").append( user ).append("</login>")
-								.append("<password>").append( password ).append("</password>")
+								.append("<password>").append( Security.decrypt( password ) ).append("</password>")
 								.append("</authentication></value></param>");
 		
 		return 	authenticationPOSTBody.toString();
