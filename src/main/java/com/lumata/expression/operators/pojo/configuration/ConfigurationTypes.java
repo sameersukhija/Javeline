@@ -10,14 +10,11 @@ import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.OfficeException;
 import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.e4o.schema.TestDefaultConfTables;
 import com.lumata.testing.office.Excel;
 
 public enum ConfigurationTypes {
