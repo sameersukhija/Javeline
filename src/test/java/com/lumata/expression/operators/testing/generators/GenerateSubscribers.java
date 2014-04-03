@@ -45,7 +45,7 @@ public class GenerateSubscribers {
 		final boolean INSERT_MAIL_CHANNEL = true;
 		
 		// Number of subscribers to generate
-		final int SUBSCRIBERS_TO_GENERATE = 20000;
+		final int SUBSCRIBERS_TO_GENERATE = 10;
 		
 		// Max MSISDN length
 		int MSISDN_MAX_LENGTH = 10;

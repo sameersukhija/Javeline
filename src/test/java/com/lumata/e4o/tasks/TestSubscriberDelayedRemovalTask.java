@@ -2,7 +2,9 @@ package com.lumata.e4o.tasks;
 
 import static com.lumata.common.testing.orm.Filter.op;
 import static com.lumata.common.testing.orm.Query.select;
+import static com.lumata.common.testing.orm.Query.insert;
 import static com.lumata.common.testing.orm.Query.update;
+import static com.lumata.common.testing.orm.Query.delete;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.jboss.resteasy.client.ClientResponse;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +30,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.lumata.common.testing.annotations.testplan.Steps;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.database.MysqlUtils;
 import com.lumata.common.testing.exceptions.IOFileException;
@@ -33,15 +38,19 @@ import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.io.JSONUtils;
+import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.orm.Update;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
 import com.lumata.e4o.system.cdr.CDR;
+import com.lumata.e4o.system.cdr.annotations.BundleName;
+import com.lumata.e4o.system.cdr.types.CDRBundle;
 import com.lumata.e4o.system.csv.types.CSVString;
 import com.lumata.e4o.system.environment.ExpressionKernelCommands;
 import com.lumata.e4o.xmlrpc.XMLRPC_Subscriber;
 import com.lumata.e4o_tenant.schema.CollectedFilesStats;
+import com.lumata.e4o_tenant.schema.CompositeBundle;
 import com.lumata.e4o_tenant.schema.Subscribers;
 import com.lumata.expression.operators.exceptions.CDRException;
 import com.lumata.expression.operators.exceptions.XMLRPCParserException;
@@ -72,29 +81,59 @@ public class TestSubscriberDelayedRemovalTask {
 	User superman;
 	Server actruleServer;
 	List<Long> subscribers_range;
+	JSONObject cdrs;
 	ArrayList<String> cdrTypes;
 	private Map<String, Object> cdrParameters;
 	
+	private Boolean hasCDRBundle;
+	
+	/** initialize test */
 	@Parameters({"environment", "tenant"})
-	@BeforeTest
-	public void init( @Optional("E4O_VM") String environment,  @Optional("tenant") String tenant ) throws NetworkEnvironmentException, XMLRPCParserException, JSONSException, IOFileException {
+	@BeforeTest( description = "set pre condition" )
+	@Steps({
+				"load environment configuration",
+				"get mysql tenant connection",
+				"load cdrs configuration",
+				"set cdrs collector elaboration checks",
+				"set cdr mandatory parameters",
+				"set cdr palce holder parameters"
+	})
+	public void init( @Optional("E4O_VM") String environment,  @Optional("tenant") String tenant ) throws NetworkEnvironmentException, XMLRPCParserException, JSONSException, IOFileException, JSONException {
 
+		logger.info( Log.LOADING.createMessage( "loading test configuration" ) );
+		
+		/** set subscriber creation range */
 		subscribers_range = Arrays.asList( 3399900001L, 3399900010L );
 		
+		/** load environment */
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		actruleServer = env.getServer( "actrule" ); 
 		superman = actruleServer.getUser( "superman" );
+		
+		/** get mysql tenant connection */
 		mysql_tenant = new Mysql( env.getDataSource( tenant ) );
 		
-		JSONObject cdrs = JSONUtils.loadJSONResource( "input/cdr/SubscriberDelayedRemovalTask", "cdr_subscribers_usage.json" );
+		/** load cdrs configuration */
+		cdrs = JSONUtils.loadJSONResource( "input/cdr/SubscriberDelayedRemovalTask", "cdr_subscribers_usage.json" );
 
+		/** check if cdr bundle will be elaborated */
+		hasCDRBundle = cdrs.has( CDRBundle.class.getSimpleName() );
+		
+		/** load cdr types */
+		cdrTypes = new ArrayList<String>();
+		
+		/** check the cdr will be elaborated from the collector */
 		@SuppressWarnings("unchecked")
 		Iterator<String> cdr = cdrs.keys();
-		while( cdr.hasNext() ){
-			cdrTypes = new ArrayList<String>();
-			cdrTypes.add( cdr.next().toUpperCase() );
+		while( cdr.hasNext() ) {
+			
+			String cdrTypeName = cdr.next();
+			
+			if( cdrs.getJSONObject( cdrTypeName ).getBoolean( "enabled" ) ) { cdrTypes.add( cdrTypeName.toUpperCase() ); }
+			
         }
 		
+		/** configure cdr elaboration parameters */
 		cdrParameters = new HashMap<String, Object>();
 		cdrParameters.put( CDR.Parameters.env.name(), env );
 		cdrParameters.put( CDR.Parameters.tenant.name(), tenant );
@@ -107,7 +146,13 @@ public class TestSubscriberDelayedRemovalTask {
 							
 	}	
 	
-	@Test( enabled = false, priority = 1 )
+	/** create subscribers */
+	@Test( enabled = false, priority = 1, description = "create subscriber" )
+	@Steps({
+		"delete subscribers if exist",
+		"set subscriber configuration",
+		"insert subscriber via xmlrpc call"
+	})	
 	public void insertSubscribers() throws XMLRPCParserException, CDRException {
 
 		XMLRPCResultParser responseParser;
@@ -118,6 +163,7 @@ public class TestSubscriberDelayedRemovalTask {
 				
 		for( long msisdn = subscribers_range.get( 0 ); msisdn <= subscribers_range.get( 1 ); msisdn++ ) {
 			
+			/** delete subscriber if exists */
 			if( this.isSubscriber( msisdn ) ) { this.deleteExistingSubscriber( msisdn ); }
 			
 			this.sleep( XMLRPC_CALL_DELAY );
@@ -201,7 +247,49 @@ public class TestSubscriberDelayedRemovalTask {
 
 	}
 	
-	@Test( enabled = true, priority = 2 )
+	@Test( enabled = false, priority = 2 )
+	public void insertBundle() throws JSONException, CDRException {
+		
+		if( hasCDRBundle ) {
+			
+			CompositeBundle bundleTable = new CompositeBundle();
+					
+			String query = delete().from( bundleTable ).build();
+			
+			mysql_tenant.execUpdate( query.toString() );
+			
+			JSONObject cdrBundleCfg = cdrs.getJSONObject( CDRBundle.class.getSimpleName() );
+			JSONObject bundleNameCfg = cdrBundleCfg.getJSONObject( BundleName.class.getSimpleName() );
+			
+			if( bundleNameCfg.getString( "strategy" ).equals( "Increment" ) ) { 
+			
+				JSONArray bundleNameParametersCfg = bundleNameCfg.getJSONArray( "parameters" );
+				
+				if( bundleNameParametersCfg.length() == 3 ) {
+				
+					CSVString bundle = new CSVString();
+					bundle.setStringStrategyIncrement( bundleNameParametersCfg.getString( 0 ), bundleNameParametersCfg.getInt( 1 ), bundleNameParametersCfg.getInt( 2 ) );
+					
+					for( long bundleIndex = bundleNameParametersCfg.getInt( 1 ) + 1; bundleIndex <= cdrBundleCfg.getInt( "linesCount" ); bundleIndex++ ) {
+					
+						bundleTable.setBundle( bundleIndex );
+						bundleTable.setBundleName( bundle.getString() );
+						
+						query = insert( bundleTable ).values().build(); 
+						
+						mysql_tenant.execUpdate( query.toString() );
+									
+					}
+				
+				}
+			
+			}
+		
+		}
+			
+	}
+		
+	@Test( enabled = true, priority = 3 )
 	public void putData() throws CDRException, SQLException, JSONSException, IOFileException {
 
 		ArrayList<CollectedFilesStats> beforeCfsTable = getCollectedFilesStatsTableContent();
@@ -393,7 +481,7 @@ public class TestSubscriberDelayedRemovalTask {
 	public Boolean checkCollectorProcessingCompleted( ArrayList<CollectedFilesStats> beforeCfsTable, ArrayList<CollectedFilesStats> afterCfsTable ) {
 				
 		for( int cdrIndex = 0; cdrIndex < cdrTypes.size(); cdrIndex++ ) {
-			
+			//System.out.println( cdrTypes.get( cdrIndex ) );
 			boolean cdrElaborated = false;
 			
 			for( int cfs2 = 0; cfs2 < beforeCfsTable.size(); cfs2++ ) {

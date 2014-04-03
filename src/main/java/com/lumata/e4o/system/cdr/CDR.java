@@ -661,7 +661,6 @@ public class CDR {
 			}
 			
 		}
-
 		
 		/** stop collector daemon, collector process and cdrwriter process in the remote server via ssh*/
 		/*ExpressionKernelCommands.collectorServiceStop( env );
@@ -692,8 +691,8 @@ public class CDR {
 		/** get json configuration file path */
 		String jsonSourceDir = (String)parameters.get( CDR.Parameters.cfgDir.name() );
 		String jsonSourceFile = (String)parameters.get( CDR.Parameters.cfgFile.name() );
-		System.out.println( jsonSourceDir );
-		System.out.println( jsonSourceFile );
+		//System.out.println( jsonSourceDir );
+		//System.out.println( jsonSourceFile );
 		/** get cdrs configuration json */
 		JSONObject cdrCfg = JSONUtils.loadJSONResource( jsonSourceDir , jsonSourceFile );
 	
@@ -709,7 +708,7 @@ public class CDR {
 		Iterator<String> cdrTypes = cdrCfg.keys();
 		
 		while( cdrTypes.hasNext() ) {
-				
+						
 			/** cdr type class name */
 			String cdrTypeClassName = cdrTypes.next();
 			//System.out.println( cdrTypeClassName );
@@ -717,163 +716,157 @@ public class CDR {
 			
 			try {
 				
-				/** get cdr class instance */
-				Class<?> cdrTypeClass = Class.forName( cdr_types_package + "." + cdrTypeClassName );				
-				Object cdrTypeClassInstance = cdrTypeClass.newInstance();
+				if( 	
+						!cdrCfg.getJSONObject( cdrTypeClassName ).has( "enabled" ) /** default enabled = true */|| 
+						cdrCfg.getJSONObject( cdrTypeClassName ).getBoolean( "enabled" ) == true ) 
+				{
 				
-				/** get cdr type fields configuration */
-				JSONObject cdrTypeFieldsCfg = cdrCfg.getJSONObject( cdrTypeClassName );
-				
-				/** set field values */
-				@SuppressWarnings("unchecked")
-				Iterator<String> cdrTypeFields = cdrTypeFieldsCfg.keys();
-				
-				while( cdrTypeFields.hasNext() ) {
+					/** get cdr class instance */
+					Class<?> cdrTypeClass = Class.forName( cdr_types_package + "." + cdrTypeClassName );				
+					Object cdrTypeClassInstance = cdrTypeClass.newInstance();
 					
-					/** get cdr type field name */
-					String cdrTypeFieldName = cdrTypeFields.next();					
-										
-					if( cdrTypeFieldsCfg.get( cdrTypeFieldName ) instanceof JSONObject ) {
+					/** get cdr type fields configuration */
+					JSONObject cdrTypeFieldsCfg = cdrCfg.getJSONObject( cdrTypeClassName );
 					
-						/** get method to invoke */
-						StringBuilder cdrTypeMethodName = new StringBuilder();
+					/** set field values */
+					@SuppressWarnings("unchecked")
+					Iterator<String> cdrTypeFields = cdrTypeFieldsCfg.keys();
+					
+					while( cdrTypeFields.hasNext() ) {
 						
-						cdrTypeMethodName.append( "set" )
-											.append( cdrTypeFieldName )
-											.append( "Strategy" )
-											.append( cdrTypeFieldsCfg.getJSONObject( cdrTypeFieldName ).get( "strategy" ) );
-						
-						/** invoke method */
-						for( Method cdrTypeMethod : cdrTypeClass.getMethods() ) {
-													
-							if( cdrTypeMethod.getName().equals( cdrTypeMethodName.toString() ) ) {
-								//System.out.println( cdrTypeMethodName.toString() );	
-								try {
-									// TODO
-									/*
-									System.out.println( "----------" );
-									for( Field cdrAttribute : this.getClass().getDeclaredFields() ) {
-										
-										for( Annotation cdrAttributeAnnotation : cdrAttribute.getAnnotations() ) {
+						/** get cdr type field name */
+						String cdrTypeFieldName = cdrTypeFields.next();					
 											
-											if( cdrAttributeAnnotation.getClass().getInterfaces()[0].getSimpleName().equals( cdrTypeFieldName ) ) {
-												
-												if( cdrAttribute.getType().getSimpleName().equals( "CSVSchemaTable" ) ) {
-													
-													System.out.println( "@@@@@@@@@@: " + cdrTypeFieldName );
-													
-													System.out.println( "TTTTTT: " + cdrAttribute.getType().getSimpleName() );
-													
-													try {
-														Method m = this.getClass().getMethod( "setLocationValues" );
-														cdrTypeMethod.invoke( "setLocationValues", this.env.getDataSource( this.tenant ) );
+						if( cdrTypeFieldsCfg.get( cdrTypeFieldName ) instanceof JSONObject ) {
+						
+							/** get method to invoke */
+							StringBuilder cdrTypeMethodName = new StringBuilder();
+							
+							cdrTypeMethodName.append( "set" )
+												.append( cdrTypeFieldName )
+												.append( "Strategy" )
+												.append( cdrTypeFieldsCfg.getJSONObject( cdrTypeFieldName ).get( "strategy" ) );
+							
+							/** invoke method */
+							for( Method cdrTypeMethod : cdrTypeClass.getMethods() ) {
 														
-													} catch (
-															NoSuchMethodException
-															| SecurityException e) {
-														// TODO Auto-generated catch block
-														e.printStackTrace();
-														System.out.println( "PIPPO, PIPPO" );
+								if( cdrTypeMethod.getName().equals( cdrTypeMethodName.toString() ) ) {
+									//System.out.println( cdrTypeMethodName.toString() );	
+									try {
+										// TODO
+										/*
+										System.out.println( "----------" );
+										for( Field cdrAttribute : this.getClass().getDeclaredFields() ) {
+											
+											for( Annotation cdrAttributeAnnotation : cdrAttribute.getAnnotations() ) {
+												
+												if( cdrAttributeAnnotation.getClass().getInterfaces()[0].getSimpleName().equals( cdrTypeFieldName ) ) {
+													
+													if( cdrAttribute.getType().getSimpleName().equals( "CSVSchemaTable" ) ) {
+														
+														System.out.println( "@@@@@@@@@@: " + cdrTypeFieldName );
+														
+														System.out.println( "TTTTTT: " + cdrAttribute.getType().getSimpleName() );
+														
+														try {
+															Method m = this.getClass().getMethod( "setLocationValues" );
+															cdrTypeMethod.invoke( "setLocationValues", this.env.getDataSource( this.tenant ) );
+															
+														} catch (
+																NoSuchMethodException
+																| SecurityException e) {
+															// TODO Auto-generated catch block
+															e.printStackTrace();
+															System.out.println( "PIPPO, PIPPO" );
+														}
+														
+																											
 													}
 													
-																										
 												}
 												
 											}
-											
-										}
-										//if( cdrAttribute.isAnnotationPresent( cdrTypeAnnotation.newInstance() ) ) {
-											
-										//}
-										//System.out.println( f.getName() );
-									}*/
-									//System.out.println( "----------" );
-									/** get cdr type field paratemers */
-									Object[] fieldParameters = this.getCDRTypeParameterValues( cdrTypeFieldName, cdrTypeMethod, cdrTypeFieldsCfg.getJSONObject( cdrTypeFieldName ), parameters );
-																	
-									/** set the field value using the strategy set in the json configuration file */
-									cdrTypeMethod.invoke( cdrTypeClassInstance, fieldParameters );
-																	
-								} catch (	IllegalAccessException | 
-										 	IllegalArgumentException | 
-										 	InvocationTargetException e ) 
-								{ 	logger.error( e.getMessage(), e ); 	}
-								
-							}							
-							
-						}
-						
-					}
-					
-				}
-				
-				/** get cdr instance class */
-				CDR cdr = ((CDR)cdrTypeClassInstance);
-				
-				/** add lines to cdr file */
-				if( cdrTypeFieldsCfg.has( "linesCount" ) ) { 
-					
-					cdr.addLines( cdrTypeFieldsCfg.getInt( "linesCount" ) ); 
-				
-					/** print the cdr in the console output */
-					if( cdrTypeFieldsCfg.has( "print" ) && (Boolean)cdrTypeFieldsCfg.get( "print" ) ) { cdr.print(); }
+											//if( cdrAttribute.isAnnotationPresent( cdrTypeAnnotation.newInstance() ) ) {
+												
+											//}
+											//System.out.println( f.getName() );
+										}*/
+										//System.out.println( "----------" );
+										/** get cdr type field paratemers */
+										Object[] fieldParameters = this.getCDRTypeParameterValues( cdrTypeFieldName, cdrTypeMethod, cdrTypeFieldsCfg.getJSONObject( cdrTypeFieldName ), parameters );
+																		
+										/** set the field value using the strategy set in the json configuration file */
+										cdrTypeMethod.invoke( cdrTypeClassInstance, fieldParameters );
+																		
+									} catch (	IllegalAccessException | 
+											 	IllegalArgumentException | 
+											 	InvocationTargetException e ) 
+									{ 	logger.error( e.getMessage(), e ); 	}
 									
-					/** load output dir */
-					if( cdrTypeFieldsCfg.has( "outputDir" ) ) { 
-						
-						try {
-							
-							parameters.put( CDR.Parameters.outputDir.name(), cdrTypeFieldsCfg.get( "outputDir" ) );				
-				
-							/** set cdr output path */
-							long current_timestamp = Calendar.getInstance().getTimeInMillis();
-							String file_name = cdrTypeClassName.toLowerCase() + "_" + current_timestamp + ".csv";
-							
-							cdr.setOutputPath( (String)parameters.get( CDR.Parameters.outputDir.name() ), file_name );
-							
-							/** store cdr file */
-							if( cdrTypeFieldsCfg.has( CDR.Parameters.store.name() ) ) {
-								
-								if( cdrTypeFieldsCfg.getBoolean( CDR.Parameters.store.name() ) ) { 
-									
-									cdr.save();
-									
-									/** send cdr file */
-									if( cdrTypeFieldsCfg.has( CDR.Parameters.send.name() ) && cdrTypeFieldsCfg.has( CDR.Parameters.depositPath.name() )) {
-										
-										if( cdrTypeFieldsCfg.getBoolean( CDR.Parameters.send.name() ) ) { 
-											
-											cdr.send( this.env.getSSHService( "actrule" ), cdrTypeFieldsCfg.getString( CDR.Parameters.depositPath.name() ), "root" );
-																						
-										}
-										
-									}
-									
-								}				
+								}							
 								
 							}
-		
-						} catch (JSONException e) {
-							logger.error( e.getMessage(), e );
+							
 						}
 						
-					} else {
-						throw new CDRException ( "output dir not present in the " + cdrTypeClassInstance.getClass().getSimpleName() + " section of the json configuration file" );
 					}
-									
-				}
-												
-				/** check if the file has been created */
-				/*long timeout = 10000;				
-				long spentTime = 0;
-				long checkTime = 1000;
-				
-				while( !cdr.checkFile() && spentTime < timeout ) {
-					try { Thread.sleep( checkTime ); spentTime = spentTime + checkTime; } catch (InterruptedException e) {}
-				}
-				*/
-				
+					
+					/** get cdr instance class */
+					CDR cdr = ((CDR)cdrTypeClassInstance);
+					
+					/** add lines to cdr file */
+					if( cdrTypeFieldsCfg.has( "linesCount" ) ) { 
+						
+						cdr.addLines( cdrTypeFieldsCfg.getInt( "linesCount" ) ); 
+					
+						/** print the cdr in the console output */
+						if( cdrTypeFieldsCfg.has( "print" ) && (Boolean)cdrTypeFieldsCfg.get( "print" ) ) { cdr.print(); }
+										
+						/** load output dir */
+						if( cdrTypeFieldsCfg.has( "outputDir" ) ) { 
+							
+							try {
 								
+								parameters.put( CDR.Parameters.outputDir.name(), cdrTypeFieldsCfg.get( "outputDir" ) );				
+					
+								/** set cdr output path */
+								long current_timestamp = Calendar.getInstance().getTimeInMillis();
+								String file_name = cdrTypeClassName.toLowerCase() + "_" + current_timestamp + ".csv";
+								
+								cdr.setOutputPath( (String)parameters.get( CDR.Parameters.outputDir.name() ), file_name );
+								
+								/** store cdr file */
+								cdr.save();
+								
+								/** send cdr file */
+								if( cdrTypeFieldsCfg.has( CDR.Parameters.send.name() ) && cdrTypeFieldsCfg.has( CDR.Parameters.depositPath.name() )) {
+									
+									if( cdrTypeFieldsCfg.getBoolean( CDR.Parameters.send.name() ) ) { 
+										
+										cdr.send( this.env.getSSHService( "actrule" ), cdrTypeFieldsCfg.getString( CDR.Parameters.depositPath.name() ), "root" );
+																					
+									}
+									
+								}
+								
+								/** delete stored file */
+								if( 	!cdrTypeFieldsCfg.has( CDR.Parameters.store.name() ) ||
+										!cdrTypeFieldsCfg.getBoolean( CDR.Parameters.store.name() )
+								) {								
+									IOFileUtils.deleteResource( (String)parameters.get( CDR.Parameters.outputDir.name() ), file_name );								
+								}
+																
+							} catch (JSONException e) {
+								logger.error( e.getMessage(), e );
+							}
+							
+						} else {
+							throw new CDRException ( "output dir not present in the " + cdrTypeClassInstance.getClass().getSimpleName() + " section of the json configuration file" );
+						}
+										
+					}
+								
+				}				
 				
 			} catch ( 	JSONException | 
 						ClassNotFoundException | 
