@@ -76,7 +76,7 @@ public class ConfigureLoyalty {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}
 	
-	@Test(enabled=true, priority = 1)
+	@Test(enabled=true, priority=1)
 	public void configureBadges() {
 		
 		try {
@@ -86,16 +86,27 @@ public class ConfigureLoyalty {
 			form.openSubsection(ImmutableMap.of(
 					"clickAccordion", "false"));
 			form.delete();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail("Error during loyalty configuration");
 		}
 	}
 	
-	@Test(enabled=true, priority = 1)
+	@Test(enabled=true, priority=1)
 	public void configureBadgesWithDuplicationError() {
 
-		// TODO...
+		try {			
+			form.openSubsection(ImmutableMap.of(
+					"clickAccordion", "false"));
+			form.create();
+			Assert.assertEquals(form.duplication(), "The name is already used");
+			form.closeNewProgramPopup();
+			form.delete();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail("Error during loyalty configuration");
+		}
 	}
 }

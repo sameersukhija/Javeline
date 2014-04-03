@@ -3,6 +3,10 @@ package com.lumata.expression.operators.gui.loyalty;
 import java.util.List;
 import java.util.Map;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.google.common.collect.ImmutableMap;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.expression.operators.gui.catalogue.LoyaltyForm;
@@ -38,35 +42,34 @@ public class LoyaltyCreationForm extends Form {
 		
 		if (isTrueKeyOrMissing(map, "clickAccordion")) {
 		
+			/* Wrong XPATH we have only one submenu ("Creation" and not "Management") 
 			clickFormat("accordion",
 				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']",
-				createCfg.getAccordionName());
+				createCfg.getAccordionName());*/
+			
+			clickFormat("accordion",
+					"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div//*[text()='%s']",
+					createCfg.getAccordionName());
 		}
 	}
 
 	public void create() throws Exception {
 		
-		clickFormat("addNewProgramPopup",
-			"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']/../../../../../../..//*[@title='Add']",
-			createCfg.getAccordionName());
-		
-		sendKeys("programNameInput",
-			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input",
-			createCfg.getProgramName());
-		
-		sendKeys("programDescInput",
-			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input",
-			createCfg.getProgramDesc());
-		
-		click("programSave",
-			"html/body/div[5]/div/table//*[@title='Save']");
+		addNewProgram();
 		
 		addBadgeTypeFromList(createCfg.getTypeNameList());
 		
 		click("badgeTypeClose",
 			"html/body/div[5]/div/table//*[@title='Close']");
 	}
-	
+
+	public String duplication() throws Exception {
+		
+		addNewProgram();
+		
+		return getText("errorMessage", "html/body/div[6]/div/div");
+	}
+
 	public void manage() throws Exception {
 
 		click("subSectionTab",
@@ -104,19 +107,49 @@ public class LoyaltyCreationForm extends Form {
 		
 		click("addAction", "//*[@id='gwt-debug-BtnCampaignModelCreationEAAdd']");
 		
-		selectByVisibleText("selectUnitRecharge",
-			"//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']",
-			manageCfg.getAwardedActionUnit());
-		
-		sendKeys("points",
-			"//*[@id='gwt-debug-TextCampaignModelCreationEAValue']",
-			manageCfg.getAwardedActionPlus());
+		// Wrong XPATH, missing select value and input field (hidden)
+		//selectByVisibleText("selectUnitRecharge",
+		//	"//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']",
+		//	manageCfg.getAwardedActionUnit());
+		//
+		//sendKeys("points",
+		//	"//*[@id='gwt-debug-TextCampaignModelCreationEAValue']",
+		//	manageCfg.getAwardedActionPlus());
 		
 		click("saveBadge", "html/body/div[7]/div/table//*[@title='Save']");
 		
 		click("closeBadge", "html/body/div[5]/div/table//*[@title='Close']");
 	}
 
+	public void closeNewProgramPopup() throws Exception {
+		
+		click("closeProgramPopup",
+			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td[1]/button");
+	}
+	
+	private void addNewProgram() throws Exception {
+		
+		/* Wrong XPATH we have only one submenu ("Creation" and not "Management")
+		clickFormat("addNewProgramPopup",
+			"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']/../../../../../../..//*[@title='Add']",
+			createCfg.getAccordionName());*/
+
+		clickFormat("addNewProgramPopup",
+				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div//*[text()='%s']/../../../../../../..//*[@title='Add']",
+				createCfg.getAccordionName());
+
+		sendKeys("programNameInput",
+			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input",
+			createCfg.getProgramName());
+		
+		sendKeys("programDescInput",
+			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input",
+			createCfg.getProgramDesc());
+		
+		click("programSave",
+			"html/body/div[5]/div/table//*[@title='Save']");
+	}
+	
 	private void addBadgeTypeFromList(List<String> badgeTypeList) throws Exception {
 		
 		for (String badgeType : badgeTypeList) {
@@ -136,6 +169,14 @@ public class LoyaltyCreationForm extends Form {
 		clickFormat("delete",
 			"html/body/table[2]//*[text()='%s']/../..//*[@title='Delete']",
 			createCfg.getProgramName());
+		
+		// Wait GWT deletes the record from the GUI
+		Thread.sleep(4);
+		Boolean isInvisible = (new WebDriverWait(selenium.getWrappedDriver(), 10))
+			.until(ExpectedConditions.invisibilityOfElementLocated(By.id(
+				"html/body/table[2]//*[text()='"+createCfg.getProgramName()+"']/../..//*[@title='Delete']")));
+		
+		System.out.println("isInvisible: " + isInvisible);
 	}
 	
 	/*private Integer selectLoyaltyProgramsCount() {
