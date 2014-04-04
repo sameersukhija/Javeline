@@ -8,17 +8,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.poi.ss.usermodel.Workbook;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.lumata.common.testing.exceptions.IOFileException;
-import com.lumata.common.testing.io.ExcelUtils;
+import com.lumata.common.testing.exceptions.OfficeException;
+import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.validating.Format;
+import com.lumata.testing.office.Excel;
 
 public enum ConfigurationTypes {
-			
+	
 	/* Sprint 2 - US: EFOGC-100 - SubTask: EFOGC-834 */
 	BDR_STORAGE {
 		
@@ -168,7 +168,7 @@ public enum ConfigurationTypes {
 	ALL_STANDARD_PARAMETERS_FROM_FILE {
 				
 		public ArrayList<Configuration> getCfg( Map<String, Object> options ) {
-				
+					
 			ArrayList<Configuration> cfgList = new ArrayList<Configuration>();
 					
 			//final int CATEGORY = 0;
@@ -186,33 +186,48 @@ public enum ConfigurationTypes {
 			
 			try {
 				
-				Workbook workbook = ExcelUtils.load( "input/configuration", "properties_default_fields_1.xls" );
+				if( options == null ||				
+					!options.containsKey( "excelFile" ) ||
+					!options.containsKey( "excelLoadingType" ) ||
+					( !options.containsKey( "excelSheetName" ) && !options.containsKey( "excelSheetId" ) )
+				) { 
+					throw new OfficeException("The following parameters are mandatory 'excelFile', 'excelLoadingType', 'excelSheetName' or 'excelSheetId'");					
+				}
 				
-				List<List<String>> sheet = ExcelUtils.loadSheet( workbook.getSheetAt( 0 ) );
-								
+				if( !options.containsKey( "excelFolder" ) ) { options.put( "excelFolder", "" ); }
+				
+				Excel excel = new Excel( (String)options.get( "excelFolder" ), (String)options.get( "excelFile" ), (IOLoadingType)options.get( "excelLoadingType" ) );
+				
+				List<List<String>> sheet = null;
+				
+				if( options.containsKey( "excelSheetName" ) ) { sheet = excel.getSheetByName( (String)options.get( "excelSheetName" ) ); }
+				else { if( options.containsKey( "excelSheetId" ) ) { sheet = excel.getSheetById( (Integer)options.get( "excelSheetId" ) ); } }
+ 				
 				String numeric_pattern = "([0-9]+)[.]{0,1}.[0-9]*";
-								
+				
 				for( int i = 1; i < sheet.size(); i++ ) {
-										
+					
 					Configuration cfg = new Configuration();
-					cfg.setSection( sheet.get( i ).get( SECTION ).replaceAll( "\"", "\\\\\"" ) );
-					cfg.setName( sheet.get( i ).get( NAME ).replaceAll( "\"", "\\\\\"" ) );
-					cfg.setPosition( sheet.get( i ).get( POSITION ).replaceAll( numeric_pattern, "$1" ) );
-					cfg.setProcessID( sheet.get( i ).get( PROCESS_ID ).replaceAll( "\"", "\\\\\"" ) );
-					cfg.setAuthGroup( sheet.get( i ).get( AUTH_GROUP ).replaceAll( "\"", "\\\\\"" ) );
-					String current = sheet.get( i ).get( CURRENT ).replaceAll( "\"", "\\\\\"" );
-					cfg.setCurrent( ( Format.isNumeric( current ) ? current.replaceAll( numeric_pattern, "$1" ) : current ) );
+					cfg.setSection( sheet.get( i ).get( SECTION ).replaceAll( "\"", "\\\\\"" ).trim() );
+					cfg.setName( sheet.get( i ).get( NAME ).replaceAll( "\"", "\\\\\"" ).trim() );
+					cfg.setPosition( sheet.get( i ).get( POSITION ).replaceAll( numeric_pattern, "$1" ).trim() );
+					cfg.setProcessID( sheet.get( i ).get( PROCESS_ID ).replaceAll( "\"", "\\\\\"" ).trim() );
+					cfg.setAuthGroup( sheet.get( i ).get( AUTH_GROUP ).replaceAll( "\"", "\\\\\"" ).trim() );
+					String current = sheet.get( i ).get( CURRENT ).replaceAll( "\"", "\\\\\"" ).trim();
+					cfg.setCurrent( ( Format.isNumeric( current ) ? current.replaceAll( numeric_pattern, "$1" ).trim() : current ) );
 					cfg.setPrevious( "NULL" );
-					cfg.setDynStatic( sheet.get( i ).get( DYN_STATIC ) );
+					cfg.setDynStatic( sheet.get( i ).get( DYN_STATIC ).trim() );
 					cfg.setTime( "NULL" );
-					cfg.setType( sheet.get( i ).get( TYPE ).replaceAll( "\"", "\\\\\"" ) );
-					cfg.setDescription( sheet.get( i ).get( DESCRIPTION ).replaceAll( "\"", "\\\\\"" ) );
+					cfg.setType( sheet.get( i ).get( TYPE ).replaceAll( "\"", "\\\\\"" ).trim() );
+					cfg.setDescription( sheet.get( i ).get( DESCRIPTION ).replaceAll( "\"", "\\\\\"" ).trim() );
 										
 					cfgList.add( cfg );	
-															
+					
+					printConfRow( cfg );
+					
 				}
-			
-			} catch( IOFileException | IOException e ) {
+								
+			} catch( OfficeException | IOException e ) {
 				
 				System.out.println( e.getMessage() );
 				
@@ -250,6 +265,19 @@ public enum ConfigurationTypes {
 	private static String getSchemaName( Map<String, Object> options ) {
 		
 		return (String)options.get( "schema" );
+		
+	}
+	
+	public void printConfRow( Configuration cfg ) {
+		
+		StringBuilder confRow = new StringBuilder();
+		
+		confRow.append( cfg.getName() ).append( "|" )
+				.append( cfg.getPosition() ).append( "|" )
+				.append( cfg.getSection() ).append( "|" )
+				.append( cfg.getProcessID() ).append( "|" );
+		
+		System.out.println( confRow.toString() );
 		
 	}
 	

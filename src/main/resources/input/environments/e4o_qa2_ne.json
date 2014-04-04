@@ -1,0 +1,111 @@
+{
+  "servers": {
+    "actrule": {
+      "hostName": "md1-sa014-e4o02",
+      "hostAddress": "10.120.38.27",
+      "users": {
+        "root": {
+          "username": "root",
+          "password": "cmdISnJjdQ=="
+        },
+        "superman": {
+          "username": "superman",
+          "password": "bGppYm1NSUhJMmB3"
+        }
+      },
+      "link": "http://10.120.38.27:7070/",
+      "browsers": {
+        "SAFARI": {
+          
+        },
+        "OPERA": {
+          
+        },
+        "FIREFOX": {
+          "profile": {
+            "file": {
+              "folderName": "input/browsers/profiles",
+              "fileName": "firefox.default",
+              "loadingType": "RESOURCE"
+            },
+            "options": {
+              "extensions.firebug.allPagesActivation": "on",
+              "extensions.firebug.defaultPanelName": "console"
+            }
+          }
+        },
+        "CHROME": {
+          
+        },
+        "IE": {
+          
+        }
+      }
+    },
+    "collector": {
+      "hostName": "md1-sa014-e4o02",
+      "hostAddress": "10.120.38.27",
+      "users": {
+        "root": {
+          "username": "root",
+          "password": "cmdISnJjdQ=="
+        }
+      },
+      "link": "",
+      "browsers": {
+        
+      }
+    }
+  },
+  "dataSources": {
+    "global": {
+      "hostName": "global",
+      "hostAddress": "10.120.42.12",
+      "hostPort": "3303",
+      "maxActive": 100,
+      "maxIdle": 30,
+      "maxWait": 10000,
+      "user": "system",
+      "password": "bHhsa2Jy"
+    },
+    "tenant": {
+      "hostName": "tenant",
+      "hostAddress": "10.120.42.12",
+      "hostPort": "3303",
+      "maxActive": 100,
+      "maxIdle": 30,      
+      "maxWait": 10000,
+      "user": "system",
+      "password": "bHhsa2Jy"
+    },
+    "dm": {
+      "hostName": "dm",
+      "hostAddress": "10.120.42.11",
+      "hostPort": "3309",
+      "maxActive": 100,
+      "maxIdle": 30,
+      "maxWait": 10000,
+      "user": "dialog_manager",
+      "password": "aXJnSEpyY3U="
+    }
+  },
+  "services": {
+    "ssh": {
+      "actrule": {
+        "hostName": "md1-sa014-e4o02",
+        "hostAddress": "10.120.38.27",
+        "hostPort": "22",
+        "users": {
+          "root": {
+            "username": "root",
+            "password": "cmdISnJjdQ==",
+            "privateKey": "/opt/lumata/e4o_test"
+          }
+        }
+      }
+    }
+  },
+  "options": {
+    "multiTenant": true
+  }
+}

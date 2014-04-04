@@ -1,0 +1,281 @@
+{
+	"CDRHistory": {
+		"linesCount": 5,
+		"store": true,
+		"outputDir": "output/cdr",
+		"send": true,		
+		"depositPath": "/nfsdata/files/cdr/deposit/HISTORY_CDR/",
+		"print": true,
+		"Msisdn": {		
+			"strategy": "Increment",
+			"parameters": [ "3399900011", "1" ]		
+		}
+	},
+	"CDRRevenue": {
+		"linesCount": 5,
+		"store": false,
+		"outputDir": "output/cdr",
+		"send": true,
+		"depositPath": "/nfsdata/files/cdr/deposit/REVENUE_CDR/",
+		"print": true,
+		"Msisdn": {		
+			"strategy": "Increment",
+			"parameters": [ "3399900001", "1" ]		
+		},
+		"Date": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"Amount": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Balance": {		
+			"strategy": "Random",
+			"parameters": [ "500", "5000" ]		
+		},
+		"ValidityDate": {		
+			"strategy": "Fixed",
+			"parameters": [ "###validity_date###" ]		
+		},
+		"DeactivationDate": {		
+			"strategy": "Fixed",
+			"parameters": [ "###deactivation_date###" ]		
+		},
+		"Type": {		
+			"strategy": "Increment",
+			"parameters": [ "invoice", "1" ]		
+		},
+		"Delay": {		
+			"strategy": "Random",
+			"parameters": [ "300", "3000" ]		
+		}
+	},
+	"CDRBundle": {
+		"linesCount": 5,
+		"store": false,
+		"outputDir": "output/cdr",
+		"send": false,
+		"depositPath": "/nfsdata/files/cdr/deposit/BUNDLE_CDR/",
+		"Msisdn": {		
+			"strategy": "Random",
+			"parameters": [ "3399900001", "3399910000" ]		
+		},
+		"Date": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"BundleName": {		
+			"strategy": "Increment",
+			"parameters": [ "bundle", "0", "1" ]		
+		},
+		"BundleBalance": {		
+			"strategy": "Random",
+			"parameters": [ "500", "5000" ]		
+		},
+		"BundlePurchased": {		
+			"strategy": "Increment",
+			"parameters": [ "false", "1" ]		
+		}
+	},
+	"CDRVoucher": {
+		"linesCount": 5,
+		"store": false,
+		"outputDir": "output/cdr",
+		"send": false,
+		"depositPath": "/nfsdata/files/cdr/deposit/VOUCHER_CDR/",
+		"Msisdn": {		
+			"strategy": "Random",
+			"parameters": [ "3399900001", "3399910000" ]		
+		},
+		"VoucherCode": {		
+			"strategy": "Increment",
+			"parameters": [ "voucher", "0", "1" ]		
+		},
+		"Date": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"Location": {		
+			"strategy": "Fixed",
+			"parameters": [ "Milan" ]		
+		}
+	},
+	"CDRLifeCycle": {
+		"linesCount": 5,
+		"store": false,
+		"outputDir": "output/cdr",
+		"send": false,
+		"depositPath": "/nfsdata/files/cdr/deposit/LIFECYCLE_CDR/",
+		"Msisdn": {		
+			"strategy": "Random",
+			"parameters": [ "3399900001", "3399910000" ]		
+		},
+		"Date": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"NewRatePlan": {		
+			"strategy": "Fixed",
+			"parameters": [ "FUN" ]		
+		},
+		"OldRatePlan": {		
+			"strategy": "Fixed",
+			"parameters": [ "PRO" ]		
+		},
+		"NewProfile": {		
+			"strategy": "Fixed",
+			"parameters": [ "prepaid" ]		
+		},
+		"OldProfile": {		
+			"strategy": "Fixed",
+			"parameters": [ "account" ]		
+		},
+		"NewSubProfile": {		
+			"strategy": "Fixed",
+			"parameters": [ "" ]		
+		},
+		"OldSubProfile": {		
+			"strategy": "Fixed",
+			"parameters": [ "" ]		
+		},
+		"NewStatus": {		
+			"strategy": "Fixed",
+			"parameters": [ "active" ]		
+		},
+		"OldStatus": {		
+			"strategy": "Fixed",
+			"parameters": [ "inactive" ]		
+		},
+		"NewNetwork": {		
+			"strategy": "Fixed",
+			"parameters": [ "mobile" ]		
+		},
+		"OldNetwork": {		
+			"strategy": "Fixed",
+			"parameters": [ "fixed_line" ]		
+		},
+		"NewSubscriptionDate": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"OldSubscriptionDate": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		}
+		
+	},
+	"CDRCall": {
+		"linesCount": 5,
+		"store": false,
+		"outputDir": "output/cdr",
+		"send": false,
+		"depositPath": "/nfsdata/files/cdr/deposit/CALL_CDR/",
+		"Msisdn": {		
+			"strategy": "Random",
+			"parameters": [ "3399900001", "3399910000" ]		
+		},
+		"Date": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"Duration": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Amount": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Balance": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Terminating": {		
+			"strategy": "Random",
+			"parameters": []		
+		}
+	},
+	"CDRData": {
+		"linesCount": 5,
+		"store": false,
+		"outputDir": "output/cdr",
+		"send": false,
+		"depositPath": "/nfsdata/files/cdr/deposit/DATA_CDR/",
+		"Msisdn": {		
+			"strategy": "Random",
+			"parameters": [ "3399900001", "3399910000" ]		
+		},
+		"Date": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"Amount": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Download": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Upload": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Balance": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		}
+	},
+	"CDRMessage": {
+		"linesCount": 5,
+		"store": false,
+		"outputDir": "output/cdr",
+		"send": false,
+		"depositPath": "/nfsdata/files/cdr/deposit/MESSAGE_CDR/",
+		"Msisdn": {		
+			"strategy": "Random",
+			"parameters": [ "3399900001", "3399910000" ]		
+		},
+		"Date": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"Amount": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Sms": {		
+			"strategy": "Random",
+			"parameters": []		
+		},
+		"Balance": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		}
+	},
+	"CDROtherUsage": {
+		"linesCount": 5,
+		"store": false,
+		"outputDir": "output/cdr",
+		"send": false,
+		"depositPath": "/nfsdata/files/cdr/deposit/OTHERUSAGE_CDR/",
+		"Msisdn": {		
+			"strategy": "Random",
+			"parameters": [ "3399900001", "3399910000" ]		
+		},
+		"Date": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"Amount": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Balance": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		}
+	}
+	
+}

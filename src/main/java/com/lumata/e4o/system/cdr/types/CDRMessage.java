@@ -19,25 +19,8 @@ public class CDRMessage extends CDR {
 		return this.FIELDS;
 	}
 
-	@Msisdn( position = 0 )
-	public String getMsisdn() throws CDRException  {
-		return this.msisdn.getMsisdn();
-	}
-
-	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
-		if( this.msisdn != null ) { this.msisdn.setMsisdnOptions( prefix, length ); }
-	}
-
 	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
-	}
-
-	public void cleanMsisdnStrategyIncrement()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement(); }
-	}
-
-	public void cleanMsisdnStrategyRandom()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
 	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
@@ -48,6 +31,23 @@ public class CDRMessage extends CDR {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyRandom( min_value, max_value ); }
 	}
 
+	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnOptions( prefix, length ); }
+	}
+
+	public void cleanMsisdnStrategyIncrement()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement(); }
+	}
+
+	public void cleanMsisdnStrategyRandom()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
+	}
+
+	@Msisdn( position = 0 )
+	public String getMsisdn() throws CDRException  {
+		return this.msisdn.getMsisdn();
+	}
+
 	public void cleanMsisdnFixedStrategy()  {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnFixedStrategy(); }
 	}
@@ -56,16 +56,25 @@ public class CDRMessage extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
-	public void setDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
-		if( this.date != null ) { this.date.setDateStrategyRandom( date_left, date_right ); }
-	}
-
-	public void cleanDateStrategyFixed()  {
-		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
+	}
+
+	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
+		if( this.date != null ) { this.date.setDateStrategyIncrement( date, increment ); }
+	}
+
+	public void setDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
+		if( this.date != null ) { this.date.setDateStrategyRandom( date_left, date_right ); }
+	}
+
+	public void setDateFormat( String format ) throws CDRException  {
+		if( this.date != null ) { this.date.setDateFormat( format ); }
 	}
 
 	public void cleanDateStrategyIncrement()  {
@@ -76,17 +85,13 @@ public class CDRMessage extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
-	public void setDateFormat( String format ) throws CDRException  {
-		if( this.date != null ) { this.date.setDateFormat( format ); }
+	public void cleanDateStrategyFixed()  {
+		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
 	}
 
-	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
-		if( this.date != null ) { this.date.setDateStrategyIncrement( date, increment ); }
-	}
-
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
+	@Amount( position = 2 )
+	public String getAmount() throws CDRException  {
+		return this.amount.getLong();
 	}
 
 	public void setAmountStrategyFixed( final Long value ) throws CDRException  {
@@ -111,11 +116,6 @@ public class CDRMessage extends CDR {
 
 	public void cleanAmountStrategyFixed()  {
 		if( this.amount != null ) { this.amount.cleanLongStrategyFixed(); }
-	}
-
-	@Amount( position = 2 )
-	public String getAmount() throws CDRException  {
-		return this.amount.getLong();
 	}
 
 	@Sms( position = 3 )
@@ -147,6 +147,11 @@ public class CDRMessage extends CDR {
 		if( this.sms != null ) { this.sms.cleanEnumStrategyFixed(); }
 	}
 
+	@Balance( position = 4 )
+	public String getBalance() throws CDRException  {
+		return this.balance.getLong();
+	}
+
 	public void setBalanceStrategyFixed( final Long value ) throws CDRException  {
 		if( this.balance != null ) { this.balance.setLongStrategyFixed( value ); }
 	}
@@ -169,11 +174,6 @@ public class CDRMessage extends CDR {
 
 	public void cleanBalanceStrategyFixed()  {
 		if( this.balance != null ) { this.balance.cleanLongStrategyFixed(); }
-	}
-
-	@Balance( position = 4 )
-	public String getBalance() throws CDRException  {
-		return this.balance.getLong();
 	}
 
 }

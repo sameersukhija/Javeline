@@ -24,7 +24,7 @@ public class TestSSHExec {
 
     private static final Logger logger = LoggerFactory.getLogger(TestSSHExec.class);
 
-    @Test( enabled = false )
+    @Test( enabled = true )
     public void ssh_set_time() {
 
     	String user = "root";
@@ -38,13 +38,13 @@ public class TestSSHExec {
     	//String command = "date +%D%T -s \"2014-02-01 01:10:10\"";
     	
     	Calendar cal = Calendar.getInstance();
-    	cal.set( Calendar.DATE, cal.get( Calendar.DATE ) - 1 );
-    	
+    	cal.set( Calendar.DATE, cal.get( Calendar.DATE ) + 1 );
+    	System.out.println( KernelCommands.getDateTime( cal ) );
     	sshExec.execCommand( KernelCommands.getDateTime( cal ) );    	
     	
     }
     
-    @Test( enabled = true )
+    @Test( enabled = false )
     public void ssh_run_expression() throws EnvironmentException {
 
     	Environment env = new Environment( "input/environments", "E4O_VM", IOFileUtils.IOLoadingType.RESOURCE );

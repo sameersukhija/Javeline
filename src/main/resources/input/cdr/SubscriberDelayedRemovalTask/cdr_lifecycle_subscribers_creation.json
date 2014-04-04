@@ -1,0 +1,68 @@
+{
+	"CDRLifeCycle": {
+		"linesCount": 1,
+		"store": true,
+		"outputDir": "output/cdr/SubscriberDelayedRemoval",
+		"send": true,
+		"depositPath": "/nfsdata/files/cdr/deposit/LIFECYCLE_CDR/",
+		"print": true,
+		"Msisdn": {		
+			"strategy": "Increment",
+			"parameters": [ "3399900011", "1" ]		
+		},
+		"Date": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"NewRatePlan": {		
+			"strategy": "Fixed",
+			"parameters": [ "FUN" ]		
+		},
+		"OldRatePlan": {		
+			"strategy": "Fixed",
+			"parameters": [ "" ]		
+		},
+		"NewProfile": {		
+			"strategy": "Fixed",
+			"parameters": [ "prepaid" ]		
+		},
+		"OldProfile": {		
+			"strategy": "Fixed",
+			"parameters": [ "" ]		
+		},
+		"NewSubProfile": {		
+			"strategy": "Fixed",
+			"parameters": [ "" ]		
+		},
+		"OldSubProfile": {		
+			"strategy": "Fixed",
+			"parameters": [ "" ]		
+		},
+		"NewStatus": {		
+			"strategy": "Fixed",
+			"parameters": [ "active" ]		
+		},
+		"OldStatus": {		
+			"strategy": "Fixed",
+			"parameters": [ "" ]		
+		},
+		"NewNetwork": {		
+			"strategy": "Fixed",
+			"parameters": [ "mobile" ]		
+		},
+		"OldNetwork": {		
+			"strategy": "Fixed",
+			"parameters": [ "" ]		
+		},
+		"NewSubscriptionDate": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"OldSubscriptionDate": {		
+			"strategy": "Fixed",
+			"parameters": [ "###past_date###" ]		
+		}
+		
+	}
+	
+}

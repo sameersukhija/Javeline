@@ -10,8 +10,12 @@
   "name": "e4o_qa2",
   "link": "http://10.120.38.27:7070/",
   "browsers": {
-    "SAFARI": {},
-    "OPERA": {},
+    "SAFARI": {
+      
+    },
+    "OPERA": {
+      
+    },
     "FIREFOX": {
       "profile": {
         "file": {
@@ -25,30 +29,34 @@
         }
       }
     },
-    "CHROME": {},
-    "IE": {}
+    "CHROME": {
+      
+    },
+    "IE": {
+      
+    }
   },
   "data_sources": {
     "global": {
-      "port": "3303",
+      "hostName": "global",
+      "hostAddress": "10.120.42.12",
+      "hostPort": "3303",
       "maxActive": 100,
       "maxIdle": 30,
-      "host": "10.120.42.12",
-      "name": "global",
       "maxWait": 10000,
       "user": "system",
       "password": "bHhsa2Jy"
     },
     "tenant": {
-      "port": "3303",
+      "hostName": "tenant",
+      "hostAddress": "10.120.42.12",
+      "hostPort": "3303",
       "maxActive": 100,
-      "maxIdle": 30,
-      "host": "10.120.42.12",
-      "name": "tenant",
+      "maxIdle": 30,      
       "maxWait": 10000,
       "user": "system",
       "password": "bHhsa2Jy"
-    }
+  	}
   },
   "services": {
     "SSH": {
