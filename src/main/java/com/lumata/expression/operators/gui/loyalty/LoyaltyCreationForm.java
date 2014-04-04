@@ -31,26 +31,15 @@ public class LoyaltyCreationForm extends Form {
 	public void open() throws Exception {
 		
 		LoyaltyForm.open(selenium, timeout, interval);
-		openSubsection(ImmutableMap.of(
-				"clickAccordion", "true"));
+		openSubsection(ImmutableMap.of("clickAccordion", "true"));
 	}
 	
 	public void openSubsection(Map<String, String> map) throws Exception {
 		
-		click("subSectionTab",
-			"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Creation']");
+		click( "subSectionTab", "//div[contains(text(),'Loyalty')]");
 		
-		if (isTrueKeyOrMissing(map, "clickAccordion")) {
-		
-			/* Wrong XPATH we have only one submenu ("Creation" and not "Management") 
-			clickFormat("accordion",
-				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']",
-				createCfg.getAccordionName());*/
-			
-			clickFormat("accordion",
-					"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div//*[text()='%s']",
-					createCfg.getAccordionName());
-		}
+		if (isTrueKeyOrMissing(map, "clickAccordion")) 
+			clickFormat( "accordion", "//div//*[text()='%s']", createCfg.getAccordionName());
 	}
 
 	public void create() throws Exception {
@@ -59,8 +48,7 @@ public class LoyaltyCreationForm extends Form {
 		
 		addBadgeTypeFromList(createCfg.getTypeNameList());
 		
-		click("badgeTypeClose",
-			"html/body/div[5]/div/table//*[@title='Close']");
+		click("badgeTypeClose", "//div[contains(text(),'Edit program')]//ancestor::tbody//*[@title='Close']");
 	}
 
 	public String duplication() throws Exception {
@@ -71,54 +59,41 @@ public class LoyaltyCreationForm extends Form {
 	}
 
 	public void manage() throws Exception {
-
-		click("subSectionTab",
-			"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Management']");
 		
-		clickFormat("editProgram",
-			"//*[text()='%s']/../../../../../../../../../..//*[@title='Edit']",
-			createCfg.getProgramName());
+		click( "subSectionTab", "//div[contains(text(),'Loyalty')]");
 		
-		click("addBadge",
-			"html/body/div[5]/div/table//*[@title='Add']");
+		click("subSectionTab", "//table[contains(@class,'tab-LoyaltyTab')]//div[text()='Management']");
+		
+		clickFormat( "editProgram", "//*[text()='%s']//ancestor::tbody[2]//*[@title='Edit']", createCfg.getProgramName());
+		
+		click( "addBadge", "//div[text()='Badges']//ancestor::tbody[2]//*[@title='Add']");
 		
 		sendKeys("badgeDef, k2, v2initionName",
-			"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[1]/td[2]/input",
+			"//td[contains(text(),'Name')]/ancestor::tr[1]//input",
 			manageCfg.getDefinitionName());
 		
 		sendKeys("badgeDefinitionDesc",
-			"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/input",
+			"//td[contains(text(),'Description')]/ancestor::tr[1]//input",
 			manageCfg.getDefinitionDescription());
 		
-		click("next", "html/body/div[7]/div/table//*[@title='Next']");
+		click("next", "//div[text()='Badge creation']//ancestor::tbody//*[@title='Next']");
 		
-		click("next2", "html/body/div[7]/div/table//*[@title='Next']");
+		click("next2", "//div[text()='Badge creation']//ancestor::tbody//*[@title='Next']");
 		
-		click("next3", "html/body/div[7]/div/table//*[@title='Next']");
+		click("next3", "//div[text()='Badge creation']//ancestor::tbody//*[@title='Next']");
 		
-		click("addAwarded", "html/body/div[7]/div/table//*[@title='Add']");
+		click("addAwarded", "//div[text()='Badge creation']//ancestor::tbody//*[@title='Add']");
 		
-		click("eventType",
-			"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td[1]/div/table/tbody/tr/td");
+		click("eventType", "//td[@role='menuitem']");
 		
-		clickFormat("selectRevenue",
-			"html/body/div[8]/div/table/tbody/tr[2]/td[2]/div/div/table//*[text()='%s']",
+		clickFormat("selectRevenue", "//td[@role='menuitem' and text()='%s']",
 			manageCfg.getAwardedEventType());
 		
 		click("addAction", "//*[@id='gwt-debug-BtnCampaignModelCreationEAAdd']");
 		
-		// Wrong XPATH, missing select value and input field (hidden)
-		//selectByVisibleText("selectUnitRecharge",
-		//	"//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']",
-		//	manageCfg.getAwardedActionUnit());
-		//
-		//sendKeys("points",
-		//	"//*[@id='gwt-debug-TextCampaignModelCreationEAValue']",
-		//	manageCfg.getAwardedActionPlus());
+		click("saveBadge", "//div[text()='Badge creation']//ancestor::tbody//*[@title='Save']");
 		
-		click("saveBadge", "html/body/div[7]/div/table//*[@title='Save']");
-		
-		click("closeBadge", "html/body/div[5]/div/table//*[@title='Close']");
+		click("closeBadge", "//div[text()='Badges']//ancestor::tbody//*[@title='Close']");
 	}
 
 	public void closeNewProgramPopup() throws Exception {
@@ -129,45 +104,41 @@ public class LoyaltyCreationForm extends Form {
 	
 	private void addNewProgram() throws Exception {
 		
-		/* Wrong XPATH we have only one submenu ("Creation" and not "Management")
 		clickFormat("addNewProgramPopup",
-			"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div/table//*[text()='%s']/../../../../../../..//*[@title='Add']",
-			createCfg.getAccordionName());*/
-
-		clickFormat("addNewProgramPopup",
-				"html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[2]/td/div/div//*[text()='%s']/../../../../../../..//*[@title='Add']",
+				"//div//*[text()='%s']/ancestor::td[2]//button",
 				createCfg.getAccordionName());
 
-		sendKeys("programNameInput",
-			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[1]/td[2]/input",
-			createCfg.getProgramName());
+		sendKeys(	"programNameInput",
+					"//td[contains(text(),'Program Name')]/ancestor::tr[1]//input",				
+					createCfg.getProgramName());
 		
-		sendKeys("programDescInput",
-			"html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td[2]/input",
-			createCfg.getProgramDesc());
+		sendKeys(	"programDescInput",
+					"//td[contains(text(),'Program Description')]/ancestor::tr[1]//input",
+					createCfg.getProgramDesc());
 		
-		click("programSave",
-			"html/body/div[5]/div/table//*[@title='Save']");
+		click(	"programSave",
+				"//*[@title='Save']");
 	}
 	
 	private void addBadgeTypeFromList(List<String> badgeTypeList) throws Exception {
 		
 		for (String badgeType : badgeTypeList) {
 			
-			click("addBadgeType",
-				"html/body/div[5]/div/table//*[@title='Add']");
+			click(	"addBadgeType",
+					"//div[contains(text(),'Edit program')]//ancestor::tbody//button[@title='Add']");
 			
-			sendKeys("badgeNameInput",
-				"html/body/div[7]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/table/tbody/tr[1]/td/table/tbody/tr/td[2]/input",
-				badgeType);
+			sendKeys(	"badgeNameInput",
+					"//div[text()='New Badge Type']//ancestor::tbody//input",
+					badgeType);
 			
-			click("badgeTypeSave", "html/body/div[7]/div/table//*[@title='Save']");
+			click(	"badgeTypeSave", 
+					"//div[text()='New Badge Type']//ancestor::tbody//*[@title='Save']");
 		}
 	}
 	
 	public void delete() throws Exception {
 		clickFormat("delete",
-			"html/body/table[2]//*[text()='%s']/../..//*[@title='Delete']",
+			"//div[contains(text(),'%s')]//ancestor::tbody[2]//*[@title='Delete']",
 			createCfg.getProgramName());
 		
 		// Wait GWT deletes the record from the GUI
