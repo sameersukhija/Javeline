@@ -1,5 +1,6 @@
 package com.lumata.e4o.system.environment;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +17,7 @@ import com.lumata.common.testing.network.SSHExecClient;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.KernelCommands;
 import com.lumata.common.testing.system.Service;
+import com.lumata.common.testing.system.User;
 
 public class ExpressionKernelCommands extends KernelCommands {
 
@@ -140,20 +142,61 @@ public class ExpressionKernelCommands extends KernelCommands {
 		}
 		
 	}
-	
+
+	public ExpressionKernelCommands() {}
+
 	public ExpressionKernelCommands( Service service, String user ) {
 		this.service = service;
 		this.user = user;
 	}
+
+	public Service getService() {
+		return this.service;
+	}
+
+	public String getUser() {
+		return this.user;
+	}
+	
+	public void setService( Service service ) {
+		this.service = service;
+	}
+
+	public void setUser( String user ) {
+		this.user = user;
+	}
+
+	/** get datetime from remote server */
+	public Calendar getServerDateTime() {
+		
+		ArrayList<String> result = this.execCommand( KernelCommands.getDateTime() );
+		
+		Calendar systemDate = Calendar.getInstance();
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    
+		for( int i = 0; i < result.size(); i++ ) {
+			
+			try {
+				systemDate.setTime( sdf.parse( result.get( i ) ) );
+			} catch( ParseException e ) {
+				logger.error( e.getMessage(), e );
+				return null;
+			}
+		    
+		}
+		
+		return systemDate;
+		
+	}
 	
 	/** set datetime on remote server */
-	public Boolean setDatetime( Calendar date ) {
+	public Boolean setServerDatetime( Calendar date ) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		
 		Pattern patter_server_datetime = Pattern.compile( "[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{1,2}[0-9]{1,2}[:][0-9]{1,2}[:][0-9]{1,2}" );
 		 
-		ArrayList<String> result = this.execCommand( KernelCommands.getDateTime( date ) );
+		ArrayList<String> result = this.execCommand( KernelCommands.getSetDateTime( date ) );
 		
 		for( int i = 0; i < result.size(); i++ ) {
 			

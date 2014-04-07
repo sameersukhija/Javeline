@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +31,7 @@ import org.testng.annotations.Test;
 
 import com.lumata.common.testing.annotations.testplan.Steps;
 import com.lumata.common.testing.database.Mysql;
+import com.lumata.common.testing.database.MysqlColumn;
 import com.lumata.common.testing.database.MysqlUtils;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
@@ -39,16 +39,16 @@ import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.orm.Update;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
+import com.lumata.common.testing.system.Service;
 import com.lumata.common.testing.system.User;
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.annotations.BundleName;
 import com.lumata.e4o.system.cdr.types.CDRBundle;
 import com.lumata.e4o.system.csv.types.CSVString;
 import com.lumata.e4o.system.environment.ExpressionKernelCommands;
-import com.lumata.e4o.xmlrpc.XMLRPC_Subscriber;
+import com.lumata.e4o.system.environment.ExpressionSystem;
 import com.lumata.e4o_tenant.schema.CollectedFilesStats;
 import com.lumata.e4o_tenant.schema.CompositeBundle;
 import com.lumata.e4o_tenant.schema.Subscribers;
@@ -76,15 +76,17 @@ public class TestSubscriberDelayedRemovalTask {
 	private final long XMLRPC_CALL_DELAY = 100;
 	private final long COLLECTOR_PROCESSING_POLLING = 5000;
 	private final long COLLECTOR_PROCESSING_POLLING_TIMEOUT = 300000;
+	
 	private Mysql mysql_tenant;
 	private NetworkEnvironment env;
-	User superman;
-	Server actruleServer;
-	List<Long> subscribers_range;
-	JSONObject cdrs;
-	ArrayList<String> cdrTypes;
-	private Map<String, Object> cdrParameters;
+	private ExpressionKernelCommands ekcCollector;
+	private Server actruleServer;
+	private User superman;
 	
+	private List<Long> subscribers_range;
+	private JSONObject cdrs;
+	private ArrayList<String> cdrTypes;
+	private Map<String, Object> cdrParameters;
 	private Boolean hasCDRBundle;
 	
 	/** initialize test */
@@ -107,6 +109,7 @@ public class TestSubscriberDelayedRemovalTask {
 		
 		/** load environment */
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		ekcCollector = new ExpressionKernelCommands( env.getService( Service.Type.ssh , "collector" ), "root" );
 		actruleServer = env.getServer( "actrule" ); 
 		superman = actruleServer.getUser( "superman" );
 		
@@ -145,7 +148,7 @@ public class TestSubscriberDelayedRemovalTask {
 		cdrParameters.put( "###deactivation_date###", "@current+1YEAR;" );
 							
 	}	
-	
+
 	/** create subscribers */
 	@Test( enabled = false, priority = 1, description = "create subscriber" )
 	@Steps({
@@ -247,17 +250,18 @@ public class TestSubscriberDelayedRemovalTask {
 
 	}
 	
-	@Test( enabled = false, priority = 2 )
+	@Test( enabled = false, priority = 2, description = "insert bundles" )
+	@Steps({
+		"insert bundle if a cdr bundle is elaborated with increment strategy"
+	})	
 	public void insertBundle() throws JSONException, CDRException {
 		
+		/** if a cdr bundle will be elaborated */
 		if( hasCDRBundle ) {
 			
 			CompositeBundle bundleTable = new CompositeBundle();
 					
-			String query = delete().from( bundleTable ).build();
-			
-			mysql_tenant.execUpdate( query.toString() );
-			
+			/** load cdr bundle configuration */
 			JSONObject cdrBundleCfg = cdrs.getJSONObject( CDRBundle.class.getSimpleName() );
 			JSONObject bundleNameCfg = cdrBundleCfg.getJSONObject( BundleName.class.getSimpleName() );
 			
@@ -272,6 +276,11 @@ public class TestSubscriberDelayedRemovalTask {
 					
 					for( long bundleIndex = bundleNameParametersCfg.getInt( 1 ) + 1; bundleIndex <= cdrBundleCfg.getInt( "linesCount" ); bundleIndex++ ) {
 					
+						/** delete bundle if bundle index exists */
+						String query = delete().from( bundleTable ).where( op( CompositeBundle.Fields.bundle ).eq( bundleIndex ) ).build();
+						mysql_tenant.execUpdate( query.toString() );
+												
+						/** insert new bundle */
 						bundleTable.setBundle( bundleIndex );
 						bundleTable.setBundleName( bundle.getString() );
 						
@@ -289,50 +298,67 @@ public class TestSubscriberDelayedRemovalTask {
 			
 	}
 		
-	@Test( enabled = true, priority = 3 )
-	public void putData() throws CDRException, SQLException, JSONSException, IOFileException {
+	@Test( enabled = true, priority = 3, description = "cdrs elaboration and database filling" )
+	@Steps({
+		"load cdrs configuration",
+		"elaborate cdrs",
+		"wait for cdrs elaboration finished",
+		"get schema tables changes"
+	})	
+	public void fillTenantDatabase() throws CDRException, SQLException, JSONSException, IOFileException {
 
-		ArrayList<CollectedFilesStats> beforeCfsTable = getCollectedFilesStatsTableContent();
+		logger.info( Log.GETTING.createMessage( "schema tables sizes" ) );
 		
+		/** get schema table sizes */
 		Map<String, Map<String, Integer>> schemaSizes = new HashMap<String, Map<String, Integer>>();
 		
 		schemaSizes.put( "before" , this.getSchemaContentSizes() );
-		
+
+		/** load cdrs json configuration */
 		Calendar date = Calendar.getInstance();
 		
 		CDR cdr = new CDR();
 		
 		cdrParameters.put( CDR.Parameters.cfgFile.name(), "cdr_subscribers_usage.json" );
 		
+		logger.info( Log.PUTTING.createMessage( "cdrs in the remote server" ) );
+		
+		/** elaborate cdrs */
 		cdr.feeder( date, date, cdrParameters );
 		
-		Long expired_time = 0L;
+		logger.info( Log.CHECKING.createMessage( "cdrs elaboration" ) );
 		
-		Boolean collectorProcessingWaiting = true;
-		
-		while( collectorProcessingWaiting ) {
-			
-			this.sleep( COLLECTOR_PROCESSING_POLLING );
-			
-			ArrayList<CollectedFilesStats> afterCfsTable = getCollectedFilesStatsTableContent();
-			
-			collectorProcessingWaiting = !this.checkCollectorProcessingCompleted( beforeCfsTable, afterCfsTable );
-			
-			expired_time = expired_time + COLLECTOR_PROCESSING_POLLING;
-			
-			if( expired_time > COLLECTOR_PROCESSING_POLLING_TIMEOUT ) { Assert.assertTrue( false ); }
-			
-		}
+		/** check cdrs elaboration */
+		Calendar startCDRProcessingDate = ekcCollector.getServerDateTime();
+
+		ExpressionSystem.waitForCDRProcessingCompleted( mysql_tenant, cdrTypes, startCDRProcessingDate, COLLECTOR_PROCESSING_POLLING, COLLECTOR_PROCESSING_POLLING_TIMEOUT );
 		
 		this.sleep( COLLECTOR_PROCESSING_POLLING );
 		
+		logger.info( Log.GETTING.createMessage( "schema tables sizes" ) );
+		
+		/** get schema table sizes */
 		schemaSizes.put( "after" , this.getSchemaContentSizes() );
 		
 		Map<String, Integer[]> schemaSizesDiff = this.getSchemaSizesDiff( schemaSizes.get( "before" ), schemaSizes.get( "after" ) );
 		
+		logger.info( Log.CHECKING.createMessage( "schema tables sizes differences" ) );
+		
+		/** check schema tables changes */
 		for( String table : schemaSizesDiff.keySet() ) {
 			
 			System.out.println( "Table: " + table + " ( " + schemaSizesDiff.get( table )[ 0 ] + " ) - ( " + schemaSizesDiff.get( table )[ 1 ] + " ) " ); 
+		
+		}
+		System.out.println( "-------------------------" );
+		/** check schema tables changes */
+		Calendar endCDRProcessingDate = ekcCollector.getServerDateTime();
+		
+		Map<String, Integer> schemaUpdatesSizesDiff = this.getSchemaContentUpdatesSizes( startCDRProcessingDate, endCDRProcessingDate );
+				
+		for( String table : schemaUpdatesSizesDiff.keySet() ) {
+			
+			System.out.println( "Table: " + table + " ( " + schemaUpdatesSizesDiff.get( table ) + " )" ); 
 		
 		}
 		
@@ -349,6 +375,7 @@ public class TestSubscriberDelayedRemovalTask {
 		
 	}
 	
+	/** delete existing subscriber via xmlrpc call */
 	public void deleteExistingSubscriber( Long msisdn ) throws XMLRPCParserException  {
 				
 		Assert.assertTrue( msisdn != null );
@@ -376,6 +403,7 @@ public class TestSubscriberDelayedRemovalTask {
 		
 	}
 	
+	/** xmlrpc call parser */
 	private XMLRPCResultParser xmlrpc( HTTPXMLRPCForm.CallTypes callType, Map<String, Object> subscriberParams ) {
 		
 		ArrayList<String> params = new ArrayList<String>();
@@ -390,6 +418,7 @@ public class TestSubscriberDelayedRemovalTask {
 		
 	}
 	
+	/** check if subscriber exists */
 	private boolean isSubscriber( Long msisdn ) {
 		
 		Subscribers subscribersTable = new Subscribers();
@@ -410,6 +439,7 @@ public class TestSubscriberDelayedRemovalTask {
 		
 	}
 	
+	/** get xmlrpc call success */
 	private XMLRPCResultSuccess getSuccess( XMLRPCResultParser responseParser ) throws XMLRPCParserException {
 		
 		Map<ResultType, Object> result = responseParser.parse();
@@ -420,6 +450,7 @@ public class TestSubscriberDelayedRemovalTask {
 		
 	}
 	
+	/** get xmlrpc call failure */
 	private XMLRPCResultFault getFault( XMLRPCResultParser responseParser ) throws XMLRPCParserException {
 		
 		Map<ResultType, Object> result = responseParser.parse();
@@ -430,12 +461,14 @@ public class TestSubscriberDelayedRemovalTask {
 		
 	}
 	
+	/** sleep */
 	public void sleep( long delay ) {
 		
 		try { Thread.sleep( delay ); } catch( InterruptedException e ) { logger.error( e.getMessage(), e ); }	
 		
 	}
 	
+	/** get schema table sizes */
 	public Map<String, Integer> getSchemaContentSizes() throws SQLException {
 		
 		Map<String, Integer> schemaTableSizes = new HashMap<String, Integer>();
@@ -456,6 +489,40 @@ public class TestSubscriberDelayedRemovalTask {
 		
 	}
 	
+	/** get schema table update sizes */
+	public Map<String, Integer> getSchemaContentUpdatesSizes( Calendar minReferenceDate, Calendar maxReferenceDate ) throws SQLException {
+		
+		Map<String, Integer> schemaTableUpdatesSizes = new HashMap<String, Integer>();
+		
+		ArrayList<MysqlColumn.MysqlTypes> columnTypes = new ArrayList<MysqlColumn.MysqlTypes>();
+		columnTypes.add( MysqlColumn.MysqlTypes.DATE );
+		columnTypes.add( MysqlColumn.MysqlTypes.DATETIME );
+		columnTypes.add( MysqlColumn.MysqlTypes.TIME );
+		columnTypes.add( MysqlColumn.MysqlTypes.TIMESTAMP );
+		
+		ArrayList<String> schema = MysqlUtils.getSchema( mysql_tenant );
+		
+		for( int i = 0; i < schema.size(); i++ ) {
+			
+			String tableName = schema.get( i );
+
+			ArrayList<String> tableColumns = MysqlUtils.getTableColumnsByTypes( tableName, columnTypes, mysql_tenant );
+			
+			for( int tc = 0; tc < tableColumns.size(); tc++ ) {
+					
+				int tableUpdatesSize = MysqlUtils.getTableUpdatesCount( tableName, tableColumns.get( tc ), minReferenceDate, maxReferenceDate, mysql_tenant );
+				
+				if( tableUpdatesSize > 0 ) { schemaTableUpdatesSizes.put( tableName, tableUpdatesSize ); }
+				
+			}
+						
+		}
+		
+		return schemaTableUpdatesSizes;
+		
+	}
+	
+	/** get schema table sizes differences */
 	public Map<String, Integer[]> getSchemaSizesDiff( Map<String, Integer> schemaLeft, Map<String, Integer> schemaRight ) throws SQLException {
 		
 		Map<String, Integer[]> schemaSizesDiff = new HashMap<String, Integer[]>();
@@ -477,15 +544,18 @@ public class TestSubscriberDelayedRemovalTask {
 		return schemaSizesDiff;
 		
 	}
-	
+
+	/** check collector cdr processing finished */
 	public Boolean checkCollectorProcessingCompleted( ArrayList<CollectedFilesStats> beforeCfsTable, ArrayList<CollectedFilesStats> afterCfsTable ) {
 				
 		for( int cdrIndex = 0; cdrIndex < cdrTypes.size(); cdrIndex++ ) {
-			//System.out.println( cdrTypes.get( cdrIndex ) );
+			
+			logger.info( Log.CHECKING.createMessage( cdrTypes.get( cdrIndex ) + " elaboration finished" ) );
+			
 			boolean cdrElaborated = false;
 			
 			for( int cfs2 = 0; cfs2 < beforeCfsTable.size(); cfs2++ ) {
-				
+				//System.out.println( afterCfsTable.get( cfs2 ).getHandler() + " = " + cdrTypes.get( cdrIndex ) );
 				if( afterCfsTable.get( cfs2 ).getHandler().contains( cdrTypes.get( cdrIndex ) ) ) {
 				
 					cdrElaborated = true;
@@ -512,6 +582,7 @@ public class TestSubscriberDelayedRemovalTask {
 		
 	}
 	
+	/** check collected_files_stats tenant table status */
 	public ArrayList<CollectedFilesStats> getCollectedFilesStatsTableContent() throws SQLException {
 		
 		ArrayList<CollectedFilesStats> cfsTableContent = new ArrayList<CollectedFilesStats>();

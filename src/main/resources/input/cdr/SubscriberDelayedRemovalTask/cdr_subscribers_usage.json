@@ -1,10 +1,10 @@
 {
 	"CDRBundle": {
-		"enabled": false,
+		"enabled": true,
 		"linesCount": 5,
 		"store": false,
 		"outputDir": "output/cdr/SubscriberDelayedRemoval",
-		"send": false,
+		"send": true,
 		"depositPath": "/nfsdata/files/cdr/deposit/BUNDLE_CDR/",
 		"print": false,
 		"Msisdn": {		
@@ -61,11 +61,11 @@
 		}
 	},
 	"CDRData": {
-		"enabled": false,
+		"enabled": true,
 		"linesCount": 5,
 		"store": false,
 		"outputDir": "output/cdr/SubscriberDelayedRemoval",
-		"send": false,
+		"send": true,
 		"depositPath": "/nfsdata/files/cdr/deposit/DATA_CDR/",
 		"print": false,
 		"Msisdn": {		
@@ -93,12 +93,41 @@
 			"parameters": [ "100", "1000" ]		
 		}
 	},
+	"CDRMessage": {
+		"enabled": true,
+		"linesCount": 50,
+		"store": false,
+		"outputDir": "output/cdr/SubscriberDelayedRemoval",
+		"send": true,
+		"depositPath": "/nfsdata/files/cdr/deposit/MESSAGE_CDR/",
+		"print": false,
+		"Msisdn": {		
+			"strategy": "Increment",
+			"parameters": [ "3399900001", "1" ]		
+		},
+		"Date": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"Amount": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Sms": {		
+			"strategy": "Random",
+			"parameters": []		
+		},
+		"Balance": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		}
+	},
 	"CDRRevenue": {
-		"enabled": false,
+		"enabled": true,
 		"linesCount": 5,
 		"store": false,
 		"outputDir": "output/cdr/SubscriberDelayedRemoval",
-		"send": false,
+		"send": true,
 		"depositPath": "/nfsdata/files/cdr/deposit/REVENUE_CDR/",
 		"print": false,
 		"Msisdn": {		
@@ -132,6 +161,56 @@
 		"Delay": {		
 			"strategy": "Random",
 			"parameters": [ "300", "3000" ]		
+		}
+	},
+	"CDROtherUsage": {
+		"enabled": true,
+		"linesCount": 5,
+		"store": false,
+		"outputDir": "output/cdr/SubscriberDelayedRemoval",
+		"send": true,
+		"depositPath": "/nfsdata/files/cdr/deposit/OTHERUSAGE_CDR/",
+		"print": false,
+		"Msisdn": {		
+			"strategy": "Random",
+			"parameters": [ "3399900001", "3399910000" ]		
+		},
+		"Date": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"Amount": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Balance": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		}
+	},
+	"CDRVoucher": {
+		"enabled": true,
+		"linesCount": 5,
+		"store": false,
+		"outputDir": "output/cdr/SubscriberDelayedRemoval",
+		"send": true,
+		"depositPath": "/nfsdata/files/cdr/deposit/VOUCHER_CDR/",
+		"print": false,
+		"Msisdn": {		
+			"strategy": "Random",
+			"parameters": [ "3399900001", "3399910000" ]		
+		},
+		"VoucherCode": {		
+			"strategy": "Increment",
+			"parameters": [ "voucher", "0", "1" ]		
+		},
+		"Date": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"Location": {		
+			"strategy": "Fixed",
+			"parameters": [ "Milan" ]		
 		}
 	}
 	

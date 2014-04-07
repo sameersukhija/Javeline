@@ -230,8 +230,8 @@ public class CDR {
 	
 	public enum SMS implements ICSVEnum { 
 		
-		YES("YES"), 
-		NO("NO"); 
+		YES("0"), 
+		NO("1"); 
 		
 		private String value;
 		

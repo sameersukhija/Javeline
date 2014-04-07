@@ -1,8 +1,8 @@
 {
   "servers": {
     "actrule": {
-      "hostName": "md1-sa014-e4o02",
-      "hostAddress": "10.120.38.27",
+      "hostName": "md1-sa014-e4o01",
+      "hostAddress": "10.120.38.25",
       "users": {
         "root": {
           "username": "root",
@@ -13,7 +13,7 @@
           "password": "bGppYm1NSUhJMmB3"
         }
       },
-      "link": "http://10.120.38.27:7070/",
+      "link": "http://10.120.38.25:7070/",
       "browsers": {
         "SAFARI": {
           
@@ -43,8 +43,8 @@
       }
     },
     "collector": {
-      "hostName": "md1-sa014-e4o02",
-      "hostAddress": "10.120.38.27",
+      "hostName": "md1-sa014-e4o01",
+      "hostAddress": "10.120.38.25",
       "users": {
         "root": {
           "username": "root",
@@ -61,17 +61,17 @@
     "global": {
       "hostName": "global",
       "hostAddress": "10.120.42.12",
-      "hostPort": "3303",
+      "hostPort": "3306",
       "maxActive": 100,
       "maxIdle": 30,
       "maxWait": 10000,
       "user": "system",
       "password": "bHhsa2Jy"
     },
-    "tenant": {
-      "hostName": "tenant",
+    "qa": {
+      "hostName": "qa",
       "hostAddress": "10.120.42.12",
-      "hostPort": "3303",
+      "hostPort": "3306",
       "maxActive": 100,
       "maxIdle": 30,      
       "maxWait": 10000,
@@ -81,7 +81,7 @@
     "dm": {
       "hostName": "dm",
       "hostAddress": "10.120.42.11",
-      "hostPort": "3309",
+      "hostPort": "3308",
       "maxActive": 100,
       "maxIdle": 30,
       "maxWait": 10000,
@@ -92,8 +92,8 @@
   "services": {
     "ssh": {
       "actrule": {
-        "hostName": "md1-sa014-e4o02",
-        "hostAddress": "10.120.38.27",
+      "hostName": "md1-sa014-e4o01",
+      "hostAddress": "10.120.38.25",
         "hostPort": "22",
         "users": {
           "root": {
@@ -103,9 +103,9 @@
           }
         }
       },
-      "collector": {
-        "hostName": "md1-sa014-e4o02",
-        "hostAddress": "10.120.38.27",
+   "collector": {
+      "hostName": "md1-sa014-e4o01",
+      "hostAddress": "10.120.38.25",
         "hostPort": "22",
         "users": {
           "root": {
