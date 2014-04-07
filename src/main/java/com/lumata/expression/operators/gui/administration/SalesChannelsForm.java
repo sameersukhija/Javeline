@@ -1,10 +1,9 @@
-package com.lumata.expression.operators.gui.catalogue;
+package com.lumata.expression.operators.gui.administration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.expression.operators.gui.administration.AdministrationForm;
 
 public class SalesChannelsForm {
 
