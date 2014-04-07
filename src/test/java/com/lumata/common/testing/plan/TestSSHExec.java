@@ -36,7 +36,7 @@ public class TestSSHExec {
     	Calendar cal = Calendar.getInstance();
     	//cal.set( Calendar.DATE, cal.get( Calendar.DATE ) - 1 );
     	
-    	sshExec.execCommand( KernelCommands.getDateTime( cal ) );    	
+    	sshExec.execCommand( KernelCommands.getSetDateTime( cal ) );    	
     	
     }  
 

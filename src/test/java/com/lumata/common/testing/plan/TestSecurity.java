@@ -20,7 +20,7 @@ public class TestSecurity {
     @Test()
     public void encrypt_decrypt_password() {
 
-        String password = "mysql";
+        String password = "root";
 
         String encrypted_password = Security.encrypt( password );
 

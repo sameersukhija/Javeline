@@ -11,7 +11,8 @@ public class Op implements IOp {
 		get(" >= "),
 		is(" IS "),
 		is_not(" IS NOT "),
-		in(" IN ");
+		in(" IN "),
+		like( " LIKE " );
 		
 		private String value;
 		
@@ -291,5 +292,41 @@ public class Op implements IOp {
 		return expr;
 	
 	}
+/*
+	@Override
+	public ExprFV like() {
+		
+		ExprFV expr = new ExprFV( field, Op.Types.like );
+				
+		return expr;
+	
+	}
+*/
+	@Override
+	public ExprFV like( final String value ) {
+		
+		ExprFV expr = new ExprFV( field, Op.Types.like, "%" + value + "%" );
+				
+		return expr;
+	
+	}
+/*	
+	@Override
+	public ExprFV like( final ISelect select ) {
+		
+		ExprFV expr = null;// = new ExprFV( field, Op.Types.eq, value );
+				
+		return expr;
+	
+	}
 
+	@Override
+	public ExprFF like( final Enum<?> right_field ) {
+		
+		ExprFF expr = new ExprFF( field, Op.Types.like, right_field );
+		
+		return expr;
+	
+	}
+*/
 }
