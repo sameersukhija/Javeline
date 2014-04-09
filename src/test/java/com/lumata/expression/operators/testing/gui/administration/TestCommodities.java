@@ -122,9 +122,9 @@ public class TestCommodities {
 	@Test(enabled=false, priority = 3)
 	public void setCommodities( @Optional("qa") String tenant ) {
 			
-		Assert.assertTrue( CommoditiesForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
+		//Assert.assertTrue( CommoditiesForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
 		
-		Assert.assertTrue( CommoditiesForm.addCommodities(seleniumWebDriver, commodities, TIMEOUT, ATTEMPT_TIMEOUT) );
+		//Assert.assertTrue( CommoditiesForm.addCommodities(seleniumWebDriver, commodities, TIMEOUT, ATTEMPT_TIMEOUT) );
 		
 	}
 	

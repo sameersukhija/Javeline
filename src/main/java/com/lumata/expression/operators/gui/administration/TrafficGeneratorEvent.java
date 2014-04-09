@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.JSONUtils;
+import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.expression.operators.exceptions.TrafficGeneratorEventException;
 
@@ -18,6 +19,10 @@ public class TrafficGeneratorEvent extends AdministrationForm {
 	
 	private JSONObject tgEventCfg;
 	
+	public TrafficGeneratorEvent(SeleniumWebDriver selenium, long timeout, long interval ) {
+		super( selenium,timeout,interval );
+	}
+	/*
 	public TrafficGeneratorEvent( String environment, TGELoadingType loadingType ) throws TrafficGeneratorEventException {
 		
 		try {
@@ -153,5 +158,5 @@ public class TrafficGeneratorEvent extends AdministrationForm {
 		return null;
 		
 	}
-	
+	*/
 }
