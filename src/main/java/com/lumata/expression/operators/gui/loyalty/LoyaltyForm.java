@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.gui.catalogue;
+package com.lumata.expression.operators.gui.loyalty;
 
 import org.openqa.selenium.WebElement;
 

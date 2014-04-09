@@ -103,9 +103,9 @@ public class TestCampaignModel {
 	@Test( enabled = true )
 	public void loadCampaignModel() throws CampaignModelException {
 
-		CampaignModelCfg cm_token_gold = new CampaignModelCfg( "input/campaign_models", "cm_token_gold", IOLoadingType.RESOURCE );
-		CampaignModelCfg cm_token_silver = new CampaignModelCfg( "input/campaign_models", "cm_token_silver", IOLoadingType.RESOURCE );
-		CampaignModelCfg cm_token_bronze = new CampaignModelCfg( "input/campaign_models", "cm_token_bronze", IOLoadingType.RESOURCE );
+		CampaignModelCfg cm_token_gold = new CampaignModelCfg( "input/campaigns", "cm_token_gold", IOLoadingType.RESOURCE );
+		CampaignModelCfg cm_token_silver = new CampaignModelCfg( "input/campaigns", "cm_token_silver", IOLoadingType.RESOURCE );
+		CampaignModelCfg cm_token_bronze = new CampaignModelCfg( "input/campaigns", "cm_token_bronze", IOLoadingType.RESOURCE );
 				
 		Assert.assertTrue( CampaignModelForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_INTERVAL) );
 		Assert.assertTrue( CampaignModelForm.create(seleniumWebDriver, cm_token_gold, TIMEOUT, ATTEMPT_INTERVAL) );

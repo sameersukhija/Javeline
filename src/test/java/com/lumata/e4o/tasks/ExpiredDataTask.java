@@ -10,7 +10,7 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.e4o.system.environment.ExpressionKernelCommands;
 
-public class TestExpiredDataTask {
+public class ExpiredDataTask {
 	
 	private final boolean exec_ExpiredData_task = true;
 	//private final boolean generate_cdr = false;

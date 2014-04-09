@@ -12,7 +12,7 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.e4o.system.environment.ExpressionKernelCommands;
 
-public class TestAggregadedTask {
+public class AggregadedTask {
 	
 	//private final boolean generate_cdr_classes = true;
 	//private final boolean generate_cdr = false;
