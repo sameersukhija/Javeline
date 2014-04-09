@@ -10,7 +10,6 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverBackedSelenium;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -24,7 +23,9 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
+import com.lumata.common.testing.system.Browser;
 import com.opera.core.systems.OperaDriver;
+import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium;
 
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
@@ -44,7 +45,14 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
         OPERA,
         SAFARI;			
 	}
-	
+
+	public SeleniumWebDriver ( Browser browser, String baseUrl ) {
+		
+		super( getLocalWebDriver( browser ), baseUrl );
+		
+	}
+
+	@Deprecated
 	public SeleniumWebDriver ( String browser, JSONObject browserProfile, String baseUrl ) {
 		
 		super(getLocalWebDriver( browser, browserProfile ), baseUrl);
@@ -57,6 +65,82 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 		
 	}
 
+	public static WebDriver getLocalWebDriver( Browser browser ) {
+		
+		switch( (Browser.Type)browser.getType() ) {
+
+			case chrome: { return new ChromeDriver(); }
+			case ie: { return new InternetExplorerDriver(); }
+			case firefox: {
+				
+				FirefoxProfile profile = new FirefoxProfile();
+				
+				try {
+				
+					if( browser.getProfile() != null ) {
+					
+						if( browser.getFile() != null ) {
+							
+							StringBuilder path = new StringBuilder();
+							
+							if( browser.getFileLoadingType().equals( IOFileUtils.IOLoadingType.RESOURCE ) ) {
+								
+								path.append( System.getProperty( "user.dir" ) ).append( "/src/main/resources/" );
+								
+							} 
+							
+							path.append( IOFileUtils.buildPath( browser.getFileFolderName(), browser.getFileName()) );
+							
+							profile = new FirefoxProfile( new File( path.toString() ) ); 
+							
+							logger.debug( Log.LOADING.createMessage( "Firefox profile ( " + browser.getProfile() + " )" ) );
+							
+							if( browser.getOptions() != null ) {
+								
+								@SuppressWarnings("unchecked")
+								Iterator<String> keys = browser.getOptions().keys();
+								while( keys.hasNext() ) {
+							        
+									try {
+										
+										String key = keys.next().toString();
+	   	
+							        	profile.setPreference( key, browser.getOptions().getString(key) );
+							        	
+							        	logger.debug( Log.LOADING.createMessage( "Firefox profile option ( " + key + " )" ) );
+							        	
+							        } catch (JSONException e) {
+							            
+							        	logger.error( e.getMessage(), e );
+							        	
+							        }
+									
+							    }
+								
+							}
+						
+						}
+						
+					}
+					
+				} catch( Exception e ) {
+					
+					logger.error( e.getMessage(), e );
+					
+				}
+				
+				return new FirefoxDriver( profile );
+				
+			}
+			case opera: { return new OperaDriver(); }
+			case safari: { return new SafariDriver(); }
+			
+		}
+		
+		return null;
+		
+	}
+	
 	public static WebDriver getLocalWebDriver( String browser, JSONObject browserProfile ) {
 		
 		 

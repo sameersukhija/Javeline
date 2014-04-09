@@ -146,6 +146,12 @@ public class NetworkEnvironment {
 		return this.getServer( serverName ).getBrowser( browserType );
 		
 	}
+	
+	public Browser getBrowser( String serverName, String browserType ) {
+		
+		return this.getServer( serverName ).getBrowser( Browser.Type.valueOf( browserType ) );
+		
+	}
 
 	public JSONObject getOptions() {
 		return this.options;
