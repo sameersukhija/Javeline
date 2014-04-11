@@ -42,44 +42,24 @@
    },
    "data_sources":{
       "global":{
-         "port":"3306",
+         "hostName":"global",
+         "hostAddress":"10.120.42.12",
+         "hostPort":"3306",
          "maxActive":100,
          "maxIdle":30,
-         "host":"10.120.42.12",
-         "name":"global",
          "maxWait":10000,
          "user":"system",
          "password":"bHhsa2Jy"
       },
       "qa":{
-         "port":"3306",
+         "hostName":"qa",
+         "hostAddress":"10.120.42.12",
+         "hostPort":"3306",
          "maxActive":100,
          "maxIdle":30,
-         "host":"10.120.42.12",
-         "name":"qa",
          "maxWait":10000,
          "user":"system",
          "password":"bHhsa2Jy"
-      },
-      "auchan":{
-         "port":"3307",
-         "maxActive":100,
-         "maxIdle":30,
-         "host":"10.120.44.28",
-         "name":"auchan",
-         "maxWait":10000,
-         "user":"system",
-         "password":"system"
-      },
-      "user_datas":{
-         "port":"3307",
-         "maxActive":100,
-         "maxIdle":30,
-         "host":"10.120.44.28",
-         "name":"user_datas",
-         "maxWait":10000,
-         "user":"system",
-         "password":"system"
       }
    },
    "services":{

@@ -11,7 +11,7 @@ public class SalesChannelsForm {
 	
 	public static boolean open( SeleniumWebDriver selenium, /*SalsChannelsSection section,*/ long timeout, long interval ) {
 	
-		if( !AdministrationForm.open(selenium, timeout, interval) ) { return false; }
+		//if( !AdministrationForm.open(selenium, timeout, interval) ) { return false; }
 		
 		return true;
 		

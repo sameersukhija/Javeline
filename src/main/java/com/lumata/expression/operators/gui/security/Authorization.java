@@ -8,10 +8,18 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.common.testing.system.Security;
+import com.lumata.common.testing.system.User;
 
 public class Authorization {
 
 	private static final Logger logger = LoggerFactory.getLogger(Authorization.class);
+	
+	public static boolean login( SeleniumWebDriver selenium, User user, long timeout, long interval ) {
+		
+		return Authorization.login( selenium, user.getUsername(), Security.decrypt( user.getPassword() ), timeout, interval );
+		
+	}
 	
 	public static boolean login( SeleniumWebDriver selenium, String user, String password, long timeout, long interval ) {
 		

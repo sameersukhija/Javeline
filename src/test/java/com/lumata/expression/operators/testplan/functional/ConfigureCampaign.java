@@ -34,6 +34,7 @@ import com.lumata.expression.operators.gui.administration.CommoditiesForm;
 import com.lumata.expression.operators.gui.campaigns.CampaignCreationForm;
 import com.lumata.expression.operators.gui.campaigns.CampaignModelForm;
 import com.lumata.expression.operators.gui.security.Authorization;
+import com.lumata.expression.operators.json.administration.CommoditiesCfg;
 import com.lumata.expression.operators.json.campaigns.CampaignCfg;
 import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
 import com.lumata.expression.operators.pojo.configuration.ConfigurationTypes;
@@ -122,10 +123,13 @@ public class ConfigureCampaign {
 			
 	@Parameters({"tenant"})
 	@Test(enabled=false, priority = 3 )
-	public void setCommodities( @Optional("qa") String tenant ) {
-			
-		Assert.assertTrue( CommoditiesForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );		
-		Assert.assertTrue( CommoditiesForm.addCommodities(seleniumWebDriver, commodities, TIMEOUT, ATTEMPT_TIMEOUT) );
+	public void setCommodities( @Optional("qa") String tenant ) throws CommoditiesException, JSONSException, IOFileException {
+		
+		CommoditiesForm commodityForm = new CommoditiesForm(null, new CommoditiesCfg( "input/commodities", "external_bonus" ), 100000, 5 );
+					
+		//Assert.assertTrue( commodityForm.open() );		
+		
+		//Assert.assertTrue( CommoditiesForm.addCommodities(seleniumWebDriver, commodities, TIMEOUT, ATTEMPT_TIMEOUT) );
 		
 	}
 	
