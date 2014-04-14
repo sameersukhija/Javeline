@@ -1,7 +1,7 @@
 package com.lumata.common.testing.plan;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.generators.container.Agencies;
@@ -15,7 +15,7 @@ import static com.lumata.common.testing.orm.Val.*;
 
 public class TestQueriesCreation {
 
-	//private static final Logger logger = LoggerFactory.getLogger( TestQueriesCreation.class );
+	private static final Logger logger__ = LoggerFactory.getLogger( TestQueriesCreation.class );
 	
 	final boolean test_enabled = true;
 	
@@ -106,7 +106,7 @@ public class TestQueriesCreation {
 									.limit( 1, 2 )
 									.build();
 		
-		System.out.println( complexQuery );
+		logger__.info( complexQuery );
 			
 	}
 		
@@ -117,11 +117,11 @@ public class TestQueriesCreation {
 		
 		String query = select().from( agencies ).where( op( Agencies.Fields.name ).is( NULL ) ).build();
 		
-		System.out.println( query );
+		logger__.info( query );
 		
 		query = select().from( agencies ).where( op( Agencies.Fields.name ).is_not( NULL ) ).build();
 		
-		System.out.println( query );
+		logger__.info( query );
 		
 	}
 	
@@ -133,7 +133,7 @@ public class TestQueriesCreation {
 		
 		String query = select().from( agencies ).where( op( Agencies.Fields.name ).is( select().from( bdr_events ).sub() ) ).build();
 		
-		System.out.println( query );
+		logger__.info( query );
 				
 		
 	}
@@ -146,25 +146,25 @@ public class TestQueriesCreation {
 		
 		String querySimpleInsert = insert( agencies ).values( 1, 2, 3 ).build();
 		
-		System.out.println( "1: " + querySimpleInsert );
+		logger__.info( "1: " + querySimpleInsert );
 		
 		querySimpleInsert = insert( agencies ).values().build();
 		
-		System.out.println( "2: " + querySimpleInsert );
+		logger__.info( "2: " + querySimpleInsert );
 		
 		querySimpleInsert = insert( agencies, Agencies.Fields.name, Agencies.Fields.id ).values( 1, 2 ).build();
 		
-		System.out.println( "3: " + querySimpleInsert );
+		logger__.info( "3: " + querySimpleInsert );
 		
 		String queryComplexInsert = insert( agencies, Agencies.Fields.name, Agencies.Fields.id ).values( row(1,1), row(4,5) ).build();
 		
-		System.out.println( "4: " + queryComplexInsert );
+		logger__.info( "4: " + queryComplexInsert );
 				
 		TokenLabel tl = new TokenLabel();
 		
 		querySimpleInsert = insert( tl ).values().build();
 		
-		System.out.println( "5: " + querySimpleInsert );
+		logger__.info( "5: " + querySimpleInsert );
 		
 	}
 	
@@ -177,17 +177,15 @@ public class TestQueriesCreation {
 		
 		String querySimpleUpdate = update( agencies ).set( op( Agencies.Fields.name ).eq("Lumata"), op( Agencies.Fields.id ).eq(1) ).build();
 		
-		System.out.println( querySimpleUpdate );
+		logger__.info( querySimpleUpdate );
 		
 		querySimpleUpdate = update( agencies ).set().build();
 		
-		System.out.println( querySimpleUpdate );
+		logger__.info( querySimpleUpdate );
 		
 		querySimpleUpdate = update( agencies ).set().where( op( Agencies.Fields.id ).eq(1) ).build();
 		
-		System.out.println( querySimpleUpdate );
-		
-
+		logger__.info( querySimpleUpdate );
 	}	
 	
 	@Test( enabled = test_enabled, priority = 5 )
@@ -199,11 +197,11 @@ public class TestQueriesCreation {
 		
 		String querySimpleDelete = delete().from( agencies ).build();
 		
-		System.out.println( querySimpleDelete );
+		logger__.info( querySimpleDelete );
 				
 		querySimpleDelete = delete().from( agencies ).where( op( Agencies.Fields.id ).eq(1) ).build();
 		
-		System.out.println( querySimpleDelete );
+		logger__.info( querySimpleDelete );
 				
 		
 	}
