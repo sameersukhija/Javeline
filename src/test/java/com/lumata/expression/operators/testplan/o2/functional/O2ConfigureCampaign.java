@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.EnvironmentException;
@@ -38,7 +39,7 @@ public class O2ConfigureCampaign {
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment", "gui_server", "tenant", "user"})
 	@BeforeMethod
-	public void init(@Optional("FIREFOX") String browser, @Optional("E4O_QA_NE") String environment, @Optional("actrule") String gui_server, @Optional("tenant") String tenant, @Optional("superman") String user)
+	public void init(@Optional("FIREFOX") String browser, @Optional("E4O_QA_NE") String environment, @Optional("actrule") String gui_server, @Optional("qa") String tenant, @Optional("superman") String user)
 			throws EnvironmentException, OfferException, CommoditiesException, JSONSException, IOFileException, NetworkEnvironmentException {
 		
 		logger.info(Log.LOADING.createMessage("init", "environment"));
@@ -65,5 +66,10 @@ public class O2ConfigureCampaign {
 		// Login
 		//Assert.assertTrue(Authorization.login(seleniumWebDriver, env.getUserName(user), env.getPassword(user), TIMEOUT, ATTEMPT_TIMEOUT));
 		Assert.assertTrue(Authorization.login(seleniumWebDriver, gui.getUser(user), TIMEOUT, ATTEMPT_TIMEOUT));
-	}	
+	}
+	
+	@Test(enabled=true)
+	public void test() {
+		System.out.println("TODO...");
+	}
 }
