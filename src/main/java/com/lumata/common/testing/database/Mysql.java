@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lumata.common.testing.exceptions.DataBaseException;
 import com.lumata.common.testing.system.DataSource;
 import com.lumata.common.testing.system.Security;
 
@@ -93,6 +94,11 @@ public class Mysql {
 		
 	}
 	
+	/**
+	 * Open connection with remote MySql database.
+	 * 
+	 * @throws DataBaseException in case of error
+	 */
 	public void connect() {
 		 
 		StringBuilder url = new StringBuilder();
@@ -114,18 +120,38 @@ public class Mysql {
 						
 			try {
 				
-				if( this.dbConn != null ) { this.dbConn.close(); }
+				logger.error("Error during DB connection procedure.");
+				logger.error("Check connection and eventually close it.");
+				
+				if( this.dbConn != null ) { 
+					this.dbConn.close(); 
+					logger.error("DB connectio closed.");
+				}
 				
 			} catch ( SQLException e2 ) {
 				
+				logger.error("During closing unstable DB connection, error occurs : ");
 				logger.error( e2.getMessage(), e2 );
 				
+				/**
+				 * Error during closing unstable connection.
+				 */
+				throw new DataBaseException("Error during closing unstable connection : " + e2.getMessage());
 			}
 			
-		}	
+			/**
+			 * Error during connection and connection is closed -> throw DataBaseException
+			 */
+			throw new DataBaseException("DB Connection error : " + e1.getMessage());
+		}
 		 
 	}
 	
+	/**
+	 * Executes query on remote MySql database and returns ResultSet.
+	 * 
+	 * @throws DataBaseException in case of error
+	 */
 	public ResultSet execQuery( String query ) {
 				 
 		ResultSet rs = null;
@@ -141,16 +167,37 @@ public class Mysql {
 			
 		} catch ( SQLException e1 ) {	
 			
-			if( statement != null ) { try { statement.close(); } catch ( SQLException e2 ) {} }
+			if( statement != null ) { 
+				try {
+					
+					logger.error("Try to recover statment status.");
+					statement.close(); 
+					
+				} catch ( SQLException e2 ) {
+					
+					logger.error("Error during statment recovery : ");
+					logger.error( e2.getMessage(), e2 );
+					
+					throw new DataBaseException("Execution of query error : " + e2.getMessage());
+				} 
+			}
 						
 			logger.error( e1.getMessage(), e1 );
 					
+			/**
+			 * Error during execution of query -> throw DataBaseException
+			 */
+			throw new DataBaseException("Execution of query error : " + e1.getMessage());
 		}		
 		 
 		return rs;
-		
 	}
 	
+	/**
+	 * Executes update query on remote MySql database and returns ResultSet.
+	 * 
+	 * @throws DataBaseException in case of error
+	 */	
 	public int execUpdate( String query ) {
 		 
 		int index = -1;
@@ -175,10 +222,27 @@ public class Mysql {
 			
 		} catch ( SQLException e1 ) {	
 			
-			if( statement != null ) { try { statement.close(); } catch ( SQLException e2 ) {} }
-						
+			if( statement != null ) { 
+				try {
+					
+					logger.error("Try to recover statment status.");
+					statement.close(); 
+					
+				} catch ( SQLException e2 ) {
+					
+					logger.error("Error during statment recovery : ");
+					logger.error( e2.getMessage(), e2 );
+					
+					throw new DataBaseException("Execution of update query error : " + e2.getMessage());
+				} 
+			}
+			
 			logger.error( e1.getMessage(), e1 );
 			
+			/**
+			 * Error during execution of query -> throw DataBaseException
+			 */
+			throw new DataBaseException("Execution of update query error : " + e1.getMessage());
 		}			
 		 
 		return index;
@@ -196,7 +260,11 @@ public class Mysql {
 		} catch (SQLException e) {
 
 			logger.error( e.getMessage(), e );
-		
+			
+			/**
+			 * Error during close connection -> throw DataBaseException
+			 */
+			throw new DataBaseException("Execution closing connection error : " + e.getMessage());
 		}
 				 
 	}

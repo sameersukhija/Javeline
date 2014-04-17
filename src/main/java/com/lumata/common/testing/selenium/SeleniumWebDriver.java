@@ -174,7 +174,7 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 							
 							profile = new FirefoxProfile( new File( path.toString() ) ); 
 							
-							logger.debug( Log.LOADING.createMessage( "Firefox profile ( " + browserProfileInfo.getString("file") + " )" ) );
+							logger.debug( Log.LOADING.createMessage( "Firefox profile ( " + path.toString() + " )" ) );
 						
 						}
 						
