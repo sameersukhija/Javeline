@@ -30,8 +30,8 @@ public class TestNetworkEnvironment {
 	
 	@Parameters({"environment"})
 	@BeforeClass( enabled = true )
-	public void loadNetworkEnvironmentFromResource_1( @Optional("E4O_DEV") String environment ) throws NetworkEnvironmentException {		
-		env = new NetworkEnvironment( "input/environments/", environment, IOFileUtils.IOLoadingType.RESOURCE );
+	public void loadNetworkEnvironmentFromResource_1( @Optional("E4O_VM_NE") String environment ) throws NetworkEnvironmentException {		
+		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		Assert.assertNotNull( env );		
 	}
 	

@@ -32,7 +32,7 @@ public final class ResourceProperties {
 			
 			BufferedReader br = IOFileUtils.loadResourceAsBufferedReader( resource );
 			
-			String line;
+			String line = null;
 			Pattern pattern = Pattern.compile("\\$\\{(.+?)\\}");
 						
 			while (( line = br.readLine()) != null) {

@@ -1,24 +1,8 @@
 package com.lumata.common.testing.plan;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.exceptions.EnvironmentException;
-import com.lumata.common.testing.exceptions.ResourcePropertiesException;
-import com.lumata.common.testing.selenium.SeleniumCache;
-import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.system.ResourceProperties;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.common.testing.validating.Format.Operators;
 
