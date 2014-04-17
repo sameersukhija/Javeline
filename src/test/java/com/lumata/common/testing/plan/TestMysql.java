@@ -33,7 +33,7 @@ public class TestMysql {
 	}	
 	
 	@Parameters({"browser", "environment"})
-	@Test()
+	@Test( enabled=false )
 	public void mysql_insert( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws EnvironmentException {		
 		
 		Environment env = new Environment( "lumata-common-testing/examples/", environment, IOFileUtils.IOLoadingType.RESOURCE );

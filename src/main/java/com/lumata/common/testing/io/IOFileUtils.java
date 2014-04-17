@@ -31,7 +31,13 @@ import java.util.List;
 public final class IOFileUtils {
 	
 	private static final Logger logger = LoggerFactory.getLogger( IOFileUtils.class );
-	private final static String RESOURCE_ROOT = "";
+
+	/**
+	 * Default base folder for output files
+	 */
+	private static final String BASE_OUTPUT_FOLDER__ = System.getProperty("user.dir") + File.separator + "output" + File.separator;
+	
+//	private final static String RESOURCE_ROOT = "";
 	public enum IOLoadingType { FILE, RESOURCE };
 	/*private final static String RESOURCE_ROOT = "lumata-common-testing/";*/
 	
@@ -45,7 +51,7 @@ public final class IOFileUtils {
 			
 			if( String.valueOf( resource.charAt( 0 )).equals("/") ) { resource = resource.substring( 1, resource.length()); }
 			
-			resource = RESOURCE_ROOT + resource;
+//			resource = RESOURCE_ROOT + resource;
 			
 			logger.debug( "The resource has been built ( " + resource + " )" );
 					
@@ -73,7 +79,8 @@ public final class IOFileUtils {
 			
 			if( folder.length() > 0 ) { if( !String.valueOf(folder.charAt( folder.length() - 1 )).equals("/") ) { folder = folder + "/"; } }
 			
-			resource = RESOURCE_ROOT + folder + resource;
+//			resource = RESOURCE_ROOT + folder + resource;
+			resource = folder + resource;
 						
 			logger.debug( "The resource has been built ( " + resource + " )" );
 					
@@ -176,7 +183,7 @@ public final class IOFileUtils {
 			
 			logger.debug( "The resource has been loaded as input stream reader ( " + path + " )" );
 		
-		} catch( UnsupportedEncodingException e ) {
+		} catch( UnsupportedEncodingException | NullPointerException e ) {
 				
 			logger.error( e.getMessage(), e );
 			
@@ -290,7 +297,7 @@ public final class IOFileUtils {
 	
 	public static String buildPath( String file ) throws IOFileException {
 		
-		if( !Format.isFile( file ) ) { throw new IOFileException( "You cannot build a not valid file ( " + file + " )" ); }
+		if( file == null || !Format.isFile( file ) ) { throw new IOFileException( "You cannot build a not valid file ( " + file + " )" ); }
 		
 		if( String.valueOf( file.charAt( 0 )).equals("/") ) { file = file.substring( 1, file.length()); }
 					
@@ -324,11 +331,14 @@ public final class IOFileUtils {
 		
 		try {
 			
-			in = new FileInputStream( IOFileUtils.buildPath( file ) );
+			if ( new File(file).exists() )
+				in = new FileInputStream(file);
+			else
+				in = new FileInputStream( IOFileUtils.buildPath( file ) );
 			
 			logger.debug( "The file has been loaded as input stream ( " + file + " )" );
 		
-		} catch( FileNotFoundException e ) {
+		} catch( FileNotFoundException | NullPointerException e ) {
 				
 			logger.error( e.getMessage(), e );
 				
@@ -547,7 +557,9 @@ public final class IOFileUtils {
  
 			if( content == null ) { throw new IOFileException( "The content is not valid ( null )" ); }
 			
-			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
+//			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
+//			file = IOFileUtils.createPath( "src/main/resources/",  resource );
+			file = IOFileUtils.createPath( BASE_OUTPUT_FOLDER__,  resource );
 			
 			fop = new FileOutputStream( file );
 			
@@ -582,7 +594,9 @@ public final class IOFileUtils {
 			
 			if( content == null ) { throw new IOFileException( "The content is not valid ( null )" ); }
 			
-			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
+//			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
+//			file = IOFileUtils.createPath( "src/main/resources/" + folder,  resource );
+			file = IOFileUtils.createPath( BASE_OUTPUT_FOLDER__ + folder,  resource );
 			
 			if( file == null ) { throw new IOFileException( "The file is not valid ( null )" ); }
 			
@@ -618,7 +632,9 @@ public final class IOFileUtils {
  
 			if( content == null ) { throw new IOFileException( "The content is not valid ( null )" ); }
 			
-			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
+//			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
+//			file = IOFileUtils.createPath( "src/main/resources/",  resource );
+			file = IOFileUtils.createPath( BASE_OUTPUT_FOLDER__,  resource );
 			
 			if( file == null ) { throw new IOFileException( "The file is not valid ( null )" ); }
 			
@@ -660,7 +676,9 @@ public final class IOFileUtils {
 			
 			if( content == null ) { throw new IOFileException( "The content is not valid ( null )" ); }
 			
-			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
+//			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
+//			file = IOFileUtils.createPath( "src/main/resources/" + folder,  resource );
+			file = IOFileUtils.createPath( BASE_OUTPUT_FOLDER__ + folder,  resource );
 			
 			if( file == null ) { throw new IOFileException( "The file is not valid ( null )" ); }
 			
@@ -830,7 +848,9 @@ public final class IOFileUtils {
 		
 		try {
  
-			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
+//			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT,  resource );
+//			file = IOFileUtils.createPath( "src/main/resources/",  resource );
+			file = IOFileUtils.createPath( BASE_OUTPUT_FOLDER__,  resource );
 			
 			if( file.delete() ) {
     			
@@ -860,7 +880,9 @@ public final class IOFileUtils {
 		
 		try {
  
-			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
+//			file = IOFileUtils.createPath( "src/main/resources/" + RESOURCE_ROOT + folder,  resource );
+//			file = IOFileUtils.createPath( "src/main/resources/" + folder,  resource );
+			file = IOFileUtils.createPath( BASE_OUTPUT_FOLDER__,  resource );	
 			
 			if( file.delete() ) {
     			
