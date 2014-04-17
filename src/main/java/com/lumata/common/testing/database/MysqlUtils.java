@@ -2,6 +2,7 @@ package com.lumata.common.testing.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -239,6 +240,37 @@ public class MysqlUtils {
 		}
 		
 		return keys;
+		
+	}
+	
+	public static Calendar getCurrentDate( Mysql mysql ) throws SQLException, ParseException {
+		
+		Calendar currentDate = Calendar.getInstance();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		String query = "SELECT NOW() AS currentDate";
+		
+		try {
+		
+			ResultSet rs = mysql.execQuery( query );
+		
+			while( rs.next() ) { 
+								
+				currentDate.setTime( sdf.parse( rs.getString( "currentDate" ) ) ); 
+				
+			}
+					
+			logger.info( "The keys has been loaded" );
+		
+		} catch( SQLException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return currentDate;
+
 		
 	}
 	

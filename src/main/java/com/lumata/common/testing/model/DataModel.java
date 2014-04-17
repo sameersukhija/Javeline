@@ -126,7 +126,7 @@ public class DataModel {
 		this.model = new JSONObject();
 				
 		try {
-			
+			System.out.println( dataSource );
 			Mysql mysql = new Mysql( dataSource );
 			
 			ResultSet rs_tables = mysql.execQuery( "SHOW TABLES;" );

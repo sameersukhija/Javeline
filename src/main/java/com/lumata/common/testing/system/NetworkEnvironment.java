@@ -141,6 +141,12 @@ public class NetworkEnvironment {
 	
 	}
 	
+	public Service getActiveMQService( String serviceName ) {
+		
+		return this.getService( Service.Type.activemq, serviceName );
+	
+	}
+	
 	public Browser getBrowser( String serverName, Browser.Type browserType ) {
 		
 		return this.getServer( serverName ).getBrowser( browserType );
