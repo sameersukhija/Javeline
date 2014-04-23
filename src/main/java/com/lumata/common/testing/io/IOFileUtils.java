@@ -102,7 +102,15 @@ public final class IOFileUtils {
 		
 		try {
 		
-			in = Thread.currentThread().getContextClassLoader().getResourceAsStream( IOFileUtils.buildResourcePath( resource ) );
+			in = Thread.currentThread().getContextClassLoader().getResourceAsStream(resource);
+			
+			if ( in == null ) {
+				
+				// old style to build resources "path"
+				String buidedPath = IOFileUtils.buildResourcePath( resource );
+				
+				in = Thread.currentThread().getContextClassLoader().getResourceAsStream(buidedPath);
+			}
 			
 			if( in == null ) { throw new IOFileException( "You cannot load a not existing resource ( null )" ); }
 			
@@ -123,17 +131,25 @@ public final class IOFileUtils {
 	public static InputStream loadResourceAsInputStream( String folder, String resource ) throws IOFileException {
 		
 		InputStream in = null;
+		String path = null;
 		
 		try {
 		
-			String path = IOFileUtils.buildResourcePath( folder, resource );
+			path = folder + "/" + resource;
 			
-			if ( new File(path).exists() )
-				in = new FileInputStream(path);
-			else
-				in = Thread.currentThread().getContextClassLoader().getResourceAsStream( path );
+			in = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 			
-			if( in == null ) { throw new IOFileException( "You cannot load a not existing resource ( null )" ); } 
+			if ( in == null ) {
+				
+				path = IOFileUtils.buildResourcePath( folder, resource );
+				
+				if ( new File(path).exists() )
+					in = new FileInputStream(path);
+				else
+					in = Thread.currentThread().getContextClassLoader().getResourceAsStream( path );
+				
+				if( in == null ) { throw new IOFileException( "You cannot load a not existing resource ( null )" ); } 
+			}
 			
 			logger.debug( "The resource has been loaded as input stream ( " + path + " )" );
 					

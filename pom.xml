@@ -318,7 +318,7 @@
 						<exclude>**/plan/TestMap.java</exclude>
 						<exclude>**/plan/TestMysql.java</exclude>
 						<exclude>**/plan/TestMysqlUtils.java</exclude>
-						<exclude>**/plan/TestNetworkEnvironment.java</exclude>
+<!-- 						<exclude>**/plan/TestNetworkEnvironment.java</exclude> -->
 <!-- 						<exclude>**/plan/TestQueriesCreation.java</exclude> -->
 						<exclude>**/plan/TestResourceProperties.java</exclude>
 						<exclude>**/plan/TestRestClient.java</exclude>
