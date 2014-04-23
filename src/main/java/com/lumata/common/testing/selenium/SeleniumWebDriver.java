@@ -65,99 +65,126 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 		
 	}
 
+	/**
+	 * This method returns "Webdrive" object according passed "Browser" object 
+	 *
+	 * @param browser
+	 * 
+	 * @return an istance of WebDriver object
+	 */
 	public static WebDriver getLocalWebDriver( Browser browser ) {
 		
-		switch( (Browser.Type)browser.getType() ) {
-
-			case chrome: { return new ChromeDriver(); }
-			case ie: { return new InternetExplorerDriver(); }
-			case firefox: {
-				
-				FirefoxProfile profile = new FirefoxProfile();
-				
-				try {
-				
-					if( browser.getProfile() != null ) {
-					
-						if( browser.getFile() != null ) {
-							
-							StringBuilder path = new StringBuilder();
-							
-							if( browser.getFileLoadingType().equals( IOFileUtils.IOLoadingType.RESOURCE ) ) {
-								
-								path.append( System.getProperty( "user.dir" ) ).append( "/src/main/resources/" );
-								
-							} 
-							
-							path.append( IOFileUtils.buildPath( browser.getFileFolderName(), browser.getFileName()) );
-							
-							profile = new FirefoxProfile( new File( path.toString() ) ); 
-							
-							logger.debug( Log.LOADING.createMessage( "Firefox profile ( " + browser.getProfile() + " )" ) );
-							
-							if( browser.getOptions() != null ) {
-								
-								@SuppressWarnings("unchecked")
-								Iterator<String> keys = browser.getOptions().keys();
-								while( keys.hasNext() ) {
-							        
-									try {
-										
-										String key = keys.next().toString();
-	   	
-							        	profile.setPreference( key, browser.getOptions().getString(key) );
-							        	
-							        	logger.debug( Log.LOADING.createMessage( "Firefox profile option ( " + key + " )" ) );
-							        	
-							        } catch (JSONException e) {
-							            
-							        	logger.error( e.getMessage(), e );
-							        	
-							        }
-									
-							    }
-								
-							}
-						
-						}
-						
-					}
-					
-				} catch( Exception e ) {
-					
-					logger.error( e.getMessage(), e );
-					
-				}
-				
-				return new FirefoxDriver( profile );
-				
-			}
-			case opera: { return new OperaDriver(); }
-			case safari: { return new SafariDriver(); }
-			
-		}
+//		switch( (Browser.Type)browser.getType() ) {
+//
+//			case chrome: { return new ChromeDriver(); }
+//			case ie: { return new InternetExplorerDriver(); }
+//			case firefox: {
+//					
+//				/**
+//				 * START - REFACTORING FIREFOX PROFILE LOADING
+//				 */
+//				
+//				FirefoxProfile profile = new FirefoxProfile();
+//			
+//				try {
+//				
+//					if( browser.getProfile() != null ) {
+//					
+//						if( browser.getFile() != null ) {
+//							
+//							StringBuilder path = new StringBuilder();
+//							
+//							if( browser.getFileLoadingType().equals( IOFileUtils.IOLoadingType.RESOURCE ) ) {
+//								
+//								path.append( System.getProperty( "user.dir" ) ).append( "/src/main/resources/" );
+//								
+//							} 
+//							
+//							path.append( IOFileUtils.buildPath( browser.getFileFolderName(), browser.getFileName()) );
+//							
+//							profile = new FirefoxProfile( new File( path.toString() ) ); 
+//							
+//							logger.debug( Log.LOADING.createMessage( "Firefox profile ( " + browser.getProfile() + " )" ) );
+//							
+//							if( browser.getOptions() != null ) {
+//								
+//								@SuppressWarnings("unchecked")
+//								Iterator<String> keys = browser.getOptions().keys();
+//								while( keys.hasNext() ) {
+//							        
+//									try {
+//										
+//										String key = keys.next().toString();
+//	   	
+//							        	profile.setPreference( key, browser.getOptions().getString(key) );
+//							        	
+//							        	logger.debug( Log.LOADING.createMessage( "Firefox profile option ( " + key + " )" ) );
+//							        	
+//							        } catch (JSONException e) {
+//							            
+//							        	logger.error( e.getMessage(), e );
+//							        	
+//							        }
+//									
+//							    }
+//								
+//							}
+//						
+//						}
+//						
+//					}
+//					
+//				} catch( Exception e ) {
+//					
+//					logger.error( e.getMessage(), e );
+//					
+//				}
+//				
+//				return new FirefoxDriver( profile );
+//
+//				/**
+//				 * STOP - REFACTORING FIREFOX PROFILE LOADING
+//				 */				
+//				
+//			}
+//			case opera: { return new OperaDriver(); }
+//			case safari: { return new SafariDriver(); }
+//			
+//		}
 		
-		return null;
+		return getLocalWebDriver(browser.getType().toString(), browser.getProfile());
 		
 	}
 	
+	/**
+	 * This method returns "Webdrive" object according passed "Browser" object anc browserProfile string
+	 * 
+	 * @param browser
+	 * @param browserProfile
+	 * 
+	 * @return an istance of WebDriver object
+	 */
 	public static WebDriver getLocalWebDriver( String browser, JSONObject browserProfile ) {
 		
-		 
+		WebDriver resp = null;
 		
-		switch( BrowserType.valueOf( browser ) ) {
+		switch( BrowserType.valueOf( browser.toUpperCase() ) ) {
 		
-			case CHROME: { return new ChromeDriver(); }
+			case CHROME: { resp = new ChromeDriver(); break; }
 			case FIREFOX: { 
+								
+				/**
+				 * START - REFACTORING FIREFOX PROFILE LOADING
+				 */
 				
-				FirefoxProfile profile = new FirefoxProfile();
+				FirefoxProfile profile = null;
 				
 				try {				
 					
 					if( browserProfile != null ) {
 						
 						JSONObject browserProfileInfo = browserProfile.getJSONObject( "profile" );
-						
+
 						if( !browserProfileInfo.isNull("file") ) { 
 							
 							JSONObject browserProfileFileInfo = browserProfileInfo.getJSONObject( "file" );
@@ -177,7 +204,7 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 							logger.debug( Log.LOADING.createMessage( "Firefox profile ( " + path.toString() + " )" ) );
 						
 						}
-						
+					
 						if( !browserProfileInfo.isNull("options") ) {
 							
 							JSONObject profileOpts = browserProfileInfo.getJSONObject("options");
@@ -211,16 +238,25 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 					logger.error( e.getMessage(), e );
 					
 				}
+
+			/**
+			 * STOP - REFACTORING FIREFOX PROFILE LOADING
+			 */
+
+				if ( profile != null )
+					resp = new FirefoxDriver(profile);
+				else
+					resp = new FirefoxDriver();
 				
-				return new FirefoxDriver( profile );
+				break;
 			}
-			case IE: { return new InternetExplorerDriver(); }
-			case OPERA: { return new OperaDriver(); }
-			case SAFARI: { return new SafariDriver(); }
-			default: return new HtmlUnitDriver(true);
-			
+			case IE: { resp = new InternetExplorerDriver(); break; }
+			case OPERA: { resp = new OperaDriver(); break; }
+			case SAFARI: { resp = new SafariDriver(); break; }
+			default: { resp = new HtmlUnitDriver(true); break; }
 		}
-		
+
+		return resp;
 	}
 	
 	public static WebDriver getRemoteWebDriver( BrowserType browserType, String baseHubAddress ) {

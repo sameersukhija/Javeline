@@ -1,0 +1,30 @@
+s{
+	"link":"http://no.real.domain",
+	"browsers":{
+		"SAFARI":{
+			
+		},
+		"OPERA":{
+			
+		},
+		"FIREFOX":{
+			"profile":{
+				"file":{
+					"folderName":"/home/vincenzo/.mozilla/firefox",
+					"fileName":"ncc8lgcm.default",
+					"loadingType":"FILE"
+				},
+				"options":{
+					"extensions.firebug.allPagesActivation":"on",
+					"extensions.firebug.defaultPanelName":"console"
+				}
+			}
+		},
+		"CHROME":{
+			
+		},
+		"IE":{
+			
+		}
+	}
+}

@@ -1,0 +1,30 @@
+{
+	"link":"http://no.real.domain",
+	"browsers":{
+		"SAFARI":{
+			
+		},
+		"OPERA":{
+			
+		},
+		"FIREFOX":{
+			"profile":{
+				"file":{
+					"folderName":"",
+					"fileName":"",
+					"loadingType":"FILE"
+				},
+				"options":{
+					"extensions.firebug.allPagesActivation":"on",
+					"extensions.firebug.defaultPanelName":"console"
+				}
+			}
+		},
+		"CHROME":{
+			
+		},
+		"IE":{
+			
+		}
+	}
+}
