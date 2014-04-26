@@ -327,6 +327,7 @@
 						<exclude>**/plan/TestSFTP.java</exclude>
 						<exclude>**/plan/TestSSHExec.java</exclude>
 <!-- 						<exclude>**/plan/TestValidator.java</exclude> -->
+						<exclude>**/plan/TestFirefoxProfileResourceHandler.java</exclude>
 				    </excludes>
 <!-- 	          		<skipTests>true</skipTests> -->
 	        	</configuration>

@@ -8,17 +8,7 @@
 			
 		},
 		"FIREFOX":{
-			"profile":{
-				"file":{
-					"folderName":"",
-					"fileName":"",
-					"loadingType":"FILE"
-				},
-				"options":{
-					"extensions.firebug.allPagesActivation":"on",
-					"extensions.firebug.defaultPanelName":"console"
-				}
-			}
+
 		},
 		"CHROME":{
 			
