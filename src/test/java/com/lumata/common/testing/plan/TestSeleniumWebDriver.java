@@ -2,8 +2,7 @@ package com.lumata.common.testing.plan;
 
 import org.testng.Assert;
 import org.testng.Reporter;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -14,29 +13,54 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Browser;
 import com.lumata.common.testing.system.Environment;
 
+/**
+ * This is basically an integration test to be launcher into project where Firefox profile folder
+ * is part of resources.
+ * 
+ * @author <a href="mailto:vincenzo.marrazzo@lumatagroup.com">Vincenzo Marrazzo</a>
+ *
+ */
 public class TestSeleniumWebDriver {
 			
 	private Environment env_ = null;
 	private Browser browser_ = null;
 	private SeleniumWebDriver seleniumWebDriver_ = null;
 	
-	@BeforeSuite
+	@Test
 	@Parameters({"browser", "environment"})
-	public void init( 	@Optional("FIREFOX") 		String browser, 
-						@Optional("E4O_TESTING") 	String environment ) throws EnvironmentException 
+	public void noProfileSectionIntoJSON( 	@Optional("FIREFOX") 				String browser, 
+											@Optional("NO_PROFILE_BROWSER") 	String environment ) 
+																				throws EnvironmentException 
 	{	
+		loadSeleniumFirefoxDriver(browser, environment);
+	}	
+	
+	@Test
+	@Parameters({"browser", "environment"})
+	public void realProfileIntoJSON( 		@Optional("FIREFOX") 				String browser, 
+											@Optional("REAL_PROFILE_FOLDER") 	String environment ) 
+																				throws EnvironmentException 
+	{	
+		loadSeleniumFirefoxDriver(browser, environment);
+	}		
+	
+	/**
+	 * Core test
+	 * 
+	 * @param browser
+	 * @param environment
+	 * @throws EnvironmentException
+	 */
+	private void loadSeleniumFirefoxDriver( String browser, String environment) throws EnvironmentException 
+	{		
 		Reporter.log("Init \"Environment\" object", true);
 		env_ = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		Assert.assertNotNull( env_ , "NetworkEnvironment is null during init phase!");
 		
 		Reporter.log("Init \"Browser\" object", true);
 		browser_ = new Browser(env_.getBrowser(browser), browser);		
-		Assert.assertNotNull( browser_ , "Browser is null during init phase!");
-	}
-	
-	@Test
-	public void loadSeleniumWebDriver() throws EnvironmentException 
-	{		
+		Assert.assertNotNull( browser_ , "Browser is null during init phase!");		
+		
 		Reporter.log("Startup \"SeleniumWebDriver\" object.", true);
 		seleniumWebDriver_ = new SeleniumWebDriver( browser_, env_.getLink() );
 		Assert.assertNotNull( seleniumWebDriver_ , "SeleniumWebDriver is null!");
@@ -60,7 +84,7 @@ public class TestSeleniumWebDriver {
 		
 	}	
 	
-	@AfterSuite
+	@AfterMethod
 	public void tearDown() {
 
 		if ( seleniumWebDriver_ != null ) {

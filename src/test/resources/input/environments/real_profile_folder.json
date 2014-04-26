@@ -10,9 +10,9 @@
 		"FIREFOX":{
 			"profile":{
 				"file":{
-					"folderName":"/home/vincenzo/.mozilla/firefox",
-					"fileName":"ncc8lgcm.default",
-					"loadingType":"FILE"
+					"folder_name":"/home/vincenzo/.mozilla/firefox",
+					"file_name":"ncc8lgcm.default",
+					"loading_type":"FILE"
 				},
 				"options":{
 					"extensions.firebug.allPagesActivation":"on",
