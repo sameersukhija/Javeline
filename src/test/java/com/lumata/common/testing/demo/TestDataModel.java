@@ -1,5 +1,6 @@
-package com.lumata.common.testing.plan;
+package com.lumata.common.testing.demo;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
@@ -10,39 +11,38 @@ import org.testng.annotations.Test;
 import com.lumata.common.testing.exceptions.DataModelException;
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
-import com.lumata.common.testing.generators.ClassGenerator;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
+import com.lumata.common.testing.model.DataModel;
 import com.lumata.common.testing.system.Environment;
 
+@Test( enabled = false )
+public class TestDataModel {
 
-public class TestClassGenerator {
-
-	private static final Logger logger = LoggerFactory.getLogger( TestClassGenerator.class );
+	private static final Logger logger = LoggerFactory.getLogger( TestDataModel.class );
 	
 	Environment env;
-	ClassGenerator generatorDAO;
 	
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment"})
-	@BeforeClass
+	@BeforeClass( enabled = false )
 	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws EnvironmentException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
-		System.out.println( environment );
-		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
-		generatorDAO = new ClassGenerator();
+		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 						
 	}
 	
 	@Parameters({"tenant"})
-	@Test()
-	public void createDAO( @Optional("qa") String tenant ) throws DataModelException, IOFileException {
+	@Test( enabled = false )
+	public void createDAO( @Optional("qa") String tenant ) throws IOFileException, DataModelException {
 		
-		logger.info( Log.PUTTING.createMessage( "createDAO" , "Create DAO Classes" ) );
-				
-		generatorDAO.createDAO( env, tenant, "com.lumata.common.testing.generators.container" );
+		DataModel dataModel = new DataModel( tenant, env.getDataSource( tenant ), null );
+		
+		JSONObject tenant_schema = dataModel.getDataModel();
+		
+		System.out.println( tenant_schema );
 				
 	}		
 	

@@ -59,12 +59,6 @@ public class DataModelCompare {
 			
 			this.setDataModelNames();
 			
-		} catch( IOFileException ioe ) {
-			
-			logger.error(ioe.getMessage(), ioe);
-			
-			throw new DataModelException( ioe.getMessage(), ioe );
-			
 		} catch( JSONSException je ) {
 			
 			logger.error(je.getMessage(), je);
@@ -93,12 +87,6 @@ public class DataModelCompare {
 			}
 			
 			this.setDataModelNames();
-			
-		} catch( IOFileException ioe ) {
-			
-			logger.error(ioe.getMessage(), ioe);
-			
-			throw new DataModelException( ioe.getMessage(), ioe );
 			
 		} catch( JSONSException je ) {
 			

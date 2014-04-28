@@ -1,4 +1,4 @@
-package com.lumata.common.testing.plan;
+package com.lumata.common.testing.demo;
 
 import org.jboss.resteasy.client.ClientResponse;
 import org.testng.annotations.Test;
@@ -7,10 +7,12 @@ import com.lumata.common.testing.network.RestClient;
 
 public class TestRestClient {
 
-	@Test( timeOut=10000 )
+	@Test
 	public void postRequest() {
 		
-		ClientResponse<String> response = RestClient.post( "http://10.120.38.25:7070/xmlrpc/", null );
+		RestClient restClient = new RestClient();
+		
+		ClientResponse<String> response = restClient.post( "http://10.120.38.25:7070/xmlrpc/", null );
 		
 		System.out.println( response.getEntity().toString() );
 		

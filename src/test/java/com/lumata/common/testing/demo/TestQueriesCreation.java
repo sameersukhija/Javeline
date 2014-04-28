@@ -1,7 +1,7 @@
-package com.lumata.common.testing.plan;
+package com.lumata.common.testing.demo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.generators.container.Agencies;
@@ -15,7 +15,7 @@ import static com.lumata.common.testing.orm.Val.*;
 
 public class TestQueriesCreation {
 
-	private static final Logger logger__ = LoggerFactory.getLogger( TestQueriesCreation.class );
+	//private static final Logger logger = LoggerFactory.getLogger( TestQueriesCreation.class );
 	
 	final boolean test_enabled = true;
 	
@@ -30,7 +30,7 @@ public class TestQueriesCreation {
 		
 	}
 	
-	@Test( enabled = test_enabled, priority = 1 )
+	@Test( enabled = test_enabled, priority = 2 )
 	public void selectQuery() {
 		
 		Agencies agencies = new Agencies();
@@ -106,26 +106,26 @@ public class TestQueriesCreation {
 									.limit( 1, 2 )
 									.build();
 		
-		logger__.info( complexQuery );
+		System.out.println( complexQuery );
 			
 	}
 		
-	@Test( enabled = test_enabled, priority = 2 )
+	@Test( enabled = test_enabled, priority = 3 )
 	public void selectQuerySpecialValues() {
 		
 		Agencies agencies = new Agencies();
 		
 		String query = select().from( agencies ).where( op( Agencies.Fields.name ).is( NULL ) ).build();
 		
-		logger__.info( query );
+		System.out.println( query );
 		
 		query = select().from( agencies ).where( op( Agencies.Fields.name ).is_not( NULL ) ).build();
 		
-		logger__.info( query );
+		System.out.println( query );
 		
 	}
 	
-	@Test( enabled = test_enabled, priority = 1 )
+	@Test( enabled = test_enabled, priority = 4 )
 	public void selectQuerySpecialStatements() {
 		
 		Agencies agencies = new Agencies();
@@ -133,12 +133,12 @@ public class TestQueriesCreation {
 		
 		String query = select().from( agencies ).where( op( Agencies.Fields.name ).is( select().from( bdr_events ).sub() ) ).build();
 		
-		logger__.info( query );
+		System.out.println( query );
 				
 		
 	}
 	
-	@Test( enabled = true, priority = 3 )
+	@Test( enabled = true, priority = 5 )
 	public void insertQuery() {
 				
 		Agencies agencies = new Agencies();
@@ -146,62 +146,64 @@ public class TestQueriesCreation {
 		
 		String querySimpleInsert = insert( agencies ).values( 1, 2, 3 ).build();
 		
-		logger__.info( "1: " + querySimpleInsert );
+		System.out.println( "1: " + querySimpleInsert );
 		
 		querySimpleInsert = insert( agencies ).values().build();
 		
-		logger__.info( "2: " + querySimpleInsert );
+		System.out.println( "2: " + querySimpleInsert );
 		
 		querySimpleInsert = insert( agencies, Agencies.Fields.name, Agencies.Fields.id ).values( 1, 2 ).build();
 		
-		logger__.info( "3: " + querySimpleInsert );
+		System.out.println( "3: " + querySimpleInsert );
 		
 		String queryComplexInsert = insert( agencies, Agencies.Fields.name, Agencies.Fields.id ).values( row(1,1), row(4,5) ).build();
 		
-		logger__.info( "4: " + queryComplexInsert );
+		System.out.println( "4: " + queryComplexInsert );
 				
 		TokenLabel tl = new TokenLabel();
 		
 		querySimpleInsert = insert( tl ).values().build();
 		
-		logger__.info( "5: " + querySimpleInsert );
+		System.out.println( "5: " + querySimpleInsert );
 		
 	}
 	
-	@Test( enabled = test_enabled, priority = 4 )
+	@Test( enabled = test_enabled, priority = 6 )
 	public void updateQuery() {
 		
 		Agencies agencies = new Agencies();
 		agencies.setId( new Short( "1" ) );
-		agencies.setName( "Eros" );
+		agencies.setName( "Agency" );
 		
 		String querySimpleUpdate = update( agencies ).set( op( Agencies.Fields.name ).eq("Lumata"), op( Agencies.Fields.id ).eq(1) ).build();
 		
-		logger__.info( querySimpleUpdate );
+		System.out.println( querySimpleUpdate );
 		
 		querySimpleUpdate = update( agencies ).set().build();
 		
-		logger__.info( querySimpleUpdate );
+		System.out.println( querySimpleUpdate );
 		
 		querySimpleUpdate = update( agencies ).set().where( op( Agencies.Fields.id ).eq(1) ).build();
 		
-		logger__.info( querySimpleUpdate );
+		System.out.println( querySimpleUpdate );
+		
+
 	}	
 	
-	@Test( enabled = test_enabled, priority = 5 )
+	@Test( enabled = test_enabled, priority = 7 )
 	public void deleteQuery() {
 
 		Agencies agencies = new Agencies();
 		agencies.setId( new Short( "1" ) );
-		agencies.setName( "Eros" );
+		agencies.setName( "Agency" );
 		
 		String querySimpleDelete = delete().from( agencies ).build();
 		
-		logger__.info( querySimpleDelete );
+		System.out.println( querySimpleDelete );
 				
 		querySimpleDelete = delete().from( agencies ).where( op( Agencies.Fields.id ).eq(1) ).build();
 		
-		logger__.info( querySimpleDelete );
+		System.out.println( querySimpleDelete );
 				
 		
 	}

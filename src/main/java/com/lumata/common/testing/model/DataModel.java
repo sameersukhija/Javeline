@@ -69,12 +69,6 @@ public class DataModel {
 			
 			}
 			
-		} catch( IOFileException ioe ) { 
-			
-			logger.error(ioe.getMessage(), ioe);
-			
-			throw new DataModelException( ioe.getMessage(), ioe );
-			
 		} catch( JSONSException je ) { 
 			
 			logger.error(je.getMessage(), je);
@@ -101,12 +95,6 @@ public class DataModel {
 				default: throw new DataModelException( "You cannot load an environment from resources different by FILE or RESOURCE" );
 			
 			}
-			
-		} catch( IOFileException ioe ) { 
-			
-			logger.error(ioe.getMessage(), ioe);
-			
-			throw new DataModelException( ioe.getMessage(), ioe );
 			
 		} catch( JSONSException je ) { 
 			

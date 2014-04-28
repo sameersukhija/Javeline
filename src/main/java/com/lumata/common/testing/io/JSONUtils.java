@@ -2,6 +2,7 @@ package com.lumata.common.testing.io;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.XML;
 import org.openqa.grid.common.JSONConfigurationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 	
 	private static final  Logger logger = LoggerFactory.getLogger( JSONUtils.class );
 	
-	public static JSONObject loadJSONResource( String resource ) throws JSONSException, IOFileException {
+	public static JSONObject loadJSONResource( String resource ) throws JSONSException {
 		
 		JSONObject jsonResource = null;
 		
@@ -27,25 +28,19 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.debug("The Json Object has been loaded ( " + jsonResource.toString() + " )");
 			
-		} catch (JSONException e) {
+		} catch (JSONException | IOFileException e) {
 			
 			logger.error( e.getMessage(), e );
 			
 			throw new JSONSException(e.getMessage(), e);
 		
-		} catch (IOFileException e) {
-			
-			logger.error( e.getMessage(), e );
-		
-			throw new JSONSException(e.getMessage(), e);
-		
-		}
+		} 
     		
 		return jsonResource;
 		
 	}
 	
-	public static JSONObject loadJSONResource( String folder, String resource ) throws JSONSException, IOFileException {
+	public static JSONObject loadJSONResource( String folder, String resource ) throws JSONSException {
 		
 		JSONObject jsonResource = null;
 		
@@ -55,25 +50,63 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.debug("The Json Object has been loaded ( " + jsonResource.toString() + " )");
 			
-		} catch (JSONException e) {
+		} catch (JSONException | IOFileException e) {
 			
 			logger.error( e.getMessage(), e );
 		
 			throw new JSONSException(e.getMessage(), e);
 		
-		} catch (IOFileException e) {
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new JSONSException(e.getMessage(), e);
+		} 
 		
-		}
-    		
 		return jsonResource;
 		
 	}
 	
-	public static JSONObject loadJSONFile( String file ) throws JSONSException, IOFileException {
+	public static JSONObject loadJSONResourceFromXML( String resource ) throws JSONException, JSONSException {
+		
+		JSONObject jsonResource = null;
+		
+		try {
+			
+			jsonResource = XML.toJSONObject( IOFileUtils.loadResourceAsString( resource ) );			
+				
+			logger.debug("The Json Object has been loaded ( " + jsonResource.toString() + " )");
+		
+		} catch ( JSONException | IOFileException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+			throw new JSONSException(e.getMessage(), e);
+		
+		} 
+		
+		return jsonResource;
+		
+	}
+	
+	public static JSONObject loadJSONResourceFromXML( String folder, String resource ) throws JSONSException {
+		
+		JSONObject jsonResource = null;
+		
+		try {
+		
+			jsonResource = XML.toJSONObject( IOFileUtils.loadResourceAsString( folder, resource ) );				
+		
+			logger.debug("The Json Object has been loaded ( " + jsonResource.toString() + " )");
+   		
+		} catch ( JSONException | IOFileException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+			throw new JSONSException(e.getMessage(), e);
+		
+		} 	
+			
+		return jsonResource;
+		
+	}
+	
+	public static JSONObject loadJSONFile( String file ) throws JSONSException {
 		
 		JSONObject jsonResource = null;
 		
@@ -83,25 +116,19 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.debug("The Json Object has been loaded ( " + jsonResource.toString() + " )");
 																	
-		} catch (JSONException e) {
+		} catch (JSONException | IOFileException e) {
 			
 			logger.error( e.getMessage(), e );
 			
 			throw new JSONSException(e.getMessage(), e);
 		
-		} catch (IOFileException e) {
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new JSONSException(e.getMessage(), e);
+		} 
 		
-		}
-    		
 		return jsonResource;
 		
 	}
 	
-	public static JSONObject loadJSONFile( String folder, String file ) throws JSONSException, IOFileException {
+	public static JSONObject loadJSONFile( String folder, String file ) throws JSONSException {
 		
 		JSONObject jsonResource = null;
 		
@@ -111,13 +138,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.debug("The Json Object has been loaded ( " + jsonResource.toString() + " )");
 																	
-		} catch (JSONException e) {
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new JSONSException(e.getMessage(), e);
-		
-		} catch (IOFileException e) {
+		} catch (JSONException | IOFileException e) {
 			
 			logger.error( e.getMessage(), e );
 			
@@ -129,7 +150,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 	}
 	
-	public static void saveJSONResource( JSONObject jsonResource, String jsonFile ) throws JSONSException, IOFileException {
+	public static void saveJSONResource( JSONObject jsonResource, String jsonFile ) throws JSONSException {
 		
 		try {
 			 
@@ -147,7 +168,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 	}
 	
-	public static void saveJSONResource( JSONObject jsonResource, String folder, String jsonFile ) throws JSONSException, IOFileException {
+	public static void saveJSONResource( JSONObject jsonResource, String folder, String jsonFile ) throws JSONSException {
 		
 		try {
 			 
@@ -165,7 +186,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 	}
 
-	public static void saveJSONFile( JSONObject jsonResource, String jsonFile ) throws JSONSException, IOFileException {
+	public static void saveJSONFile( JSONObject jsonResource, String jsonFile ) throws JSONSException {
 		
 		try {
 			 
@@ -183,7 +204,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 		
 	}
 	
-	public static void saveJSONFile( JSONObject jsonResource, String folder, String jsonFile ) throws JSONSException, IOFileException {
+	public static void saveJSONFile( JSONObject jsonResource, String folder, String jsonFile ) throws JSONSException {
 	
 		try {
 			 
@@ -191,7 +212,7 @@ public class JSONUtils extends JSONConfigurationUtils {
 			
 			logger.debug("The Json Object has been created ( " + jsonResource.toString() + " )");
 	 
-		} catch (IOFileException e) {
+		} catch ( IOFileException e ) {
 			
 			logger.error( e.getMessage(), e );
 			

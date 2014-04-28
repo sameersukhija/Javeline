@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.plan.TestClassGenerator;
+import com.lumata.common.testing.demo.TestClassGenerator;
 
 public class Generate {
 

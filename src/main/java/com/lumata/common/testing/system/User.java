@@ -69,6 +69,18 @@ public class User {
 		
 	}
 	
+	public void setSecurityPassword( String password ) {
+		
+		this.password = Security.encrypt( password );
+		
+	}
+	
+	public void setSecurityMD5Password( String password ) {
+		
+		this.password = Security.encrypt( Security.getMD5( password ) );
+		
+	}
+	
 	public void setPrivateKey( String privateKey ) {
 		
 		this.privateKey = privateKey;
