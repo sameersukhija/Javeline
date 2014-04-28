@@ -16,7 +16,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.model.DataModel;
 import com.lumata.common.testing.system.Environment;
 
-
+@Test( enabled = false )
 public class TestDataModel {
 
 	private static final Logger logger = LoggerFactory.getLogger( TestDataModel.class );

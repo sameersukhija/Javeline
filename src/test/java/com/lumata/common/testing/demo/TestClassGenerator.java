@@ -17,7 +17,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.NetworkEnvironment;
 
-
+@Test( enabled = false )
 public class TestClassGenerator {
 
 	private static final Logger logger = LoggerFactory.getLogger( TestClassGenerator.class );
