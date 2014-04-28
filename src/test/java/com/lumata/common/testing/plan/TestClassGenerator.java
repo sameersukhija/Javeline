@@ -37,7 +37,7 @@ public class TestClassGenerator {
 	}
 	
 	@Parameters({"tenant"})
-	@Test()
+	@Test( enabled = false )
 	public void createDAO( @Optional("qa") String tenant ) throws DataModelException, IOFileException {
 		
 		logger.info( Log.PUTTING.createMessage( "createDAO" , "Create DAO Classes" ) );
