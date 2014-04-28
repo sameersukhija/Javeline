@@ -13,8 +13,8 @@ import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.Environment;
+import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.cdr.CDR;
-import com.lumata.expression.operators.exceptions.CDRException;
 
 public class TestTasksMigration {
 	

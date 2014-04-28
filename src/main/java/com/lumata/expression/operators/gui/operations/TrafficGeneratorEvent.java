@@ -8,7 +8,7 @@ import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.expression.operators.exceptions.TrafficGeneratorEventException;
+import com.lumata.e4o.exceptions.TrafficGeneratorEventException;
 
 public class TrafficGeneratorEvent extends Operations {
 
@@ -36,13 +36,7 @@ public class TrafficGeneratorEvent extends Operations {
 			
 			throw new TrafficGeneratorEventException( e.getMessage(), e );
 			
-		} catch( IOFileException e ) {			
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new TrafficGeneratorEventException( e.getMessage(), e );
-			
-		} 			
+		} 		
 			
 	}
 	
@@ -64,13 +58,7 @@ public class TrafficGeneratorEvent extends Operations {
 			
 			throw new TrafficGeneratorEventException( e.getMessage(), e );
 			
-		} catch( IOFileException e ) {			
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new TrafficGeneratorEventException( e.getMessage(), e );
-			
-		} 			
+		} 		
 			
 	}
 	

@@ -51,7 +51,8 @@ public class ExpressionKernelCommands extends KernelCommands {
 	/** process statuses */
 	public enum Task {
 		ExpiredData,
-		AggregadedData,
+		AggregateData,
+		ProvisionCampaigns,
 		SubscriberDelayedRemoval;			
 	}
 	
@@ -448,13 +449,13 @@ public class ExpressionKernelCommands extends KernelCommands {
 			
 		logger.info( "executing task: " + task );
 		
-		logger.debug( "command: " + execCommand.toString() );
+		logger.info( "command: " + execCommand.toString() );
 		
 		ArrayList<String> result = this.execCommand( execCommand.toString() );
 		
 		/** parse result */
 		for( int i = 0; i < result.size(); i++ ) {
-						
+			System.out.println( result.get( i ) );			
 			Pattern pattern = Pattern.compile( ".+execute=(OK|KO|ALREADY_DONE)" );
 			
 			Matcher matcher = pattern.matcher( result.get( i ) );
@@ -465,21 +466,21 @@ public class ExpressionKernelCommands extends KernelCommands {
 				
 					case "OK": { 
 						
-						logger.info( "task " + task + "executed with " + TaskStatus.OK + " status" );
+						logger.info( "task " + task + " executed with " + TaskStatus.OK + " status" );
 						
 						return TaskStatus.OK; 
 						
 					}
 					case "KO": { 
 						
-						logger.info( "task " + task + "executed with " + TaskStatus.KO + " status" );
+						logger.info( "task " + task + " executed with " + TaskStatus.KO + " status" );
 						
 						return TaskStatus.KO; 
 						
 					}
 					case "ALREADY_DONE": { 
 						
-						logger.info( "task " + task + "executed with " + TaskStatus.ALREADY_DONE + " status" );
+						logger.info( "task " + task + " executed with " + TaskStatus.ALREADY_DONE + " status" );
 						
 						return TaskStatus.ALREADY_DONE; 
 						

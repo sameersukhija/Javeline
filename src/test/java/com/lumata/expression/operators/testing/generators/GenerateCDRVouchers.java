@@ -7,6 +7,7 @@ import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.expression.operators.generators.CDRVouchersGenerator;
 import com.lumata.expression.operators.generators.VouchersGenerator;
 
+@Deprecated /** depends from CDR deprecated class - to be refactoring using the new CDR class ( Vincenzo )*/
 public class GenerateCDRVouchers {
 
 	@Test

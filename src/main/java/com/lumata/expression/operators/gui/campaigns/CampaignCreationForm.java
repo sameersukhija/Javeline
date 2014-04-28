@@ -11,6 +11,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.expression.operators.json.campaigns.CampaignCfg;
+//import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
 
 public class CampaignCreationForm extends CampaignsForm {
 
@@ -59,6 +60,13 @@ public class CampaignCreationForm extends CampaignsForm {
 				
 	};
 	
+	public CampaignCreationForm( SeleniumWebDriver selenium, /*CampaignModelCfg campaignModelCfg,*/ long timeout, long interval ) {
+		
+		super(selenium, timeout, interval);
+		
+		//this.campaignModelCfg = campaignModelCfg;
+		
+	}
 	/*
 	public enum CMAction { 
 		
@@ -123,7 +131,7 @@ public class CampaignCreationForm extends CampaignsForm {
 	*/
 	public static boolean open( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
-		if( !CampaignCreationForm.select(selenium, timeout, interval) ) { return false; }
+		//if( !CampaignCreationForm.select(selenium, timeout, interval) ) { return false; }
 		
 		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for id=gwt-debug-InputCMCampaignCreation") );
 		

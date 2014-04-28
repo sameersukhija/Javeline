@@ -1,0 +1,29 @@
+{
+	"campaignModels": [
+		{
+			"name": "CMBonus",
+			"description": "CMBonus",
+			"events": [
+				{	
+					"eventType":"REVENUE", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "COMMODITIES.POINTS", "value": "100", "option":"/recharge" },
+						{ "name": "COMMODITIES.POINTS", "value": "200", "option":"/recharge" }							
+					]
+				},
+				{	
+					"eventType":"REVENUE", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "COMMODITIES.POINTS", "value": "100", "option":"/recharge" },
+						{ "name": "COMMODITIES.POINTS", "value": "200", "option":"/recharge" }							
+					]
+				}
+			]
+		}
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+}

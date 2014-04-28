@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.database.Mysql;
-import com.lumata.e4o_tenant.schema.Conf;
+import com.lumata.e4o.schema.tenant.Conf;
 //import com.lumata.common.testing.orm.Val;
 import com.lumata.expression.operators.pojo.configuration.Configuration;
 import com.lumata.expression.operators.pojo.configuration.ConfigurationTypes;

@@ -23,7 +23,9 @@ public class ExpiredDataTask {
 		
 		ExpressionKernelCommands ekc = new ExpressionKernelCommands( env.getSSHService( "actrule" ), "root" );
 		
-		Assert.assertEquals( ekc.execTask( 23500, 1, ExpressionKernelCommands.Task.ExpiredData ), ExpressionKernelCommands.TaskStatus.OK );
+		ExpressionKernelCommands.TaskStatus taskStatus = ekc.execTask( 23500, 1, ExpressionKernelCommands.Task.ExpiredData );
+		
+		Assert.assertTrue( taskStatus.equals( ExpressionKernelCommands.TaskStatus.OK ) || taskStatus.equals( ExpressionKernelCommands.TaskStatus.ALREADY_DONE ) );
 				
 	}
 	

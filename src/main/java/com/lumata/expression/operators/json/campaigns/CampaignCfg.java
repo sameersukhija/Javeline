@@ -11,8 +11,8 @@ import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.expression.operators.exceptions.CampaignException;
-import com.lumata.expression.operators.exceptions.CampaignModelException;
+import com.lumata.e4o.exceptions.CampaignException;
+import com.lumata.e4o.exceptions.CampaignModelException;
 
 
 /**
@@ -49,12 +49,6 @@ public class CampaignCfg {
 			
 			throw new CampaignException( e.getMessage(), e );
 			
-		} catch( IOFileException e ) {			
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new CampaignException( e.getMessage(), e );
-			
 		} 			
 			
 	}
@@ -73,12 +67,6 @@ public class CampaignCfg {
 		}
 									
 		} catch( JSONSException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new CampaignException( e.getMessage(), e );
-			
-		} catch( IOFileException e ) {			
 			
 			logger.error( e.getMessage(), e );
 			

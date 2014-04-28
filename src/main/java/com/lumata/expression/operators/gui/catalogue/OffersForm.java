@@ -12,11 +12,11 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.expression.operators.gui.common.AngularFrame;
-import com.lumata.expression.operators.gui.common.ButtonImpl;
-import com.lumata.expression.operators.gui.common.Buttons;
-import com.lumata.expression.operators.gui.common.MenuBar;
-import com.lumata.expression.operators.gui.common.SectionImpl;
+import com.lumata.e4o.gui.common.AngularFrame;
+import com.lumata.e4o.gui.common.ButtonImpl;
+import com.lumata.e4o.gui.common.Buttons;
+import com.lumata.e4o.gui.common.MenuBar;
+import com.lumata.e4o.gui.common.SectionImpl;
 import com.lumata.expression.operators.json.catalogue.OfferCfg;
 
 public class OffersForm extends CatalogueForm {

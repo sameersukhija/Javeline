@@ -10,9 +10,9 @@ import static com.lumata.common.testing.orm.Query.select;
 import static com.lumata.common.testing.orm.Filter.distinct;
 
 import com.lumata.common.testing.database.Mysql;
+import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.csv.annotations.CSVFieldSchemaTable;
 import com.lumata.e4o.system.csv.annotations.CSVMethod;
-import com.lumata.expression.operators.exceptions.CDRException;
 
 @CSVFieldSchemaTable
 public class CSVSchemaTable {

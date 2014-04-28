@@ -25,12 +25,12 @@ import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
+import com.lumata.e4o.exceptions.CampaignException;
+import com.lumata.e4o.exceptions.CommoditiesException;
+import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.expression.operators.dao.configuration.ConfigurationDAO;
-import com.lumata.expression.operators.exceptions.CampaignException;
-import com.lumata.expression.operators.exceptions.CommoditiesException;
 import com.lumata.expression.operators.gui.administration.CommoditiesForm;
 import com.lumata.expression.operators.gui.campaigns.CampaignCreationForm;
-import com.lumata.expression.operators.gui.security.Authorization;
 import com.lumata.expression.operators.json.campaigns.CampaignCfg;
 import com.lumata.expression.operators.pojo.configuration.ConfigurationTypes;
 

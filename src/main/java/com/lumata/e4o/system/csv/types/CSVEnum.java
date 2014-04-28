@@ -1,8 +1,8 @@
 package com.lumata.e4o.system.csv.types;
 
+import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.csv.annotations.CSVFieldEnum;
 import com.lumata.e4o.system.csv.annotations.CSVMethod;
-import com.lumata.expression.operators.exceptions.CDRException;
 
 @CSVFieldEnum
 public class CSVEnum {

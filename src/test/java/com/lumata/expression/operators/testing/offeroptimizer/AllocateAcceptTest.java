@@ -27,23 +27,23 @@ import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
+import com.lumata.e4o.exceptions.CampaignModelException;
+import com.lumata.e4o.exceptions.OfferException;
+import com.lumata.e4o.exceptions.RuleException;
+import com.lumata.e4o.exceptions.TokenTypeException;
+import com.lumata.e4o.gui.common.AngularFrame;
+import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.expression.operators.dao.administration.SalesChannelsList;
-import com.lumata.expression.operators.exceptions.CampaignModelException;
-import com.lumata.expression.operators.exceptions.OfferException;
-import com.lumata.expression.operators.exceptions.RuleException;
-import com.lumata.expression.operators.exceptions.TokenTypeException;
 import com.lumata.expression.operators.gui.campaigns.CampaignCreationForm;
 import com.lumata.expression.operators.gui.campaigns.CampaignModelForm;
 import com.lumata.expression.operators.gui.catalogue.OffersForm;
 import com.lumata.expression.operators.gui.catalogue.RuleForm;
 import com.lumata.expression.operators.gui.catalogue.TokenTypeForm;
-import com.lumata.expression.operators.gui.common.AngularFrame;
-import com.lumata.expression.operators.gui.security.Authorization;
 import com.lumata.expression.operators.gui.xmlrpc.HTTPXMLRPCForm;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPCTokenList;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPCTokenList.Token;
 import com.lumata.expression.operators.json.campaigns.CampaignCfg;
-import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
+//import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
 import com.lumata.expression.operators.json.catalogue.OfferCfg;
 import com.lumata.expression.operators.json.catalogue.RuleCfg;
 import com.lumata.expression.operators.json.catalogue.TokenTypeCfg;
@@ -184,9 +184,9 @@ public class AllocateAcceptTest {
 
 	private void configureCampaignModel() throws CampaignModelException {
 		logger.info("configuring campaing model");
-		CampaignModelCfg cm_bonus = new CampaignModelCfg("input/campaigns", "cm_offer_optimizer_test", IOLoadingType.RESOURCE);
-		Assert.assertTrue(CampaignModelForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
-		Assert.assertTrue(CampaignModelForm.create(seleniumWebDriver, cm_bonus, TIMEOUT, ATTEMPT_TIMEOUT));
+//>>>		CampaignModelCfg cm_bonus = new CampaignModelCfg("input/campaigns", "cm_offer_optimizer_test", IOLoadingType.RESOURCE);
+//>>>	Assert.assertTrue(CampaignModelForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
+//>>>		Assert.assertTrue(CampaignModelForm.create(seleniumWebDriver, cm_bonus, TIMEOUT, ATTEMPT_TIMEOUT));
 		logger.info("end configuring campaing model");
 	}
 

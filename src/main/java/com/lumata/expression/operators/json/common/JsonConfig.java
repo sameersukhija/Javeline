@@ -1,7 +1,9 @@
 package com.lumata.expression.operators.json.common;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,7 +16,7 @@ import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.validating.Format;
 
-public abstract class JsonConfig {
+public class JsonConfig {
 
 	private static final Logger logger = LoggerFactory.getLogger( JsonConfig.class );
 	
@@ -24,64 +26,90 @@ public abstract class JsonConfig {
 		root = JSONUtils.loadJSONResource(path, jsonFile + Format.JSON_EXTENSION);
 	}
 	
+	public JsonConfig(JSONObject root) {
+		this.root = root;
+	}
+	
+	public Integer getIntegerFromPath(String path) {
+		
+		return (Integer)getObjectFromPath( path );
+	
+	}
+	
 	public String getStringFromPath(String path) {
-		
-		/*String[] subpathList = path.split("/");
-		
-		JSONObject current = root;
-		int index = 0;
-		
-		for (String subpath : subpathList) {
-			index++;
-			
-			if (index == subpathList.length) {
-				try {
-					return current.getString(subpath);
-				} catch (JSONException e) {
-					return "";
-				}
-				
-			} else {
-				try {
-					current = current.getJSONObject(subpath);
-				} catch (JSONException e) {
-					return "";
-				}
-			}
-		}
-		*/
+	
 		return (String)getObjectFromPath( path );
+	
+	}
+	
+	public Boolean getBooleanFromPath(String path) {
+		
+		return (Boolean)getObjectFromPath( path );
+	
+	}
+	
+	public JSONObject getJSONObjectFromPath( String path ) throws JSONException {
+		
+		Object obj = getObjectFromPath( path );
+		
+		return ( !obj.equals( null ) ? new JSONObject( obj.toString() ) : null );
+	
+	}
+	
+	public JSONArray getJSONArrayFromPath( String path ) throws JSONException {
+		
+		Object obj = getObjectFromPath( path );
+		
+		return ( !obj.equals( null ) ? new JSONArray( obj.toString() ) : null );
+	
 	}
 	
 	public Object getObjectFromPath( String path ) {
 		
-		String[] subpathList = path.split("/");
-		
-		JSONObject current = root;
-		int index = 0;
-		
-		for( String subpath : subpathList) {
+		if( null != path && null != root ) {
 			
-			index++;
+			String[] subpathList = path.split("/");
 			
-			if( index == subpathList.length ) {
-				try {
-					return current.get(subpath);
-				} catch (JSONException e) {
-					return null;
-				}
+			JSONObject current = root;
+			int index = 0;
+			
+			for( String subpath : subpathList) {
 				
-			} else {
-				try {
-					current = current.getJSONObject(subpath);
-				} catch (JSONException e) {
-					return null;
+				index++;
+				
+				if( index == subpathList.length ) {
+					try {
+						return current.get(subpath);
+					} catch (JSONException e) {
+						return null;
+					}
+					
+				} else {
+					try {
+						current = current.getJSONObject(subpath);
+					} catch (JSONException e) {
+						return null;
+					}
 				}
 			}
+			
 		}
 		
 		return null;
 	}
+	
+	public void setObjectFromPath( String path, Object value ) {
+		
+		try {
+			
+			if( !this.root.isNull( path ) ) { this.root.put( path , value ); }
+		
+		} catch( JSONException e ) {}
+	
+	}
+	
+	
+	
 	/** TODO 
 	public Object getElement( String path ) {
 						

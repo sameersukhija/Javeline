@@ -1,0 +1,195 @@
+{
+	"campaignModels": [
+		{
+			"enabled": true,
+			"name": "CMAllEvents",
+			"description": "CMAllEvents",
+			"campaignType": "",
+			"useHierarchy": false,
+			"events": [
+				{	
+					"eventType":"USSD", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/USSD", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_call Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_data Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_invoice Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_message Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_payment Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_usage Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_recharge Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call_originating since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call_terminating since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/duration_call sec since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/invoice since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/message since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/payment since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/recharge since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/session since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/sms since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/vas since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/volume_download kbytes since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/volume_upload kbytes since campaign start", "time": null, "delete": false }								
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}, 		
+				{	
+					"eventType":"Call", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_call Eurocents per event", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_call Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_data Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_invoice Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_message Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_payment Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_recharge Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_usage Eurocents per event", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_usage Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 balance_main_account Eurocents per event", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call_originating", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call_originating since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call_terminating", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call_terminating since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/duration_call sec per event", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/duration_call sec since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/invoice since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/message since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/payment since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/recharge since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/session since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/sms since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/vas since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/volume_download kbytes since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/volume_upload kbytes since campaign start", "time": null, "delete": false }								
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				},
+				{	
+					"eventType":"Campaign end", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/Campaign end", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_call Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_data Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_invoice Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_message Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_payment Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_recharge Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_usage Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call_originating since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call_terminating since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/duration_call sec since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/invoice since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/message since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/payment since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/recharge since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/session since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/sms since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/vas since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/volume_download kbytes since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/volume_upload kbytes since campaign start", "time": null, "delete": false }								
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				},
+				{	
+					"eventType":"Campaign following", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/Campaign following", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_call Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_data Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_invoice Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_message Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_payment Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_recharge Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_usage Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call_originating since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call_terminating since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/duration_call sec since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/invoice since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/message since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/payment since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/recharge since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/session since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/sms since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/vas since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/volume_download kbytes since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/volume_upload kbytes since campaign start", "time": null, "delete": false }								
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				},
+				{	
+					"eventType":"Campaign start", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/Campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_call Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_data Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_invoice Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_message Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_payment Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_recharge Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/100 amount_usage Eurocents since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call_originating since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/call_terminating since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/duration_call sec since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/invoice since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/message since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/payment since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/recharge since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/session since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/sms since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/vas since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/volume_download kbytes since campaign start", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/volume_upload kbytes since campaign start", "time": null, "delete": false }								
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				},
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/recharge", "time": { "starTime": "23:00:00", "durationType": "Relative", "durationValue": "20", "durationTimeType": "Days" }, "delete": false },
+						{ "name": "Commodities.Credit.Bonus1", "value": "200", "option":"/recharge", "time": null, "delete": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				},
+				{	
+					"eventType":"Lifecycle.Data", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/create", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "200", "option":"/update", "time": null, "delete": false }							
+					],
+					"beneficiary": false,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		}
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+}

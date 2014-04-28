@@ -61,12 +61,7 @@ public class CatalogOfferContentDAOList {
 			
 			logger.error( e.getMessage(), e );
 			
-		} catch( IOFileException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-		}	
-			
+		} 			
 		
 	}
 

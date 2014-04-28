@@ -10,7 +10,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.log.Log;
-import com.lumata.expression.operators.exceptions.TrafficGeneratorEventException;
+import com.lumata.e4o.exceptions.TrafficGeneratorEventException;
 import com.lumata.expression.operators.gui.operations.TrafficGeneratorEvent;
 import com.lumata.expression.operators.gui.operations.TrafficGeneratorEvent.TGELoadingType;
 

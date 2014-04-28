@@ -247,11 +247,7 @@ public class CatalogProductTypesDAOList {
 			
 			logger.error( e.getMessage(), e );
 			
-		} catch( IOFileException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-		}	
+		} 
 		
 		return catalogProductTypes;
 		

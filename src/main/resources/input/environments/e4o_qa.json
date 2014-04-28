@@ -60,6 +60,16 @@
          "maxWait":10000,
          "user":"system",
          "password":"bHhsa2Jy"
+      },
+      "jmailer_it":{
+         "hostName":"jmailer_it",
+         "hostAddress":"10.120.42.11",
+         "hostPort":"3308",
+         "maxActive":100,
+         "maxIdle":30,
+         "maxWait":10000,
+         "user":"tech_product",
+         "password":"cmdISnJjdQ=="
       }
    },
    "services":{

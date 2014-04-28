@@ -1,8 +1,8 @@
 package com.lumata.expression.operators.gui.catalogue;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.expression.operators.gui.common.MenuBar;
-import com.lumata.expression.operators.gui.common.SectionImpl;
+import com.lumata.e4o.gui.common.MenuBar;
+import com.lumata.e4o.gui.common.SectionImpl;
 
 public class CatalogueForm {
 	

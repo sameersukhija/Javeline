@@ -71,12 +71,7 @@ public class SalesChannelsList {
 			
 			logger.error( e.getMessage(), e );
 			
-		} catch( IOFileException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-		}	
-			
+		} 
 		
 	}
 	

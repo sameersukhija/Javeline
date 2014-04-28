@@ -79,14 +79,24 @@
       "password": "bHhsa2Jy"
     },
     "dm": {
-      "hostName": "dm",
+      "hostName": "dialog_manager",
       "hostAddress": "10.120.42.11",
       "hostPort": "3308",
       "maxActive": 100,
       "maxIdle": 30,
       "maxWait": 10000,
-      "user": "dialog_manager",
-      "password": "aXJnSEpyY3U="
+      "user": "tech_product",
+      "password": "cmdISnJjdQ=="
+    },
+    "jmailer_it": {
+      "hostName": "jmailer_it",
+      "hostAddress": "10.120.42.11",
+      "hostPort": "3308",
+      "maxActive": 100,
+      "maxIdle": 30,
+      "maxWait": 10000,
+      "user": "tech_product",
+      "password": "cmdISnJjdQ=="
     }
   },
   "services": {
@@ -103,19 +113,27 @@
           }
         }
       },
-   "collector": {
-      "hostName": "md1-sa014-e4o01",
-      "hostAddress": "10.120.38.25",
-        "hostPort": "22",
-        "users": {
-          "root": {
-            "username": "root",
-            "password": "cmdISnJjdQ==",
-            "privateKey": "/opt/lumata/e4o_test"
-          }
-        }
-      }
-    }
+	   "collector": {
+	      "hostName": "md1-sa014-e4o01",
+	      "hostAddress": "10.120.38.25",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
+	      }
+	  },
+	 "activemq": {
+	 	"dm": {
+	      "hostName": "md1-sa014-e4o01",
+	      "hostAddress": "10.120.38.25",
+	        "hostPort": "61616",
+	        "users": {}	        
+	     }	 
+	 }
   },
   "options": {
     "multiTenant": true

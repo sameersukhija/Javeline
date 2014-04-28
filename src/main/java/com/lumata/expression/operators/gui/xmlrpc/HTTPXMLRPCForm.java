@@ -91,7 +91,9 @@ public class HTTPXMLRPCForm {
 			options.put( RestClient.Options.REQUEST_CONTENT_TYPE.name(), RestClient.ContentTypes.APPLICATION_JSON.getValue() );
 			options.put( RestClient.Options.REQUEST_BODY.name(), HTTPXMLRPCForm.getPOSTBody( this.getName(), params ) );
 			
-			ClientResponse<String> response = RestClient.post( url , options );
+			RestClient restClient = new RestClient( url );
+			
+			ClientResponse<String> response = restClient.post( url, options );
 			
 			return response;
 			

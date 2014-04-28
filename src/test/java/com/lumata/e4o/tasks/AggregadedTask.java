@@ -25,7 +25,7 @@ public class AggregadedTask {
 		
 		ExpressionKernelCommands ekc = new ExpressionKernelCommands( env.getSSHService( "actrule" ), "root" );
 		
-		System.out.println( ekc.execTask( 23500, 1, ExpressionKernelCommands.Task.AggregadedData ) );
+		System.out.println( ekc.execTask( 23500, 1, ExpressionKernelCommands.Task.AggregateData ) );
 		
 	}
 	

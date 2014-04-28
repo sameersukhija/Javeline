@@ -19,7 +19,7 @@ import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.e4o_tenant.schema.Token;
+import com.lumata.e4o.schema.tenant.Token;
 import com.lumata.expression.operators.gui.xmlrpc.HTTPXMLRPCForm;
 
 import static com.lumata.common.testing.orm.Query.*;

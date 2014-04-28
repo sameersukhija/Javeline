@@ -15,7 +15,7 @@ import static com.lumata.common.testing.orm.Filter.op;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.log.Log;
-import com.lumata.e4o_tenant.schema.CollectedFilesStats;
+import com.lumata.e4o.schema.tenant.CollectedFilesStats;
 
 public class ExpressionSystem {
 

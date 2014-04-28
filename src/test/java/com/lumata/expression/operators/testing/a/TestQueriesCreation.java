@@ -22,8 +22,8 @@ import com.lumata.common.testing.orm.IQueryTemplate;
 import com.lumata.common.testing.system.Environment;
 //import com.lumata.expression.operators.testing.pojo.autogenerator.Agencies;
 //import com.lumata.expression.operators.testing.pojo.autogenerator.BdrEvents;
-import com.lumata.e4o_tenant.schema.Agencies;
-import com.lumata.e4o_tenant.schema.BdrEvents;
+import com.lumata.e4o.schema.tenant.Agencies;
+import com.lumata.e4o.schema.tenant.BdrEvents;
 
 public class TestQueriesCreation {
 

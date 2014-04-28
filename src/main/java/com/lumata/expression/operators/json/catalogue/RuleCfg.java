@@ -13,7 +13,7 @@ import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.expression.operators.exceptions.RuleException;
+import com.lumata.e4o.exceptions.RuleException;
 
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
@@ -60,13 +60,7 @@ public class RuleCfg {
 
 			throw new RuleException(e.getMessage(), e);
 
-		} catch (IOFileException e) {
-
-			logger.error(e.getMessage(), e);
-
-			throw new RuleException(e.getMessage(), e);
-
-		}
+		} 
 
 	}
 
@@ -95,13 +89,7 @@ public class RuleCfg {
 
 			throw new RuleException(e.getMessage(), e);
 
-		} catch (IOFileException e) {
-
-			logger.error(e.getMessage(), e);
-
-			throw new RuleException(e.getMessage(), e);
-
-		}
+		} 
 
 	}
 
@@ -148,13 +136,7 @@ public class RuleCfg {
 
 			throw new RuleException(e.getMessage(), e);
 
-		} catch (IOFileException e) {
-
-			logger.error(e.getMessage(), e);
-
-			throw new RuleException(e.getMessage(), e);
-
-		}
+		} 
 
 		return finalList;
 

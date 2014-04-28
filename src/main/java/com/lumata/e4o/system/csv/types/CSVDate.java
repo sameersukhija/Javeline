@@ -3,9 +3,9 @@ package com.lumata.e4o.system.csv.types;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.csv.annotations.CSVMethod;
 import com.lumata.e4o.system.csv.annotations.CSVFieldDate;
-import com.lumata.expression.operators.exceptions.CDRException;
 
 @CSVFieldDate
 public class CSVDate {

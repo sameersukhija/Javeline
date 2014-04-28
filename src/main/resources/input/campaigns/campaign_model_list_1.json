@@ -1,0 +1,45 @@
+{
+	"campaignModels": [
+		{
+			"enabled": true,
+			"name": "CMBonus",
+			"description": "CMBonus",
+			"campaignType": "",
+			"useHierarchy": false,
+			"events": [
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/recharge", "time": { "starTime": "23:00:00", "durationType": "Relative", "durationValue": "20", "durationTimeType": "Days" }, "delete": false },
+						{ "name": "Commodities.Credit.Bonus1", "value": "200", "option":"/recharge", "time": null, "delete": false }							
+					],
+					"beneficiary": true,
+					"notifications": [
+						{ 
+							"tongue": "English",
+							"type": "SMS",
+							"text": "test sms"
+						}
+					],
+					"delete": false
+				},
+				{	
+					"eventType":"Lifecycle.Data", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Commodities.Credit.Points", "value": "100", "option":"/create", "time": null, "delete": false },
+						{ "name": "Commodities.Credit.Points", "value": "200", "option":"/update", "time": null, "delete": false }							
+					],
+					"beneficiary": false,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		}
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+}

@@ -90,6 +90,11 @@ public class CDRClassGenerator {
 				return Arrays.asList( Msisdn.class, Date.class, BundleName.class, BundleBalance.class, BundlePurchased.class );
 			}
 		},
+		BundleMultitenant {	
+			public List<Class<? extends Annotation>> fields() {
+				return Arrays.asList( Msisdn.class, Date.class, BundleName.class, BundleBalance.class, BundlePurchased.class, TenantId.class  );
+			}
+		},
 		Voucher {	
 			public List<Class<? extends Annotation>> fields() {
 				return Arrays.asList( Msisdn.class, VoucherCode.class, Date.class, Location.class );

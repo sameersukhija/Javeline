@@ -1,0 +1,6 @@
+{
+  "commodities": { 
+  	"externalBonus": "###input/commodities/###externalBonus###",
+	"externalFreeSms": "###input/commodities/###externalFreeSms###"
+  }
+}

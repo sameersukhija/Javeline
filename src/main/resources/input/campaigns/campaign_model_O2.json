@@ -1,0 +1,21 @@
+{
+	"campaignModels": {
+		"bonus1": {
+			"name": "CMBonus",
+			"description": "CMBonus",
+			"eventList": {
+				"event1" : {	
+					"eventType":"REVENUE", 
+					"criteria": null, 
+					"actions": {
+						"action1": { "name": "COMMODITIES.POINTS", "value": "100", "option":"/recharge" },
+						"action2": { "name": "COMMODITIES.POINTS", "value": "200", "option":"/recharge" }							
+					}
+				}
+			}
+		}
+	},
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+}

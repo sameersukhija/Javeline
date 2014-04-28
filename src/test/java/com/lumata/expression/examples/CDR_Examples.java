@@ -8,6 +8,8 @@ import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.Environment;
+import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.schema.tenant.Profiles;
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.CDRClassGenerator;
 import com.lumata.e4o.system.cdr.types.CDRBundle;
@@ -20,9 +22,6 @@ import com.lumata.e4o.system.csv.types.CSVDateIncrement;
 import com.lumata.e4o.system.csv.types.CSVSchemaTable;
 import com.lumata.e4o.system.csv.types.CSVString;
 import com.lumata.e4o.system.csv.types.CSVDate.CDRDateFormat;
-import com.lumata.e4o_tenant.schema.Agencies;
-import com.lumata.e4o_tenant.schema.Profiles;
-import com.lumata.expression.operators.exceptions.CDRException;
 
 public class CDR_Examples {
 	
@@ -41,7 +40,7 @@ public class CDR_Examples {
 		cdr_generator.generate();	
 
 	}
-	
+
 	// CDR using
 	@Test( enabled = generate_cdr )
 	public void cdr_history_strategies() throws IOFileException, CDRException {

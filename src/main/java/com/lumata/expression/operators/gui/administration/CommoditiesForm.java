@@ -7,16 +7,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.expression.operators.exceptions.FormException;
-import com.lumata.expression.operators.json.administration.CommoditiesCfg;
+import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.json.administration.JSONCommodities;
 
 public class CommoditiesForm extends AdministrationForm {
 
 	private static final Logger logger = LoggerFactory.getLogger(CommoditiesForm.class);
 	
-	private CommoditiesCfg commoditiesCfg;
+	private JSONCommodities commoditiesCfg;
 	
-	public CommoditiesForm( SeleniumWebDriver selenium, CommoditiesCfg commoditiesCfg, long timeout, long interval ) {
+	public CommoditiesForm( SeleniumWebDriver selenium, JSONCommodities commoditiesCfg, long timeout, long interval ) {
 		
 		super(selenium, timeout, interval);
 		
@@ -32,7 +32,7 @@ public class CommoditiesForm extends AdministrationForm {
 		
 	}
 	
-	public CommoditiesForm addCommodities() throws FormException {
+	public CommoditiesForm addCommoditiesList() throws FormException {
 		
 		ArrayList<String> commodities = commoditiesCfg.list();
 		
@@ -41,7 +41,7 @@ public class CommoditiesForm extends AdministrationForm {
 			commoditiesCfg.setCurrentCommodity( commodities.get( commodityIndex ) );
 			
 			clickId( "gwt-debug-Add Bonus" ).
-			setCommodity().
+			createCommodity().
 			saveCommodity();
 					
 		}
@@ -50,7 +50,7 @@ public class CommoditiesForm extends AdministrationForm {
 		
 	}
 
-	public CommoditiesForm setCommodity() throws FormException {
+	public CommoditiesForm createCommodity() throws FormException {
 					
 		selectById( "gwt-debug-Bonus Type", commoditiesCfg.getType() ).
 		typeById( "gwt-debug-Bonus Name", commoditiesCfg.getName() ).
@@ -73,7 +73,7 @@ public class CommoditiesForm extends AdministrationForm {
 		
 		try {
 		
-			if( isDisplayedById( "gwt-debug-Bonus Save" ) ) { 
+			if( isDisplayed() ) { 
 				
 				clickId( "gwt-debug-Bonus Cancel" );
 				
@@ -96,6 +96,14 @@ public class CommoditiesForm extends AdministrationForm {
 		
 		return this;
 		
+	}
+	
+	public JSONCommodities getCommodityFormCfg() {
+		return this.commoditiesCfg;
+	}
+	
+	public void setCommodityFormCfg( JSONCommodities commoditiesCfg ) {
+		this.commoditiesCfg = commoditiesCfg;
 	}
 	
 }

@@ -2,9 +2,9 @@ package com.lumata.e4o.system.csv.types;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.csv.annotations.CSVFieldString;
 import com.lumata.e4o.system.csv.annotations.CSVMethod;
-import com.lumata.expression.operators.exceptions.CDRException;
 
 @CSVFieldString
 public class CSVString {

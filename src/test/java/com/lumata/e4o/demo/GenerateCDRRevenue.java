@@ -22,9 +22,9 @@ import com.lumata.common.testing.log.Log;
 import static com.lumata.common.testing.orm.Query.select;
 
 import com.lumata.common.testing.system.Environment;
+import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.system.cdr.types.CDRRevenue;
-import com.lumata.e4o_tenant.schema.Subscribers;
-import com.lumata.expression.operators.exceptions.CDRException;
 
 public class GenerateCDRRevenue {
 	

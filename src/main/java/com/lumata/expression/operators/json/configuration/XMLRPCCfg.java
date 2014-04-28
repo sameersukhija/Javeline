@@ -14,7 +14,7 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.system.Security;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.expression.operators.exceptions.XMLRPCException;
+import com.lumata.e4o.exceptions.XMLRPCException;
 
 
 /**
@@ -54,14 +54,8 @@ public class XMLRPCCfg {
 			
 			throw new XMLRPCException( e.getMessage(), e );
 			
-		} catch( IOFileException e ) {			
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new XMLRPCException( e.getMessage(), e );
-			
-		} 			
-			
+		} 
+		
 	}
 	
 	/* Create a XMLRPC call configuration loading the JSONObject from the default folder ( <home of the project> ) or resource folder ( src/main/resources/lumata-common-testing ) */
@@ -83,13 +77,7 @@ public class XMLRPCCfg {
 			
 			throw new XMLRPCException( e.getMessage(), e );
 			
-		} catch( IOFileException e ) {			
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new XMLRPCException( e.getMessage(), e );
-			
-		} 			
+		} 		
 			
 	}
 	

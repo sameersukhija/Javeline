@@ -19,8 +19,8 @@ import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.e4o_tenant.schema.FilesData;
-import com.lumata.e4o_tenant.schema.FilesMeta;
+import com.lumata.e4o.schema.tenant.FilesData;
+import com.lumata.e4o.schema.tenant.FilesMeta;
 
 import static com.lumata.common.testing.orm.Query.*;
 import static com.lumata.common.testing.orm.Filter.*;

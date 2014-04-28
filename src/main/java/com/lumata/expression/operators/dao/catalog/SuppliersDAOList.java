@@ -88,11 +88,7 @@ private static final Logger logger = LoggerFactory.getLogger( SuppliersDAOList.c
 			
 			logger.error( e.getMessage(), e );
 			
-		} catch( IOFileException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-		}	
+		} 
 				
 	}
 	

@@ -13,7 +13,7 @@ import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.expression.operators.exceptions.OfferException;
+import com.lumata.e4o.exceptions.OfferException;
 
 
 /**
@@ -52,12 +52,6 @@ public class OfferCfg {
 			
 			throw new OfferException( e.getMessage(), e );
 			
-		} catch( IOFileException e ) {			
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new OfferException( e.getMessage(), e );
-			
 		} 			
 			
 	}
@@ -80,13 +74,7 @@ public class OfferCfg {
 			
 			throw new OfferException( e.getMessage(), e );
 			
-		} catch( IOFileException e ) {			
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new OfferException( e.getMessage(), e );
-			
-		} 			
+		} 		
 			
 	}
 	

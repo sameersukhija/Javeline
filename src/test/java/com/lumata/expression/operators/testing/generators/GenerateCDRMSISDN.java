@@ -22,6 +22,7 @@ import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.ServicesType;
 import com.lumata.expression.operators.generators.CDRMSISDNGenerator;
 
+@Deprecated /** depends from CDR deprecated class */
 public class GenerateCDRMSISDN {
 
 	private static final Logger logger = LoggerFactory.getLogger( GenerateCDRMSISDN.class );

@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.common.collect.ImmutableMap;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.expression.operators.gui.common.Form;
+import com.lumata.e4o.gui.common.Form;
 import com.lumata.expression.operators.json.loyalty.LoyaltyCreateCfg;
 import com.lumata.expression.operators.json.loyalty.LoyaltyManageCfg;
 

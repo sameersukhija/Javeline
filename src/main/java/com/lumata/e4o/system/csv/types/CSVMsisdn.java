@@ -1,8 +1,8 @@
 package com.lumata.e4o.system.csv.types;
 
+import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.csv.annotations.CSVMethod;
 import com.lumata.e4o.system.csv.annotations.CSVFieldMsisdn;
-import com.lumata.expression.operators.exceptions.CDRException;
 
 @CSVFieldMsisdn
 public class CSVMsisdn {

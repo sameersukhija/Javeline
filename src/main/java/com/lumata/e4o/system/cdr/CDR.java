@@ -32,6 +32,11 @@ import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.ServicesType;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Service;
+import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.schema.tenant.Profiles;
+import com.lumata.e4o.schema.tenant.Statuses;
+import com.lumata.e4o.schema.tenant.SupportedRatePlan;
+import com.lumata.e4o.schema.tenant.VoucherCodes;
 /** cdr field types */
 import com.lumata.e4o.system.cdr.annotations.Msisdn;
 import com.lumata.e4o.system.cdr.annotations.Date;
@@ -75,11 +80,6 @@ import com.lumata.e4o.system.csv.types.ICSVEnum;
 import com.lumata.e4o.system.csv.types.CSVSchemaTable;
 import com.lumata.e4o.system.environment.ExpressionKernelCommands;
 /** schema classes */
-import com.lumata.e4o_tenant.schema.Profiles;
-import com.lumata.e4o_tenant.schema.Statuses;
-import com.lumata.e4o_tenant.schema.SupportedRatePlan;
-import com.lumata.e4o_tenant.schema.VoucherCodes;
-import com.lumata.expression.operators.exceptions.CDRException;
 
 /** CDR exception */
 //import com.lumata.expression.operators.exceptions.CDRException;

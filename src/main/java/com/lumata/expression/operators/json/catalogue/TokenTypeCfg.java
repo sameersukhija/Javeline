@@ -13,7 +13,7 @@ import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.expression.operators.exceptions.TokenTypeException;
+import com.lumata.e4o.exceptions.TokenTypeException;
 
 
 /**
@@ -52,12 +52,6 @@ public class TokenTypeCfg {
 			
 			throw new TokenTypeException( e.getMessage(), e );
 			
-		} catch( IOFileException e ) {			
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new TokenTypeException( e.getMessage(), e );
-			
 		} 			
 			
 	}
@@ -75,12 +69,6 @@ public class TokenTypeCfg {
 			}
 									
 		} catch( JSONSException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new TokenTypeException( e.getMessage(), e );
-			
-		} catch( IOFileException e ) {			
 			
 			logger.error( e.getMessage(), e );
 			
@@ -121,12 +109,6 @@ public class TokenTypeCfg {
 			throw new TokenTypeException( e.getMessage(), e );
 			
 		} catch( JSONSException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new TokenTypeException( e.getMessage(), e );
-			
-		} catch( IOFileException e ) {			
 			
 			logger.error( e.getMessage(), e );
 			

@@ -26,17 +26,17 @@ import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
+import com.lumata.e4o.exceptions.CampaignException;
+import com.lumata.e4o.exceptions.CampaignModelException;
+import com.lumata.e4o.exceptions.CommoditiesException;
+import com.lumata.e4o.gui.security.Authorization;
+import com.lumata.e4o.json.administration.JSONCommodities;
 import com.lumata.expression.operators.dao.configuration.ConfigurationDAO;
-import com.lumata.expression.operators.exceptions.CampaignException;
-import com.lumata.expression.operators.exceptions.CampaignModelException;
-import com.lumata.expression.operators.exceptions.CommoditiesException;
 import com.lumata.expression.operators.gui.administration.CommoditiesForm;
 import com.lumata.expression.operators.gui.campaigns.CampaignCreationForm;
 import com.lumata.expression.operators.gui.campaigns.CampaignModelForm;
-import com.lumata.expression.operators.gui.security.Authorization;
-import com.lumata.expression.operators.json.administration.CommoditiesCfg;
 import com.lumata.expression.operators.json.campaigns.CampaignCfg;
-import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
+//import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
 import com.lumata.expression.operators.pojo.configuration.ConfigurationTypes;
 
 public class ConfigureCampaign {
@@ -125,7 +125,7 @@ public class ConfigureCampaign {
 	@Test(enabled=false, priority = 3 )
 	public void setCommodities( @Optional("qa") String tenant ) throws CommoditiesException, JSONSException, IOFileException {
 		
-		CommoditiesForm commodityForm = new CommoditiesForm(null, new CommoditiesCfg( "input/commodities", "external_bonus" ), 100000, 5 );
+		CommoditiesForm commodityForm = new CommoditiesForm(null, new JSONCommodities( "input/commodities", "external_bonus" ), 100000, 5 );
 					
 		//Assert.assertTrue( commodityForm.open() );		
 		
@@ -136,10 +136,10 @@ public class ConfigureCampaign {
 	@Test( enabled = false, priority = 4 )
 	public void loadCampaignModel() throws CampaignModelException {
 
-		CampaignModelCfg cm_bonus = new CampaignModelCfg( "input/campaigns", "cm_bonus", IOLoadingType.RESOURCE );
+//>>>		CampaignModelCfg cm_bonus = new CampaignModelCfg( "input/campaigns", "cm_bonus", IOLoadingType.RESOURCE );
 				
-		Assert.assertTrue( CampaignModelForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
-		Assert.assertTrue( CampaignModelForm.create(seleniumWebDriver, cm_bonus, TIMEOUT, ATTEMPT_TIMEOUT) );	
+//>>>		Assert.assertTrue( CampaignModelForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );
+//>>>		Assert.assertTrue( CampaignModelForm.create(seleniumWebDriver, cm_bonus, TIMEOUT, ATTEMPT_TIMEOUT) );	
 				
     }
 	
