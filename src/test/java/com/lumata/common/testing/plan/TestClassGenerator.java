@@ -15,7 +15,7 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
 
-
+@Test( enabled = false )
 public class TestClassGenerator {
 
 	private static final Logger logger = LoggerFactory.getLogger( TestClassGenerator.class );
@@ -37,7 +37,7 @@ public class TestClassGenerator {
 	}
 	
 	@Parameters({"tenant"})
-	@Test()
+	@Test( enabled = false )
 	public void createDAO( @Optional("qa") String tenant ) throws DataModelException, IOFileException {
 		
 		logger.info( Log.PUTTING.createMessage( "createDAO" , "Create DAO Classes" ) );

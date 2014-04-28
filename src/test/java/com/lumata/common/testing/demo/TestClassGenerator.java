@@ -17,7 +17,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.NetworkEnvironment;
 
-
+@Test( enabled = false )
 public class TestClassGenerator {
 
 	private static final Logger logger = LoggerFactory.getLogger( TestClassGenerator.class );
@@ -27,7 +27,7 @@ public class TestClassGenerator {
 	
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment"})
-	@BeforeClass
+	@BeforeClass( enabled = false )
 	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws EnvironmentException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
@@ -39,7 +39,7 @@ public class TestClassGenerator {
 	}
 	
 	@Parameters({"tenant"})
-	@Test()
+	@Test( enabled = false )
 	public void createDAO( @Optional("qa") String tenant ) throws IOFileException, DataModelException {
 		
 		logger.info( Log.PUTTING.createMessage( "Create DAO Classes" ) );
