@@ -1,4 +1,4 @@
-package com.lumata.expression.interview;
+package com.lumata.interview;
 
 import junit.framework.Assert;
 import static junit.framework.Assert.*;

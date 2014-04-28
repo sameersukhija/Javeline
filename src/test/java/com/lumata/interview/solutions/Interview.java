@@ -1,4 +1,4 @@
-package com.lumata.expression.solutions;
+package com.lumata.interview.solutions;
 
 import junit.framework.Assert;
 
@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.e4o_tenant.schema.Agencies;
+import com.lumata.e4o.schema.tenant.Agencies;
 
 public class Interview {
 	
