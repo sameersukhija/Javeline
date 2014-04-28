@@ -1,4 +1,4 @@
-package com.lumata.common.testing.plan;
+package com.lumata.common.testing.demo;
 
 import org.jboss.resteasy.client.ClientResponse;
 import org.testng.annotations.Test;
@@ -7,7 +7,7 @@ import com.lumata.common.testing.network.RestClient;
 
 public class TestRestClient {
 
-	@Test( timeOut=10000 )
+	@Test
 	public void postRequest() {
 		
 		RestClient restClient = new RestClient();

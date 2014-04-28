@@ -52,13 +52,7 @@ public class Environment {
 			
 			throw new EnvironmentException( e.getMessage(), e );
 			
-		} catch( IOFileException e ) {			
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new EnvironmentException( e.getMessage(), e );
-			
-		} 			
+		} 		
 			
 	}
 	
@@ -76,12 +70,6 @@ public class Environment {
 		}
 									
 		} catch( JSONSException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-			throw new EnvironmentException( e.getMessage(), e );
-			
-		} catch( IOFileException e ) {			
 			
 			logger.error( e.getMessage(), e );
 			

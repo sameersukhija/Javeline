@@ -46,12 +46,17 @@ public final class SeleniumUtils {
 	public static void waitForPageLoading( WebDriver driver, long timeout ) {
 		
 		ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver driver) {
-                return Boolean.valueOf(((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete"));
-            }
+            
+			public Boolean apply( WebDriver driver ) {
+                
+				return Boolean.valueOf(((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete"));
+            
+			}
+			
         };
         
 	    WebDriverWait wait = new WebDriverWait(driver, timeout);
+	    
 	    wait.until(pageLoadCondition);
 		
 	}
@@ -128,7 +133,7 @@ public final class SeleniumUtils {
 		WebElement rootElement = SeleniumUtils.findForComponentDisplayed(selenium, rootSearchBy, rootLocator, timeout, interval);
 		
 		if( rootElement != null ) {
-			System.out.println( rootElement.toString() );
+			
 			switch( searchBy ) {
 			
 				case ID: { elements = rootElement.findElements( By.id(locator) ); break;}
