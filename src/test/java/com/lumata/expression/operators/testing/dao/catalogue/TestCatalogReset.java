@@ -2,7 +2,7 @@ package com.lumata.expression.operators.testing.dao.catalogue;
 
 import java.sql.SQLException;
 
-import junit.framework.Assert;
+import org.testng.Assert;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
