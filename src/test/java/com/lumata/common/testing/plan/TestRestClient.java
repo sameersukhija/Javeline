@@ -7,7 +7,7 @@ import com.lumata.common.testing.network.RestClient;
 
 public class TestRestClient {
 
-	@Test
+	@Test( timeOut=10000 )
 	public void postRequest() {
 		
 		RestClient restClient = new RestClient();

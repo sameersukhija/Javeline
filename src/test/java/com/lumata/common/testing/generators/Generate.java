@@ -14,7 +14,7 @@ public class Generate {
 
 	private static final Logger logger = LoggerFactory.getLogger( Generate.class );
 	
-	@Test
+	@Test(enabled=false)
 	public void getClasses() {
 		
 		ArrayList<Class<?>> classes = Generate.getClassesInPackage( "com.lumata.common.testing.generators.container" );

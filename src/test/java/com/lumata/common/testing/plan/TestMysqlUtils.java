@@ -39,7 +39,7 @@ public class TestMysqlUtils {
 	}	
 	
 	@Parameters({"environment", "tenant"})
-	@Test( enabled = true )
+	@Test( enabled = false )
 	public void mysql_getKeys( @Optional("E4O_QA") String environment, @Optional("qa") String tenant  ) throws EnvironmentException, SQLException {		
 		
 		Environment env = new Environment( "input/environments/", environment, IOFileUtils.IOLoadingType.RESOURCE );

@@ -21,7 +21,7 @@ public class TestSeleniumWebDriver {
 	private static final  Logger logger = LoggerFactory.getLogger( TestSeleniumWebDriver.class );
 					
 	@Parameters({"browser", "environment"})
-	@Test()
+	@Test( enabled=false )
 	public void loadSeleniumWebDriver_1( @Optional("FIREFOX") String browser, @Optional("E4B_QA") String environment ) throws Exception {		
 		
 		Environment env = new Environment( environment, IOFileUtils.IOLoadingType.RESOURCE );
