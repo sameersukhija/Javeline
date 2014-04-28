@@ -1,4 +1,4 @@
-package com.lumata.common.testing.plan;
+package com.lumata.common.testing.demo;
 
 import org.jboss.resteasy.client.ClientResponse;
 import org.testng.annotations.Test;

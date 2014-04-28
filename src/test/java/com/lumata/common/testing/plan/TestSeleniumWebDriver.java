@@ -22,7 +22,7 @@ public class TestSeleniumWebDriver {
 					
 	@Parameters({"browser", "environment"})
 	@Test()
-	public void loadSeleniumWebDriver_1( @Optional("FIREFOX") String browser, @Optional("E4B_QA") String environment ) throws EnvironmentException {		
+	public void loadSeleniumWebDriver_1( @Optional("FIREFOX") String browser, @Optional("E4B_QA") String environment ) throws Exception {		
 		
 		Environment env = new Environment( environment, IOFileUtils.IOLoadingType.RESOURCE );
 		Assert.assertNotNull( env );
@@ -42,7 +42,9 @@ public class TestSeleniumWebDriver {
 		
 		String url = env.getLink() + "/resources/theme/images/expression_logo_white_ext.png";
 		
-		ClientResponse<String> response = RestClient.get( url );
+		RestClient restClient = new RestClient();
+		
+		ClientResponse<String> response = restClient.get( url );
 		
 		Assert.assertEquals( response.getStatus(), 200 );
 		

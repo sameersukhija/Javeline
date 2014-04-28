@@ -53,7 +53,7 @@ public class NetworkEnvironment {
 				
 			this.init();
 			
-		} catch( IOFileException | JSONSException e ) {
+		} catch( JSONSException e ) {
 			
 			logger.error( e.getMessage(), e );
 			
@@ -77,7 +77,7 @@ public class NetworkEnvironment {
 			
 			this.init();
 									
-		} catch( IOFileException | JSONSException e ) {
+		} catch( JSONSException e ) {
 			
 			logger.error( e.getMessage(), e );
 			
