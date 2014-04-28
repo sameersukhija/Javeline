@@ -61,7 +61,7 @@
     "global": {
       "hostName": "global",
       "hostAddress": "192.168.56.151",
-      "hostPort": "3306",
+      "hostPort": "3303",
       "maxActive": 100,
       "maxIdle": 30,
       "maxWait": 10000,
@@ -71,7 +71,7 @@
     "tenant": {
       "hostName": "tenant",
       "hostAddress": "192.168.56.151",
-      "hostPort": "3306",
+      "hostPort": "3303",
       "maxActive": 100,
       "maxIdle": 30,      
       "maxWait": 10000,

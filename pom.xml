@@ -16,8 +16,16 @@
   <name>e4osystemtest</name>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.opt>1.7</java.opt>
+  		<!-- 		
+			Insert here Selenium version 
+		-->
+	  	<selenium.version>2.41.0</selenium.version>
+		<!-- 		
+			Insert here "lumata-common-testng" version 
+		-->	  	
+	  	<lumata.common.version>1.0.2-SNAPSHOT</lumata.common.version>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	    <java.opt>1.7</java.opt>
   </properties>
 
 	<dependencies>
@@ -95,6 +103,8 @@
 			<version>3.1</version>
 		</dependency>
 		
+<!--  		
+		
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -107,6 +117,8 @@
 	        <version>1.7.6</version>
 	    </dependency>
 	    
+-->
+	    
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -116,9 +128,9 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-server</artifactId>
-			<version>2.41.0</version>
+			<version>${selenium.version}</version>
 		</dependency>
-		
+<!--  	
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
@@ -142,7 +154,7 @@
 	        <artifactId>phantomjsdriver</artifactId>
 	        <version>1.0.1</version>
 	    </dependency> 
-    
+   
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-remote-driver</artifactId>
@@ -154,7 +166,7 @@
 			<artifactId>selenium-api</artifactId>
 			<version>2.41.0</version>
 	  	</dependency> 
-    
+-->     
     	<dependency>
 			<groupId>stax</groupId>
 			<artifactId>stax</artifactId>
@@ -178,7 +190,7 @@
 			<artifactId>testng</artifactId>
 			<version>6.8</version>
 		</dependency>
-
+<!--  
     	<dependency>
       		<groupId>junit</groupId>
       		<artifactId>junit</artifactId>
@@ -191,7 +203,7 @@
 			<artifactId>jmock</artifactId>
 			<version>2.6.0</version>
 		</dependency>
-
+-->
 		<dependency>
 			<groupId>com.jcraft</groupId>
 			<artifactId>jsch</artifactId>
@@ -203,6 +215,8 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.25</version>
 		</dependency>
+
+<!-- 
 
 		<dependency>
 			<groupId>hsqldb</groupId>
@@ -220,12 +234,15 @@
 		  	<groupId>org.freemarker</groupId>
 		  	<artifactId>freemarker</artifactId>
 		  	<version>2.3.20</version>
-		</dependency>
+ 		</dependency>
+
+-->
 
         <dependency>
             <groupId>com.lumata.common</groupId>
             <artifactId>lumata-common-testing</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+<!--             <version>1.0.2-SNAPSHOT</version> -->
+            <version>${lumata.common.version}</version>
         </dependency>
         
         <dependency>

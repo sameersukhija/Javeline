@@ -37,6 +37,8 @@ public class LoyaltyCreationForm extends Form {
 		
 		click( "subSectionTab", "//div[contains(text(),'Loyalty')]");
 		
+		// TODO missed: click("subSectionTab", "html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr[1]/td/table//*[text()='Management']");
+		
 		if (isTrueKeyOrMissing(map, "clickAccordion")) 
 			clickFormat( "accordion", "//div//*[text()='%s']", createCfg.getAccordionName());
 	}
