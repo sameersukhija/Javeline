@@ -9,25 +9,28 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.network.RestClient;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.system.NetworkEnvironment;
+import com.lumata.common.testing.system.Server;
 
+@Test( enabled = false )
 public class TestSeleniumWebDriver {
 	
 	private static final  Logger logger = LoggerFactory.getLogger( TestSeleniumWebDriver.class );
 					
 	@Parameters({"browser", "environment"})
 	@Test( enabled=false )
-	public void loadSeleniumWebDriver_1( @Optional("FIREFOX") String browser, @Optional("E4B_QA") String environment ) throws Exception {		
-		
-		Environment env = new Environment( environment, IOFileUtils.IOLoadingType.RESOURCE );
+	public void loadSeleniumWebDriver_1( @Optional("FIREFOX") String browser, @Optional("E4B_QA") String environment, @Optional("actrule") String gui_server ) throws Exception {		
+				
+		NetworkEnvironment env = new NetworkEnvironment( environment, IOFileUtils.IOLoadingType.RESOURCE );
 		Assert.assertNotNull( env );
 		
-		SeleniumWebDriver seleniumWebDriver = new SeleniumWebDriver( browser, env.getBrowserProfile( browser ), env.getLink() );
+		Server gui = env.getServer( gui_server );
+		
+		SeleniumWebDriver seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
 		Assert.assertNotNull( seleniumWebDriver );
 		seleniumWebDriver.windowMaximize();
 		seleniumWebDriver.open("/");
@@ -40,7 +43,7 @@ public class TestSeleniumWebDriver {
 		
 		SeleniumUtils.waitFor( 2000 );
 		
-		String url = env.getLink() + "/resources/theme/images/expression_logo_white_ext.png";
+		String url = gui.getLink() + "/resources/theme/images/expression_logo_white_ext.png";
 		
 		RestClient restClient = new RestClient();
 		
