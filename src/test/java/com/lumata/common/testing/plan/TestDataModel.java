@@ -10,6 +10,7 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.model.DataModel;
 import com.lumata.common.testing.system.ResourceProperties;
 
+@Test( enabled = false )
 public class TestDataModel {
 	
 	/** Load custom properties */
