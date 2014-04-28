@@ -25,7 +25,7 @@ public class TestDataModel {
 	
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment"})
-	@BeforeClass
+	@BeforeClass( enabled = false )
 	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws EnvironmentException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
@@ -35,7 +35,7 @@ public class TestDataModel {
 	}
 	
 	@Parameters({"tenant"})
-	@Test()
+	@Test( enabled = false )
 	public void createDAO( @Optional("qa") String tenant ) throws IOFileException, DataModelException {
 		
 		DataModel dataModel = new DataModel( tenant, env.getDataSource( tenant ), null );
