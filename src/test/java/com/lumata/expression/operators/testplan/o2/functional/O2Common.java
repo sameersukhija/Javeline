@@ -18,9 +18,10 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
-import com.lumata.expression.operators.exceptions.CommoditiesException;
-import com.lumata.expression.operators.exceptions.OfferException;
-import com.lumata.expression.operators.gui.security.Authorization;
+import com.lumata.e4o.exceptions.CommoditiesException;
+import com.lumata.e4o.exceptions.OfferException;
+import com.lumata.e4o.gui.security.Authorization;
+
 
 public class O2Common {
 
