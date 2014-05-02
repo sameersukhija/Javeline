@@ -1,7 +1,6 @@
 package com.lumata.interview;
 
-import junit.framework.Assert;
-import static junit.framework.Assert.*;
+import org.testng.Assert;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +36,7 @@ public class Interview {
 		
 		// 3 - check the id is equals to the previous you have set ( use assertTrue method )
 		Short obtained = dut.getId();
-		assertTrue("Abbiamo perso il numero, atteso "+forced+ " ottenuto "+obtained, forced.equals(obtained) );
+		Assert.assertTrue(forced.equals(obtained), "Abbiamo perso il numero, atteso "+forced+ " ottenuto "+obtained);
 						
 	}
 	

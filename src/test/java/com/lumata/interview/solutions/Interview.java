@@ -1,6 +1,6 @@
 package com.lumata.interview.solutions;
 
-import junit.framework.Assert;
+import org.testng.Assert;
 
 import org.json.JSONArray;
 import org.json.JSONException;
