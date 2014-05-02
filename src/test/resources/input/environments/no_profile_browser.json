@@ -1,20 +1,14 @@
 {
-	"link":"http://no.real.domain",
-	"browsers":{
-		"SAFARI":{
-			
-		},
-		"OPERA":{
-			
-		},
-		"FIREFOX":{
-
-		},
-		"CHROME":{
-			
-		},
-		"IE":{
-			
-		}
-	}
+    "servers": {
+        "better_than_actrule": {
+            "browsers": {
+                "CHROME": {},
+                "FIREFOX": {},
+                "IE": {},
+                "OPERA": {},
+                "SAFARI": {}
+            },
+            "link": "http://no.real.domain"
+        }
+    }
 }

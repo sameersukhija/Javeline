@@ -1,30 +1,26 @@
 {
-	"link":"http://no.real.domain",
-	"browsers":{
-		"SAFARI":{
-			
-		},
-		"OPERA":{
-			
-		},
-		"FIREFOX":{
-			"profile":{
-				"file":{
-					"folder_name":"/home/vincenzo/.mozilla/firefox",
-					"file_name":"ncc8lgcm.default",
-					"loading_type":"FILE"
-				},
-				"options":{
-					"extensions.firebug.allPagesActivation":"on",
-					"extensions.firebug.defaultPanelName":"console"
-				}
-			}
-		},
-		"CHROME":{
-			
-		},
-		"IE":{
-			
-		}
-	}
+    "servers": {
+        "better_than_actrule": {
+            "browsers": {
+                "CHROME": {},
+                "FIREFOX": {
+                    "profile": {
+                        "file": {
+                            "fileName": "ncc8lgcm.default",
+                            "folderName": "/home/vincenzo/.mozilla/firefox",
+                            "loadingType": "FILE"
+                        },
+                        "options": {
+                            "extensions.firebug.allPagesActivation": "on",
+                            "extensions.firebug.defaultPanelName": "console"
+                        }
+                    }
+                },
+                "IE": {},
+                "OPERA": {},
+                "SAFARI": {}
+            },
+            "link": "http://no.real.domain"
+        }
+    }
 }

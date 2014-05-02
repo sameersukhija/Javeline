@@ -11,7 +11,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
@@ -30,6 +29,26 @@ public class NetworkEnvironment {
 	private Map<String, DataSource> dataSources;
 	private Map<String, Service> services;
 	private JSONObject options;
+	
+	/**
+	 * JSON Label for "Data Sources" section
+	 */
+	public static final String DATA_SOURCES_LABEL__ = "dataSources";
+	
+	/**
+	 * JSON Label for "Options" section
+	 */
+	public static final String OPTIONS_LABEL__ 		= "options";
+	
+	/**
+	 * JSON Label for "Servers" section
+	 */
+	public static final String SERVERS_LABEL__ 		= "servers";
+	
+	/**
+	 * JSON Label for "Services" section
+	 */
+	public static final String SERVICES_LABEL__ 	= "services";
 	
 	/* Create an environment from a JSONObject */
 	public NetworkEnvironment( JSONObject environment ) {
@@ -97,7 +116,7 @@ public class NetworkEnvironment {
 			
 			this.setServices();
 			
-			if( !this.envCfg.isNull( "options" ) ) { this.setOptions( this.envCfg.getJSONObject( "options" ) ); }
+			if( !this.envCfg.isNull(OPTIONS_LABEL__) ) { this.setOptions( this.envCfg.getJSONObject(OPTIONS_LABEL__) ); }
 			
 		}
 		
@@ -165,17 +184,17 @@ public class NetworkEnvironment {
 	
 	public void setServers() {
 		
-		if( !envCfg.isNull("servers") ) { 
+		if( !envCfg.isNull(SERVERS_LABEL__) ) { 
 
 			servers = new HashMap<String, Server>();
 			
 			@SuppressWarnings("unchecked")
-			Iterator<String> servers = envCfg.getJSONObject( "servers" ).keys();
+			Iterator<String> servers = envCfg.getJSONObject(SERVERS_LABEL__).keys();
 		   	while( servers.hasNext() ) {
 		    	
 		   		String serverName = servers.next();
 		   		
-				Server server = new Server( envCfg.getJSONObject( "servers" ).getJSONObject( serverName ) );
+				Server server = new Server( envCfg.getJSONObject(SERVERS_LABEL__).getJSONObject( serverName ) );
 				
 				this.servers.put( serverName, server );
 		    
@@ -187,17 +206,17 @@ public class NetworkEnvironment {
 
 	public void setDataSources() {
 		
-		if( !envCfg.isNull("dataSources") ) { 
+		if( !envCfg.isNull(DATA_SOURCES_LABEL__) ) { 
 
 			dataSources = new HashMap<String, DataSource>();
 			
 			@SuppressWarnings("unchecked")
-			Iterator<String> dataSources = envCfg.getJSONObject( "dataSources" ).keys();
+			Iterator<String> dataSources = envCfg.getJSONObject(DATA_SOURCES_LABEL__).keys();
 		   	while( dataSources.hasNext() ) {
 		    	
 		   		String dataSourceName = dataSources.next();
 		   		
-		   		DataSource dataSource = new DataSource( envCfg.getJSONObject( "dataSources" ).getJSONObject( dataSourceName ) );
+		   		DataSource dataSource = new DataSource( envCfg.getJSONObject(DATA_SOURCES_LABEL__).getJSONObject( dataSourceName ) );
 		   		
 		   		this.dataSources.put( dataSourceName, dataSource );
 		   				    
@@ -209,23 +228,23 @@ public class NetworkEnvironment {
 	
 	public void setServices() {
 		
-		if( !envCfg.isNull("services") ) { 
+		if( !envCfg.isNull(SERVICES_LABEL__) ) { 
 
 			services = new HashMap<String, Service>();
 			
 			@SuppressWarnings("unchecked")
-			Iterator<String> services = envCfg.getJSONObject( "services" ).keys();
+			Iterator<String> services = envCfg.getJSONObject( SERVICES_LABEL__ ).keys();
 		   	while( services.hasNext() ) {
 		    	
 		   		String serviceType = services.next();
 		   		
 		   		@SuppressWarnings("unchecked")
-				Iterator<String> serviceServers = envCfg.getJSONObject( "services" ).getJSONObject( serviceType ).keys();
+				Iterator<String> serviceServers = envCfg.getJSONObject(SERVICES_LABEL__).getJSONObject( serviceType ).keys();
 		   		while( serviceServers.hasNext() ) {
 		   			
 		   			String serviceTypeName = serviceServers.next();
 		   			
-		   			Service service = new Service( envCfg.getJSONObject( "services" ).getJSONObject( serviceType ).getJSONObject( serviceTypeName ), serviceType ) ;
+		   			Service service = new Service( envCfg.getJSONObject(SERVICES_LABEL__).getJSONObject( serviceType ).getJSONObject( serviceTypeName ), serviceType ) ;
 		   		
 		   			this.services.put( Service.Type.valueOf( serviceType ).name() + "#" + serviceTypeName, service );
 		   			
@@ -256,7 +275,7 @@ public class NetworkEnvironment {
 		
 		if( this.servers != null ) {
 			
-			serversAsString.append( "\"servers\": { " );
+			serversAsString.append( "\""+SERVERS_LABEL__+"\": { " );
 			
 			for( String serverName : this.servers.keySet() ) {
 				serversAsString.append( "\"" ).append( serverName ).append( "\": ")
@@ -271,7 +290,7 @@ public class NetworkEnvironment {
 		
 		if( this.dataSources != null ) {
 			
-			dataSourcesAsString.append( "\"dataSources\": { " );
+			dataSourcesAsString.append( "\""+DATA_SOURCES_LABEL__+"\": { " );
 			
 			for( String dataSourceName : this.dataSources.keySet() ) {
 				dataSourcesAsString.append( "\"" ).append( dataSourceName ).append( "\": ")
@@ -286,7 +305,7 @@ public class NetworkEnvironment {
 		
 		if( this.services != null ) {
 			
-			servicesAsString.append( "\"services\": { " );
+			servicesAsString.append( "\""+SERVICES_LABEL__+"\": { " );
 			
 			StringBuilder sshServicesAsString = new StringBuilder();
 			
@@ -295,15 +314,18 @@ public class NetworkEnvironment {
 			for( String serviceName : this.services.keySet() ) {
 								
 				String[] service = serviceName.split( "#" );
+
+				Service.Type current = Service.Type.valueOf( service[ 0 ].toLowerCase() );
 								
-				switch( Service.Type.valueOf( service[ 0 ].toLowerCase() ) ) {
+				switch( current ) {
 				
 					case ssh: { 
 						sshServicesAsString.append( "\"" ).append( service[ 1 ] ).append( "\": ");
 						sshServicesAsString.append( this.getSSHService( service[ 1 ] ) ).append( ", " ); 
 						break; 
 					}
-				
+					default:
+						break;
 				}
 						
 			}
@@ -323,7 +345,7 @@ public class NetworkEnvironment {
 							.append( serversAsString ).append( ", " )
 							.append( dataSourcesAsString ).append( ", " )
 							.append( servicesAsString ).append( ", " )
-							.append( "\"options\": " ).append( options.toString() )
+							.append( "\""+OPTIONS_LABEL__+"\": " ).append( options.toString() )
 							.append( " }" );
 		
 		return networkEnvAsString.toString();

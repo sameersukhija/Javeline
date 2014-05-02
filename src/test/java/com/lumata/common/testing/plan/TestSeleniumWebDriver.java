@@ -9,20 +9,17 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.exceptions.EnvironmentException;
+import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.network.RestClient;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.system.Browser;
-import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 
 public class TestSeleniumWebDriver {
 			
-	private Environment env_ = null;
-	private Browser browser_ = null;
+	private NetworkEnvironment env_ = null;
 	private SeleniumWebDriver seleniumWebDriver_ = null;
 	
 	/**
@@ -34,21 +31,33 @@ public class TestSeleniumWebDriver {
 	 */
 	
 	@Test
-	@Parameters({"browser", "environment"})
+	@Parameters({"browser", "environment", "gui_server"})
 	public void noProfileSectionIntoJSON( 	@Optional("FIREFOX") 				String browser, 
-											@Optional("NO_PROFILE_BROWSER") 	String environment ) 
-																				throws EnvironmentException 
+											@Optional("NO_PROFILE_BROWSER") 	String environment, 
+											@Optional("better_than_actrule") 	String gui_server	) 
+																				throws NetworkEnvironmentException 
 	{	
-		loadSeleniumFirefoxDriver(browser, environment);
+		loadSeleniumFirefoxDriver(browser, environment, gui_server);
 	}	
 	
 	@Test
-	@Parameters({"browser", "environment"})
+	@Parameters({"browser", "environment", "gui_server"})
 	public void realProfileIntoJSON( 		@Optional("FIREFOX") 				String browser, 
-											@Optional("REAL_PROFILE_FOLDER") 	String environment ) 
-																				throws EnvironmentException 
+											@Optional("REAL_PROFILE_FOLDER") 	String environment, 
+											@Optional("better_than_actrule") 	String gui_server	)
+																				throws NetworkEnvironmentException 
 	{	
-		loadSeleniumFirefoxDriver(browser, environment);
+		loadSeleniumFirefoxDriver(browser, environment, gui_server);
+	}		
+	
+	@Test
+	@Parameters({"browser", "environment", "gui_server"})
+	public void unpackProfileFromJar( 		@Optional("FIREFOX") 				String browser, 
+											@Optional("E4O_TESTING")		 	String environment, 
+											@Optional("better_than_actrule") 	String gui_server	)
+																				throws NetworkEnvironmentException 
+	{	
+		loadSeleniumFirefoxDriver(browser, environment, gui_server);
 	}		
 	
 	/**
@@ -58,18 +67,18 @@ public class TestSeleniumWebDriver {
 	 * @param environment
 	 * @throws EnvironmentException
 	 */
-	private void loadSeleniumFirefoxDriver( String browser, String environment) throws EnvironmentException 
+	private void loadSeleniumFirefoxDriver( String browser, String environment, String gui_server) throws NetworkEnvironmentException 
 	{		
 		Reporter.log("Init \"Environment\" object", true);
-		env_ = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		env_ = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		Assert.assertNotNull( env_ , "NetworkEnvironment is null during init phase!");
-		
-		Reporter.log("Init \"Browser\" object", true);
-		browser_ = new Browser(env_.getBrowser(browser), browser);		
-		Assert.assertNotNull( browser_ , "Browser is null during init phase!");		
+
+		Reporter.log("Init \"Server\" object", true);
+		Server gui = env_.getServer(gui_server);
+		Assert.assertNotNull( gui, "Gui Server object is null!");
 		
 		Reporter.log("Startup \"SeleniumWebDriver\" object.", true);
-		seleniumWebDriver_ = new SeleniumWebDriver( browser_, env_.getLink() );
+		seleniumWebDriver_ = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
 		Assert.assertNotNull( seleniumWebDriver_ , "SeleniumWebDriver is null!");
 		
 		seleniumWebDriver_.windowMaximize();

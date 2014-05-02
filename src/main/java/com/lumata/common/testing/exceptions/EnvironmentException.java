@@ -9,6 +9,7 @@ import com.lumata.common.testing.response.ResponseCodes;
  *
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
+ * @deprecated
  */
 public class EnvironmentException extends Exception
 {

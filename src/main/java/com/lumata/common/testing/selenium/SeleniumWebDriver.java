@@ -75,11 +75,7 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 	 * @return an instance of WebDriver object
 	 */
 	public static WebDriver getLocalWebDriver( Browser browser ) {
-		
-		/**
-		 * START - REFACTORING FIREFOX PROFILE LOADING
-		 */
-		
+	
 		WebDriver resp = null;
 		
 		switch( BrowserType.valueOf( browser.getType().toString().toUpperCase() ) ) {
@@ -97,17 +93,17 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 					// there is a profile section
 					if( browserProfile != null ) {
 						
+						JSONObject browserProfileFileInfo = browser.getFile();
+						
 						// there is a profile folder description
-						if( !browserProfile.isNull("file") ) { 
+						if( browserProfileFileInfo != null ) { 
 
 							StringBuilder profilePath = new StringBuilder();
-								
-							JSONObject browserProfileFileInfo = browserProfile.getJSONObject( "file" );
 							
-							IOLoadingType loadingProcedure = IOLoadingType.valueOf( browserProfileFileInfo.getString("loading_type").toUpperCase() );
+							IOLoadingType loadingProcedure = (IOLoadingType) browser.getFileLoadingType();
 							
-							String profileFolder = browserProfileFileInfo.getString("folder_name");
-							String profileName = browserProfileFileInfo.getString("file_name");
+							String profileFolder = browser.getFileFolderName();
+							String profileName = browser.getFileName();
 							
 							// the profile is a "resource" into class path application
 							if( loadingProcedure.equals( IOLoadingType.RESOURCE ) ) {
@@ -175,10 +171,7 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 					resp = new FirefoxDriver();
 				
 				break;
-				
-				/**
-				 * STOP - REFACTORING FIREFOX PROFILE LOADING
-				 */				
+		
 			}
 			case IE: { resp = new InternetExplorerDriver(); break; }
 			case OPERA: { resp = new OperaDriver(); break; }
@@ -206,32 +199,28 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 		
 			case CHROME: { resp = new ChromeDriver(); break; }
 			case FIREFOX: { 
-								
-				/**
-				 * START - REFACTORING FIREFOX PROFILE LOADING
-				 */
-				
+					
 				FirefoxProfile profile = null;
 				
 				try {				
 					
 					if( browserProfile != null ) {
 						
-						JSONObject browserProfileInfo = browserProfile.getJSONObject( "profile" );
+						JSONObject browserProfileInfo = browserProfile.getJSONObject(Browser.PROFILE_LABEL__);
 
-						if( !browserProfileInfo.isNull("file") ) { 
+						if( !browserProfileInfo.isNull(Browser.FILE_LABEL__) ) { 
 							
-							JSONObject browserProfileFileInfo = browserProfileInfo.getJSONObject( "file" );
+							JSONObject browserProfileFileInfo = browserProfileInfo.getJSONObject(Browser.FILE_LABEL__);
 							
 							StringBuilder path = new StringBuilder();
 									
-							if( IOFileUtils.IOLoadingType.valueOf( browserProfileFileInfo.getString("loading_type").toUpperCase() ).equals( IOFileUtils.IOLoadingType.RESOURCE ) ) {
+							if( IOFileUtils.IOLoadingType.valueOf( browserProfileFileInfo.getString(Browser.LOADING_TYPE_LABEL__).toUpperCase() ).equals( IOFileUtils.IOLoadingType.RESOURCE ) ) {
 								
 								path.append( System.getProperty( "user.dir" ) ).append( "/src/main/resources/" );
 								
 							}
 							
-							path.append( IOFileUtils.buildPath( browserProfileFileInfo.getString("folder_name"), browserProfileFileInfo.getString("file_name") ) );
+							path.append( IOFileUtils.buildPath( browserProfileFileInfo.getString(Browser.LOADING_TYPE_LABEL__), browserProfileFileInfo.getString(Browser.FILE_NAME_LABEL__) ) );
 							
 							profile = new FirefoxProfile( new File( path.toString() ) ); 
 							
@@ -239,9 +228,9 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 						
 						}
 					
-						if( !browserProfileInfo.isNull("options") ) {
+						if( !browserProfileInfo.isNull(Browser.OPTIONS_LABEL__) ) {
 							
-							JSONObject profileOpts = browserProfileInfo.getJSONObject("options");
+							JSONObject profileOpts = browserProfileInfo.getJSONObject(Browser.OPTIONS_LABEL__);
 							
 							@SuppressWarnings("unchecked")
 							Iterator<String> keys = profileOpts.keys();
@@ -272,10 +261,6 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 					logger.error( e.getMessage(), e );
 					
 				}
-
-			/**
-			 * STOP - REFACTORING FIREFOX PROFILE LOADING
-			 */
 
 				if ( profile != null )
 					resp = new FirefoxDriver(profile);

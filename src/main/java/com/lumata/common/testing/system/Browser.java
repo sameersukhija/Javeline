@@ -25,40 +25,91 @@ public class Browser {
 	private JSONObject options;
 	private Enum<IOFileUtils.IOLoadingType> fileLoadingType; 
 		
+	/**
+	 * JSON Label for "Profile" section
+	 */
+	public static final String PROFILE_LABEL__ 		= "profile";
+	
+	/**
+	 * JSON Label for "File" section
+	 */
+	public static final String FILE_LABEL__ 		= "file";
+	
+	/**
+	 * JSON Label for "Folder Name" section
+	 */
+	public static final String FOLDER_NAME_LABEL__ 	= "folderName";
+	
+	/**
+	 * JSON Label for "File Name" section
+	 */
+	public static final String FILE_NAME_LABEL__ 	= "fileName";	
+	
+	/**
+	 * JSON Label for "Loading Type" section
+	 */
+	public static final String LOADING_TYPE_LABEL__	= "loadingType";		
+	
+	/**
+	 * JSON Label for "Options" section
+	 */
+	public static final String OPTIONS_LABEL__ 		= "options";	
+	
+	/**
+	 * 
+	 */
 	public Browser() {}
 	
+	/**
+	 * 
+	 * @param service
+	 * @param type
+	 */
 	public Browser( JSONObject service, String type ) {
 		
 		this( service, Type.valueOf( type.toLowerCase() ) );
 		
 	}
 
+	/**
+	 * 
+	 * @param browser
+	 * @param type
+	 */
 	public Browser( JSONObject browser, Type type ) {
 		
-		this.browserCfg = browser;
+		logger.debug("Init Browser object : " + type);
 		
+		this.browserCfg = browser;
 		this.type = type; 
 		
-		if( !browserCfg.isNull("profile") ) { 
-			
-			this.profile = browserCfg.getJSONObject("profile"); 
-			
-			if( !browserCfg.getJSONObject("profile").isNull("file") ) { 
-				
-				this.file = browserCfg.getJSONObject("profile").getJSONObject("file"); 
-				
-				if( !browserCfg.getJSONObject("profile").getJSONObject("file").isNull("folderName") ) { this.fileFolderName = browserCfg.getJSONObject("profile").getJSONObject("file").getString("folderName"); }
-				
-				if( !browserCfg.getJSONObject("profile").getJSONObject("file").isNull("fileName") ) { this.fileName = browserCfg.getJSONObject("profile").getJSONObject("file").getString("fileName"); }
-				
-				if( !browserCfg.getJSONObject("profile").getJSONObject("file").isNull("loadingType") ) { this.fileLoadingType = IOFileUtils.IOLoadingType.valueOf( browserCfg.getJSONObject("profile").getJSONObject("file").getString("loadingType").toUpperCase() ); }
-				
-			}
-						
-		}
+		if( !browserCfg.isNull(PROFILE_LABEL__) ) { 
 		
-		if( !browserCfg.isNull("options") ) { this.options = browserCfg.getJSONObject("options"); }
+			logger.debug("Browser object (" + type + ") contains profile section.");
+			
+			this.profile = browserCfg.getJSONObject(PROFILE_LABEL__); 
+			
+			if( !this.profile.isNull(FILE_LABEL__) ) {
 				
+				logger.debug("Browser object (" + type + ") contains file section.");
+				
+				this.file = this.profile.getJSONObject(FILE_LABEL__); 
+				
+				if( !this.file.isNull(FOLDER_NAME_LABEL__) )
+					this.fileFolderName = this.file.getString(FOLDER_NAME_LABEL__);
+				
+				if( !this.file.isNull(FILE_NAME_LABEL__) )
+					this.fileName = this.file.getString(FILE_NAME_LABEL__);
+				
+				if( !this.file.isNull(LOADING_TYPE_LABEL__) )
+					this.fileLoadingType = IOFileUtils.IOLoadingType.valueOf( this.file.getString(LOADING_TYPE_LABEL__).toUpperCase() ); 	
+			}	
+		}
+		else
+			logger.debug("Browser object with type " + type + " is empty.");
+		
+		if( !browserCfg.isNull(OPTIONS_LABEL__) )
+			this.options = browserCfg.getJSONObject(OPTIONS_LABEL__); 
 	}
  
 	public Enum<Type> getType() {
@@ -125,7 +176,6 @@ public class Browser {
 	public String toString() {
 				
 		return ( this.browserCfg != null ? this.browserCfg.toString() : "{}" );
-		
 	}
 	
 }
