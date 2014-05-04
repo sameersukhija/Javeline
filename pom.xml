@@ -317,7 +317,7 @@
 						<exclude>**/plan/TestResourceProperties.java</exclude>
 						<exclude>**/demo/TestRestClient.java</exclude>
 						<exclude>**/plan/TestSecurity.java</exclude>
-<!-- 						<exclude>**/plan/TestSeleniumWebDriver.java</exclude> -->
+						<exclude>**/plan/TestSeleniumWebDriver.java</exclude>
 						<exclude>**/plan/TestSFTP.java</exclude>
 						<exclude>**/plan/TestSSHExec.java</exclude>
 				    </excludes>
