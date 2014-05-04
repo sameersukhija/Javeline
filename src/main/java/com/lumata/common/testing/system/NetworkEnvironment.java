@@ -33,22 +33,22 @@ public class NetworkEnvironment {
 	/**
 	 * JSON Label for "Data Sources" section
 	 */
-	public static final String DATA_SOURCES_LABEL__ = "dataSources";
+	private static final String DATA_SOURCES_LABEL__ = "dataSources";
 	
 	/**
 	 * JSON Label for "Options" section
 	 */
-	public static final String OPTIONS_LABEL__ 		= "options";
+	private static final String OPTIONS_LABEL__ 		= "options";
 	
 	/**
 	 * JSON Label for "Servers" section
 	 */
-	public static final String SERVERS_LABEL__ 		= "servers";
+	private static final String SERVERS_LABEL__ 		= "servers";
 	
 	/**
 	 * JSON Label for "Services" section
 	 */
-	public static final String SERVICES_LABEL__ 	= "services";
+	private static final String SERVICES_LABEL__ 	= "services";
 	
 	/* Create an environment from a JSONObject */
 	public NetworkEnvironment( JSONObject environment ) {

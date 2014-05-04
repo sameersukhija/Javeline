@@ -69,7 +69,7 @@ public class TestSeleniumWebDriver {
 	 */
 	private void loadSeleniumFirefoxDriver( String browser, String environment, String gui_server) throws NetworkEnvironmentException 
 	{		
-		Reporter.log("Init \"Environment\" object", true);
+		Reporter.log("Init \"NetworkEnvironment\" object", true);
 		env_ = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		Assert.assertNotNull( env_ , "NetworkEnvironment is null during init phase!");
 

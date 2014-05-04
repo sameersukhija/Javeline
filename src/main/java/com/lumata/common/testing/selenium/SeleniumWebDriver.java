@@ -48,19 +48,38 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
         SAFARI;			
 	}
 
+	/**
+	 * New SeleniumWebDriver instance
+	 * 
+	 * @param browser is the <b>Browser</b> from input configuration
+	 * @param baseUrl is the base URL for startup
+	 */
 	public SeleniumWebDriver ( Browser browser, String baseUrl ) {
 		
 		super( getLocalWebDriver( browser ), baseUrl );
-		
 	}
-
-	@Deprecated
+	
+	/**
+	 * 
+	 * @param browser
+	 * @param browserProfile
+	 * @param baseUrl
+	 * 
+	 * @deprecated use SeleniumWebDriver ( Browser browser, String baseUrl )
+	 */
 	public SeleniumWebDriver ( String browser, JSONObject browserProfile, String baseUrl ) {
 		
 		super(getLocalWebDriver( browser, browserProfile ), baseUrl);
 		
 	}
 	
+	/**
+	 * For Selenium Grid application
+	 * 
+	 * @param baseBrowser
+	 * @param baseUrl
+	 * @param baseHubAddress
+	 */
 	public SeleniumWebDriver ( BrowserType baseBrowser, String baseUrl, String baseHubAddress ) {
 		
 		super(getRemoteWebDriver( baseBrowser, baseHubAddress ), baseUrl);
@@ -189,8 +208,9 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 	 * @param browserProfile
 	 * 
 	 * @return an instance of WebDriver object
+	 * 
+	 * @deprecated use getLocalWebDriver( Browser browser )
 	 */
-	@Deprecated
 	public static WebDriver getLocalWebDriver( String browser, JSONObject browserProfile ) {
 		
 		WebDriver resp = null;
@@ -206,21 +226,21 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 					
 					if( browserProfile != null ) {
 						
-						JSONObject browserProfileInfo = browserProfile.getJSONObject(Browser.PROFILE_LABEL__);
+						JSONObject browserProfileInfo = browserProfile.getJSONObject("profile");
 
-						if( !browserProfileInfo.isNull(Browser.FILE_LABEL__) ) { 
+						if( !browserProfileInfo.isNull("file") ) { 
 							
-							JSONObject browserProfileFileInfo = browserProfileInfo.getJSONObject(Browser.FILE_LABEL__);
+							JSONObject browserProfileFileInfo = browserProfileInfo.getJSONObject("file");
 							
 							StringBuilder path = new StringBuilder();
 									
-							if( IOFileUtils.IOLoadingType.valueOf( browserProfileFileInfo.getString(Browser.LOADING_TYPE_LABEL__).toUpperCase() ).equals( IOFileUtils.IOLoadingType.RESOURCE ) ) {
+							if( IOFileUtils.IOLoadingType.valueOf( browserProfileFileInfo.getString("loadingType").toUpperCase() ).equals( IOFileUtils.IOLoadingType.RESOURCE ) ) {
 								
 								path.append( System.getProperty( "user.dir" ) ).append( "/src/main/resources/" );
 								
 							}
 							
-							path.append( IOFileUtils.buildPath( browserProfileFileInfo.getString(Browser.LOADING_TYPE_LABEL__), browserProfileFileInfo.getString(Browser.FILE_NAME_LABEL__) ) );
+							path.append( IOFileUtils.buildPath( browserProfileFileInfo.getString("loadingType"), browserProfileFileInfo.getString("fileName") ) );
 							
 							profile = new FirefoxProfile( new File( path.toString() ) ); 
 							
@@ -228,9 +248,9 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 						
 						}
 					
-						if( !browserProfileInfo.isNull(Browser.OPTIONS_LABEL__) ) {
+						if( !browserProfileInfo.isNull("options") ) {
 							
-							JSONObject profileOpts = browserProfileInfo.getJSONObject(Browser.OPTIONS_LABEL__);
+							JSONObject profileOpts = browserProfileInfo.getJSONObject("options");
 							
 							@SuppressWarnings("unchecked")
 							Iterator<String> keys = profileOpts.keys();

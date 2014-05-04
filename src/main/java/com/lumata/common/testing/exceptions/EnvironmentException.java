@@ -10,6 +10,7 @@ import com.lumata.common.testing.response.ResponseCodes;
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  * @deprecated
+ * use the class <b>NetworkEnvironmentException</b> instead
  */
 public class EnvironmentException extends Exception
 {

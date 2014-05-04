@@ -28,32 +28,32 @@ public class Browser {
 	/**
 	 * JSON Label for "Profile" section
 	 */
-	public static final String PROFILE_LABEL__ 		= "profile";
+	private static final String PROFILE_LABEL__ 			= "profile";
 	
 	/**
 	 * JSON Label for "File" section
 	 */
-	public static final String FILE_LABEL__ 		= "file";
+	private static final String FILE_LABEL__ 				= "file";
 	
 	/**
 	 * JSON Label for "Folder Name" section
 	 */
-	public static final String FOLDER_NAME_LABEL__ 	= "folderName";
+	private static final String FOLDER_NAME_LABEL__ 		= "folderName";
 	
 	/**
 	 * JSON Label for "File Name" section
 	 */
-	public static final String FILE_NAME_LABEL__ 	= "fileName";	
+	private static final String FILE_NAME_LABEL__ 			= "fileName";	
 	
 	/**
 	 * JSON Label for "Loading Type" section
 	 */
-	public static final String LOADING_TYPE_LABEL__	= "loadingType";		
+	private static final String LOADING_TYPE_LABEL__		= "loadingType";		
 	
 	/**
 	 * JSON Label for "Options" section
 	 */
-	public static final String OPTIONS_LABEL__ 		= "options";	
+	private static final String OPTIONS_LABEL__ 			= "options";	
 	
 	/**
 	 * 
@@ -68,7 +68,6 @@ public class Browser {
 	public Browser( JSONObject service, String type ) {
 		
 		this( service, Type.valueOf( type.toLowerCase() ) );
-		
 	}
 
 	/**
@@ -77,8 +76,6 @@ public class Browser {
 	 * @param type
 	 */
 	public Browser( JSONObject browser, Type type ) {
-		
-		logger.debug("Init Browser object : " + type);
 		
 		this.browserCfg = browser;
 		this.type = type; 
@@ -103,13 +100,14 @@ public class Browser {
 				
 				if( !this.file.isNull(LOADING_TYPE_LABEL__) )
 					this.fileLoadingType = IOFileUtils.IOLoadingType.valueOf( this.file.getString(LOADING_TYPE_LABEL__).toUpperCase() ); 	
-			}	
+			}
+			
+			if( !profile.isNull(OPTIONS_LABEL__) )
+				this.options = profile.getJSONObject(OPTIONS_LABEL__); 			
 		}
 		else
 			logger.debug("Browser object with type " + type + " is empty.");
-		
-		if( !browserCfg.isNull(OPTIONS_LABEL__) )
-			this.options = browserCfg.getJSONObject(OPTIONS_LABEL__); 
+
 	}
  
 	public Enum<Type> getType() {
