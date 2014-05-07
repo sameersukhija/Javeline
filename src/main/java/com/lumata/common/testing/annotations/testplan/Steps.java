@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 public @interface Steps {
 
-	public String[] value() default {};
+	public String[] actions() default {};
+	public String[] expected() default {};
 	
 }
