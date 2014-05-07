@@ -37,10 +37,13 @@ public final class IOFileUtils {
 	 */
 	private static final String BASE_OUTPUT_FOLDER__ = System.getProperty("user.dir") + File.separator + "output" + File.separator;
 	
-//	private final static String RESOURCE_ROOT = "";
+	/**
+	 * This enumeration describes the loading type to be applied by the running application during loading of a "resource".<br>
+	 * <li> RESOURCE, looks into current class path
+	 * <li> FILE, looks into local file system
+	 */
 	public enum IOLoadingType { FILE, RESOURCE };
-	/*private final static String RESOURCE_ROOT = "lumata-common-testing/";*/
-	
+
 	private IOFileUtils() {}
 	
 	public static String buildResourcePath( String resource ) throws IOFileException {
