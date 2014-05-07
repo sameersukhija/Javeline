@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.testplan.mobistar.performance;
+package com.lumata.e4o.system.performance;
 
 import javax.jms.Connection;
 import javax.jms.Destination;
@@ -18,9 +18,9 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
 
 
-public class Performance_DialogManager {
+public class PerformanceDialogManager {
 
-	private static final Logger logger = LoggerFactory.getLogger( Performance_DialogManager.class );
+	private static final Logger logger = LoggerFactory.getLogger( PerformanceDialogManager.class );
 	
 	Environment env;	
 	Connection connection = null;

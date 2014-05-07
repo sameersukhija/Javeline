@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.testplan.mobistar.performance;
+package com.lumata.e4o.system.performance;
 
 import static com.lumata.common.testing.orm.Query.select;
 import static com.lumata.common.testing.orm.Filter.op;
@@ -31,9 +31,9 @@ import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultParser.ResultType;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultSuccess;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPCSubscriber;
 
-public class Performance_XMLRPC_allocate {
+public class PerformanceXMLRPCAllocate {
 
-	private static final Logger logger = LoggerFactory.getLogger( Performance_XMLRPC_allocate.class );
+	private static final Logger logger = LoggerFactory.getLogger( PerformanceXMLRPCAllocate.class );
 	
 	Environment env;
 	Mysql mysql;

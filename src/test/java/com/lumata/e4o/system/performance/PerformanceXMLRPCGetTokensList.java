@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.testplan.mobistar.performance;
+package com.lumata.e4o.system.performance;
 
 import java.util.ArrayList;
 
@@ -18,9 +18,9 @@ import com.lumata.expression.operators.gui.xmlrpc.HTTPXMLRPCForm;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultFault;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultParser;
 
-public class Performance_XMLRPC_getTokensList {
+public class PerformanceXMLRPCGetTokensList {
 
-	private static final Logger logger = LoggerFactory.getLogger( Performance_XMLRPC_getTokensList.class );
+	private static final Logger logger = LoggerFactory.getLogger( PerformanceXMLRPCGetTokensList.class );
 	
 	Environment env;
 	int user_id = 0;

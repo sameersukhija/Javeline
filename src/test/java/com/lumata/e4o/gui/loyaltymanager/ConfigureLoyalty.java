@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.testplan.functional;
+package com.lumata.e4o.gui.loyaltymanager;
 
 import java.lang.reflect.Method;
 

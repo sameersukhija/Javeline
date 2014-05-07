@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.testing.run;
+package com.lumata.e4o.utils.generators;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -22,7 +22,6 @@ import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.e4o.utils.generators.GenerateClass;
 
 public class InsertSubscribers {
 

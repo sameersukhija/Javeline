@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.testplan.mobistar.functional;
+package com.lumata.e4o.webservices.xmlrpc;
 
 import static com.lumata.common.testing.orm.Query.select;
 import static com.lumata.common.testing.orm.Filter.op;
@@ -35,9 +35,9 @@ import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultParser.ResultType;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultSuccess;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPCSubscriber;
 
-public class XMLRPC_Delete_Subscriber {
+public class XMLRPCDeleteSubscriber {
 
-	private static final Logger logger = LoggerFactory.getLogger( XMLRPC_Delete_Subscriber.class );
+	private static final Logger logger = LoggerFactory.getLogger( XMLRPCDeleteSubscriber.class );
 	final boolean EXECUTION = true;
 	final long XMLRPC_CALL_DELAY = 100;
 	
@@ -82,7 +82,7 @@ public class XMLRPC_Delete_Subscriber {
 		
 		XMLRPCResultParser responseParser = new XMLRPCResultParser( response.getEntity().toString() );
 		
-		XMLRPCResultSuccess resultSuccess = XMLRPC_Delete_Subscriber.getSuccess( responseParser );
+		XMLRPCResultSuccess resultSuccess = XMLRPCDeleteSubscriber.getSuccess( responseParser );
 		
 		Assert.assertNotNull( resultSuccess );
 		

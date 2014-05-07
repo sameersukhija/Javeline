@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.testplan.mobistar.functional;
+package com.lumata.e4o.webservices.xmlrpc;
 
 import static com.lumata.common.testing.orm.Query.select;
 
@@ -34,7 +34,6 @@ import com.lumata.expression.operators.gui.xmlrpc.HTTPXMLRPCForm;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultFault;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultParser;
 import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultParser.ResultType;
-import com.lumata.expression.operators.testing.template.TestResult;
 
 public class AdministrationLoginUserManagement {
 
@@ -103,7 +102,7 @@ public class AdministrationLoginUserManagement {
 				
 				XMLRPCResultFault resultFault = AdministrationLoginUserManagement.getFault( result );
 							
-				TestResult.update( test_subject.toString(), ( resultFault != null ? TestResult.ResultType.FAILS : TestResult.ResultType.PASSED ), ( resultFault != null ? "Code: " + resultFault.getCode() + " - Message: " + resultFault.getMessage() : "" ) );
+				//TestResult.update( test_subject.toString(), ( resultFault != null ? TestResult.ResultType.FAILS : TestResult.ResultType.PASSED ), ( resultFault != null ? "Code: " + resultFault.getCode() + " - Message: " + resultFault.getMessage() : "" ) );
 				
 				Thread.sleep( 100 );
 				
@@ -113,7 +112,7 @@ public class AdministrationLoginUserManagement {
 								
 		}	
 		
-		System.out.println( TestResult.build() );
+		//System.out.println( TestResult.build() );
 		//IOFileUtils.saveFile( test_result.toString(), "/home/adipasquale/test_results", "mobistar.txt" );
 						
 	}
