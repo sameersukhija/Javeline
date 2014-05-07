@@ -92,7 +92,7 @@ public class TestSubscriberDelayedRemovalTask {
 	/** initialize test */
 	@Parameters({"environment", "tenant"})
 	@BeforeTest( description = "set pre condition" )
-	@Steps({
+	@Steps( actions = {
 				"load environment configuration",
 				"get mysql tenant connection",
 				"load cdrs configuration",
@@ -151,7 +151,7 @@ public class TestSubscriberDelayedRemovalTask {
 
 	/** create subscribers */
 	@Test( enabled = false, priority = 1, description = "create subscriber" )
-	@Steps({
+	@Steps( actions = {
 		"delete subscribers if exist",
 		"set subscriber configuration",
 		"insert subscriber via xmlrpc call"
@@ -251,7 +251,7 @@ public class TestSubscriberDelayedRemovalTask {
 	}
 	
 	@Test( enabled = false, priority = 2, description = "insert bundles" )
-	@Steps({
+	@Steps( actions = {
 		"insert bundle if a cdr bundle is elaborated with increment strategy"
 	})	
 	public void insertBundle() throws JSONException, CDRException {
@@ -299,7 +299,7 @@ public class TestSubscriberDelayedRemovalTask {
 	}
 		
 	@Test( enabled = true, priority = 3, description = "cdrs elaboration and database filling" )
-	@Steps({
+	@Steps( actions = {
 		"load cdrs configuration",
 		"elaborate cdrs",
 		"wait for cdrs elaboration finished",

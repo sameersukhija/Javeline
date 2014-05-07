@@ -81,7 +81,7 @@ public class GenerateCDRFromJSON {
 	/** initialize test */
 	@Parameters({"environment", "tenant"})
 	@BeforeTest( description = "set pre condition" )
-	@Steps({
+	@Steps( actions = {
 				"load environment configuration",
 				"get mysql tenant connection",
 				"load cdrs configuration",
