@@ -1,4 +1,4 @@
-package com.lumata.e4o.gui;
+package com.lumata.e4o.gui.campaignmanager;
 
 import java.lang.reflect.Method;
 

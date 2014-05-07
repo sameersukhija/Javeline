@@ -1,4 +1,4 @@
-package com.lumata.e4o.tasks;
+package com.lumata.e4o.scheduling.scheduledtasks;
 
 import static com.lumata.common.testing.orm.Filter.op;
 import static com.lumata.common.testing.orm.Query.select;

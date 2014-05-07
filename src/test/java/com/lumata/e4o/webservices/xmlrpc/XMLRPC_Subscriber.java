@@ -1,4 +1,4 @@
-package com.lumata.e4o.xmlrpc;
+package com.lumata.e4o.webservices.xmlrpc;
 
 import static com.lumata.common.testing.orm.Query.select;
 import static com.lumata.common.testing.orm.Filter.op;

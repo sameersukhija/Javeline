@@ -1,4 +1,4 @@
-package com.lumata.e4o.tasks;
+package com.lumata.e4o.scheduling.scheduledtasks;
 
 import java.util.Calendar;
 
