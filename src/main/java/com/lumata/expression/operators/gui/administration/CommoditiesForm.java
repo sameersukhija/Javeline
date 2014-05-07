@@ -10,6 +10,11 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.json.administration.JSONCommodities;
 
+/**
+ * 
+ * @deprecated use <b>CommoditiesForm</b> into package <b>com.lumata.e4o.gui.administration</b>
+ *
+ */
 public class CommoditiesForm extends AdministrationForm {
 
 	private static final Logger logger = LoggerFactory.getLogger(CommoditiesForm.class);

@@ -16,6 +16,11 @@ import com.lumata.e4o.gui.json.campaign.JSONCampaignModel;
 import com.lumata.e4o.gui.json.campaign.JSONEvent;
 import com.lumata.e4o.gui.json.campaign.JSONNotification;
 
+/**
+ * 
+ * @deprecated use <b>CampaignModelForm</b> into package <b>com.lumata.e4o.gui.campaign</b>
+ *
+ */
 public class CampaignModelForm extends CampaignsForm {
 
 	private static final Logger logger = LoggerFactory.getLogger(CampaignModelForm.class);

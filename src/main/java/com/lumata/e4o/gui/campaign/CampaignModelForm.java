@@ -1,9 +1,13 @@
 package com.lumata.e4o.gui.campaign;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,6 +43,8 @@ public class CampaignModelForm extends CampaignManagerForm {
 	public CampaignModelForm( SeleniumWebDriver selenium, JSONCampaignModel campaignModelCfg, long timeout, long interval ) {
 		
 		super(selenium, timeout, interval);
+
+		logger.info("Init CampaignModelForm");
 		
 		this.campaignModelCfg = campaignModelCfg;
 		
@@ -501,8 +507,61 @@ public class CampaignModelForm extends CampaignManagerForm {
 		
 	}
 
-	
-	
+	/**
+	 * This method delete a list of "Campaign Model" into running system.
+	 * If input var-args is empty or null, this method deletes each campaign model
+	 * 
+	 * @param CampaignModelNames
+	 * 
+	 * @return true if wanted campaign model are corrected removed
+	 * 
+	 * @throws FormException 
+	 */
+	public Boolean deleteCampaignModel(String... CampaignModelNames) throws FormException {
+
+		List<String> cmLabel2Delete = null;
+		Boolean resp = Boolean.FALSE;
+		
+		if ( CampaignModelNames != null && CampaignModelNames.length != 0 )
+			cmLabel2Delete = Arrays.asList(CampaignModelNames);
+		else { // fetch every campaign model present on UI
+			
+			cmLabel2Delete = new ArrayList<String>();
+			
+			String rootPath = "//table[@id=\"gwt-debug-ListCampaignModel\"]";
+			String subPath = "//tr[contains(@class,\"contentRow cycle\")]//td[@class=\"column_description\"]";
+		
+			List<WebElement> cmLabels = getListByXPath(rootPath, rootPath + subPath);
+			
+			for (WebElement webElement : cmLabels)
+				cmLabel2Delete.add(webElement.getText());
+		}
+
+		logger.debug("Campaign labels to be deleted : " + cmLabel2Delete);
+		
+		try {
+			
+			for (String cnName : cmLabel2Delete) {
+				
+				String singleRule = "//div[text()='"+cnName+"']//ancestor::tr//*[@name='btn-delete']";
+				
+				logger.debug("Try to delete \"Campaign Moldel \" + \""+cnName+"\".");
+				
+				clickXPath(singleRule);
+			}
+			
+			resp = Boolean.TRUE;
+			
+		} catch ( FormException e ) {
+
+			logger.error("Error during delete \"Campaign Moldel \" : " + e.getMessage());
+			
+			resp = Boolean.FALSE;
+		}
+
+		return resp;
+	}	
+
 	/*
 	public static boolean create(SeleniumWebDriver selenium, CampaignModelCfg cm, long timeout, long interval) {
 

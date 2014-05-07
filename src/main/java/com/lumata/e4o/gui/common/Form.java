@@ -3,12 +3,8 @@ package com.lumata.e4o.gui.common;
 import java.util.List;
 import java.util.Map;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,10 +13,9 @@ import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.expression.operators.gui.campaigns.CampaignModelForm;
 
 public abstract class Form {
-	private static final Logger logger = LoggerFactory.getLogger(CampaignModelForm.class);
+	private static final Logger logger = LoggerFactory.getLogger(Form.class);
 	
 	protected SeleniumWebDriver selenium;
 	protected long timeout;
