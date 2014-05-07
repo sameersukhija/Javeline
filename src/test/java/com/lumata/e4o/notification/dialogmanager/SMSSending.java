@@ -1,4 +1,4 @@
-package com.lumata.e4o.demo;
+package com.lumata.e4o.notification.dialogmanager;
 
 import static com.lumata.common.testing.orm.Filter.op;
 import static com.lumata.common.testing.orm.Filter.and;

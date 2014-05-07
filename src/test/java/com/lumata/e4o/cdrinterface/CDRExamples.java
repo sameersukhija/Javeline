@@ -1,4 +1,4 @@
-package com.lumata.e4o.demo;
+package com.lumata.e4o.cdrinterface;
 
 import java.util.Calendar;
 
@@ -23,7 +23,7 @@ import com.lumata.e4o.system.csv.types.CSVSchemaTable;
 import com.lumata.e4o.system.csv.types.CSVString;
 import com.lumata.e4o.system.csv.types.CSVDate.CDRDateFormat;
 
-public class CDR_Examples {
+public class CDRExamples {
 	
 	private final boolean generate_cdr_classes = false;
 	private final boolean generate_cdr = true;

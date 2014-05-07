@@ -1,4 +1,4 @@
-package com.lumata.e4o.demo;
+package com.lumata.e4o.cdrinterface;
 
 import static com.lumata.common.testing.orm.Filter.op;
 import static com.lumata.common.testing.orm.Query.select;

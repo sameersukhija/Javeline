@@ -1,4 +1,4 @@
-package com.lumata.e4o.demo;
+package com.lumata.e4o.notification.dialogmanager;
 
 import java.sql.SQLException;
 import java.text.ParseException;
