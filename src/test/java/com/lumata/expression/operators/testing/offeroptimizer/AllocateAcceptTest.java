@@ -33,6 +33,7 @@ import com.lumata.e4o.exceptions.RuleException;
 import com.lumata.e4o.exceptions.TokenTypeException;
 import com.lumata.e4o.gui.common.AngularFrame;
 import com.lumata.e4o.gui.security.Authorization;
+import com.lumata.e4o.utils.generators.GenerateSubscribers;
 import com.lumata.expression.operators.dao.administration.SalesChannelsList;
 import com.lumata.expression.operators.gui.campaigns.CampaignCreationForm;
 import com.lumata.expression.operators.gui.campaigns.CampaignModelForm;
@@ -47,7 +48,6 @@ import com.lumata.expression.operators.json.campaigns.CampaignCfg;
 import com.lumata.expression.operators.json.catalogue.OfferCfg;
 import com.lumata.expression.operators.json.catalogue.RuleCfg;
 import com.lumata.expression.operators.json.catalogue.TokenTypeCfg;
-import com.lumata.expression.operators.testing.generators.GenerateSubscribers;
 
 public class AllocateAcceptTest {
 

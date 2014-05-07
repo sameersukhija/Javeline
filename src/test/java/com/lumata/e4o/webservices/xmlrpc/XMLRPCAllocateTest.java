@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.testing.gui.xmlrpc;
+package com.lumata.e4o.webservices.xmlrpc;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

@@ -1,8 +1,9 @@
-package com.lumata.expression.operators.testing.generators;
+package com.lumata.e4o.utils.generators;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
@@ -17,43 +18,43 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
 
-public class GenerateMultiTenantSubscribers {
+public class GenerateSubscribers {
 
-	private static final Logger logger = LoggerFactory.getLogger( GenerateMultiTenantSubscribers.class );
+	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribers.class );
 	
 	Environment env;
-	Mysql mysql_tenant1;
-	Mysql mysql_tenant2;
+	Mysql mysql;
 	
 	/* 	Initialize Environment */
-	@Parameters({"browser", "environment", "tenant1", "tenant2" })
+	@Parameters({"browser", "environment", "tenant" })
 	@BeforeSuite
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment, @Optional("tenant1") String tenant1, @Optional("tenant2") String tenant2 ) throws EnvironmentException {		
+	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment, @Optional("qa") String tenant ) throws EnvironmentException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
 		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
-		mysql_tenant1 = new Mysql( env.getDataSource( tenant1 ) );
-		mysql_tenant2 = new Mysql( env.getDataSource( tenant2 ) );
-						
+		mysql = new Mysql( env.getDataSource( tenant ) );
+		System.out.println( "TENANT: " + env.getDataSource( tenant ).toString() );				
 	}
 	
 	@Test( priority = 1, enabled = true )
 	public void generateSubscribers() {
-			
-		insertSubscribers( mysql_tenant1, "33900", 30, 10 );
-		insertSubscribers( mysql_tenant1, "33100", 20, 10 );
-			
-		insertSubscribers( mysql_tenant2, "33900", 30, 10 );
-		insertSubscribers( mysql_tenant2, "33200", 20, 10 );
-				
-	}
-	
-	public void insertSubscribers( Mysql mysql,  final String SUBSCRIBER_PREFIX, final int SUBSCRIBERS_TO_GENERATE, int MSISDN_MAX_LENGTH ) {
+		
+		final boolean INSERT_SMS_CHANNEL = false;
+		final boolean INSERT_MAIL_CHANNEL = true;
+		
+		// Number of subscribers to generate
+		final int SUBSCRIBERS_TO_GENERATE = 10;
+		
+		// Max MSISDN length
+		int MSISDN_MAX_LENGTH = 10;
+		
+		// MSISDN PREFIX
+		final String SUBSCRIBER_PREFIX = "33999";
 		
 		logger.info( Log.PUTTING.createMessage( "generateSubscribers" , "Insert Subscribers" ) );
-		
+			
 		final int SUBSCRIBERS_PREFIX_DIGITS = (int)( Math.log10( Integer.valueOf( SUBSCRIBER_PREFIX ) ) + 1 );
 		final int SUBSCRIBERS_TO_GENERATE_DIGITS = (int)( Math.log10( SUBSCRIBERS_TO_GENERATE ) + 1 );
 		
@@ -72,23 +73,40 @@ public class GenerateMultiTenantSubscribers {
 			
 	        String msisdn = SUBSCRIBER_PREFIX + String.format( format, i );
 			
-			query = GenerateMultiTenantSubscribers.getInsertSubscriberQuery( msisdn, subscription_date);
+	        // Insert subscriber
+			query = GenerateSubscribers.getInsertSubscriberQuery( msisdn, subscription_date);
 			mysql.execUpdate( query.toString() );
 			//System.out.println( query );
 			
-			query = GenerateMultiTenantSubscribers.getInsertSubsNotifQuery( msisdn, 1 );
-			mysql.execUpdate( query.toString() );
-			//System.out.println( query );
+			// Insert SubNotif SMS channel
+			if( INSERT_SMS_CHANNEL ) {
+				
+				query = GenerateSubscribers.getInsertSubsNotifQuery( msisdn, msisdn, 1 );
+				
+				mysql.execUpdate( query.toString() );
+			
+			}
+			
+			// Insert SubNotif Mail channel
+			if( INSERT_MAIL_CHANNEL ) {
+				
+				StringBuilder mail = new StringBuilder();
+				mail.append( RandomStringUtils.randomAlphanumeric(10).toLowerCase() ).append( "@lumatagroup.com" );
+				
+				query = GenerateSubscribers.getInsertSubsNotifQuery( msisdn, mail.toString(), 2 );
+				
+				mysql.execUpdate( query.toString() );
+			
+			}					
 			
 		}
-		
+				
 	}
 	
 	@AfterSuite
 	public void end() throws EnvironmentException {		
 		
-		mysql_tenant1.close();
-		mysql_tenant2.close();
+		mysql.close();
 						
 	}
 	
@@ -129,7 +147,7 @@ public class GenerateMultiTenantSubscribers {
 		
 	}
 	
-	public static StringBuilder getInsertSubsNotifQuery( String msisdn, int channel_id ) {
+	public static StringBuilder getInsertSubsNotifQuery( String msisdn, String value, int channel_id ) {
 		
 		StringBuilder query = new StringBuilder();
 			
@@ -140,7 +158,7 @@ public class GenerateMultiTenantSubscribers {
 				.append( "value (" )
 				.append( msisdn ).append( ", " )
 				.append( channel_id ).append( ", " )
-				.append( "'" ).append( msisdn ).append( "' );" );
+				.append( "'" ).append( value ).append( "' );" );
 		
 		return query;
 	
