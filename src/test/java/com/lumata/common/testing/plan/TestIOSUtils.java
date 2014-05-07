@@ -172,7 +172,7 @@ public class TestIOSUtils {
 	}
 	
 	/** The folder exists and the resource exists */	
-	@Test
+	@Test(enabled=false)
 	public void loadResourceAsInputStream_09() throws IOFileException {		
 		IOFileUtils.loadResourceAsInputStream( "target/test-classes", "log4j.properties" );
 	}	
@@ -417,7 +417,7 @@ public class TestIOSUtils {
 	}
 	
 	/** The folder and file exist */
-	@Test()
+	@Test(enabled=false)
 	public void loadFileAsInputStream_05() throws IOFileException {		
 		Assert.assertNotNull( IOFileUtils.loadFileAsInputStream( "src/test/resources", "log4j.properties" ));
 	}
@@ -459,7 +459,7 @@ public class TestIOSUtils {
 	}
 	
 	/** The folder and file exist */
-	@Test()
+	@Test(enabled=false)
 	public void loadFileAsInputStreamReader_05() throws IOFileException {		
 		Assert.assertNotNull( IOFileUtils.loadFileAsInputStreamReader( "src/test/resources", "log4j.properties" ));
 	}
@@ -501,7 +501,7 @@ public class TestIOSUtils {
 	}
 	
 	/** The folder and file exist */
-	@Test()
+	@Test(enabled=false)
 	public void loadFileAsString_05() throws IOFileException {		
 		Assert.assertNotNull( IOFileUtils.loadFileAsString( "src/test/resources", "log4j.properties" ));
 	}
@@ -543,7 +543,7 @@ public class TestIOSUtils {
 	}
 	
 	/** The folder and file exist */
-	@Test()
+	@Test(enabled=false)
 	public void loadFileAsBufferedReader_05() throws IOFileException {		
 		Assert.assertNotNull( IOFileUtils.loadFileAsBufferedReader( "src/test/resources", "log4j.properties" ));
 	}

@@ -1,0 +1,26 @@
+{
+    "servers": {
+        "better_than_actrule": {
+            "browsers": {
+                "CHROME": {},
+                "FIREFOX": {
+                    "profile": {
+                        "file": {
+							"folderName":"input/browsers/profiles",
+							"fileName":"firefox.default",
+							"loadingType":"RESOURCE"
+                        },
+                        "options": {
+                            "extensions.firebug.allPagesActivation": "on",
+                            "extensions.firebug.defaultPanelName": "console"
+                        }
+                    }
+                },
+                "IE": {},
+                "OPERA": {},
+                "SAFARI": {}
+            },
+            "link": "http://no.real.domain"
+        }
+    }
+}

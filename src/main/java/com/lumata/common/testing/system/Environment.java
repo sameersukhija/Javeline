@@ -17,6 +17,8 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
+ * @deprecated
+ * use the class <b>NetworkEnvironment</b> instead
  */
 public class Environment {
 

@@ -1,0 +1,26 @@
+{
+    "servers": {
+        "better_than_actrule": {
+            "browsers": {
+                "CHROME": {},
+                "FIREFOX": {
+                    "profile": {
+                        "file": {
+                            "fileName": "ncc8lgcm.default",
+                            "folderName": "/home/vincenzo/.mozilla/firefox",
+                            "loadingType": "FILE"
+                        },
+                        "options": {
+                            "extensions.firebug.allPagesActivation": "on",
+                            "extensions.firebug.defaultPanelName": "console"
+                        }
+                    }
+                },
+                "IE": {},
+                "OPERA": {},
+                "SAFARI": {}
+            },
+            "link": "http://no.real.domain"
+        }
+    }
+}

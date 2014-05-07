@@ -313,28 +313,22 @@
 					<excludes>
 				    	<exclude>**/generators/*.java</exclude>
 				    	<exclude>**/model/*.java</exclude>
-<!-- 				    	<exclude>**/plan/*.java</exclude> -->
-						<exclude>**/plan/TestClassGenerator.java</exclude>
-						<exclude>**/plan/TestDataModel.java</exclude>
+						<exclude>**/demo/TestClassGenerator.java</exclude>
+						<exclude>**/demo/TestDataModel.java</exclude>
 						<exclude>**/plan/TestEnvironment.java</exclude>
-<!-- 						<exclude>**/plan/TestFormat.java</exclude> -->
-<!-- 						<exclude>**/plan/TestIOSUtils.java</exclude> -->
-<!-- 						<exclude>**/plan/TestJSONUtils.java</exclude> -->
 						<exclude>**/plan/TestMalformedJSONObject.java</exclude>
 						<exclude>**/plan/TestMap.java</exclude>
 						<exclude>**/plan/TestMysql.java</exclude>
 						<exclude>**/plan/TestMysqlUtils.java</exclude>
-						<exclude>**/plan/TestNetworkEnvironment.java</exclude>
-<!-- 						<exclude>**/plan/TestQueriesCreation.java</exclude> -->
 						<exclude>**/plan/TestResourceProperties.java</exclude>
-						<exclude>**/plan/TestRestClient.java</exclude>
+						<exclude>**/demo/TestRestClient.java</exclude>
 						<exclude>**/plan/TestSecurity.java</exclude>
 						<exclude>**/plan/TestSeleniumWebDriver.java</exclude>
 						<exclude>**/plan/TestSFTP.java</exclude>
 						<exclude>**/plan/TestSSHExec.java</exclude>
-<!-- 						<exclude>**/plan/TestValidator.java</exclude> -->
 				    </excludes>
 <!-- 	          		<skipTests>true</skipTests> -->
+						<workingDirectory>target/</workingDirectory>
 	        	</configuration>
 	      	</plugin>
 

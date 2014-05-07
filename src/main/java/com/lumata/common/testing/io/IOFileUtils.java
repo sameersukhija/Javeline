@@ -37,10 +37,13 @@ public final class IOFileUtils {
 	 */
 	private static final String BASE_OUTPUT_FOLDER__ = System.getProperty("user.dir") + File.separator + "output" + File.separator;
 	
-//	private final static String RESOURCE_ROOT = "";
+	/**
+	 * This enumeration describes the loading type to be applied by the running application during loading of a "resource".<br>
+	 * <li> RESOURCE, looks into current class path
+	 * <li> FILE, looks into local file system
+	 */
 	public enum IOLoadingType { FILE, RESOURCE };
-	/*private final static String RESOURCE_ROOT = "lumata-common-testing/";*/
-	
+
 	private IOFileUtils() {}
 	
 	public static String buildResourcePath( String resource ) throws IOFileException {
@@ -102,7 +105,15 @@ public final class IOFileUtils {
 		
 		try {
 		
-			in = Thread.currentThread().getContextClassLoader().getResourceAsStream( IOFileUtils.buildResourcePath( resource ) );
+			in = Thread.currentThread().getContextClassLoader().getResourceAsStream(resource);
+			
+			if ( in == null ) {
+				
+				// old style to build resources "path"
+				String buidedPath = IOFileUtils.buildResourcePath( resource );
+				
+				in = Thread.currentThread().getContextClassLoader().getResourceAsStream(buidedPath);
+			}
 			
 			if( in == null ) { throw new IOFileException( "You cannot load a not existing resource ( null )" ); }
 			
@@ -123,17 +134,25 @@ public final class IOFileUtils {
 	public static InputStream loadResourceAsInputStream( String folder, String resource ) throws IOFileException {
 		
 		InputStream in = null;
+		String path = null;
 		
 		try {
 		
-			String path = IOFileUtils.buildResourcePath( folder, resource );
+			path = folder + "/" + resource;
 			
-			if ( new File(path).exists() )
-				in = new FileInputStream(path);
-			else
-				in = Thread.currentThread().getContextClassLoader().getResourceAsStream( path );
+			in = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 			
-			if( in == null ) { throw new IOFileException( "You cannot load a not existing resource ( null )" ); } 
+			if ( in == null ) {
+				
+				path = IOFileUtils.buildResourcePath( folder, resource );
+				
+				if ( new File(path).exists() )
+					in = new FileInputStream(path);
+				else
+					in = Thread.currentThread().getContextClassLoader().getResourceAsStream( path );
+				
+				if( in == null ) { throw new IOFileException( "You cannot load a not existing resource ( null )" ); } 
+			}
 			
 			logger.debug( "The resource has been loaded as input stream ( " + path + " )" );
 					

@@ -1,17 +1,14 @@
 package com.lumata.common.testing.plan;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
@@ -24,97 +21,94 @@ import com.lumata.common.testing.system.User;
 
 public class TestNetworkEnvironment {
 	
-	private static final  Logger logger = LoggerFactory.getLogger( TestNetworkEnvironment.class );
-		
-	NetworkEnvironment env;	
+	private NetworkEnvironment env = null;	
 	
 	@Parameters({"environment"})
-	@BeforeClass( enabled = true )
-	public void loadNetworkEnvironmentFromResource_1( @Optional("E4O_VM_NE") String environment ) throws NetworkEnvironmentException {		
+	@BeforeClass
+	public void init( @Optional("E4O_VM_NE") String environment ) throws NetworkEnvironmentException 
+	{		
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-		Assert.assertNotNull( env );		
+		
+		Assert.assertNotNull( env , "NetworkEnvironment is null during init phase!");
 	}
 	
-	@Test( enabled = true )
+	@Test
 	public void printEnv() throws EnvironmentException {		
-		
+
 		if( env != null ) {
 			
-			System.out.println( env.toString() );
+			Reporter.log( env.toString() );
 			
 		}
 		
 	}
 	
-	@Test( enabled = false )
+	@Test
 	public void getServer() throws EnvironmentException {		
 		
 		if( env != null ) {
 			
 			Server actrule = env.getServer( "actrule" );
 			
-			System.out.println( ( actrule != null ? actrule.toString() : null ) );
+			Reporter.log( ( actrule != null ? actrule.toString() : null ) );
 			
 		}
 		
 	}
 	
-	@Test( enabled = false )
+	@Test
 	public void getUser() throws EnvironmentException {		
 		
 		if( env != null ) {
 			
 			User user = env.getServer( "actrule" ).getUser( "superman" );
 						
-			System.out.println( ( user != null ? user.toString() : null ) );
+			Reporter.log( ( user != null ? user.toString() : null ) );
 			
 		}
 		
 	}
 	
-	@Test( enabled = false )
+	@Test
 	public void getService() throws EnvironmentException {		
 		
 		if( env != null ) {
 			
 			Service service = env.getSSHService( "actrule" );
 					
-			System.out.println( ( service != null ? service.toString() : null ) );
+			Reporter.log( ( service != null ? service.toString() : null ) );
 				
 		}
 		
 	}
 	
-	@Test( enabled = false )
+	@Test
 	public void getBrowser() throws EnvironmentException {		
 		
 		if( env != null ) {
 			
 			Browser browser = env.getBrowser( "actrule", Browser.Type.firefox );
 					
-			System.out.println( ( browser != null ? browser.toString() : null ) );
-				
-		}
-		
+			Reporter.log( ( browser != null ? browser.toString() : null ) );		
+		}	
 	}
 	
-	@Test( enabled = false )
+	@Test
 	public void getDataSource() throws EnvironmentException, SQLException {		
 		
 		if( env != null ) {
 			
 			DataSource ds = env.getDataSource( "tenant" );
 					
-			System.out.println( ( ds != null ? ds.toString() : null ) );
+			Reporter.log( ( ds != null ? ds.toString() : null ) );
 			
-			Mysql mysql = new Mysql( ds );
-			
-			ResultSet rs = mysql.execQuery( "select msisdn from subscribers;" );
-			
-			while( rs.next() ) { System.out.println( rs.getLong("msisdn") ); }
-				
+			// out of scope because we are testing network element init
+//			Mysql mysql = new Mysql( ds );
+//			
+//			ResultSet rs = mysql.execQuery( "select msisdn from subscribers;" );
+//			
+//			while( rs.next() ) { Reporter.log( rs.getLong("msisdn") ); }
 		}
-		
 	}
 
 }
