@@ -1,4 +1,4 @@
-package com.lumata.e4o.gui.campaign;
+package com.lumata.e4o.gui.campaignmanager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.lumata.e4o.gui.dialog;
+package com.lumata.e4o.gui.common;
 
 import java.util.Map;
 
@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.common.Form;
 import com.lumata.e4o.gui.json.campaign.JSONNotification;
 
 public class NotificationForm extends Form {

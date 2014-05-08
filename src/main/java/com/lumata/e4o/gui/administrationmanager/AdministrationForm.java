@@ -1,4 +1,4 @@
-package com.lumata.e4o.gui.administration;
+package com.lumata.e4o.gui.administrationmanager;
 
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.lumata.e4o.gui.campaign;
+package com.lumata.e4o.gui.campaignmanager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.dialog.NotificationForm;
+import com.lumata.e4o.gui.common.NotificationForm;
 import com.lumata.e4o.gui.json.campaign.JSONAction;
 import com.lumata.e4o.gui.json.campaign.JSONActionTime;
 import com.lumata.e4o.gui.json.campaign.JSONCampaignModel;

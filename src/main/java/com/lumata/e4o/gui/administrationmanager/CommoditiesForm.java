@@ -1,4 +1,4 @@
-package com.lumata.e4o.gui.administration;
+package com.lumata.e4o.gui.administrationmanager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
