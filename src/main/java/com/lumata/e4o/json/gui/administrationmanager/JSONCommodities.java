@@ -1,4 +1,4 @@
-package com.lumata.e4o.json.administration;
+package com.lumata.e4o.json.gui.administrationmanager;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.json.administration.JSONCommodities;
+import com.lumata.e4o.json.gui.administrationmanager.JSONCommodities;
 
 public class CommoditiesForm extends AdministrationForm {
 
