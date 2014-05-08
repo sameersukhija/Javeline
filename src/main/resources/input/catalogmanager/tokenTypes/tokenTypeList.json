@@ -1,0 +1,55 @@
+{
+	"tokenTypes": [
+		{
+			"enabled": true,
+			"name":"TokenA",
+			"description":"TokenA",
+			"imageUrl":"http://i-neti.ru/sites/default/files/blogimages/test_icon.jpg",
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityUnit":"days",
+			"validity":"100",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ADD_TIMESTAMP"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"TokenB",
+			"description":"TokenB",
+			"imageUrl":"http://i-neti.ru/sites/default/files/blogimages/test_icon.jpg",
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityUnit":"seconds",
+			"validity":"100",
+			"usageUnlimited": false,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "SKIP"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"TokenC",
+			"description":"TokenC",
+			"imageUrl":"http://i-neti.ru/sites/default/files/blogimages/test_icon.jpg",
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityUnit":"days",
+			"validity":"100",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ERROR"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		}
+	]
+}
