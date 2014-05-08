@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.gui.campaigns;
+package com.lumata.e4o.gui.campaignmanager;
 
 import java.util.concurrent.TimeUnit;
 

@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.gui.administration;
+package com.lumata.e4o.gui.administrationmanager;
 
 public class LoginManagementForm {
 
