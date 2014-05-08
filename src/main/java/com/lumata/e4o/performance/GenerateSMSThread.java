@@ -10,8 +10,8 @@ import javax.jms.ObjectMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lumata.e4o.dm.DialogManagerConnection;
-import com.lumata.e4o.dm.DialogManagerMessageUtils;
+import com.lumata.e4o.notification.dialogmanager.DialogManagerConnection;
+import com.lumata.e4o.notification.dialogmanager.DialogManagerMessageUtils;
 import com.lumatagroup.expression.e4o.commons.jms.message.DialogManagerMessage;
 
 public class GenerateSMSThread implements Runnable {

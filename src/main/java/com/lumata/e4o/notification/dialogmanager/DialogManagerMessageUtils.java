@@ -1,4 +1,4 @@
-package com.lumata.e4o.dm;
+package com.lumata.e4o.notification.dialogmanager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

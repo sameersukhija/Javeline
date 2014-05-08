@@ -18,7 +18,7 @@ import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.e4o.dm.ActiveMQ;
+import com.lumata.e4o.notification.dialogmanager.ActiveMQ;
 
 public class ActiveMQManagement {
 

@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
-import com.lumata.e4o.dm.DialogManagerConnection;
+import com.lumata.e4o.notification.dialogmanager.DialogManagerConnection;
 import com.lumata.e4o.performance.GenerateSMSThreadPool;
 
 public class RunGenerateSMSPool {
