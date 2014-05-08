@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.gui.operations;
+package com.lumata.e4o.gui.operationmanager;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.gui.loyalty;
+package com.lumata.e4o.gui.loyaltymanager;
 
 import java.util.List;
 import java.util.Map;

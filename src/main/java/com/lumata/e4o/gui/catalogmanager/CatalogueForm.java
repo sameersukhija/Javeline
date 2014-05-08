@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.gui.catalogue;
+package com.lumata.e4o.gui.catalogmanager;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.gui.common.MenuBar;

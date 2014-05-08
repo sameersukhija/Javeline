@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.gui.operations;
+package com.lumata.e4o.gui.operationmanager;
 
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;

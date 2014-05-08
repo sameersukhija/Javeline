@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.gui.catalogue;
+package com.lumata.e4o.gui.catalogmanager;
 
 import org.json.JSONArray;
 import org.json.JSONException;

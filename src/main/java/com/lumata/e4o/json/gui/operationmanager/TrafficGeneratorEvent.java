@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.gui.operations;
+package com.lumata.e4o.json.gui.operationmanager;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -9,6 +9,7 @@ import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.TrafficGeneratorEventException;
+import com.lumata.e4o.gui.operationmanager.Operations;
 
 public class TrafficGeneratorEvent extends Operations {
 

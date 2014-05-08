@@ -22,8 +22,8 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.e4o.exceptions.CommoditiesException;
 import com.lumata.e4o.exceptions.OfferException;
+import com.lumata.e4o.gui.loyaltymanager.LoyaltyCreationForm;
 import com.lumata.e4o.gui.security.Authorization;
-import com.lumata.expression.operators.gui.loyalty.LoyaltyCreationForm;
 import com.lumata.expression.operators.json.loyalty.LoyaltyCreateCfg;
 import com.lumata.expression.operators.json.loyalty.LoyaltyManageCfg;
 

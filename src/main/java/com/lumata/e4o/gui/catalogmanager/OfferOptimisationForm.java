@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.gui.catalogue;
+package com.lumata.e4o.gui.catalogmanager;
 
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
