@@ -15,7 +15,7 @@ import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.TokenTypeException;
 
-
+@Deprecated
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
