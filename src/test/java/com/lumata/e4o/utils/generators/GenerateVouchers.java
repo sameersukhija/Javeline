@@ -3,7 +3,7 @@ package com.lumata.e4o.utils.generators;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
-import com.lumata.expression.operators.generators.VouchersGenerator;
+import com.lumata.e4o.utils.generators.VouchersGenerator;
 
 public class GenerateVouchers {
 

@@ -20,7 +20,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.network.SFTPClient;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Environment.ServicesType;
-import com.lumata.expression.operators.generators.CDRMSISDNGenerator;
+import com.lumata.e4o.utils.generators.CDRMSISDNGenerator;
 
 @Deprecated /** depends from CDR deprecated class */
 public class GenerateCDRMSISDN {

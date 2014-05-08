@@ -34,7 +34,6 @@ import com.lumata.e4o.exceptions.TokenTypeException;
 import com.lumata.e4o.gui.common.AngularFrame;
 import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.e4o.utils.generators.GenerateSubscribers;
-import com.lumata.expression.operators.dao.administration.SalesChannelsList;
 import com.lumata.expression.operators.gui.campaigns.CampaignCreationForm;
 import com.lumata.expression.operators.gui.campaigns.CampaignModelForm;
 import com.lumata.expression.operators.gui.catalogue.OffersForm;
@@ -109,7 +108,7 @@ public class AllocateAcceptTest {
 	}
 
 	private void configureChannels() {
-		SalesChannelsList salesChannelsList = new SalesChannelsList(env, tenant, null, "input/sales_channels", "offer_sales_channels.json", IOFileUtils.IOLoadingType.RESOURCE);
+		//salesChannelsList salesChannelsList = new SalesChannelsList(env, tenant, null, "input/sales_channels", "offer_sales_channels.json", IOFileUtils.IOLoadingType.RESOURCE);
 	}
 
 	private void configureOffers() throws OfferException {

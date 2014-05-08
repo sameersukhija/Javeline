@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.dao.configuration;
+package com.lumata.e4o.system.configuration;
 
 import static com.lumata.common.testing.orm.Query.select;
 import static com.lumata.common.testing.orm.Filter.and;
