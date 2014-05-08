@@ -12,7 +12,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.gui.common.AngularFrame;
-import com.lumata.expression.operators.json.catalogue.RuleCfg;
+import com.lumata.e4o.json.gui.catalogmanager.RuleCfg;
 
 public class RuleForm {
 

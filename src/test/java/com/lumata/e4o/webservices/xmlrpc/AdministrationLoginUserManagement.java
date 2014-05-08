@@ -29,11 +29,11 @@ import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.Security;
 import com.lumata.e4o.exceptions.XMLRPCParserException;
 import com.lumata.e4o.gui.administrationmanager.LoginManagementForm;
+import com.lumata.e4o.gui.xmlrpc.HTTPXMLRPCForm;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCResultFault;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCResultParser;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCResultParser.ResultType;
 import com.lumata.e4o.schema.tenant.Groups;
-import com.lumata.expression.operators.gui.xmlrpc.HTTPXMLRPCForm;
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultFault;
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultParser;
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCResultParser.ResultType;
 
 public class AdministrationLoginUserManagement {
 

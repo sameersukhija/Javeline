@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.system.Environment;
-import com.lumata.expression.operators.gui.xmlrpc.HTTPXMLRPCForm;
+import com.lumata.e4o.gui.xmlrpc.HTTPXMLRPCForm;
 
 public class GenerateTokenThread implements Runnable {
 

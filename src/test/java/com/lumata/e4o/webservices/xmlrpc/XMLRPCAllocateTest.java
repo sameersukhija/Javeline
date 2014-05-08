@@ -3,10 +3,10 @@ package com.lumata.e4o.webservices.xmlrpc;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCAllocate;
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCAllocate.Content;
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCAllocate.Offer;
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCAllocate.Price;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCAllocate;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCAllocate.Content;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCAllocate.Offer;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCAllocate.Price;
 
 public class XMLRPCAllocateTest {
 

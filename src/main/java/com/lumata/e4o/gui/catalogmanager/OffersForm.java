@@ -17,7 +17,7 @@ import com.lumata.e4o.gui.common.ButtonImpl;
 import com.lumata.e4o.gui.common.Buttons;
 import com.lumata.e4o.gui.common.MenuBar;
 import com.lumata.e4o.gui.common.SectionImpl;
-import com.lumata.expression.operators.json.catalogue.OfferCfg;
+import com.lumata.e4o.json.gui.catalogmanager.OfferCfg;
 
 public class OffersForm extends CatalogueForm {
 

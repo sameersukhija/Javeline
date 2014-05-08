@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.json.catalogue;
+package com.lumata.e4o.json.gui.catalogmanager;
 
 import java.util.ArrayList;
 

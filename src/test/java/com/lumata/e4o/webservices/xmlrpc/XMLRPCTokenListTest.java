@@ -3,8 +3,8 @@ package com.lumata.e4o.webservices.xmlrpc;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCTokenList;
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCTokenList.Token;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCTokenList;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCTokenList.Token;
 
 public class XMLRPCTokenListTest {
 

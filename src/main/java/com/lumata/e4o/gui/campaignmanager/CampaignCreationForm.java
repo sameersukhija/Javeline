@@ -10,8 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.expression.operators.json.campaigns.CampaignCfg;
-//import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
+import com.lumata.e4o.json.gui.campaignmanager.CampaignCfg;
 
 public class CampaignCreationForm extends CampaignsForm {
 

@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.json.campaigns;
+package com.lumata.e4o.json.gui.campaignmanager;
 
 import org.json.JSONArray;
 import org.json.JSONException;

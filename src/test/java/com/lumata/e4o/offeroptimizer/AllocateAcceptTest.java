@@ -37,16 +37,16 @@ import com.lumata.e4o.gui.catalogmanager.RuleForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.gui.common.AngularFrame;
 import com.lumata.e4o.gui.security.Authorization;
+import com.lumata.e4o.gui.xmlrpc.HTTPXMLRPCForm;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCTokenList;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCTokenList.Token;
+import com.lumata.e4o.json.gui.campaignmanager.CampaignCfg;
+import com.lumata.e4o.json.gui.catalogmanager.OfferCfg;
+import com.lumata.e4o.json.gui.catalogmanager.RuleCfg;
+import com.lumata.e4o.json.gui.catalogmanager.TokenTypeCfg;
 import com.lumata.e4o.utils.generators.GenerateSubscribers;
 import com.lumata.expression.operators.gui.campaigns.CampaignModelForm;
-import com.lumata.expression.operators.gui.xmlrpc.HTTPXMLRPCForm;
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCTokenList;
-import com.lumata.expression.operators.gui.xmlrpc.XMLRPCTokenList.Token;
-import com.lumata.expression.operators.json.campaigns.CampaignCfg;
 //import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
-import com.lumata.expression.operators.json.catalogue.OfferCfg;
-import com.lumata.expression.operators.json.catalogue.RuleCfg;
-import com.lumata.expression.operators.json.catalogue.TokenTypeCfg;
 
 public class AllocateAcceptTest {
 
