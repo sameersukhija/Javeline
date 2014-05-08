@@ -12,7 +12,7 @@ import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.e4o.performance.GenerateTokenThread;
+import com.lumata.e4o.system.performance.GenerateTokenThread;
 
 public class RunGenerateTokens {
 

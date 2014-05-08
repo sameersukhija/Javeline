@@ -1,4 +1,4 @@
-package com.lumata.e4o.performance;
+package com.lumata.e4o.system.performance;
 
 public class PXMLRPC implements Runnable {
 

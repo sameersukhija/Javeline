@@ -1,4 +1,4 @@
-package com.lumata.e4o.gui.json.campaign;
+package com.lumata.e4o.json.gui.campaignmanager;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;

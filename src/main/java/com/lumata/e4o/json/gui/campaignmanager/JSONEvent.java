@@ -1,4 +1,4 @@
-package com.lumata.e4o.gui.json.campaign;
+package com.lumata.e4o.json.gui.campaignmanager;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

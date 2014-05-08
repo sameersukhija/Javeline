@@ -1,4 +1,4 @@
-package com.lumata.e4o.schema.dm;
+package com.lumata.e4o.schema.dialogmanager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

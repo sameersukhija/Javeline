@@ -14,11 +14,11 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.NotificationForm;
-import com.lumata.e4o.gui.json.campaign.JSONAction;
-import com.lumata.e4o.gui.json.campaign.JSONActionTime;
-import com.lumata.e4o.gui.json.campaign.JSONCampaignModel;
-import com.lumata.e4o.gui.json.campaign.JSONEvent;
-import com.lumata.e4o.gui.json.campaign.JSONNotification;
+import com.lumata.e4o.json.gui.campaignmanager.JSONAction;
+import com.lumata.e4o.json.gui.campaignmanager.JSONActionTime;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
+import com.lumata.e4o.json.gui.campaignmanager.JSONEvent;
+import com.lumata.e4o.json.gui.campaignmanager.JSONNotification;
 
 public class CampaignModelForm extends CampaignManagerForm {
 

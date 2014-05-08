@@ -43,7 +43,7 @@ import com.lumata.common.testing.system.User;
 import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.exceptions.XMLRPCParserException;
 import com.lumata.e4o.notification.dialogmanager.ActiveMQ;
-import com.lumata.e4o.schema.dm.DmFeedback;
+import com.lumata.e4o.schema.dialogmanager.DmFeedback;
 import com.lumata.e4o.schema.tenant.FilesData;
 import com.lumata.e4o.schema.tenant.FilesMeta;
 import com.lumata.e4o.schema.tenant.SubsNotif;

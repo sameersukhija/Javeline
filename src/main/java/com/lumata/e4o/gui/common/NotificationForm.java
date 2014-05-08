@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.json.campaign.JSONNotification;
+import com.lumata.e4o.json.gui.campaignmanager.JSONNotification;
 
 public class NotificationForm extends Form {
 
