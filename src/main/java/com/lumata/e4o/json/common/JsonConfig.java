@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.json.common;
+package com.lumata.e4o.json.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -8,7 +8,7 @@ import org.json.JSONException;
 
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.expression.operators.json.common.JsonConfig;
+import com.lumata.e4o.json.common.JsonConfig;
 
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>

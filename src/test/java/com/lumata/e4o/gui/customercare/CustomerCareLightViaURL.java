@@ -36,7 +36,7 @@ import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.e4o.exceptions.CommoditiesException;
-import com.lumata.expression.operators.json.common.JsonConfig;
+import com.lumata.e4o.json.common.JsonConfig;
 
 public class CustomerCareLightViaURL {
 

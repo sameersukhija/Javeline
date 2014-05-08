@@ -18,8 +18,8 @@ import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Environment;
+import com.lumata.e4o.json.system.configuration.ConfigurationTypes;
 import com.lumata.e4o.system.configuration.ConfigurationDAO;
-import com.lumata.expression.operators.pojo.configuration.ConfigurationTypes;
 
 public class TestINPlugin {
 	

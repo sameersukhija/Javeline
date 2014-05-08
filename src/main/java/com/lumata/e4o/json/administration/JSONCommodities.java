@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.e4o.exceptions.CommoditiesException;
-import com.lumata.expression.operators.json.common.JsonConfig;
+import com.lumata.e4o.json.common.JsonConfig;
 
 
 /**

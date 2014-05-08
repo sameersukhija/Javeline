@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.json.loyalty;
+package com.lumata.e4o.json.gui.loyaltymanager;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.json.JSONException;
 
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.expression.operators.json.common.JsonConfig;
+import com.lumata.e4o.json.common.JsonConfig;
 
 /*
 

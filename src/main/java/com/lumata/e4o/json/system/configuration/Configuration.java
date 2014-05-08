@@ -1,4 +1,4 @@
-package com.lumata.expression.operators.pojo.configuration;
+package com.lumata.e4o.json.system.configuration;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -22,8 +22,8 @@ import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Security;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.expression.operators.json.configuration.XMLRPCCfg;
-import com.lumata.expression.operators.json.configuration.XMLRPCCfg.ParamType;
+import com.lumata.e4o.json.gui.xmlrpc.XMLRPCCfg;
+import com.lumata.e4o.json.gui.xmlrpc.XMLRPCCfg.ParamType;
 
 
 public class XMLRPCForm {
