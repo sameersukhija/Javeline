@@ -1,19 +1,16 @@
 package com.lumata.e4o.gui.catalogmanager;
 
-import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.AngularFrame;
-import com.lumata.e4o.gui.common.MenuBar;
-import com.lumata.e4o.gui.common.SectionImpl;
 
+public class OfferOptimisationForm extends CatalogueManagerForm {
 
-public class OfferOptimisationForm {
-
+	private static final Logger logger = LoggerFactory.getLogger(OfferOptimisationForm.class);
+	
 	public enum OfferOptimisationSection { 
 		
 		RULES("Rules"), 
@@ -29,31 +26,64 @@ public class OfferOptimisationForm {
 		
 	}
 	
-	private static final Logger logger = LoggerFactory.getLogger(CatalogueForm.class);
+	public OfferOptimisationForm( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
-	public static boolean open( SeleniumWebDriver selenium, OfferOptimisationSection section, long timeout, long interval ) {
-		
-		if( !CatalogueForm.open(selenium, timeout, interval) ) { return false; }
-		
-		if( !MenuBar.select( selenium, new SectionImpl<MenuBar.CatalogSections, String, String>(MenuBar.CatalogSections.OFFER_OPTIMISATION, MenuBar.CatalogSections.OFFER_OPTIMISATION.section_id_prefix, MenuBar.CatalogSections.OFFER_OPTIMISATION.section_type), timeout, interval ) ) { return false; }
-		
-		if( !AngularFrame.open( selenium, timeout, interval ) ) { return false; }
-		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for link=" + section.value() ) );
-		
-		WebElement sectionForm = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.LINK, section.value(), timeout, interval);
-		if( sectionForm == null ) { return false; }
-			
-		sectionForm.click();
+		super( selenium, timeout, interval );
 				
-		return true;
+	}
+	
+	public OfferOptimisationForm open( OfferOptimisationSection offerOptimisationSection ) throws FormException {
+		
+		super.open();
+		
+		clickId( "gwt-debug-actrule-catalog-offerOptimisation" ).		
+		openAngularFrame().
+		clickLink( offerOptimisationSection.value() );
+					
+		return this;
+		
+	}
+
+	public OfferOptimisationForm close() {
+		
+		closeAngularFrame();
+		
+		return this;
 		
 	}
 	
-	public static boolean close( SeleniumWebDriver selenium, long timeout, long interval ) {
+	private OfferOptimisationForm openAngularFrame() {
 		
-		return AngularFrame.close( selenium, timeout, interval );
-				
+		AngularFrame.open( selenium, timeout, interval );
+		
+		return this;
+		
 	}
-
+	
+	private OfferOptimisationForm closeAngularFrame() {
+		
+		AngularFrame.close( selenium, timeout, interval );
+		
+		return this;
+		
+	}
+	
+	@Override
+	public OfferOptimisationForm clickId( String id ) throws FormException {
+		
+		super.clickId( id );
+		
+		return this;
+		
+	}
+	
+	@Override
+	public OfferOptimisationForm clickLink( String link ) throws FormException {
+		
+		super.clickLink( link );
+		
+		return this;
+		
+	}
+	
 }

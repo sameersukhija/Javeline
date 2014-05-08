@@ -19,7 +19,7 @@ import com.lumata.e4o.gui.common.MenuBar;
 import com.lumata.e4o.gui.common.SectionImpl;
 import com.lumata.e4o.json.gui.catalogmanager.OfferCfg;
 
-public class OffersForm extends CatalogueForm {
+public class OffersForm extends CatalogueManagerForm {
 
 	private static final Logger logger = LoggerFactory.getLogger(OffersForm.class);
 
@@ -58,7 +58,7 @@ public class OffersForm extends CatalogueForm {
 
 	public static boolean open(SeleniumWebDriver selenium, long timeout, long interval) {
 
-		if (!CatalogueForm.open(selenium, timeout, interval)) {
+		if (!CatalogueManagerForm.open(selenium, timeout, interval)) {
 			return false;
 		}
 
