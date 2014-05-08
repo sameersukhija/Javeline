@@ -45,7 +45,6 @@ import com.lumata.e4o.json.gui.catalogmanager.OfferCfg;
 import com.lumata.e4o.json.gui.catalogmanager.RuleCfg;
 import com.lumata.e4o.json.gui.catalogmanager.TokenTypeCfg;
 import com.lumata.e4o.utils.generators.GenerateSubscribers;
-import com.lumata.expression.operators.gui.campaigns.CampaignModelForm;
 //import com.lumata.expression.operators.json.campaigns.CampaignModelCfg;
 
 public class AllocateAcceptTest {
