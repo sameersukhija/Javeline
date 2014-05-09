@@ -3,6 +3,8 @@ package com.lumata.e4o.gui.common;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -276,6 +278,38 @@ public abstract class Form {
 	public Form selectByXPathAndVisibleText( String xpath, String text ) throws FormException {
 		
 		return selectByVisibleText( SearchBy.XPATH, xpath, text );	
+		
+	}
+	
+	public Form multiselectByVisibleText( SeleniumUtils.SearchBy by, String tag, JSONArray list ) throws FormException {
+		
+		lastWebElement = search( by, tag );
+		
+		try {
+				
+			Select available = new Select( lastWebElement );
+			
+			for (int i = 0; i < list.length(); i++) {
+				
+				String item = list.getString( i );
+				
+				available.selectByVisibleText( item );
+			
+			}
+			
+		} catch( JSONException e) {
+			
+			throw new FormException( e.getMessage(), e );
+		
+		}
+		
+		return this;
+	
+	}
+	
+	public Form multiselectByXPathAndVisibleText( String xpath, JSONArray list ) throws FormException {
+		
+		return multiselectByVisibleText( SearchBy.XPATH, xpath, list );	
 		
 	}
 	

@@ -34,7 +34,7 @@ import com.lumata.e4o.exceptions.TokenTypeException;
 import com.lumata.e4o.gui.campaignmanager.CampaignCreationForm;
 import com.lumata.e4o.gui.catalogmanager.OffersForm;
 import com.lumata.e4o.gui.catalogmanager.RuleForm;
-import com.lumata.e4o.gui.catalogmanager.TokenTypeFormOld;
+import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.gui.common.AngularFrame;
 import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.e4o.gui.xmlrpc.HTTPXMLRPCForm;
@@ -91,19 +91,19 @@ public class AllocateAcceptTest {
 	}
 
 	private void configureTokenType() throws TokenTypeException {
-		ArrayList<TokenTypeCfg> tokenTypeList = TokenTypeCfg.createTokenTypeList("./input/catalogue/token_type", "token_type_list_all", IOLoadingType.RESOURCE);
-		Assert.assertTrue(TokenTypeFormOld.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
+		/*ArrayList<TokenTypeCfg> tokenTypeList = TokenTypeCfg.createTokenTypeList("./input/catalogue/token_type", "token_type_list_all", IOLoadingType.RESOURCE);
+		Assert.assertTrue(TokenTypeForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
 		for (TokenTypeCfg tokenTypeCfg : tokenTypeList) {
-			Assert.assertTrue(TokenTypeFormOld.addTokenType(seleniumWebDriver, tokenTypeCfg, TIMEOUT, ATTEMPT_TIMEOUT));
-		}
+			Assert.assertTrue(TokenTypeForm.addTokenType(seleniumWebDriver, tokenTypeCfg, TIMEOUT, ATTEMPT_TIMEOUT));
+		}*/
 	}
 
 	private void configureRuleSet() throws RuleException {
-		List<RuleCfg> ruleList = RuleCfg.createRuleList("./input/catalogue/rules", "rule_offer_optimizer", IOLoadingType.RESOURCE);
+		/*List<RuleCfg> ruleList = RuleCfg.createRuleList("./input/catalogue/rules", "rule_offer_optimizer", IOLoadingType.RESOURCE);
 		Assert.assertTrue(RuleForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT));
 		for (RuleCfg ruleCfg : ruleList) {
 			Assert.assertTrue(RuleForm.addRule(seleniumWebDriver, ruleCfg, TIMEOUT, ATTEMPT_TIMEOUT));
-		}
+		}*/
 	}
 
 	private void configureChannels() {

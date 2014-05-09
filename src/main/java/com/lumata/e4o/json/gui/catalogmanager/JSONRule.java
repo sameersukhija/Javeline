@@ -29,7 +29,7 @@ public class JSONRule extends JsonConfig {
 	}
 
 	public JSONArray getList() throws JSONException {		
-		return (JSONArray)getJSONArrayFromPath("tokenTypes");				
+		return (JSONArray)getJSONArrayFromPath("rules");				
 	}
 	
 	public Boolean getEnabled() throws JSONException {
@@ -49,7 +49,7 @@ public class JSONRule extends JsonConfig {
 	}
 	
 	public JSONArray getChannels() throws JSONException {		
-		return (JSONArray)getJSONArrayFromPath("channels");				
+		return (JSONArray)currentRule.getJSONArrayFromPath("channels");				
 	}
 	
 	public String getOptimizationAlgorithm() {

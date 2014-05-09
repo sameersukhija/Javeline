@@ -2,22 +2,21 @@ package com.lumata.e4o.gui.catalogmanager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.e4o.gui.common.AngularFrame;
-import com.lumata.e4o.json.gui.catalogmanager.RuleCfg;
+import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
+import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.common.Form;
+import com.lumata.e4o.json.gui.catalogmanager.JSONRule;
 
-public class RuleForm {
+public class RuleForm extends OfferOptimisationForm {
 
 	private static final Logger logger = LoggerFactory.getLogger(RuleForm.class);
 
+	private JSONRule ruleCfg;
+	
 	public enum RuleErrorAction {
 
 		RULE_ALREADY_EXISTS;
@@ -30,6 +29,165 @@ public class RuleForm {
 
 	};
 
+	public RuleForm( SeleniumWebDriver selenium, JSONRule ruleCfg, long timeout, long interval ) {
+		
+		super(selenium, timeout, interval);
+		
+		this.ruleCfg = ruleCfg;
+		
+	}	
+	
+	public RuleForm open() throws FormException {
+		
+		super.open( OfferOptimisationSection.RULES );
+		
+		return this;
+		
+	}
+	
+	public RuleForm addRules() throws FormException, JSONException {
+		
+		JSONArray rules = ruleCfg.getList();
+		
+		for( int ruleIndex = 0; ruleIndex < rules.length(); ruleIndex++ ) {
+			
+			ruleCfg.setRuleById( ruleIndex );
+			
+			if( ruleCfg.getEnabled() ) {
+			
+				clickLink( "Add" ).
+				configureRule().
+				saveRule();
+				
+			}
+					
+		}
+		
+		return this;
+		
+	}
+	
+	public RuleForm configureRule() throws FormException, JSONException {
+				
+		sendKeysByName( "name", ruleCfg.getName() ).
+		sendKeysByXPath( "//textarea[@ng-model='ruleset.description']", ruleCfg.getDescription() ).
+		selectByName( "tokenType", ruleCfg.getTokenType() ).
+		multiselectByXPathAndVisibleText( "//select[@multiple]", ruleCfg.getChannels() ).
+		selectByName( "algorithm", ruleCfg.getOptimizationAlgorithm() );
+
+		if( ruleCfg.getKeepOffersConsistentAcrossMultipleRedraws() ) { clickId( "keepOffersConsistent-1" ); }
+		else { clickId( "keepOffersConsistent-0" ); }
+		
+		if( ruleCfg.getIncludePreviouslyAcceptedOffers() ) { clickId( "previousOffersDrawnIncluded-1" ); }
+		else { clickId( "previousOffersDrawnIncluded-0" ); }
+		
+		if( ruleCfg.getAllowDuplicateOffers() ) { clickId( "duplicatedOfferWithinSingleDrawEnabled-1" ); }
+		else { clickId( "duplicatedOfferWithinSingleDrawEnabled-0" ); }
+
+		if( ruleCfg.getUnlimitedOffers() ) { clickId( "numOfOffersToDrawUnlimited-1" ); }
+		else { 
+			
+			clickId( "numOfOffersToDrawUnlimited-0" ). 
+			typeByName( "usage", ruleCfg.getMaximumNumberOfOffers() );
+		
+		}
+		
+		return this;
+		
+	}
+	
+	public Form saveRule() throws FormException {
+		
+		clickName( "btn-add" );
+		
+		return this;
+		
+	}
+	
+	@Override
+	public RuleForm clickName( String name ) throws FormException {
+		
+		super.clickName( name );
+		
+		return this;
+		
+	}
+	
+	@Override
+	public RuleForm clickLink( String link ) throws FormException {
+		
+		super.clickLink( link );
+		
+		return this;
+		
+	}
+	
+	@Override
+	public RuleForm sendKeysByName( String name, String text ) throws FormException {
+		
+		super.sendKeysByName( name, text );
+		
+		return this;
+	
+	}
+	
+	@Override
+	public RuleForm sendKeysByXPath( String xpath, String text ) throws FormException {
+		
+		super.sendKeysByXPath( xpath, text );
+		
+		return this;
+	
+	}
+	
+	@Override
+	public RuleForm sendKeysByLink( String link, String text ) throws FormException {
+		
+		super.sendKeysByLink( link, text );
+		
+		return this;
+	
+	}
+	
+	@Override
+	public RuleForm selectByName( String name, String label ) throws FormException {
+		
+		super.selectByName( name, label );
+		
+		return this;
+		
+	}
+	
+	@Override
+	public RuleForm clearByName( String xpath ) throws FormException {
+		
+		super.clearByName( xpath );
+		
+		return this;
+		
+	}
+	
+	@Override
+	public RuleForm typeByName( String name, String text ) throws FormException {
+		
+		super.typeByName( name, text );
+		
+		return this;
+	
+	}
+	
+	@Override
+	public RuleForm multiselectByXPathAndVisibleText( String xpath, JSONArray list ) throws FormException {
+		
+		super.multiselectByVisibleText( SearchBy.XPATH, xpath, list );	
+		
+		return this;
+		
+	}
+	
+	
+	
+	/*
 	public static boolean open(SeleniumWebDriver selenium, long timeout, long interval) {
 
 		return OfferOptimisationForm.open(selenium, OfferOptimisationForm.OfferOptimisationSection.RULES, timeout, interval);
@@ -235,5 +393,5 @@ public class RuleForm {
 		return AngularFrame.open(selenium, timeout, interval);
 
 	}
-
+*/
 }

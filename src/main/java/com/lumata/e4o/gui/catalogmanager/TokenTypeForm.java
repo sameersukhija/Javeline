@@ -2,6 +2,8 @@ package com.lumata.e4o.gui.catalogmanager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,14 +76,25 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		sendKeysByXPath( "//textarea[@ng-model='tokenType.description']", tokenTypeCfg.getDescription() ).
 		sendKeysByXPath( "//input[@ng-model='tokenType.imageUrl']", tokenTypeCfg.getImageUrl() ).
 		selectByName( "format", tokenTypeCfg.getFormat() ).
-		selectByName( "validityUnit", tokenTypeCfg.getValidityUnit() );
-		//typeByName( "validity", tokenTypeCfg.getValidity() )
+		selectByName( "validityUnit", tokenTypeCfg.getValidityUnit() ).
+		typeByName( "validity", tokenTypeCfg.getValidity() );
 		//;
 
 		//execJavascript("$('[name=validity]').val(100);");
 		//execJavascript("document.getElementsByName('validity')[0].value='100';");
 		
-		execJavascript("document.getElementsByName('validity')[0].stepUp(1)");
+		//execJavascript("document.getElementsByName('validity')[0].valueAsNumber = 555");
+		//execJavascript("document.getElementsByName('validity')[0].validity.valid = true" );
+		
+		JavascriptExecutor jsexec = (JavascriptExecutor) selenium.getWrappedDriver();
+		
+		Object obj = jsexec.executeScript("return document.getElementsByName('validity')[0];");
+		
+		RemoteWebElement re = (RemoteWebElement)obj;
+		
+		System.out.println( re.getWrappedDriver().getPageSource() );
+		
+		try{ Thread.sleep( 5000 ); } catch( Exception e ){}
 		
 		//execJavascript("$('[name=validity]').keypress(100);");
 		

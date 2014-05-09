@@ -6,6 +6,9 @@
 			"description": "CMAllEvents",
 			"campaignType": "",
 			"useHierarchy": false,
+			"errorActions": {
+				"elementAlreadyExists": "ABORT"			
+			},
 			"events": [
 				{	
 					"eventType":"USSD", 
