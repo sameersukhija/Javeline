@@ -27,13 +27,13 @@ import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Browser;
 import com.opera.core.systems.OperaDriver;
-import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium;
+//import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium;
 
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
-public class SeleniumWebDriver extends WebDriverBackedSelenium {
+public class SeleniumWebDriver /*extends WebDriverBackedSelenium*/ {
 
 	private static final  Logger logger = LoggerFactory.getLogger( SeleniumWebDriver.class );
 	
@@ -47,6 +47,21 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
         OPERA,
         SAFARI;			
 	}
+	
+	/**
+	 * Instance of local <b>WebDriver</b>
+	 */
+	private WebDriver instance = null;
+	
+	/**
+	 * It returns the wrapped <b>WebDriver</b>
+	 * 
+	 * @return a <b>WebDriver</b> object 
+	 */
+	public WebDriver getWrappedDriver() {
+		
+		return instance;
+	}
 
 	/**
 	 * New SeleniumWebDriver instance
@@ -56,7 +71,17 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 	 */
 	public SeleniumWebDriver ( Browser browser, String baseUrl ) {
 		
-		super( getLocalWebDriver( browser ), baseUrl );
+		instance = getLocalWebDriver( browser );
+		
+		adjustWindows(baseUrl);
+	}
+	
+	/**
+	 * Close the <b>WebDriver</b> object
+	 */
+	public void close() {
+		
+		instance.quit();
 	}
 	
 	/**
@@ -69,21 +94,39 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 	 */
 	public SeleniumWebDriver ( String browser, JSONObject browserProfile, String baseUrl ) {
 		
-		super(getLocalWebDriver( browser, browserProfile ), baseUrl);
+		instance = getLocalWebDriver( browser, browserProfile );
 		
+		instance.get(baseUrl);	
 	}
 	
 	/**
-	 * For Selenium Grid application
+	 * New SeleniumWebDriver instance for Grid application
 	 * 
-	 * @param baseBrowser
-	 * @param baseUrl
-	 * @param baseHubAddress
+	 * @param browser is the <b>Browser</b> from input configuration
+	 * @param baseUrl is the base URL for startup
+	 * @param baseHubAddress is the URL of Selenium Hub
 	 */
 	public SeleniumWebDriver ( BrowserType baseBrowser, String baseUrl, String baseHubAddress ) {
 		
-		super(getRemoteWebDriver( baseBrowser, baseHubAddress ), baseUrl);
+		instance = getRemoteWebDriver( baseBrowser, baseHubAddress );
+
+		adjustWindows(baseUrl);
+	}
+
+	/**
+	 * Fist steps to adjust windows
+	 * 
+	 * @param baseUrl is the startup URL to get
+	 */
+	private void adjustWindows(String baseUrl) {
 		
+		logger.debug("Windows Maximize");
+		
+		instance.manage().window().maximize();
+		
+		logger.debug("Get base Url");
+		
+		instance.get(baseUrl);
 	}
 
 	/**
@@ -93,7 +136,7 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 	 * 
 	 * @return an instance of WebDriver object
 	 */
-	public static WebDriver getLocalWebDriver( Browser browser ) {
+	private static WebDriver getLocalWebDriver( Browser browser ) {
 	
 		WebDriver resp = null;
 		
@@ -211,7 +254,7 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 	 * 
 	 * @deprecated use getLocalWebDriver( Browser browser )
 	 */
-	public static WebDriver getLocalWebDriver( String browser, JSONObject browserProfile ) {
+	private static WebDriver getLocalWebDriver( String browser, JSONObject browserProfile ) {
 		
 		WebDriver resp = null;
 		
@@ -298,7 +341,7 @@ public class SeleniumWebDriver extends WebDriverBackedSelenium {
 		return resp;
 	}
 	
-	public static WebDriver getRemoteWebDriver( BrowserType browserType, String baseHubAddress ) {
+	private static WebDriver getRemoteWebDriver( BrowserType browserType, String baseHubAddress ) {
 		
 		URL remoteHubAddress = null;
 		

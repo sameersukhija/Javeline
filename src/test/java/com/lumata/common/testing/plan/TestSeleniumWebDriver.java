@@ -1,6 +1,8 @@
 package com.lumata.common.testing.plan;
 
 import org.jboss.resteasy.client.ClientResponse;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -13,6 +15,7 @@ import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.network.RestClient;
 import com.lumata.common.testing.selenium.SeleniumUtils;
+import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
@@ -79,11 +82,56 @@ public class TestSeleniumWebDriver {
 		
 		Reporter.log("Startup \"SeleniumWebDriver\" object.", true);
 		seleniumWebDriver_ = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
-		Assert.assertNotNull( seleniumWebDriver_ , "SeleniumWebDriver is null!");
-		
-		seleniumWebDriver_.windowMaximize();
-		seleniumWebDriver_.open("/");		
+		Assert.assertNotNull( seleniumWebDriver_ , "SeleniumWebDriver is null!");	
 	}	
+
+	@Test
+	@Parameters({"browser", "environment", "gui_server"})
+	public void loadSeleniumWebDriverLoginLogout( 	@Optional("FIREFOX") 	String browser, 
+													@Optional("E4O_VM_NE") 	String environment, 
+													@Optional("actrule") 	String gui_server ) throws NetworkEnvironmentException {		
+				
+		NetworkEnvironment env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		Assert.assertNotNull( env );
+		
+		Server gui = env.getServer( gui_server );
+		
+		seleniumWebDriver_ = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
+		Assert.assertNotNull( seleniumWebDriver_ );
+
+		SeleniumUtils.waitFor( 1000 );
+		
+		WebElement el = null;
+				
+		el = SeleniumUtils.findForComponentDisplayed(seleniumWebDriver_, SearchBy.ID, "gwt-debug-InputLoginUsername");
+		el.sendKeys("superman");
+		
+		el = SeleniumUtils.findForComponentDisplayed(seleniumWebDriver_, SearchBy.ID, "gwt-debug-InputLoginPassword");
+		el.sendKeys("super2010Man");
+				
+		el = SeleniumUtils.findForComponentDisplayed(seleniumWebDriver_, SearchBy.ID, "gwt-debug-ButtonLoginAuthentication");
+		el.click();
+		
+		SeleniumUtils.waitFor( 1000 );
+		
+		el = SeleniumUtils.findForComponentDisplayed(seleniumWebDriver_, SearchBy.XPATH, "//button[contains(@id,'gwt-debug-Logout')]");
+		el.click();
+		
+		SeleniumUtils.waitFor( 1000 );
+		
+		Alert confirmLogout = null;
+		 
+		try {
+			confirmLogout = seleniumWebDriver_.getWrappedDriver().switchTo().alert();
+		    	
+			if ( confirmLogout != null )
+				confirmLogout.accept();
+		} catch (NoAlertPresentException e) {
+		  
+			// nothing to do
+			Assert.assertTrue( false, "Missing popup event!");
+		}
+	}		
 	
 	@Parameters({"browser", "environment"})
 	@Test( enabled=false )
@@ -96,8 +144,8 @@ public class TestSeleniumWebDriver {
 		
 		SeleniumWebDriver seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
 		Assert.assertNotNull( seleniumWebDriver );
-		seleniumWebDriver.windowMaximize();
-		seleniumWebDriver.open("/");
+//		seleniumWebDriver.windowMaximize();
+//		seleniumWebDriver.open("/");
 		
 		SeleniumUtils.waitFor( 1000 );
 		
@@ -126,6 +174,7 @@ public class TestSeleniumWebDriver {
 			
 			Reporter.log( "Close \"SeleniumWebDriver\" object.", true);
 			seleniumWebDriver_.close();
+			seleniumWebDriver_ = null;
 		}
 	}
 

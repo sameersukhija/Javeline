@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -143,6 +142,9 @@ public final class SeleniumUtils {
 				case XPATH: { elements = rootElement.findElements( By.xpath(locator) ); break;  }
 				case CSS: { elements = rootElement.findElements( By.cssSelector(locator) ); break;  }
 				case CLASS_NAME: { elements = rootElement.findElements( By.className(locator) ); break;  }
+			default:
+				logger.error("Unknown locator rules : " + searchBy.toString());
+				break;
 				
 			}
 		
@@ -183,6 +185,9 @@ public final class SeleniumUtils {
 				case XPATH: { elements = rootElement.findElements( By.xpath(locator) ); break;  }
 				case CSS: { elements = rootElement.findElements( By.cssSelector(locator) ); break;  }
 				case CLASS_NAME: { elements = rootElement.findElements( By.className(locator) ); break;  }
+			default:
+				logger.error("Unknown locator rules : " + searchBy.toString());
+				break;
 				
 			}
 		
