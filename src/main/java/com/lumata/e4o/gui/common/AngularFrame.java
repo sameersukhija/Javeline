@@ -29,8 +29,8 @@ public class AngularFrame {
 		
 		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "for parent frame") );
 		
-		selenium.selectFrame("relative=top");
-		
+		selenium.getWrappedDriver().switchTo().frame("relative=top");
+
 		return true;
 		
 	}

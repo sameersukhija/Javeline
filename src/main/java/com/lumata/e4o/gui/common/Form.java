@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -241,7 +242,7 @@ public abstract class Form {
 		
 		lastWebElement = search( by, tag );
 				
-		selenium.select( by.name().toLowerCase() + "=" + tag, "label=" + label );
+//		selenium.select( by.name().toLowerCase() + "=" + tag, "label=" + label );
 		
 		return this;
 		
@@ -316,9 +317,9 @@ public abstract class Form {
 	private Form type( SeleniumUtils.SearchBy by, String tag, String text ) throws FormException {
 		
 		lastWebElement = search( by, tag );
-				
-		selenium.type( by.name().toLowerCase() + "=" + tag, text );
-				
+			
+		lastWebElement.sendKeys(text);
+			
 		return this;
 		
 	}
@@ -417,7 +418,8 @@ public abstract class Form {
 		
 		lastWebElement = search( by, text );
 		
-		selenium.mouseOver( by.name().toLowerCase() + "=" + text );
+		Actions action = new Actions(selenium.getWrappedDriver());
+		action.moveToElement(lastWebElement).build().perform();
 		
 		return this;
 		

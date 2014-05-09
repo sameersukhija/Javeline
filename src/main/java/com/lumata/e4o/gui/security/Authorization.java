@@ -1,5 +1,7 @@
 package com.lumata.e4o.gui.security;
 
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -8,9 +10,16 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.common.testing.system.Security;
 import com.lumata.common.testing.system.User;
 
+/**
+ * This object provides static methods to handle :<br>
+ * <li> login
+ * <li> license
+ * <li> logout
+ */
 public class Authorization {
 
 	private static final Logger logger = LoggerFactory.getLogger(Authorization.class);
@@ -24,17 +33,22 @@ public class Authorization {
 	public static boolean login( SeleniumWebDriver selenium, String user, String password, long timeout, long interval ) {
 		
 		logger.info( Log.LOADING.createMessage( "Browser" ) );
-		
-		selenium.open("/");
-		
+
 		WebElement loginForm = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-InputLoginUsername", timeout, interval);
 		if( loginForm == null ) { logger.error(  Log.FAILED.createMessage( selenium.getTestName() , "User not logged" ) ); return false; }	
 				
 		logger.info( Log.PUTTING.createMessage( "User ( " + user + " )" ) );
 		
-		selenium.type("id=gwt-debug-InputLoginUsername", user );
-		selenium.type("id=gwt-debug-InputLoginPassword", password);
-		selenium.click("id=gwt-debug-ButtonLoginAuthentication");
+		WebElement el = null;
+		
+		el = SeleniumUtils.findForComponentDisplayed(selenium, SearchBy.ID, "gwt-debug-InputLoginUsername");
+		el.sendKeys(user);
+
+		el = SeleniumUtils.findForComponentDisplayed(selenium, SearchBy.ID, "gwt-debug-InputLoginPassword");
+		el.sendKeys(password);
+		
+		el = SeleniumUtils.findForComponentDisplayed(selenium, SearchBy.ID, "gwt-debug-ButtonLoginAuthentication");
+		el.click();
 		
 		logger.info( Log.CHECKING.createMessage( "for login success" ) );
 		
@@ -68,9 +82,28 @@ public class Authorization {
 		
 	}
 	
+	/**
+	 * Click on logout and accept if alert popup is displayed
+	 * 
+	 * @param selenium
+	 */
 	public static void logout( SeleniumWebDriver selenium ) {
-			selenium.close();
-			logger.info( "Logout" );
+		
+		logger.info( "Logout" );
+		
+		SeleniumUtils.findForComponentDisplayed( selenium, SeleniumUtils.SearchBy.XPATH, "//button[@title='Logout']").click();
+		
+		Alert confirmLogout = null;
+		 
+		try {
+			confirmLogout = selenium.getWrappedDriver().switchTo().alert();
+		    	
+			if ( confirmLogout != null )
+				confirmLogout.accept();
+		} catch (NoAlertPresentException e) {
+		  
+			// nothing to do
+		}
 	}
 	
 }
