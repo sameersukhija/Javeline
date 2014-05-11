@@ -47,7 +47,7 @@ public class ConfigureCampaign {
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment", "gui_server", "tenant", "user"})
 	@BeforeClass
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment, @Optional("actrule") String gui_server, @Optional("qa") String tenant, @Optional("superman") String user ) throws CommoditiesException, JSONSException, IOFileException, NetworkEnvironmentException {		
+	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment, @Optional("actrule") String gui_server, @Optional("qa") String tenant, @Optional("superman") String user ) throws CommoditiesException, JSONSException, IOFileException, NetworkEnvironmentException, FormException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
@@ -61,10 +61,9 @@ public class ConfigureCampaign {
 		/** Create Selenium WebDriver instance */
 		Server gui = env.getServer( gui_server );
 		seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
-		seleniumWebDriver.windowMaximize();
 		
 		/** Login */
-		Assert.assertTrue(Authorization.login(seleniumWebDriver, gui.getUser( user ), TIMEOUT, ATTEMPT_TIMEOUT));
+		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).login( gui.getUser( user ) ).navigate() );
 		
 	}
 	
