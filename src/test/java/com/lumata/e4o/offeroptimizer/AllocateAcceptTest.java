@@ -22,12 +22,16 @@ import org.testng.annotations.Test;
 import com.beust.jcommander.internal.Lists;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.EnvironmentException;
+import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.system.NetworkEnvironment;
+import com.lumata.common.testing.system.Server;
 import com.lumata.e4o.exceptions.CampaignModelException;
+import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.exceptions.OfferException;
 import com.lumata.e4o.exceptions.RuleException;
 import com.lumata.e4o.exceptions.TokenTypeException;
@@ -51,7 +55,7 @@ public class AllocateAcceptTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(AllocateAcceptTest.class);
 
-	Environment env;
+	NetworkEnvironment env;
 	Mysql mysql;
 	SeleniumWebDriver seleniumWebDriver;
 	private int TIMEOUT = 600000;
@@ -60,21 +64,26 @@ public class AllocateAcceptTest {
 	private String tenant;
 
 	/* 	Initialize Environment */
-	@Parameters({ "browser", "environment", "tenant", "user" })
+	@Parameters({ "browser", "environment", "tenant", "gui_server", "user" })
 	@BeforeSuite
-	public void init(@Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment, @Optional("tenant") String tenant, @Optional("superman") String user)
-			throws EnvironmentException {
+	public void init(@Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment, @Optional("tenant") String tenant, @Optional("actrule") String gui_server, @Optional("superman") String user)
+			throws NetworkEnvironmentException, FormException {
 
 		logger.info(Log.LOADING.createMessage("init", "environment"));
 
-		env = new Environment("input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE);
+		env = new NetworkEnvironment("input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE);
+		
 		this.tenant = tenant;
+		
 		mysql = new Mysql(env.getDataSource(tenant));
-		seleniumWebDriver = new SeleniumWebDriver(browser, env.getBrowser(browser), env.getLink());
-		seleniumWebDriver.windowMaximize();
-
-		Assert.assertTrue(Authorization.login(seleniumWebDriver, env.getUserName(user), env.getPassword(user), 60000, 500));
-
+		
+		/** Create Selenium WebDriver instance */
+		Server gui = env.getServer( gui_server );
+		seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
+		
+		/** Login */
+		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).login( gui.getUser( user ) ).navigate() );
+		
 		System.out.println("TENANT: " + env.getDataSource(tenant).toString());
 	}
 

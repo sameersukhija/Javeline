@@ -16,11 +16,15 @@ import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.system.NetworkEnvironment;
+import com.lumata.common.testing.system.Server;
 import com.lumata.e4o.exceptions.CommoditiesException;
+import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.exceptions.OfferException;
 import com.lumata.e4o.gui.loyaltymanager.LoyaltyCreationForm;
 import com.lumata.e4o.gui.security.Authorization;
@@ -52,28 +56,28 @@ public class ConfigureLoyalty {
 	private int ATTEMPT_TIMEOUT = 500;
 	
 	SeleniumWebDriver seleniumWebDriver;
-	Environment env;
+	NetworkEnvironment env;
 	Mysql mysql;
 	LoyaltyCreationForm form;
 	LoyaltyCreateCfg createCfg;
 	LoyaltyManageCfg manageCfg;
 	
 	/* 	Initialize Environment */
-	@Parameters({"browser", "environment", "tenant", "user", "loyaltyCreateCfg", "loyaltyManageCfg"})
+	@Parameters({"browser", "environment", "tenant", "gui_server", "user", "loyaltyCreateCfg", "loyaltyManageCfg"})
 	@BeforeMethod
-	public void init(@Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment, @Optional("tenant") String tenant, @Optional("superman") String user, @Optional("loyalty_create") String loyaltyCreateCfg, @Optional("loyalty_manage") String loyaltyManageCfg)
-			throws EnvironmentException, OfferException, CommoditiesException, JSONSException, IOFileException {
+	public void init(@Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment, @Optional("tenant") String tenant, @Optional("actrule") String gui_server, @Optional("superman") String user, @Optional("loyalty_create") String loyaltyCreateCfg, @Optional("loyalty_manage") String loyaltyManageCfg)
+			throws OfferException, CommoditiesException, JSONSException, IOFileException, NetworkEnvironmentException, FormException {
 		
 		logger.info(Log.LOADING.createMessage("init", "environment"));
 				
 		// Create environment configuration
-		env = new Environment("input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE);
+		env = new NetworkEnvironment("input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE);
 		
 		mysql = new Mysql(env.getDataSource(tenant));
 		
 		// Create Selenium WebDriver instance
-		seleniumWebDriver = new SeleniumWebDriver( browser, env.getBrowser( browser ), env.getLink() );
-		seleniumWebDriver.windowMaximize();
+		Server gui = env.getServer( gui_server );
+		seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
 		
 		// Loyalty configuration
 		createCfg = new LoyaltyCreateCfg(CFG_PATH_INPUT_LOYALTIES, loyaltyCreateCfg);
@@ -83,7 +87,8 @@ public class ConfigureLoyalty {
 		form = new LoyaltyCreationForm(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT, createCfg, manageCfg);
 		
 		// Login
-		Assert.assertTrue(Authorization.login(seleniumWebDriver, env.getUserName(user), env.getPassword(user), TIMEOUT, ATTEMPT_TIMEOUT));
+		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).login( gui.getUser( user ) ).navigate() );
+		
 	}
 	
 	@AfterMethod

@@ -322,8 +322,6 @@ public class CustomerCareLightViaURL {
 		
 		seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
 		
-		seleniumWebDriver.windowMaximize();
-		
 		CustomerCareLightForm ccl = new CustomerCareLightForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
 		
@@ -388,8 +386,6 @@ public class CustomerCareLightViaURL {
 		User supermanUser = gui.getUser( "superman" );
 		
 		seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
-		
-		seleniumWebDriver.windowMaximize();
 		
 		CustomerCareLightForm ccl = new CustomerCareLightForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		

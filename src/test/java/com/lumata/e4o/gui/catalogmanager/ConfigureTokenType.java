@@ -39,7 +39,7 @@ public class ConfigureTokenType {
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment", "gui_server", "tenant", "user"})
 	@BeforeClass
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment, @Optional("actrule") String gui_server, @Optional("tenant") String tenant, @Optional("superman") String user ) throws NetworkEnvironmentException {		
+	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment, @Optional("actrule") String gui_server, @Optional("tenant") String tenant, @Optional("superman") String user ) throws NetworkEnvironmentException, FormException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
@@ -49,10 +49,9 @@ public class ConfigureTokenType {
 		/** Create Selenium WebDriver instance */
 		Server gui = env.getServer( gui_server );
 		seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
-		seleniumWebDriver.windowMaximize();
 		
 		/** Login */
-		Assert.assertTrue( Authorization.login(seleniumWebDriver, gui.getUser( user ), TIMEOUT, ATTEMPT_TIMEOUT ));
+		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).login( gui.getUser( user ) ).navigate() );
 		
 	}
 	

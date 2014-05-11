@@ -19,6 +19,7 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.e4o.exceptions.CommoditiesException;
+import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.exceptions.OfferException;
 import com.lumata.e4o.gui.security.Authorization;
 
@@ -40,7 +41,7 @@ public class O2Common {
 	@Parameters({"browser", "environment", "gui_server", "tenant", "user"})
 	@BeforeMethod
 	public void init(@Optional("FIREFOX") String browser, @Optional("E4O_QA_NE") String environment, @Optional("actrule") String gui_server, @Optional("qa") String tenant, @Optional("superman") String user)
-			throws EnvironmentException, OfferException, CommoditiesException, JSONSException, IOFileException, NetworkEnvironmentException {
+			throws EnvironmentException, OfferException, CommoditiesException, JSONSException, IOFileException, NetworkEnvironmentException, FormException {
 		
 		logger.info(Log.LOADING.createMessage("init", "environment"));
 				
@@ -54,7 +55,6 @@ public class O2Common {
 		//seleniumWebDriver = new SeleniumWebDriver( browser, env.getBrowser( browser ), env.getLink() );
 		Server gui = env.getServer(gui_server);
 		seleniumWebDriver = new SeleniumWebDriver(gui.getBrowser(browser), gui.getLink());
-		seleniumWebDriver.windowMaximize();
 		
 		// TODO configuration
 		//createCfg = new LoyaltyCreateCfg(CFG_PATH_INPUT_LOYALTIES, loyaltyCreateCfg);
@@ -65,6 +65,8 @@ public class O2Common {
 		
 		// Login
 		//Assert.assertTrue(Authorization.login(seleniumWebDriver, env.getUserName(user), env.getPassword(user), TIMEOUT, ATTEMPT_TIMEOUT));
-		Assert.assertTrue(Authorization.login(seleniumWebDriver, gui.getUser(user), TIMEOUT, ATTEMPT_TIMEOUT));
+		/** Login */
+		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).login( gui.getUser( user ) ).navigate() );
+		
 	}
 }
