@@ -293,6 +293,10 @@ public class Mysql {
 		return this.dbPasswd;
 	}
 	
+	public MysqlUtils getCommands() {
+		return new MysqlUtils( this );
+	}
+	
 	public void setConnection( Connection dbConn ) {
 		this.dbConn = dbConn;
 	}
