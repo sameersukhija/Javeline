@@ -67,11 +67,14 @@ public class ConfigureRule {
 		
 		RuleForm ruleForm = new RuleForm( seleniumWebDriver, new JSONRule( "input/catalogmanager/rules", ruleList ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Assert.assertTrue( ruleForm.open().addRules().navigate() );
+		Assert.assertTrue( ruleForm.open().addRules().close().navigate() );
 		
 	}
 	
 	@AfterClass
-	public void end() {}
+	public void end() throws FormException {
+		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).logout().navigate() );
+		seleniumWebDriver.close();
+	}
 		
 }
