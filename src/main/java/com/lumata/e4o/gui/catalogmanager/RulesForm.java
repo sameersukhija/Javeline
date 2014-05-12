@@ -12,13 +12,13 @@ import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm.ElementErrorActionType;
 import com.lumata.e4o.gui.common.Form;
-import com.lumata.e4o.json.gui.catalogmanager.JSONRule;
+import com.lumata.e4o.json.gui.catalogmanager.JSONRules;
 
-public class RuleForm extends OfferOptimisationForm {
+public class RulesForm extends OfferOptimisationForm {
 
-	private static final Logger logger = LoggerFactory.getLogger(RuleForm.class);
+	private static final Logger logger = LoggerFactory.getLogger(RulesForm.class);
 
-	private JSONRule ruleCfg;
+	private JSONRules ruleCfg;
 	
     public enum ElementErrorActionType {
 
@@ -28,7 +28,7 @@ public class RuleForm extends OfferOptimisationForm {
 
     }; 
     
-	public RuleForm( SeleniumWebDriver selenium, JSONRule ruleCfg, long timeout, long interval ) {
+	public RulesForm( SeleniumWebDriver selenium, JSONRules ruleCfg, long timeout, long interval ) {
 		
 		super(selenium, timeout, interval);
 		
@@ -36,7 +36,7 @@ public class RuleForm extends OfferOptimisationForm {
 		
 	}	
 	
-	public RuleForm open() throws FormException {
+	public RulesForm open() throws FormException {
 		
 		super.open( OfferOptimisationSection.RULES );
 		
@@ -44,7 +44,7 @@ public class RuleForm extends OfferOptimisationForm {
 		
 	}
 	
-	public RuleForm addRules() throws FormException, JSONException {
+	public RulesForm addRules() throws FormException, JSONException {
 		
 		JSONArray rules = ruleCfg.getList();
 		
@@ -67,7 +67,7 @@ public class RuleForm extends OfferOptimisationForm {
 		
 	}
 	
-	public RuleForm configureRule() throws FormException, JSONException {
+	public RulesForm configureRule() throws FormException, JSONException {
 				
 		sendKeysByName( "name", ruleCfg.getName() ).
 		sendKeysByXPath( "//textarea[@ng-model='ruleset.description']", ruleCfg.getDescription() ).
@@ -96,7 +96,7 @@ public class RuleForm extends OfferOptimisationForm {
 		
 	}
 	
-	public RuleForm manageErrorAction( String errorAction ) throws FormException {
+	public RulesForm manageErrorAction( String errorAction ) throws FormException {
 		
 		closeAngularFrame();
 		
@@ -151,7 +151,7 @@ public class RuleForm extends OfferOptimisationForm {
 		
 	}
 	
-	public RuleForm saveRule() throws FormException {
+	public RulesForm saveRule() throws FormException {
 		
 		super.clickName( "btn-add" );
 		
@@ -159,7 +159,7 @@ public class RuleForm extends OfferOptimisationForm {
 		
 	}
 	
-	public RuleForm cancelRule() throws FormException {
+	public RulesForm cancelRule() throws FormException {
 		
 		super.clickXPath( "//a[@label='actrule-button-cancel']" );
 		
@@ -168,7 +168,7 @@ public class RuleForm extends OfferOptimisationForm {
 	}
 	
 	@Override
-	public RuleForm clickName( String name ) throws FormException {
+	public RulesForm clickName( String name ) throws FormException {
 		
 		super.clickName( name );
 		
@@ -177,7 +177,7 @@ public class RuleForm extends OfferOptimisationForm {
 	}
 	
 	@Override
-	public RuleForm clickXPath( String xpath ) throws FormException {
+	public RulesForm clickXPath( String xpath ) throws FormException {
 		
 		super.clickXPath( xpath );
 		
@@ -186,7 +186,7 @@ public class RuleForm extends OfferOptimisationForm {
 	}
 	
 	@Override
-	public RuleForm clickLink( String link ) throws FormException {
+	public RulesForm clickLink( String link ) throws FormException {
 		
 		super.clickLink( link );
 		
@@ -195,7 +195,7 @@ public class RuleForm extends OfferOptimisationForm {
 	}
 	
 	@Override
-	public RuleForm sendKeysByName( String name, String text ) throws FormException {
+	public RulesForm sendKeysByName( String name, String text ) throws FormException {
 		
 		super.sendKeysByName( name, text );
 		
@@ -204,7 +204,7 @@ public class RuleForm extends OfferOptimisationForm {
 	}
 	
 	@Override
-	public RuleForm sendKeysByXPath( String xpath, String text ) throws FormException {
+	public RulesForm sendKeysByXPath( String xpath, String text ) throws FormException {
 		
 		super.sendKeysByXPath( xpath, text );
 		
@@ -213,7 +213,7 @@ public class RuleForm extends OfferOptimisationForm {
 	}
 	
 	@Override
-	public RuleForm sendKeysByLink( String link, String text ) throws FormException {
+	public RulesForm sendKeysByLink( String link, String text ) throws FormException {
 		
 		super.sendKeysByLink( link, text );
 		
@@ -222,7 +222,7 @@ public class RuleForm extends OfferOptimisationForm {
 	}
 	
 	@Override
-	public RuleForm selectByName( String name, String label ) throws FormException {
+	public RulesForm selectByName( String name, String label ) throws FormException {
 		
 		super.selectByName( name, label );
 		
@@ -231,7 +231,7 @@ public class RuleForm extends OfferOptimisationForm {
 	}
 	
 	@Override
-	public RuleForm clearByName( String xpath ) throws FormException {
+	public RulesForm clearByName( String xpath ) throws FormException {
 		
 		super.clearByName( xpath );
 		
@@ -240,7 +240,7 @@ public class RuleForm extends OfferOptimisationForm {
 	}
 	
 	@Override
-	public RuleForm typeByName( String name, String text ) throws FormException {
+	public RulesForm typeByName( String name, String text ) throws FormException {
 		
 		super.typeByName( name, text );
 		
@@ -249,7 +249,7 @@ public class RuleForm extends OfferOptimisationForm {
 	}
 	
 	@Override
-	public RuleForm multiselectByXPathAndVisibleText( String xpath, JSONArray list ) throws FormException {
+	public RulesForm multiselectByXPathAndVisibleText( String xpath, JSONArray list ) throws FormException {
 		
 		super.multiselectByVisibleText( SearchBy.XPATH, xpath, list );	
 		
@@ -258,7 +258,7 @@ public class RuleForm extends OfferOptimisationForm {
 	}
 	
 	@Override
-	public RuleForm selectByNameAndVisibleText( String name, String text ) throws FormException {
+	public RulesForm selectByNameAndVisibleText( String name, String text ) throws FormException {
 		
 		super.selectByNameAndVisibleText( name, text );	
 		
@@ -267,7 +267,7 @@ public class RuleForm extends OfferOptimisationForm {
 	}
 	
 	@Override
-	public RuleForm openAngularFrame() throws FormException {
+	public RulesForm openAngularFrame() throws FormException {
 		
 		super.openAngularFrame();	
 		
@@ -276,7 +276,7 @@ public class RuleForm extends OfferOptimisationForm {
 	}
 	
 	@Override
-	public RuleForm closeAngularFrame() throws FormException {
+	public RulesForm closeAngularFrame() throws FormException {
 		
 		super.closeAngularFrame();	
 		

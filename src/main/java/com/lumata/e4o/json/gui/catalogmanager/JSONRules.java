@@ -13,9 +13,9 @@ import com.lumata.e4o.json.common.JsonConfig;
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
-public class JSONRule extends JsonConfig {
+public class JSONRules extends JsonConfig {
 
-	private static final Logger logger = LoggerFactory.getLogger(JSONRule.class);
+	private static final Logger logger = LoggerFactory.getLogger(JSONRules.class);
 
 	public enum RuleValidity {
 		seconds, minutes, hours, days
@@ -23,7 +23,7 @@ public class JSONRule extends JsonConfig {
 
 	private JsonConfig currentRule;
 	
-	public JSONRule( String folder, String file ) throws JSONSException {
+	public JSONRules( String folder, String file ) throws JSONSException {
 		
 		super( folder, file );
 			

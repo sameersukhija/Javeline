@@ -22,11 +22,11 @@ import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.security.Authorization;
-import com.lumata.e4o.json.gui.catalogmanager.JSONRule;
+import com.lumata.e4o.json.gui.catalogmanager.JSONSuppliers;
 
-public class ConfigureRule {
+public class ConfigureSuppliers {
 
-	private static final Logger logger = LoggerFactory.getLogger( ConfigureRule.class );
+	private static final Logger logger = LoggerFactory.getLogger( ConfigureSuppliers.class );
 	
 	private int TIMEOUT = 60000;
 	private int ATTEMPT_TIMEOUT = 200;
@@ -61,13 +61,13 @@ public class ConfigureRule {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}
 	
-	@Parameters({"ruleList"})
+	@Parameters({"supplierList"})
 	@Test( enabled=testEnabled, priority = 1 )
-	public void configureRule( @Optional("ruleList") String ruleList ) throws FormException, JSONException, JSONSException {
+	public void configureSuppliers( @Optional("supplierList") String supplierList ) throws FormException, JSONException, JSONSException {
 		
-		RuleForm ruleForm = new RuleForm( seleniumWebDriver, new JSONRule( "input/catalogmanager/rules", ruleList ), TIMEOUT, ATTEMPT_TIMEOUT );
+		SuppliersForm suppliersForm = new SuppliersForm( seleniumWebDriver, new JSONSuppliers( "input/catalogmanager/suppliers", supplierList ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Assert.assertTrue( ruleForm.open().addRules().close().navigate() );
+		Assert.assertTrue( suppliersForm.open().addSuppliers().navigate() );
 		
 	}
 	

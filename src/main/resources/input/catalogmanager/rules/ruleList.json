@@ -14,9 +14,6 @@
 			"maximumNumberOfOffers":"10",
 			"errorActions": {
 				"ELEMENT_ALREADY_EXISTS": "ABORT"	
-			},
-			"options": {
-				"TOKEN_TYPE_AUTOINCREMENT": true	
 			}
 		},{
 			"enabled": true,
@@ -32,9 +29,6 @@
 			"maximumNumberOfOffers":"10",
 			"errorActions": {
 				"ELEMENT_ALREADY_EXISTS": "ABORT"	
-			},
-			"options": {
-				"TOKEN_TYPE_AUTOINCREMENT": true	
 			}
 		},{
 			"enabled": true,
@@ -50,9 +44,6 @@
 			"maximumNumberOfOffers":"10",
 			"errorActions": {
 				"ELEMENT_ALREADY_EXISTS": "ABORT"	
-			},
-			"options": {
-				"TOKEN_TYPE_AUTOINCREMENT": true	
 			}
 		}
 	]

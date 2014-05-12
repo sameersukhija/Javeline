@@ -19,11 +19,5 @@ public class CatalogueManagerForm extends Form {
 		return clickId( "gwt-debug-BarCaptionHomeCatalog" );
 		
 	}
-	
-	protected static boolean open( SeleniumWebDriver selenium, long timeout, long interval ) {
-		
-		return MenuBar.select( selenium, new SectionImpl<MenuBar.HomeSections, String, String>(MenuBar.HomeSections.CATALOG, MenuBar.HomeSections.CATALOG.section_id_prefix, MenuBar.HomeSections.CATALOG.section_type), timeout, interval );
-						
-	}
 
 }
