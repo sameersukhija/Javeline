@@ -2,6 +2,7 @@ package com.lumata.e4o.json.gui.catalogmanager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,6 +77,10 @@ public class JSONRule extends JsonConfig {
 		return currentRule.getStringFromPath( "maximumNumberOfOffers" );		
 	}
 
+	public JSONObject getErrorActions() throws JSONException {
+		return currentRule.getJSONObjectFromPath( "errorActions" );
+	}
+	
 	public void setName( String name ) {
 		setObjectFromPath( "name" , name );
 	}
@@ -86,21 +91,4 @@ public class JSONRule extends JsonConfig {
 				
 	}
 
-/*
-	public JSONObject getErrorActions() {
-		
-		try {
-		
-			if( !rlCfg.isNull("error_actions") ) { return rlCfg.getJSONObject("error_actions"); }
-		
-		} catch( JSONException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-		}
-		
-		return null;
-		
-	}
-*/
 }

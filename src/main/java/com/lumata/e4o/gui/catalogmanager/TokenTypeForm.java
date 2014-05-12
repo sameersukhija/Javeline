@@ -138,6 +138,8 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 		} else { openAngularFrame(); }
 		
+		status = true;
+		
 		return this;
 		
 	}
@@ -175,8 +177,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		return this;
 		
 	}
-	
-	
+		
 	@Override
 	public TokenTypeForm clickLink( String link ) throws FormException {
 		
@@ -266,6 +267,5 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		return this;
 		
 	}
-
 
 }

@@ -13,7 +13,43 @@
 			"unlimitedOffers": true,
 			"maximumNumberOfOffers":"10",
 			"errorActions": {
-				"ELEMENT_ALREADY_EXISTS": "ADD_TIMESTAMP"	
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},{
+			"enabled": true,
+			"name":"RuleB",
+			"description":"RuleB",
+			"tokenType":"TokenB",
+			"channels":[ "Ch A", "Ch B" ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": true,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},{
+			"enabled": true,
+			"name":"RuleE",
+			"description":"RuleE",
+			"tokenType":"TokenE",
+			"channels":[ "Ch A", "Ch B" ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": true,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
 			},
 			"options": {
 				"TOKEN_TYPE_AUTOINCREMENT": true	

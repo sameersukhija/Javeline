@@ -31,7 +31,7 @@ public class ConfigureRule {
 	private int TIMEOUT = 60000;
 	private int ATTEMPT_TIMEOUT = 200;
 	
-	private final boolean testEnabled = false;
+	private final boolean testEnabled = true;
 	
 	private SeleniumWebDriver seleniumWebDriver;
 	private NetworkEnvironment env;
@@ -62,13 +62,12 @@ public class ConfigureRule {
 	}
 	
 	@Parameters({"ruleList"})
-	@Test( enabled=true, priority = 1 )
+	@Test( enabled=testEnabled, priority = 1 )
 	public void configureRule( @Optional("ruleList") String ruleList ) throws FormException, JSONException, JSONSException {
 		
 		RuleForm ruleForm = new RuleForm( seleniumWebDriver, new JSONRule( "input/catalogmanager/rules", ruleList ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
 		Assert.assertTrue( ruleForm.open().addRules().navigate() );
-		//Assert.assertTrue( tokenTypeForm.open().addTokenTypes().navigate() );
 		
 	}
 	

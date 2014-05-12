@@ -67,11 +67,14 @@ public class ConfigureTokenType {
 		
 		TokenTypeForm tokenTypeForm = new TokenTypeForm( seleniumWebDriver, new JSONTokenType( "input/catalogmanager/tokenTypes", tokenTypeList ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Assert.assertTrue( tokenTypeForm.open().addTokenTypes().navigate() );
+		Assert.assertTrue( tokenTypeForm.open().addTokenTypes().close().navigate() );
 		
 	}
 		
 	@AfterClass
-	public void end() {}
+	public void end() throws FormException {
+		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).logout().navigate() );
+		seleniumWebDriver.close();
+	}
 		
 }
