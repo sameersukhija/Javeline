@@ -1,37 +1,38 @@
 package com.lumata.e4o.gui.common;
 
-import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.e4o.exceptions.FormException;
 
-public class AngularFrame {
-
+public class AngularFrame extends Form {
+	
 	private static final Logger logger = LoggerFactory.getLogger(AngularFrame.class);
 	
-	public static boolean open( SeleniumWebDriver selenium, long timeout, long interval ) {
+	public AngularFrame( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
-		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for class_name=gwt-Frame") );
+		super(selenium, timeout, interval);
+				
+	}	
+	
+	public static AngularFrame getInstance( SeleniumWebDriver selenium, long timeout, long interval ) {
+		return new AngularFrame( selenium, timeout, interval );
+	}
+	
+	public AngularFrame open() throws FormException {
 		
-		WebElement angularFrame = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.CLASS_NAME, "gwt-Frame", timeout, interval);
-		if( angularFrame == null ) { return false; }
+		switchToFrameByClassName( "gwt-Frame" );
 		
-		selenium.getWrappedDriver().switchTo().frame(angularFrame);
-		
-		return true;
+		return this;
 		
 	}
 	
-	public static boolean close( SeleniumWebDriver selenium, long timeout, long interval ) {
+	public AngularFrame close() throws FormException {
 		
-		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "for parent frame") );
+		switchToDefaultContent();
 		
-		selenium.getWrappedDriver().switchTo().frame("relative=top");
-
-		return true;
+		return this;
 		
 	}
 	

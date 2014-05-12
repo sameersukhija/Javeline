@@ -44,7 +44,7 @@ public class OfferOptimisationForm extends CatalogueManagerForm {
 		
 	}
 
-	public OfferOptimisationForm close() {
+	public OfferOptimisationForm close() throws FormException {
 		
 		closeAngularFrame();
 		
@@ -52,17 +52,17 @@ public class OfferOptimisationForm extends CatalogueManagerForm {
 		
 	}
 	
-	private OfferOptimisationForm openAngularFrame() {
+	protected OfferOptimisationForm openAngularFrame() throws FormException {
 		
-		AngularFrame.open( selenium, timeout, interval );
+		AngularFrame.getInstance( selenium, timeout, interval ).open();
 		
 		return this;
 		
 	}
 	
-	private OfferOptimisationForm closeAngularFrame() {
+	protected OfferOptimisationForm closeAngularFrame() throws FormException {
 		
-		AngularFrame.close( selenium, timeout, interval );
+		AngularFrame.getInstance( selenium, timeout, interval ).close();
 		
 		return this;
 		

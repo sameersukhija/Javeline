@@ -242,7 +242,7 @@ public abstract class Form {
 		
 		lastWebElement = search( by, tag );
 				
-//		selenium.select( by.name().toLowerCase() + "=" + tag, "label=" + label );
+		//selenium.select( by.name().toLowerCase() + "=" + tag, "label=" + label );
 		
 		return this;
 		
@@ -279,6 +279,12 @@ public abstract class Form {
 	public Form selectByXPathAndVisibleText( String xpath, String text ) throws FormException {
 		
 		return selectByVisibleText( SearchBy.XPATH, xpath, text );	
+		
+	}
+	
+	public Form selectByNameAndVisibleText( String name, String text ) throws FormException {
+		
+		return selectByVisibleText( SearchBy.NAME, name, text );	
 		
 	}
 	
@@ -445,6 +451,30 @@ public abstract class Form {
 		
 		return clear( SeleniumUtils.SearchBy.NAME, name );
 			
+	}
+
+	public Form switchToDefaultContent() throws FormException {
+		
+		selenium.getWrappedDriver().switchTo().defaultContent();
+		
+		return this;
+		
+	}
+	
+	public Form switchToFrame( SeleniumUtils.SearchBy by, String frame ) throws FormException {
+		
+		lastWebElement = search( by, frame );
+		
+		selenium.getWrappedDriver().switchTo().frame( lastWebElement );
+		
+		return this;
+		
+	}
+	
+	public Form switchToFrameByClassName( String frame ) throws FormException {
+		
+		return switchToFrame( SeleniumUtils.SearchBy.CLASS_NAME, frame );
+		
 	}
 	
 	public Form clearByXPath( String xpath ) throws FormException {

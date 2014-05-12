@@ -2,8 +2,8 @@
 	"tokenTypes": [
 		{
 			"enabled": true,
-			"name":"TokenA",
-			"description":"TokenA",
+			"name":"TokenE",
+			"description":"TokenE",
 			"imageUrl":"http://i-neti.ru/sites/default/files/blogimages/test_icon.jpg",
 			"format":"gl-[0123456789abcdef]{5}",
 			"validityUnit":"days",
@@ -11,7 +11,7 @@
 			"usageUnlimited": true,
 			"usage":"10",
 			"errorActions": {
-				"ELEMENT_ALREADY_EXISTS": "ADD_TIMESTAMP"	
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
 			},
 			"options": {
 				"TOKEN_TYPE_AUTOINCREMENT": true	
@@ -28,7 +28,7 @@
 			"usageUnlimited": false,
 			"usage":"10",
 			"errorActions": {
-				"ELEMENT_ALREADY_EXISTS": "SKIP"	
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
 			},
 			"options": {
 				"TOKEN_TYPE_AUTOINCREMENT": true	
@@ -45,7 +45,7 @@
 			"usageUnlimited": true,
 			"usage":"10",
 			"errorActions": {
-				"ELEMENT_ALREADY_EXISTS": "ERROR"	
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
 			},
 			"options": {
 				"TOKEN_TYPE_AUTOINCREMENT": true	
