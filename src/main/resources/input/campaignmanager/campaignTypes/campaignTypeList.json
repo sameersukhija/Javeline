@@ -1,0 +1,33 @@
+{
+	"campaignTypes": [
+		{
+			"enabled": true,
+			"typeName":"Mobistar CT",
+			"maxOccurence":"5",
+			"maxSimultaneous":"10",
+			"waitingPeriodInDays":"15",
+			"predictionImpact": true,
+			"fullStatistics": true,
+			"metaType": {
+				"maxOccurence":"5",
+				"maxSimultaneous":"10",
+				"waitingPeriodInDays":"15"
+			},
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": true,
+			"typeName":"O2 CT",
+			"maxOccurence":"5",
+			"maxSimultaneous":"10",
+			"waitingPeriodInDays":"15",
+			"predictionImpact": true,
+			"fullStatistics": true,
+			"metaType": null,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		}
+	]
+}

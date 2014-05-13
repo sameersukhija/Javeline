@@ -204,7 +204,27 @@ public abstract class Form {
 		return lastWebElement.isDisplayed();
 		
 	}
+	
+	public boolean isEnabled( SeleniumUtils.SearchBy by, String tag ) throws FormException {
 		
+		lastWebElement =  search( by, tag );
+		
+		return lastWebElement.isEnabled();
+		
+	}
+
+	public boolean isEnabledById( String id ) throws FormException {
+		
+		return isEnabled( SeleniumUtils.SearchBy.ID, id );
+		
+	}
+	
+	public boolean isEnabledByXPath( String xpath ) throws FormException {
+		
+		return isEnabled( SeleniumUtils.SearchBy.XPATH, xpath );
+		
+	}
+	
 	private Form click( SeleniumUtils.SearchBy by, String tag ) throws FormException {
 		
 		lastWebElement =  search( by, tag );
@@ -452,6 +472,12 @@ public abstract class Form {
 		return clear( SeleniumUtils.SearchBy.NAME, name );
 			
 	}
+	
+	public Form clearByXPath( String xpath ) throws FormException {
+		
+		return clear( SeleniumUtils.SearchBy.XPATH, xpath );
+			
+	}
 
 	public Form switchToDefaultContent() throws FormException {
 		
@@ -476,13 +502,7 @@ public abstract class Form {
 		return switchToFrame( SeleniumUtils.SearchBy.CLASS_NAME, frame );
 		
 	}
-	
-	public Form clearByXPath( String xpath ) throws FormException {
-		
-		return clear( SeleniumUtils.SearchBy.XPATH, xpath );
-			
-	}
-		
+
 	public Boolean isChecked( SeleniumUtils.SearchBy by, String tag ) throws FormException {
 		
 		lastWebElement = search( by, tag );
