@@ -27,18 +27,22 @@ import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Browser;
 import com.opera.core.systems.OperaDriver;
-//import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium;
 
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
-public class SeleniumWebDriver /*extends WebDriverBackedSelenium*/ {
+public class SeleniumWebDriver {
 
 	private static final  Logger logger = LoggerFactory.getLogger( SeleniumWebDriver.class );
 	
 	private Map<String, Object> cache = new HashMap<String, Object>();
 	private String testName = "";
+	
+	/**
+	 * The base URL will affect only "open" method execution.
+	 */
+	private String driverBaseUrl = "";
 	
 	public static enum BrowserType {
 		CHROME,
@@ -72,8 +76,24 @@ public class SeleniumWebDriver /*extends WebDriverBackedSelenium*/ {
 	public SeleniumWebDriver ( Browser browser, String baseUrl ) {
 		
 		instance = getLocalWebDriver( browser );
+
+		driverBaseUrl = baseUrl;
+
+		logger.debug("Save the driver base URL : " + driverBaseUrl);
 		
 		adjustWindows(baseUrl);
+	}
+	
+	/**
+	 * This method reproduces the "WebDriverBackedSelenium" object behavior.
+	 * 
+	 * It will append relative path to base URL provided during construction. 
+	 * 
+	 * @param relativePath
+	 */
+	public void open(String relativePath) {
+		
+		getWrappedDriver().get(driverBaseUrl + relativePath);
 	}
 	
 	/**
@@ -110,6 +130,10 @@ public class SeleniumWebDriver /*extends WebDriverBackedSelenium*/ {
 		
 		instance = getRemoteWebDriver( baseBrowser, baseHubAddress );
 
+		driverBaseUrl = baseUrl;
+
+		logger.debug("Save the driver base URL : " + driverBaseUrl);
+		
 		adjustWindows(baseUrl);
 	}
 
