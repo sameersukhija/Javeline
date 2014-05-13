@@ -10,6 +10,8 @@ import java.util.Calendar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lumata.common.testing.exceptions.DataBaseException;
+
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
@@ -17,6 +19,86 @@ import org.slf4j.LoggerFactory;
 public class MysqlUtils {
 
 	private static final  Logger logger = LoggerFactory.getLogger( MysqlUtils.class );
+	
+	Mysql mysql;
+	
+	public MysqlUtils( Mysql mysql ) {
+		this.mysql = mysql;
+	}
+	
+	public Boolean startSlave() {
+		
+		String query = "START SLAVE;";
+		
+		mysql.execQuery( query );
+		
+		return isSlaveRunning();
+		
+	}
+	
+	public Boolean stopSlave() {
+		
+		String query = "STOP SLAVE;";
+		
+		mysql.execQuery( query );
+		
+		return !isSlaveRunning();
+		
+	}
+	
+	public Boolean resetSlave() {
+		
+		String query = "RESET SLAVE;";
+		
+		mysql.execQuery( query );
+		
+		return true;
+		
+	}
+	
+	public Boolean isSlaveRunning() throws DataBaseException {
+		
+		String query = "SHOW SLAVE STATUS;";
+		
+		boolean Slave_IO_Running = false;
+		
+		boolean Slave_SQL_Running = false;
+		
+		boolean Last_IO_Errno = true;
+		
+		boolean Last_SQL_Errno = true;
+		
+		try {
+			
+			ResultSet rs = mysql.execQuery( query );
+		
+			while( rs.next() ) { 
+				
+				String lastIOError = rs.getString( "Last_IO_Error" );
+				
+				String lastSQLError = rs.getString( "Last_SQL_Error" );
+				
+				if( rs.getString( "Slave_IO_Running" ).equals( "Yes" ) ) { Slave_IO_Running = true; }
+				
+				if( rs.getString( "Slave_SQL_Running" ).equals( "Yes" ) ) { Slave_SQL_Running = true; }
+				
+				if( rs.getString( "Last_IO_Errno" ).equals( "0" ) && ( null == lastIOError || lastIOError.length() == 0 ) ) { Last_IO_Errno = false; }
+				
+				if( rs.getString( "Last_SQL_Errno" ).equals( "0" ) && ( null == lastSQLError || lastSQLError.length() == 0 ) ) { Last_SQL_Errno = false; }
+				
+			}
+					
+		} catch( SQLException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+			throw new DataBaseException( e.getMessage() );
+			
+		}
+		
+		return ( Slave_IO_Running && Slave_SQL_Running && !Last_IO_Errno && !Last_SQL_Errno );
+		
+	}
 	
 	public static ArrayList<String> getSchema( Mysql mysql ) throws SQLException {
 		
@@ -273,5 +355,7 @@ public class MysqlUtils {
 
 		
 	}
+	
+	
 	
 }

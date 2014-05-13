@@ -1,6 +1,7 @@
 package com.lumata.common.testing.system;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -96,27 +97,8 @@ public class Security {
     
     public static String getMD5( String password ) {
     	
-    	StringBuilder md5_password = new StringBuilder();
-    	    	
-    	try {
-			
-    		MessageDigest md = MessageDigest.getInstance("MD5");
-			
-    		md.update( password.getBytes() );
-			
-    		byte[] digest = md.digest();
-			    		
-    		for( byte b : digest ) {
-				
-    			md5_password.append(Integer.toHexString((int) (b & 0xff)));
-			}
-					
-		} catch (NoSuchAlgorithmException e) {
-			logger.error( e.getMessage(), e );
-		}	
-    	
-    	return md5_password.toString();
-    	
+    	return DigestUtils.md5Hex( password );
+      	
     }
 
 }
