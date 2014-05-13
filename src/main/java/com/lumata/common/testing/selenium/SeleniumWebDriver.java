@@ -184,6 +184,7 @@ public class SeleniumWebDriver /*extends WebDriverBackedSelenium*/ {
 							}
 							
 							logger.debug( Log.LOADING.createMessage( "Firefox profile on local file system ( " + profilePath.toString() + " )" ) );	
+							
 							profile = new FirefoxProfile( new File( profilePath.toString() ) ); 				
 						}
 						else { // else will be used the default profile
@@ -222,15 +223,15 @@ public class SeleniumWebDriver /*extends WebDriverBackedSelenium*/ {
 						
 					} // end profile description
 			
-				} catch( Exception e ) {
-					
+				} catch( Exception e ) {					
 					logger.error( e.getMessage(), e );
 				}
 
-				if ( profile != null )
+				if ( profile != null ) {
 					resp = new FirefoxDriver(profile);
-				else
+				} else {
 					resp = new FirefoxDriver();
+				}
 				
 				break;
 		
