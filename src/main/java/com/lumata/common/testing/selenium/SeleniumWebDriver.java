@@ -138,6 +138,27 @@ public class SeleniumWebDriver {
 	}
 
 	/**
+	 * reload page using set url
+	 * 
+	 */
+	public void refresh() {
+		
+		instance.get( driverBaseUrl );
+		
+	}
+	
+	/**
+	 * reload page
+	 * 
+	 * @param url is the startup URL to get
+	 */
+	public void refresh( String url ) {
+		
+		instance.get( url );
+		
+	}
+	
+	/**
 	 * Fist steps to adjust windows
 	 * 
 	 * @param baseUrl is the startup URL to get
