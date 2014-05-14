@@ -434,6 +434,70 @@ public class ExpressionKernelCommands extends KernelCommands {
 		
 	}	
 	
+	/** get expression process status */
+	public ProcessStatus expressionStatus() {
+		
+		ArrayList<String> result = this.execCommand( ExpressionScript.expression.getSSHCommand( ProcessCommand.status ) );
+		
+		Pattern patter_started = Pattern.compile( "expression-server[ 0-9a-zA-Z()]+running" );
+		Pattern patter_stopped = Pattern.compile( "expression-server[ 0-9a-zA-Z()]+stopped" );
+		
+		for( int i = 0; i < result.size(); i++ ) {
+			
+			Matcher matcher_started = patter_started.matcher( result.get( i ) );
+			if( matcher_started.find() ) { return ProcessStatus.started; }
+			
+			Matcher matcher_stopped = patter_stopped.matcher( result.get( i ) );
+			if( matcher_stopped.find() ) { return ProcessStatus.stopped; }
+			
+		}
+		
+		return null;
+		
+	}
+
+	/** start expression process */
+	public Boolean expressionStart() {
+		
+		if( this.expressionStatus().equals( ProcessStatus.stopped ) ) {
+		
+			this.execCommand( ExpressionScript.expression.getSSHCommand( ProcessCommand.start ) );
+			
+			return this.expressionStatus().equals( ProcessStatus.started );
+		}		
+		
+		return true;
+		
+	}
+	
+	/** stop expression process */
+	public Boolean expressionStop() {
+		
+		if( this.expressionStatus().equals( ProcessStatus.started ) ) {
+		
+			this.execCommand( ExpressionScript.expression.getSSHCommand( ProcessCommand.stop ) );
+			
+			if( this.expressionStatus().equals( ProcessStatus.stopped ) ) {
+				
+				this.removePIDFiles( ExpressionScript.expression );
+				
+				return true;
+				
+			} else { return false; }
+			
+		}		
+		
+		return true;
+		
+	}	
+	
+	/** restart expression process */
+	public Boolean expressionRestart() {
+		
+		return expressionStop() && expressionStart();
+		
+	}
+	
 	/** exec tasks */
 	public TaskStatus execTask( Integer port, Integer tenantId, Task task ) {
 		

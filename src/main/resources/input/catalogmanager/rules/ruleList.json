@@ -2,10 +2,10 @@
 	"rules": [
 		{
 			"enabled": true,
-			"name":"RuleA",
-			"description":"RuleA",
-			"tokenType":"TokenA",
-			"channels":[ "Ch A", "Ch B" ],
+			"name":"RuleC",
+			"description":"RuleC",
+			"tokenType":"TokenC",
+			"channels":[ "Ch A" ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
@@ -20,7 +20,7 @@
 			"name":"RuleB",
 			"description":"RuleB",
 			"tokenType":"TokenB",
-			"channels":[ "Ch A", "Ch B" ],
+			"channels":[ "Ch B" ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,

@@ -2,8 +2,8 @@
 	"tokenTypes": [
 		{
 			"enabled": true,
-			"name":"TokenE",
-			"description":"TokenE",
+			"name":"TokenA",
+			"description":"TokenA",
 			"imageUrl":"http://i-neti.ru/sites/default/files/blogimages/test_icon.jpg",
 			"format":"gl-[0123456789abcdef]{5}",
 			"validityUnit":"days",

@@ -142,6 +142,14 @@ public abstract class Form {
 		
 	}
 
+	public Form searchById( String id, long timeout, long interval ) throws FormException {
+		
+		search( SeleniumUtils.SearchBy.ID, id, timeout, interval );
+		
+		return this;
+		
+	}
+	
 	public Form searchByXPath( String xpath ) throws FormException {
 		
 		search( SeleniumUtils.SearchBy.XPATH, xpath );
@@ -200,6 +208,8 @@ public abstract class Form {
 	}
 	
 	public boolean isDisplayed() throws FormException {
+		
+		if( lastWebElement == null ) { return false; }
 		
 		return lastWebElement.isDisplayed();
 		

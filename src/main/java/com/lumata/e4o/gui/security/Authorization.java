@@ -3,8 +3,6 @@ package com.lumata.e4o.gui.security;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Security;
@@ -20,8 +18,6 @@ import com.lumata.e4o.gui.common.Form;
  */
 public class Authorization extends Form {
 
-	private static final Logger logger = LoggerFactory.getLogger(Authorization.class);
-	
 	public Authorization( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
 		super( selenium, timeout, interval );
@@ -63,6 +59,30 @@ public class Authorization extends Form {
 		} catch( NoSuchElementException e ) {}
 		
 		return this;
+		
+	}
+	
+	public boolean refresh() throws FormException {
+		
+		long expiredTime = 0;
+		
+		while ( expiredTime <= timeout ) {
+			
+			expiredTime = expiredTime + interval;
+			
+			try {
+			
+				searchById( "gwt-debug-InputLoginUsername", 1000, 50 );
+			
+			} catch( FormException fe ) {}
+			
+			if( status ) { return true; }
+			
+			selenium.refresh();
+			
+		}
+		
+		return false;
 		
 	}
 	
