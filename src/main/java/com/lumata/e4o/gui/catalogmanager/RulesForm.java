@@ -4,19 +4,12 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.catalogmanager.TokenTypeForm.ElementErrorActionType;
-import com.lumata.e4o.gui.common.Form;
 import com.lumata.e4o.json.gui.catalogmanager.JSONRules;
 
 public class RulesForm extends OfferOptimisationForm {
-
-	private static final Logger logger = LoggerFactory.getLogger(RulesForm.class);
 
 	private JSONRules ruleCfg;
 	
@@ -251,7 +244,7 @@ public class RulesForm extends OfferOptimisationForm {
 	@Override
 	public RulesForm multiselectByXPathAndVisibleText( String xpath, JSONArray list ) throws FormException {
 		
-		super.multiselectByVisibleText( SearchBy.XPATH, xpath, list );	
+		super.multiselectByXPathAndVisibleText( xpath, list );	
 		
 		return this;
 		

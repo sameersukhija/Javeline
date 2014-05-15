@@ -56,6 +56,17 @@ public class OffersForm extends CatalogueManagerForm {
 
 	};
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static boolean open(SeleniumWebDriver selenium, long timeout, long interval) {
 
 		if (!CatalogueManagerForm.open(selenium, timeout, interval)) {

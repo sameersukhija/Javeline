@@ -4,17 +4,12 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.json.gui.catalogmanager.JSONSuppliers;
 
 public class SuppliersForm extends CatalogueManagerForm {
-
-	private static final Logger logger = LoggerFactory.getLogger(SuppliersForm.class);
 
 	private JSONSuppliers supplierCfg;
 	
@@ -235,7 +230,7 @@ public class SuppliersForm extends CatalogueManagerForm {
 	@Override
 	public SuppliersForm multiselectByXPathAndVisibleText( String xpath, JSONArray list ) throws FormException {
 		
-		super.multiselectByVisibleText( SearchBy.XPATH, xpath, list );	
+		super.multiselectByXPathAndVisibleText( xpath, list );	
 		
 		return this;
 		

@@ -16,10 +16,12 @@ import org.testng.annotations.Test;
 import static com.lumata.common.testing.orm.Query.*;
 
 import com.lumata.common.testing.database.Mysql;
-import com.lumata.common.testing.exceptions.EnvironmentException;
+import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.system.NetworkEnvironment;
+import com.lumata.common.testing.system.Server;
+import com.lumata.common.testing.system.User;
 import com.lumata.e4o.gui.xmlrpc.HTTPXMLRPCForm;
 import com.lumata.e4o.schema.tenant.Subscribers;
 
@@ -27,16 +29,22 @@ public class GenerateTokensWithAllSubscribers {
 
 	private static final Logger logger = LoggerFactory.getLogger( GenerateTokensWithAllSubscribers.class );
 	
-	Environment env;	
+	NetworkEnvironment env;	
+	User gui_user;
+	Server actrule_user;
 	
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment"})
 	@BeforeSuite
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws EnvironmentException {		
+	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws NetworkEnvironmentException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
-		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		
+		actrule_user = env.getServer( "actrule" );
+		
+		gui_user = actrule_user.getUser( "superman" );
 						
 	}
 	
@@ -63,13 +71,13 @@ public class GenerateTokensWithAllSubscribers {
 				String msisdn = rs.getString( Subscribers.Fields.msisdn.name() );
 				
 				ArrayList<String> params = new ArrayList<String>();
-				params.add( HTTPXMLRPCForm.getAuthenticationParam( env.getUserName( "superman" ), env.getPassword( "superman" )) );
+				params.add( HTTPXMLRPCForm.getAuthenticationParam( gui_user.getUsername(), gui_user.getPassword() ) );
 				params.add( HTTPXMLRPCForm.getCustoEventParam( msisdn, HTTPXMLRPCForm.EventTypes.revenue, new LinkedHashMap<HTTPXMLRPCForm.EventParameterTypes, String>() { 
 					{ put( HTTPXMLRPCForm.EventParameterTypes.recharge, "1" ); put( HTTPXMLRPCForm.EventParameterTypes.event_storage_policy, "store" ); } 
 				} ) );
 				
 				@SuppressWarnings("unused")
-				ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.eventmanager_generateCustomEvent.call( env.getLink() + "xmlrpc/" , params );
+				ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.eventmanager_generateCustomEvent.call( actrule_user.getLink() + "xmlrpc/" , params );
 				
 				calls_count++;
 							

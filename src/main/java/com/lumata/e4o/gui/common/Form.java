@@ -268,7 +268,7 @@ public abstract class Form {
 		
 	}	
 	
-	private Form select( SeleniumUtils.SearchBy by, String tag, String label ) throws FormException {
+	protected Form select( SeleniumUtils.SearchBy by, String tag, String label ) throws FormException {
 		
 		lastWebElement = search( by, tag );
 				
@@ -290,7 +290,7 @@ public abstract class Form {
 		
 	}
 	
-	public Form selectByVisibleText( SeleniumUtils.SearchBy by, String tag, String text) throws FormException {
+	protected Form selectByVisibleText( SeleniumUtils.SearchBy by, String tag, String text) throws FormException {
 		
 		lastWebElement = search( by, tag );
 		
@@ -306,6 +306,12 @@ public abstract class Form {
 	
 	}
 	
+	public Form selectByIdAndVisibleText( String id, String text ) throws FormException {
+		
+		return selectByVisibleText( SearchBy.ID, id, text );	
+		
+	}
+	
 	public Form selectByXPathAndVisibleText( String xpath, String text ) throws FormException {
 		
 		return selectByVisibleText( SearchBy.XPATH, xpath, text );	
@@ -318,7 +324,7 @@ public abstract class Form {
 		
 	}
 	
-	public Form multiselectByVisibleText( SeleniumUtils.SearchBy by, String tag, JSONArray list ) throws FormException {
+	private Form multiselectByVisibleText( SeleniumUtils.SearchBy by, String tag, JSONArray list ) throws FormException {
 		
 		lastWebElement = search( by, tag );
 		

@@ -4,19 +4,12 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.common.Form;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignType;
 
 public class CampaignTypeForm extends CampaignManagerForm {
-
-	private static final Logger logger = LoggerFactory.getLogger(CampaignTypeForm.class);
 
 	private JSONCampaignType campaignTypeCfg;
 	
@@ -300,7 +293,7 @@ public class CampaignTypeForm extends CampaignManagerForm {
 	@Override
 	public CampaignTypeForm multiselectByXPathAndVisibleText( String xpath, JSONArray list ) throws FormException {
 		
-		super.multiselectByVisibleText( SearchBy.XPATH, xpath, list );	
+		super.multiselectByXPathAndVisibleText( xpath, list );	
 		
 		return this;
 		
