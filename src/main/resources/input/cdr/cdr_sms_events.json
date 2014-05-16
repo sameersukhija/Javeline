@@ -1,0 +1,43 @@
+{
+	"CDRRevenue": {
+		"enabled": true,
+		"linesCount": 2,
+		"store": false,
+		"outputDir": "cdr",
+		"send": true,
+		"depositPath": "/nfsdata/files/cdr/deposit/REVENUE_CDR/",
+		"print": true,
+		"Msisdn": {		
+			"strategy": "Increment",
+			"parameters": [ "3300000001", "1" ]		
+		},
+		"Date": {		
+			"strategy": "Fixed",
+			"parameters": [ "###date###" ]		
+		},
+		"Amount": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
+		"Balance": {		
+			"strategy": "Random",
+			"parameters": [ "500", "5000" ]		
+		},
+		"ValidityDate": {		
+			"strategy": "Fixed",
+			"parameters": [ "###validity_date###" ]		
+		},
+		"DeactivationDate": {		
+			"strategy": "Fixed",
+			"parameters": [ "###deactivation_date###" ]		
+		},
+		"Type": {		
+			"strategy": "Increment",
+			"parameters": [ "invoice", "1" ]		
+		},
+		"Delay": {		
+			"strategy": "Random",
+			"parameters": [ "300", "3000" ]		
+		}
+	}	
+}

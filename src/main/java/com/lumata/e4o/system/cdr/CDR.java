@@ -462,7 +462,7 @@ public class CDR {
 	
 	public Boolean checkFile() throws IOFileException {
 		
-		File file = new File( "src/main/resources/" + IOFileUtils.buildResourcePath( this.output_dir, this.file_name ) );
+		File file = new File( "output/" + IOFileUtils.buildResourcePath( this.output_dir, this.file_name ) );
 		
 		return ( file.exists() && file.isFile() );
 		
@@ -474,7 +474,7 @@ public class CDR {
 		
 		if( sftp.isConnected() ) {
 			
-			String local_path = System.getProperty( "user.dir" ) + "/src/main/resources/" + this.getOutputDir() + "/";
+			String local_path = System.getProperty( "user.dir" ) + "/output/" + this.getOutputDir() + "/";
 			
             sftp.copyFile( local_path, this.getFileName(), remote_path , this.getFileName(), SFTPClient.CopyType.LOCAL_TO_REMOTE );
             		
@@ -492,7 +492,7 @@ public class CDR {
 			
 			if( sftp.isConnected() ) {
 				
-				String local_path = System.getProperty( "user.dir" ) + "/src/main/resources/" + this.getOutputDir() + "/";
+				String local_path = System.getProperty( "user.dir" ) + "/output/" + this.getOutputDir() + "/";
 				
 	            sftp.copyFile( local_path, this.getFileName(), remote_path , this.getFileName(), SFTPClient.CopyType.LOCAL_TO_REMOTE );
 	            		
