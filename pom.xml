@@ -30,6 +30,19 @@
 
 	<dependencies>
 		
+		<!-- This dependency must be before "selenium-server" -->
+        <dependency>
+            <groupId>com.lumata.common</groupId>
+            <artifactId>lumata-common-testing</artifactId>
+            <version>${lumata.common.version}</version>
+        </dependency>
+
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-server</artifactId>
+			<version>${selenium.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -125,11 +138,6 @@
 			<version>1.7.6</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-server</artifactId>
-			<version>${selenium.version}</version>
-		</dependency>
 <!--  	
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
@@ -238,13 +246,6 @@
 
 -->
 
-        <dependency>
-            <groupId>com.lumata.common</groupId>
-            <artifactId>lumata-common-testing</artifactId>
-<!--             <version>1.0.2-SNAPSHOT</version> -->
-            <version>${lumata.common.version}</version>
-        </dependency>
-        
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-core</artifactId>
