@@ -36,6 +36,30 @@ public abstract class Form {
 	
 	}
 	
+	public long getTimeout() {
+		return this.timeout;
+	}
+
+	public long getInterval() {
+		return this.interval;
+	}
+	
+	public Form setTimeout( long timeout ) {
+		
+		this.timeout = timeout;
+		
+		return this;
+	
+	}
+
+	public Form setInterval( long interval ) {
+		
+		this.interval = interval;
+	
+		return this;
+		
+	}
+
 	public void click(String forName, String xpath) throws FormException {
 		
 		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName + ", xpath: " + xpath));
@@ -188,6 +212,12 @@ public abstract class Form {
 		
 	}
 	
+	public List<WebElement> searchListByXPath( String rootTag, String tag ) throws FormException {
+		
+		return searchList( SeleniumUtils.SearchBy.XPATH, SeleniumUtils.SearchBy.XPATH, rootTag, tag );
+		
+	}
+	
 	public List<WebElement> getListByXPath( String rootXPath, String xpath ) throws FormException {
 		
 		return searchList( SeleniumUtils.SearchBy.XPATH, SeleniumUtils.SearchBy.XPATH, rootXPath, xpath );
@@ -212,6 +242,22 @@ public abstract class Form {
 		if( lastWebElement == null ) { return false; }
 		
 		return lastWebElement.isDisplayed();
+		
+	}
+
+	public boolean isSelected( SeleniumUtils.SearchBy by, String tag ) throws FormException {
+		
+		lastWebElement =  search( by, tag );
+		
+		return lastWebElement.isSelected();
+		
+	}
+	
+	public boolean isSelectedByXPath( String tag ) throws FormException {
+		
+		lastWebElement =  search( SeleniumUtils.SearchBy.XPATH, tag );
+		
+		return lastWebElement.isSelected();
 		
 	}
 	

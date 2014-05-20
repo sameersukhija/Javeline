@@ -44,7 +44,7 @@ public class Authorization extends Form {
 		clickId( "gwt-debug-ButtonLoginAuthentication" ).
 		clickId( "gwt-debug-FormHomeInfo" );
 		
-		//closeLicenseDialog();
+		closeLicenseDialog();
 		
 		return this;
 		
@@ -53,8 +53,12 @@ public class Authorization extends Form {
 	public Authorization closeLicenseDialog() throws FormException {
 		
 		try {
-		
-			clickXPath( "html/body/div[2]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[3]/td/table/tbody/tr/td/button" );
+			
+			long timeout = getTimeout();
+			
+			setTimeout( 1000 ).			
+			clickXPath( "//div[@class='gwt-DialogBox errorDialog']//button" ).
+			setTimeout( timeout );
 			
 		} catch( NoSuchElementException e ) {}
 		

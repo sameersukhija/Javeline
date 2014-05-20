@@ -36,7 +36,7 @@ public class GenerateTokensWithAllSubscribers {
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment"})
 	@BeforeSuite
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws NetworkEnvironmentException {		
+	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_VM_NE") String environment ) throws NetworkEnvironmentException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		

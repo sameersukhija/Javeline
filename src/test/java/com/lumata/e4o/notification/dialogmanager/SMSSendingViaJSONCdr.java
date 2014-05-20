@@ -48,11 +48,9 @@ public class SMSSendingViaJSONCdr {
 	private Mysql mysql_tenant;
 	private NetworkEnvironment env;
 	private ExpressionKernelCommands ekcCollector;
-	private Server actruleServer;
 	
 	private ArrayList<String> cdrTypes;
 	private Map<String, Object> cdrParameters;
-	private User superman;
 	private JSONObject jsonCDR;
 	
 	private final String CDR_INPUT_FOLDER_ = "input/cdr";
@@ -68,8 +66,6 @@ public class SMSSendingViaJSONCdr {
 		/** load environment */
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		ekcCollector = new ExpressionKernelCommands( env.getService( Service.Type.ssh , "collector" ), "root" );
-		actruleServer = env.getServer( "actrule" ); 
-		superman = actruleServer.getUser( "superman" );
 		
 		/** get mysql tenant connection */
 		mysql_tenant = new Mysql( env.getDataSource( tenant ) );
@@ -108,7 +104,7 @@ public class SMSSendingViaJSONCdr {
 
 		logger.info( Log.GETTING.createMessage( "schema tables sizes" ) );
 		
-		boolean sendCDR = jsonCDR.getJSONObject( "CDRRevenue" ).getBoolean( "send" );
+		boolean sendCDR = jsonCDR.getJSONObject( "CDRCall" ).getBoolean( "send" );
 		
 		/** load cdrs json configuration */
 		Calendar date = Calendar.getInstance();
@@ -130,9 +126,7 @@ public class SMSSendingViaJSONCdr {
 			ExpressionSystem.waitForCDRProcessingCompleted( mysql_tenant, cdrTypes, startCDRProcessingDate, COLLECTOR_PROCESSING_POLLING, COLLECTOR_PROCESSING_POLLING_TIMEOUT );
 			
 			this.sleep( COLLECTOR_PROCESSING_POLLING );
-			
-			logger.info( Log.GETTING.createMessage( "schema tables sizes" ) );
-		
+						
 		}
 		
 	}

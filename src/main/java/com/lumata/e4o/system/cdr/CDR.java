@@ -469,7 +469,7 @@ public class CDR {
 	}
 
 	public void send( Service remote_host, String remote_path, String sftp_user ) {
-				
+		System.out.println( remote_host.getHostAddress() );		
 		SFTPClient sftp = new SFTPClient( remote_host, sftp_user );
 		
 		if( sftp.isConnected() ) {
@@ -843,7 +843,7 @@ public class CDR {
 									
 									if( cdrTypeFieldsCfg.getBoolean( CDR.Parameters.send.name() ) ) { 
 										
-										cdr.send( this.env.getSSHService( "actrule" ), cdrTypeFieldsCfg.getString( CDR.Parameters.depositPath.name() ), "root" );
+										cdr.send( this.env.getSSHService( "collector" ), cdrTypeFieldsCfg.getString( CDR.Parameters.depositPath.name() ), "root" );
 																					
 									}
 									
