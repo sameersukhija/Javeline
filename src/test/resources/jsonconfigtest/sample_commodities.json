@@ -1,0 +1,48 @@
+{
+  "commodities": [
+    {
+      "type": "Internal",
+      "name": "Points",
+      "account": "Internal",
+      "accountType": "INTERNAL_POINT",
+      "unit": "Without unit",
+      "defaultValidityType": "Variable",
+      "defaultPeriodType": "Days",
+      "defaultQuantityPeriod": "",
+      "unitaryCost": "",
+      "listPrice": "",
+      "errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+        }
+    },
+    {
+      "type": "External",
+      "name": "Bonus1",
+      "account": "freeSMS",
+      "accountType": "IN_SMS",
+      "unit": "Without unit",
+      "defaultValidityType": "Variable",
+      "defaultPeriodType": "Days",
+      "defaultQuantityPeriod": "",
+      "unitaryCost": "",
+      "listPrice": ""
+    },
+    {
+      "type": "External",
+      "name": "Bonus2",
+      "account": "freeSMS",
+      "accountType": "IN_SMS",
+      "unit": "Without unit",
+      "defaultValidityType": "Variable",
+      "defaultPeriodType": "Days",
+      "defaultQuantityPeriod": "",
+      "unitaryCost": "",
+      "listPrice": "",
+      "errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+      }
+    }
+  ]
+}
