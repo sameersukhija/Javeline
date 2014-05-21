@@ -24,7 +24,7 @@ import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.security.Authorization;
-import com.lumata.e4o.json.gui.catalogmanager.JSONRule;
+import com.lumata.e4o.json.gui.catalogmanager.JSONRules;
 
 public class TestR {
 
@@ -68,7 +68,7 @@ public class TestR {
 	@Test( enabled=false, priority = 1 )
 	public void configureRule( @Optional("ruleList") String ruleList ) throws FormException, JSONException, JSONSException {
 		
-		JSONRule jr = new JSONRule( "input/catalogmanager/rules", ruleList );
+		JSONRules jr = new JSONRules( "input/catalogmanager/rules", ruleList );
 		
 		jr.setRuleById( 0 );
 		
