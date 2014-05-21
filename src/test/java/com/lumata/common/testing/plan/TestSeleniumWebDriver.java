@@ -2,7 +2,9 @@ package com.lumata.common.testing.plan;
 
 import org.jboss.resteasy.client.ClientResponse;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -88,7 +90,7 @@ public class TestSeleniumWebDriver {
 	@Test
 	@Parameters({"browser", "environment", "gui_server"})
 	public void loadSeleniumWebDriverLoginLogout( 	@Optional("FIREFOX") 	String browser, 
-													@Optional("E4O_VM_NE") 	String environment, 
+													@Optional("E4O_FAKE_NE") 	String environment, 
 													@Optional("actrule") 	String gui_server ) throws NetworkEnvironmentException {		
 				
 		NetworkEnvironment env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
@@ -114,6 +116,20 @@ public class TestSeleniumWebDriver {
 		
 		SeleniumUtils.waitFor( 1000 );
 		
+		WebElement licenseDialog = null;
+	
+		try {
+			licenseDialog = SeleniumUtils.findForComponentDisplayed(seleniumWebDriver_, SearchBy.XPATH, "//div[contains(text(),\"The license is invalid\")]");
+		} catch ( NoSuchElementException e ) {
+			
+			// no license dialog box
+			// nothing to do
+		}
+		
+		if ( licenseDialog != null ) {
+			licenseDialog.findElement(By.xpath("//div[contains(text(),\"The license is invalid\")]/ancestor::div[1]//button")).click();
+		}
+		
 		el = SeleniumUtils.findForComponentDisplayed(seleniumWebDriver_, SearchBy.XPATH, "//button[contains(@id,'gwt-debug-Logout')]");
 		el.click();
 		
@@ -134,7 +150,7 @@ public class TestSeleniumWebDriver {
 	}		
 	
 	@Parameters({"browser", "environment"})
-	@Test( enabled=false )
+	@Test( enabled = false )
 	public void loadSeleniumWebDriver_1( @Optional("FIREFOX") String browser, @Optional("E4B_QA") String environment, @Optional("actrule") String gui_server ) throws Exception {		
 				
 		NetworkEnvironment env = new NetworkEnvironment( environment, IOFileUtils.IOLoadingType.RESOURCE );

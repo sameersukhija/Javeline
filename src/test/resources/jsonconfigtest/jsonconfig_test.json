@@ -1,0 +1,29 @@
+{
+    "mainListTest": {
+        "BadSample": {
+            "sampleArray": [
+                "One",
+                "Four",
+                "Three"
+            ],
+            "sampleBoolean": "TRAU",
+            "sampleInteger": "Goooofy",
+            "sampleString": 10000
+        },
+        "GoodSample": {
+            "sampleArray": [
+                "Uno",
+                "Doje",
+                "Tre"
+            ],
+            "sampleBoolean": "TRUE",
+            "sampleInteger": 100,
+            "sampleString": "Forza Napoli!"
+        }
+    },
+    "sampleArrayGetListString"	: [ "One", "Four", "Three", "Seven"],
+    "emptyComponentsSection" : {
+    	"emptyList" : [],
+    	"emptyMap" : {}
+    }
+}
