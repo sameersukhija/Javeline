@@ -30,6 +30,7 @@ import com.lumata.e4o.gui.administrationmanager.CommoditiesForm;
 import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
 import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.e4o.json.gui.administrationmanager.JSONCommodities;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCampaign;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
 
 public class ConfigureCampaign {
@@ -100,8 +101,11 @@ public class ConfigureCampaign {
 	
 	@Parameters({"tenant"})
 	@Test(enabled=false, priority = 5 )
-	public void setCampaigns( @Optional("qa") String tenant ) throws CampaignException {
-			
+	public void loadCampaigns() throws CampaignException, JSONSException, FormException, JSONException {
+		
+		CampaignsForm campaignForm = new CampaignsForm( seleniumWebDriver, new JSONCampaign( "input/campaigns", "campaign_cm_all_events" ), TIMEOUT, ATTEMPT_TIMEOUT );
+		
+		campaignForm.open().addCampaigns();
 		//Assert.assertTrue( CampaignCreationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );		
 		//Assert.assertTrue( CampaignCreationForm.create(seleniumWebDriver, new CampaignCfg( "input/campaigns", "campaign_cm_bonus", IOLoadingType.RESOURCE ), TIMEOUT, ATTEMPT_TIMEOUT) );
 				

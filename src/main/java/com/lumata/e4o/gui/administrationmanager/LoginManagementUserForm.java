@@ -1,6 +1,7 @@
 package com.lumata.e4o.gui.administrationmanager;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+
 import com.lumata.e4o.exceptions.FormException;
 
 public class LoginManagementUserForm extends LoginManagementForm {

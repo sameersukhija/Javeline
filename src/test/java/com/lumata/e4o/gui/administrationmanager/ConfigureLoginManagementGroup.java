@@ -22,15 +22,10 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.e4o.exceptions.CampaignException;
-import com.lumata.e4o.exceptions.CampaignModelException;
 import com.lumata.e4o.exceptions.CommoditiesException;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.administrationmanager.CommoditiesForm;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
 import com.lumata.e4o.gui.security.Authorization;
-import com.lumata.e4o.json.gui.administrationmanager.JSONCommodities;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
+import com.lumata.e4o.json.gui.administrationmanager.JSONLMGroup;
 
 public class ConfigureLoginManagementGroup {
 
@@ -75,14 +70,26 @@ public class ConfigureLoginManagementGroup {
 	
 	@Parameters({"tenant"})
 	@Test(enabled=true, priority = 1 )
-	public void setCommodities( @Optional("tenant") String tenant ) throws CommoditiesException, JSONSException, IOFileException, FormException {
+	public void checkGroups( @Optional("tenant") String tenant ) throws JSONSException, FormException, JSONException {
 		
-		LoginManagementGroupForm loginManagementGroup = new LoginManagementGroupForm( seleniumWebDriver, /*new JSONCommodities( "input/commodities", "commodities_list_1" ),*/ TIMEOUT, ATTEMPT_TIMEOUT  );
+		JSONLMGroup jsonLMGroup = new JSONLMGroup( "input/admininstrationmanager/loginmanagement", "groups" );
+		
+		LoginManagementGroupForm loginManagementGroup = new LoginManagementGroupForm( seleniumWebDriver, jsonLMGroup, TIMEOUT, ATTEMPT_TIMEOUT  );
+		
+		Assert.assertTrue( loginManagementGroup.open().navigate() );
+		
+		if( loginManagementGroup.isGroup( jsonLMGroup.getGroupById( 0 ).getName() ) ) {
+			
+			System.out.println( "The group exists" );
+			
+			loginManagementGroup.editGroup( "customercare" );
+						
+		} else {
+			
+			System.out.println( "The group doesn't exist" );
+			
+		}
 				
-		Assert.assertTrue( loginManagementGroup.open()
-							.navigate() 
-		);
-		
 	}
 
 	@AfterClass

@@ -1,12 +1,11 @@
 {
-	"CDRRevenue": {
+	"CDRCall": {
 		"enabled": true,
-		"linesCount": 2,
-		"store": false,
+		"linesCount": 5,
+		"store": true,
 		"outputDir": "cdr",
 		"send": true,
-		"depositPath": "/nfsdata/files/cdr/deposit/REVENUE_CDR/",
-		"print": true,
+		"depositPath": "/nfsdata/files/cdr/deposit/CALL_CDR/",
 		"Msisdn": {		
 			"strategy": "Increment",
 			"parameters": [ "3300000001", "1" ]		
@@ -15,29 +14,21 @@
 			"strategy": "Fixed",
 			"parameters": [ "###date###" ]		
 		},
+		"Duration": {		
+			"strategy": "Random",
+			"parameters": [ "100", "1000" ]		
+		},
 		"Amount": {		
 			"strategy": "Random",
 			"parameters": [ "100", "1000" ]		
 		},
 		"Balance": {		
 			"strategy": "Random",
-			"parameters": [ "500", "5000" ]		
+			"parameters": [ "100", "1000" ]		
 		},
-		"ValidityDate": {		
-			"strategy": "Fixed",
-			"parameters": [ "###validity_date###" ]		
-		},
-		"DeactivationDate": {		
-			"strategy": "Fixed",
-			"parameters": [ "###deactivation_date###" ]		
-		},
-		"Type": {		
-			"strategy": "Increment",
-			"parameters": [ "invoice", "1" ]		
-		},
-		"Delay": {		
+		"Terminating": {		
 			"strategy": "Random",
-			"parameters": [ "300", "3000" ]		
+			"parameters": []		
 		}
-	}	
+	}
 }
