@@ -66,9 +66,9 @@ public interface HasErrorActions {
 	/**
 	 * This methods returns the Json element related to "Error Actions" configuration.
 	 * If current object does not contains an element labeled with <b>ERROR_ACTIONS_LABEL_</b>,
-	 * this method returns null element.
+	 * this method throws a <b>JSONSException</b>.
 	 * 
-	 * @return a <b>JsonConfig</b> object or null instead.
+	 * @return a <b>JsonConfig</b> object or throws a <b>JSONSException</b> instead.
 	 * 
 	 * @throws JSONSException
 	 */

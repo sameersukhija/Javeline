@@ -40,7 +40,6 @@
       "unitaryCost": "",
       "listPrice": "",
       "errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
       }
     }

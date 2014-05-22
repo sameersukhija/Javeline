@@ -36,17 +36,34 @@ public class JsonConfigurationElementTest {
 		
 		Assert.assertNotNull(errorActions, "ErrorActions element is missing!");
 		
-//		Assert.assertEquals(	errorActions.getStringFromPath(ElementErrorConditionType.ELEMENT_AREADY_EXISTS.toString()), 
-//								ElementErrorActionType.ABORT_CANCEL.toString()
-//							);
-//		Assert.assertEquals(	errorActions.getStringFromPath(ElementErrorConditionType.GENERAL_ERROR.toString()), 
-//								ElementErrorActionType.RETURN_ERROR.toString()
-//							);
-		
 		Assert.assertEquals(	errorActions.getStringFromPath("ELEMENT_AREADY_EXISTS"), "ABORT_CANCEL"	);
 		Assert.assertEquals(	errorActions.getStringFromPath("GENERAL_ERROR"), "RETURN_ERROR" );
 		
 		Assert.assertEquals(	errorActions.getAction(ElementErrorConditionType.ELEMENT_AREADY_EXISTS), ElementErrorActionType.ABORT_CANCEL );
 		Assert.assertEquals(	errorActions.getAction(ElementErrorConditionType.GENERAL_ERROR), ElementErrorActionType.RETURN_ERROR );
+		
+		// miss entire "errorActions" section
+		mainObject.setCurrentElementById(1);
+		
+		try {
+			mainObject.getCurrentElement().getErrorActions();
+			
+			Assert.assertTrue(false);
+			
+		} catch (JSONSException e) {
+			Assert.assertTrue(true);
+		}
+
+		// miss a condition into "errorActions" section
+		mainObject.setCurrentElementById(1);
+		
+		try {
+			mainObject.getCurrentElement().getErrorActions().getAction(ElementErrorConditionType.ELEMENT_AREADY_EXISTS);
+			
+			Assert.assertTrue(false);
+			
+		} catch (JSONSException e) {
+			Assert.assertTrue(true);
+		}
 	}
 }

@@ -26,14 +26,19 @@ public abstract class JsonConfigurationElement extends JsonConfig implements Has
 		 * @param condition is a ElementErrorConditionType element
 		 * 
 		 * @return ElementErrorActionType
+		 * 
+		 * @throws JSONSException
 		 */
-		public ElementErrorActionType getAction( ElementErrorConditionType condition) {
+		public ElementErrorActionType getAction( ElementErrorConditionType condition) throws JSONSException {
 			
 			ElementErrorActionType resp = null;
 			
 			String raw = this.getStringFromPath(condition.toString());	
 			
-			resp = ElementErrorActionType.valueOf(raw);
+			if ( raw != null )
+				resp = ElementErrorActionType.valueOf(raw);
+			else
+				throw new JSONSException(getClass().getSimpleName() + " requests condition \""+condition+"\" but it is missing!");
 			
 			return resp;
 		}		
@@ -53,10 +58,20 @@ public abstract class JsonConfigurationElement extends JsonConfig implements Has
 		
 		JsonErrorActions resp = null;
 		
-		Map<String, Object> errAct = getJsonMapFromPath(ERROR_ACTIONS_LABEL_); 
+		Map<String, Object> errAct = null;
+		
+		try {
+			errAct = getJsonMapFromPath(ERROR_ACTIONS_LABEL_);
+		}
+		catch ( JSONSException e ) {
+			
+			// do nothing here
+		}
 		
 		if ( errAct != null )
 			resp = new JsonErrorActions(errAct);
+		else
+			throw new JSONSException(getClass().getSimpleName() + " requests an \""+ERROR_ACTIONS_LABEL_+"\" but it is missing!");
 		
 		return resp;
 	}
