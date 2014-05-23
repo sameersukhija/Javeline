@@ -41,16 +41,59 @@ public class Authorization extends Form {
 		clickId( "gwt-debug-InputLoginUsername" ).
 		sendKeysById( "gwt-debug-InputLoginUsername", user ).
 		sendKeysById( "gwt-debug-InputLoginPassword", password ).
-		clickId( "gwt-debug-ButtonLoginAuthentication" ).
-		clickId( "gwt-debug-FormHomeInfo" );
+		clickId( "gwt-debug-ButtonLoginAuthentication" );
 		
-		closeLicenseDialog();
+		// force a new login
+		doubleSession(true);
+		
+		Boolean clickedDialog = closeLicenseDialog();
+		
+		// if a click occurred for license warning :
+		// element "gwt-debug-FormHomeInfo" is already disappeared
+		if ( !clickedDialog)
+			clickId( "gwt-debug-FormHomeInfo" );
 		
 		return this;
-		
 	}
 	
-	public Authorization closeLicenseDialog() throws FormException {
+	/**
+	 * This methods looks for a popup related double session and handle it according <b>forceLogin</b> :<br>
+	 * <li> if TRUE, it forces new login ( another session can be dropped by DUT ) 
+	 * <li> if FALSE, it does not force a new login and throws an exception
+	 * 
+	 * @throws FormException 
+	 */
+	private void doubleSession(Boolean forceLogin) throws FormException {
+		
+		Alert confirmForceLogin = null;
+		 
+		try {
+			
+			confirmForceLogin = selenium.getWrappedDriver().switchTo().alert();
+		    	
+			if ( confirmForceLogin != null )
+				if ( forceLogin ) 
+					confirmForceLogin.accept(); 
+				else
+					throw new FormException(getClass().getSimpleName() + " finds a \"double session\" and CANNOT force login!");
+			
+		} catch (NoAlertPresentException e) {
+			// nothing to do
+		}
+	}
+
+	/**
+	 * This method executes :<br>
+	 * <li> it searches for license warning box and close it
+	 * <li> if a click event occurs returns this information
+	 * 
+	 * @return Boolean information if a click event occurs
+	 * 
+	 * @throws FormException
+	 */
+	private Boolean closeLicenseDialog() throws FormException {
+		
+		Boolean closedLicenseDialog = null;
 		
 		try {
 			
@@ -60,10 +103,21 @@ public class Authorization extends Form {
 			clickXPath( "//div[@class='gwt-DialogBox errorDialog']//button" ).
 			setTimeout( timeout );
 			
-		} catch( NoSuchElementException e ) {}
+			closedLicenseDialog = Boolean.TRUE;
+			
+		} catch( NoSuchElementException | FormException e ) {
+			
+			if ( e instanceof FormException )
+				if ( e.getMessage().contains("errorDialog") ) {
+					// do nothing
+					
+					closedLicenseDialog = Boolean.FALSE;
+				}
+				else // something happened
+					throw e;
+		}
 		
-		return this;
-		
+		return closedLicenseDialog;
 	}
 	
 	public boolean refresh() throws FormException {
@@ -98,7 +152,7 @@ public class Authorization extends Form {
 	 */
 	public Authorization logout() throws FormException {
 		
-		searchByXPath( "//button[@title='Logout']" );
+		clickXPath( "//button[@title='Logout']" );
 		
 		Alert confirmLogout = null;
 		 
