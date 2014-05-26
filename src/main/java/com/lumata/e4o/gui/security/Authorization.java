@@ -41,45 +41,12 @@ public class Authorization extends Form {
 		clickId( "gwt-debug-InputLoginUsername" ).
 		sendKeysById( "gwt-debug-InputLoginUsername", user ).
 		sendKeysById( "gwt-debug-InputLoginPassword", password ).
-		clickId( "gwt-debug-ButtonLoginAuthentication" );
+		clickId( "gwt-debug-ButtonLoginAuthentication" ).
+		clickId( "gwt-debug-FormHomeInfo" );
 		
-		// force a new login
-		doubleSession(true);
-		
-		Boolean clickedDialog = closeLicenseDialog();
-		
-		// if a click occurred for license warning :
-		// element "gwt-debug-FormHomeInfo" is already disappeared
-		if ( !clickedDialog)
-			clickId( "gwt-debug-FormHomeInfo" );
-		
+		closeLicenseDialog();
+				
 		return this;
-	}
-	
-	/**
-	 * This methods looks for a popup related double session and handle it according <b>forceLogin</b> :<br>
-	 * <li> if TRUE, it forces new login ( another session can be dropped by DUT ) 
-	 * <li> if FALSE, it does not force a new login and throws an exception
-	 * 
-	 * @throws FormException 
-	 */
-	private void doubleSession(Boolean forceLogin) throws FormException {
-		
-		Alert confirmForceLogin = null;
-		 
-		try {
-			
-			confirmForceLogin = selenium.getWrappedDriver().switchTo().alert();
-		    	
-			if ( confirmForceLogin != null )
-				if ( forceLogin ) 
-					confirmForceLogin.accept(); 
-				else
-					throw new FormException(getClass().getSimpleName() + " finds a \"double session\" and CANNOT force login!");
-			
-		} catch (NoAlertPresentException e) {
-			// nothing to do
-		}
 	}
 	
 	public Authorization closeLicenseDialog() {
@@ -88,24 +55,19 @@ public class Authorization extends Form {
 			
 			long timeout = getTimeout();
 			
-			setTimeout( 1000 ).			
+			setTimeout( 1000 ).
+			
 			clickXPath( "//div[@class='gwt-DialogBox errorDialog']//button" ).
+		
 			setTimeout( timeout );
-			
-			closedLicenseDialog = Boolean.TRUE;
-			
+		
+		} catch( NoSuchElementException | FormException e ) {
+		
 			status = true;
-		
-			if ( e instanceof FormException )
-				if ( e.getMessage().contains("errorDialog") ) {
-					// do nothing
-					
-					closedLicenseDialog = Boolean.FALSE;
-				}
-				else // something happened
-					throw e;
-		
-		return closedLicenseDialog;
+		}
+			
+		return this;
+	
 	}
 	
 	public boolean refresh() throws FormException {
@@ -133,24 +95,45 @@ public class Authorization extends Form {
 	}
 	
 	/**
-	 * Click on logout and accept if alert popup is displayed
-	 * 
-	 * @param selenium
-	 * @throws FormException 
-	 */
+	* Click on logout and accept if alert popup is displayed
+	*
+	* @param selenium
+	* @throws FormException
+	*/
 	public Authorization logout() throws FormException {
 		
-		
+		clickId( "gwt-debug-Logout E4O" );
+			
 		try {
 			
-		    	
-			if ( confirmLogout != null ) { confirmLogout.accept(); }
+			Alert confirmLogout = selenium.selectAlert();
 			
+			if ( confirmLogout != null ) { confirmLogout.accept(); }
+		
 		} catch (NoAlertPresentException e) {
+			
+			status = true;
+		
 		}
 		
 		return this;
-		
+	
+	}
+
+	/**
+	* Logout and close browser
+	*
+	* @param selenium
+	* @throws FormException
+	*/
+	public Authorization quit() throws FormException {
+	
+		logout();
+	
+		selenium.close();
+	
+		return this;
+	
 	}
 
 }
