@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -102,6 +103,15 @@ public class SeleniumWebDriver {
 	public void close() {
 		
 		instance.quit();
+	}
+	
+	/**
+	 * Close the <b>WebDriver</b> object
+	 */
+	public Alert selectAlert() {
+		
+		return instance.switchTo().alert();
+		
 	}
 	
 	/**
