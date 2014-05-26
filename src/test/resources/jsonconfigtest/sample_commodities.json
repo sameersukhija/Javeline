@@ -1,6 +1,7 @@
 {
   "commodities": [
-    {
+    {      
+      "enabled" : false,
       "type": "Internal",
       "name": "Points",
       "account": "Internal",
@@ -14,7 +15,8 @@
       "errorActions" : {
 				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
-        }
+        },
+      "delete" : true
     },
     {
       "type": "External",
@@ -41,7 +43,8 @@
       "listPrice": "",
       "errorActions" : {
 				"GENERAL_ERROR" : "RETURN_ERROR" 
-      }
+      },
+      "delete" : true
     }
   ]
 }

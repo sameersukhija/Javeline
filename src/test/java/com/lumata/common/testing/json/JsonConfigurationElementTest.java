@@ -24,6 +24,36 @@ public class JsonConfigurationElementTest {
 	}	
 	
 	@Test
+	public void testEnabledAndDeleteProperties() throws JSONSException {
+		
+		JsonCurrentElement currentElementConfig = null;
+		
+		mainObject.setCurrentElementById(0);
+
+		currentElementConfig = mainObject.getCurrentElement();
+		
+		// explicit case
+		Assert.assertEquals(	currentElementConfig.getEnabled(), Boolean.FALSE, "\"enabled\" status must be \"false\"" );
+		Assert.assertEquals(	currentElementConfig.getDelete(), Boolean.TRUE, "\"delete\" status must be \"true\"" );
+		
+		mainObject.setCurrentElementById(1);
+
+		currentElementConfig = mainObject.getCurrentElement();
+		
+		// implicit case
+		Assert.assertEquals(	currentElementConfig.getEnabled(), Boolean.TRUE, "\"enabled\" status must be \"true\"" );
+		Assert.assertEquals(	currentElementConfig.getDelete(), Boolean.FALSE, "\"delete\" status must be \"false\"" );
+		
+		mainObject.setCurrentElementById(2);
+
+		currentElementConfig = mainObject.getCurrentElement();
+		
+		// implicit/explicit case
+		Assert.assertEquals(	currentElementConfig.getEnabled(), Boolean.TRUE, "\"enabled\" status must be \"true\"" );
+		Assert.assertEquals(	currentElementConfig.getDelete(), Boolean.TRUE, "\"delete\" status must be \"true\"" );
+	}
+	
+	@Test
 	public void testGetErrorActions() throws JSONSException {
 
 		JsonCurrentElement currentElementConfig = null;

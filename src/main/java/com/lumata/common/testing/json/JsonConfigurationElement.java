@@ -16,10 +16,15 @@ public abstract class JsonConfigurationElement extends JsonConfig implements Has
 	 */
 	public final class JsonErrorActions extends JsonConfig {
 
+		/**
+		 * Constructor
+		 * 
+		 * @param newObject
+		 */
 		public JsonErrorActions(Map<String, Object> newObject) {
 			super(newObject);
 		}
-		
+
 		/**
 		 * This method looks into error actions object for a condition and returns associated action type
 		 * 
@@ -52,7 +57,48 @@ public abstract class JsonConfigurationElement extends JsonConfig implements Has
 	public JsonConfigurationElement(Map<String, Object> newObject) {
 		super(newObject);
 	}
-
+	
+	/**
+	 * This method returns "enabled" status for json element.
+	 * 
+	 * This property is useful to handle configuration into json file source without
+	 * take in count during test execution.
+	 * 
+	 * This property is optional and when it is not present is equals to "true".
+	 */
+	public final Boolean getEnabled() {
+		
+		Boolean resp = null;
+		
+		resp = this.getBooleanFromPath("enabled");
+		
+		// omission is comparable to "true"
+		if ( resp == null )
+			resp = Boolean.TRUE;
+		
+		return resp;
+	}
+	
+	/**
+	 * This method returns "delete" status for json element.
+	 * 
+	 * This property is useful to handle post-test steps during execution.
+	 * 
+	 * This property is optional and when it is not present is equals to "false".
+	 */
+	public final Boolean getDelete() {
+		
+		Boolean resp = null;
+		
+		resp = this.getBooleanFromPath("delete");
+		
+		// omission is comparable to "false"
+		if ( resp == null )
+			resp = Boolean.FALSE;
+		
+		return resp;
+	}		
+	
 	@Override
 	public JsonErrorActions getErrorActions() throws JSONSException {
 		
