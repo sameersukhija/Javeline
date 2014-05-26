@@ -60,7 +60,7 @@ public class ParentUITestCase {
 	@BeforeSuite
 	@Parameters({"browser", "environment", "loadingType", "resourceStartPath", "gui_server"})
 	public void setUp( 	@Optional("FIREFOX") String browser, 
-						@Optional("E4O_QA_NE") String environment, 
+						@Optional("E4O_VM_NE") String environment, 
 						@Optional(DEFAULT_LOADING_TYPE__) String loadingType,
 						@Optional(DEFAULT_RESOURCE_START_PATH__) String resourceStartPath,
 						@Optional("actrule") String gui_server

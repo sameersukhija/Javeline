@@ -12,9 +12,10 @@
       "unitaryCost": "",
       "listPrice": "",
       "errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
-        }
+        },
+      "delete" : true
     },
     {
       "type": "External",
@@ -26,7 +27,11 @@
       "defaultPeriodType": "Days",
       "defaultQuantityPeriod": "",
       "unitaryCost": "",
-      "listPrice": ""
+      "listPrice": "",      "errorActions" : {
+        "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+        "GENERAL_ERROR" : "RETURN_ERROR" 
+        },
+      "delete" : true
     },
     {
       "type": "External",
@@ -42,7 +47,8 @@
       "errorActions" : {
 				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
-      }
+      },
+      "delete" : true
     }
   ]
 }

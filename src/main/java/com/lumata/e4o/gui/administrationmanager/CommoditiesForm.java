@@ -3,15 +3,18 @@ package com.lumata.e4o.gui.administrationmanager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.json.HasErrorActions.ElementErrorActionType;
+import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
+import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
@@ -68,9 +71,13 @@ public class CommoditiesForm extends AdministrationForm {
 			
 			commoditiesCfg.setCurrentElementById(commodityIndex);
 			
-			clickId( "gwt-debug-Add Bonus" ).
-			createCommodity().
-			saveCommodity();
+			/**
+			 * Only "enabled" commodities will be configured
+			 */
+			if ( commoditiesCfg.getCurrentElement().getEnabled() )
+				clickId( "gwt-debug-Add Bonus" ).
+				createCommodity().
+				saveCommodity();
 					
 		}
 		
@@ -106,53 +113,102 @@ public class CommoditiesForm extends AdministrationForm {
 	 * 
 	 * @return
 	 * @throws FormException
+	 * @throws JSONSException 
 	 */
-	public CommoditiesForm saveCommodity() throws FormException {
+	public CommoditiesForm saveCommodity() throws FormException, JSONSException {
 		
 		if ( containsErrorElement() )
 			logger.error("Without click \"save\" panel is in error!");
 		
-		clickXPath( "//button[@title='Save']" );
+		Boolean completed = Boolean.FALSE;
 		
-		Boolean confirmed = Boolean.FALSE;
+		do {
+			
+			/**
+			 * Core save procedure
+			 */
+			
+			clickXPath( "//button[@title='Save']" );
+			
+			Boolean confirmed = Boolean.FALSE;
 
-		// error condition
-		//*[contains(@class,'errorBackground')]
-		
-		// key field
-		//*[@id='gwt-debug-Bonus Name']
-		
-		// key field already present
-//		"//div[text()='Bonus name already used']"
-		
-		confirmed = handleJavascriptAlertAcceptDismiss(true);
+			// error condition
+			//*[contains(@class,'errorBackground')]
+			
+			// key field
+			//*[@id='gwt-debug-Bonus Name']
+			
+			// key field already present
+//			"//div[text()='Bonus name already used']"
+			
+			confirmed = handleJavascriptAlertAcceptDismiss(true);
 
-		// in case no confirmation was executed, check element in error
-		if ( !confirmed && containsErrorElement() )
-			logger.error("After click \"save\" panel is in error!");
-		
-		/**
-		 * START REFACTORING - ERROR ACTIONS
-		 */
-		
-		try {
-		
-			if( isDisplayed() ) { 
+			/**
+			 * End - Core save procedure
+			 */
+			
+			// in case no confirmation was executed, check element in error
+			if ( !confirmed && containsErrorElement() ) {
+
+				JsonCurrentElement current = commoditiesCfg.getCurrentElement();
 				
-				clickId( "gwt-debug-Bonus Cancel" );
+				logger.warn("After click \"Save\" panel is in error!");
 				
+				ElementErrorConditionType condition = null;
+				
+				searchByXPath("//div[@class='gwt-DialogBox']");
+				
+				// error condition
+				//div[text()='Bonus name already used']
+				List<WebElement> element = SeleniumUtils.findListForComponentDisplayed(	selenium, 
+																						SearchBy.XPATH, 
+																						lastWebElement, 
+																						"//div[text()='Bonus name already used']"
+																					);
+				
+				if ( element.size() != 0 )
+					condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
+				else
+					condition = ElementErrorConditionType.GENERAL_ERROR;
+				
+				ElementErrorActionType action = current.getErrorActions().getAction(condition);
+				
+				// abort insertion
+				if ( action.equals(ElementErrorActionType.ABORT_CANCEL) ) {
+					clickId( "gwt-debug-Bonus Cancel" );
+					
+					completed = Boolean.TRUE;
+				}
+				// stop execution and return error
+				else if ( action.equals(ElementErrorActionType.RETURN_ERROR) )
+					throw new FormException(getClass().getSimpleName() + " cannot configure \""+current.getStringFromPath("name")+"\" commodities!");
+				// add timestamp to name
+				else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) ) {
+					
+					// one click su input
+					clickXPath( "//input[@id='gwt-debug-Bonus Name']");
+					
+					// delete current text
+					lastWebElement.clear();
+					
+					/**
+					 * Technical Debit - This point contains an error
+					 */
+					
+					String actualName = current.getStringFromPath("name");
+					current.setObjectFromPath("name", actualName + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+					
+					// send old text + timestamp
+					typeById( "gwt-debug-Bonus Name", commoditiesCfg.getName() );
+					
+					completed = Boolean.FALSE;
+				}
 			}
-		
-		} catch( StaleElementReferenceException e ) {
-			
-			System.out.println( "button not visible" );
-			
-		}	
-		
-		/**
-		 * END REFACTORING
-		 */
-		
+			else // all ok!
+				completed = Boolean.TRUE;			
+		}
+		while ( !completed );
+
 		return this;
 		
 	}
@@ -296,7 +352,7 @@ public class CommoditiesForm extends AdministrationForm {
 		
 		try {
 			
-			popupAlert = selenium.getWrappedDriver().switchTo().alert();
+			popupAlert = selenium.selectAlert();
 		    	
 			if ( popupAlert != null ) { 
 				
