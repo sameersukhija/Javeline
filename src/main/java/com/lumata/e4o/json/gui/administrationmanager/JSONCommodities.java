@@ -1,93 +1,155 @@
 package com.lumata.e4o.json.gui.administrationmanager;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.e4o.exceptions.CommoditiesException;
-import com.lumata.e4o.json.common.JsonConfig;
-
+import com.lumata.common.testing.json.JsonConfigurationFile;
 
 /**
- * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
-public class JSONCommodities extends JsonConfig {
-
-	private String currentCommodity;
+public class JSONCommodities extends JsonConfigurationFile {
 	
-	public JSONCommodities( String folder, String file ) throws CommoditiesException, JSONSException, IOFileException {
+	/**
+	 * 
+	 * @param folder
+	 * @param file
+	 * @throws JSONSException
+	 */
+	public JSONCommodities( String folder, String file ) throws JSONSException {
 		
 		super( folder, file );
-			
+	}
+	
+	/**
+	 * This method returns the "type" of current element.
+	 * The current element must be selected with "setCurrentElementById" method.
+	 * 
+	 * @return
+	 * 
+	 * @throws JSONSException
+	 */
+    public String getType() throws JSONSException { 		
+		return getCurrentElement().getStringFromPath( "type"); 		
+ 	}
+    	
+    /**
+	 * This method returns the "name" of current element.
+	 * The current element must be selected with "setCurrentElementById" method.
+	 * 
+     * @return
+     * @throws JSONSException
+     */
+    public String getName() throws JSONSException { 		
+		return getCurrentElement().getStringFromPath("name"); 		
 	}
 
-	public JSONObject getCommoditiesList() throws JSONException {
-		return (JSONObject)getObjectFromPath("commodities");
-	}
-	
-	public ArrayList<String> list() {
-		
-		ArrayList<String> commoditiesList = new ArrayList<String>();
-				
-		Iterator<?> keys = ((JSONObject)getObjectFromPath("commodities")).keys();
-        while( keys.hasNext() ) {
-            String key = (String)keys.next();
-            commoditiesList.add( key );
-        }
-		
-		return commoditiesList;
-		
-	}	 
-		
-    public String getType() { 		
-    	return getStringFromPath( "commodities/" + currentCommodity + "/type"); 		
- 	}
-    	 
-    public String getName() { 		
-    	return getStringFromPath("commodities/" + currentCommodity + "/name"); 		
-	}
-
-	public String getAccount() { 		
-    	return getStringFromPath("commodities/" + currentCommodity + "/account"); 		
+    /**
+     * 
+     * @return
+     * @throws JSONSException
+     */
+	public String getAccount() throws JSONSException { 		
+		return getCurrentElement().getStringFromPath("account"); 		
  	}
 	
-	public String getAccountType() { 		
-    	return getStringFromPath("commodities/" + currentCommodity + "/accountType"); 		
+	/**
+	 * 
+	 * @return
+	 * @throws JSONSException
+	 */
+	public String getAccountType() throws JSONSException { 		
+		return getCurrentElement().getStringFromPath("accountType"); 		
  	}
 	
-	public String getUnit() { 		
-    	return getStringFromPath("commodities/" + currentCommodity + "/unit"); 		
+	/**
+	 * 
+	 * @return
+	 * @throws JSONSException
+	 */
+	public String getUnit() throws JSONSException { 		
+		return getCurrentElement().getStringFromPath("unit"); 		
  	}
 
-	public String getDefaultValidityType() { 		
-    	return getStringFromPath("commodities/" + currentCommodity + "/defaultValidityType"); 		
+	/**
+	 * 
+	 * @return
+	 * @throws JSONSException
+	 */
+	public String getDefaultValidityType() throws JSONSException { 		
+		return getCurrentElement().getStringFromPath("defaultValidityType"); 		
  	}
-	
-	public String getDefaultPeriodType() { 		
-    	return getStringFromPath("commodities/" + currentCommodity + "/defaultPeriodType");
-	}
-	
-	public String getDefaultQuantityPeriod() { 		
-		return getStringFromPath("commodities/" + currentCommodity + "/defaultQuantityPeriod");
-	}
-	
-	public String getUnitaryCost() { 		
-		return getStringFromPath("commodities/" + currentCommodity + "/unitaryCost");
-	}
-	
-	public String getListPrice() { 		
-		return getStringFromPath("commodities/" + currentCommodity + "/listPrice");
-	}
-	
-	public void setCurrentCommodity( String currentCommodity ) {
-		
-		this.currentCommodity = currentCommodity;
-				
-	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws JSONSException
+	 */
+	public String getDefaultPeriodStart() throws JSONSException { 		
+		return getCurrentElement().getStringFromPath("defaultPeriodStart");
+	}	
+	
+	/**
+	 * 
+	 * @return
+	 * @throws JSONSException
+	 */	
+	public String getDefaultPeriodType() throws JSONSException { 		
+		return getCurrentElement().getStringFromPath("defaultPeriodType");
+	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws JSONSException
+	 */	
+	public String getDefaultQuantityPeriod() throws JSONSException { 		
+		return getCurrentElement().getStringFromPath("defaultQuantityPeriod");
+	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws JSONSException
+	 */	
+	public String getUnitaryCost() throws JSONSException { 		
+		return getCurrentElement().getStringFromPath("unitaryCost");
+	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws JSONSException
+	 */	
+	public String getListPrice() throws JSONSException { 		
+		return getCurrentElement().getStringFromPath("listPrice");
+	}
+	
+	/**
+	 * It returns a list of commodities name into Json file
+	 * 
+	 * @return List<String>
+	 * 
+	 * @throws JSONSException
+	 */
+	public List<String> getListName() throws JSONSException {
+		
+		List<String> resp = new ArrayList<>();
+		
+		int numbComm = getList().size();
+		
+		for (int index = 0; index < numbComm; index++) {
+			setCurrentElementById(index);
+			resp.add(getName());
+		}
+		
+		return resp;
+	}
+	
+	@Override
+	public String getElementsSectionLabel() {
+
+		return "commodities";
+	}
 }

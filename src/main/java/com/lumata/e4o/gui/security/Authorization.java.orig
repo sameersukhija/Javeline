@@ -56,6 +56,9 @@ public class Authorization extends Form {
 		return this;
 	}
 	
+<<<<<<< HEAD
+	public Authorization closeLicenseDialog() {
+=======
 	/**
 	 * This methods looks for a popup related double session and handle it according <b>forceLogin</b> :<br>
 	 * <li> if TRUE, it forces new login ( another session can be dropped by DUT ) 
@@ -81,8 +84,20 @@ public class Authorization extends Form {
 			// nothing to do
 		}
 	}
-	
-	public Authorization closeLicenseDialog() {
+
+	/**
+	 * This method executes :<br>
+	 * <li> it searches for license warning box and close it
+	 * <li> if a click event occurs returns this information
+	 * 
+	 * @return Boolean information if a click event occurs
+	 * 
+	 * @throws FormException
+	 */
+	private Boolean closeLicenseDialog() throws FormException {
+		
+		Boolean closedLicenseDialog = null;
+>>>>>>> 2bdbc30eb67e17737360a9a62178cbac8412fbf8
 		
 		try {
 			
@@ -92,10 +107,19 @@ public class Authorization extends Form {
 			clickXPath( "//div[@class='gwt-DialogBox errorDialog']//button" ).
 			setTimeout( timeout );
 			
-			closedLicenseDialog = Boolean.TRUE;
+<<<<<<< HEAD
+		} catch( NoSuchElementException | FormException e ) {
 			
 			status = true;
 		
+		}
+		
+		return this;
+=======
+			closedLicenseDialog = Boolean.TRUE;
+			
+		} catch( NoSuchElementException | FormException e ) {
+			
 			if ( e instanceof FormException )
 				if ( e.getMessage().contains("errorDialog") ) {
 					// do nothing
@@ -104,6 +128,8 @@ public class Authorization extends Form {
 				}
 				else // something happened
 					throw e;
+		}
+>>>>>>> 2bdbc30eb67e17737360a9a62178cbac8412fbf8
 		
 		return closedLicenseDialog;
 	}
@@ -140,14 +166,39 @@ public class Authorization extends Form {
 	 */
 	public Authorization logout() throws FormException {
 		
+<<<<<<< HEAD
+		clickId( "gwt-debug-Logout E4O" );
+=======
+		clickXPath( "//button[@title='Logout']" );
+>>>>>>> 2bdbc30eb67e17737360a9a62178cbac8412fbf8
 		
 		try {
 			
+			Alert confirmLogout = selenium.selectAlert();
 		    	
 			if ( confirmLogout != null ) { confirmLogout.accept(); }
 			
 		} catch (NoAlertPresentException e) {
+			
+			status = true;
+			
 		}
+		
+		return this;
+		
+	}
+	
+	/**
+	 * Logout and close browser
+	 * 
+	 * @param selenium
+	 * @throws FormException 
+	 */
+	public Authorization quit() throws FormException {
+		
+		logout();
+		
+		selenium.close();
 		
 		return this;
 		
