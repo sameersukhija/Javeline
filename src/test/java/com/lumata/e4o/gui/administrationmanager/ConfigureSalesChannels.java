@@ -63,7 +63,7 @@ public class ConfigureSalesChannels {
 	
 	@Parameters({"salesChannelsList"})
 	@Test( enabled=testEnabled, priority = 1 )
-	public void configureTokeType( @Optional("salesChannelsList") String salesChannelsList ) throws FormException, JSONException, JSONSException {
+	public void configureSalesChannels( @Optional("salesChannelsList") String salesChannelsList ) throws FormException, JSONException, JSONSException {
 		
 		SalesChannelsForm salesChannelsForm = new SalesChannelsForm( seleniumWebDriver, new JSONSalesChannels( "input/administrationmanager/salesChannels", salesChannelsList ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
