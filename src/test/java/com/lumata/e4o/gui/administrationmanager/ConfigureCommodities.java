@@ -33,7 +33,7 @@ public class ConfigureCommodities extends ParentUITestCase {
 
 		Reporter.log("Creation of \"Commodities Form\".", PRINT2STDOUT__);
 
-		String resourcePath = currentResourceStartPath + "/admininstrationmanager/commodities";
+		String resourcePath = currentResourceStartPath + "/administrationmanager/commodities";
 		String resourceFile = commoditiesFile;
 
 		Reporter.log("\"Commodities Form\" is filled with reosurce file : ",
