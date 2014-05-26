@@ -4,8 +4,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
@@ -13,8 +11,6 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
 
 public class TokenTypeForm extends OfferOptimisationForm {
 
-	private static final Logger logger = LoggerFactory.getLogger( TokenTypeForm.class);
-	
 	private JSONTokenType tokenTypeCfg;
 	
     public enum ElementErrorActionType {

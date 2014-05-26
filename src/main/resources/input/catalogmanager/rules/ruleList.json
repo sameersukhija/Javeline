@@ -2,9 +2,9 @@
 	"rules": [
 		{
 			"enabled": true,
-			"name":"RuleC",
-			"description":"RuleC",
-			"tokenType":"TokenC",
+			"name":"RuleA",
+			"description":"RuleA",
+			"tokenType":"TokenA",
 			"channels":[ "Ch A" ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
@@ -32,9 +32,9 @@
 			}
 		},{
 			"enabled": true,
-			"name":"RuleE",
-			"description":"RuleE",
-			"tokenType":"TokenE",
+			"name":"RuleC",
+			"description":"RuleC",
+			"tokenType":"TokenC",
 			"channels":[ "Ch A", "Ch B" ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,

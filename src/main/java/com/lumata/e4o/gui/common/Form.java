@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -160,7 +161,7 @@ public abstract class Form {
 		
 	}
 
-	private WebElement search( SeleniumUtils.SearchBy by, String tag ) throws FormException {
+	public WebElement search( SeleniumUtils.SearchBy by, String tag ) throws FormException {
 		
 		return search( by, tag, null, null );
 		
@@ -529,6 +530,12 @@ public abstract class Form {
 		
 	}
 
+	public Form clearById( String id ) throws FormException {
+		
+		return clear( SeleniumUtils.SearchBy.ID, id );
+			
+	}
+	
 	public Form clearByName( String name ) throws FormException {
 		
 		return clear( SeleniumUtils.SearchBy.NAME, name );
@@ -584,6 +591,26 @@ public abstract class Form {
 		JavascriptExecutor jsexec = (JavascriptExecutor) selenium.getWrappedDriver();
 		
 		jsexec.executeScript( command );
+		
+		return this;
+		
+	}
+	
+	public Form confirmDialog() {
+		
+		Alert dialog = selenium.selectAlert();
+		
+		if( null != dialog ) { dialog.accept(); }
+		
+		return this;
+		
+	}
+	
+	public Form abortDialog() {
+		
+		Alert dialog = selenium.selectAlert();
+		
+		if( null != dialog ) { dialog.dismiss(); }
 		
 		return this;
 		

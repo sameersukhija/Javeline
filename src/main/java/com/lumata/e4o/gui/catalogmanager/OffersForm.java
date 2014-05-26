@@ -1,4 +1,8 @@
-//package com.lumata.e4o.gui.catalogmanager;
+package com.lumata.e4o.gui.catalogmanager;
+
+import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
+
 //
 //import java.util.concurrent.TimeUnit;
 //
@@ -18,8 +22,25 @@
 //import com.lumata.e4o.gui.common.MenuBar;
 //import com.lumata.e4o.gui.common.SectionImpl;
 //import com.lumata.e4o.json.gui.catalogmanager.OfferCfg;
-//
-//public class OffersForm extends CatalogueManagerForm {
+
+
+
+public class OffersForm extends CatalogueManagerForm {
+	
+	private JSONOffers offerCfg;
+	
+	public OffersForm( SeleniumWebDriver selenium, JSONOffers offerCfg, long timeout, long interval ) {
+		
+		super(selenium, timeout, interval);
+
+		this.offerCfg = offerCfg;
+		
+	}
+	
+	
+}
+
+
 //
 //	private static final Logger logger = LoggerFactory.getLogger(OffersForm.class);
 //

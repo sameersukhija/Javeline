@@ -73,8 +73,7 @@ public class ConfigureRules {
 	
 	@AfterClass
 	public void end() throws FormException {
-		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).logout().navigate() );
-		seleniumWebDriver.close();
+		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).quit().navigate() );
 	}
 		
 }

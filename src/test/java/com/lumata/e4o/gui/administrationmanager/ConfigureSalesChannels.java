@@ -1,4 +1,4 @@
-package com.lumata.e4o.gui.catalogmanager;
+package com.lumata.e4o.gui.administrationmanager;
 
 import java.lang.reflect.Method;
 
@@ -22,11 +22,11 @@ import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.security.Authorization;
-import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
+import com.lumata.e4o.json.gui.administrationmanager.JSONSalesChannels;
 
-public class ConfigureTokenType {
+public class ConfigureSalesChannels {
 
-	private static final Logger logger = LoggerFactory.getLogger( ConfigureTokenType.class );
+	private static final Logger logger = LoggerFactory.getLogger( ConfigureSalesChannels.class );
 	
 	private int TIMEOUT = 60000;
 	private int ATTEMPT_TIMEOUT = 200;
@@ -61,21 +61,19 @@ public class ConfigureTokenType {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}
 	
-	@Parameters({"tokenTypeList"})
+	@Parameters({"salesChannelsList"})
 	@Test( enabled=testEnabled, priority = 1 )
-	public void configureTokeType( @Optional("tokenTypeList") String tokenTypeList ) throws FormException, JSONException, JSONSException {
+	public void configureTokeType( @Optional("salesChannelsList") String salesChannelsList ) throws FormException, JSONException, JSONSException {
 		
-		TokenTypeForm tokenTypeForm = new TokenTypeForm( seleniumWebDriver, new JSONTokenType( "input/catalogmanager/tokenTypes", tokenTypeList ), TIMEOUT, ATTEMPT_TIMEOUT );
+		SalesChannelsForm salesChannelsForm = new SalesChannelsForm( seleniumWebDriver, new JSONSalesChannels( "input/administrationmanager/salesChannels", salesChannelsList ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Assert.assertTrue( tokenTypeForm.open().addTokenTypes().close().navigate() );
+		Assert.assertTrue( salesChannelsForm.open().addSalesChannels().navigate() );
 		
 	}
 		
 	@AfterClass
-	public void end() throws FormException {
-		
-		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).quit().navigate() );
-		
+	public void end() throws FormException {		
+		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).quit().navigate() );		
 	}
 		
 }

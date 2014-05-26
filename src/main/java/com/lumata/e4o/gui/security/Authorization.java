@@ -50,7 +50,7 @@ public class Authorization extends Form {
 		
 	}
 	
-	public Authorization closeLicenseDialog() throws FormException {
+	public Authorization closeLicenseDialog() {
 		
 		try {
 			
@@ -60,7 +60,11 @@ public class Authorization extends Form {
 			clickXPath( "//div[@class='gwt-DialogBox errorDialog']//button" ).
 			setTimeout( timeout );
 			
-		} catch( NoSuchElementException e ) {}
+		} catch( NoSuchElementException | FormException e ) {
+			
+			status = true;
+		
+		}
 		
 		return this;
 		
@@ -98,19 +102,35 @@ public class Authorization extends Form {
 	 */
 	public Authorization logout() throws FormException {
 		
-		searchByXPath( "//button[@title='Logout']" );
+		clickId( "gwt-debug-Logout E4O" );
 		
-		Alert confirmLogout = null;
-		 
 		try {
 			
-			confirmLogout = selenium.getWrappedDriver().switchTo().alert();
+			Alert confirmLogout = selenium.selectAlert();
 		    	
 			if ( confirmLogout != null ) { confirmLogout.accept(); }
 			
 		} catch (NoAlertPresentException e) {
-			// nothing to do
+			
+			status = true;
+			
 		}
+		
+		return this;
+		
+	}
+	
+	/**
+	 * Logout and close browser
+	 * 
+	 * @param selenium
+	 * @throws FormException 
+	 */
+	public Authorization quit() throws FormException {
+		
+		logout();
+		
+		selenium.close();
 		
 		return this;
 		

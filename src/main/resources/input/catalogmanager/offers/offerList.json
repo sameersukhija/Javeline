@@ -1,13 +1,13 @@
 {
-	"campaigns": [
+	"offers": [
 		{
 			"enabled": true,
-			"name": "CMAllEvents",
-			"description": "CMAllEvents",
 			"definition": {
-				"executionMode": "Model",
-				"campaignType": "No type",
-				"byPassMediaType": true
+				"name": "OFFA",
+				"description": "OFFA",
+				"voucher": "none",
+				"imageURLOfOffer": "",
+				"termsAndConditions": ""
 			},
 			"scheduling": {
 				"typeOfRecurrence": "Multiple",

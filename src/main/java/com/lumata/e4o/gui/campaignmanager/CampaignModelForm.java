@@ -44,8 +44,6 @@ public class CampaignModelForm extends CampaignManagerForm {
 		
 		super(selenium, timeout, interval);
 
-		logger.info("Init CampaignModelForm");
-		
 		this.campaignModelCfg = campaignModelCfg;
 		
 	}
