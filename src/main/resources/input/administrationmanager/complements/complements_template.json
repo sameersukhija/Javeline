@@ -1,0 +1,22 @@
+{
+  "complements": [
+    {
+      "enabled": true,
+      "name": "ComplementOne",
+      "errorActions" : {
+        "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+        "GENERAL_ERROR" : "RETURN_ERROR" 
+        },
+      "delete" : false
+    },
+    {
+      "enabled": true,
+      "name": "ComplementTwo",
+      "errorActions" : {
+        "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+        "GENERAL_ERROR" : "RETURN_ERROR" 
+        },
+      "delete" : false
+    }
+  ]
+}
