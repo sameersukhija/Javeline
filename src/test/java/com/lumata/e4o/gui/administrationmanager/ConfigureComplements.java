@@ -26,7 +26,7 @@ public class ConfigureComplements extends ParentUITestCase {
 
 	@Parameters({"complementsFile"})
 	@Test(groups = { "configureComplements" })
-	public void configureComplementsTest(@Optional("complements_template") String complementsFile) throws JSONSException, FormException {
+	public void configureComplementsTest(@Optional("complementsTemplate") String complementsFile) throws JSONSException, FormException {
 
 		Reporter.log("Creation of \"Complements Form\".", PRINT2STDOUT__);
 

@@ -29,7 +29,7 @@ public class ConfigureCommodities extends ParentUITestCase {
 
 	@Parameters({"commoditiesFile"})
 	@Test(groups = { "configureCommodities" })
-	public void configureCommoditiesTest(@Optional("commodities_template") String commoditiesFile) throws JSONSException, FormException {
+	public void configureCommoditiesTest(@Optional("commoditiesTemplate") String commoditiesFile) throws JSONSException, FormException {
 
 		Reporter.log("Creation of \"Commodities Form\".", PRINT2STDOUT__);
 
