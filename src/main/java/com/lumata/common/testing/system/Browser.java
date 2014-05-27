@@ -1,5 +1,10 @@
 package com.lumata.common.testing.system;
 
+import java.io.File;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +28,12 @@ public class Browser {
 	private String fileFolderName;
 	private String fileName;
 	private JSONObject options;
-	private Enum<IOFileUtils.IOLoadingType> fileLoadingType; 
+	private Enum<IOFileUtils.IOLoadingType> fileLoadingType;
+	
+	/**
+	 * Browser application file
+	 */
+	private Path binaryFile;
 		
 	/**
 	 * JSON Label for "Profile" section
@@ -54,6 +64,16 @@ public class Browser {
 	 * JSON Label for "Options" section
 	 */
 	private static final String OPTIONS_LABEL__ 			= "options";	
+
+	/**
+	 * JSON Label for "Binary" section
+	 */
+	private static final String BINARY_LABEL__ 				= "binary";		
+	
+	/**
+	 * JSON Label for "Binary - description" section
+	 */
+	private static final String BIN_DES_LABEL__ 			= "description";
 	
 	/**
 	 * 
@@ -99,11 +119,37 @@ public class Browser {
 					this.fileName = this.file.getString(FILE_NAME_LABEL__);
 				
 				if( !this.file.isNull(LOADING_TYPE_LABEL__) )
-					this.fileLoadingType = IOFileUtils.IOLoadingType.valueOf( this.file.getString(LOADING_TYPE_LABEL__).toUpperCase() ); 	
+					this.fileLoadingType = IOFileUtils.IOLoadingType.valueOf( this.file.getString(LOADING_TYPE_LABEL__).toUpperCase() );
 			}
 			
 			if( !profile.isNull(OPTIONS_LABEL__) )
 				this.options = profile.getJSONObject(OPTIONS_LABEL__); 			
+			
+			if ( !profile.isNull(BINARY_LABEL__)) {
+				
+				String binaryFileName = null;
+				String description = null;
+				
+				if ( !profile.getJSONObject(BINARY_LABEL__).isNull(FILE_NAME_LABEL__) )
+					binaryFileName = profile.getJSONObject(BINARY_LABEL__).getString(FILE_NAME_LABEL__);
+				
+				if ( binaryFileName != null && binaryFileName.length() != 0 )
+					binaryFile = FileSystems.getDefault().getPath(binaryFileName);
+				
+				if ( !profile.getJSONObject(BINARY_LABEL__).isNull(BIN_DES_LABEL__) ) 
+					description = profile.getJSONObject(BINARY_LABEL__).getString(BIN_DES_LABEL__);
+				else
+					description = "NO NAME";
+				
+				if ( binaryFile != null && Files.isExecutable(binaryFile) ) 
+					logger.debug("Browser application provided ["+description+"] -> " + binaryFileName);
+				else { // not valid
+					
+					logger.debug("Browser application provided ["+description+"] is NOT valid!");
+					
+					binaryFile = null;
+				}
+			}
 		}
 		else
 			logger.debug("Browser object with type " + type + " is empty.");
@@ -168,6 +214,21 @@ public class Browser {
 
 	public void setOptions( JSONObject options ) {
 		this.options = options;		
+	}
+	
+	/**
+	 * This method returns the provided browser application via json configuration file.
+	 * 
+	 * @return a <b>File</b> instance of application file or null.
+	 */
+	public File getBinary() {
+		
+		File resp = null;
+		
+		if ( binaryFile != null )
+			resp = binaryFile.toFile();
+				
+		return resp;
 	}
 
 	@Override

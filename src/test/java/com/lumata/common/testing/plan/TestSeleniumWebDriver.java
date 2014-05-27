@@ -19,6 +19,7 @@ import com.lumata.common.testing.network.RestClient;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.common.testing.system.Browser;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 
@@ -63,7 +64,35 @@ public class TestSeleniumWebDriver {
 																				throws NetworkEnvironmentException 
 	{	
 		loadSeleniumFirefoxDriver(browser, environment, gui_server);
+	}	
+	
+	@Test
+	@Parameters({"browser", "environment", "gui_server"})
+	public void realBinaryIntoJSON( 		@Optional("FIREFOX") 				String browser, 
+											@Optional("BINARY_PROFILE") 		String environment, 
+											@Optional("better_than_actrule") 	String gui_server	)
+																				throws NetworkEnvironmentException 
+	{	
+		loadSeleniumFirefoxDriver(browser, environment, gui_server);
+		
+		Browser underTest = env_.getBrowser(gui_server, browser.toLowerCase());
+
+		Assert.assertNotNull( underTest.getBinary(), "Binary object must be NOT null!");
 	}		
+	
+	@Test
+	@Parameters({"browser", "environment", "gui_server"})
+	public void realBinaryMissingDes( 		@Optional("FIREFOX") 				String browser, 
+											@Optional("BINARY_NO_DESC") 		String environment, 
+											@Optional("better_than_actrule") 	String gui_server	)
+																				throws NetworkEnvironmentException 
+	{	
+		loadSeleniumFirefoxDriver(browser, environment, gui_server);
+		
+		Browser underTest = env_.getBrowser(gui_server, browser.toLowerCase());
+
+		Assert.assertNotNull( underTest.getBinary(), "Binary object must be NOT null!");
+	}	
 	
 	/**
 	 * Core test
@@ -85,6 +114,12 @@ public class TestSeleniumWebDriver {
 		Reporter.log("Startup \"SeleniumWebDriver\" object.", true);
 		seleniumWebDriver_ = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
 		Assert.assertNotNull( seleniumWebDriver_ , "SeleniumWebDriver is null!");	
+		
+		try {
+			Thread.sleep(3_000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}	
 
 	@Test
@@ -115,6 +150,19 @@ public class TestSeleniumWebDriver {
 		el.click();
 		
 		SeleniumUtils.waitFor( 1000 );
+		
+		Alert confirmForceLogin = null;
+		 
+		try {
+			
+			confirmForceLogin = seleniumWebDriver_.selectAlert();
+		    	
+			if ( confirmForceLogin != null )
+				confirmForceLogin.accept(); 
+				
+		} catch (NoAlertPresentException e) {
+			// nothing to do
+		}
 		
 		WebElement licenseDialog = null;
 	
