@@ -320,7 +320,9 @@ public abstract class Form {
 		lastWebElement = search( by, tag );
 				
 		//selenium.select( by.name().toLowerCase() + "=" + tag, "label=" + label );
-		
+		Select select = new Select(lastWebElement);
+		select.selectByVisibleText(label);
+
 		return this;
 		
 	}
