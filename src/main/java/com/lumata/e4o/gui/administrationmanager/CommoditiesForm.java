@@ -275,7 +275,7 @@ public class CommoditiesForm extends AdministrationForm {
 			
 		} catch ( FormException e ) {
 
-			logger.error("Error during delete \"Campaign Moldel \" : " + e.getMessage());
+			logger.error("Error during delete \"Commodities \" : " + e.getMessage());
 			
 			resp = Boolean.FALSE;
 		}
