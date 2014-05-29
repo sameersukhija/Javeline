@@ -30,8 +30,7 @@
             },
             "options": {
               "extensions.firebug.allPagesActivation": "on",
-              "extensions.firebug.defaultPanelName": "console",
-              "dom.forms.number": false
+              "extensions.firebug.defaultPanelName": "console"
             }
           }
         },
