@@ -276,26 +276,93 @@
 	    
 	    <plugins>
 		      
-		<plugin>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>3.0</version>
-			<configuration>
-				<source>1.7</source>
-				<target>1.7</target>
-			</configuration>
-		</plugin>
-	
-	      	<plugin>
-	        	<groupId>org.apache.maven.plugins</groupId>
-	        	<artifactId>maven-surefire-plugin</artifactId>
-	        	<version>2.14.1</version>
-	        	<configuration>
-	          		<skipTests>true</skipTests>
-	        	</configuration>
-	      	</plugin>
-	      		
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+	 		
 	    </plugins>    
 	     
 	</build>
+
+	<profiles>
+	
+	    <profile>
+        	<id>default</id>
+        	<build>
+				<plugins>
+			      	<plugin>
+			        	<groupId>org.apache.maven.plugins</groupId>
+			        	<artifactId>maven-surefire-plugin</artifactId>
+			        	<version>2.14.1</version>
+			        	<configuration>
+			          		<skipTests>true</skipTests>
+			        	</configuration>
+			      	</plugin>			
+				</plugins>
+			</build>
+        	<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+    	</profile>
+    	
+		<profile>
+			<id>run-suite</id>
+
+			<dependencies>
+				<dependency>
+					<groupId>org.uncommons</groupId>
+					<artifactId>reportng</artifactId>
+					<version>1.1.2</version>
+					<scope>test</scope>
+					<exclusions>
+						<exclusion>
+							<groupId>org.testng</groupId>
+							<artifactId>testng</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+				
+				<dependency>
+				    <groupId>com.google.inject</groupId>
+				    <artifactId>guice</artifactId>
+				    <version>3.0</version>
+				</dependency>
+				
+			</dependencies>
+
+			<build>
+				<plugins>
+			      	<plugin>
+			        	<groupId>org.apache.maven.plugins</groupId>
+			        	<artifactId>maven-surefire-plugin</artifactId>
+			        	<version>2.14.1</version>
+			        	<configuration>
+					        <suiteXmlFiles>
+					            <suiteXmlFile>${suite}</suiteXmlFile>
+					        </suiteXmlFiles>
+					        <parallel>false</parallel>
+					        <!-- <workingDirectory>${project.build.directory}/integrationTests</workingDirectory> -->
+			                <properties>
+			                    <property>
+			                        <name>listener</name>
+			                        <value>org.uncommons.reportng.HTMLReporter, org.uncommons.reportng.JUnitXMLReporter</value>
+			                    </property>
+			                    <property>
+			                        <name>org.uncommons.reportng.title</name>
+			                        <value>My Test Report</value>
+			                    </property>
+			                </properties>					        	          		
+			        	</configuration>
+			      	</plugin>			
+				</plugins>
+			</build>
+		</profile>
+		
+	</profiles>	
   
 </project>
