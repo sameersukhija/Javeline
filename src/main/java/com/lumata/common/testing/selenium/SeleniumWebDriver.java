@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -201,9 +202,11 @@ public class SeleniumWebDriver {
 			case FIREFOX: { 
 
 				FirefoxProfile profile = null;
+				FirefoxBinary binary = null;
 				
 				JSONObject browserProfile = browser.getProfile();
 				JSONObject optionsProfile = browser.getOptions();
+				File firefoxBinary = browser.getBinary();
 		
 				try {				
 		
@@ -276,6 +279,16 @@ public class SeleniumWebDriver {
 						    
 						}
 						
+						/**
+						 * Binary file provided
+						 */
+						if ( firefoxBinary != null ) {
+							
+							binary = new FirefoxBinary(firefoxBinary);
+							
+							logger.debug("Firefox binary file provided -> " + firefoxBinary.toString());
+						}
+						
 					} // end profile description
 			
 				} catch( Exception e ) {					
@@ -283,7 +296,7 @@ public class SeleniumWebDriver {
 				}
 
 				if ( profile != null ) {
-					resp = new FirefoxDriver(profile);
+					resp = ( binary!= null ? new FirefoxDriver( binary, profile) : new FirefoxDriver(profile) );
 				} else {
 					resp = new FirefoxDriver();
 				}

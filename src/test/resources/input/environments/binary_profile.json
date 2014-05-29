@@ -1,0 +1,26 @@
+{
+    "servers": {
+        "better_than_actrule": {
+            "browsers": {
+                "CHROME": {},
+                "FIREFOX": {
+                    "profile": {
+                        "binary": {
+                            "description": "Firefox 28",
+                            "fileName": "/home/vincenzo/Downloads/firefox28/firefox"
+                        },
+                        "file": {
+                            "fileName": "newProfile28",
+                            "folderName": "/home/vincenzo/Downloads",
+                            "loadingType": "FILE"
+                        }
+                    }
+                },
+                "IE": {},
+                "OPERA": {},
+                "SAFARI": {}
+            },
+            "link": "http://no.real.domain"
+        }
+    }
+}
