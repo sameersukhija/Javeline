@@ -19,7 +19,7 @@
   		<!-- 		
 			Insert here Selenium version 
 		-->
-	  	<selenium.version>2.41.0</selenium.version>
+	  	<selenium.version>2.42.0</selenium.version>
 		<!-- 		
 			Insert here "lumata-common-testng" version 
 		-->	  	
