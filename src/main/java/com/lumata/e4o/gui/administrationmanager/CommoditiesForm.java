@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,8 +56,10 @@ public class CommoditiesForm extends AdministrationForm {
 	}
 	
 	/**
+	 * It configures "Commodities Form" according passed Json configuration
 	 * 
 	 * @return
+	 * 
 	 * @throws FormException
 	 * @throws JSONSException
 	 */
@@ -74,10 +74,12 @@ public class CommoditiesForm extends AdministrationForm {
 			/**
 			 * Only "enabled" commodities will be configured
 			 */
-			if ( commoditiesCfg.getCurrentElement().getEnabled() )
-				clickId( "gwt-debug-Add Bonus" ).
+			if ( commoditiesCfg.getCurrentElement().getEnabled() ) {
+				clickId( "gwt-debug-Add Bonus" );
+				
 				createCommodity().
 				saveCommodity();
+			}
 					
 		}
 		
@@ -85,6 +87,7 @@ public class CommoditiesForm extends AdministrationForm {
 	}
 
 	/**
+	 * It creates a single commodity
 	 * 
 	 * @return
 	 * @throws FormException
@@ -110,8 +113,10 @@ public class CommoditiesForm extends AdministrationForm {
 	}
 	
 	/**
+	 * It saves just created commodity and handles post-saving results
 	 * 
 	 * @return
+	 * 
 	 * @throws FormException
 	 * @throws JSONSException 
 	 */
@@ -213,15 +218,6 @@ public class CommoditiesForm extends AdministrationForm {
 		
 	}
 	
-	@Override
-	public CommoditiesForm clickId( String id ) throws FormException {
-		
-		super.clickId( id );
-		
-		return this;
-		
-	}
-	
 	public JSONCommodities getCommodityFormCfg() {
 		return this.commoditiesCfg;
 	}
@@ -229,56 +225,7 @@ public class CommoditiesForm extends AdministrationForm {
 	public void setCommodityFormCfg( JSONCommodities commoditiesCfg ) {
 		this.commoditiesCfg = commoditiesCfg;
 	}
-	
-	/**
-	 * This method returns the presence of web component in error condition.
-	 * The error condition is at application level for the actual form.
-	 * (e.g. duplication of value, missing field) 
-	 * 
-	 * @return true if at least one element is in error
-	 * 
-	 * @throws FormException
-	 */
-	private Boolean containsErrorElement() throws FormException {
-		
-		Boolean resp = Boolean.TRUE;
 
-		searchByXPath("//div[@class='gwt-DialogBox']");
-		
-		// error condition
-		//*[contains(@class,'errorBackground')]
-		List<WebElement> element = SeleniumUtils.findListForComponentDisplayed(selenium, SearchBy.XPATH, lastWebElement, "//*[contains(@class,'errorBackground')]");
-		
-		if ( element.size() != 0 )
-			resp = true;
-		else
-			resp = false;
-		
-		return resp;
-	}
-	
-	/**
-	 * This method returns a list with <b>WebElement</b> in error condition.
-	 * The error condition is at application level for the actual form.
-	 * (e.g. duplication of value, missing field) 
-	 * 
-	 * @return a <b>List</b> of element in error condition.
-	 * 
-	 * @throws FormException
-	 */
-	private List<WebElement> getErrorElement() throws FormException {
-		
-		List<WebElement> resp = null;
-
-		searchByXPath("//div[@class='gwt-DialogBox']");
-		
-		// error condition
-		//*[contains(@class,'errorBackground')]
-		resp = SeleniumUtils.findListForComponentDisplayed(selenium, SearchBy.XPATH, lastWebElement, "//*[contains(@class,'errorBackground')]");
-		
-		return resp;
-	}
-	
 	/**
 	 * This method delete a list of "Commodities" into running system.
 	 * If input var-args is empty or null, this method deletes each commodities
@@ -328,49 +275,13 @@ public class CommoditiesForm extends AdministrationForm {
 			
 		} catch ( FormException e ) {
 
-			logger.error("Error during delete \"Campaign Moldel \" : " + e.getMessage());
+			logger.error("Error during delete \"Commodities \" : " + e.getMessage());
 			
 			resp = Boolean.FALSE;
 		}
 
 		return resp;
 	}
-
-	/**
-	 * This method handles the popup warning displayed through Javascript.
-	 * 
-	 * The popup is the ones with Accept/Dismiss possible choice.
-	 * 
-	 * If input Boolean is TRUE will be pressed "Accept" condition otherwise "Dismiss". 
-	 * 
-	 * The returns Boolean describe if popup was displayed and pressed.
-	 */
-	private Boolean handleJavascriptAlertAcceptDismiss(Boolean accept) {
-		
-		Alert popupAlert = null;
-		Boolean pressed = null;
-		
-		try {
-			
-			popupAlert = selenium.selectAlert();
-		    	
-			if ( popupAlert != null ) { 
-				
-				if ( accept )
-					popupAlert.accept();
-				else 
-					popupAlert.dismiss();
-				
-				pressed = Boolean.TRUE; 
-			}
-			
-		} catch (NoAlertPresentException e) {
-			
-			// nothing to do
-			pressed = Boolean.FALSE;
-		}
-		
-		return pressed;
-	}	
+	
 	
 }

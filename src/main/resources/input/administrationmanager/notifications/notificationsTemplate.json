@@ -1,0 +1,31 @@
+{
+    "notifications": [
+        {
+        	"enabled": true,
+           	"chooseChannel"	: "SMS",
+			"chooseLanguage": "English",
+			"mailObject" 	: null,
+			"textMessage"	: "text sms",
+			"templateName"	: "Sample SMS",
+			"contentFile"	: null,
+            "errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+            "delete": true
+        },
+        {
+        	"enabled": false,
+           	"chooseChannel"	: "MAIL",
+			"chooseLanguage": "Spanish",
+			"mailObject" 	: "Object of mail",
+			"textMessage"	: null,
+			"templateName"	: "Sample MAIL",
+			"contentFile"	: "<html><head><title>Html Mail Notification Content< \/title></head><body><h3>This is the mail content.< \/h3></body></html>",
+            "errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+        }    
+    ]
+}
