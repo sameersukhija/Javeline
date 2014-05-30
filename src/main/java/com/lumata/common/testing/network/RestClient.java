@@ -8,6 +8,8 @@ import org.jboss.resteasy.client.ClientResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lumata.common.testing.log.Log;
+
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
@@ -95,15 +97,19 @@ public class RestClient {
 	
 	}
 
-	public void header( String key, String value ) throws Exception {
+	public RestClient header( String key, String value ) throws Exception {
 		
 		if( null != value ) { this.header.put( key, value ); }
 		
+		return this;
+		
 	}
 	
-	public void body( String key, String value ) throws Exception {
+	public RestClient body( String key, String value ) throws Exception {
 		
 		if( null != value ) { this.body.put( key, value ); }
+		
+		return this;
 		
 	}
 	
@@ -141,7 +147,7 @@ public class RestClient {
 		
 		for( String bodyKey : body.keySet() ) {
 			
-			this.request.header( bodyKey, body.get( bodyKey ) ); 
+			this.request.body( bodyKey, body.get( bodyKey ) ); 
 			
 		}
 		
@@ -160,6 +166,8 @@ public class RestClient {
 		request.followRedirects( true );
 		
 		setCallParameters();
+		
+		logger.info( Log.GETTING.createMessage( "Request:" + request.getBody().toString() ) );
 		
 		switch( callType ) {
 		
@@ -190,6 +198,19 @@ public class RestClient {
 		
 	}
 	
+	public ClientResponse<String> post() throws Exception {
+		
+		return call( CallType.POST, null );
+		
+	}
+	
+	public ClientResponse<String> post( String url ) throws Exception {
+		
+		return call( CallType.POST, url );
+		
+	}
+	
+	@Deprecated
 	public ClientResponse<String> post( String url, Map<String, Object> options ) {
 		
 		ClientResponse<String> response = null;
