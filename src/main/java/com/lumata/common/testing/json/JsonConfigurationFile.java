@@ -56,42 +56,38 @@ public abstract class JsonConfigurationFile extends JsonConfig implements HasJso
 	 */
 	private JsonCurrentElement currentInstance2Configure = null;
 	
+	/**
+	 * JsonConfigurationElement listed into file
+	 */
+	private List<JsonCurrentElement> listedElements = null;
+	
+	@SuppressWarnings("unchecked")
 	public JsonConfigurationFile(String path, String jsonFile)  throws JSONSException {
 		super(path, jsonFile);
-	}
-	
-	public JsonConfigurationFile(Map<String, Object> newObject) {
-		super(newObject);
-	}
-
-	@Override
-	public abstract String getElementsSectionLabel();
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<JsonConfigurationElement> getList() throws JSONSException {
-
-		List<JsonConfigurationElement> resp = new ArrayList<JsonConfigurationElement>();
+		
+		// init list of elements
+		listedElements = new ArrayList<JsonCurrentElement>();
 		
 		List<Object> tmp = getJsonListFromPath(getElementsSectionLabel());
 		
 		if ( tmp != null )
-			for (Object object : tmp) {
-				resp.add(new JsonConfigurationElement((Map<String, Object>) object) {
-				});
-			}
-		
-		return resp;
+			for (Object object : tmp) 
+				listedElements.add(new JsonCurrentElement((Map<String, Object>) object));
+	}
+	
+	@Override
+	public abstract String getElementsSectionLabel();
+
+	@Override
+	public List<? extends JsonConfigurationElement> getList() throws JSONSException {
+
+		return listedElements;
 	}
 
 	@Override
 	public void setCurrentElementById(Integer index) throws JSONSException {
 
-		JsonConfigurationElement tmp = getList().get(index);
-
-		Map<String,Object> curr = (Map<String, Object>) tmp.getJsonMapFromPath(JsonConfig.NAVIGATION_SEPARATOR);
-		
-		currentInstance2Configure = new JsonCurrentElement(curr); 
+		currentInstance2Configure = (JsonCurrentElement) getList().get(index);
 	}
 
 	@Override
