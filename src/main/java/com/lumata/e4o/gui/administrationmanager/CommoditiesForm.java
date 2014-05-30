@@ -196,10 +196,6 @@ public class CommoditiesForm extends AdministrationForm {
 					// delete current text
 					lastWebElement.clear();
 					
-					/**
-					 * Technical Debit - This point contains an error
-					 */
-					
 					String actualName = current.getStringFromPath("name");
 					current.setObjectFromPath("name", actualName + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
 					
