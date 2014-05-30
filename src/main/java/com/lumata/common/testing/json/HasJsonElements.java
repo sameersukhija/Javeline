@@ -3,6 +3,7 @@ package com.lumata.common.testing.json;
 import java.util.List;
 
 import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 
 /**
  * This interface provides the facilities at Json configuration file. These facilities
@@ -27,6 +28,15 @@ public interface HasJsonElements {
 	 */
 	public List<JsonConfigurationElement> getList() throws JSONSException;
 
+	/**
+	 * This method gets the current element to be configured.
+	 * 
+	 * @param index is the index in main list of elements
+	 * 
+	 * @throws JSONSException
+	 */
+	public JsonCurrentElement getCurrentElementById(Integer index) throws JSONSException;
+	
 	/**
 	 * This method sets the current element to be configured.
 	 * 

@@ -85,6 +85,15 @@ public abstract class JsonConfigurationFile extends JsonConfig implements HasJso
 	}
 
 	@Override
+	public JsonCurrentElement getCurrentElementById(Integer index) throws JSONSException {
+
+		setCurrentElementById(index);
+		
+		return currentInstance2Configure;
+		
+	}
+	
+	@Override
 	public void setCurrentElementById(Integer index) throws JSONSException {
 
 		JsonConfigurationElement tmp = getList().get(index);
