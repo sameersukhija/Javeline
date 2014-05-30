@@ -22,11 +22,11 @@ public interface HasJsonElements {
 	 * This method returns the list of configuration elements contained into file.
 	 * If current object does not contains sub-object, "getList" returns "null".
 	 * 
-	 * @return List<JsonConfigurationElement> or null
+	 * @return List<? extends JsonConfigurationElement> or null
 	 * 
 	 * @throws JSONSException
 	 */
-	public List<JsonConfigurationElement> getList() throws JSONSException;
+	public List<? extends JsonConfigurationElement> getList() throws JSONSException;
 
 	/**
 	 * This method gets the current element to be configured.
@@ -51,5 +51,5 @@ public interface HasJsonElements {
 	 * 
 	 * @return the current element or null if not selected
 	 */
-	public JsonConfig getCurrentElement();
+	public JsonConfigurationElement getCurrentElement();
 }
