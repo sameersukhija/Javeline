@@ -1,0 +1,102 @@
+{
+	"productTypes": [
+		{
+			"enabled" : true,
+			"name" : "ProductTypeA",
+			"description" : "ProductTypeA_Description",
+			"delete" : false,
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+            "characteristics": [
+            	{
+	            	"enabled": true,
+					"name": "ListA",
+					"type": "List",
+					"list" : [ "one", "two", "three" ],
+					"choice" : null,
+					"default" : "two",
+					"text" : null,
+					"unit" : null
+            	},
+	            {
+	            	"enabled": true,
+					"name": "ChoiceA",
+					"type": "Choice",
+					"list" : null,
+					"choice" : [ "bim", "bum", "bam" ],
+					"default" : "bam",
+					"text" : null,
+					"unit" : null
+	            },
+	            {
+	            	"enabled": true,
+					"name": "TextA",
+					"type": "Text",
+					"list" :  null,
+					"choice" : null,
+					"default" : null,
+					"text" : "Super Text",
+					"unit" : null
+	            },
+	            {
+	            	"enabled": true,
+					"name": "UnitA",
+					"type": "Unit",
+					"list" : null,
+					"choice" : null,
+					"default" : null,
+					"text" : null,
+					"unit" : {
+						"Unit" : "Peculiarity",
+						"Value" : "Important"
+					}
+	            },
+            	{
+	            	"enabled": true,
+					"name": "ListWithoutDefault",
+					"type": "List",
+					"list" : [ "e", "and", "und" ],
+					"choice" : null,
+					"default" : null,
+					"text" : null,
+					"unit" : null
+            	},
+	            {
+	            	"enabled": true,
+					"name": "ChoiceWithoutDefault",
+					"type": "Choice",
+					"list" : null,
+					"choice" : [ "qui", "quo", "qua" ],
+					"default" : null,
+					"text" : null,
+					"unit" : null
+	            },
+	            {
+	            	"enabled": true,
+					"name": "TextWithoutDefault",
+					"type": "Text",
+					"list" :  null,
+					"choice" : null,
+					"default" : null,
+					"text" : null,
+					"unit" : null
+	            },
+	            {
+	            	"enabled": true,
+					"name": "UnitWithoutValue",
+					"type": "Unit",
+					"list" : null,
+					"choice" : null,
+					"default" : null,
+					"text" : null,
+					"unit" : {
+						"Unit" : "PeculiarityWithoutDefault",
+						"Value" : null
+					}
+	            }
+            ]
+		}
+	]
+}
