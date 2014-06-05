@@ -59,7 +59,7 @@ public class ConfigureNotifications extends ParentUITestCase {
 	}	
 	
 	@Parameters({"cleanup"})
-	@Test(dependsOnGroups={"configureNotifications"})
+	@Test(groups = { "configureNotifications" }, dependsOnMethods = {"configureNotificationsTest"})
 	public void cleanupNotificationsForm(@Optional("TRUE") Boolean cleanup) throws FormException, JSONSException {
 		
 		try {
