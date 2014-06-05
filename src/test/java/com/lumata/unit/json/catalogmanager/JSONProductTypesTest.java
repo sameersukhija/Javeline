@@ -87,7 +87,7 @@ public class JSONProductTypesTest {
 	@Test
 	public void readEntire() throws JSONSException {
 		
-		Assert.assertEquals( underTest.getList().size(), 1, "The lenght does not match!");
+		Assert.assertEquals( underTest.getList().size(), 2, "The lenght does not match!");
 		
 		underTest.setCurrentElementById(0);
 		
@@ -105,7 +105,7 @@ public class JSONProductTypesTest {
 			
 			JsonErrorActions errorActions = chElement.getErrorActions();
 			
-			Assert.assertEquals( errorActions.getAction(ElementErrorConditionType.ELEMENT_AREADY_EXISTS), ElementErrorActionType.ABORT_CANCEL);
+			Assert.assertEquals( errorActions.getAction(ElementErrorConditionType.ELEMENT_AREADY_EXISTS), ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD);
 			Assert.assertEquals( errorActions.getAction(ElementErrorConditionType.GENERAL_ERROR), ElementErrorActionType.RETURN_ERROR);
 			
 			Integer index = chList.indexOf(chElement); 

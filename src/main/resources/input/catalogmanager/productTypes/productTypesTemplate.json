@@ -6,7 +6,7 @@
 			"description" : "ProductTypeA_Description",
 			"delete" : false,
 			"errorActions" : {
-                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
                     "GENERAL_ERROR" : "RETURN_ERROR" 
             },
             "characteristics": [
@@ -97,6 +97,48 @@
 					}
 	            }
             ]
+		},
+		{
+			"enabled" : false,
+			"name" : "ProductTypeWhitDuplicatedCharacteristic",
+			"description" : "ProductTypeDuplicatedCharacteristic_Description",
+			"delete" : false,
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+            "characteristics": [
+            	{
+	            	"enabled": true,
+					"name": "ListB",
+					"type": "List",
+					"list" : [ "one", "two", "three" ],
+					"choice" : null,
+					"default" : "two",
+					"text" : null,
+					"unit" : null
+            	},
+	            {
+	            	"enabled": true,
+					"name": "ElementDuplicated",
+					"type": "Choice",
+					"list" : null,
+					"choice" : [ "bim", "bum", "bam" ],
+					"default" : "bam",
+					"text" : null,
+					"unit" : null
+	            },
+	            {
+	            	"enabled": true,
+					"name": "ElementDuplicated",
+					"type": "Text",
+					"list" :  null,
+					"choice" : null,
+					"default" : null,
+					"text" : "Super Text",
+					"unit" : null
+	            }
+	        ]
 		}
 	]
 }

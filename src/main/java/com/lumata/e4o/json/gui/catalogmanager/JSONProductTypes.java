@@ -217,6 +217,10 @@ public class JSONProductTypes extends JsonConfigurationFile {
 			// the characteristic shares "errorActions" from of "ProductTypes" belong from
 			return JSONProductTypes.this.getCurrentElement().getErrorActions();
 		}
+		
+		public void setObjectFromPath( String jsonNavigationPath, Object object2Insert ) {
+			super.setObjectFromPath(jsonNavigationPath, object2Insert);
+		}
 	}
 
 	/**

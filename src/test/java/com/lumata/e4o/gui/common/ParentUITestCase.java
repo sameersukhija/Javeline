@@ -29,7 +29,7 @@ import com.lumata.e4o.gui.security.Authorization;
  * 
  * @author <a href="mailto:vincenzo.marrazzo@lumatagroup.com">Vincenzo Marrazzo</a>
  */
-public class ParentUITestCase {
+public abstract class ParentUITestCase {
 	
 	/**
 	 * Print to standard output during execution
@@ -92,7 +92,6 @@ public class ParentUITestCase {
 		auth = new Authorization(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 	}	
 
-	@Test
 	@BeforeTest
 	@Parameters({"user"})
 	public void executeLogin(@Optional("superman") String user) throws FormException {
@@ -102,7 +101,6 @@ public class ParentUITestCase {
 		auth.login(gui.getUser( user ));
 	}
 	
-	@Test( dependsOnMethods = {"executeLogin"} )
 	@AfterTest
 	public void executeLogout() throws FormException {
 	
