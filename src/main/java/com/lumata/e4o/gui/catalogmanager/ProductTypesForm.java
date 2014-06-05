@@ -210,24 +210,47 @@ public class ProductTypesForm extends CatalogueManagerForm {
 		
 		sendKeysByXPath("//td[contains(text(),'Characteristic Name')]//ancestor::tr[1]//input", chElem.getName());
 		selectByXPathAndVisibleText("//td[contains(text(),'Type')]//ancestor::tr[1]//select", type.toString());
-		
-		if ( type.equals(CharacteristicType.List) || type.equals(CharacteristicType.Choice) ) {
+
+		if ( type.equals(CharacteristicType.List) ) {
 			
-			String defaultValue = chElem.getDefault();
-			List<String> values = type.equals(CharacteristicType.List) ? chElem.getList() : chElem.getChoice();
+			List<String> defaultValue = chElem.getList().getDefault();
+			List<String> values = chElem.getList().getValue();
 			
 			for (int index = 0; index < values.size(); index++) 
-				clickXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::div[2]//button[@title='Add']");		
+				clickXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::div[2]//button[@title='Add']");
 			
 			// element to be filled
 			List<WebElement> inputElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='text']"));
 			
-			String secondColRule = "//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='";
+			// checkboxes
+			List<WebElement> checkElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='checkbox']"));
 			
-			secondColRule = secondColRule + ( type.equals(CharacteristicType.List) ? "checkbox']" : "radio']" );
+			// fill
+			for (int index = 0; index < values.size(); index++) { 
+				
+				WebElement input = inputElements.get(index);
+				String value = values.get(index);
+				
+				input.sendKeys(value);
+				
+				if ( defaultValue != null && defaultValue.contains(values.get(index)) ) 
+					checkElements.get(index).click();
+			}
+		}
+		else if ( type.equals(CharacteristicType.Choice) ) {
 			
-			List<WebElement> checkElements = selenium.getWrappedDriver().findElements(By.xpath(secondColRule));
-
+			String defaultValue = chElem.getChoice().getDefault();
+			List<String> values = chElem.getChoice().getValue();
+			
+			for (int index = 0; index < values.size(); index++) 
+				clickXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::div[2]//button[@title='Add']");
+			
+			// element to be filled
+			List<WebElement> inputElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='text']"));
+			
+			// ratio
+			List<WebElement> checkElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='radio']"));
+			
 			// fill
 			for (int index = 0; index < values.size(); index++) { 
 				

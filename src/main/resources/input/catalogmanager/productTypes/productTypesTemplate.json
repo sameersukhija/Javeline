@@ -14,9 +14,11 @@
 	            	"enabled": true,
 					"name": "ListA",
 					"type": "List",
-					"list" : [ "one", "two", "three" ],
+					"list" : {
+						"value" : [ "one", "two", "three" ],
+						"default" : ["two", "three"]
+						},
 					"choice" : null,
-					"default" : "two",
 					"text" : null,
 					"unit" : null
             	},
@@ -25,8 +27,10 @@
 					"name": "ChoiceA",
 					"type": "Choice",
 					"list" : null,
-					"choice" : [ "bim", "bum", "bam" ],
-					"default" : "bam",
+					"choice" : {
+						"value" : [ "bim", "bum", "bam" ],
+						"default" : "bam"
+						},
 					"text" : null,
 					"unit" : null
 	            },
@@ -36,7 +40,6 @@
 					"type": "Text",
 					"list" :  null,
 					"choice" : null,
-					"default" : null,
 					"text" : "Super Text",
 					"unit" : null
 	            },
@@ -46,7 +49,6 @@
 					"type": "Unit",
 					"list" : null,
 					"choice" : null,
-					"default" : null,
 					"text" : null,
 					"unit" : {
 						"Unit" : "Peculiarity",
@@ -57,9 +59,11 @@
 	            	"enabled": true,
 					"name": "ListWithoutDefault",
 					"type": "List",
-					"list" : [ "e", "and", "und" ],
+					"list" : {
+						"value" : [ "e", "and", "und" ],
+						"default" : null
+						},
 					"choice" : null,
-					"default" : null,
 					"text" : null,
 					"unit" : null
             	},
@@ -68,8 +72,10 @@
 					"name": "ChoiceWithoutDefault",
 					"type": "Choice",
 					"list" : null,
-					"choice" : [ "qui", "quo", "qua" ],
-					"default" : null,
+					"choice" : {
+						"value" : [ "qui", "quo", "qua" ],
+						"default" : null
+						},
 					"text" : null,
 					"unit" : null
 	            },
@@ -79,7 +85,6 @@
 					"type": "Text",
 					"list" :  null,
 					"choice" : null,
-					"default" : null,
 					"text" : null,
 					"unit" : null
 	            },
@@ -89,7 +94,6 @@
 					"type": "Unit",
 					"list" : null,
 					"choice" : null,
-					"default" : null,
 					"text" : null,
 					"unit" : {
 						"Unit" : "PeculiarityWithoutDefault",
@@ -112,9 +116,11 @@
 	            	"enabled": true,
 					"name": "ListB",
 					"type": "List",
-					"list" : [ "one", "two", "three" ],
+					"list" : {
+						"value" : [ "one", "two", "three" ],
+						"default" : ["two"]
+						},
 					"choice" : null,
-					"default" : "two",
 					"text" : null,
 					"unit" : null
             	},
@@ -123,8 +129,10 @@
 					"name": "ElementDuplicated",
 					"type": "Choice",
 					"list" : null,
-					"choice" : [ "bim", "bum", "bam" ],
-					"default" : "bam",
+					"choice" : {
+						"value" : [ "bim", "bum", "bam" ],
+						"default" : "bam"
+						},
 					"text" : null,
 					"unit" : null
 	            },
@@ -134,7 +142,6 @@
 					"type": "Text",
 					"list" :  null,
 					"choice" : null,
-					"default" : null,
 					"text" : "Super Text",
 					"unit" : null
 	            }

@@ -41,7 +41,7 @@ public class JSONProductTypesTest {
 		try {
 			chList.get(3).getList();
 			
-			Assert.assertTrue(false, "\"getList\" must fail!");
+			Assert.assertTrue(false, "\"getList\" methods must fail!");
 		} catch ( JSONSException e ) {
 			
 			Assert.assertTrue(true);
@@ -50,7 +50,7 @@ public class JSONProductTypesTest {
 		try {
 			chList.get(2).getChoice();
 			
-			Assert.assertTrue(false, "\"getChoice\" must fail!");
+			Assert.assertTrue(false, "\"getChoice\" methods must fail!");
 		} catch ( JSONSException e ) {
 			
 			Assert.assertTrue(true);
@@ -69,15 +69,6 @@ public class JSONProductTypesTest {
 			chList.get(0).getUnit();
 			
 			Assert.assertTrue(false, "\"getUnit\" must fail!");
-		} catch ( JSONSException e ) {
-			
-			Assert.assertTrue(true);
-		}
-		
-		try {
-			chList.get(3).getDefault();
-			
-			Assert.assertTrue(false, "\"getDefault\" must fail!");
 		} catch ( JSONSException e ) {
 			
 			Assert.assertTrue(true);
@@ -118,13 +109,13 @@ public class JSONProductTypesTest {
 				else
 					if ( index == 0 ) {
 						Assert.assertEquals( chElement.getName(), "ListA");
-						Assert.assertEquals( chElement.getList(), Arrays.asList("one", "two", "three"));
-						Assert.assertEquals( chElement.getDefault(), "two");
+						Assert.assertEquals( chElement.getList().getValue(), Arrays.asList("one", "two", "three"));
+						Assert.assertEquals( chElement.getList().getDefault(), Arrays.asList( "two", "three"));
 					}
 					else { // index == 4
 						Assert.assertEquals( chElement.getName(), "ListWithoutDefault");
-						Assert.assertEquals( chElement.getList(), Arrays.asList("e", "and", "und"));
-						Assert.assertEquals( chElement.getDefault(), null);						
+						Assert.assertEquals( chElement.getList().getValue(), Arrays.asList("e", "and", "und"));
+						Assert.assertEquals( chElement.getList().getDefault(), null);						
 					}
 			}
 			else if ( type.equals(CharacteristicType.Choice) ) {
@@ -133,13 +124,13 @@ public class JSONProductTypesTest {
 				else
 					if ( index == 1 ) {
 						Assert.assertEquals( chElement.getName(), "ChoiceA");
-						Assert.assertEquals( chElement.getChoice(), Arrays.asList("bim", "bum", "bam"));
-						Assert.assertEquals( chElement.getDefault(), "bam");
+						Assert.assertEquals( chElement.getChoice().getValue(), Arrays.asList("bim", "bum", "bam"));
+						Assert.assertEquals( chElement.getChoice().getDefault(), "bam");
 					}
 					else { // index == 5
 						Assert.assertEquals( chElement.getName(), "ChoiceWithoutDefault");
-						Assert.assertEquals( chElement.getChoice(), Arrays.asList("qui", "quo", "qua"));
-						Assert.assertEquals( chElement.getDefault(), null);						
+						Assert.assertEquals( chElement.getChoice().getValue(), Arrays.asList("qui", "quo", "qua"));
+						Assert.assertEquals( chElement.getChoice().getDefault(), null);						
 					}
 			}
 			else if ( type.equals(CharacteristicType.Text) ) {

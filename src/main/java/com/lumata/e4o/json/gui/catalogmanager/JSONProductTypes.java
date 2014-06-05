@@ -135,51 +135,34 @@ public class JSONProductTypes extends JsonConfigurationFile {
 		}
 		
 		/**
-		 * This method returns the "list" of current element.
+		 * This method returns the "list" section of current element.
 		 * The current element must be selected with "setCurrentElementById" method.
 		 * 
-		 * @return a list of String if current element is a "list", if not an exception is thrown
+		 * @return a <b>JsonList</b> object if current element is a "list", if not an exception is thrown
 		 * @throws JSONSException
 		 */
-		public List<String> getList() throws JSONSException {
+		public JsonList getList() throws JSONSException {
 			
 			if ( !getType().equals(CharacteristicType.List) )
 				throw new JSONSException("The characteristic \""+this.getName()+"\" is NOT a \"List\"!");
 			else
-				return getStringList("list");
+				return new JsonList(getJsonMapFromPath("list"));
 		}
 		
 		/**
-		 * This method returns the "choice" of current element.
+		 * This method returns the "choice" section of current element.
 		 * The current element must be selected with "setCurrentElementById" method.
 		 * 
-		 * @return a list of String if current element is a "choice", if not an exception is thrown
+		 * @return a <b>JsonChoice</b> object if current element is a "choice", if not an exception is thrown
 		 * @throws JSONSException
 		 */
-		public List<String> getChoice() throws JSONSException {
+		public JsonChoice getChoice() throws JSONSException {
 			
 			if ( !getType().equals(CharacteristicType.Choice) )
 				throw new JSONSException("The characteristic \""+this.getName()+"\" is NOT a \"Choice\"!");
 			else
-				return getStringList("choice");
-		}
-		
-		/**
-		 * This method returns the "default" of current element.
-		 * The current element must be selected with "setCurrentElementById" method.
-		 * 
-		 * @return a String if current element is a "choice" or a "list", if not an exception is thrown
-		 * @throws JSONSException
-		 */
-		public String getDefault() throws JSONSException {
-			
-			if ( 	!getType().equals(CharacteristicType.Choice) && 
-					!getType().equals(CharacteristicType.List) 
-				)
-				throw new JSONSException("The characteristic \""+this.getName()+"\" cannot have the \"default\", it is a \""+getType()+"\"!");
-			else
-				return getStringFromPath("default");
-		}
+				return new JsonChoice(getJsonMapFromPath("choice"));
+		}		
 		
 		/**
 		 * This method returns the "text" of current element.
@@ -223,6 +206,87 @@ public class JSONProductTypes extends JsonConfigurationFile {
 		}
 	}
 
+	/**
+	 * This element describes the "List" Product Type
+	 */
+	public class JsonList extends JsonConfigurationElement {
+
+		public JsonList(Map<String, Object> newObject) {
+			super(newObject);
+		}
+		
+		/**
+		 * It returns the "Value" array for "list"
+		 * 
+		 * @return List<String> of value
+		 * 
+		 * @throws JSONSException 
+		 */
+		public List<String> getValue() throws JSONSException {
+			
+			return getStringList("value");
+		}
+
+		/**
+		 * It returns the "default" array for "list"
+		 * 
+		 * @return List<String> of default
+		 * 
+		 * @throws JSONSException 
+		 */
+		public List<String> getDefault() throws JSONSException {
+			
+			List<String> resp = null;
+			
+			try {
+				resp = getStringList("default");
+			}
+			catch ( JSONSException e ) {
+				
+				if ( e.getMessage().contains("Error during looking of \"Array of value\" for \"default\"!") )
+					resp = null;
+				else
+					throw e;
+			}
+			
+			return resp;
+		}
+	}
+	
+	/**
+	 * This element describes the "Choice" Product Type
+	 */
+	public class JsonChoice extends JsonConfigurationElement {
+
+		public JsonChoice(Map<String, Object> newObject) {
+			super(newObject);
+		}
+		
+		/**
+		 * It returns the "Value" array for "choice"
+		 * 
+		 * @return List<String> of value
+		 * 
+		 * @throws JSONSException 
+		 */
+		public List<String> getValue() throws JSONSException {
+			
+			return getStringList("value");
+		}
+
+		/**
+		 * It returns the "default" value for "choice"
+		 * 
+		 * @return String of default
+		 * 
+		 * @throws JSONSException 
+		 */
+		public String getDefault() throws JSONSException {
+			
+			return getStringFromPath("default");
+		}
+	}	
+	
 	/**
 	 * This element describes the "Unit" Product Type
 	 */
