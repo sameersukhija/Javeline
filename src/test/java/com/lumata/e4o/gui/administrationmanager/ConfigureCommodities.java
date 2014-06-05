@@ -61,7 +61,7 @@ public class ConfigureCommodities extends ParentUITestCase {
 	}
 	
 	@Parameters({"cleanup"})
-	@Test(dependsOnGroups={"configureCommodities"})
+	@Test(groups = { "configureCommodities" }, dependsOnMethods = {"configureCommoditiesTest"})
 	public void cleanupCommoditiesForm(@Optional("TRUE") Boolean cleanup) throws FormException, JSONSException {
 		
 		try {

@@ -180,22 +180,23 @@ public class NotificationsForm extends AdministrationForm {
 				// add timestamp to name
 				else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) ) {
 					
+					Long timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+					current.setObjectFromPath("templateName", current.getStringFromPath("templateName") + timestamp);
+					current.setObjectFromPath("textMessage", current.getStringFromPath("textMessage") + timestamp);
+					
+					// clean text
 					// one click su input
-					clickXPath( "//input[@id='gwt-debug-Bonus Name']");
+					clickXPath( "//textarea[contains(@id,'TextCampaignModelCreationENEValue')]" );
 					
 					// delete current text
-					lastWebElement.clear();
+					lastWebElement.clear();					
 					
-					/**
-					 * Technical Debit - This point contains an error
-					 */
+					sendKeysByXPath("//textarea[contains(@id,'TextCampaignModelCreationENEValue')]", notificationsCfg.getTextMessage());
 					
-					String actualName = current.getStringFromPath("name");
-					current.setObjectFromPath("name", actualName + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+					clickXPath("//button[@id='gwt-debug-BtnCampaignModelCreationENESaveTemplate']");
 					
-					// send old text + timestamp
-					typeById( "gwt-debug-Bonus Name", notificationsCfg.getTemplateName() );
-					
+					sendKeysByXPath("//td[contains(text(),'Template Name')]/ancestor::tr[1]//input", notificationsCfg.getTemplateName());
+	
 					completed = Boolean.FALSE;
 				}
 			}

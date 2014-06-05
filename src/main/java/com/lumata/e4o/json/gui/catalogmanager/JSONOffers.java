@@ -13,7 +13,7 @@ import com.lumata.e4o.json.common.JsonConfig;
  */
 public class JSONOffers extends JsonConfig {
 
-	private JSONOffers currentOffer;
+	private JsonConfig currentOffer;
 		
 	public JSONOffers( String folder, String file ) throws JSONSException {
 		
@@ -55,18 +55,10 @@ public class JSONOffers extends JsonConfig {
 	public String getTermsAndConditions() {
 		return currentOffer.getStringFromPath( "definition.termsAndConditions" );
 	}
-	
-	public JSONOffers getOfferById( Integer currentOfferId ) throws JSONException, JSONSException {
-		
-		setOfferById( currentOfferId );
-		
-		return this.currentOffer;
-				
-	}
 
-	public void setOfferById( Integer currentOfferId ) throws JSONException, JSONSException {
+	public void setOfferById( Integer currentOfferId ) throws JSONException {
 		
-		this.currentOffer = new JSONOffers( getList().getJSONObject( currentOfferId ) );
+		this.currentOffer = new JsonConfig( getList().getJSONObject( currentOfferId ) );
 				
 	}
 	
