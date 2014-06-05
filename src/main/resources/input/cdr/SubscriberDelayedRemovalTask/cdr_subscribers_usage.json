@@ -8,8 +8,8 @@
 		"depositPath": "/nfsdata/files/cdr/deposit/BUNDLE_CDR/",
 		"print": false,
 		"Msisdn": {		
-			"strategy": "Increment",
-			"parameters": [ "3399900001", "1" ]		
+			"strategy": "Fixed",
+			"parameters": [ "3399900001" ]		
 		},
 		"Date": {		
 			"strategy": "Fixed",

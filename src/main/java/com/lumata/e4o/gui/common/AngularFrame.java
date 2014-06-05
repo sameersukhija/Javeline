@@ -22,7 +22,7 @@ public class AngularFrame extends Form {
 	
 	public AngularFrame open() throws FormException {
 		
-		switchToFrameByClassName( "gwt-Frame" );
+		switchToFrameByName( "angularIframe" );
 		
 		return this;
 		
