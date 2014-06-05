@@ -1,5 +1,7 @@
 package com.lumata.e4o.gui.catalogmanager;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -349,5 +351,62 @@ public class ProductTypesForm extends CatalogueManagerForm {
 		while ( !completed );
 
 		return this;
+	}
+
+	/**
+	 * This method delete a list of "Product Types" into running system.
+	 * If input var-args is empty or null, this method deletes each Product Types
+	 * 
+	 * @param productTypeNames
+	 * 
+	 * @return true if wanted product types are corrected removed
+	 * 
+	 * @throws FormException 
+	 */
+	public boolean deleteProductTypes(String... productTypeNames) throws FormException {
+
+		List<String> productTypesLabel = null;
+		Boolean resp = Boolean.FALSE;
+		
+		if ( productTypeNames != null && productTypeNames.length != 0 )
+			productTypesLabel = Arrays.asList(productTypeNames);
+		else { // fetch every product types present on UI
+			
+			productTypesLabel = new ArrayList<String>();
+			
+			String rootPath = "//table[contains(@class, \"page-ProductTypePageView\")]";
+			String subPath = "//tr[contains(@class,\"contentRow cycle\")]//td[@class=\"column_description\"][1]";
+		
+			List<WebElement> ptLabels = getListByXPath(rootPath, rootPath + subPath);
+			
+			for (WebElement webElement : ptLabels)
+				productTypesLabel.add(webElement.getText());
+		}
+
+		logger.debug("Product Types element to be deleted : " + productTypesLabel);
+		
+		try {
+			
+			for (String cnName : productTypesLabel) {
+				
+				String singleRule = "//div[text()='"+cnName+"']//ancestor::tr[1]//*[@name='btn-delete']";
+
+				logger.debug("Try to delete \"Product Types\" with name + \""+cnName+"\".");
+				
+				clickXPath(singleRule);
+				
+				handleJavascriptAlertAcceptDismiss(true);
+			}
+			
+			resp = Boolean.TRUE;
+			
+		} catch ( FormException e ) {
+
+			logger.error("Error during delete \"Product Types\" : " + e.getMessage());
+			
+			resp = Boolean.FALSE;
+		}
+
+		return resp;
 	}
 }
