@@ -1,6 +1,10 @@
 package com.lumata.e4o.gui.catalogmanager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
 
 //
@@ -37,8 +41,103 @@ public class OffersForm extends CatalogueManagerForm {
 		
 	}
 	
+	public OffersForm open() throws FormException {
+		
+		super.open().clickId( "gwt-debug-actrule-catalog-offers" );
+		
+		return this;
+		
+	}
+	
+	public OffersForm addOffers() throws FormException, JSONException {
+		
+		JSONArray offers = offerCfg.getList();
+		
+		for( int offerIndex = 0; offerIndex < offers.length(); offerIndex++ ) {
+			
+			offerCfg.setOfferById( offerIndex );
+			
+			if( offerCfg.getEnabled() ) {
+				
+				clickXPath( "//button[@name='btn-add' and @title='Add Offer']" ).
+				configureOffer();
+				//saveSupplier().
+				//manageErrorAction( supplierCfg.getErrorActions().getString( "ELEMENT_ALREADY_EXISTS" ) );
+				
+			}
+					
+		}
+		
+		return this;
+		
+	}
+	
+	public OffersForm configureOffer() throws FormException, JSONException {
+		/*
+		sendKeysById( "gwt-debug-TextBox-SupplierPageView-nameTextBox", supplierCfg.getName() ).
+		sendKeysById( "gwt-debug-TextBox-SupplierPageView-emailTextBox", supplierCfg.getEmail() ).
+		sendKeysById( "gwt-debug-TextBox-SupplierPageView-phoneTextBox", supplierCfg.getPhone() ).
+		sendKeysById( "gwt-debug-TextBox-SupplierPageView-websiteTextBox", supplierCfg.getWebsite() );
+		
+				
+		*/
+		
+		configureDefinition();
+		
+		
+		return this;
+		
+	}
+	
+	public OffersForm configureDefinition() throws FormException {
+
+		clickId( "gwt-debug-Anchor-actrule-button-definition" );
+		
+		/*
+		// set offer name
+		WebElement offerName = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-TextBox-VPOfferEdit-offerNameTB", timeout, interval);
+		if (offerName == null) {
+			logger.error(Log.FAILED.createMessage(selenium.getTestName(), "Cannot define a new Offer Name"));
+			return false;
+		}
+		offerName.clear();
+		offerName.sendKeys(offerCfg.getOfferName());
+		*/
+		
+		return this;
+
+	}
+	
+	@Override
+	public OffersForm clickName( String name ) throws FormException {
+		
+		super.clickName( name );
+		
+		return this;
+		
+	}
+	
+	@Override
+	public OffersForm clickXPath( String xpath ) throws FormException {
+		
+		super.clickXPath( xpath );
+		
+		return this;
+		
+	}
+	
+	@Override
+	public OffersForm clickLink( String link ) throws FormException {
+		
+		super.clickLink( link );
+		
+		return this;
+		
+	}
 	
 }
+
+
 
 
 //

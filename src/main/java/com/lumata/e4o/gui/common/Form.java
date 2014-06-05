@@ -568,6 +568,12 @@ public abstract class Form {
 		
 	}
 	
+	public Form switchToFrameByName( String frame ) throws FormException {
+		
+		return switchToFrame( SeleniumUtils.SearchBy.NAME, frame );
+		
+	}
+	
 	public Form switchToFrameByClassName( String frame ) throws FormException {
 		
 		return switchToFrame( SeleniumUtils.SearchBy.CLASS_NAME, frame );

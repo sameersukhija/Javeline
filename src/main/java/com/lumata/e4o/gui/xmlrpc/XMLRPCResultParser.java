@@ -25,7 +25,7 @@ public class XMLRPCResultParser {
 
 	private static final Logger logger = LoggerFactory.getLogger( XMLRPCResultParser.class );
 	
-	public enum ResultType { UNKNOWN, FAULT, BOOLEAN, OFFERS, SUBSCRIBER }
+	public enum ResultType { /*UNKNOWN,*/ FAULT, BOOLEAN, /*OFFERS,*/ SUBSCRIBER, TOKEN }
 	
 	private ResultType currentObjectType;
 	private Object currentObject;
@@ -138,22 +138,46 @@ public class XMLRPCResultParser {
 						try {
 						       
 							ResultType currentEventType = ResultType.valueOf( startElement.getName().getLocalPart().toUpperCase() );
+							
 							currentObjectType = currentEventType;
 							
 							switch( currentEventType ) {
 							
 								case FAULT: {
-									currentObject = new XMLRPCResultFault(); break;
+									
+									currentObject = new XMLRPCResultFault(); 
+									
+									break;
+								
 								}
 								case BOOLEAN: {
+									
 									currentObject = new XMLRPCResultSuccess(); 
+									
 									String method = startElement.getName().getLocalPart().replaceAll("_", " " ).replaceAll( "([A-Z])" , " $1" );
+									
 									currentMethod = "set" + WordUtils.capitalizeFully( method ).replaceAll( " " , "" );
+									
 									break;
+								
 								}
 								case SUBSCRIBER: {
-									currentObject = new XMLRPCSubscriber(); break;								
+									
+									currentObject = new XMLRPCSubscriber(); 
+									
+									break;								
+								
 								}
+								case TOKEN: {
+									
+									//currentObject = new XMLRPCSubscriber(); 
+									
+									System.out.println( "Token" );
+									
+									break;								
+								
+								}
+								default: { break; }
 								
 							}
 							
@@ -162,6 +186,7 @@ public class XMLRPCResultParser {
 						} catch (IllegalArgumentException ex) {  
 						
 							String method = startElement.getName().getLocalPart().replaceAll("_", " " ).replaceAll( "([A-Z])" , " $1" );
+							
 							currentMethod = "set" + WordUtils.capitalizeFully( method ).replaceAll( " " , "" );
 							
 							//logger.info( currentMethod );
@@ -205,7 +230,8 @@ public class XMLRPCResultParser {
 									break;
 									
 								}
-							
+								default: { break; }
+								
 							}
 							
 						}
@@ -228,6 +254,8 @@ public class XMLRPCResultParser {
 						
 						break;
 					}
+					default: { break; }
+					
 					
 				}
 						
