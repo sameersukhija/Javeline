@@ -7,8 +7,14 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.gui.common.MenuBar;
 import com.lumata.e4o.gui.common.SectionImpl;
 
-public class LoyaltyForm {
+public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 	
+	public LoyaltyManagmentForm(SeleniumWebDriver selenium, long timeout,
+			long interval) {
+		super(selenium, timeout, interval);
+		// TODO Auto-generated constructor stub
+	}
+
 	public static boolean open(SeleniumWebDriver selenium, long timeout, long interval) {
 		
 		/* return MenuBar.select(selenium, new SectionImpl<MenuBar.HomeSections, String, String>(MenuBar.HomeSections.LOYALTY,

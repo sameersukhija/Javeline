@@ -41,13 +41,13 @@ public class LoyaltyCreateCfg extends JsonConfig {
 		return getStringList("type_name_list");
 	}
 	
-	public static void main(String[] args) throws Exception {
-		
-		LoyaltyCreateCfg cfg = new LoyaltyCreateCfg("input/loyalties", "loyalty_create");
-		
-		System.out.println(cfg.getAccordionName());
-		System.out.println(cfg.getProgramName());
-		System.out.println(cfg.getProgramDesc());
-		System.out.println(cfg.getTypeNameList());
-	}
+//	public static void main(String[] args) throws Exception {
+//		
+//		LoyaltyCreateCfg cfg = new LoyaltyCreateCfg("input/loyalties", "loyalty_create");
+//		
+//		System.out.println(cfg.getAccordionName());
+//		System.out.println(cfg.getProgramName());
+//		System.out.println(cfg.getProgramDesc());
+//		System.out.println(cfg.getTypeNameList());
+//	}
 }

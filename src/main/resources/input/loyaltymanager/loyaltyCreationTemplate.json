@@ -1,0 +1,30 @@
+{
+	"loyalties": [
+		{
+			"enabled" : true,
+			"name" : "Points Program",
+			"description" : "The points description",
+			"type" : "Points",
+			"classes" : [ "Gold", "Silver", "Bronze"],
+			"badges" : null,
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			},
+			"delete" : false
+		},
+		{
+			"enabled" : true,
+			"name" : "Badges Program",
+			"description" : "The badges description",
+			"type" : "Badges",
+			"classes" : null,
+			"badges" : [ "Archery", "Astronomy", "Camping"],
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			},
+			"delete" : false
+		}
+	]
+}
