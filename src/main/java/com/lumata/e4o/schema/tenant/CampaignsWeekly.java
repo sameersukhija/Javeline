@@ -12,7 +12,7 @@ import com.lumata.common.testing.annotations.mysql.Column;
 @Table( "campaigns_weekly" )
 public class CampaignsWeekly { 
 
-	public enum Fields { campaign_id, subs_status, week_id, profile_id, status_id, network_id, arpu_id, qty_msisdn, amount_usage, qty_msisdn_with_amount_usage, amount_recharge, qty_msisdn_with_amount_recharge, amount_invoice, qty_msisdn_with_amount_invoice, amount_payment, qty_msisdn_with_amount_payment, amount_call, qty_msisdn_with_amount_call, amount_message, qty_msisdn_with_amount_message, amount_data, qty_msisdn_with_amount_data, proba }
+	public enum Fields { campaign_id, subs_status, week_id, profile_id, status_id, network_id, arpu_id, seniority_id, qty_msisdn, amount_usage, qty_msisdn_with_amount_usage, amount_recharge, qty_msisdn_with_amount_recharge, amount_invoice, qty_msisdn_with_amount_invoice, amount_payment, qty_msisdn_with_amount_payment, amount_call, qty_msisdn_with_amount_call, amount_message, qty_msisdn_with_amount_message, amount_data, qty_msisdn_with_amount_data, proba }
 
 	@Column(
 			table = "campaigns_weekly",
@@ -139,6 +139,24 @@ public class CampaignsWeekly {
 			setMethod = "setArpuId"
 	)
 	private Byte arpu_id;
+
+	@Column(
+			table = "campaigns_weekly",
+			field = "seniority_id",
+			type = "tinyint(4) unsigned",
+			mysqlType = "tinyint",
+			javaType = "Byte",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "PRI",
+			defaultValue = "0",
+			extra = "",
+			length = 4,
+			getMethod = "getSeniorityId",
+			setMethod = "setSeniorityId"
+	)
+	private Byte seniority_id;
 
 	@Column(
 			table = "campaigns_weekly",
@@ -440,6 +458,7 @@ public class CampaignsWeekly {
 		this.status_id = rs.getByte( CampaignsWeekly.Fields.status_id.name() );
 		this.network_id = rs.getByte( CampaignsWeekly.Fields.network_id.name() );
 		this.arpu_id = rs.getByte( CampaignsWeekly.Fields.arpu_id.name() );
+		this.seniority_id = rs.getByte( CampaignsWeekly.Fields.seniority_id.name() );
 		this.qty_msisdn = rs.getInt( CampaignsWeekly.Fields.qty_msisdn.name() );
 		this.amount_usage = rs.getFloat( CampaignsWeekly.Fields.amount_usage.name() );
 		this.qty_msisdn_with_amount_usage = rs.getFloat( CampaignsWeekly.Fields.qty_msisdn_with_amount_usage.name() );
@@ -468,6 +487,7 @@ public class CampaignsWeekly {
 		this.status_id = (byte)jo.getInt( CampaignsWeekly.Fields.status_id.name() );
 		this.network_id = (byte)jo.getInt( CampaignsWeekly.Fields.network_id.name() );
 		this.arpu_id = (byte)jo.getInt( CampaignsWeekly.Fields.arpu_id.name() );
+		this.seniority_id = (byte)jo.getInt( CampaignsWeekly.Fields.seniority_id.name() );
 		this.qty_msisdn = (int)jo.getInt( CampaignsWeekly.Fields.qty_msisdn.name() );
 		this.amount_usage = (float)jo.getDouble( CampaignsWeekly.Fields.amount_usage.name() );
 		this.qty_msisdn_with_amount_usage = (float)jo.getDouble( CampaignsWeekly.Fields.qty_msisdn_with_amount_usage.name() );
@@ -568,6 +588,18 @@ public class CampaignsWeekly {
 	public void setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+	}
+
+	public Byte getSeniorityId() {
+
+		return this.seniority_id;
+
+	}
+
+	public void setSeniorityId( Byte seniority_id ) {
+
+		this.seniority_id = seniority_id;
 
 	}
 
@@ -781,6 +813,7 @@ public class CampaignsWeekly {
 			.append( "\"status_id\": \"" ).append( this.getStatusId() ).append( "\", " )
 			.append( "\"network_id\": \"" ).append( this.getNetworkId() ).append( "\", " )
 			.append( "\"arpu_id\": \"" ).append( this.getArpuId() ).append( "\", " )
+			.append( "\"seniority_id\": \"" ).append( this.getSeniorityId() ).append( "\", " )
 			.append( "\"qty_msisdn\": \"" ).append( this.getQtyMsisdn() ).append( "\", " )
 			.append( "\"amount_usage\": \"" ).append( this.getAmountUsage() ).append( "\", " )
 			.append( "\"qty_msisdn_with_amount_usage\": \"" ).append( this.getQtyMsisdnWithAmountUsage() ).append( "\", " )

@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "campaigns_hourly" )
 public class CampaignsHourly { 
 
-	public enum Fields { agg_date_time, campaign_id, subs_status, qty_msisdn, reward_id, qty_reward, qty_reward_sponsor, qty_subs_reward }
+	public enum Fields { agg_date_time, campaign_id, subs_status, qty_msisdn, module_id, reward_id, qty_reward, qty_reward_sponsor, qty_subs_reward }
 
 	@Column(
 			table = "campaigns_hourly",
@@ -88,6 +88,24 @@ public class CampaignsHourly {
 			setMethod = "setQtyMsisdn"
 	)
 	private Integer qty_msisdn;
+
+	@Column(
+			table = "campaigns_hourly",
+			field = "module_id",
+			type = "tinyint(4)",
+			mysqlType = "tinyint",
+			javaType = "Byte",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "PRI",
+			defaultValue = "0",
+			extra = "",
+			length = 4,
+			getMethod = "getModuleId",
+			setMethod = "setModuleId"
+	)
+	private Byte module_id;
 
 	@Column(
 			table = "campaigns_hourly",
@@ -170,6 +188,7 @@ public class CampaignsHourly {
 		this.campaign_id = rs.getShort( CampaignsHourly.Fields.campaign_id.name() );
 		this.subs_status = rs.getString( CampaignsHourly.Fields.subs_status.name() );
 		this.qty_msisdn = rs.getInt( CampaignsHourly.Fields.qty_msisdn.name() );
+		this.module_id = rs.getByte( CampaignsHourly.Fields.module_id.name() );
 		this.reward_id = rs.getShort( CampaignsHourly.Fields.reward_id.name() );
 		this.qty_reward = rs.getFloat( CampaignsHourly.Fields.qty_reward.name() );
 		this.qty_reward_sponsor = rs.getFloat( CampaignsHourly.Fields.qty_reward_sponsor.name() );
@@ -183,6 +202,7 @@ public class CampaignsHourly {
 		this.campaign_id = (short)jo.getInt( CampaignsHourly.Fields.campaign_id.name() );
 		this.subs_status = jo.getString( CampaignsHourly.Fields.subs_status.name() );
 		this.qty_msisdn = (int)jo.getInt( CampaignsHourly.Fields.qty_msisdn.name() );
+		this.module_id = (byte)jo.getInt( CampaignsHourly.Fields.module_id.name() );
 		this.reward_id = (short)jo.getInt( CampaignsHourly.Fields.reward_id.name() );
 		this.qty_reward = (float)jo.getDouble( CampaignsHourly.Fields.qty_reward.name() );
 		this.qty_reward_sponsor = (float)jo.getDouble( CampaignsHourly.Fields.qty_reward_sponsor.name() );
@@ -235,6 +255,18 @@ public class CampaignsHourly {
 	public void setQtyMsisdn( Integer qty_msisdn ) {
 
 		this.qty_msisdn = qty_msisdn;
+
+	}
+
+	public Byte getModuleId() {
+
+		return this.module_id;
+
+	}
+
+	public void setModuleId( Byte module_id ) {
+
+		this.module_id = module_id;
 
 	}
 
@@ -301,6 +333,7 @@ public class CampaignsHourly {
 			.append( "\"campaign_id\": \"" ).append( this.getCampaignId() ).append( "\", " )
 			.append( "\"subs_status\": \"" ).append( this.getSubsStatus() ).append( "\", " )
 			.append( "\"qty_msisdn\": \"" ).append( this.getQtyMsisdn() ).append( "\", " )
+			.append( "\"module_id\": \"" ).append( this.getModuleId() ).append( "\", " )
 			.append( "\"reward_id\": \"" ).append( this.getRewardId() ).append( "\", " )
 			.append( "\"qty_reward\": \"" ).append( this.getQtyReward() ).append( "\", " )
 			.append( "\"qty_reward_sponsor\": \"" ).append( this.getQtyRewardSponsor() ).append( "\", " )

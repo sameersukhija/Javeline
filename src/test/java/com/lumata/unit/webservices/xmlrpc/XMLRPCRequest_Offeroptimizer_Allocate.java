@@ -40,7 +40,7 @@ public class XMLRPCRequest_Offeroptimizer_Allocate {
 	public void callXMLRPCCRequest() throws Exception {
 		
 		final String msisdn = "393669393643";
-		final String token_code = "gl-62eb7";
+		final String token_code = "gl-25c5a";
 		
 		ClientResponse<String> response = XMLRPCRequest.offeroptimizer_allocate.call( 	actruleServer, 
 														xmlrpcBody(

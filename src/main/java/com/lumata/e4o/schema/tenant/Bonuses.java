@@ -12,7 +12,7 @@ import com.lumata.common.testing.annotations.mysql.Column;
 @Table( "bonuses" )
 public class Bonuses { 
 
-	public enum Fields { bonus_id, bonus_name, unit, operations, in_credit, handleOptOut, inFeedbackRequired, commodity_type, account_type, max_value, default_validity_type, default_period_type, default_qty_period, default_fixed_validity_from, unitary_cost, recommended_price, expiryNotifDays, expiryNotif }
+	public enum Fields { bonus_id, bonus_name, unit, operations, in_credit, handleOptOut, inFeedbackRequired, commodity_type, account_type, account_type_id, max_value, default_validity_type, default_period_type, default_qty_period, default_fixed_validity_from, unitary_cost, recommended_price, expiryNotifDays, expiryNotif }
 
 	@Column(
 			table = "bonuses",
@@ -175,6 +175,24 @@ public class Bonuses {
 			setMethod = "setAccountType"
 	)
 	private String account_type;
+
+	@Column(
+			table = "bonuses",
+			field = "account_type_id",
+			type = "smallint(3)",
+			mysqlType = "smallint",
+			javaType = "Short",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 3,
+			getMethod = "getAccountTypeId",
+			setMethod = "setAccountTypeId"
+	)
+	private Short account_type_id;
 
 	@Column(
 			table = "bonuses",
@@ -352,6 +370,7 @@ public class Bonuses {
 		this.inFeedbackRequired = rs.getString( Bonuses.Fields.inFeedbackRequired.name() );
 		this.commodity_type = rs.getString( Bonuses.Fields.commodity_type.name() );
 		this.account_type = rs.getString( Bonuses.Fields.account_type.name() );
+		this.account_type_id = rs.getShort( Bonuses.Fields.account_type_id.name() );
 		this.max_value = rs.getInt( Bonuses.Fields.max_value.name() );
 		this.default_validity_type = rs.getString( Bonuses.Fields.default_validity_type.name() );
 		this.default_period_type = rs.getString( Bonuses.Fields.default_period_type.name() );
@@ -375,6 +394,7 @@ public class Bonuses {
 		this.inFeedbackRequired = jo.getString( Bonuses.Fields.inFeedbackRequired.name() );
 		this.commodity_type = jo.getString( Bonuses.Fields.commodity_type.name() );
 		this.account_type = jo.getString( Bonuses.Fields.account_type.name() );
+		this.account_type_id = (short)jo.getInt( Bonuses.Fields.account_type_id.name() );
 		this.max_value = (int)jo.getInt( Bonuses.Fields.max_value.name() );
 		this.default_validity_type = jo.getString( Bonuses.Fields.default_validity_type.name() );
 		this.default_period_type = jo.getString( Bonuses.Fields.default_period_type.name() );
@@ -492,6 +512,18 @@ public class Bonuses {
 	public void setAccountType( String account_type ) {
 
 		this.account_type = account_type;
+
+	}
+
+	public Short getAccountTypeId() {
+
+		return this.account_type_id;
+
+	}
+
+	public void setAccountTypeId( Short account_type_id ) {
+
+		this.account_type_id = account_type_id;
 
 	}
 
@@ -623,6 +655,7 @@ public class Bonuses {
 			.append( "\"inFeedbackRequired\": \"" ).append( this.getInFeedbackRequired() ).append( "\", " )
 			.append( "\"commodity_type\": \"" ).append( this.getCommodityType() ).append( "\", " )
 			.append( "\"account_type\": \"" ).append( this.getAccountType() ).append( "\", " )
+			.append( "\"account_type_id\": \"" ).append( this.getAccountTypeId() ).append( "\", " )
 			.append( "\"max_value\": \"" ).append( this.getMaxValue() ).append( "\", " )
 			.append( "\"default_validity_type\": \"" ).append( this.getDefaultValidityType() ).append( "\", " )
 			.append( "\"default_period_type\": \"" ).append( this.getDefaultPeriodType() ).append( "\", " )

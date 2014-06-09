@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "offoptim_customer_items" )
 public class OffoptimCustomerItems { 
 
-	public enum Fields { customer_offer_pack_id, offer_id, channel_id, allocation_date, offer_status, decision_date }
+	public enum Fields { customer_offer_pack_id, offer_id, channel_id, allocation_date, offer_status, decision_date, has_voucher }
 
 	@Column(
 			table = "offoptim_customer_items",
@@ -125,6 +125,24 @@ public class OffoptimCustomerItems {
 	)
 	private Date decision_date;
 
+	@Column(
+			table = "offoptim_customer_items",
+			field = "has_voucher",
+			type = "tinyint(1)",
+			mysqlType = "tinyint",
+			javaType = "Boolean",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "0",
+			extra = "",
+			length = 1,
+			getMethod = "getHasVoucher",
+			setMethod = "setHasVoucher"
+	)
+	private Boolean has_voucher;
+
 
 	public OffoptimCustomerItems() {} 
 
@@ -136,6 +154,7 @@ public class OffoptimCustomerItems {
 		this.allocation_date = rs.getDate( OffoptimCustomerItems.Fields.allocation_date.name() );
 		this.offer_status = rs.getString( OffoptimCustomerItems.Fields.offer_status.name() );
 		this.decision_date = rs.getDate( OffoptimCustomerItems.Fields.decision_date.name() );
+		this.has_voucher = rs.getBoolean( OffoptimCustomerItems.Fields.has_voucher.name() );
 
 	}
 
@@ -147,6 +166,7 @@ public class OffoptimCustomerItems {
 		this.allocation_date = Format.getMysqlDateTime( jo.getString( OffoptimCustomerItems.Fields.allocation_date.name() ) );
 		this.offer_status = jo.getString( OffoptimCustomerItems.Fields.offer_status.name() );
 		this.decision_date = Format.getMysqlDateTime( jo.getString( OffoptimCustomerItems.Fields.decision_date.name() ) );
+		this.has_voucher = jo.getBoolean( OffoptimCustomerItems.Fields.has_voucher.name() );
 
 	}
 
@@ -222,6 +242,18 @@ public class OffoptimCustomerItems {
 
 	}
 
+	public Boolean getHasVoucher() {
+
+		return this.has_voucher;
+
+	}
+
+	public void setHasVoucher( Boolean has_voucher ) {
+
+		this.has_voucher = has_voucher;
+
+	}
+
 	public Fields[] getEntityFields() {
 
 		return OffoptimCustomerItems.Fields.values();
@@ -238,7 +270,8 @@ public class OffoptimCustomerItems {
 			.append( "\"channel_id\": \"" ).append( this.getChannelId() ).append( "\", " )
 			.append( "\"allocation_date\": \"" ).append( this.getAllocationDate() ).append( "\", " )
 			.append( "\"offer_status\": \"" ).append( this.getOfferStatus() ).append( "\", " )
-			.append( "\"decision_date\": \"" ).append( this.getDecisionDate() ).append( "\"" )
+			.append( "\"decision_date\": \"" ).append( this.getDecisionDate() ).append( "\", " )
+			.append( "\"has_voucher\": \"" ).append( this.getHasVoucher() ).append( "\"" )
 			.append( " }" );
 
 		return str.toString();

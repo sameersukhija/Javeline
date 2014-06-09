@@ -16,7 +16,7 @@ import com.lumata.e4o.gui.xmlrpc.type.XMLRPCRequest;
 import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCParam.*;
 import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCComponent.*;
 
-public class XMLRPCRequest_Offeroptimizer_Accept {
+public class XMLRPCRequest_Badgemanager_GetBadgeList {
 	
 	NetworkEnvironment env;
 	Server actruleServer;
@@ -39,18 +39,11 @@ public class XMLRPCRequest_Offeroptimizer_Accept {
 	@Test(enabled=true, priority = 1 )
 	public void callXMLRPCCRequest() throws Exception {
 		
-		final String msisdn = "393669393643";
-		final String token_code = "gl-bd0cd";
-		final Object[] offer_id = new Integer[]{ 1000 };		
-		
-		ClientResponse<String> response = XMLRPCRequest.offeroptimizer_accept.call( 	actruleServer, 
-																						xmlrpcBody(
-																							authentication( superman.getUsername(), superman.getPassword() ),
-																							string( msisdn ),
-																							string( token_code ),
-																							arrayInt( offer_id )
-																						)
-																			);
+		ClientResponse<String> response = XMLRPCRequest.badgemanager_getBadgeList.call( 	actruleServer, 
+																							xmlrpcBody(
+																								authentication( superman.getUsername(), superman.getPassword() )
+																							)
+													);
 		
 		System.out.println( response.getEntity().toString() );
 		

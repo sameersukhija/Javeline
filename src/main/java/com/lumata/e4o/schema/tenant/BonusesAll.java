@@ -164,20 +164,20 @@ public class BonusesAll {
 	@Column(
 			table = "bonuses_all",
 			field = "bonus_id",
-			type = "tinyint(4)",
-			mysqlType = "tinyint",
-			javaType = "Byte",
+			type = "smallint(5) unsigned",
+			mysqlType = "smallint",
+			javaType = "Short",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
 			key = "PRI",
-			defaultValue = "null",
+			defaultValue = "0",
 			extra = "",
-			length = 4,
+			length = 5,
 			getMethod = "getBonusId",
 			setMethod = "setBonusId"
 	)
-	private Byte bonus_id;
+	private Short bonus_id;
 
 	@Column(
 			table = "bonuses_all",
@@ -264,7 +264,7 @@ public class BonusesAll {
 		this.network_id = rs.getByte( BonusesAll.Fields.network_id.name() );
 		this.arpu_id = rs.getByte( BonusesAll.Fields.arpu_id.name() );
 		this.seniority_id = rs.getByte( BonusesAll.Fields.seniority_id.name() );
-		this.bonus_id = rs.getByte( BonusesAll.Fields.bonus_id.name() );
+		this.bonus_id = rs.getShort( BonusesAll.Fields.bonus_id.name() );
 		this.qty_msisdn = rs.getInt( BonusesAll.Fields.qty_msisdn.name() );
 		this.sum_qty_earned = rs.getFloat( BonusesAll.Fields.sum_qty_earned.name() );
 		this.sum_qty_used = rs.getFloat( BonusesAll.Fields.sum_qty_used.name() );
@@ -282,7 +282,7 @@ public class BonusesAll {
 		this.network_id = (byte)jo.getInt( BonusesAll.Fields.network_id.name() );
 		this.arpu_id = (byte)jo.getInt( BonusesAll.Fields.arpu_id.name() );
 		this.seniority_id = (byte)jo.getInt( BonusesAll.Fields.seniority_id.name() );
-		this.bonus_id = (byte)jo.getInt( BonusesAll.Fields.bonus_id.name() );
+		this.bonus_id = (short)jo.getInt( BonusesAll.Fields.bonus_id.name() );
 		this.qty_msisdn = (int)jo.getInt( BonusesAll.Fields.qty_msisdn.name() );
 		this.sum_qty_earned = (float)jo.getDouble( BonusesAll.Fields.sum_qty_earned.name() );
 		this.sum_qty_used = (float)jo.getDouble( BonusesAll.Fields.sum_qty_used.name() );
@@ -386,13 +386,13 @@ public class BonusesAll {
 
 	}
 
-	public Byte getBonusId() {
+	public Short getBonusId() {
 
 		return this.bonus_id;
 
 	}
 
-	public void setBonusId( Byte bonus_id ) {
+	public void setBonusId( Short bonus_id ) {
 
 		this.bonus_id = bonus_id;
 

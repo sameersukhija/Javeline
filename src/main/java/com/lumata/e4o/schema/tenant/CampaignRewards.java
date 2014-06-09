@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "campaign_rewards" )
 public class CampaignRewards { 
 
-	public enum Fields { msisdn, campaign_id, reward_id, relation_type_id, qty_reward, qty_reward_in, control, update_time }
+	public enum Fields { msisdn, campaign_id, module_id, reward_id, relation_type_id, qty_reward, qty_reward_in, control, update_time }
 
 	@Column(
 			table = "campaign_rewards",
@@ -52,6 +52,24 @@ public class CampaignRewards {
 			setMethod = "setCampaignId"
 	)
 	private Short campaign_id;
+
+	@Column(
+			table = "campaign_rewards",
+			field = "module_id",
+			type = "tinyint(4)",
+			mysqlType = "tinyint",
+			javaType = "Byte",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "PRI",
+			defaultValue = "0",
+			extra = "",
+			length = 4,
+			getMethod = "getModuleId",
+			setMethod = "setModuleId"
+	)
+	private Byte module_id;
 
 	@Column(
 			table = "campaign_rewards",
@@ -168,6 +186,7 @@ public class CampaignRewards {
 
 		this.msisdn = rs.getLong( CampaignRewards.Fields.msisdn.name() );
 		this.campaign_id = rs.getShort( CampaignRewards.Fields.campaign_id.name() );
+		this.module_id = rs.getByte( CampaignRewards.Fields.module_id.name() );
 		this.reward_id = rs.getShort( CampaignRewards.Fields.reward_id.name() );
 		this.relation_type_id = rs.getByte( CampaignRewards.Fields.relation_type_id.name() );
 		this.qty_reward = rs.getInt( CampaignRewards.Fields.qty_reward.name() );
@@ -181,6 +200,7 @@ public class CampaignRewards {
 
 		this.msisdn = (long)jo.getLong( CampaignRewards.Fields.msisdn.name() );
 		this.campaign_id = (short)jo.getInt( CampaignRewards.Fields.campaign_id.name() );
+		this.module_id = (byte)jo.getInt( CampaignRewards.Fields.module_id.name() );
 		this.reward_id = (short)jo.getInt( CampaignRewards.Fields.reward_id.name() );
 		this.relation_type_id = (byte)jo.getInt( CampaignRewards.Fields.relation_type_id.name() );
 		this.qty_reward = (int)jo.getInt( CampaignRewards.Fields.qty_reward.name() );
@@ -211,6 +231,18 @@ public class CampaignRewards {
 	public void setCampaignId( Short campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+	}
+
+	public Byte getModuleId() {
+
+		return this.module_id;
+
+	}
+
+	public void setModuleId( Byte module_id ) {
+
+		this.module_id = module_id;
 
 	}
 
@@ -299,6 +331,7 @@ public class CampaignRewards {
 		str.append( "{ " )
 			.append( "\"msisdn\": \"" ).append( this.getMsisdn() ).append( "\", " )
 			.append( "\"campaign_id\": \"" ).append( this.getCampaignId() ).append( "\", " )
+			.append( "\"module_id\": \"" ).append( this.getModuleId() ).append( "\", " )
 			.append( "\"reward_id\": \"" ).append( this.getRewardId() ).append( "\", " )
 			.append( "\"relation_type_id\": \"" ).append( this.getRelationTypeId() ).append( "\", " )
 			.append( "\"qty_reward\": \"" ).append( this.getQtyReward() ).append( "\", " )
