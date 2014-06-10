@@ -21,12 +21,13 @@ import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
 import com.lumata.e4o.gui.xmlrpc.type.XMLRPCRequest;
+import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.schema.tenant.Token;
 
 import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCParam.*;
 import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCComponent.*;
 
-public class XMLRPCRequest_One_Shot_Voucher {
+public class XMLRPCRequest_Optimizer_Rule_Criteria {
 	
 	NetworkEnvironment env;
 	Server actruleServer;
@@ -51,14 +52,34 @@ public class XMLRPCRequest_One_Shot_Voucher {
 	
 	@Test(enabled=true, priority = 1 )
 	public void allocateOffers() throws Exception {
-				
-		final Long msisdn = 3399900009L;
-		final Integer tokenLimit = 10;
-		
-		ArrayList<String> tokens = getActiveTokens( msisdn );
-		
-		for( int t = 0; ( t < tokenLimit && t < tokens.size() ); t++ ) {
 			
+		final Double percentageTokensToAllocate = 0.1;
+		final Double percentageTokensToAccept = 0.5;
+		final Double percentageTokensToRefuse = 0.3;
+		
+		ArrayList<Token> allActiveTokens = getActiveTokens();
+		
+		Long tokensToAllocate = Math.round( allActiveTokens.size() * percentageTokensToAllocate );
+		
+		for( int tta = 0; tta < tokensToAllocate; tta++ ) {
+		
+			int randomTokenToAllocateIndex = (int)( Math.random() * allActiveTokens.size() );
+				
+			System.out.println( allActiveTokens.get( randomTokenToAllocateIndex ).getTokenCode() );
+		
+		}
+		
+		
+		
+		//ArrayList<Token> activeTokens = getActiveTokens( allTokens.get( randomTokenToAllocateIndex ).getMsisdn() );
+		
+		//Long tokensToAllocate = Math.round( activeTokens.size() * percentageTokensToAllocate );
+		
+		
+		
+		
+		//for( int t = 0; ( t < tokenLimit && t < tokens.size() ); t++ ) {
+			/*
 			String token_code = tokens.get( t );
 			
 			System.out.println( "TOKEN: " + token_code );
@@ -72,12 +93,12 @@ public class XMLRPCRequest_One_Shot_Voucher {
 				);
 
 			System.out.println( response.getEntity().toString() );
-
+*/
 		
-		}
+		//}
 		
 	}
-	
+	/*
 	@Test(enabled=false, priority = 1 )
 	public void acceptAllOffers() throws Exception {
 				
@@ -106,19 +127,72 @@ public class XMLRPCRequest_One_Shot_Voucher {
 		}
 		
 	}
-		
-	public ArrayList<String> getActiveTokens( Long msisdn ) throws Exception {
+	*/
 	
-		ArrayList<String> tokens = new ArrayList<String>();
+	public ArrayList<Subscribers> getSubscribers() throws Exception {
+		
+		ArrayList<Subscribers> subscribers = new ArrayList<Subscribers>();
+		
+		Subscribers subscribersTable = new Subscribers();
+		
+		String query = select().
+				from( subscribersTable ).
+				build();
+
+		ResultSet rs = mysql.execQuery( query );
+		
+		while( rs.next() ) {
+			
+			Subscribers subscriber = new Subscribers( rs );
+			
+			subscribers.add( subscriber );
+			
+		}
+		
+		return subscribers;
+		
+	}
+
+	/*
+	 * get all tokens
+	*/
+	public ArrayList<Token> getTokens() throws Exception {
+	
+		ArrayList<Token> tokens = new ArrayList<Token>();
 		
 		Token tokenTable = new Token();
 		
 		String query = select().
 						from( tokenTable ).
-						where( 
-								op( Token.Fields.msisdn ).eq( msisdn ),
+						build();
+		
+		ResultSet rs = mysql.execQuery( query );
+		
+		while( rs.next() ) {
+			
+			Token token = new Token( rs );
+				
+			tokens.add( token );
+			
+		}
+		
+		return tokens;
+		
+	}
+		
+	/*
+	 * get active tokens
+	*/
+	public ArrayList<Token> getActiveTokens() throws Exception {
+		
+		ArrayList<Token> tokens = new ArrayList<Token>();
+		
+		Token tokenTable = new Token();
+		
+		String query = select().
+						from( tokenTable ).
+						where(  op( Token.Fields.has_offers_associated ).eq( 0 ),
 								and( 	
-										op( Token.Fields.has_offers_associated ).eq( 0 ),
 										op( Token.Fields.qty_current_redeems ).eq( 0 )
 								)
 						).
@@ -128,7 +202,9 @@ public class XMLRPCRequest_One_Shot_Voucher {
 		
 		while( rs.next() ) {
 			
-			tokens.add( rs.getString( Token.Fields.token_code.name() ) );
+			Token token = new Token( rs );
+			
+			tokens.add( token );
 			
 		}
 		
@@ -136,6 +212,8 @@ public class XMLRPCRequest_One_Shot_Voucher {
 		
 	}
 	
+	
+	/*
 	public ArrayList<String> getTokensWithOffers( Long msisdn ) throws Exception {
 		
 		ArrayList<String> tokens = new ArrayList<String>();
@@ -163,7 +241,7 @@ public class XMLRPCRequest_One_Shot_Voucher {
 		return tokens;
 		
 	}
-	
+	*/
 	@AfterClass
 	public void end() {
 		

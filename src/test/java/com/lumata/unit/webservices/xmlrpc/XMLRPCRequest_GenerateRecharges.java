@@ -3,7 +3,6 @@ package com.lumata.unit.webservices.xmlrpc;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import org.jboss.resteasy.client.ClientResponse;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
@@ -15,14 +14,12 @@ import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 
 import static com.lumata.common.testing.orm.Query.*;
-import static com.lumata.common.testing.orm.Filter.*;
 
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
 import com.lumata.e4o.gui.xmlrpc.type.XMLRPCRequest;
 import com.lumata.e4o.schema.tenant.Subscribers;
-import com.lumata.e4o.schema.tenant.Token;
 
 import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCParam.*;
 import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCParam.EventType.*;
@@ -57,33 +54,66 @@ public class XMLRPCRequest_GenerateRecharges {
 	@Test(enabled=true, priority = 1 )
 	public void generateTokens() throws Exception {
 
+		/**
+		 *	FIXED_SUBSCRIBERS = true -> fixed msisdn will be used and ALL_SUBSCRIBERS will not have effect  
+		 *  FIXED_SUBSCRIBERS = false -> some msisdn will be created following ALL_SUBSCRIBERS setting 		 *   
+		 */
+		final Boolean FIXED_SUBSCRIBERS = true;
+		
+		final Long FIXED_MSISDN = 393669393643L;
+		
+		
+		/** 
+		 * 	ALL_SUBSCRIBERS = true -> number of subscribers = MAX_SUBSCRIBER_INDEX
+		 * 	ALL_SUBSCRIBERS = false -> number of subscribers = MAX( subscribers table size, MAX_SUBSCRIBER_INDEX - MIN_SUBSCRIBER_INDEX )
+		*/
 		final Boolean ALL_SUBSCRIBERS = true;
 		
-		/** set these values when ALL_SUBSCRIBERS = false */
 		final Integer MIN_SUBSCRIBER_INDEX = 0;
 		final Integer MAX_SUBSCRIBER_INDEX = 0;
 		
-		/** number of events to generate by subscriber */
+		
+		/** 
+		 * 	ALL_EVENTS = true -> number of events = MAX_EVENTS
+		 * 	ALL_EVENTS = false -> number of events = random number between [ MIN_EVENTS, MAX_EVENTS - MIN_EVENTS ]
+		*/
+		final Boolean ALL_EVENTS = true;
+		
 		final Integer MIN_EVENTS = 1;
-		final Integer MAX_EVENTS = 1;
-				
-		ArrayList<Long> subscribers = getSubscribers();
+		final Integer MAX_EVENTS = 10;
 		
-		Integer subscribersToElaborate = subscribers.size() - 1;
 		
-		if( !ALL_SUBSCRIBERS ) {  
+		ArrayList<Long> subscribers = new ArrayList<Long>();
+		
+		Integer subscribersToElaborate = 0;
+		
+		getSubscribers();
+		
+		if( FIXED_SUBSCRIBERS ) {
+		
+			subscribers.add( FIXED_MSISDN );
 			
-			subscribersToElaborate = ( ( MAX_SUBSCRIBER_INDEX - MIN_SUBSCRIBER_INDEX ) < subscribersToElaborate ? MAX_SUBSCRIBER_INDEX - MIN_SUBSCRIBER_INDEX : subscribersToElaborate ); 
+			subscribersToElaborate = subscribers.size() - 1;
+			
+		} else {
+		
+			subscribersToElaborate = subscribers.size() - 1;
 				
+			if( !ALL_SUBSCRIBERS ) {  
+				
+				subscribersToElaborate = ( ( MAX_SUBSCRIBER_INDEX - MIN_SUBSCRIBER_INDEX ) < subscribersToElaborate ? MAX_SUBSCRIBER_INDEX - MIN_SUBSCRIBER_INDEX : subscribersToElaborate ); 
+					
+			}
+			
 		}
 				
-		for( int s = ( ALL_SUBSCRIBERS ? 0 : MIN_SUBSCRIBER_INDEX ); s <= subscribersToElaborate; s++ ) {
+		for( int s = ( ( ALL_SUBSCRIBERS || FIXED_SUBSCRIBERS ) ? 0 : MIN_SUBSCRIBER_INDEX ); s <= subscribersToElaborate; s++ ) {
 		
 			Long msisdn = subscribers.get( s );
 			
 			System.out.println( "MSISDN: " + msisdn );
 			
-			Integer randomEventsToGenerate = MIN_EVENTS + (int)( Math.random() * MAX_EVENTS );
+			Integer randomEventsToGenerate = ( ALL_EVENTS ? MAX_EVENTS : MIN_EVENTS + (int)( Math.random() * ( MAX_EVENTS - MIN_EVENTS ) ) );
 			
 			System.out.println( "Events to generate: " + randomEventsToGenerate );
 			
