@@ -120,6 +120,15 @@ public class NotificationsForm extends AdministrationForm {
 	
 	public NotificationsForm saveNotification() throws FormException, JSONSException {
 		
+		/**
+		 * 
+		 * 
+		 * Start error handling refactoring
+		 * 
+		 * 
+		 * 
+		 */
+		
 		if ( containsErrorElement() )
 			logger.error("Without click \"save\" panel is in error!");
 		
@@ -204,6 +213,15 @@ public class NotificationsForm extends AdministrationForm {
 				completed = Boolean.TRUE;			
 		}
 		while ( !completed );
+		
+		/**
+		 * 
+		 * 
+		 * End error handling refactoring
+		 * 
+		 * 
+		 * 
+		 */
 		
 		return this;
 	}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+      .errorBackground {
+	background: none repeat scroll 0 0 #FF8080;
+      }
+    </style>
+</head>
+<body>
+
+<h1>My Test Web Page</h1>
+
+Name field : <input type="text" id="name-field"><br>
+<div id="debugDiv">I am a debug div.</div>
+
+<p>
+<button title="Save" type="button" onclick="myMockedServerSideProdecure(false)">Save without popup</button>
+</p>
+
+<p>
+<button title="Save-popup" type="button" onclick="myMockedServerSideProdecure()">Save with popup</button>
+</p>
+
+<script>
+
+var debugMessage = document.getElementById("debugDiv");
+var inputField = document.getElementById("name-field");
+
+/**
+ *
+ */
+function myMockedPopup() {
+if (confirm("Are you sure you want to continue?"))
+debugMessage.innerHTML += ' - You selected OK';
+//alert('You selected OK');
+else 
+debugMessage.innerHTML += ' - You selected Cancel';
+//alert('You selected Cancel');
+}
+
+/**
+ *
+ */
+function myMockedServerSideProdecure(popup = true)
+{
+
+if ( inputField.value == "Error String") {
+  debugMessage.innerHTML="Simulated error condition!!!";
+  inputField.className = "errorBackground";
+  }
+else if ( inputField.value == "Correct String") {
+  debugMessage.innerHTML="Simulated correct condition.";
+  inputField.className = "";
+  if (popup)
+  	myMockedPopup();
+  }
+else if ( inputField.value == "") {
+  debugMessage.innerHTML="I am a div.";
+  inputField.className = "";
+  }
+  
+}
+</script>
+
+</body>
+</html>

@@ -110,6 +110,15 @@ public class ProductTypesForm extends CatalogueManagerForm {
 				// OK a new ch
 				// error check
 				
+				/**
+				 * 
+				 * 
+				 * Start error handling refactoring
+				 * 
+				 * 
+				 * 
+				 */
+				
 				if ( containsErrorElement() )
 					logger.error("Without click \"save\" panel is in error!");
 				
@@ -191,6 +200,15 @@ public class ProductTypesForm extends CatalogueManagerForm {
 				}
 				while ( !completed );
 
+				/**
+				 * 
+				 * 
+				 * End error handling refactoring
+				 * 
+				 * 
+				 * 
+				 */
+				
 			}
 			
 		}
@@ -290,6 +308,15 @@ public class ProductTypesForm extends CatalogueManagerForm {
 	 */
 	public ProductTypesForm saveProductType() throws FormException, JSONSException {
 		
+		/**
+		 * 
+		 * 
+		 * Start error handling refactoring
+		 * 
+		 * 
+		 * 
+		 */
+		
 		if ( containsErrorElement() )
 			logger.error("Without click \"save\" panel is in error!");
 		
@@ -372,7 +399,16 @@ public class ProductTypesForm extends CatalogueManagerForm {
 				completed = Boolean.TRUE;			
 		}
 		while ( !completed );
-
+		
+		/*
+		 * 
+		 * 
+		 * End error handling refactoring
+		 * 
+		 * 
+		 * 
+		 */
+		
 		return this;
 	}
 

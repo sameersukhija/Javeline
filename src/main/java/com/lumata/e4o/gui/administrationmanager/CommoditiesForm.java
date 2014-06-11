@@ -122,6 +122,15 @@ public class CommoditiesForm extends AdministrationForm {
 	 */
 	public CommoditiesForm saveCommodity() throws FormException, JSONSException {
 		
+		/**
+		 * 
+		 * 
+		 * Start error handling refactoring
+		 * 
+		 * 
+		 * 
+		 */
+		
 		if ( containsErrorElement() )
 			logger.error("Without click \"save\" panel is in error!");
 		
@@ -210,6 +219,15 @@ public class CommoditiesForm extends AdministrationForm {
 		}
 		while ( !completed );
 
+		/**
+		 * 
+		 * 
+		 * End error handling refactoring
+		 * 
+		 * 
+		 * 
+		 */		
+		
 		return this;
 		
 	}
