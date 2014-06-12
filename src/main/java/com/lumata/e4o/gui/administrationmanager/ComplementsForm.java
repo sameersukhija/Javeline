@@ -3,18 +3,19 @@ package com.lumata.e4o.gui.administrationmanager;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.json.HasErrorActions.ElementErrorActionType;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
-import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
 import com.lumata.e4o.json.gui.administrationmanager.JSONComplements;
 
 public class ComplementsForm extends AdministrationForm {
@@ -91,7 +92,9 @@ public class ComplementsForm extends AdministrationForm {
 	 * @throws JSONSException
 	 */
 	public ComplementsForm createComplement() throws FormException, JSONSException {
-					
+
+		logger.debug("Complement element to be created : " + complementsCfg.getName());
+		
 		typeByXPath( "//td[contains(text(),'Value')]/ancestor::tr[1]//input", complementsCfg.getName() );
 
 		return this;
@@ -105,108 +108,137 @@ public class ComplementsForm extends AdministrationForm {
 	 */
 	public ComplementsForm saveComplement() throws FormException, JSONSException {
 		
+		ComplementsSaveHandler handler = new ComplementsSaveHandler( 	selenium.getWrappedDriver(), 
+																		complementsCfg.getCurrentElement());
+		handler.saveAction();
+
+		return this;	
+	}
+	
+	/**
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+	private class ComplementsSaveHandler extends FormSaveConfigurationHandler {
+
+		protected ComplementsSaveHandler(	WebDriver inDriver,
+											JsonCurrentElement inCurrentElement) {
+			
+			super(inDriver, inCurrentElement);
+		}
+
+		@Override
+		protected Boolean containsErrorElement() {
+
+			Integer numbers = null;
+			Boolean resp = Boolean.TRUE;
+	
+			// error condition
+			//*[contains(@class,'errorBackground')]
+			
+			List<WebElement> elements = getWebDriver().findElements(By.xpath("//*[contains(@class,'errorBackground')]"));
+	
+			if ( elements == null )
+				numbers = 0;
+			else
+				numbers = elements.size();
+			
+			if ( numbers != 0 )
+				resp = true;
+			else
+				resp = false;
+			
+			return resp;
+		}
+
 		/**
-		 * 
-		 * 
-		 * Start error handling refactoring
-		 * 
-		 * 
 		 * 
 		 */
+		private WebElement saveElement = null;
 		
-		if ( containsErrorElement() )
-			logger.error("Without click \"save\" panel is in error!");
-		
-		Boolean completed = Boolean.FALSE;
-		
-		do {
-			
-			/**
-			 * Core save procedure
-			 */
-			
-			clickXPath( "//button[@title='Save']" );
-			
-			Boolean confirmed = Boolean.FALSE;
+		@Override
+		protected WebElement getSaveWebElement() {
 
-			confirmed = handleJavascriptAlertAcceptDismiss(true);
-
-			/**
-			 * End - Core save procedure
-			 */
+			if ( saveElement == null )
+				saveElement = getWebDriver().findElement(By.xpath("//button[@title='Save']")); 
 			
-			// in case no confirmation was executed, check element in error
-			if ( !confirmed && containsErrorElement() ) {
-
-				JsonCurrentElement current = complementsCfg.getCurrentElement();
-				
-				logger.warn("After click \"Save\" panel is in error!");
-				
-				ElementErrorConditionType condition = null;
-				
-				searchByXPath("//div[@class='gwt-DialogBox']");
-				
-				// error condition
-				//div[text()='This value already exists']
-				List<WebElement> element = SeleniumUtils.findListForComponentDisplayed(	selenium, 
-																						SearchBy.XPATH, 
-																						lastWebElement, 
-																						"//div[text()='This value already exists']"
-																					);
-				
-				if ( element.size() != 0 )
-					condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
-				else
-					condition = ElementErrorConditionType.GENERAL_ERROR;
-				
-				ElementErrorActionType action = current.getErrorActions().getAction(condition);
-				
-				// abort insertion
-				if ( action.equals(ElementErrorActionType.ABORT_CANCEL) ) {
-					clickXPath("//div[contains(@class, 'dialogContent')]//button[@title='Cancel']");
-					
-					completed = Boolean.TRUE;
-				}
-				// stop execution and return error
-				else if ( action.equals(ElementErrorActionType.RETURN_ERROR) )
-					throw new FormException(getClass().getSimpleName() + " cannot configure \""+current.getStringFromPath("name")+"\" complements!");
-				// add timestamp to name
-				else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) ) {
-					
-					// one click su input
-					clickXPath( "//td[contains(text(),'Value')]/ancestor::tr[1]//input" );
-					
-					// delete current text
-					lastWebElement.clear();
-					
-					/**
-					 * Technical Debit - This point contains an error
-					 */
-					
-					String actualName = current.getStringFromPath("name");
-					current.setObjectFromPath("name", actualName + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
-					
-					// send old text + timestamp
-					typeByXPath( "//td[contains(text(),'Value')]/ancestor::tr[1]//input", complementsCfg.getName() );
-					
-					completed = Boolean.FALSE;
-				}
-			}
-			else // all ok!
-				completed = Boolean.TRUE;			
+			return saveElement;
 		}
-		while ( !completed );
 
-		/**
-		 * 
-		 * 
-		 * End error handling refactoring
-		 * 
-		 * 
-		 * 
-		 */		
-		
-		return this;
-		
+		@Override
+		protected ElementErrorConditionType defineErrorCondition() {
+
+			ElementErrorConditionType condition = null;
+			
+			WebElement dialogBox = getWebDriver().findElement(By.xpath("//div[@class='gwt-DialogBox']"));
+			
+			// error condition
+			//div[text()='Bonus name already used']			
+			List<WebElement> element = dialogBox.findElements(By.xpath("//div[text()='This value already exists']"));
+								
+			if ( element.size() != 0 )
+				condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
+			else
+				condition = ElementErrorConditionType.GENERAL_ERROR;
+
+			return condition;
+		}
+
+		@Override
+		protected Boolean cancelAction() {
+
+			Boolean resp = Boolean.FALSE;
+
+			try {
+
+				getWebDriver().findElement(By.xpath("//div[contains(@class, 'dialogContent')]//button[@title='Cancel']")).click();
+					
+				resp = Boolean.TRUE;
+			}
+			catch ( NoSuchElementException e ) {
+			
+				e.printStackTrace();
+				
+				resp = Boolean.FALSE;
+			}
+			
+			return resp;
+		}
+
+		@Override
+		protected Boolean addTimestampAction() {
+			
+			Boolean resp = Boolean.FALSE;
+			
+			try {
+				
+				WebElement nameElem = getWebDriver().findElement(By.xpath("//td[contains(text(),'Value')]/ancestor::tr[1]//input"));
+				nameElem.click();
+				nameElem.clear();
+				
+				String name = getCurrentElement().getStringFromPath("name");
+				name += TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+				getCurrentElement().setObjectFromPath("name", name);
+				
+				nameElem.sendKeys(getCurrentElement().getStringFromPath("name"));
+				
+				saveAction();
+				
+				resp = Boolean.TRUE;
+				
+			} catch ( NoSuchElementException | FormException e ) {
+				
+				e.printStackTrace();
+				
+				resp = Boolean.FALSE;
+			}
+			
+			return resp;
+		}
+
 	}
 }
