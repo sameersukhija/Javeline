@@ -12,6 +12,7 @@ import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -63,7 +64,7 @@ public class FormSaveConfigurationHandlerTest {
 		}
 		
 		@Override
-		protected Boolean containsErrorElement() throws FormException {
+		protected Boolean containsErrorElement() {
 		
 			Integer numbers = null;
 			Boolean resp = Boolean.TRUE;
@@ -87,36 +88,66 @@ public class FormSaveConfigurationHandlerTest {
 		}
 
 		@Override
-		public void cancelAction() {
+		protected Boolean cancelAction() {
 			
-			getWebDriver().findElement(By.xpath("//input[@id='name-field']")).sendKeys("Correct String");
+			// for verification
+			addAbortCancelInvoked = Boolean.TRUE;
 			
-			saveAction();
+			Boolean resp = Boolean.FALSE;
+			
+			try {
+				getWebDriver().findElement(By.xpath("//input[@id='name-field']")).clear();
+
+				getWebDriver().findElement(By.xpath("//button[@title='Cancel']")).click();
+					
+				resp = Boolean.TRUE;
+			}
+			catch ( NoSuchElementException e ) {
+			
+				e.printStackTrace();
+				
+				resp = Boolean.FALSE;
+			}
+			
+			return resp;
 		}
 
 		@Override
-		public void addTimestampAction() {
+		protected Boolean addTimestampAction() {
+			 
+			// for verification
+			addTimestampInvoked = Boolean.TRUE;
+						
+			Boolean resp = Boolean.FALSE;
 			
-			String name = getCurrentElement().getStringFromPath("name");
-			name += TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-			getCurrentElement().setObjectFromPath("name", name);
+			try {
+				
+				String name = getCurrentElement().getStringFromPath("name");
+				name += TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+				getCurrentElement().setObjectFromPath("name", name);
+				
+				getWebDriver().findElement(By.xpath("//input[@id='name-field']")).clear();
+				
+				getWebDriver().findElement(By.xpath("//input[@id='name-field']")).sendKeys(getCurrentElement().getStringFromPath("name"));
+				
+				saveAction();
+				
+				resp = Boolean.TRUE;
+				
+			} catch ( NoSuchElementException | FormException e ) {
+				
+				e.printStackTrace();
+				
+				resp = Boolean.FALSE;
+			}
 			
-			getWebDriver().findElement(By.xpath("//input[@id='name-field']")).clear();
-			
-			getWebDriver().findElement(By.xpath("//input[@id='name-field']")).sendKeys(getCurrentElement().getStringFromPath("name"));
-			
-			saveAction();
+			return resp;
 		}
-		
-		/**
-		 * Only for test
-		 * 
-		 * @return
-		 * @throws FormException 
-		 */
-		public Boolean containError() throws FormException {
-			
-			return containsErrorElement();
+
+		@Override
+		protected ElementErrorConditionType defineErrorCondition() {
+
+			return ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
 		}
 		
 		/**
@@ -126,7 +157,7 @@ public class FormSaveConfigurationHandlerTest {
 		 */
 		public Boolean catchConfirmation() {
 			
-			return isCatchConfirmationPopup();
+			return acceptedConfirmationPopup();
 		}
 	}
 	
@@ -143,14 +174,14 @@ public class FormSaveConfigurationHandlerTest {
 		}
 
 		@Override
-		public WebElement getSaveWebElement() {
+		protected WebElement getSaveWebElement() {
 
 			if ( saveElement == null )
 				saveElement = getWebDriver().findElement(By.xpath("//button[@title='Save-popup']")); 
 			
 			return saveElement;
 		}
-		
+
 	}
 	
 	/**
@@ -164,7 +195,7 @@ public class FormSaveConfigurationHandlerTest {
 		}
 
 		@Override
-		public WebElement getSaveWebElement() {
+		protected WebElement getSaveWebElement() {
 
 			return getWebDriver().findElement(By.xpath("//button[@title='Save']"));
 		}
@@ -193,7 +224,22 @@ public class FormSaveConfigurationHandlerTest {
 	/**
 	 * 
 	 */
-	private JsonCurrentElement element = null;
+	private JsonCurrentElement defaultCurrentElement = null;
+	
+	/**
+	 * 
+	 */
+	private JsonConfigurationFile jsonConfigurationFile = null;
+	
+	/**
+	 * Verification scope
+	 */
+	private Boolean addAbortCancelInvoked = null;
+	
+	/**
+	 * Verification scope
+	 */
+	private Boolean addTimestampInvoked = null;
 	
 	@BeforeClass
 	public void setUp() throws Exception {
@@ -216,20 +262,11 @@ public class FormSaveConfigurationHandlerTest {
 		FirefoxProfile profile = new FirefoxProfile(new File("/home/vincenzo/.mozilla/firefox/ncc8lgcm.default"));
 		driver = new FirefoxDriver(profile);
 		
-		Map<String, Object> currentElementMap = new HashMap<>();
-		currentElementMap.put("name", "This is a value");
-		
-		Map<String, Object> errorActionsMap = new HashMap<>();
-		errorActionsMap.put(ElementErrorConditionType.ELEMENT_AREADY_EXISTS.toString(), ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD.toString());
-		errorActionsMap.put(ElementErrorConditionType.GENERAL_ERROR.toString(), ElementErrorActionType.RETURN_ERROR.toString());
-		
-		currentElementMap.put(HasErrorActions.ERROR_ACTIONS_LABEL_, errorActionsMap);
-		
 		/**
 		 * This way is only for test 
 		 */
 		
-		JsonConfigurationFile tmp = new JsonConfigurationFile("test", "only_for_test") {
+		jsonConfigurationFile = new JsonConfigurationFile("test", "only_for_test") {
 			
 			@Override
 			public String getElementsSectionLabel() {
@@ -237,13 +274,23 @@ public class FormSaveConfigurationHandlerTest {
 				return "sampleArrayGetListString";
 			}
 		};
+
+		Map<String, Object> currentElementMap = new HashMap<>();
+		currentElementMap.put("name", "This is a value");
 		
-		element = tmp.new JsonCurrentElement(currentElementMap);
+		Map<String, Object> errorActionsMap = new HashMap<>();
+		errorActionsMap.put(	ElementErrorConditionType.ELEMENT_AREADY_EXISTS.toString(), 
+								ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD.toString());
+		errorActionsMap.put(	ElementErrorConditionType.GENERAL_ERROR.toString(), 
+								ElementErrorActionType.RETURN_ERROR.toString());
+		
+		currentElementMap.put(HasErrorActions.ERROR_ACTIONS_LABEL_, errorActionsMap);
+		
+		defaultCurrentElement = jsonConfigurationFile.new JsonCurrentElement(currentElementMap);		
 		
 		/**
 		 * 	This way is only for test - END
 		 */
-		
 	}
 	
 	@AfterClass
@@ -254,6 +301,9 @@ public class FormSaveConfigurationHandlerTest {
 	
 	@BeforeMethod
 	public void separationTest() {
+		
+		addAbortCancelInvoked = Boolean.FALSE;
+		addTimestampInvoked = Boolean.FALSE;
 		
 		driver.get("http://localhost:8080/test.html");
 	}
@@ -266,27 +316,15 @@ public class FormSaveConfigurationHandlerTest {
 	@Test( priority = 1 )
 	public void correctTextInsertionWithoutPopup() throws FormException {
 		
-		underTestWithoutPopup = new WithoutPopupHandler(driver, element);
+		underTestWithoutPopup = new WithoutPopupHandler(driver, defaultCurrentElement);
 		
 		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Correct String");
 		
 		underTestWithoutPopup.saveAction();
 		
 		Assert.assertEquals( 	underTestWithoutPopup.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
-		Assert.assertEquals(   	underTestWithoutPopup.containError(), Boolean.FALSE, "No error are showed!");
-	}
-	
-	@Test( priority = 2 )
-	public void wrongTextInsertionWithoutPopup() throws FormException {
-
-		underTestWithoutPopup = new WithoutPopupHandler(driver, element);
-		
-		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Error String");
-		
-		underTestWithoutPopup.saveAction();
-
-		Assert.assertEquals(	underTestWithoutPopup.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
-		Assert.assertEquals(	underTestWithoutPopup.containError(), Boolean.TRUE, "Error are showed!");
+		Assert.assertEquals(   	addAbortCancelInvoked, Boolean.FALSE, "No error are showed!");
+		Assert.assertEquals(   	addTimestampInvoked, Boolean.FALSE, "No error are showed!");
 	}
 	
 	/**
@@ -294,23 +332,39 @@ public class FormSaveConfigurationHandlerTest {
 	 * @throws FormException 
 	 */	
 	
-	@Test( priority = 3 )
+	@Test( priority = 2 )
 	public void correctTextInsertionWithPopup() throws FormException {
 		
-		underTestWithPopup = new WithPopupHandler(driver, element);
+		underTestWithPopup = new WithPopupHandler(driver, defaultCurrentElement);
 		
 		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Correct String");
 		
 		underTestWithPopup.saveAction();
 
 		Assert.assertEquals(	underTestWithPopup.catchConfirmation(), Boolean.TRUE, "The popup is showed!");
-		Assert.assertEquals(   	underTestWithPopup.containError(), Boolean.FALSE, "No error are showed!");
+		Assert.assertEquals(   	addAbortCancelInvoked, Boolean.FALSE, "No error are showed!");
+		Assert.assertEquals(   	addTimestampInvoked, Boolean.FALSE, "No error are showed!");
+	}	
+	
+	@Test( priority = 3 )
+	public void wrongTextInsertionWithoutPopupAddTimestamp() throws FormException {
+
+		underTestWithoutPopup = new WithoutPopupHandler(driver, defaultCurrentElement);
+		
+		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Error String");
+		
+		underTestWithoutPopup.saveAction();
+
+		Assert.assertEquals(	underTestWithoutPopup.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
+		Assert.assertEquals(   	addAbortCancelInvoked, Boolean.FALSE, "The \"Abort\" action is NOT invoked!");
+		Assert.assertEquals(   	addTimestampInvoked, Boolean.TRUE, "The \"Timestamp\" action is invoked!");
 	}
+
 	
 	@Test( priority = 4 )
-	public void wrongTextInsertionWithPopup() throws FormException {
+	public void wrongTextInsertionWithPopupAddTimestamp() throws FormException {
 		
-		underTestWithPopup = new WithPopupHandler(driver, element);		
+		underTestWithPopup = new WithPopupHandler(driver, defaultCurrentElement);		
 		
 		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Error String");
 		
@@ -318,6 +372,104 @@ public class FormSaveConfigurationHandlerTest {
 
 		// "Confirmation" popup is NOT showed on wrong data
 		Assert.assertEquals(	underTestWithPopup.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
-		Assert.assertEquals(   	underTestWithoutPopup.containError(), Boolean.TRUE, "Error are showed!");
+		Assert.assertEquals(   	addAbortCancelInvoked, Boolean.FALSE, "The \"Abort\" action is NOT invoked!");
+		Assert.assertEquals(   	addTimestampInvoked, Boolean.TRUE, "The \"Timestamp\" action is invoked!");
 	}
+	
+	@Test( priority = 5 )
+	public void wrongTextInsertionWithoutPopupAbort() throws FormException {
+
+		Map<String, Object> abortElementMap = new HashMap<>();
+		abortElementMap.put("name", "This is a value");
+		
+		Map<String, Object> errorActionsMap = new HashMap<>();
+		errorActionsMap.put(	ElementErrorConditionType.ELEMENT_AREADY_EXISTS.toString(), 
+								ElementErrorActionType.ABORT_CANCEL.toString());
+		errorActionsMap.put(	ElementErrorConditionType.GENERAL_ERROR.toString(), 
+								ElementErrorActionType.RETURN_ERROR.toString());
+		
+		abortElementMap.put(HasErrorActions.ERROR_ACTIONS_LABEL_, errorActionsMap);
+		
+		underTestWithoutPopup = new WithoutPopupHandler(	driver,
+															jsonConfigurationFile.new JsonCurrentElement(abortElementMap));
+		
+		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Error String");
+		
+		underTestWithoutPopup.saveAction();
+
+		Assert.assertEquals(	underTestWithoutPopup.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
+		Assert.assertEquals(   	addAbortCancelInvoked, Boolean.TRUE, "The \"Abort\" action is invoked!");
+		Assert.assertEquals(   	addTimestampInvoked, Boolean.FALSE, "The \"Timestamp\" action is NOT invoked!");
+	}
+	
+	@Test( priority = 6 )
+	public void wrongTextInsertionWithPopupAbort() throws FormException {
+
+		Map<String, Object> abortElementMap = new HashMap<>();
+		abortElementMap.put("name", "This is a value");
+		
+		Map<String, Object> errorActionsMap = new HashMap<>();
+		errorActionsMap.put(	ElementErrorConditionType.ELEMENT_AREADY_EXISTS.toString(), 
+								ElementErrorActionType.ABORT_CANCEL.toString());
+		errorActionsMap.put(	ElementErrorConditionType.GENERAL_ERROR.toString(), 
+								ElementErrorActionType.RETURN_ERROR.toString());
+		
+		abortElementMap.put(HasErrorActions.ERROR_ACTIONS_LABEL_, errorActionsMap);
+		
+		underTestWithPopup = new WithPopupHandler(	driver,
+													jsonConfigurationFile.new JsonCurrentElement(abortElementMap));
+		
+		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Error String");
+		
+		underTestWithPopup.saveAction();
+
+		// "Confirmation" popup is NOT showed on wrong data
+		Assert.assertEquals(	underTestWithPopup.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
+		Assert.assertEquals(   	addAbortCancelInvoked, Boolean.TRUE, "The \"Abort\" action is invoked!");
+		Assert.assertEquals(   	addTimestampInvoked, Boolean.FALSE, "The \"Timestamp\" action is NOT invoked!");
+	}
+	
+	@Test( priority = 7 , expectedExceptions = { FormException.class })
+	public void wrongTextInsertionWithoutPopupGeneralError() throws FormException {
+
+		Map<String, Object> returnErroElementMap = new HashMap<>();
+		returnErroElementMap.put("name", "This is a value");
+		
+		Map<String, Object> errorActionsMap = new HashMap<>();
+		errorActionsMap.put(	ElementErrorConditionType.ELEMENT_AREADY_EXISTS.toString(), 
+								ElementErrorActionType.RETURN_ERROR.toString());
+		errorActionsMap.put(	ElementErrorConditionType.GENERAL_ERROR.toString(), 
+								ElementErrorActionType.RETURN_ERROR.toString());
+		
+		returnErroElementMap.put(HasErrorActions.ERROR_ACTIONS_LABEL_, errorActionsMap);
+		
+		underTestWithoutPopup = new WithoutPopupHandler(	driver,
+															jsonConfigurationFile.new JsonCurrentElement(returnErroElementMap));
+		
+		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Error String");
+		
+		underTestWithoutPopup.saveAction();
+	}
+	
+	@Test( priority = 8 , expectedExceptions = { FormException.class })
+	public void wrongTextInsertionWithPopupGeneralError() throws FormException {
+
+		Map<String, Object> returnErroElementMap = new HashMap<>();
+		returnErroElementMap.put("name", "This is a value");
+		
+		Map<String, Object> errorActionsMap = new HashMap<>();
+		errorActionsMap.put(	ElementErrorConditionType.ELEMENT_AREADY_EXISTS.toString(), 
+								ElementErrorActionType.RETURN_ERROR.toString());
+		errorActionsMap.put(	ElementErrorConditionType.GENERAL_ERROR.toString(), 
+								ElementErrorActionType.RETURN_ERROR.toString());
+		
+		returnErroElementMap.put(HasErrorActions.ERROR_ACTIONS_LABEL_, errorActionsMap);
+		
+		underTestWithPopup = new WithPopupHandler(	driver,
+													jsonConfigurationFile.new JsonCurrentElement(returnErroElementMap));
+		
+		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Error String");
+		
+		underTestWithPopup.saveAction();
+	}		
 }

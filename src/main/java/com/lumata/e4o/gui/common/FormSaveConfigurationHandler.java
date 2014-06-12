@@ -9,6 +9,9 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.json.HasErrorActions.ElementErrorActionType;
+import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.e4o.exceptions.FormException;
 
@@ -18,6 +21,7 @@ import com.lumata.e4o.exceptions.FormException;
  * This object will be extended for every "save" interaction to provide form specific behavior. The behavior provided are :<br>
  * <li> <b>containsErrorElement</b>, it returns true/false according web application status
  * <li> <b>getSaveWebElement</b>, it returns the WebElement to be clicked on "Save"
+ * <li> <b>defineErrorCondition</b>, it returns the error condition for application accordin input configuration
  * <li> <b>cancelAction</b>, it performs the Abort/Cancel action
  * <li> <b>addTimestampAction()</b>, it perform the "Add Timestamp" to field and re-perform "Save" event
  *  
@@ -43,9 +47,14 @@ public abstract class FormSaveConfigurationHandler {
 	private JsonCurrentElement currentElement = null;
 	
 	/**
-	 * This object described if in latest monitored "Save" event is showed a "Confirmation" Popup
+	 * This object described if in latest monitored "Save" event is showed a "Confirmation" Popup and accpet it.
 	 */
-	private Boolean catchConfirmationPopup = Boolean.FALSE;
+	private Boolean acceptedConfirmationPopup = Boolean.FALSE;
+	
+	/**
+	 * If "Save" event produce exception is handled externally.
+	 */
+	private Exception resultingException = null;
 	
 	/**
 	 * Constructor
@@ -92,14 +101,53 @@ public abstract class FormSaveConfigurationHandler {
 			
 			if ( arg0.equals(getSaveWebElement()) ) {
 				
-				catchConfirmationPopup = handleJavascriptAlertAcceptDismiss(true); 
+				// check "Confirmation" popup after "Save" event
+				acceptedConfirmationPopup = handleJavascriptAlertAcceptDismiss(true); 
 				
-				if ( catchConfirmationPopup ) 
+				if ( acceptedConfirmationPopup ) 
 					logger.debug( getClass().getSimpleName() + " enconters \"confirmation\" popup.");
 				else
 					logger.debug( getClass().getSimpleName() + " does NOT enconter \"confirmation\" popup.");
 
 				logger.info("The \"Save Click\" occurs : afterClickOn with "+getClass().getSimpleName()+".");
+				
+				// in case no confirmation was executed, check element in error
+				
+				// if "Confirmation" popup is displayed and accepted, no error check is necessary
+				// this block handles the investigation on error action to take
+				if ( !acceptedConfirmationPopup && containsErrorElement() ) {
+					
+					logger.warn(getClass().getSimpleName() + "  after \"save\" event the panel seems in error!");
+					
+					/**
+					 * Error condition detection
+					 */
+					ElementErrorConditionType condition = defineErrorCondition();
+					
+					try {
+						ElementErrorActionType action = currentElement.getErrorActions().getAction(condition);
+						
+						// abort insertion
+						if ( action.equals(ElementErrorActionType.ABORT_CANCEL) ) 
+							cancelAction();
+						
+						// stop execution and return error
+						else if ( action.equals(ElementErrorActionType.RETURN_ERROR) )
+							throw new FormException(getClass().getSimpleName() + " cannot configure \""+currentElement.getStringFromPath("name")+"\"!");
+						
+						// add time stamp to configured field(s)
+						else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) )
+							addTimestampAction();
+						
+					} catch (JSONSException | FormException e) {
+
+						e.printStackTrace();
+						
+						resultingException = e;
+					}
+
+				}				
+
 			}
 			else
 				logger.debug("The \"Save Click\" does NOT occur.");
@@ -110,9 +158,16 @@ public abstract class FormSaveConfigurationHandler {
 			
 			if ( arg0.equals(getSaveWebElement()) ) {
 				
-				catchConfirmationPopup = Boolean.FALSE;
+				// reset this status before "Save" event
+				acceptedConfirmationPopup = Boolean.FALSE;
+				
+				// reset exception buffer
+				resultingException = null;
 				
 				logger.info("The \"Save Click\" occurs : beforeClickOn with "+getClass().getSimpleName()+".");
+				
+				if ( containsErrorElement() )
+					logger.error(getClass().getSimpleName() + " without performs \"save\" event the panel seems in error!");
 			}
 			else
 				logger.debug("The \"Save Click\" does NOT occur.");
@@ -157,9 +212,14 @@ public abstract class FormSaveConfigurationHandler {
 	}		
 	
 	/**
+	 * This method performs the "Save" event on event armed driver.<br>
 	 * 
+	 * The armed driver follows the error events handling according application status and
+	 * configuration passed during init phase.
+	 * 
+	 * @throws FormException 
 	 */
-	public void saveAction() {
+	public void saveAction() throws FormException {
 	
 		SaveTimeSlotHandler oneTimeUse = new SaveTimeSlotHandler();
 		
@@ -168,16 +228,22 @@ public abstract class FormSaveConfigurationHandler {
 		getSaveWebElement().click();
 		
 		eventFiringDriver.unregister(oneTimeUse);
+		
+		if ( resultingException != null ) {
+			logger.warn(getClass().getSimpleName() + " encounters an " + resultingException.getClass().getSimpleName() + "!");
+			
+			throw new FormException(resultingException.getMessage());
+		}
 	}
 
 	/**
-	 * It returns if last "Save" event shows a "Confirmation" Popup
+	 * It returns if last "Save" event shows a "Confirmation" Popup and accept it.
 	 * 
 	 * @return a Boolean
 	 */
-	protected Boolean isCatchConfirmationPopup() {
+	protected Boolean acceptedConfirmationPopup() {
 		
-		return catchConfirmationPopup;
+		return acceptedConfirmationPopup;
 	}
 	
 	/**
@@ -186,25 +252,34 @@ public abstract class FormSaveConfigurationHandler {
 	 * (e.g. duplication of value, missing field) 
 	 * 
 	 * @return true if at least one visible element is in error.
-	 * 
-	 * @throws FormException
 	 */
-	protected abstract Boolean containsErrorElement() throws FormException;
+	protected abstract Boolean containsErrorElement();
 
 	/**
 	 * This method returns the <b>WebElement</b> to be clicked for "Save" event.
 	 * 
 	 * @return a <b>WebElement</b> instance
 	 */
-	public abstract WebElement getSaveWebElement();
+	protected abstract WebElement getSaveWebElement();
+	
+	/**
+	 * This method returns the <b>ElementErrorConditionType</b> according actual application status.
+	 * 
+	 * @return <b>ElementErrorConditionType</b> element
+	 */
+	protected abstract ElementErrorConditionType defineErrorCondition();
 	
 	/**
 	 * This method proceeds to Abort/Cancel last insertion form.
+	 * 
+	 * @return it returns the exit status of "Cancel/Abort" operation
 	 */
-	public abstract void cancelAction();
+	protected abstract Boolean cancelAction();
 	
 	/**
 	 * This method proceeds to modify the value that block "Save" event into form and re-launch "Save" event.
+	 * 
+	 * @return it returns the exit status of "Add Timestamp" operation
 	 */
-	public abstract void addTimestampAction();
+	protected abstract Boolean addTimestampAction();
 }

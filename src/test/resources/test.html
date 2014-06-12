@@ -22,6 +22,10 @@ Name field : <input type="text" id="name-field"><br>
 <button title="Save-popup" type="button" onclick="myMockedServerSideProdecure()">Save with popup</button>
 </p>
 
+<p>
+<button title="Cancel" type="button" onclick="myMockedServerSideProdecure(false)">Cancel</button>
+</p>
+
 <script>
 
 var debugMessage = document.getElementById("debugDiv");
@@ -49,17 +53,17 @@ if ( inputField.value == "Error String") {
   debugMessage.innerHTML="Simulated error condition!!!";
   inputField.className = "errorBackground";
   }
-else if ( inputField.value == "Correct String") {
+else if ( inputField.value == "") {
+  debugMessage.innerHTML="Reset condition.";
+  inputField.className = "";
+  }
+else  {
   debugMessage.innerHTML="Simulated correct condition.";
   inputField.className = "";
   if (popup)
   	myMockedPopup();
   }
-else if ( inputField.value == "") {
-  debugMessage.innerHTML="I am a div.";
-  inputField.className = "";
-  }
-  
+
 }
 </script>
 
