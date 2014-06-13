@@ -10,9 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.json.ErrorModificableElement;
+import com.lumata.common.testing.json.IsModificable;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorActionType;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
-import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.e4o.exceptions.FormException;
 
 /**
@@ -44,7 +45,7 @@ public abstract class FormSaveConfigurationHandler {
 	 * The <b>JsonCurrentElement</b> related to "Save" event.
 	 * Thought it is possible to fetch <b>JsonErrorActions</b> to handle "error" condition.
 	 */
-	private JsonCurrentElement currentElement = null;
+	private ErrorModificableElement currentElement = null;
 	
 	/**
 	 * This object described if in latest monitored "Save" event is showed a "Confirmation" Popup and accpet it.
@@ -62,7 +63,7 @@ public abstract class FormSaveConfigurationHandler {
 	 * @param inDriver
 	 * @param inErrorActions
 	 */
-	protected FormSaveConfigurationHandler( WebDriver inDriver, JsonCurrentElement inCurrentElement ) {
+	protected FormSaveConfigurationHandler( WebDriver inDriver, ErrorModificableElement inCurrentElement ) {
 		
 		logger.debug("Init " + getClass().getSimpleName());
 		
@@ -86,7 +87,7 @@ public abstract class FormSaveConfigurationHandler {
 	 * 
 	 * @return a <b>JsonCurrentElement</b> object
 	 */
-	protected JsonCurrentElement getCurrentElement() {
+	protected IsModificable getCurrentElement() {
 		
 		return currentElement;
 	}
@@ -125,22 +126,32 @@ public abstract class FormSaveConfigurationHandler {
 					ElementErrorConditionType condition = defineErrorCondition();
 					
 					try {
+						
 						ElementErrorActionType action = currentElement.getErrorActions().getAction(condition);
 						
 						// abort insertion
-						if ( action.equals(ElementErrorActionType.ABORT_CANCEL) ) 
-							cancelAction();
-						
-						// stop execution and return error
-						else if ( action.equals(ElementErrorActionType.RETURN_ERROR) )
-							throw new FormException(getClass().getSimpleName() + " cannot configure \""+currentElement.getStringFromPath("name")+"\"!");
-						
+						if ( action.equals(ElementErrorActionType.ABORT_CANCEL) ) {
+							if ( !cancelAction() )
+								resultingException = new FormException("During \"cancelAction\" action unexpected error!");
+							else
+								logger.debug("\"cancelAction\" executed correctly.");
+						}
 						// add time stamp to configured field(s)
-						else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) )
-							addTimestampAction();
+						else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) ) {
+							if ( !addTimestampAction() )
+								resultingException = new FormException("During \"addTimestampAction\" action unexpected error!");
+							else
+								logger.debug("\"addTimestampAction\" executed correctly.");
+						}
+						// stop execution and return error
+						else if ( action.equals(ElementErrorActionType.RETURN_ERROR) ) {
+							resultingException = new FormException(getClass().getSimpleName() + " cannot configure \""+currentElement.getStringFromPath("name")+"\"!");
+						}
 						
-					} catch (JSONSException | FormException e) {
-
+					} catch (JSONSException e) {
+						
+						logger.warn("During afterClickOn with "+getClass().getSimpleName()+" an error occurs!");
+						
 						e.printStackTrace();
 						
 						resultingException = e;

@@ -190,8 +190,8 @@ public class NotificationsForm extends AdministrationForm {
 				else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) ) {
 					
 					Long timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-					current.setObjectFromPath("templateName", current.getStringFromPath("templateName") + timestamp);
-					current.setObjectFromPath("textMessage", current.getStringFromPath("textMessage") + timestamp);
+					current.modifyStringFromPath("templateName", current.getStringFromPath("templateName") + timestamp);
+					current.modifyStringFromPath("textMessage", current.getStringFromPath("textMessage") + timestamp);
 					
 					// clean text
 					// one click su input

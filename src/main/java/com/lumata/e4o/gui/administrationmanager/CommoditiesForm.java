@@ -302,7 +302,7 @@ public class CommoditiesForm extends AdministrationForm {
 				
 				String name = getCurrentElement().getStringFromPath("name");
 				name += TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-				getCurrentElement().setObjectFromPath("name", name);
+				getCurrentElement().modifyStringFromPath("name", name);
 				
 				nameElem.sendKeys(getCurrentElement().getStringFromPath("name"));
 				
@@ -310,7 +310,7 @@ public class CommoditiesForm extends AdministrationForm {
 				
 				resp = Boolean.TRUE;
 				
-			} catch ( NoSuchElementException | FormException e ) {
+			} catch ( NoSuchElementException | JSONSException | FormException e ) {
 				
 				e.printStackTrace();
 				

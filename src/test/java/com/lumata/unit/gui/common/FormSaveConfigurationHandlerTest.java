@@ -23,11 +23,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.json.ErrorModificableElement;
 import com.lumata.common.testing.json.HasErrorActions;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorActionType;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
 import com.lumata.common.testing.json.JsonConfigurationFile;
-import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
 
@@ -58,7 +59,7 @@ public class FormSaveConfigurationHandlerTest {
 	 */
 	private abstract class SampleHandler extends FormSaveConfigurationHandler {
 
-		public SampleHandler(WebDriver driver, JsonCurrentElement currentElement) {
+		public SampleHandler(WebDriver driver, ErrorModificableElement currentElement) {
 			
 			super(driver,currentElement);
 		}
@@ -124,7 +125,7 @@ public class FormSaveConfigurationHandlerTest {
 				
 				String name = getCurrentElement().getStringFromPath("name");
 				name += TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-				getCurrentElement().setObjectFromPath("name", name);
+				getCurrentElement().modifyStringFromPath("name", name);
 				
 				getWebDriver().findElement(By.xpath("//input[@id='name-field']")).clear();
 				
@@ -134,7 +135,7 @@ public class FormSaveConfigurationHandlerTest {
 				
 				resp = Boolean.TRUE;
 				
-			} catch ( NoSuchElementException | FormException e ) {
+			} catch ( NoSuchElementException | FormException | JSONSException e ) {
 				
 				e.printStackTrace();
 				
@@ -169,7 +170,7 @@ public class FormSaveConfigurationHandlerTest {
 		private WebElement saveElement = null;
 		
 		public WithPopupHandler(WebDriver driver,
-				JsonCurrentElement currentElement) {
+				ErrorModificableElement currentElement) {
 			super(driver, currentElement);
 		}
 
@@ -190,7 +191,7 @@ public class FormSaveConfigurationHandlerTest {
 	private class WithoutPopupHandler extends SampleHandler {
 
 		public WithoutPopupHandler(WebDriver driver,
-				JsonCurrentElement currentElement) {
+				ErrorModificableElement currentElement) {
 			super(driver, currentElement);
 		}
 
@@ -224,7 +225,7 @@ public class FormSaveConfigurationHandlerTest {
 	/**
 	 * 
 	 */
-	private JsonCurrentElement defaultCurrentElement = null;
+	private ErrorModificableElement defaultCurrentElement = null;
 	
 	/**
 	 * 

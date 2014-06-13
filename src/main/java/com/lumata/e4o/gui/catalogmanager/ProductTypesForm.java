@@ -6,18 +6,19 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.json.HasErrorActions.ElementErrorActionType;
+import com.lumata.common.testing.json.ErrorModificableElement;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
-import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.CharacteristicType;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristicElement;
@@ -102,10 +103,16 @@ public class ProductTypesForm extends CatalogueManagerForm {
 		for (JsonCharacteristicElement chElem : chList) {
 			
 			if ( chElem.getEnabled() ) {
+				
 				// add a new ch
 				clickXPath("//div[text()='Create product type']//ancestor::div[2]//button[@title='Add']");
 				
 				fillCharacteristicElement(chElem);
+				
+				
+				CharacteristicsSaveHandler handler = new CharacteristicsSaveHandler( 	selenium.getWrappedDriver(), 
+																						chElem);
+				handler.saveAction();
 				
 				// OK a new ch
 				// error check
@@ -119,86 +126,86 @@ public class ProductTypesForm extends CatalogueManagerForm {
 				 * 
 				 */
 				
-				if ( containsErrorElement() )
-					logger.error("Without click \"save\" panel is in error!");
-				
-				Boolean completed = Boolean.FALSE;
-				
-				do {
-					
-					/**
-					 * Core save procedure
-					 */
-					
-					clickXPath("//div[text()='Adding a new characteritic type']//ancestor::div[2]//button[@title='OK']");
-
-					/**
-					 * Core save procedure - END
-					 */
-					
-					Boolean confirmed = Boolean.FALSE;
-
-					confirmed = handleJavascriptAlertAcceptDismiss(true);
-
-					/**
-					 * End - Core save procedure
-					 */
-					
-					// in case no confirmation was executed, check element in error
-					if ( !confirmed && containsErrorElement() ) {
-
-						logger.warn("After click \"Save\" panel is in error!");
-						
-						ElementErrorConditionType condition = null;
-						
-						searchByXPath("//div[@class='gwt-DialogBox']");
-						
-						// error condition
-						//div[text()='Bonus name already used']
-						List<WebElement> element = SeleniumUtils.findListForComponentDisplayed(	selenium, 
-																								SearchBy.XPATH, 
-																								lastWebElement, 
-																								"//div[contains(text(),'Cannot add characteristic, name ')]"
-																							);
-						
-						if ( element.size() != 0 )
-							condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
-						else
-							condition = ElementErrorConditionType.GENERAL_ERROR;
-						
-						ElementErrorActionType action = chElem.getErrorActions().getAction(condition);
-						
-						// abort insertion
-						if ( action.equals(ElementErrorActionType.ABORT_CANCEL) ) {
-							clickXPath( "//div[text()='Adding a new characteritic type']//ancestor::div[2]//button[@title='Cancel']" );
-							
-							completed = Boolean.TRUE;
-						}
-						// stop execution and return error
-						else if ( action.equals(ElementErrorActionType.RETURN_ERROR) )
-							throw new FormException(getClass().getSimpleName() + " cannot configure \""+chElem.getName()+"\" characteristic!");
-						// add timestamp to name
-						else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) ) {
-							
-							// one click su input
-							clickXPath( "//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']");
-							
-							// delete current text
-							lastWebElement.clear();
-							
-							String actualName = chElem.getName();
-							chElem.setObjectFromPath("name", actualName + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
-							
-							// send old text + timestamp
-							typeById( "//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']", productTypesCfg.getName() );
-							
-							completed = Boolean.FALSE;
-						}
-					}
-					else // all ok!
-						completed = Boolean.TRUE;			
-				}
-				while ( !completed );
+//				if ( containsErrorElement() )
+//					logger.error("Without click \"save\" panel is in error!");
+//				
+//				Boolean completed = Boolean.FALSE;
+//				
+//				do {
+//					
+//					/**
+//					 * Core save procedure
+//					 */
+//					
+//					clickXPath("//div[text()='Adding a new characteritic type']//ancestor::div[2]//button[@title='OK']");
+//
+//					/**
+//					 * Core save procedure - END
+//					 */
+//					
+//					Boolean confirmed = Boolean.FALSE;
+//
+//					confirmed = handleJavascriptAlertAcceptDismiss(true);
+//
+//					/**
+//					 * End - Core save procedure
+//					 */
+//					
+//					// in case no confirmation was executed, check element in error
+//					if ( !confirmed && containsErrorElement() ) {
+//
+//						logger.warn("After click \"Save\" panel is in error!");
+//						
+//						ElementErrorConditionType condition = null;
+//						
+//						searchByXPath("//div[@class='gwt-DialogBox']");
+//						
+//						// error condition
+//						//div[text()='Bonus name already used']
+//						List<WebElement> element = SeleniumUtils.findListForComponentDisplayed(	selenium, 
+//																								SearchBy.XPATH, 
+//																								lastWebElement, 
+//																								"//div[contains(text(),'Cannot add characteristic, name ')]"
+//																							);
+//						
+//						if ( element.size() != 0 )
+//							condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
+//						else
+//							condition = ElementErrorConditionType.GENERAL_ERROR;
+//						
+//						ElementErrorActionType action = chElem.getErrorActions().getAction(condition);
+//						
+//						// abort insertion
+//						if ( action.equals(ElementErrorActionType.ABORT_CANCEL) ) {
+//							clickXPath( "//div[text()='Adding a new characteritic type']//ancestor::div[2]//button[@title='Cancel']" );
+//							
+//							completed = Boolean.TRUE;
+//						}
+//						// stop execution and return error
+//						else if ( action.equals(ElementErrorActionType.RETURN_ERROR) )
+//							throw new FormException(getClass().getSimpleName() + " cannot configure \""+chElem.getName()+"\" characteristic!");
+//						// add timestamp to name
+//						else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) ) {
+//							
+//							// one click su input
+//							clickXPath( "//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']");
+//							
+//							// delete current text
+//							lastWebElement.clear();
+//							
+//							String actualName = chElem.getName();
+//							chElem.setObjectFromPath("name", actualName + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+//							
+//							// send old text + timestamp
+//							typeById( "//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']", productTypesCfg.getName() );
+//							
+//							completed = Boolean.FALSE;
+//						}
+//					}
+//					else // all ok!
+//						completed = Boolean.TRUE;			
+//				}
+//				while ( !completed );
 
 				/**
 				 * 
@@ -308,6 +315,10 @@ public class ProductTypesForm extends CatalogueManagerForm {
 	 */
 	public ProductTypesForm saveProductType() throws FormException, JSONSException {
 		
+		ProductTypesSaveHandler handler = new ProductTypesSaveHandler( 	selenium.getWrappedDriver(), 
+																		productTypesCfg.getCurrentElement());
+		handler.saveAction();
+		
 		/**
 		 * 
 		 * 
@@ -317,88 +328,88 @@ public class ProductTypesForm extends CatalogueManagerForm {
 		 * 
 		 */
 		
-		if ( containsErrorElement() )
-			logger.error("Without click \"save\" panel is in error!");
-		
-		Boolean completed = Boolean.FALSE;
-		
-		do {
-			
-			/**
-			 * Core save procedure
-			 */
-			
-			super.clickXPath( "//div[text()='Create product type']//ancestor::div[2]//button[@title='Save']" );
-
-			/**
-			 * Core save procedure - END
-			 */
-			
-			Boolean confirmed = Boolean.FALSE;
-
-			confirmed = handleJavascriptAlertAcceptDismiss(true);
-
-			/**
-			 * End - Core save procedure
-			 */
-			
-			// in case no confirmation was executed, check element in error
-			if ( !confirmed && containsErrorElement() ) {
-
-				JsonCurrentElement current = productTypesCfg.getCurrentElement();
-				
-				logger.warn("After click \"Save\" panel is in error!");
-				
-				ElementErrorConditionType condition = null;
-				
-				searchByXPath("//div[@class='gwt-DialogBox']");
-				
-				// error condition
-				//div[text()='Bonus name already used']
-				List<WebElement> element = SeleniumUtils.findListForComponentDisplayed(	selenium, 
-																						SearchBy.XPATH, 
-																						lastWebElement, 
-																						"//div[text()='Cannot add product type, name is already used.']"
-																					);
-				
-				if ( element.size() != 0 )
-					condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
-				else
-					condition = ElementErrorConditionType.GENERAL_ERROR;
-				
-				ElementErrorActionType action = current.getErrorActions().getAction(condition);
-				
-				// abort insertion
-				if ( action.equals(ElementErrorActionType.ABORT_CANCEL) ) {
-					clickXPath( "//div[text()='Create product type']//ancestor::div[2]//button[@title='Cancel']" );
-					
-					completed = Boolean.TRUE;
-				}
-				// stop execution and return error
-				else if ( action.equals(ElementErrorActionType.RETURN_ERROR) )
-					throw new FormException(getClass().getSimpleName() + " cannot configure \""+current.getStringFromPath("name")+"\" product type!");
-				// add timestamp to name
-				else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) ) {
-					
-					// one click su input
-					clickXPath( "//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']");
-					
-					// delete current text
-					lastWebElement.clear();
-					
-					String actualName = current.getStringFromPath("name");
-					current.setObjectFromPath("name", actualName + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
-					
-					// send old text + timestamp
-					typeByXPath( "//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']", productTypesCfg.getName() );
-					
-					completed = Boolean.FALSE;
-				}
-			}
-			else // all ok!
-				completed = Boolean.TRUE;			
-		}
-		while ( !completed );
+//		if ( containsErrorElement() )
+//			logger.error("Without click \"save\" panel is in error!");
+//		
+//		Boolean completed = Boolean.FALSE;
+//		
+//		do {
+//			
+//			/**
+//			 * Core save procedure
+//			 */
+//			
+//			super.clickXPath( "//div[text()='Create product type']//ancestor::div[2]//button[@title='Save']" );
+//
+//			/**
+//			 * Core save procedure - END
+//			 */
+//			
+//			Boolean confirmed = Boolean.FALSE;
+//
+//			confirmed = handleJavascriptAlertAcceptDismiss(true);
+//
+//			/**
+//			 * End - Core save procedure
+//			 */
+//			
+//			// in case no confirmation was executed, check element in error
+//			if ( !confirmed && containsErrorElement() ) {
+//
+//				JsonCurrentElement current = productTypesCfg.getCurrentElement();
+//				
+//				logger.warn("After click \"Save\" panel is in error!");
+//				
+//				ElementErrorConditionType condition = null;
+//				
+//				searchByXPath("//div[@class='gwt-DialogBox']");
+//				
+//				// error condition
+//				//div[text()='Bonus name already used']
+//				List<WebElement> element = SeleniumUtils.findListForComponentDisplayed(	selenium, 
+//																						SearchBy.XPATH, 
+//																						lastWebElement, 
+//																						"//div[text()='Cannot add product type, name is already used.']"
+//																					);
+//				
+//				if ( element.size() != 0 )
+//					condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
+//				else
+//					condition = ElementErrorConditionType.GENERAL_ERROR;
+//				
+//				ElementErrorActionType action = current.getErrorActions().getAction(condition);
+//				
+//				// abort insertion
+//				if ( action.equals(ElementErrorActionType.ABORT_CANCEL) ) {
+//					clickXPath( "//div[text()='Create product type']//ancestor::div[2]//button[@title='Cancel']" );
+//					
+//					completed = Boolean.TRUE;
+//				}
+//				// stop execution and return error
+//				else if ( action.equals(ElementErrorActionType.RETURN_ERROR) )
+//					throw new FormException(getClass().getSimpleName() + " cannot configure \""+current.getStringFromPath("name")+"\" product type!");
+//				// add timestamp to name
+//				else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) ) {
+//					
+//					// one click su input
+//					clickXPath( "//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']");
+//					
+//					// delete current text
+//					lastWebElement.clear();
+//					
+//					String actualName = current.getStringFromPath("name");
+//					current.setObjectFromPath("name", actualName + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+//					
+//					// send old text + timestamp
+//					typeByXPath( "//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']", productTypesCfg.getName() );
+//					
+//					completed = Boolean.FALSE;
+//				}
+//			}
+//			else // all ok!
+//				completed = Boolean.TRUE;			
+//		}
+//		while ( !completed );
 		
 		/*
 		 * 
@@ -467,5 +478,259 @@ public class ProductTypesForm extends CatalogueManagerForm {
 		}
 
 		return resp;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+	private class ProductTypesSaveHandler extends FormSaveConfigurationHandler {
+
+		protected ProductTypesSaveHandler(	WebDriver inDriver,
+											JsonCurrentElement inCurrentElement) {
+			
+			super(inDriver, inCurrentElement);
+		}
+
+		@Override
+		protected Boolean containsErrorElement() {
+
+			Integer numbers = null;
+			Boolean resp = Boolean.TRUE;
+	
+			// error condition
+			//*[contains(@class,'errorBackground')]
+			
+			List<WebElement> elements = getWebDriver().findElements(By.xpath("//*[contains(@class,'errorBackground')]"));
+	
+			if ( elements == null )
+				numbers = 0;
+			else
+				numbers = elements.size();
+			
+			if ( numbers != 0 )
+				resp = true;
+			else
+				resp = false;
+			
+			return resp;
+		}
+
+		/**
+		 * 
+		 */
+		private WebElement saveElement = null;
+		
+		@Override
+		protected WebElement getSaveWebElement() {
+
+			if ( saveElement == null )
+				saveElement = getWebDriver().findElement(By.xpath("//div[text()='Create product type']//ancestor::div[2]//button[@title='Save']")); 
+			
+			return saveElement;
+		}
+
+		@Override
+		protected ElementErrorConditionType defineErrorCondition() {
+
+			ElementErrorConditionType condition = null;
+			
+			WebElement dialogBox = getWebDriver().findElement(By.xpath("//div[@class='gwt-DialogBox']"));
+			
+			// error condition
+			//div[text()='Bonus name already used']			
+			List<WebElement> element = dialogBox.findElements(By.xpath("//div[text()='Cannot add product type, name is already used.']"));
+								
+			if ( element.size() != 0 )
+				condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
+			else
+				condition = ElementErrorConditionType.GENERAL_ERROR;
+
+			return condition;
+		}
+
+		@Override
+		protected Boolean cancelAction() {
+
+			Boolean resp = Boolean.FALSE;
+
+			try {
+
+				getWebDriver().findElement(By.xpath("//div[text()='Create product type']//ancestor::div[2]//button[@title='Cancel']")).click();
+					
+				resp = Boolean.TRUE;
+			}
+			catch ( NoSuchElementException e ) {
+			
+				e.printStackTrace();
+				
+				resp = Boolean.FALSE;
+			}
+			
+			return resp;
+		}
+
+		@Override
+		protected Boolean addTimestampAction() {
+
+			Boolean resp = Boolean.FALSE;
+			
+			try {
+				
+				WebElement nameElem = getWebDriver().findElement(By.xpath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']"));
+				nameElem.click();
+				nameElem.clear();
+				
+				String name = getCurrentElement().getStringFromPath("name");
+				name += TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+				getCurrentElement().modifyStringFromPath("name", name);
+				
+				nameElem.sendKeys(getCurrentElement().getStringFromPath("name"));
+				
+				saveAction();
+				
+				resp = Boolean.TRUE;
+				
+			} catch ( NoSuchElementException | FormException | JSONSException e ) {
+				
+				e.printStackTrace();
+				
+				resp = Boolean.FALSE;
+			}
+			
+			return resp;
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+	private class CharacteristicsSaveHandler extends FormSaveConfigurationHandler {
+
+		protected CharacteristicsSaveHandler(	WebDriver inDriver,
+												ErrorModificableElement inCurrentElement) {
+			
+			super(inDriver, inCurrentElement);
+		}
+
+		@Override
+		protected Boolean containsErrorElement() {
+
+			Integer numbers = null;
+			Boolean resp = Boolean.TRUE;
+	
+			// error condition
+			//*[contains(@class,'errorBackground')]
+			
+			List<WebElement> elements = getWebDriver().findElements(By.xpath("//*[contains(@class,'errorBackground')]"));
+	
+			if ( elements == null )
+				numbers = 0;
+			else
+				numbers = elements.size();
+			
+			if ( numbers != 0 )
+				resp = true;
+			else
+				resp = false;
+			
+			return resp;
+		}
+
+		/**
+		 * 
+		 */
+		private WebElement saveElement = null;
+		
+		@Override
+		protected WebElement getSaveWebElement() {
+
+			if ( saveElement == null )
+				saveElement = getWebDriver().findElement(By.xpath("//div[text()='Adding a new characteritic type']//ancestor::div[2]//button[@title='OK']")); 
+			
+			return saveElement;
+		}
+
+		@Override
+		protected ElementErrorConditionType defineErrorCondition() {
+
+			ElementErrorConditionType condition = null;
+			
+			WebElement dialogBox = getWebDriver().findElement(By.xpath("//div[@class='gwt-DialogBox']"));
+			
+			// error condition
+			//div[text()='Bonus name already used']			
+			List<WebElement> element = dialogBox.findElements(By.xpath("//div[contains(text(),'Cannot add characteristic, name ')]"));
+								
+			if ( element.size() != 0 )
+				condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
+			else
+				condition = ElementErrorConditionType.GENERAL_ERROR;
+
+			return condition;
+		}
+
+		@Override
+		protected Boolean cancelAction() {
+
+			Boolean resp = Boolean.FALSE;
+
+			try {
+
+				getWebDriver().findElement(By.xpath("//div[text()='Adding a new characteritic type']//ancestor::div[2]//button[@title='Cancel']")).click();
+					
+				resp = Boolean.TRUE;
+			}
+			catch ( NoSuchElementException e ) {
+			
+				e.printStackTrace();
+				
+				resp = Boolean.FALSE;
+			}
+			
+			return resp;
+		}
+
+		@Override
+		protected Boolean addTimestampAction() {
+			
+			Boolean resp = Boolean.FALSE;
+			
+			try {
+
+				WebElement nameElem = getWebDriver().findElement(By.xpath("//td[contains(text(),'Characteristic Name')]//ancestor::tr[1]//input"));
+				nameElem.click();
+				nameElem.clear();
+				
+				String name = getCurrentElement().getStringFromPath("name");
+				name += TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+				getCurrentElement().modifyStringFromPath("name", name);
+				
+				nameElem.sendKeys(getCurrentElement().getStringFromPath("name"));
+				
+				saveAction();
+				
+				resp = Boolean.TRUE;
+				
+			} catch ( NoSuchElementException | FormException | JSONSException e ) {
+				
+				e.printStackTrace();
+				
+				resp = Boolean.FALSE;
+			}
+			
+			return resp;
+		}
+		
 	}
 }
