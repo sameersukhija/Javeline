@@ -12,44 +12,6 @@ import com.lumata.common.testing.exceptions.JSONSException;
 public abstract class JsonConfigurationElement extends JsonConfig implements HasErrorActions {
 
 	/**
-	 * This object describes "Error Actions" on configuration element
-	 */
-	public final class JsonErrorActions extends JsonConfig {
-
-		/**
-		 * Constructor
-		 * 
-		 * @param newObject
-		 */
-		public JsonErrorActions(Map<String, Object> newObject) {
-			super(newObject);
-		}
-
-		/**
-		 * This method looks into error actions object for a condition and returns associated action type
-		 * 
-		 * @param condition is a ElementErrorConditionType element
-		 * 
-		 * @return ElementErrorActionType
-		 * 
-		 * @throws JSONSException
-		 */
-		public ElementErrorActionType getAction( ElementErrorConditionType condition) throws JSONSException {
-			
-			ElementErrorActionType resp = null;
-			
-			String raw = this.getStringFromPath(condition.toString());	
-			
-			if ( raw != null )
-				resp = ElementErrorActionType.valueOf(raw);
-			else
-				throw new JSONSException(getClass().getSimpleName() + " requests condition \""+condition+"\" but it is missing!");
-			
-			return resp;
-		}		
-	}
-	
-	/**
 	 * Constructor 
 	 * 
 	 * @param newObject

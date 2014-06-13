@@ -98,7 +98,7 @@ public class JsonConfigurationFileTest {
 		Assert.assertEquals(currentElementConfig.getStringFromPath("listPrice"), "");			
 		
 		// modify index 0
-		currentElementConfig.setObjectFromPath("name", "Points" + "TIMESTAMP");
+		currentElementConfig.modifyStringFromPath("name", "Points" + "TIMESTAMP");
 		
 		utObject.setCurrentElementById(1);
 

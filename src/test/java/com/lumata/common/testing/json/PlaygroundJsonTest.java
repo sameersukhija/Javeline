@@ -9,9 +9,9 @@ import org.testng.annotations.Test;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorActionType;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
+import com.lumata.common.testing.json.HasErrorActions.JsonErrorActions;
 import com.lumata.common.testing.json.JsonConfigurationElement;
 import com.lumata.common.testing.json.JsonConfigurationFile;
-import com.lumata.common.testing.json.JsonConfigurationElement.JsonErrorActions;
 
 public class PlaygroundJsonTest {
 
