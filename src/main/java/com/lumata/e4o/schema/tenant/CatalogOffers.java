@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @Table( "catalog_offers" )
 public class CatalogOffers { 
 
-	public enum Fields { offer_id, offer_name, description, voucher_type, voucher_unlimited_code, redemption_notification, start_date, end_date, offer_status, eligibility_criteria, notification, offer_rank, update_time, url_image, agreement }
+	public enum Fields { offer_id, offer_name, description, voucher_type, voucher_unlimited_code, redemption_notification, start_date, end_date, offer_status, eligibility_criteria, notification, offer_rank, update_time, url_image, agreement, subscriber_limit }
 
 	@Column(
 			table = "catalog_offers",
@@ -288,6 +288,24 @@ public class CatalogOffers {
 	)
 	private String agreement;
 
+	@Column(
+			table = "catalog_offers",
+			field = "subscriber_limit",
+			type = "smallint(5)",
+			mysqlType = "smallint",
+			javaType = "Short",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "-1",
+			extra = "",
+			length = 5,
+			getMethod = "getSubscriberLimit",
+			setMethod = "setSubscriberLimit"
+	)
+	private Short subscriber_limit;
+
 
 	public CatalogOffers() {} 
 
@@ -308,6 +326,7 @@ public class CatalogOffers {
 		this.update_time = rs.getTimestamp( CatalogOffers.Fields.update_time.name() );
 		this.url_image = rs.getString( CatalogOffers.Fields.url_image.name() );
 		this.agreement = rs.getString( CatalogOffers.Fields.agreement.name() );
+		this.subscriber_limit = rs.getShort( CatalogOffers.Fields.subscriber_limit.name() );
 
 	}
 
@@ -328,6 +347,7 @@ public class CatalogOffers {
 		this.update_time = new Timestamp( Format.getMysqlDateTime( jo.getString( CatalogOffers.Fields.update_time.name() ) ).getTime() );
 		this.url_image = jo.getString( CatalogOffers.Fields.url_image.name() );
 		this.agreement = jo.getString( CatalogOffers.Fields.agreement.name() );
+		this.subscriber_limit = (short)jo.getInt( CatalogOffers.Fields.subscriber_limit.name() );
 
 	}
 
@@ -511,6 +531,18 @@ public class CatalogOffers {
 
 	}
 
+	public Short getSubscriberLimit() {
+
+		return this.subscriber_limit;
+
+	}
+
+	public void setSubscriberLimit( Short subscriber_limit ) {
+
+		this.subscriber_limit = subscriber_limit;
+
+	}
+
 	public Fields[] getEntityFields() {
 
 		return CatalogOffers.Fields.values();
@@ -536,7 +568,8 @@ public class CatalogOffers {
 			.append( "\"offer_rank\": \"" ).append( this.getOfferRank() ).append( "\", " )
 			.append( "\"update_time\": \"" ).append( this.getUpdateTime() ).append( "\", " )
 			.append( "\"url_image\": \"" ).append( this.getUrlImage() ).append( "\", " )
-			.append( "\"agreement\": \"" ).append( this.getAgreement() ).append( "\"" )
+			.append( "\"agreement\": \"" ).append( this.getAgreement() ).append( "\", " )
+			.append( "\"subscriber_limit\": \"" ).append( this.getSubscriberLimit() ).append( "\"" )
 			.append( " }" );
 
 		return str.toString();

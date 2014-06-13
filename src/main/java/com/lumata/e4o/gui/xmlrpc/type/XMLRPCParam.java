@@ -4,6 +4,12 @@ import com.lumata.common.testing.system.Security;
 
 public class XMLRPCParam {
 
+	public enum EventType {
+		
+		ussd, revenue
+		
+	}
+	
 	StringBuilder value;
 	
 	XMLRPCParam( StringBuilder param ) { 
@@ -26,7 +32,7 @@ public class XMLRPCParam {
 		
 	}
 	
-	public static XMLRPCParam string( String value ) {
+	public static XMLRPCParam string( Object value ) {
 		
 		StringBuilder valuePOSTBody = new StringBuilder();
 		
@@ -82,5 +88,26 @@ public class XMLRPCParam {
 		
 	}
 	
+	public static XMLRPCParam custoEvent( Long msisdn, EventType eventType, XMLRPCParameter... parameters ) {
+		
+		StringBuilder custoEventPOSTBody = new StringBuilder();
+		
+		StringBuilder paramsBody = new StringBuilder();
+		
+		for( int p = 0; p < parameters.length; p++ ) {
+			
+			paramsBody.append( parameters[ p ].getParameter() );
+			
+		}
+		
+		custoEventPOSTBody.append("<param><value><custoEvent>")
+								.append("<msisdn>").append( msisdn ).append("</msisdn>")
+								.append("<name>").append( eventType.name() ).append("</name>")
+								.append("<parameters>").append( paramsBody ).append("</parameters>")
+								.append("</custoEvent></value></param>");
+		
+		return new XMLRPCParam( custoEventPOSTBody );
+		
+	}	
 	
 }

@@ -12,7 +12,7 @@ import com.lumata.common.testing.annotations.mysql.Column;
 @Table( "campaigns_weekly_subs_status" )
 public class CampaignsWeeklySubsStatus { 
 
-	public enum Fields { campaign_id, week_id, profile_id, status_id, network_id, arpu_id, qty_control, qty_control_benef, qty_provisioned, qty_notified, qty_beneficiary, qty_not_targeted, control_amount_usage, provisioned_amount_usage, notified_amount_usage, beneficiary_amount_usage, not_targeted_amount_usage, control_qty_msisdn_with_amount_usage, provisioned_qty_msisdn_with_amount_usage, notified_qty_msisdn_with_amount_usage, beneficiary_qty_msisdn_with_amount_usage, not_targeted_qty_msisdn_with_amount_usage, control_amount_recharge, provisioned_amount_recharge, notified_amount_recharge, beneficiary_amount_recharge, not_targeted_amount_recharge, control_qty_msisdn_with_amount_recharge, provisioned_qty_msisdn_with_amount_recharge, notified_qty_msisdn_with_amount_recharge, beneficiary_qty_msisdn_with_amount_recharge, not_targeted_qty_msisdn_with_amount_recharge, control_amount_invoice, provisioned_amount_invoice, notified_amount_invoice, beneficiary_amount_invoice, not_targeted_amount_invoice, control_qty_msisdn_with_amount_invoice, provisioned_qty_msisdn_with_amount_invoice, notified_qty_msisdn_with_amount_invoice, beneficiary_qty_msisdn_with_amount_invoice, not_targeted_qty_msisdn_with_amount_invoice, control_amount_payment, provisioned_amount_payment, notified_amount_payment, beneficiary_amount_payment, not_targeted_amount_payment, control_qty_msisdn_with_amount_payment, provisioned_qty_msisdn_with_amount_payment, notified_qty_msisdn_with_amount_payment, beneficiary_qty_msisdn_with_amount_payment, not_targeted_qty_msisdn_with_amount_payment, control_amount_call, provisioned_amount_call, notified_amount_call, beneficiary_amount_call, not_targeted_amount_call, control_qty_msisdn_with_amount_call, provisioned_qty_msisdn_with_amount_call, notified_qty_msisdn_with_amount_call, beneficiary_qty_msisdn_with_amount_call, not_targeted_qty_msisdn_with_amount_call, control_amount_message, provisioned_amount_message, notified_amount_message, beneficiary_amount_message, not_targeted_amount_message, control_qty_msisdn_with_amount_message, provisioned_qty_msisdn_with_amount_message, notified_qty_msisdn_with_amount_message, beneficiary_qty_msisdn_with_amount_message, not_targeted_qty_msisdn_with_amount_message, control_amount_data, provisioned_amount_data, notified_amount_data, beneficiary_amount_data, not_targeted_amount_data, control_qty_msisdn_with_amount_data, provisioned_qty_msisdn_with_amount_data, notified_qty_msisdn_with_amount_data, beneficiary_qty_msisdn_with_amount_data, not_targeted_qty_msisdn_with_amount_data, control_proba, provisioned_proba, notified_proba, beneficiary_proba, not_targeted_proba }
+	public enum Fields { campaign_id, week_id, profile_id, status_id, network_id, arpu_id, seniority_id, qty_control, qty_control_benef, qty_provisioned, qty_notified, qty_beneficiary, qty_not_targeted, control_amount_usage, provisioned_amount_usage, notified_amount_usage, beneficiary_amount_usage, not_targeted_amount_usage, control_qty_msisdn_with_amount_usage, provisioned_qty_msisdn_with_amount_usage, notified_qty_msisdn_with_amount_usage, beneficiary_qty_msisdn_with_amount_usage, not_targeted_qty_msisdn_with_amount_usage, control_amount_recharge, provisioned_amount_recharge, notified_amount_recharge, beneficiary_amount_recharge, not_targeted_amount_recharge, control_qty_msisdn_with_amount_recharge, provisioned_qty_msisdn_with_amount_recharge, notified_qty_msisdn_with_amount_recharge, beneficiary_qty_msisdn_with_amount_recharge, not_targeted_qty_msisdn_with_amount_recharge, control_amount_invoice, provisioned_amount_invoice, notified_amount_invoice, beneficiary_amount_invoice, not_targeted_amount_invoice, control_qty_msisdn_with_amount_invoice, provisioned_qty_msisdn_with_amount_invoice, notified_qty_msisdn_with_amount_invoice, beneficiary_qty_msisdn_with_amount_invoice, not_targeted_qty_msisdn_with_amount_invoice, control_amount_payment, provisioned_amount_payment, notified_amount_payment, beneficiary_amount_payment, not_targeted_amount_payment, control_qty_msisdn_with_amount_payment, provisioned_qty_msisdn_with_amount_payment, notified_qty_msisdn_with_amount_payment, beneficiary_qty_msisdn_with_amount_payment, not_targeted_qty_msisdn_with_amount_payment, control_amount_call, provisioned_amount_call, notified_amount_call, beneficiary_amount_call, not_targeted_amount_call, control_qty_msisdn_with_amount_call, provisioned_qty_msisdn_with_amount_call, notified_qty_msisdn_with_amount_call, beneficiary_qty_msisdn_with_amount_call, not_targeted_qty_msisdn_with_amount_call, control_amount_message, provisioned_amount_message, notified_amount_message, beneficiary_amount_message, not_targeted_amount_message, control_qty_msisdn_with_amount_message, provisioned_qty_msisdn_with_amount_message, notified_qty_msisdn_with_amount_message, beneficiary_qty_msisdn_with_amount_message, not_targeted_qty_msisdn_with_amount_message, control_amount_data, provisioned_amount_data, notified_amount_data, beneficiary_amount_data, not_targeted_amount_data, control_qty_msisdn_with_amount_data, provisioned_qty_msisdn_with_amount_data, notified_qty_msisdn_with_amount_data, beneficiary_qty_msisdn_with_amount_data, not_targeted_qty_msisdn_with_amount_data, control_proba, provisioned_proba, notified_proba, beneficiary_proba, not_targeted_proba }
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
@@ -121,6 +121,24 @@ public class CampaignsWeeklySubsStatus {
 			setMethod = "setArpuId"
 	)
 	private Byte arpu_id;
+
+	@Column(
+			table = "campaigns_weekly_subs_status",
+			field = "seniority_id",
+			type = "tinyint(4) unsigned",
+			mysqlType = "tinyint",
+			javaType = "Byte",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "0",
+			extra = "",
+			length = 4,
+			getMethod = "getSeniorityId",
+			setMethod = "setSeniorityId"
+	)
+	private Byte seniority_id;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
@@ -1591,6 +1609,7 @@ public class CampaignsWeeklySubsStatus {
 		this.status_id = rs.getByte( CampaignsWeeklySubsStatus.Fields.status_id.name() );
 		this.network_id = rs.getByte( CampaignsWeeklySubsStatus.Fields.network_id.name() );
 		this.arpu_id = rs.getByte( CampaignsWeeklySubsStatus.Fields.arpu_id.name() );
+		this.seniority_id = rs.getByte( CampaignsWeeklySubsStatus.Fields.seniority_id.name() );
 		this.qty_control = rs.getFloat( CampaignsWeeklySubsStatus.Fields.qty_control.name() );
 		this.qty_control_benef = rs.getFloat( CampaignsWeeklySubsStatus.Fields.qty_control_benef.name() );
 		this.qty_provisioned = rs.getFloat( CampaignsWeeklySubsStatus.Fields.qty_provisioned.name() );
@@ -1683,6 +1702,7 @@ public class CampaignsWeeklySubsStatus {
 		this.status_id = (byte)jo.getInt( CampaignsWeeklySubsStatus.Fields.status_id.name() );
 		this.network_id = (byte)jo.getInt( CampaignsWeeklySubsStatus.Fields.network_id.name() );
 		this.arpu_id = (byte)jo.getInt( CampaignsWeeklySubsStatus.Fields.arpu_id.name() );
+		this.seniority_id = (byte)jo.getInt( CampaignsWeeklySubsStatus.Fields.seniority_id.name() );
 		this.qty_control = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.qty_control.name() );
 		this.qty_control_benef = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.qty_control_benef.name() );
 		this.qty_provisioned = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.qty_provisioned.name() );
@@ -1836,6 +1856,18 @@ public class CampaignsWeeklySubsStatus {
 	public void setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+	}
+
+	public Byte getSeniorityId() {
+
+		return this.seniority_id;
+
+	}
+
+	public void setSeniorityId( Byte seniority_id ) {
+
+		this.seniority_id = seniority_id;
 
 	}
 
@@ -2828,6 +2860,7 @@ public class CampaignsWeeklySubsStatus {
 			.append( "\"status_id\": \"" ).append( this.getStatusId() ).append( "\", " )
 			.append( "\"network_id\": \"" ).append( this.getNetworkId() ).append( "\", " )
 			.append( "\"arpu_id\": \"" ).append( this.getArpuId() ).append( "\", " )
+			.append( "\"seniority_id\": \"" ).append( this.getSeniorityId() ).append( "\", " )
 			.append( "\"qty_control\": \"" ).append( this.getQtyControl() ).append( "\", " )
 			.append( "\"qty_control_benef\": \"" ).append( this.getQtyControlBenef() ).append( "\", " )
 			.append( "\"qty_provisioned\": \"" ).append( this.getQtyProvisioned() ).append( "\", " )

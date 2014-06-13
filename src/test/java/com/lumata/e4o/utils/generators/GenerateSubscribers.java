@@ -13,29 +13,29 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.database.Mysql;
-import com.lumata.common.testing.exceptions.EnvironmentException;
+import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.system.NetworkEnvironment;
 
 public class GenerateSubscribers {
 
 	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribers.class );
 	
-	Environment env;
+	NetworkEnvironment env;
 	Mysql mysql;
 	
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment", "tenant" })
 	@BeforeSuite
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment, @Optional("qa") String tenant ) throws EnvironmentException {		
+	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment, @Optional("qa") String tenant ) throws NetworkEnvironmentException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
-		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
 		mysql = new Mysql( env.getDataSource( tenant ) );
-		System.out.println( "TENANT: " + env.getDataSource( tenant ).toString() );				
+		
 	}
 	
 	@Test( priority = 1, enabled = true )
@@ -45,7 +45,7 @@ public class GenerateSubscribers {
 		final boolean INSERT_MAIL_CHANNEL = true;
 		
 		// Number of subscribers to generate
-		final int SUBSCRIBERS_TO_GENERATE = 10;
+		final int SUBSCRIBERS_TO_GENERATE = 1000;
 		
 		// Max MSISDN length
 		int MSISDN_MAX_LENGTH = 10;
@@ -56,6 +56,7 @@ public class GenerateSubscribers {
 		logger.info( Log.PUTTING.createMessage( "generateSubscribers" , "Insert Subscribers" ) );
 			
 		final int SUBSCRIBERS_PREFIX_DIGITS = (int)( Math.log10( Integer.valueOf( SUBSCRIBER_PREFIX ) ) + 1 );
+		
 		final int SUBSCRIBERS_TO_GENERATE_DIGITS = (int)( Math.log10( SUBSCRIBERS_TO_GENERATE ) + 1 );
 		
 		final int MSISDN_LENGTH = SUBSCRIBERS_PREFIX_DIGITS + SUBSCRIBERS_TO_GENERATE_DIGITS;
@@ -67,7 +68,8 @@ public class GenerateSubscribers {
 		for( int i = 1; i <= SUBSCRIBERS_TO_GENERATE; i++ ) {
 		
 			SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-	        String subscription_date = DATE_FORMAT.format( new Date() );
+	        
+			String subscription_date = DATE_FORMAT.format( new Date() );
 			
 	        String format = "%0" + ( MSISDN_MAX_LENGTH - SUBSCRIBERS_PREFIX_DIGITS ) + "d";
 			
@@ -75,7 +77,9 @@ public class GenerateSubscribers {
 			
 	        // Insert subscriber
 			query = GenerateSubscribers.getInsertSubscriberQuery( msisdn, subscription_date);
+			
 			mysql.execUpdate( query.toString() );
+			
 			//System.out.println( query );
 			
 			// Insert SubNotif SMS channel
@@ -91,6 +95,7 @@ public class GenerateSubscribers {
 			if( INSERT_MAIL_CHANNEL ) {
 				
 				StringBuilder mail = new StringBuilder();
+				
 				mail.append( RandomStringUtils.randomAlphanumeric(10).toLowerCase() ).append( "@lumatagroup.com" );
 				
 				query = GenerateSubscribers.getInsertSubsNotifQuery( msisdn, mail.toString(), 2 );
@@ -104,7 +109,7 @@ public class GenerateSubscribers {
 	}
 	
 	@AfterSuite
-	public void end() throws EnvironmentException {		
+	public void end() {		
 		
 		mysql.close();
 						

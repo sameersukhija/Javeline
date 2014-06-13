@@ -84,6 +84,8 @@ public class CampaignModelForm extends CampaignManagerForm {
 		
 		clickXPath( saveCampaignModelButtonXPath );
 		
+		// //div[@class='gwt-DialogBox errorDialog']//div[@class='Caption' and contains(text(), 'An error occured')]//ancestor::tbody//button[@name='btn-ok']
+		
 		return this;
 		
 	}
@@ -315,9 +317,9 @@ public class CampaignModelForm extends CampaignManagerForm {
 		
 		/** configure action */
 		clickXPath( actionXPathRowAType ).
-		selectDropDownListItem( action.getName() ).
-		typeByXPath( actionXPathRowAValue, action.getValue() ).
-		selectByXPathAndVisibleText( actionXPathRowAUnit, action.getOption() );
+		selectDropDownListItem( action.getName() );
+		if( null != action.getValue() ) { typeByXPath( actionXPathRowAValue, action.getValue() ); }
+		if( null != action.getOption() ) { selectByXPathAndVisibleText( actionXPathRowAUnit, action.getOption() ); }
 		
 		return this;
 		
@@ -434,6 +436,13 @@ public class CampaignModelForm extends CampaignManagerForm {
 		
 		notificationDialog.configureNotifications();
 
+		return this;
+		
+	}
+	
+	public CampaignModelForm closeErrorDialog() {
+		
+		
 		return this;
 		
 	}

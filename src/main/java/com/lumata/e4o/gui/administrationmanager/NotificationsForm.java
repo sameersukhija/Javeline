@@ -120,6 +120,15 @@ public class NotificationsForm extends AdministrationForm {
 	
 	public NotificationsForm saveNotification() throws FormException, JSONSException {
 		
+		/**
+		 * 
+		 * 
+		 * Start error handling refactoring
+		 * 
+		 * 
+		 * 
+		 */
+		
 		if ( containsErrorElement() )
 			logger.error("Without click \"save\" panel is in error!");
 		
@@ -181,8 +190,8 @@ public class NotificationsForm extends AdministrationForm {
 				else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) ) {
 					
 					Long timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-					current.setObjectFromPath("templateName", current.getStringFromPath("templateName") + timestamp);
-					current.setObjectFromPath("textMessage", current.getStringFromPath("textMessage") + timestamp);
+					current.modifyStringFromPath("templateName", current.getStringFromPath("templateName") + timestamp);
+					current.modifyStringFromPath("textMessage", current.getStringFromPath("textMessage") + timestamp);
 					
 					// clean text
 					// one click su input
@@ -204,6 +213,15 @@ public class NotificationsForm extends AdministrationForm {
 				completed = Boolean.TRUE;			
 		}
 		while ( !completed );
+		
+		/**
+		 * 
+		 * 
+		 * End error handling refactoring
+		 * 
+		 * 
+		 * 
+		 */
 		
 		return this;
 	}

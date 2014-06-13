@@ -45,8 +45,8 @@ public class FilesDataBackup {
 			isNull = false,
 			isAutoincrement = false,
 			key = "PRI",
-			defaultValue = "CURRENT_TIMESTAMP",
-			extra = "on update CURRENT_TIMESTAMP",
+			defaultValue = "null",
+			extra = "",
 			length = 0,
 			getMethod = "getBackuptime",
 			setMethod = "setBackuptime"
