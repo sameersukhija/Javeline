@@ -205,6 +205,14 @@ public class JsonConfigTest {
 		Assert.assertTrue( false, "No \"List\" will be returned here!");
 	}	
 	
+	@Test( expectedExceptions = {JSONSException.class} )
+	public void testModifyUnexistingString() throws JSONSException {
+		
+		underTest.modifyStringFromPath("thisKeyNotExist", "wow");
+		
+		Assert.assertTrue( false, "Not possible to reach this line!");
+	}
+	
 	@Test 
 	public void testNavigationOfFile() throws JSONSException {
 		

@@ -330,23 +330,31 @@ public abstract class JsonConfig {
 	}
 	
 	/**
+	 * This method provides the facility to <b>modify</b> a value associated to an existing key into current object
 	 * 
-	 * @param jsonNavigationPath
-	 * @param object2Insert
-	 * @throws JSONException 
+	 * If requested path to modify does NOT exist the method throws an <b>JSONSException</b>
+	 * 
+	 * @param jsonNavigationPath is the path where write value
+	 * @param object2Insert is the data object to write
+	 * 
+	 * @throws JSONSException
 	 */
-	protected void setObjectFromPath( String jsonNavigationPath, Object object2Insert ) {
+	protected void modifyStringFromPath( String jsonNavigationPath, Object object2Insert ) throws JSONSException {
 		
 		try {
 			
 			if( this.root.has( jsonNavigationPath ) ) 
-				this.root.put( jsonNavigationPath , object2Insert ); 
+				this.root.put( jsonNavigationPath , object2Insert );
+			else
+				throw new JSONSException("Cannot modify the \"key\" \"" + jsonNavigationPath + "\", it does NOT exists!");
 		
 		} catch( JSONException e ) {
 			
-			// TO BE DEFINED!!!!
+			logger.error("The \"value\" associated to \"key\" \""
+					+ jsonNavigationPath + "\" provides error during modify!");
+			
+			e.printStackTrace();
 		}
-	
 	}
 	
 	/** TODO 

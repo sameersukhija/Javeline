@@ -65,7 +65,17 @@ public class JsonConfigurationFileTest {
 		Assert.assertEquals(currentElementConfig.getStringFromPath("account"), "freeSMS");
 		Assert.assertEquals(currentElementConfig.getStringFromPath("accountType"), "IN_SMS");
 		Assert.assertEquals(currentElementConfig.getStringFromPath("unit"), "Without unit");
-		Assert.assertEquals(currentElementConfig.getStringFromPath("listPrice"), "");					
+		Assert.assertEquals(currentElementConfig.getStringFromPath("listPrice"), "");	
+		
+		// test "getCurrentElementById" method
+		currentElementConfig = mainObject.getCurrentElementById(1);
+
+		Assert.assertEquals(currentElementConfig.getStringFromPath("type"), "External");
+		Assert.assertEquals(currentElementConfig.getStringFromPath("name"), "Bonus1");
+		Assert.assertEquals(currentElementConfig.getStringFromPath("account"), "freeSMS");
+		Assert.assertEquals(currentElementConfig.getStringFromPath("accountType"), "IN_SMS");
+		Assert.assertEquals(currentElementConfig.getStringFromPath("unit"), "Without unit");
+		Assert.assertEquals(currentElementConfig.getStringFromPath("listPrice"), "");
 	}
 	
 	@Test
@@ -88,7 +98,7 @@ public class JsonConfigurationFileTest {
 		Assert.assertEquals(currentElementConfig.getStringFromPath("listPrice"), "");			
 		
 		// modify index 0
-		currentElementConfig.setObjectFromPath("name", "Points" + "TIMESTAMP");
+		currentElementConfig.modifyStringFromPath("name", "Points" + "TIMESTAMP");
 		
 		utObject.setCurrentElementById(1);
 

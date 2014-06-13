@@ -19,7 +19,7 @@ public abstract class JsonConfigurationFile extends JsonConfig implements HasJso
 	 * This object describes "Current Element" on configuration element.
 	 * It is a final class to wrap functionality to be exported to current element
 	 */
-	public final class JsonCurrentElement extends JsonConfigurationElement {
+	public final class JsonCurrentElement extends ErrorModificableElement {
 
 		public JsonCurrentElement(Map<String, Object> newObject) {
 			super(newObject);
@@ -29,10 +29,6 @@ public abstract class JsonConfigurationFile extends JsonConfig implements HasJso
 			return super.getBooleanFromPath(jsonNavigationPath);
 		}
 		
-		public String getStringFromPath(String jsonNavigationPath) {
-			return super.getStringFromPath(jsonNavigationPath);
-		}
-		
 		public List<Object> getJsonListFromPath( String jsonNavigationPath ) throws JSONSException {
 			return super.getJsonListFromPath(jsonNavigationPath);
 		}
@@ -40,10 +36,6 @@ public abstract class JsonConfigurationFile extends JsonConfig implements HasJso
 		public Map<String, Object> getJsonMapFromPath( String jsonNavigationPath ) throws JSONSException {
 			return super.getJsonMapFromPath(jsonNavigationPath);
 		}		
-		
-		public void setObjectFromPath(String jsonNavigationPath, Object object2Insert) {
-			super.setObjectFromPath(jsonNavigationPath, object2Insert);
-		}
 	}
 	
 	/**
