@@ -437,11 +437,6 @@ public enum ResponseCodes {
 		public String getMessage() { return "Malformed JSON"; }
 	};
 	
-	/*SC_METHOD_NOT_ALLOWED ( 10003 ) {
-		public int getCode() { return 10003; }
-		public String getMessage() { return "TEST"; }
-	};*/
-	
 	public abstract int getCode();
 	public abstract String getMessage();
 	public abstract String getType();
