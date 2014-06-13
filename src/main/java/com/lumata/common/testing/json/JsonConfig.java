@@ -94,6 +94,17 @@ public abstract class JsonConfig {
 	}
 	
 	/**
+	 *	This method return the json size :<br>
+	 *	
+	 * @return Integer json size
+	 */
+	protected Integer length() {
+		
+		return this.root.length();
+	
+	}
+	
+	/**
 	 *	This method performs two actions :<br>
 	 *	<li> it navigates with passed string the configuration file
 	 *	<li> it tries to convert found object to <b>Integer</b>
