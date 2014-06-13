@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.json.ErrorModificableElement;
 import com.lumata.common.testing.json.JsonConfigurationElement;
 import com.lumata.common.testing.json.JsonConfigurationFile;
 
@@ -107,7 +108,7 @@ public class JSONProductTypes extends JsonConfigurationFile {
 	/**
 	 * This object describes the single characteristic into product type
 	 */
-	public final class JsonCharacteristicElement extends JsonConfigurationElement {
+	public final class JsonCharacteristicElement extends ErrorModificableElement {
 
 		public JsonCharacteristicElement(Map<String, Object> newObject) {
 			super(newObject);
@@ -199,10 +200,6 @@ public class JSONProductTypes extends JsonConfigurationFile {
 			
 			// the characteristic shares "errorActions" from of "ProductTypes" belong from
 			return JSONProductTypes.this.getCurrentElement().getErrorActions();
-		}
-		
-		public void setObjectFromPath( String jsonNavigationPath, Object object2Insert ) {
-			super.setObjectFromPath(jsonNavigationPath, object2Insert);
 		}
 	}
 
