@@ -167,7 +167,7 @@ public class RestClient {
 		
 		setCallParameters();
 		
-		logger.info( Log.GETTING.createMessage( "Request:" + request.getBody().toString() ) );
+		logger.info( Log.GETTING.createMessage( "Request:" + ( null != request.getBody() ? request.getBody().toString() : "Empty body in the request" ) ) );
 		
 		switch( callType ) {
 		
