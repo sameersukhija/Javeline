@@ -15,7 +15,7 @@ public class Query {
 		statement.setMysqlStatementType( MysqlStatement.SELECT );
 		
 		statement.append( Statement.MysqlStatement.SELECT.getName() )
-			.append( "*" );
+					.append( "*" );
 		
 		return new Select(statement);
 		

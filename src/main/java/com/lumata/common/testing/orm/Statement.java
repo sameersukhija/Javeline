@@ -3,6 +3,8 @@ package com.lumata.common.testing.orm;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +20,8 @@ public class Statement {
 	
 	private StringBuilder content;
 	private MysqlStatement mysqlStatementType;
+	
+	private SimpleDateFormat SQL_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public Map<String, Object> entities;
 	public Enum<?>[] fields;
@@ -162,11 +166,13 @@ public class Statement {
 				Object entity = this.entities.get( field.table() );
 				
 				Method method = entity.getClass().getDeclaredMethod( field.col().getMethod() );
-			
+				
 				Object value = method.invoke( entity );
 				
 				if( value == null ) { query = query.replaceAll( "\"?" + place_holder.getValue() + "\"?", "NULL" ); }
-				else { query = query.replace( place_holder.getValue(), String.valueOf( value ) ); }				
+				else { 					
+					query = query.replace( place_holder.getValue(), ( Date.class.equals( method.getGenericReturnType() ) ? SQL_DATE_FORMAT.format( (Date)value ) : String.valueOf( value ) ) );
+				}				
 				//System.out.println( "QUERY: " + query );				
 			} catch( NoSuchMethodException e ) {
 				logger.error( e.getMessage(), e );
@@ -213,7 +219,7 @@ public class Statement {
 							field_value.append( Statement.field( null, MysqlSelectFuncType.valueOf( fields[ i ].name() ).getObjectArray() ) );
 							break;
 						}
-						
+						default: { break; }
 					}
 										
 				} else { 
