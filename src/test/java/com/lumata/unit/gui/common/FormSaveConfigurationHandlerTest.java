@@ -31,6 +31,7 @@ import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
 import com.lumata.common.testing.json.JsonConfigurationFile;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
+import com.lumata.e4o.gui.common.FormSaveConfigurationHandler.SaveResult;
 
 public class FormSaveConfigurationHandlerTest {
 
@@ -47,8 +48,7 @@ public class FormSaveConfigurationHandlerTest {
 	/**
 	 * 	This is the object under test that will be encapsulated into tested "Form"
 	 */
-	private SampleHandler underTestWithoutPopup = null;
-	private SampleHandler underTestWithPopup = null;
+	private SampleHandler underTestObject = null;
 
 	/**
 	 * This an abstract class carried by "Form" to handle "Save" related event.
@@ -317,13 +317,13 @@ public class FormSaveConfigurationHandlerTest {
 	@Test( priority = 1 )
 	public void correctTextInsertionWithoutPopup() throws FormException {
 		
-		underTestWithoutPopup = new WithoutPopupHandler(driver, defaultCurrentElement);
+		underTestObject = new WithoutPopupHandler(driver, defaultCurrentElement);
 		
 		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Correct String");
 		
-		underTestWithoutPopup.saveAction();
+		Assert.assertEquals( 	underTestObject.saveAction(), SaveResult.SavedCorrectly);
 		
-		Assert.assertEquals( 	underTestWithoutPopup.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
+		Assert.assertEquals( 	underTestObject.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
 		Assert.assertEquals(   	addAbortCancelInvoked, Boolean.FALSE, "No error are showed!");
 		Assert.assertEquals(   	addTimestampInvoked, Boolean.FALSE, "No error are showed!");
 	}
@@ -336,13 +336,13 @@ public class FormSaveConfigurationHandlerTest {
 	@Test( priority = 2 )
 	public void correctTextInsertionWithPopup() throws FormException {
 		
-		underTestWithPopup = new WithPopupHandler(driver, defaultCurrentElement);
+		underTestObject = new WithPopupHandler(driver, defaultCurrentElement);
 		
 		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Correct String");
 		
-		underTestWithPopup.saveAction();
+		Assert.assertEquals( 	underTestObject.saveAction(), SaveResult.SavedCorrectly);
 
-		Assert.assertEquals(	underTestWithPopup.catchConfirmation(), Boolean.TRUE, "The popup is showed!");
+		Assert.assertEquals(	underTestObject.catchConfirmation(), Boolean.TRUE, "The popup is showed!");
 		Assert.assertEquals(   	addAbortCancelInvoked, Boolean.FALSE, "No error are showed!");
 		Assert.assertEquals(   	addTimestampInvoked, Boolean.FALSE, "No error are showed!");
 	}	
@@ -350,13 +350,13 @@ public class FormSaveConfigurationHandlerTest {
 	@Test( priority = 3 )
 	public void wrongTextInsertionWithoutPopupAddTimestamp() throws FormException {
 
-		underTestWithoutPopup = new WithoutPopupHandler(driver, defaultCurrentElement);
+		underTestObject = new WithoutPopupHandler(driver, defaultCurrentElement);
 		
 		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Error String");
 		
-		underTestWithoutPopup.saveAction();
+		Assert.assertEquals( 	underTestObject.saveAction(), SaveResult.SavedWithTimestamp);
 
-		Assert.assertEquals(	underTestWithoutPopup.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
+		Assert.assertEquals(	underTestObject.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
 		Assert.assertEquals(   	addAbortCancelInvoked, Boolean.FALSE, "The \"Abort\" action is NOT invoked!");
 		Assert.assertEquals(   	addTimestampInvoked, Boolean.TRUE, "The \"Timestamp\" action is invoked!");
 	}
@@ -365,14 +365,14 @@ public class FormSaveConfigurationHandlerTest {
 	@Test( priority = 4 )
 	public void wrongTextInsertionWithPopupAddTimestamp() throws FormException {
 		
-		underTestWithPopup = new WithPopupHandler(driver, defaultCurrentElement);		
+		underTestObject = new WithPopupHandler(driver, defaultCurrentElement);		
 		
 		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Error String");
 		
-		underTestWithPopup.saveAction();
+		Assert.assertEquals( 	underTestObject.saveAction(), SaveResult.SavedWithTimestamp);
 
 		// "Confirmation" popup is NOT showed on wrong data
-		Assert.assertEquals(	underTestWithPopup.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
+		Assert.assertEquals(	underTestObject.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
 		Assert.assertEquals(   	addAbortCancelInvoked, Boolean.FALSE, "The \"Abort\" action is NOT invoked!");
 		Assert.assertEquals(   	addTimestampInvoked, Boolean.TRUE, "The \"Timestamp\" action is invoked!");
 	}
@@ -391,14 +391,14 @@ public class FormSaveConfigurationHandlerTest {
 		
 		abortElementMap.put(HasErrorActions.ERROR_ACTIONS_LABEL_, errorActionsMap);
 		
-		underTestWithoutPopup = new WithoutPopupHandler(	driver,
+		underTestObject = new WithoutPopupHandler(	driver,
 															jsonConfigurationFile.new JsonCurrentElement(abortElementMap));
 		
 		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Error String");
 		
-		underTestWithoutPopup.saveAction();
+		Assert.assertEquals( 	underTestObject.saveAction(), SaveResult.AbortCancel);
 
-		Assert.assertEquals(	underTestWithoutPopup.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
+		Assert.assertEquals(	underTestObject.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
 		Assert.assertEquals(   	addAbortCancelInvoked, Boolean.TRUE, "The \"Abort\" action is invoked!");
 		Assert.assertEquals(   	addTimestampInvoked, Boolean.FALSE, "The \"Timestamp\" action is NOT invoked!");
 	}
@@ -417,15 +417,15 @@ public class FormSaveConfigurationHandlerTest {
 		
 		abortElementMap.put(HasErrorActions.ERROR_ACTIONS_LABEL_, errorActionsMap);
 		
-		underTestWithPopup = new WithPopupHandler(	driver,
+		underTestObject = new WithPopupHandler(	driver,
 													jsonConfigurationFile.new JsonCurrentElement(abortElementMap));
 		
 		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Error String");
 		
-		underTestWithPopup.saveAction();
+		Assert.assertEquals( 	underTestObject.saveAction(), SaveResult.AbortCancel);
 
 		// "Confirmation" popup is NOT showed on wrong data
-		Assert.assertEquals(	underTestWithPopup.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
+		Assert.assertEquals(	underTestObject.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
 		Assert.assertEquals(   	addAbortCancelInvoked, Boolean.TRUE, "The \"Abort\" action is invoked!");
 		Assert.assertEquals(   	addTimestampInvoked, Boolean.FALSE, "The \"Timestamp\" action is NOT invoked!");
 	}
@@ -444,12 +444,12 @@ public class FormSaveConfigurationHandlerTest {
 		
 		returnErroElementMap.put(HasErrorActions.ERROR_ACTIONS_LABEL_, errorActionsMap);
 		
-		underTestWithoutPopup = new WithoutPopupHandler(	driver,
+		underTestObject = new WithoutPopupHandler(	driver,
 															jsonConfigurationFile.new JsonCurrentElement(returnErroElementMap));
 		
 		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Error String");
 		
-		underTestWithoutPopup.saveAction();
+		underTestObject.saveAction();
 	}
 	
 	@Test( priority = 8 , expectedExceptions = { FormException.class })
@@ -466,11 +466,11 @@ public class FormSaveConfigurationHandlerTest {
 		
 		returnErroElementMap.put(HasErrorActions.ERROR_ACTIONS_LABEL_, errorActionsMap);
 		
-		underTestWithPopup = new WithPopupHandler(	driver,
+		underTestObject = new WithPopupHandler(	driver,
 													jsonConfigurationFile.new JsonCurrentElement(returnErroElementMap));
 		
 		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Error String");
 		
-		underTestWithPopup.saveAction();
+		underTestObject.saveAction();
 	}		
 }

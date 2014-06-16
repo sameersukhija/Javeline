@@ -1,17 +1,25 @@
 package com.lumata.e4o.gui.loyaltymanager;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.NotFoundException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.json.ErrorModificableElement;
+import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
+import com.lumata.e4o.gui.common.FormSaveConfigurationHandler.SaveResult;
 import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation;
 import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation.LoyaltyTypes;
 
@@ -56,7 +64,7 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 	 * @throws FormException
 	 * @throws JSONSException
 	 */
-	public LoyaltyCreationForm addProductTypes() throws FormException, JSONSException {
+	public LoyaltyCreationForm addLoyaltyPrograms() throws FormException, JSONSException {
 	
 		int numbProdType = loyaltiesCreationCfg.getList().size();
 		
@@ -144,12 +152,18 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 					nameAndDesc.get(1).sendKeys(desc);
 				
 				// press OK
-				clickXPath("//div[contains(text(),'Add new program')]//ancestor::table//button[@title='Save']");
+				//clickXPath("//div[contains(text(),'Add new program')]//ancestor::table//button[@title='Save']");
 				
 				// handle error on program name
+				LoyaltyNameSaveHandler handler = new LoyaltyNameSaveHandler( 	selenium.getWrappedDriver(), loyaltiesCreationCfg.getCurrentElement());
 				
-				configureLoyaltyProgram( type, element2fill).
-				saveLoyaltyProgram();
+				SaveResult saveResult = handler.saveAction();
+				
+				// if save name pass continue to configuration
+				if ( 	saveResult.equals(SaveResult.SavedCorrectly) || 
+						saveResult.equals(SaveResult.SavedWithTimestamp) )
+					configureLoyaltyProgram( type, element2fill).
+					saveLoyaltyProgram();
 			}
 		}
 		
@@ -203,6 +217,128 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 		return this;
 	}		
 
+	private class LoyaltyNameSaveHandler extends FormSaveConfigurationHandler {
+
+		protected LoyaltyNameSaveHandler(	WebDriver inDriver,
+											ErrorModificableElement inCurrentElement) {
+			
+			super(inDriver, inCurrentElement);
+		}
+
+		@Override
+		protected Boolean containsErrorElement() {
+
+			Integer numbers = null;
+			Boolean resp = Boolean.TRUE;
+	
+			// error condition
+			//*[contains(@class,'errorBackground')]
+			
+			List<WebElement> elements = getWebDriver().findElements(By.xpath("//*[contains(@class,'errorBackground')]"));
+	
+			if ( elements == null )
+				numbers = 0;
+			else
+				numbers = elements.size();
+			
+			if ( numbers != 0 )
+				resp = true;
+			else
+				resp = false;
+			
+			return resp;
+		}
+
+		/**
+		 * 
+		 */
+		private WebElement saveElement = null;
+		
+		@Override
+		protected WebElement getSaveWebElement() {
+
+			if ( saveElement == null )
+				saveElement = getWebDriver().findElement(By.xpath("//button[@title='Save']")); 
+			
+			return saveElement;
+		}
+
+		@Override
+		protected ElementErrorConditionType defineErrorCondition() {
+
+			ElementErrorConditionType condition = null;
+			
+			WebElement dialogBox = getWebDriver().findElement(By.xpath("//div[@class='gwt-DialogBox']"));
+			
+			// error condition
+			//div[text()='Bonus name already used']			
+			List<WebElement> element = dialogBox.findElements(By.xpath("//div[text()='The name is already used']"));
+								
+			if ( element.size() != 0 )
+				condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
+			else
+				condition = ElementErrorConditionType.GENERAL_ERROR;
+
+			return condition;
+		}
+
+		@Override
+		protected Boolean cancelAction() {
+
+			Boolean resp = Boolean.FALSE;
+
+			try {
+
+				getWebDriver().findElement(By.xpath("//div[contains(@class, 'dialogContent')]//button[@title='Cancel']")).click();
+					
+				resp = Boolean.TRUE;
+			}
+			catch ( NoSuchElementException e ) {
+			
+				e.printStackTrace();
+				
+				resp = Boolean.FALSE;
+			}
+			
+			return resp;
+		}
+
+		@Override
+		protected Boolean addTimestampAction() {
+			
+			Boolean resp = Boolean.FALSE;
+			
+			try {
+				
+				WebElement nameElem = getWebDriver().findElement(By.xpath("//*[contains(@class,'errorBackground')]"));
+				nameElem.click();
+				nameElem.clear();
+				
+				String name = getCurrentElement().getStringFromPath("name");
+				
+				SecureRandom random = new SecureRandom();
+				
+				name += new BigInteger( 16, random).toString(16);
+				getCurrentElement().modifyStringFromPath("name", name);
+				
+				nameElem.sendKeys(getCurrentElement().getStringFromPath("name"));
+				
+				saveAction();
+				
+				resp = Boolean.TRUE;
+				
+			} catch ( NoSuchElementException | FormException | JSONSException e ) {
+				
+				e.printStackTrace();
+				
+				resp = Boolean.FALSE;
+			}
+			
+			return resp;
+		}
+		
+	}
+	
 //	private LoyaltyCreateCfg createCfg;
 //	private LoyaltyManageCfg manageCfg;
 //	

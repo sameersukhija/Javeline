@@ -42,13 +42,13 @@ public class ConfigureLoyalty extends ParentUITestCase {
 		loyaltyCreationForm = new LoyaltyCreationForm(seleniumWebDriver,
 				setupLoyaltiesCreation, TIMEOUT, ATTEMPT_TIMEOUT);
 
-		Reporter.log("Open \"Product Types Form\" UI.", PRINT2STDOUT__);
+		Reporter.log("Open \"Loyalty Creation Form\" UI.", PRINT2STDOUT__);
 
 		loyaltyCreationForm.open();
 
 		Reporter.log("Apply setup on UI.", PRINT2STDOUT__);
 
-		loyaltyCreationForm.addProductTypes();
+		loyaltyCreationForm.addLoyaltyPrograms();
 
 		Reporter.log("Check general status of form", PRINT2STDOUT__);
 

@@ -58,6 +58,11 @@ public abstract class FormSaveConfigurationHandler {
 	private Exception resultingException = null;
 	
 	/**
+	 * The save result for latest execution
+	 */
+	private SaveResult saveEventResult = null;
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param inDriver
@@ -133,15 +138,21 @@ public abstract class FormSaveConfigurationHandler {
 						if ( action.equals(ElementErrorActionType.ABORT_CANCEL) ) {
 							if ( !cancelAction() )
 								resultingException = new FormException("During \"cancelAction\" action unexpected error!");
-							else
+							else {
+								saveEventResult = SaveResult.AbortCancel;
+								
 								logger.debug("\"cancelAction\" executed correctly.");
+							}
 						}
 						// add time stamp to configured field(s)
 						else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) ) {
 							if ( !addTimestampAction() )
 								resultingException = new FormException("During \"addTimestampAction\" action unexpected error!");
-							else
+							else {
+								saveEventResult = SaveResult.SavedWithTimestamp;
+								
 								logger.debug("\"addTimestampAction\" executed correctly.");
+							}
 						}
 						// stop execution and return error
 						else if ( action.equals(ElementErrorActionType.RETURN_ERROR) ) {
@@ -156,8 +167,20 @@ public abstract class FormSaveConfigurationHandler {
 						
 						resultingException = e;
 					}
-
-				}				
+					
+					// something go bad, track it!
+					if ( resultingException != null ) {
+						
+						saveEventResult = SaveResult.ExceptionThrowed;
+						
+						logger.warn("During afterClickOn with "+getClass().getSimpleName()+" an error occurs!");
+					}
+				}		
+				else { 
+					saveEventResult = SaveResult.SavedCorrectly;
+					
+					logger.debug("During afterClickOn with "+getClass().getSimpleName()+" saved correctly!");
+				}
 
 			}
 			else
@@ -174,6 +197,9 @@ public abstract class FormSaveConfigurationHandler {
 				
 				// reset exception buffer
 				resultingException = null;
+				
+				// reset latest execution status
+				saveEventResult = null;
 				
 				logger.info("The \"Save Click\" occurs : beforeClickOn with "+getClass().getSimpleName()+".");
 				
@@ -223,6 +249,32 @@ public abstract class FormSaveConfigurationHandler {
 	}		
 	
 	/**
+	 * This enum describes the "Save" event result.
+	 */
+	public enum SaveResult {
+		
+		/**
+		 * The "Save" event produces a correct result without invoking additional steps.
+		 */
+		SavedCorrectly,
+		
+		/**
+		 * The "Save" event product a modification adding time stamp before save data.
+		 */
+		SavedWithTimestamp,
+		
+		/**
+		 * The "Save" event does not save data and produce an "Abort" event.
+		 */
+		AbortCancel,
+		
+		/**
+		 * During the "Save" event an exceptional error is caught.
+		 */
+		ExceptionThrowed;
+	}
+	
+	/**
 	 * This method performs the "Save" event on event armed driver.<br>
 	 * 
 	 * The armed driver follows the error events handling according application status and
@@ -230,7 +282,7 @@ public abstract class FormSaveConfigurationHandler {
 	 * 
 	 * @throws FormException 
 	 */
-	public void saveAction() throws FormException {
+	public SaveResult saveAction() throws FormException {
 	
 		SaveTimeSlotHandler oneTimeUse = new SaveTimeSlotHandler();
 		
@@ -245,6 +297,8 @@ public abstract class FormSaveConfigurationHandler {
 			
 			throw new FormException(resultingException.getMessage());
 		}
+		
+		return saveEventResult;
 	}
 
 	/**

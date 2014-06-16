@@ -4,8 +4,6 @@ import org.openqa.selenium.WebElement;
 
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.e4o.gui.common.MenuBar;
-import com.lumata.e4o.gui.common.SectionImpl;
 
 public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 	
