@@ -150,10 +150,7 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 				// description
 				if ( desc != null && desc.length() != 0 )
 					nameAndDesc.get(1).sendKeys(desc);
-				
-				// press OK
-				//clickXPath("//div[contains(text(),'Add new program')]//ancestor::table//button[@title='Save']");
-				
+			
 				// handle error on program name
 				LoyaltyNameSaveHandler handler = new LoyaltyNameSaveHandler( 	selenium.getWrappedDriver(), loyaltiesCreationCfg.getCurrentElement());
 				
@@ -192,7 +189,13 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 		
 		final String rule2Add = "//div[text()='"+( type.equals(LoyaltyTypes.Points) ? "Classes" : "Badges" )+"']//ancestor::table[1]//button[@title='Add']";
 		final String textField  = "//div[text()='"+( type.equals(LoyaltyTypes.Points) ? "New Class" : "New Badge Type" )+"']//ancestor::table//input"; 
-		final String saveButton = "//div[text()='"+( type.equals(LoyaltyTypes.Points) ? "New Class" : "New Badge Type" )+"']//ancestor::table//button[@title='Save']";
+//		final String saveButton = "//div[text()='"+( type.equals(LoyaltyTypes.Points) ? "New Class" : "New Badge Type" )+"']//ancestor::table//button[@title='Save']";
+
+		// error handling on class/badge
+		LoyaltyAddClassBadgeHandler handler = new LoyaltyAddClassBadgeHandler( 	selenium.getWrappedDriver(), loyaltiesCreationCfg.getCurrentElement());
+		
+		// this is custom method
+		handler.setType(type);
 		
 		for (String element : element2fill) {
 			
@@ -206,10 +209,12 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 				e.printStackTrace();
 			}
 			
-			clickXPath(saveButton);
+//			clickXPath(saveButton);
 			
 			// error handling on class/badge
+//			LoyaltyAddClassBadgeHandler handler = new LoyaltyAddClassBadgeHandler( 	selenium.getWrappedDriver(), loyaltiesCreationCfg.getCurrentElement());
 			
+			handler.saveAction();
 		}
 		
 		clickXPath("//div[contains(text(),'Edit program')]//ancestor::table//button[@title='Close']");
@@ -217,6 +222,11 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 		return this;
 	}		
 
+	/**
+	 * 
+	 * Handler for program name
+	 *
+	 */
 	private class LoyaltyNameSaveHandler extends FormSaveConfigurationHandler {
 
 		protected LoyaltyNameSaveHandler(	WebDriver inDriver,
@@ -337,6 +347,159 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 			return resp;
 		}
 		
+	}
+	
+	/**
+	 * 
+	 * Handler for adding classes and badges
+	 *
+	 */
+	private class LoyaltyAddClassBadgeHandler extends FormSaveConfigurationHandler {
+
+		protected LoyaltyAddClassBadgeHandler(	WebDriver inDriver,
+												ErrorModificableElement inCurrentElement) {
+
+			super(inDriver, inCurrentElement);
+		}
+
+		/**
+		 * 
+		 */
+		private String xpathRule = null; 
+		
+		/**
+		 * This method customize the "Save" event according program type.
+		 * 
+		 * This method resets the "Save" WebElement and generates the new XPath rule.
+		 * 
+		 * @param type is the loyalty program type
+		 */
+		public void setType(LoyaltyTypes type) {
+			
+			logger.debug("Reset of " + getClass().getSimpleName() + " and its \"Save\" element.");
+			
+			saveElement = null;
+			
+			xpathRule = "//div[text()='"+( type.equals(LoyaltyTypes.Points) ? "New Class" : "New Badge Type" )+"']//ancestor::table//button[@title='Save']";
+		}
+
+		@Override
+		protected Boolean containsErrorElement() {
+
+			Integer numbers = null;
+			Boolean resp = Boolean.TRUE;
+
+			// error condition
+			// *[contains(@class,'errorBackground')]
+
+			List<WebElement> elements = getWebDriver().findElements(
+					By.xpath("//*[contains(@class,'errorBackground')]"));
+
+			if (elements == null)
+				numbers = 0;
+			else
+				numbers = elements.size();
+
+			if (numbers != 0)
+				resp = true;
+			else
+				resp = false;
+
+			return resp;
+		}
+		
+		/**
+		 * 
+		 */
+		private WebElement saveElement = null;
+
+		@Override
+		protected WebElement getSaveWebElement() {
+
+			if (saveElement == null)
+				saveElement = getWebDriver().findElement(By.xpath(xpathRule));
+
+			return saveElement;
+		}
+
+		@Override
+		protected ElementErrorConditionType defineErrorCondition() {
+
+			ElementErrorConditionType condition = null;
+
+			WebElement dialogBox = getWebDriver().findElement(
+					By.xpath("//div[@class='gwt-DialogBox']"));
+
+			// error condition
+			// div[text()='Bonus name already used']
+			List<WebElement> element = dialogBox.findElements(By
+					.xpath("//div[text()='The name is already used']"));
+
+			if (element.size() != 0)
+				condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
+			else
+				condition = ElementErrorConditionType.GENERAL_ERROR;
+
+			return condition;
+		}
+
+		@Override
+		protected Boolean cancelAction() {
+
+			Boolean resp = Boolean.FALSE;
+
+			try {
+
+				getWebDriver()
+						.findElement(
+								By.xpath("//div[contains(@class, 'dialogContent')]//button[@title='Cancel']"))
+						.click();
+
+				resp = Boolean.TRUE;
+			} catch (NoSuchElementException e) {
+
+				e.printStackTrace();
+
+				resp = Boolean.FALSE;
+			}
+
+			return resp;
+		}
+
+		@Override
+		protected Boolean addTimestampAction() {
+
+			Boolean resp = Boolean.FALSE;
+
+			try {
+
+				WebElement nameElem = getWebDriver().findElement(
+						By.xpath("//*[contains(@class,'errorBackground')]"));
+				nameElem.click();
+				nameElem.clear();
+
+				String name = getCurrentElement().getStringFromPath("name");
+
+				SecureRandom random = new SecureRandom();
+
+				name += new BigInteger(16, random).toString(16);
+				getCurrentElement().modifyStringFromPath("name", name);
+
+				nameElem.sendKeys(getCurrentElement().getStringFromPath("name"));
+
+				saveAction();
+
+				resp = Boolean.TRUE;
+
+			} catch (NoSuchElementException | FormException | JSONSException e) {
+
+				e.printStackTrace();
+
+				resp = Boolean.FALSE;
+			}
+
+			return resp;
+		}
 	}
 	
 //	private LoyaltyCreateCfg createCfg;
