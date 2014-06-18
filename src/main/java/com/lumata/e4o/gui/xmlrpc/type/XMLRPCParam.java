@@ -59,6 +59,38 @@ public class XMLRPCParam {
 		return new XMLRPCParam( valuePOSTBody );
 		
 	}
+
+	public static XMLRPCPrice price( Integer amount, String currencyName ) {
+				
+		return new XMLRPCPrice( amount, currencyName );
+		
+	}
+	
+	public static XMLRPCParam arrayProductPrices( XMLRPCPrice... prices ) {
+		
+		StringBuilder valuesPOSTBody = new StringBuilder();
+		
+		valuesPOSTBody.append( "<param><value><productPrices>");
+		
+		for( int p = 0; p < prices.length; p++ ) {
+			
+			if( null != prices[ p ] ) { 
+				
+				valuesPOSTBody.
+					append( "<price>" ).
+					append( ( null != prices[ p ].getAmount() ? "<amount>" + prices[ p ].getAmount() + "</amount>" : "" ) ).
+					append( ( null != prices[ p ].getCurrencyName() ? "<currencyName>" + prices[ p ].getCurrencyName() + "</currencyName>" : "" ) ).
+					append( "</price>" ); 
+				
+			}			
+			
+		}
+		
+		valuesPOSTBody.append("</productPrices></value></param>" );
+	
+		return new XMLRPCParam( valuesPOSTBody );
+				
+	}
 	
 	public static XMLRPCParam arrayInt( Object... values ) {
 		

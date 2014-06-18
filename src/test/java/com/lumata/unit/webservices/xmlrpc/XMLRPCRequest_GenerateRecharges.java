@@ -36,29 +36,33 @@ public class XMLRPCRequest_GenerateRecharges {
 	Mysql mysql;
 			
 	/* 	Initialize Environment */
-	@Parameters({"environment", "gui_server", "user"})
+	@Parameters({"environment", "tenant", "gui_server", "user"})
 	@BeforeClass
-	public void init( @Optional("E4O_VM") String environment, @Optional("actrule") String gui_server, @Optional("superman") String user ) throws NetworkEnvironmentException {		
+	public void init( @Optional("E4O_VM_NE") String environment, @Optional("tenant") String tenant, @Optional("actrule") String gui_server, @Optional("superman") String user ) throws NetworkEnvironmentException {		
 		
 		/** Create environment configuration */
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-
+		
 		actruleServer = env.getServer( gui_server );
 		
 		superman = actruleServer.getUser( user );
 		
-		mysql = new Mysql( env.getDataSource( "tenant" ) );
+		mysql = new Mysql( env.getDataSource( tenant ) );
 		
 	}
 	
+	public static XMLRPCRequest_GenerateRecharges run() {
+		return new XMLRPCRequest_GenerateRecharges();
+	}
+	
 	@Test(enabled=true, priority = 1 )
-	public void generateTokens() throws Exception {
+	public void generateRecharges() throws Exception {
 
 		/**
 		 *	FIXED_SUBSCRIBERS = true -> fixed msisdn will be used and ALL_SUBSCRIBERS will not have effect  
 		 *  FIXED_SUBSCRIBERS = false -> some msisdn will be created following ALL_SUBSCRIBERS setting 		 *   
 		 */
-		final Boolean FIXED_SUBSCRIBERS = true;
+		final Boolean FIXED_SUBSCRIBERS = false;
 		
 		final Long FIXED_MSISDN = 393669393643L;
 		
@@ -77,18 +81,16 @@ public class XMLRPCRequest_GenerateRecharges {
 		 * 	ALL_EVENTS = true -> number of events = MAX_EVENTS
 		 * 	ALL_EVENTS = false -> number of events = random number between [ MIN_EVENTS, MAX_EVENTS - MIN_EVENTS ]
 		*/
-		final Boolean ALL_EVENTS = true;
+		final Boolean ALL_EVENTS = false;
 		
-		final Integer MIN_EVENTS = 1;
-		final Integer MAX_EVENTS = 10;
+		final Integer MIN_EVENTS = 10;
+		final Integer MAX_EVENTS = 100;
 		
 		
 		ArrayList<Long> subscribers = new ArrayList<Long>();
 		
 		Integer subscribersToElaborate = 0;
-		
-		getSubscribers();
-		
+				
 		if( FIXED_SUBSCRIBERS ) {
 		
 			subscribers.add( FIXED_MSISDN );
@@ -96,7 +98,9 @@ public class XMLRPCRequest_GenerateRecharges {
 			subscribersToElaborate = subscribers.size() - 1;
 			
 		} else {
-		
+			
+			subscribers = getSubscribers();
+			
 			subscribersToElaborate = subscribers.size() - 1;
 				
 			if( !ALL_SUBSCRIBERS ) {  
@@ -116,7 +120,7 @@ public class XMLRPCRequest_GenerateRecharges {
 			Integer randomEventsToGenerate = ( ALL_EVENTS ? MAX_EVENTS : MIN_EVENTS + (int)( Math.random() * ( MAX_EVENTS - MIN_EVENTS ) ) );
 			
 			System.out.println( "Events to generate: " + randomEventsToGenerate );
-			
+			System.out.println( superman.getUsername() );
 			for( int e = 0; e < randomEventsToGenerate; e++ ) {
 			
 				System.out.println(

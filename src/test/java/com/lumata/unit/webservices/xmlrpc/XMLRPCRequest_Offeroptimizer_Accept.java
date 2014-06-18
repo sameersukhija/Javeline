@@ -39,9 +39,9 @@ public class XMLRPCRequest_Offeroptimizer_Accept {
 	@Test(enabled=true, priority = 1 )
 	public void callXMLRPCCRequest() throws Exception {
 		
-		final String msisdn = "3399900007";
-		final String token_code = "gl-0b3b5";
-		final Object[] offer_id = new Integer[]{ 1005 };		
+		final String msisdn = "3399900001";
+		final String token_code = "gl-7bbcc";
+		final Object[] offer_id = new Integer[]{ 1003 };		
 		
 		ClientResponse<String> response = XMLRPCRequest.offeroptimizer_accept.call( 	actruleServer, 
 																						xmlrpcBody(

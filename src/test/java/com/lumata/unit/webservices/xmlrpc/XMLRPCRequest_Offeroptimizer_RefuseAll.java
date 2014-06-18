@@ -39,8 +39,8 @@ public class XMLRPCRequest_Offeroptimizer_RefuseAll {
 	@Test(enabled=true, priority = 1 )
 	public void callXMLRPCCRequest() throws Exception {
 		
-		final String msisdn = "393669393643";
-		final String token_code = "gl-fc8df";
+		final String msisdn = "3399900001";
+		final String token_code = "gl-7bbcc";
 		
 		ClientResponse<String> response = XMLRPCRequest.offeroptimizer_refuseAll.call( 	actruleServer, 
 																						xmlrpcBody(

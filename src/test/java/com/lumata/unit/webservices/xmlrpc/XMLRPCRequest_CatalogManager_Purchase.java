@@ -11,13 +11,12 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-import com.lumata.e4o.gui.xmlrpc.XMLRPCResultParser;
 import com.lumata.e4o.gui.xmlrpc.type.XMLRPCRequest;
 
 import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCParam.*;
 import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCComponent.*;
 
-public class XMLRPCRequest_Offeroptimizer_GetTokenList {
+public class XMLRPCRequest_CatalogManager_Purchase {
 	
 	NetworkEnvironment env;
 	Server actruleServer;
@@ -40,20 +39,21 @@ public class XMLRPCRequest_Offeroptimizer_GetTokenList {
 	@Test(enabled=true, priority = 1 )
 	public void callXMLRPCCRequest() throws Exception {
 		
-		ClientResponse<String> response = XMLRPCRequest.offeroptimizer_getTokensList.call( 	actruleServer, 
+		ClientResponse<String> response = XMLRPCRequest.catalogmanager_purchase.call( 	
+														actruleServer, 
 														xmlrpcBody(
 															authentication( superman.getUsername(), superman.getPassword() ),
-															string("32999999999"),
-															string(""),
-															string("")
+															string("393669393643"),
+															string("3 Colored Clear Case"),
+															string("Webstore"),
+															arrayProductPrices( 
+																price( 10, "internal points" )	
+															),
+															string("2")
 														)
-													);
+											);
 		
 		System.out.println( response.getEntity().toString() );
-		
-		XMLRPCResultParser responseParser = new XMLRPCResultParser( response.getEntity().toString() );
-		
-		responseParser.parse();
 		
 	}
 	

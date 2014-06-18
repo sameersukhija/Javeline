@@ -80,7 +80,7 @@ public enum XMLRPCRequest {
 	public ClientResponse<String> call( Server server, XMLRPCComponent... xmlrpcComponents ) throws Exception {
 		
 		String url = server.getLink() + "xmlrpc/";
-		
+		System.out.println( url );
 		RestClient restClient = new RestClient( url );
 		
 		parseComponents( restClient, xmlrpcComponents );
