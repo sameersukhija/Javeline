@@ -56,11 +56,11 @@ import com.lumata.e4o.schema.tenant.CollectedFilesStats;
 import com.lumata.e4o.schema.tenant.CompositeBundle;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.system.cdr.CDR;
-import com.lumata.e4o.system.cdr.annotations.BundleName;
+import com.lumata.e4o.system.cdr.fields.BundleName;
 import com.lumata.e4o.system.cdr.types.CDRBundle;
-import com.lumata.e4o.system.csv.types.CSVString;
 import com.lumata.e4o.system.environment.ExpressionKernelCommands;
 import com.lumata.e4o.system.environment.ExpressionSystem;
+import com.lumata.e4o.system.fields.FieldString;
 
 public class TestSubscriberDelayedRemovalTask {
 	
@@ -202,7 +202,7 @@ public class TestSubscriberDelayedRemovalTask {
 				}
 				case HAS_MAIL_CHANNEL: { 
 					
-					CSVString randomString = new CSVString();
+					FieldString randomString = new FieldString();
 					randomString.setStringStrategyRandom( 6 );
 					
 					StringBuilder mail = new StringBuilder();
@@ -218,7 +218,7 @@ public class TestSubscriberDelayedRemovalTask {
 					XMLRPCChannel smsChannel = new XMLRPCChannel( XMLRPCChannel.Type.SMS, String.valueOf( msisdn ), true );
 					channels_list.put( "sms_channel" , smsChannel );
 					
-					CSVString randomString = new CSVString();
+					FieldString randomString = new FieldString();
 					randomString.setStringStrategyRandom( 6 );
 					
 					StringBuilder mail = new StringBuilder();
@@ -271,7 +271,7 @@ public class TestSubscriberDelayedRemovalTask {
 				
 				if( bundleNameParametersCfg.length() == 3 ) {
 				
-					CSVString bundle = new CSVString();
+					FieldString bundle = new FieldString();
 					bundle.setStringStrategyIncrement( bundleNameParametersCfg.getString( 0 ), bundleNameParametersCfg.getInt( 1 ), bundleNameParametersCfg.getInt( 2 ) );
 					
 					for( long bundleIndex = bundleNameParametersCfg.getInt( 1 ) + 1; bundleIndex <= cdrBundleCfg.getInt( "linesCount" ); bundleIndex++ ) {

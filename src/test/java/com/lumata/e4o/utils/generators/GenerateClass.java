@@ -42,7 +42,7 @@ public class GenerateClass {
 		
 		logger.info( Log.PUTTING.createMessage( "createDAO" , "Create DAO Classes" ) );
 				
-		generatorDAO.createDAO( env, "global", "com.lumata.e4o_global.schema" );
+		generatorDAO.createDAO( env, "tenant", "com.lumata.e4o.schema.tenant" );
 				
 	}		
 	

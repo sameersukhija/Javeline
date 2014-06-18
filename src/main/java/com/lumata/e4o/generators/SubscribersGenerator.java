@@ -13,7 +13,7 @@ import com.lumata.e4o.exceptions.GeneratorException;
 import com.lumata.e4o.generators.GeneratorParameter.GeneratorParameterType;
 import com.lumata.e4o.schema.tenant.SubsNotif;
 import com.lumata.e4o.schema.tenant.Subscribers;
-import com.lumata.e4o.system.csv.types.CSVMsisdn;
+import com.lumata.e4o.system.fields.FieldMsisdn;
 
 import static com.lumata.common.testing.orm.Query.*;
 
@@ -33,14 +33,14 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 	String SUBSCRIBER_PREFIX = "";
 	
 	/** msisdn field management */
-	CSVMsisdn csvMsisdn;
+	FieldMsisdn csvMsisdn;
 	
 	
 	SubscribersGenerator( GeneratorParametersList parameters ) {
 		
 		this.parameters = parameters;
 		
-		this.csvMsisdn = new CSVMsisdn();
+		this.csvMsisdn = new FieldMsisdn();
 	
 	}
 	
@@ -235,12 +235,6 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		Mysql mysql = (Mysql)parameters.getParameterValue( GeneratorParameterType.mysql );
 		
 		int result = mysql.execUpdate( queryInsert );
-		
-		System.out.println( result );
-		
-		System.out.println( "SUBSCRIBER_HAS_SMS_CHANNEL: " + SUBSCRIBER_HAS_SMS_CHANNEL );
-		
-		System.out.println( "SUBSCRIBER_HAS_MAIL_CHANNEL: " + SUBSCRIBER_HAS_MAIL_CHANNEL );
 		
 		if( SUBSCRIBER_HAS_SMS_CHANNEL ) { insertChannel( msisdn, String.valueOf( msisdn ), (byte)1 ); }
 			

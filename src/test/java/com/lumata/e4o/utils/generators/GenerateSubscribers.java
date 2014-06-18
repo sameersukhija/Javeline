@@ -24,7 +24,7 @@ public class GenerateSubscribers {
 	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribers.class );
 	
 	final boolean GENERATE_FIXED_SUBSCRIBER = false;
-	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = false;
+	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = true;
 	final boolean GENERATE_RANDOM_SUBSCRIBERS = false;
 	
 	NetworkEnvironment env;	
@@ -75,7 +75,7 @@ public class GenerateSubscribers {
 		final Integer INCREMENT = 1;
 		final Boolean HAS_SMS_CHANNEL = true;
 		final Boolean HAS_MAIL_CHANNEL = true;
-		final Long SUBSCRIBERS_TO_GENERATE = 10L;
+		final Long SUBSCRIBERS_TO_GENERATE = 100L;
 		
 		
 		Generator.subscribers()
