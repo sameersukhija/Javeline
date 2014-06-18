@@ -1,6 +1,6 @@
-package com.lumata.e4o.system.csv.types;
+package com.lumata.e4o.system.fields;
 
-public interface ICSVEnum {
+public interface IFieldEnum {
 	public String name();
 	public String value();
 	public int ordinal();

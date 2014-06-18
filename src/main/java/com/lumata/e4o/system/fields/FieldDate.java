@@ -1,30 +1,30 @@
-package com.lumata.e4o.system.csv.types;
+package com.lumata.e4o.system.fields;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import com.lumata.e4o.exceptions.CDRException;
-import com.lumata.e4o.system.csv.annotations.CSVMethod;
-import com.lumata.e4o.system.csv.annotations.CSVFieldDate;
+import com.lumata.e4o.system.field.types.FieldMethod;
+import com.lumata.e4o.system.field.types.FieldTypeDate;
 
-@CSVFieldDate
-public class CSVDate {
+@FieldTypeDate
+public class FieldDate {
 
 	private Calendar date_current;
 	private SimpleDateFormat date_format;
 	private Calendar date_left;
 	private Calendar date_right;
 	private Calendar date_next;
-	private CSVDateIncrement date_increment;
+	private FieldDateIncrement date_increment;
 	
-	public enum CDRDateFormat {
+	public enum FieldDateFormat {
 		
 		SQL_DATE( "YYYY-MM-dd" ),
 		SQL_DATE_TIME( "YYYY-MM-dd hh:mm:ss" );
 		
 		String value;
 		
-		CDRDateFormat(String value ) {
+		FieldDateFormat(String value ) {
 			this.value = value;
 		}
 		
@@ -34,7 +34,7 @@ public class CSVDate {
 		
 	}
 	
-	public CSVDate() {
+	public FieldDate() {
 		
 		date_current = null;
 		date_format = new SimpleDateFormat("yyyy-MM-dd");
@@ -45,7 +45,7 @@ public class CSVDate {
 				
 	}
 
-	@CSVMethod
+	@FieldMethod
 	public String getDate() {
 		
 		if( this.date_current == null && ( this.date_left == null || this.date_right == null )) { return ""; } 
@@ -101,7 +101,7 @@ public class CSVDate {
 		
 	}
 
-	@CSVMethod
+	@FieldMethod
 	public void setDateStrategyFixed( final Calendar date ) throws CDRException {
 		
 		this.date_current = date;
@@ -112,15 +112,15 @@ public class CSVDate {
 		
 	}
 
-	@CSVMethod
+	@FieldMethod
 	public void setDateFormat( String format ) throws CDRException {
 		
 		this.date_format = new SimpleDateFormat( format );
 						
 	}	
 	
-	@CSVMethod
-	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException {
+	@FieldMethod
+	public void setDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException {
 		
 		if( date == null ) { throw new CDRException( "The date cannot be null." ); }
 		
@@ -134,7 +134,7 @@ public class CSVDate {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void setDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException {
 		
 		if( date_left == null ) { throw new CDRException( "The min date cannot be null." ); }
@@ -149,14 +149,14 @@ public class CSVDate {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanDateStrategyFixed() {
 		
 		this.date_current = null;
 					
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanDateStrategyIncrement() {
 		
 		this.date_next = null;
@@ -165,7 +165,7 @@ public class CSVDate {
 					
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanDateStrategyRandom() {
 		
 		this.date_left = null;

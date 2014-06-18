@@ -17,38 +17,38 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.e4o.system.cdr.annotations.BundleBalance;
-import com.lumata.e4o.system.cdr.annotations.BundleName;
-import com.lumata.e4o.system.cdr.annotations.BundlePurchased;
-import com.lumata.e4o.system.cdr.annotations.Location;
-import com.lumata.e4o.system.cdr.annotations.Msisdn;
-import com.lumata.e4o.system.cdr.annotations.Amount;
-import com.lumata.e4o.system.cdr.annotations.Balance;
-import com.lumata.e4o.system.cdr.annotations.Date;
-import com.lumata.e4o.system.cdr.annotations.DeactivationDate;
-import com.lumata.e4o.system.cdr.annotations.Delay;
-import com.lumata.e4o.system.cdr.annotations.Download;
-import com.lumata.e4o.system.cdr.annotations.Duration;
-import com.lumata.e4o.system.cdr.annotations.NewNetwork;
-import com.lumata.e4o.system.cdr.annotations.NewProfile;
-import com.lumata.e4o.system.cdr.annotations.NewRatePlan;
-import com.lumata.e4o.system.cdr.annotations.NewStatus;
-import com.lumata.e4o.system.cdr.annotations.NewSubProfile;
-import com.lumata.e4o.system.cdr.annotations.NewSubscriptionDate;
-import com.lumata.e4o.system.cdr.annotations.OldNetwork;
-import com.lumata.e4o.system.cdr.annotations.OldProfile;
-import com.lumata.e4o.system.cdr.annotations.OldRatePlan;
-import com.lumata.e4o.system.cdr.annotations.OldStatus;
-import com.lumata.e4o.system.cdr.annotations.OldSubProfile;
-import com.lumata.e4o.system.cdr.annotations.OldSubscriptionDate;
-import com.lumata.e4o.system.cdr.annotations.Sms;
-import com.lumata.e4o.system.cdr.annotations.TenantId;
-import com.lumata.e4o.system.cdr.annotations.Terminating;
-import com.lumata.e4o.system.cdr.annotations.Type;
-import com.lumata.e4o.system.cdr.annotations.Upload;
-import com.lumata.e4o.system.cdr.annotations.ValidityDate;
-import com.lumata.e4o.system.cdr.annotations.VoucherCode;
-import com.lumata.e4o.system.csv.annotations.CSVMethod;
+import com.lumata.e4o.system.cdr.fields.Amount;
+import com.lumata.e4o.system.cdr.fields.Balance;
+import com.lumata.e4o.system.cdr.fields.BundleBalance;
+import com.lumata.e4o.system.cdr.fields.BundleName;
+import com.lumata.e4o.system.cdr.fields.BundlePurchased;
+import com.lumata.e4o.system.cdr.fields.Date;
+import com.lumata.e4o.system.cdr.fields.DeactivationDate;
+import com.lumata.e4o.system.cdr.fields.Delay;
+import com.lumata.e4o.system.cdr.fields.Download;
+import com.lumata.e4o.system.cdr.fields.Duration;
+import com.lumata.e4o.system.cdr.fields.Location;
+import com.lumata.e4o.system.cdr.fields.Msisdn;
+import com.lumata.e4o.system.cdr.fields.NewNetwork;
+import com.lumata.e4o.system.cdr.fields.NewProfile;
+import com.lumata.e4o.system.cdr.fields.NewRatePlan;
+import com.lumata.e4o.system.cdr.fields.NewStatus;
+import com.lumata.e4o.system.cdr.fields.NewSubProfile;
+import com.lumata.e4o.system.cdr.fields.NewSubscriptionDate;
+import com.lumata.e4o.system.cdr.fields.OldNetwork;
+import com.lumata.e4o.system.cdr.fields.OldProfile;
+import com.lumata.e4o.system.cdr.fields.OldRatePlan;
+import com.lumata.e4o.system.cdr.fields.OldStatus;
+import com.lumata.e4o.system.cdr.fields.OldSubProfile;
+import com.lumata.e4o.system.cdr.fields.OldSubscriptionDate;
+import com.lumata.e4o.system.cdr.fields.Sms;
+import com.lumata.e4o.system.cdr.fields.TenantId;
+import com.lumata.e4o.system.cdr.fields.Terminating;
+import com.lumata.e4o.system.cdr.fields.Type;
+import com.lumata.e4o.system.cdr.fields.Upload;
+import com.lumata.e4o.system.cdr.fields.ValidityDate;
+import com.lumata.e4o.system.cdr.fields.VoucherCode;
+import com.lumata.e4o.system.field.types.FieldMethod;
 
 public class CDRClassGenerator {	
 	
@@ -277,7 +277,7 @@ public class CDRClassGenerator {
 					for( Method csv_type_method : csv_type_class.getDeclaredMethods() ) {
 							
 						/** Get CSV Type annotated methods only*/
-						if( csv_type_method.isAnnotationPresent( CSVMethod.class ) ) {
+						if( csv_type_method.isAnnotationPresent( FieldMethod.class ) ) {
 							
 							/** Create new cdr type method parameters regex */
 							StringBuilder parameter_regex = new StringBuilder();

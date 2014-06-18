@@ -1,13 +1,13 @@
-package com.lumata.e4o.system.csv.types;
+package com.lumata.e4o.system.fields;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
 import com.lumata.e4o.exceptions.CDRException;
-import com.lumata.e4o.system.csv.annotations.CSVFieldString;
-import com.lumata.e4o.system.csv.annotations.CSVMethod;
+import com.lumata.e4o.system.field.types.FieldMethod;
+import com.lumata.e4o.system.field.types.FieldTypeString;
 
-@CSVFieldString
-public class CSVString {
+@FieldTypeString
+public class FieldString {
 
 	private String string_current_value;
 	private Integer string_increment_current_value;
@@ -17,7 +17,7 @@ public class CSVString {
 	
 	private final Integer DEFAULT_STRING_LENGTH = 0;
 	
-	public CSVString() {
+	public FieldString() {
 		
 		string_current_value = null;
 		string_increment_current_value = null;
@@ -27,7 +27,7 @@ public class CSVString {
 		
 	}
 
-	@CSVMethod
+	@FieldMethod
 	public String getString() throws CDRException {
 		
 		if( this.string_current_value == null && !this.string_random ) { return ""; } 
@@ -53,14 +53,14 @@ public class CSVString {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void setStringLength( final Integer length ) throws CDRException {
 		
 		this.string_length = ( length != null ? Math.abs( length ) : DEFAULT_STRING_LENGTH );
 		
 	}
 
-	@CSVMethod
+	@FieldMethod
 	public void setStringStrategyFixed( final String value ) throws CDRException {	
 					
 		this.cleanStringStrategyIncrement();
@@ -73,7 +73,7 @@ public class CSVString {
 			
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void setStringStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws CDRException {	
 		
 		this.cleanStringStrategyRandom();
@@ -88,7 +88,7 @@ public class CSVString {
 				
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void setStringStrategyRandom( final Integer length ) throws CDRException {
 		
 		this.cleanStringStrategyIncrement();
@@ -99,7 +99,7 @@ public class CSVString {
 				
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanString() {
 		
 		this.string_current_value = null;
@@ -108,7 +108,7 @@ public class CSVString {
 			
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanStringLength() {
 		
 		if( this.string_current_value != null ) { this.string_length = this.string_current_value.length(); }
@@ -116,7 +116,7 @@ public class CSVString {
 				
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanStringStrategyIncrement() {
 		
 		this.string_current_value = null;
@@ -129,7 +129,7 @@ public class CSVString {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanStringStrategyRandom() {
 		
 		this.string_current_value = null;

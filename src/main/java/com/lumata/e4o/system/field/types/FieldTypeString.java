@@ -1,4 +1,4 @@
-package com.lumata.e4o.system.csv.annotations;
+package com.lumata.e4o.system.field.types;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,4 +7,4 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
-public @interface CSVFieldString {}
+public @interface FieldTypeString {}

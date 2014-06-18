@@ -1,6 +1,6 @@
-package com.lumata.e4o.system.csv.types;
+package com.lumata.e4o.system.fields;
 
-public class CSVDateIncrement {
+public class FieldDateIncrement {
 
 	private Integer date_increment_year;
 	private Integer date_increment_month;
@@ -9,7 +9,7 @@ public class CSVDateIncrement {
 	private Integer date_increment_minute;
 	private Integer date_increment_second;
 	
-	public CSVDateIncrement() {
+	public FieldDateIncrement() {
 		date_increment_year = null;
 		date_increment_month = null;
 		date_increment_day = null;

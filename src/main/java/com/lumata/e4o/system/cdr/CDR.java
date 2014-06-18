@@ -1,13 +1,9 @@
 package com.lumata.e4o.system.cdr;
 
 import java.io.File;
-import java.io.InputStream;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,48 +34,48 @@ import com.lumata.e4o.schema.tenant.Statuses;
 import com.lumata.e4o.schema.tenant.SupportedRatePlan;
 import com.lumata.e4o.schema.tenant.VoucherCodes;
 /** cdr field types */
-import com.lumata.e4o.system.cdr.annotations.Msisdn;
-import com.lumata.e4o.system.cdr.annotations.Date;
-import com.lumata.e4o.system.cdr.annotations.NewNetwork;
-import com.lumata.e4o.system.cdr.annotations.NewProfile;
-import com.lumata.e4o.system.cdr.annotations.NewRatePlan;
-import com.lumata.e4o.system.cdr.annotations.NewStatus;
-import com.lumata.e4o.system.cdr.annotations.NewSubProfile;
-import com.lumata.e4o.system.cdr.annotations.NewSubscriptionDate;
-import com.lumata.e4o.system.cdr.annotations.OldNetwork;
-import com.lumata.e4o.system.cdr.annotations.OldProfile;
-import com.lumata.e4o.system.cdr.annotations.OldRatePlan;
-import com.lumata.e4o.system.cdr.annotations.OldStatus;
-import com.lumata.e4o.system.cdr.annotations.OldSubProfile;
-import com.lumata.e4o.system.cdr.annotations.OldSubscriptionDate;
-import com.lumata.e4o.system.cdr.annotations.Sms;
-import com.lumata.e4o.system.cdr.annotations.TenantId;
-import com.lumata.e4o.system.cdr.annotations.Terminating;
-import com.lumata.e4o.system.cdr.annotations.Type;
-import com.lumata.e4o.system.cdr.annotations.Upload;
-import com.lumata.e4o.system.cdr.annotations.ValidityDate;
-import com.lumata.e4o.system.cdr.annotations.Amount;
-import com.lumata.e4o.system.cdr.annotations.Balance;
-import com.lumata.e4o.system.cdr.annotations.DeactivationDate;
-import com.lumata.e4o.system.cdr.annotations.Delay;
-import com.lumata.e4o.system.cdr.annotations.Download;
-import com.lumata.e4o.system.cdr.annotations.Duration;
-import com.lumata.e4o.system.cdr.annotations.VoucherCode;
-import com.lumata.e4o.system.csv.types.CSVBoolean;
-import com.lumata.e4o.system.cdr.annotations.BundleBalance;
-import com.lumata.e4o.system.cdr.annotations.BundleName;
-import com.lumata.e4o.system.cdr.annotations.BundlePurchased;
-import com.lumata.e4o.system.cdr.annotations.Location;
-/** csv field types */
-import com.lumata.e4o.system.csv.types.CSVMsisdn;
-import com.lumata.e4o.system.csv.types.CSVDate;
-import com.lumata.e4o.system.csv.types.CSVEnum;
-import com.lumata.e4o.system.csv.types.CSVLong;
-import com.lumata.e4o.system.csv.types.CSVString;
-import com.lumata.e4o.system.csv.types.ICSVEnum;
-import com.lumata.e4o.system.csv.types.CSVSchemaTable;
+import com.lumata.e4o.system.cdr.fields.Amount;
+import com.lumata.e4o.system.cdr.fields.Balance;
+import com.lumata.e4o.system.cdr.fields.BundleBalance;
+import com.lumata.e4o.system.cdr.fields.BundleName;
+import com.lumata.e4o.system.cdr.fields.BundlePurchased;
+import com.lumata.e4o.system.cdr.fields.Date;
+import com.lumata.e4o.system.cdr.fields.DeactivationDate;
+import com.lumata.e4o.system.cdr.fields.Delay;
+import com.lumata.e4o.system.cdr.fields.Download;
+import com.lumata.e4o.system.cdr.fields.Duration;
+import com.lumata.e4o.system.cdr.fields.Location;
+import com.lumata.e4o.system.cdr.fields.Msisdn;
+import com.lumata.e4o.system.cdr.fields.NewNetwork;
+import com.lumata.e4o.system.cdr.fields.NewProfile;
+import com.lumata.e4o.system.cdr.fields.NewRatePlan;
+import com.lumata.e4o.system.cdr.fields.NewStatus;
+import com.lumata.e4o.system.cdr.fields.NewSubProfile;
+import com.lumata.e4o.system.cdr.fields.NewSubscriptionDate;
+import com.lumata.e4o.system.cdr.fields.OldNetwork;
+import com.lumata.e4o.system.cdr.fields.OldProfile;
+import com.lumata.e4o.system.cdr.fields.OldRatePlan;
+import com.lumata.e4o.system.cdr.fields.OldStatus;
+import com.lumata.e4o.system.cdr.fields.OldSubProfile;
+import com.lumata.e4o.system.cdr.fields.OldSubscriptionDate;
+import com.lumata.e4o.system.cdr.fields.Sms;
+import com.lumata.e4o.system.cdr.fields.TenantId;
+import com.lumata.e4o.system.cdr.fields.Terminating;
+import com.lumata.e4o.system.cdr.fields.Type;
+import com.lumata.e4o.system.cdr.fields.Upload;
+import com.lumata.e4o.system.cdr.fields.ValidityDate;
+import com.lumata.e4o.system.cdr.fields.VoucherCode;
+/** field types */
 import com.lumata.e4o.system.environment.ExpressionKernelCommands;
 /** schema classes */
+import com.lumata.e4o.system.fields.FieldBoolean;
+import com.lumata.e4o.system.fields.FieldDate;
+import com.lumata.e4o.system.fields.FieldEnum;
+import com.lumata.e4o.system.fields.FieldLong;
+import com.lumata.e4o.system.fields.FieldMsisdn;
+import com.lumata.e4o.system.fields.FieldSchemaTable;
+import com.lumata.e4o.system.fields.FieldString;
+import com.lumata.e4o.system.fields.IFieldEnum;
 
 /** CDR exception */
 //import com.lumata.expression.operators.exceptions.CDRException;
@@ -96,109 +92,109 @@ public class CDR {
 	private String tenant;
 	
 	@Msisdn 
-	protected CSVMsisdn msisdn;	
+	protected FieldMsisdn msisdn;	
 	
 	@Date 
-	protected CSVDate date;
+	protected FieldDate date;
 	
 	@ValidityDate
-	protected CSVDate validity_date; 
+	protected FieldDate validity_date; 
 	
 	@DeactivationDate
-	protected CSVDate deactivation_date;
+	protected FieldDate deactivation_date;
 	
 	@Duration
-	protected CSVLong duration; 
+	protected FieldLong duration; 
 	
 	@Amount
-	protected CSVLong amount; 
+	protected FieldLong amount; 
 	
 	@Balance
-	protected CSVLong balance; 
+	protected FieldLong balance; 
 	
 	@Terminating
-	protected CSVEnum terminating; 
+	protected FieldEnum terminating; 
 	
 	@Delay
-	protected CSVLong delay;
+	protected FieldLong delay;
 	
 	@Type
-	protected CSVEnum type;
+	protected FieldEnum type;
 	
 	@VoucherCode
-	protected CSVString voucher_code; 
+	protected FieldString voucher_code; 
 	
 	@Location
 	//protected CSVSchemaTable location;
-	protected CSVString location;
+	protected FieldString location;
 		
 	@BundleName
-	protected CSVString bundle_name; 
+	protected FieldString bundle_name; 
 	
 	@BundleBalance
-	protected CSVLong bundle_balance;
+	protected FieldLong bundle_balance;
 	
 	@BundlePurchased
-	protected CSVBoolean bundle_purchased;
+	protected FieldBoolean bundle_purchased;
 	
 	@Download
-	protected CSVLong download;
+	protected FieldLong download;
 	
 	@Upload
-	protected CSVLong upload;
+	protected FieldLong upload;
 	
 	@NewRatePlan
 	//protected CSVSchemaTable new_rate_plan;
-	protected CSVString new_rate_plan;
+	protected FieldString new_rate_plan;
 	
 	@OldRatePlan
 	//protected CSVSchemaTable old_rate_plan;
-	protected CSVString old_rate_plan;
+	protected FieldString old_rate_plan;
 	
 	@NewProfile
 	//protected CSVSchemaTable new_profile;
-	protected CSVString new_profile;
+	protected FieldString new_profile;
 	
 	@OldProfile
 	//protected CSVSchemaTable old_profile;
-	protected CSVString old_profile;
+	protected FieldString old_profile;
 	
 	@NewSubProfile
-	protected CSVString new_subprofile;
+	protected FieldString new_subprofile;
 	
 	@OldSubProfile
-	protected CSVString old_subprofile;
+	protected FieldString old_subprofile;
 
 	@NewStatus
 	//protected CSVSchemaTable new_status;
 	//protected CSVString new_status;
-	protected CSVEnum new_status;
+	protected FieldEnum new_status;
 	
 	@OldStatus
 	//protected CSVSchemaTable old_status;
 	//protected CSVString old_status;
-	protected CSVEnum old_status;
+	protected FieldEnum old_status;
 
 	@NewNetwork
-	protected CSVString new_network; 
+	protected FieldString new_network; 
 
 	@OldNetwork
-	protected CSVString old_network; 
+	protected FieldString old_network; 
 		
 	@NewSubscriptionDate
-	protected CSVDate new_subscription_date;
+	protected FieldDate new_subscription_date;
 	
 	@OldSubscriptionDate
-	protected CSVDate old_subscription_date;
+	protected FieldDate old_subscription_date;
 	
 	@Sms
-	protected CSVEnum sms;
+	protected FieldEnum sms;
 	
 	//Code,
 	//PointOfRedemption,
 	
 	@TenantId
-	protected CSVLong tenant_id;
+	protected FieldLong tenant_id;
 
 	public enum Parameters {
 		env, 
@@ -211,7 +207,7 @@ public class CDR {
 		depositPath
 	}
 	
-	public enum TERMINATING implements ICSVEnum { 
+	public enum TERMINATING implements IFieldEnum { 
 		
 		YES("YES"), 
 		NO("NO"); 
@@ -228,7 +224,7 @@ public class CDR {
 		
 	}
 	
-	public enum SMS implements ICSVEnum { 
+	public enum SMS implements IFieldEnum { 
 		
 		YES("0"), 
 		NO("1"); 
@@ -246,7 +242,7 @@ public class CDR {
 	}
 	
 	@Type
-	public enum TYPE implements ICSVEnum { 
+	public enum TYPE implements IFieldEnum { 
 		
 		PAIEMENT("paiement"), 
 		INVOICE("invoice"),
@@ -266,7 +262,7 @@ public class CDR {
 
 	@NewStatus 
 	@OldStatus
-	public enum SUBSTATUS implements ICSVEnum {
+	public enum SUBSTATUS implements IFieldEnum {
 		
 		ACTIVE("active"),
 		INACTIVE("inactive"),
@@ -288,45 +284,45 @@ public class CDR {
 	
 	public CDR() {
 		
-		this.msisdn = new CSVMsisdn();		
-		this.date = new CSVDate();
-		this.validity_date = new CSVDate(); 
-		this.deactivation_date = new CSVDate();
-		this.duration = new CSVLong(); 
-		this.amount = new CSVLong(); 
-		this.balance = new CSVLong();
-		this.terminating = new CSVEnum( TERMINATING.values() );
-		this.delay = new CSVLong();
-		this.type = new CSVEnum( TYPE.values() );
-		this.voucher_code = new CSVString(); 
+		this.msisdn = new FieldMsisdn();		
+		this.date = new FieldDate();
+		this.validity_date = new FieldDate(); 
+		this.deactivation_date = new FieldDate();
+		this.duration = new FieldLong(); 
+		this.amount = new FieldLong(); 
+		this.balance = new FieldLong();
+		this.terminating = new FieldEnum( TERMINATING.values() );
+		this.delay = new FieldLong();
+		this.type = new FieldEnum( TYPE.values() );
+		this.voucher_code = new FieldString(); 
 		//this.location = new CSVSchemaTable( new VoucherCodes(), VoucherCodes.Fields.location_id );
-		this.location = new CSVString(); 
-		this.bundle_name = new CSVString(); 
-		this.bundle_balance = new CSVLong();
-		this.bundle_purchased = new CSVBoolean();
+		this.location = new FieldString(); 
+		this.bundle_name = new FieldString(); 
+		this.bundle_balance = new FieldLong();
+		this.bundle_purchased = new FieldBoolean();
 		//this.new_rate_plan = new CSVSchemaTable( new SupportedRatePlan(), SupportedRatePlan.Fields.rate_plan );
 		//this.old_rate_plan = new CSVSchemaTable( new SupportedRatePlan(), SupportedRatePlan.Fields.rate_plan );
 		//this.new_profile = new CSVSchemaTable( new Profiles(), Profiles.Fields.profile );
 		//this.old_profile = new CSVSchemaTable( new Profiles(), Profiles.Fields.profile );
-		this.download = new CSVLong(); 
-		this.upload = new CSVLong(); 
-		this.new_rate_plan = new CSVString();
-		this.old_rate_plan = new CSVString();
-		this.new_profile = new CSVString();
-		this.old_profile = new CSVString();
-		this.new_subprofile = new CSVString();
-		this.old_subprofile = new CSVString();
+		this.download = new FieldLong(); 
+		this.upload = new FieldLong(); 
+		this.new_rate_plan = new FieldString();
+		this.old_rate_plan = new FieldString();
+		this.new_profile = new FieldString();
+		this.old_profile = new FieldString();
+		this.new_subprofile = new FieldString();
+		this.old_subprofile = new FieldString();
 		//this.new_status = new CSVSchemaTable( new Statuses(), Statuses.Fields.status );
 		//this.old_status = new CSVSchemaTable( new Statuses(), Statuses.Fields.status );
 		//this.new_status = new CSVString();
 		//this.old_status = new CSVString();
-		this.new_status = new CSVEnum( SUBSTATUS.values() );
-		this.old_status = new CSVEnum( SUBSTATUS.values() );		
-		this.new_network = new CSVString(); 
-		this.old_network = new CSVString(); 
-		this.new_subscription_date = new CSVDate();
-		this.old_subscription_date = new CSVDate();
-		this.sms = new CSVEnum( SMS.values() );
+		this.new_status = new FieldEnum( SUBSTATUS.values() );
+		this.old_status = new FieldEnum( SUBSTATUS.values() );		
+		this.new_network = new FieldString(); 
+		this.old_network = new FieldString(); 
+		this.new_subscription_date = new FieldDate();
+		this.old_subscription_date = new FieldDate();
+		this.sms = new FieldEnum( SMS.values() );
 		
 		this.file_content = new StringBuilder();
 		this.rows = new ArrayList<String>();

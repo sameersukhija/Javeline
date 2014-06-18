@@ -1,11 +1,11 @@
-package com.lumata.e4o.system.csv.types;
+package com.lumata.e4o.system.fields;
 
 import com.lumata.e4o.exceptions.CDRException;
-import com.lumata.e4o.system.csv.annotations.CSVFieldLong;
-import com.lumata.e4o.system.csv.annotations.CSVMethod;
+import com.lumata.e4o.system.field.types.FieldMethod;
+import com.lumata.e4o.system.field.types.FieldTypeLong;
 
-@CSVFieldLong
-public class CSVLong {
+@FieldTypeLong
+public class FieldLong {
 
 	private Long long_current_value;
 	private Long long_left_value;
@@ -13,7 +13,7 @@ public class CSVLong {
 	private Long long_next_value;
 	private Integer long_increment;
 	
-	public CSVLong() {
+	public FieldLong() {
 			
 		long_current_value = null;
 		long_left_value = null;
@@ -23,7 +23,7 @@ public class CSVLong {
 				
 	}
 
-	@CSVMethod
+	@FieldMethod
 	public String getLong() throws CDRException {
 		
 		if( this.long_current_value == null && ( this.long_left_value == null || this.long_right_value == null )) { return ""; } 
@@ -59,7 +59,7 @@ public class CSVLong {
 		
 	}
 
-	@CSVMethod
+	@FieldMethod
 	public void setLongStrategyFixed( final Long value ) throws CDRException {	
 		
 		this.long_current_value = ( value != null ? Math.abs( value ) : null );
@@ -70,7 +70,7 @@ public class CSVLong {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void setLongStrategyIncrement( final Long value, final Integer increment ) throws CDRException {
 		
 		if( value == null ) { throw new CDRException( "The field cannot be null." ); }
@@ -85,7 +85,7 @@ public class CSVLong {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void setLongStrategyRandom( final Long min_value, final Long max_value ) throws CDRException {
 		
 		if( min_value == null ) { throw new CDRException( "The min field value cannot be null." ); }
@@ -100,14 +100,14 @@ public class CSVLong {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanLongStrategyFixed() {
 		
 		this.long_current_value = null;
 			
 	}
 		
-	@CSVMethod
+	@FieldMethod
 	public void cleanLongStrategyIncrement() {
 		
 		this.long_increment = null;
@@ -116,7 +116,7 @@ public class CSVLong {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanLongStrategyRandom() {
 		
 		this.long_left_value = null;

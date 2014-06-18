@@ -2,11 +2,11 @@ package com.lumata.e4o.system.cdr.types;
 
 import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.cdr.CDR;
-import com.lumata.e4o.system.cdr.annotations.*;
+import com.lumata.e4o.system.cdr.fields.*;
 
 import java.util.Calendar;
 
-import com.lumata.e4o.system.csv.types.CSVDateIncrement;
+import com.lumata.e4o.system.fields.FieldDateIncrement;
 
 public class CDRVoucher extends CDR { 
 
@@ -107,7 +107,7 @@ public class CDRVoucher extends CDR {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
 
-	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
+	public void setDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
 		if( this.date != null ) { this.date.setDateStrategyIncrement( date, increment ); }
 	}
 

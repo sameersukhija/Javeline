@@ -1,4 +1,4 @@
-package com.lumata.e4o.system.csv.types;
+package com.lumata.e4o.system.fields;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,11 +11,11 @@ import static com.lumata.common.testing.orm.Filter.distinct;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.e4o.exceptions.CDRException;
-import com.lumata.e4o.system.csv.annotations.CSVFieldSchemaTable;
-import com.lumata.e4o.system.csv.annotations.CSVMethod;
+import com.lumata.e4o.system.field.types.FieldMethod;
+import com.lumata.e4o.system.field.types.FieldTypeSchemaTable;
 
-@CSVFieldSchemaTable
-public class CSVSchemaTable {
+@FieldTypeSchemaTable
+public class FieldSchemaTable {
 
 	private ArrayList<String> table_values;
 	private JSONObject ds;
@@ -28,7 +28,7 @@ public class CSVSchemaTable {
 	private Integer table_increment_value;
 	private Boolean table_random_value;
 		
-	public CSVSchemaTable( final Object entity, final Enum<?> field ) {
+	public FieldSchemaTable( final Object entity, final Enum<?> field ) {
 					
 		ds = null;
 		table = entity;
@@ -43,7 +43,7 @@ public class CSVSchemaTable {
 						
 	}
 
-	@CSVMethod
+	@FieldMethod
 	public String getSchemaTable() throws CDRException {
 						
 		if( this.table_current_value == null && this.table_random_value == false ) { return ""; } 
@@ -81,7 +81,7 @@ public class CSVSchemaTable {
 		
 	}
 
-	@CSVMethod
+	@FieldMethod
 	public void setSchemaTableValues( final JSONObject dataSource ) throws CDRException {
 		
 		ds = dataSource;
@@ -90,7 +90,7 @@ public class CSVSchemaTable {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void setSchemaTableStrategyFixed( final Integer row ) throws CDRException {	
 		
 		if( row >= this.table_values.size() ) { throw new CDRException( "The row is greater than table size" ); }
@@ -116,7 +116,7 @@ public class CSVSchemaTable {
 		
 	}
 		
-	@CSVMethod
+	@FieldMethod
 	public void setSchemaTableStrategyIncrement( final Integer start_row, final Integer increment ) throws CDRException {
 		
 		if( start_row >= this.table_values.size() ) { throw new CDRException( "The start_row is greater than table size" ); }
@@ -133,7 +133,7 @@ public class CSVSchemaTable {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void setSchemaTableStrategyRandom() throws CDRException {
 		
 		this.cleanSchemaTableStrategyIncrement();
@@ -142,7 +142,7 @@ public class CSVSchemaTable {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanSchemaTableOptions() {
 		
 		this.ds = null;
@@ -153,7 +153,7 @@ public class CSVSchemaTable {
 			
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanSchemaTableStrategyFixed() {
 		
 		this.table_current_value = null;
@@ -162,7 +162,7 @@ public class CSVSchemaTable {
 			
 	}
 		
-	@CSVMethod
+	@FieldMethod
 	public void cleanSchemaTableStrategyIncrement() {
 		
 		this.cleanSchemaTableStrategyFixed();
@@ -173,7 +173,7 @@ public class CSVSchemaTable {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanSchemaTableStrategyRandom() {
 		
 		this.cleanSchemaTableStrategyFixed();

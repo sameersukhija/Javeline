@@ -2,7 +2,7 @@ package com.lumata.e4o.system.cdr.types;
 
 import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.cdr.CDR;
-import com.lumata.e4o.system.cdr.annotations.*;
+import com.lumata.e4o.system.cdr.fields.*;
 
 public class CDRHistory extends CDR { 
 

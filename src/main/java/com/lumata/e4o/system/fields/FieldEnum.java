@@ -1,13 +1,13 @@
-package com.lumata.e4o.system.csv.types;
+package com.lumata.e4o.system.fields;
 
 import com.lumata.e4o.exceptions.CDRException;
-import com.lumata.e4o.system.csv.annotations.CSVFieldEnum;
-import com.lumata.e4o.system.csv.annotations.CSVMethod;
+import com.lumata.e4o.system.field.types.FieldMethod;
+import com.lumata.e4o.system.field.types.FieldTypeEnum;
 
-@CSVFieldEnum
-public class CSVEnum {
+@FieldTypeEnum
+public class FieldEnum {
 
-	private Enum<? extends ICSVEnum>[] enumeration;
+	private Enum<? extends IFieldEnum>[] enumeration;
 	private String enum_current_value;
 	private Integer enum_curr_pos;
 	private String enum_next_value;
@@ -16,7 +16,7 @@ public class CSVEnum {
 	private Boolean enum_random;
 		
 	@SafeVarargs
-	public CSVEnum( Enum<? extends ICSVEnum>... enumeration ) {
+	public FieldEnum( Enum<? extends IFieldEnum>... enumeration ) {
 			
 		this.enumeration = enumeration;
 		
@@ -28,7 +28,7 @@ public class CSVEnum {
 						
 	}
 
-	@CSVMethod
+	@FieldMethod
 	public String getEnum() throws CDRException {
 						
 		if( this.enum_current_value == null && this.enum_random == false ) { return ""; } 
@@ -66,10 +66,10 @@ public class CSVEnum {
 		
 	}
 
-	@CSVMethod
-	public void setEnumStrategyFixed( final Enum<? extends ICSVEnum> value ) throws CDRException {	
+	@FieldMethod
+	public void setEnumStrategyFixed( final Enum<? extends IFieldEnum> value ) throws CDRException {	
 		
-		this.enum_current_value = ( value != null && enumeration != null ? ((ICSVEnum)value).value() : null );
+		this.enum_current_value = ( value != null && enumeration != null ? ((IFieldEnum)value).value() : null );
 		
 		this.cleanEnumStrategyIncrement();
 		
@@ -77,14 +77,14 @@ public class CSVEnum {
 		
 	}
 	
-	@CSVMethod
-	public void setEnumStrategyIncrement( final Enum<? extends ICSVEnum> value, final Integer increment ) throws CDRException {
+	@FieldMethod
+	public void setEnumStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws CDRException {
 		
 		if( value == null ) { throw new CDRException( "The field cannot be null." ); }
 		
 		if( increment == null ) { throw new CDRException( "The field increment cannot be null." ); }
 		
-		this.enum_current_value = ((ICSVEnum)value).value();
+		this.enum_current_value = ((IFieldEnum)value).value();
 		
 		this.enum_increment = Math.abs( increment );
 		
@@ -92,7 +92,7 @@ public class CSVEnum {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void setEnumStrategyRandom() throws CDRException {
 		
 		this.enum_random = true;
@@ -101,14 +101,14 @@ public class CSVEnum {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanEnumStrategyFixed() {
 		
 		this.enum_current_value = null;
 			
 	}
 		
-	@CSVMethod
+	@FieldMethod
 	public void cleanEnumStrategyIncrement() {
 		
 		this.enum_increment = null;
@@ -117,7 +117,7 @@ public class CSVEnum {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanEnumStrategyRandom() {
 		
 		this.enum_random = false;
@@ -128,7 +128,7 @@ public class CSVEnum {
 		
 		int enum_pos = (int)( Math.random() * enumeration.length );
 				
-		return ((ICSVEnum)enumeration[enum_pos]).value();
+		return ((IFieldEnum)enumeration[enum_pos]).value();
 								
 	}
 	
@@ -136,7 +136,7 @@ public class CSVEnum {
 		
 		this.enum_next_pos = ( ( this.enum_curr_pos != null ? this.enum_curr_pos : 0 ) + this.enum_increment ) % this.enumeration.length;
 		
-		this.enum_next_value = ((ICSVEnum)this.enumeration[ this.enum_next_pos ]).value();
+		this.enum_next_value = ((IFieldEnum)this.enumeration[ this.enum_next_pos ]).value();
 		
 	}
 	

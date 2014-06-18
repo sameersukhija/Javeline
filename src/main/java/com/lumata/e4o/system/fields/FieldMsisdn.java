@@ -1,11 +1,11 @@
-package com.lumata.e4o.system.csv.types;
+package com.lumata.e4o.system.fields;
 
 import com.lumata.e4o.exceptions.CDRException;
-import com.lumata.e4o.system.csv.annotations.CSVMethod;
-import com.lumata.e4o.system.csv.annotations.CSVFieldMsisdn;
+import com.lumata.e4o.system.field.types.FieldMethod;
+import com.lumata.e4o.system.field.types.FieldTypeMsisdn;
 
-@CSVFieldMsisdn
-public class CSVMsisdn {
+@FieldTypeMsisdn
+public class FieldMsisdn {
 
 	private Integer msisdn_prefix;
 	private Long msisdn_current_value;
@@ -15,7 +15,7 @@ public class CSVMsisdn {
 	private Integer msisdn_increment;
 	private Integer msisdn_length;
 	
-	public CSVMsisdn() {
+	public FieldMsisdn() {
 		
 		msisdn_prefix = null;
 		msisdn_current_value = null;
@@ -27,7 +27,7 @@ public class CSVMsisdn {
 		
 	}
 
-	@CSVMethod
+	@FieldMethod
 	public String getMsisdn() throws CDRException {
 		
 		if( this.msisdn_current_value == null && ( this.msisdn_left_value == null || this.msisdn_right_value == null )) { return ""; } 
@@ -63,7 +63,7 @@ public class CSVMsisdn {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException {
 		
 		if( length != null && length > 19 ) { throw new CDRException( "The msisdn length must be less than 20." ); }
@@ -74,7 +74,7 @@ public class CSVMsisdn {
 		
 	}
 
-	@CSVMethod
+	@FieldMethod
 	public void setMsisdnStrategyFixed( final Long value ) throws CDRException {	
 		
 		this.msisdn_current_value = ( value != null ? Math.abs( value ) : null );
@@ -85,7 +85,7 @@ public class CSVMsisdn {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException {
 		
 		if( value == null ) { throw new CDRException( "The msisdn cannot be null." ); }
@@ -100,7 +100,7 @@ public class CSVMsisdn {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException {
 		
 		if( min_value == null ) { throw new CDRException( "The min msisdn value cannot be null." ); }
@@ -115,14 +115,14 @@ public class CSVMsisdn {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanMsisdnFixedStrategy() {
 		
 		this.msisdn_current_value = null;
 			
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanMsisdnOptions() {
 				
 		this.msisdn_prefix = null;
@@ -133,7 +133,7 @@ public class CSVMsisdn {
 				
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanMsisdnStrategyIncrement() {
 		
 		this.msisdn_increment = null;
@@ -142,7 +142,7 @@ public class CSVMsisdn {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanMsisdnStrategyRandom() {
 		
 		this.msisdn_left_value = null;

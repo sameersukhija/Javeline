@@ -1,4 +1,4 @@
-package com.lumata.e4o.system.cdr.annotations;
+package com.lumata.e4o.system.cdr.fields;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

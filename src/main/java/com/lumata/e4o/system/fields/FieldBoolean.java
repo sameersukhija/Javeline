@@ -1,18 +1,18 @@
-package com.lumata.e4o.system.csv.types;
+package com.lumata.e4o.system.fields;
 
 import com.lumata.e4o.exceptions.CDRException;
-import com.lumata.e4o.system.csv.annotations.CSVFieldBoolean;
-import com.lumata.e4o.system.csv.annotations.CSVMethod;
+import com.lumata.e4o.system.field.types.FieldMethod;
+import com.lumata.e4o.system.field.types.FieldTypeBoolean;
 
-@CSVFieldBoolean
-public class CSVBoolean {
+@FieldTypeBoolean
+public class FieldBoolean {
 
 	private Boolean boolean_current_value;
 	private Integer boolean_increment;
 	private Boolean boolean_random;
 	private Boolean is_boolean_incremented;
 	
-	public CSVBoolean() {
+	public FieldBoolean() {
 		
 		boolean_current_value = null;
 		boolean_increment = null;
@@ -21,7 +21,7 @@ public class CSVBoolean {
 		
 	}
 
-	@CSVMethod
+	@FieldMethod
 	public String getBoolean() throws CDRException {
 		
 		if( this.boolean_current_value == null && !this.boolean_random ) { return ""; } 
@@ -55,7 +55,7 @@ public class CSVBoolean {
 		
 	}
 
-	@CSVMethod
+	@FieldMethod
 	public void setBooleanStrategyFixed( final Boolean value ) throws CDRException {	
 					
 		this.cleanBooleanStrategyIncrement();
@@ -66,7 +66,7 @@ public class CSVBoolean {
 			
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void setBooleanStrategyIncrement( final Boolean start_value, final Integer increment ) throws CDRException {	
 		
 		this.cleanBooleanStrategyRandom();
@@ -77,7 +77,7 @@ public class CSVBoolean {
 						
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void setBooleanStrategyRandom() throws CDRException {
 		
 		this.cleanBooleanStrategyIncrement();
@@ -86,14 +86,14 @@ public class CSVBoolean {
 				
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanBooleanStrategyFixed() {
 		
 		this.boolean_current_value = null;
 					
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanBooleanStrategyIncrement() {
 		
 		this.cleanBooleanStrategyFixed();
@@ -102,7 +102,7 @@ public class CSVBoolean {
 		
 	}
 	
-	@CSVMethod
+	@FieldMethod
 	public void cleanBooleanStrategyRandom() {
 		
 		this.cleanBooleanStrategyFixed();

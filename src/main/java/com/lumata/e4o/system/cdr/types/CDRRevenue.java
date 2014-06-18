@@ -2,12 +2,12 @@ package com.lumata.e4o.system.cdr.types;
 
 import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.cdr.CDR;
-import com.lumata.e4o.system.cdr.annotations.*;
+import com.lumata.e4o.system.cdr.fields.*;
 
 import java.util.Calendar;
 
-import com.lumata.e4o.system.csv.types.CSVDateIncrement;
-import com.lumata.e4o.system.csv.types.ICSVEnum;
+import com.lumata.e4o.system.fields.FieldDateIncrement;
+import com.lumata.e4o.system.fields.IFieldEnum;
 
 public class CDRRevenue extends CDR { 
 
@@ -71,7 +71,7 @@ public class CDRRevenue extends CDR {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
 
-	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
+	public void setDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
 		if( this.date != null ) { this.date.setDateStrategyIncrement( date, increment ); }
 	}
 
@@ -162,7 +162,7 @@ public class CDRRevenue extends CDR {
 		if( this.validity_date != null ) { this.validity_date.setDateStrategyFixed( date ); }
 	}
 
-	public void setValidityDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
+	public void setValidityDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
 		if( this.validity_date != null ) { this.validity_date.setDateStrategyIncrement( date, increment ); }
 	}
 
@@ -195,7 +195,7 @@ public class CDRRevenue extends CDR {
 		if( this.deactivation_date != null ) { this.deactivation_date.setDateStrategyFixed( date ); }
 	}
 
-	public void setDeactivationDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
+	public void setDeactivationDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
 		if( this.deactivation_date != null ) { this.deactivation_date.setDateStrategyIncrement( date, increment ); }
 	}
 
@@ -220,7 +220,7 @@ public class CDRRevenue extends CDR {
 		return this.type.getEnum();
 	}
 
-	public void setTypeStrategyFixed( final Enum<? extends ICSVEnum> value ) throws CDRException  {
+	public void setTypeStrategyFixed( final Enum<? extends IFieldEnum> value ) throws CDRException  {
 		if( this.type != null ) { this.type.setEnumStrategyFixed( value ); }
 	}
 
@@ -232,7 +232,7 @@ public class CDRRevenue extends CDR {
 		if( this.type != null ) { this.type.cleanEnumStrategyRandom(); }
 	}
 
-	public void setTypeStrategyIncrement( final Enum<? extends ICSVEnum> value, final Integer increment ) throws CDRException  {
+	public void setTypeStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws CDRException  {
 		if( this.type != null ) { this.type.setEnumStrategyIncrement( value, increment ); }
 	}
 
