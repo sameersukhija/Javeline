@@ -191,12 +191,6 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 		final String textField  = "//div[text()='"+( type.equals(LoyaltyTypes.Points) ? "New Class" : "New Badge Type" )+"']//ancestor::table//input"; 
 //		final String saveButton = "//div[text()='"+( type.equals(LoyaltyTypes.Points) ? "New Class" : "New Badge Type" )+"']//ancestor::table//button[@title='Save']";
 
-		// error handling on class/badge
-		LoyaltyAddClassBadgeHandler handler = new LoyaltyAddClassBadgeHandler( 	selenium.getWrappedDriver(), loyaltiesCreationCfg.getCurrentElement());
-		
-		// this is custom method
-		handler.setType(type);
-		
 		for (String element : element2fill) {
 			
 			clickXPath(rule2Add);
@@ -213,6 +207,12 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 			
 			// error handling on class/badge
 //			LoyaltyAddClassBadgeHandler handler = new LoyaltyAddClassBadgeHandler( 	selenium.getWrappedDriver(), loyaltiesCreationCfg.getCurrentElement());
+
+			// error handling on class/badge
+			LoyaltyAddClassBadgeHandler handler = new LoyaltyAddClassBadgeHandler( 	selenium.getWrappedDriver(), loyaltiesCreationCfg.getCurrentElement());
+			
+			// this is custom method
+			handler.setType(type);
 			
 			handler.saveAction();
 		}

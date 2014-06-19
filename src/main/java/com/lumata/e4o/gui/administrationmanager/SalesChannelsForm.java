@@ -85,8 +85,8 @@ public class SalesChannelsForm extends AdministrationForm {
 	}
 	
 	public SalesChannelsForm activateSalesChannel( String salesChannel ) throws FormException {
-		
-		String tableListOfChannelXPath = "//table//div[text()='List of channels']//parent::td//parent::tr//parent::tbody";
+
+		String tableListOfChannelXPath = "//table//div[text()='List of sales channels']//parent::td//parent::tr//parent::tbody";
 		String rowSalesChannelXPath = tableListOfChannelXPath + "//div[text()='" + salesChannel + "']//parent::td//parent::tr";
 		String btnActivateSalesChannelXPath = rowSalesChannelXPath + "//button[@name='btn-activate']";
 		
@@ -99,7 +99,7 @@ public class SalesChannelsForm extends AdministrationForm {
 
 	public SalesChannelsForm deactivateSalesChannel( String salesChannel ) throws FormException {
 		
-		String tableListOfChannelXPath = "//table//div[text()='List of channels']//parent::td//parent::tr//parent::tbody";
+		String tableListOfChannelXPath = "//table//div[text()='List of sales channels']//parent::td//parent::tr//parent::tbody";
 		String rowSalesChannelXPath = tableListOfChannelXPath + "//div[text()='" + salesChannel + "']//parent::td//parent::tr";
 		String btnDeactivateSalesChannelXPath = rowSalesChannelXPath + "//button[@name='btn-deactivate']";
 
@@ -112,7 +112,7 @@ public class SalesChannelsForm extends AdministrationForm {
 
 	public Boolean isSalesChannelActive( String salesChannel ) throws FormException {
 		
-		String tableListOfChannelXPath = "//table//div[text()='List of channels']//parent::td//parent::tr//parent::tbody";
+		String tableListOfChannelXPath = "//table//div[text()='List of sales channels']//parent::td//parent::tr//parent::tbody";
 		String rowSalesChannelXPath = tableListOfChannelXPath + "//div[text()='" + salesChannel + "']//parent::td//parent::tr";
 		String btnActivateSalesChannelXPath = rowSalesChannelXPath + "//button[@name='btn-activate']";
 		

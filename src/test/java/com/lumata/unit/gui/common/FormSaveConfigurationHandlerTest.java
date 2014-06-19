@@ -204,6 +204,98 @@ public class FormSaveConfigurationHandlerTest {
 	}	
 	
 	/**
+	 * Button to Dialog handler
+	 */	
+	private class Button2DialogHandler extends SampleHandler {
+
+		public Button2DialogHandler(WebDriver driver,
+				ErrorModificableElement currentElement) {
+			super(driver, currentElement);
+		}
+
+		@Override
+		protected WebElement getSaveWebElement() {
+
+			return getWebDriver().findElement(By.xpath("//button[@id='save-dialog']"));
+		}
+		
+	}
+	
+	/**
+	 * Dialog handler
+	 */	
+	private class DialogHandler extends SampleHandler {
+
+		public DialogHandler(WebDriver driver,
+				ErrorModificableElement currentElement) {
+			super(driver, currentElement);
+		}
+
+		@Override
+		protected WebElement getSaveWebElement() {
+
+			return getWebDriver().findElement(By.xpath("//button[contains(@class,'ui-button')]//*[text()='Save']"));
+		}
+		
+		@Override
+		protected Boolean cancelAction() {
+			
+			// for verification
+			addAbortCancelInvoked = Boolean.TRUE;
+			
+			Boolean resp = Boolean.FALSE;
+			
+			try {
+				getWebDriver().findElement(By.xpath("//input[@id='another-name']")).clear();
+
+				getWebDriver().findElement(By.xpath("//button[contains(@class,'ui-button')]//*[text()='Cancel']")).click();
+					
+				resp = Boolean.TRUE;
+			}
+			catch ( NoSuchElementException e ) {
+			
+				e.printStackTrace();
+				
+				resp = Boolean.FALSE;
+			}
+			
+			return resp;
+		}
+		
+		@Override
+		protected Boolean addTimestampAction() {
+			 
+			// for verification
+			addTimestampInvoked = Boolean.TRUE;
+						
+			Boolean resp = Boolean.FALSE;
+			
+			try {
+				
+				String name = getCurrentElement().getStringFromPath("name");
+				name += TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+				getCurrentElement().modifyStringFromPath("name", name);
+				
+				getWebDriver().findElement(By.xpath("//input[@id='another-name']")).clear();
+				
+				getWebDriver().findElement(By.xpath("//input[@id='another-name']")).sendKeys(getCurrentElement().getStringFromPath("name"));
+				
+				saveAction();
+				
+				resp = Boolean.TRUE;
+				
+			} catch ( NoSuchElementException | FormException | JSONSException e ) {
+				
+				e.printStackTrace();
+				
+				resp = Boolean.FALSE;
+			}
+			
+			return resp;
+		}
+	}	
+	
+	/**
 	 * 
 	 * 
 	 * 
@@ -472,5 +564,29 @@ public class FormSaveConfigurationHandlerTest {
 		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Error String");
 		
 		underTestObject.saveAction();
-	}		
+	}
+	
+	@Test( priority = 9 )
+	public void correctTextDoubleHandledStep() throws FormException {
+
+		underTestObject = new Button2DialogHandler(driver, defaultCurrentElement);
+		
+		driver.findElement(By.xpath("//input[@id='name-field']")).sendKeys("Error String");
+		
+		Assert.assertEquals( 	underTestObject.saveAction(), SaveResult.SavedWithTimestamp);
+
+		Assert.assertEquals( 	underTestObject.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
+//		Assert.assertEquals(   	addAbortCancelInvoked, Boolean.FALSE, "No error are showed!");
+//		Assert.assertEquals(   	addTimestampInvoked, Boolean.TRUE, "No error are showed!");
+		
+		underTestObject = new DialogHandler(driver, defaultCurrentElement);
+		
+		driver.findElement(By.xpath("//input[@id='another-name']")).sendKeys("Error String");
+		
+		Assert.assertEquals( 	underTestObject.saveAction(), SaveResult.SavedWithTimestamp);
+
+		Assert.assertEquals( 	underTestObject.catchConfirmation(), Boolean.FALSE, "The popup is NOT showed!");
+//		Assert.assertEquals(   	addAbortCancelInvoked, Boolean.FALSE, "No error are showed!");
+//		Assert.assertEquals(   	addTimestampInvoked, Boolean.FALSE, "No error are showed!");
+	}
 }

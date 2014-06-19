@@ -2,20 +2,20 @@
 	"loyalties": [
 		{
 			"enabled" : true,
-			"name" : "Points Program",
+			"name" : "PointsProgram",
 			"description" : "The points description",
 			"type" : "Points",
 			"classes" : [ "Gold", "Silver", "Bronze"],
 			"badges" : null,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			},
 			"delete" : false
 		},
 		{
 			"enabled" : true,
-			"name" : "Badges Program",
+			"name" : "BadgesProgram",
 			"description" : "The badges description",
 			"type" : "Badges",
 			"classes" : null,
@@ -25,6 +25,6 @@
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			},
 			"delete" : false
-		}
+		}		
 	]
 }

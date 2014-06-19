@@ -59,10 +59,29 @@
             height: 250,
             width: 350,
             modal: true,
+            position: { 
+              my: 'top',
+              at: 'top',
+              of: $('#save-dialog')
+            },
             buttons: {
               "Save": function() {
-                        //var name = $( "#another-name" ).val();
-                        myMockedPopup();
+                       
+                        var debugMessage = $( "#debugDiv" );
+                        var inputField = $( "#another-name" );
+
+                        if ( inputField.val() == "Error String") {
+                          debugMessage.text("Dialog error condition!!!");
+                          inputField.addClass( "errorBackground" );
+                        }
+                        else if ( inputField.val() == "") {
+                          debugMessage.text("Reset condition.");
+                          inputField.removeClass( "errorBackground" );
+                         }
+                        else  {
+                          debugMessage.text("Dialog correct condition.");
+                          inputField.removeClass( "errorBackground" );
+                        }         
               },
               Cancel: function() {
                 $( this ).dialog( "close" );
