@@ -1,6 +1,7 @@
 package com.lumata.e4o.gui.xmlrpc.type;
 
 import com.lumata.common.testing.system.Security;
+import com.lumata.common.testing.system.User;
 
 public class XMLRPCParam {
 
@@ -14,6 +15,12 @@ public class XMLRPCParam {
 	
 	XMLRPCParam( StringBuilder param ) { 
 		this.value = param; 
+	}
+	
+	public static XMLRPCParam authentication( User user ) {
+		
+		return XMLRPCParam.authentication( user.getUsername(), user.getPassword() );
+		
 	}
 	
 	public static XMLRPCParam authentication( String user, String password ) {
@@ -87,6 +94,36 @@ public class XMLRPCParam {
 		}
 		
 		valuesPOSTBody.append("</productPrices></value></param>" );
+	
+		return new XMLRPCParam( valuesPOSTBody );
+				
+	}
+	
+	public static XMLRPCProduct product() {
+		
+		return new XMLRPCProduct();
+		
+	}
+	
+	public static XMLRPCParam arraySelectedProducts( XMLRPCProduct... products ) {
+		
+		StringBuilder valuesPOSTBody = new StringBuilder();
+		
+		valuesPOSTBody.append( "<param><value><selectedProducts>");
+		
+		for( int p = 0; p < products.length; p++ ) {
+			
+			if( null != products[ p ] ) { 
+				
+				valuesPOSTBody.
+					append( "<product>" ).
+					append( "</product>" ); 
+				
+			}			
+			
+		}
+		
+		valuesPOSTBody.append("</selectedProducts></value></param>" );
 	
 		return new XMLRPCParam( valuesPOSTBody );
 				

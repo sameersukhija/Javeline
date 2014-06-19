@@ -49,6 +49,9 @@ public class XMLRPCRequest_CatalogManager_Purchase {
 															arrayProductPrices( 
 																price( 10, "internal points" )	
 															),
+															arraySelectedProducts( 
+																	/* product() */	
+															),
 															string("2")
 														)
 											);
