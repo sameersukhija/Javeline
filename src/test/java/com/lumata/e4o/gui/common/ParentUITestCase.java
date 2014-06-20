@@ -7,7 +7,6 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
@@ -45,16 +44,16 @@ public abstract class ParentUITestCase {
 	protected final Integer TIMEOUT = 60000;
 	protected final Integer ATTEMPT_TIMEOUT = 50;
 	
-	protected NetworkEnvironment env = null;
-	protected Server gui = null;
-	protected SeleniumWebDriver seleniumWebDriver = null;
+	static protected NetworkEnvironment env = null;
+	static protected Server gui = null;
+	static protected SeleniumWebDriver seleniumWebDriver = null;
 	
-	private Authorization auth = null;
+	static private Authorization auth = null;
 	
 	/**
 	 * Used to retrieve configuration resource during execution
 	 */
-	protected String currentResourceStartPath;
+	static protected String currentResourceStartPath;
 	
 	/* 	Initialize Environment */
 	@BeforeSuite
