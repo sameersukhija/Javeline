@@ -22,7 +22,6 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.e4o.exceptions.CampaignModelException;
 import com.lumata.e4o.exceptions.CommoditiesException;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.administrationmanager.SalesChannelsForm;
@@ -39,7 +38,7 @@ public class ConfigureCampaignToGiveTokens {
 
 	private static final Logger logger = LoggerFactory.getLogger( ConfigureCampaignToGiveTokens.class );
 	
-	private final boolean testEnabled = false;
+	private final boolean testEnabled = true;
 	
 	private int TIMEOUT = 60000;
 	private int ATTEMPT_TIMEOUT = 50;
@@ -52,7 +51,7 @@ public class ConfigureCampaignToGiveTokens {
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment", "gui_server", "tenant", "user"})
 	@BeforeClass
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment, @Optional("actrule") String gui_server, @Optional("qa") String tenant, @Optional("superman") String user ) throws CommoditiesException, JSONSException, IOFileException, NetworkEnvironmentException, FormException {		
+	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_VM_NE") String environment, @Optional("actrule") String gui_server, @Optional("tenant") String tenant, @Optional("superman") String user ) throws CommoditiesException, JSONSException, IOFileException, NetworkEnvironmentException, FormException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
@@ -60,7 +59,7 @@ public class ConfigureCampaignToGiveTokens {
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
 		/** Create mysql connections with global and tenant database */
-		mysqlGlobal = new Mysql( env.getDataSource( "global" ) );		
+		//mysqlGlobal = new Mysql( env.getDataSource( "global" ) );		
 		mysqlTenant = new Mysql( env.getDataSource( tenant ) );
 		
 		/** Create Selenium WebDriver instance */
@@ -120,8 +119,6 @@ public class ConfigureCampaignToGiveTokens {
 		);		
 				
     }
-	
-
 	
 	@AfterClass
 	public void end() {
