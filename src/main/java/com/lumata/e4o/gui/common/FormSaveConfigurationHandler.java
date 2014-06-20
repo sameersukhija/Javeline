@@ -22,7 +22,7 @@ import com.lumata.e4o.exceptions.FormException;
  * This object will be extended for every "save" interaction to provide form specific behavior. The behavior provided are :<br>
  * <li> <b>containsErrorElement</b>, it returns true/false according web application status
  * <li> <b>getSaveWebElement</b>, it returns the WebElement to be clicked on "Save"
- * <li> <b>defineErrorCondition</b>, it returns the error condition for application accordin input configuration
+ * <li> <b>defineErrorCondition</b>, it returns the error condition for application according input configuration
  * <li> <b>cancelAction</b>, it performs the Abort/Cancel action
  * <li> <b>addTimestampAction()</b>, it perform the "Add Timestamp" to field and re-perform "Save" event
  *  
@@ -58,6 +58,11 @@ public abstract class FormSaveConfigurationHandler {
 	private Exception resultingException = null;
 	
 	/**
+	 * The save result for latest execution
+	 */
+	private SaveResult saveEventResult = null;
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param inDriver
@@ -65,7 +70,7 @@ public abstract class FormSaveConfigurationHandler {
 	 */
 	protected FormSaveConfigurationHandler( WebDriver inDriver, ErrorModificableElement inCurrentElement ) {
 		
-		logger.debug("Init " + getClass().getSimpleName());
+		logger.info("Init handler " + getClass().getSimpleName());
 		
 		currentElement = inCurrentElement;
 		
@@ -95,79 +100,111 @@ public abstract class FormSaveConfigurationHandler {
 	/**
 	 * This is a WebDriverEventListener to intercept under test application status in "Save" event time slot
 	 */
-	private class SaveTimeSlotHandler extends AbstractWebDriverEventListener {
+	private class SaveTimeSlotListener extends AbstractWebDriverEventListener {
 
 		@Override
 		public void afterClickOn(WebElement arg0, WebDriver arg1) {
 			
-			if ( arg0.equals(getSaveWebElement()) ) {
-				
-				// check "Confirmation" popup after "Save" event
-				acceptedConfirmationPopup = handleJavascriptAlertAcceptDismiss(true); 
-				
-				if ( acceptedConfirmationPopup ) 
-					logger.debug( getClass().getSimpleName() + " enconters \"confirmation\" popup.");
-				else
-					logger.debug( getClass().getSimpleName() + " does NOT enconter \"confirmation\" popup.");
+			// if not monitored event, skip
+			if ( !arg0.equals(getSaveWebElement()) )
+				return;
 
-				logger.info("The \"Save Click\" occurs : afterClickOn with "+getClass().getSimpleName()+".");
+			logger.debug("Listener after \"Save\" event phase.");
+			
+			// check "Confirmation" popup after "Save" event
+			acceptedConfirmationPopup = handleJavascriptAlertAcceptDismiss(true); 
+			
+			if ( acceptedConfirmationPopup ) 
+				logger.debug( "Listener enconters \"Confirmation\" popup.");
+			else
+				logger.debug( "Listener does NOT enconter \"Confirmation\" popup.");
+
+			// if "Confirmation" popup is displayed and accepted, no error check is necessary
+			// this block handles the investigation on error action to take
+			if ( !acceptedConfirmationPopup && containsErrorElement() ) {
 				
-				// in case no confirmation was executed, check element in error
+				logger.warn("Listener detects after \"Save\" event the form seems in error!");
 				
-				// if "Confirmation" popup is displayed and accepted, no error check is necessary
-				// this block handles the investigation on error action to take
-				if ( !acceptedConfirmationPopup && containsErrorElement() ) {
+				/**
+				 * Error condition detection
+				 */
+				ElementErrorConditionType condition = defineErrorCondition();
+				
+				logger.debug("Listener detects the condition " + condition);
+				
+				try {
 					
-					logger.warn(getClass().getSimpleName() + "  after \"save\" event the panel seems in error!");
+					ElementErrorActionType action = currentElement.getErrorActions().getAction(condition);
+
+					logger.debug("Current configuration applys for " + condition + " the action " + action);
 					
 					/**
-					 * Error condition detection
+					 * abort insertion
 					 */
-					ElementErrorConditionType condition = defineErrorCondition();
-					
-					try {
-						
-						ElementErrorActionType action = currentElement.getErrorActions().getAction(condition);
-						
-						// abort insertion
-						if ( action.equals(ElementErrorActionType.ABORT_CANCEL) ) {
-							if ( !cancelAction() )
-								resultingException = new FormException("During \"cancelAction\" action unexpected error!");
-							else
-								logger.debug("\"cancelAction\" executed correctly.");
+					if ( action.equals(ElementErrorActionType.ABORT_CANCEL) ) {
+						if ( !cancelAction() )
+							resultingException = new FormException("During \"cancelAction\" action unexpected error!");
+						else {
+							saveEventResult = SaveResult.AbortCancel;
+							
+							logger.debug("\"cancelAction\" executed correctly.");
 						}
-						// add time stamp to configured field(s)
-						else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) ) {
-							if ( !addTimestampAction() )
-								resultingException = new FormException("During \"addTimestampAction\" action unexpected error!");
-							else
-								logger.debug("\"addTimestampAction\" executed correctly.");
-						}
-						// stop execution and return error
-						else if ( action.equals(ElementErrorActionType.RETURN_ERROR) ) {
-							resultingException = new FormException(getClass().getSimpleName() + " cannot configure \""+currentElement.getStringFromPath("name")+"\"!");
-						}
-						
-					} catch (JSONSException e) {
-						
-						logger.warn("During afterClickOn with "+getClass().getSimpleName()+" an error occurs!");
-						
-						e.printStackTrace();
-						
-						resultingException = e;
 					}
-
-				}				
-
+					
+					/**
+					 * add time stamp to configured field(s)
+					 */
+					else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) ) {
+						if ( !addTimestampAction() )
+							resultingException = new FormException("During \"addTimestampAction\" action unexpected error!");
+						else {
+							saveEventResult = SaveResult.SavedWithTimestamp;
+							
+							logger.debug("\"addTimestampAction\" executed correctly.");
+						}
+					}
+					
+					/**
+					 * stop execution and return error
+					 */
+					else if ( action.equals(ElementErrorActionType.RETURN_ERROR) ) {
+						resultingException = new FormException("Listener cannot configure \""+currentElement.getStringFromPath("name")+"\"!");
+					}
+					
+				} catch (JSONSException e) {
+					
+					logger.error("Listener detects an error occurs!");
+					
+					e.printStackTrace();
+					
+					resultingException = e;
+				}
+				
+				// something go bad, track it!
+				if ( resultingException != null ) {
+					
+					saveEventResult = SaveResult.ExceptionThrowed;
+					
+					logger.warn("Listener detects an error occurs!");
+				}
+			}		
+			
+			/**
+			 * "Save" event works correctly!
+			 */
+			else { 
+				saveEventResult = SaveResult.SavedCorrectly;
+				
+				logger.debug("Listener detects that data are saved correctly!");
 			}
-			else
-				logger.debug("The \"Save Click\" does NOT occur.");
 		}
 
 		@Override
 		public void beforeClickOn(WebElement arg0, WebDriver arg1) {
 			
 			if ( arg0.equals(getSaveWebElement()) ) {
+
+				logger.debug("Listener before \"Save\" event phase.");
 				
 				// reset this status before "Save" event
 				acceptedConfirmationPopup = Boolean.FALSE;
@@ -175,13 +212,12 @@ public abstract class FormSaveConfigurationHandler {
 				// reset exception buffer
 				resultingException = null;
 				
-				logger.info("The \"Save Click\" occurs : beforeClickOn with "+getClass().getSimpleName()+".");
+				// reset latest execution status
+				saveEventResult = null;
 				
 				if ( containsErrorElement() )
-					logger.error(getClass().getSimpleName() + " without performs \"save\" event the panel seems in error!");
+					logger.error("Listener without performs \"Save\" event the form seems already in error!");
 			}
-			else
-				logger.debug("The \"Save Click\" does NOT occur.");
 		}
 	}
 	
@@ -223,6 +259,32 @@ public abstract class FormSaveConfigurationHandler {
 	}		
 	
 	/**
+	 * This enum describes the "Save" event result.
+	 */
+	public enum SaveResult {
+		
+		/**
+		 * The "Save" event produces a correct result without invoking additional steps.
+		 */
+		SavedCorrectly,
+		
+		/**
+		 * The "Save" event product a modification adding time stamp before save data.
+		 */
+		SavedWithTimestamp,
+		
+		/**
+		 * The "Save" event does not save data and produce an "Abort" event.
+		 */
+		AbortCancel,
+		
+		/**
+		 * During the "Save" event an exceptional error is caught.
+		 */
+		ExceptionThrowed;
+	}
+	
+	/**
 	 * This method performs the "Save" event on event armed driver.<br>
 	 * 
 	 * The armed driver follows the error events handling according application status and
@@ -230,13 +292,19 @@ public abstract class FormSaveConfigurationHandler {
 	 * 
 	 * @throws FormException 
 	 */
-	public void saveAction() throws FormException {
+	public SaveResult saveAction() throws FormException {
 	
-		SaveTimeSlotHandler oneTimeUse = new SaveTimeSlotHandler();
+		logger.info("Invoked \"Save\" event via handler " + getClass().getSimpleName());
+		
+		SaveTimeSlotListener oneTimeUse = new SaveTimeSlotListener();
+	
+		logger.debug("Register \"Save\" time listener.");
 		
 		eventFiringDriver.register(oneTimeUse);
 		
 		getSaveWebElement().click();
+		
+		logger.debug("Unregister \"Save\" time listener.");
 		
 		eventFiringDriver.unregister(oneTimeUse);
 		
@@ -245,6 +313,10 @@ public abstract class FormSaveConfigurationHandler {
 			
 			throw new FormException(resultingException.getMessage());
 		}
+
+		logger.info("Invoked \"Save\" event returns a " + saveEventResult);
+		
+		return saveEventResult;
 	}
 
 	/**

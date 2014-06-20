@@ -87,7 +87,7 @@ public class SalesChannelsForm extends AdministrationForm {
 	}
 	
 	public SalesChannelsForm activateSalesChannel( String salesChannel ) throws FormException {
-		
+
 		String tableListOfChannelXPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
 		String rowSalesChannelXPath = tableListOfChannelXPath + "//div[text()='" + salesChannel + "']//parent::td//parent::tr";
 		String btnActivateSalesChannelXPath = rowSalesChannelXPath + "//button[@name='btn-activate']";
