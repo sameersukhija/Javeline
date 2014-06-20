@@ -17,11 +17,11 @@ import com.lumata.e4o.system.cdr.types.CDRCall;
 import com.lumata.e4o.system.cdr.types.CDRHistory;
 import com.lumata.e4o.system.cdr.types.CDRRevenue;
 import com.lumata.e4o.system.cdr.types.CDRVoucher;
-import com.lumata.e4o.system.csv.types.CSVBoolean;
-import com.lumata.e4o.system.csv.types.CSVDateIncrement;
-import com.lumata.e4o.system.csv.types.CSVSchemaTable;
-import com.lumata.e4o.system.csv.types.CSVString;
-import com.lumata.e4o.system.csv.types.CSVDate.CDRDateFormat;
+import com.lumata.e4o.system.fields.FieldBoolean;
+import com.lumata.e4o.system.fields.FieldDateIncrement;
+import com.lumata.e4o.system.fields.FieldSchemaTable;
+import com.lumata.e4o.system.fields.FieldString;
+import com.lumata.e4o.system.fields.FieldDate.FieldDateFormat;
 
 public class CDRRevenueSimple {
 	
@@ -104,7 +104,7 @@ public class CDRRevenueSimple {
 		Calendar date = Calendar.getInstance();
 		
 		// add 1 day to date
-		CSVDateIncrement increment = new CSVDateIncrement();
+		FieldDateIncrement increment = new FieldDateIncrement();
 		increment.setDayIncrement( 1 );
 		
 		System.out.println( "Fixed Strategy" );
@@ -130,7 +130,7 @@ public class CDRRevenueSimple {
 
 		CDRCall c = new CDRCall();
 		Calendar date = Calendar.getInstance();
-		CSVDateIncrement increment = new CSVDateIncrement();
+		FieldDateIncrement increment = new FieldDateIncrement();
 		increment.setDayIncrement( 1 );
 				
 		System.out.println( "Fixed Strategy" );
@@ -171,7 +171,7 @@ public class CDRRevenueSimple {
 		
 		System.out.println( "Options setting" );
 		c.setMsisdnOptions( 39, 19 );
-		c.setDateFormat( CDRDateFormat.SQL_DATE_TIME.getFormat() );
+		c.setDateFormat( FieldDateFormat.SQL_DATE_TIME.getFormat() );
 		
 		System.out.println( "Fixed Strategy with options" );
 		c.setMsisdnStrategyFixed( 3399900001L );
@@ -224,7 +224,7 @@ public class CDRRevenueSimple {
 		Calendar max_date = Calendar.getInstance();
 		max_date.set( Calendar.YEAR , date.get( Calendar.YEAR ) + 1 );
 		
-		CSVDateIncrement increment = new CSVDateIncrement();
+		FieldDateIncrement increment = new FieldDateIncrement();
 		increment.setDayIncrement( 1 );
 				
 		System.out.println( "Fixed Strategy" );
@@ -259,7 +259,7 @@ public class CDRRevenueSimple {
 		
 		System.out.println( "Options setting" );
 		cdrBundle.setMsisdnOptions( 39, 19 );
-		cdrBundle.setDateFormat( CDRDateFormat.SQL_DATE_TIME.getFormat() );
+		cdrBundle.setDateFormat( FieldDateFormat.SQL_DATE_TIME.getFormat() );
 		
 		System.out.println( "Fixed Strategy" );
 		cdrBundle.setMsisdnStrategyFixed( 3399900001L );
@@ -310,7 +310,7 @@ public class CDRRevenueSimple {
 		Calendar max_date = Calendar.getInstance();
 		max_date.set( Calendar.YEAR , date.get( Calendar.YEAR ) + 1 );
 		
-		CSVDateIncrement increment = new CSVDateIncrement();
+		FieldDateIncrement increment = new FieldDateIncrement();
 		increment.setDayIncrement( 1 );
 		
 		
@@ -390,7 +390,7 @@ public class CDRRevenueSimple {
 		System.out.println( "-----------------------------" );
 		System.out.println( "csv_string" );
 
-		CSVString string = new CSVString();
+		FieldString string = new FieldString();
 		
 		System.out.println( "Fixed Strategy" );
 		string.setStringStrategyFixed( "1234567890" );
@@ -424,7 +424,7 @@ public class CDRRevenueSimple {
 		System.out.println( "-----------------------------" );
 		System.out.println( "csv_string" );
 
-		CSVBoolean csvBoolean = new CSVBoolean();
+		FieldBoolean csvBoolean = new FieldBoolean();
 		
 		System.out.println( "Fixed Strategy" );
 		csvBoolean.setBooleanStrategyFixed( true);
@@ -466,7 +466,7 @@ public class CDRRevenueSimple {
 		
 		Environment env = new Environment( "input/environments", "E4O_QA", IOFileUtils.IOLoadingType.RESOURCE );
 		
-		CSVSchemaTable csv_table = new CSVSchemaTable( new Profiles(), Profiles.Fields.profile );
+		FieldSchemaTable csv_table = new FieldSchemaTable( new Profiles(), Profiles.Fields.profile );
 		
 		csv_table.setSchemaTableValues( env.getDataSource( "qa" ) );
 		

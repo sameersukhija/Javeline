@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "stats_campaign_archive" )
 public class StatsCampaignArchive { 
 
-	public enum Fields { msisdn, campaign_id, start_date, end_date, subs_status, arpu_id, profile_id, status_id, network_id, amount_usage, amount_recharge, amount_invoice, amount_payment, amount_call, amount_message, amount_data }
+	public enum Fields { msisdn, campaign_id, start_date, end_date, subs_status, arpu_id, seniority_id, profile_id, status_id, network_id, amount_usage, amount_recharge, amount_invoice, amount_payment, amount_call, amount_message, amount_data }
 
 	@Column(
 			table = "stats_campaign_archive",
@@ -124,6 +124,24 @@ public class StatsCampaignArchive {
 			setMethod = "setArpuId"
 	)
 	private Byte arpu_id;
+
+	@Column(
+			table = "stats_campaign_archive",
+			field = "seniority_id",
+			type = "tinyint(4) unsigned",
+			mysqlType = "tinyint",
+			javaType = "Byte",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "0",
+			extra = "",
+			length = 4,
+			getMethod = "getSeniorityId",
+			setMethod = "setSeniorityId"
+	)
+	private Byte seniority_id;
 
 	@Column(
 			table = "stats_campaign_archive",
@@ -316,6 +334,7 @@ public class StatsCampaignArchive {
 		this.end_date = rs.getDate( StatsCampaignArchive.Fields.end_date.name() );
 		this.subs_status = rs.getString( StatsCampaignArchive.Fields.subs_status.name() );
 		this.arpu_id = rs.getByte( StatsCampaignArchive.Fields.arpu_id.name() );
+		this.seniority_id = rs.getByte( StatsCampaignArchive.Fields.seniority_id.name() );
 		this.profile_id = rs.getByte( StatsCampaignArchive.Fields.profile_id.name() );
 		this.status_id = rs.getByte( StatsCampaignArchive.Fields.status_id.name() );
 		this.network_id = rs.getByte( StatsCampaignArchive.Fields.network_id.name() );
@@ -337,6 +356,7 @@ public class StatsCampaignArchive {
 		this.end_date = Format.getMysqlDateTime( jo.getString( StatsCampaignArchive.Fields.end_date.name() ) );
 		this.subs_status = jo.getString( StatsCampaignArchive.Fields.subs_status.name() );
 		this.arpu_id = (byte)jo.getInt( StatsCampaignArchive.Fields.arpu_id.name() );
+		this.seniority_id = (byte)jo.getInt( StatsCampaignArchive.Fields.seniority_id.name() );
 		this.profile_id = (byte)jo.getInt( StatsCampaignArchive.Fields.profile_id.name() );
 		this.status_id = (byte)jo.getInt( StatsCampaignArchive.Fields.status_id.name() );
 		this.network_id = (byte)jo.getInt( StatsCampaignArchive.Fields.network_id.name() );
@@ -419,6 +439,18 @@ public class StatsCampaignArchive {
 	public void setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+	}
+
+	public Byte getSeniorityId() {
+
+		return this.seniority_id;
+
+	}
+
+	public void setSeniorityId( Byte seniority_id ) {
+
+		this.seniority_id = seniority_id;
 
 	}
 
@@ -559,6 +591,7 @@ public class StatsCampaignArchive {
 			.append( "\"end_date\": \"" ).append( this.getEndDate() ).append( "\", " )
 			.append( "\"subs_status\": \"" ).append( this.getSubsStatus() ).append( "\", " )
 			.append( "\"arpu_id\": \"" ).append( this.getArpuId() ).append( "\", " )
+			.append( "\"seniority_id\": \"" ).append( this.getSeniorityId() ).append( "\", " )
 			.append( "\"profile_id\": \"" ).append( this.getProfileId() ).append( "\", " )
 			.append( "\"status_id\": \"" ).append( this.getStatusId() ).append( "\", " )
 			.append( "\"network_id\": \"" ).append( this.getNetworkId() ).append( "\", " )

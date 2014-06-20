@@ -14,6 +14,8 @@ import com.lumata.e4o.json.gui.administrationmanager.JSONSalesChannels;
 public class SalesChannelsForm extends AdministrationForm {
 
 	private JSONSalesChannels salesChannelsCfg;
+	private final String TABLE_SALES_CHANNELS_TITLE_= "List of sales channels";
+	
 	
     public enum ElementErrorActionType {
 
@@ -49,7 +51,7 @@ public class SalesChannelsForm extends AdministrationForm {
 			
 			if( salesChannelsCfg.getEnabled() ) {
 				
-				clickXPath( "//table[contains(@class,'page-ChannelPageView')]//button[@name='btn-add']" ).
+				clickXPath( "//table[contains(@class,'page-ChannelPageView')]//button[@name='btn-add' and @title='Add channel']" ).
 				configureSalesChannel().
 				saveSalesChannel().
 				manageErrorAction( salesChannelsCfg.getErrorActions().getString( "ELEMENT_ALREADY_EXISTS" ) );
@@ -85,8 +87,8 @@ public class SalesChannelsForm extends AdministrationForm {
 	}
 	
 	public SalesChannelsForm activateSalesChannel( String salesChannel ) throws FormException {
-		
-		String tableListOfChannelXPath = "//table//div[text()='List of channels']//parent::td//parent::tr//parent::tbody";
+
+		String tableListOfChannelXPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
 		String rowSalesChannelXPath = tableListOfChannelXPath + "//div[text()='" + salesChannel + "']//parent::td//parent::tr";
 		String btnActivateSalesChannelXPath = rowSalesChannelXPath + "//button[@name='btn-activate']";
 		
@@ -99,7 +101,7 @@ public class SalesChannelsForm extends AdministrationForm {
 
 	public SalesChannelsForm deactivateSalesChannel( String salesChannel ) throws FormException {
 		
-		String tableListOfChannelXPath = "//table//div[text()='List of channels']//parent::td//parent::tr//parent::tbody";
+		String tableListOfChannelXPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
 		String rowSalesChannelXPath = tableListOfChannelXPath + "//div[text()='" + salesChannel + "']//parent::td//parent::tr";
 		String btnDeactivateSalesChannelXPath = rowSalesChannelXPath + "//button[@name='btn-deactivate']";
 
@@ -112,7 +114,7 @@ public class SalesChannelsForm extends AdministrationForm {
 
 	public Boolean isSalesChannelActive( String salesChannel ) throws FormException {
 		
-		String tableListOfChannelXPath = "//table//div[text()='List of channels']//parent::td//parent::tr//parent::tbody";
+		String tableListOfChannelXPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
 		String rowSalesChannelXPath = tableListOfChannelXPath + "//div[text()='" + salesChannel + "']//parent::td//parent::tr";
 		String btnActivateSalesChannelXPath = rowSalesChannelXPath + "//button[@name='btn-activate']";
 		

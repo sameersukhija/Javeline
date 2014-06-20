@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+    <style type="text/css">
+      .errorBackground { background: none repeat scroll 0 0 #FF8080; }
+    </style>
+
+    <script>
+
+        /**
+         *
+         */
+        function myMockedPopup() {
+
+          var debugMessage = document.getElementById("debugDiv");
+
+          if (confirm("Are you sure you want to continue?"))
+            debugMessage.innerHTML += ' - You selected OK';
+          else 
+            debugMessage.innerHTML += ' - You selected Cancel';
+        }
+
+        /**
+         *
+         */
+        function myMockedServerSideProcedure(popup) {
+
+          if(! popup)
+            popup = false;
+
+          var debugMessage = document.getElementById("debugDiv");
+          var inputField = document.getElementById("name-field");
+
+          if ( inputField.value == "Error String") {
+            debugMessage.innerHTML="Simulated error condition!!!";
+            inputField.className = "errorBackground";
+          }
+          else if ( inputField.value == "") {
+            debugMessage.innerHTML="Reset condition.";
+            inputField.className = "";
+           }
+          else  {
+            debugMessage.innerHTML="Simulated correct condition.";
+            inputField.className = "";
+            if (popup)
+              myMockedPopup();
+          }
+        }
+    </script>
+
+    <script>
+      $(function() {
+          $( "#dialog-form" ).dialog({
+            autoOpen: false,
+            height: 250,
+            width: 350,
+            modal: true,
+            position: { 
+              my: 'top',
+              at: 'top',
+              of: $('#save-dialog')
+            },
+            buttons: {
+              "Save": function() {
+                       
+                        var debugMessage = $( "#debugDiv" );
+                        var inputField = $( "#another-name" );
+
+                        if ( inputField.val() == "Error String") {
+                          debugMessage.text("Dialog error condition!!!");
+                          inputField.addClass( "errorBackground" );
+                        }
+                        else if ( inputField.val() == "") {
+                          debugMessage.text("Reset condition.");
+                          inputField.removeClass( "errorBackground" );
+                         }
+                        else  {
+                          debugMessage.text("Dialog correct condition.");
+                          inputField.removeClass( "errorBackground" );
+                        }         
+              },
+              Cancel: function() {
+                $( this ).dialog( "close" );
+              }
+            }
+          });
+        
+          $( "#save-dialog" )
+            .button()
+            .click(function() {
+
+              var debugMessage = document.getElementById("debugDiv");
+              var inputField = document.getElementById("name-field");
+
+              if ( inputField.value == "Error String") {
+                debugMessage.innerHTML="Simulated error condition!!!";
+                inputField.className = "errorBackground";
+              }
+              else if ( inputField.value == "") {
+                debugMessage.innerHTML="Reset condition.";
+                inputField.className = "";
+               }
+              else  {
+                debugMessage.innerHTML="Simulated correct condition.";
+                inputField.className = "";
+                
+                // pass to modal step
+                $( "#dialog-form" ).dialog( "open" );
+              }
+          });
+      });
+    </script>
+
+</head>
+<body>
+
+  <h1>My Test Web Page</h1>
+
+  Name field : <input type="text" id="name-field"><br>
+  <div id="debugDiv">I am a debug div.</div>
+
+  <table>
+    <tr>
+      <td>
+        
+        <p>
+        <button title="Save" type="button" onclick="myMockedServerSideProcedure(false)">Save without popup</button>
+        </p>
+
+        <p>
+        <button title="Save-popup" type="button" onclick="myMockedServerSideProcedure(true)">Save with popup</button>
+        </p>
+
+        <p>
+        <button title="Cancel" type="button" onclick="myMockedServerSideProcedure(false)">Cancel</button>
+        </p>
+
+      </td>
+      <td>
+        
+        <p>
+          <button id="save-dialog" type="button" onclick="">Save with dialog</button>
+        </p>
+
+      </td>
+    </tr>
+  </table>
+
+  <div id="dialog-form" title="Second step.">
+    <form>
+      <fieldset>
+        <label for="second-name-field">Another string</label>
+        <input type="text" id="another-name" class="text ui-widget-content ui-corner-all"/>
+      </fieldset>
+    </form>
+  </div>
+
+</body>
+</html>

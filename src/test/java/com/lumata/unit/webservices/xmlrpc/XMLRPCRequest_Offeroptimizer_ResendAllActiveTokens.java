@@ -39,11 +39,15 @@ public class XMLRPCRequest_Offeroptimizer_ResendAllActiveTokens {
 	@Test(enabled=true, priority = 1 )
 	public void callXMLRPCCRequest() throws Exception {
 		
-		ClientResponse<String> response = XMLRPCRequest.offeroptimizer_resendAllActiveTokens.call( 	actruleServer, 
+		final String msisdn = "393669393643";
+		final Integer maxResendNumber = 4;
+		
+		ClientResponse<String> response = XMLRPCRequest.offeroptimizer_resendAllActiveTokens.call( 	
+														actruleServer, 
 														xmlrpcBody(
 															authentication( superman.getUsername(), superman.getPassword() ),
-															string("393669393643"),
-															integer( 1 )
+															string( msisdn ),
+															integer( maxResendNumber )
 														)
 													);
 		

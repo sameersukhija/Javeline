@@ -2,10 +2,21 @@ package com.lumata.e4o.gui.xmlrpc.type;
 
 public class XMLRPCComponent {
 
-	Object component;
+	public enum ComponentType {
+		xmlrpcBody, xmlrpcValidator, xmlrpcOption
+	}
 	
-	XMLRPCComponent( Object component ) { 
-		this.component = component; 
+	Object[] componentValues;	
+	
+	ComponentType componentType;
+		
+	
+	XMLRPCComponent( ComponentType componentType, Object... componentValues ) { 
+		
+		this.componentType = componentType;
+		
+		this.componentValues = componentValues; 
+	
 	}
 	
 	public static XMLRPCComponent xmlrpcBody( XMLRPCParam... params ) {
@@ -18,8 +29,22 @@ public class XMLRPCComponent {
 		
 		}
 		
-		return new XMLRPCComponent( xmlrpcBody );
+		return new XMLRPCComponent( ComponentType.xmlrpcBody, xmlrpcBody.toString() );
 		
 	}
 	
+	public static XMLRPCComponent xmlrpcOptions( Object... options ) {
+						
+		return new XMLRPCComponent( ComponentType.xmlrpcOption, options );
+		
+	}
+	
+	public ComponentType getComponentType() {
+		return this.componentType;
+	}
+	
+	public Object[] getComponentValues() {
+		return this.componentValues;
+	}
+		
 }

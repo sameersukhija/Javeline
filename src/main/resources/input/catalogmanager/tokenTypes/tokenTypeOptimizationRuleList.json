@@ -1,0 +1,140 @@
+{
+	"tokenTypes": [
+		{
+			"enabled": true,
+			"name":"TokenA",
+			"description":"TokenA",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityUnit":"days",
+			"validity":"100",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"TokenB",
+			"description":"TokenB",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityUnit":"seconds",
+			"validity":"100",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"TokenC",
+			"description":"TokenC",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityUnit":"days",
+			"validity":"100",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Token100sec",
+			"description":"Token100sec",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityUnit":"seconds",
+			"validity":"100",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Token100min",
+			"description":"Token100min",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityUnit":"minutes",
+			"validity":"100",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Token100hours",
+			"description":"Token100hours",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityUnit":"hour",
+			"validity":"100",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Token1day",
+			"description":"Token1day",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityUnit":"days",
+			"validity":"1",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Token10days",
+			"description":"Token10days",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityUnit":"days",
+			"validity":"10",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		}
+	]
+}

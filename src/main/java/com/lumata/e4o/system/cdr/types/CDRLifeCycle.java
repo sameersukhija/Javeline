@@ -2,12 +2,12 @@ package com.lumata.e4o.system.cdr.types;
 
 import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.cdr.CDR;
-import com.lumata.e4o.system.cdr.annotations.*;
+import com.lumata.e4o.system.cdr.fields.*;
 
 import java.util.Calendar;
 
-import com.lumata.e4o.system.csv.types.CSVDateIncrement;
-import com.lumata.e4o.system.csv.types.ICSVEnum;
+import com.lumata.e4o.system.fields.FieldDateIncrement;
+import com.lumata.e4o.system.fields.IFieldEnum;
 
 public class CDRLifeCycle extends CDR { 
 
@@ -71,7 +71,7 @@ public class CDRLifeCycle extends CDR {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
 
-	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
+	public void setDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
 		if( this.date != null ) { this.date.setDateStrategyIncrement( date, increment ); }
 	}
 
@@ -318,7 +318,7 @@ public class CDRLifeCycle extends CDR {
 		return this.new_status.getEnum();
 	}
 
-	public void setNewStatusStrategyFixed( final Enum<? extends ICSVEnum> value ) throws CDRException  {
+	public void setNewStatusStrategyFixed( final Enum<? extends IFieldEnum> value ) throws CDRException  {
 		if( this.new_status != null ) { this.new_status.setEnumStrategyFixed( value ); }
 	}
 
@@ -330,7 +330,7 @@ public class CDRLifeCycle extends CDR {
 		if( this.new_status != null ) { this.new_status.cleanEnumStrategyRandom(); }
 	}
 
-	public void setNewStatusStrategyIncrement( final Enum<? extends ICSVEnum> value, final Integer increment ) throws CDRException  {
+	public void setNewStatusStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws CDRException  {
 		if( this.new_status != null ) { this.new_status.setEnumStrategyIncrement( value, increment ); }
 	}
 
@@ -347,7 +347,7 @@ public class CDRLifeCycle extends CDR {
 		return this.old_status.getEnum();
 	}
 
-	public void setOldStatusStrategyFixed( final Enum<? extends ICSVEnum> value ) throws CDRException  {
+	public void setOldStatusStrategyFixed( final Enum<? extends IFieldEnum> value ) throws CDRException  {
 		if( this.old_status != null ) { this.old_status.setEnumStrategyFixed( value ); }
 	}
 
@@ -359,7 +359,7 @@ public class CDRLifeCycle extends CDR {
 		if( this.old_status != null ) { this.old_status.cleanEnumStrategyRandom(); }
 	}
 
-	public void setOldStatusStrategyIncrement( final Enum<? extends ICSVEnum> value, final Integer increment ) throws CDRException  {
+	public void setOldStatusStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws CDRException  {
 		if( this.old_status != null ) { this.old_status.setEnumStrategyIncrement( value, increment ); }
 	}
 
@@ -458,7 +458,7 @@ public class CDRLifeCycle extends CDR {
 		if( this.new_subscription_date != null ) { this.new_subscription_date.setDateStrategyFixed( date ); }
 	}
 
-	public void setNewSubscriptionDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
+	public void setNewSubscriptionDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
 		if( this.new_subscription_date != null ) { this.new_subscription_date.setDateStrategyIncrement( date, increment ); }
 	}
 
@@ -491,7 +491,7 @@ public class CDRLifeCycle extends CDR {
 		if( this.old_subscription_date != null ) { this.old_subscription_date.setDateStrategyFixed( date ); }
 	}
 
-	public void setOldSubscriptionDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
+	public void setOldSubscriptionDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
 		if( this.old_subscription_date != null ) { this.old_subscription_date.setDateStrategyIncrement( date, increment ); }
 	}
 

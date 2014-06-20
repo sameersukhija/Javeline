@@ -1,139 +1,58 @@
 package com.lumata.e4o.gui.loyaltymanager;
 
-import java.lang.reflect.Method;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.Reporter;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.google.common.collect.ImmutableMap;
-import com.lumata.common.testing.database.Mysql;
-import com.lumata.common.testing.exceptions.EnvironmentException;
-import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.common.testing.system.Server;
-import com.lumata.e4o.exceptions.CommoditiesException;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.exceptions.OfferException;
-import com.lumata.e4o.gui.loyaltymanager.LoyaltyCreationForm;
-import com.lumata.e4o.gui.security.Authorization;
-import com.lumata.e4o.json.gui.loyaltymanager.LoyaltyCreateCfg;
-import com.lumata.e4o.json.gui.loyaltymanager.LoyaltyManageCfg;
+import com.lumata.e4o.gui.common.ParentUITestCase;
+import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation;
 
-public class ConfigureLoyalty {
+public class ConfigureLoyalty extends ParentUITestCase {
 
-	private static final Logger logger = LoggerFactory.getLogger(ConfigureLoyalty.class);
-	private static final String CFG_PATH_INPUT_LOYALTIES = "input/loyalties";
+	/**
+	 * Commodities configuration file
+	 */
+	private JSONLoyaltiesCreation setupLoyaltiesCreation = null;
+	
+	/**
+	 * Product Types Form
+	 */
+	private LoyaltyCreationForm loyaltyCreationForm = null;
+	
+	@Parameters({"loyaltyCreationFile"})
+	@Test(groups = { "configureLoyaltyCreation" })
+	public void configureLoyaltyCreation(@Optional("loyaltyCreationTemplate") String loyaltyCreationFile) throws JSONSException, FormException {
+		
+		Reporter.log("Creation of \"Loyalty Creation Form\".", PRINT2STDOUT__);
 
-	/*private Integer selectLoyaltyProgramsCount() {
-		Integer loyaltyProgramsCount = 0;
-		
-		ResultSet rs = mysql.execQuery("SELECT COUNT(*) FROM loyalty_programs");
-		try {
-			while (rs.next()) {
-				loyaltyProgramsCount = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "SQL error: " + e.getMessage()));
-			return null;
-		}
-		
-		return loyaltyProgramsCount;
-	}*/
-	
-	private int TIMEOUT = 60000;
-	private int ATTEMPT_TIMEOUT = 500;
-	
-	SeleniumWebDriver seleniumWebDriver;
-	NetworkEnvironment env;
-	Mysql mysql;
-	LoyaltyCreationForm form;
-	LoyaltyCreateCfg createCfg;
-	LoyaltyManageCfg manageCfg;
-	
-	/* 	Initialize Environment */
-	@Parameters({"browser", "environment", "tenant", "gui_server", "user", "loyaltyCreateCfg", "loyaltyManageCfg"})
-	@BeforeMethod
-	public void init(@Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment, @Optional("tenant") String tenant, @Optional("actrule") String gui_server, @Optional("superman") String user, @Optional("loyalty_create") String loyaltyCreateCfg, @Optional("loyalty_manage") String loyaltyManageCfg)
-			throws OfferException, CommoditiesException, JSONSException, IOFileException, NetworkEnvironmentException, FormException {
-		
-		logger.info(Log.LOADING.createMessage("init", "environment"));
-				
-		// Create environment configuration
-		env = new NetworkEnvironment("input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE);
-		
-		mysql = new Mysql(env.getDataSource(tenant));
-		
-		// Create Selenium WebDriver instance
-		Server gui = env.getServer( gui_server );
-		seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
-		
-		// Loyalty configuration
-		createCfg = new LoyaltyCreateCfg(CFG_PATH_INPUT_LOYALTIES, loyaltyCreateCfg);
-		manageCfg = new LoyaltyManageCfg(CFG_PATH_INPUT_LOYALTIES, loyaltyManageCfg);
-		
-		// Create form
-		form = new LoyaltyCreationForm(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT, createCfg, manageCfg);
-		
-		// Login
-		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).login( gui.getUser( user ) ).navigate() );
-		
-	}
-	
-	@AfterMethod
-	public void tearDown() {
-		
-		seleniumWebDriver.close();
-	}
-	
-	/* 	Initialize TestCase Name */
-	@BeforeMethod
-	protected void startSession(Method method) throws Exception {
-		seleniumWebDriver.setTestName( method.getName() ); 	
-	}
-	
-	@Test(enabled=true)
-	public void configureBadges() {
-		
-		try {
-			form.open();
-			form.create();
-			form.manage();
-			form.openSubsection(ImmutableMap.of(
-					"clickAccordion", "false"));
-			form.delete();
+		String resourcePath = currentResourceStartPath + "/loyaltymanager";
+		String resourceFile = loyaltyCreationFile;
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail("Error during loyalty configuration : " + e.getMessage());
-		}
-	}
-	
-	@Test(enabled=false)
-	public void configureBadgesWithDuplicationError() {
+		Reporter.log("\"Loyalty Creation\" is filled with reosurce file : ",
+				PRINT2STDOUT__);
+		Reporter.log("Resource path -> " + resourcePath, PRINT2STDOUT__);
+		Reporter.log("Resource file -> " + resourceFile, PRINT2STDOUT__);
 
-		try {			
-			form.openSubsection(ImmutableMap.of(
-					"clickAccordion", "false"));
-			form.create();
-			Assert.assertEquals(form.duplication(), "The name is already used");
-			form.closeNewProgramPopup();
-			form.delete();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail("Error during loyalty configuration : " + e.getMessage());
-		}
+		setupLoyaltiesCreation = new JSONLoyaltiesCreation(resourcePath, resourceFile);
+
+		loyaltyCreationForm = new LoyaltyCreationForm(seleniumWebDriver,
+				setupLoyaltiesCreation, TIMEOUT, ATTEMPT_TIMEOUT);
+
+		Reporter.log("Open \"Loyalty Creation Form\" UI.", PRINT2STDOUT__);
+
+		loyaltyCreationForm.open();
+
+		Reporter.log("Apply setup on UI.", PRINT2STDOUT__);
+
+		loyaltyCreationForm.addLoyaltyPrograms();
+
+		Reporter.log("Check general status of form", PRINT2STDOUT__);
+
+		Assert.assertTrue(loyaltyCreationForm.navigate(),
+				"Status error during configuration!");
 	}
 }

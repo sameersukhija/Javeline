@@ -26,7 +26,7 @@ public class VoucherCodes {
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
-			key = "PRI",
+			key = "",
 			defaultValue = "null",
 			extra = "",
 			length = 5,

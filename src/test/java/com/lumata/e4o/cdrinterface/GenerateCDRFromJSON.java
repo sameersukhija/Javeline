@@ -56,11 +56,11 @@ import com.lumata.e4o.schema.tenant.CollectedFilesStats;
 import com.lumata.e4o.schema.tenant.CompositeBundle;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.system.cdr.CDR;
-import com.lumata.e4o.system.cdr.annotations.BundleName;
+import com.lumata.e4o.system.cdr.fields.BundleName;
 import com.lumata.e4o.system.cdr.types.CDRBundle;
-import com.lumata.e4o.system.csv.types.CSVString;
 import com.lumata.e4o.system.environment.ExpressionKernelCommands;
 import com.lumata.e4o.system.environment.ExpressionSystem;
+import com.lumata.e4o.system.fields.FieldString;
 
 public class GenerateCDRFromJSON {
 	

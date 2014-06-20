@@ -1,13 +1,26 @@
 package com.lumata.e4o.gui.xmlrpc.type;
 
 import com.lumata.common.testing.system.Security;
+import com.lumata.common.testing.system.User;
 
 public class XMLRPCParam {
 
+	public enum EventType {
+		
+		ussd, revenue
+		
+	}
+	
 	StringBuilder value;
 	
 	XMLRPCParam( StringBuilder param ) { 
 		this.value = param; 
+	}
+	
+	public static XMLRPCParam authentication( User user ) {
+		
+		return XMLRPCParam.authentication( user.getUsername(), user.getPassword() );
+		
 	}
 	
 	public static XMLRPCParam authentication( String user, String password ) {
@@ -26,7 +39,7 @@ public class XMLRPCParam {
 		
 	}
 	
-	public static XMLRPCParam string( String value ) {
+	public static XMLRPCParam string( Object value ) {
 		
 		StringBuilder valuePOSTBody = new StringBuilder();
 		
@@ -52,6 +65,68 @@ public class XMLRPCParam {
 		
 		return new XMLRPCParam( valuePOSTBody );
 		
+	}
+
+	public static XMLRPCPrice price( Integer amount, String currencyName ) {
+				
+		return new XMLRPCPrice( amount, currencyName );
+		
+	}
+	
+	public static XMLRPCParam arrayProductPrices( XMLRPCPrice... prices ) {
+		
+		StringBuilder valuesPOSTBody = new StringBuilder();
+		
+		valuesPOSTBody.append( "<param><value><productPrices>");
+		
+		for( int p = 0; p < prices.length; p++ ) {
+			
+			if( null != prices[ p ] ) { 
+				
+				valuesPOSTBody.
+					append( "<price>" ).
+					append( ( null != prices[ p ].getAmount() ? "<amount>" + prices[ p ].getAmount() + "</amount>" : "" ) ).
+					append( ( null != prices[ p ].getCurrencyName() ? "<currencyName>" + prices[ p ].getCurrencyName() + "</currencyName>" : "" ) ).
+					append( "</price>" ); 
+				
+			}			
+			
+		}
+		
+		valuesPOSTBody.append("</productPrices></value></param>" );
+	
+		return new XMLRPCParam( valuesPOSTBody );
+				
+	}
+	
+	public static XMLRPCProduct product() {
+		
+		return new XMLRPCProduct();
+		
+	}
+	
+	public static XMLRPCParam arraySelectedProducts( XMLRPCProduct... products ) {
+		
+		StringBuilder valuesPOSTBody = new StringBuilder();
+		
+		valuesPOSTBody.append( "<param><value><selectedProducts>");
+		
+		for( int p = 0; p < products.length; p++ ) {
+			
+			if( null != products[ p ] ) { 
+				
+				valuesPOSTBody.
+					append( "<product>" ).
+					append( "</product>" ); 
+				
+			}			
+			
+		}
+		
+		valuesPOSTBody.append("</selectedProducts></value></param>" );
+	
+		return new XMLRPCParam( valuesPOSTBody );
+				
 	}
 	
 	public static XMLRPCParam arrayInt( Object... values ) {
@@ -82,5 +157,26 @@ public class XMLRPCParam {
 		
 	}
 	
+	public static XMLRPCParam custoEvent( Long msisdn, EventType eventType, XMLRPCParameter... parameters ) {
+		
+		StringBuilder custoEventPOSTBody = new StringBuilder();
+		
+		StringBuilder paramsBody = new StringBuilder();
+		
+		for( int p = 0; p < parameters.length; p++ ) {
+			
+			paramsBody.append( parameters[ p ].getParameter() );
+			
+		}
+		
+		custoEventPOSTBody.append("<param><value><custoEvent>")
+								.append("<msisdn>").append( msisdn ).append("</msisdn>")
+								.append("<name>").append( eventType.name() ).append("</name>")
+								.append("<parameters>").append( paramsBody ).append("</parameters>")
+								.append("</custoEvent></value></param>");
+		
+		return new XMLRPCParam( custoEventPOSTBody );
+		
+	}	
 	
 }

@@ -32,6 +32,7 @@ import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.e4o.json.gui.administrationmanager.JSONCommodities;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaign;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
+import com.lumata.e4o.utils.generators.GenerateSubscribers;
 
 public class ConfigureCampaign {
 

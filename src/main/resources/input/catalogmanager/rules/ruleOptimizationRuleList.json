@@ -1,0 +1,170 @@
+{
+	"rules": [
+		{
+			"enabled": true,
+			"name":"RuleA",
+			"description":"RuleA",
+			"tokenType":"TokenA",
+			"channels":[ "Ch A" ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": false,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": true,
+			"name":"RuleB",
+			"description":"RuleB",
+			"tokenType":"TokenB",
+			"channels":[ "Ch B" ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": false,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": true,
+			"name":"RuleC",
+			"description":"RuleC",
+			"tokenType":"TokenC",
+			"channels":[ "Ch C" ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": false,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": true,
+			"name":"RuleAB",
+			"description":"RuleAB",
+			"tokenType":"TokenA",
+			"channels":[ "Ch A", "Ch B" ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": false,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": true,
+			"name":"RuleBC",
+			"description":"RuleBC",
+			"tokenType":"TokenC",
+			"channels":[ "Ch B", "Ch C" ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": false,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": true,
+			"name":"RuleABC",
+			"description":"RuleABC",
+			"tokenType":"TokenB",
+			"channels":[ "Ch A", "Ch B", "Ch C" ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": false,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": true,
+			"name":"Rule100sec",
+			"description":"Rule100sec",
+			"tokenType":"Token100sec",
+			"channels":[ "Ch A" ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": false,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": true,
+			"name":"Rule100min",
+			"description":"Rule100min",
+			"tokenType":"Token100min",
+			"channels":[ "Ch A" ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": false,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": true,
+			"name":"Rule100hours",
+			"description":"Rule100hours",
+			"tokenType":"Token100hours",
+			"channels":[ "Ch A" ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": false,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": true,
+			"name":"Rule1day",
+			"description":"Rule1day",
+			"tokenType":"Token1day",
+			"channels":[ "Ch A" ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": false,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": true,
+			"name":"Rule10days",
+			"description":"Rule10days",
+			"tokenType":"Token10days",
+			"channels":[ "Ch A" ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": false,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		}
+	]
+}

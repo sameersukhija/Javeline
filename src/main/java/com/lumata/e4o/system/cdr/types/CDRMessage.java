@@ -2,12 +2,12 @@ package com.lumata.e4o.system.cdr.types;
 
 import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.cdr.CDR;
-import com.lumata.e4o.system.cdr.annotations.*;
+import com.lumata.e4o.system.cdr.fields.*;
 
 import java.util.Calendar;
 
-import com.lumata.e4o.system.csv.types.CSVDateIncrement;
-import com.lumata.e4o.system.csv.types.ICSVEnum;
+import com.lumata.e4o.system.fields.FieldDateIncrement;
+import com.lumata.e4o.system.fields.IFieldEnum;
 
 public class CDRMessage extends CDR { 
 
@@ -71,7 +71,7 @@ public class CDRMessage extends CDR {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
 
-	public void setDateStrategyIncrement( final Calendar date, final CSVDateIncrement increment ) throws CDRException  {
+	public void setDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
 		if( this.date != null ) { this.date.setDateStrategyIncrement( date, increment ); }
 	}
 
@@ -125,7 +125,7 @@ public class CDRMessage extends CDR {
 		return this.sms.getEnum();
 	}
 
-	public void setSmsStrategyFixed( final Enum<? extends ICSVEnum> value ) throws CDRException  {
+	public void setSmsStrategyFixed( final Enum<? extends IFieldEnum> value ) throws CDRException  {
 		if( this.sms != null ) { this.sms.setEnumStrategyFixed( value ); }
 	}
 
@@ -137,7 +137,7 @@ public class CDRMessage extends CDR {
 		if( this.sms != null ) { this.sms.cleanEnumStrategyRandom(); }
 	}
 
-	public void setSmsStrategyIncrement( final Enum<? extends ICSVEnum> value, final Integer increment ) throws CDRException  {
+	public void setSmsStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws CDRException  {
 		if( this.sms != null ) { this.sms.setEnumStrategyIncrement( value, increment ); }
 	}
 
