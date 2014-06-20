@@ -62,14 +62,14 @@ public class LoyaltyManageCfg extends JsonConfig {
 		return getStringFromPath("awarded/action_unit");
 	}
 
-	public static void main(String[] args) throws Exception {
-		
-		LoyaltyManageCfg cfg = new LoyaltyManageCfg("input/loyalties", "loyalty_manage");
-		
-		System.out.println(cfg.getDefinitionName());
-		System.out.println(cfg.getDefinitionDescription());
-		System.out.println(cfg.getAwardedEventType());
-		System.out.println(cfg.getAwardedActionPlus());
-		System.out.println(cfg.getAwardedActionUnit());
-	}
+//	public static void main(String[] args) throws Exception {
+//		
+//		LoyaltyManageCfg cfg = new LoyaltyManageCfg("input/loyalties", "loyalty_manage");
+//		
+//		System.out.println(cfg.getDefinitionName());
+//		System.out.println(cfg.getDefinitionDescription());
+//		System.out.println(cfg.getAwardedEventType());
+//		System.out.println(cfg.getAwardedActionPlus());
+//		System.out.println(cfg.getAwardedActionUnit());
+//	}
 }
