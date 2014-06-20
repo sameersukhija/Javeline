@@ -24,7 +24,7 @@ public class ChangeRemoteSystemDate {
 	/* 	Initialize Environment */
 	@Parameters({"environment", "gui_server", "user"})
 	@BeforeClass
-	public void init( @Optional("E4O_VM") String environment, @Optional("actrule") String gui_server, @Optional("superman") String user ) throws NetworkEnvironmentException {		
+	public void init( @Optional("E4O_VM_NE") String environment, @Optional("actrule") String gui_server, @Optional("superman") String user ) throws NetworkEnvironmentException {		
 		
 		/** Create environment configuration */
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
