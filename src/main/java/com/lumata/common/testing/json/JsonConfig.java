@@ -356,68 +356,7 @@ public abstract class JsonConfig {
 			e.printStackTrace();
 		}
 	}
-	
-	/** TODO 
-	public Object getElement( String path ) {
-						
-		return parseJson( this.root, path.split("/"), 0 );
-						
-	}
-	
-	public Object parseJson( Object json, String[] path, int pathIndex ) {
-					
-		System.out.println( pathIndex );
-		
-		if( pathIndex < path.length ) {
-		
-			if( json instanceof JSONObject ) {
-								
-				try {
-					System.out.println( "S1: " + path[ pathIndex ] );
-					System.out.println( json );
-					json = ((JSONObject)json).get( path[ pathIndex ] );
-					System.out.println( json );
-					parseJson( json, path, pathIndex + 1 );
-									
-				} catch( JSONException e ) {
-					logger.error( e.getMessage(), e );
-					return null;
-				}
-				
-			} else {
-				
-				if( json instanceof JSONArray ) {
-					System.out.println( "PIPPO: " + json );
-					JSONArray currentArray = (JSONArray)json;
-					for( int j = 0; j < currentArray.length(); j++ ) {
-									
-						try {
-							System.out.println( "S2: " + path[ pathIndex ] );
-							System.out.println( json );
-							json = ((JSONArray)json).get( j );
-							System.out.println( json );
-							parseJson( json, path, pathIndex );
-							
-						} catch( JSONException e ) {
-							logger.error( e.getMessage(), e );
-							return null;
-						}
-					
-					}
-				
-				}
-				
-			}
-			
-		}
-		
-		System.out.println( "FINISH: " + json );
-		
-		return json;
-					
-	}
-	*/
-	
+
 	/**
 	 * This method performs two actions :<br>
 	 * <li> looking for an array contained into current JSON element with requested key
@@ -429,25 +368,40 @@ public abstract class JsonConfig {
 	 * 
 	 * @throws JSONSException
 	 */
+	@SuppressWarnings("unchecked")
 	protected List<String> getStringList(String jsonArrayName) throws JSONSException {
 		
-		List<String> list = new ArrayList<String>();
-		
-		JSONArray jsonArray = null;
+		List<String> list = null;
+		String errorMessage = null;
 		
 		try {
-			jsonArray = root.getJSONArray(jsonArrayName);
-			
-			for (int i=0; i<jsonArray.length(); i++) 
-				list.add( jsonArray.getString(i) );
+			Object raw = root.get(jsonArrayName);
+		
+			// I am waiting a List...
+			if ( raw instanceof List )
+				list = (List<String>) raw;
+			// ... or a JSONArray object
+			else if ( raw instanceof JSONArray ) {
+				JSONArray jsonArray = (JSONArray) raw;
+				list = new ArrayList<String>();
+				
+				for (int i=0; i<jsonArray.length(); i++) 
+					list.add( jsonArray.getString(i) );
+			}
+			else {
+				errorMessage = "Error during looking of \"Array of value\" with path \""+jsonArrayName+"\" : it's a " + raw.getClass().getSimpleName() + "!";
+				
+				throw new JSONException(errorMessage);
+			}
+				
 			
 		} catch (JSONException | NullPointerException e) {
 			
-			String message = "Error during looking of \"Array of value\" for \""+jsonArrayName+"\"!";
-			logger.error(message);
+			errorMessage = errorMessage != null ? errorMessage : "Error during looking of \"Array of value\" for \""+jsonArrayName+"\"!";
+			logger.error(errorMessage);
 			e.printStackTrace();
 			
-			throw new JSONSException(message); 
+			throw new JSONSException(errorMessage); 
 		}
 
 		return list;

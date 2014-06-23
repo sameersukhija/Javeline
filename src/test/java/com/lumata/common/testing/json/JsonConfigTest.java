@@ -198,6 +198,31 @@ public class JsonConfigTest {
 	}	
 	
 	@Test( expectedExceptions = {JSONSException.class} )
+	public void testGetAndModifyStringList() throws JSONSException {
+		
+		final String arrayKey = "sampleArrayToBeModified";
+		
+		List<String> actual = underTest.getStringList(arrayKey);
+		
+		Assert.assertNotNull( actual, "Missing \"List<String>\" good sample!");
+		
+		List<String> expected = Arrays.asList("Alfa", "Beta", "Gamma", "Delta");
+		
+		Assert.assertEquals(actual, expected);
+		
+		List<String> modified = Arrays.asList("Alfa", "Beta", "Gamma", "Omega");
+		
+		underTest.modifyStringFromPath(arrayKey, modified);
+		
+		actual = underTest.getStringList(arrayKey);
+		
+		Assert.assertEquals(actual, modified);
+
+		// now force an exception for mismatch "object" (it's a map not a list)
+		underTest.getStringList("emptyComponentsSection");
+	}	
+	
+	@Test( expectedExceptions = {JSONSException.class} )
 	public void testGetJsonListString() throws JSONSException {
 		
 		underTest.getStringList("missingArrayLabel");
@@ -276,7 +301,7 @@ public class JsonConfigTest {
 		Map<String,Object> actual = localTest.getJsonMapFromPath(".");
 		
 		// Technical debt the "Integer" can be decoded as "String"
-		Assert.assertEquals( actual, init, "Recostructed Map missmatch");
+		Assert.assertEquals( actual, init, "Reconstructed Map mismatch");
 	}
 }
 

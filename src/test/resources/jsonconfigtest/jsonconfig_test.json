@@ -22,6 +22,7 @@
         }
     },
     "sampleArrayGetListString"	: [ "One", "Four", "Three", "Seven"],
+    "sampleArrayToBeModified"   : [ "Alfa", "Beta", "Gamma", "Delta"],
     "emptyComponentsSection" : {
     	"emptyList" : [],
     	"emptyMap" : {}
