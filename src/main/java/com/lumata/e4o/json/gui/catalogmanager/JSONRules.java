@@ -52,6 +52,10 @@ public class JSONRules extends JsonConfig {
 	public JSONArray getChannels() throws JSONException {		
 		return (JSONArray)currentRule.getJSONArrayFromPath("channels");				
 	}
+
+	public JSONArray getMandatoryChannels() throws JSONException {		
+		return (JSONArray)currentRule.getJSONArrayFromPath("mandatoryChannels");				
+	}
 	
 	public String getOptimizationAlgorithm() {
 		return currentRule.getStringFromPath( "optimizationAlgorithm" );		

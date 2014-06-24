@@ -1,0 +1,69 @@
+{
+	"rules": [
+		{
+			"enabled": false,
+			"name":"RuleA",
+			"description":"RuleA",
+			"tokenType":"TokenA",
+			"channels":[ "Ch A" ],
+			"mandatoryChannels" : null,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": true,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": false,
+			"name":"RuleB",
+			"description":"RuleB",
+			"tokenType":"TokenB",
+			"channels":[ "Ch B" ],
+			"mandatoryChannels" : null,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": true,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": false,
+			"name":"RuleC",
+			"description":"RuleC",
+			"tokenType":"TokenC",
+			"channels":[ "Ch A", "Ch B" ],
+			"mandatoryChannels" : null,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": true,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": true,
+			"name":"RuleWithMandatory",
+			"description":"RuleWithMandatory",
+			"tokenType":"TokenC",
+			"channels":[ "Ch A", "Ch B", "Ch C", "Ch D" ],
+			"mandatoryChannels" : [ "Ch D" ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"allowDuplicateOffers": true,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		}
+	]
+}
