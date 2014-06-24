@@ -287,6 +287,9 @@
 
   	</dependencies>
   	
+  	<!-- 
+  		Default build section 
+  	-->
   	<build>
 	    
 	    <plugins>
@@ -304,8 +307,15 @@
 	     
 	</build>
 
+	<!-- 
+		Running profiles 
+	-->
 	<profiles>
 	
+		<!-- 
+			Default profile : 
+			This profile can compile tests but skip them execution.
+		-->
 	    <profile>
         	<id>default</id>
         	<build>
@@ -325,6 +335,22 @@
 			</activation>
     	</profile>
     	
+    	<!-- 
+    		Run test suite profile : 
+
+    		This profile accepts as input an environment variable with testng.xml suite file.
+    		[NB see @ http://testng.org/doc/documentation-main.html#testng-xml ]
+
+			e.g. : 
+    			mvn clean test -Dsuite=./src/test/resources/basic_regression.xml -P run-suite
+
+    		"suite" is the environment variable with suite file
+    		"run-suite" is the profile selector
+
+    		The output logs are located into :
+    			- html,	./target/surefire-reports/html/index.html
+    			- xml,	./target/surefire-reports/junitreports/
+    	-->
 		<profile>
 			<id>run-suite</id>
 
@@ -361,7 +387,6 @@
 					            <suiteXmlFile>${suite}</suiteXmlFile>
 					        </suiteXmlFiles>
 					        <parallel>false</parallel>
-					        <!-- <workingDirectory>${project.build.directory}/integrationTests</workingDirectory> -->
 			                <properties>
 			                    <property>
 			                        <name>listener</name>
