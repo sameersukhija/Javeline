@@ -1,0 +1,174 @@
+{
+	"offers": [
+		{
+			"enabled": true,
+			"definition" : {
+				"name": "Offer A",
+				"externalId" : null,
+				"description": null,
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : null,
+				"relatedOffers" : null
+			},
+			"prices" : {
+				"prices" : null,
+				"conditions" : null,
+				"channels" : [ "Ch A", "Ch B", "Ch C" ]
+			},
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100,
+				"reservations" : [
+					{
+						"channel" : "Ch A",
+						"quantity" : 50
+					},
+					{
+						"channel" : "Ch B",
+						"quantity" : 30
+					},
+					{
+						"channel" : "Ch C",
+						"quantity" : 20
+					}										
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},	
+		{
+			"enabled": false,
+			"definition" : {
+				"name": "Offer Test A",
+				"externalId" : null,
+				"description": null,
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : [
+					{
+						"type" : "Products",
+						"product" : "AfunnyProduct",
+						"productType" : null,
+						"quantity" : 100,
+						"offers" : null
+					},
+					{
+						"type" : "ProductTypes",
+						"product" : null,
+						"productType" : "ProductTypeA",
+						"quantity" : null,
+						"offers" : null
+					},
+					{
+						"type" : "Offers",
+						"product" : null,
+						"productType" : null,
+						"quantity" : null,
+						"offers" : "AoldOffer"
+					}
+				],
+				"relatedOffers" : null
+			},
+			"prices" : {
+				"prices" : null,
+				"conditions" : null,
+				"channels" : [ "Ch A", "Ch B", "Ch C" ]
+			},
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100,
+				"reservations" : [
+					{
+						"channel" : "Ch A",
+						"quantity" : 50
+					},
+					{
+						"channel" : "Ch B",
+						"quantity" : 30
+					},
+					{
+						"channel" : "Ch C",
+						"quantity" : 20
+					}										
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": false,
+			"definition" : {
+				"name": "Voucher A",
+				"externalId" : null,
+				"description": null,
+				"labels" : null,
+				"voucher": "oneTimeUse",
+				"imageUrl": null,
+				"termsAndConditions": null
+			},
+			"voucher" : {
+				"voucherList" : "/where/is/my/file.csv",
+				"expiryDate" : "2014-05-01",
+				"expiryTime" : "00:00:00"
+			},
+			"offer" : null,
+			"prices" : {
+				"prices" : null,
+				"conditions" : null,
+				"channels" : [ "Ch A", "Ch B", "Ch C" ]
+			},
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100,
+				"reservations" : [
+					{
+						"channel" : "Ch A",
+						"quantity" : 50
+					},
+					{
+						"channel" : "Ch B",
+						"quantity" : 30
+					},
+					{
+						"channel" : "Ch C",
+						"quantity" : 20
+					}										
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		}		
+	],
+}
