@@ -28,14 +28,18 @@ public abstract class JsonConfigurationFile extends JsonConfig implements HasJso
 		public Boolean getBooleanFromPath(String jsonNavigationPath) {
 			return super.getBooleanFromPath(jsonNavigationPath);
 		}
-		
+
+		public Integer getIntegerFromPath(String jsonNavigationPath) {
+			return super.getIntegerFromPath(jsonNavigationPath);
+		}
+				
 		public List<Object> getJsonListFromPath( String jsonNavigationPath ) throws JSONSException {
 			return super.getJsonListFromPath(jsonNavigationPath);
 		}
 		
 		public Map<String, Object> getJsonMapFromPath( String jsonNavigationPath ) throws JSONSException {
 			return super.getJsonMapFromPath(jsonNavigationPath);
-		}		
+		}
 	}
 	
 	/**
