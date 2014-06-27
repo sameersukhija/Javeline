@@ -40,15 +40,17 @@ public class XMLRPCRequest_Offeroptimizer_Accept {
 	public void callXMLRPCCRequest() throws Exception {
 		
 		final String msisdn = "3399900001";
-		final String token_code = "gl-7bbcc";
-		final Object[] offer_id = new Integer[]{ 1003 };		
+		final String token_code = "6TMDA";
+		final Object[] offer_id = new Integer[]{ 1000 };		
+		final String userAcceptChannel = "web";
 		
 		ClientResponse<String> response = XMLRPCRequest.offeroptimizer_accept.call( 	actruleServer, 
 																						xmlrpcBody(
 																							authentication( superman.getUsername(), superman.getPassword() ),
 																							string( msisdn ),
 																							string( token_code ),
-																							arrayInt( offer_id )
+																							arrayInt( offer_id ),
+																							string( userAcceptChannel )
 																						)
 																			);
 		

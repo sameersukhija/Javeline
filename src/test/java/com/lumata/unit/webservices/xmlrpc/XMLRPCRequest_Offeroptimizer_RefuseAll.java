@@ -40,13 +40,15 @@ public class XMLRPCRequest_Offeroptimizer_RefuseAll {
 	public void callXMLRPCCRequest() throws Exception {
 		
 		final String msisdn = "3399900001";
-		final String token_code = "gl-7bbcc";
+		final String token_code = "6TMDA";
+		final String userAcceptChannel = "web";
 		
 		ClientResponse<String> response = XMLRPCRequest.offeroptimizer_refuseAll.call( 	actruleServer, 
 																						xmlrpcBody(
 																							authentication( superman.getUsername(), superman.getPassword() ),
 																							string( msisdn ),
-																							string( token_code )
+																							string( token_code ),
+																							string( userAcceptChannel )
 																						)
 													);
 		

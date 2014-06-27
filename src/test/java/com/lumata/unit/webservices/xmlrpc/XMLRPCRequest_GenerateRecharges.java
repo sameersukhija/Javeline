@@ -62,9 +62,9 @@ public class XMLRPCRequest_GenerateRecharges {
 		 *	FIXED_SUBSCRIBERS = true -> fixed msisdn will be used and ALL_SUBSCRIBERS will not have effect  
 		 *  FIXED_SUBSCRIBERS = false -> some msisdn will be created following ALL_SUBSCRIBERS setting 		 *   
 		 */
-		final Boolean FIXED_SUBSCRIBERS = false;
+		final Boolean FIXED_SUBSCRIBERS = true;
 		
-		final Long FIXED_MSISDN = 393669393643L;
+		final Long FIXED_MSISDN = 3399900001L;
 		
 		
 		/** 
@@ -81,10 +81,10 @@ public class XMLRPCRequest_GenerateRecharges {
 		 * 	ALL_EVENTS = true -> number of events = MAX_EVENTS
 		 * 	ALL_EVENTS = false -> number of events = random number between [ MIN_EVENTS, MAX_EVENTS - MIN_EVENTS ]
 		*/
-		final Boolean ALL_EVENTS = false;
+		final Boolean ALL_EVENTS = true;
 		
 		final Integer MIN_EVENTS = 10;
-		final Integer MAX_EVENTS = 100;
+		final Integer MAX_EVENTS = 5;
 		
 		
 		ArrayList<Long> subscribers = new ArrayList<Long>();
@@ -133,7 +133,9 @@ public class XMLRPCRequest_GenerateRecharges {
 													custoEvent( msisdn, 
 																revenue,
 																parameter( recharge, true ),
-																parameter( event_storage_policy, true )
+																parameter( amount_recharge, 10 ),
+																parameter( balance_main_account, 100 )
+																//parameter( event_date, "2014-05-16" )
 													)
 												),
 												xmlrpcOptions( 

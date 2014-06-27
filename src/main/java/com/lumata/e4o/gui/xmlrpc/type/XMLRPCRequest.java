@@ -1,7 +1,6 @@
 package com.lumata.e4o.gui.xmlrpc.type;
 
 import org.jboss.resteasy.client.ClientResponse;
-import org.slf4j.Logger;
 
 import com.lumata.common.testing.network.RestClient;
 import com.lumata.common.testing.system.Server;
