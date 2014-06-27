@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -166,6 +167,14 @@ public final class Format {
 		Date date = formatter.parse( datetime );
 		
 		return date;
+		
+	}
+	
+	public static String getSystemTimestamp() {
+		
+		Calendar currentDate = Calendar.getInstance();
+		
+		return String.valueOf( currentDate.getTimeInMillis() );
 		
 	}
 	

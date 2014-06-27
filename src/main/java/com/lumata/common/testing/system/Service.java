@@ -12,7 +12,7 @@ public class Service extends Server {
 
 	private static final  Logger logger = LoggerFactory.getLogger( Service.class );
 	
-	public enum Type { ssh, activemq } 
+	public enum Type { ssh, activemq, jmx } 
 	
 	private Enum<Type> type;
 	
