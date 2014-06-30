@@ -1,46 +1,46 @@
 package com.lumata.e4o.gui.catalogmanager;
 
-import org.json.JSONArray;
-import org.json.JSONException;
+import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
-
-//
-//import java.util.concurrent.TimeUnit;
-//
-//import org.json.JSONArray;
-//import org.json.JSONException;
-//import org.json.JSONObject;
-//import org.openqa.selenium.WebElement;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//
-//import com.lumata.common.testing.log.Log;
-//import com.lumata.common.testing.selenium.SeleniumUtils;
-//import com.lumata.common.testing.selenium.SeleniumWebDriver;
-//import com.lumata.e4o.gui.common.AngularFrame;
-//import com.lumata.e4o.gui.common.ButtonImpl;
-//import com.lumata.e4o.gui.common.Buttons;
-//import com.lumata.e4o.gui.common.MenuBar;
-//import com.lumata.e4o.gui.common.SectionImpl;
-//import com.lumata.e4o.json.gui.catalogmanager.OfferCfg;
-
-
+import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONPricesElement;
+import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONReservationElement;
 
 public class OffersForm extends CatalogueManagerForm {
+
+	/**
+	 * 
+	 */
+	private static final Logger logger = LoggerFactory.getLogger( OffersForm.class );
 	
+	/**
+	 * 
+	 */
 	private JSONOffers offerCfg;
 	
+	/**
+	 * 
+	 * @param selenium
+	 * @param offerCfg
+	 * @param timeout
+	 * @param interval
+	 */
 	public OffersForm( SeleniumWebDriver selenium, JSONOffers offerCfg, long timeout, long interval ) {
 		
 		super(selenium, timeout, interval);
 
 		this.offerCfg = offerCfg;
-		
 	}
 	
+	/**
+	 * 
+	 */
 	public OffersForm open() throws FormException {
 		
 		super.open().clickId( "gwt-debug-actrule-catalog-offers" );
@@ -49,90 +49,189 @@ public class OffersForm extends CatalogueManagerForm {
 		
 	}
 	
-	public OffersForm addOffers() throws FormException, JSONException {
+	/**
+	 * 
+	 * @return
+	 * @throws FormException
+	 * @throws JSONSException
+	 */
+	public OffersForm addOffers() throws FormException, JSONSException {
 		
-		JSONArray offers = offerCfg.getList();
+		Integer numbOffers = offerCfg.getList().size();
 		
-		for( int offerIndex = 0; offerIndex < offers.length(); offerIndex++ ) {
+		for( int offerIndex = 0 ; offerIndex < numbOffers ; offerIndex++ ) {
 			
-			offerCfg.setOfferById( offerIndex );
+			offerCfg.setCurrentElementById( offerIndex );
 			
-			if( offerCfg.getEnabled() ) {
+			if( offerCfg.getCurrentElement().getEnabled() ) {
 				
-				clickXPath( "//button[@name='btn-add' and @title='Add Offer']" ).
+				clickXPath( "//button[@name='btn-add' and @title='Add Offer']" );
 				configureOffer();
-				//saveSupplier().
-				//manageErrorAction( supplierCfg.getErrorActions().getString( "ELEMENT_ALREADY_EXISTS" ) );
 				
+				// activation
+				// manage errors
 			}
 					
 		}
 		
 		return this;
-		
 	}
 	
-	public OffersForm configureOffer() throws FormException, JSONException {
-		/*
-		sendKeysById( "gwt-debug-TextBox-SupplierPageView-nameTextBox", supplierCfg.getName() ).
-		sendKeysById( "gwt-debug-TextBox-SupplierPageView-emailTextBox", supplierCfg.getEmail() ).
-		sendKeysById( "gwt-debug-TextBox-SupplierPageView-phoneTextBox", supplierCfg.getPhone() ).
-		sendKeysById( "gwt-debug-TextBox-SupplierPageView-websiteTextBox", supplierCfg.getWebsite() );
-		
-				
-		*/
+	/**
+	 * General offer configuration method
+	 * 
+	 * @return
+	 * @throws FormException
+	 * @throws JSONSException
+	 */
+	public OffersForm configureOffer() throws FormException, JSONSException {
 		
 		configureDefinition();
 		
+		if ( offerCfg.getVoucher().equals("none") ) {
+			configureOfferContent();
+			
+			configurePrices();
+			
+			configureAvailability();
+		}
+		else
+			configureVoucher();
 		
 		return this;
 		
 	}
 	
+	/**
+	 * Configure the "Voucher" form into offer
+	 * 
+	 * @throws JSONSException
+	 * @throws FormException
+	 */
+	private void configureVoucher() throws FormException {
+
+		throw new FormException("Not supported yet!");
+	}
+
+	/**
+	 * Configure the "Availability" form into offer
+	 * 
+	 * @throws JSONSException
+	 * @throws FormException
+	 */
+	private void configureAvailability() throws FormException, JSONSException {
+
+		clickId("gwt-debug-Anchor-actrule-catalog-product-steps-stockValidity");
+		
+		clickXPath("//td[text()='Available Offers']//ancestor::tr[1]//button");
+		
+		sendKeysByXPath("//td[contains(text(),'Available Stock')]//ancestor::tr[1]//input", offerCfg.getStock().toString());
+		
+		clickXPath("//td[contains(text(),'Available Stock')]//ancestor::tr[1]//ancestor::table[3]//button[@title='Save']");
+		
+		for (JSONReservationElement reservation : offerCfg.getReservations()) {
+			
+			
+			
+		}
+	}
+
+	/**
+	 * Configure the "Prices" form into offer
+	 * 
+	 * @throws JSONSException
+	 * @throws FormException
+	 */
+	private void configurePrices() throws JSONSException, FormException {
+		
+		clickId("gwt-debug-Anchor-actrule-catalog-offer-prices");
+		
+		List<JSONPricesElement> channels = offerCfg.getOffersPrices();
+		
+		if ( channels != null && channels.size() != 0 ) {
+
+			for (JSONPricesElement price : channels) {
+			
+				clickXPath("//div[contains(text(),'Create offer')]//ancestor::div[4]//button[@title='Add']");
+
+				// technical debt, missing prices
+				
+				// technical debt, missing conditions
+				
+				for (String channel : price.getChannels()) {
+				
+					clickXPath("//div[contains(text(),'Offer Prices')]//ancestor::table//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
+
+					// gwt-debug-ListBox-PricesEditionPopUp-lChan
+					selectById("gwt-debug-ListBox-PricesEditionPopUp-lChan", channel);
+					
+					clickXPath("//div[text()='Add channel']//ancestor::table[1]//button[@title='OK']");
+					
+				}
+				
+				clickXPath("//button[@title='OK']");
+			}
+		}		
+	}
+
+	private void configureOfferContent() throws FormException {
+
+		//throw new FormException("Not supported yet!");
+	}
+
+	/**
+	 * Configure the "Definition" form into offer
+	 *
+	 * @return
+	 * @throws FormException
+	 */
 	public OffersForm configureDefinition() throws FormException {
 
+		// upper tab
 		clickId( "gwt-debug-Anchor-actrule-button-definition" );
 		
-		/*
-		// set offer name
-		WebElement offerName = SeleniumUtils.findForComponentDisplayed(selenium, SeleniumUtils.SearchBy.ID, "gwt-debug-TextBox-VPOfferEdit-offerNameTB", timeout, interval);
-		if (offerName == null) {
-			logger.error(Log.FAILED.createMessage(selenium.getTestName(), "Cannot define a new Offer Name"));
-			return false;
+		//input[contains(@id,'VPOfferEdit-offerNameTB')]
+		sendKeysByXPath("//input[contains(@id,'VPOfferEdit-offerNameTB')]", offerCfg.getName());
+		
+ 		//td[contains(text(),'External ID')]//ancestor::tr[1]//input
+		
+		String description = offerCfg.getDescription();
+		
+		if ( description != null && description.length() != 0 ) {
+			
+	 		//td[contains(text(),'Offer Description')]//ancestor::tr[1]//button
+			clickXPath("//td[contains(text(),'Offer Description')]//ancestor::tr[1]//button");
+			
+			sendKeysByXPath( "//textarea", description);
+			
+			clickXPath("//textarea//ancestor::div[1]//button[@title='Save']");
 		}
-		offerName.clear();
-		offerName.sendKeys(offerCfg.getOfferName());
-		*/
-		
-		return this;
 
-	}
-	
-	@Override
-	public OffersForm clickName( String name ) throws FormException {
+ 		// MANCA ELEMENTO PER SELEZIONALE OFFER LABELS
+ 		
+		String url = offerCfg.getImageUrlOffer();
 		
-		super.clickName( name );
+		if ( url != null && url.length() != 0 ) {
+			//td[contains(text(),'Image URL of offer')]//ancestor::tr[1]//input
+			sendKeysByXPath("//td[contains(text(),'Image URL of offer')]//ancestor::tr[1]//input", url);
+			
+	 		//td[contains(text(),'Image URL of offer')]//ancestor::tr[1]//button
+			clickXPath("//td[contains(text(),'Image URL of offer')]//ancestor::tr[1]//button");
+		}
+ 		
+		String termsAndCondition = offerCfg.getTermsAndConditions();
+		
+		if ( termsAndCondition != null && termsAndCondition.length() != 0 ) {
+			
+			//td[contains(text(),'Terms and conditions')]//ancestor::tr[1]//button
+			clickXPath("//td[contains(text(),'Terms and conditions')]//ancestor::tr[1]//button");
+			
+			sendKeysByXPath( "//textarea", termsAndCondition);
+			
+			clickXPath("//textarea//ancestor::div[1]//button[@title='Save']");
+		}
 		
 		return this;
-		
-	}
-	
-	@Override
-	public OffersForm clickXPath( String xpath ) throws FormException {
-		
-		super.clickXPath( xpath );
-		
-		return this;
-		
-	}
-	
-	@Override
-	public OffersForm clickLink( String link ) throws FormException {
-		
-		super.clickLink( link );
-		
-		return this;
-		
 	}
 	
 }

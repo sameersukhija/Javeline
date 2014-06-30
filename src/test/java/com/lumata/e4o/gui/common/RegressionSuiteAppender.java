@@ -10,12 +10,14 @@ import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.administrationmanager.SalesChannelsForm;
 import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
+import com.lumata.e4o.gui.catalogmanager.OffersForm;
 import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.SuppliersForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.gui.common.ParentUITestCase;
 import com.lumata.e4o.json.gui.administrationmanager.JSONSalesChannels;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
+import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONRules;
 import com.lumata.e4o.json.gui.catalogmanager.JSONSuppliers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
@@ -58,18 +60,28 @@ public class RegressionSuiteAppender extends ParentUITestCase {
 		
 	}
 	
-	@Parameters({"ruleList"})
+	@Parameters({"offersListFile"})
 	@Test(priority = 3 )
-	public void configureRules( @Optional("ruleList") String ruleList ) throws FormException, JSONException, JSONSException {
+	public void configureOffers( @Optional("offersTemplate") String offersListFile ) throws FormException, JSONSException {
 		
-		RulesForm rulesForm = new RulesForm( seleniumWebDriver, new JSONRules( "input/catalogmanager/rules", ruleList ), TIMEOUT, ATTEMPT_TIMEOUT );
+		OffersForm offersForm = new OffersForm( seleniumWebDriver, new JSONOffers( "input/catalogmanager/offers", offersListFile ), TIMEOUT, ATTEMPT_TIMEOUT );
+		
+		Assert.assertTrue( offersForm.open().addOffers()/*.close()*/.navigate() );
+		
+	}	
+	
+	@Parameters({"ruleListFile"})
+	@Test(priority = 3 )
+	public void configureRules( @Optional("rulesetTemplate") String ruleListFile ) throws FormException, JSONException, JSONSException {
+		
+		RulesForm rulesForm = new RulesForm( seleniumWebDriver, new JSONRules( "input/catalogmanager/rules", ruleListFile ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
 		Assert.assertTrue( rulesForm.open().addRules().close().navigate() );
 		
 	}
 
 	@Parameters({"campaignModelList"})
-	@Test( enabled = true, priority = 4 )
+	@Test( priority = 4 )
 	public void configureCampaignModel( @Optional("campaignModelList") String campaignModelList ) throws JSONSException, FormException, JSONException {
 
 		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, new JSONCampaignModel( "input/campaignmanager/campaignModels", "campaignModelList" ), TIMEOUT, ATTEMPT_TIMEOUT );

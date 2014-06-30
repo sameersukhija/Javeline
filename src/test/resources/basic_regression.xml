@@ -34,6 +34,8 @@
   <parameter name="notificationsFile" value="notificationsTemplate"/>
   <parameter name="productTypesFile" value="productTypesTemplate"/>
   <parameter name="loyaltyCreationFile" value="loyaltyCreationTemplate"/>
+  <parameter name="ruleListFile" value="rulesetTemplate"/>
+  <parameter name="offersListFile" value="offersTemplate"/>
   
   <!-- 
     Test Section 
@@ -83,9 +85,10 @@
       </class>
 
       <class name="com.lumata.e4o.gui.common.RegressionSuiteAppender">
-<!--         <methods>
-          <include name="configureCampaignModel"/>
-        </methods> -->
+         <methods>
+          <!--<include name="configureCampaignModel"/> -->
+          <exclude name="configureOffers"/>
+        </methods>
       </class>
 
     </classes>

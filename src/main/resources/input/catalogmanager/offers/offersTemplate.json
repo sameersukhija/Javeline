@@ -16,11 +16,21 @@
 				"content" : null,
 				"relatedOffers" : null
 			},
-			"prices" : {
-				"prices" : null,
-				"conditions" : null,
-				"channels" : [ "Ch A", "Ch B", "Ch C" ]
-			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch A" ]
+				},{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch B" ]
+				},{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch C" ]
+				}
+			],
 			"notification" : null,
 			"eligibility" : null,
 			"availability" : {
@@ -87,11 +97,21 @@
 				],
 				"relatedOffers" : null
 			},
-			"prices" : {
-				"prices" : null,
-				"conditions" : null,
-				"channels" : [ "Ch A", "Ch B", "Ch C" ]
-			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch A" ]
+				},{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch B" ]
+				},{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch C" ]
+				}
+			],
 			"notification" : null,
 			"eligibility" : null,
 			"availability" : {

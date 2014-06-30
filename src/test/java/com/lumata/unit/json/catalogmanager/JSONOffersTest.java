@@ -93,7 +93,13 @@ public class JSONOffersTest {
 			}			
 		}
 		
-		Assert.assertEquals( underTest.getOffersPricesChannels(), Arrays.asList("Ch A", "Ch B", "Ch C"));
+		List<JSONOffers.JSONPricesElement> prices = underTest.getOffersPrices(); 
+		
+		Assert.assertEquals( prices.size(), 3);
+		
+		Assert.assertEquals( prices.get(0).getChannels(), Arrays.asList("Ch A"));
+		Assert.assertEquals( prices.get(1).getChannels(), Arrays.asList("Ch B"));
+		Assert.assertEquals( prices.get(2).getChannels(), Arrays.asList("Ch C"));
 		
 		List<JSONReservationElement> reservationList = underTest.getReservations();
 		

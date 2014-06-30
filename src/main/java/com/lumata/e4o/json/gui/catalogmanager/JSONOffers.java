@@ -233,20 +233,52 @@ public class JSONOffers extends JsonConfigurationFile {
 	 * prices  
 	 */
 	
+	public class JSONPricesElement extends JsonConfigurationElement {
+
+		public JSONPricesElement(Map<String, Object> newObject) {
+			
+			super(newObject);
+		}
+		
+		/**
+		 * It returns the list of channels associated to current element
+		 * 
+		 * @return
+		 * @throws JSONSException
+		 */
+		public List<String> getChannels() throws JSONSException {
+			
+			return getStringList("channels");
+		}
+	}
+	
+
+//	public List<String> getOffersPricesChannels() throws JSONSException {
+//		
+//		List<Object> raw = getCurrentElement().getJsonListFromPath("prices.channels");
+//		List<String> resp = new ArrayList<String>();
+//		
+//		for (Object elem : raw) 
+//			resp.add(elem.toString());
+//		
+//		return resp;
+//	}
+
 	/**
-	 * This method returns the channels list for current element.
+	 * This method returns the prices list for current element.
 	 * The current element must be selected with "setCurrentElementById" method.
 	 * 
 	 * @return
 	 * @throws JSONSException
 	 */
-	public List<String> getOffersPricesChannels() throws JSONSException {
+	@SuppressWarnings("unchecked")
+	public List<JSONPricesElement> getOffersPrices() throws JSONSException {
 		
-		List<Object> raw = getCurrentElement().getJsonListFromPath("prices.channels");
-		List<String> resp = new ArrayList<String>();
+		List<Object> raw = getCurrentElement().getJsonListFromPath("prices");
+		List<JSONPricesElement> resp = new ArrayList<JSONPricesElement>();
 		
 		for (Object elem : raw) 
-			resp.add(elem.toString());
+			resp.add(new JSONPricesElement((Map<String, Object>) elem));
 		
 		return resp;
 	}
