@@ -12,7 +12,10 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lumata.common.testing.exceptions.IOFileException;
+import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
+import com.lumata.common.testing.network.SFTPClient;
 import com.lumata.common.testing.network.SSHExecClient;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.KernelCommands;
@@ -173,7 +176,8 @@ public class ExpressionKernelCommands extends KernelCommands {
 		ArrayList<String> result = this.execCommand( KernelCommands.getDateTime() );
 		
 		Calendar systemDate = Calendar.getInstance();
-	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    
 		for( int i = 0; i < result.size(); i++ ) {
 			
@@ -190,19 +194,36 @@ public class ExpressionKernelCommands extends KernelCommands {
 		
 	}
 	
-	/** set datetime on remote server */
 	public Boolean setServerDatetime( Calendar date ) {
+		
+		return setServerDatetime( date, false );
+		
+	}
+	
+	/** set datetime on remote server */
+	public Boolean setServerDatetime( Calendar date, Boolean remoteServicesRestart ) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		
-		Pattern patter_server_datetime = Pattern.compile( "[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{1,2}[0-9]{1,2}[:][0-9]{1,2}[:][0-9]{1,2}" );
+		Pattern patter_server_datetime = Pattern.compile( "[0-9]{1,4}[-][0-9]{1,2}[-][0-9]{1,2}[ ]+[0-9]{1,2}[:][0-9]{1,2}[:][0-9]{1,2}" );
 		 
 		ArrayList<String> result = this.execCommand( KernelCommands.getSetDateTime( date ) );
 		
 		for( int i = 0; i < result.size(); i++ ) {
 			
 			Matcher matcher_server_datetime = patter_server_datetime.matcher( result.get( i ) );
+			
 			if( matcher_server_datetime.find() ) { 
+				
+				try {
+					
+					this.setRemoteDateFile( sdf.format( date.getTime() ) );
+				
+				} catch (IOFileException e) {
+					
+					logger.error( e.getMessage(), e );
+					
+				}
 				
 				logger.info( Log.PUTTING.createMessage( "the datetime " + sdf.format( date.getTime() ) + " has been set correctly in the remote server" ) );
 				
@@ -211,40 +232,45 @@ public class ExpressionKernelCommands extends KernelCommands {
 			}
 								
 		}
-		
+				
 		logger.warn( Log.PUTTING.createMessage( "the datetime " + sdf.format( date.getTime() ) + " has not been set correctly in the remote server" ) );
 		
 		return false;
 		
 	}
-	
-	/** exec remote command */
-	private static ArrayList<String> execCommand( Environment env, String command ) {
-		
-		ArrayList<String> result = null;
-		
-		JSONObject sshInfo = env.getServiceType( Environment.ServicesType.SSH );
-		
-		try {
-			
-			SSHExecClient sshExec = new SSHExecClient( sshInfo.getString( "host" ), sshInfo.getInt( "port" ), sshInfo.getString( "user" ), sshInfo.getString( "password" ) );
-		
-			result = sshExec.execCommand( command );
-		
-		} catch (JSONException e) {
-			logger.error( e.getMessage(), e );
-		}
-				
-		return result;
-		
-	}
-	
+
 	/** exec remote command */
 	private ArrayList<String> execCommand( String command ) {
 		
 		SSHExecClient sshExec = new SSHExecClient( service, user );
 		
 		return sshExec.execCommand( command );
+		
+	}
+	
+	private void setRemoteDateFile( String remoteDate ) throws IOFileException {
+		
+		StringBuilder remoteDateFile = new StringBuilder();
+		
+		remoteDateFile.
+			append( "#!/bin/sh\n\n" ).
+			append( "currentDate=false\n\n" ).
+			append( "# specific date setting\n" ).
+			append( "if [ \"$currentDate\" = false ] ; then\n" ).
+			append( "\tdate +%DT -s \"" ).append( remoteDate ).append( "\"\n" ).
+			append( "fi" );
+
+		IOFileUtils.saveResource( remoteDateFile.toString(), "/system/", "changeDate.sh" );
+		
+		SFTPClient sftp = new SFTPClient( service, user );
+		
+		if( sftp.isConnected() ) {
+			
+			String local_path = System.getProperty( "user.dir" ) + "/output/system/";
+			
+            sftp.copyFile( local_path, "changeDate.sh", "/opt/scripts/" , "changeDate.sh", SFTPClient.CopyType.LOCAL_TO_REMOTE );
+            		
+		}
 		
 	}
 	
@@ -343,7 +369,7 @@ public class ExpressionKernelCommands extends KernelCommands {
 	}
 
 	/** start collector process */
-	public Boolean collectorStart( Environment env ) {
+	public Boolean collectorStart() {
 		
 		if( this.collectorStatus().equals( ProcessStatus.stopped ) ) {
 		

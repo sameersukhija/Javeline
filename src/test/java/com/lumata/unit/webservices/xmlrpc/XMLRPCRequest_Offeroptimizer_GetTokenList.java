@@ -40,10 +40,12 @@ public class XMLRPCRequest_Offeroptimizer_GetTokenList {
 	@Test(enabled=true, priority = 1 )
 	public void callXMLRPCCRequest() throws Exception {
 		
+		final String msisdn = "3399900001";
+		
 		ClientResponse<String> response = XMLRPCRequest.offeroptimizer_getTokensList.call( 	actruleServer, 
 														xmlrpcBody(
 															authentication( superman.getUsername(), superman.getPassword() ),
-															string("32999999999"),
+															string( msisdn ),
 															string(""),
 															string("")
 														)
