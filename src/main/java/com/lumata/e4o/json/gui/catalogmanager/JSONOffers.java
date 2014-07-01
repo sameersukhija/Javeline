@@ -44,7 +44,7 @@ public class JSONOffers extends JsonConfigurationFile {
      */
 	public String getName() {
 		
-		return getCurrentElement().getStringFromPath( "definition.name" );
+		return getCurrentElement().getStringFromPath( "name" );
 	}
 	
     /**
@@ -251,18 +251,6 @@ public class JSONOffers extends JsonConfigurationFile {
 			return getStringList("channels");
 		}
 	}
-	
-
-//	public List<String> getOffersPricesChannels() throws JSONSException {
-//		
-//		List<Object> raw = getCurrentElement().getJsonListFromPath("prices.channels");
-//		List<String> resp = new ArrayList<String>();
-//		
-//		for (Object elem : raw) 
-//			resp.add(elem.toString());
-//		
-//		return resp;
-//	}
 
 	/**
 	 * This method returns the prices list for current element.

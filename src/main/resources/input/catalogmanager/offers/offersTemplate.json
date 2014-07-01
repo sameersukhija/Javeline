@@ -2,8 +2,8 @@
 	"offers": [
 		{
 			"enabled": true,
+			"name": "Offer A",
 			"definition" : {
-				"name": "Offer A",
 				"externalId" : null,
 				"description": null,
 				"labels" : null,
@@ -61,8 +61,8 @@
 		},	
 		{
 			"enabled": false,
+			"name": "Offer Test A",
 			"definition" : {
-				"name": "Offer Test A",
 				"externalId" : null,
 				"description": null,
 				"labels" : null,

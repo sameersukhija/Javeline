@@ -35,7 +35,7 @@
   <parameter name="productTypesFile" value="productTypesTemplate"/>
   <parameter name="loyaltyCreationFile" value="loyaltyCreationTemplate"/>
   <parameter name="ruleListFile" value="rulesetTemplate"/>
-  <parameter name="offersListFile" value="offersTemplate"/>
+  <parameter name="offersFile" value="offersTemplate"/>
   
   <!-- 
     Test Section 
@@ -83,11 +83,16 @@
           <include name="cleanupProductTypesForm"/>
         </methods>
       </class>
+      
+      <class name="com.lumata.e4o.gui.catalogmanager.ConfigureOffers">
+        <methods>
+          <include name="configureOffers"/>
+        </methods>
+      </class>
 
       <class name="com.lumata.e4o.gui.common.RegressionSuiteAppender">
          <methods>
           <!--<include name="configureCampaignModel"/> -->
-          <exclude name="configureOffers"/>
         </methods>
       </class>
 
