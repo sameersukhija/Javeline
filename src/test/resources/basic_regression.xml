@@ -49,9 +49,8 @@
       --> 
       <class name="com.lumata.e4o.gui.administrationmanager.ConfigureNotifications">
         <methods>
-          <!-- <include name="configureNotificationsTest"/>
-          <include name="cleanupNotificationsForm"/> -->
-          <exclude name=".*"/>
+          <include name="configureNotificationsTest"/>
+          <include name="cleanupNotificationsForm"/>
         </methods>
       </class>
 
@@ -84,15 +83,15 @@
         </methods>
       </class>
       
-      <class name="com.lumata.e4o.gui.catalogmanager.ConfigureOffers">
-        <methods>
-          <include name="configureOffers"/>
-        </methods>
-      </class>
-
       <class name="com.lumata.e4o.gui.common.RegressionSuiteAppender">
          <methods>
           <!--<include name="configureCampaignModel"/> -->
+        </methods>
+      </class>
+
+      <class name="com.lumata.e4o.gui.catalogmanager.ConfigureOffers">
+        <methods>
+          <include name="configureOffers"/>
         </methods>
       </class>
 
