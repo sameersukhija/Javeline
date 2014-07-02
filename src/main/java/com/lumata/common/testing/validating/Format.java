@@ -193,5 +193,21 @@ public final class Format {
 		return true;  
 		
 	}
+
+	public static String toNumeric( String value ) {
+		
+		String number = null;
+		
+		if( null != value ) {
+		
+			number = value.replaceAll("[^\\d.]", "");
+		
+		}
+		
+		return number;  
+		
+	}
+
+	
 	
 }
