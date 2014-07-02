@@ -73,9 +73,11 @@ public class RulesForm extends OfferOptimisationForm {
 		
 		if( ruleCfg.getIncludePreviouslyAcceptedOffers() ) { clickId( "previousOffersDrawnIncluded-1" ); }
 		else { clickId( "previousOffersDrawnIncluded-0" ); }
-		
-		if( ruleCfg.getAllowDuplicateOffers() ) { clickId( "duplicatedOfferWithinSingleDrawEnabled-1" ); }
-		else { clickId( "duplicatedOfferWithinSingleDrawEnabled-0" ); }
+
+		// https://tracker.lumata.com/browse/EFOGC-2110
+		// this setting will be removed into UI
+//		if( ruleCfg.getAllowDuplicateOffers() ) { clickId( "duplicatedOfferWithinSingleDrawEnabled-1" ); }
+//		else { clickId( "duplicatedOfferWithinSingleDrawEnabled-0" ); }
 
 		if( ruleCfg.getUnlimitedOffers() ) { clickId( "numOfOffersToDrawUnlimited-1" ); }
 		else { 
@@ -83,6 +85,20 @@ public class RulesForm extends OfferOptimisationForm {
 			clickId( "numOfOffersToDrawUnlimited-0" ). 
 			typeByName( "usage", ruleCfg.getMaximumNumberOfOffers() );
 		
+		}
+		
+		try {
+			JSONArray mandatoryChannels = ruleCfg.getMandatoryChannels(); 
+		
+			if ( mandatoryChannels != null && mandatoryChannels.length() != 0 ) {
+				
+				for ( int index = 0 ; index < mandatoryChannels.length() ; index++ ) 
+					clickXPath("//div[contains(text(),'Channel name')]//ancestor::div[2]//div[text()='"+mandatoryChannels.getString(index)+"']//ancestor::div[1]//input");
+
+			}
+			
+		} catch ( JSONException e ) {
+			// no mandatory channels provided
 		}
 		
 		return this;

@@ -1,79 +1,59 @@
 package com.lumata.e4o.gui.catalogmanager;
 
-import java.lang.reflect.Method;
-
-import org.json.JSONException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
+import org.testng.Reporter;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.common.testing.system.Server;
-import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.security.Authorization;
+import com.lumata.e4o.gui.common.ParentUITestCase;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
 
-public class ConfigureOffers {
+public class ConfigureOffers extends ParentUITestCase {
 
-	private static final Logger logger = LoggerFactory.getLogger( ConfigureOffers.class );
+	/**
+	 * Offers configuration file
+	 */
+	private JSONOffers setupOffers = null;
 	
-	private int TIMEOUT = 60000;
-	private int ATTEMPT_TIMEOUT = 200;
+	/**
+	 * Offer Form
+	 */
+	private OffersForm offersForm = null;	
 	
-	private final boolean testEnabled = true;
-	
-	private SeleniumWebDriver seleniumWebDriver;
-	private NetworkEnvironment env;
-			
-	/* 	Initialize Environment */
-	@Parameters({"browser", "environment", "gui_server", "tenant", "user"})
-	@BeforeClass
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment, @Optional("actrule") String gui_server, @Optional("tenant") String tenant, @Optional("superman") String user ) throws NetworkEnvironmentException, FormException {		
+	@Parameters({"offersFile"})
+	@Test(groups = { "configureOffers" })
+	public void configureOffers( @Optional("offersTemplate") String offersFile ) throws FormException, JSONSException {
 		
-		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
-		
-		/** Create environment configuration */
-		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-		
-		/** Create Selenium WebDriver instance */
-		Server gui = env.getServer( gui_server );
-		seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
-		
-		/** Login */
-		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).login( gui.getUser( user ) ).navigate() );
-		
+		Reporter.log("Creation of \"Offers Form\".", PRINT2STDOUT__);
+
+		String resourcePath = currentResourceStartPath + "/catalogmanager/offers";
+		String resourceFile = offersFile;
+
+		Reporter.log("\"Offers\" is filled with reosurce file : ",
+				PRINT2STDOUT__);
+		Reporter.log("Resource path -> " + resourcePath, PRINT2STDOUT__);
+		Reporter.log("Resource file -> " + resourceFile, PRINT2STDOUT__);
+
+		setupOffers = new JSONOffers(resourcePath, resourceFile);
+
+		offersForm = new OffersForm(seleniumWebDriver,
+				setupOffers, TIMEOUT, ATTEMPT_TIMEOUT);
+
+		Reporter.log("Open \"Offer Form\" UI.", PRINT2STDOUT__);
+
+		offersForm.open();
+
+		Reporter.log("Apply setup on UI.", PRINT2STDOUT__);
+
+		offersForm.addOffers();
+
+		Reporter.log("Check general status of form", PRINT2STDOUT__);
+
+		Assert.assertTrue(offersForm.navigate(),
+				"Status error during configuration!");		
 	}
 	
-	/* 	Initialize TestCase Name */
-	@BeforeMethod
-	protected void startSession(Method method) throws Exception {
-		seleniumWebDriver.setTestName( method.getName() ); 	
-	}
-	
-	@Parameters({"offersList"})
-	@Test( enabled=testEnabled, priority = 1 )
-	public void configureOffers( @Optional("offersList") String offersList ) throws FormException, JSONException, JSONSException {
-		
-		OffersForm offersForm = new OffersForm( seleniumWebDriver, new JSONOffers( "input/catalogmanager/offers", offersList ), TIMEOUT, ATTEMPT_TIMEOUT );
-		
-		Assert.assertTrue( offersForm.open().addOffers()/*.close()*/.navigate() );
-		
-	}
-	
-	@AfterClass
-	public void end() throws FormException {
-		//Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).quit().navigate() );
-	}
-		
 }

@@ -58,18 +58,18 @@ public class RegressionSuiteAppender extends ParentUITestCase {
 		
 	}
 	
-	@Parameters({"ruleList"})
+	@Parameters({"ruleListFile"})
 	@Test(priority = 3 )
-	public void configureRules( @Optional("ruleList") String ruleList ) throws FormException, JSONException, JSONSException {
+	public void configureRules( @Optional("rulesetTemplate") String ruleListFile ) throws FormException, JSONException, JSONSException {
 		
-		RulesForm rulesForm = new RulesForm( seleniumWebDriver, new JSONRules( "input/catalogmanager/rules", ruleList ), TIMEOUT, ATTEMPT_TIMEOUT );
+		RulesForm rulesForm = new RulesForm( seleniumWebDriver, new JSONRules( "input/catalogmanager/rules", ruleListFile ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
 		Assert.assertTrue( rulesForm.open().addRules().close().navigate() );
 		
 	}
 
 	@Parameters({"campaignModelList"})
-	@Test( enabled = true, priority = 4 )
+	@Test( priority = 4 )
 	public void configureCampaignModel( @Optional("campaignModelList") String campaignModelList ) throws JSONSException, FormException, JSONException {
 
 		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, new JSONCampaignModel( "input/campaignmanager/campaignModels", "campaignModelList" ), TIMEOUT, ATTEMPT_TIMEOUT );
