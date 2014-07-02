@@ -1,4 +1,4 @@
-package com.lumata.e4o.utils.generators;
+package com.lumata.e4o.utils.generators.subscribers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +19,12 @@ import com.lumata.e4o.exceptions.GeneratorException;
 import com.lumata.e4o.generators.Generator;
 
 
-public class GenerateSubscribers {
+public class GenerateSubscribersRecharge {
 
-	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribers.class );
+	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersRecharge.class );
 	
-	final boolean GENERATE_FIXED_SUBSCRIBER = false;
-	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = true;
+	final boolean GENERATE_FIXED_SUBSCRIBER = true;
+	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = false;
 	final boolean GENERATE_RANDOM_SUBSCRIBERS = false;
 	
 	NetworkEnvironment env;	
@@ -38,7 +38,7 @@ public class GenerateSubscribers {
 	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment, @Optional("tenant") String tenant ) throws NetworkEnvironmentException {		
 		
 		logger.debug( Log.LOADING.createMessage( "init" , "environment" ) );
-		
+		System.out.println( environment );
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 			
 		guiServer = env.getServer( "actrule" );
@@ -53,19 +53,17 @@ public class GenerateSubscribers {
 	public void generateFixedSubscriber() throws GeneratorException {
 		
 		final Long FIXED_MSISDN = 3399900001L;
-		final Boolean HAS_SMS_CHANNEL = true;
-		final Boolean HAS_MAIL_CHANNEL = true;
-		final Long SUBSCRIBERS_TO_GENERATE = 100L;
-		
-		
+		final Integer MIN_EVENTS = 1;
+		final Integer MAX_EVENTS = 1;
+				
 		Generator.subscribers()
 					.environment( env )
 					.mysql( mysql )
 					.msisdnFixed( FIXED_MSISDN )
-					.subscriberHasSMSChannel( HAS_SMS_CHANNEL )
-					.subscriberHasMAILChannel( HAS_MAIL_CHANNEL )
-					.insertIntoEnvironment( SUBSCRIBERS_TO_GENERATE );
-		
+					.minEvents( MIN_EVENTS )
+					.maxEvents( MAX_EVENTS )
+					.xmlrpcRecharge( 1L );
+					
 	}
 	
 	@Test( enabled = GENERATE_INCREMENTAL_SUBSCRIBERS )
@@ -75,8 +73,7 @@ public class GenerateSubscribers {
 		final Integer INCREMENT = 1;
 		final Boolean HAS_SMS_CHANNEL = true;
 		final Boolean HAS_MAIL_CHANNEL = true;
-		final Long SUBSCRIBERS_TO_GENERATE = 100L;
-		
+		final Long SUBSCRIBERS_TO_GENERATE = 100L;		
 		
 		Generator.subscribers()
 					.environment( env )

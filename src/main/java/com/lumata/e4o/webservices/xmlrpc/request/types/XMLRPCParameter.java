@@ -1,4 +1,4 @@
-package com.lumata.e4o.gui.xmlrpc.type;
+package com.lumata.e4o.webservices.xmlrpc.request.types;
 
 public class XMLRPCParameter {
 
@@ -22,6 +22,20 @@ public class XMLRPCParameter {
 	    			.append("</parameter>");
 	    	
 		return new XMLRPCParameter( parameter );
+		
+	}
+	
+	public static XMLRPCParameter param( Object paramName, Object paramValue ) {
+		
+		StringBuilder param = new StringBuilder();
+		
+		param.append("<param>");
+					if( null != paramName ) { param.append("<paramName>").append( paramName ).append("</paramName>"); }
+					if( null != paramValue ) { param.append("<paramValue>").append( paramValue ).append("</paramValue>"); }
+		
+		param.append("</param>");
+	    	
+		return new XMLRPCParameter( param );
 		
 	}
 	

@@ -28,6 +28,7 @@ import com.lumata.e4o.exceptions.XMLRPCParserException;
 import com.lumata.e4o.gui.xmlrpc.HTTPXMLRPCForm;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCChannel;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCRelation;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCRequestOld;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCResultFault;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCResultParser;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCResultSuccess;
@@ -46,14 +47,14 @@ public class XMLRPC_Subscriber {
 	Mysql mysql;
 	int user_id = 0;
 	
-	final String default_msisdn = "331234501";
+	final String default_msisdn = "393669393643";
 		
 	@Parameters({"browser", "environment", "tenant", "user"})
 	@BeforeClass
 	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment, @Optional("qa") String tenant, @Optional("superman") String user ) throws EnvironmentException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
-		
+		System.out.println( environment );
 		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
 		mysql = new Mysql( env.getDataSource( tenant ) );

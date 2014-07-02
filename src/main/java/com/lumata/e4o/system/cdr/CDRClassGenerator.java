@@ -18,6 +18,8 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.e4o.system.cdr.fields.Amount;
+import com.lumata.e4o.system.cdr.fields.AmountInvoice;
+import com.lumata.e4o.system.cdr.fields.AmountPayment;
 import com.lumata.e4o.system.cdr.fields.Balance;
 import com.lumata.e4o.system.cdr.fields.BundleBalance;
 import com.lumata.e4o.system.cdr.fields.BundleName;
@@ -61,9 +63,10 @@ public class CDRClassGenerator {
 	
 	final String CDR_PACKAGE = "com.lumata.e4o.system.cdr";
 	final String CDR_TYPES_PACKAGE = "com.lumata.e4o.system.cdr.types";
-	final String CDR_ANNOTATIONS_PACKAGE = "com.lumata.e4o.system.cdr.annotations";
-	final String CSV_PACKAGE = "com.lumata.e4o.system.csv";
-	final String CSV_TYPES_PACKAGE = "com.lumata.e4o.system.csv.types";
+	final String CDR_ANNOTATIONS_PACKAGE = "com.lumata.e4o.system.cdr.fields";
+	final String CDR_EXCEPTION_CLASS = "com.lumata.e4o.exceptions.CDRException";
+	final String FIELD_TYPE_PACKAGE = "com.lumata.e4o.system.field.type";
+	final String FIELDS_PACKAGE = "com.lumata.e4o.system.fields";
 	
 	/** CDR types definition */
 	private enum CDRTypes {
@@ -75,9 +78,19 @@ public class CDRClassGenerator {
 				return fields;
 			}
 		},
-		Revenue {	
+		RevenueRecharge {	
 			public List<Class<? extends Annotation>> fields() {
-				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class, ValidityDate.class, DeactivationDate.class, Type.class, Delay.class );
+				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class, ValidityDate.class, DeactivationDate.class, Type.class );
+			}
+		},
+		RevenuePayment {	
+			public List<Class<? extends Annotation>> fields() {
+				return Arrays.asList( Msisdn.class, Date.class, AmountPayment.class, Balance.class, Type.class, Delay.class );
+			}
+		},
+		RevenueInvoice {	
+			public List<Class<? extends Annotation>> fields() {
+				return Arrays.asList( Msisdn.class, Date.class, AmountInvoice.class, Balance.class, Type.class );
 			}
 		},
 		RevenueMultitenant {	
@@ -153,7 +166,7 @@ public class CDRClassGenerator {
 				import_classes = new StringBuilder();
 				import_classes.append( "import " ).append( CDR_PACKAGE ).append( ".CDR;\n" );
 				import_classes.append( "import " ).append( CDR_ANNOTATIONS_PACKAGE + ".*;\n" );
-				import_classes.append( "import com.lumata.expression.operators.exceptions.CDRException;\n" );
+				import_classes.append( "import " ).append( CDR_EXCEPTION_CLASS ).append( ";\n" );
 				//import_classes.append( "import org.slf4j.Logger;\n" );
 				//import_classes.append( "import org.slf4j.LoggerFactory;\n" );
 								
@@ -216,7 +229,7 @@ public class CDRClassGenerator {
 		
 		dir.append( System.getProperty( "user.dir" ) )
 			.append( "/src/main/java/" )
-			.append( CSV_TYPES_PACKAGE.replace( "." , "/" ) )
+			.append( FIELDS_PACKAGE.replace( "." , "/" ) )
 			.append( "/" );
 		
 		File directory = new File( dir.toString() );
@@ -271,7 +284,7 @@ public class CDRClassGenerator {
 					String cdr_type_field = cdr_type.fields().get( f ).getSimpleName();
 					
 					/** Get CSV Type class */
-					Class<?> csv_type_class = Class.forName( CSV_TYPES_PACKAGE + "." + cdr_field.getType().getSimpleName() );
+					Class<?> csv_type_class = Class.forName( FIELDS_PACKAGE + "." + cdr_field.getType().getSimpleName() );
 					
 					/** Get CSV Type methods */
 					for( Method csv_type_method : csv_type_class.getDeclaredMethods() ) {
@@ -344,7 +357,7 @@ public class CDRClassGenerator {
 								
 								cdr_type_method.append( "\t" )
 												.append( ( !csv_type_method.getReturnType().toString().equals( "void" ) ? "@" + cdr_type.fields().get( f ).getSimpleName() + "( position = " + f + " )\n\t" : "" ) )
-												.append( matcher_csv_type_method.group(0).replace( csv_type_method.getName(), csv_type_method.getName().replace( csv_type_field.replace( "CSVField" , "" ), cdr_type_field ) ) )
+												.append( matcher_csv_type_method.group(0).replace( csv_type_method.getName(), csv_type_method.getName().replace( csv_type_field.replace( "FieldType" , "" ), cdr_type_field ) ) )
 												.append( " {\n\t\t" )
 												.append( cdr_type_method_body )
 												.append( "\n\t}\n\n" );
@@ -359,15 +372,15 @@ public class CDRClassGenerator {
 								Matcher matcher_calendar = pattern_calendar.matcher( matcher_csv_type_method.group(0) );
 								if( matcher_calendar.find() && import_calendar_package ) {
 									import_classes.append( "import java.util.Calendar;\n" );
-									import_classes.append( "import " ).append( CSV_TYPES_PACKAGE ).append( ".CSVDateIncrement;\n" );
+									import_classes.append( "import " ).append( FIELDS_PACKAGE ).append( ".FieldDateIncrement;\n" );
 									import_calendar_package = false;
 								}
 								
 								/** Put Enum packages if it needs */						
-								Pattern pattern_enum = Pattern.compile( "ICSVEnum" );
+								Pattern pattern_enum = Pattern.compile( "IFieldEnum" );
 								Matcher matcher_enum = pattern_enum.matcher( matcher_csv_type_method.group(0) );
 								if( matcher_enum.find() && import_enum_package ) {
-									import_classes.append( "import " ).append( CSV_TYPES_PACKAGE ).append( ".ICSVEnum;\n" );
+									import_classes.append( "import " ).append( FIELDS_PACKAGE ).append( ".IFieldEnum;\n" );
 									import_enum_package = false;
 								}
 								

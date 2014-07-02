@@ -18,15 +18,15 @@ import static com.lumata.common.testing.orm.Query.*;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-import com.lumata.e4o.gui.xmlrpc.type.XMLRPCRequest;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCRequestOld;
 import com.lumata.e4o.schema.tenant.Subscribers;
 
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCParam.*;
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCParam.EventType.*;
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCComponent.*;
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCParameter.*;
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCParameter.ParameterType.*;
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCOption.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.EventType.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType.*;
 
 public class XMLRPCRequest_GenerateRecharges {
 	
@@ -83,7 +83,7 @@ public class XMLRPCRequest_GenerateRecharges {
 		*/
 		final Boolean ALL_EVENTS = true;
 		
-		final Integer MIN_EVENTS = 10;
+		final Integer MIN_EVENTS = 1;
 		final Integer MAX_EVENTS = 5;
 		
 		
@@ -125,7 +125,7 @@ public class XMLRPCRequest_GenerateRecharges {
 			
 				System.out.println(
 						
-						XMLRPCRequest.eventmanager_generateCustomEvent
+						XMLRPCRequestOld.eventmanager_generateCustomEvent
 										.call( 	
 												actruleServer, 
 												xmlrpcBody(

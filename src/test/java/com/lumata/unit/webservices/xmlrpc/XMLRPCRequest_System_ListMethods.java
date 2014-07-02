@@ -11,10 +11,10 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-import com.lumata.e4o.gui.xmlrpc.type.XMLRPCRequest;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCRequestOld;
 
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCParam.*;
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 
 public class XMLRPCRequest_System_ListMethods {
 	
@@ -39,7 +39,7 @@ public class XMLRPCRequest_System_ListMethods {
 	@Test(enabled=true, priority = 1 )
 	public void callXMLRPCCRequest() throws Exception {
 		
-		ClientResponse<String> response = XMLRPCRequest.system_listMethods.call( 	
+		ClientResponse<String> response = XMLRPCRequestOld.system_listMethods.call( 	
 														actruleServer, 
 														xmlrpcBody()
 											);

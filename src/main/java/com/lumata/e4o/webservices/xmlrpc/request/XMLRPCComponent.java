@@ -1,4 +1,6 @@
-package com.lumata.e4o.gui.xmlrpc.type;
+package com.lumata.e4o.webservices.xmlrpc.request;
+
+import com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidator;
 
 public class XMLRPCComponent {
 
@@ -6,9 +8,9 @@ public class XMLRPCComponent {
 		xmlrpcBody, xmlrpcValidator, xmlrpcOption
 	}
 	
-	Object[] componentValues;	
+	private Object[] componentValues;	
 	
-	ComponentType componentType;
+	private ComponentType componentType;
 		
 	
 	XMLRPCComponent( ComponentType componentType, Object... componentValues ) { 
@@ -19,7 +21,7 @@ public class XMLRPCComponent {
 	
 	}
 	
-	public static XMLRPCComponent xmlrpcBody( XMLRPCParam... params ) {
+	public static XMLRPCComponent xmlrpcBody( XMLRPCRequestMethods... params ) {
 		
 		StringBuilder xmlrpcBody = new StringBuilder(); 
 		
@@ -30,6 +32,13 @@ public class XMLRPCComponent {
 		}
 		
 		return new XMLRPCComponent( ComponentType.xmlrpcBody, xmlrpcBody.toString() );
+		
+	}
+	
+	@SuppressWarnings("all")
+	public static XMLRPCComponent xmlrpcValidator( XMLRPCResponseValidator... validators ) {
+			
+		return new XMLRPCComponent( ComponentType.xmlrpcValidator, validators );
 		
 	}
 	

@@ -1,11 +1,9 @@
 package com.lumata.e4o.system.cdr.types;
 
-import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.fields.*;
-
+import com.lumata.e4o.exceptions.CDRException;
 import java.util.Calendar;
-
 import com.lumata.e4o.system.fields.FieldDateIncrement;
 import com.lumata.e4o.system.fields.IFieldEnum;
 
@@ -21,29 +19,17 @@ public class CDRRevenueMultitenant extends CDR {
 		return this.FIELDS;
 	}
 
-	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
-		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
-	}
-
-	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
-		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
-	}
-
-	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
-		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyRandom( min_value, max_value ); }
+	@Msisdn( position = 0 )
+	public String getMsisdn() throws CDRException  {
+		return this.msisdn.getMsisdn();
 	}
 
 	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnOptions( prefix, length ); }
 	}
 
-	public void cleanMsisdnOptions()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
-	}
-
-	@Msisdn( position = 0 )
-	public String getMsisdn() throws CDRException  {
-		return this.msisdn.getMsisdn();
+	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
 	}
 
 	public void cleanMsisdnStrategyIncrement()  {
@@ -54,29 +40,24 @@ public class CDRRevenueMultitenant extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
+	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
+	}
+
+	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyRandom( min_value, max_value ); }
+	}
+
 	public void cleanMsisdnFixedStrategy()  {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnFixedStrategy(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
-	}
-
-	public void setDateFormat( String format ) throws CDRException  {
-		if( this.date != null ) { this.date.setDateFormat( format ); }
+	public void cleanMsisdnOptions()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
 	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
-	}
-
-	public void setDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
-		if( this.date != null ) { this.date.setDateStrategyIncrement( date, increment ); }
-	}
-
-	public void setDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
-		if( this.date != null ) { this.date.setDateStrategyRandom( date_left, date_right ); }
 	}
 
 	public void cleanDateStrategyIncrement()  {
@@ -87,13 +68,25 @@ public class CDRRevenueMultitenant extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
+	public void setDateFormat( String format ) throws CDRException  {
+		if( this.date != null ) { this.date.setDateFormat( format ); }
+	}
+
+	public void setDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
+		if( this.date != null ) { this.date.setDateStrategyIncrement( date, increment ); }
+	}
+
+	public void setDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
+		if( this.date != null ) { this.date.setDateStrategyRandom( date_left, date_right ); }
+	}
+
 	public void cleanDateStrategyFixed()  {
 		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
 	}
 
-	@Amount( position = 2 )
-	public String getAmount() throws CDRException  {
-		return this.amount.getLong();
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setAmountStrategyFixed( final Long value ) throws CDRException  {
@@ -120,9 +113,9 @@ public class CDRRevenueMultitenant extends CDR {
 		if( this.amount != null ) { this.amount.cleanLongStrategyFixed(); }
 	}
 
-	@Balance( position = 3 )
-	public String getBalance() throws CDRException  {
-		return this.balance.getLong();
+	@Amount( position = 2 )
+	public String getAmount() throws CDRException  {
+		return this.amount.getLong();
 	}
 
 	public void setBalanceStrategyFixed( final Long value ) throws CDRException  {
@@ -149,25 +142,13 @@ public class CDRRevenueMultitenant extends CDR {
 		if( this.balance != null ) { this.balance.cleanLongStrategyFixed(); }
 	}
 
-	@ValidityDate( position = 4 )
-	public String getValidityDate()  {
-		return this.validity_date.getDate();
-	}
-
-	public void setValidityDateFormat( String format ) throws CDRException  {
-		if( this.validity_date != null ) { this.validity_date.setDateFormat( format ); }
+	@Balance( position = 3 )
+	public String getBalance() throws CDRException  {
+		return this.balance.getLong();
 	}
 
 	public void setValidityDateStrategyFixed( final Calendar date ) throws CDRException  {
 		if( this.validity_date != null ) { this.validity_date.setDateStrategyFixed( date ); }
-	}
-
-	public void setValidityDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
-		if( this.validity_date != null ) { this.validity_date.setDateStrategyIncrement( date, increment ); }
-	}
-
-	public void setValidityDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
-		if( this.validity_date != null ) { this.validity_date.setDateStrategyRandom( date_left, date_right ); }
 	}
 
 	public void cleanValidityDateStrategyIncrement()  {
@@ -178,29 +159,29 @@ public class CDRRevenueMultitenant extends CDR {
 		if( this.validity_date != null ) { this.validity_date.cleanDateStrategyRandom(); }
 	}
 
+	public void setValidityDateFormat( String format ) throws CDRException  {
+		if( this.validity_date != null ) { this.validity_date.setDateFormat( format ); }
+	}
+
+	public void setValidityDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
+		if( this.validity_date != null ) { this.validity_date.setDateStrategyIncrement( date, increment ); }
+	}
+
+	public void setValidityDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
+		if( this.validity_date != null ) { this.validity_date.setDateStrategyRandom( date_left, date_right ); }
+	}
+
 	public void cleanValidityDateStrategyFixed()  {
 		if( this.validity_date != null ) { this.validity_date.cleanDateStrategyFixed(); }
 	}
 
-	@DeactivationDate( position = 5 )
-	public String getDeactivationDate()  {
-		return this.deactivation_date.getDate();
-	}
-
-	public void setDeactivationDateFormat( String format ) throws CDRException  {
-		if( this.deactivation_date != null ) { this.deactivation_date.setDateFormat( format ); }
+	@ValidityDate( position = 4 )
+	public String getValidityDate()  {
+		return this.validity_date.getDate();
 	}
 
 	public void setDeactivationDateStrategyFixed( final Calendar date ) throws CDRException  {
 		if( this.deactivation_date != null ) { this.deactivation_date.setDateStrategyFixed( date ); }
-	}
-
-	public void setDeactivationDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
-		if( this.deactivation_date != null ) { this.deactivation_date.setDateStrategyIncrement( date, increment ); }
-	}
-
-	public void setDeactivationDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
-		if( this.deactivation_date != null ) { this.deactivation_date.setDateStrategyRandom( date_left, date_right ); }
 	}
 
 	public void cleanDeactivationDateStrategyIncrement()  {
@@ -211,8 +192,25 @@ public class CDRRevenueMultitenant extends CDR {
 		if( this.deactivation_date != null ) { this.deactivation_date.cleanDateStrategyRandom(); }
 	}
 
+	public void setDeactivationDateFormat( String format ) throws CDRException  {
+		if( this.deactivation_date != null ) { this.deactivation_date.setDateFormat( format ); }
+	}
+
+	public void setDeactivationDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
+		if( this.deactivation_date != null ) { this.deactivation_date.setDateStrategyIncrement( date, increment ); }
+	}
+
+	public void setDeactivationDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
+		if( this.deactivation_date != null ) { this.deactivation_date.setDateStrategyRandom( date_left, date_right ); }
+	}
+
 	public void cleanDeactivationDateStrategyFixed()  {
 		if( this.deactivation_date != null ) { this.deactivation_date.cleanDateStrategyFixed(); }
+	}
+
+	@DeactivationDate( position = 5 )
+	public String getDeactivationDate()  {
+		return this.deactivation_date.getDate();
 	}
 
 	@Type( position = 6 )
@@ -244,11 +242,6 @@ public class CDRRevenueMultitenant extends CDR {
 		if( this.type != null ) { this.type.cleanEnumStrategyFixed(); }
 	}
 
-	@Delay( position = 7 )
-	public String getDelay() throws CDRException  {
-		return this.delay.getLong();
-	}
-
 	public void setDelayStrategyFixed( final Long value ) throws CDRException  {
 		if( this.delay != null ) { this.delay.setLongStrategyFixed( value ); }
 	}
@@ -273,9 +266,9 @@ public class CDRRevenueMultitenant extends CDR {
 		if( this.delay != null ) { this.delay.cleanLongStrategyFixed(); }
 	}
 
-	@TenantId( position = 8 )
-	public String getTenantId() throws CDRException  {
-		return this.tenant_id.getLong();
+	@Delay( position = 7 )
+	public String getDelay() throws CDRException  {
+		return this.delay.getLong();
 	}
 
 	public void setTenantIdStrategyFixed( final Long value ) throws CDRException  {
@@ -300,6 +293,11 @@ public class CDRRevenueMultitenant extends CDR {
 
 	public void cleanTenantIdStrategyFixed()  {
 		if( this.tenant_id != null ) { this.tenant_id.cleanLongStrategyFixed(); }
+	}
+
+	@TenantId( position = 8 )
+	public String getTenantId() throws CDRException  {
+		return this.tenant_id.getLong();
 	}
 
 }

@@ -11,10 +11,10 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-import com.lumata.e4o.gui.xmlrpc.type.XMLRPCRequest;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCRequestOld;
 
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCParam.*;
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 
 public class XMLRPCRequest_Offeroptimizer_Allocate {
 	
@@ -40,9 +40,9 @@ public class XMLRPCRequest_Offeroptimizer_Allocate {
 	public void callXMLRPCCRequest() throws Exception {
 		
 		final String msisdn = "3399900001";
-		final String token_code = "6TMDA";
+		final String token_code = "KJPMT";
 		
-		ClientResponse<String> response = XMLRPCRequest.offeroptimizer_allocate.call( 	
+		ClientResponse<String> response = XMLRPCRequestOld.offeroptimizer_allocate.call( 	
 														actruleServer, 
 														xmlrpcBody(
 															authentication( superman.getUsername(), superman.getPassword() ),

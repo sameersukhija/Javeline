@@ -41,7 +41,7 @@ import com.lumata.e4o.gui.catalogmanager.ConfigureRules;
 import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.gui.security.Authorization;
-import com.lumata.e4o.gui.xmlrpc.type.XMLRPCRequest;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCRequestOld;
 import com.lumata.e4o.json.gui.administrationmanager.JSONSalesChannels;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
 import com.lumata.e4o.json.gui.catalogmanager.JSONRules;
@@ -50,11 +50,11 @@ import com.lumata.e4o.schema.tenant.OffoptimCustomerItems;
 import com.lumata.e4o.schema.tenant.OffoptimCustomerPack;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.schema.tenant.Token;
-import com.lumata.e4o.utils.generators.GenerateSubscribers;
+import com.lumata.e4o.utils.generators.subscribers.GenerateSubscribers;
 
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCOption.sleep;
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCParam.*;
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.sleep;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 
 
 public class XMLRPCRequest_Optimizer_Rule_Criteria {
@@ -199,7 +199,7 @@ public class XMLRPCRequest_Optimizer_Rule_Criteria {
 				
 		for( int tta = 0; tta < tokensToAllocate; tta++ ) {
 					
-			ClientResponse<String> response = XMLRPCRequest.offeroptimizer_allocate.call( 	
+			ClientResponse<String> response = XMLRPCRequestOld.offeroptimizer_allocate.call( 	
 					guiServer, 
 					xmlrpcBody(
 						authentication( superman.getUsername(), superman.getPassword() ),
@@ -235,7 +235,7 @@ public class XMLRPCRequest_Optimizer_Rule_Criteria {
 			
 				int randomOfferToAllocateIndex = (int)( Math.random() * offersCanBeAllocated.size() );
 								
-				ClientResponse<String> response = XMLRPCRequest.offeroptimizer_accept.call( 	
+				ClientResponse<String> response = XMLRPCRequestOld.offeroptimizer_accept.call( 	
 						guiServer, 
 						xmlrpcBody(
 							authentication( superman.getUsername(), superman.getPassword() ),
@@ -267,7 +267,7 @@ public class XMLRPCRequest_Optimizer_Rule_Criteria {
 			
 			String tokenCode = allAllocatedTokens.get( randomTokenToRefuseIndex ).getTokenCode();
 			
-			ClientResponse<String> response = XMLRPCRequest.offeroptimizer_refuseAll.call( 	
+			ClientResponse<String> response = XMLRPCRequestOld.offeroptimizer_refuseAll.call( 	
 					guiServer, 
 					xmlrpcBody(
 						authentication( superman.getUsername(), superman.getPassword() ),

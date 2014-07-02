@@ -1,11 +1,13 @@
-package com.lumata.e4o.gui.xmlrpc.type;
+package com.lumata.e4o.gui.xmlrpc;
 
 import org.jboss.resteasy.client.ClientResponse;
 
 import com.lumata.common.testing.network.RestClient;
 import com.lumata.common.testing.system.Server;
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent;
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption;
 
-public enum XMLRPCRequest {
+public enum XMLRPCRequestOld {
 
 	badgemanager_getBadgeList,
 	badgemanager_getSubscriberBadgeInformation,

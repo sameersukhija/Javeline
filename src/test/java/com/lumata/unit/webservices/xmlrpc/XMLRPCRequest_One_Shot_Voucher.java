@@ -20,11 +20,11 @@ import static com.lumata.common.testing.orm.Filter.*;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-import com.lumata.e4o.gui.xmlrpc.type.XMLRPCRequest;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCRequestOld;
 import com.lumata.e4o.schema.tenant.Token;
 
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCParam.*;
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 
 public class XMLRPCRequest_One_Shot_Voucher {
 	
@@ -63,7 +63,7 @@ public class XMLRPCRequest_One_Shot_Voucher {
 			
 			System.out.println( "TOKEN: " + token_code );
 			
-			ClientResponse<String> response = XMLRPCRequest.offeroptimizer_allocate.call( 	actruleServer, 
+			ClientResponse<String> response = XMLRPCRequestOld.offeroptimizer_allocate.call( 	actruleServer, 
 					xmlrpcBody(
 						authentication( superman.getUsername(), superman.getPassword() ),
 						string( msisdn ),
@@ -91,7 +91,7 @@ public class XMLRPCRequest_One_Shot_Voucher {
 			
 			System.out.println( "TOKEN: " + token_code );
 			
-			ClientResponse<String> response = XMLRPCRequest.offeroptimizer_accept.call( 	actruleServer, 
+			ClientResponse<String> response = XMLRPCRequestOld.offeroptimizer_accept.call( 	actruleServer, 
 					xmlrpcBody(
 						authentication( superman.getUsername(), superman.getPassword() ),
 						string( msisdn ),

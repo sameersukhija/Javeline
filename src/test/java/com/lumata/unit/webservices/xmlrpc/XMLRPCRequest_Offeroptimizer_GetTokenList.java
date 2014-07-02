@@ -11,11 +11,11 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCRequestOld;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCResultParser;
-import com.lumata.e4o.gui.xmlrpc.type.XMLRPCRequest;
 
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCParam.*;
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 
 public class XMLRPCRequest_Offeroptimizer_GetTokenList {
 	
@@ -42,7 +42,7 @@ public class XMLRPCRequest_Offeroptimizer_GetTokenList {
 		
 		final String msisdn = "3399900001";
 		
-		ClientResponse<String> response = XMLRPCRequest.offeroptimizer_getTokensList.call( 	actruleServer, 
+		ClientResponse<String> response = XMLRPCRequestOld.offeroptimizer_getTokensList.call( 	actruleServer, 
 														xmlrpcBody(
 															authentication( superman.getUsername(), superman.getPassword() ),
 															string( msisdn ),

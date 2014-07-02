@@ -15,7 +15,7 @@ public class GeneratorParameter {
 	
 	public enum GeneratorParameterType {
 		
-		environment, mysql, msisdn_strategy, msisdn_options, fixed_msisdn, incremental_msisdn, random_msisdn, subscriber_sms_channel, subscriber_mail_channel
+		environment, mysql, msisdn_strategy, msisdn_options, fixed_msisdn, incremental_msisdn, random_msisdn, subscriber_sms_channel, subscriber_mail_channel, min_events, max_events
 		
 	}
 
@@ -98,6 +98,18 @@ public class GeneratorParameter {
 	public static GeneratorParameter subscriberHasMAILChannel( final Boolean hasChannel ) {
 		
 		return new GeneratorParameter( GeneratorParameterType.subscriber_mail_channel, hasChannel );
+
+	}
+	
+	public static GeneratorParameter minEvents( final Integer minEvents ) {
+		
+		return new GeneratorParameter( GeneratorParameterType.min_events, minEvents );
+
+	}
+
+	public static GeneratorParameter maxEvents( final Integer maxEvents ) {
+		
+		return new GeneratorParameter( GeneratorParameterType.max_events, maxEvents );
 
 	}
 	
