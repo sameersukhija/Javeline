@@ -128,8 +128,11 @@ public class XMLRPC_Subscriber {
 		String msisdn = inputSeed;
 		msisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
 	
-		if (this.isSubscriber(msisdn)) {
-			this.deleteExistingSubscriber(msisdn);
+		if ( isSubscriber(msisdn)) {
+			
+			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
+			
+			deleteExistingSubscriber(msisdn);
 		}
 
 		// Case 1 ( only msisdn sent )
@@ -187,6 +190,46 @@ public class XMLRPC_Subscriber {
 		Assert.assertNotNull(resultSuccess);
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
 	}
+	
+	@Parameters("inputSeed")
+	@Test(priority = 1)
+	public void createNewSubscriberWidthOptionalParams( @Optional(default_msisdn_seed) String inputSeed ) throws XMLRPCParserException {
+
+		String msisdn = inputSeed;
+		msisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
+	
+		if ( isSubscriber(msisdn)) {
+			
+			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
+			
+			deleteExistingSubscriber(msisdn);
+		}
+
+		Reporter.log("Create a subscribers with optional parameters.", PRINT2STDOUT__);
+
+		Map<String, Object> subscriberParams = new HashMap<String, Object>();
+		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
+		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), "2014-01-01");
+		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), "FUN");
+		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), "active");
+		subscriberParams.put(XMLRPCSubscriber.Params.in_tag.name(), "QAIN");
+		subscriberParams.put(XMLRPCSubscriber.Params.network.name(), "mobile");
+		
+		Map<String, String> optionalParams = new HashMap<String, String>();
+		optionalParams.put("imei", "741258965412365478");
+		optionalParams.put("imsi", "740000000412365478");
+		optionalParams.put("gender", "MALE");
+		optionalParams.put("salary", "78000");
+		optionalParams.put("tongue", "ENG");
+		
+		subscriberParams.put(XMLRPCSubscriber.Params.params.name(), optionalParams);
+		
+		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
+		XMLRPCResultSuccess resultSuccess = XMLRPC_Subscriber.getSuccess(responseParser);
+		Assert.assertNotNull(resultSuccess);
+		Assert.assertEquals(resultSuccess.getBoolean(), "0");
+	}
+	
 
 	/**
 	 * Complete seed to max length
@@ -219,8 +262,11 @@ public class XMLRPC_Subscriber {
 		String msisdn = inputSeed;
 		msisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
 		
-		if (this.isSubscriber(msisdn)) {
-			this.deleteExistingSubscriber(msisdn);
+		if ( isSubscriber(msisdn)) {
+			
+			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
+			
+			deleteExistingSubscriber(msisdn);
 		}
 
 		// Minimal parameters
@@ -271,7 +317,7 @@ public class XMLRPC_Subscriber {
 		Assert.assertEquals(resultFault.getCode(), "6");
 		Assert.assertEquals(resultFault.getMessage(), "invalid status wrong status");
 		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), "active");
-
+		
 		this.sleep(XMLRPC_CALL_DELAY);
 
 		// Case 5 ( wrong in_tag )
@@ -316,8 +362,11 @@ public class XMLRPC_Subscriber {
 		String msisdn = inputSeed;
 		msisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
 		
-		if (this.isSubscriber(msisdn)) {
-			this.deleteExistingSubscriber(msisdn);
+		if ( isSubscriber(msisdn)) {
+			
+			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
+			
+			deleteExistingSubscriber(msisdn);
 		}
 
 		// Minimal parameters
@@ -384,8 +433,11 @@ public class XMLRPC_Subscriber {
 
 		this.sleep(XMLRPC_CALL_DELAY);
 
-		if (this.isSubscriber(msisdn)) {
-			this.deleteExistingSubscriber(msisdn);
+		if ( isSubscriber(msisdn)) {
+			
+			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
+			
+			deleteExistingSubscriber(msisdn);
 		}
 
 		this.sleep(XMLRPC_CALL_DELAY);
@@ -412,8 +464,11 @@ public class XMLRPC_Subscriber {
 		String msisdn = inputSeed;
 		msisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
 		
-		if (this.isSubscriber(msisdn)) {
-			this.deleteExistingSubscriber(msisdn);
+		if ( isSubscriber(msisdn)) {
+			
+			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
+			
+			deleteExistingSubscriber(msisdn);
 		}
 
 		Map<String, XMLRPCChannel> channels_list = new HashMap<String, XMLRPCChannel>();
@@ -486,8 +541,11 @@ public class XMLRPC_Subscriber {
 		String msisdn = inputSeed;
 		msisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
 		
-		if (this.isSubscriber(msisdn)) {
-			this.deleteExistingSubscriber(msisdn);
+		if ( isSubscriber(msisdn)) {
+			
+			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
+			
+			deleteExistingSubscriber(msisdn);
 		}
 
 		Map<String, XMLRPCChannel> channels_list = new HashMap<String, XMLRPCChannel>();
@@ -533,10 +591,12 @@ public class XMLRPC_Subscriber {
 					+ String.valueOf(((int) Math.random() * 9));
 		}
 
-		if (this.isSubscriber(related_msisdn)) {
-			this.deleteExistingSubscriber(related_msisdn);
+		if ( isSubscriber(msisdn)) {
+			
+			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
+			
+			deleteExistingSubscriber(msisdn);
 		}
-
 		relation.setSponsor(related_msisdn);
 		responseParser = this.xmlrpc(
 				HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber,
@@ -591,8 +651,11 @@ public class XMLRPC_Subscriber {
 
 		this.sleep(XMLRPC_CALL_DELAY);
 
-		if (this.isSubscriber(msisdn)) {
-			this.deleteExistingSubscriber(msisdn);
+		if ( isSubscriber(msisdn)) {
+			
+			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
+			
+			deleteExistingSubscriber(msisdn);
 		}
 
 		this.sleep(XMLRPC_CALL_DELAY);
@@ -639,8 +702,11 @@ public class XMLRPC_Subscriber {
 		String msisdn = inputSeed;
 		msisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
 		
-		if (this.isSubscriber(msisdn)) {
-			this.deleteExistingSubscriber(msisdn);
+		if ( isSubscriber(msisdn)) {
+			
+			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
+			
+			deleteExistingSubscriber(msisdn);
 		}
 
 		this.sleep(XMLRPC_CALL_DELAY);
@@ -689,7 +755,7 @@ public class XMLRPC_Subscriber {
 	public void getExistingSubscriber(@Optional(default_msisdn_seed) String msisdn)
 			throws XMLRPCParserException {
 
-		Assert.assertTrue(this.isSubscriber(msisdn));
+		Assert.assertTrue( isSubscriber(msisdn) );
 
 		this.sleep(XMLRPC_CALL_DELAY);
 
@@ -730,7 +796,7 @@ public class XMLRPC_Subscriber {
 
 		Assert.assertTrue(msisdn.length() > 0);
 
-		Assert.assertTrue(this.isSubscriber(msisdn));
+		Assert.assertTrue( isSubscriber(msisdn) );
 
 		this.sleep(XMLRPC_CALL_DELAY);
 

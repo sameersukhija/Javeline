@@ -18,7 +18,7 @@
   -->
   <parameter name="environment" value="e4o_vincenzo_ne"/>
   <parameter name="gui_server" value="actrule"/>
-  <parameter name="tenant" value="tenant"/>
+  <parameter name="tenant" value="qa"/>
   <parameter name="user" value="superman"/>
 
   <!--  
@@ -36,6 +36,7 @@
   <parameter name="loyaltyCreationFile" value="loyaltyCreationTemplate"/>
   <parameter name="ruleListFile" value="rulesetTemplate"/>
   <parameter name="offersFile" value="offersTemplate"/>
+  <parameter name="inputSeed" value="393492135"/>
   
   <!-- 
     Test Section 
