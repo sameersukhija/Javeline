@@ -13,7 +13,7 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-import com.lumata.e4o.dao.DAOSubscribers;
+import com.lumata.e4o.dao.tenant.DAOSubscribers;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 

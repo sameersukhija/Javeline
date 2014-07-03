@@ -1,4 +1,4 @@
-package com.lumata.e4o.dao;
+package com.lumata.e4o.dao.tenant;
 
 import static com.lumata.common.testing.orm.Query.*;
 import static com.lumata.common.testing.orm.Filter.*;

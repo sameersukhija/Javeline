@@ -1,4 +1,4 @@
-package com.lumata.e4o.dao;
+package com.lumata.e4o.dao.tenant;
 
 import com.lumata.common.testing.database.Mysql;
 

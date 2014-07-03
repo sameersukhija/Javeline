@@ -1,4 +1,4 @@
-package com.lumata.e4o.dao;
+package com.lumata.e4o.dao.tenant;
 
 import static com.lumata.common.testing.orm.Query.*;
 import static com.lumata.common.testing.orm.Filter.*;
@@ -26,6 +26,43 @@ public class DAOSubscribers extends DAO {
 		subscriber.setMsisdn( msisdn );
 		
 		String query = select().from( subscriber ).where( op( Subscribers.Fields.msisdn ).eq() ).build();
+		
+		ResultSet rs = this.getMysql().execQuery( query );
+	
+		boolean found = false;
+		
+		try {
+			
+			while( rs.next() ) {
+				
+				found = true;
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return found;
+		
+	}
+	
+	public Boolean isSubscriber( Subscribers subscriber ) {
+		
+		String query = select().
+						from( subscriber ).
+						where( 
+								op( Subscribers.Fields.msisdn ).eq(), 
+								and( 
+									op( Subscribers.Fields.subscription_date ).eq(), 
+									op( Subscribers.Fields.profile_id ).eq(),
+									op( Subscribers.Fields.rate_plan_id ).eq(),
+									op( Subscribers.Fields.status_id ).eq(),
+									op( Subscribers.Fields.in_tag ).eq(),
+									op( Subscribers.Fields.network_id ).eq()
+								)
+						).
+						build();
 		
 		ResultSet rs = this.getMysql().execQuery( query );
 	

@@ -1,4 +1,4 @@
-package com.lumata.e4o.dao;
+package com.lumata.e4o.dao.tenant;
 
 import static com.lumata.common.testing.orm.Query.*;
 import static com.lumata.common.testing.orm.Filter.*;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.lumata.common.testing.database.Mysql;
-import com.lumata.e4o.schema.tenant.SupportedRatePlan;
+import com.lumata.e4o.schema.tenant.Profiles;
 
 public class DAOProfiles extends DAO {
 
@@ -20,13 +20,13 @@ public class DAOProfiles extends DAO {
 		return new DAOProfiles( mysql );
 	}
 	
-	public Boolean isSupportedRatePlan( String ratePlanName ) {
+	public Boolean isProfiles( String profileName ) {
 		
-		SupportedRatePlan supportedRatePlan = new SupportedRatePlan();
+		Profiles profiles = new Profiles();
 		
-		supportedRatePlan.setRatePlan( ratePlanName );
+		profiles.setProfile( profileName );
 		
-		String query = select().from( supportedRatePlan ).where( op( SupportedRatePlan.Fields.rate_plan ).eq() ).build();
+		String query = select().from( profiles ).where( op( Profiles.Fields.profile ).eq() ).build();
 		
 		ResultSet rs = this.getMysql().execQuery( query );
 	
@@ -41,18 +41,20 @@ public class DAOProfiles extends DAO {
 			}
 			
 		} catch (SQLException e) {
+			
 			e.printStackTrace();
+		
 		}
 		
 		return found;
 		
 	}
 	
-	public ArrayList<SupportedRatePlan> getAvailableRatePlanList() {
+	public ArrayList<Profiles> getAvailableProfiles() {
 				
-		ArrayList<SupportedRatePlan> supportedRatePlans = new ArrayList<SupportedRatePlan>();
+		ArrayList<Profiles> profiles = new ArrayList<Profiles>();
 		
-		String query = select().from( new SupportedRatePlan() ).orderBy( SupportedRatePlan.Fields.rate_plan ).build();
+		String query = select().from( new Profiles() ).orderBy( Profiles.Fields.profile ).build();
 		
 		ResultSet rs = this.getMysql().execQuery( query );
 			
@@ -60,9 +62,9 @@ public class DAOProfiles extends DAO {
 			
 			while( rs.next() ) {
 				
-				SupportedRatePlan supportedRatePlan = new SupportedRatePlan( rs );
+				Profiles profile = new Profiles( rs );
 								
-				supportedRatePlans.add( supportedRatePlan );
+				profiles.add( profile );
 				
 			}
 			
@@ -72,7 +74,34 @@ public class DAOProfiles extends DAO {
 		
 		}
 		
-		return supportedRatePlans;
+		return profiles;
+		
+	}
+	
+	public Profiles getProfileById( Integer profile_id ) {
+		
+		Profiles profile = null;
+		
+		String query = select().from( new Profiles() ).where( op( Profiles.Fields.profile_id ).eq( profile_id ) ).build();
+		
+		ResultSet rs = this.getMysql().execQuery( query );
+			
+		try {
+			
+			while( rs.next() ) {
+				
+				profile = new Profiles( rs );
+								
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		
+		}
+		
+		return profile;
 		
 	}
 	

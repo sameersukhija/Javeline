@@ -11,7 +11,6 @@ import com.jayway.restassured.path.xml.XmlPath;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.network.RestClient;
 import com.lumata.common.testing.system.Server;
-import com.lumata.common.testing.utils.Arithmetic;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponse;
 import com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidator;
@@ -21,7 +20,7 @@ public class XMLRPCRequest {
 	private static final Logger logger = LoggerFactory.getLogger( XMLRPCRequest.class );
 		
 	private String callName;
-	private ClientResponse<String> response;
+	private XMLRPCResponse response;
 	private XMLRPCResponseValidator[] validators;
 	private Integer repeat;
 	private ArrayList<Long> samples;
@@ -270,7 +269,7 @@ public class XMLRPCRequest {
 
 	public XMLRPCResponse call( Server server, XMLRPCComponent... xmlrpcComponents ) throws Exception {
 		
-		XMLRPCResponse response = new XMLRPCResponse();
+		response = new XMLRPCResponse();
 		
 		String url = server.getLink() + "xmlrpc/";
 		
@@ -299,18 +298,21 @@ public class XMLRPCRequest {
 			validate();
 				
 		}
-		
-		for( int s = 0; s < samples.size(); s++ ) {
-			System.out.println( samples.get( s ) );
-		}
-		
+			
 		if( null != samples ) {
+			
+			for( int s = 0; s < samples.size(); s++ ) {
+				System.out.println( samples.get( s ) );
+			}
+			
 			System.out.println( "A: " + leftSample );
 			System.out.println( "B: " + rightSample );
 			//average = Arithmetic.average( samples, leftSample, ( null != rightSample ? rightSample : samples.size() ) );
 		
+			System.out.println( "AVERAGE: " + average );
+			
 		}
-		System.out.println( "AVERAGE: " + average );
+		
 		return response;
 		
 	};
@@ -439,7 +441,7 @@ public class XMLRPCRequest {
 		
 		if( null != validators  ) {
 			
-			XmlPath xmlPath = new XmlPath( response.getEntity().toString() );
+			XmlPath xmlPath = new XmlPath( response.getResponse().getEntity().toString() );
 			
 			xmlPath.setRoot("methodResponse");
 			
