@@ -269,13 +269,6 @@
 			<artifactId>pdfbox</artifactId>
 			<version>1.8.4</version>
 		</dependency>
-
-		<!--dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-server</artifactId>
-			<version>7.3.0.v20110203</version>
-			<scope>test</scope>
-		</dependency -->
 			
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
