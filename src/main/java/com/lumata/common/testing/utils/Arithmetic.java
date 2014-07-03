@@ -36,5 +36,17 @@ public class Arithmetic {
 		return ( average / Math.max( samplesCalculated, 1 ) );
 		
 	}
+	
+	public static Long random( Long startValue, Long endValue ) {
+		
+		return (long)( Math.random() * ( startValue - endValue ) + endValue ); 
+		
+	}
+	
+	public static Integer random( Integer startValue, Integer endValue ) {
+		
+		return (int)( Math.random() * ( startValue - endValue ) + endValue ); 
+		
+	}
 
 }
