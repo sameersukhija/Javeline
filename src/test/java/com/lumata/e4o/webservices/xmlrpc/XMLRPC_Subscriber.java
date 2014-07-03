@@ -15,6 +15,7 @@ import org.jboss.resteasy.client.ClientResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -23,7 +24,6 @@ import org.testng.annotations.Test;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
@@ -42,8 +42,7 @@ import com.lumata.e4o.schema.tenant.SupportedRatePlan;
 public class XMLRPC_Subscriber {
 
 	private static final Logger logger = LoggerFactory.getLogger(XMLRPC_Subscriber.class);
-	
-	final boolean EXECUTION = true;
+
 	final long XMLRPC_CALL_DELAY = 100;
 
 	/**
@@ -69,6 +68,20 @@ public class XMLRPC_Subscriber {
 	private User user = null;
 	
 	/**
+	 * Print to standard output during execution
+	 */
+	private static final Boolean PRINT2STDOUT__ = Boolean.TRUE;
+	
+	private static String envPath = null;
+	private static String envFile = null;
+	
+	/**
+	 * XMLRPC Request / Result
+	 */
+	private XMLRPCResultParser responseParser = null;
+	private XMLRPCResultFault resultFault = null;
+
+	/**
 	 * 
 	 * @param browser
 	 * @param environment
@@ -84,11 +97,18 @@ public class XMLRPC_Subscriber {
 						@Optional("qa") String tenant, 
 						@Optional("actrule") String gui_server,
 						@Optional("superman") String user_name	) throws NetworkEnvironmentException {
+		
+		envPath = "input/environments";
+		envFile = environment;
+		
+		Reporter.log( "Init testing environment with reosurce file : ", PRINT2STDOUT__);
+		Reporter.log( "Resource path -> " + envPath, PRINT2STDOUT__);
+		Reporter.log( "Resource file -> " + envFile, PRINT2STDOUT__);		
 
-		logger.info(Log.LOADING.createMessage("init", "environment"));
+		env = new NetworkEnvironment( envPath, envFile, IOFileUtils.IOLoadingType.RESOURCE);
 
-		env = new NetworkEnvironment("input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE);
-
+		Reporter.log( "Startup MySql driver with schema \""+tenant+"\".", PRINT2STDOUT__);
+		
 		mysql = new Mysql(env.getDataSource(tenant));
 
 		gui = env.getServer(gui_server);
@@ -102,15 +122,12 @@ public class XMLRPC_Subscriber {
 	 * @throws XMLRPCParserException
 	 */
 	@Parameters("inputSeed")
-	@Test(priority = 1, enabled = EXECUTION)
+	@Test(priority = 1)
 	public void createNewSubscriberWidthMissingMinimalParameters( @Optional(default_msisdn_seed) String inputSeed ) throws XMLRPCParserException {
 
 		String msisdn = inputSeed;
 		msisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
-		
-		XMLRPCResultParser responseParser;
-		XMLRPCResultFault resultFault;
-
+	
 		if (this.isSubscriber(msisdn)) {
 			this.deleteExistingSubscriber(msisdn);
 		}
@@ -194,11 +211,8 @@ public class XMLRPC_Subscriber {
 	 * @throws XMLRPCParserException
 	 */
 	@Parameters("inputSeed")
-	@Test(priority = 2, enabled = EXECUTION)
+	@Test(priority = 2)
 	public void createNewSubscriberWidthWrongMinimalParameters( @Optional(default_msisdn_seed) String inputSeed ) throws XMLRPCParserException {
-
-		XMLRPCResultParser responseParser;
-		XMLRPCResultFault resultFault;
 
 		this.sleep(XMLRPC_CALL_DELAY);
 
@@ -294,11 +308,8 @@ public class XMLRPC_Subscriber {
 	 * @throws XMLRPCParserException
 	 */
 	@Parameters("inputSeed")
-	@Test(priority = 3, enabled = EXECUTION)
+	@Test(priority = 3)
 	public void createNewSubscriberWidthWrongAllParameters( @Optional(default_msisdn_seed) String inputSeed ) throws XMLRPCParserException {
-
-		XMLRPCResultParser responseParser;
-		XMLRPCResultFault resultFault;
 
 		this.sleep(XMLRPC_CALL_DELAY);
 
@@ -393,11 +404,8 @@ public class XMLRPC_Subscriber {
 	 * @throws XMLRPCParserException
 	 */
 	@Parameters("inputSeed")
-	@Test(priority = 4, enabled = EXECUTION)
+	@Test(priority = 4)
 	public void createNewSubscriberUsingChannelsParameters( @Optional(default_msisdn_seed) String inputSeed) throws XMLRPCParserException {
-
-		XMLRPCResultParser responseParser;
-		XMLRPCResultFault resultFault;
 
 		this.sleep(XMLRPC_CALL_DELAY);
 
@@ -470,11 +478,8 @@ public class XMLRPC_Subscriber {
 	 * @throws XMLRPCParserException
 	 */
 	@Parameters("inputSeed")
-	@Test(priority = 5, enabled = EXECUTION)
+	@Test(priority = 5)
 	public void createNewSubscriberUsingRealtionsParameters( @Optional(default_msisdn_seed) String inputSeed) throws XMLRPCParserException {
-
-		XMLRPCResultParser responseParser;
-		XMLRPCResultFault resultFault;
 
 		this.sleep(XMLRPC_CALL_DELAY);
 
@@ -579,7 +584,7 @@ public class XMLRPC_Subscriber {
 	 * 
 	 * @throws XMLRPCParserException
 	 */
-	@Test(priority = 6, enabled = EXECUTION)
+	@Test(priority = 6)
 	public void getWrongSubscriber() throws XMLRPCParserException {
 
 		String msisdn = "0";
@@ -626,9 +631,8 @@ public class XMLRPC_Subscriber {
 	 * @throws XMLRPCParserException
 	 */
 	@Parameters("inputSeed")
-	@Test(priority = 7, enabled = EXECUTION)
-	public void createNewSubscriber(@Optional(default_msisdn_seed) String inputSeed)
-			throws XMLRPCParserException {
+	@Test(priority = 7)
+	public void createNewSubscriber(@Optional(default_msisdn_seed) String inputSeed) throws XMLRPCParserException {
 
 		this.sleep(XMLRPC_CALL_DELAY);
 
@@ -681,7 +685,7 @@ public class XMLRPC_Subscriber {
 	 * @throws XMLRPCParserException
 	 */
 	@Parameters("msisdn")
-	@Test(priority = 8, enabled = EXECUTION)
+	@Test(priority = 8)
 	public void getExistingSubscriber(@Optional(default_msisdn_seed) String msisdn)
 			throws XMLRPCParserException {
 
@@ -720,7 +724,7 @@ public class XMLRPC_Subscriber {
 	 * @throws XMLRPCParserException
 	 */
 	@Parameters("msisdn")
-	@Test(priority = 9, enabled = EXECUTION)
+	@Test(priority = 9)
 	public void deleteExistingSubscriber(@Optional(default_msisdn_seed) String msisdn)
 			throws XMLRPCParserException {
 
@@ -741,8 +745,7 @@ public class XMLRPC_Subscriber {
 		ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.subscribermanager_deleteSubscriber
 				.call(gui.getLink() + "xmlrpc/", params);
 
-		XMLRPCResultParser responseParser = new XMLRPCResultParser(response
-				.getEntity().toString());
+		responseParser = new XMLRPCResultParser(response.getEntity().toString());
 
 		XMLRPCResultSuccess resultSuccess = XMLRPC_Subscriber
 				.getSuccess(responseParser);
