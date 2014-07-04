@@ -26,6 +26,14 @@
 	  	<lumata.common.version>1.0.2-SNAPSHOT</lumata.common.version>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <java.opt>1.7</java.opt>
+
+	    <!-- 
+	    	This variable is used by Jenkins-CI to enable test execution.
+
+	    	Default execution of "test" goal does not execute any test.
+	    	Use "-Dlocal.skip.test=false" from command line to force execution.
+	    -->
+	    <local.skip.test>true</local.skip.test>
   </properties>
 
 	<dependencies>
@@ -323,7 +331,7 @@
 			        	<artifactId>maven-surefire-plugin</artifactId>
 			        	<version>2.14.1</version>
 			        	<configuration>
-			          		<skipTests>false</skipTests>
+			          		<skipTests>${local.skip.test}</skipTests>
 			        	</configuration>
 			      	</plugin>			
 				</plugins>
