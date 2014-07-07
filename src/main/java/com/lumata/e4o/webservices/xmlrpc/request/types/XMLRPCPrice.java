@@ -1,4 +1,4 @@
-package com.lumata.e4o.gui.xmlrpc.type;
+package com.lumata.e4o.webservices.xmlrpc.request.types;
 
 public class XMLRPCPrice {
 	
@@ -6,7 +6,7 @@ public class XMLRPCPrice {
 	
 	String currencyName;
 	
-	XMLRPCPrice( Integer amount, String currencyName ) {
+	public XMLRPCPrice( Integer amount, String currencyName ) {
 		
 		this.amount = amount;
 		

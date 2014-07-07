@@ -1,6 +1,8 @@
 package com.lumata.e4o.gui.common;
 
+import org.testng.ITestResult;
 import org.testng.Reporter;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
@@ -51,6 +53,12 @@ public abstract class ParentUITestCase {
 	static private Authorization auth = null;
 	
 	/**
+	 * Session static configuration
+	 */
+	static private String browserSession = null;
+	static private String userSession = null;
+	
+	/**
 	 * Used to retrieve configuration resource during execution
 	 */
 	static protected String currentResourceStartPath;
@@ -81,12 +89,14 @@ public abstract class ParentUITestCase {
 		
 		/** Create environment configuration */
 		env = new NetworkEnvironment( envPath, envFile, IOLoadingType.valueOf(loadingType) );
+
+		browserSession = browser;
 		
-		Reporter.log( "Startup Selenium driver with \""+browser+"\".", PRINT2STDOUT__);
+		Reporter.log( "Startup Selenium driver with \""+browserSession+"\".", PRINT2STDOUT__);
 		
 		/** Create Selenium WebDriver instance */
 		gui = env.getServer( gui_server );
-		seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
+		seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browserSession ), gui.getLink() );
 		
 		auth = new Authorization(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 	}	
@@ -95,9 +105,11 @@ public abstract class ParentUITestCase {
 	@Parameters({"user"})
 	public void executeLogin(@Optional("superman") String user) throws FormException {
 	
-		Reporter.log( "Perform login procedure.", PRINT2STDOUT__);
+		userSession = user;
+		
+		Reporter.log( "Perform login procedure with user "+userSession+".", PRINT2STDOUT__);
 	
-		auth.login(gui.getUser( user ));
+		auth.login(gui.getUser( userSession ));
 	}
 	
 	@AfterTest
@@ -115,6 +127,25 @@ public abstract class ParentUITestCase {
 		
 		if (seleniumWebDriver != null)
 			seleniumWebDriver.close();
+	}	
+	
+	@AfterMethod
+	protected void tearDown(ITestResult result) throws FormException {
+		
+	    if (result.getStatus() == ITestResult.FAILURE) {
+	        
+	    	Reporter.log( "Class " + result.getClass().getSimpleName() + " method " + result.getName() + " has failed!", PRINT2STDOUT__);
+	    	
+	    	Reporter.log( "Recover UI interface with restart browser.", PRINT2STDOUT__);
+	    	
+	    	seleniumWebDriver.close();
+	    	
+	    	seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browserSession ), gui.getLink() );
+			
+	    	auth = new Authorization(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+	    	
+	    	auth.login(gui.getUser( userSession ));
+	    }
 	}	
 }
 

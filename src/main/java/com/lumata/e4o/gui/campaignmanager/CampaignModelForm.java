@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.NotificationForm;
+import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.e4o.json.gui.campaignmanager.JSONAction;
 import com.lumata.e4o.json.gui.campaignmanager.JSONActionTime;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
@@ -89,6 +92,30 @@ public class CampaignModelForm extends CampaignManagerForm {
 		return this;
 		
 	}
+	
+	/**
+	* Click on campaign model save and accept if alert popup is displayed
+	*
+	* @throws FormException
+	*/
+	public CampaignModelForm confirmCampaignModelSaving() throws FormException {
+		
+		try {
+			
+			Alert confirmLogout = selenium.selectAlert();
+			
+			if ( confirmLogout != null ) { confirmLogout.accept(); }
+		
+		} catch (NoAlertPresentException e) {
+			
+			status = true;
+		
+		}
+		
+		return this;
+	
+	}
+
 	
 	public CampaignModelForm cancelCampaignModel() throws FormException {
 		

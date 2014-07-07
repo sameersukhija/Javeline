@@ -1,11 +1,9 @@
 package com.lumata.e4o.system.cdr.types;
 
-import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.fields.*;
-
+import com.lumata.e4o.exceptions.CDRException;
 import java.util.Calendar;
-
 import com.lumata.e4o.system.fields.FieldDateIncrement;
 
 public class CDROtherUsage extends CDR { 
@@ -20,29 +18,17 @@ public class CDROtherUsage extends CDR {
 		return this.FIELDS;
 	}
 
-	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
-		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
-	}
-
-	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
-		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
-	}
-
-	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
-		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyRandom( min_value, max_value ); }
+	@Msisdn( position = 0 )
+	public String getMsisdn() throws CDRException  {
+		return this.msisdn.getMsisdn();
 	}
 
 	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnOptions( prefix, length ); }
 	}
 
-	public void cleanMsisdnOptions()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
-	}
-
-	@Msisdn( position = 0 )
-	public String getMsisdn() throws CDRException  {
-		return this.msisdn.getMsisdn();
+	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
 	}
 
 	public void cleanMsisdnStrategyIncrement()  {
@@ -53,29 +39,24 @@ public class CDROtherUsage extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
+	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
+	}
+
+	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyRandom( min_value, max_value ); }
+	}
+
 	public void cleanMsisdnFixedStrategy()  {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnFixedStrategy(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
-	}
-
-	public void setDateFormat( String format ) throws CDRException  {
-		if( this.date != null ) { this.date.setDateFormat( format ); }
+	public void cleanMsisdnOptions()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
 	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
-	}
-
-	public void setDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
-		if( this.date != null ) { this.date.setDateStrategyIncrement( date, increment ); }
-	}
-
-	public void setDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
-		if( this.date != null ) { this.date.setDateStrategyRandom( date_left, date_right ); }
 	}
 
 	public void cleanDateStrategyIncrement()  {
@@ -86,13 +67,25 @@ public class CDROtherUsage extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
+	public void setDateFormat( String format ) throws CDRException  {
+		if( this.date != null ) { this.date.setDateFormat( format ); }
+	}
+
+	public void setDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
+		if( this.date != null ) { this.date.setDateStrategyIncrement( date, increment ); }
+	}
+
+	public void setDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
+		if( this.date != null ) { this.date.setDateStrategyRandom( date_left, date_right ); }
+	}
+
 	public void cleanDateStrategyFixed()  {
 		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
 	}
 
-	@Amount( position = 2 )
-	public String getAmount() throws CDRException  {
-		return this.amount.getLong();
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setAmountStrategyFixed( final Long value ) throws CDRException  {
@@ -119,9 +112,9 @@ public class CDROtherUsage extends CDR {
 		if( this.amount != null ) { this.amount.cleanLongStrategyFixed(); }
 	}
 
-	@Balance( position = 3 )
-	public String getBalance() throws CDRException  {
-		return this.balance.getLong();
+	@Amount( position = 2 )
+	public String getAmount() throws CDRException  {
+		return this.amount.getLong();
 	}
 
 	public void setBalanceStrategyFixed( final Long value ) throws CDRException  {
@@ -146,6 +139,11 @@ public class CDROtherUsage extends CDR {
 
 	public void cleanBalanceStrategyFixed()  {
 		if( this.balance != null ) { this.balance.cleanLongStrategyFixed(); }
+	}
+
+	@Balance( position = 3 )
+	public String getBalance() throws CDRException  {
+		return this.balance.getLong();
 	}
 
 }

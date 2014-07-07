@@ -96,7 +96,7 @@
         </methods>
       </class>
 
-      <class name="com.lumata.e4o.webservices.xmlrpc.XMLRPC_Subscriber">
+      <class name="com.lumata.e4o.gui.common.RegressionSuiteXMLRPC">
       </class>
 
     </classes>

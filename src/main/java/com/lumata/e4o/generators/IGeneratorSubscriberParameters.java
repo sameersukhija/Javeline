@@ -6,20 +6,26 @@ import com.lumata.e4o.exceptions.GeneratorException;
 
 public interface IGeneratorSubscriberParameters {
 
-	public IGeneratorSubscriberParameters environment( NetworkEnvironment env );
+	public IGeneratorSubscriberParameters environment( final NetworkEnvironment env );
 	
-	public IGeneratorSubscriberParameters mysql( Mysql mysql );
+	public IGeneratorSubscriberParameters mysql( final Mysql mysql );
 	
-	public IGeneratorSubscriberParameters msisdnFixed( Long msisdn );
+	public IGeneratorSubscriberParameters msisdnFixed( final Long msisdn );
 	
-	public IGeneratorSubscriberParameters msisdnIncremental( Long msisdn, Integer increment );
+	public IGeneratorSubscriberParameters msisdnIncremental( final Long msisdn, final Integer increment );
 	
-	public IGeneratorSubscriberParameters msisdnRandom( Long leftMsisdn, Long rightMsisdn );
+	public IGeneratorSubscriberParameters msisdnRandom( final Long leftMsisdn, final Long rightMsisdn );
 	
-	public IGeneratorSubscriberParameters subscriberHasSMSChannel( Boolean hasChannel );
+	public IGeneratorSubscriberParameters subscriberHasSMSChannel( final Boolean hasChannel );
 	
-	public IGeneratorSubscriberParameters subscriberHasMAILChannel( Boolean hasChannel );
+	public IGeneratorSubscriberParameters subscriberHasMAILChannel( final Boolean hasChannel );
+	
+	public IGeneratorSubscriberParameters minEvents( final Integer minEvents );
+	
+	public IGeneratorSubscriberParameters maxEvents( final Integer maxEvents );
 	
 	public void insertIntoEnvironment( Long qtySubscribers ) throws GeneratorException;
+	
+	public void xmlrpcRecharge( final Long qtySubscribers ) throws GeneratorException;
 	
 }

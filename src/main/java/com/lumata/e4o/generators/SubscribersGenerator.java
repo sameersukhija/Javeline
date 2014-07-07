@@ -17,30 +17,33 @@ import com.lumata.e4o.system.fields.FieldMsisdn;
 
 import static com.lumata.common.testing.orm.Query.*;
 
-
 public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 
 	GeneratorParametersList parameters;
 	
 	/** Default Subscriber channels configuration  */
-	Boolean SUBSCRIBER_HAS_SMS_CHANNEL = false;
-	Boolean SUBSCRIBER_HAS_MAIL_CHANNEL = false;
+	Boolean subscriberHasSMSChannel = false;
+	Boolean subscriberHasMailChannel = false;
 	
 	/** Default Max MSISDN length */
-	Integer MSISDN_MAX_LENGTH = 10;
+	Integer msisdnMaxLenght = 10;
 	
 	/** Default MSISDN PREFIX */
-	String SUBSCRIBER_PREFIX = "";
+	String subcriberPrefix = "";
 	
 	/** msisdn field management */
-	FieldMsisdn csvMsisdn;
+	FieldMsisdn fieldMsisdn;
+	
+	/** Default Min and Max events */
+	Integer minEvents = -1;
+	Integer maxEvents = 1;
 	
 	
 	SubscribersGenerator( GeneratorParametersList parameters ) {
 		
 		this.parameters = parameters;
 		
-		this.csvMsisdn = new FieldMsisdn();
+		this.fieldMsisdn = new FieldMsisdn();
 	
 	}
 	
@@ -107,6 +110,22 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		return this;
 	
 	}
+	
+	public SubscribersGenerator minEvents( final Integer minEvents ) {
+		
+		parameters.add( GeneratorParameter.minEvents( minEvents ) );
+
+		return this;
+	
+	}
+
+	public SubscribersGenerator maxEvents( final Integer maxEvents ) {
+		
+		parameters.add( GeneratorParameter.maxEvents( maxEvents ) );
+
+		return this;
+	
+	}
 
 	private void configureParameters() throws GeneratorException {
 		
@@ -131,14 +150,14 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 					
 						case fixed_msisdn: {
 							
-							csvMsisdn.setMsisdnStrategyFixed( (Long)parameters.getParameterValue( GeneratorParameterType.msisdn_strategy ) );
+							fieldMsisdn.setMsisdnStrategyFixed( (Long)parameters.getParameterValue( GeneratorParameterType.msisdn_strategy ) );
 							
 							break;
 							
 						} 
 						case incremental_msisdn: {
 							
-							csvMsisdn.setMsisdnStrategyIncrement( 
+							fieldMsisdn.setMsisdnStrategyIncrement( 
 									(Long)parameters.getParameterLeftValue( GeneratorParameterType.msisdn_strategy ), 
 									(Integer)parameters.getParameterRightValue( GeneratorParameterType.msisdn_strategy )									
 							);	
@@ -148,7 +167,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 						} 
 						case random_msisdn: {
 							
-							csvMsisdn.setMsisdnStrategyRandom(
+							fieldMsisdn.setMsisdnStrategyRandom(
 									(Long)parameters.getParameterLeftValue( GeneratorParameterType.msisdn_strategy ), 
 									(Long)parameters.getParameterRightValue( GeneratorParameterType.msisdn_strategy )									
 							);
@@ -173,16 +192,20 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 
 		if( parameters.containsKey( GeneratorParameterType.msisdn_options ) ) { 
 			
-			SUBSCRIBER_PREFIX = (String)parameters.getParameter( GeneratorParameterType.msisdn_options ).getGeneratorParameterLeftValue(); 
+			subcriberPrefix = (String)parameters.getParameter( GeneratorParameterType.msisdn_options ).getGeneratorParameterLeftValue(); 
 			
-			MSISDN_MAX_LENGTH = (Integer)parameters.getParameter( GeneratorParameterType.msisdn_options ).getGeneratorParameterRightValue();
+			msisdnMaxLenght = (Integer)parameters.getParameter( GeneratorParameterType.msisdn_options ).getGeneratorParameterRightValue();
 		
 		}
 
-		if( parameters.containsKey( GeneratorParameterType.subscriber_sms_channel ) ) { SUBSCRIBER_HAS_SMS_CHANNEL = (Boolean)parameters.getParameter( GeneratorParameterType.subscriber_sms_channel ).getGeneratorParameterValue(); }
+		if( parameters.containsKey( GeneratorParameterType.subscriber_sms_channel ) ) { subscriberHasSMSChannel = (Boolean)parameters.getParameter( GeneratorParameterType.subscriber_sms_channel ).getGeneratorParameterValue(); }
 		
-		if( parameters.containsKey( GeneratorParameterType.subscriber_mail_channel ) ) { SUBSCRIBER_HAS_MAIL_CHANNEL = (Boolean)parameters.getParameter( GeneratorParameterType.subscriber_mail_channel ).getGeneratorParameterValue(); }
+		if( parameters.containsKey( GeneratorParameterType.subscriber_mail_channel ) ) { subscriberHasMailChannel = (Boolean)parameters.getParameter( GeneratorParameterType.subscriber_mail_channel ).getGeneratorParameterValue(); }
+
+		if( parameters.containsKey( GeneratorParameterType.min_events ) ) { minEvents = (Integer)parameters.getParameter( GeneratorParameterType.min_events ).getGeneratorParameterValue(); }
 		
+		if( parameters.containsKey( GeneratorParameterType.max_events ) ) { maxEvents = (Integer)parameters.getParameter( GeneratorParameterType.max_events ).getGeneratorParameterValue(); }
+
 	}
 	
 	public void insertIntoEnvironment( final Long qtySubscribers ) throws GeneratorException {
@@ -193,7 +216,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 			
 			try {
 			
-				insertSubscriber( Long.valueOf( csvMsisdn.getMsisdn() ) );
+				insertSubscriber( Long.valueOf( fieldMsisdn.getMsisdn() ) );
 				
 			} catch( CDRException e ) {
 				
@@ -211,9 +234,9 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 		String channelIdList = "";
 		
-		if( SUBSCRIBER_HAS_SMS_CHANNEL ) { channelIdList = "1"; }
+		if( subscriberHasSMSChannel ) { channelIdList = "1"; }
 		
-		if( SUBSCRIBER_HAS_MAIL_CHANNEL ) { if( channelIdList.length() == 0 ) { channelIdList = "2"; } else { channelIdList = channelIdList + ",2"; } }
+		if( subscriberHasMailChannel ) { if( channelIdList.length() == 0 ) { channelIdList = "2"; } else { channelIdList = channelIdList + ",2"; } }
 				
 		subscriber.setMsisdn( msisdn );			
 		subscriber.setSubscriptionDate( new Date() );
@@ -236,9 +259,9 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 		int result = mysql.execUpdate( queryInsert );
 		
-		if( SUBSCRIBER_HAS_SMS_CHANNEL ) { insertChannel( msisdn, String.valueOf( msisdn ), (byte)1 ); }
+		if( subscriberHasSMSChannel ) { insertChannel( msisdn, String.valueOf( msisdn ), (byte)1 ); }
 			
-		if( SUBSCRIBER_HAS_MAIL_CHANNEL ) { insertChannel( msisdn, RandomStringUtils.randomAlphanumeric(10).toLowerCase() + "@lumatagroup.com", (byte)2 ); }
+		if( subscriberHasMailChannel ) { insertChannel( msisdn, RandomStringUtils.randomAlphanumeric(10).toLowerCase() + "@lumatagroup.com", (byte)2 ); }
 								
 	}
 	
@@ -256,6 +279,64 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 		mysql.execUpdate( query );
 		
+	}
+	
+	public void xmlrpcRecharge( final Long qtySubscribers ) throws GeneratorException {
+		
+		configureParameters();
+		/*
+		for( long s = 0; s < qtySubscribers; s++ ) {
+			
+			try {
+			
+				insertSubscriber( Long.valueOf( fieldMsisdn.getMsisdn() ) );
+				
+			} catch( CDRException e ) {
+				
+				System.out.println( e.getMessage() );
+				
+			}	
+		}
+		
+		for( int s = ( ( ALL_SUBSCRIBERS || FIXED_SUBSCRIBERS ) ? 0 : MIN_SUBSCRIBER_INDEX ); s <= subscribersToElaborate; s++ ) {
+			
+			Long msisdn = subscribers.get( s );
+			
+			System.out.println( "MSISDN: " + msisdn );
+			
+			Integer randomEventsToGenerate = ( ALL_EVENTS ? MAX_EVENTS : MIN_EVENTS + (int)( Math.random() * ( MAX_EVENTS - MIN_EVENTS ) ) );
+			
+			System.out.println( "Events to generate: " + randomEventsToGenerate );
+			System.out.println( superman.getUsername() );
+			for( int e = 0; e < randomEventsToGenerate; e++ ) {
+			
+				System.out.println(
+						
+						XMLRPCRequest.eventmanager_generateCustomEvent
+										.call( 	
+												actruleServer, 
+												xmlrpcBody(
+													authentication( superman.getUsername(), superman.getPassword() ),
+													custoEvent( msisdn, 
+																revenue,
+																parameter( recharge, true ),
+																parameter( amount_recharge, 10 ),
+																parameter( balance_main_account, 100 )
+																//parameter( event_date, "2014-05-16" )
+													)
+												),
+												xmlrpcOptions( 
+													sleep( 100L ) 
+												)
+										)
+						.getEntity().toString()
+						
+				);
+			
+			}
+		
+		}	
+		*/		
 	}
 
 }

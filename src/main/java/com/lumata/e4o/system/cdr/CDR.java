@@ -35,6 +35,8 @@ import com.lumata.e4o.schema.tenant.SupportedRatePlan;
 import com.lumata.e4o.schema.tenant.VoucherCodes;
 /** cdr field types */
 import com.lumata.e4o.system.cdr.fields.Amount;
+import com.lumata.e4o.system.cdr.fields.AmountInvoice;
+import com.lumata.e4o.system.cdr.fields.AmountPayment;
 import com.lumata.e4o.system.cdr.fields.Balance;
 import com.lumata.e4o.system.cdr.fields.BundleBalance;
 import com.lumata.e4o.system.cdr.fields.BundleName;
@@ -107,8 +109,14 @@ public class CDR {
 	protected FieldLong duration; 
 	
 	@Amount
-	protected FieldLong amount; 
+	protected FieldLong amount; 	
 	
+	@AmountPayment
+	protected FieldLong amount_payment; 
+
+	@AmountInvoice
+	protected FieldLong amount_invoice; 
+
 	@Balance
 	protected FieldLong balance; 
 	

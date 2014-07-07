@@ -11,10 +11,10 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-import com.lumata.e4o.gui.xmlrpc.type.XMLRPCRequest;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCRequestOld;
 
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCParam.*;
-import static com.lumata.e4o.gui.xmlrpc.type.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 
 public class XMLRPCRequest_Offeroptimizer_RefuseAll {
 	
@@ -40,10 +40,10 @@ public class XMLRPCRequest_Offeroptimizer_RefuseAll {
 	public void callXMLRPCCRequest() throws Exception {
 		
 		final String msisdn = "3399900001";
-		final String token_code = "6TMDA";
+		final String token_code = "77AQ6";
 		final String userAcceptChannel = "web";
 		
-		ClientResponse<String> response = XMLRPCRequest.offeroptimizer_refuseAll.call( 	actruleServer, 
+		ClientResponse<String> response = XMLRPCRequestOld.offeroptimizer_refuseAll.call( 	actruleServer, 
 																						xmlrpcBody(
 																							authentication( superman.getUsername(), superman.getPassword() ),
 																							string( msisdn ),

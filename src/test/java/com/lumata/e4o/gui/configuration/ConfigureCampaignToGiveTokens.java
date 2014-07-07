@@ -40,6 +40,11 @@ public class ConfigureCampaignToGiveTokens {
 	
 	private final boolean testEnabled = true;
 	
+	private final boolean ADD_CHANNELS_ = true;
+	private final boolean ADD_TOKEN_TYPES_ = true;
+	private final boolean ADD_RULES_ = true;
+	
+	
 	private int TIMEOUT = 60000;
 	private int ATTEMPT_TIMEOUT = 50;
 	
@@ -78,7 +83,7 @@ public class ConfigureCampaignToGiveTokens {
 	}
 	
 	@Parameters({"salesChannelsList"})
-	@Test( enabled=testEnabled, priority = 1 )
+	@Test( enabled=ADD_CHANNELS_, priority = 1 )
 	public void configureSalesChannels( @Optional("salesChannelsList") String salesChannelsList ) throws FormException, JSONException, JSONSException {
 		
 		SalesChannelsForm salesChannelsForm = new SalesChannelsForm( seleniumWebDriver, new JSONSalesChannels( "input/administrationmanager/salesChannels", salesChannelsList ), TIMEOUT, ATTEMPT_TIMEOUT );
@@ -88,7 +93,7 @@ public class ConfigureCampaignToGiveTokens {
 	}
 	
 	@Parameters({"tokenTypeList"})
-	@Test( enabled=testEnabled, priority = 2 )
+	@Test( enabled=ADD_TOKEN_TYPES_, priority = 2 )
 	public void configureTokeType( @Optional("tokenTypeList") String tokenTypeList ) throws FormException, JSONException, JSONSException {
 		
 		TokenTypeForm tokenTypeForm = new TokenTypeForm( seleniumWebDriver, new JSONTokenType( "input/catalogmanager/tokenTypes", tokenTypeList ), TIMEOUT, ATTEMPT_TIMEOUT );
@@ -98,7 +103,7 @@ public class ConfigureCampaignToGiveTokens {
 	}
 	
 	@Parameters({"ruleList"})
-	@Test( enabled=testEnabled, priority = 3 )
+	@Test( enabled=ADD_RULES_, priority = 3 )
 	public void configureRules( @Optional("ruleList") String ruleList ) throws FormException, JSONException, JSONSException {
 		
 		RulesForm rulesForm = new RulesForm( seleniumWebDriver, new JSONRules( "input/catalogmanager/rules", ruleList ), TIMEOUT, ATTEMPT_TIMEOUT );

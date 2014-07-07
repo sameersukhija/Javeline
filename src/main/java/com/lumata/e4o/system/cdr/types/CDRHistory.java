@@ -1,8 +1,8 @@
 package com.lumata.e4o.system.cdr.types;
 
-import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.fields.*;
+import com.lumata.e4o.exceptions.CDRException;
 
 public class CDRHistory extends CDR { 
 
@@ -16,29 +16,17 @@ public class CDRHistory extends CDR {
 		return this.FIELDS;
 	}
 
-	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
-		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
-	}
-
-	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
-		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
-	}
-
-	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
-		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyRandom( min_value, max_value ); }
+	@Msisdn( position = 0 )
+	public String getMsisdn() throws CDRException  {
+		return this.msisdn.getMsisdn();
 	}
 
 	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnOptions( prefix, length ); }
 	}
 
-	public void cleanMsisdnOptions()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
-	}
-
-	@Msisdn( position = 0 )
-	public String getMsisdn() throws CDRException  {
-		return this.msisdn.getMsisdn();
+	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
 	}
 
 	public void cleanMsisdnStrategyIncrement()  {
@@ -49,8 +37,20 @@ public class CDRHistory extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
+	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
+	}
+
+	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
+		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyRandom( min_value, max_value ); }
+	}
+
 	public void cleanMsisdnFixedStrategy()  {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnFixedStrategy(); }
+	}
+
+	public void cleanMsisdnOptions()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
 }
