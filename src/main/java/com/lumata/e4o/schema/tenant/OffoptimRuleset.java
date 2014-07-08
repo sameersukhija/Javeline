@@ -12,7 +12,7 @@ import com.lumata.common.testing.annotations.mysql.Column;
 @Table( "offoptim_ruleset" )
 public class OffoptimRuleset { 
 
-	public enum Fields { ruleset_id, name, description, algorithm_id, token_type_id, offers_to_return, allow_duplicate_offers, keep_offers_consistent, allow_redeemed_offers, allocation_time_validity_amount, allocation_time_validity_unit }
+	public enum Fields { ruleset_id, name, description, algorithm_id, token_type_id, token_resend_notification, offers_to_return, allow_duplicate_offers, keep_offers_consistent, allow_redeemed_offers, allocation_time_validity_amount, allocation_time_validity_unit }
 
 	@Column(
 			table = "offoptim_ruleset",
@@ -103,6 +103,24 @@ public class OffoptimRuleset {
 			setMethod = "setTokenTypeId"
 	)
 	private Integer token_type_id;
+
+	@Column(
+			table = "offoptim_ruleset",
+			field = "token_resend_notification",
+			type = "text",
+			mysqlType = "text",
+			javaType = "String",
+			categoryType = "String",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 0,
+			getMethod = "getTokenResendNotification",
+			setMethod = "setTokenResendNotification"
+	)
+	private String token_resend_notification;
 
 	@Column(
 			table = "offoptim_ruleset",
@@ -222,6 +240,7 @@ public class OffoptimRuleset {
 		this.description = rs.getString( OffoptimRuleset.Fields.description.name() );
 		this.algorithm_id = rs.getInt( OffoptimRuleset.Fields.algorithm_id.name() );
 		this.token_type_id = rs.getInt( OffoptimRuleset.Fields.token_type_id.name() );
+		this.token_resend_notification = rs.getString( OffoptimRuleset.Fields.token_resend_notification.name() );
 		this.offers_to_return = rs.getInt( OffoptimRuleset.Fields.offers_to_return.name() );
 		this.allow_duplicate_offers = rs.getByte( OffoptimRuleset.Fields.allow_duplicate_offers.name() );
 		this.keep_offers_consistent = rs.getByte( OffoptimRuleset.Fields.keep_offers_consistent.name() );
@@ -238,6 +257,7 @@ public class OffoptimRuleset {
 		this.description = jo.getString( OffoptimRuleset.Fields.description.name() );
 		this.algorithm_id = (int)jo.getInt( OffoptimRuleset.Fields.algorithm_id.name() );
 		this.token_type_id = (int)jo.getInt( OffoptimRuleset.Fields.token_type_id.name() );
+		this.token_resend_notification = jo.getString( OffoptimRuleset.Fields.token_resend_notification.name() );
 		this.offers_to_return = (int)jo.getInt( OffoptimRuleset.Fields.offers_to_return.name() );
 		this.allow_duplicate_offers = (byte)jo.getInt( OffoptimRuleset.Fields.allow_duplicate_offers.name() );
 		this.keep_offers_consistent = (byte)jo.getInt( OffoptimRuleset.Fields.keep_offers_consistent.name() );
@@ -304,6 +324,18 @@ public class OffoptimRuleset {
 	public void setTokenTypeId( Integer token_type_id ) {
 
 		this.token_type_id = token_type_id;
+
+	}
+
+	public String getTokenResendNotification() {
+
+		return this.token_resend_notification;
+
+	}
+
+	public void setTokenResendNotification( String token_resend_notification ) {
+
+		this.token_resend_notification = token_resend_notification;
 
 	}
 
@@ -395,6 +427,7 @@ public class OffoptimRuleset {
 			.append( "\"description\": \"" ).append( this.getDescription() ).append( "\", " )
 			.append( "\"algorithm_id\": \"" ).append( this.getAlgorithmId() ).append( "\", " )
 			.append( "\"token_type_id\": \"" ).append( this.getTokenTypeId() ).append( "\", " )
+			.append( "\"token_resend_notification\": \"" ).append( this.getTokenResendNotification() ).append( "\", " )
 			.append( "\"offers_to_return\": \"" ).append( this.getOffersToReturn() ).append( "\", " )
 			.append( "\"allow_duplicate_offers\": \"" ).append( this.getAllowDuplicateOffers() ).append( "\", " )
 			.append( "\"keep_offers_consistent\": \"" ).append( this.getKeepOffersConsistent() ).append( "\", " )

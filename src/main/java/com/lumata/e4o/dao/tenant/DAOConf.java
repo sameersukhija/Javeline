@@ -13,7 +13,7 @@ import com.lumata.e4o.schema.tenant.Conf;
 public class DAOConf extends DAO {
 	
 	public enum ConfTag {
-		in_tags_list
+		in_tags_list, language
 	}
 
 	public DAOConf( Mysql mysql ) {

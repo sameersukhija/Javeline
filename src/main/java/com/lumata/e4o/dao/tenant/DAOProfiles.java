@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.e4o.schema.tenant.Profiles;
+import com.lumata.e4o.schema.tenant.SupportedRatePlan;
 
 public class DAOProfiles extends DAO {
 
@@ -83,6 +84,33 @@ public class DAOProfiles extends DAO {
 		Profiles profile = null;
 		
 		String query = select().from( new Profiles() ).where( op( Profiles.Fields.profile_id ).eq( profile_id ) ).build();
+		
+		ResultSet rs = this.getMysql().execQuery( query );
+			
+		try {
+			
+			while( rs.next() ) {
+				
+				profile = new Profiles( rs );
+								
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		
+		}
+		
+		return profile;
+		
+	}
+	
+	public Profiles getNotValidProfileByRatePlan( SupportedRatePlan supportedRatePlan ) {
+		
+		Profiles profile = null;
+		
+		String query = select().from( new Profiles() ).where( op( Profiles.Fields.profile_id ).neq( supportedRatePlan.getProfileId() ) ).build();
 		
 		ResultSet rs = this.getMysql().execQuery( query );
 			

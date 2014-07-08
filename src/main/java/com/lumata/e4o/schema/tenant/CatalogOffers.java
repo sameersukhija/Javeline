@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @Table( "catalog_offers" )
 public class CatalogOffers { 
 
-	public enum Fields { offer_id, offer_name, description, voucher_type, voucher_unlimited_code, redemption_notification, start_date, end_date, offer_status, eligibility_criteria, notification, offer_rank, update_time, url_image, agreement, subscriber_limit }
+	public enum Fields { offer_id, external_id, offer_name, description, voucher_type, voucher_unlimited_code, redemption_notification, start_date, end_date, offer_status, eligibility_criteria, notification, offer_rank, subs_preferences_id_list, update_time, url_image, agreement, subscriber_limit }
 
 	@Column(
 			table = "catalog_offers",
@@ -35,6 +35,24 @@ public class CatalogOffers {
 			setMethod = "setOfferId"
 	)
 	private Short offer_id;
+
+	@Column(
+			table = "catalog_offers",
+			field = "external_id",
+			type = "varchar(45)",
+			mysqlType = "varchar",
+			javaType = "String",
+			categoryType = "String",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 45,
+			getMethod = "getExternalId",
+			setMethod = "setExternalId"
+	)
+	private String external_id;
 
 	@Column(
 			table = "catalog_offers",
@@ -236,6 +254,24 @@ public class CatalogOffers {
 
 	@Column(
 			table = "catalog_offers",
+			field = "subs_preferences_id_list",
+			type = "set('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64')",
+			mysqlType = "set",
+			javaType = "Set",
+			categoryType = "Collection",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 64,
+			getMethod = "getSubsPreferencesIdList",
+			setMethod = "setSubsPreferencesIdList"
+	)
+	private String subs_preferences_id_list;
+
+	@Column(
+			table = "catalog_offers",
 			field = "update_time",
 			type = "timestamp",
 			mysqlType = "timestamp",
@@ -312,6 +348,7 @@ public class CatalogOffers {
 	public CatalogOffers( ResultSet rs ) throws SQLException {
 
 		this.offer_id = rs.getShort( CatalogOffers.Fields.offer_id.name() );
+		this.external_id = rs.getString( CatalogOffers.Fields.external_id.name() );
 		this.offer_name = rs.getString( CatalogOffers.Fields.offer_name.name() );
 		this.description = rs.getString( CatalogOffers.Fields.description.name() );
 		this.voucher_type = rs.getString( CatalogOffers.Fields.voucher_type.name() );
@@ -323,6 +360,7 @@ public class CatalogOffers {
 		this.eligibility_criteria = rs.getString( CatalogOffers.Fields.eligibility_criteria.name() );
 		this.notification = rs.getString( CatalogOffers.Fields.notification.name() );
 		this.offer_rank = rs.getByte( CatalogOffers.Fields.offer_rank.name() );
+		this.subs_preferences_id_list = rs.getString( CatalogOffers.Fields.subs_preferences_id_list.name() );
 		this.update_time = rs.getTimestamp( CatalogOffers.Fields.update_time.name() );
 		this.url_image = rs.getString( CatalogOffers.Fields.url_image.name() );
 		this.agreement = rs.getString( CatalogOffers.Fields.agreement.name() );
@@ -333,6 +371,7 @@ public class CatalogOffers {
 	public CatalogOffers( JSONObject jo ) throws JSONException, ParseException {
 
 		this.offer_id = (short)jo.getInt( CatalogOffers.Fields.offer_id.name() );
+		this.external_id = jo.getString( CatalogOffers.Fields.external_id.name() );
 		this.offer_name = jo.getString( CatalogOffers.Fields.offer_name.name() );
 		this.description = jo.getString( CatalogOffers.Fields.description.name() );
 		this.voucher_type = jo.getString( CatalogOffers.Fields.voucher_type.name() );
@@ -344,6 +383,7 @@ public class CatalogOffers {
 		this.eligibility_criteria = jo.getString( CatalogOffers.Fields.eligibility_criteria.name() );
 		this.notification = jo.getString( CatalogOffers.Fields.notification.name() );
 		this.offer_rank = (byte)jo.getInt( CatalogOffers.Fields.offer_rank.name() );
+		this.subs_preferences_id_list = jo.getString( CatalogOffers.Fields.subs_preferences_id_list.name() );
 		this.update_time = new Timestamp( Format.getMysqlDateTime( jo.getString( CatalogOffers.Fields.update_time.name() ) ).getTime() );
 		this.url_image = jo.getString( CatalogOffers.Fields.url_image.name() );
 		this.agreement = jo.getString( CatalogOffers.Fields.agreement.name() );
@@ -360,6 +400,18 @@ public class CatalogOffers {
 	public void setOfferId( Short offer_id ) {
 
 		this.offer_id = offer_id;
+
+	}
+
+	public String getExternalId() {
+
+		return this.external_id;
+
+	}
+
+	public void setExternalId( String external_id ) {
+
+		this.external_id = external_id;
 
 	}
 
@@ -495,6 +547,18 @@ public class CatalogOffers {
 
 	}
 
+	public String getSubsPreferencesIdList() {
+
+		return this.subs_preferences_id_list;
+
+	}
+
+	public void setSubsPreferencesIdList( String subs_preferences_id_list ) {
+
+		this.subs_preferences_id_list = subs_preferences_id_list;
+
+	}
+
 	public Timestamp getUpdateTime() {
 
 		return this.update_time;
@@ -555,6 +619,7 @@ public class CatalogOffers {
 
 		str.append( "{ " )
 			.append( "\"offer_id\": \"" ).append( this.getOfferId() ).append( "\", " )
+			.append( "\"external_id\": \"" ).append( this.getExternalId() ).append( "\", " )
 			.append( "\"offer_name\": \"" ).append( this.getOfferName() ).append( "\", " )
 			.append( "\"description\": \"" ).append( this.getDescription() ).append( "\", " )
 			.append( "\"voucher_type\": \"" ).append( this.getVoucherType() ).append( "\", " )
@@ -566,6 +631,7 @@ public class CatalogOffers {
 			.append( "\"eligibility_criteria\": \"" ).append( this.getEligibilityCriteria() ).append( "\", " )
 			.append( "\"notification\": \"" ).append( this.getNotification() ).append( "\", " )
 			.append( "\"offer_rank\": \"" ).append( this.getOfferRank() ).append( "\", " )
+			.append( "\"subs_preferences_id_list\": \"" ).append( this.getSubsPreferencesIdList() ).append( "\", " )
 			.append( "\"update_time\": \"" ).append( this.getUpdateTime() ).append( "\", " )
 			.append( "\"url_image\": \"" ).append( this.getUrlImage() ).append( "\", " )
 			.append( "\"agreement\": \"" ).append( this.getAgreement() ).append( "\", " )

@@ -139,23 +139,23 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		if( !parameters.containsKey( GeneratorParameterType.mysql ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.mysql.name() ) ); }
 		else if( null == parameters.getParameter( GeneratorParameterType.mysql ) ) { throw new GeneratorException( mandatoryFieldNull.replace( "${fieldType}", GeneratorParameterType.mysql.name() ) ); }
 
-		if( !parameters.containsKey( GeneratorParameterType.msisdn_strategy ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.msisdn_strategy.name() ) + ".It needs to configure a parameter among " + GeneratorParameterType.fixed_msisdn.name() + " or " + GeneratorParameterType.incremental_msisdn.name()  + " or " + GeneratorParameterType.random_msisdn.name() ); }
+		if( !parameters.containsKey( GeneratorParameterType.msisdn_strategy ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.msisdn_strategy.name() ) + ".It needs to configure a parameter among " + GeneratorParameterType.msisdn_fixed.name() + " or " + GeneratorParameterType.msisdn_incremental.name()  + " or " + GeneratorParameterType.msisdn_random.name() ); }
 		else {
-			if( null == parameters.getParameter( GeneratorParameterType.msisdn_strategy ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.msisdn_strategy.name() ) + ".It needs to configure a parameter among " + GeneratorParameterType.fixed_msisdn.name() + " or " + GeneratorParameterType.incremental_msisdn.name()  + " or " + GeneratorParameterType.random_msisdn.name() ); }
+			if( null == parameters.getParameter( GeneratorParameterType.msisdn_strategy ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.msisdn_strategy.name() ) + ".It needs to configure a parameter among " + GeneratorParameterType.msisdn_fixed.name() + " or " + GeneratorParameterType.msisdn_incremental.name()  + " or " + GeneratorParameterType.msisdn_random.name() ); }
 			else {
 				
 				try {
 					
 					switch( parameters.getParameterType( GeneratorParameterType.msisdn_strategy ) ) {
 					
-						case fixed_msisdn: {
+						case msisdn_fixed: {
 							
 							fieldMsisdn.setMsisdnStrategyFixed( (Long)parameters.getParameterValue( GeneratorParameterType.msisdn_strategy ) );
 							
 							break;
 							
 						} 
-						case incremental_msisdn: {
+						case msisdn_incremental: {
 							
 							fieldMsisdn.setMsisdnStrategyIncrement( 
 									(Long)parameters.getParameterLeftValue( GeneratorParameterType.msisdn_strategy ), 
@@ -165,7 +165,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 							break;
 							
 						} 
-						case random_msisdn: {
+						case msisdn_random: {
 							
 							fieldMsisdn.setMsisdnStrategyRandom(
 									(Long)parameters.getParameterLeftValue( GeneratorParameterType.msisdn_strategy ), 
@@ -257,7 +257,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 		Mysql mysql = (Mysql)parameters.getParameterValue( GeneratorParameterType.mysql );
 		
-		int result = mysql.execUpdate( queryInsert );
+		mysql.execUpdate( queryInsert );
 		
 		if( subscriberHasSMSChannel ) { insertChannel( msisdn, String.valueOf( msisdn ), (byte)1 ); }
 			

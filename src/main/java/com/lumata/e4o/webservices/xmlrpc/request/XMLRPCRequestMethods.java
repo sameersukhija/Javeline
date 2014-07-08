@@ -184,11 +184,11 @@ public class XMLRPCRequestMethods {
 	
 	public static XMLRPCRequestMethods subscriber( Long msisdn ) {
 		
-		return XMLRPCRequestMethods.subscriber( msisdn, null, null, null, null, null, null, null, null );
+		return XMLRPCRequestMethods.subscriber( String.valueOf( msisdn ), null, null, null, null, null, null, null, null );
 		
 	}
 	
-	public static XMLRPCRequestMethods subscriber( Long msisdn, String subscriptionDate, String profile, String ratePlan, String status, String inTag, String network, XMLRPCParameter[] params, String[] services ) {
+	public static XMLRPCRequestMethods subscriber( String msisdn, String subscriptionDate, String profile, String ratePlan, String status, String inTag, String network, XMLRPCParameter[] params, String[] services ) {
 		
 		StringBuilder subscriberPOSTBody = new StringBuilder();
 		

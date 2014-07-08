@@ -45,9 +45,9 @@ import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
 import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.*;
 
-public class XMLRPCRequest_Subscribermanager_CreateSubscriber {
+public class XMLRPCRequest_Catalogmanager_Accept {
 	
-	private static final Logger logger = LoggerFactory.getLogger( XMLRPCRequest_Subscribermanager_CreateSubscriber.class );
+	private static final Logger logger = LoggerFactory.getLogger( XMLRPCRequest_Catalogmanager_Accept.class );
 	
 	public enum ExtendedParameters {
 		tongue, gender, salary, imei, imsi, hobbies 

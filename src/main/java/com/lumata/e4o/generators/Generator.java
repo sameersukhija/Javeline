@@ -9,5 +9,14 @@ public class Generator {
 		return new SubscribersGenerator( parameters ); 
 		
 	}
+	
+	public static IGeneratorVoucherParameters vouchers() {
+		
+		GeneratorParametersList parameters = new GeneratorParametersList();
+		
+		return new VoucherGenerator( parameters ); 
+		
+	}
+	
 
 }

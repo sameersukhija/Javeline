@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @Table( "subscribers" )
 public class Subscribers { 
 
-	public enum Fields { msisdn, subscription_date, profile_id, rate_plan_id, status_id, service_id_list, channel_id_list, network_id, tongue, ucg, ucg_start_date, in_tag, update_time }
+	public enum Fields { msisdn, imei, imsi, subscription_date, profile_id, rate_plan_id, status_id, service_id_list, channel_id_list, network_id, tongue, ucg, ucg_start_date, in_tag, hobbies, gender, salary, update_time }
 
 	@Column(
 			table = "subscribers",
@@ -35,6 +35,42 @@ public class Subscribers {
 			setMethod = "setMsisdn"
 	)
 	private Long msisdn;
+
+	@Column(
+			table = "subscribers",
+			field = "imei",
+			type = "bigint(20)",
+			mysqlType = "bigint",
+			javaType = "Long",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 20,
+			getMethod = "getImei",
+			setMethod = "setImei"
+	)
+	private Long imei;
+
+	@Column(
+			table = "subscribers",
+			field = "imsi",
+			type = "bigint(20)",
+			mysqlType = "bigint",
+			javaType = "Long",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 20,
+			getMethod = "getImsi",
+			setMethod = "setImsi"
+	)
+	private Long imsi;
 
 	@Column(
 			table = "subscribers",
@@ -236,6 +272,60 @@ public class Subscribers {
 
 	@Column(
 			table = "subscribers",
+			field = "hobbies",
+			type = "set('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64')",
+			mysqlType = "set",
+			javaType = "Set",
+			categoryType = "Collection",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 64,
+			getMethod = "getHobbies",
+			setMethod = "setHobbies"
+	)
+	private String hobbies;
+
+	@Column(
+			table = "subscribers",
+			field = "gender",
+			type = "enum('COMPANY','FEMALE','MALE','UNDEFINED')",
+			mysqlType = "enum",
+			javaType = "Enum",
+			categoryType = "Collection",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 4,
+			getMethod = "getGender",
+			setMethod = "setGender"
+	)
+	private String gender;
+
+	@Column(
+			table = "subscribers",
+			field = "salary",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 4,
+			getMethod = "getSalary",
+			setMethod = "setSalary"
+	)
+	private Float salary;
+
+	@Column(
+			table = "subscribers",
 			field = "update_time",
 			type = "timestamp",
 			mysqlType = "timestamp",
@@ -258,6 +348,8 @@ public class Subscribers {
 	public Subscribers( ResultSet rs ) throws SQLException {
 
 		this.msisdn = rs.getLong( Subscribers.Fields.msisdn.name() );
+		this.imei = rs.getLong( Subscribers.Fields.imei.name() );
+		this.imsi = rs.getLong( Subscribers.Fields.imsi.name() );
 		this.subscription_date = rs.getDate( Subscribers.Fields.subscription_date.name() );
 		this.profile_id = rs.getByte( Subscribers.Fields.profile_id.name() );
 		this.rate_plan_id = rs.getByte( Subscribers.Fields.rate_plan_id.name() );
@@ -269,6 +361,9 @@ public class Subscribers {
 		this.ucg = rs.getByte( Subscribers.Fields.ucg.name() );
 		this.ucg_start_date = rs.getDate( Subscribers.Fields.ucg_start_date.name() );
 		this.in_tag = rs.getString( Subscribers.Fields.in_tag.name() );
+		this.hobbies = rs.getString( Subscribers.Fields.hobbies.name() );
+		this.gender = rs.getString( Subscribers.Fields.gender.name() );
+		this.salary = rs.getFloat( Subscribers.Fields.salary.name() );
 		this.update_time = rs.getTimestamp( Subscribers.Fields.update_time.name() );
 
 	}
@@ -276,6 +371,8 @@ public class Subscribers {
 	public Subscribers( JSONObject jo ) throws JSONException, ParseException {
 
 		this.msisdn = (long)jo.getLong( Subscribers.Fields.msisdn.name() );
+		this.imei = (long)jo.getLong( Subscribers.Fields.imei.name() );
+		this.imsi = (long)jo.getLong( Subscribers.Fields.imsi.name() );
 		this.subscription_date = Format.getMysqlDateTime( jo.getString( Subscribers.Fields.subscription_date.name() ) );
 		this.profile_id = (byte)jo.getInt( Subscribers.Fields.profile_id.name() );
 		this.rate_plan_id = (byte)jo.getInt( Subscribers.Fields.rate_plan_id.name() );
@@ -287,6 +384,9 @@ public class Subscribers {
 		this.ucg = (byte)jo.getInt( Subscribers.Fields.ucg.name() );
 		this.ucg_start_date = Format.getMysqlDateTime( jo.getString( Subscribers.Fields.ucg_start_date.name() ) );
 		this.in_tag = jo.getString( Subscribers.Fields.in_tag.name() );
+		this.hobbies = jo.getString( Subscribers.Fields.hobbies.name() );
+		this.gender = jo.getString( Subscribers.Fields.gender.name() );
+		this.salary = (float)jo.getDouble( Subscribers.Fields.salary.name() );
 		this.update_time = new Timestamp( Format.getMysqlDateTime( jo.getString( Subscribers.Fields.update_time.name() ) ).getTime() );
 
 	}
@@ -300,6 +400,30 @@ public class Subscribers {
 	public void setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+	}
+
+	public Long getImei() {
+
+		return this.imei;
+
+	}
+
+	public void setImei( Long imei ) {
+
+		this.imei = imei;
+
+	}
+
+	public Long getImsi() {
+
+		return this.imsi;
+
+	}
+
+	public void setImsi( Long imsi ) {
+
+		this.imsi = imsi;
 
 	}
 
@@ -435,6 +559,42 @@ public class Subscribers {
 
 	}
 
+	public String getHobbies() {
+
+		return this.hobbies;
+
+	}
+
+	public void setHobbies( String hobbies ) {
+
+		this.hobbies = hobbies;
+
+	}
+
+	public String getGender() {
+
+		return this.gender;
+
+	}
+
+	public void setGender( String gender ) {
+
+		this.gender = gender;
+
+	}
+
+	public Float getSalary() {
+
+		return this.salary;
+
+	}
+
+	public void setSalary( Float salary ) {
+
+		this.salary = salary;
+
+	}
+
 	public Timestamp getUpdateTime() {
 
 		return this.update_time;
@@ -459,6 +619,8 @@ public class Subscribers {
 
 		str.append( "{ " )
 			.append( "\"msisdn\": \"" ).append( this.getMsisdn() ).append( "\", " )
+			.append( "\"imei\": \"" ).append( this.getImei() ).append( "\", " )
+			.append( "\"imsi\": \"" ).append( this.getImsi() ).append( "\", " )
 			.append( "\"subscription_date\": \"" ).append( this.getSubscriptionDate() ).append( "\", " )
 			.append( "\"profile_id\": \"" ).append( this.getProfileId() ).append( "\", " )
 			.append( "\"rate_plan_id\": \"" ).append( this.getRatePlanId() ).append( "\", " )
@@ -470,6 +632,9 @@ public class Subscribers {
 			.append( "\"ucg\": \"" ).append( this.getUcg() ).append( "\", " )
 			.append( "\"ucg_start_date\": \"" ).append( this.getUcgStartDate() ).append( "\", " )
 			.append( "\"in_tag\": \"" ).append( this.getInTag() ).append( "\", " )
+			.append( "\"hobbies\": \"" ).append( this.getHobbies() ).append( "\", " )
+			.append( "\"gender\": \"" ).append( this.getGender() ).append( "\", " )
+			.append( "\"salary\": \"" ).append( this.getSalary() ).append( "\", " )
 			.append( "\"update_time\": \"" ).append( this.getUpdateTime() ).append( "\"" )
 			.append( " }" );
 

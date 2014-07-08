@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.lumata.common.testing.database.Mysql;
+import com.lumata.common.testing.orm.Val;
 import com.lumata.e4o.schema.tenant.Subscribers;
 
 public class DAOSubscribers extends DAO {
@@ -58,6 +59,7 @@ public class DAOSubscribers extends DAO {
 									op( Subscribers.Fields.profile_id ).eq(),
 									op( Subscribers.Fields.rate_plan_id ).eq(),
 									op( Subscribers.Fields.status_id ).eq(),
+									op( Subscribers.Fields.service_id_list ).is( Val.NULL ),
 									op( Subscribers.Fields.in_tag ).eq(),
 									op( Subscribers.Fields.network_id ).eq()
 								)

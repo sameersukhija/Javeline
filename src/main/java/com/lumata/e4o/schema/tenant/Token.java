@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "token" )
 public class Token { 
 
-	public enum Fields { token_code, msisdn, token_label_id, ruleset_id, event_id, event_date, expiration_date, consumed_date, qty_current_redeems, qty_max_redeems, last_redeem_date, single_use_redeem_duration_timeout, qty_incident, qty_use, has_offers_associated, description, image_url, consumed_notes, module_id, feature_id }
+	public enum Fields { token_code, msisdn, token_label_id, token_notification_resent, ruleset_id, event_id, event_date, expiration_date, consumed_date, qty_current_redeems, qty_max_redeems, last_redeem_date, single_use_redeem_duration_timeout, qty_incident, qty_use, has_offers_associated, description, image_url, consumed_notes, module_id, feature_id }
 
 	@Column(
 			table = "token",
@@ -70,6 +70,24 @@ public class Token {
 			setMethod = "setTokenLabelId"
 	)
 	private Byte token_label_id;
+
+	@Column(
+			table = "token",
+			field = "token_notification_resent",
+			type = "tinyint(4)",
+			mysqlType = "tinyint",
+			javaType = "Byte",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "0",
+			extra = "",
+			length = 4,
+			getMethod = "getTokenNotificationResent",
+			setMethod = "setTokenNotificationResent"
+	)
+	private Byte token_notification_resent;
 
 	@Column(
 			table = "token",
@@ -385,6 +403,7 @@ public class Token {
 		this.token_code = rs.getString( Token.Fields.token_code.name() );
 		this.msisdn = rs.getLong( Token.Fields.msisdn.name() );
 		this.token_label_id = rs.getByte( Token.Fields.token_label_id.name() );
+		this.token_notification_resent = rs.getByte( Token.Fields.token_notification_resent.name() );
 		this.ruleset_id = rs.getInt( Token.Fields.ruleset_id.name() );
 		this.event_id = rs.getShort( Token.Fields.event_id.name() );
 		this.event_date = rs.getDate( Token.Fields.event_date.name() );
@@ -410,6 +429,7 @@ public class Token {
 		this.token_code = jo.getString( Token.Fields.token_code.name() );
 		this.msisdn = (long)jo.getLong( Token.Fields.msisdn.name() );
 		this.token_label_id = (byte)jo.getInt( Token.Fields.token_label_id.name() );
+		this.token_notification_resent = (byte)jo.getInt( Token.Fields.token_notification_resent.name() );
 		this.ruleset_id = (int)jo.getInt( Token.Fields.ruleset_id.name() );
 		this.event_id = (short)jo.getInt( Token.Fields.event_id.name() );
 		this.event_date = Format.getMysqlDateTime( jo.getString( Token.Fields.event_date.name() ) );
@@ -463,6 +483,18 @@ public class Token {
 	public void setTokenLabelId( Byte token_label_id ) {
 
 		this.token_label_id = token_label_id;
+
+	}
+
+	public Byte getTokenNotificationResent() {
+
+		return this.token_notification_resent;
+
+	}
+
+	public void setTokenNotificationResent( Byte token_notification_resent ) {
+
+		this.token_notification_resent = token_notification_resent;
 
 	}
 
@@ -684,6 +716,7 @@ public class Token {
 			.append( "\"token_code\": \"" ).append( this.getTokenCode() ).append( "\", " )
 			.append( "\"msisdn\": \"" ).append( this.getMsisdn() ).append( "\", " )
 			.append( "\"token_label_id\": \"" ).append( this.getTokenLabelId() ).append( "\", " )
+			.append( "\"token_notification_resent\": \"" ).append( this.getTokenNotificationResent() ).append( "\", " )
 			.append( "\"ruleset_id\": \"" ).append( this.getRulesetId() ).append( "\", " )
 			.append( "\"event_id\": \"" ).append( this.getEventId() ).append( "\", " )
 			.append( "\"event_date\": \"" ).append( this.getEventDate() ).append( "\", " )
