@@ -5,6 +5,7 @@ public class Op implements IOp {
 	public enum Types {
 		
 		eq(" = "),
+		neq(" != "),
 		lt(" < "),
 		let(" <= "),
 		gt(" > "),
@@ -68,6 +69,42 @@ public class Op implements IOp {
 	
 	}
 
+	@Override
+	public ExprFV neq() {
+		
+		ExprFV expr = new ExprFV( field, Op.Types.neq );
+				
+		return expr;
+	
+	}
+
+	@Override
+	public ExprFV neq( final Object value ) {
+		
+		ExprFV expr = new ExprFV( field, Op.Types.neq, value );
+				
+		return expr;
+	
+	}
+	
+	@Override
+	public ExprFV neq( final ISelect select ) {
+		
+		ExprFV expr = null;// = new ExprFV( field, Op.Types.eq, value );
+				
+		return expr;
+	
+	}
+
+	@Override
+	public ExprFF neq( final Enum<?> right_field ) {
+		
+		ExprFF expr = new ExprFF( field, Op.Types.neq, right_field );
+		
+		return expr;
+	
+	}
+		
 	@Override
 	public ExprFV lt() {
 		
