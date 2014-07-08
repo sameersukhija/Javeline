@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.e4o.utils.generators.CDRVouchersGenerator;
-import com.lumata.e4o.utils.generators.VouchersGenerator;
 
 @Deprecated /** depends from CDR deprecated class - to be refactoring using the new CDR class ( Vincenzo )*/
 public class GenerateCDRVouchers {
