@@ -36,8 +36,7 @@
   <parameter name="loyaltyCreationFile" value="loyaltyCreationTemplate"/>
   <parameter name="ruleListFile" value="rulesetTemplate"/>
   <parameter name="offersFile" value="offersTemplate"/>
-  <parameter name="inputSeed" value="393492135"/>
-  
+ 
   <!-- 
     Test Section 
   -->
@@ -97,8 +96,19 @@
           <include name="configureOffers"/>
         </methods>
       </class>
-
+ 
+      <parameter name="inputSeed" value="393492135"/>
+  
       <class name="com.lumata.e4o.gui.common.RegressionSuiteXMLRPC">
+        <methods>
+          <include name="createNewSubscriberWidthMissingMinimalParameters"/>
+          <include name="createNewSubscriberWidthOptionalParams"/>
+          <include name="createNewSubscriberWidthWrongMinimalParameters"/>
+          <include name="createNewSubscriberWidthWrongAllParameters"/>
+          <include name="getWrongSubscriber"/>
+          <include name="createNewSubscriber"/>
+          <include name="deleteExistingSubscriber"/>
+        </methods>        
       </class>
 
     </classes>

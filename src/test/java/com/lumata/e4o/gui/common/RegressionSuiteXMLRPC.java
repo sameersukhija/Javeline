@@ -43,13 +43,13 @@ public class RegressionSuiteXMLRPC {
 
 	private static final Logger logger = LoggerFactory.getLogger(RegressionSuiteXMLRPC.class);
 
-	final long XMLRPC_CALL_DELAY = 100;
+	private final long XMLRPC_CALL_DELAY = 100;
 
 	/**
 	 * 
 	 */
-	NetworkEnvironment env;
-	Mysql mysql;
+	private NetworkEnvironment env;
+	private Mysql mysql;
 
 	/**
 	 * Default seed for subscribers msisdn
@@ -821,7 +821,6 @@ public class RegressionSuiteXMLRPC {
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
 
 		logger.info("msisdn deleted: " + msisdn);
-
 	}
 
 	/**
