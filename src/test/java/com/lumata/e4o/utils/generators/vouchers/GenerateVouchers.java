@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 import com.lumata.common.testing.log.Log;
 import com.lumata.e4o.exceptions.GeneratorException;
-import com.lumata.e4o.generators.Generator;
+import com.lumata.e4o.generators.common.Generator;
 
 
 public class GenerateVouchers {

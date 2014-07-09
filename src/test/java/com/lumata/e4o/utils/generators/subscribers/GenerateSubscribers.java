@@ -16,7 +16,7 @@ import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
 import com.lumata.e4o.exceptions.GeneratorException;
-import com.lumata.e4o.generators.Generator;
+import com.lumata.e4o.generators.common.Generator;
 
 
 public class GenerateSubscribers {

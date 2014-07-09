@@ -1,4 +1,4 @@
-package com.lumata.e4o.generators;
+package com.lumata.e4o.generators.subscribers;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.system.NetworkEnvironment;
@@ -20,9 +20,9 @@ public interface IGeneratorSubscriberParameters {
 	
 	public IGeneratorSubscriberParameters subscriberHasMAILChannel( final Boolean hasChannel );
 	
-	public IGeneratorSubscriberParameters minEvents( final Integer minEvents );
+	public IGeneratorSubscriberParameters minRandomEvents( final Integer minEvents );
 	
-	public IGeneratorSubscriberParameters maxEvents( final Integer maxEvents );
+	public IGeneratorSubscriberParameters maxRandomEvents( final Integer maxEvents );
 	
 	public void insertIntoEnvironment( Long qtySubscribers ) throws GeneratorException;
 	

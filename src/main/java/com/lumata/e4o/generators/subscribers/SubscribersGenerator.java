@@ -1,4 +1,4 @@
-package com.lumata.e4o.generators;
+package com.lumata.e4o.generators.subscribers;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -10,7 +10,9 @@ import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.exceptions.GeneratorException;
-import com.lumata.e4o.generators.GeneratorParameter.GeneratorParameterType;
+import com.lumata.e4o.generators.common.GeneratorParameter;
+import com.lumata.e4o.generators.common.GeneratorParametersList;
+import com.lumata.e4o.generators.common.GeneratorParameter.GeneratorParameterType;
 import com.lumata.e4o.schema.tenant.SubsNotif;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.system.fields.FieldMsisdn;
@@ -35,11 +37,12 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 	FieldMsisdn fieldMsisdn;
 	
 	/** Default Min and Max events */
-	Integer minEvents = -1;
-	Integer maxEvents = 1;
+	Integer minRandomEvents = 1;
+	Integer maxRandomEvents = 1;
+	Boolean randomEvents;
 	
 	
-	SubscribersGenerator( GeneratorParametersList parameters ) {
+	public SubscribersGenerator( GeneratorParametersList parameters ) {
 		
 		this.parameters = parameters;
 		
@@ -111,7 +114,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 	
 	}
 	
-	public SubscribersGenerator minEvents( final Integer minEvents ) {
+	public SubscribersGenerator minRandomEvents( final Integer minEvents ) {
 		
 		parameters.add( GeneratorParameter.minEvents( minEvents ) );
 
@@ -119,7 +122,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 	
 	}
 
-	public SubscribersGenerator maxEvents( final Integer maxEvents ) {
+	public SubscribersGenerator maxRandomEvents( final Integer maxEvents ) {
 		
 		parameters.add( GeneratorParameter.maxEvents( maxEvents ) );
 
@@ -202,10 +205,30 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 		if( parameters.containsKey( GeneratorParameterType.subscriber_mail_channel ) ) { subscriberHasMailChannel = (Boolean)parameters.getParameter( GeneratorParameterType.subscriber_mail_channel ).getGeneratorParameterValue(); }
 
-		if( parameters.containsKey( GeneratorParameterType.min_events ) ) { minEvents = (Integer)parameters.getParameter( GeneratorParameterType.min_events ).getGeneratorParameterValue(); }
+		randomEvents = false;
 		
-		if( parameters.containsKey( GeneratorParameterType.max_events ) ) { maxEvents = (Integer)parameters.getParameter( GeneratorParameterType.max_events ).getGeneratorParameterValue(); }
+		if( parameters.containsKey( GeneratorParameterType.min_events ) ) { 
+			
+			minRandomEvents = (Integer)parameters.getParameter( GeneratorParameterType.min_events ).getGeneratorParameterValue(); 
+			
+			randomEvents = true;
+				
+		}
+		
+		if( parameters.containsKey( GeneratorParameterType.max_events ) ) { 
+			
+			maxRandomEvents = (Integer)parameters.getParameter( GeneratorParameterType.max_events ).getGeneratorParameterValue(); 
+			
+			randomEvents = true;
+			
+		}
 
+		if( randomEvents && ( minRandomEvents > maxRandomEvents ) ) { throw new GeneratorException( "The min events must be less than or equals to max events" ); }
+		
+		if( randomEvents && ( maxRandomEvents < minRandomEvents ) ) { throw new GeneratorException( "The max events must be greater than or equals to min events" ); }
+		
+		if( randomEvents && ( minRandomEvents < 0 || maxRandomEvents < 0 ) ) { throw new GeneratorException( "The min events and max events must be positive numbers" ); }
+				
 	}
 	
 	public void insertIntoEnvironment( final Long qtySubscribers ) throws GeneratorException {
@@ -281,9 +304,17 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 	}
 	
-	public void xmlrpcRecharge( final Long qtySubscribers ) throws GeneratorException {
+	public void xmlrpcRecharge( final Long qtyRecharges ) throws GeneratorException {
 		
 		configureParameters();
+		
+		System.out.println( minRandomEvents );
+		
+		System.out.println( maxRandomEvents );
+		
+		System.out.println( randomEvents );
+		
+		
 		/*
 		for( long s = 0; s < qtySubscribers; s++ ) {
 			

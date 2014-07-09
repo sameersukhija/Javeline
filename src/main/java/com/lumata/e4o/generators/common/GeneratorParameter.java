@@ -1,4 +1,4 @@
-package com.lumata.e4o.generators;
+package com.lumata.e4o.generators.common;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.system.NetworkEnvironment;

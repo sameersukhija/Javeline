@@ -16,7 +16,7 @@ import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
 import com.lumata.e4o.exceptions.GeneratorException;
-import com.lumata.e4o.generators.Generator;
+import com.lumata.e4o.generators.common.Generator;
 
 
 public class GenerateSubscribersRecharge {
@@ -55,17 +55,18 @@ public class GenerateSubscribersRecharge {
 		final Long FIXED_MSISDN = 3399900001L;
 		final Integer MIN_EVENTS = 1;
 		final Integer MAX_EVENTS = 1;
+		final Long RECHARGE_TO_GENERATE = 10L;
 				
 		Generator.subscribers()
 					.environment( env )
 					.mysql( mysql )
 					.msisdnFixed( FIXED_MSISDN )
-					.minEvents( MIN_EVENTS )
-					.maxEvents( MAX_EVENTS )
-					.xmlrpcRecharge( 1L );
+					.minRandomEvents( MIN_EVENTS )
+					.maxRandomEvents( MAX_EVENTS )
+					.xmlrpcRecharge( RECHARGE_TO_GENERATE );
 					
 	}
-	
+	/*
 	@Test( enabled = GENERATE_INCREMENTAL_SUBSCRIBERS )
 	public void generateIncrementalSubscribers() throws GeneratorException {
 		
@@ -104,7 +105,7 @@ public class GenerateSubscribersRecharge {
 					.insertIntoEnvironment( SUBSCRIBERS_TO_GENERATE );
 		
 	}
-	
+	*/
 	@AfterSuite
 	public void end() {
 		mysql.close();

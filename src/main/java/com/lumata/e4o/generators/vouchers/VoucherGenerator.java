@@ -1,4 +1,4 @@
-package com.lumata.e4o.generators;
+package com.lumata.e4o.generators.vouchers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,9 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.exceptions.GeneratorException;
-import com.lumata.e4o.generators.GeneratorParameter.GeneratorParameterType;
+import com.lumata.e4o.generators.common.GeneratorParameter;
+import com.lumata.e4o.generators.common.GeneratorParametersList;
+import com.lumata.e4o.generators.common.GeneratorParameter.GeneratorParameterType;
 import com.lumata.e4o.system.fields.FieldString;
 
 
@@ -36,7 +38,7 @@ public class VoucherGenerator implements IGeneratorVoucherParameters {
 	/** voucher field management */
 	FieldString fieldVoucher;
 	
-	VoucherGenerator( GeneratorParametersList parameters ) {
+	public VoucherGenerator( GeneratorParametersList parameters ) {
 		
 		this.parameters = parameters;
 		

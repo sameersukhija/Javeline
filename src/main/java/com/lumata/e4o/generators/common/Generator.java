@@ -1,4 +1,9 @@
-package com.lumata.e4o.generators;
+package com.lumata.e4o.generators.common;
+
+import com.lumata.e4o.generators.subscribers.IGeneratorSubscriberParameters;
+import com.lumata.e4o.generators.subscribers.SubscribersGenerator;
+import com.lumata.e4o.generators.vouchers.IGeneratorVoucherParameters;
+import com.lumata.e4o.generators.vouchers.VoucherGenerator;
 
 public class Generator {
 	

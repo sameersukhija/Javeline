@@ -1,9 +1,9 @@
-package com.lumata.e4o.generators;
+package com.lumata.e4o.generators.common;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.lumata.e4o.generators.GeneratorParameter.GeneratorParameterType;
+import com.lumata.e4o.generators.common.GeneratorParameter.GeneratorParameterType;
 
 public class GeneratorParametersList {
 

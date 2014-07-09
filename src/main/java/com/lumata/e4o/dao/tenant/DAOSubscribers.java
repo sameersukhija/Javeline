@@ -5,10 +5,12 @@ import static com.lumata.common.testing.orm.Filter.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.orm.Val;
 import com.lumata.e4o.schema.tenant.Subscribers;
+import com.lumata.e4o.schema.tenant.Token;
 
 public class DAOSubscribers extends DAO {
 
@@ -86,12 +88,10 @@ public class DAOSubscribers extends DAO {
 		
 	}
 	
-	public Subscribers getAvailableSubscriber() {
-				
-		String query = select().from( new Subscribers() ).orderBy( Subscribers.Fields.msisdn ).limit( 1 ).build();
+	private Subscribers getSubscriber( String query ) {
 		
 		ResultSet rs = this.getMysql().execQuery( query );
-	
+		
 		Subscribers subscriber = null;
 		
 		try {
@@ -99,6 +99,8 @@ public class DAOSubscribers extends DAO {
 			while( rs.next() ) {
 				
 				subscriber = new Subscribers( rs );
+				
+				break;
 								
 			}
 			
@@ -109,6 +111,84 @@ public class DAOSubscribers extends DAO {
 		}
 		
 		return subscriber;
+		
+	}
+	
+	public Subscribers getAvailableSubscriber() {
+				
+		String query = select().from( new Subscribers() ).orderBy( Subscribers.Fields.msisdn ).limit( 1 ).build();
+		
+		return getSubscriber( query );
+		
+	}
+	
+	public Subscribers getSubscriberWithNoToken() {
+		
+		String query = select().
+						from( new Subscribers() ).
+						where( 
+								op( Subscribers.Fields.msisdn ).not_in(  
+									select( Token.Fields.msisdn ).
+										from( new Token() ).
+										statement()
+								) 
+								
+						).
+						build();
+						
+		return getSubscriber( query );
+		
+	}
+	
+	public Subscribers getSubscriberWithActiveToken() {
+		
+		String query = select().
+				from( new Subscribers() ).
+				where( 
+						op( Subscribers.Fields.msisdn ).in(  
+							select( Token.Fields.msisdn ).
+								from( new Token() ).
+								statement()
+						) 
+						
+				).
+				build();
+		
+		return getSubscriber( query );
+		
+	}
+	
+	private ArrayList<Subscribers> getSubscriberList( String query ) {
+		
+		ResultSet rs = this.getMysql().execQuery( query );
+	
+		ArrayList<Subscribers> subscriberList = new ArrayList<Subscribers>();
+		
+		try {
+			
+			while( rs.next() ) {
+				
+				Subscribers subscriber = new Subscribers( rs );
+							
+				subscriberList.add( subscriber );
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		
+		}
+		
+		return subscriberList;
+		
+	}
+	
+	public ArrayList<Subscribers> getSubscriberList() {
+		
+		String query = select().from( new Subscribers() ).orderBy( Subscribers.Fields.msisdn ).build();
+	
+		return getSubscriberList( query );
 		
 	}
 	

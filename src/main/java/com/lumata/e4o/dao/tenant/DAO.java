@@ -19,6 +19,5 @@ public class DAO {
 	protected void setMysql( Mysql mysql ) {
 		this.mysql = mysql;
 	}
-
 		
 }
