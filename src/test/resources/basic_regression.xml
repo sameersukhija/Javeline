@@ -84,6 +84,8 @@
         </methods>
       </class>
       
+      <parameter name="tokenTypeList" value="tokenTypeTemplate"/>
+
       <class name="com.lumata.e4o.gui.common.RegressionSuiteAppender">
          <methods>
           <!--<include name="configureCampaignModel"/> -->
