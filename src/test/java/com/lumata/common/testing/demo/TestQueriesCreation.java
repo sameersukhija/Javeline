@@ -2,13 +2,11 @@ package com.lumata.common.testing.demo;
 
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
-import java.sql.SQLException;
 
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.generators.container.Agencies;
 import com.lumata.common.testing.generators.container.BdrEvents;
-import com.lumata.common.testing.generators.container.Conf;
 import com.lumata.common.testing.generators.container.TokenLabel;
 
 import static com.lumata.common.testing.orm.Filter.*;
