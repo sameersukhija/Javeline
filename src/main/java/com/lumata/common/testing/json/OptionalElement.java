@@ -4,11 +4,6 @@ import java.util.Map;
 
 public abstract class OptionalElement extends JsonConfigurationElement implements IsOptional {
 
-	/**
-	 * Default value dictionary
-	 */
-	private Map<String,Object> defaultValue = null;
-	
 	public OptionalElement(Map<String, Object> newObject) {
 		
 		super(newObject);
@@ -20,7 +15,7 @@ public abstract class OptionalElement extends JsonConfigurationElement implement
 	@Override
 	public Boolean isProvided() {
 		
-		return this.root == null ? Boolean.FALSE : Boolean.TRUE;
+		return length().equals(0) ? Boolean.FALSE : Boolean.TRUE;
 	}
 	
 	/**
@@ -33,7 +28,7 @@ public abstract class OptionalElement extends JsonConfigurationElement implement
 	 */
 	private Object proxyOptional(String key) {
 		
-		return defaultValue.get(key);
+		return getDefaultValueMap().get(key);
 	}
 	
 	@Override
