@@ -21,7 +21,7 @@ public class Join implements IJoin {
 	}
 	
 	@Override
-	public IOn on( IExprFF expr, ICondFF... cond ) {
+	public IOn on( IExprFF expr, ICond... cond ) {
 		
 		this.on( expr );
 		

@@ -23,7 +23,7 @@ public class GroupBy implements IGroupBy {
 	}
 
 	@Override
-	public IHaving having( IExprFV expr, ICondFV... cond ) {
+	public IHaving having( IExprFV expr, ICond... cond ) {
 		
 		this.having( expr );
 		
@@ -74,6 +74,13 @@ public class GroupBy implements IGroupBy {
 		
 		return this.statement.build();
 		
+	}
+	
+	@Override
+	public Statement statement() {
+		
+		return this.statement;
+				
 	}
 
 }

@@ -13,6 +13,7 @@ public class Op implements IOp {
 		is(" IS "),
 		is_not(" IS NOT "),
 		in(" IN "),
+		not_in(" NOT IN "),
 		like( " LIKE " );
 		
 		private String value;
@@ -322,6 +323,15 @@ public class Op implements IOp {
 	}
 	
 	@Override
+	public ExprFV in( final Statement statement ) {
+		
+		ExprFV expr = new ExprFV( field, Op.Types.in, statement.build().replace( ";" , "" ) );
+		
+		return expr;
+	
+	}
+	
+	@Override
 	public ExprFV in( final Object... values ) {
 		
 		ExprFV expr = new ExprFV( field, Op.Types.in, values );
@@ -329,6 +339,25 @@ public class Op implements IOp {
 		return expr;
 	
 	}
+
+	@Override
+	public ExprFV not_in( final Statement statement ) {
+				
+		ExprFV expr = new ExprFV( field, Op.Types.not_in, statement.build().replace( ";" , "" ) );
+		
+		return expr;
+	
+	}
+	
+	@Override
+	public ExprFV not_in( final Object... values ) {
+		
+		ExprFV expr = new ExprFV( field, Op.Types.not_in, values );
+		
+		return expr;
+	
+	}
+	
 /*
 	@Override
 	public ExprFV like() {

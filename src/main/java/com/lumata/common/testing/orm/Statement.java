@@ -416,10 +416,10 @@ public class Statement {
 		content.append( Statement.field( expr.getField() ) )
 				.append( expr.getOp().value() );
 		
-		if( expr.getOp().equals( Op.Types.in ) ) { 
+		if( expr.getOp().equals( Op.Types.in ) || expr.getOp().equals( Op.Types.not_in ) ) { 
 			
 			content.append( "( " )
-					.append( Statement.field( field.col(), expr.getValues() ) )
+					.append( ( null != expr.getValue() ? Statement.field( field.col(), expr.getValue() ) : Statement.field( field.col(), expr.getValues() ) ) )
 					.append( " )" );					
 			
 		} else { content.append( Statement.field( field.col(), expr.getValue() ) ); }

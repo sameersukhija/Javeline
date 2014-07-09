@@ -24,7 +24,7 @@ public class On implements IOn {
 	}
 
 	@Override
-	public IWhere where( IExprFV expr, ICondFV... cond ) {
+	public IWhere where( IExprFV expr, ICond... cond ) {
 		
 		this.where( expr );
 		
@@ -75,7 +75,7 @@ public class On implements IOn {
 	}
 
 	@Override
-	public IHaving having( IExprFV expr, ICondFV... cond ) {
+	public IHaving having( IExprFV expr, ICond... cond ) {
 		
 		this.having( expr );
 		
@@ -118,6 +118,13 @@ public class On implements IOn {
 	public String build() {
 		
 		return this.statement.build();
+				
+	}
+	
+	@Override
+	public Statement statement() {
+		
+		return this.statement;
 				
 	}
 	

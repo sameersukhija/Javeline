@@ -21,5 +21,12 @@ public class Limit implements ILimit {
 		return this.statement.build();
 		
 	}
+	
+	@Override
+	public Statement statement() {
+		
+		return this.statement;
+				
+	}
 
 }

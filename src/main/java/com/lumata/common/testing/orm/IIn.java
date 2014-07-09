@@ -4,4 +4,6 @@ public interface IIn {
 
 	IExprFV in( Object... values );
 	
+	IExprFV in( Statement statement );
+	
 }

@@ -1,23 +1,41 @@
 package com.lumata.common.testing.orm;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.lumata.common.testing.orm.Statement.MysqlStatement;
 
-public class CondFF implements ICondFF {
+public class Cond implements ICond {
 
 	private Statement statement;
 	private StringBuilder condition;
-		
-	CondFF( final MysqlStatement type, final IExprFF... expr_list ) {
+	private Map<Enum<?>, String> place_holders;
+	
+	Cond( final MysqlStatement type, final IExprFV... expr_list ) {
 		
 		this.condition = new StringBuilder();
+		
+		this.place_holders = new HashMap<Enum<?>, String >();
 		
 		this.append( type, expr_list );
 		
 	}
 	
-	CondFF( final MysqlStatement type, final ICondFF... cond_list ) {
+	Cond( final MysqlStatement type, final IExprFF... expr_list ) {
 		
 		this.condition = new StringBuilder();
+		
+		this.place_holders = new HashMap<Enum<?>, String >();
+		
+		this.append( type, expr_list );
+		
+	}
+	
+	Cond( final MysqlStatement type, final ICond... cond_list ) {
+		
+		this.condition = new StringBuilder();
+		
+		this.place_holders = new HashMap<Enum<?>, String >();
 		
 		this.append( type, cond_list );
 		
@@ -34,7 +52,21 @@ public class CondFF implements ICondFF {
 	}	
 	
 	@Override
-	public ICondFF append( final MysqlStatement type, final IExprFF... expr_list ) {
+	public ICond append( final MysqlStatement type, final IExprFV... expr_list ) {
+		
+		for( int i = 0; i < expr_list.length; i++ ) {
+			this.condition.append( MysqlStatement.valueOf( type.name() ).getName() )
+							.append( Statement.expr( expr_list[ i ] ) );
+			
+			if( expr_list[ i ].getUsePlaceHolder() ) { this.place_holders.put( expr_list[ i ].getField(), (String)expr_list[ i ].getValue() ); }
+			
+		}		
+		
+		return this;
+	}
+	
+	@Override
+	public ICond append( final MysqlStatement type, final IExprFF... expr_list ) {
 		
 		for( int i = 0; i < expr_list.length; i++ ) {
 			
@@ -46,7 +78,7 @@ public class CondFF implements ICondFF {
 	}
 	
 	@Override
-	public ICondFF append( final MysqlStatement type, final ICondFF... cond_list ) {
+	public ICond append( final MysqlStatement type, final ICond... cond_list ) {
 		
 		if( cond_list.length > 0 ) {
 		
@@ -68,6 +100,11 @@ public class CondFF implements ICondFF {
 		
 		return this;
 		
+	}
+	
+	@Override
+	public Map<Enum<?>, String> getPlaceHolders() {
+		return this.place_holders;
 	}
 	
 	@Override

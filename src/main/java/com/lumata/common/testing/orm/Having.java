@@ -46,5 +46,12 @@ public class Having implements IHaving {
 		return this.statement.build();
 		
 	}
-
+	
+	@Override
+	public Statement statement() {
+		
+		return this.statement;
+				
+	}
+	
 }

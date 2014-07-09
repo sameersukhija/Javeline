@@ -33,7 +33,7 @@ public class Where implements IWhere {
 	}
 
 	@Override
-	public IHaving having( IExprFV expr, ICondFV... cond ) {
+	public IHaving having( IExprFV expr, ICond... cond ) {
 		
 		this.having( expr );
 		
@@ -83,6 +83,13 @@ public class Where implements IWhere {
 	public String build() {
 		
 		return this.statement.build();
+				
+	}
+	
+	@Override
+	public Statement statement() {
+		
+		return this.statement;
 				
 	}
 	

@@ -24,7 +24,7 @@ public class From implements IFrom {
 	}
 
 	@Override
-	public IWhere where( final IExprFV expr, final ICondFV... cond ) {
+	public IWhere where( final IExprFV expr, final ICond... cond ) {
 		
 		this.where( expr );
 		
@@ -77,7 +77,7 @@ public class From implements IFrom {
 	}
 
 	@Override
-	public IHaving having( final IExprFV expr, final ICondFV... cond ) {
+	public IHaving having( final IExprFV expr, final ICond... cond ) {
 		
 		this.having( expr );
 		
@@ -134,6 +134,13 @@ public class From implements IFrom {
 	public String build() {
 		
 		return this.statement.build();
+				
+	}
+	
+	@Override
+	public Statement statement() {
+		
+		return this.statement;
 				
 	}
 	

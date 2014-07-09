@@ -37,4 +37,11 @@ public class OrderBy implements IOrderBy {
 		
 	}
 
+	@Override
+	public Statement statement() {
+		
+		return this.statement;
+				
+	}
+	
 }

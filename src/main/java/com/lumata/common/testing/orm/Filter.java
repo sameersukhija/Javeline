@@ -11,12 +11,12 @@ public class Filter {
 		
 	}
 			
-	public static ICondFV and( final IExprFV... expr_list ) {
+	public static ICond and( final IExprFV... expr_list ) {
 		
-		return new CondFV( MysqlStatement.AND, expr_list );
+		return new Cond( MysqlStatement.AND, expr_list );
 		
 	}
-	
+	/*
 	public static ICondFV and( final ICondFV... cond_list ) {
 		
 		CondFV cond = new CondFV( MysqlStatement.AND, cond_list );
@@ -24,15 +24,23 @@ public class Filter {
 		return cond;
 		
 	}
+	*/
+	public static ICond and( final ICond... cond_list ) {
 		
-	public static ICondFV or( final IExprFV... expr_list ) {
+		Cond cond = new Cond( MysqlStatement.AND, cond_list );
+
+		return cond;
 		
-		CondFV cond = new CondFV( MysqlStatement.OR, expr_list );
+	}
+		
+	public static ICond or( final IExprFV... expr_list ) {
+		
+		Cond cond = new Cond( MysqlStatement.OR, expr_list );
 		
 		return cond;
 		
 	}
-	
+	/*
 	public static ICondFV or( final ICondFV... cond_list ) {
 		
 		CondFV cond = new CondFV( MysqlStatement.OR, cond_list );
@@ -40,13 +48,21 @@ public class Filter {
 		return cond;
 		
 	}
-	
-	public static ICondFF and( final IExprFF... expr_list ) {
+	*/
+	public static ICond or( final ICond... cond_list ) {
 		
-		return new CondFF( MysqlStatement.AND, expr_list );
+		Cond cond = new Cond( MysqlStatement.OR, cond_list );
+		
+		return cond;
 		
 	}
 	
+	public static ICond and( final IExprFF... expr_list ) {
+		
+		return new Cond( MysqlStatement.AND, expr_list );
+		
+	}
+	/*
 	public static ICondFF and( final ICondFF... cond_list ) {
 		
 		CondFF cond = new CondFF( MysqlStatement.AND, cond_list );
@@ -54,15 +70,15 @@ public class Filter {
 		return cond;
 		
 	}
+	*/	
+	public static ICond or( final IExprFF... expr_list ) {
 		
-	public static ICondFF or( final IExprFF... expr_list ) {
-		
-		CondFF cond = new CondFF( MysqlStatement.OR, expr_list );
+		Cond cond = new Cond( MysqlStatement.OR, expr_list );
 		
 		return cond;
 		
 	}
-	
+	/*
 	public static ICondFF or( final ICondFF... cond_list ) {
 		
 		CondFF cond = new CondFF( MysqlStatement.OR, cond_list );
@@ -70,7 +86,7 @@ public class Filter {
 		return cond;
 		
 	}
-	
+	*/
 	public static Enum<?> max( final Enum<?> field  ) {
 		
 		MysqlSelectFuncType.MAX.setValueType( MysqlSelectFuncType.ValueTypes.Single_Field );

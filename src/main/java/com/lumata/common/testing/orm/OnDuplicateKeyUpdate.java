@@ -22,4 +22,11 @@ public class OnDuplicateKeyUpdate implements IOnDuplicateKeyUpdate {
 				
 	}
 
+	@Override
+	public Statement statement() {
+		
+		return this.statement;
+				
+	}
+	
 }

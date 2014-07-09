@@ -32,4 +32,11 @@ public class Values implements IValues {
 				
 	}
 
+	@Override
+	public Statement statement() {
+		
+		return this.statement;
+				
+	}
+	
 }
