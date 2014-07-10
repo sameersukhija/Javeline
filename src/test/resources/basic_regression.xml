@@ -101,13 +101,6 @@
   
       <class name="com.lumata.e4o.gui.common.RegressionSuiteXMLRPC">
         <methods>
-          <include name="createNewSubscriberWidthMissingMinimalParameters"/>
-          <include name="createNewSubscriberWidthOptionalParams"/>
-          <include name="createNewSubscriberWidthWrongMinimalParameters"/>
-          <include name="createNewSubscriberWidthWrongAllParameters"/>
-          <include name="getWrongSubscriber"/>
-          <include name="createNewSubscriber"/>
-          <include name="deleteExistingSubscriber"/>
         </methods>        
       </class>
 

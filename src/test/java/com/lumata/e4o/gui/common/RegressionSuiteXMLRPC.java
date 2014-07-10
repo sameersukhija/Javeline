@@ -6,16 +6,18 @@ import static com.lumata.common.testing.orm.Filter.and;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import org.jboss.resteasy.client.ClientResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.Reporter;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -41,9 +43,10 @@ import com.lumata.e4o.schema.tenant.SupportedRatePlan;
 
 public class RegressionSuiteXMLRPC {
 
-	private static final Logger logger = LoggerFactory.getLogger(RegressionSuiteXMLRPC.class);
-
-	private final long XMLRPC_CALL_DELAY = 100;
+	/**
+	 * default delay is 100 msec
+	 */
+	private static long XMLRPC_CALL_DELAY = 100;
 
 	/**
 	 * 
@@ -80,6 +83,11 @@ public class RegressionSuiteXMLRPC {
 	 */
 	private XMLRPCResultParser responseParser = null;
 	private XMLRPCResultFault resultFault = null;
+	
+	/**
+	 * Exchange variable for tests
+	 */
+	private String nextTestMsisdn = null;
 
 	/**
 	 * 
@@ -123,19 +131,15 @@ public class RegressionSuiteXMLRPC {
 	 */
 	@Parameters("inputSeed")
 	@Test(priority = 1)
-	public void createNewSubscriberWidthMissingMinimalParameters( @Optional(default_msisdn_seed) String inputSeed ) throws XMLRPCParserException {
+	public void createNewSubscriberWithMissingMinimalParameters( @Optional(default_msisdn_seed) String inputSeed ) throws XMLRPCParserException {
 
-		String msisdn = inputSeed;
-		msisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
-	
-		if ( isSubscriber(msisdn)) {
-			
-			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
-			
-			deleteExistingSubscriber(msisdn);
-		}
+		Reporter.log( "Create New Subscriber With Missing Minimal Parameters", PRINT2STDOUT__);
+		
+		String msisdn = generateNewMsisdn(inputSeed);
 
 		// Case 1 ( only msisdn sent )
+		Reporter.log( "Case 1 -> Only msisdn is sent", PRINT2STDOUT__);
+		
 		Map<String, Object> subscriberParams = new HashMap<String, Object>();
 		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
@@ -143,84 +147,139 @@ public class RegressionSuiteXMLRPC {
 		Assert.assertEquals(resultFault.getCode(), "5");
 		Assert.assertEquals(resultFault.getMessage(), "missing mandatory param subscription_date");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 2 ( only msisdn, subscription_date sent )
-		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), "2014-01-01");
+		Reporter.log( "Case 2 -> Only msisdn & subscription date are sent", PRINT2STDOUT__);
+		
+		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), today());
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
 		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "5");
 		Assert.assertEquals(resultFault.getMessage(), "missing mandatory param rate_plan");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 3 ( only msisdn, subscription_date, rate_plan sent )
+		Reporter.log( "Case 3 -> Only msisdn, subscription date & rate plan are sent", PRINT2STDOUT__);
+		
 		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), "FUN");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
 		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "5");
 		Assert.assertEquals(resultFault.getMessage(), "missing mandatory param status");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 4 ( only msisdn, subscription_date, rate_plan, status sent )
+		Reporter.log( "Case 4 -> Only msisdn, subscription date, rate plan & status are sent", PRINT2STDOUT__);
+		
 		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), "active");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
 		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "5");
 		Assert.assertEquals(resultFault.getMessage(), "missing mandatory param in_tag");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
-		// Case 5 ( only msisdn, subscription_date, rate_plan, status, in_tag
-		// sent )
+		// Case 5 ( only msisdn, subscription_date, rate_plan, status, in_tag sent )
+		Reporter.log( "Case 5 -> Only msisdn, subscription date, rate plan, status & IN tag are sent", PRINT2STDOUT__);
+		
 		subscriberParams.put(XMLRPCSubscriber.Params.in_tag.name(), "QAIN");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
 		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "5");
 		Assert.assertEquals(resultFault.getMessage(), "missing mandatory param network");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 6 ( Success - Minimal parameters sent - msisdn,
 		// subscription_date, rate_plan, status, in_tag, network )
+		Reporter.log( "Case 6 -> Only msisdn, subscription date, rate plan, status, IN tag & network are sent.", PRINT2STDOUT__);
+		
 		subscriberParams.put(XMLRPCSubscriber.Params.network.name(), "mobile");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
 		XMLRPCResultSuccess resultSuccess = RegressionSuiteXMLRPC.getSuccess(responseParser);
 		Assert.assertNotNull(resultSuccess);
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
+		
+		Reporter.log( "Success!", PRINT2STDOUT__);
+		
+		// DB check
+		// Technical debt
 	}
 	
+	/**
+	 * It returns today in compliant print standard for application
+	 * 
+	 * @return
+	 */
+	private String today() {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String resp = sdf.format(new Date()); 
+		
+		return resp;
+	}
+
+	/**
+	 * Generate a new MSISDN for current application starting from a seed
+	 * 
+	 * @param inputSeed
+	 * 
+	 * @return new msisdn for current installation
+	 */
+	private String generateNewMsisdn(String inputSeed) {
+		
+		String msisdn = inputSeed;
+		String candidateMsisdn = null;
+		
+		Reporter.log( "Generate a new msisdn for current application starting from seed : " + inputSeed, PRINT2STDOUT__);
+		
+		do {
+			candidateMsisdn = null;
+			candidateMsisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
+		}
+		while ( existSubscriber(candidateMsisdn) );
+		
+		msisdn = candidateMsisdn;
+		
+		Reporter.log( "New msisdn for current application will be " + msisdn, PRINT2STDOUT__);
+		
+		return msisdn;
+	}
+
 	@Parameters("inputSeed")
 	@Test(priority = 1)
-	public void createNewSubscriberWidthOptionalParams( @Optional(default_msisdn_seed) String inputSeed ) throws XMLRPCParserException {
+	public void createNewSubscriberWithOptionalParams( @Optional(default_msisdn_seed) String inputSeed ) throws XMLRPCParserException {
 
-		String msisdn = inputSeed;
-		msisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
-	
-		if ( isSubscriber(msisdn)) {
-			
-			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
-			
-			deleteExistingSubscriber(msisdn);
-		}
+		String msisdn = generateNewMsisdn(inputSeed);
 
 		Reporter.log("Create a subscribers with optional parameters.", PRINT2STDOUT__);
 
 		Map<String, Object> subscriberParams = new HashMap<String, Object>();
 		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
-		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), "2014-01-01");
+		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), today());
 		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), "FUN");
 		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), "active");
 		subscriberParams.put(XMLRPCSubscriber.Params.in_tag.name(), "QAIN");
 		subscriberParams.put(XMLRPCSubscriber.Params.network.name(), "mobile");
 		
+		String imei = "741258965412365478";
+		String imsi = "740000000412365478";
+		String gender = "MALE";
+		String salary = "78000";
+		String tongue = "ENG";
+		
 		Map<String, String> optionalParams = new HashMap<String, String>();
-		optionalParams.put("imei", "741258965412365478");
-		optionalParams.put("imsi", "740000000412365478");
-		optionalParams.put("gender", "MALE");
-		optionalParams.put("salary", "78000");
-		optionalParams.put("tongue", "ENG");
+		optionalParams.put("imei", imei);
+		optionalParams.put("imsi", imsi);
+		optionalParams.put("gender", gender);
+		optionalParams.put("salary", salary);
+		optionalParams.put("tongue", tongue);
+
+		for (Entry<String, String> entry : optionalParams.entrySet()) 
+			Reporter.log( "Optional parameter -> " + entry.getKey() + "\t Value -> " + entry.getValue(), PRINT2STDOUT__);
 		
 		subscriberParams.put(XMLRPCSubscriber.Params.params.name(), optionalParams);
 		
@@ -228,9 +287,11 @@ public class RegressionSuiteXMLRPC {
 		XMLRPCResultSuccess resultSuccess = RegressionSuiteXMLRPC.getSuccess(responseParser);
 		Assert.assertNotNull(resultSuccess);
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
+		
+		// DB check
+		// Technical debt
 	}
 	
-
 	/**
 	 * Complete seed to max length
 	 * 
@@ -255,96 +316,146 @@ public class RegressionSuiteXMLRPC {
 	 */
 	@Parameters("inputSeed")
 	@Test(priority = 2)
-	public void createNewSubscriberWidthWrongMinimalParameters( @Optional(default_msisdn_seed) String inputSeed ) throws XMLRPCParserException {
+	public void createNewSubscriberWithWrongMinimalParameters( @Optional(default_msisdn_seed) String inputSeed ) throws XMLRPCParserException {
 
-		this.sleep(XMLRPC_CALL_DELAY);
-
-		String msisdn = inputSeed;
-		msisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
+		Reporter.log( "Create New Subscriber With Wrong Minimal Parameters", PRINT2STDOUT__);
 		
-		if ( isSubscriber(msisdn)) {
-			
-			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
-			
-			deleteExistingSubscriber(msisdn);
-		}
-
+		String msisdn = generateNewMsisdn(inputSeed);
+		
 		// Minimal parameters
+		Reporter.log( "Create a set of correct minimal parameters :", PRINT2STDOUT__);
+		
 		Map<String, Object> subscriberParams = new HashMap<String, Object>();
 		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
-		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), "2014-01-01");
+		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), today());
 		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), "FUN");
 		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), "active");
 		subscriberParams.put(XMLRPCSubscriber.Params.in_tag.name(), "QAIN");
 		subscriberParams.put(XMLRPCSubscriber.Params.network.name(), "mobile");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		for (Entry<String, Object> entry : subscriberParams.entrySet()) 
+			Reporter.log( "Parameter -> " + entry.getKey() + "\t Value -> " + entry.getValue(), PRINT2STDOUT__);
+		
+		waitState();
 
 		// Case 1 ( wrong msisdn )
-		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), "wrong_msisdn");
+		Reporter.log( "Case 1 -> replace with a wrong \"msisdn\" value.", PRINT2STDOUT__);
+		
+		String wrong = "wrong_msisdn";
+		
+		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.msisdn.name() + "\t Value -> " + wrong, PRINT2STDOUT__);
+		
+		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), wrong);
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
 		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "2");
 		Assert.assertEquals(resultFault.getMessage(), "unable to create subscriber");
-		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), default_msisdn_seed);
+		
+		// replace with correct value
+		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 2 ( wrong subscription_date )
-		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), "2014-01-");
+		Reporter.log( "Case 2 -> replace with a wrong \"subscription date\" value.", PRINT2STDOUT__);
+		
+		wrong = "2014-01-";
+		
+		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.subscription_date.name() + "\t Value -> " + wrong, PRINT2STDOUT__);		
+		
+		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), wrong);
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
 		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "6");
-		Assert.assertEquals(resultFault.getMessage(), "invalid subscription_date 2014-01-");
-		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), "2014-01-01");
+		Assert.assertEquals(resultFault.getMessage(), "invalid subscription_date " + wrong);
+		
+		// replace with correct value
+		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), today());
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 3 ( wrong rate_plan )
-		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), "WRONG_RATE_PLAN");
+		Reporter.log( "Case 3 -> replace with a wrong \"rate plan\" value.", PRINT2STDOUT__);
+		
+		wrong = "WRONG_RATE_PLAN";
+		
+		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.rate_plan.name() + "\t Value -> " + wrong, PRINT2STDOUT__);		
+		
+		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), wrong);
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
 		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "6");
-		Assert.assertEquals(resultFault.getMessage(), "invalid rate_plan WRONG_RATE_PLAN");
+		Assert.assertEquals(resultFault.getMessage(), "invalid rate_plan " + wrong);
+		
+		// replace with correct value
 		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), "FUN");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 4 ( wrong status )
-		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), "wrong status");
+		Reporter.log( "Case 4 -> replace with a wrong \"status\" value.", PRINT2STDOUT__);
+		
+		wrong = "wrong status";
+		
+		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.status.name() + "\t Value -> " + wrong, PRINT2STDOUT__);		
+		
+		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), wrong);
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
 		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "6");
-		Assert.assertEquals(resultFault.getMessage(), "invalid status wrong status");
+		Assert.assertEquals(resultFault.getMessage(), "invalid status " + wrong);
+		
+		// replace with correct value
 		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), "active");
 		
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 5 ( wrong in_tag )
+		Reporter.log( "Case 5 -> replace with a wrong \"IN tag\" value.", PRINT2STDOUT__);
+		
+		wrong = "WRONG IN TAG";
+		
+		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.in_tag.name() + "\t Value -> " + wrong, PRINT2STDOUT__);		
+		
 		subscriberParams.put(XMLRPCSubscriber.Params.in_tag.name(), "WRONG IN TAG");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
 		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "6");
-		Assert.assertEquals(resultFault.getMessage(), "invalid in_tag WRONG IN TAG");
+		Assert.assertEquals(resultFault.getMessage(), "invalid in_tag " + wrong);
+		
+		// replace with correct value
 		subscriberParams.put(XMLRPCSubscriber.Params.in_tag.name(), "QAIN");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 6 ( wrong network )
+		Reporter.log( "Case 6 -> replace with a wrong \"network\" value.", PRINT2STDOUT__);
+		
+		wrong = "wrong network";
+		
+		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.network.name() + "\t Value -> " + wrong, PRINT2STDOUT__);		
+		
 		subscriberParams.put(XMLRPCSubscriber.Params.network.name(), "wrong network");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
 		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "6");
-		Assert.assertEquals(resultFault.getMessage(), "invalid network wrong network");
+		Assert.assertEquals(resultFault.getMessage(), "invalid network " + wrong);
+		
+		// replace with correct value
 		subscriberParams.put(XMLRPCSubscriber.Params.network.name(), "mobile");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 7 ( Success )
+		Reporter.log( "Case 7 -> Success creation without wrong parameters.", PRINT2STDOUT__);
+		
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
 		XMLRPCResultSuccess resultSuccess = RegressionSuiteXMLRPC.getSuccess(responseParser);
 		Assert.assertNotNull(resultSuccess);
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
+		
+		// DB check
+		// Technical debt
 	}
 
 	/**
@@ -355,30 +466,20 @@ public class RegressionSuiteXMLRPC {
 	 */
 	@Parameters("inputSeed")
 	@Test(priority = 3)
-	public void createNewSubscriberWidthWrongAllParameters( @Optional(default_msisdn_seed) String inputSeed ) throws XMLRPCParserException {
+	public void createNewSubscriberWithWrongAllParameters( @Optional(default_msisdn_seed) String inputSeed ) throws XMLRPCParserException {
 
-		this.sleep(XMLRPC_CALL_DELAY);
-
-		String msisdn = inputSeed;
-		msisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
-		
-		if ( isSubscriber(msisdn)) {
-			
-			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
-			
-			deleteExistingSubscriber(msisdn);
-		}
+		String msisdn = generateNewMsisdn(inputSeed);
 
 		// Minimal parameters
 		Map<String, Object> subscriberParams = new HashMap<String, Object>();
 		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
-		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), "2014-01-01");
+		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), today());
 		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), "FUN");
 		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), "active");
 		subscriberParams.put(XMLRPCSubscriber.Params.in_tag.name(), "QAIN");
 		subscriberParams.put(XMLRPCSubscriber.Params.network.name(), "mobile");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 1 ( wrong profile )
 		subscriberParams.put(XMLRPCSubscriber.Params.profile.name(), "wrong profile");
@@ -387,7 +488,7 @@ public class RegressionSuiteXMLRPC {
 		Assert.assertEquals(resultFault.getCode(), "6");
 		Assert.assertEquals(resultFault.getMessage(), "invalid profile wrong profile");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 2 ( wrong correspondence between profile and rate plan - correct
 		// value: prepaid but used account - account has not statuses in
@@ -424,6 +525,7 @@ public class RegressionSuiteXMLRPC {
 				found = true;
 			}
 		} catch (SQLException e) {
+			Assert.fail(e.getMessage());
 		}
 
 		Assert.assertTrue(found);
@@ -431,16 +533,16 @@ public class RegressionSuiteXMLRPC {
 		subscriberParams.put(XMLRPCSubscriber.Params.profile.name(), "prepaid");
 		subscriberParams.put(XMLRPCSubscriber.Params.subprofile.name(), "");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
-		if ( isSubscriber(msisdn)) {
+		if ( existSubscriber(msisdn)) {
 			
 			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
 			
-			deleteExistingSubscriber(msisdn);
+			deleteViaXmlrpc(msisdn);
 		}
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 3 ( all parameters ( channels and relations excluded )
 		responseParser = this.xmlrpc(HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
@@ -456,20 +558,10 @@ public class RegressionSuiteXMLRPC {
 	 * @throws XMLRPCParserException
 	 */
 	@Parameters("inputSeed")
-	@Test(priority = 4)
+	@Test(priority = 4, enabled = false)
 	public void createNewSubscriberUsingChannelsParameters( @Optional(default_msisdn_seed) String inputSeed) throws XMLRPCParserException {
 
-		this.sleep(XMLRPC_CALL_DELAY);
-
-		String msisdn = inputSeed;
-		msisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
-		
-		if ( isSubscriber(msisdn)) {
-			
-			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
-			
-			deleteExistingSubscriber(msisdn);
-		}
+		String msisdn = generateNewMsisdn(inputSeed);
 
 		Map<String, XMLRPCChannel> channels_list = new HashMap<String, XMLRPCChannel>();
 		XMLRPCChannel sms_channel = new XMLRPCChannel("SMS1", msisdn, "true");
@@ -478,7 +570,7 @@ public class RegressionSuiteXMLRPC {
 		// Parameters
 		Map<String, Object> subscriberParams = new HashMap<String, Object>();
 		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
-		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), "2014-01-01");
+		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), today());
 		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), "FUN");
 		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), "active");
 		subscriberParams.put(XMLRPCSubscriber.Params.in_tag.name(), "QAIN");
@@ -487,7 +579,7 @@ public class RegressionSuiteXMLRPC {
 		subscriberParams.put(XMLRPCSubscriber.Params.subprofile.name(), "");
 		subscriberParams.put(XMLRPCSubscriber.Params.channels.name(), channels_list);
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 1 ( wrong channel name )
 		sms_channel.setName("SMS1");
@@ -497,7 +589,7 @@ public class RegressionSuiteXMLRPC {
 		Assert.assertEquals(resultFault.getMessage(), "Invalid channel SMS1");
 		sms_channel.setName("SMS");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 2 ( wrong address )
 		sms_channel.setAddress("");
@@ -507,7 +599,7 @@ public class RegressionSuiteXMLRPC {
 		Assert.assertEquals(resultFault.getMessage(), "Missing address for channel SMS");
 		sms_channel.setAddress(msisdn);
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 3 ( wrong active )
 		sms_channel.setActive("wrong active value");
@@ -517,7 +609,7 @@ public class RegressionSuiteXMLRPC {
 		Assert.assertEquals(resultFault.getMessage(), "Invalid active for channel SMS");
 		sms_channel.setActive("true");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 4 ( Success )
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
@@ -526,6 +618,12 @@ public class RegressionSuiteXMLRPC {
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
 	}
 
+	@AfterMethod
+	public void tearDown() {
+		
+		waitState();
+	}
+	
 	/**
 	 * Create subscriber using relation parameters
 	 * 
@@ -533,20 +631,10 @@ public class RegressionSuiteXMLRPC {
 	 * @throws XMLRPCParserException
 	 */
 	@Parameters("inputSeed")
-	@Test(priority = 5)
+	@Test(priority = 5, enabled = false)
 	public void createNewSubscriberUsingRealtionsParameters( @Optional(default_msisdn_seed) String inputSeed) throws XMLRPCParserException {
 
-		this.sleep(XMLRPC_CALL_DELAY);
-
-		String msisdn = inputSeed;
-		msisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
-		
-		if ( isSubscriber(msisdn)) {
-			
-			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
-			
-			deleteExistingSubscriber(msisdn);
-		}
+		String msisdn = generateNewMsisdn(inputSeed);
 
 		Map<String, XMLRPCChannel> channels_list = new HashMap<String, XMLRPCChannel>();
 		XMLRPCChannel sms_channel = new XMLRPCChannel("SMS", msisdn, "true");
@@ -559,7 +647,7 @@ public class RegressionSuiteXMLRPC {
 		// Parameters
 		Map<String, Object> subscriberParams = new HashMap<String, Object>();
 		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
-		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), "2014-01-01");
+		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), today());
 		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), "FUN");
 		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), "active");
 		subscriberParams.put(XMLRPCSubscriber.Params.in_tag.name(), "QAIN");
@@ -569,7 +657,7 @@ public class RegressionSuiteXMLRPC {
 		subscriberParams.put(XMLRPCSubscriber.Params.channels.name(), channels_list);
 		subscriberParams.put(XMLRPCSubscriber.Params.relations.name(), relations_list);
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 1 ( wrong relation type )
 		relation.setType("wrong account");
@@ -579,7 +667,7 @@ public class RegressionSuiteXMLRPC {
 		Assert.assertEquals(resultFault.getMessage(), "Invalid relation wrong account");
 		relation.setType("account");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 2 ( wrong related msisdn )
 		String related_msisdn = msisdn.substring(0, msisdn.length() - 1);
@@ -591,12 +679,13 @@ public class RegressionSuiteXMLRPC {
 					+ String.valueOf(((int) Math.random() * 9));
 		}
 
-		if ( isSubscriber(msisdn)) {
+		if ( existSubscriber(msisdn)) {
 			
 			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
 			
-			deleteExistingSubscriber(msisdn);
+			deleteViaXmlrpc(msisdn);
 		}
+		
 		relation.setSponsor(related_msisdn);
 		responseParser = this.xmlrpc(
 				HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber,
@@ -606,14 +695,13 @@ public class RegressionSuiteXMLRPC {
 		Assert.assertEquals(resultFault.getMessage(),
 				"subscriber not found with msisdn " + related_msisdn);
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 3 Create second msisdn
 		Map<String, Object> subscriberParams2 = new HashMap<String, Object>();
 		subscriberParams2.put(XMLRPCSubscriber.Params.msisdn.name(),
 				related_msisdn);
-		subscriberParams2.put(XMLRPCSubscriber.Params.subscription_date.name(),
-				"2014-01-01");
+		subscriberParams2.put(XMLRPCSubscriber.Params.subscription_date.name(), today());
 		subscriberParams2.put(XMLRPCSubscriber.Params.rate_plan.name(), "FUN");
 		subscriberParams2.put(XMLRPCSubscriber.Params.status.name(), "active");
 		subscriberParams2.put(XMLRPCSubscriber.Params.in_tag.name(), "QAIN");
@@ -628,7 +716,7 @@ public class RegressionSuiteXMLRPC {
 		Assert.assertNotNull(resultSuccess);
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		// Case 4 ( Success )
 		responseParser = this.xmlrpc(
@@ -644,47 +732,37 @@ public class RegressionSuiteXMLRPC {
 	 * 
 	 * @throws XMLRPCParserException
 	 */
+	@Parameters("inputSeed")
 	@Test(priority = 6)
-	public void getWrongSubscriber() throws XMLRPCParserException {
+	public void getWrongSubscriber( @Optional(default_msisdn_seed) String inputSeed) throws XMLRPCParserException {
 
-		String msisdn = "0";
-
-		this.sleep(XMLRPC_CALL_DELAY);
-
-		if ( isSubscriber(msisdn)) {
-			
-			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
-			
-			deleteExistingSubscriber(msisdn);
-		}
-
-		this.sleep(XMLRPC_CALL_DELAY);
+		Reporter.log( "Query via XMLRPC an unexisting subscribers to application.", PRINT2STDOUT__);
+		
+		String msisdn = generateNewMsisdn(inputSeed);
+		
+		waitState();
 
 		Map<String, Object> subscriberParams = new HashMap<String, Object>();
 		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
 
 		ArrayList<String> params = new ArrayList<String>();
 		
-		params.add(HTTPXMLRPCForm.getAuthenticationParam(
-				user.getUsername(), user.getPassword()));
+		params.add(HTTPXMLRPCForm.getAuthenticationParam(user.getUsername(), user.getPassword()));
 		params.add(HTTPXMLRPCForm.getSubscriber(subscriberParams));
 
-		ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.subscribermanager_getSubscriber
-				.call(gui.getLink() + "xmlrpc/", params);
+		ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.subscribermanager_getSubscriber.call(gui.getLink() + "xmlrpc/", params);
 
-		XMLRPCResultParser responseParser = new XMLRPCResultParser(response
-				.getEntity().toString());
+		XMLRPCResultParser responseParser = new XMLRPCResultParser(response.getEntity().toString());
 
-		XMLRPCResultFault resultFault = RegressionSuiteXMLRPC
-				.getFault(responseParser);
+		XMLRPCResultFault resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
 
 		Assert.assertNotNull(resultFault);
 
 		Assert.assertEquals(resultFault.getCode(), "100");
 
-		Assert.assertEquals(resultFault.getMessage(),
-				"subscriber not found for msisdn 0");
+		Assert.assertEquals(resultFault.getMessage(), "subscriber not found for msisdn " + msisdn);
 
+		Reporter.log( "Success!", PRINT2STDOUT__);
 	}
 
 	/**
@@ -697,24 +775,13 @@ public class RegressionSuiteXMLRPC {
 	@Test(priority = 7)
 	public void createNewSubscriber(@Optional(default_msisdn_seed) String inputSeed) throws XMLRPCParserException {
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		String msisdn = generateNewMsisdn(inputSeed);
 
-		String msisdn = inputSeed;
-		msisdn = completeMsisdn(inputSeed, MaxMsisdnLength);
-		
-		if ( isSubscriber(msisdn)) {
-			
-			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
-			
-			deleteExistingSubscriber(msisdn);
-		}
-
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		Map<String, Object> subscriberParams = new HashMap<String, Object>();
 		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
-		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(),
-				"2014-01-06");
+		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), today());
 		subscriberParams.put(XMLRPCSubscriber.Params.profile.name(), "prepaid");
 		subscriberParams.put(XMLRPCSubscriber.Params.subprofile.name(), "");
 		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), "FUN");
@@ -723,25 +790,19 @@ public class RegressionSuiteXMLRPC {
 		subscriberParams.put(XMLRPCSubscriber.Params.network.name(), "mobile");
 
 		ArrayList<String> params = new ArrayList<String>();
-		params.add(HTTPXMLRPCForm.getAuthenticationParam(
-				user.getUsername(), user.getPassword()));
+		params.add(HTTPXMLRPCForm.getAuthenticationParam(user.getUsername(), user.getPassword()));
 		params.add(HTTPXMLRPCForm.getSubscriber(subscriberParams));
 
-		ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber
-				.call(gui.getLink() + "xmlrpc/", params);
-
-		XMLRPCResultParser responseParser = new XMLRPCResultParser(response
-				.getEntity().toString());
-
-		XMLRPCResultSuccess resultSuccess = RegressionSuiteXMLRPC
-				.getSuccess(responseParser);
+		ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber.call(gui.getLink() + "xmlrpc/", params);
+		XMLRPCResultParser responseParser = new XMLRPCResultParser(response.getEntity().toString());
+		XMLRPCResultSuccess resultSuccess = RegressionSuiteXMLRPC.getSuccess(responseParser);
 
 		Assert.assertNotNull(resultSuccess);
-
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
 
-		logger.info("msisdn created: " + msisdn);
-
+		Reporter.log( "msisdn created : " + msisdn, PRINT2STDOUT__);
+		
+		nextTestMsisdn = msisdn;
 	}
 
 	/**
@@ -750,38 +811,35 @@ public class RegressionSuiteXMLRPC {
 	 * @param msisdn
 	 * @throws XMLRPCParserException
 	 */
-	@Parameters("msisdn")
-	@Test(priority = 8)
-	public void getExistingSubscriber(@Optional(default_msisdn_seed) String msisdn)
-			throws XMLRPCParserException {
+	@Test(priority = 8, dependsOnMethods={"createNewSubscriber"})
+	public void getExistingSubscriber() throws XMLRPCParserException {
 
-		Assert.assertTrue( isSubscriber(msisdn) );
+		Reporter.log( "Query via XMLRPC an existing msisdn -> " + nextTestMsisdn, PRINT2STDOUT__);
+		
+		String msisdn = nextTestMsisdn;
+		
+		Assert.assertTrue( existSubscriber(msisdn) , "Subscriber " + msisdn + " is NOT present into DB application!");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		waitState();
 
 		Map<String, Object> subscriberParams = new HashMap<String, Object>();
 		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
 
 		ArrayList<String> params = new ArrayList<String>();
-		params.add(HTTPXMLRPCForm.getAuthenticationParam(
-				user.getUsername(), user.getPassword()));
+		params.add(HTTPXMLRPCForm.getAuthenticationParam(user.getUsername(), user.getPassword()));
 		params.add(HTTPXMLRPCForm.getSubscriber(subscriberParams));
 
-		ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.subscribermanager_getSubscriber
-				.call(gui.getLink() + "xmlrpc/", params);
-
-		XMLRPCResultParser responseParser = new XMLRPCResultParser(response
-				.getEntity().toString());
+		ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.subscribermanager_getSubscriber.call(gui.getLink() + "xmlrpc/", params);
+		XMLRPCResultParser responseParser = new XMLRPCResultParser(response.getEntity().toString());
 
 		Map<ResultType, Object> result = responseParser.parse();
 
-		XMLRPCSubscriber subscriber = (XMLRPCSubscriber) result
-				.get(ResultType.SUBSCRIBER);
+		XMLRPCSubscriber subscriber = (XMLRPCSubscriber) result.get(ResultType.SUBSCRIBER);
 
 		Assert.assertNotNull(subscriber);
-
 		Assert.assertEquals(subscriber.getMsisdn(), msisdn);
-
+		
+		Reporter.log( "Subscriber " + msisdn + " is returned via XMLRPC.", PRINT2STDOUT__);
 	}
 
 	/**
@@ -789,38 +847,48 @@ public class RegressionSuiteXMLRPC {
 	 * @param msisdn
 	 * @throws XMLRPCParserException
 	 */
-	@Parameters("msisdn")
-	@Test(priority = 9)
-	public void deleteExistingSubscriber(@Optional(default_msisdn_seed) String msisdn)
-			throws XMLRPCParserException {
+	@Test(priority = 9, dependsOnMethods={"createNewSubscriber","getExistingSubscriber"})
+	public void deleteExistingSubscriber() throws XMLRPCParserException {
 
-		Assert.assertTrue(msisdn.length() > 0);
+		Reporter.log( "Delete via XMLRPC an existing msisdn -> " + nextTestMsisdn, PRINT2STDOUT__);
+		
+		String msisdn = nextTestMsisdn;
+		
+		Assert.assertTrue( existSubscriber(msisdn) , "Subscriber " + msisdn + " is NOT present into DB application!");
 
-		Assert.assertTrue( isSubscriber(msisdn) );
+		deleteViaXmlrpc(msisdn);
+		
+		Assert.assertTrue( !existSubscriber(msisdn) , "Subscriber " + msisdn + " is STILL present into DB application after XMLRPC detele!");
 
-		this.sleep(XMLRPC_CALL_DELAY);
+		Reporter.log( "The subscriber "+ msisdn +" was deleted.", PRINT2STDOUT__);
+	}
+
+	/**
+	 * Execute a delete request via XMLRPC of requested msisdn
+	 * 
+	 * @param msisdn
+	 * 
+	 * @throws XMLRPCParserException 
+	 */
+	private void deleteViaXmlrpc(String msisdn) throws XMLRPCParserException {
+		
+		waitState();
 
 		Map<String, Object> subscriberParams = new HashMap<String, Object>();
 		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
 
 		ArrayList<String> params = new ArrayList<String>();
-		params.add(HTTPXMLRPCForm.getAuthenticationParam(
-				user.getUsername(),user.getPassword()));
+		params.add(HTTPXMLRPCForm.getAuthenticationParam(user.getUsername(),user.getPassword()));
 		params.add(HTTPXMLRPCForm.getSubscriber(subscriberParams));
 
-		ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.subscribermanager_deleteSubscriber
-				.call(gui.getLink() + "xmlrpc/", params);
+		ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.subscribermanager_deleteSubscriber.call(gui.getLink() + "xmlrpc/", params);
 
 		responseParser = new XMLRPCResultParser(response.getEntity().toString());
 
-		XMLRPCResultSuccess resultSuccess = RegressionSuiteXMLRPC
-				.getSuccess(responseParser);
+		XMLRPCResultSuccess resultSuccess = RegressionSuiteXMLRPC.getSuccess(responseParser);
 
 		Assert.assertNotNull(resultSuccess);
-
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
-
-		logger.info("msisdn deleted: " + msisdn);
 	}
 
 	/**
@@ -848,11 +916,13 @@ public class RegressionSuiteXMLRPC {
 	}
 
 	/**
+	 * Check on current tenant schema if number is assigned to subscriber
 	 * 
-	 * @param msisdn
-	 * @return
+	 * @param msisdn to query
+	 * 
+	 * @return true if exist a subscribers with passed msisdn
 	 */
-	private boolean isSubscriber(String msisdn) {
+	private boolean existSubscriber(String msisdn) {
 
 		Subscribers subscribersTable = new Subscribers();
 
@@ -868,10 +938,11 @@ public class RegressionSuiteXMLRPC {
 				found = true;
 			}
 		} catch (SQLException e) {
+			
+			Assert.fail(e.getMessage());
 		}
 
 		return found;
-
 	}
 
 	/**
@@ -907,17 +978,15 @@ public class RegressionSuiteXMLRPC {
 	}
 
 	/**
-	 * 
-	 * @param delay
+	 * Default wait state based on general delay
 	 */
-	public void sleep(long delay) {
+	private static void waitState() {
 
 		try {
-			Thread.sleep(delay);
+			Thread.sleep(XMLRPC_CALL_DELAY);
 		} catch (InterruptedException e) {
-			logger.error(e.getMessage(), e);
+			Assert.fail(e.getMessage());
 		}
-
 	}
 
 }
