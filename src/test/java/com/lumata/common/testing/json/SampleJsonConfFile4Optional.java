@@ -1,6 +1,5 @@
 package com.lumata.common.testing.json;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,19 +19,13 @@ public class SampleJsonConfFile4Optional extends JsonConfigurationFile {
 	public SampleJsonConfFile4Optional(String path, String jsonFile) throws JSONSException {
 		
 		super(path, jsonFile);
-	
 	}
 
 	/**
 	 * Only for test
 	 */
-	public class SampleJsonConfElemOptional extends OptionalElement {
+	public class SampleJsonConfElemOptional extends JsonOptionalElement {
 
-		/**
-		 * 
-		 */
-		private Map <String, Object> defaultValueMap = null;
-		
 		/**
 		 * 
 		 * @param newObject
@@ -40,15 +33,6 @@ public class SampleJsonConfFile4Optional extends JsonConfigurationFile {
 		public SampleJsonConfElemOptional(Map<String, Object> newObject) {
 			
 			super(newObject);
-			
-			@SuppressWarnings("serial")
-			Map<String,Object> h = new HashMap<String, Object>(){{
-		        put("key1","defaultKey1");
-		        put("key2",new Integer(999));
-		        put("key3",Boolean.FALSE);
-		    }};
-		    
-		    defaultValueMap = Collections.unmodifiableMap(h); 
 		}
 
 		/**
@@ -81,7 +65,13 @@ public class SampleJsonConfFile4Optional extends JsonConfigurationFile {
 		@Override
 		public Map<String, Object> getDefaultValueMap() {
 
-			return defaultValueMap;
+			Map<String,Object> h = new HashMap<String, Object>();
+			
+		    h.put("key1","defaultKey1");
+		    h.put("key2",new Integer(999));
+		    h.put("key3",Boolean.FALSE);
+		    
+			return h;
 		}
 		
 	}

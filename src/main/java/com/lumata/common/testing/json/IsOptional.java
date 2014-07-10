@@ -17,7 +17,7 @@ import java.util.Map;
 public interface IsOptional {
 
 	/**
-	 * This method returns the default values map for current optional element 
+	 * This method returns a map that contains the default values map to use @ initialization
 	 * 
 	 * @return a map with key associated to default value
 	 */

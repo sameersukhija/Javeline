@@ -1,14 +1,23 @@
 package com.lumata.common.testing.json;
 
+import java.util.Collections;
 import java.util.Map;
 
-public abstract class OptionalElement extends JsonConfigurationElement implements IsOptional {
+public abstract class JsonOptionalElement extends JsonConfigurationElement implements IsOptional {
 
-	public OptionalElement(Map<String, Object> newObject) {
+	public JsonOptionalElement(Map<String, Object> newObject) {
 		
 		super(newObject);
+		
+		// init the dictionary as immutable map
+		defaultValueMap = Collections.unmodifiableMap(getDefaultValueMap()); 
 	}
 
+	/**
+	 * This object maps the default value mapped
+	 */
+	private Map <String, Object> defaultValueMap = null;	
+	
 	@Override
 	public abstract Map<String, Object> getDefaultValueMap();
 	
@@ -28,7 +37,7 @@ public abstract class OptionalElement extends JsonConfigurationElement implement
 	 */
 	private Object proxyOptional(String key) {
 		
-		return getDefaultValueMap().get(key);
+		return defaultValueMap.get(key);
 	}
 	
 	@Override
