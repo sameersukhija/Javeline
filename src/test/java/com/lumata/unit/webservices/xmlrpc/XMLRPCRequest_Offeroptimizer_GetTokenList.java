@@ -1,6 +1,5 @@
 package com.lumata.unit.webservices.xmlrpc;
 
-import org.jboss.resteasy.client.ClientResponse;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -11,10 +10,10 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-import com.lumata.e4o.gui.xmlrpc.XMLRPCRequestOld;
-import com.lumata.e4o.gui.xmlrpc.XMLRPCResultParser;
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeResponseAsResource;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 
 public class XMLRPCRequest_Offeroptimizer_GetTokenList {
@@ -42,21 +41,19 @@ public class XMLRPCRequest_Offeroptimizer_GetTokenList {
 		
 		final String msisdn = "3399900001";
 		
-		ClientResponse<String> response = XMLRPCRequestOld.offeroptimizer_getTokensList.call( 	actruleServer, 
-														xmlrpcBody(
-															authentication( superman.getUsername(), superman.getPassword() ),
-															string( msisdn ),
-															string(""),
-															string("")
-														)
-													);
-		
-		System.out.println( response.getEntity().toString() );
-		
-		XMLRPCResultParser responseParser = new XMLRPCResultParser( response.getEntity().toString() );
-		
-		responseParser.parse();
-		
+		XMLRPCRequest.offeroptimizer_getTokensList().call( 	
+			actruleServer, 
+			xmlrpcBody(
+				authentication( superman ),
+				string( msisdn ),
+				string(""),
+				string("")
+			),
+			xmlrpcOptions(
+				storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
+			)
+		);
+				
 	}
 	
 }

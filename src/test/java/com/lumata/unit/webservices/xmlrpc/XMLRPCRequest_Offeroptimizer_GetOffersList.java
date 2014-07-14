@@ -1,6 +1,5 @@
 package com.lumata.unit.webservices.xmlrpc;
 
-import org.jboss.resteasy.client.ClientResponse;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -11,14 +10,13 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-import com.lumata.e4o.gui.xmlrpc.XMLRPCRequestOld;
-import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeResponseAsResource;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 
-public class XMLRPCRequest_Offeroptimizer_Accept {
+public class XMLRPCRequest_Offeroptimizer_GetOffersList {
 	
 	NetworkEnvironment env;
 	Server actruleServer;
@@ -42,25 +40,20 @@ public class XMLRPCRequest_Offeroptimizer_Accept {
 	public void callXMLRPCCRequest() throws Exception {
 		
 		final String msisdn = "3399900001";
-		final String token_code = "sl-019df";
-		final Object[] offer_id = new Integer[]{ 1004 };		
-		final String userAcceptChannel = "web";
+		final String tokenCode = "sl-019df";
 		
-		XMLRPCRequest.offeroptimizer_accept().call( 	
+		XMLRPCRequest.offeroptimizer_getOffersList().call( 	
 			actruleServer, 
 			xmlrpcBody(
 				authentication( superman ),
 				string( msisdn ),
-				string( token_code ),
-				arrayInt( offer_id ),
-				string( userAcceptChannel )
+				string( tokenCode )
 			),
 			xmlrpcOptions(
 				storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
 			)
 		);
-		
-		
+				
 	}
 	
 }

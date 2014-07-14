@@ -1,6 +1,5 @@
 package com.lumata.unit.webservices.xmlrpc;
 
-import org.jboss.resteasy.client.ClientResponse;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -11,9 +10,10 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-import com.lumata.e4o.gui.xmlrpc.XMLRPCRequestOld;
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeResponseAsResource;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 
 public class XMLRPCRequest_Offeroptimizer_Allocate {
@@ -40,18 +40,19 @@ public class XMLRPCRequest_Offeroptimizer_Allocate {
 	public void callXMLRPCCRequest() throws Exception {
 		
 		final String msisdn = "3399900001";
-		final String token_code = "KJPMT";
+		final String token_code = "sl-019df";
 		
-		ClientResponse<String> response = XMLRPCRequestOld.offeroptimizer_allocate.call( 	
-														actruleServer, 
-														xmlrpcBody(
-															authentication( superman.getUsername(), superman.getPassword() ),
-															string( msisdn ),
-															string( token_code )
-														)
-													);
-		
-		System.out.println( response.getEntity().toString() );
+		XMLRPCRequest.offeroptimizer_allocate().call( 	
+			actruleServer, 
+			xmlrpcBody(
+				authentication( superman.getUsername(), superman.getPassword() ),
+				string( msisdn ),
+				string( token_code )
+			),
+			xmlrpcOptions(
+				storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
+			)
+		);
 		
 	}
 	

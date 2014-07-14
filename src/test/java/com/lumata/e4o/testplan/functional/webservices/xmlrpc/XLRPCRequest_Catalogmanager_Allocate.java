@@ -166,6 +166,9 @@ public class XLRPCRequest_Catalogmanager_Allocate {
 		
 	}
 	
+	/*
+	 * To enable after fixing https://tracker.lumata.com/browse/EFOGC-2373
+	 */
 	@Test(enabled=false, priority = 2 )
 	public void allocateWithNullToken() throws Exception {
 		
@@ -210,6 +213,9 @@ public class XLRPCRequest_Catalogmanager_Allocate {
 		
 	}
 	
+	/*
+	 * To enable after fixing https://tracker.lumata.com/browse/EFOGC-2373
+	 */
 	@Test(enabled=false, priority = 4 )
 	public void allocateWithWrongToken() throws Exception {
 		
@@ -254,6 +260,9 @@ public class XLRPCRequest_Catalogmanager_Allocate {
 		
 	}
 	
+	/*
+	 * To enable after fixing https://tracker.lumata.com/browse/EFOGC-2373
+	 */
 	@Test(enabled=false, priority = 6 )
 	public void allocateWithOverLengthToken() throws Exception {
 		
@@ -277,27 +286,31 @@ public class XLRPCRequest_Catalogmanager_Allocate {
 	}
 	
 	@Test(enabled=true, priority = 7 )
-	public void allocateWithMsisdn() throws Exception {
+	public void allocateActiveToken() throws Exception {
 		
+		Subscribers subscriber = DAOSubscribers.getInstance( mysql ).getSubscriberWithActiveToken();
+		ArrayList<Token> token = DAOToken.getInstance( mysql ).getAvailableActiveTokens( subscriber.getMsisdn() );
 		
-		/*
-		XMLRPCRequest.offeroptimizer_allocate().call( 
-							actruleServer, 
-							xmlrpcBody(
-								authentication( superman ),
-								string( msisdn ),
-								string( token )
-							),
-							xmlrpcValidator(
-								fault().code( equalTo( 100 ) ),
-								fault().message( equalTo( "Subscriber not found: " + msisdnOverLength ) )
-							),
-							xmlrpcOptions(
-								sleep( 100L )	
-							)
+		if( null != subscriber && null != token && token.size() > 0 ) {
 		
-		);
-		*/
+			XMLRPCRequest.offeroptimizer_allocate().call( 
+								actruleServer, 
+								xmlrpcBody(
+									authentication( superman ),
+									string( msisdn ),
+									string( token.get( 0 ).getTokenCode() )
+								),
+								xmlrpcValidator(
+									fault().code( equalTo( 100 ) ),
+									fault().message( equalTo( "Subscriber not found: " + msisdnOverLength ) )
+								),
+								xmlrpcOptions(
+									sleep( 100L )	
+								)
+			
+			);
+						
+		}
 		
 	}
 	

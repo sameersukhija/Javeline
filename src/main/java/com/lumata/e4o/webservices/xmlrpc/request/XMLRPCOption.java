@@ -5,36 +5,37 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lumata.common.testing.log.Log;
 import com.lumata.e4o.exceptions.XMLRPCException;
 
 public class XMLRPCOption {
 	
 	private static final Logger logger = LoggerFactory.getLogger( XMLRPCOption.class );
 	
-	public enum XMLRPCOptionType { sleep, repeat, average }
+	public enum XMLRPCOptionType { sleep, repeat, average, storeResource, storeFile }
 	
 	Object value;
 	
-	ArrayList<Object> values;
+	Object[] values;
 	
 	XMLRPCOptionType optionType;
 	
 	XMLRPCOption() {}
 	
-	XMLRPCOption( XMLRPCOptionType optionType, Object value ) {
+	public XMLRPCOption( XMLRPCOptionType optionType, Object value ) {
 		
 		this.optionType = optionType;
 		
 		this.value = value; 
-	
+		
 	}
 	
-	XMLRPCOption( XMLRPCOptionType optionType, ArrayList<Object> values ) {
+	public XMLRPCOption( XMLRPCOptionType optionType, Object... values ) {
 		
 		this.optionType = optionType;
 		
 		this.values = values; 
-	
+		
 	}
 	
 	public static XMLRPCOption sleep( Long time ) {
@@ -44,6 +45,8 @@ public class XMLRPCOption {
 	}
 	
 	public static XMLRPCOption repeat( Integer times ) {
+		
+		logger.debug( Log.SAVED.createMessage( "option " + XMLRPCOptionType.repeat.name() ) );
 		
 		return new XMLRPCOption( XMLRPCOptionType.repeat, times );
 		
@@ -55,7 +58,9 @@ public class XMLRPCOption {
 		values.add( 1 );
 		values.add( null );
 		
-		return new XMLRPCOption( XMLRPCOptionType.average, null );
+		logger.debug( Log.SAVED.createMessage( "option " + XMLRPCOptionType.average.name() ) );
+				
+		return new XMLRPCOption( XMLRPCOptionType.average, new Object[0] );
 		
 	}
 	
@@ -73,13 +78,27 @@ public class XMLRPCOption {
 			
 		}
 				
-		ArrayList<Integer> values = new ArrayList<Integer>();
-		values.add( startSample );
-		values.add( endSample );
+		logger.debug( Log.SAVED.createMessage( "option " + XMLRPCOptionType.average.name() ) );
 				
-		return new XMLRPCOption( XMLRPCOptionType.average, values );
+		return new XMLRPCOption( XMLRPCOptionType.average, startSample, endSample );
 		
 	}	
+	
+	public static XMLRPCOption storeResponseAsResource( String folderName, String fileName ) throws XMLRPCException {
+						
+		logger.debug( Log.SAVED.createMessage( "option " + XMLRPCOptionType.storeResource.name() ) );
+				
+		return new XMLRPCOption( XMLRPCOptionType.storeResource, folderName, fileName );
+		
+	}
+	
+	public static XMLRPCOption storeResponseAsFile( String folderName, String fileName ) throws XMLRPCException {
+		
+		logger.debug( Log.SAVED.createMessage( "option " + XMLRPCOptionType.storeFile.name() ) );
+				
+		return new XMLRPCOption( XMLRPCOptionType.storeFile, folderName, fileName );
+		
+	}
 	
 	public XMLRPCOptionType getOptionType() {
 		return optionType;
@@ -89,11 +108,11 @@ public class XMLRPCOption {
 		return value;
 	}
 	
-	public ArrayList<Object> getOptionValues() {
+	public Object[] getOptionValues() {
 		return values;
 	}
 	
-	public void setOptionValues( ArrayList<Object> values ) {
+	public void setOptionValues( Object[] values ) {
 		this.values = values;
 	}
 

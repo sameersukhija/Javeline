@@ -2,12 +2,13 @@ package com.lumata.e4o.webservices.xmlrpc.request;
 
 import java.util.ArrayList;
 
-import org.jboss.resteasy.client.ClientResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
 import com.jayway.restassured.path.xml.XmlPath;
+import com.lumata.common.testing.exceptions.IOFileException;
+import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.network.RestClient;
 import com.lumata.common.testing.system.Server;
@@ -30,6 +31,9 @@ public class XMLRPCRequest {
 	private Long startTime;
 	private Long endTime;
 	private Long expiredTime;
+	private String folderName;
+	private String fileName;
+	private IOFileUtils.IOLoadingType loadingType;
 	
 	private final String ASSERTION_ERROR_ = "expected ${tag} ${expected} but found ${tag} ${actual}";
 	
@@ -261,12 +265,6 @@ public class XMLRPCRequest {
 		return new XMLRPCRequest( "user.update" );
 	}
 		
-	public XMLRPCResponse call( Server server, XMLRPCComponent xmlrpcBody ) throws Exception {
-		
-		return call( server, xmlrpcBody, null );
-		
-	};
-
 	public XMLRPCResponse call( Server server, XMLRPCComponent... xmlrpcComponents ) throws Exception {
 		
 		response = new XMLRPCResponse();
@@ -311,6 +309,12 @@ public class XMLRPCRequest {
 		
 			System.out.println( "AVERAGE: " + average );
 			
+		}
+		
+		if( null != loadingType ) { 
+			
+			storeFile(); 
+		
 		}
 		
 		return response;
@@ -406,9 +410,31 @@ public class XMLRPCRequest {
 						
 						average = 0L;
 						
-						leftSample = (Integer)option.getOptionValues().get( 0 );
+						leftSample = (Integer)option.getOptionValues()[ 0 ];
 						
-						rightSample = (Integer)option.getOptionValues().get( 1 );
+						rightSample = (Integer)option.getOptionValues()[ 1 ];
+						
+						break;
+					
+					}
+					case storeResource: {
+						
+						folderName = (String)option.getOptionValues()[ 0 ];
+						
+						fileName = (String)option.getOptionValues()[ 1 ];
+						
+						loadingType = IOFileUtils.IOLoadingType.RESOURCE;
+						
+						break;
+					
+					}
+					case storeFile: {
+						
+						folderName = (String)option.getOptionValues()[ 0 ];
+						
+						fileName = (String)option.getOptionValues()[ 1 ];
+						
+						loadingType = IOFileUtils.IOLoadingType.FILE;
 						
 						break;
 					
@@ -504,6 +530,36 @@ public class XMLRPCRequest {
 										
 		}
 		
+	}
+	
+	private void storeFile() {
+		
+		try {
+		
+			switch( loadingType ) {
+		
+				case RESOURCE: {
+					
+					IOFileUtils.saveResource( response.getResponse().getEntity().toString(), folderName, fileName );
+					
+					break;
+					
+				}
+				case FILE: {
+					
+					IOFileUtils.saveFile( response.getResponse().getEntity().toString(), folderName, fileName );
+					
+					break;
+					
+				}
+			}
+			
+		} catch (IOFileException e) {
+			
+			logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+			
+		}
+				
 	}
 	
 }

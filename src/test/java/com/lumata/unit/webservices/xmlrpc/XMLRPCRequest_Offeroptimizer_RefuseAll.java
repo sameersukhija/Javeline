@@ -1,6 +1,5 @@
 package com.lumata.unit.webservices.xmlrpc;
 
-import org.jboss.resteasy.client.ClientResponse;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -11,9 +10,10 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-import com.lumata.e4o.gui.xmlrpc.XMLRPCRequestOld;
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeResponseAsResource;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 
 public class XMLRPCRequest_Offeroptimizer_RefuseAll {
@@ -40,19 +40,21 @@ public class XMLRPCRequest_Offeroptimizer_RefuseAll {
 	public void callXMLRPCCRequest() throws Exception {
 		
 		final String msisdn = "3399900001";
-		final String token_code = "77AQ6";
+		final String token_code = "gl-10ac6";
 		final String userAcceptChannel = "web";
 		
-		ClientResponse<String> response = XMLRPCRequestOld.offeroptimizer_refuseAll.call( 	actruleServer, 
-																						xmlrpcBody(
-																							authentication( superman.getUsername(), superman.getPassword() ),
-																							string( msisdn ),
-																							string( token_code ),
-																							string( userAcceptChannel )
-																						)
-													);
-		
-		System.out.println( response.getEntity().toString() );
+		XMLRPCRequest.offeroptimizer_refuseAll().call( 	
+			actruleServer, 
+			xmlrpcBody(
+				authentication( superman ),
+				string( msisdn ),
+				string( token_code ),
+				string( userAcceptChannel )
+			),
+			xmlrpcOptions(
+				storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
+			)
+		);
 		
 	}
 	
