@@ -2,6 +2,8 @@ package com.lumata.e4o.generators.common;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.system.NetworkEnvironment;
+import com.lumata.common.testing.system.Server;
+import com.lumata.common.testing.system.User;
 
 public class GeneratorParameter {
 
@@ -17,6 +19,8 @@ public class GeneratorParameter {
 		
 		environment, 
 		mysql, 
+		server,
+		user,
 		msisdn_strategy, 
 		msisdn_options, 
 		msisdn_fixed, 
@@ -90,6 +94,18 @@ public class GeneratorParameter {
 	public static GeneratorParameter mysql( final Mysql mysql ) {
 		
 		return new GeneratorParameter( GeneratorParameterType.mysql, mysql );
+
+	}
+	
+	public static GeneratorParameter server( final Server server ) {
+		
+		return new GeneratorParameter( GeneratorParameterType.server, server );
+
+	}
+	
+	public static GeneratorParameter user( final User user ) {
+		
+		return new GeneratorParameter( GeneratorParameterType.user, user );
 
 	}
 	

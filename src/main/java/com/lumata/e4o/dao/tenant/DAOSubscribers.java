@@ -1,11 +1,14 @@
 package com.lumata.e4o.dao.tenant;
 
 import static com.lumata.common.testing.orm.Query.*;
+import static com.lumata.common.testing.orm.Val.NULL;
 import static com.lumata.common.testing.orm.Filter.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.orm.Val;
@@ -14,8 +17,11 @@ import com.lumata.e4o.schema.tenant.Token;
 
 public class DAOSubscribers extends DAO {
 
+	SimpleDateFormat sdf;
+	
 	public DAOSubscribers( Mysql mysql ) {
 		super( mysql );
+		sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
 	}
 	
 	public static DAOSubscribers getInstance( Mysql mysql ) {
@@ -146,11 +152,69 @@ public class DAOSubscribers extends DAO {
 				from( new Subscribers() ).
 				where( 
 						op( Subscribers.Fields.msisdn ).in(  
-							select( Token.Fields.msisdn ).
+								select( Subscribers.Fields.msisdn ).
 								from( new Token() ).
+								where( 
+										op( Token.Fields.expiration_date ).get( sdf.format( Calendar.getInstance().getTime() ) ),
+										and(
+											op( Token.Fields.last_redeem_date ).is( NULL ),
+											op( Token.Fields.consumed_date ).is( NULL )											
+										)
+								).
 								statement()
 						) 
 						
+				).
+				build();
+		
+		return getSubscriber( query );
+		
+	}
+	
+	public Subscribers getSubscriberWithAllocatedActiveToken() {
+		
+		String query = select().
+				from( new Subscribers() ).
+				where( 
+						op( Subscribers.Fields.msisdn ).in(  
+								select( Subscribers.Fields.msisdn ).
+								from( new Token() ).
+								where( 
+										op( Token.Fields.expiration_date ).get( sdf.format( Calendar.getInstance().getTime() ) ), 
+										and(
+											op( Token.Fields.last_redeem_date ).is_not( NULL ),
+											op( Token.Fields.consumed_date ).is( NULL )											
+										),
+										and(
+											op( Token.Fields.qty_current_redeems ).let( Token.Fields.qty_max_redeems )										
+										)
+								).
+								statement()
+						) 						
+				).
+				build();
+		
+		return getSubscriber( query );
+		
+	}
+	
+	public Subscribers getSubscriberWithAcceptedActiveToken() {
+		
+		String query = select().
+				from( new Subscribers() ).
+				where( 
+						op( Subscribers.Fields.msisdn ).in(  
+								select( Subscribers.Fields.msisdn ).
+								from( new Token() ).
+								where( 
+										op( Token.Fields.expiration_date ).get( sdf.format( Calendar.getInstance().getTime() ) ), 
+										and(
+											op( Token.Fields.last_redeem_date ).is_not( NULL ),
+											op( Token.Fields.consumed_date ).is_not( NULL )											
+										)
+								).
+								statement()
+						) 						
 				).
 				build();
 		

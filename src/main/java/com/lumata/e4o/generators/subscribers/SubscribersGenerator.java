@@ -5,9 +5,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.database.Mysql;
+import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.NetworkEnvironment;
+import com.lumata.common.testing.system.Server;
+import com.lumata.common.testing.system.User;
 import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.exceptions.GeneratorException;
 import com.lumata.e4o.generators.common.GeneratorParameter;
@@ -16,11 +21,20 @@ import com.lumata.e4o.generators.common.GeneratorParameter.GeneratorParameterTyp
 import com.lumata.e4o.schema.tenant.SubsNotif;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.system.fields.FieldMsisdn;
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.EventType.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType.*;
 import static com.lumata.common.testing.orm.Query.*;
 
 public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 
+	private static final Logger logger = LoggerFactory.getLogger( SubscribersGenerator.class );
+	
 	GeneratorParametersList parameters;
 	
 	/** Default Subscriber channels configuration  */
@@ -39,7 +53,14 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 	/** Default Min and Max events */
 	Integer minRandomEvents = 1;
 	Integer maxRandomEvents = 1;
+	
 	Boolean randomEvents;
+
+	SubscriberAction actionType;
+	
+	private enum SubscriberAction {
+		insertSubscriber, recharge
+	}
 	
 	
 	public SubscribersGenerator( GeneratorParametersList parameters ) {
@@ -61,6 +82,22 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 	public SubscribersGenerator mysql( final Mysql mysql ) {
 		
 		parameters.add( GeneratorParameter.mysql( mysql ) );
+
+		return this;
+	
+	}
+	
+	public SubscribersGenerator server( final Server server ) {
+		
+		parameters.add( GeneratorParameter.server( server ) );
+
+		return this;
+	
+	}
+	
+	public SubscribersGenerator user( final User user ) {
+		
+		parameters.add( GeneratorParameter.user( user ) );
 
 		return this;
 	
@@ -136,12 +173,26 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 		String mandatoryFieldNull = "the mandatory field ${fieldType} is null";
 		
-		if( !parameters.containsKey( GeneratorParameterType.environment ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.environment.name() ) ); }
-		else if( null == parameters.getParameter( GeneratorParameterType.environment ) ) { throw new GeneratorException( mandatoryFieldNull.replace( "${fieldType}", GeneratorParameterType.environment.name() ) ); }
-		
-		if( !parameters.containsKey( GeneratorParameterType.mysql ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.mysql.name() ) ); }
-		else if( null == parameters.getParameter( GeneratorParameterType.mysql ) ) { throw new GeneratorException( mandatoryFieldNull.replace( "${fieldType}", GeneratorParameterType.mysql.name() ) ); }
+		if( actionType.equals( SubscriberAction.insertSubscriber ) ) {
+			
+			if( !parameters.containsKey( GeneratorParameterType.environment ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.environment.name() ) ); }
+			else if( null == parameters.getParameter( GeneratorParameterType.environment ) ) { throw new GeneratorException( mandatoryFieldNull.replace( "${fieldType}", GeneratorParameterType.environment.name() ) ); }
+			
+			if( !parameters.containsKey( GeneratorParameterType.mysql ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.mysql.name() ) ); }
+			else if( null == parameters.getParameter( GeneratorParameterType.mysql ) ) { throw new GeneratorException( mandatoryFieldNull.replace( "${fieldType}", GeneratorParameterType.mysql.name() ) ); }
 
+		}
+		
+		if( actionType.equals( SubscriberAction.recharge ) ) {
+			
+			if( !parameters.containsKey( GeneratorParameterType.server ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.server.name() ) ); }
+			else if( null == parameters.getParameter( GeneratorParameterType.server ) ) { throw new GeneratorException( mandatoryFieldNull.replace( "${fieldType}", GeneratorParameterType.server.name() ) ); }
+
+			if( !parameters.containsKey( GeneratorParameterType.user ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.user.name() ) ); }
+			else if( null == parameters.getParameter( GeneratorParameterType.user ) ) { throw new GeneratorException( mandatoryFieldNull.replace( "${fieldType}", GeneratorParameterType.user.name() ) ); }
+
+		}
+		
 		if( !parameters.containsKey( GeneratorParameterType.msisdn_strategy ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.msisdn_strategy.name() ) + ".It needs to configure a parameter among " + GeneratorParameterType.msisdn_fixed.name() + " or " + GeneratorParameterType.msisdn_incremental.name()  + " or " + GeneratorParameterType.msisdn_random.name() ); }
 		else {
 			if( null == parameters.getParameter( GeneratorParameterType.msisdn_strategy ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.msisdn_strategy.name() ) + ".It needs to configure a parameter among " + GeneratorParameterType.msisdn_fixed.name() + " or " + GeneratorParameterType.msisdn_incremental.name()  + " or " + GeneratorParameterType.msisdn_random.name() ); }
@@ -233,6 +284,8 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 	
 	public void insertIntoEnvironment( final Long qtySubscribers ) throws GeneratorException {
 		
+		actionType = SubscriberAction.insertSubscriber;
+		
 		configureParameters();
 	
 		for( long s = 0; s < qtySubscribers; s++ ) {
@@ -304,70 +357,53 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 	}
 	
+	public void xmlrpcRecharge() throws GeneratorException {
+		
+		xmlrpcRecharge( 1L );
+		
+	}
+	
 	public void xmlrpcRecharge( final Long qtyRecharges ) throws GeneratorException {
+		
+		actionType = SubscriberAction.recharge;
 		
 		configureParameters();
 		
-		System.out.println( minRandomEvents );
+		Server server = (Server)parameters.getParameterValue( GeneratorParameterType.server );
 		
-		System.out.println( maxRandomEvents );
+		User user = (User)parameters.getParameterValue( GeneratorParameterType.user );
 		
-		System.out.println( randomEvents );
-		
-		
-		/*
-		for( long s = 0; s < qtySubscribers; s++ ) {
-			
+		Long rechargeToGenerate = ( !randomEvents ? qtyRecharges : minRandomEvents + (long)( Math.random() * ( maxRandomEvents - minRandomEvents ) ) );
+				
+		for( long r = 0; r < rechargeToGenerate; r++ ) {
+							
 			try {
-			
-				insertSubscriber( Long.valueOf( fieldMsisdn.getMsisdn() ) );
 				
-			} catch( CDRException e ) {
-				
-				System.out.println( e.getMessage() );
-				
-			}	
-		}
-		
-		for( int s = ( ( ALL_SUBSCRIBERS || FIXED_SUBSCRIBERS ) ? 0 : MIN_SUBSCRIBER_INDEX ); s <= subscribersToElaborate; s++ ) {
-			
-			Long msisdn = subscribers.get( s );
-			
-			System.out.println( "MSISDN: " + msisdn );
-			
-			Integer randomEventsToGenerate = ( ALL_EVENTS ? MAX_EVENTS : MIN_EVENTS + (int)( Math.random() * ( MAX_EVENTS - MIN_EVENTS ) ) );
-			
-			System.out.println( "Events to generate: " + randomEventsToGenerate );
-			System.out.println( superman.getUsername() );
-			for( int e = 0; e < randomEventsToGenerate; e++ ) {
-			
-				System.out.println(
-						
-						XMLRPCRequest.eventmanager_generateCustomEvent
-										.call( 	
-												actruleServer, 
-												xmlrpcBody(
-													authentication( superman.getUsername(), superman.getPassword() ),
-													custoEvent( msisdn, 
-																revenue,
-																parameter( recharge, true ),
-																parameter( amount_recharge, 10 ),
-																parameter( balance_main_account, 100 )
-																//parameter( event_date, "2014-05-16" )
-													)
-												),
-												xmlrpcOptions( 
-													sleep( 100L ) 
-												)
-										)
-						.getEntity().toString()
-						
+				XMLRPCRequest.eventmanager_generateCustomEvent().call( 	
+						server, 
+						xmlrpcBody(
+							authentication( user ),
+							custoEvent( Long.valueOf( fieldMsisdn.getMsisdn() ), 
+										revenue,
+										parameter( recharge, true ),
+										parameter( amount_recharge, 10 ),
+										parameter( balance_main_account, 100 )
+										//parameter( event_date, "2014-05-16" )
+							)
+						),
+						xmlrpcOptions( 
+							sleep( 100L ) 
+						)
 				);
 			
-			}
-		
-		}	
-		*/		
+			} catch (Exception e) {
+				
+				logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+				
+			}			
+							
+		}
+						
 	}
 
 }
