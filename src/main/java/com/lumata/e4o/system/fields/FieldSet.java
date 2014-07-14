@@ -88,7 +88,7 @@ public class FieldSet {
 			
 		}
 		
-		return String.valueOf( this.set_current_value ).replace( ",", set_separator ); 
+		return String.valueOf( this.set_current_value ).replace( ",", set_separator ).replace( "[" , "" ).replace( "]" , "" ); 
 		
 	}
 
