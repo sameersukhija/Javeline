@@ -1,6 +1,9 @@
 package com.lumata.common.testing.utils;
 
 import java.util.ArrayList;
+import java.util.Random;
+
+import org.apache.commons.lang3.RandomStringUtils;
 
 public class Arithmetic {
 
@@ -40,6 +43,12 @@ public class Arithmetic {
 	public static Long random( Long startValue, Long endValue ) {
 		
 		return (long)( Math.random() * ( startValue - endValue ) + endValue ); 
+		
+	}
+	
+	public static Long randomImei() {
+		
+		return Long.valueOf( RandomStringUtils.randomNumeric( 15 ) );
 		
 	}
 	
