@@ -44,6 +44,7 @@ import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.Service;
 import com.lumata.common.testing.system.User;
 import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.exceptions.XMLRPCParserException;
 import com.lumata.e4o.gui.xmlrpc.HTTPXMLRPCForm;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCChannel;
@@ -156,7 +157,7 @@ public class TestSubscriberDelayedRemovalTask {
 		"set subscriber configuration",
 		"insert subscriber via xmlrpc call"
 	})	
-	public void insertSubscribers() throws XMLRPCParserException, CDRException {
+	public void insertSubscribers() throws XMLRPCParserException, FieldException {
 
 		XMLRPCResultParser responseParser;
 		XMLRPCResultFault resultFault;
@@ -254,7 +255,7 @@ public class TestSubscriberDelayedRemovalTask {
 	@Steps( actions = {
 		"insert bundle if a cdr bundle is elaborated with increment strategy"
 	})	
-	public void insertBundle() throws JSONException, CDRException {
+	public void insertBundle() throws JSONException, FieldException {
 		
 		/** if a cdr bundle will be elaborated */
 		if( hasCDRBundle ) {

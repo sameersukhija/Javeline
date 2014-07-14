@@ -1,6 +1,6 @@
 package com.lumata.e4o.system.fields;
 
-import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.field.types.FieldMethod;
 import com.lumata.e4o.system.field.types.FieldTypeBoolean;
 
@@ -22,7 +22,7 @@ public class FieldBoolean {
 	}
 
 	@FieldMethod
-	public String getBoolean() throws CDRException {
+	public String getBoolean() throws FieldException {
 		
 		if( this.boolean_current_value == null && !this.boolean_random ) { return ""; } 
 		else {
@@ -56,7 +56,7 @@ public class FieldBoolean {
 	}
 
 	@FieldMethod
-	public void setBooleanStrategyFixed( final Boolean value ) throws CDRException {	
+	public void setBooleanStrategyFixed( final Boolean value ) throws FieldException {	
 					
 		this.cleanBooleanStrategyIncrement();
 		
@@ -67,7 +67,7 @@ public class FieldBoolean {
 	}
 	
 	@FieldMethod
-	public void setBooleanStrategyIncrement( final Boolean start_value, final Integer increment ) throws CDRException {	
+	public void setBooleanStrategyIncrement( final Boolean start_value, final Integer increment ) throws FieldException {	
 		
 		this.cleanBooleanStrategyRandom();
 		
@@ -78,7 +78,7 @@ public class FieldBoolean {
 	}
 	
 	@FieldMethod
-	public void setBooleanStrategyRandom() throws CDRException {
+	public void setBooleanStrategyRandom() throws FieldException {
 		
 		this.cleanBooleanStrategyIncrement();
 		

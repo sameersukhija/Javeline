@@ -22,7 +22,7 @@ import com.lumata.common.testing.log.Log;
 import static com.lumata.common.testing.orm.Query.select;
 
 import com.lumata.common.testing.system.Environment;
-import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.system.cdr.types.CDRRevenueRecharge;
 
@@ -98,7 +98,7 @@ public class GenerateCDRRevenue {
 	 * @throws CDRException
 	 */	
 	@Test( priority = 2, enabled = generate_cdr )
-	public void cdr_revenue_generation_with_random_msisdn() throws IOFileException, CDRException {
+	public void cdr_revenue_generation_with_random_msisdn() throws IOFileException, FieldException {
 		
 		logger.info( Log.PUTTING.createMessage( "New cdr revenue csv file" ) );
 						
@@ -155,7 +155,7 @@ public class GenerateCDRRevenue {
 	 * @throws CDRException
 	 */	
 	@Test( priority = 3, enabled = false /*generate_cdr*/ )
-	public void cdr_revenue_generation_with_fixed_msisdn() throws IOFileException, CDRException {
+	public void cdr_revenue_generation_with_fixed_msisdn() throws IOFileException, FieldException {
 		
 		logger.info( Log.PUTTING.createMessage( "New cdr revenue csv file" ) );
 						

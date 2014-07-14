@@ -1,6 +1,6 @@
 package com.lumata.e4o.system.fields;
 
-import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.field.types.FieldMethod;
 import com.lumata.e4o.system.field.types.FieldTypeLong;
 
@@ -24,7 +24,7 @@ public class FieldLong {
 	}
 
 	@FieldMethod
-	public String getLong() throws CDRException {
+	public String getLong() throws FieldException {
 		
 		if( this.long_current_value == null && ( this.long_left_value == null || this.long_right_value == null )) { return ""; } 
 		else {
@@ -60,7 +60,7 @@ public class FieldLong {
 	}
 
 	@FieldMethod
-	public void setLongStrategyFixed( final Long value ) throws CDRException {	
+	public void setLongStrategyFixed( final Long value ) throws FieldException {	
 		
 		this.long_current_value = ( value != null ? Math.abs( value ) : null );
 		
@@ -71,11 +71,11 @@ public class FieldLong {
 	}
 	
 	@FieldMethod
-	public void setLongStrategyIncrement( final Long value, final Integer increment ) throws CDRException {
+	public void setLongStrategyIncrement( final Long value, final Integer increment ) throws FieldException {
 		
-		if( value == null ) { throw new CDRException( "The field cannot be null." ); }
+		if( value == null ) { throw new FieldException( "The field cannot be null." ); }
 		
-		if( increment == null ) { throw new CDRException( "The field increment cannot be null." ); }
+		if( increment == null ) { throw new FieldException( "The field increment cannot be null." ); }
 		
 		this.long_current_value = Math.abs( value );
 		
@@ -86,11 +86,11 @@ public class FieldLong {
 	}
 	
 	@FieldMethod
-	public void setLongStrategyRandom( final Long min_value, final Long max_value ) throws CDRException {
+	public void setLongStrategyRandom( final Long min_value, final Long max_value ) throws FieldException {
 		
-		if( min_value == null ) { throw new CDRException( "The min field value cannot be null." ); }
+		if( min_value == null ) { throw new FieldException( "The min field value cannot be null." ); }
 		
-		if( max_value == null ) { throw new CDRException( "The max field value cannot be null." ); }
+		if( max_value == null ) { throw new FieldException( "The max field value cannot be null." ); }
 		
 		this.long_left_value = Math.abs( min_value );
 		

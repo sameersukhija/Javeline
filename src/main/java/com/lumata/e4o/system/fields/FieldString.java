@@ -2,7 +2,7 @@ package com.lumata.e4o.system.fields;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
-import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.field.types.FieldMethod;
 import com.lumata.e4o.system.field.types.FieldTypeString;
 
@@ -28,7 +28,7 @@ public class FieldString {
 	}
 
 	@FieldMethod
-	public String getString() throws CDRException {
+	public String getString() throws FieldException {
 		
 		if( this.string_current_value == null && !this.string_random ) { return ""; } 
 		else {
@@ -54,14 +54,14 @@ public class FieldString {
 	}
 	
 	@FieldMethod
-	public void setStringLength( final Integer length ) throws CDRException {
+	public void setStringLength( final Integer length ) throws FieldException {
 		
 		this.string_length = ( length != null ? Math.abs( length ) : DEFAULT_STRING_LENGTH );
 		
 	}
 
 	@FieldMethod
-	public void setStringStrategyFixed( final String value ) throws CDRException {	
+	public void setStringStrategyFixed( final String value ) throws FieldException {	
 					
 		this.cleanStringStrategyIncrement();
 		
@@ -74,7 +74,7 @@ public class FieldString {
 	}
 	
 	@FieldMethod
-	public void setStringStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws CDRException {	
+	public void setStringStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException {	
 		
 		this.cleanStringStrategyRandom();
 		
@@ -89,7 +89,7 @@ public class FieldString {
 	}
 	
 	@FieldMethod
-	public void setStringStrategyRandom( final Integer length ) throws CDRException {
+	public void setStringStrategyRandom( final Integer length ) throws FieldException {
 		
 		this.cleanStringStrategyIncrement();
 		
@@ -140,7 +140,7 @@ public class FieldString {
 		
 	}
 	
-	private String generateString() throws CDRException {
+	private String generateString() throws FieldException {
 		
 		String value = ( this.string_current_value != null ? this.string_current_value : "" );
 				

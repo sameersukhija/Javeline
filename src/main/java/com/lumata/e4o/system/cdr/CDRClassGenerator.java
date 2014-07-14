@@ -80,7 +80,7 @@ public class CDRClassGenerator {
 	final String CDR_PACKAGE_ = LUMATA_PACKAGE_ + ".system.cdr";
 	final String CDR_TYPES_PACKAGE_ = LUMATA_PACKAGE_ + ".system.cdr.types";
 	final String CDR_ANNOTATIONS_PACKAGE_ = LUMATA_PACKAGE_ + ".system.cdr.fields";
-	final String CDR_EXCEPTION_CLASS_ = LUMATA_PACKAGE_ + ".exceptions.CDRException";
+	final String FIELD_EXCEPTION_CLASS_ = LUMATA_PACKAGE_ + ".exceptions.FieldException";
 	final String FIELD_TYPE_PACKAGE_ = LUMATA_PACKAGE_ + ".system.field.type";
 	final String FIELDS_PACKAGE_ = LUMATA_PACKAGE_ + ".system.fields";
 	
@@ -183,7 +183,7 @@ public class CDRClassGenerator {
 				import_classes = new StringBuilder();
 				import_classes.append( "import " ).append( CDR_PACKAGE_ ).append( ".CDR;\n" );
 				import_classes.append( "import " ).append( CDR_ANNOTATIONS_PACKAGE_ + ".*;\n" );
-				import_classes.append( "import " ).append( CDR_EXCEPTION_CLASS_ ).append( ";\n" );
+				import_classes.append( "import " ).append( FIELD_EXCEPTION_CLASS_ ).append( ";\n" );
 				//import_classes.append( "import org.slf4j.Logger;\n" );
 				//import_classes.append( "import org.slf4j.LoggerFactory;\n" );
 								

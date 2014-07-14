@@ -13,7 +13,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.exceptions.GeneratorException;
 import com.lumata.e4o.generators.common.GeneratorParameter;
 import com.lumata.e4o.generators.common.GeneratorParametersList;
@@ -232,7 +232,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 						default: { break; }
 					}
 				
-				} catch( CDRException e ) {
+				} catch( FieldException e ) {
 					
 					System.out.println( e.getMessage() );
 					
@@ -294,7 +294,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 			
 				insertSubscriber( Long.valueOf( fieldMsisdn.getMsisdn() ) );
 				
-			} catch( CDRException e ) {
+			} catch( FieldException e ) {
 				
 				System.out.println( e.getMessage() );
 				

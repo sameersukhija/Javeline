@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.field.types.FieldMethod;
 import com.lumata.e4o.system.field.types.FieldTypeSet;
 
@@ -55,7 +55,7 @@ public class FieldSet {
 	}
 	
 	@FieldMethod
-	public String getSet() throws CDRException {
+	public String getSet() throws FieldException {
 						
 		if( this.set_current_value == null && this.set_random == false ) { return ""; } 
 		else {
@@ -93,14 +93,14 @@ public class FieldSet {
 	}
 
 	@FieldMethod
-	public void setSetOptions( final String separator ) throws CDRException {
+	public void setSetOptions( final String separator ) throws FieldException {
 		
 		this.set_separator = separator;
 		
 	}
 	
 	@FieldMethod
-	public void setSetStrategyFixed() throws CDRException {	
+	public void setSetStrategyFixed() throws FieldException {	
 		
 		this.set_current_value = this.set;
 		
@@ -111,7 +111,7 @@ public class FieldSet {
 	}
 	
 	@FieldMethod
-	public void setSetStrategyFixed( final Set<String> values ) throws CDRException {	
+	public void setSetStrategyFixed( final Set<String> values ) throws FieldException {	
 							
 		if( null != values ) {
 			
@@ -132,7 +132,7 @@ public class FieldSet {
 	}
 	
 	@FieldMethod
-	public void setSetStrategyFixed( final Enum<?>[] values ) throws CDRException {	
+	public void setSetStrategyFixed( final Enum<?>[] values ) throws FieldException {	
 		
 		if( null != values ) {
 			
@@ -153,7 +153,7 @@ public class FieldSet {
 	}
 
 	@FieldMethod
-	public void setSetStrategyFixed( final String... values ) throws CDRException {	
+	public void setSetStrategyFixed( final String... values ) throws FieldException {	
 		
 		if( null != values ) {
 			
@@ -174,20 +174,20 @@ public class FieldSet {
 	}
 	
 	@FieldMethod
-	public void setSetStrategyIncrement( final Enum<?> startValue, final Integer increment, final Integer range ) throws CDRException {	
+	public void setSetStrategyIncrement( final Enum<?> startValue, final Integer increment, final Integer range ) throws FieldException {	
 		
 		setSetStrategyIncrement( startValue.name(), increment, range );
 		
 	}
 	
 	@FieldMethod
-	public void setSetStrategyIncrement( final String startValue, final Integer increment, final Integer range ) throws CDRException {	
+	public void setSetStrategyIncrement( final String startValue, final Integer increment, final Integer range ) throws FieldException {	
 		
-		if( increment == null ) { throw new CDRException( "The field increment cannot be null." ); }
+		if( increment == null ) { throw new FieldException( "The field increment cannot be null." ); }
 		
 		Integer index = getIndex( startValue );
 		
-		if( index < 0 ) { throw new CDRException( "The value " + startValue + " is not in the set " + ( null != set ? set.toString() : "" ) + "." ); }
+		if( index < 0 ) { throw new FieldException( "The value " + startValue + " is not in the set " + ( null != set ? set.toString() : "" ) + "." ); }
 		
 		this.set_curr_pos = index;
 		
@@ -204,7 +204,7 @@ public class FieldSet {
 	}
 	
 	@FieldMethod
-	public void setSetStrategyRandom() throws CDRException {
+	public void setSetStrategyRandom() throws FieldException {
 		
 		this.cleanSetStrategyIncrement();
 		
@@ -215,7 +215,7 @@ public class FieldSet {
 	}
 	
 	@FieldMethod
-	public void setSetStrategyRandom( final Integer range ) throws CDRException {
+	public void setSetStrategyRandom( final Integer range ) throws FieldException {
 
 		this.cleanSetStrategyIncrement();
 

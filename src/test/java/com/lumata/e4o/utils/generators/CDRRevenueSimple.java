@@ -14,7 +14,7 @@ import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Service;
 import com.lumata.common.testing.system.User;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.types.CDRRevenueRecharge;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
@@ -42,7 +42,7 @@ public class CDRRevenueSimple {
 	
 	@Test( enabled = true )
 	//@Test( enabled = true )
-	public void cdr_revenue_strategies() throws IOFileException, CDRException {
+	public void cdr_revenue_strategies() throws IOFileException, FieldException {
 
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_revenue_strategies" );

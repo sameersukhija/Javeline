@@ -8,7 +8,7 @@ import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.Environment;
-import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.schema.tenant.Profiles;
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.CDRClassGenerator;
@@ -43,7 +43,7 @@ public class CDRRevenueSimple {
 
 	// CDR using
 	@Test( enabled = generate_cdr )
-	public void cdr_history_strategies() throws IOFileException, CDRException {
+	public void cdr_history_strategies() throws IOFileException, FieldException {
 
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_history_strategies" );
@@ -93,7 +93,7 @@ public class CDRRevenueSimple {
 	
 	@Test( enabled = true )
 	//@Test( enabled = true )
-	public void cdr_revenue_strategies() throws IOFileException, CDRException {
+	public void cdr_revenue_strategies() throws IOFileException, FieldException {
 
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_revenue_strategies" );
@@ -122,7 +122,7 @@ public class CDRRevenueSimple {
 	}
 		
 	@Test( enabled = generate_cdr )
-	public void cdr_call_strategies() throws CDRException {
+	public void cdr_call_strategies() throws FieldException {
 
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_call_strategies" );
@@ -211,7 +211,7 @@ public class CDRRevenueSimple {
 	
 	@Test( enabled = generate_cdr )
 	//@Test( enabled = true )
-	public void cdr_bundle_strategies() throws CDRException {
+	public void cdr_bundle_strategies() throws FieldException {
 
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_bundle_strategies" );
@@ -297,7 +297,7 @@ public class CDRRevenueSimple {
 	
 	@Test( enabled = generate_cdr )
 	//@Test( enabled = true )
-	public void cdr_voucher_strategies() throws CDRException {
+	public void cdr_voucher_strategies() throws FieldException {
 
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_voucher_strategies" );
@@ -384,7 +384,7 @@ public class CDRRevenueSimple {
 	}
 	
 	@Test( enabled = generate_cdr )
-	public void csv_string() throws CDRException {
+	public void csv_string() throws FieldException {
 
 		System.out.println( "-----------------------------" );
 		System.out.println( "csv_string" );
@@ -418,7 +418,7 @@ public class CDRRevenueSimple {
 	}
 	
 	@Test( enabled = generate_cdr )
-	public void csv_boolean() throws CDRException {
+	public void csv_boolean() throws FieldException {
 
 		System.out.println( "-----------------------------" );
 		System.out.println( "csv_string" );
@@ -458,7 +458,7 @@ public class CDRRevenueSimple {
 	
 	
 	@Test( enabled = false )
-	public void csv_schema() throws CDRException, EnvironmentException {
+	public void csv_schema() throws FieldException, EnvironmentException {
 		
 		System.out.println( "-----------------------------" );
 		System.out.println( "csv_schema" );

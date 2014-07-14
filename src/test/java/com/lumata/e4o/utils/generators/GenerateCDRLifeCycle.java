@@ -1,9 +1,6 @@
 package com.lumata.e4o.utils.generators;
 
 import java.util.Calendar;
-import java.util.Random;
-
-import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
@@ -16,9 +13,8 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Service;
 import com.lumata.common.testing.system.User;
-import com.lumata.common.testing.utils.Arithmetic;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.types.CDRLifeCycle;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
@@ -46,7 +42,7 @@ public class GenerateCDRLifeCycle {
 	
 	@Test( enabled = true )
 	//@Test( enabled = true )
-	public void cdr_lifecycle_preferences() throws IOFileException, CDRException {
+	public void cdr_lifecycle_preferences() throws IOFileException, FieldException {
 		
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_lifecycle_preferences" );

@@ -1,6 +1,6 @@
 package com.lumata.e4o.system.fields;
 
-import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.field.types.FieldMethod;
 import com.lumata.e4o.system.field.types.FieldTypeMsisdn;
 
@@ -28,7 +28,7 @@ public class FieldMsisdn {
 	}
 
 	@FieldMethod
-	public String getMsisdn() throws CDRException {
+	public String getMsisdn() throws FieldException {
 		
 		if( this.msisdn_current_value == null && ( this.msisdn_left_value == null || this.msisdn_right_value == null )) { return ""; } 
 		else {
@@ -64,9 +64,9 @@ public class FieldMsisdn {
 	}
 	
 	@FieldMethod
-	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException {
+	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws FieldException {
 		
-		if( length != null && length > 19 ) { throw new CDRException( "The msisdn length must be less than 20." ); }
+		if( length != null && length > 19 ) { throw new FieldException( "The msisdn length must be less than 20." ); }
 		
 		this.msisdn_prefix = ( prefix != null ? Math.abs( prefix ) : null );
 				
@@ -75,7 +75,7 @@ public class FieldMsisdn {
 	}
 
 	@FieldMethod
-	public void setMsisdnStrategyFixed( final Long value ) throws CDRException {	
+	public void setMsisdnStrategyFixed( final Long value ) throws FieldException {	
 		
 		this.msisdn_current_value = ( value != null ? Math.abs( value ) : null );
 		
@@ -86,11 +86,11 @@ public class FieldMsisdn {
 	}
 	
 	@FieldMethod
-	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException {
+	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws FieldException {
 		
-		if( value == null ) { throw new CDRException( "The msisdn cannot be null." ); }
+		if( value == null ) { throw new FieldException( "The msisdn cannot be null." ); }
 		
-		if( increment == null ) { throw new CDRException( "The msisdn increment cannot be null." ); }
+		if( increment == null ) { throw new FieldException( "The msisdn increment cannot be null." ); }
 		
 		this.msisdn_current_value = Math.abs( value );
 		
@@ -101,11 +101,11 @@ public class FieldMsisdn {
 	}
 	
 	@FieldMethod
-	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException {
+	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws FieldException {
 		
-		if( min_value == null ) { throw new CDRException( "The min msisdn value cannot be null." ); }
+		if( min_value == null ) { throw new FieldException( "The min msisdn value cannot be null." ); }
 		
-		if( max_value == null ) { throw new CDRException( "The max msisdn value cannot be null." ); }
+		if( max_value == null ) { throw new FieldException( "The max msisdn value cannot be null." ); }
 		
 		this.msisdn_left_value = Math.abs( min_value );
 		
@@ -151,7 +151,7 @@ public class FieldMsisdn {
 		
 	}
 	
-	private Long generateMSISDN() throws CDRException {
+	private Long generateMSISDN() throws FieldException {
 		
 		Long msisdn = this.msisdn_current_value;
 				
@@ -175,7 +175,7 @@ public class FieldMsisdn {
 						
 			} catch( NumberFormatException ne ) {
 				
-				throw new CDRException( ne.getMessage(), ne );
+				throw new FieldException( ne.getMessage(), ne );
 								
 			}
 			

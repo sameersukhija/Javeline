@@ -2,7 +2,7 @@ package com.lumata.e4o.system.cdr.types;
 
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.fields.*;
-import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.exceptions.FieldException;
 import java.util.Calendar;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
 
@@ -19,15 +19,15 @@ public class CDRBundleMultitenant extends CDR {
 	}
 
 	@Msisdn( position = 0 )
-	public String getMsisdn() throws CDRException  {
+	public String getMsisdn() throws FieldException  {
 		return this.msisdn.getMsisdn();
 	}
 
-	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws CDRException  {
+	public void setMsisdnOptions( final Integer prefix, final Integer length ) throws FieldException  {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnOptions( prefix, length ); }
 	}
 
-	public void setMsisdnStrategyFixed( final Long value ) throws CDRException  {
+	public void setMsisdnStrategyFixed( final Long value ) throws FieldException  {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
 	}
 
@@ -39,11 +39,11 @@ public class CDRBundleMultitenant extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
-	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
+	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
 	}
 
-	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
+	public void setMsisdnStrategyRandom( final Long min_value, final Long max_value ) throws FieldException  {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyRandom( min_value, max_value ); }
 	}
 
@@ -55,7 +55,12 @@ public class CDRBundleMultitenant extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
-	public void setDateStrategyFixed( final Calendar date ) throws CDRException  {
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
+	}
+
+	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
 
@@ -67,15 +72,15 @@ public class CDRBundleMultitenant extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
-	public void setDateFormat( String format ) throws CDRException  {
+	public void setDateFormat( String format ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateFormat( format ); }
 	}
 
-	public void setDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException  {
+	public void setDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyIncrement( date, increment ); }
 	}
 
-	public void setDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException  {
+	public void setDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyRandom( date_left, date_right ); }
 	}
 
@@ -83,16 +88,16 @@ public class CDRBundleMultitenant extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
+	@BundleName( position = 2 )
+	public String getBundleName() throws FieldException  {
+		return this.bundle_name.getString();
 	}
 
-	public void setBundleNameLength( final Integer length ) throws CDRException  {
+	public void setBundleNameLength( final Integer length ) throws FieldException  {
 		if( this.bundle_name != null ) { this.bundle_name.setStringLength( length ); }
 	}
 
-	public void setBundleNameStrategyFixed( final String value ) throws CDRException  {
+	public void setBundleNameStrategyFixed( final String value ) throws FieldException  {
 		if( this.bundle_name != null ) { this.bundle_name.setStringStrategyFixed( value ); }
 	}
 
@@ -104,11 +109,11 @@ public class CDRBundleMultitenant extends CDR {
 		if( this.bundle_name != null ) { this.bundle_name.cleanStringStrategyRandom(); }
 	}
 
-	public void setBundleNameStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws CDRException  {
+	public void setBundleNameStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
 		if( this.bundle_name != null ) { this.bundle_name.setStringStrategyIncrement( value, start_value, increment ); }
 	}
 
-	public void setBundleNameStrategyRandom( final Integer length ) throws CDRException  {
+	public void setBundleNameStrategyRandom( final Integer length ) throws FieldException  {
 		if( this.bundle_name != null ) { this.bundle_name.setStringStrategyRandom( length ); }
 	}
 
@@ -120,12 +125,12 @@ public class CDRBundleMultitenant extends CDR {
 		if( this.bundle_name != null ) { this.bundle_name.cleanStringLength(); }
 	}
 
-	@BundleName( position = 2 )
-	public String getBundleName() throws CDRException  {
-		return this.bundle_name.getString();
+	@BundleBalance( position = 3 )
+	public String getBundleBalance() throws FieldException  {
+		return this.bundle_balance.getLong();
 	}
 
-	public void setBundleBalanceStrategyFixed( final Long value ) throws CDRException  {
+	public void setBundleBalanceStrategyFixed( final Long value ) throws FieldException  {
 		if( this.bundle_balance != null ) { this.bundle_balance.setLongStrategyFixed( value ); }
 	}
 
@@ -137,11 +142,11 @@ public class CDRBundleMultitenant extends CDR {
 		if( this.bundle_balance != null ) { this.bundle_balance.cleanLongStrategyRandom(); }
 	}
 
-	public void setBundleBalanceStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
+	public void setBundleBalanceStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
 		if( this.bundle_balance != null ) { this.bundle_balance.setLongStrategyIncrement( value, increment ); }
 	}
 
-	public void setBundleBalanceStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
+	public void setBundleBalanceStrategyRandom( final Long min_value, final Long max_value ) throws FieldException  {
 		if( this.bundle_balance != null ) { this.bundle_balance.setLongStrategyRandom( min_value, max_value ); }
 	}
 
@@ -149,12 +154,12 @@ public class CDRBundleMultitenant extends CDR {
 		if( this.bundle_balance != null ) { this.bundle_balance.cleanLongStrategyFixed(); }
 	}
 
-	@BundleBalance( position = 3 )
-	public String getBundleBalance() throws CDRException  {
-		return this.bundle_balance.getLong();
+	@BundlePurchased( position = 4 )
+	public String getBundlePurchased() throws FieldException  {
+		return this.bundle_purchased.getBoolean();
 	}
 
-	public void setBundlePurchasedStrategyFixed( final Boolean value ) throws CDRException  {
+	public void setBundlePurchasedStrategyFixed( final Boolean value ) throws FieldException  {
 		if( this.bundle_purchased != null ) { this.bundle_purchased.setBooleanStrategyFixed( value ); }
 	}
 
@@ -166,11 +171,11 @@ public class CDRBundleMultitenant extends CDR {
 		if( this.bundle_purchased != null ) { this.bundle_purchased.cleanBooleanStrategyRandom(); }
 	}
 
-	public void setBundlePurchasedStrategyIncrement( final Boolean start_value, final Integer increment ) throws CDRException  {
+	public void setBundlePurchasedStrategyIncrement( final Boolean start_value, final Integer increment ) throws FieldException  {
 		if( this.bundle_purchased != null ) { this.bundle_purchased.setBooleanStrategyIncrement( start_value, increment ); }
 	}
 
-	public void setBundlePurchasedStrategyRandom() throws CDRException  {
+	public void setBundlePurchasedStrategyRandom() throws FieldException  {
 		if( this.bundle_purchased != null ) { this.bundle_purchased.setBooleanStrategyRandom(); }
 	}
 
@@ -178,12 +183,12 @@ public class CDRBundleMultitenant extends CDR {
 		if( this.bundle_purchased != null ) { this.bundle_purchased.cleanBooleanStrategyFixed(); }
 	}
 
-	@BundlePurchased( position = 4 )
-	public String getBundlePurchased() throws CDRException  {
-		return this.bundle_purchased.getBoolean();
+	@TenantId( position = 5 )
+	public String getTenantId() throws FieldException  {
+		return this.tenant_id.getLong();
 	}
 
-	public void setTenantIdStrategyFixed( final Long value ) throws CDRException  {
+	public void setTenantIdStrategyFixed( final Long value ) throws FieldException  {
 		if( this.tenant_id != null ) { this.tenant_id.setLongStrategyFixed( value ); }
 	}
 
@@ -195,21 +200,16 @@ public class CDRBundleMultitenant extends CDR {
 		if( this.tenant_id != null ) { this.tenant_id.cleanLongStrategyRandom(); }
 	}
 
-	public void setTenantIdStrategyIncrement( final Long value, final Integer increment ) throws CDRException  {
+	public void setTenantIdStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
 		if( this.tenant_id != null ) { this.tenant_id.setLongStrategyIncrement( value, increment ); }
 	}
 
-	public void setTenantIdStrategyRandom( final Long min_value, final Long max_value ) throws CDRException  {
+	public void setTenantIdStrategyRandom( final Long min_value, final Long max_value ) throws FieldException  {
 		if( this.tenant_id != null ) { this.tenant_id.setLongStrategyRandom( min_value, max_value ); }
 	}
 
 	public void cleanTenantIdStrategyFixed()  {
 		if( this.tenant_id != null ) { this.tenant_id.cleanLongStrategyFixed(); }
-	}
-
-	@TenantId( position = 5 )
-	public String getTenantId() throws CDRException  {
-		return this.tenant_id.getLong();
 	}
 
 }

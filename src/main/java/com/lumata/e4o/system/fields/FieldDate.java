@@ -3,7 +3,7 @@ package com.lumata.e4o.system.fields;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.field.types.FieldMethod;
 import com.lumata.e4o.system.field.types.FieldTypeDate;
 
@@ -102,7 +102,7 @@ public class FieldDate {
 	}
 
 	@FieldMethod
-	public void setDateStrategyFixed( final Calendar date ) throws CDRException {
+	public void setDateStrategyFixed( final Calendar date ) throws FieldException {
 		
 		this.date_current = date;
 		
@@ -113,18 +113,18 @@ public class FieldDate {
 	}
 
 	@FieldMethod
-	public void setDateFormat( String format ) throws CDRException {
+	public void setDateFormat( String format ) throws FieldException {
 		
 		this.date_format = new SimpleDateFormat( format );
 						
 	}	
 	
 	@FieldMethod
-	public void setDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws CDRException {
+	public void setDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws FieldException {
 		
-		if( date == null ) { throw new CDRException( "The date cannot be null." ); }
+		if( date == null ) { throw new FieldException( "The date cannot be null." ); }
 		
-		if( increment == null ) { throw new CDRException( "The date increment cannot be null." ); }
+		if( increment == null ) { throw new FieldException( "The date increment cannot be null." ); }
 		
 		this.date_current = date;
 		
@@ -135,11 +135,11 @@ public class FieldDate {
 	}
 	
 	@FieldMethod
-	public void setDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws CDRException {
+	public void setDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws FieldException {
 		
-		if( date_left == null ) { throw new CDRException( "The min date cannot be null." ); }
+		if( date_left == null ) { throw new FieldException( "The min date cannot be null." ); }
 		
-		if( date_right == null ) { throw new CDRException( "The max date cannot be null." ); }
+		if( date_right == null ) { throw new FieldException( "The max date cannot be null." ); }
 		
 		this.date_left = date_left;
 		

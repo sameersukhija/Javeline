@@ -10,7 +10,7 @@ import static com.lumata.common.testing.orm.Query.select;
 import static com.lumata.common.testing.orm.Filter.distinct;
 
 import com.lumata.common.testing.database.Mysql;
-import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.field.types.FieldMethod;
 import com.lumata.e4o.system.field.types.FieldTypeSchemaTable;
 
@@ -44,7 +44,7 @@ public class FieldSchemaTable {
 	}
 
 	@FieldMethod
-	public String getSchemaTable() throws CDRException {
+	public String getSchemaTable() throws FieldException {
 						
 		if( this.table_current_value == null && this.table_random_value == false ) { return ""; } 
 		else {
@@ -82,7 +82,7 @@ public class FieldSchemaTable {
 	}
 
 	@FieldMethod
-	public void setSchemaTableValues( final JSONObject dataSource ) throws CDRException {
+	public void setSchemaTableValues( final JSONObject dataSource ) throws FieldException {
 		
 		ds = dataSource;
 				
@@ -91,9 +91,9 @@ public class FieldSchemaTable {
 	}
 	
 	@FieldMethod
-	public void setSchemaTableStrategyFixed( final Integer row ) throws CDRException {	
+	public void setSchemaTableStrategyFixed( final Integer row ) throws FieldException {	
 		
-		if( row >= this.table_values.size() ) { throw new CDRException( "The row is greater than table size" ); }
+		if( row >= this.table_values.size() ) { throw new FieldException( "The row is greater than table size" ); }
 
 		this.cleanSchemaTableStrategyIncrement();
 		
@@ -106,7 +106,7 @@ public class FieldSchemaTable {
 	}
 	
 	
-	public void setSchemaTableStrategyFixed( final String field_value ) throws CDRException {	
+	public void setSchemaTableStrategyFixed( final String field_value ) throws FieldException {	
 		
 		this.cleanSchemaTableStrategyIncrement();
 		
@@ -117,11 +117,11 @@ public class FieldSchemaTable {
 	}
 		
 	@FieldMethod
-	public void setSchemaTableStrategyIncrement( final Integer start_row, final Integer increment ) throws CDRException {
+	public void setSchemaTableStrategyIncrement( final Integer start_row, final Integer increment ) throws FieldException {
 		
-		if( start_row >= this.table_values.size() ) { throw new CDRException( "The start_row is greater than table size" ); }
+		if( start_row >= this.table_values.size() ) { throw new FieldException( "The start_row is greater than table size" ); }
 		
-		if( increment == null ) { throw new CDRException( "The field increment cannot be null." ); }
+		if( increment == null ) { throw new FieldException( "The field increment cannot be null." ); }
 		
 		this.cleanSchemaTableStrategyRandom();
 		
@@ -134,7 +134,7 @@ public class FieldSchemaTable {
 	}
 	
 	@FieldMethod
-	public void setSchemaTableStrategyRandom() throws CDRException {
+	public void setSchemaTableStrategyRandom() throws FieldException {
 		
 		this.cleanSchemaTableStrategyIncrement();
 		
@@ -216,13 +216,13 @@ public class FieldSchemaTable {
 		
 	}
 	
-	private void loadSchemaTable() throws CDRException {
+	private void loadSchemaTable() throws FieldException {
 		
-		if( this.table.equals( null ) ) { throw new CDRException( "The schema table is not valid." ); }
+		if( this.table.equals( null ) ) { throw new FieldException( "The schema table is not valid." ); }
 		
-		if( this.table_field == null ) { throw new CDRException( "The table field is not valid." ); }
+		if( this.table_field == null ) { throw new FieldException( "The table field is not valid." ); }
 		
-		if( this.ds == null ) { throw new CDRException( "The data source is not valid." ); }
+		if( this.ds == null ) { throw new FieldException( "The data source is not valid." ); }
 		
 		String query = select( distinct( this.table_field ) ).from( this.table ).build();
 		

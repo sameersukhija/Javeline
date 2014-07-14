@@ -1,6 +1,6 @@
 package com.lumata.e4o.system.fields;
 
-import com.lumata.e4o.exceptions.CDRException;
+import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.field.types.FieldMethod;
 import com.lumata.e4o.system.field.types.FieldTypeEnum;
 
@@ -29,7 +29,7 @@ public class FieldEnum {
 	}
 
 	@FieldMethod
-	public String getEnum() throws CDRException {
+	public String getEnum() throws FieldException {
 						
 		if( this.enum_current_value == null && this.enum_random == false ) { return ""; } 
 		else {
@@ -67,7 +67,7 @@ public class FieldEnum {
 	}
 
 	@FieldMethod
-	public void setEnumStrategyFixed( final Enum<? extends IFieldEnum> value ) throws CDRException {	
+	public void setEnumStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException {	
 		
 		this.enum_current_value = ( value != null && enumeration != null ? ((IFieldEnum)value).value() : null );
 		
@@ -78,11 +78,11 @@ public class FieldEnum {
 	}
 	
 	@FieldMethod
-	public void setEnumStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws CDRException {
+	public void setEnumStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException {
 		
-		if( value == null ) { throw new CDRException( "The field cannot be null." ); }
+		if( value == null ) { throw new FieldException( "The field cannot be null." ); }
 		
-		if( increment == null ) { throw new CDRException( "The field increment cannot be null." ); }
+		if( increment == null ) { throw new FieldException( "The field increment cannot be null." ); }
 		
 		this.enum_current_value = ((IFieldEnum)value).value();
 		
@@ -93,7 +93,7 @@ public class FieldEnum {
 	}
 	
 	@FieldMethod
-	public void setEnumStrategyRandom() throws CDRException {
+	public void setEnumStrategyRandom() throws FieldException {
 		
 		this.enum_random = true;
 		
