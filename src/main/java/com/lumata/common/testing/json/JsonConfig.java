@@ -178,33 +178,55 @@ public abstract class JsonConfig {
 	/**
 	 *	This method performs two actions :<br>
 	 *	<li> it navigates with passed string the configuration file
-	 *	<li> it tries to convert found object to <b>JSONObject</b>
+	 *	<li> it tries to convert found object to <b>Map<String, Object></b>
+	 *  <li> it returns "null" if element is not provided and it is optional
 	 *
-	 * @param jsonNavigationPath
+	 * @param jsonNavigationPath is the search path
+	 * @param isOptional describe if looked element can be null into json
 	 *
-	 * @return Map<String, Object> of found object
+	 * @return Map<String, Object> of found object or null
 	 *
 	 * @throws JSONSException
 	 */
 	@SuppressWarnings("unchecked")
-	protected Map<String, Object> getJsonMapFromPath( String jsonNavigationPath ) throws JSONSException {
+	protected Map<String, Object> getJsonMapFromPath( String jsonNavigationPath, Boolean isOptional ) throws JSONSException {
 
+		logger.debug("Lookinf for " + jsonNavigationPath);
+		logger.debug("This element is " + (isOptional ? "optional" : "mandatory"));
+		
 		Map<String, Object> resp = null;
 		
 		Object findObject = getObjectFromPath( jsonNavigationPath );
 
 		try {
 			
-			// strange condition, but happened that sometimes org.json returns an HashMap
-			// maybe for very simple json object (?)
-			if ( findObject instanceof Map ) 
-				resp = (Map<String, Object>)findObject;
-			else
-				resp = (Map<String, Object>)parser.parse(findObject.toString(), containerFactory);
+			// element not found
+			if ( findObject == null ) {
 
-			if ( resp.size() == 0 )
-				resp = null;
-			
+				logger.debug("Element is not present into json.");
+				
+				if ( !isOptional ) {
+					
+					logger.error("The missing of mandatory element is an error!");
+					throw new NullPointerException();
+				}
+				else
+					logger.warn("Optional element not provided, go forward \"null\".");
+			}
+			// element found
+			else {
+				
+				// strange condition, but happened that sometimes org.json returns an HashMap
+				// maybe for very simple json object (?)
+				if ( findObject instanceof Map ) 
+					resp = (Map<String, Object>)findObject;
+				else
+					resp = (Map<String, Object>)parser.parse(findObject.toString(), containerFactory);
+
+				if ( resp.size() == 0 )
+					resp = null;
+			}
+						
 		} catch (ParseException | NullPointerException e) {
 			
 			String message = "Error during looking for \"Map of object\" @ \""+jsonNavigationPath+"\"!";
@@ -215,6 +237,22 @@ public abstract class JsonConfig {
 		}
 		
 		return resp;
+	}
+	
+	/**
+	 *	This method performs two actions :<br>
+	 *	<li> it navigates with passed string the configuration file
+	 *	<li> it tries to convert found object to <b>Map<String, Object></b>
+	 *  
+	 * @param jsonNavigationPath is the search path
+	 * 
+	 * @return Map<String, Object> of found object 
+	 * 
+	 * @throws JSONSException
+	 */
+	protected Map<String, Object> getJsonMapFromPath( String jsonNavigationPath) throws JSONSException {
+		
+		return this.getJsonMapFromPath(jsonNavigationPath, Boolean.FALSE);
 	}
 	
 	/**

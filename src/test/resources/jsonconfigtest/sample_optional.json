@@ -1,0 +1,26 @@
+{
+	"testElementWithOptional" : [
+		{
+			"enabled": true,
+			"name":"ItemComplete",
+			"optionalSubElement" : {
+				"key1" : "value1",
+				"key2" : 100,
+				"key3" : true
+			},
+			"delete" : false
+		},
+		{
+			"enabled": true,
+			"name":"ItemOnlyKey",
+			"optionalSubElement" : null,
+			"delete" : false			
+		},
+		{
+			"enabled": true,
+			"name":"ItemwithoutKey",
+			"delete" : false			
+		}
+
+	]
+}
