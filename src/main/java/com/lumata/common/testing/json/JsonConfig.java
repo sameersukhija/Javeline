@@ -191,10 +191,10 @@ public abstract class JsonConfig {
 	@SuppressWarnings("unchecked")
 	protected Map<String, Object> getJsonMapFromPath( String jsonNavigationPath, Boolean isOptional ) throws JSONSException {
 
-		logger.debug("Lookinf for " + jsonNavigationPath);
-		logger.debug("This element is " + (isOptional ? "optional" : "mandatory"));
-		
 		Map<String, Object> resp = null;
+		
+		logger.debug("Looking for " + jsonNavigationPath);
+		logger.debug("This element is " + (isOptional ? "optional" : "mandatory"));
 		
 		Object findObject = getObjectFromPath( jsonNavigationPath );
 
@@ -258,33 +258,55 @@ public abstract class JsonConfig {
 	/**
 	 *	This method performs two actions :<br>
 	 *	<li> it navigates with passed string the configuration file
-	 *	<li> it tries to convert found object to <b>JSONArray</b>
+	 *	<li> it tries to convert found object to <b>List<Object></b>
+	 *	<li> it returns "null" if element is not provided and it is optional
 	 *
 	 * @param jsonNavigationPath
 	 *
 	 * @return List<Object> of found object
+	 * @param isOptional describe if looked element can be null into json 
 	 *
 	 * @throws JSONSException
 	 */
 	@SuppressWarnings("unchecked")
-	protected List<Object> getJsonListFromPath( String jsonNavigationPath ) throws JSONSException {
-		
+	protected List<Object> getJsonListFromPath( String jsonNavigationPath, Boolean isOptional) throws JSONSException {
+
 		List<Object> resp = null;
+		
+		logger.debug("Looking for " + jsonNavigationPath);
+		logger.debug("This element is " + (isOptional ? "optional" : "mandatory"));
 		
 		Object findObject = getObjectFromPath( jsonNavigationPath );
 
 		try {
 			
-			// strange condition, but happened that sometimes org.json returns an ArrayList
-			// maybe for very simple json object (?)
-			if ( findObject instanceof List ) 
-				resp = (List<Object>)findObject;
-			else
-				resp = (List<Object>)parser.parse(findObject.toString(), containerFactory);
-			
-			if ( resp.size() == 0 )
-				resp = null;
-			
+			// element not found
+			if ( findObject == null ) {
+
+				logger.debug("Element is not present into json.");
+				
+				if ( !isOptional ) {
+					
+					logger.error("The missing of mandatory element is an error!");
+					throw new NullPointerException();
+				}
+				else
+					logger.warn("Optional element not provided, go forward \"null\".");
+			}
+			// element found
+			else {
+				
+				// strange condition, but happened that sometimes org.json returns an ArrayList
+				// maybe for very simple json object (?)
+				if ( findObject instanceof List ) 
+					resp = (List<Object>)findObject;
+				else
+					resp = (List<Object>)parser.parse(findObject.toString(), containerFactory);
+				
+				if ( resp.size() == 0 )
+					resp = null;
+			}			
+
 		} catch (ParseException | NullPointerException e) {
 			
 			String message = "Error during looking for \"List of object\" @ \""+jsonNavigationPath+"\"!";
@@ -296,6 +318,22 @@ public abstract class JsonConfig {
 		
 		return resp;
 	}
+
+	/**
+	 *	This method performs two actions :<br>
+	 *	<li> it navigates with passed string the configuration file
+	 *	<li> it tries to convert found object to <b>List<Object></b>
+	 *  
+	 * @param jsonNavigationPath is the search path
+	 * 
+	 * @return List<Object> of found object 
+	 * 
+	 * @throws JSONSException
+	 */	
+	protected List<Object> getJsonListFromPath( String jsonNavigationPath) throws JSONSException {
+		
+		return this.getJsonListFromPath(jsonNavigationPath, Boolean.FALSE);
+	}	
 	
 	/**
 	 *	This method navigates the JSON file and returns the addressed element.<br>
