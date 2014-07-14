@@ -15,7 +15,7 @@ import com.lumata.e4o.system.cdr.CDRClassGenerator;
 import com.lumata.e4o.system.cdr.types.CDRBundle;
 import com.lumata.e4o.system.cdr.types.CDRCall;
 import com.lumata.e4o.system.cdr.types.CDRHistory;
-import com.lumata.e4o.system.cdr.types.CDRRevenue;
+import com.lumata.e4o.system.cdr.types.CDRRevenueRecharge;
 import com.lumata.e4o.system.cdr.types.CDRVoucher;
 import com.lumata.e4o.system.fields.FieldBoolean;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
@@ -98,7 +98,7 @@ public class CDRRevenueSimple {
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_revenue_strategies" );
 
-		CDRRevenue cdrRevenue = new CDRRevenue();
+		CDRRevenueRecharge cdrRevenue = new CDRRevenueRecharge();
 		
 		// today
 		Calendar date = Calendar.getInstance();
@@ -115,7 +115,6 @@ public class CDRRevenueSimple {
 		cdrRevenue.setValidityDateStrategyFixed( date );
 		cdrRevenue.setDeactivationDateStrategyFixed( date );
 		cdrRevenue.setTypeStrategyRandom();
-		cdrRevenue.setDelayStrategyRandom( 500L, 5000L );
 		cdrRevenue.addLines( 2 );
 		cdrRevenue.print();
 		cdrRevenue.clean();

@@ -16,7 +16,7 @@ import com.lumata.common.testing.system.User;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.cdr.CDR;
-import com.lumata.e4o.system.cdr.types.CDRRevenue;
+import com.lumata.e4o.system.cdr.types.CDRRevenueRecharge;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
 
 public class CDRRevenueSimple {
@@ -47,7 +47,7 @@ public class CDRRevenueSimple {
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_revenue_strategies" );
 
-		CDRRevenue cdrRevenue = new CDRRevenue();
+		CDRRevenueRecharge cdrRevenue = new CDRRevenueRecharge();
 		
 		String currentTimestamp = Format.getSystemTimestamp();
 		
@@ -69,7 +69,6 @@ public class CDRRevenueSimple {
 		cdrRevenue.setValidityDateStrategyFixed( date );
 		cdrRevenue.setDeactivationDateStrategyFixed( date );
 		cdrRevenue.setTypeStrategyFixed( CDR.TYPE.RELOAD );
-		cdrRevenue.setDelayStrategyRandom( 500L, 5000L );
 		
 		cdrRevenue.addLines( 1 );
 		

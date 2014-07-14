@@ -24,7 +24,7 @@ import static com.lumata.common.testing.orm.Query.select;
 import com.lumata.common.testing.system.Environment;
 import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.schema.tenant.Subscribers;
-import com.lumata.e4o.system.cdr.types.CDRRevenue;
+import com.lumata.e4o.system.cdr.types.CDRRevenueRecharge;
 
 public class GenerateCDRRevenue {
 	
@@ -102,7 +102,7 @@ public class GenerateCDRRevenue {
 		
 		logger.info( Log.PUTTING.createMessage( "New cdr revenue csv file" ) );
 						
-		CDRRevenue cdrRevenue = new CDRRevenue();
+		CDRRevenueRecharge cdrRevenue = new CDRRevenueRecharge();
 		
 		// today
 		Calendar date = Calendar.getInstance();		
@@ -120,7 +120,6 @@ public class GenerateCDRRevenue {
 		cdrRevenue.setValidityDateStrategyFixed( validity_date );
 		cdrRevenue.setDeactivationDateStrategyFixed( deactivation_date );
 		cdrRevenue.setTypeStrategyRandom();
-		cdrRevenue.setDelayStrategyRandom( 500L, 5000L );
 		
 		for( int s = 0; s < CDR_LINES; s++ ) {
 			
@@ -160,7 +159,7 @@ public class GenerateCDRRevenue {
 		
 		logger.info( Log.PUTTING.createMessage( "New cdr revenue csv file" ) );
 						
-		CDRRevenue cdrRevenue = new CDRRevenue();
+		CDRRevenueRecharge cdrRevenue = new CDRRevenueRecharge();
 		
 		// today
 		Calendar date = Calendar.getInstance();
@@ -173,7 +172,6 @@ public class GenerateCDRRevenue {
 		cdrRevenue.setValidityDateStrategyFixed( date );
 		cdrRevenue.setDeactivationDateStrategyFixed( date );
 		cdrRevenue.setTypeStrategyRandom();
-		cdrRevenue.setDelayStrategyRandom( 500L, 5000L );
 		
 		cdrRevenue.addLines( CDR_LINES );
 				
@@ -185,7 +183,7 @@ public class GenerateCDRRevenue {
 				
 	}
 	
-	private void store_file( CDRRevenue cdrRevenue ) throws IOFileException {
+	private void store_file( CDRRevenueRecharge cdrRevenue ) throws IOFileException {
 		
 		cdrRevenue.setOutputPath( "output/demo/cdr", cdrRevenue.generateFileName() );
 		
@@ -195,7 +193,7 @@ public class GenerateCDRRevenue {
 		
 	}
 	
-	private void send_file( CDRRevenue cdrRevenue ) {
+	private void send_file( CDRRevenueRecharge cdrRevenue ) {
 		
 		cdrRevenue.send( env, "/nfsdata/files/cdr/deposit/REVENUE_CDR/" );
 		

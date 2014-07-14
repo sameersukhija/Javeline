@@ -15,7 +15,7 @@ import com.lumata.e4o.system.cdr.CDRClassGenerator;
 import com.lumata.e4o.system.cdr.types.CDRBundle;
 import com.lumata.e4o.system.cdr.types.CDRCall;
 import com.lumata.e4o.system.cdr.types.CDRHistory;
-import com.lumata.e4o.system.cdr.types.CDRRevenue;
+import com.lumata.e4o.system.cdr.types.CDRRevenueRecharge;
 import com.lumata.e4o.system.cdr.types.CDRVoucher;
 import com.lumata.e4o.system.fields.FieldBoolean;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
@@ -98,7 +98,7 @@ public class CDRExamples {
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_revenue_strategies" );
 
-		CDRRevenue cdrRevenue = new CDRRevenue();
+		CDRRevenueRecharge cdrRevenue = new CDRRevenueRecharge();
 		
 		// today
 		Calendar date = Calendar.getInstance();
@@ -115,7 +115,6 @@ public class CDRExamples {
 		cdrRevenue.setValidityDateStrategyFixed( date );
 		cdrRevenue.setDeactivationDateStrategyFixed( date );
 		cdrRevenue.setTypeStrategyFixed( CDR.TYPE.PAIEMENT );
-		cdrRevenue.setDelayStrategyFixed( 500L );
 		cdrRevenue.addLines( 2 );
 		cdrRevenue.print();
 		cdrRevenue.clean();
@@ -128,7 +127,6 @@ public class CDRExamples {
 		cdrRevenue.setValidityDateStrategyIncrement( date, increment );
 		cdrRevenue.setDeactivationDateStrategyIncrement( date, increment );
 		cdrRevenue.setTypeStrategyIncrement( CDR.TYPE.PAIEMENT, 1 );
-		cdrRevenue.setDelayStrategyIncrement( 500L, 50 );
 		cdrRevenue.addLines( 3 );
 		cdrRevenue.print();
 		cdrRevenue.clean();
@@ -144,7 +142,6 @@ public class CDRExamples {
 		cdrRevenue.setValidityDateStrategyRandom( date, max_date );
 		cdrRevenue.setDeactivationDateStrategyRandom( date, max_date );
 		cdrRevenue.setTypeStrategyRandom();
-		cdrRevenue.setDelayStrategyRandom( 500L, 5000L );
 		cdrRevenue.addLines( 3 );
 		cdrRevenue.print();
 		cdrRevenue.clean();
@@ -163,7 +160,6 @@ public class CDRExamples {
 		cdrRevenue.setValidityDateStrategyFixed( date );
 		cdrRevenue.setDeactivationDateStrategyFixed( date );
 		cdrRevenue.setTypeStrategyFixed( CDR.TYPE.PAIEMENT );
-		cdrRevenue.setDelayStrategyFixed( 500L );
 		cdrRevenue.addLines( 2 );
 		cdrRevenue.print();
 		cdrRevenue.clean();
@@ -176,7 +172,6 @@ public class CDRExamples {
 		cdrRevenue.setValidityDateStrategyIncrement( date, increment );
 		cdrRevenue.setDeactivationDateStrategyIncrement( date, increment );
 		cdrRevenue.setTypeStrategyIncrement( CDR.TYPE.PAIEMENT, 1 );
-		cdrRevenue.setDelayStrategyIncrement( 500L, 50 );
 		cdrRevenue.addLines( 3 );
 		cdrRevenue.print();
 		cdrRevenue.clean();
@@ -189,7 +184,6 @@ public class CDRExamples {
 		cdrRevenue.setValidityDateStrategyRandom( date, max_date );
 		cdrRevenue.setDeactivationDateStrategyRandom( date, max_date );
 		cdrRevenue.setTypeStrategyRandom();
-		cdrRevenue.setDelayStrategyRandom( 500L, 5000L );
 		cdrRevenue.addLines( 3 );
 		cdrRevenue.print();
 		cdrRevenue.clean();	
