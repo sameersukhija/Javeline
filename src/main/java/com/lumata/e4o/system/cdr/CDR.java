@@ -48,18 +48,32 @@ import com.lumata.e4o.system.cdr.fields.Download;
 import com.lumata.e4o.system.cdr.fields.Duration;
 import com.lumata.e4o.system.cdr.fields.Location;
 import com.lumata.e4o.system.cdr.fields.Msisdn;
+import com.lumata.e4o.system.cdr.fields.NewGender;
+import com.lumata.e4o.system.cdr.fields.NewHobbies;
+import com.lumata.e4o.system.cdr.fields.NewImei;
+import com.lumata.e4o.system.cdr.fields.NewImsi;
+import com.lumata.e4o.system.cdr.fields.NewInTag;
 import com.lumata.e4o.system.cdr.fields.NewNetwork;
 import com.lumata.e4o.system.cdr.fields.NewProfile;
 import com.lumata.e4o.system.cdr.fields.NewRatePlan;
+import com.lumata.e4o.system.cdr.fields.NewSalary;
 import com.lumata.e4o.system.cdr.fields.NewStatus;
 import com.lumata.e4o.system.cdr.fields.NewSubProfile;
 import com.lumata.e4o.system.cdr.fields.NewSubscriptionDate;
+import com.lumata.e4o.system.cdr.fields.NewTongue;
+import com.lumata.e4o.system.cdr.fields.OldGender;
+import com.lumata.e4o.system.cdr.fields.OldHobbies;
+import com.lumata.e4o.system.cdr.fields.OldImei;
+import com.lumata.e4o.system.cdr.fields.OldImsi;
+import com.lumata.e4o.system.cdr.fields.OldInTag;
 import com.lumata.e4o.system.cdr.fields.OldNetwork;
 import com.lumata.e4o.system.cdr.fields.OldProfile;
 import com.lumata.e4o.system.cdr.fields.OldRatePlan;
+import com.lumata.e4o.system.cdr.fields.OldSalary;
 import com.lumata.e4o.system.cdr.fields.OldStatus;
 import com.lumata.e4o.system.cdr.fields.OldSubProfile;
 import com.lumata.e4o.system.cdr.fields.OldSubscriptionDate;
+import com.lumata.e4o.system.cdr.fields.OldTongue;
 import com.lumata.e4o.system.cdr.fields.Sms;
 import com.lumata.e4o.system.cdr.fields.TenantId;
 import com.lumata.e4o.system.cdr.fields.Terminating;
@@ -76,6 +90,7 @@ import com.lumata.e4o.system.fields.FieldEnum;
 import com.lumata.e4o.system.fields.FieldLong;
 import com.lumata.e4o.system.fields.FieldMsisdn;
 import com.lumata.e4o.system.fields.FieldSchemaTable;
+import com.lumata.e4o.system.fields.FieldSet;
 import com.lumata.e4o.system.fields.FieldString;
 import com.lumata.e4o.system.fields.IFieldEnum;
 
@@ -151,13 +166,23 @@ public class CDR {
 	@Upload
 	protected FieldLong upload;
 	
-	@NewRatePlan
-	//protected CSVSchemaTable new_rate_plan;
-	protected FieldString new_rate_plan;
+	@NewImei
+	protected FieldLong new_imei;
 	
-	@OldRatePlan
-	//protected CSVSchemaTable old_rate_plan;
-	protected FieldString old_rate_plan;
+	@OldImei
+	protected FieldLong old_imei;
+
+	@NewImsi
+	protected FieldLong new_imsi;
+	
+	@OldImsi
+	protected FieldLong old_imsi;
+	
+	@NewSubscriptionDate
+	protected FieldDate new_subscription_date;
+	
+	@OldSubscriptionDate
+	protected FieldDate old_subscription_date;
 	
 	@NewProfile
 	//protected CSVSchemaTable new_profile;
@@ -172,7 +197,14 @@ public class CDR {
 	
 	@OldSubProfile
 	protected FieldString old_subprofile;
-
+	
+	@NewRatePlan
+	//protected CSVSchemaTable new_rate_plan;
+	protected FieldString new_rate_plan;
+	
+	@OldRatePlan
+	//protected CSVSchemaTable old_rate_plan;
+	protected FieldString old_rate_plan;
 	@NewStatus
 	//protected CSVSchemaTable new_status;
 	//protected CSVString new_status;
@@ -188,18 +220,39 @@ public class CDR {
 
 	@OldNetwork
 	protected FieldString old_network; 
-		
-	@NewSubscriptionDate
-	protected FieldDate new_subscription_date;
+
+	@NewTongue
+	protected FieldString new_tongue; 
+
+	@OldTongue
+	protected FieldString old_tongue; 
 	
-	@OldSubscriptionDate
-	protected FieldDate old_subscription_date;
+	@NewInTag
+	protected FieldString new_in_tag; 
+
+	@OldInTag
+	protected FieldString old_in_tag; 
+	
+	@NewHobbies
+	protected FieldSet new_hobbies; 
+
+	@OldHobbies
+	protected FieldSet old_hobbies; 
+
+	@NewGender
+	protected FieldEnum new_gender; 
+
+	@OldGender
+	protected FieldEnum old_gender; 
+
+	@NewSalary
+	protected FieldString new_salary; 
+
+	@OldSalary
+	protected FieldString old_salary; 
 	
 	@Sms
 	protected FieldEnum sms;
-	
-	//Code,
-	//PointOfRedemption,
 	
 	@TenantId
 	protected FieldLong tenant_id;
@@ -290,6 +343,35 @@ public class CDR {
 		
 	}
 	
+	@NewHobbies
+	@OldHobbies
+	public enum HOBBIES { 
+		
+		Football, Golfing, Cycling, Baseball, Volley, Dance, Juggling, BodyBuilding, Photography, Shopping, Swimming;
+			
+	};
+	
+	@NewGender
+	@OldGender
+	public enum GENDER implements IFieldEnum { 
+		
+		COMPANY("COMPANY"), 
+		FEMALE("FEMALE"), 
+		MALE("MALE"), 
+		UNDEFINED("UNDEFINED");
+		
+		private String value;
+		
+		GENDER( String value ) { 
+			this.value = value; 
+		}
+		
+		public String value() {
+			return this.value;
+		}
+		
+	};
+		
 	public CDR() {
 		
 		this.msisdn = new FieldMsisdn();		
@@ -314,12 +396,19 @@ public class CDR {
 		//this.old_profile = new CSVSchemaTable( new Profiles(), Profiles.Fields.profile );
 		this.download = new FieldLong(); 
 		this.upload = new FieldLong(); 
-		this.new_rate_plan = new FieldString();
-		this.old_rate_plan = new FieldString();
+		
+		this.new_imei = new FieldLong();
+		this.old_imei = new FieldLong();
+		this.new_imsi = new FieldLong();
+		this.old_imsi = new FieldLong();
+		this.new_subscription_date = new FieldDate();
+		this.old_subscription_date = new FieldDate();
 		this.new_profile = new FieldString();
 		this.old_profile = new FieldString();
 		this.new_subprofile = new FieldString();
-		this.old_subprofile = new FieldString();
+		this.old_subprofile = new FieldString();	
+		this.new_rate_plan = new FieldString();
+		this.old_rate_plan = new FieldString();
 		//this.new_status = new CSVSchemaTable( new Statuses(), Statuses.Fields.status );
 		//this.old_status = new CSVSchemaTable( new Statuses(), Statuses.Fields.status );
 		//this.new_status = new CSVString();
@@ -327,9 +416,18 @@ public class CDR {
 		this.new_status = new FieldEnum( SUBSTATUS.values() );
 		this.old_status = new FieldEnum( SUBSTATUS.values() );		
 		this.new_network = new FieldString(); 
-		this.old_network = new FieldString(); 
-		this.new_subscription_date = new FieldDate();
-		this.old_subscription_date = new FieldDate();
+		this.old_network = new FieldString();
+		this.new_tongue = new FieldString();
+		this.old_tongue = new FieldString();		
+		this.new_in_tag = new FieldString();
+		this.old_in_tag = new FieldString();		
+		this.new_hobbies = new FieldSet( HOBBIES.values() );
+		this.old_hobbies = new FieldSet( HOBBIES.values() );
+		this.new_gender = new FieldEnum( GENDER.values() ); 
+		this.old_gender = new FieldEnum( GENDER.values() );
+		this.new_salary = new FieldString();
+		this.old_salary = new FieldString(); 
+		
 		this.sms = new FieldEnum( SMS.values() );
 		
 		this.file_content = new StringBuilder();

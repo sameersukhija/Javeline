@@ -40,7 +40,7 @@ public class GenerateVouchers {
 		final String VOUCHER_FOLDER = "/catalogmanager/vouchers";
 		final String VOUCHER_FILE = "voucherList";
 		final Long VOUCHERS_TO_GENERATE = 10L;
-		final Integer startValue = 0;
+		final Integer startValue = 60;
 		final Integer incrementalValue = 1;
 		
 		logger.info( Log.CREATING.createMessage( "voucher with incremental code" ) );

@@ -24,6 +24,7 @@ public class GenerateSubscribersRecharge {
 	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersRecharge.class );
 	
 	final boolean GENERATE_FIXED_SUBSCRIBER = true;
+	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE = false;
 	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = false;
 	final boolean GENERATE_RANDOM_SUBSCRIBERS = false;
 	
@@ -53,19 +54,33 @@ public class GenerateSubscribersRecharge {
 	public void generateFixedSubscriber() throws GeneratorException {
 		
 		final Long FIXED_MSISDN = 3399900001L;
-		final Integer MIN_EVENTS = 1;
-		final Integer MAX_EVENTS = 1;
 		final Long RECHARGE_TO_GENERATE = 10L;
 				
 		Generator.subscribers()
-					.environment( env )
-					.mysql( mysql )
+					.server( guiServer )
+					.user( superman )
 					.msisdnFixed( FIXED_MSISDN )
-					.minRandomEvents( MIN_EVENTS )
-					.maxRandomEvents( MAX_EVENTS )
 					.xmlrpcRecharge( RECHARGE_TO_GENERATE );
 					
 	}
+	
+	@Test( enabled = GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE )
+	public void generateFixedSubscriberRandomRecharge() throws GeneratorException {
+		
+		final Long FIXED_MSISDN = 3399900001L;
+		final Integer MIN_EVENTS = 1;
+		final Integer MAX_EVENTS = 1;
+				
+		Generator.subscribers()
+					.server( guiServer )
+					.user( superman )
+					.msisdnFixed( FIXED_MSISDN )
+					.minRandomEvents( MIN_EVENTS )
+					.maxRandomEvents( MAX_EVENTS )
+					.xmlrpcRecharge();
+					
+	}
+	
 	/*
 	@Test( enabled = GENERATE_INCREMENTAL_SUBSCRIBERS )
 	public void generateIncrementalSubscribers() throws GeneratorException {

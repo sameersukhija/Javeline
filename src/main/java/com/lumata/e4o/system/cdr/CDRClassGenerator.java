@@ -31,18 +31,32 @@ import com.lumata.e4o.system.cdr.fields.Download;
 import com.lumata.e4o.system.cdr.fields.Duration;
 import com.lumata.e4o.system.cdr.fields.Location;
 import com.lumata.e4o.system.cdr.fields.Msisdn;
+import com.lumata.e4o.system.cdr.fields.NewGender;
+import com.lumata.e4o.system.cdr.fields.NewHobbies;
+import com.lumata.e4o.system.cdr.fields.NewImei;
+import com.lumata.e4o.system.cdr.fields.NewImsi;
+import com.lumata.e4o.system.cdr.fields.NewInTag;
 import com.lumata.e4o.system.cdr.fields.NewNetwork;
 import com.lumata.e4o.system.cdr.fields.NewProfile;
 import com.lumata.e4o.system.cdr.fields.NewRatePlan;
+import com.lumata.e4o.system.cdr.fields.NewSalary;
 import com.lumata.e4o.system.cdr.fields.NewStatus;
 import com.lumata.e4o.system.cdr.fields.NewSubProfile;
 import com.lumata.e4o.system.cdr.fields.NewSubscriptionDate;
+import com.lumata.e4o.system.cdr.fields.NewTongue;
+import com.lumata.e4o.system.cdr.fields.OldGender;
+import com.lumata.e4o.system.cdr.fields.OldHobbies;
+import com.lumata.e4o.system.cdr.fields.OldImei;
+import com.lumata.e4o.system.cdr.fields.OldImsi;
+import com.lumata.e4o.system.cdr.fields.OldInTag;
 import com.lumata.e4o.system.cdr.fields.OldNetwork;
 import com.lumata.e4o.system.cdr.fields.OldProfile;
 import com.lumata.e4o.system.cdr.fields.OldRatePlan;
+import com.lumata.e4o.system.cdr.fields.OldSalary;
 import com.lumata.e4o.system.cdr.fields.OldStatus;
 import com.lumata.e4o.system.cdr.fields.OldSubProfile;
 import com.lumata.e4o.system.cdr.fields.OldSubscriptionDate;
+import com.lumata.e4o.system.cdr.fields.OldTongue;
 import com.lumata.e4o.system.cdr.fields.Sms;
 import com.lumata.e4o.system.cdr.fields.TenantId;
 import com.lumata.e4o.system.cdr.fields.Terminating;
@@ -59,14 +73,16 @@ public class CDRClassGenerator {
 	StringBuilder import_classes;
 	boolean import_calendar_package;
 	boolean import_enum_package;
+	boolean import_set_package;
 	boolean import_json_package;
 	
-	final String CDR_PACKAGE = "com.lumata.e4o.system.cdr";
-	final String CDR_TYPES_PACKAGE = "com.lumata.e4o.system.cdr.types";
-	final String CDR_ANNOTATIONS_PACKAGE = "com.lumata.e4o.system.cdr.fields";
-	final String CDR_EXCEPTION_CLASS = "com.lumata.e4o.exceptions.CDRException";
-	final String FIELD_TYPE_PACKAGE = "com.lumata.e4o.system.field.type";
-	final String FIELDS_PACKAGE = "com.lumata.e4o.system.fields";
+	final String LUMATA_PACKAGE_ = "com.lumata.e4o";
+	final String CDR_PACKAGE_ = LUMATA_PACKAGE_ + ".system.cdr";
+	final String CDR_TYPES_PACKAGE_ = LUMATA_PACKAGE_ + ".system.cdr.types";
+	final String CDR_ANNOTATIONS_PACKAGE_ = LUMATA_PACKAGE_ + ".system.cdr.fields";
+	final String CDR_EXCEPTION_CLASS_ = LUMATA_PACKAGE_ + ".exceptions.CDRException";
+	final String FIELD_TYPE_PACKAGE_ = LUMATA_PACKAGE_ + ".system.field.type";
+	final String FIELDS_PACKAGE_ = LUMATA_PACKAGE_ + ".system.fields";
 	
 	/** CDR types definition */
 	private enum CDRTypes {
@@ -115,7 +131,7 @@ public class CDRClassGenerator {
 		},
 		LifeCycle {	
 			public List<Class<? extends Annotation>> fields() {
-				return Arrays.asList( Msisdn.class, Date.class, NewRatePlan.class, OldRatePlan.class, NewProfile.class, OldProfile.class, NewSubProfile.class, OldSubProfile.class, NewStatus.class, OldStatus.class, NewNetwork.class, OldNetwork.class, NewSubscriptionDate.class, OldSubscriptionDate.class );
+				return Arrays.asList( Msisdn.class, Date.class, NewImei.class, OldImei.class, NewImsi.class, OldImsi.class, NewSubscriptionDate.class, OldSubscriptionDate.class, NewProfile.class, OldProfile.class, NewRatePlan.class, OldRatePlan.class, NewStatus.class, OldStatus.class, NewNetwork.class, OldNetwork.class, NewTongue.class, OldTongue.class, NewInTag.class, OldInTag.class, NewHobbies.class, OldHobbies.class, NewGender.class, OldGender.class, NewSalary.class, OldSalary.class );
 			}
 		},
 		Call {	
@@ -161,12 +177,13 @@ public class CDRClassGenerator {
 				/** Import needed packages */
 				import_calendar_package = true;
 				import_enum_package = true;
+				import_set_package = true;
 				import_json_package = true;				
 				
 				import_classes = new StringBuilder();
-				import_classes.append( "import " ).append( CDR_PACKAGE ).append( ".CDR;\n" );
-				import_classes.append( "import " ).append( CDR_ANNOTATIONS_PACKAGE + ".*;\n" );
-				import_classes.append( "import " ).append( CDR_EXCEPTION_CLASS ).append( ";\n" );
+				import_classes.append( "import " ).append( CDR_PACKAGE_ ).append( ".CDR;\n" );
+				import_classes.append( "import " ).append( CDR_ANNOTATIONS_PACKAGE_ + ".*;\n" );
+				import_classes.append( "import " ).append( CDR_EXCEPTION_CLASS_ ).append( ";\n" );
 				//import_classes.append( "import org.slf4j.Logger;\n" );
 				//import_classes.append( "import org.slf4j.LoggerFactory;\n" );
 								
@@ -181,7 +198,7 @@ public class CDRClassGenerator {
 				
 				/** Define new CDR Type path name */
 				final StringBuilder filePath = new StringBuilder();
-		    	filePath.append( System.getProperty( "user.dir" ) ).append( "/src/main/java/" ).append( CDR_TYPES_PACKAGE.toString().replaceAll( "[.]" , "/" ) );
+		    	filePath.append( System.getProperty( "user.dir" ) ).append( "/src/main/java/" ).append( CDR_TYPES_PACKAGE_.toString().replaceAll( "[.]" , "/" ) );
 								
 		    	/** Define new CDR Type logger class
 				final StringBuilder logger_class = new StringBuilder();
@@ -196,7 +213,7 @@ public class CDRClassGenerator {
 				/** Build new CDR Type class */
 				final StringBuilder cdr_type_class = new StringBuilder();
 				cdr_type_class.append( "package " )							
-								.append( CDR_TYPES_PACKAGE )
+								.append( CDR_TYPES_PACKAGE_ )
 								.append( ";\n\n" )
 								.append( import_classes )
 								.append( "\n" )
@@ -221,7 +238,7 @@ public class CDRClassGenerator {
 	}
 
 	/** Load CSV Type classes */
-	private Map<String, String> loadCSVTypeClasses() throws IOFileException {
+	public Map<String, String> loadCSVTypeClasses() throws IOFileException {
 		
 		Map<String, String> csvTypeClasses = new HashMap<String, String>();
 				
@@ -229,7 +246,7 @@ public class CDRClassGenerator {
 		
 		dir.append( System.getProperty( "user.dir" ) )
 			.append( "/src/main/java/" )
-			.append( FIELDS_PACKAGE.replace( "." , "/" ) )
+			.append( FIELDS_PACKAGE_.replace( "." , "/" ) )
 			.append( "/" );
 		
 		File directory = new File( dir.toString() );
@@ -264,130 +281,156 @@ public class CDRClassGenerator {
 	}
 	
 	/** Build CDR Type Class Methods Body */
-	private StringBuilder generateMethods( CDRTypes cdr_type, Map<String, String> csv_type_classes ) throws ClassNotFoundException {
+	private StringBuilder generateMethods( CDRTypes cdrType, Map<String, String> fieldTypeClassList ) throws ClassNotFoundException {
 		
 		/** Load CDR parent class */
-		CDR cdr_class = new CDR();
+		CDR cdrParentClass = new CDR();
 		
 		/** CDR Type Class Methods Body */
-		StringBuilder cdr_type_methods = new StringBuilder();
+		StringBuilder cdrTypeMethods = new StringBuilder();
 		
 		/** Load CDR type fields */
-		for( int f = 0; f < cdr_type.fields().size(); f++ ) {
+		for( int f = 0; f < cdrType.fields().size(); f++ ) {
 		
 			/** Load CDR ( father class ) fields */
-			for( Field cdr_field : cdr_class.getClass().getDeclaredFields() ) {
+			for( Field cdrField : cdrParentClass.getClass().getDeclaredFields() ) {
 				
-				if( cdr_field.isAnnotationPresent( cdr_type.fields().get( f ) ) ) {
+				if( cdrField.isAnnotationPresent( cdrType.fields().get( f ) ) ) {
 					
-					/** Define cdr type field */
-					String cdr_type_field = cdr_type.fields().get( f ).getSimpleName();
+					/** Define field type */
+					final String FIELD_TYPE_ = cdrType.fields().get( f ).getSimpleName();
 					
 					/** Get CSV Type class */
-					Class<?> csv_type_class = Class.forName( FIELDS_PACKAGE + "." + cdr_field.getType().getSimpleName() );
+					final Class<?> fieldTypeClass = Class.forName( FIELDS_PACKAGE_ + "." + cdrField.getType().getSimpleName() );
 					
 					/** Get CSV Type methods */
-					for( Method csv_type_method : csv_type_class.getDeclaredMethods() ) {
+					for( final Method fieldTypeMethod : fieldTypeClass.getDeclaredMethods() ) {
 							
 						/** Get CSV Type annotated methods only*/
-						if( csv_type_method.isAnnotationPresent( FieldMethod.class ) ) {
+						if( fieldTypeMethod.isAnnotationPresent( FieldMethod.class ) ) {
 							
 							/** Create new cdr type method parameters regex */
-							StringBuilder parameter_regex = new StringBuilder();
+							StringBuilder parameterRegex = new StringBuilder();
 							
-							for( Class<?> parameter : csv_type_method.getParameterTypes() ) {
+							for( Class<?> parameter : fieldTypeMethod.getParameterTypes() ) {
 								
-								parameter_regex.append( ".*" ).append( parameter.getName().replaceAll( "[0-9a-zA-Z]+[.]", "" ) ).append( "[ _<>?a-zA-Z0-9]+," ) ;
+								Boolean isArray = parameter.getName().startsWith( "[" );
 								
+								parameterRegex.append( ".*" ).append( parameter.getName().replace( ";", "" ).replaceAll( "[\\[\\]0-9a-zA-Z]+[.]", "" ) ).append( ( isArray ? "(<[?]>)*[.\\\\[\\\\]]+" : "" ) ).append( "[ _<>?a-zA-Z0-9]+" ).append( "," ) ;
+																
 							}
 							
-							if( parameter_regex.length() > 0 ) { parameter_regex.setLength( parameter_regex.length() - 1 ); }
+							if( parameterRegex.length() > 0 ) { parameterRegex.setLength( parameterRegex.length() - 1 ); }
 							
 							/** Create new cdr type method returned type expression */
-							StringBuilder method_returned_type = new StringBuilder();					
-							method_returned_type.append( csv_type_method.toString().replace( CDR_PACKAGE + ".CDR.", "" ).replaceAll( csv_type_method.getName() + ".*" , "" ).replaceAll( "[0-9a-zA-Z]+[.]" , "" ) );
+							StringBuilder methodReturnedType = new StringBuilder();					
+							methodReturnedType.append( fieldTypeMethod.toString().replace( CDR_PACKAGE_ + ".CDR.", "" ).replaceAll( fieldTypeMethod.getName() + ".*" , "" ).replaceAll( "[0-9a-zA-Z]+[.]" , "" ) );
 														
 							/** Create new cdr type method regex expression */
-							StringBuilder method_regex = new StringBuilder();					
-							method_regex.append( method_returned_type ).append( csv_type_method.getName() ).append( "[ ]*[(]" ).append( parameter_regex ).append( "[)][ _0-9a-zA-Z]*" );
+							StringBuilder methodRegex = new StringBuilder();					
+							methodRegex.append( methodReturnedType ).append( fieldTypeMethod.getName() ).append( "[ ]*[(]" ).append( parameterRegex ).append( "[)][ _0-9a-zA-Z]*" );
 							
-							/** Get method from CSV Type Class */						
-							Pattern pattern_csv_type_method = Pattern.compile( method_regex.toString() );
-							Matcher matcher_csv_type_method = pattern_csv_type_method.matcher( csv_type_classes.get( cdr_field.getType().getSimpleName() ) );
+							/** Get method from Field Type Class */						
 							
-							if( matcher_csv_type_method.find() ) {
+							final String METHOD_PATTERN_REGEX_ = methodRegex.toString().replace( "\\\\", "\\" );
+													
+							final Pattern patternFieldTypeMethod = Pattern.compile( METHOD_PATTERN_REGEX_ );
+							
+							Matcher matcherFieldTypeMethod = patternFieldTypeMethod.matcher( fieldTypeClassList.get( cdrField.getType().getSimpleName() ) );
+														
+							if( matcherFieldTypeMethod.find() ) {
 								
 								/** Get csv type managed field name */
-								String csv_type_field = csv_type_class.getAnnotations()[0].getClass().getInterfaces()[0].getSimpleName();
+								String fieldTypeName = fieldTypeClass.getAnnotations()[0].getClass().getInterfaces()[0].getSimpleName();
 																
 								/** Build cdr type method class body */
-								String csv_type_method_call = matcher_csv_type_method.group(0).replace( method_returned_type.toString(), "" ).replaceAll( "[ ]*throws[ a-zA-Z]*", "" );
 								
-								for( java.lang.reflect.Type param_type : csv_type_method.getGenericParameterTypes() ) {
+								String fieldTypeMethodCall = matcherFieldTypeMethod.group(0).replace( methodReturnedType.toString(), "" ).replaceAll( "[ ]*throws[ a-zA-Z]*", "" );
+								
+								for( java.lang.reflect.Type paramType : fieldTypeMethod.getGenericParameterTypes() ) {
 									
-									String method_class_body_regex = param_type.toString().replaceAll( ".+[.](.+[ <>?]+extends).+[.](.+)", "$1 $2" ).replaceAll( ".+[.]", "" ).replace( "?" , "[?]") + "[ ]+";
+									Boolean isArray = ( paramType.toString().contains( "[Ljava" ) || paramType.toString().contains( "[]" ) );
 									
-									csv_type_method_call = csv_type_method_call.replaceAll( method_class_body_regex, "").replaceAll( "final[ ]+", "" );
+									String methodClassBodyRegex = paramType.toString()
+																	.replaceAll( ".+[.](.+[ <>?]+extends).+[.](.+)", "$1 $2" )
+																	.replaceAll( ".+[.].+[.](.+)([<]).+[.].+[.](.+)", "$1$2$3" )
+																	.replaceAll( ".+[.]", "" )
+																	//.replace( "[]", "\\[\\]" )
+																	.replace( "[]", "" )
+																	.replace( "?" , "[?]")
+																	.replace( ";", "" ) +
+																	( isArray ? "(...|\\[\\])" : "" ) +
+																	"[ ]+";
 									
+									fieldTypeMethodCall = fieldTypeMethodCall.replaceAll( methodClassBodyRegex, "").replaceAll( "final[ ]+", "" );
+								
 								}
 								
-								StringBuilder cdr_type_method_body = new StringBuilder();
+								StringBuilder cdrTypeMethodBody = new StringBuilder();
 								
-								if( csv_type_method.getReturnType().toString().equals( "void" ) ) {
+								if( fieldTypeMethod.getReturnType().toString().equals( "void" ) ) {
 									
-									cdr_type_method_body.append( "if( this." )
-														.append( cdr_field.getName() )
+									cdrTypeMethodBody.append( "if( this." )
+														.append( cdrField.getName() )
 														.append(" != null ) { this.")
-														.append( cdr_field.getName() )
+														.append( cdrField.getName() )
 														.append( "." )
-														.append( csv_type_method_call.trim() )
+														.append( fieldTypeMethodCall.trim() )
 														.append( "; }" );							
 								
 								} else {
 									
-									cdr_type_method_body.append( "return this." )
-														.append( cdr_field.getName() )
+									cdrTypeMethodBody.append( "return this." )
+														.append( cdrField.getName() )
 														.append(".")
-														.append( csv_type_method_call.trim() )
+														.append( fieldTypeMethodCall.trim() )
 														.append( ";" );
 									
 								}
 								
-								StringBuilder cdr_type_method = new StringBuilder();
+								StringBuilder cdrTypeMethod = new StringBuilder();
 								
-								cdr_type_method.append( "\t" )
-												.append( ( !csv_type_method.getReturnType().toString().equals( "void" ) ? "@" + cdr_type.fields().get( f ).getSimpleName() + "( position = " + f + " )\n\t" : "" ) )
-												.append( matcher_csv_type_method.group(0).replace( csv_type_method.getName(), csv_type_method.getName().replace( csv_type_field.replace( "FieldType" , "" ), cdr_type_field ) ) )
+								cdrTypeMethod.append( "\t" )
+												.append( ( !fieldTypeMethod.getReturnType().toString().equals( "void" ) ? "@" + cdrType.fields().get( f ).getSimpleName() + "( position = " + f + " )\n\t" : "" ) )
+												.append( matcherFieldTypeMethod.group(0).replace( fieldTypeMethod.getName(), fieldTypeMethod.getName().replace( fieldTypeName.replace( "FieldType" , "" ), FIELD_TYPE_ ) ) )
 												.append( " {\n\t\t" )
-												.append( cdr_type_method_body )
+												.append( cdrTypeMethodBody )
 												.append( "\n\t}\n\n" );
 																				
 								/** Put cdr type method */
-								cdr_type_methods.append( cdr_type_method );
+								cdrTypeMethods.append( cdrTypeMethod );
 																
 								/** Check needed packages */
 								
 								/** Put Calendar packages if it needs */						
-								Pattern pattern_calendar = Pattern.compile( "Calendar" );
-								Matcher matcher_calendar = pattern_calendar.matcher( matcher_csv_type_method.group(0) );
-								if( matcher_calendar.find() && import_calendar_package ) {
+								Pattern patternCalendar = Pattern.compile( "Calendar" );
+								Matcher matcherCalendar = patternCalendar.matcher( matcherFieldTypeMethod.group(0) );
+								if( matcherCalendar.find() && import_calendar_package ) {
 									import_classes.append( "import java.util.Calendar;\n" );
-									import_classes.append( "import " ).append( FIELDS_PACKAGE ).append( ".FieldDateIncrement;\n" );
+									import_classes.append( "import " ).append( FIELDS_PACKAGE_ ).append( ".FieldDateIncrement;\n" );
 									import_calendar_package = false;
 								}
 								
 								/** Put Enum packages if it needs */						
-								Pattern pattern_enum = Pattern.compile( "IFieldEnum" );
-								Matcher matcher_enum = pattern_enum.matcher( matcher_csv_type_method.group(0) );
-								if( matcher_enum.find() && import_enum_package ) {
-									import_classes.append( "import " ).append( FIELDS_PACKAGE ).append( ".IFieldEnum;\n" );
+								Pattern patternEnum = Pattern.compile( "IFieldEnum" );
+								Matcher matcherEnum = patternEnum.matcher( matcherFieldTypeMethod.group(0) );
+								if( matcherEnum.find() && import_enum_package ) {
+									import_classes.append( "import " ).append( FIELDS_PACKAGE_ ).append( ".IFieldEnum;\n" );
 									import_enum_package = false;
 								}
 								
+								/** Put Set packages if it needs */						
+								Pattern patternSet = Pattern.compile( "Set" );
+								Matcher matcherSet = patternSet.matcher( matcherFieldTypeMethod.group(0) );
+								if( matcherSet.find() && import_set_package ) {
+									import_classes.append( "import java.util.Set;\n" );
+									import_set_package = false;
+								}
+								
 								/** Put JSONObject or JSONArray packages if it needs */
-								Pattern pattern_json = Pattern.compile( "JSONObject|JSONArray" );
-								Matcher matcher_json = pattern_json.matcher( matcher_csv_type_method.group(0) );								
-								if( matcher_json.find() && import_json_package ) {
+								Pattern patternJson = Pattern.compile( "JSONObject|JSONArray" );
+								Matcher matcherJson = patternJson.matcher( matcherFieldTypeMethod.group(0) );								
+								if( matcherJson.find() && import_json_package ) {
 									import_classes.append( "import org.json.*;\n" );
 									import_json_package = false;
 								}
@@ -395,7 +438,7 @@ public class CDRClassGenerator {
 							}							
 														
 						}
-										
+									
 					}
 										
 				}
@@ -405,7 +448,7 @@ public class CDRClassGenerator {
 			
 		}
 		
-		return cdr_type_methods;
+		return cdrTypeMethods;
 		
 	}
 	

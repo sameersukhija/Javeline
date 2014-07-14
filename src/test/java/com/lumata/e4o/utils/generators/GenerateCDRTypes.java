@@ -13,7 +13,7 @@ public class GenerateCDRTypes {
 	private static final Logger logger = LoggerFactory.getLogger( GenerateCDRTypes.class );
 	
 	@Test( priority = 1, enabled = true )
-	public void geenrateCDRTypes() throws ClassNotFoundException, IOFileException {
+	public void generateCDRTypes() throws ClassNotFoundException, IOFileException {
 		
 		CDRClassGenerator cdrTypesGenerator = new CDRClassGenerator();
 		
