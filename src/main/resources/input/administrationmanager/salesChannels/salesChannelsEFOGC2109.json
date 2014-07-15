@@ -1,0 +1,33 @@
+{
+	"salesChannels": [
+		{
+			"enabled": true,
+			"name":"Ch A",
+			"active":true,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": true,
+			"name":"Ch B",
+			"active":true,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": true,
+			"name":"Ch C",
+			"active":true,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		},{
+			"enabled": true,
+			"name":"Ch D",
+			"active":true,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		}
+	]
+}

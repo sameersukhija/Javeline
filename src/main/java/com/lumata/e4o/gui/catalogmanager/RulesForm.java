@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import com.lumata.common.testing.exceptions.JSONSException;
@@ -117,6 +119,10 @@ public class RulesForm extends OfferOptimisationForm {
 		if( ruleCfg.getIncludePreviouslyAcceptedOffers() ) { clickId( "previousOffersDrawnIncluded-1" ); }
 		else { clickId( "previousOffersDrawnIncluded-0" ); }
 
+		WebElement maxOfferElem = selenium.getWrappedDriver().findElement(By.xpath("//input[@ng-model='ruleset.numOfOffersToDraw']"));
+		maxOfferElem.clear();
+		maxOfferElem.sendKeys(ruleCfg.getMaximumNumberOfOffers().toString());
+		
 		return this;		
 	}
 	
@@ -128,6 +134,12 @@ public class RulesForm extends OfferOptimisationForm {
 	 * @throws JSONSException
 	 */
 	public RulesForm manageErrorAction( ElementErrorActionType errorAction ) throws FormException, JSONSException {
+		
+		try {
+			Thread.sleep(1_000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		
 		closeAngularFrame();
 		
