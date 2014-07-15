@@ -406,7 +406,7 @@
 		},
 		{
 			"enabled": true,
-			"name": "Offer 010",
+			"name": "Offer 10",
 			"definition" : {
 				"externalId" : null,
 				"description": "EFOGC-2110",

@@ -9,22 +9,22 @@
 				"name":"Ch A",
 				"mandatory": true,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				},{
 				"name":"Ch B",
 				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				},{
 				"name":"Ch C",
 				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				},{
 				"name":"Ch D",
 				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
@@ -43,22 +43,22 @@
 				"name":"Ch A",
 				"mandatory": true,
 				"unlimited": false,
-				"maxOffer" : 3,
+				"maxOffer" : 3
 				},{
 				"name":"Ch B",
 				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				},{
 				"name":"Ch C",
 				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				},{
 				"name":"Ch D",
 				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
@@ -77,22 +77,22 @@
 				"name":"Ch A",
 				"mandatory": true,
 				"unlimited": false,
-				"maxOffer" : 4,
+				"maxOffer" : 4
 				},{
 				"name":"Ch B",
 				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				},{
 				"name":"Ch C",
 				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				},{
 				"name":"Ch D",
 				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
@@ -111,22 +111,22 @@
 				"name":"Ch A",
 				"mandatory": true,
 				"unlimited": false,
-				"maxOffer" : 1,
+				"maxOffer" : 1
 				},{
 				"name":"Ch B",
 				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				},{
 				"name":"Ch C",
 				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				},{
 				"name":"Ch D",
 				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
@@ -145,22 +145,22 @@
 				"name":"Ch A",
 				"mandatory": true,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				},{
 				"name":"Ch B",
 				"mandatory": true,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				},{
 				"name":"Ch C",
 				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				},{
 				"name":"Ch D",
 				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
@@ -178,28 +178,28 @@
 			"channels":[ {
 				"name":"Ch A",
 				"mandatory": true,
-				"unlimited": true,
-				"maxOffer" : 0,
+				"unlimited": false,
+				"maxOffer" : 2
 				},{
 				"name":"Ch B",
 				"mandatory": true,
-				"unlimited": true,
-				"maxOffer" : 0,
+				"unlimited": false,
+				"maxOffer" : 2
 				},{
 				"name":"Ch C",
 				"mandatory": false,
-				"unlimited": true,
-				"maxOffer" : 0,
+				"unlimited": false,
+				"maxOffer" : 2
 				},{
 				"name":"Ch D",
 				"mandatory": false,
-				"unlimited": true,
-				"maxOffer" : 0,
+				"unlimited": false,
+				"maxOffer" : 2
 				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"maximumNumberOfOffers": 1,
+			"maximumNumberOfOffers": 8,
 			"errorActions" : {
 				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 

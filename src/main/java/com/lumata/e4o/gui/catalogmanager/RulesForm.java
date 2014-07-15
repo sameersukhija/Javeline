@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorActionType;
@@ -19,6 +21,11 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONRules.JSONChannel;
 
 public class RulesForm extends OfferOptimisationForm {
 
+	/**
+	 * 
+	 */
+	private static final Logger logger = LoggerFactory.getLogger(RulesForm.class);
+	
 	/**
 	 * 
 	 */
@@ -113,17 +120,44 @@ public class RulesForm extends OfferOptimisationForm {
 		
 		selectByNameAndVisibleText( "algorithm", ruleCfg.getOptimizationAlgorithm() );
 		
-		if( ruleCfg.getKeepOffersConsistentAcrossMultipleRedraws() ) { clickId( "keepOffersConsistent-1" ); }
-		else { clickId( "keepOffersConsistent-0" ); }
-		
-		if( ruleCfg.getIncludePreviouslyAcceptedOffers() ) { clickId( "previousOffersDrawnIncluded-1" ); }
-		else { clickId( "previousOffersDrawnIncluded-0" ); }
+		if( ruleCfg.getKeepOffersConsistentAcrossMultipleRedraws() ) 
+			clickForAlternativeId( "keepOffersConsistent-1", "keepOffersConsistent-yes");
+		else 
+			clickForAlternativeId( "keepOffersConsistent-0", "keepOffersConsistent-no");
 
+		if( ruleCfg.getKeepOffersConsistentAcrossMultipleRedraws() ) 
+			clickForAlternativeId( "previousOffersDrawnIncluded-1", "previousOffersDrawnIncluded-yes");
+		else 
+			clickForAlternativeId( "previousOffersDrawnIncluded-0", "previousOffersDrawnIncluded-no");		
+		
 		WebElement maxOfferElem = selenium.getWrappedDriver().findElement(By.xpath("//input[@ng-model='ruleset.numOfOffersToDraw']"));
 		maxOfferElem.clear();
 		maxOfferElem.sendKeys(ruleCfg.getMaximumNumberOfOffers().toString());
 		
 		return this;		
+	}
+	
+	/**
+	 * This method describes the different render situation for some id into application logic.
+	 * 
+	 * It tries to match the first id that found into provided sequence.
+	 * 
+	 * @param idStrings
+	 * @throws FormException
+	 */
+	private void clickForAlternativeId(String... idStrings ) throws FormException {
+		
+		for (String singleIdString : idStrings) {
+			
+				if ( selenium.getWrappedDriver().findElements(By.id(singleIdString)).size() > 0 ) {
+				
+				logger.debug("Find the \""+singleIdString+"\"");
+				
+				clickId( singleIdString );
+				
+				break;
+			}
+		}
 	}
 	
 	/**
