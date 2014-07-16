@@ -56,11 +56,6 @@ public class CDRCallMultitenant extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
-	}
-
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
@@ -89,9 +84,9 @@ public class CDRCallMultitenant extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
 	}
 
-	@Duration( position = 2 )
-	public String getDuration() throws FieldException  {
-		return this.duration.getLong();
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setDurationStrategyFixed( final Long value ) throws FieldException  {
@@ -118,9 +113,9 @@ public class CDRCallMultitenant extends CDR {
 		if( this.duration != null ) { this.duration.cleanLongStrategyFixed(); }
 	}
 
-	@Amount( position = 3 )
-	public String getAmount() throws FieldException  {
-		return this.amount.getLong();
+	@Duration( position = 2 )
+	public String getDuration() throws FieldException  {
+		return this.duration.getLong();
 	}
 
 	public void setAmountStrategyFixed( final Long value ) throws FieldException  {
@@ -147,9 +142,9 @@ public class CDRCallMultitenant extends CDR {
 		if( this.amount != null ) { this.amount.cleanLongStrategyFixed(); }
 	}
 
-	@Balance( position = 4 )
-	public String getBalance() throws FieldException  {
-		return this.balance.getLong();
+	@Amount( position = 3 )
+	public String getAmount() throws FieldException  {
+		return this.amount.getLong();
 	}
 
 	public void setBalanceStrategyFixed( final Long value ) throws FieldException  {
@@ -176,20 +171,9 @@ public class CDRCallMultitenant extends CDR {
 		if( this.balance != null ) { this.balance.cleanLongStrategyFixed(); }
 	}
 
-	public void cleanTerminatingStrategyRandom()  {
-		if( this.terminating != null ) { this.terminating.cleanEnumStrategyRandom(); }
-	}
-
-	public void setTerminatingStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
-		if( this.terminating != null ) { this.terminating.setEnumStrategyIncrement( value, increment ); }
-	}
-
-	public void setTerminatingStrategyRandom() throws FieldException  {
-		if( this.terminating != null ) { this.terminating.setEnumStrategyRandom(); }
-	}
-
-	public void cleanTerminatingStrategyFixed()  {
-		if( this.terminating != null ) { this.terminating.cleanEnumStrategyFixed(); }
+	@Balance( position = 4 )
+	public String getBalance() throws FieldException  {
+		return this.balance.getLong();
 	}
 
 	@Terminating( position = 5 )
@@ -205,9 +189,20 @@ public class CDRCallMultitenant extends CDR {
 		if( this.terminating != null ) { this.terminating.cleanEnumStrategyIncrement(); }
 	}
 
-	@TenantId( position = 6 )
-	public String getTenantId() throws FieldException  {
-		return this.tenant_id.getLong();
+	public void cleanTerminatingStrategyRandom()  {
+		if( this.terminating != null ) { this.terminating.cleanEnumStrategyRandom(); }
+	}
+
+	public void setTerminatingStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
+		if( this.terminating != null ) { this.terminating.setEnumStrategyIncrement( value, increment ); }
+	}
+
+	public void setTerminatingStrategyRandom() throws FieldException  {
+		if( this.terminating != null ) { this.terminating.setEnumStrategyRandom(); }
+	}
+
+	public void cleanTerminatingStrategyFixed()  {
+		if( this.terminating != null ) { this.terminating.cleanEnumStrategyFixed(); }
 	}
 
 	public void setTenantIdStrategyFixed( final Long value ) throws FieldException  {
@@ -232,6 +227,11 @@ public class CDRCallMultitenant extends CDR {
 
 	public void cleanTenantIdStrategyFixed()  {
 		if( this.tenant_id != null ) { this.tenant_id.cleanLongStrategyFixed(); }
+	}
+
+	@TenantId( position = 6 )
+	public String getTenantId() throws FieldException  {
+		return this.tenant_id.getLong();
 	}
 
 }

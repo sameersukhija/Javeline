@@ -56,11 +56,6 @@ public class CDRRevenueRecharge extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
-	}
-
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
@@ -89,9 +84,9 @@ public class CDRRevenueRecharge extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
 	}
 
-	@Amount( position = 2 )
-	public String getAmount() throws FieldException  {
-		return this.amount.getLong();
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setAmountStrategyFixed( final Long value ) throws FieldException  {
@@ -118,9 +113,9 @@ public class CDRRevenueRecharge extends CDR {
 		if( this.amount != null ) { this.amount.cleanLongStrategyFixed(); }
 	}
 
-	@Balance( position = 3 )
-	public String getBalance() throws FieldException  {
-		return this.balance.getLong();
+	@Amount( position = 2 )
+	public String getAmount() throws FieldException  {
+		return this.amount.getLong();
 	}
 
 	public void setBalanceStrategyFixed( final Long value ) throws FieldException  {
@@ -147,70 +142,88 @@ public class CDRRevenueRecharge extends CDR {
 		if( this.balance != null ) { this.balance.cleanLongStrategyFixed(); }
 	}
 
-	@ValidityDate( position = 4 )
-	public String getValidityDate()  {
-		return this.validity_date.getDate();
+	@Balance( position = 3 )
+	public String getBalance() throws FieldException  {
+		return this.balance.getLong();
 	}
 
 	public void setValidityDateStrategyFixed( final Calendar date ) throws FieldException  {
-		if( this.validity_date != null ) { this.validity_date.setDateStrategyFixed( date ); }
+		if( this.validityDate != null ) { this.validityDate.setDateStrategyFixed( date ); }
 	}
 
 	public void cleanValidityDateStrategyIncrement()  {
-		if( this.validity_date != null ) { this.validity_date.cleanDateStrategyIncrement(); }
+		if( this.validityDate != null ) { this.validityDate.cleanDateStrategyIncrement(); }
 	}
 
 	public void cleanValidityDateStrategyRandom()  {
-		if( this.validity_date != null ) { this.validity_date.cleanDateStrategyRandom(); }
+		if( this.validityDate != null ) { this.validityDate.cleanDateStrategyRandom(); }
 	}
 
 	public void setValidityDateFormat( String format ) throws FieldException  {
-		if( this.validity_date != null ) { this.validity_date.setDateFormat( format ); }
+		if( this.validityDate != null ) { this.validityDate.setDateFormat( format ); }
 	}
 
 	public void setValidityDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws FieldException  {
-		if( this.validity_date != null ) { this.validity_date.setDateStrategyIncrement( date, increment ); }
+		if( this.validityDate != null ) { this.validityDate.setDateStrategyIncrement( date, increment ); }
 	}
 
 	public void setValidityDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws FieldException  {
-		if( this.validity_date != null ) { this.validity_date.setDateStrategyRandom( date_left, date_right ); }
+		if( this.validityDate != null ) { this.validityDate.setDateStrategyRandom( date_left, date_right ); }
 	}
 
 	public void cleanValidityDateStrategyFixed()  {
-		if( this.validity_date != null ) { this.validity_date.cleanDateStrategyFixed(); }
+		if( this.validityDate != null ) { this.validityDate.cleanDateStrategyFixed(); }
+	}
+
+	@ValidityDate( position = 4 )
+	public String getValidityDate()  {
+		return this.validityDate.getDate();
+	}
+
+	public void setDeactivationDateStrategyFixed( final Calendar date ) throws FieldException  {
+		if( this.deactivationDate != null ) { this.deactivationDate.setDateStrategyFixed( date ); }
+	}
+
+	public void cleanDeactivationDateStrategyIncrement()  {
+		if( this.deactivationDate != null ) { this.deactivationDate.cleanDateStrategyIncrement(); }
+	}
+
+	public void cleanDeactivationDateStrategyRandom()  {
+		if( this.deactivationDate != null ) { this.deactivationDate.cleanDateStrategyRandom(); }
+	}
+
+	public void setDeactivationDateFormat( String format ) throws FieldException  {
+		if( this.deactivationDate != null ) { this.deactivationDate.setDateFormat( format ); }
+	}
+
+	public void setDeactivationDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws FieldException  {
+		if( this.deactivationDate != null ) { this.deactivationDate.setDateStrategyIncrement( date, increment ); }
+	}
+
+	public void setDeactivationDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws FieldException  {
+		if( this.deactivationDate != null ) { this.deactivationDate.setDateStrategyRandom( date_left, date_right ); }
+	}
+
+	public void cleanDeactivationDateStrategyFixed()  {
+		if( this.deactivationDate != null ) { this.deactivationDate.cleanDateStrategyFixed(); }
 	}
 
 	@DeactivationDate( position = 5 )
 	public String getDeactivationDate()  {
-		return this.deactivation_date.getDate();
+		return this.deactivationDate.getDate();
 	}
 
-	public void setDeactivationDateStrategyFixed( final Calendar date ) throws FieldException  {
-		if( this.deactivation_date != null ) { this.deactivation_date.setDateStrategyFixed( date ); }
+	@Type( position = 6 )
+	public String getType() throws FieldException  {
+		return this.type.getEnum();
 	}
 
-	public void cleanDeactivationDateStrategyIncrement()  {
-		if( this.deactivation_date != null ) { this.deactivation_date.cleanDateStrategyIncrement(); }
+	public void setTypeStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException  {
+		if( this.type != null ) { this.type.setEnumStrategyFixed( value ); }
 	}
 
-	public void cleanDeactivationDateStrategyRandom()  {
-		if( this.deactivation_date != null ) { this.deactivation_date.cleanDateStrategyRandom(); }
-	}
-
-	public void setDeactivationDateFormat( String format ) throws FieldException  {
-		if( this.deactivation_date != null ) { this.deactivation_date.setDateFormat( format ); }
-	}
-
-	public void setDeactivationDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws FieldException  {
-		if( this.deactivation_date != null ) { this.deactivation_date.setDateStrategyIncrement( date, increment ); }
-	}
-
-	public void setDeactivationDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws FieldException  {
-		if( this.deactivation_date != null ) { this.deactivation_date.setDateStrategyRandom( date_left, date_right ); }
-	}
-
-	public void cleanDeactivationDateStrategyFixed()  {
-		if( this.deactivation_date != null ) { this.deactivation_date.cleanDateStrategyFixed(); }
+	public void cleanTypeStrategyIncrement()  {
+		if( this.type != null ) { this.type.cleanEnumStrategyIncrement(); }
 	}
 
 	public void cleanTypeStrategyRandom()  {
@@ -227,19 +240,6 @@ public class CDRRevenueRecharge extends CDR {
 
 	public void cleanTypeStrategyFixed()  {
 		if( this.type != null ) { this.type.cleanEnumStrategyFixed(); }
-	}
-
-	@Type( position = 6 )
-	public String getType() throws FieldException  {
-		return this.type.getEnum();
-	}
-
-	public void setTypeStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException  {
-		if( this.type != null ) { this.type.setEnumStrategyFixed( value ); }
-	}
-
-	public void cleanTypeStrategyIncrement()  {
-		if( this.type != null ) { this.type.cleanEnumStrategyIncrement(); }
 	}
 
 }

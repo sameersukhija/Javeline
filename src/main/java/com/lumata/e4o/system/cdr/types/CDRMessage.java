@@ -56,11 +56,6 @@ public class CDRMessage extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
-	}
-
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
@@ -89,9 +84,9 @@ public class CDRMessage extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
 	}
 
-	@Amount( position = 2 )
-	public String getAmount() throws FieldException  {
-		return this.amount.getLong();
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setAmountStrategyFixed( final Long value ) throws FieldException  {
@@ -118,20 +113,9 @@ public class CDRMessage extends CDR {
 		if( this.amount != null ) { this.amount.cleanLongStrategyFixed(); }
 	}
 
-	public void cleanSmsStrategyRandom()  {
-		if( this.sms != null ) { this.sms.cleanEnumStrategyRandom(); }
-	}
-
-	public void setSmsStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
-		if( this.sms != null ) { this.sms.setEnumStrategyIncrement( value, increment ); }
-	}
-
-	public void setSmsStrategyRandom() throws FieldException  {
-		if( this.sms != null ) { this.sms.setEnumStrategyRandom(); }
-	}
-
-	public void cleanSmsStrategyFixed()  {
-		if( this.sms != null ) { this.sms.cleanEnumStrategyFixed(); }
+	@Amount( position = 2 )
+	public String getAmount() throws FieldException  {
+		return this.amount.getLong();
 	}
 
 	@Sms( position = 3 )
@@ -147,9 +131,20 @@ public class CDRMessage extends CDR {
 		if( this.sms != null ) { this.sms.cleanEnumStrategyIncrement(); }
 	}
 
-	@Balance( position = 4 )
-	public String getBalance() throws FieldException  {
-		return this.balance.getLong();
+	public void cleanSmsStrategyRandom()  {
+		if( this.sms != null ) { this.sms.cleanEnumStrategyRandom(); }
+	}
+
+	public void setSmsStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
+		if( this.sms != null ) { this.sms.setEnumStrategyIncrement( value, increment ); }
+	}
+
+	public void setSmsStrategyRandom() throws FieldException  {
+		if( this.sms != null ) { this.sms.setEnumStrategyRandom(); }
+	}
+
+	public void cleanSmsStrategyFixed()  {
+		if( this.sms != null ) { this.sms.cleanEnumStrategyFixed(); }
 	}
 
 	public void setBalanceStrategyFixed( final Long value ) throws FieldException  {
@@ -174,6 +169,11 @@ public class CDRMessage extends CDR {
 
 	public void cleanBalanceStrategyFixed()  {
 		if( this.balance != null ) { this.balance.cleanLongStrategyFixed(); }
+	}
+
+	@Balance( position = 4 )
+	public String getBalance() throws FieldException  {
+		return this.balance.getLong();
 	}
 
 }

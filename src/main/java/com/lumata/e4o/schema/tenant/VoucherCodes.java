@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "voucher_codes" )
 public class VoucherCodes { 
 
-	public enum Fields { offer_id, code, expiryDate, purchase_id, redeemed_date, location_id, partner_id }
+	public enum Fields { offer_id, code, expiryDate, purchase_id, redeemed_date, location_id, partner_id, format }
 
 	@Column(
 			table = "voucher_codes",
@@ -143,6 +143,24 @@ public class VoucherCodes {
 	)
 	private String partner_id;
 
+	@Column(
+			table = "voucher_codes",
+			field = "format",
+			type = "varchar(20)",
+			mysqlType = "varchar",
+			javaType = "String",
+			categoryType = "String",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 20,
+			getMethod = "getFormat",
+			setMethod = "setFormat"
+	)
+	private String format;
+
 
 	public VoucherCodes() {} 
 
@@ -155,6 +173,7 @@ public class VoucherCodes {
 		this.redeemed_date = rs.getDate( VoucherCodes.Fields.redeemed_date.name() );
 		this.location_id = rs.getString( VoucherCodes.Fields.location_id.name() );
 		this.partner_id = rs.getString( VoucherCodes.Fields.partner_id.name() );
+		this.format = rs.getString( VoucherCodes.Fields.format.name() );
 
 	}
 
@@ -167,6 +186,7 @@ public class VoucherCodes {
 		this.redeemed_date = Format.getMysqlDateTime( jo.getString( VoucherCodes.Fields.redeemed_date.name() ) );
 		this.location_id = jo.getString( VoucherCodes.Fields.location_id.name() );
 		this.partner_id = jo.getString( VoucherCodes.Fields.partner_id.name() );
+		this.format = jo.getString( VoucherCodes.Fields.format.name() );
 
 	}
 
@@ -254,6 +274,18 @@ public class VoucherCodes {
 
 	}
 
+	public String getFormat() {
+
+		return this.format;
+
+	}
+
+	public void setFormat( String format ) {
+
+		this.format = format;
+
+	}
+
 	public Fields[] getEntityFields() {
 
 		return VoucherCodes.Fields.values();
@@ -271,7 +303,8 @@ public class VoucherCodes {
 			.append( "\"purchase_id\": \"" ).append( this.getPurchaseId() ).append( "\", " )
 			.append( "\"redeemed_date\": \"" ).append( this.getRedeemedDate() ).append( "\", " )
 			.append( "\"location_id\": \"" ).append( this.getLocationId() ).append( "\", " )
-			.append( "\"partner_id\": \"" ).append( this.getPartnerId() ).append( "\"" )
+			.append( "\"partner_id\": \"" ).append( this.getPartnerId() ).append( "\", " )
+			.append( "\"format\": \"" ).append( this.getFormat() ).append( "\"" )
 			.append( " }" );
 
 		return str.toString();

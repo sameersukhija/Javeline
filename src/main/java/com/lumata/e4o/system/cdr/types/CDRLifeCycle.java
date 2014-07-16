@@ -57,11 +57,6 @@ public class CDRLifeCycle extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
-	}
-
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
@@ -90,852 +85,857 @@ public class CDRLifeCycle extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
 	}
 
-	@NewImei( position = 2 )
-	public String getNewImei() throws FieldException  {
-		return this.new_imei.getLong();
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setNewImeiStrategyFixed( final Long value ) throws FieldException  {
-		if( this.new_imei != null ) { this.new_imei.setLongStrategyFixed( value ); }
+		if( this.newImei != null ) { this.newImei.setLongStrategyFixed( value ); }
 	}
 
 	public void cleanNewImeiStrategyIncrement()  {
-		if( this.new_imei != null ) { this.new_imei.cleanLongStrategyIncrement(); }
+		if( this.newImei != null ) { this.newImei.cleanLongStrategyIncrement(); }
 	}
 
 	public void cleanNewImeiStrategyRandom()  {
-		if( this.new_imei != null ) { this.new_imei.cleanLongStrategyRandom(); }
+		if( this.newImei != null ) { this.newImei.cleanLongStrategyRandom(); }
 	}
 
 	public void setNewImeiStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
-		if( this.new_imei != null ) { this.new_imei.setLongStrategyIncrement( value, increment ); }
+		if( this.newImei != null ) { this.newImei.setLongStrategyIncrement( value, increment ); }
 	}
 
 	public void setNewImeiStrategyRandom( final Long min_value, final Long max_value ) throws FieldException  {
-		if( this.new_imei != null ) { this.new_imei.setLongStrategyRandom( min_value, max_value ); }
+		if( this.newImei != null ) { this.newImei.setLongStrategyRandom( min_value, max_value ); }
 	}
 
 	public void cleanNewImeiStrategyFixed()  {
-		if( this.new_imei != null ) { this.new_imei.cleanLongStrategyFixed(); }
+		if( this.newImei != null ) { this.newImei.cleanLongStrategyFixed(); }
+	}
+
+	@NewImei( position = 2 )
+	public String getNewImei() throws FieldException  {
+		return this.newImei.getLong();
+	}
+
+	public void setOldImeiStrategyFixed( final Long value ) throws FieldException  {
+		if( this.oldImei != null ) { this.oldImei.setLongStrategyFixed( value ); }
+	}
+
+	public void cleanOldImeiStrategyIncrement()  {
+		if( this.oldImei != null ) { this.oldImei.cleanLongStrategyIncrement(); }
+	}
+
+	public void cleanOldImeiStrategyRandom()  {
+		if( this.oldImei != null ) { this.oldImei.cleanLongStrategyRandom(); }
+	}
+
+	public void setOldImeiStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
+		if( this.oldImei != null ) { this.oldImei.setLongStrategyIncrement( value, increment ); }
+	}
+
+	public void setOldImeiStrategyRandom( final Long min_value, final Long max_value ) throws FieldException  {
+		if( this.oldImei != null ) { this.oldImei.setLongStrategyRandom( min_value, max_value ); }
+	}
+
+	public void cleanOldImeiStrategyFixed()  {
+		if( this.oldImei != null ) { this.oldImei.cleanLongStrategyFixed(); }
 	}
 
 	@OldImei( position = 3 )
 	public String getOldImei() throws FieldException  {
-		return this.old_imei.getLong();
+		return this.oldImei.getLong();
 	}
 
-	public void setOldImeiStrategyFixed( final Long value ) throws FieldException  {
-		if( this.old_imei != null ) { this.old_imei.setLongStrategyFixed( value ); }
+	public void setNewImsiStrategyFixed( final Long value ) throws FieldException  {
+		if( this.newImsi != null ) { this.newImsi.setLongStrategyFixed( value ); }
 	}
 
-	public void cleanOldImeiStrategyIncrement()  {
-		if( this.old_imei != null ) { this.old_imei.cleanLongStrategyIncrement(); }
+	public void cleanNewImsiStrategyIncrement()  {
+		if( this.newImsi != null ) { this.newImsi.cleanLongStrategyIncrement(); }
 	}
 
-	public void cleanOldImeiStrategyRandom()  {
-		if( this.old_imei != null ) { this.old_imei.cleanLongStrategyRandom(); }
+	public void cleanNewImsiStrategyRandom()  {
+		if( this.newImsi != null ) { this.newImsi.cleanLongStrategyRandom(); }
 	}
 
-	public void setOldImeiStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
-		if( this.old_imei != null ) { this.old_imei.setLongStrategyIncrement( value, increment ); }
+	public void setNewImsiStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
+		if( this.newImsi != null ) { this.newImsi.setLongStrategyIncrement( value, increment ); }
 	}
 
-	public void setOldImeiStrategyRandom( final Long min_value, final Long max_value ) throws FieldException  {
-		if( this.old_imei != null ) { this.old_imei.setLongStrategyRandom( min_value, max_value ); }
+	public void setNewImsiStrategyRandom( final Long min_value, final Long max_value ) throws FieldException  {
+		if( this.newImsi != null ) { this.newImsi.setLongStrategyRandom( min_value, max_value ); }
 	}
 
-	public void cleanOldImeiStrategyFixed()  {
-		if( this.old_imei != null ) { this.old_imei.cleanLongStrategyFixed(); }
+	public void cleanNewImsiStrategyFixed()  {
+		if( this.newImsi != null ) { this.newImsi.cleanLongStrategyFixed(); }
 	}
 
 	@NewImsi( position = 4 )
 	public String getNewImsi() throws FieldException  {
-		return this.new_imsi.getLong();
+		return this.newImsi.getLong();
 	}
 
-	public void setNewImsiStrategyFixed( final Long value ) throws FieldException  {
-		if( this.new_imsi != null ) { this.new_imsi.setLongStrategyFixed( value ); }
+	public void setOldImsiStrategyFixed( final Long value ) throws FieldException  {
+		if( this.oldImsi != null ) { this.oldImsi.setLongStrategyFixed( value ); }
 	}
 
-	public void cleanNewImsiStrategyIncrement()  {
-		if( this.new_imsi != null ) { this.new_imsi.cleanLongStrategyIncrement(); }
+	public void cleanOldImsiStrategyIncrement()  {
+		if( this.oldImsi != null ) { this.oldImsi.cleanLongStrategyIncrement(); }
 	}
 
-	public void cleanNewImsiStrategyRandom()  {
-		if( this.new_imsi != null ) { this.new_imsi.cleanLongStrategyRandom(); }
+	public void cleanOldImsiStrategyRandom()  {
+		if( this.oldImsi != null ) { this.oldImsi.cleanLongStrategyRandom(); }
 	}
 
-	public void setNewImsiStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
-		if( this.new_imsi != null ) { this.new_imsi.setLongStrategyIncrement( value, increment ); }
+	public void setOldImsiStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
+		if( this.oldImsi != null ) { this.oldImsi.setLongStrategyIncrement( value, increment ); }
 	}
 
-	public void setNewImsiStrategyRandom( final Long min_value, final Long max_value ) throws FieldException  {
-		if( this.new_imsi != null ) { this.new_imsi.setLongStrategyRandom( min_value, max_value ); }
+	public void setOldImsiStrategyRandom( final Long min_value, final Long max_value ) throws FieldException  {
+		if( this.oldImsi != null ) { this.oldImsi.setLongStrategyRandom( min_value, max_value ); }
 	}
 
-	public void cleanNewImsiStrategyFixed()  {
-		if( this.new_imsi != null ) { this.new_imsi.cleanLongStrategyFixed(); }
+	public void cleanOldImsiStrategyFixed()  {
+		if( this.oldImsi != null ) { this.oldImsi.cleanLongStrategyFixed(); }
 	}
 
 	@OldImsi( position = 5 )
 	public String getOldImsi() throws FieldException  {
-		return this.old_imsi.getLong();
+		return this.oldImsi.getLong();
 	}
 
-	public void setOldImsiStrategyFixed( final Long value ) throws FieldException  {
-		if( this.old_imsi != null ) { this.old_imsi.setLongStrategyFixed( value ); }
+	public void setNewSubscriptionDateStrategyFixed( final Calendar date ) throws FieldException  {
+		if( this.newSubscriptionDate != null ) { this.newSubscriptionDate.setDateStrategyFixed( date ); }
 	}
 
-	public void cleanOldImsiStrategyIncrement()  {
-		if( this.old_imsi != null ) { this.old_imsi.cleanLongStrategyIncrement(); }
+	public void cleanNewSubscriptionDateStrategyIncrement()  {
+		if( this.newSubscriptionDate != null ) { this.newSubscriptionDate.cleanDateStrategyIncrement(); }
 	}
 
-	public void cleanOldImsiStrategyRandom()  {
-		if( this.old_imsi != null ) { this.old_imsi.cleanLongStrategyRandom(); }
+	public void cleanNewSubscriptionDateStrategyRandom()  {
+		if( this.newSubscriptionDate != null ) { this.newSubscriptionDate.cleanDateStrategyRandom(); }
 	}
 
-	public void setOldImsiStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
-		if( this.old_imsi != null ) { this.old_imsi.setLongStrategyIncrement( value, increment ); }
+	public void setNewSubscriptionDateFormat( String format ) throws FieldException  {
+		if( this.newSubscriptionDate != null ) { this.newSubscriptionDate.setDateFormat( format ); }
 	}
 
-	public void setOldImsiStrategyRandom( final Long min_value, final Long max_value ) throws FieldException  {
-		if( this.old_imsi != null ) { this.old_imsi.setLongStrategyRandom( min_value, max_value ); }
+	public void setNewSubscriptionDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws FieldException  {
+		if( this.newSubscriptionDate != null ) { this.newSubscriptionDate.setDateStrategyIncrement( date, increment ); }
 	}
 
-	public void cleanOldImsiStrategyFixed()  {
-		if( this.old_imsi != null ) { this.old_imsi.cleanLongStrategyFixed(); }
+	public void setNewSubscriptionDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws FieldException  {
+		if( this.newSubscriptionDate != null ) { this.newSubscriptionDate.setDateStrategyRandom( date_left, date_right ); }
+	}
+
+	public void cleanNewSubscriptionDateStrategyFixed()  {
+		if( this.newSubscriptionDate != null ) { this.newSubscriptionDate.cleanDateStrategyFixed(); }
 	}
 
 	@NewSubscriptionDate( position = 6 )
 	public String getNewSubscriptionDate()  {
-		return this.new_subscription_date.getDate();
+		return this.newSubscriptionDate.getDate();
 	}
 
-	public void setNewSubscriptionDateStrategyFixed( final Calendar date ) throws FieldException  {
-		if( this.new_subscription_date != null ) { this.new_subscription_date.setDateStrategyFixed( date ); }
+	public void setOldSubscriptionDateStrategyFixed( final Calendar date ) throws FieldException  {
+		if( this.oldSubscriptionDate != null ) { this.oldSubscriptionDate.setDateStrategyFixed( date ); }
 	}
 
-	public void cleanNewSubscriptionDateStrategyIncrement()  {
-		if( this.new_subscription_date != null ) { this.new_subscription_date.cleanDateStrategyIncrement(); }
+	public void cleanOldSubscriptionDateStrategyIncrement()  {
+		if( this.oldSubscriptionDate != null ) { this.oldSubscriptionDate.cleanDateStrategyIncrement(); }
 	}
 
-	public void cleanNewSubscriptionDateStrategyRandom()  {
-		if( this.new_subscription_date != null ) { this.new_subscription_date.cleanDateStrategyRandom(); }
+	public void cleanOldSubscriptionDateStrategyRandom()  {
+		if( this.oldSubscriptionDate != null ) { this.oldSubscriptionDate.cleanDateStrategyRandom(); }
 	}
 
-	public void setNewSubscriptionDateFormat( String format ) throws FieldException  {
-		if( this.new_subscription_date != null ) { this.new_subscription_date.setDateFormat( format ); }
+	public void setOldSubscriptionDateFormat( String format ) throws FieldException  {
+		if( this.oldSubscriptionDate != null ) { this.oldSubscriptionDate.setDateFormat( format ); }
 	}
 
-	public void setNewSubscriptionDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws FieldException  {
-		if( this.new_subscription_date != null ) { this.new_subscription_date.setDateStrategyIncrement( date, increment ); }
+	public void setOldSubscriptionDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws FieldException  {
+		if( this.oldSubscriptionDate != null ) { this.oldSubscriptionDate.setDateStrategyIncrement( date, increment ); }
 	}
 
-	public void setNewSubscriptionDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws FieldException  {
-		if( this.new_subscription_date != null ) { this.new_subscription_date.setDateStrategyRandom( date_left, date_right ); }
+	public void setOldSubscriptionDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws FieldException  {
+		if( this.oldSubscriptionDate != null ) { this.oldSubscriptionDate.setDateStrategyRandom( date_left, date_right ); }
 	}
 
-	public void cleanNewSubscriptionDateStrategyFixed()  {
-		if( this.new_subscription_date != null ) { this.new_subscription_date.cleanDateStrategyFixed(); }
+	public void cleanOldSubscriptionDateStrategyFixed()  {
+		if( this.oldSubscriptionDate != null ) { this.oldSubscriptionDate.cleanDateStrategyFixed(); }
 	}
 
 	@OldSubscriptionDate( position = 7 )
 	public String getOldSubscriptionDate()  {
-		return this.old_subscription_date.getDate();
+		return this.oldSubscriptionDate.getDate();
 	}
 
-	public void setOldSubscriptionDateStrategyFixed( final Calendar date ) throws FieldException  {
-		if( this.old_subscription_date != null ) { this.old_subscription_date.setDateStrategyFixed( date ); }
+	public void setNewProfileLength( final Integer length ) throws FieldException  {
+		if( this.newProfile != null ) { this.newProfile.setStringLength( length ); }
 	}
 
-	public void cleanOldSubscriptionDateStrategyIncrement()  {
-		if( this.old_subscription_date != null ) { this.old_subscription_date.cleanDateStrategyIncrement(); }
+	public void setNewProfileStrategyFixed( final String value ) throws FieldException  {
+		if( this.newProfile != null ) { this.newProfile.setStringStrategyFixed( value ); }
 	}
 
-	public void cleanOldSubscriptionDateStrategyRandom()  {
-		if( this.old_subscription_date != null ) { this.old_subscription_date.cleanDateStrategyRandom(); }
+	public void cleanNewProfileStrategyIncrement()  {
+		if( this.newProfile != null ) { this.newProfile.cleanStringStrategyIncrement(); }
 	}
 
-	public void setOldSubscriptionDateFormat( String format ) throws FieldException  {
-		if( this.old_subscription_date != null ) { this.old_subscription_date.setDateFormat( format ); }
+	public void cleanNewProfileStrategyRandom()  {
+		if( this.newProfile != null ) { this.newProfile.cleanStringStrategyRandom(); }
 	}
 
-	public void setOldSubscriptionDateStrategyIncrement( final Calendar date, final FieldDateIncrement increment ) throws FieldException  {
-		if( this.old_subscription_date != null ) { this.old_subscription_date.setDateStrategyIncrement( date, increment ); }
+	public void setNewProfileStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.newProfile != null ) { this.newProfile.setStringStrategyIncrement( value, start_value, increment ); }
 	}
 
-	public void setOldSubscriptionDateStrategyRandom( final Calendar date_left, final Calendar date_right ) throws FieldException  {
-		if( this.old_subscription_date != null ) { this.old_subscription_date.setDateStrategyRandom( date_left, date_right ); }
+	public void setNewProfileStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.newProfile != null ) { this.newProfile.setStringStrategyRandom( length ); }
 	}
 
-	public void cleanOldSubscriptionDateStrategyFixed()  {
-		if( this.old_subscription_date != null ) { this.old_subscription_date.cleanDateStrategyFixed(); }
+	public void cleanNewProfile()  {
+		if( this.newProfile != null ) { this.newProfile.cleanString(); }
+	}
+
+	public void cleanNewProfileLength()  {
+		if( this.newProfile != null ) { this.newProfile.cleanStringLength(); }
 	}
 
 	@NewProfile( position = 8 )
 	public String getNewProfile() throws FieldException  {
-		return this.new_profile.getString();
+		return this.newProfile.getString();
 	}
 
-	public void setNewProfileLength( final Integer length ) throws FieldException  {
-		if( this.new_profile != null ) { this.new_profile.setStringLength( length ); }
+	public void setOldProfileLength( final Integer length ) throws FieldException  {
+		if( this.oldProfile != null ) { this.oldProfile.setStringLength( length ); }
 	}
 
-	public void setNewProfileStrategyFixed( final String value ) throws FieldException  {
-		if( this.new_profile != null ) { this.new_profile.setStringStrategyFixed( value ); }
+	public void setOldProfileStrategyFixed( final String value ) throws FieldException  {
+		if( this.oldProfile != null ) { this.oldProfile.setStringStrategyFixed( value ); }
 	}
 
-	public void cleanNewProfileStrategyIncrement()  {
-		if( this.new_profile != null ) { this.new_profile.cleanStringStrategyIncrement(); }
+	public void cleanOldProfileStrategyIncrement()  {
+		if( this.oldProfile != null ) { this.oldProfile.cleanStringStrategyIncrement(); }
 	}
 
-	public void cleanNewProfileStrategyRandom()  {
-		if( this.new_profile != null ) { this.new_profile.cleanStringStrategyRandom(); }
+	public void cleanOldProfileStrategyRandom()  {
+		if( this.oldProfile != null ) { this.oldProfile.cleanStringStrategyRandom(); }
 	}
 
-	public void setNewProfileStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
-		if( this.new_profile != null ) { this.new_profile.setStringStrategyIncrement( value, start_value, increment ); }
+	public void setOldProfileStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.oldProfile != null ) { this.oldProfile.setStringStrategyIncrement( value, start_value, increment ); }
 	}
 
-	public void setNewProfileStrategyRandom( final Integer length ) throws FieldException  {
-		if( this.new_profile != null ) { this.new_profile.setStringStrategyRandom( length ); }
+	public void setOldProfileStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.oldProfile != null ) { this.oldProfile.setStringStrategyRandom( length ); }
 	}
 
-	public void cleanNewProfile()  {
-		if( this.new_profile != null ) { this.new_profile.cleanString(); }
+	public void cleanOldProfile()  {
+		if( this.oldProfile != null ) { this.oldProfile.cleanString(); }
 	}
 
-	public void cleanNewProfileLength()  {
-		if( this.new_profile != null ) { this.new_profile.cleanStringLength(); }
+	public void cleanOldProfileLength()  {
+		if( this.oldProfile != null ) { this.oldProfile.cleanStringLength(); }
 	}
 
 	@OldProfile( position = 9 )
 	public String getOldProfile() throws FieldException  {
-		return this.old_profile.getString();
+		return this.oldProfile.getString();
 	}
 
-	public void setOldProfileLength( final Integer length ) throws FieldException  {
-		if( this.old_profile != null ) { this.old_profile.setStringLength( length ); }
+	public void setNewRatePlanLength( final Integer length ) throws FieldException  {
+		if( this.newRatePlan != null ) { this.newRatePlan.setStringLength( length ); }
 	}
 
-	public void setOldProfileStrategyFixed( final String value ) throws FieldException  {
-		if( this.old_profile != null ) { this.old_profile.setStringStrategyFixed( value ); }
+	public void setNewRatePlanStrategyFixed( final String value ) throws FieldException  {
+		if( this.newRatePlan != null ) { this.newRatePlan.setStringStrategyFixed( value ); }
 	}
 
-	public void cleanOldProfileStrategyIncrement()  {
-		if( this.old_profile != null ) { this.old_profile.cleanStringStrategyIncrement(); }
+	public void cleanNewRatePlanStrategyIncrement()  {
+		if( this.newRatePlan != null ) { this.newRatePlan.cleanStringStrategyIncrement(); }
 	}
 
-	public void cleanOldProfileStrategyRandom()  {
-		if( this.old_profile != null ) { this.old_profile.cleanStringStrategyRandom(); }
+	public void cleanNewRatePlanStrategyRandom()  {
+		if( this.newRatePlan != null ) { this.newRatePlan.cleanStringStrategyRandom(); }
 	}
 
-	public void setOldProfileStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
-		if( this.old_profile != null ) { this.old_profile.setStringStrategyIncrement( value, start_value, increment ); }
+	public void setNewRatePlanStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.newRatePlan != null ) { this.newRatePlan.setStringStrategyIncrement( value, start_value, increment ); }
 	}
 
-	public void setOldProfileStrategyRandom( final Integer length ) throws FieldException  {
-		if( this.old_profile != null ) { this.old_profile.setStringStrategyRandom( length ); }
+	public void setNewRatePlanStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.newRatePlan != null ) { this.newRatePlan.setStringStrategyRandom( length ); }
 	}
 
-	public void cleanOldProfile()  {
-		if( this.old_profile != null ) { this.old_profile.cleanString(); }
+	public void cleanNewRatePlan()  {
+		if( this.newRatePlan != null ) { this.newRatePlan.cleanString(); }
 	}
 
-	public void cleanOldProfileLength()  {
-		if( this.old_profile != null ) { this.old_profile.cleanStringLength(); }
+	public void cleanNewRatePlanLength()  {
+		if( this.newRatePlan != null ) { this.newRatePlan.cleanStringLength(); }
 	}
 
 	@NewRatePlan( position = 10 )
 	public String getNewRatePlan() throws FieldException  {
-		return this.new_rate_plan.getString();
+		return this.newRatePlan.getString();
 	}
 
-	public void setNewRatePlanLength( final Integer length ) throws FieldException  {
-		if( this.new_rate_plan != null ) { this.new_rate_plan.setStringLength( length ); }
+	public void setOldRatePlanLength( final Integer length ) throws FieldException  {
+		if( this.oldRatePlan != null ) { this.oldRatePlan.setStringLength( length ); }
 	}
 
-	public void setNewRatePlanStrategyFixed( final String value ) throws FieldException  {
-		if( this.new_rate_plan != null ) { this.new_rate_plan.setStringStrategyFixed( value ); }
+	public void setOldRatePlanStrategyFixed( final String value ) throws FieldException  {
+		if( this.oldRatePlan != null ) { this.oldRatePlan.setStringStrategyFixed( value ); }
 	}
 
-	public void cleanNewRatePlanStrategyIncrement()  {
-		if( this.new_rate_plan != null ) { this.new_rate_plan.cleanStringStrategyIncrement(); }
+	public void cleanOldRatePlanStrategyIncrement()  {
+		if( this.oldRatePlan != null ) { this.oldRatePlan.cleanStringStrategyIncrement(); }
 	}
 
-	public void cleanNewRatePlanStrategyRandom()  {
-		if( this.new_rate_plan != null ) { this.new_rate_plan.cleanStringStrategyRandom(); }
+	public void cleanOldRatePlanStrategyRandom()  {
+		if( this.oldRatePlan != null ) { this.oldRatePlan.cleanStringStrategyRandom(); }
 	}
 
-	public void setNewRatePlanStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
-		if( this.new_rate_plan != null ) { this.new_rate_plan.setStringStrategyIncrement( value, start_value, increment ); }
+	public void setOldRatePlanStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.oldRatePlan != null ) { this.oldRatePlan.setStringStrategyIncrement( value, start_value, increment ); }
 	}
 
-	public void setNewRatePlanStrategyRandom( final Integer length ) throws FieldException  {
-		if( this.new_rate_plan != null ) { this.new_rate_plan.setStringStrategyRandom( length ); }
+	public void setOldRatePlanStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.oldRatePlan != null ) { this.oldRatePlan.setStringStrategyRandom( length ); }
 	}
 
-	public void cleanNewRatePlan()  {
-		if( this.new_rate_plan != null ) { this.new_rate_plan.cleanString(); }
+	public void cleanOldRatePlan()  {
+		if( this.oldRatePlan != null ) { this.oldRatePlan.cleanString(); }
 	}
 
-	public void cleanNewRatePlanLength()  {
-		if( this.new_rate_plan != null ) { this.new_rate_plan.cleanStringLength(); }
+	public void cleanOldRatePlanLength()  {
+		if( this.oldRatePlan != null ) { this.oldRatePlan.cleanStringLength(); }
 	}
 
 	@OldRatePlan( position = 11 )
 	public String getOldRatePlan() throws FieldException  {
-		return this.old_rate_plan.getString();
-	}
-
-	public void setOldRatePlanLength( final Integer length ) throws FieldException  {
-		if( this.old_rate_plan != null ) { this.old_rate_plan.setStringLength( length ); }
-	}
-
-	public void setOldRatePlanStrategyFixed( final String value ) throws FieldException  {
-		if( this.old_rate_plan != null ) { this.old_rate_plan.setStringStrategyFixed( value ); }
-	}
-
-	public void cleanOldRatePlanStrategyIncrement()  {
-		if( this.old_rate_plan != null ) { this.old_rate_plan.cleanStringStrategyIncrement(); }
-	}
-
-	public void cleanOldRatePlanStrategyRandom()  {
-		if( this.old_rate_plan != null ) { this.old_rate_plan.cleanStringStrategyRandom(); }
-	}
-
-	public void setOldRatePlanStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
-		if( this.old_rate_plan != null ) { this.old_rate_plan.setStringStrategyIncrement( value, start_value, increment ); }
-	}
-
-	public void setOldRatePlanStrategyRandom( final Integer length ) throws FieldException  {
-		if( this.old_rate_plan != null ) { this.old_rate_plan.setStringStrategyRandom( length ); }
-	}
-
-	public void cleanOldRatePlan()  {
-		if( this.old_rate_plan != null ) { this.old_rate_plan.cleanString(); }
-	}
-
-	public void cleanOldRatePlanLength()  {
-		if( this.old_rate_plan != null ) { this.old_rate_plan.cleanStringLength(); }
-	}
-
-	public void cleanNewStatusStrategyRandom()  {
-		if( this.new_status != null ) { this.new_status.cleanEnumStrategyRandom(); }
-	}
-
-	public void setNewStatusStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
-		if( this.new_status != null ) { this.new_status.setEnumStrategyIncrement( value, increment ); }
-	}
-
-	public void setNewStatusStrategyRandom() throws FieldException  {
-		if( this.new_status != null ) { this.new_status.setEnumStrategyRandom(); }
-	}
-
-	public void cleanNewStatusStrategyFixed()  {
-		if( this.new_status != null ) { this.new_status.cleanEnumStrategyFixed(); }
+		return this.oldRatePlan.getString();
 	}
 
 	@NewStatus( position = 12 )
 	public String getNewStatus() throws FieldException  {
-		return this.new_status.getEnum();
+		return this.newStatus.getEnum();
 	}
 
 	public void setNewStatusStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException  {
-		if( this.new_status != null ) { this.new_status.setEnumStrategyFixed( value ); }
+		if( this.newStatus != null ) { this.newStatus.setEnumStrategyFixed( value ); }
 	}
 
 	public void cleanNewStatusStrategyIncrement()  {
-		if( this.new_status != null ) { this.new_status.cleanEnumStrategyIncrement(); }
+		if( this.newStatus != null ) { this.newStatus.cleanEnumStrategyIncrement(); }
 	}
 
-	public void cleanOldStatusStrategyRandom()  {
-		if( this.old_status != null ) { this.old_status.cleanEnumStrategyRandom(); }
+	public void cleanNewStatusStrategyRandom()  {
+		if( this.newStatus != null ) { this.newStatus.cleanEnumStrategyRandom(); }
 	}
 
-	public void setOldStatusStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
-		if( this.old_status != null ) { this.old_status.setEnumStrategyIncrement( value, increment ); }
+	public void setNewStatusStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
+		if( this.newStatus != null ) { this.newStatus.setEnumStrategyIncrement( value, increment ); }
 	}
 
-	public void setOldStatusStrategyRandom() throws FieldException  {
-		if( this.old_status != null ) { this.old_status.setEnumStrategyRandom(); }
+	public void setNewStatusStrategyRandom() throws FieldException  {
+		if( this.newStatus != null ) { this.newStatus.setEnumStrategyRandom(); }
 	}
 
-	public void cleanOldStatusStrategyFixed()  {
-		if( this.old_status != null ) { this.old_status.cleanEnumStrategyFixed(); }
+	public void cleanNewStatusStrategyFixed()  {
+		if( this.newStatus != null ) { this.newStatus.cleanEnumStrategyFixed(); }
 	}
 
 	@OldStatus( position = 13 )
 	public String getOldStatus() throws FieldException  {
-		return this.old_status.getEnum();
+		return this.oldStatus.getEnum();
 	}
 
 	public void setOldStatusStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException  {
-		if( this.old_status != null ) { this.old_status.setEnumStrategyFixed( value ); }
+		if( this.oldStatus != null ) { this.oldStatus.setEnumStrategyFixed( value ); }
 	}
 
 	public void cleanOldStatusStrategyIncrement()  {
-		if( this.old_status != null ) { this.old_status.cleanEnumStrategyIncrement(); }
+		if( this.oldStatus != null ) { this.oldStatus.cleanEnumStrategyIncrement(); }
+	}
+
+	public void cleanOldStatusStrategyRandom()  {
+		if( this.oldStatus != null ) { this.oldStatus.cleanEnumStrategyRandom(); }
+	}
+
+	public void setOldStatusStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
+		if( this.oldStatus != null ) { this.oldStatus.setEnumStrategyIncrement( value, increment ); }
+	}
+
+	public void setOldStatusStrategyRandom() throws FieldException  {
+		if( this.oldStatus != null ) { this.oldStatus.setEnumStrategyRandom(); }
+	}
+
+	public void cleanOldStatusStrategyFixed()  {
+		if( this.oldStatus != null ) { this.oldStatus.cleanEnumStrategyFixed(); }
+	}
+
+	public void setNewNetworkLength( final Integer length ) throws FieldException  {
+		if( this.newNetwork != null ) { this.newNetwork.setStringLength( length ); }
+	}
+
+	public void setNewNetworkStrategyFixed( final String value ) throws FieldException  {
+		if( this.newNetwork != null ) { this.newNetwork.setStringStrategyFixed( value ); }
+	}
+
+	public void cleanNewNetworkStrategyIncrement()  {
+		if( this.newNetwork != null ) { this.newNetwork.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanNewNetworkStrategyRandom()  {
+		if( this.newNetwork != null ) { this.newNetwork.cleanStringStrategyRandom(); }
+	}
+
+	public void setNewNetworkStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.newNetwork != null ) { this.newNetwork.setStringStrategyIncrement( value, start_value, increment ); }
+	}
+
+	public void setNewNetworkStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.newNetwork != null ) { this.newNetwork.setStringStrategyRandom( length ); }
+	}
+
+	public void cleanNewNetwork()  {
+		if( this.newNetwork != null ) { this.newNetwork.cleanString(); }
+	}
+
+	public void cleanNewNetworkLength()  {
+		if( this.newNetwork != null ) { this.newNetwork.cleanStringLength(); }
 	}
 
 	@NewNetwork( position = 14 )
 	public String getNewNetwork() throws FieldException  {
-		return this.new_network.getString();
+		return this.newNetwork.getString();
 	}
 
-	public void setNewNetworkLength( final Integer length ) throws FieldException  {
-		if( this.new_network != null ) { this.new_network.setStringLength( length ); }
+	public void setOldNetworkLength( final Integer length ) throws FieldException  {
+		if( this.oldNetwork != null ) { this.oldNetwork.setStringLength( length ); }
 	}
 
-	public void setNewNetworkStrategyFixed( final String value ) throws FieldException  {
-		if( this.new_network != null ) { this.new_network.setStringStrategyFixed( value ); }
+	public void setOldNetworkStrategyFixed( final String value ) throws FieldException  {
+		if( this.oldNetwork != null ) { this.oldNetwork.setStringStrategyFixed( value ); }
 	}
 
-	public void cleanNewNetworkStrategyIncrement()  {
-		if( this.new_network != null ) { this.new_network.cleanStringStrategyIncrement(); }
+	public void cleanOldNetworkStrategyIncrement()  {
+		if( this.oldNetwork != null ) { this.oldNetwork.cleanStringStrategyIncrement(); }
 	}
 
-	public void cleanNewNetworkStrategyRandom()  {
-		if( this.new_network != null ) { this.new_network.cleanStringStrategyRandom(); }
+	public void cleanOldNetworkStrategyRandom()  {
+		if( this.oldNetwork != null ) { this.oldNetwork.cleanStringStrategyRandom(); }
 	}
 
-	public void setNewNetworkStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
-		if( this.new_network != null ) { this.new_network.setStringStrategyIncrement( value, start_value, increment ); }
+	public void setOldNetworkStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.oldNetwork != null ) { this.oldNetwork.setStringStrategyIncrement( value, start_value, increment ); }
 	}
 
-	public void setNewNetworkStrategyRandom( final Integer length ) throws FieldException  {
-		if( this.new_network != null ) { this.new_network.setStringStrategyRandom( length ); }
+	public void setOldNetworkStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.oldNetwork != null ) { this.oldNetwork.setStringStrategyRandom( length ); }
 	}
 
-	public void cleanNewNetwork()  {
-		if( this.new_network != null ) { this.new_network.cleanString(); }
+	public void cleanOldNetwork()  {
+		if( this.oldNetwork != null ) { this.oldNetwork.cleanString(); }
 	}
 
-	public void cleanNewNetworkLength()  {
-		if( this.new_network != null ) { this.new_network.cleanStringLength(); }
+	public void cleanOldNetworkLength()  {
+		if( this.oldNetwork != null ) { this.oldNetwork.cleanStringLength(); }
 	}
 
 	@OldNetwork( position = 15 )
 	public String getOldNetwork() throws FieldException  {
-		return this.old_network.getString();
+		return this.oldNetwork.getString();
 	}
 
-	public void setOldNetworkLength( final Integer length ) throws FieldException  {
-		if( this.old_network != null ) { this.old_network.setStringLength( length ); }
+	public void setNewTongueLength( final Integer length ) throws FieldException  {
+		if( this.newTongue != null ) { this.newTongue.setStringLength( length ); }
 	}
 
-	public void setOldNetworkStrategyFixed( final String value ) throws FieldException  {
-		if( this.old_network != null ) { this.old_network.setStringStrategyFixed( value ); }
+	public void setNewTongueStrategyFixed( final String value ) throws FieldException  {
+		if( this.newTongue != null ) { this.newTongue.setStringStrategyFixed( value ); }
 	}
 
-	public void cleanOldNetworkStrategyIncrement()  {
-		if( this.old_network != null ) { this.old_network.cleanStringStrategyIncrement(); }
+	public void cleanNewTongueStrategyIncrement()  {
+		if( this.newTongue != null ) { this.newTongue.cleanStringStrategyIncrement(); }
 	}
 
-	public void cleanOldNetworkStrategyRandom()  {
-		if( this.old_network != null ) { this.old_network.cleanStringStrategyRandom(); }
+	public void cleanNewTongueStrategyRandom()  {
+		if( this.newTongue != null ) { this.newTongue.cleanStringStrategyRandom(); }
 	}
 
-	public void setOldNetworkStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
-		if( this.old_network != null ) { this.old_network.setStringStrategyIncrement( value, start_value, increment ); }
+	public void setNewTongueStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.newTongue != null ) { this.newTongue.setStringStrategyIncrement( value, start_value, increment ); }
 	}
 
-	public void setOldNetworkStrategyRandom( final Integer length ) throws FieldException  {
-		if( this.old_network != null ) { this.old_network.setStringStrategyRandom( length ); }
+	public void setNewTongueStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.newTongue != null ) { this.newTongue.setStringStrategyRandom( length ); }
 	}
 
-	public void cleanOldNetwork()  {
-		if( this.old_network != null ) { this.old_network.cleanString(); }
+	public void cleanNewTongue()  {
+		if( this.newTongue != null ) { this.newTongue.cleanString(); }
 	}
 
-	public void cleanOldNetworkLength()  {
-		if( this.old_network != null ) { this.old_network.cleanStringLength(); }
+	public void cleanNewTongueLength()  {
+		if( this.newTongue != null ) { this.newTongue.cleanStringLength(); }
 	}
 
 	@NewTongue( position = 16 )
 	public String getNewTongue() throws FieldException  {
-		return this.new_tongue.getString();
+		return this.newTongue.getString();
 	}
 
-	public void setNewTongueLength( final Integer length ) throws FieldException  {
-		if( this.new_tongue != null ) { this.new_tongue.setStringLength( length ); }
+	public void setOldTongueLength( final Integer length ) throws FieldException  {
+		if( this.oldTongue != null ) { this.oldTongue.setStringLength( length ); }
 	}
 
-	public void setNewTongueStrategyFixed( final String value ) throws FieldException  {
-		if( this.new_tongue != null ) { this.new_tongue.setStringStrategyFixed( value ); }
+	public void setOldTongueStrategyFixed( final String value ) throws FieldException  {
+		if( this.oldTongue != null ) { this.oldTongue.setStringStrategyFixed( value ); }
 	}
 
-	public void cleanNewTongueStrategyIncrement()  {
-		if( this.new_tongue != null ) { this.new_tongue.cleanStringStrategyIncrement(); }
+	public void cleanOldTongueStrategyIncrement()  {
+		if( this.oldTongue != null ) { this.oldTongue.cleanStringStrategyIncrement(); }
 	}
 
-	public void cleanNewTongueStrategyRandom()  {
-		if( this.new_tongue != null ) { this.new_tongue.cleanStringStrategyRandom(); }
+	public void cleanOldTongueStrategyRandom()  {
+		if( this.oldTongue != null ) { this.oldTongue.cleanStringStrategyRandom(); }
 	}
 
-	public void setNewTongueStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
-		if( this.new_tongue != null ) { this.new_tongue.setStringStrategyIncrement( value, start_value, increment ); }
+	public void setOldTongueStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.oldTongue != null ) { this.oldTongue.setStringStrategyIncrement( value, start_value, increment ); }
 	}
 
-	public void setNewTongueStrategyRandom( final Integer length ) throws FieldException  {
-		if( this.new_tongue != null ) { this.new_tongue.setStringStrategyRandom( length ); }
+	public void setOldTongueStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.oldTongue != null ) { this.oldTongue.setStringStrategyRandom( length ); }
 	}
 
-	public void cleanNewTongue()  {
-		if( this.new_tongue != null ) { this.new_tongue.cleanString(); }
+	public void cleanOldTongue()  {
+		if( this.oldTongue != null ) { this.oldTongue.cleanString(); }
 	}
 
-	public void cleanNewTongueLength()  {
-		if( this.new_tongue != null ) { this.new_tongue.cleanStringLength(); }
+	public void cleanOldTongueLength()  {
+		if( this.oldTongue != null ) { this.oldTongue.cleanStringLength(); }
 	}
 
 	@OldTongue( position = 17 )
 	public String getOldTongue() throws FieldException  {
-		return this.old_tongue.getString();
+		return this.oldTongue.getString();
 	}
 
-	public void setOldTongueLength( final Integer length ) throws FieldException  {
-		if( this.old_tongue != null ) { this.old_tongue.setStringLength( length ); }
+	public void setNewInTagLength( final Integer length ) throws FieldException  {
+		if( this.newInTag != null ) { this.newInTag.setStringLength( length ); }
 	}
 
-	public void setOldTongueStrategyFixed( final String value ) throws FieldException  {
-		if( this.old_tongue != null ) { this.old_tongue.setStringStrategyFixed( value ); }
+	public void setNewInTagStrategyFixed( final String value ) throws FieldException  {
+		if( this.newInTag != null ) { this.newInTag.setStringStrategyFixed( value ); }
 	}
 
-	public void cleanOldTongueStrategyIncrement()  {
-		if( this.old_tongue != null ) { this.old_tongue.cleanStringStrategyIncrement(); }
+	public void cleanNewInTagStrategyIncrement()  {
+		if( this.newInTag != null ) { this.newInTag.cleanStringStrategyIncrement(); }
 	}
 
-	public void cleanOldTongueStrategyRandom()  {
-		if( this.old_tongue != null ) { this.old_tongue.cleanStringStrategyRandom(); }
+	public void cleanNewInTagStrategyRandom()  {
+		if( this.newInTag != null ) { this.newInTag.cleanStringStrategyRandom(); }
 	}
 
-	public void setOldTongueStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
-		if( this.old_tongue != null ) { this.old_tongue.setStringStrategyIncrement( value, start_value, increment ); }
+	public void setNewInTagStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.newInTag != null ) { this.newInTag.setStringStrategyIncrement( value, start_value, increment ); }
 	}
 
-	public void setOldTongueStrategyRandom( final Integer length ) throws FieldException  {
-		if( this.old_tongue != null ) { this.old_tongue.setStringStrategyRandom( length ); }
+	public void setNewInTagStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.newInTag != null ) { this.newInTag.setStringStrategyRandom( length ); }
 	}
 
-	public void cleanOldTongue()  {
-		if( this.old_tongue != null ) { this.old_tongue.cleanString(); }
+	public void cleanNewInTag()  {
+		if( this.newInTag != null ) { this.newInTag.cleanString(); }
 	}
 
-	public void cleanOldTongueLength()  {
-		if( this.old_tongue != null ) { this.old_tongue.cleanStringLength(); }
+	public void cleanNewInTagLength()  {
+		if( this.newInTag != null ) { this.newInTag.cleanStringLength(); }
 	}
 
 	@NewInTag( position = 18 )
 	public String getNewInTag() throws FieldException  {
-		return this.new_in_tag.getString();
+		return this.newInTag.getString();
 	}
 
-	public void setNewInTagLength( final Integer length ) throws FieldException  {
-		if( this.new_in_tag != null ) { this.new_in_tag.setStringLength( length ); }
+	public void setOldInTagLength( final Integer length ) throws FieldException  {
+		if( this.oldInTag != null ) { this.oldInTag.setStringLength( length ); }
 	}
 
-	public void setNewInTagStrategyFixed( final String value ) throws FieldException  {
-		if( this.new_in_tag != null ) { this.new_in_tag.setStringStrategyFixed( value ); }
+	public void setOldInTagStrategyFixed( final String value ) throws FieldException  {
+		if( this.oldInTag != null ) { this.oldInTag.setStringStrategyFixed( value ); }
 	}
 
-	public void cleanNewInTagStrategyIncrement()  {
-		if( this.new_in_tag != null ) { this.new_in_tag.cleanStringStrategyIncrement(); }
+	public void cleanOldInTagStrategyIncrement()  {
+		if( this.oldInTag != null ) { this.oldInTag.cleanStringStrategyIncrement(); }
 	}
 
-	public void cleanNewInTagStrategyRandom()  {
-		if( this.new_in_tag != null ) { this.new_in_tag.cleanStringStrategyRandom(); }
+	public void cleanOldInTagStrategyRandom()  {
+		if( this.oldInTag != null ) { this.oldInTag.cleanStringStrategyRandom(); }
 	}
 
-	public void setNewInTagStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
-		if( this.new_in_tag != null ) { this.new_in_tag.setStringStrategyIncrement( value, start_value, increment ); }
+	public void setOldInTagStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.oldInTag != null ) { this.oldInTag.setStringStrategyIncrement( value, start_value, increment ); }
 	}
 
-	public void setNewInTagStrategyRandom( final Integer length ) throws FieldException  {
-		if( this.new_in_tag != null ) { this.new_in_tag.setStringStrategyRandom( length ); }
+	public void setOldInTagStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.oldInTag != null ) { this.oldInTag.setStringStrategyRandom( length ); }
 	}
 
-	public void cleanNewInTag()  {
-		if( this.new_in_tag != null ) { this.new_in_tag.cleanString(); }
+	public void cleanOldInTag()  {
+		if( this.oldInTag != null ) { this.oldInTag.cleanString(); }
 	}
 
-	public void cleanNewInTagLength()  {
-		if( this.new_in_tag != null ) { this.new_in_tag.cleanStringLength(); }
+	public void cleanOldInTagLength()  {
+		if( this.oldInTag != null ) { this.oldInTag.cleanStringLength(); }
 	}
 
 	@OldInTag( position = 19 )
 	public String getOldInTag() throws FieldException  {
-		return this.old_in_tag.getString();
-	}
-
-	public void setOldInTagLength( final Integer length ) throws FieldException  {
-		if( this.old_in_tag != null ) { this.old_in_tag.setStringLength( length ); }
-	}
-
-	public void setOldInTagStrategyFixed( final String value ) throws FieldException  {
-		if( this.old_in_tag != null ) { this.old_in_tag.setStringStrategyFixed( value ); }
-	}
-
-	public void cleanOldInTagStrategyIncrement()  {
-		if( this.old_in_tag != null ) { this.old_in_tag.cleanStringStrategyIncrement(); }
-	}
-
-	public void cleanOldInTagStrategyRandom()  {
-		if( this.old_in_tag != null ) { this.old_in_tag.cleanStringStrategyRandom(); }
-	}
-
-	public void setOldInTagStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
-		if( this.old_in_tag != null ) { this.old_in_tag.setStringStrategyIncrement( value, start_value, increment ); }
-	}
-
-	public void setOldInTagStrategyRandom( final Integer length ) throws FieldException  {
-		if( this.old_in_tag != null ) { this.old_in_tag.setStringStrategyRandom( length ); }
-	}
-
-	public void cleanOldInTag()  {
-		if( this.old_in_tag != null ) { this.old_in_tag.cleanString(); }
-	}
-
-	public void cleanOldInTagLength()  {
-		if( this.old_in_tag != null ) { this.old_in_tag.cleanStringLength(); }
+		return this.oldInTag.getString();
 	}
 
 	@NewHobbies( position = 20 )
 	public String getNewHobbies() throws FieldException  {
-		return this.new_hobbies.getSet();
+		return this.newHobbies.getSet();
 	}
 
 	public void setNewHobbiesOptions( final String separator ) throws FieldException  {
-		if( this.new_hobbies != null ) { this.new_hobbies.setSetOptions( separator ); }
+		if( this.newHobbies != null ) { this.newHobbies.setSetOptions( separator ); }
 	}
 
 	public void setNewHobbiesStrategyFixed( final Set<String> values ) throws FieldException  {
-		if( this.new_hobbies != null ) { this.new_hobbies.setSetStrategyFixed( values ); }
-	}
-
-	public void setNewHobbiesStrategyFixed() throws FieldException  {
-		if( this.new_hobbies != null ) { this.new_hobbies.setSetStrategyFixed(); }
-	}
-
-	public void setNewHobbiesStrategyFixed( final String... values ) throws FieldException  {
-		if( this.new_hobbies != null ) { this.new_hobbies.setSetStrategyFixed( values ); }
+		if( this.newHobbies != null ) { this.newHobbies.setSetStrategyFixed( values ); }
 	}
 
 	public void setNewHobbiesStrategyFixed( final Enum<?>[] values ) throws FieldException  {
-		if( this.new_hobbies != null ) { this.new_hobbies.setSetStrategyFixed( values ); }
+		if( this.newHobbies != null ) { this.newHobbies.setSetStrategyFixed( values ); }
+	}
+
+	public void setNewHobbiesStrategyFixed( final String... values ) throws FieldException  {
+		if( this.newHobbies != null ) { this.newHobbies.setSetStrategyFixed( values ); }
+	}
+
+	public void setNewHobbiesStrategyFixed() throws FieldException  {
+		if( this.newHobbies != null ) { this.newHobbies.setSetStrategyFixed(); }
 	}
 
 	public void cleanNewHobbiesStrategyIncrement()  {
-		if( this.new_hobbies != null ) { this.new_hobbies.cleanSetStrategyIncrement(); }
+		if( this.newHobbies != null ) { this.newHobbies.cleanSetStrategyIncrement(); }
 	}
 
 	public void cleanNewHobbiesStrategyRandom()  {
-		if( this.new_hobbies != null ) { this.new_hobbies.cleanSetStrategyRandom(); }
+		if( this.newHobbies != null ) { this.newHobbies.cleanSetStrategyRandom(); }
 	}
 
 	public void setNewHobbiesStrategyIncrement( final String startValue, final Integer increment, final Integer range ) throws FieldException  {
-		if( this.new_hobbies != null ) { this.new_hobbies.setSetStrategyIncrement( startValue, increment, range ); }
+		if( this.newHobbies != null ) { this.newHobbies.setSetStrategyIncrement( startValue, increment, range ); }
 	}
 
 	public void setNewHobbiesStrategyIncrement( final Enum<?> startValue, final Integer increment, final Integer range ) throws FieldException  {
-		if( this.new_hobbies != null ) { this.new_hobbies.setSetStrategyIncrement( startValue, increment, range ); }
+		if( this.newHobbies != null ) { this.newHobbies.setSetStrategyIncrement( startValue, increment, range ); }
 	}
 
 	public void setNewHobbiesStrategyRandom() throws FieldException  {
-		if( this.new_hobbies != null ) { this.new_hobbies.setSetStrategyRandom(); }
+		if( this.newHobbies != null ) { this.newHobbies.setSetStrategyRandom(); }
 	}
 
 	public void setNewHobbiesStrategyRandom( final Integer range ) throws FieldException  {
-		if( this.new_hobbies != null ) { this.new_hobbies.setSetStrategyRandom( range ); }
+		if( this.newHobbies != null ) { this.newHobbies.setSetStrategyRandom( range ); }
 	}
 
 	public void cleanNewHobbiesStrategyFixed()  {
-		if( this.new_hobbies != null ) { this.new_hobbies.cleanSetStrategyFixed(); }
+		if( this.newHobbies != null ) { this.newHobbies.cleanSetStrategyFixed(); }
 	}
 
 	@OldHobbies( position = 21 )
 	public String getOldHobbies() throws FieldException  {
-		return this.old_hobbies.getSet();
+		return this.oldHobbies.getSet();
 	}
 
 	public void setOldHobbiesOptions( final String separator ) throws FieldException  {
-		if( this.old_hobbies != null ) { this.old_hobbies.setSetOptions( separator ); }
+		if( this.oldHobbies != null ) { this.oldHobbies.setSetOptions( separator ); }
 	}
 
 	public void setOldHobbiesStrategyFixed( final Set<String> values ) throws FieldException  {
-		if( this.old_hobbies != null ) { this.old_hobbies.setSetStrategyFixed( values ); }
-	}
-
-	public void setOldHobbiesStrategyFixed() throws FieldException  {
-		if( this.old_hobbies != null ) { this.old_hobbies.setSetStrategyFixed(); }
-	}
-
-	public void setOldHobbiesStrategyFixed( final String... values ) throws FieldException  {
-		if( this.old_hobbies != null ) { this.old_hobbies.setSetStrategyFixed( values ); }
+		if( this.oldHobbies != null ) { this.oldHobbies.setSetStrategyFixed( values ); }
 	}
 
 	public void setOldHobbiesStrategyFixed( final Enum<?>[] values ) throws FieldException  {
-		if( this.old_hobbies != null ) { this.old_hobbies.setSetStrategyFixed( values ); }
+		if( this.oldHobbies != null ) { this.oldHobbies.setSetStrategyFixed( values ); }
+	}
+
+	public void setOldHobbiesStrategyFixed( final String... values ) throws FieldException  {
+		if( this.oldHobbies != null ) { this.oldHobbies.setSetStrategyFixed( values ); }
+	}
+
+	public void setOldHobbiesStrategyFixed() throws FieldException  {
+		if( this.oldHobbies != null ) { this.oldHobbies.setSetStrategyFixed(); }
 	}
 
 	public void cleanOldHobbiesStrategyIncrement()  {
-		if( this.old_hobbies != null ) { this.old_hobbies.cleanSetStrategyIncrement(); }
+		if( this.oldHobbies != null ) { this.oldHobbies.cleanSetStrategyIncrement(); }
 	}
 
 	public void cleanOldHobbiesStrategyRandom()  {
-		if( this.old_hobbies != null ) { this.old_hobbies.cleanSetStrategyRandom(); }
+		if( this.oldHobbies != null ) { this.oldHobbies.cleanSetStrategyRandom(); }
 	}
 
 	public void setOldHobbiesStrategyIncrement( final String startValue, final Integer increment, final Integer range ) throws FieldException  {
-		if( this.old_hobbies != null ) { this.old_hobbies.setSetStrategyIncrement( startValue, increment, range ); }
+		if( this.oldHobbies != null ) { this.oldHobbies.setSetStrategyIncrement( startValue, increment, range ); }
 	}
 
 	public void setOldHobbiesStrategyIncrement( final Enum<?> startValue, final Integer increment, final Integer range ) throws FieldException  {
-		if( this.old_hobbies != null ) { this.old_hobbies.setSetStrategyIncrement( startValue, increment, range ); }
+		if( this.oldHobbies != null ) { this.oldHobbies.setSetStrategyIncrement( startValue, increment, range ); }
 	}
 
 	public void setOldHobbiesStrategyRandom() throws FieldException  {
-		if( this.old_hobbies != null ) { this.old_hobbies.setSetStrategyRandom(); }
+		if( this.oldHobbies != null ) { this.oldHobbies.setSetStrategyRandom(); }
 	}
 
 	public void setOldHobbiesStrategyRandom( final Integer range ) throws FieldException  {
-		if( this.old_hobbies != null ) { this.old_hobbies.setSetStrategyRandom( range ); }
+		if( this.oldHobbies != null ) { this.oldHobbies.setSetStrategyRandom( range ); }
 	}
 
 	public void cleanOldHobbiesStrategyFixed()  {
-		if( this.old_hobbies != null ) { this.old_hobbies.cleanSetStrategyFixed(); }
-	}
-
-	public void cleanNewGenderStrategyRandom()  {
-		if( this.new_gender != null ) { this.new_gender.cleanEnumStrategyRandom(); }
-	}
-
-	public void setNewGenderStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
-		if( this.new_gender != null ) { this.new_gender.setEnumStrategyIncrement( value, increment ); }
-	}
-
-	public void setNewGenderStrategyRandom() throws FieldException  {
-		if( this.new_gender != null ) { this.new_gender.setEnumStrategyRandom(); }
-	}
-
-	public void cleanNewGenderStrategyFixed()  {
-		if( this.new_gender != null ) { this.new_gender.cleanEnumStrategyFixed(); }
+		if( this.oldHobbies != null ) { this.oldHobbies.cleanSetStrategyFixed(); }
 	}
 
 	@NewGender( position = 22 )
 	public String getNewGender() throws FieldException  {
-		return this.new_gender.getEnum();
+		return this.newGender.getEnum();
 	}
 
 	public void setNewGenderStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException  {
-		if( this.new_gender != null ) { this.new_gender.setEnumStrategyFixed( value ); }
+		if( this.newGender != null ) { this.newGender.setEnumStrategyFixed( value ); }
 	}
 
 	public void cleanNewGenderStrategyIncrement()  {
-		if( this.new_gender != null ) { this.new_gender.cleanEnumStrategyIncrement(); }
+		if( this.newGender != null ) { this.newGender.cleanEnumStrategyIncrement(); }
 	}
 
-	public void cleanOldGenderStrategyRandom()  {
-		if( this.old_gender != null ) { this.old_gender.cleanEnumStrategyRandom(); }
+	public void cleanNewGenderStrategyRandom()  {
+		if( this.newGender != null ) { this.newGender.cleanEnumStrategyRandom(); }
 	}
 
-	public void setOldGenderStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
-		if( this.old_gender != null ) { this.old_gender.setEnumStrategyIncrement( value, increment ); }
+	public void setNewGenderStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
+		if( this.newGender != null ) { this.newGender.setEnumStrategyIncrement( value, increment ); }
 	}
 
-	public void setOldGenderStrategyRandom() throws FieldException  {
-		if( this.old_gender != null ) { this.old_gender.setEnumStrategyRandom(); }
+	public void setNewGenderStrategyRandom() throws FieldException  {
+		if( this.newGender != null ) { this.newGender.setEnumStrategyRandom(); }
 	}
 
-	public void cleanOldGenderStrategyFixed()  {
-		if( this.old_gender != null ) { this.old_gender.cleanEnumStrategyFixed(); }
+	public void cleanNewGenderStrategyFixed()  {
+		if( this.newGender != null ) { this.newGender.cleanEnumStrategyFixed(); }
 	}
 
 	@OldGender( position = 23 )
 	public String getOldGender() throws FieldException  {
-		return this.old_gender.getEnum();
+		return this.oldGender.getEnum();
 	}
 
 	public void setOldGenderStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException  {
-		if( this.old_gender != null ) { this.old_gender.setEnumStrategyFixed( value ); }
+		if( this.oldGender != null ) { this.oldGender.setEnumStrategyFixed( value ); }
 	}
 
 	public void cleanOldGenderStrategyIncrement()  {
-		if( this.old_gender != null ) { this.old_gender.cleanEnumStrategyIncrement(); }
+		if( this.oldGender != null ) { this.oldGender.cleanEnumStrategyIncrement(); }
+	}
+
+	public void cleanOldGenderStrategyRandom()  {
+		if( this.oldGender != null ) { this.oldGender.cleanEnumStrategyRandom(); }
+	}
+
+	public void setOldGenderStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
+		if( this.oldGender != null ) { this.oldGender.setEnumStrategyIncrement( value, increment ); }
+	}
+
+	public void setOldGenderStrategyRandom() throws FieldException  {
+		if( this.oldGender != null ) { this.oldGender.setEnumStrategyRandom(); }
+	}
+
+	public void cleanOldGenderStrategyFixed()  {
+		if( this.oldGender != null ) { this.oldGender.cleanEnumStrategyFixed(); }
+	}
+
+	public void setNewSalaryLength( final Integer length ) throws FieldException  {
+		if( this.newSalary != null ) { this.newSalary.setStringLength( length ); }
+	}
+
+	public void setNewSalaryStrategyFixed( final String value ) throws FieldException  {
+		if( this.newSalary != null ) { this.newSalary.setStringStrategyFixed( value ); }
+	}
+
+	public void cleanNewSalaryStrategyIncrement()  {
+		if( this.newSalary != null ) { this.newSalary.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanNewSalaryStrategyRandom()  {
+		if( this.newSalary != null ) { this.newSalary.cleanStringStrategyRandom(); }
+	}
+
+	public void setNewSalaryStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.newSalary != null ) { this.newSalary.setStringStrategyIncrement( value, start_value, increment ); }
+	}
+
+	public void setNewSalaryStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.newSalary != null ) { this.newSalary.setStringStrategyRandom( length ); }
+	}
+
+	public void cleanNewSalary()  {
+		if( this.newSalary != null ) { this.newSalary.cleanString(); }
+	}
+
+	public void cleanNewSalaryLength()  {
+		if( this.newSalary != null ) { this.newSalary.cleanStringLength(); }
 	}
 
 	@NewSalary( position = 24 )
 	public String getNewSalary() throws FieldException  {
-		return this.new_salary.getString();
+		return this.newSalary.getString();
 	}
 
-	public void setNewSalaryLength( final Integer length ) throws FieldException  {
-		if( this.new_salary != null ) { this.new_salary.setStringLength( length ); }
+	public void setOldSalaryLength( final Integer length ) throws FieldException  {
+		if( this.oldSalary != null ) { this.oldSalary.setStringLength( length ); }
 	}
 
-	public void setNewSalaryStrategyFixed( final String value ) throws FieldException  {
-		if( this.new_salary != null ) { this.new_salary.setStringStrategyFixed( value ); }
+	public void setOldSalaryStrategyFixed( final String value ) throws FieldException  {
+		if( this.oldSalary != null ) { this.oldSalary.setStringStrategyFixed( value ); }
 	}
 
-	public void cleanNewSalaryStrategyIncrement()  {
-		if( this.new_salary != null ) { this.new_salary.cleanStringStrategyIncrement(); }
+	public void cleanOldSalaryStrategyIncrement()  {
+		if( this.oldSalary != null ) { this.oldSalary.cleanStringStrategyIncrement(); }
 	}
 
-	public void cleanNewSalaryStrategyRandom()  {
-		if( this.new_salary != null ) { this.new_salary.cleanStringStrategyRandom(); }
+	public void cleanOldSalaryStrategyRandom()  {
+		if( this.oldSalary != null ) { this.oldSalary.cleanStringStrategyRandom(); }
 	}
 
-	public void setNewSalaryStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
-		if( this.new_salary != null ) { this.new_salary.setStringStrategyIncrement( value, start_value, increment ); }
+	public void setOldSalaryStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.oldSalary != null ) { this.oldSalary.setStringStrategyIncrement( value, start_value, increment ); }
 	}
 
-	public void setNewSalaryStrategyRandom( final Integer length ) throws FieldException  {
-		if( this.new_salary != null ) { this.new_salary.setStringStrategyRandom( length ); }
+	public void setOldSalaryStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.oldSalary != null ) { this.oldSalary.setStringStrategyRandom( length ); }
 	}
 
-	public void cleanNewSalary()  {
-		if( this.new_salary != null ) { this.new_salary.cleanString(); }
+	public void cleanOldSalary()  {
+		if( this.oldSalary != null ) { this.oldSalary.cleanString(); }
 	}
 
-	public void cleanNewSalaryLength()  {
-		if( this.new_salary != null ) { this.new_salary.cleanStringLength(); }
+	public void cleanOldSalaryLength()  {
+		if( this.oldSalary != null ) { this.oldSalary.cleanStringLength(); }
 	}
 
 	@OldSalary( position = 25 )
 	public String getOldSalary() throws FieldException  {
-		return this.old_salary.getString();
-	}
-
-	public void setOldSalaryLength( final Integer length ) throws FieldException  {
-		if( this.old_salary != null ) { this.old_salary.setStringLength( length ); }
-	}
-
-	public void setOldSalaryStrategyFixed( final String value ) throws FieldException  {
-		if( this.old_salary != null ) { this.old_salary.setStringStrategyFixed( value ); }
-	}
-
-	public void cleanOldSalaryStrategyIncrement()  {
-		if( this.old_salary != null ) { this.old_salary.cleanStringStrategyIncrement(); }
-	}
-
-	public void cleanOldSalaryStrategyRandom()  {
-		if( this.old_salary != null ) { this.old_salary.cleanStringStrategyRandom(); }
-	}
-
-	public void setOldSalaryStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
-		if( this.old_salary != null ) { this.old_salary.setStringStrategyIncrement( value, start_value, increment ); }
-	}
-
-	public void setOldSalaryStrategyRandom( final Integer length ) throws FieldException  {
-		if( this.old_salary != null ) { this.old_salary.setStringStrategyRandom( length ); }
-	}
-
-	public void cleanOldSalary()  {
-		if( this.old_salary != null ) { this.old_salary.cleanString(); }
-	}
-
-	public void cleanOldSalaryLength()  {
-		if( this.old_salary != null ) { this.old_salary.cleanStringLength(); }
+		return this.oldSalary.getString();
 	}
 
 }

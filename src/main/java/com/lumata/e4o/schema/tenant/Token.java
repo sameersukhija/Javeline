@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "token" )
 public class Token { 
 
-	public enum Fields { token_code, msisdn, token_label_id, token_notification_resent, ruleset_id, event_id, event_date, expiration_date, consumed_date, qty_current_redeems, qty_max_redeems, last_redeem_date, single_use_redeem_duration_timeout, qty_incident, qty_use, has_offers_associated, description, image_url, consumed_notes, module_id, feature_id }
+	public enum Fields { token_code, msisdn, token_label_id, token_notification_resent, ruleset_id, event_id, event_date, expiration_date, consumed_date, qty_current_redeems, qty_max_redeems, last_redeem_date, single_use_redeem_duration_timeout, qty_incident, qty_use, has_offers_associated, description, image_url, consumed_notes, warning, module_id, feature_id, event_type }
 
 	@Column(
 			table = "token",
@@ -110,20 +110,20 @@ public class Token {
 	@Column(
 			table = "token",
 			field = "event_id",
-			type = "smallint(11) unsigned",
-			mysqlType = "smallint",
-			javaType = "Short",
-			categoryType = "Number",
+			type = "varchar(40)",
+			mysqlType = "varchar",
+			javaType = "String",
+			categoryType = "String",
 			isNull = false,
 			isAutoincrement = false,
 			key = "",
 			defaultValue = "null",
 			extra = "",
-			length = 11,
+			length = 40,
 			getMethod = "getEventId",
 			setMethod = "setEventId"
 	)
-	private Short event_id;
+	private String event_id;
 
 	@Column(
 			table = "token",
@@ -361,6 +361,24 @@ public class Token {
 
 	@Column(
 			table = "token",
+			field = "warning",
+			type = "tinyint(1) unsigned",
+			mysqlType = "tinyint",
+			javaType = "Boolean",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "0",
+			extra = "",
+			length = 1,
+			getMethod = "getWarning",
+			setMethod = "setWarning"
+	)
+	private Boolean warning;
+
+	@Column(
+			table = "token",
 			field = "module_id",
 			type = "tinyint(3) unsigned",
 			mysqlType = "tinyint",
@@ -395,6 +413,24 @@ public class Token {
 	)
 	private String feature_id;
 
+	@Column(
+			table = "token",
+			field = "event_type",
+			type = "varchar(60)",
+			mysqlType = "varchar",
+			javaType = "String",
+			categoryType = "String",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 60,
+			getMethod = "getEventType",
+			setMethod = "setEventType"
+	)
+	private String event_type;
+
 
 	public Token() {} 
 
@@ -405,7 +441,7 @@ public class Token {
 		this.token_label_id = rs.getByte( Token.Fields.token_label_id.name() );
 		this.token_notification_resent = rs.getByte( Token.Fields.token_notification_resent.name() );
 		this.ruleset_id = rs.getInt( Token.Fields.ruleset_id.name() );
-		this.event_id = rs.getShort( Token.Fields.event_id.name() );
+		this.event_id = rs.getString( Token.Fields.event_id.name() );
 		this.event_date = rs.getDate( Token.Fields.event_date.name() );
 		this.expiration_date = rs.getDate( Token.Fields.expiration_date.name() );
 		this.consumed_date = rs.getDate( Token.Fields.consumed_date.name() );
@@ -419,8 +455,10 @@ public class Token {
 		this.description = rs.getString( Token.Fields.description.name() );
 		this.image_url = rs.getString( Token.Fields.image_url.name() );
 		this.consumed_notes = rs.getString( Token.Fields.consumed_notes.name() );
+		this.warning = rs.getBoolean( Token.Fields.warning.name() );
 		this.module_id = rs.getByte( Token.Fields.module_id.name() );
 		this.feature_id = rs.getString( Token.Fields.feature_id.name() );
+		this.event_type = rs.getString( Token.Fields.event_type.name() );
 
 	}
 
@@ -431,7 +469,7 @@ public class Token {
 		this.token_label_id = (byte)jo.getInt( Token.Fields.token_label_id.name() );
 		this.token_notification_resent = (byte)jo.getInt( Token.Fields.token_notification_resent.name() );
 		this.ruleset_id = (int)jo.getInt( Token.Fields.ruleset_id.name() );
-		this.event_id = (short)jo.getInt( Token.Fields.event_id.name() );
+		this.event_id = jo.getString( Token.Fields.event_id.name() );
 		this.event_date = Format.getMysqlDateTime( jo.getString( Token.Fields.event_date.name() ) );
 		this.expiration_date = Format.getMysqlDateTime( jo.getString( Token.Fields.expiration_date.name() ) );
 		this.consumed_date = Format.getMysqlDateTime( jo.getString( Token.Fields.consumed_date.name() ) );
@@ -445,8 +483,10 @@ public class Token {
 		this.description = jo.getString( Token.Fields.description.name() );
 		this.image_url = jo.getString( Token.Fields.image_url.name() );
 		this.consumed_notes = jo.getString( Token.Fields.consumed_notes.name() );
+		this.warning = jo.getBoolean( Token.Fields.warning.name() );
 		this.module_id = (byte)jo.getInt( Token.Fields.module_id.name() );
 		this.feature_id = jo.getString( Token.Fields.feature_id.name() );
+		this.event_type = jo.getString( Token.Fields.event_type.name() );
 
 	}
 
@@ -510,13 +550,13 @@ public class Token {
 
 	}
 
-	public Short getEventId() {
+	public String getEventId() {
 
 		return this.event_id;
 
 	}
 
-	public void setEventId( Short event_id ) {
+	public void setEventId( String event_id ) {
 
 		this.event_id = event_id;
 
@@ -678,6 +718,18 @@ public class Token {
 
 	}
 
+	public Boolean getWarning() {
+
+		return this.warning;
+
+	}
+
+	public void setWarning( Boolean warning ) {
+
+		this.warning = warning;
+
+	}
+
 	public Byte getModuleId() {
 
 		return this.module_id;
@@ -699,6 +751,18 @@ public class Token {
 	public void setFeatureId( String feature_id ) {
 
 		this.feature_id = feature_id;
+
+	}
+
+	public String getEventType() {
+
+		return this.event_type;
+
+	}
+
+	public void setEventType( String event_type ) {
+
+		this.event_type = event_type;
 
 	}
 
@@ -732,8 +796,10 @@ public class Token {
 			.append( "\"description\": \"" ).append( this.getDescription() ).append( "\", " )
 			.append( "\"image_url\": \"" ).append( this.getImageUrl() ).append( "\", " )
 			.append( "\"consumed_notes\": \"" ).append( this.getConsumedNotes() ).append( "\", " )
+			.append( "\"warning\": \"" ).append( this.getWarning() ).append( "\", " )
 			.append( "\"module_id\": \"" ).append( this.getModuleId() ).append( "\", " )
-			.append( "\"feature_id\": \"" ).append( this.getFeatureId() ).append( "\"" )
+			.append( "\"feature_id\": \"" ).append( this.getFeatureId() ).append( "\", " )
+			.append( "\"event_type\": \"" ).append( this.getEventType() ).append( "\"" )
 			.append( " }" );
 
 		return str.toString();

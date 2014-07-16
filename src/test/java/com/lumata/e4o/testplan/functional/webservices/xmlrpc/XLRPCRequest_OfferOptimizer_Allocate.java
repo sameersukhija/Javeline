@@ -31,12 +31,14 @@ import com.lumata.e4o.dao.tenant.DAOStatuses;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
 import com.lumata.e4o.dao.tenant.DAOSupportedRatePlan;
 import com.lumata.e4o.dao.tenant.DAOConf.ConfTag;
+import com.lumata.e4o.dao.tenant.DAOToken;
 import com.lumata.e4o.schema.tenant.Conf;
 import com.lumata.e4o.schema.tenant.Networks;
 import com.lumata.e4o.schema.tenant.Profiles;
 import com.lumata.e4o.schema.tenant.Statuses;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.schema.tenant.SupportedRatePlan;
+import com.lumata.e4o.schema.tenant.Token;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
@@ -45,9 +47,9 @@ import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
 import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.*;
 
-public class XMLRPCRequest_Catalogmanager_Accept {
+public class XLRPCRequest_OfferOptimizer_Allocate {
 	
-	private static final Logger logger = LoggerFactory.getLogger( XMLRPCRequest_Catalogmanager_Accept.class );
+	private static final Logger logger = LoggerFactory.getLogger( XLRPCRequest_OfferOptimizer_Allocate.class );
 	
 	public enum ExtendedParameters {
 		tongue, gender, salary, imei, imsi, hobbies 
@@ -57,92 +59,29 @@ public class XMLRPCRequest_Catalogmanager_Accept {
 	Server actruleServer;
 	User superman;
 	Mysql mysql;
+	DAOToken daoToken;
 	DAOSubscribers daoSubscribers;
-	SimpleDateFormat sdf;
-	Calendar today;
 	
 	/** VALID PARAMETERS */
 	/** xmlrpc valid parameters */
 	String msisdn;
-	String subscriptionDate;
-	String profile;
-	String ratePlan;
-	String status;
-	String inTag;
-	String network;
-
-	/** xmlrpc valid extended parameters */
-	String tongue;
-	String gender;
-	String salary;
-	String imei;
-	String imsi;
-	String hobbies;
-	
+	String token;
 	
 	/** NULL PARAMETERS */
 	/** xmlrpc null parameters */
 	final String msisdnNull = null;
-	final String subscriptionDateNull = null;
-	final String profileNull = null;
-	final String ratePlanNull = null;
-	final String statusNull = null;
-	final String inTagNull = null;
-	final String networkNull = null;
+	final String tokenNull = null;
 
-	/** xmlrpc null extended parameters */
-	final String tongueNull = null;
-	final String genderNull = null;
-	final String salaryNull = null;
-	final String imeiNull = null;
-	final String imsiNull = null;
-	final String hobbiesNull = null;
-
-	
 	/** WRONG PARAMETERS */	
 	/** xmlrpc wrong parameters */
 	String msisdnWrong;
-	String subscriptionDateWrong;
-	String profileWrong;
-	String ratePlanWrong;
-	String statusWrong;
-	String inTagWrong;
-	String networkWrong;
-
-	/** xmlrpc wrong extended parameters */
-	String tongueWrong;
-	String genderWrong;
-	String salaryWrong;
-	String imeiWrong;
-	String imsiWrong;
-	String hobbiesWrong;
-
+	String tokenWrong;
 	
 	/** OVER LENGTH PARAMETERS */	
 	/** xmlrpc over length parameters */
 	String msisdnOverLength;
-	String subscriptionDateOverLength;
-	String profileOverLength;
-	String ratePlanOverLength;
-	String statusOverLength;
-	String inTagOverLength;
-	String networkOverLength;
+	String tokenOverLength;
 	
-	/** xmlrpc over length extended parameters */
-	String tongueOverLength;
-	String genderOverLength;
-	String salaryOverLength;
-	String imeiOverLength;
-	String imsiOverLength;
-	String hobbiesOverLength;
-
-	
-	SupportedRatePlan supportedRatePlan;
-	Profiles profileObj;
-	Statuses statusObj;
-	Conf confObjInTag; 
-	Conf confObjTongue; 
-	Networks networks;
 	
 	/* 	Initialize Environment */
 	@Parameters({"environment", "tenant", "gui_server", "user"})
@@ -160,9 +99,21 @@ public class XMLRPCRequest_Catalogmanager_Accept {
 		
 		daoSubscribers = DAOSubscribers.getInstance( mysql );
 		
-		sdf = new SimpleDateFormat( "yyyy-MM-dd" );
+		daoToken = DAOToken.getInstance( mysql );
 		
-		today = Calendar.getInstance();
+		/** initialize xmlrpc parameters with correct value */
+		msisdn = "3399900001";
+		
+		/** initialize xmlrpc parameters with wrong value */
+		msisdnWrong = "msisdnWrong";
+		tokenWrong = "tokenWrong";
+		
+		/** xmlrpc over length parameters */
+		msisdnOverLength = RandomStringUtils.randomNumeric( ( getColumnLenght( Token.class, Token.Fields.msisdn ) + 1 ) );
+		tokenOverLength = RandomStringUtils.randomAlphanumeric( ( getColumnLenght( Token.class, Token.Fields.token_code ) + 1 ) );
+		
+		
+		/*
 
 		supportedRatePlan = getFirstValidRatePlan();
 		profileObj = getProfileByValidRatePlan( supportedRatePlan.getProfileId() );
@@ -171,43 +122,212 @@ public class XMLRPCRequest_Catalogmanager_Accept {
 		confObjTongue = getFirstValidConfTagByName( ConfTag.language ); 
 		networks = getFirstAvailableNetwork();
 		
-		String[] languages = confObjTongue.getCurrent().split(";");
-		
-		/** initialize xmlrpc parameters with correct value */
-		msisdn = String.valueOf( getNotExitingMsisdn( 3910000000L, 3999999999L, 100 ) );
-		subscriptionDate = sdf.format( today.getTime() );
-		ratePlan = supportedRatePlan.getRatePlan();
-		profile = profileObj.getProfile();
-		status = statusObj.getStatus();
-		inTag = confObjInTag.getCurrent();
-		network = networks.getNetwork();
-		tongue = ( null != languages ? languages[ 0 ] : "" );
-		String gender;
-		String salary;
-		String imei;
-		String imsi;
-		String hobbies;
-		
-		/** initialize xmlrpc parameters with wrong value */
-		msisdnWrong = "msisdnWrong";
-		subscriptionDateWrong = "2014-";
-		profileWrong = "profileWrong";
-		ratePlanWrong = "ratePlanWrong";
-		statusWrong = "statusWrong";
-		inTagWrong = "inTagWrong";
-		networkWrong = "networkWrong";	
-		
-		/** xmlrpc over length parameters */
-		msisdnOverLength = RandomStringUtils.randomNumeric( ( getColumnLenght( Subscribers.class, Subscribers.Fields.msisdn ) + 1 ) );
-		subscriptionDateOverLength = RandomStringUtils.randomAlphanumeric( ( getColumnLenght( Subscribers.class, Subscribers.Fields.subscription_date ) + 1 ) );
-		profileOverLength = RandomStringUtils.randomNumeric( ( getColumnLenght( Subscribers.class, Subscribers.Fields.profile_id ) + 1 ) );
-		ratePlanOverLength = RandomStringUtils.randomNumeric( ( getColumnLenght( Subscribers.class, Subscribers.Fields.rate_plan_id ) + 1 ) );
-		statusOverLength = RandomStringUtils.randomNumeric( ( getColumnLenght( Subscribers.class, Subscribers.Fields.status_id ) + 1 ) );
-		inTagOverLength = RandomStringUtils.randomAlphanumeric( ( getColumnLenght( Subscribers.class, Subscribers.Fields.in_tag ) + 1 ) );
-		networkOverLength = RandomStringUtils.randomNumeric( ( getColumnLenght( Subscribers.class, Subscribers.Fields.network_id ) + 1 ) );
-				
+		*/
+			
 	}
 	
+	private Integer getColumnLenght( Class<?> obj, Enum<?> column ) {
+		
+		try {
+			
+			Column col = obj.getDeclaredField( column.name() ).getAnnotation( Column.class );
+			
+			return col.length();
+		
+		} catch (NoSuchFieldException | SecurityException e) {
+			
+			logger.error( Log.FAILED.createMessage( e.getMessage() ), e );
+			
+		}
+		
+		return null;
+		
+	}
+	
+	@Test(enabled=true, priority = 1 )
+	public void allocateWithNullMsisdn() throws Exception {
+		
+		XMLRPCRequest.offeroptimizer_allocate().call( 
+							actruleServer, 
+							xmlrpcBody(
+								authentication( superman ),
+								string( msisdnNull ),
+								string( tokenNull )
+							),
+							xmlrpcValidator(
+								fault().code( equalTo( 100 ) ),
+								fault().message( equalTo( "Subscriber not found: " ) )
+							),
+							xmlrpcOptions(
+								sleep( 100L )	
+							)
+		
+		);
+		
+	}
+	
+	/*
+	 * To enable after fixing https://tracker.lumata.com/browse/EFOGC-2373
+	 */
+	@Test(enabled=false, priority = 2 )
+	public void allocateWithNullToken() throws Exception {
+		
+		XMLRPCRequest.offeroptimizer_allocate().call( 
+							actruleServer, 
+							xmlrpcBody(
+								authentication( superman ),
+								string( msisdn ),
+								string( tokenNull )
+							),
+							xmlrpcValidator(
+									fault().code( equalTo( 401 ) ),
+									fault().message( equalTo( "Malformed request" ) )
+							),
+							xmlrpcOptions(
+								sleep( 100L )	
+							)
+		
+		);
+		
+	}
+
+	@Test(enabled=true, priority = 3 )
+	public void allocateWithWrongMsisdn() throws Exception {
+		
+		XMLRPCRequest.offeroptimizer_allocate().call( 
+							actruleServer, 
+							xmlrpcBody(
+								authentication( superman ),
+								string( msisdnWrong ),
+								string( token )
+							),
+							xmlrpcValidator(
+								fault().code( equalTo( 100 ) ),
+								fault().message( equalTo( "Subscriber not found: " + msisdnWrong ) )
+							),
+							xmlrpcOptions(
+								sleep( 100L )	
+							)
+		
+		);
+		
+	}
+	
+	/*
+	 * To enable after fixing https://tracker.lumata.com/browse/EFOGC-2373
+	 */
+	@Test(enabled=false, priority = 4 )
+	public void allocateWithWrongToken() throws Exception {
+		
+		XMLRPCRequest.offeroptimizer_allocate().call( 
+							actruleServer, 
+							xmlrpcBody(
+								authentication( superman ),
+								string( msisdn ),
+								string( tokenWrong )
+							),
+							xmlrpcValidator(
+								fault().code( equalTo( 401 ) ),
+								fault().message( equalTo( "Malformed request" ) )
+							),
+							xmlrpcOptions(
+								sleep( 100L )	
+							)
+		
+		);
+		
+	}
+	
+	@Test(enabled=true, priority = 5 )
+	public void allocateWithOverLengthMsisdn() throws Exception {
+		
+		XMLRPCRequest.offeroptimizer_allocate().call( 
+							actruleServer, 
+							xmlrpcBody(
+								authentication( superman ),
+								string( msisdnOverLength ),
+								string( token )
+							),
+							xmlrpcValidator(
+								fault().code( equalTo( 100 ) ),
+								fault().message( equalTo( "Subscriber not found: " + msisdnOverLength ) )
+							),
+							xmlrpcOptions(
+								sleep( 100L )	
+							)
+		
+		);
+		
+	}
+	
+	/*
+	 * To enable after fixing https://tracker.lumata.com/browse/EFOGC-2373
+	 */
+	@Test(enabled=false, priority = 6 )
+	public void allocateWithOverLengthToken() throws Exception {
+		
+		XMLRPCRequest.offeroptimizer_allocate().call( 
+							actruleServer, 
+							xmlrpcBody(
+								authentication( superman ),
+								string( msisdn ),
+								string( tokenOverLength )
+							),
+							xmlrpcValidator(
+								fault().code( equalTo( 401 ) ),
+								fault().message( equalTo( "Malformed request" ) )
+							),
+							xmlrpcOptions(
+								sleep( 100L )	
+							)
+		
+		);
+		
+	}
+	
+	@Test(enabled=true, priority = 7 )
+	public void allocateActiveToken() throws Exception {
+		
+		Subscribers subscriber = DAOSubscribers.getInstance( mysql ).getSubscriberWithActiveToken();
+		ArrayList<Token> token = DAOToken.getInstance( mysql ).getAvailableActiveTokens( subscriber.getMsisdn() );
+		
+		if( null != subscriber && null != token && token.size() > 0 ) {
+		
+			XMLRPCRequest.offeroptimizer_allocate().call( 
+								actruleServer, 
+								xmlrpcBody(
+									authentication( superman ),
+									string( msisdn ),
+									string( token.get( 0 ).getTokenCode() )
+								),
+								xmlrpcValidator(
+									fault().code( equalTo( 100 ) ),
+									fault().message( equalTo( "Subscriber not found: " + msisdnOverLength ) )
+								),
+								xmlrpcOptions(
+									sleep( 100L )	
+								)
+			
+			);
+						
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+/*	
 	private Long getNotExitingMsisdn( Long startValue, Long endValue, Integer attempts ) {
 		
 		Long msisdn = null;
@@ -491,7 +611,7 @@ public class XMLRPCRequest_Catalogmanager_Accept {
 	}
 	
 	/** the profile is not mandatory */
-	@Test(enabled=true, priority = 7 )
+/*	@Test(enabled=true, priority = 7 )
 	public void createSubscriberWithNullProfile() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_createSubscriber().call( 
@@ -1141,7 +1261,7 @@ public class XMLRPCRequest_Catalogmanager_Accept {
 		
 		*/
 		
-	}
+	//}
 	
 	
 	

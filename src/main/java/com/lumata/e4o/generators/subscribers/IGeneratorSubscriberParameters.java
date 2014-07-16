@@ -5,6 +5,7 @@ import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
 import com.lumata.e4o.exceptions.GeneratorException;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter;
 
 public interface IGeneratorSubscriberParameters {
 
@@ -35,5 +36,7 @@ public interface IGeneratorSubscriberParameters {
 	public void xmlrpcRecharge() throws GeneratorException;
 	
 	public void xmlrpcRecharge( final Long qtySubscribers ) throws GeneratorException;
+	
+	public void xmlrpcRecharge( final Long qtyRecharges, XMLRPCParameter... parameterList ) throws GeneratorException;
 	
 }

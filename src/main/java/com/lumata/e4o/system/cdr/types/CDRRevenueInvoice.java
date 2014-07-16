@@ -56,11 +56,6 @@ public class CDRRevenueInvoice extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
-	}
-
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
@@ -89,38 +84,38 @@ public class CDRRevenueInvoice extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
 	}
 
-	@AmountInvoice( position = 2 )
-	public String getAmountInvoice() throws FieldException  {
-		return this.amount_invoice.getLong();
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setAmountInvoiceStrategyFixed( final Long value ) throws FieldException  {
-		if( this.amount_invoice != null ) { this.amount_invoice.setLongStrategyFixed( value ); }
+		if( this.amountInvoice != null ) { this.amountInvoice.setLongStrategyFixed( value ); }
 	}
 
 	public void cleanAmountInvoiceStrategyIncrement()  {
-		if( this.amount_invoice != null ) { this.amount_invoice.cleanLongStrategyIncrement(); }
+		if( this.amountInvoice != null ) { this.amountInvoice.cleanLongStrategyIncrement(); }
 	}
 
 	public void cleanAmountInvoiceStrategyRandom()  {
-		if( this.amount_invoice != null ) { this.amount_invoice.cleanLongStrategyRandom(); }
+		if( this.amountInvoice != null ) { this.amountInvoice.cleanLongStrategyRandom(); }
 	}
 
 	public void setAmountInvoiceStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
-		if( this.amount_invoice != null ) { this.amount_invoice.setLongStrategyIncrement( value, increment ); }
+		if( this.amountInvoice != null ) { this.amountInvoice.setLongStrategyIncrement( value, increment ); }
 	}
 
 	public void setAmountInvoiceStrategyRandom( final Long min_value, final Long max_value ) throws FieldException  {
-		if( this.amount_invoice != null ) { this.amount_invoice.setLongStrategyRandom( min_value, max_value ); }
+		if( this.amountInvoice != null ) { this.amountInvoice.setLongStrategyRandom( min_value, max_value ); }
 	}
 
 	public void cleanAmountInvoiceStrategyFixed()  {
-		if( this.amount_invoice != null ) { this.amount_invoice.cleanLongStrategyFixed(); }
+		if( this.amountInvoice != null ) { this.amountInvoice.cleanLongStrategyFixed(); }
 	}
 
-	@Balance( position = 3 )
-	public String getBalance() throws FieldException  {
-		return this.balance.getLong();
+	@AmountInvoice( position = 2 )
+	public String getAmountInvoice() throws FieldException  {
+		return this.amountInvoice.getLong();
 	}
 
 	public void setBalanceStrategyFixed( final Long value ) throws FieldException  {
@@ -147,6 +142,24 @@ public class CDRRevenueInvoice extends CDR {
 		if( this.balance != null ) { this.balance.cleanLongStrategyFixed(); }
 	}
 
+	@Balance( position = 3 )
+	public String getBalance() throws FieldException  {
+		return this.balance.getLong();
+	}
+
+	@Type( position = 4 )
+	public String getType() throws FieldException  {
+		return this.type.getEnum();
+	}
+
+	public void setTypeStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException  {
+		if( this.type != null ) { this.type.setEnumStrategyFixed( value ); }
+	}
+
+	public void cleanTypeStrategyIncrement()  {
+		if( this.type != null ) { this.type.cleanEnumStrategyIncrement(); }
+	}
+
 	public void cleanTypeStrategyRandom()  {
 		if( this.type != null ) { this.type.cleanEnumStrategyRandom(); }
 	}
@@ -161,19 +174,6 @@ public class CDRRevenueInvoice extends CDR {
 
 	public void cleanTypeStrategyFixed()  {
 		if( this.type != null ) { this.type.cleanEnumStrategyFixed(); }
-	}
-
-	@Type( position = 4 )
-	public String getType() throws FieldException  {
-		return this.type.getEnum();
-	}
-
-	public void setTypeStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException  {
-		if( this.type != null ) { this.type.setEnumStrategyFixed( value ); }
-	}
-
-	public void cleanTypeStrategyIncrement()  {
-		if( this.type != null ) { this.type.cleanEnumStrategyIncrement(); }
 	}
 
 }

@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @Table( "catalog_offers" )
 public class CatalogOffers { 
 
-	public enum Fields { offer_id, external_id, offer_name, description, voucher_type, voucher_unlimited_code, redemption_notification, start_date, end_date, offer_status, eligibility_criteria, notification, offer_rank, subs_preferences_id_list, update_time, url_image, agreement, subscriber_limit }
+	public enum Fields { offer_id, external_id, offer_name, description, voucher_type, voucher_unlimited_code, redemption_notification, start_date, end_date, offer_status, eligibility_criteria, notification, offer_rank, labels_id_list, update_time, url_image, agreement, subscriber_limit }
 
 	@Column(
 			table = "catalog_offers",
@@ -254,7 +254,7 @@ public class CatalogOffers {
 
 	@Column(
 			table = "catalog_offers",
-			field = "subs_preferences_id_list",
+			field = "labels_id_list",
 			type = "set('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64')",
 			mysqlType = "set",
 			javaType = "Set",
@@ -265,10 +265,10 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 64,
-			getMethod = "getSubsPreferencesIdList",
-			setMethod = "setSubsPreferencesIdList"
+			getMethod = "getLabelsIdList",
+			setMethod = "setLabelsIdList"
 	)
-	private String subs_preferences_id_list;
+	private String labels_id_list;
 
 	@Column(
 			table = "catalog_offers",
@@ -360,7 +360,7 @@ public class CatalogOffers {
 		this.eligibility_criteria = rs.getString( CatalogOffers.Fields.eligibility_criteria.name() );
 		this.notification = rs.getString( CatalogOffers.Fields.notification.name() );
 		this.offer_rank = rs.getByte( CatalogOffers.Fields.offer_rank.name() );
-		this.subs_preferences_id_list = rs.getString( CatalogOffers.Fields.subs_preferences_id_list.name() );
+		this.labels_id_list = rs.getString( CatalogOffers.Fields.labels_id_list.name() );
 		this.update_time = rs.getTimestamp( CatalogOffers.Fields.update_time.name() );
 		this.url_image = rs.getString( CatalogOffers.Fields.url_image.name() );
 		this.agreement = rs.getString( CatalogOffers.Fields.agreement.name() );
@@ -383,7 +383,7 @@ public class CatalogOffers {
 		this.eligibility_criteria = jo.getString( CatalogOffers.Fields.eligibility_criteria.name() );
 		this.notification = jo.getString( CatalogOffers.Fields.notification.name() );
 		this.offer_rank = (byte)jo.getInt( CatalogOffers.Fields.offer_rank.name() );
-		this.subs_preferences_id_list = jo.getString( CatalogOffers.Fields.subs_preferences_id_list.name() );
+		this.labels_id_list = jo.getString( CatalogOffers.Fields.labels_id_list.name() );
 		this.update_time = new Timestamp( Format.getMysqlDateTime( jo.getString( CatalogOffers.Fields.update_time.name() ) ).getTime() );
 		this.url_image = jo.getString( CatalogOffers.Fields.url_image.name() );
 		this.agreement = jo.getString( CatalogOffers.Fields.agreement.name() );
@@ -547,15 +547,15 @@ public class CatalogOffers {
 
 	}
 
-	public String getSubsPreferencesIdList() {
+	public String getLabelsIdList() {
 
-		return this.subs_preferences_id_list;
+		return this.labels_id_list;
 
 	}
 
-	public void setSubsPreferencesIdList( String subs_preferences_id_list ) {
+	public void setLabelsIdList( String labels_id_list ) {
 
-		this.subs_preferences_id_list = subs_preferences_id_list;
+		this.labels_id_list = labels_id_list;
 
 	}
 
@@ -631,7 +631,7 @@ public class CatalogOffers {
 			.append( "\"eligibility_criteria\": \"" ).append( this.getEligibilityCriteria() ).append( "\", " )
 			.append( "\"notification\": \"" ).append( this.getNotification() ).append( "\", " )
 			.append( "\"offer_rank\": \"" ).append( this.getOfferRank() ).append( "\", " )
-			.append( "\"subs_preferences_id_list\": \"" ).append( this.getSubsPreferencesIdList() ).append( "\", " )
+			.append( "\"labels_id_list\": \"" ).append( this.getLabelsIdList() ).append( "\", " )
 			.append( "\"update_time\": \"" ).append( this.getUpdateTime() ).append( "\", " )
 			.append( "\"url_image\": \"" ).append( this.getUrlImage() ).append( "\", " )
 			.append( "\"agreement\": \"" ).append( this.getAgreement() ).append( "\", " )

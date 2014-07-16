@@ -5,12 +5,13 @@ import com.lumata.e4o.system.cdr.fields.*;
 import com.lumata.e4o.exceptions.FieldException;
 import java.util.Calendar;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
+import com.lumata.e4o.system.fields.IFieldEnum;
 
-public class CDROtherUsage extends CDR { 
+public class CDRLifeCycleDelete extends CDR { 
 
-	private final int FIELDS = 4;
+	private final int FIELDS = 3;
 
-	public CDROtherUsage() {
+	public CDRLifeCycleDelete() {
 		super();
 	} 
 
@@ -88,62 +89,33 @@ public class CDROtherUsage extends CDR {
 		return this.date.getDate();
 	}
 
-	public void setAmountStrategyFixed( final Long value ) throws FieldException  {
-		if( this.amount != null ) { this.amount.setLongStrategyFixed( value ); }
+	@Delete( position = 2 )
+	public String getDelete() throws FieldException  {
+		return this.delete.getEnum();
 	}
 
-	public void cleanAmountStrategyIncrement()  {
-		if( this.amount != null ) { this.amount.cleanLongStrategyIncrement(); }
+	public void setDeleteStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException  {
+		if( this.delete != null ) { this.delete.setEnumStrategyFixed( value ); }
 	}
 
-	public void cleanAmountStrategyRandom()  {
-		if( this.amount != null ) { this.amount.cleanLongStrategyRandom(); }
+	public void cleanDeleteStrategyIncrement()  {
+		if( this.delete != null ) { this.delete.cleanEnumStrategyIncrement(); }
 	}
 
-	public void setAmountStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
-		if( this.amount != null ) { this.amount.setLongStrategyIncrement( value, increment ); }
+	public void cleanDeleteStrategyRandom()  {
+		if( this.delete != null ) { this.delete.cleanEnumStrategyRandom(); }
 	}
 
-	public void setAmountStrategyRandom( final Long min_value, final Long max_value ) throws FieldException  {
-		if( this.amount != null ) { this.amount.setLongStrategyRandom( min_value, max_value ); }
+	public void setDeleteStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
+		if( this.delete != null ) { this.delete.setEnumStrategyIncrement( value, increment ); }
 	}
 
-	public void cleanAmountStrategyFixed()  {
-		if( this.amount != null ) { this.amount.cleanLongStrategyFixed(); }
+	public void setDeleteStrategyRandom() throws FieldException  {
+		if( this.delete != null ) { this.delete.setEnumStrategyRandom(); }
 	}
 
-	@Amount( position = 2 )
-	public String getAmount() throws FieldException  {
-		return this.amount.getLong();
-	}
-
-	public void setBalanceStrategyFixed( final Long value ) throws FieldException  {
-		if( this.balance != null ) { this.balance.setLongStrategyFixed( value ); }
-	}
-
-	public void cleanBalanceStrategyIncrement()  {
-		if( this.balance != null ) { this.balance.cleanLongStrategyIncrement(); }
-	}
-
-	public void cleanBalanceStrategyRandom()  {
-		if( this.balance != null ) { this.balance.cleanLongStrategyRandom(); }
-	}
-
-	public void setBalanceStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
-		if( this.balance != null ) { this.balance.setLongStrategyIncrement( value, increment ); }
-	}
-
-	public void setBalanceStrategyRandom( final Long min_value, final Long max_value ) throws FieldException  {
-		if( this.balance != null ) { this.balance.setLongStrategyRandom( min_value, max_value ); }
-	}
-
-	public void cleanBalanceStrategyFixed()  {
-		if( this.balance != null ) { this.balance.cleanLongStrategyFixed(); }
-	}
-
-	@Balance( position = 3 )
-	public String getBalance() throws FieldException  {
-		return this.balance.getLong();
+	public void cleanDeleteStrategyFixed()  {
+		if( this.delete != null ) { this.delete.cleanEnumStrategyFixed(); }
 	}
 
 }

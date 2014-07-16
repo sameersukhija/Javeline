@@ -44,6 +44,7 @@ import com.lumata.e4o.system.cdr.fields.BundlePurchased;
 import com.lumata.e4o.system.cdr.fields.Date;
 import com.lumata.e4o.system.cdr.fields.DeactivationDate;
 import com.lumata.e4o.system.cdr.fields.Delay;
+import com.lumata.e4o.system.cdr.fields.Delete;
 import com.lumata.e4o.system.cdr.fields.Download;
 import com.lumata.e4o.system.cdr.fields.Duration;
 import com.lumata.e4o.system.cdr.fields.Location;
@@ -115,10 +116,10 @@ public class CDR {
 	protected FieldDate date;
 	
 	@ValidityDate
-	protected FieldDate validity_date; 
+	protected FieldDate validityDate; 
 	
 	@DeactivationDate
-	protected FieldDate deactivation_date;
+	protected FieldDate deactivationDate;
 	
 	@Duration
 	protected FieldLong duration; 
@@ -127,10 +128,10 @@ public class CDR {
 	protected FieldLong amount; 	
 	
 	@AmountPayment
-	protected FieldLong amount_payment; 
+	protected FieldLong amountPayment; 
 
 	@AmountInvoice
-	protected FieldLong amount_invoice; 
+	protected FieldLong amountInvoice; 
 
 	@Balance
 	protected FieldLong balance; 
@@ -145,20 +146,20 @@ public class CDR {
 	protected FieldEnum type;
 	
 	@VoucherCode
-	protected FieldString voucher_code; 
+	protected FieldString voucherCode; 
 	
 	@Location
 	//protected CSVSchemaTable location;
 	protected FieldString location;
 		
 	@BundleName
-	protected FieldString bundle_name; 
+	protected FieldString bundleName; 
 	
 	@BundleBalance
-	protected FieldLong bundle_balance;
+	protected FieldLong bundleBalance;
 	
 	@BundlePurchased
-	protected FieldBoolean bundle_purchased;
+	protected FieldBoolean bundlePurchased;
 	
 	@Download
 	protected FieldLong download;
@@ -167,90 +168,93 @@ public class CDR {
 	protected FieldLong upload;
 	
 	@NewImei
-	protected FieldLong new_imei;
+	protected FieldLong newImei;
 	
 	@OldImei
-	protected FieldLong old_imei;
+	protected FieldLong oldImei;
 
 	@NewImsi
-	protected FieldLong new_imsi;
+	protected FieldLong newImsi;
 	
 	@OldImsi
-	protected FieldLong old_imsi;
+	protected FieldLong oldImsi;
 	
 	@NewSubscriptionDate
-	protected FieldDate new_subscription_date;
+	protected FieldDate newSubscriptionDate;
 	
 	@OldSubscriptionDate
-	protected FieldDate old_subscription_date;
+	protected FieldDate oldSubscriptionDate;
 	
 	@NewProfile
 	//protected CSVSchemaTable new_profile;
-	protected FieldString new_profile;
+	protected FieldString newProfile;
 	
 	@OldProfile
 	//protected CSVSchemaTable old_profile;
-	protected FieldString old_profile;
+	protected FieldString oldProfile;
 	
 	@NewSubProfile
-	protected FieldString new_subprofile;
+	protected FieldString newSubprofile;
 	
 	@OldSubProfile
-	protected FieldString old_subprofile;
+	protected FieldString oldSubprofile;
 	
 	@NewRatePlan
 	//protected CSVSchemaTable new_rate_plan;
-	protected FieldString new_rate_plan;
+	protected FieldString newRatePlan;
 	
 	@OldRatePlan
 	//protected CSVSchemaTable old_rate_plan;
-	protected FieldString old_rate_plan;
+	protected FieldString oldRatePlan;
 	@NewStatus
 	//protected CSVSchemaTable new_status;
 	//protected CSVString new_status;
-	protected FieldEnum new_status;
+	protected FieldEnum newStatus;
 	
 	@OldStatus
 	//protected CSVSchemaTable old_status;
 	//protected CSVString old_status;
-	protected FieldEnum old_status;
+	protected FieldEnum oldStatus;
 
 	@NewNetwork
-	protected FieldString new_network; 
+	protected FieldString newNetwork; 
 
 	@OldNetwork
-	protected FieldString old_network; 
+	protected FieldString oldNetwork; 
 
 	@NewTongue
-	protected FieldString new_tongue; 
+	protected FieldString newTongue; 
 
 	@OldTongue
-	protected FieldString old_tongue; 
+	protected FieldString oldTongue; 
 	
 	@NewInTag
-	protected FieldString new_in_tag; 
+	protected FieldString newInTag; 
 
 	@OldInTag
-	protected FieldString old_in_tag; 
+	protected FieldString oldInTag; 
 	
 	@NewHobbies
-	protected FieldSet new_hobbies; 
+	protected FieldSet newHobbies; 
 
 	@OldHobbies
-	protected FieldSet old_hobbies; 
+	protected FieldSet oldHobbies; 
 
 	@NewGender
-	protected FieldEnum new_gender; 
+	protected FieldEnum newGender; 
 
 	@OldGender
-	protected FieldEnum old_gender; 
+	protected FieldEnum oldGender; 
 
 	@NewSalary
-	protected FieldString new_salary; 
+	protected FieldString newSalary; 
 
 	@OldSalary
-	protected FieldString old_salary; 
+	protected FieldString oldSalary; 
 	
+	@Delete
+	protected FieldEnum delete; 
+		
 	@Sms
 	protected FieldEnum sms;
 	
@@ -300,6 +304,23 @@ public class CDR {
 			return this.value;
 		}
 	
+	}
+	
+	public enum DELETE implements IFieldEnum { 
+		
+		YES("YES"), 
+		NO("NO"); 
+		
+		private String value;
+		
+		DELETE( String value ) { 
+			this.value = value; 
+		}
+		
+		public String value() {
+			return this.value;
+		}
+		
 	}
 	
 	@Type
@@ -376,20 +397,20 @@ public class CDR {
 		
 		this.msisdn = new FieldMsisdn();		
 		this.date = new FieldDate();
-		this.validity_date = new FieldDate(); 
-		this.deactivation_date = new FieldDate();
+		this.validityDate = new FieldDate(); 
+		this.deactivationDate = new FieldDate();
 		this.duration = new FieldLong(); 
 		this.amount = new FieldLong(); 
 		this.balance = new FieldLong();
 		this.terminating = new FieldEnum( TERMINATING.values() );
 		this.delay = new FieldLong();
 		this.type = new FieldEnum( TYPE.values() );
-		this.voucher_code = new FieldString(); 
+		this.voucherCode = new FieldString(); 
 		//this.location = new CSVSchemaTable( new VoucherCodes(), VoucherCodes.Fields.location_id );
 		this.location = new FieldString(); 
-		this.bundle_name = new FieldString(); 
-		this.bundle_balance = new FieldLong();
-		this.bundle_purchased = new FieldBoolean();
+		this.bundleName = new FieldString(); 
+		this.bundleBalance = new FieldLong();
+		this.bundlePurchased = new FieldBoolean();
 		//this.new_rate_plan = new CSVSchemaTable( new SupportedRatePlan(), SupportedRatePlan.Fields.rate_plan );
 		//this.old_rate_plan = new CSVSchemaTable( new SupportedRatePlan(), SupportedRatePlan.Fields.rate_plan );
 		//this.new_profile = new CSVSchemaTable( new Profiles(), Profiles.Fields.profile );
@@ -397,36 +418,37 @@ public class CDR {
 		this.download = new FieldLong(); 
 		this.upload = new FieldLong(); 
 		
-		this.new_imei = new FieldLong();
-		this.old_imei = new FieldLong();
-		this.new_imsi = new FieldLong();
-		this.old_imsi = new FieldLong();
-		this.new_subscription_date = new FieldDate();
-		this.old_subscription_date = new FieldDate();
-		this.new_profile = new FieldString();
-		this.old_profile = new FieldString();
-		this.new_subprofile = new FieldString();
-		this.old_subprofile = new FieldString();	
-		this.new_rate_plan = new FieldString();
-		this.old_rate_plan = new FieldString();
+		this.newImei = new FieldLong();
+		this.oldImei = new FieldLong();
+		this.newImsi = new FieldLong();
+		this.oldImsi = new FieldLong();
+		this.newSubscriptionDate = new FieldDate();
+		this.oldSubscriptionDate = new FieldDate();
+		this.newProfile = new FieldString();
+		this.oldProfile = new FieldString();
+		this.newSubprofile = new FieldString();
+		this.oldSubprofile = new FieldString();	
+		this.newRatePlan = new FieldString();
+		this.oldRatePlan = new FieldString();
 		//this.new_status = new CSVSchemaTable( new Statuses(), Statuses.Fields.status );
 		//this.old_status = new CSVSchemaTable( new Statuses(), Statuses.Fields.status );
 		//this.new_status = new CSVString();
 		//this.old_status = new CSVString();
-		this.new_status = new FieldEnum( SUBSTATUS.values() );
-		this.old_status = new FieldEnum( SUBSTATUS.values() );		
-		this.new_network = new FieldString(); 
-		this.old_network = new FieldString();
-		this.new_tongue = new FieldString();
-		this.old_tongue = new FieldString();		
-		this.new_in_tag = new FieldString();
-		this.old_in_tag = new FieldString();		
-		this.new_hobbies = new FieldSet( HOBBIES.values() );
-		this.old_hobbies = new FieldSet( HOBBIES.values() );
-		this.new_gender = new FieldEnum( GENDER.values() ); 
-		this.old_gender = new FieldEnum( GENDER.values() );
-		this.new_salary = new FieldString();
-		this.old_salary = new FieldString(); 
+		this.newStatus = new FieldEnum( SUBSTATUS.values() );
+		this.oldStatus = new FieldEnum( SUBSTATUS.values() );		
+		this.newNetwork = new FieldString(); 
+		this.oldNetwork = new FieldString();
+		this.newTongue = new FieldString();
+		this.oldTongue = new FieldString();		
+		this.newInTag = new FieldString();
+		this.oldInTag = new FieldString();		
+		this.newHobbies = new FieldSet( HOBBIES.values() );
+		this.oldHobbies = new FieldSet( HOBBIES.values() );
+		this.newGender = new FieldEnum( GENDER.values() ); 
+		this.oldGender = new FieldEnum( GENDER.values() );
+		this.newSalary = new FieldString();
+		this.oldSalary = new FieldString(); 
+		this.delete = new FieldEnum( DELETE.values() );
 		
 		this.sms = new FieldEnum( SMS.values() );
 		

@@ -482,7 +482,15 @@ public class XMLRPCRequest {
 				try {
 					
 					switch( validator.getMatcherArgumentType().getSimpleName() ) {
-					
+
+						case "Long": {
+							
+							actual = xmlPath.getLong( validator.getPath() );
+							
+							expected = Format.toNumeric( expected );
+							
+							break;
+						}
 						case "Integer": {
 							
 							actual = xmlPath.getInt( validator.getPath() );

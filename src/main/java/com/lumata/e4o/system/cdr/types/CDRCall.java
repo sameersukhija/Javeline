@@ -56,11 +56,6 @@ public class CDRCall extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
-	}
-
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
@@ -89,9 +84,9 @@ public class CDRCall extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
 	}
 
-	@Duration( position = 2 )
-	public String getDuration() throws FieldException  {
-		return this.duration.getLong();
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setDurationStrategyFixed( final Long value ) throws FieldException  {
@@ -118,9 +113,9 @@ public class CDRCall extends CDR {
 		if( this.duration != null ) { this.duration.cleanLongStrategyFixed(); }
 	}
 
-	@Amount( position = 3 )
-	public String getAmount() throws FieldException  {
-		return this.amount.getLong();
+	@Duration( position = 2 )
+	public String getDuration() throws FieldException  {
+		return this.duration.getLong();
 	}
 
 	public void setAmountStrategyFixed( final Long value ) throws FieldException  {
@@ -147,9 +142,9 @@ public class CDRCall extends CDR {
 		if( this.amount != null ) { this.amount.cleanLongStrategyFixed(); }
 	}
 
-	@Balance( position = 4 )
-	public String getBalance() throws FieldException  {
-		return this.balance.getLong();
+	@Amount( position = 3 )
+	public String getAmount() throws FieldException  {
+		return this.amount.getLong();
 	}
 
 	public void setBalanceStrategyFixed( final Long value ) throws FieldException  {
@@ -176,6 +171,24 @@ public class CDRCall extends CDR {
 		if( this.balance != null ) { this.balance.cleanLongStrategyFixed(); }
 	}
 
+	@Balance( position = 4 )
+	public String getBalance() throws FieldException  {
+		return this.balance.getLong();
+	}
+
+	@Terminating( position = 5 )
+	public String getTerminating() throws FieldException  {
+		return this.terminating.getEnum();
+	}
+
+	public void setTerminatingStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException  {
+		if( this.terminating != null ) { this.terminating.setEnumStrategyFixed( value ); }
+	}
+
+	public void cleanTerminatingStrategyIncrement()  {
+		if( this.terminating != null ) { this.terminating.cleanEnumStrategyIncrement(); }
+	}
+
 	public void cleanTerminatingStrategyRandom()  {
 		if( this.terminating != null ) { this.terminating.cleanEnumStrategyRandom(); }
 	}
@@ -190,19 +203,6 @@ public class CDRCall extends CDR {
 
 	public void cleanTerminatingStrategyFixed()  {
 		if( this.terminating != null ) { this.terminating.cleanEnumStrategyFixed(); }
-	}
-
-	@Terminating( position = 5 )
-	public String getTerminating() throws FieldException  {
-		return this.terminating.getEnum();
-	}
-
-	public void setTerminatingStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException  {
-		if( this.terminating != null ) { this.terminating.setEnumStrategyFixed( value ); }
-	}
-
-	public void cleanTerminatingStrategyIncrement()  {
-		if( this.terminating != null ) { this.terminating.cleanEnumStrategyIncrement(); }
 	}
 
 }

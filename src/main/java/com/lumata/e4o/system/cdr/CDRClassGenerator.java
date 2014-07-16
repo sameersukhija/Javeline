@@ -27,6 +27,7 @@ import com.lumata.e4o.system.cdr.fields.BundlePurchased;
 import com.lumata.e4o.system.cdr.fields.Date;
 import com.lumata.e4o.system.cdr.fields.DeactivationDate;
 import com.lumata.e4o.system.cdr.fields.Delay;
+import com.lumata.e4o.system.cdr.fields.Delete;
 import com.lumata.e4o.system.cdr.fields.Download;
 import com.lumata.e4o.system.cdr.fields.Duration;
 import com.lumata.e4o.system.cdr.fields.Location;
@@ -132,6 +133,11 @@ public class CDRClassGenerator {
 		LifeCycle {	
 			public List<Class<? extends Annotation>> fields() {
 				return Arrays.asList( Msisdn.class, Date.class, NewImei.class, OldImei.class, NewImsi.class, OldImsi.class, NewSubscriptionDate.class, OldSubscriptionDate.class, NewProfile.class, OldProfile.class, NewRatePlan.class, OldRatePlan.class, NewStatus.class, OldStatus.class, NewNetwork.class, OldNetwork.class, NewTongue.class, OldTongue.class, NewInTag.class, OldInTag.class, NewHobbies.class, OldHobbies.class, NewGender.class, OldGender.class, NewSalary.class, OldSalary.class );
+			}
+		},
+		LifeCycleDelete {	
+			public List<Class<? extends Annotation>> fields() {
+				return Arrays.asList( Msisdn.class, Date.class, Delete.class );
 			}
 		},
 		Call {	

@@ -1,5 +1,8 @@
 package com.lumata.e4o.utils.generators.subscribers;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
@@ -17,6 +20,9 @@ import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
 import com.lumata.e4o.exceptions.GeneratorException;
 import com.lumata.e4o.generators.common.Generator;
+
+import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType.*;
 
 
 public class GenerateSubscribersRecharge {
@@ -60,7 +66,23 @@ public class GenerateSubscribersRecharge {
 					.server( guiServer )
 					.user( superman )
 					.msisdnFixed( FIXED_MSISDN )
-					.xmlrpcRecharge( RECHARGE_TO_GENERATE );
+					.xmlrpcRecharge( RECHARGE_TO_GENERATE, parameter( event_date, "2014-07-10" ) );
+					
+	}
+	
+	@Test( enabled = GENERATE_FIXED_SUBSCRIBER )
+	public void generateFixedSubscriberWithOptionalParameter() throws GeneratorException {
+		
+		final Long FIXED_MSISDN = 3399900001L;
+		final Long RECHARGE_TO_GENERATE = 10L;
+		final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
+		Calendar today = Calendar.getInstance(); 
+				
+		Generator.subscribers()
+					.server( guiServer )
+					.user( superman )
+					.msisdnFixed( FIXED_MSISDN )
+					.xmlrpcRecharge( RECHARGE_TO_GENERATE, parameter( event_date, sdf.format( today.getTime() ) ) );
 					
 	}
 	

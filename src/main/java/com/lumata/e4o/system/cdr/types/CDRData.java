@@ -55,11 +55,6 @@ public class CDRData extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
-	}
-
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
@@ -88,9 +83,9 @@ public class CDRData extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
 	}
 
-	@Amount( position = 2 )
-	public String getAmount() throws FieldException  {
-		return this.amount.getLong();
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setAmountStrategyFixed( final Long value ) throws FieldException  {
@@ -117,9 +112,9 @@ public class CDRData extends CDR {
 		if( this.amount != null ) { this.amount.cleanLongStrategyFixed(); }
 	}
 
-	@Download( position = 3 )
-	public String getDownload() throws FieldException  {
-		return this.download.getLong();
+	@Amount( position = 2 )
+	public String getAmount() throws FieldException  {
+		return this.amount.getLong();
 	}
 
 	public void setDownloadStrategyFixed( final Long value ) throws FieldException  {
@@ -146,9 +141,9 @@ public class CDRData extends CDR {
 		if( this.download != null ) { this.download.cleanLongStrategyFixed(); }
 	}
 
-	@Upload( position = 4 )
-	public String getUpload() throws FieldException  {
-		return this.upload.getLong();
+	@Download( position = 3 )
+	public String getDownload() throws FieldException  {
+		return this.download.getLong();
 	}
 
 	public void setUploadStrategyFixed( final Long value ) throws FieldException  {
@@ -175,9 +170,9 @@ public class CDRData extends CDR {
 		if( this.upload != null ) { this.upload.cleanLongStrategyFixed(); }
 	}
 
-	@Balance( position = 5 )
-	public String getBalance() throws FieldException  {
-		return this.balance.getLong();
+	@Upload( position = 4 )
+	public String getUpload() throws FieldException  {
+		return this.upload.getLong();
 	}
 
 	public void setBalanceStrategyFixed( final Long value ) throws FieldException  {
@@ -202,6 +197,11 @@ public class CDRData extends CDR {
 
 	public void cleanBalanceStrategyFixed()  {
 		if( this.balance != null ) { this.balance.cleanLongStrategyFixed(); }
+	}
+
+	@Balance( position = 5 )
+	public String getBalance() throws FieldException  {
+		return this.balance.getLong();
 	}
 
 }

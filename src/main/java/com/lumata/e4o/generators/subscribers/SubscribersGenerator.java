@@ -22,6 +22,7 @@ import com.lumata.e4o.schema.tenant.SubsNotif;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.system.fields.FieldMsisdn;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter;
 
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
@@ -364,6 +365,12 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 	}
 	
 	public void xmlrpcRecharge( final Long qtyRecharges ) throws GeneratorException {
+	
+		xmlrpcRecharge( qtyRecharges, parameter( recharge, true ) );
+						
+	}
+	
+	public void xmlrpcRecharge( final Long qtyRecharges, XMLRPCParameter... parameterList ) throws GeneratorException {
 		
 		actionType = SubscriberAction.recharge;
 		
@@ -385,10 +392,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 							authentication( user ),
 							custoEvent( Long.valueOf( fieldMsisdn.getMsisdn() ), 
 										revenue,
-										parameter( recharge, true ),
-										parameter( amount_recharge, 10 ),
-										parameter( balance_main_account, 100 )
-										//parameter( event_date, "2014-05-16" )
+										parameterList
 							)
 						),
 						xmlrpcOptions( 
