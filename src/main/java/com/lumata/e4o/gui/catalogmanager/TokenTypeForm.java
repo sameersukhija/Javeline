@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
 
@@ -65,10 +66,16 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		sendKeysByName( "name", tokenTypeCfg.getName() ).
 		sendKeysByXPath( "//textarea[@ng-model='tokenType.description']", tokenTypeCfg.getDescription() ).
 		sendKeysByXPath( "//input[@ng-model='tokenType.imageUrl']", tokenTypeCfg.getImageUrl() ).
-		selectByNameAndVisibleText( "format", tokenTypeCfg.getFormat() ).
-		selectByNameAndVisibleText( "validityUnit", tokenTypeCfg.getValidityUnit() ).
-		sendKeysByName( "validity", tokenTypeCfg.getValidity() );
-				
+		selectByNameAndVisibleText( "format", tokenTypeCfg.getFormat() );		
+		selectByXPathAndVisibleText( "//select/option[contains(@value, 'Relative')]/parent::select", tokenTypeCfg.getValidityType() ).
+		sendKeysByName( "validity.value", tokenTypeCfg.getValidityValue() );
+		
+		if( tokenTypeCfg.getValidityType().equals( "Relative" ) ) {
+		
+			selectByNameAndVisibleText( "validity.unit", tokenTypeCfg.getValidityUnit() );
+		
+		}
+		
 		if( tokenTypeCfg.getUsageUnlimited() == true ) {
 			
 			clickId( "usageUnlimited-1" ); 
@@ -235,6 +242,15 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 		return this;
 	
+	}
+	
+	@Override
+	public TokenTypeForm selectByXPathAndVisibleText( String xpath, String text ) throws FormException {
+		
+		super.selectByVisibleText( SearchBy.XPATH, xpath, text );	
+		
+		return this;
+		
 	}
 	
 	@Override

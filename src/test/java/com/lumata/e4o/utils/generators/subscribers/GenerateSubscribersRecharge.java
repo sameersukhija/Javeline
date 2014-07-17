@@ -29,7 +29,8 @@ public class GenerateSubscribersRecharge {
 
 	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersRecharge.class );
 	
-	final boolean GENERATE_FIXED_SUBSCRIBER = true;
+	final boolean GENERATE_FIXED_SUBSCRIBER = false;
+	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = true;
 	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE = false;
 	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = false;
 	final boolean GENERATE_RANDOM_SUBSCRIBERS = false;
@@ -60,21 +61,21 @@ public class GenerateSubscribersRecharge {
 	public void generateFixedSubscriber() throws GeneratorException {
 		
 		final Long FIXED_MSISDN = 3399900001L;
-		final Long RECHARGE_TO_GENERATE = 10L;
+		final Long RECHARGE_TO_GENERATE = 5L;
 				
 		Generator.subscribers()
 					.server( guiServer )
 					.user( superman )
 					.msisdnFixed( FIXED_MSISDN )
-					.xmlrpcRecharge( RECHARGE_TO_GENERATE, parameter( event_date, "2014-07-10" ) );
+					.xmlrpcRecharge( RECHARGE_TO_GENERATE );
 					
 	}
 	
-	@Test( enabled = GENERATE_FIXED_SUBSCRIBER )
+	@Test( enabled = GENERATE_FIXED_SUBSCRIBER_WITH_OPTION )
 	public void generateFixedSubscriberWithOptionalParameter() throws GeneratorException {
 		
 		final Long FIXED_MSISDN = 3399900001L;
-		final Long RECHARGE_TO_GENERATE = 10L;
+		final Long RECHARGE_TO_GENERATE = 1L;
 		final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
 		Calendar today = Calendar.getInstance(); 
 				
@@ -82,7 +83,7 @@ public class GenerateSubscribersRecharge {
 					.server( guiServer )
 					.user( superman )
 					.msisdnFixed( FIXED_MSISDN )
-					.xmlrpcRecharge( RECHARGE_TO_GENERATE, parameter( event_date, sdf.format( today.getTime() ) ) );
+					.xmlrpcRecharge( RECHARGE_TO_GENERATE, parameter( recharge, true ), parameter( event_date, sdf.format( today.getTime() ) ) );
 					
 	}
 	

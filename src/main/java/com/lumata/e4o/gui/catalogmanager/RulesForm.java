@@ -87,20 +87,26 @@ public class RulesForm extends OfferOptimisationForm {
 		
 		}
 		
+		// TO REFACTOR
+		/*
 		try {
+			
 			JSONArray mandatoryChannels = ruleCfg.getMandatoryChannels(); 
 		
 			if ( mandatoryChannels != null && mandatoryChannels.length() != 0 ) {
 				
-				for ( int index = 0 ; index < mandatoryChannels.length() ; index++ ) 
-					clickXPath("//div[contains(text(),'Channel name')]//ancestor::div[2]//div[text()='"+mandatoryChannels.getString(index)+"']//ancestor::div[1]//input");
+				for ( int index = 0 ; index < mandatoryChannels.length() ; index++ ) {
+					
+					clickXPath("//div[contains(text(),'Channel name')]//ancestor::div[2]//div[text()='" + mandatoryChannels.getString(index)+ "']//ancestor::div[1]//input");
 
+				}
+					
 			}
 			
 		} catch ( JSONException e ) {
 			// no mandatory channels provided
 		}
-		
+		*/
 		return this;
 		
 	}

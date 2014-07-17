@@ -1,0 +1,149 @@
+{
+	"tokenTypes": [
+		{
+			"enabled": true,
+			"name":"TokenTest",
+			"description":"TokenTest",
+			"imageUrl":"http://i-neti.ru/sites/default/files/blogimages/test_icon.jpg",
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"100",
+			"validityUnit":"days",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Token100sec",
+			"description":"Token100sec",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"100",
+			"validityUnit":"seconds",
+			"validity":"100",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Token100min",
+			"description":"Token100min",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"100",
+			"validityUnit":"minutes",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Token100hours",
+			"description":"Token100hours",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"100",
+			"validityUnit":"hour",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Token1day",
+			"description":"Token1day",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"1",
+			"validityUnit":"days",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Token10days",
+			"description":"Token10days",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"10",
+			"validityUnit":"days",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"TokenAbsoluteToday",
+			"description":"TokenAbsoluteToday",
+			"imageUrl":"http://blog.uk.sogeti.com/wp-content/uploads/test-magazine-logo.jpg",
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Absolute",
+			"validityValue":"2014-07-17",
+			"validityUnit":"",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"TokenAbsoluteFuture",
+			"description":"TokenAbsoluteFuture",
+			"imageUrl":"http://blog.uk.sogeti.com/wp-content/uploads/test-magazine-logo.jpg",
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Absolute",
+			"validityValue":"2014-07-31",
+			"validityUnit":"",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		}
+	]
+}

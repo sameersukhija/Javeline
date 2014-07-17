@@ -51,13 +51,17 @@ public class JSONTokenType extends JsonConfig {
 	public String getFormat() {
 		return currentTokenType.getStringFromPath( "format" );
 	}
-
+	
+	public String getValidityType() {
+		return currentTokenType.getStringFromPath( "validityType" );
+	}
+	
+	public String getValidityValue() {
+		return currentTokenType.getStringFromPath( "validityValue" );
+	}
+	
 	public String getValidityUnit() {
 		return currentTokenType.getStringFromPath( "validityUnit" );
-	}
-
-	public String getValidity() {
-		return currentTokenType.getStringFromPath( "validity" );
 	}
 	
 	public boolean getUsageUnlimited() {
