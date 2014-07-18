@@ -52,6 +52,11 @@ public class JSONTokenType extends JsonConfig {
 		return currentTokenType.getStringFromPath( "format" );
 	}
 	
+	public String getValidity() {
+		return currentTokenType.getStringFromPath( "validity" );
+	}
+
+	/** To restore after merging 2232
 	public String getValidityType() {
 		return currentTokenType.getStringFromPath( "validityType" );
 	}
@@ -63,6 +68,7 @@ public class JSONTokenType extends JsonConfig {
 	public String getValidityUnit() {
 		return currentTokenType.getStringFromPath( "validityUnit" );
 	}
+	*/
 	
 	public boolean getUsageUnlimited() {
 		return currentTokenType.getBooleanFromPath( "usageUnlimited" );
