@@ -2,43 +2,9 @@
 	"tokenTypes": [
 		{
 			"enabled": true,
-			"name":"TokenA",
-			"description":"TokenA",
-			"imageUrl": null,
-			"format":"gl-[0123456789abcdef]{5}",
-			"validityUnit":"days",
-			"validity":"100",
-			"usageUnlimited": true,
-			"usage":"10",
-			"errorActions": {
-				"ELEMENT_ALREADY_EXISTS": "ABORT"	
-			},
-			"options": {
-				"TOKEN_TYPE_AUTOINCREMENT": true	
-			}
-		},
-		{
-			"enabled": true,
-			"name":"TokenB",
-			"description":"TokenB",
-			"imageUrl": null,
-			"format":"gl-[0123456789abcdef]{5}",
-			"validityUnit":"seconds",
-			"validity":"100",
-			"usageUnlimited": true,
-			"usage":"10",
-			"errorActions": {
-				"ELEMENT_ALREADY_EXISTS": "ABORT"	
-			},
-			"options": {
-				"TOKEN_TYPE_AUTOINCREMENT": true	
-			}
-		},
-		{
-			"enabled": true,
-			"name":"TokenC",
-			"description":"TokenC",
-			"imageUrl": null,
+			"name":"TokenTest",
+			"description":"TokenTest",
+			"imageUrl":"http://i-neti.ru/sites/default/files/blogimages/test_icon.jpg",
 			"format":"gl-[0123456789abcdef]{5}",
 			"validityUnit":"days",
 			"validity":"100",

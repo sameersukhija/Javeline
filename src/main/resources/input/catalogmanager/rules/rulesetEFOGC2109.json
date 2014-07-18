@@ -1,0 +1,209 @@
+{
+	"rules": [
+		{
+			"enabled": true,
+			"name":"Rule 01",
+			"description":"EFOGC-2109",
+			"tokenType":"TokenA",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory": true,
+				"unlimited": true,
+				"maxOffer" : 0
+				},{
+				"name":"Ch B",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				},{
+				"name":"Ch C",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				},{
+				"name":"Ch D",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				} ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"Rule 02",
+			"description":"EFOGC-2109",
+			"tokenType":"TokenB",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory": true,
+				"unlimited": false,
+				"maxOffer" : 3
+				},{
+				"name":"Ch B",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				},{
+				"name":"Ch C",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				},{
+				"name":"Ch D",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				} ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"Rule 03",
+			"description":"EFOGC-2109",
+			"tokenType":"TokenC",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory": true,
+				"unlimited": false,
+				"maxOffer" : 4
+				},{
+				"name":"Ch B",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				},{
+				"name":"Ch C",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				},{
+				"name":"Ch D",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				} ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 3,
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"Rule 04",
+			"description":"EFOGC-2109",
+			"tokenType":"TokenC",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory": true,
+				"unlimited": false,
+				"maxOffer" : 1
+				},{
+				"name":"Ch B",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				},{
+				"name":"Ch C",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				},{
+				"name":"Ch D",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				} ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 3,
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"Rule 05",
+			"description":"EFOGC-2109",
+			"tokenType":"TokenC",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory": true,
+				"unlimited": true,
+				"maxOffer" : 0
+				},{
+				"name":"Ch B",
+				"mandatory": true,
+				"unlimited": true,
+				"maxOffer" : 0
+				},{
+				"name":"Ch C",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				},{
+				"name":"Ch D",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				} ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"Rule 06",
+			"description":"EFOGC-2109",
+			"tokenType":"TokenC",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory": true,
+				"unlimited": false,
+				"maxOffer" : 2
+				},{
+				"name":"Ch B",
+				"mandatory": true,
+				"unlimited": false,
+				"maxOffer" : 2
+				},{
+				"name":"Ch C",
+				"mandatory": false,
+				"unlimited": false,
+				"maxOffer" : 2
+				},{
+				"name":"Ch D",
+				"mandatory": false,
+				"unlimited": false,
+				"maxOffer" : 2
+				} ],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 8,
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}
+	]
+}

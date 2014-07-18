@@ -5,105 +5,140 @@
 			"name":"Rule100sec",
 			"description":"Rule100sec",
 			"tokenType":"Token100sec",
-			"channels":[ "Ch A" ],
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0,
+				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": false,
 			"unlimitedOffers": true,
-			"maximumNumberOfOffers":"10",
-			"errorActions": {
-				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
 			"enabled": true,
 			"name":"Rule100min",
 			"description":"Rule100min",
 			"tokenType":"Token100min",
-			"channels":[ "Ch A" ],
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0,
+				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": false,
 			"unlimitedOffers": true,
-			"maximumNumberOfOffers":"10",
-			"errorActions": {
-				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
 			"enabled": true,
 			"name":"Rule100hours",
 			"description":"Rule100hours",
 			"tokenType":"Token100hours",
-			"channels":[ "Ch A" ],
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0,
+				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": false,
 			"unlimitedOffers": true,
-			"maximumNumberOfOffers":"10",
-			"errorActions": {
-				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
 			"enabled": true,
 			"name":"Rule1day",
 			"description":"Rule1day",
 			"tokenType":"Token1day",
-			"channels":[ "Ch A" ],
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0,
+				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": false,
 			"unlimitedOffers": true,
-			"maximumNumberOfOffers":"10",
-			"errorActions": {
-				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
 			"enabled": true,
 			"name":"Rule10days",
 			"description":"Rule10days",
 			"tokenType":"Token10days",
-			"channels":[ "Ch A" ],
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0,
+				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": false,
 			"unlimitedOffers": true,
-			"maximumNumberOfOffers":"10",
-			"errorActions": {
-				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
 			"enabled": true,
 			"name":"RuleAbsoluteToday",
 			"description":"RuleAbsoluteToday",
 			"tokenType":"TokenAbsoluteToday",
-			"channels":[ "Ch A" ],
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0,
+				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": false,
 			"unlimitedOffers": true,
-			"maximumNumberOfOffers":"10",
-			"errorActions": {
-				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
 			"enabled": true,
 			"name":"RuleAbsoluteFuture",
 			"description":"RuleAbsoluteFuture",
 			"tokenType":"TokenAbsoluteFuture",
-			"channels":[ "Ch A" ],
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0,
+				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": false,
 			"unlimitedOffers": true,
-			"maximumNumberOfOffers":"10",
-			"errorActions": {
-				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		}
 	]

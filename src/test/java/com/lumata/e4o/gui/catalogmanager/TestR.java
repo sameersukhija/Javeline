@@ -70,11 +70,11 @@ public class TestR {
 		
 		JSONRules jr = new JSONRules( "input/catalogmanager/rules", ruleList );
 		
-		jr.setRuleById( 0 );
+//		jr.setRuleById( 0 );
+//		
+//		JSONArray ja = jr.getChannels();
 		
-		JSONArray ja = jr.getChannels();
-		
-		System.out.println( ja );
+//		System.out.println( ja );
 		
 	}
 	

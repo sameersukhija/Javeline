@@ -1,0 +1,451 @@
+{
+	"offers": [
+		{
+			"enabled": true,
+			"name": "Offer 01",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-2110",
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : null,
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch A" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100,
+				"reservations" : [
+					{
+						"channel" : "Ch A",
+						"quantity" : 100
+					}									
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},	
+		{
+			"enabled": true,
+			"name": "Offer 02",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-2110",
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : null,
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch A" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100,
+				"reservations" : [
+					{
+						"channel" : "Ch A",
+						"quantity" : 100
+					}									
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "Offer 03",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-2110",
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : null,
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch A" ]
+				},{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch C" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100,
+				"reservations" : [
+					{
+						"channel" : "Ch A",
+						"quantity" : 50
+					},
+					{
+						"channel" : "Ch C",
+						"quantity" : 50
+					}										
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},		
+		{
+			"enabled": true,
+			"name": "Offer 04",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-2110",
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : null,
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch B" ]
+				},{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch C" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100,
+				"reservations" : [
+					{
+						"channel" : "Ch B",
+						"quantity" : 50
+					},
+					{
+						"channel" : "Ch C",
+						"quantity" : 50
+					}										
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},		
+		{
+			"enabled": true,
+			"name": "Offer 05",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-2110",
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : null,
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch B" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100,
+				"reservations" : [
+					{
+						"channel" : "Ch B",
+						"quantity" : 100
+					}										
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},		
+		{
+			"enabled": true,
+			"name": "Offer 06",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-2110",
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : null,
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch B" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100,
+				"reservations" : [
+					{
+						"channel" : "Ch B",
+						"quantity" : 100
+					}										
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},		
+		{
+			"enabled": true,
+			"name": "Offer 07",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-2110",
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : null,
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch C" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100,
+				"reservations" : [
+					{
+						"channel" : "Ch C",
+						"quantity" : 100
+					}										
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "Offer 08",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-2110",
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : null,
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch D" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100,
+				"reservations" : [
+					{
+						"channel" : "Ch D",
+						"quantity" : 100
+					}										
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+
+	{
+			"enabled": true,
+			"name": "Offer 09",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-2110",
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : null,
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch D" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100,
+				"reservations" : [
+					{
+						"channel" : "Ch D",
+						"quantity" : 100
+					}										
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "Offer 10",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-2110",
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : null,
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch D" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100,
+				"reservations" : [
+					{
+						"channel" : "Ch D",
+						"quantity" : 100
+					}										
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		}						
+	]
+}

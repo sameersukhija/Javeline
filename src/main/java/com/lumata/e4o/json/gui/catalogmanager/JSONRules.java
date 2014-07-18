@@ -1,98 +1,180 @@
 package com.lumata.e4o.json.gui.catalogmanager;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.e4o.json.common.JsonConfig;
+import com.lumata.common.testing.json.HasErrorActions.JsonErrorActions;
+import com.lumata.common.testing.json.JsonConfigurationElement;
+import com.lumata.common.testing.json.JsonConfigurationFile;
 
-/**
- * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
- * 
- */
-public class JSONRules extends JsonConfig {
+public class JSONRules extends JsonConfigurationFile {
 
-	private static final Logger logger = LoggerFactory.getLogger(JSONRules.class);
-
-	public enum RuleValidity {
-		seconds, minutes, hours, days
-	}
-
-	private JsonConfig currentRule;
-	
+	/**
+	 * 
+	 * @param folder
+	 * @param file
+	 * @throws JSONSException
+	 */
 	public JSONRules( String folder, String file ) throws JSONSException {
 		
-		super( folder, file );
-			
-	}
-
-	public JSONArray getList() throws JSONException {		
-		return (JSONArray)getJSONArrayFromPath("rules");				
+		super( folder, file );		
 	}
 	
-	public Boolean getEnabled() throws JSONException {
-		return currentRule.getBooleanFromPath( "enabled" );
-	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getName() {
-		return currentRule.getStringFromPath( "name" );
+
+		return getCurrentElement().getStringFromPath( "name" );
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getDescription() {
-		return currentRule.getStringFromPath( "description" );
-	}
-
-	public String getTokenType() {
-		return currentRule.getStringFromPath( "tokenType" );
-	}
-	
-	public JSONArray getChannels() throws JSONException {		
-		return (JSONArray)currentRule.getJSONArrayFromPath("channels");				
-	}
-
-	public JSONArray getMandatoryChannels() throws JSONException {		
-		return (JSONArray)currentRule.getJSONArrayFromPath("mandatoryChannels");				
-	}
-	
-	public String getOptimizationAlgorithm() {
-		return currentRule.getStringFromPath( "optimizationAlgorithm" );		
-	}
-
-	public Boolean getKeepOffersConsistentAcrossMultipleRedraws() {
-		return currentRule.getBooleanFromPath( "keepOffersConsistentAcrossMultipleRedraws" );		
-	}
-
-	public Boolean getIncludePreviouslyAcceptedOffers() {
-		return currentRule.getBooleanFromPath( "includePreviouslyAcceptedOffers" );		
-	}
-	
-	public Boolean getAllowDuplicateOffers() {
-		return currentRule.getBooleanFromPath( "allowDuplicateOffers" );		
-	}
-
-	public Boolean getUnlimitedOffers() {
-		return currentRule.getBooleanFromPath( "unlimitedOffers" );		
-	}
-	
-	public String getMaximumNumberOfOffers() {
-		return currentRule.getStringFromPath( "maximumNumberOfOffers" );		
-	}
-
-	public JSONObject getErrorActions() throws JSONException {
-		return currentRule.getJSONObjectFromPath( "errorActions" );
-	}
-	
-	public void setName( String name ) {
-		setObjectFromPath( "name" , name );
-	}
-	
-	public void setRuleById( Integer currentRule ) throws JSONException {
 		
-		this.currentRule = new JsonConfig( getList().getJSONObject( currentRule ) );
-				
+		return getCurrentElement().getStringFromPath( "description" );
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	public String getTokenType() {
+		
+		return getCurrentElement().getStringFromPath( "tokenType" );
+	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws JSONSException
+	 */
+	@SuppressWarnings("unchecked")
+	public List<JSONChannel> getChannels() throws JSONSException {
+		
+		List<JSONChannel> resp = new ArrayList<>();
+		
+		List<Object> raw = getCurrentElement().getJsonListFromPath("channels");
+		
+		for (Object object : raw)
+			resp.add(new JSONChannel((Map<String, Object>) object));
+		
+		return resp;				
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getOptimizationAlgorithm() {
+		
+		return getCurrentElement().getStringFromPath( "optimizationAlgorithm" );		
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Boolean getKeepOffersConsistentAcrossMultipleRedraws() {
+		
+		return getCurrentElement().getBooleanFromPath( "keepOffersConsistentAcrossMultipleRedraws" );		
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Boolean getIncludePreviouslyAcceptedOffers() {
+		
+		return getCurrentElement().getBooleanFromPath( "includePreviouslyAcceptedOffers" );		
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Integer getMaximumNumberOfOffers() {
+		
+		return getCurrentElement().getIntegerFromPath( "maximumNumberOfOffers" );		
+	}
+	
+	/**
+	 * 
+	 * @param name
+	 * @throws JSONSException
+	 */
+	public void setName( String name ) throws JSONSException {
+		
+		getCurrentElement().modifyStringFromPath( "name" , name );
+	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws JSONSException 
+	 */
+	public JsonErrorActions getErrorActions() throws JSONSException {
+
+		return getCurrentElement().getErrorActions();
+	}	
+	
+	/**
+	 * 
+	 */
+	public class JSONChannel extends JsonConfigurationElement {
+
+		public JSONChannel(Map<String, Object> newObject) {
+			
+			super(newObject);
+		}
+		
+		/**
+		 * Channel name
+		 * 
+		 * @return
+		 */
+		public String getName() {
+			
+			return getStringFromPath("name");
+		}
+		
+		/**
+		 * Mandatory
+		 * 
+		 * @return
+		 */
+		public Boolean isMandatory() {
+			
+			return getBooleanFromPath("mandatory");
+		}
+		
+		/**
+		 * Unlimited offer
+		 * 
+		 * @return
+		 */
+		public Boolean isUnlimited() {
+			
+			return getBooleanFromPath( "unlimited" );		
+		}
+		
+		/**
+		 * Get max offers from this channel
+		 */
+		public Integer getMaxOffers() {
+			
+			return getIntegerFromPath("maxOffer");
+		}
+	}
+
+	@Override
+	public String getElementsSectionLabel() {
+
+		return "rules";
+	}
 }
