@@ -197,4 +197,33 @@ public final class SeleniumUtils {
 		
 	}
 	
+	public static List<WebElement> findListForComponentDisplayed( SeleniumWebDriver selenium, SearchBy searchBy, String locator , long timeout, long interval ) {
+		
+		List<WebElement> elements = null;			
+		
+		logger.debug( Log.CHECKING.createMessage( " for all elements ( " + locator + " ) " ) );
+		
+		if( locator != null ) {
+				
+			switch( searchBy ) {
+			
+				case ID: { elements = selenium.getWrappedDriver().findElements( By.id(locator) ); break;}
+				case NAME: { elements = selenium.getWrappedDriver().findElements( By.name(locator) ); break;}
+				case LINK: { elements = selenium.getWrappedDriver().findElements( By.linkText(locator) ); break;}
+				case TAG_NAME: { elements = selenium.getWrappedDriver().findElements( By.tagName(locator) ); break;}
+				case XPATH: { elements = selenium.getWrappedDriver().findElements( By.xpath(locator) ); break;  }
+				case CSS: { elements = selenium.getWrappedDriver().findElements( By.cssSelector(locator) ); break;  }
+				case CLASS_NAME: { elements = selenium.getWrappedDriver().findElements( By.className(locator) ); break;  }
+			default:
+				logger.error("Unknown locator rules : " + searchBy.toString());
+				break;
+				
+			}
+		
+		}
+		
+		return elements;
+		
+	}
+	
 }
