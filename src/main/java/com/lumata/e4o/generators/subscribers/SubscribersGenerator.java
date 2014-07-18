@@ -1,6 +1,8 @@
 package com.lumata.e4o.generators.subscribers;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -23,6 +25,7 @@ import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.system.fields.FieldMsisdn;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType;
 
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
@@ -366,13 +369,40 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 	
 	public void xmlrpcRecharge( final Long qtyRecharges ) throws GeneratorException {
 	
-		xmlrpcRecharge( qtyRecharges, parameter( recharge, true ) );
+		xmlrpcRecharge( qtyRecharges, XMLRPCParameter.parameter( ParameterType.recharge, true ) );
 						
 	}
 	
 	public void xmlrpcRecharge( final Long qtyRecharges, XMLRPCParameter... parameterList ) throws GeneratorException {
 		
 		actionType = SubscriberAction.recharge;
+		
+		Boolean hasRechargeParameter = false;
+		
+		Boolean hasEventTimeParameter = false;
+		
+		for( int p = 0; p < parameterList.length; p++ ) {
+			
+			if( parameterList[ p ].getParameter().toString().contains( "<name>recharge</name>" ) ) { 
+				hasRechargeParameter = true;
+			}
+			
+			if( parameterList[ p ].getParameter().toString().contains( "<name>event_time</name>" ) ) { 
+				hasEventTimeParameter = true;
+			}
+			
+		}
+		
+		if( !hasRechargeParameter ) {
+			parameterList[ parameterList.length ] = XMLRPCParameter.parameter( ParameterType.recharge, true );
+			parameterList = Arrays.copyOf( parameterList, parameterList.length + 1 );
+			parameterList[ parameterList.length - 1 ] = XMLRPCParameter.parameter( ParameterType.event_time, new SimpleDateFormat("HH:mm:ss").format( new Date() ) );
+		}
+		
+		if( !hasEventTimeParameter ) {
+			parameterList = Arrays.copyOf( parameterList, parameterList.length + 1 );
+			parameterList[ parameterList.length - 1 ] = XMLRPCParameter.parameter( ParameterType.event_time, new SimpleDateFormat("HH:mm:ss").format( new Date() ) );
+		}
 		
 		configureParameters();
 		

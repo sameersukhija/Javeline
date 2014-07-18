@@ -68,10 +68,6 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		sendKeysByXPath( "//input[@ng-model='tokenType.imageUrl']", tokenTypeCfg.getImageUrl() ).
 		selectByNameAndVisibleText( "format", tokenTypeCfg.getFormat() );		
 		
-		/** To delete after merging 2232 */
-		sendKeysByName( "validity", tokenTypeCfg.getValidity() );
-		
-		/** To restore after merging 2232
 		selectByXPathAndVisibleText( "//select/option[contains(@value, 'Relative')]/parent::select", tokenTypeCfg.getValidityType() ).
 		sendKeysByName( "validity.value", tokenTypeCfg.getValidityValue() );
 		
@@ -80,7 +76,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 			selectByNameAndVisibleText( "validity.unit", tokenTypeCfg.getValidityUnit() );
 		
 		}
-		*/
+		
 		
 		if( tokenTypeCfg.getUsageUnlimited() == true ) {
 			

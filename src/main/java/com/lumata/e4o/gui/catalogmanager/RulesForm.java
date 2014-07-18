@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,23 +114,27 @@ public class RulesForm extends OfferOptimisationForm {
 				//div[@ng-repeat='channel in ruleset.ruleSetChannel']//div[contains(text(),'Ch A')]//ancestor::div[1]//input[@type='number']
 				sendKeysByXPath("//div[@ng-repeat='channel in ruleset.ruleSetChannel']//div[contains(text(),'"+ch.getName()+"')]//ancestor::div[1]//input[@type='number']", max.toString());				
 			}
+			
 		}
 		
 		selectByNameAndVisibleText( "algorithm", ruleCfg.getOptimizationAlgorithm() );
 		
-		if( ruleCfg.getKeepOffersConsistentAcrossMultipleRedraws() ) 
+		if( ruleCfg.getKeepOffersConsistentAcrossMultipleRedraws() ) {
 			clickForAlternativeId( "keepOffersConsistent-1", "keepOffersConsistent-yes");
-		else 
+		} else  {
 			clickForAlternativeId( "keepOffersConsistent-0", "keepOffersConsistent-no");
-
-		if( ruleCfg.getKeepOffersConsistentAcrossMultipleRedraws() ) 
+		} if( ruleCfg.getKeepOffersConsistentAcrossMultipleRedraws() )  {
 			clickForAlternativeId( "previousOffersDrawnIncluded-1", "previousOffersDrawnIncluded-yes");
-		else 
+		} else  {
 			clickForAlternativeId( "previousOffersDrawnIncluded-0", "previousOffersDrawnIncluded-no");		
-		
+		}
+		/*
 		WebElement maxOfferElem = selenium.getWrappedDriver().findElement(By.xpath("//input[@ng-model='ruleset.numOfOffersToDraw']"));
 		maxOfferElem.clear();
 		maxOfferElem.sendKeys(ruleCfg.getMaximumNumberOfOffers().toString());
+		*/
+		
+		sendKeysByXPath("//input[@ng-model='ruleset.numOfOffersToDraw']", ruleCfg.getMaximumNumberOfOffers().toString() );				
 		
 		return this;		
 	}
@@ -145,13 +147,13 @@ public class RulesForm extends OfferOptimisationForm {
 	 * @param idStrings
 	 * @throws FormException
 	 */
-	private void clickForAlternativeId(String... idStrings ) throws FormException {
+	private void clickForAlternativeId( String... idStrings ) throws FormException {
 		
 		for (String singleIdString : idStrings) {
-			
-				if ( selenium.getWrappedDriver().findElements(By.id(singleIdString)).size() > 0 ) {
+				System.out.println( singleIdString );
+				if ( searchListById( singleIdString ).size() > 0 ) {
 				
-				logger.debug("Find the \""+singleIdString+"\"");
+				logger.debug( "Find the \""+singleIdString+"\"" );
 				
 				clickId( singleIdString );
 				

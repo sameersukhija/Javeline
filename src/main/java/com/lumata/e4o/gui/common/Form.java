@@ -196,6 +196,34 @@ public abstract class Form {
 		
 	}
 	
+	private List<WebElement> searchList( SeleniumUtils.SearchBy by, String tag ) throws FormException {
+		
+		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for " + by.name().toLowerCase() + " = " + tag ) );
+		
+		List<WebElement> we = SeleniumUtils.findListForComponentDisplayed( selenium, by, tag, timeout, interval );
+		
+		if( we == null ) {
+			
+			status = false;
+			
+			throw new FormException( Log.FAILED.createMessage( selenium.getTestName() , "Element not found ( " + tag + " )" ) ); 
+		
+		}	
+		
+		logger.info( Log.SELECTING.createMessage( selenium.getTestName(), "for " + by.name().toLowerCase() + " = " + tag ) );
+		
+		status = true;
+		
+		return we;
+		
+	}
+	
+	public List<WebElement> searchListById( String tag ) throws FormException {
+		
+		return searchList( SeleniumUtils.SearchBy.ID, tag );
+		
+	}
+	
 	private List<WebElement> searchList( SeleniumUtils.SearchBy rootBy, SeleniumUtils.SearchBy by, String rootTag, String tag ) throws FormException {
 		
 		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for " + by.name().toLowerCase() + " = " + tag ) );
@@ -215,6 +243,12 @@ public abstract class Form {
 		status = true;
 		
 		return we;
+		
+	}
+	
+	public List<WebElement> searchListById( String rootTag, String tag ) throws FormException {
+		
+		return searchList( SeleniumUtils.SearchBy.ID, SeleniumUtils.SearchBy.ID, rootTag, tag );
 		
 	}
 	
@@ -441,6 +475,8 @@ public abstract class Form {
 	private Form sendKeys( SeleniumUtils.SearchBy by, String tag, String text ) throws FormException {
 		
 		lastWebElement = search( by, tag );
+		
+		lastWebElement.clear();
 		
 		lastWebElement.sendKeys( text );
 		
