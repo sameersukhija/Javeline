@@ -1,180 +1,128 @@
 package com.lumata.e4o.json.gui.catalogmanager;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.json.HasErrorActions.JsonErrorActions;
-import com.lumata.common.testing.json.JsonConfigurationElement;
-import com.lumata.common.testing.json.JsonConfigurationFile;
+import com.lumata.e4o.json.common.JsonConfig;
 
-public class JSONRules extends JsonConfigurationFile {
+/**
+ * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
+ * 
+ */
+public class JSONRules extends JsonConfig {
 
-	/**
-	 * 
-	 * @param folder
-	 * @param file
-	 * @throws JSONSException
-	 */
+	public enum RuleValidity {
+		seconds, minutes, hours, days
+	}
+
+	private JsonConfig currentRule;
+	
 	public JSONRules( String folder, String file ) throws JSONSException {
 		
-		super( folder, file );		
+		super( folder, file );
+			
+	}
+
+	public JSONArray getList() throws JSONException {		
+		return (JSONArray)getJSONArrayFromPath("rules");				
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
+	public Boolean getEnabled() throws JSONException {
+		return currentRule.getBooleanFromPath( "enabled" );
+	}
+	
 	public String getName() {
-
-		return getCurrentElement().getStringFromPath( "name" );
+		return currentRule.getStringFromPath( "name" );
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
 	public String getDescription() {
-		
-		return getCurrentElement().getStringFromPath( "description" );
+		return currentRule.getStringFromPath( "description" );
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public String getTokenType() {
-		
-		return getCurrentElement().getStringFromPath( "tokenType" );
+		return currentRule.getStringFromPath( "tokenType" );
 	}
 	
-	/**
-	 * 
-	 * @return
-	 * @throws JSONSException
-	 */
-	@SuppressWarnings("unchecked")
-	public List<JSONChannel> getChannels() throws JSONSException {
+	public JSONArray getRuleChannelsAsArray() throws JSONException {	
 		
-		List<JSONChannel> resp = new ArrayList<>();
+		ArrayList<String> ruleChannels = new ArrayList<String>();
 		
-		List<Object> raw = getCurrentElement().getJsonListFromPath("channels");
+		JSONArray ruleChannelsCfg = currentRule.getJSONArrayFromPath( "channels" );
 		
-		for (Object object : raw)
-			resp.add(new JSONChannel((Map<String, Object>) object));
+		for( int c = 0; c < ruleChannelsCfg.length(); c++ ) {
+			
+			ruleChannels.add( new JSONRuleChannel( ruleChannelsCfg.getJSONObject( c ) ).getName() );
+			
+		}
 		
-		return resp;				
+		return new JSONArray( ruleChannels.toString() );
+	
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
+	public Map<String, JSONRuleChannel> getRuleChannels() throws JSONException {	
+		
+		Map<String, JSONRuleChannel> ruleChannels = new LinkedHashMap<String, JSONRuleChannel>();
+		
+		JSONArray ruleChannelsCfg = currentRule.getJSONArrayFromPath( "channels" );
+		
+		for( int c = 0; c < ruleChannelsCfg.length(); c++ ) {
+			
+			String ruleChannelName = "ruleChannel" + c;
+			
+			ruleChannels.put( ruleChannelName, new JSONRuleChannel( ruleChannelsCfg.getJSONObject( c ) ) );
+			
+		}
+		
+		return ruleChannels;  		
+						
+	}
+
+	public JSONRuleChannel getRuleChannelByIndex( Integer ruleChannelIndex ) throws JSONException {
+		
+		return new JSONRuleChannel( getJSONArrayFromPath( "channels" ).getJSONObject( ruleChannelIndex ) );
+		
+	}
+	
+	public JSONRuleChannel getRuleChannelByName( String ruleChannelName ) throws JSONException {
+		
+		return getRuleChannels().get( ruleChannelName );
+		
+	}
+	
 	public String getOptimizationAlgorithm() {
-		
-		return getCurrentElement().getStringFromPath( "optimizationAlgorithm" );		
+		return currentRule.getStringFromPath( "optimizationAlgorithm" );		
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public Boolean getKeepOffersConsistentAcrossMultipleRedraws() {
-		
-		return getCurrentElement().getBooleanFromPath( "keepOffersConsistentAcrossMultipleRedraws" );		
+		return currentRule.getBooleanFromPath( "keepOffersConsistentAcrossMultipleRedraws" );		
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public Boolean getIncludePreviouslyAcceptedOffers() {
-		
-		return getCurrentElement().getBooleanFromPath( "includePreviouslyAcceptedOffers" );		
+		return currentRule.getBooleanFromPath( "includePreviouslyAcceptedOffers" );		
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public Integer getMaximumNumberOfOffers() {
-		
-		return getCurrentElement().getIntegerFromPath( "maximumNumberOfOffers" );		
+	public String getMaximumNumberOfOffers() {
+		return String.valueOf( currentRule.getIntegerFromPath( "maximumNumberOfOffers" ) );		
 	}
 	
-	/**
-	 * 
-	 * @param name
-	 * @throws JSONSException
-	 */
-	public void setName( String name ) throws JSONSException {
-		
-		getCurrentElement().modifyStringFromPath( "name" , name );
+	public JSONObject getErrorActions() throws JSONException {
+		return currentRule.getJSONObjectFromPath( "errorActions" );
 	}
 	
-	/**
-	 * 
-	 * @return
-	 * @throws JSONSException 
-	 */
-	public JsonErrorActions getErrorActions() throws JSONSException {
-
-		return getCurrentElement().getErrorActions();
-	}	
+	public void setName( String name ) {
+		setObjectFromPath( "name" , name );
+	}
 	
-	/**
-	 * 
-	 */
-	public class JSONChannel extends JsonConfigurationElement {
-
-		public JSONChannel(Map<String, Object> newObject) {
-			
-			super(newObject);
-		}
+	public void setRuleById( Integer currentRule ) throws JSONException {
 		
-		/**
-		 * Channel name
-		 * 
-		 * @return
-		 */
-		public String getName() {
-			
-			return getStringFromPath("name");
-		}
-		
-		/**
-		 * Mandatory
-		 * 
-		 * @return
-		 */
-		public Boolean isMandatory() {
-			
-			return getBooleanFromPath("mandatory");
-		}
-		
-		/**
-		 * Unlimited offer
-		 * 
-		 * @return
-		 */
-		public Boolean isUnlimited() {
-			
-			return getBooleanFromPath( "unlimited" );		
-		}
-		
-		/**
-		 * Get max offers from this channel
-		 */
-		public Integer getMaxOffers() {
-			
-			return getIntegerFromPath("maxOffer");
-		}
+		this.currentRule = new JsonConfig( getList().getJSONObject( currentRule ) );
+				
 	}
 
-	@Override
-	public String getElementsSectionLabel() {
-
-		return "rules";
-	}
 }

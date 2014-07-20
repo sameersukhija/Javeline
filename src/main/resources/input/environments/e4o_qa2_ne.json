@@ -115,7 +115,21 @@
           }
         }
       }
-    }
+    },
+    "jmx": {
+      "actrule": {
+         "hostName": "md1-sa014-e4o02",
+        "hostAddress": "127.0.0.1",
+        "hostPort": "23500",
+        "users": null
+      },
+      "collector": {
+        "hostName": "md1-sa014-e4o02",
+        "hostAddress": "127.0.0.1",
+        "hostPort": "23500",
+        "users": null    
+      }
+    }    
   },
   "options": {
     "multiTenant": true

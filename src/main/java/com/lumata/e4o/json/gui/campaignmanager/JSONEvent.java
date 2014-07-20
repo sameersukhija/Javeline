@@ -50,7 +50,6 @@ public class JSONEvent extends JsonConfig {
 		return actions;  		
 	
 	}
-	
 
 	public JSONAction getActionByIndex( Integer actionIndex ) throws JSONException {
 		

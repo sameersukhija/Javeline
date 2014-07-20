@@ -11,12 +11,12 @@ import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.e4o.json.gui.catalogmanager.JSONRules;
-import com.lumata.e4o.json.gui.catalogmanager.JSONRules.JSONChannel;
+//import com.lumata.e4o.json.gui.catalogmanager.JSONRules.JSONChannel;
 
 public class JSONRulesTest {
 	
 	private JSONRules underTest = null;
-	
+	/*
 	@Parameters({"rulesFile"})
 	@BeforeTest
 	public void init(@Optional("rulesetTemplate") String rulesFile) throws JSONSException {
@@ -92,4 +92,5 @@ public class JSONRulesTest {
 		Assert.assertEquals( ch.isUnlimited(), Boolean.FALSE);
 		Assert.assertEquals( ch.getMaxOffers(), new Integer(2));
 	}	
+	*/
 }

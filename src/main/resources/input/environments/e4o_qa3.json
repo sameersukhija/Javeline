@@ -1,0 +1,73 @@
+{
+  "ip_address": "",
+  "users": {
+    "superman": {
+      "username": "superman",
+      "password": "bGppYm1NSUhJMmB3"
+    }
+  },
+  "host": "",
+  "name": "e4o_qa3",
+  "link": "http://10.120.38.36:7070/",
+  "browsers": {
+    "SAFARI": {
+      
+    },
+    "OPERA": {
+      
+    },
+    "FIREFOX": {
+      "profile": {
+        "file": {
+          "folder_name": "input/browsers/profiles",
+          "file_name": "firefox.default",
+          "loading_type": "RESOURCE"
+        },
+        "options": {
+          "extensions.firebug.allPagesActivation": "on",
+          "extensions.firebug.defaultPanelName": "console"
+        }
+      }
+    },
+    "CHROME": {
+      
+    },
+    "IE": {
+      
+    }
+  },
+  "data_sources": {
+    "global": {
+      "hostName": "global",
+      "hostAddress": "10.120.38.36",
+      "hostPort": "3306",
+      "maxActive": 100,
+      "maxIdle": 30,
+      "maxWait": 10000,
+      "user": "actusr",
+      "password": "YGRramxt"
+    },
+    "tenant": {
+      "hostName": "tenant",
+      "hostAddress": "10.120.38.36",
+      "hostPort": "3306",
+      "maxActive": 100,
+      "maxIdle": 30,
+      "maxWait": 10000,
+      "user": "actusr",
+      "password": "YGRramxt"
+  	}
+  },
+  "services": {
+    "SSH": {
+      "port": "22",
+      "host": "10.120.38.36",
+      "name": "qa3",
+      "user": "root",
+      "password": "cmdISnJjdQ=="
+    }
+  },
+  "options": {
+    "multi_tenant": true
+  }
+}

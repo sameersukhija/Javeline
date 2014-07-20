@@ -15,8 +15,6 @@ public class JSONAction extends JsonConfig {
 
 	private static final  Logger logger = LoggerFactory.getLogger( JSONAction.class );
 	
-	private JSONActionTime jsonActionTime;
-	
 	public JSONAction( JSONObject actionCfg ) {
 		
 		super( actionCfg );

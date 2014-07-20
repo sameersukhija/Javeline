@@ -1,181 +1,112 @@
 package com.lumata.e4o.gui.catalogmanager;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.support.ui.Select;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.json.JSONArray;
+import org.json.JSONException;
 
-import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.json.HasErrorActions.ElementErrorActionType;
-import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
-import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.json.gui.catalogmanager.JSONRuleChannel;
 import com.lumata.e4o.json.gui.catalogmanager.JSONRules;
-import com.lumata.e4o.json.gui.catalogmanager.JSONRules.JSONChannel;
 
 public class RulesForm extends OfferOptimisationForm {
 
-	/**
-	 * 
-	 */
-	private static final Logger logger = LoggerFactory.getLogger(RulesForm.class);
-	
-	/**
-	 * 
-	 */
 	private JSONRules ruleCfg;
 	
-    /**
-     * 
-     * @param selenium
-     * @param ruleCfg
-     * @param timeout
-     * @param interval
-     */
+    public enum ElementErrorActionType {
+
+        RETURN_ERROR,
+        ABORT_CANCEL,
+        ADD_TIMESTAMP_TO_FIELD;
+
+    }; 
+    
 	public RulesForm( SeleniumWebDriver selenium, JSONRules ruleCfg, long timeout, long interval ) {
 		
 		super(selenium, timeout, interval);
 		
 		this.ruleCfg = ruleCfg;
+		
 	}	
 	
-	/**
-	 * 
-	 */
 	public RulesForm open() throws FormException {
 		
 		super.open( OfferOptimisationSection.RULES );
 		
 		return this;
+		
 	}
 	
-	/**
-	 * 
-	 * @return
-	 * @throws FormException
-	 * @throws JSONSException
-	 */
-	public RulesForm addRules() throws FormException, JSONSException {
+	public RulesForm addRules() throws FormException, JSONException {
 		
-		Integer numRules = ruleCfg.getList().size();
+		JSONArray rules = ruleCfg.getList();
 		
-		for( int ruleIndex = 0; ruleIndex < numRules; ruleIndex++ ) {
+		for( int ruleIndex = 0; ruleIndex < rules.length(); ruleIndex++ ) {
 			
-			ruleCfg.setCurrentElementById( ruleIndex );
+			ruleCfg.setRuleById( ruleIndex );
 			
-			if( ruleCfg.getCurrentElement().getEnabled() ) {
+			if( ruleCfg.getEnabled() ) {
 			
 				clickLink( "Add" ).
 				configureRule().
-				saveRule(); //.
-				manageErrorAction( ruleCfg.getErrorActions().getAction(ElementErrorConditionType.ELEMENT_AREADY_EXISTS) );	
-			}	
+				saveRule().
+				manageErrorAction( ruleCfg.getErrorActions().getString( "ELEMENT_ALREADY_EXISTS" ) );
+				
+			}
+					
 		}
 		
 		return this;
+		
 	}
 	
-	/**
-	 * 
-	 * @return
-	 * @throws FormException
-	 * @throws JSONSException
-	 */
-	public RulesForm configureRule() throws FormException, JSONSException {
+	public RulesForm configureRule() throws FormException, JSONException {
 				
-		List<JSONChannel> channels = ruleCfg.getChannels();
-		List<String> chNames = new ArrayList<String>();
-		
-		for (JSONChannel ch : channels)
-			chNames.add(ch.getName());
-		
 		sendKeysByName( "name", ruleCfg.getName() ).
 		sendKeysByXPath( "//textarea[@ng-model='ruleset.description']", ruleCfg.getDescription() ).
 		selectByNameAndVisibleText( "tokenType", ruleCfg.getTokenType() ).
-		multiselectByXPathAndVisibleText( "//select[@multiple]", chNames );
+		multiselectByXPathAndVisibleText( "//select[@multiple]", ruleCfg.getRuleChannelsAsArray() ).
+		configureRuleChannels().
+		selectByNameAndVisibleText( "algorithm", ruleCfg.getOptimizationAlgorithm() ).
+		sendKeysByName( "usage", ruleCfg.getMaximumNumberOfOffers() );
+				
+		if( ruleCfg.getKeepOffersConsistentAcrossMultipleRedraws() ) { clickId( "keepOffersConsistent-yes" ); }
+		else { clickId( "keepOffersConsistent-no" ); }
 		
-		/**
-		 * custom channels configuration
-		 */
-		for (JSONChannel ch : channels) {
-			
-			//div[@ng-repeat='channel in ruleset.ruleSetChannel']//div[contains(text(),'Ch A')]//ancestor::div[1]//input[@type='checkbox']
-			if ( ch.isMandatory() )
-				clickXPath("//div[@ng-repeat='channel in ruleset.ruleSetChannel']//div[contains(text(),'"+ch.getName()+"')]//ancestor::div[1]//input[@type='checkbox']");
+		if( ruleCfg.getIncludePreviouslyAcceptedOffers() ) { clickId( "previousOffersDrawnIncluded-yes" ); }
+		else { clickId( "previousOffersDrawnIncluded-no" ); }
+					
+		return this;
+		
+	}
+	
+	public RulesForm configureRuleChannels() throws JSONException, FormException {
 
-			if ( !ch.isUnlimited() ) {
-				
-				Integer max = ch.getMaxOffers();
-				
-				//div[@ng-repeat='channel in ruleset.ruleSetChannel']//div[contains(text(),'Ch A')]//ancestor::div[1]//input[@type='number']
-				sendKeysByXPath("//div[@ng-repeat='channel in ruleset.ruleSetChannel']//div[contains(text(),'"+ch.getName()+"')]//ancestor::div[1]//input[@type='number']", max.toString());				
+		Map<String, JSONRuleChannel> ruleChannels = ruleCfg.getRuleChannels();
+		
+		for( String ruleChannelName : ruleChannels.keySet() ) {
+					
+			System.out.println( ruleCfg.getRuleChannelByName( ruleChannelName ).getName() );
+		
+			JSONRuleChannel ruleChannel = ruleCfg.getRuleChannelByName( ruleChannelName );
+			
+			if ( ruleChannel.getMandatory() ) {
+				clickXPath("//div[@ng-repeat='channel in ruleset.ruleSetChannel']//div[contains(text(),'" + ruleChannel.getName() + "')]//ancestor::div[1]//input[@type='checkbox']");
+			}
+			
+			if ( !ruleChannel.getUnlimited() ) {
+				sendKeysByXPath("//div[@ng-repeat='channel in ruleset.ruleSetChannel']//div[contains(text(),'" + ruleChannel.getName() + "')]//ancestor::div[1]//input[@type='number']", ruleChannel.getMaxOffer() );
 			}
 			
 		}
 		
-		selectByNameAndVisibleText( "algorithm", ruleCfg.getOptimizationAlgorithm() );
+		return this;
 		
-		if( ruleCfg.getKeepOffersConsistentAcrossMultipleRedraws() ) {
-			clickForAlternativeId( "keepOffersConsistent-1", "keepOffersConsistent-yes");
-		} else  {
-			clickForAlternativeId( "keepOffersConsistent-0", "keepOffersConsistent-no");
-		} if( ruleCfg.getKeepOffersConsistentAcrossMultipleRedraws() )  {
-			clickForAlternativeId( "previousOffersDrawnIncluded-1", "previousOffersDrawnIncluded-yes");
-		} else  {
-			clickForAlternativeId( "previousOffersDrawnIncluded-0", "previousOffersDrawnIncluded-no");		
-		}
-		/*
-		WebElement maxOfferElem = selenium.getWrappedDriver().findElement(By.xpath("//input[@ng-model='ruleset.numOfOffersToDraw']"));
-		maxOfferElem.clear();
-		maxOfferElem.sendKeys(ruleCfg.getMaximumNumberOfOffers().toString());
-		*/
-		
-		sendKeysByXPath("//input[@ng-model='ruleset.numOfOffersToDraw']", ruleCfg.getMaximumNumberOfOffers().toString() );				
-		
-		return this;		
 	}
 	
-	/**
-	 * This method describes the different render situation for some id into application logic.
-	 * 
-	 * It tries to match the first id that found into provided sequence.
-	 * 
-	 * @param idStrings
-	 * @throws FormException
-	 */
-	private void clickForAlternativeId( String... idStrings ) throws FormException {
-		
-		for (String singleIdString : idStrings) {
-				System.out.println( singleIdString );
-				if ( searchListById( singleIdString ).size() > 0 ) {
-				
-				logger.debug( "Find the \""+singleIdString+"\"" );
-				
-				clickId( singleIdString );
-				
-				break;
-			}
-		}
-	}
-	
-	/**
-	 * 
-	 * @param errorAction
-	 * @return
-	 * @throws FormException
-	 * @throws JSONSException
-	 */
-	public RulesForm manageErrorAction( ElementErrorActionType errorAction ) throws FormException, JSONSException {
-		
-		try {
-			Thread.sleep(1_000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public RulesForm manageErrorAction( String errorAction ) throws FormException {
 		
 		closeAngularFrame();
 		
@@ -194,7 +125,7 @@ public class RulesForm extends OfferOptimisationForm {
 			clickXPath( "//div[@class='gwt-DialogBox errorDialog']//button" ).
 			openAngularFrame();
 			
-			switch( errorAction ) {
+			switch( ElementErrorActionType.valueOf( errorAction ) ) {
 			
 				case RETURN_ERROR: {  
 					
@@ -230,28 +161,20 @@ public class RulesForm extends OfferOptimisationForm {
 		
 	}
 	
-	/**
-	 * 
-	 * @return
-	 * @throws FormException
-	 */
 	public RulesForm saveRule() throws FormException {
 		
 		super.clickName( "btn-add" );
 		
 		return this;
+		
 	}
 	
-	/**
-	 * 
-	 * @return
-	 * @throws FormException
-	 */
 	public RulesForm cancelRule() throws FormException {
 		
 		super.clickXPath( "//a[@label='actrule-button-cancel']" );
 		
 		return this;
+		
 	}
 	
 	@Override
@@ -260,6 +183,7 @@ public class RulesForm extends OfferOptimisationForm {
 		super.clickName( name );
 		
 		return this;
+		
 	}
 	
 	@Override
@@ -268,6 +192,7 @@ public class RulesForm extends OfferOptimisationForm {
 		super.clickXPath( xpath );
 		
 		return this;
+		
 	}
 	
 	@Override
@@ -276,6 +201,7 @@ public class RulesForm extends OfferOptimisationForm {
 		super.clickLink( link );
 		
 		return this;
+		
 	}
 	
 	@Override
@@ -284,6 +210,7 @@ public class RulesForm extends OfferOptimisationForm {
 		super.sendKeysByName( name, text );
 		
 		return this;
+	
 	}
 	
 	@Override
@@ -292,6 +219,7 @@ public class RulesForm extends OfferOptimisationForm {
 		super.sendKeysByXPath( xpath, text );
 		
 		return this;
+	
 	}
 	
 	@Override
@@ -300,6 +228,7 @@ public class RulesForm extends OfferOptimisationForm {
 		super.sendKeysByLink( link, text );
 		
 		return this;
+	
 	}
 	
 	@Override
@@ -308,6 +237,7 @@ public class RulesForm extends OfferOptimisationForm {
 		super.selectByName( name, label );
 		
 		return this;
+		
 	}
 	
 	@Override
@@ -316,6 +246,7 @@ public class RulesForm extends OfferOptimisationForm {
 		super.clearByName( xpath );
 		
 		return this;
+		
 	}
 	
 	@Override
@@ -324,25 +255,16 @@ public class RulesForm extends OfferOptimisationForm {
 		super.typeByName( name, text );
 		
 		return this;
+	
 	}
-
-	/**
-	 * 
-	 * @param xpath
-	 * @param list
-	 * @return
-	 * @throws FormException
-	 */
-	public RulesForm multiselectByXPathAndVisibleText( String xpath, List<String> list ) throws FormException {
+	
+	@Override
+	public RulesForm multiselectByXPathAndVisibleText( String xpath, JSONArray list ) throws FormException {
 		
-		lastWebElement = search( SearchBy.XPATH, xpath );
-		
-		Select available = new Select( lastWebElement );
-		
-		for (String string : list)
-			available.selectByVisibleText( string );
+		super.multiselectByXPathAndVisibleText( xpath, list );	
 		
 		return this;
+		
 	}
 	
 	@Override
@@ -351,6 +273,7 @@ public class RulesForm extends OfferOptimisationForm {
 		super.selectByNameAndVisibleText( name, text );	
 		
 		return this;
+		
 	}
 	
 	@Override
@@ -359,6 +282,7 @@ public class RulesForm extends OfferOptimisationForm {
 		super.openAngularFrame();	
 		
 		return this;
+		
 	}
 	
 	@Override
@@ -367,5 +291,7 @@ public class RulesForm extends OfferOptimisationForm {
 		super.closeAngularFrame();	
 		
 		return this;
+		
 	}
+	
 }

@@ -7,17 +7,16 @@
 			"tokenType":"TokenA",
 			"channels":[ {
 				"name":"Ch A",
-				"mandatory":false,
+				"mandatory":true,
 				"unlimited": true,
-				"maxOffer" : 0,
-				} ],
+				"maxOffer" : 10
+			}],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": true,
 			"maximumNumberOfOffers": 10,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
@@ -29,15 +28,14 @@
 				"name":"Ch B",
 				"mandatory":false,
 				"unlimited": true,
-				"maxOffer" : 0,
-				} ],
+				"maxOffer" : 0
+			}],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": true,
 			"maximumNumberOfOffers": 10,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
@@ -49,15 +47,14 @@
 				"name":"Ch C",
 				"mandatory":false,
 				"unlimited": true,
-				"maxOffer" : 0,
-				} ],
+				"maxOffer" : 0
+			}],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": true,
 			"maximumNumberOfOffers": 10,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
@@ -69,19 +66,19 @@
 				"name":"Ch A",
 				"mandatory":false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				},{
 				"name":"Ch B",
 				"mandatory":false,
 				"unlimited": true,
-				"maxOffer" : 0,
-				} ],
+				"maxOffer" : 0
+			}],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
 			"maximumNumberOfOffers": 10,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
@@ -93,19 +90,19 @@
 				"name":"Ch B",
 				"mandatory":false,
 				"unlimited": true,
-				"maxOffer" : 0,
-				},{
+				"maxOffer" : 0
+			},{
 				"name":"Ch C",
 				"mandatory":false,
 				"unlimited": true,
-				"maxOffer" : 0,
-				} ],
+				"maxOffer" : 0
+			}],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
 			"maximumNumberOfOffers": 10,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
@@ -117,24 +114,24 @@
 				"name":"Ch A",
 				"mandatory":false,
 				"unlimited": true,
-				"maxOffer" : 0,
-				},{
+				"maxOffer" : 0
+			},{
 				"name":"Ch B",
 				"mandatory":false,
 				"unlimited": true,
-				"maxOffer" : 0,
-				},{
+				"maxOffer" : 0
+			},{
 				"name":"Ch C",
 				"mandatory":false,
 				"unlimited": true,
-				"maxOffer" : 0,
-				} ],
+				"maxOffer" : 0
+			}],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
 			"maximumNumberOfOffers": 10,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
@@ -146,15 +143,14 @@
 				"name":"Ch A",
 				"mandatory":false,
 				"unlimited": true,
-				"maxOffer" : 0,
-				} ],
+				"maxOffer" : 0
+			}],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": true,
 			"maximumNumberOfOffers": 10,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
@@ -166,15 +162,14 @@
 				"name":"Ch A",
 				"mandatory":false,
 				"unlimited": true,
-				"maxOffer" : 0,
-				} ],
+				"maxOffer" : 0
+			}],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": true,
 			"maximumNumberOfOffers": 10,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
@@ -186,15 +181,14 @@
 				"name":"Ch A",
 				"mandatory":false,
 				"unlimited": true,
-				"maxOffer" : 0,
-				} ],
+				"maxOffer" : 0
+			}],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": true,
 			"maximumNumberOfOffers": 10,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
@@ -206,15 +200,14 @@
 				"name":"Ch A",
 				"mandatory":false,
 				"unlimited": true,
-				"maxOffer" : 0,
-				} ],
+				"maxOffer" : 0
+			}],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": true,
 			"maximumNumberOfOffers": 10,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
@@ -226,15 +219,14 @@
 				"name":"Ch A",
 				"mandatory":false,
 				"unlimited": true,
-				"maxOffer" : 0,
-				} ],
+				"maxOffer" : 0
+			}],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": true,
 			"maximumNumberOfOffers": 10,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		}
