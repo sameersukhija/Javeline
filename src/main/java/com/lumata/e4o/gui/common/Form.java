@@ -264,16 +264,29 @@ public abstract class Form {
 		
 	}
 
-	public String getText( SeleniumUtils.SearchBy by, String xpath ) throws Exception {
+	private String getText( SeleniumUtils.SearchBy by, String xpath ) throws FormException {
 		
 		lastWebElement =  search( by, xpath );
 		
 		return lastWebElement.getText();
 	}
+	
+	private String getText( SeleniumUtils.SearchBy by, String xpath, Long timeout, Long interval ) throws FormException {
+		
+		lastWebElement =  search( by, xpath, timeout, interval );
+		
+		return lastWebElement.getText();
+	}
 
-	public String getTextByXPath( String xpath ) throws Exception {
+	public String getTextByXPath( String xpath ) throws FormException {
 		
 		return getText( SeleniumUtils.SearchBy.XPATH, xpath );
+		
+	}
+	
+	public String getTextByXPath( String xpath, Long timeout, Long interval ) throws FormException {
+		
+		return getText( SeleniumUtils.SearchBy.XPATH, xpath, timeout, interval );
 		
 	}
 	

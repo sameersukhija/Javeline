@@ -2,24 +2,6 @@
 	"tokenTypes": [
 		{
 			"enabled": true,
-			"name":"TokenTest",
-			"description":"TokenTest",
-			"imageUrl":"http://i-neti.ru/sites/default/files/blogimages/test_icon.jpg",
-			"format":"gl-[0123456789abcdef]{5}",
-			"validityType":"Relative",
-			"validityValue":"100",
-			"validityUnit":"days",
-			"usageUnlimited": true,
-			"usage":"10",
-			"errorActions": {
-				"ELEMENT_ALREADY_EXISTS": "ABORT"	
-			},
-			"options": {
-				"TOKEN_TYPE_AUTOINCREMENT": true	
-			}
-		},
-		{
-			"enabled": true,
 			"name":"Token100sec",
 			"description":"Token100sec",
 			"imageUrl": null,

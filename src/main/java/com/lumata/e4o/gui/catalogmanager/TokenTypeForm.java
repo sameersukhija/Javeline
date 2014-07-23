@@ -1,5 +1,9 @@
 package com.lumata.e4o.gui.catalogmanager;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
@@ -8,6 +12,7 @@ import org.json.JSONException;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.common.AngularCalendarForm;
 import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
 
 public class TokenTypeForm extends OfferOptimisationForm {
@@ -66,15 +71,32 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		sendKeysByName( "name", tokenTypeCfg.getName() ).
 		sendKeysByXPath( "//textarea[@ng-model='tokenType.description']", tokenTypeCfg.getDescription() ).
 		sendKeysByXPath( "//input[@ng-model='tokenType.imageUrl']", tokenTypeCfg.getImageUrl() ).
-		selectByNameAndVisibleText( "format", tokenTypeCfg.getFormat() );		
-		
-		selectByXPathAndVisibleText( "//select/option[contains(@value, 'Relative')]/parent::select", tokenTypeCfg.getValidityType() ).
-		sendKeysByName( "validity.value", tokenTypeCfg.getValidityValue() );
-		
+		selectByNameAndVisibleText( "format", tokenTypeCfg.getFormat() ).		
+		selectByXPathAndVisibleText( "//select/option[contains(@value, 'Relative')]/parent::select", tokenTypeCfg.getValidityType() );
+				
 		if( tokenTypeCfg.getValidityType().equals( "Relative" ) ) {
 		
+			sendKeysByName( "validity.value", tokenTypeCfg.getValidityValue() ).
 			selectByNameAndVisibleText( "validity.unit", tokenTypeCfg.getValidityUnit() );
-		
+			
+		} else /** Absolute */ {
+			
+			Calendar date = Calendar.getInstance();
+			
+			try {
+				
+				date.setTime( new SimpleDateFormat("yyyy-MM-dd").parse( tokenTypeCfg.getValidityValue() ) );
+				date.add( Calendar.YEAR , 1 );
+				date.add( Calendar.MONTH , -2 );
+				setAbsoluteDate( "validity.value", date );
+					
+			} catch ( ParseException e ) {
+				
+				throw new FormException( e.getMessage(), e );
+				
+			}
+			
+			
 		}
 		
 		
@@ -90,6 +112,17 @@ public class TokenTypeForm extends OfferOptimisationForm {
 			
 		}
 				
+		return this;
+		
+	}
+	
+	public TokenTypeForm setAbsoluteDate( String name, Calendar date ) throws FormException {
+		
+		AngularCalendarForm.
+			create( selenium, Calendar.getInstance(), timeout, interval ).
+			openByName( name ).
+			setDate( date );
+		
 		return this;
 		
 	}
