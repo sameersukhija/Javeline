@@ -11,6 +11,7 @@ import org.json.JSONException;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
+import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.AngularCalendarForm;
 import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
@@ -75,19 +76,26 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		selectByXPathAndVisibleText( "//select/option[contains(@value, 'Relative')]/parent::select", tokenTypeCfg.getValidityType() );
 				
 		if( tokenTypeCfg.getValidityType().equals( "Relative" ) ) {
-		
+			System.out.println( "DATE" );
 			sendKeysByName( "validity.value", tokenTypeCfg.getValidityValue() ).
 			selectByNameAndVisibleText( "validity.unit", tokenTypeCfg.getValidityUnit() );
 			
 		} else /** Absolute */ {
-			
+			System.out.println( "PLACE HOLDER" );
 			Calendar date = Calendar.getInstance();
 			
 			try {
 				
-				date.setTime( new SimpleDateFormat("yyyy-MM-dd").parse( tokenTypeCfg.getValidityValue() ) );
-				date.add( Calendar.YEAR , 1 );
-				date.add( Calendar.MONTH , -2 );
+				if( PlaceHolderDate.getInstance( tokenTypeCfg.getValidityValue() ).isPlaceHolderDate() ) {
+				
+					date = PlaceHolderDate.getInstance( tokenTypeCfg.getValidityValue() ).parse();
+										
+				} else {
+									
+					date.setTime( new SimpleDateFormat("yyyy-MM-dd").parse( tokenTypeCfg.getValidityValue() ) );
+				
+				}
+				
 				setAbsoluteDate( "validity.value", date );
 					
 			} catch ( ParseException e ) {

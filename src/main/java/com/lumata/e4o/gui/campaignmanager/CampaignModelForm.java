@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.NotificationForm;
-import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.e4o.json.gui.campaignmanager.JSONAction;
 import com.lumata.e4o.json.gui.campaignmanager.JSONActionTime;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
@@ -31,17 +31,13 @@ public class CampaignModelForm extends CampaignManagerForm {
 	
 	private final String campaignModelFormXPath = "//*[@id='gwt-debug-FormCampaignModelCreation']";	
 	
-	public enum CMErrorAction {
+    public enum ElementErrorActionType {
 
-		MODEL_ALREADY_EXISTS;
+        RETURN_ERROR,
+        ABORT_CANCEL,
+        ADD_TIMESTAMP_TO_FIELD;
 
-	};
-
-	public enum CMErrorActionType {
-
-		RETURN_ERROR, ABORT, ADD_TIMESTAMP_TO_MODEL_NAME;
-
-	};
+    }; 
 
 	public CampaignModelForm( SeleniumWebDriver selenium, JSONCampaignModel campaignModelCfg, long timeout, long interval ) {
 		
@@ -71,7 +67,7 @@ public class CampaignModelForm extends CampaignManagerForm {
 			
 				clickId( "gwt-debug-BtnCampaignModelAdd" ).
 				configureCampaignModel().
-				saveCampaignModel();
+				saveCampaignModel().manageErrorAction( campaignModelCfg.getErrorActions().getString( "ELEMENT_ALREADY_EXISTS" ) );
 				
 			}
 					
@@ -115,7 +111,6 @@ public class CampaignModelForm extends CampaignManagerForm {
 		return this;
 	
 	}
-
 	
 	public CampaignModelForm cancelCampaignModel() throws FormException {
 		
@@ -474,6 +469,56 @@ public class CampaignModelForm extends CampaignManagerForm {
 		
 	}
 	
+	public CampaignModelForm manageErrorAction( String errorAction ) throws FormException, JSONException {
+		
+		try {
+		
+			searchByXPath( "//div[contains(text(),'Model name already exist')]", 2000, 50 );
+		
+		} catch( FormException fe ) {
+			
+			// no error to manage
+			
+		}
+		
+		if( status ) {
+			
+			switch( ElementErrorActionType.valueOf( errorAction ) ) {
+			
+				case RETURN_ERROR: {  
+					
+					throw new FormException( "Error in the form navigation" );
+									
+				}
+				case ABORT_CANCEL: {  
+										
+					cancelCampaignModel();				
+					
+					break; 				
+				}
+				case ADD_TIMESTAMP_TO_FIELD: {  
+					
+					String name_with_timestamp = campaignModelCfg.getName() + "_" + String.valueOf( TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) );
+					
+					campaignModelCfg.setName( name_with_timestamp );					
+					
+					clearByName( "name" ).
+					sendKeysByName( "name", campaignModelCfg.getName() ).
+					saveCampaignModel();					
+					
+					break; 				
+				}
+			
+			}
+		
+		} 
+		
+		status = true;
+		
+		return this;
+		
+	}
+	
 	private Boolean isActive() throws JSONException {
 		
 		return this.campaignModelCfg.getEnabled();
@@ -481,9 +526,27 @@ public class CampaignModelForm extends CampaignManagerForm {
 	}
 	
 	@Override
+	public CampaignModelForm clearByName( String name ) throws FormException {
+		
+		super.clearByName( name );
+		
+		return this;
+		
+	}
+	
+	@Override
 	public CampaignModelForm clickId( String id ) throws FormException {
 		
 		super.clickId( id );
+		
+		return this;
+		
+	}
+	
+	@Override
+	public CampaignModelForm clickName( String name ) throws FormException {
+		
+		super.clickXPath( name );
 		
 		return this;
 		
@@ -502,6 +565,15 @@ public class CampaignModelForm extends CampaignManagerForm {
 	public CampaignModelForm sendKeysById( String id, String text ) throws FormException {
 		
 		super.sendKeysById( id, text );
+		
+		return this;
+		
+	}
+	
+	@Override
+	public CampaignModelForm sendKeysByName( String name, String text ) throws FormException {
+		
+		super.sendKeysByName( name, text );
 		
 		return this;
 		

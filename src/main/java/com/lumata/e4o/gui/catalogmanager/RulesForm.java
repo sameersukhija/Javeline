@@ -42,7 +42,7 @@ public class RulesForm extends OfferOptimisationForm {
 	public RulesForm addRules() throws FormException, JSONException {
 		
 		JSONArray rules = ruleCfg.getList();
-		
+		try {
 		for( int ruleIndex = 0; ruleIndex < rules.length(); ruleIndex++ ) {
 			
 			ruleCfg.setRuleById( ruleIndex );
@@ -57,7 +57,7 @@ public class RulesForm extends OfferOptimisationForm {
 			}
 					
 		}
-		
+		} catch( Exception e ) { System.out.println( e.getMessage() );}
 		return this;
 		
 	}
@@ -87,9 +87,7 @@ public class RulesForm extends OfferOptimisationForm {
 		Map<String, JSONRuleChannel> ruleChannels = ruleCfg.getRuleChannels();
 		
 		for( String ruleChannelName : ruleChannels.keySet() ) {
-					
-			System.out.println( ruleCfg.getRuleChannelByName( ruleChannelName ).getName() );
-		
+						
 			JSONRuleChannel ruleChannel = ruleCfg.getRuleChannelByName( ruleChannelName );
 			
 			if ( ruleChannel.getMandatory() ) {
@@ -119,9 +117,9 @@ public class RulesForm extends OfferOptimisationForm {
 			// no error to manage
 			
 		}
-			
-		if( status ) {
 		
+		if( status ) {
+			
 			clickXPath( "//div[@class='gwt-DialogBox errorDialog']//button" ).
 			openAngularFrame();
 			
@@ -163,7 +161,7 @@ public class RulesForm extends OfferOptimisationForm {
 	
 	public RulesForm saveRule() throws FormException {
 		
-		super.clickName( "btn-add" );
+		super.clickXPath( "//a[@name='btn-add']" );
 		
 		return this;
 		
@@ -171,7 +169,7 @@ public class RulesForm extends OfferOptimisationForm {
 	
 	public RulesForm cancelRule() throws FormException {
 		
-		super.clickXPath( "//a[@label='actrule-button-cancel']" );
+		super.clickXPath( "//a[@name='btn-cancel']" );
 		
 		return this;
 		

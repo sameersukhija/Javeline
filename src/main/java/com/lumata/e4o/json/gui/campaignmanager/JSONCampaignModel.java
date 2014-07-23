@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.e4o.json.common.JsonConfig;
@@ -71,10 +72,18 @@ public class JSONCampaignModel extends JsonConfig {
 		
 	}
 	
+	public JSONObject getErrorActions() throws JSONException {
+		return currentCampaignModel.getJSONObjectFromPath( "errorActions" );
+	}
+	
 	public void setCampaignModelById( Integer currentCampaignModelId ) throws JSONException {
 		
 		this.currentCampaignModel = new JsonConfig( getList().getJSONObject( currentCampaignModelId ) );
 				
+	}
+	
+	public void setName( String name ) {
+		setObjectFromPath( "name" , name );
 	}
 	
 }
