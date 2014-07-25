@@ -76,12 +76,12 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		selectByXPathAndVisibleText( "//select/option[contains(@value, 'Relative')]/parent::select", tokenTypeCfg.getValidityType() );
 				
 		if( tokenTypeCfg.getValidityType().equals( "Relative" ) ) {
-			System.out.println( "DATE" );
+			
 			sendKeysByName( "validity.value", tokenTypeCfg.getValidityValue() ).
 			selectByNameAndVisibleText( "validity.unit", tokenTypeCfg.getValidityUnit() );
 			
 		} else /** Absolute */ {
-			System.out.println( "PLACE HOLDER" );
+			
 			Calendar date = Calendar.getInstance();
 			
 			try {

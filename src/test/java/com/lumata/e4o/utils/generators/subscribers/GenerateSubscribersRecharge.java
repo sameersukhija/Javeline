@@ -29,10 +29,10 @@ public class GenerateSubscribersRecharge {
 
 	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersRecharge.class );
 	
-	final boolean GENERATE_FIXED_SUBSCRIBER = true;
+	final boolean GENERATE_FIXED_SUBSCRIBER = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE = false;
-	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = false;
+	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = true;
 	final boolean GENERATE_RANDOM_SUBSCRIBERS = false;
 	
 	NetworkEnvironment env;	
@@ -85,6 +85,27 @@ public class GenerateSubscribersRecharge {
 					.msisdnFixed( FIXED_MSISDN )
 					.xmlrpcRecharge( RECHARGE_TO_GENERATE, parameter( recharge, true ), parameter( event_date, sdf.format( today.getTime() ) ) );
 					
+	}
+	
+	@Test( enabled = GENERATE_INCREMENTAL_SUBSCRIBERS )
+	public void generateIncrementalSubscribers() throws GeneratorException {
+		
+		final Long STARTED_MSISDN = 3399900001L;
+		final Integer INCREMENT = 1;
+		final Boolean HAS_SMS_CHANNEL = true;
+		final Boolean HAS_MAIL_CHANNEL = true;
+		final Integer REPEAT = 1;
+		final Long RECHARGE_TO_GENERATE = 100000L;
+		
+		Generator.subscribers()
+					.server( guiServer )
+					.user( superman )
+					.msisdnIncremental( STARTED_MSISDN, INCREMENT )
+					.subscriberHasSMSChannel( HAS_SMS_CHANNEL )
+					.subscriberHasMAILChannel( HAS_MAIL_CHANNEL )
+					.repeat( REPEAT )
+					.xmlrpcRecharge( RECHARGE_TO_GENERATE );
+		
 	}
 	
 	@Test( enabled = GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE )

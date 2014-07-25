@@ -22,21 +22,15 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.e4o.exceptions.CampaignException;
-import com.lumata.e4o.exceptions.CampaignModelException;
 import com.lumata.e4o.exceptions.CommoditiesException;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.administrationmanager.CommoditiesForm;
 import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
 import com.lumata.e4o.gui.security.Authorization;
-import com.lumata.e4o.json.gui.administrationmanager.JSONCommodities;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCampaign;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
-import com.lumata.e4o.utils.generators.subscribers.GenerateSubscribers;
 
-public class ConfigureCampaign {
+public class ConfigureCampaignModel {
 
-	private static final Logger logger = LoggerFactory.getLogger( ConfigureCampaign.class );
+	private static final Logger logger = LoggerFactory.getLogger( ConfigureCampaignModel.class );
 	
 	private int TIMEOUT = 60000;
 	private int ATTEMPT_TIMEOUT = 50;
@@ -48,7 +42,7 @@ public class ConfigureCampaign {
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment", "gui_server", "tenant", "user"})
 	@BeforeClass
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment, @Optional("actrule") String gui_server, @Optional("qa") String tenant, @Optional("superman") String user ) throws CommoditiesException, JSONSException, IOFileException, NetworkEnvironmentException, FormException {		
+	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_VM_NE") String environment, @Optional("actrule") String gui_server, @Optional("tenant") String tenant, @Optional("superman") String user ) throws CommoditiesException, JSONSException, IOFileException, NetworkEnvironmentException, FormException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
@@ -56,6 +50,7 @@ public class ConfigureCampaign {
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
 		/** Create mysql connections with global and tenant database */
+		//mysqlGlobal = new Mysql( env.getDataSource( "global" ) );		
 		mysqlTenant = new Mysql( env.getDataSource( tenant ) );
 		
 		/** Create Selenium WebDriver instance */
@@ -73,22 +68,22 @@ public class ConfigureCampaign {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}
 	
-	@Parameters({"tenant"})
-	@Test(enabled=true, priority = 1 )
-	public void loadCampaigns() throws CampaignException, JSONSException, FormException, JSONException {
-		
-		CampaignsForm campaignForm = new CampaignsForm( seleniumWebDriver, new JSONCampaign( "input/campaignmanager/campaigns", "campaignCMAllEvents" ), TIMEOUT, ATTEMPT_TIMEOUT );
-		
-		campaignForm.open().addCampaigns();
-		//Assert.assertTrue( CampaignCreationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );		
-		//Assert.assertTrue( CampaignCreationForm.create(seleniumWebDriver, new CampaignCfg( "input/campaigns", "campaign_cm_bonus", IOLoadingType.RESOURCE ), TIMEOUT, ATTEMPT_TIMEOUT) );
+	@Parameters({"campaignModelList"})
+	@Test( enabled = true, priority = 4 )
+	public void configureCampaignModel( @Optional("campaignModelList") String campaignModelList ) throws JSONSException, FormException, JSONException {
+
+		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, new JSONCampaignModel( "input/campaignmanager/campaignModels", campaignModelList ), TIMEOUT, ATTEMPT_TIMEOUT );
+						
+		Assert.assertTrue( campaignModelForm.open().addCampaignModels().navigate() );		
 				
-	}
+    }
 	
 	@AfterClass
-	public void end() {
+	public void end() throws FormException {
 		
 		mysqlTenant.close();
+		
+		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).quit().navigate() );
 		
 	}
 		

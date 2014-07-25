@@ -58,6 +58,8 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 	Integer minRandomEvents = 1;
 	Integer maxRandomEvents = 1;
 	
+	Integer repeat = 1;
+	
 	Boolean randomEvents;
 
 	SubscriberAction actionType;
@@ -170,7 +172,15 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		return this;
 	
 	}
+	
+	public SubscribersGenerator repeat( final Integer repeat ) {
+		
+		parameters.add( GeneratorParameter.repeat( repeat ) );
 
+		return this;
+	
+	}
+	
 	private void configureParameters() throws GeneratorException {
 		
 		String mandatoryFieldMissing = "the mandatory field ${fieldType} is missing";
@@ -238,9 +248,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 				
 				} catch( FieldException e ) {
 					
-					System.out.println( e.getMessage() );
-					
-					e.printStackTrace();
+					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
 					
 				}
 
@@ -278,6 +286,12 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 			
 		}
 
+		if( parameters.containsKey( GeneratorParameterType.repeat ) ) { 
+			
+			repeat = (Integer)parameters.getParameter( GeneratorParameterType.repeat ).getGeneratorParameterValue(); 
+			
+		}
+		
 		if( randomEvents && ( minRandomEvents > maxRandomEvents ) ) { throw new GeneratorException( "The min events must be less than or equals to max events" ); }
 		
 		if( randomEvents && ( maxRandomEvents < minRandomEvents ) ) { throw new GeneratorException( "The max events must be greater than or equals to min events" ); }
@@ -300,7 +314,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 				
 			} catch( FieldException e ) {
 				
-				System.out.println( e.getMessage() );
+				logger.error( e.getMessage(), e );
 				
 			}	
 		}
@@ -342,6 +356,8 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		if( subscriberHasSMSChannel ) { insertChannel( msisdn, String.valueOf( msisdn ), (byte)1 ); }
 			
 		if( subscriberHasMailChannel ) { insertChannel( msisdn, RandomStringUtils.randomAlphanumeric(10).toLowerCase() + "@lumatagroup.com", (byte)2 ); }
+		
+		logger.info( Log.CREATING.createMessage( "msisdn " + msisdn ) );
 								
 	}
 	
@@ -410,32 +426,36 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 		User user = (User)parameters.getParameterValue( GeneratorParameterType.user );
 		
-		Long rechargeToGenerate = ( !randomEvents ? qtyRecharges : minRandomEvents + (long)( Math.random() * ( maxRandomEvents - minRandomEvents ) ) );
-				
-		for( long r = 0; r < rechargeToGenerate; r++ ) {
-							
-			try {
-				
-				XMLRPCRequest.eventmanager_generateCustomEvent().call( 	
-						server, 
-						xmlrpcBody(
-							authentication( user ),
-							custoEvent( Long.valueOf( fieldMsisdn.getMsisdn() ), 
-										revenue,
-										parameterList
-							)
-						),
-						xmlrpcOptions( 
-							sleep( 100L ) 
-						)
-				);
+		for( int rp = 1; rp <= repeat; rp++ ) {
+		
+			Long rechargeToGenerate = ( !randomEvents ? qtyRecharges : minRandomEvents + (long)( Math.random() * ( maxRandomEvents - minRandomEvents ) ) );
 			
-			} catch (Exception e) {
+			for( long rc = 0; rc < rechargeToGenerate; rc++ ) {
+								
+				try {
+					
+					XMLRPCRequest.eventmanager_generateCustomEvent().call( 	
+							server, 
+							xmlrpcBody(
+								authentication( user ),
+								custoEvent( Long.valueOf( fieldMsisdn.getMsisdn() ), 
+											revenue,
+											parameterList
+								)
+							),
+							xmlrpcOptions( 
+								sleep( 100L )
+							)
+					);
 				
-				logger.error( Log.FAILED.createMessage( e.getMessage() ) );
-				
-			}			
-							
+				} catch (Exception e) {
+					
+					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+					
+				}			
+								
+			}
+			
 		}
 						
 	}

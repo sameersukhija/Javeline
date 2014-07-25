@@ -31,6 +31,8 @@ public interface IGeneratorSubscriberParameters {
 	
 	public IGeneratorSubscriberParameters maxRandomEvents( final Integer maxEvents );
 	
+	public IGeneratorSubscriberParameters repeat( final Integer repeat );
+	
 	public void insertIntoEnvironment( Long qtySubscribers ) throws GeneratorException;
 	
 	public void xmlrpcRecharge() throws GeneratorException;

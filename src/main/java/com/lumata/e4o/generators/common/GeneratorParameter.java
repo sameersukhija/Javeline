@@ -30,6 +30,7 @@ public class GeneratorParameter {
 		subscriber_mail_channel, 
 		min_events, 
 		max_events,
+		repeat,
 		voucher_strategy, 
 		voucher_options,
 		voucher_fixed, 
@@ -154,6 +155,12 @@ public class GeneratorParameter {
 	public static GeneratorParameter maxEvents( final Integer maxEvents ) {
 		
 		return new GeneratorParameter( GeneratorParameterType.max_events, maxEvents );
+
+	}
+	
+	public static GeneratorParameter repeat( final Integer repeat ) {
+		
+		return new GeneratorParameter( GeneratorParameterType.repeat, repeat );
 
 	}
 	
