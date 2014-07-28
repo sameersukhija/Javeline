@@ -11,7 +11,7 @@
   <groupId>com.lumata.expression</groupId>
   <artifactId>e4osystemtest</artifactId>
   <!--  version>1.0.0</version -->
-  <version>1.0.2-SNAPSHOT</version>
+  <version>1.0.3-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>e4osystemtest</name>
 
@@ -23,10 +23,11 @@
 		<!-- 		
 			Insert here "lumata-common-testng" version 
 		-->	  	
-	  	<lumata.common.version>1.0.2-SNAPSHOT</lumata.common.version>
+	  	<lumata.common.version>1.0.3-SNAPSHOT</lumata.common.version>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <java.opt>1.7</java.opt>
-
+		<resteasy.version>2.3.6.Final</resteasy.version>
+		
 	    <!-- 
 	    	This variable is used by Jenkins-CI to enable test execution.
 
@@ -61,25 +62,25 @@
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxrs</artifactId>
-			<version>2.3.6.Final</version>
+			<version>${resteasy.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxb-provider</artifactId>
-			<version>2.3.6.Final</version>
+			<version>${resteasy.version}</version>
 		</dependency>
             
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>jaxrs-api</artifactId>
-			<version>2.3.6.Final</version>
+			<version>${resteasy.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-multipart-provider</artifactId>
-			<version>2.3.6.Final</version>
+			<version>${resteasy.version}</version>
 		</dependency>
 
 		<dependency>
