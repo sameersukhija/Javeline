@@ -23,16 +23,10 @@ import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.e4o.exceptions.CampaignException;
-import com.lumata.e4o.exceptions.CampaignModelException;
 import com.lumata.e4o.exceptions.CommoditiesException;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.administrationmanager.CommoditiesForm;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
 import com.lumata.e4o.gui.security.Authorization;
-import com.lumata.e4o.json.gui.administrationmanager.JSONCommodities;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCampaign;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
-import com.lumata.e4o.utils.generators.subscribers.GenerateSubscribers;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCampaign_;
 
 public class ConfigureCampaign {
 
@@ -77,9 +71,12 @@ public class ConfigureCampaign {
 	@Test(enabled=true, priority = 1 )
 	public void loadCampaigns() throws CampaignException, JSONSException, FormException, JSONException {
 		
-		CampaignsForm campaignForm = new CampaignsForm( seleniumWebDriver, new JSONCampaign( "input/campaignmanager/campaigns", "campaignCMAllEvents" ), TIMEOUT, ATTEMPT_TIMEOUT );
+		CampaignsForm campaignForm = new CampaignsForm( seleniumWebDriver, new JSONCampaign_( "input/campaignmanager/campaigns", "campaignCMAllEvents" ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		campaignForm.open().addCampaigns();
+		
+		//campaignForm.open().addCampaigns();
+		
+		
 		//Assert.assertTrue( CampaignCreationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );		
 		//Assert.assertTrue( CampaignCreationForm.create(seleniumWebDriver, new CampaignCfg( "input/campaigns", "campaign_cm_bonus", IOLoadingType.RESOURCE ), TIMEOUT, ATTEMPT_TIMEOUT) );
 				

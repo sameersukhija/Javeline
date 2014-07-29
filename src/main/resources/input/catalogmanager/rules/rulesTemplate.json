@@ -1,0 +1,232 @@
+{ 	"rules": 
+		[{
+			"enabled": true,
+			"name":"RuleA",
+			"description":"RuleA",
+			"tokenType":"TokenA",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":true,
+				"unlimited": true,
+				"maxOffer" : 10
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"RuleB",
+			"description":"RuleB",
+			"tokenType":"TokenB",
+			"channels":[ {
+				"name":"Ch B",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"RuleC",
+			"description":"RuleC",
+			"tokenType":"TokenC",
+			"channels":[ {
+				"name":"Ch C",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"RuleAB",
+			"description":"RuleAB",
+			"tokenType":"TokenA",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+				},{
+				"name":"Ch B",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"RuleBC",
+			"description":"RuleBC",
+			"tokenType":"TokenC",
+			"channels":[ {
+				"name":"Ch B",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			},{
+				"name":"Ch C",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"RuleABC",
+			"description":"RuleABC",
+			"tokenType":"TokenB",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			},{
+				"name":"Ch B",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			},{
+				"name":"Ch C",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"Rule100sec",
+			"description":"Rule100sec",
+			"tokenType":"Token100sec",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"Rule100min",
+			"description":"Rule100min",
+			"tokenType":"Token100min",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"Rule100hours",
+			"description":"Rule100hours",
+			"tokenType":"Token100hours",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"Rule1day",
+			"description":"Rule1day",
+			"tokenType":"Token1day",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"Rule10days",
+			"description":"Rule10days",
+			"tokenType":"Token10days",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}]
+ }

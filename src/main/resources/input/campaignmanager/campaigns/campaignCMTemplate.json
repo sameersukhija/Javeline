@@ -1,0 +1,41 @@
+{
+	"campaigns": [{
+			"enabled": true,
+			"name": "campaignCMTemplate",
+			"description": "campaignCMTemplate",
+			"definition": {
+				"executionMode": "Model",
+				"campaignType": "No type",
+				"byPassMediaType": true
+			},
+			"scheduling": {
+				"typeOfRecurrence": "Multiple",
+				"singleRecurrence": {
+					"executionStart": "2014-05-01",
+					"executionEndType": "Relative",
+					"executionEndValue": "1",
+					"provisioningStart": "2014-05-01",
+					"provisioningEnd": "2014-05-01",
+					"daysBetweenProvisioningAndExecutionStartDates": "2"
+				},
+				"multipleRecurrence": {
+					"recurrencePattern": "Weekly",
+					"recurrencePatternWeekly": {
+						"recurEveryWeek": "2",
+						"recurEveryDay": [ "M", "Th" ] 
+					},
+					"provisionigDuration": "2",
+					"daysBetweenProvisioningAndExecutionStartDate": "2",
+					"executionDuration": "5",
+					"startDate": "2014-05-04",
+					"rangeOfRecurrenceType": "No end Date",
+					"rangeOfRecurrenceValue": ""
+				}
+			},
+			"delete": false
+		}		
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+}

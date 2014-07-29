@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCampaign;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCampaign_;
 
 public class DatePickerForm extends Form {
 
@@ -58,7 +58,7 @@ public class DatePickerForm extends Form {
 
 	};
 	*/
-	public DatePickerForm( SeleniumWebDriver selenium, JSONCampaign campaignCfg, long timeout, long interval ) {
+	public DatePickerForm( SeleniumWebDriver selenium, JSONCampaign_ campaignCfg, long timeout, long interval ) {
 		
 		super(selenium, timeout, interval);
 				

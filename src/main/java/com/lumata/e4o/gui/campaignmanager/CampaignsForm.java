@@ -7,13 +7,13 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCampaign;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCampaign_;
 
 public class CampaignsForm extends CampaignManagerForm {
 
 	private static final Logger logger = LoggerFactory.getLogger(CampaignsForm.class);
 
-	private JSONCampaign campaignCfg;
+	private JSONCampaign_ campaignCfg;
 	
 	private final String campaignFormXPath = "//*[@id='gwt-debug-FormCampaignModelCreation']";
 	
@@ -49,7 +49,7 @@ public class CampaignsForm extends CampaignManagerForm {
 
 	};
 
-	public CampaignsForm( SeleniumWebDriver selenium, JSONCampaign campaignCfg, long timeout, long interval ) {
+	public CampaignsForm( SeleniumWebDriver selenium, JSONCampaign_ campaignCfg, long timeout, long interval ) {
 		
 		super(selenium, timeout, interval);
 		

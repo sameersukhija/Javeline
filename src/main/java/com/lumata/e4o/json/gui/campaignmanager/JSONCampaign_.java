@@ -10,11 +10,11 @@ import com.lumata.e4o.json.common.JsonConfig;
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
-public class JSONCampaign extends JsonConfig {
+public class JSONCampaign_ extends JsonConfig {
 
 	private JsonConfig currentCampaign;
 	
-	public JSONCampaign( String folder, String file ) throws JSONSException {
+	public JSONCampaign_( String folder, String file ) throws JSONSException {
 		
 		super( folder, file );
 			
