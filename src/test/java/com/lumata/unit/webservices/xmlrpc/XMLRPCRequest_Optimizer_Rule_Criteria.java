@@ -35,6 +35,7 @@ import com.lumata.e4o.exceptions.CampaignModelException;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.exceptions.GeneratorException;
 import com.lumata.e4o.generators.common.Generator;
+import com.lumata.e4o.generators.subscribers.GenerateSubscribers;
 import com.lumata.e4o.gui.administrationmanager.SalesChannelsForm;
 import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
 import com.lumata.e4o.gui.catalogmanager.ConfigureRules;
@@ -50,7 +51,6 @@ import com.lumata.e4o.schema.tenant.OffoptimCustomerItems;
 import com.lumata.e4o.schema.tenant.OffoptimCustomerPack;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.schema.tenant.Token;
-import com.lumata.e4o.utils.generators.subscribers.GenerateSubscribers;
 
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.sleep;

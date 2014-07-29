@@ -42,7 +42,7 @@ public class XMLRPCRequest_Offeroptimizer_Accept {
 	public void callXMLRPCCRequest() throws Exception {
 		
 		final String msisdn = "3399900001";
-		final String token_code = "gl-5c596";
+		final String token_code = "gl-e8e41";
 		final Object[] offer_id = new Integer[]{ 1001 };		
 		final String userAcceptChannel = "web";
 		
