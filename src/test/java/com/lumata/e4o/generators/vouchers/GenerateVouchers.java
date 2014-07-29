@@ -1,4 +1,4 @@
-package com.lumata.e4o.utils.generators.vouchers;
+package com.lumata.e4o.generators.vouchers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

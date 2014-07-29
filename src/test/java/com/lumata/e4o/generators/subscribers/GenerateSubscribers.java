@@ -1,4 +1,4 @@
-package com.lumata.e4o.utils.generators.subscribers;
+package com.lumata.e4o.generators.subscribers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

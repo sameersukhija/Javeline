@@ -75,6 +75,7 @@ import com.lumata.e4o.system.cdr.fields.OldStatus;
 import com.lumata.e4o.system.cdr.fields.OldSubProfile;
 import com.lumata.e4o.system.cdr.fields.OldSubscriptionDate;
 import com.lumata.e4o.system.cdr.fields.OldTongue;
+import com.lumata.e4o.system.cdr.fields.Partner;
 import com.lumata.e4o.system.cdr.fields.Sms;
 import com.lumata.e4o.system.cdr.fields.TenantId;
 import com.lumata.e4o.system.cdr.fields.Terminating;
@@ -151,6 +152,10 @@ public class CDR {
 	@Location
 	//protected CSVSchemaTable location;
 	protected FieldString location;
+	
+	@Partner
+	//protected CSVSchemaTable location;
+	protected FieldString partner;
 		
 	@BundleName
 	protected FieldString bundleName; 
@@ -406,6 +411,7 @@ public class CDR {
 		this.delay = new FieldLong();
 		this.type = new FieldEnum( TYPE.values() );
 		this.voucherCode = new FieldString(); 
+		this.partner = new FieldString();
 		//this.location = new CSVSchemaTable( new VoucherCodes(), VoucherCodes.Fields.location_id );
 		this.location = new FieldString(); 
 		this.bundleName = new FieldString(); 

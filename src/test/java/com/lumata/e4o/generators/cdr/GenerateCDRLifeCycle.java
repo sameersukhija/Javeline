@@ -1,7 +1,7 @@
 package com.lumata.e4o.generators.cdr;
 
 import java.util.Calendar;
-
+import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -15,11 +15,11 @@ import com.lumata.common.testing.system.Service;
 import com.lumata.common.testing.system.User;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FieldException;
-import com.lumata.e4o.system.cdr.CDR.DELETE;
-import com.lumata.e4o.system.cdr.types.CDRLifeCycleDelete;
+import com.lumata.e4o.system.cdr.CDR;
+import com.lumata.e4o.system.cdr.types.CDRLifeCycle;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
 
-public class GenerateCDRLifeCycleDelete {
+public class GenerateCDRLifeCycle {
 	
 	NetworkEnvironment env;
 	Service sshService;
@@ -47,11 +47,11 @@ public class GenerateCDRLifeCycleDelete {
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_lifecycle" );
 
-		CDRLifeCycleDelete cdrLCP = new CDRLifeCycleDelete();
+		CDRLifeCycle cdrLCP = new CDRLifeCycle();
 				
 		String currentTimestamp = Format.getSystemTimestamp();
 		
-		String fileName = "cdr_lifecycle_delete_" + currentTimestamp + ".csv";
+		String fileName = "cdr_lifecycle_" + currentTimestamp + ".csv";
 		
 		cdrLCP.setOutputPath( "/cdr/", fileName );
 				
@@ -64,7 +64,15 @@ public class GenerateCDRLifeCycleDelete {
 	
 		cdrLCP.setMsisdnStrategyIncrement( 3399900001L, 1 );
 		cdrLCP.setDateStrategyFixed( date );
-		cdrLCP.setDeleteStrategyFixed( DELETE.YES );
+		cdrLCP.setNewImeiStrategyIncrement( 300000000000000L, Integer.valueOf( RandomStringUtils.randomNumeric( 9 ) ) );
+		cdrLCP.setNewImsiStrategyIncrement( 300000000000000L, Integer.valueOf( RandomStringUtils.randomNumeric( 9 ) ) );
+		cdrLCP.setNewSubscriptionDateStrategyFixed( date );
+		cdrLCP.setNewStatusStrategyFixed( CDR.SUBSTATUS.ACTIVE );
+		cdrLCP.setNewTongueStrategyFixed( "ENG" );
+		cdrLCP.setNewInTagStrategyFixed( "QAIN" );
+		cdrLCP.setNewHobbiesStrategyRandom( 4 );
+		cdrLCP.setNewGenderStrategyRandom();
+		cdrLCP.setNewSalaryStrategyFixed( "2000" );
 				
 		cdrLCP.addLines( 20 );
 				
@@ -72,7 +80,7 @@ public class GenerateCDRLifeCycleDelete {
 		
 		cdrLCP.save();
 		
-		cdrLCP.send( sshService, "/nfsdata/files/cdr/deposit/LIFECYCLE_DELETE_CDR/", sshUser );
+		cdrLCP.send( sshService, "/nfsdata/files/cdr/deposit/LIFECYCLE_CDR/", sshUser );
 		
 		System.out.println( "File name: " + cdrLCP.getFileName() );
 		

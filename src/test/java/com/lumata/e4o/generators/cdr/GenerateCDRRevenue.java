@@ -1,4 +1,4 @@
-package com.lumata.e4o.utils.generators;
+package com.lumata.e4o.generators.cdr;
 
 import java.util.Calendar;
 
@@ -19,7 +19,7 @@ import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.types.CDRRevenueRecharge;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
 
-public class CDRRevenueSimple {
+public class GenerateCDRRevenue {
 	
 	NetworkEnvironment env;
 	Service sshService;

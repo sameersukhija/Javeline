@@ -2,6 +2,7 @@ package com.lumata.e4o.generators.cdr;
 
 import java.util.Calendar;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -15,11 +16,12 @@ import com.lumata.common.testing.system.Service;
 import com.lumata.common.testing.system.User;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FieldException;
-import com.lumata.e4o.system.cdr.CDR.DELETE;
-import com.lumata.e4o.system.cdr.types.CDRLifeCycleDelete;
+import com.lumata.e4o.system.cdr.CDR;
+import com.lumata.e4o.system.cdr.types.CDRLifeCycle;
+import com.lumata.e4o.system.cdr.types.CDRVoucherRedemption;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
 
-public class GenerateCDRLifeCycleDelete {
+public class GenerateCDRVoucherRedemption {
 	
 	NetworkEnvironment env;
 	Service sshService;
@@ -47,13 +49,13 @@ public class GenerateCDRLifeCycleDelete {
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_lifecycle" );
 
-		CDRLifeCycleDelete cdrLCP = new CDRLifeCycleDelete();
+		CDRVoucherRedemption cdrVR = new CDRVoucherRedemption();
 				
 		String currentTimestamp = Format.getSystemTimestamp();
 		
-		String fileName = "cdr_lifecycle_delete_" + currentTimestamp + ".csv";
+		String fileName = "cdr_lifecycle_" + currentTimestamp + ".csv";
 		
-		cdrLCP.setOutputPath( "/cdr/", fileName );
+		cdrVR.setOutputPath( "/cdr/", fileName );
 				
 		// today
 		Calendar date = Calendar.getInstance();
@@ -62,19 +64,22 @@ public class GenerateCDRLifeCycleDelete {
 		FieldDateIncrement increment = new FieldDateIncrement();
 		increment.setDayIncrement( 1 );
 	
-		cdrLCP.setMsisdnStrategyIncrement( 3399900001L, 1 );
-		cdrLCP.setDateStrategyFixed( date );
-		cdrLCP.setDeleteStrategyFixed( DELETE.YES );
+		cdrVR.setMsisdnStrategyIncrement( 3399900001L, 1 );
+		cdrVR.setVoucherCodeStrategyFixed( "voucher61" );
+		cdrVR.setDateFormat( "yyyy-MM-dd hh:mm:ss" );
+		cdrVR.setDateStrategyFixed( date );
+		cdrVR.setLocationStrategyFixed( "Milan" );
+		cdrVR.setPartnerStrategyFixed( "Lumata" );
 				
-		cdrLCP.addLines( 20 );
+		cdrVR.addLines( 1 );
 				
-		cdrLCP.print();
+		cdrVR.print();
 		
-		cdrLCP.save();
+		cdrVR.save();
 		
-		cdrLCP.send( sshService, "/nfsdata/files/cdr/deposit/LIFECYCLE_DELETE_CDR/", sshUser );
+		cdrVR.send( sshService, "/nfsdata/files/cdr/deposit/VOUCHER_CDR/", sshUser );
 		
-		System.out.println( "File name: " + cdrLCP.getFileName() );
+		System.out.println( "File name: " + cdrVR.getFileName() );
 		
 	}
 

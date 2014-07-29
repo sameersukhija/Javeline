@@ -1,4 +1,4 @@
-package com.lumata.e4o.utils.generators.subscribers;
+package com.lumata.e4o.generators.subscribers;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -11,7 +11,6 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
@@ -38,23 +37,20 @@ public class GenerateSubscribersRecharge {
 	NetworkEnvironment env;	
 	Server guiServer;
 	User superman;
-	Mysql mysql;
 	
 	/* 	Initialize Environment */
-	@Parameters({"browser", "environment", "tenant"})
+	@Parameters({"environment"})
 	@BeforeSuite
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment, @Optional("tenant") String tenant ) throws NetworkEnvironmentException {		
+	public void init( @Optional("E4O_VM") String environment ) throws NetworkEnvironmentException {		
 		
 		logger.debug( Log.LOADING.createMessage( "init" , "environment" ) );
-		System.out.println( environment );
+		
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 			
 		guiServer = env.getServer( "actrule" );
 		
 		superman = guiServer.getUser( "superman" );
 		
-		mysql = new Mysql( env.getDataSource( tenant ) );
-			
 	}
 
 	@Test( enabled = GENERATE_FIXED_SUBSCRIBER )
@@ -94,8 +90,8 @@ public class GenerateSubscribersRecharge {
 		final Integer INCREMENT = 1;
 		final Boolean HAS_SMS_CHANNEL = true;
 		final Boolean HAS_MAIL_CHANNEL = true;
-		final Integer REPEAT = 1;
-		final Long RECHARGE_TO_GENERATE = 100000L;
+		final Integer REPEAT = 100000;
+		final Long RECHARGE_TO_GENERATE = 1L;
 		
 		Generator.subscribers()
 					.server( guiServer )
@@ -125,49 +121,7 @@ public class GenerateSubscribersRecharge {
 					
 	}
 	
-	/*
-	@Test( enabled = GENERATE_INCREMENTAL_SUBSCRIBERS )
-	public void generateIncrementalSubscribers() throws GeneratorException {
-		
-		final Long STARTED_MSISDN = 3399900001L;
-		final Integer INCREMENT = 1;
-		final Boolean HAS_SMS_CHANNEL = true;
-		final Boolean HAS_MAIL_CHANNEL = true;
-		final Long SUBSCRIBERS_TO_GENERATE = 100L;		
-		
-		Generator.subscribers()
-					.environment( env )
-					.mysql( mysql )
-					.msisdnIncremental( STARTED_MSISDN, INCREMENT )
-					.subscriberHasSMSChannel( HAS_SMS_CHANNEL )
-					.subscriberHasMAILChannel( HAS_MAIL_CHANNEL )
-					.insertIntoEnvironment( SUBSCRIBERS_TO_GENERATE );
-		
-	}
-	
-	@Test( enabled = GENERATE_RANDOM_SUBSCRIBERS )
-	public void generateRandomSubscribers() throws GeneratorException {
-		
-		final Long LEFT_MSISDN = 3399900001L;
-		final Long RIGHT_MSISDN = 3399910000L;
-		final Boolean HAS_SMS_CHANNEL = true;
-		final Boolean HAS_MAIL_CHANNEL = true;
-		final Long SUBSCRIBERS_TO_GENERATE = 10L;
-		
-		
-		Generator.subscribers()
-					.environment( env )
-					.mysql( mysql )
-					.msisdnRandom( LEFT_MSISDN, RIGHT_MSISDN )
-					.subscriberHasSMSChannel( HAS_SMS_CHANNEL )
-					.subscriberHasMAILChannel( HAS_MAIL_CHANNEL )
-					.insertIntoEnvironment( SUBSCRIBERS_TO_GENERATE );
-		
-	}
-	*/
 	@AfterSuite
-	public void end() {
-		mysql.close();
-	}
+	public void end() {}
 	
 }

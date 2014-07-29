@@ -1,4 +1,4 @@
-package com.lumata.e4o.utils.generators;
+package com.lumata.e4o.generators.schema;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

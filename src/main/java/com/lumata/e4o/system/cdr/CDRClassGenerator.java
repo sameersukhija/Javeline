@@ -58,6 +58,7 @@ import com.lumata.e4o.system.cdr.fields.OldStatus;
 import com.lumata.e4o.system.cdr.fields.OldSubProfile;
 import com.lumata.e4o.system.cdr.fields.OldSubscriptionDate;
 import com.lumata.e4o.system.cdr.fields.OldTongue;
+import com.lumata.e4o.system.cdr.fields.Partner;
 import com.lumata.e4o.system.cdr.fields.Sms;
 import com.lumata.e4o.system.cdr.fields.TenantId;
 import com.lumata.e4o.system.cdr.fields.Terminating;
@@ -125,9 +126,9 @@ public class CDRClassGenerator {
 				return Arrays.asList( Msisdn.class, Date.class, BundleName.class, BundleBalance.class, BundlePurchased.class, TenantId.class  );
 			}
 		},
-		Voucher {	
+		VoucherRedemption {	
 			public List<Class<? extends Annotation>> fields() {
-				return Arrays.asList( Msisdn.class, VoucherCode.class, Date.class, Location.class );
+				return Arrays.asList( Msisdn.class, VoucherCode.class, Date.class, Location.class, Partner.class );
 			}
 		},
 		LifeCycle {	

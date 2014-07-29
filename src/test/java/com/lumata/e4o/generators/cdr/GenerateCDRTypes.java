@@ -1,4 +1,4 @@
-package com.lumata.e4o.utils.generators;
+package com.lumata.e4o.generators.cdr;
 
 import org.testng.annotations.Test;
 
