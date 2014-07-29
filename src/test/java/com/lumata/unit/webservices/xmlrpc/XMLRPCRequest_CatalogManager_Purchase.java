@@ -43,16 +43,16 @@ public class XMLRPCRequest_CatalogManager_Purchase {
 														actruleServer, 
 														xmlrpcBody(
 															authentication( superman.getUsername(), superman.getPassword() ),
-															string("393669393643"),
-															string("3 Colored Clear Case"),
-															string("Webstore"),
+															string("3399900001"),
+															string("OFFA"),
+															string("Ch A"),
 															arrayProductPrices( 
-																price( 10, "internal points" )	
+																//price( 10, "internal points" )	
 															),
 															arraySelectedProducts( 
 																	/* product() */	
 															),
-															string("2")
+															string(1)
 														)
 											);
 		
