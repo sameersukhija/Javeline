@@ -5,6 +5,8 @@ import com.lumata.common.testing.system.User;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCPrice;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCProduct;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberChannel;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberRelation;
 
 public class XMLRPCRequestMethods {
 
@@ -189,8 +191,36 @@ public class XMLRPCRequestMethods {
 	}
 	
 	public static XMLRPCRequestMethods subscriber( String msisdn, String subscriptionDate, String profile, String ratePlan, String status, String inTag, String network, XMLRPCParameter[] params, String[] services ) {
+		return subscriber( msisdn, subscriptionDate, profile, ratePlan, status, inTag, network, params,  services );
+	}
+	
+	public static XMLRPCRequestMethods subscriber( String msisdn, String subscriptionDate, String profile, String ratePlan, String status, String inTag, String network, XMLRPCSubscriberChannel[] channels, XMLRPCSubscriberRelation[] relations, XMLRPCParameter[] params, String[] services ) {
 		
 		StringBuilder subscriberPOSTBody = new StringBuilder();
+		
+		StringBuilder channelsBody = new StringBuilder();
+		
+		if( null != channels ) {
+						
+			for( XMLRPCSubscriberChannel channel : channels ) {
+				
+				channelsBody.append( channel.getParameter() );
+				
+			}
+		
+		}
+		
+		StringBuilder relationsBody = new StringBuilder();
+		
+		if( null != relations ) {
+						
+			for( int r = 0; r < relations.length; r++ ) {
+				
+				relationsBody.append( relations[ r ].getParameter() );
+				
+			}
+		
+		}
 		
 		StringBuilder paramsBody = new StringBuilder();
 		
@@ -226,6 +256,8 @@ public class XMLRPCRequestMethods {
 								if( null != status ) { subscriberPOSTBody.append("<status>").append( status ).append("</status>"); }
 								if( null != inTag ) { subscriberPOSTBody.append("<in_tag>").append( inTag ).append("</in_tag>"); }
 								if( null != network ) { subscriberPOSTBody.append("<network>").append( network ).append("</network>"); }
+								if( null != channels ) { subscriberPOSTBody.append("<channels>").append( channelsBody ).append("</channels>"); }
+								if( null != relations ) { subscriberPOSTBody.append("<relations>").append( relationsBody ).append("</relations>"); }
 								if( null != params ) { subscriberPOSTBody.append("<params>").append( paramsBody ).append("</params>"); }
 								if( null != services ) { subscriberPOSTBody.append("<services>").append( servicesBody ).append("</services>"); }
 															
@@ -235,6 +267,18 @@ public class XMLRPCRequestMethods {
 		
 	}
 
+	public static XMLRPCSubscriberChannel[] channels( XMLRPCSubscriberChannel... channels ) {
+		
+		return channels;
+		
+	}
+	
+	public static XMLRPCSubscriberRelation[] relations( XMLRPCSubscriberRelation... relations ) {
+		
+		return relations;
+		
+	}
+	
 	public static String[] services( String... services ) {
 		
 		return services;
