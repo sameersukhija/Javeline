@@ -35,9 +35,7 @@ public abstract class JsonElement {
 		this.jsonPath = new JsonPath( json.toString() );
 		
 		this.jsonPath.setRoot( JSON_DEFAULT_ROOT_ );
-		
-		this.currentIndex = 0;
-	
+			
 	}	
 
 	protected void setJsonRoot( String jsonRoot ) {
@@ -71,6 +69,14 @@ public abstract class JsonElement {
 		
 	} 
 
+	protected Boolean isNull( String path ) {
+		return ( null == jsonPath.get( path ) );
+	}
+	
+	protected Boolean isNotNull( String path ) {
+		return !isNull( path );
+	}
+	
 	protected Boolean getBoolean( String path ) {				
 		return jsonPath.getBoolean( path );
 	}
