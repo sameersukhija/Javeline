@@ -32,6 +32,18 @@
 					"rangeOfRecurrenceValue": ""
 				}
 			},
+			"dialogue": {
+				"channel": {
+					"shortCode": null,
+					"emailAddress": null				
+				},
+				"notification": {
+					"daysOfNotificationBeforeExecution": "",
+					"messages": null,
+					"applyCampaignToNotifiedOnly": "",	
+					"time": ""			
+				}
+			},
 			"delete": false
 		}		
 	],

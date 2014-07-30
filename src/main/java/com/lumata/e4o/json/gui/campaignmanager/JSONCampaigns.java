@@ -77,40 +77,66 @@ public class JSONCampaigns extends JsonElement {
 	}
 	
 	/** SCHEDULING MULTIPLE section */
-	public String getSchedulingMultipleRecurrencePattern() {
+	public String schedulingMultipleRecurrencePattern() {
 		return this.getString( "scheduling.multipleRecurrence.recurrencePattern" );
 	}
 	
-	public String getSchedulingMultipleRecurrencePatternWeeklyRecurEveryWeek() {
+	public String schedulingMultipleRecurrencePatternWeeklyRecurEveryWeek() {
 		return this.getString( "scheduling.multipleRecurrence.recurrencePatternWeekly.recurEveryWeek" );
 	}
 
-	public List<String> getSchedulingMultipleRecurrencePatternWeeklyRecurEveryDay() {
+	public List<String> schedulingMultipleRecurrencePatternWeeklyRecurEveryDay() {
 		return this.getListOfString( "scheduling.multipleRecurrence.recurrencePatternWeekly.recurEveryDay" );
 	}
 	
-	public String getSchedulingMultipleProvisioningDuration() {
+	public String schedulingMultipleProvisioningDuration() {
 		return this.getString( "scheduling.multipleRecurrence.provisionigDuration" );
 	}
 	
-	public String getSchedulingMultipleDaysBetweenProvisioningAndExecutionStartDate() {
+	public String schedulingMultipleDaysBetweenProvisioningAndExecutionStartDate() {
 		return this.getString( "scheduling.multipleRecurrence.daysBetweenProvisioningAndExecutionStartDate" );
 	}
 	
-	public String getSchedulingMultipleExecutionDuration() {
+	public String schedulingMultipleExecutionDuration() {
 		return this.getString( "scheduling.multipleRecurrence.executionDuration" );
 	}
 	
-	public String getSchedulingMultipleStartDate() {
+	public String schedulingMultipleStartDate() {
 		return this.getString( "scheduling.multipleRecurrence.startDate" );
 	}
 
-	public String getSchedulingMultipleRangeOfRecurrenceType() {
+	public String schedulingMultipleRangeOfRecurrenceType() {
 		return this.getString( "scheduling.multipleRecurrence.rangeOfRecurrenceType" );
 	}
 
-	public String getSchedulingMultipleRangeOfRecurrenceValue() {
+	public String schedulingMultipleRangeOfRecurrenceValue() {
 		return this.getString( "scheduling.multipleRecurrence.rangeOfRecurrenceValue" );
 	}
 
+	/** DIALOGUE section */
+	public String channelShortCode() {
+		return this.getString( "dialogue.channel.shortCode" );
+	}
+		
+	public String channelEmailAddress() {
+		return this.getString( "dialogue.channel.emailAddress" );
+	}
+	
+	public String notificationDaysOfNotificationBeforeExecution() {
+		return this.getString( "dialogue.notification.daysOfNotificationBeforeExecution" );
+	}
+	
+	public String notificationMessages() {
+		return this.getString( "dialogue.notification.messages" );
+	}
+	
+	public Boolean notificationApplyCampaignToNotifiedOnly() {
+		return this.getBoolean( "dialogue.notification.applyCampaignToNotifiedOnly" );
+	}
+	
+	public String notificationTime() {
+		return this.getString( "dialogue.notification.time" );
+	}
+	
+	
 }

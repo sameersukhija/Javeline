@@ -45,23 +45,23 @@ public class TestJSONCampaigns {
 		 Assert.assertEquals( campaigns.get( 0 ).schedulingSingleDaysBetweenProvisioningAndStartDates(), "2" );
 		 
 		 /** SCHEDULING MULTIPLE */
-		 Assert.assertEquals( campaigns.get( 0 ).getSchedulingMultipleRecurrencePattern(), "Weekly" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleRecurrencePattern(), "Weekly" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).getSchedulingMultipleRecurrencePatternWeeklyRecurEveryWeek(), "2" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleRecurrencePatternWeeklyRecurEveryWeek(), "2" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).getSchedulingMultipleRecurrencePatternWeeklyRecurEveryDay(), Arrays.asList( "M", "Th" ) );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleRecurrencePatternWeeklyRecurEveryDay(), Arrays.asList( "M", "Th" ) );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).getSchedulingMultipleProvisioningDuration(), "2" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleProvisioningDuration(), "2" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).getSchedulingMultipleDaysBetweenProvisioningAndExecutionStartDate(), "2" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleDaysBetweenProvisioningAndExecutionStartDate(), "2" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).getSchedulingMultipleExecutionDuration(), "5" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleExecutionDuration(), "5" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).getSchedulingMultipleStartDate(), "2014-05-04" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleStartDate(), "2014-05-04" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).getSchedulingMultipleRangeOfRecurrenceType(), "No end Date" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleRangeOfRecurrenceType(), "No end Date" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).getSchedulingMultipleRangeOfRecurrenceValue(), "" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleRangeOfRecurrenceValue(), "" );
 		 
 	 }
  
