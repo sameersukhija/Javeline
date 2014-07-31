@@ -76,6 +76,8 @@ import com.lumata.e4o.system.cdr.fields.OldSubProfile;
 import com.lumata.e4o.system.cdr.fields.OldSubscriptionDate;
 import com.lumata.e4o.system.cdr.fields.OldTongue;
 import com.lumata.e4o.system.cdr.fields.Partner;
+import com.lumata.e4o.system.cdr.fields.RawData;
+import com.lumata.e4o.system.cdr.fields.RechargeAmount;
 import com.lumata.e4o.system.cdr.fields.Sms;
 import com.lumata.e4o.system.cdr.fields.TenantId;
 import com.lumata.e4o.system.cdr.fields.Terminating;
@@ -102,6 +104,9 @@ import com.lumata.e4o.system.fields.IFieldEnum;
 public class CDR {
 	
 	private static final Logger logger = LoggerFactory.getLogger( CDR.class );
+	
+	private final String DEFAULT_SEPARETOR_ = "|";
+	private String separator;
 	
 	private String output_dir;
 	private String file_name;
@@ -265,7 +270,13 @@ public class CDR {
 	
 	@TenantId
 	protected FieldLong tenant_id;
-
+	
+	@RawData
+	protected FieldString rawData;
+	
+	@RechargeAmount
+	protected FieldLong recharge_amount;
+		
 	public enum Parameters {
 		env, 
 		tenant,
@@ -400,6 +411,8 @@ public class CDR {
 		
 	public CDR() {
 		
+		this.separator = DEFAULT_SEPARETOR_;
+		
 		this.msisdn = new FieldMsisdn();		
 		this.date = new FieldDate();
 		this.validityDate = new FieldDate(); 
@@ -464,6 +477,9 @@ public class CDR {
 		this.env = null;
 		this.tenant = null;
 		
+		this.rawData = new FieldString();		
+		this.recharge_amount = new FieldLong();
+		
 	}
 	
 	private void setEnvironment( NetworkEnvironment env ) throws CDRException {
@@ -492,6 +508,10 @@ public class CDR {
 		
 	}
 
+	public void setSeparator( String separator ) {
+		this.separator = separator;
+	}
+	
 	public void addLine() {
 		
 		String[] field_values = null; 	
@@ -539,7 +559,7 @@ public class CDR {
 		
 		for( int v = 0; v < field_values.length; v++ ) {
 				
-			row.append( field_values[ v ] ).append( "|" );
+			row.append( field_values[ v ] ).append( this.separator );
 			
 		}
 		
