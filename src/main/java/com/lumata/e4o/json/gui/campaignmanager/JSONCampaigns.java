@@ -47,6 +47,10 @@ public class JSONCampaigns extends JsonElement {
 	}
 		
 	/** SCHEDULING section */
+	public Boolean hasSchedulingSettings() {
+		return isNotNull( "scheduling" );
+	}
+	
 	public String schedulingTypeOfRecurrence() {
 		return this.getString( "scheduling.typeOfRecurrence" );
 	}
@@ -114,6 +118,10 @@ public class JSONCampaigns extends JsonElement {
 	}
 
 	/** DIALOGUE section */
+	public Boolean hasDialogueSettings() {
+		return ( null != this.getBoolean( "dialogue" ) ? true : false  );
+	}
+	
 	public String channelShortCode() {
 		return this.getString( "dialogue.channel.shortCode" );
 	}
@@ -138,5 +146,19 @@ public class JSONCampaigns extends JsonElement {
 		return this.getString( "dialogue.notification.time" );
 	}
 	
+	/** TARGET section */
+	public Boolean hasTargetSettings() {
+		return isNotNull( "target" );
+	}
+	
+	/** LIMIT section */
+	public Boolean hasLimitSettings() {
+		return isNotNull( "limit" );
+	}
+	
+	/** ACTIVATION section */
+	public Boolean hasActivationSettings() {
+		return isNotNull( "activation" );
+	}
 	
 }

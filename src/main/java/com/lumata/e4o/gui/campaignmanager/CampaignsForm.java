@@ -7,13 +7,13 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCampaign_;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCampaigns;
 
 public class CampaignsForm extends CampaignManagerForm {
 
 	private static final Logger logger = LoggerFactory.getLogger(CampaignsForm.class);
 
-	private JSONCampaign_ campaignCfg;
+	private JSONCampaigns campaignCfg;
 	
 	private final String campaignFormXPath = "//*[@id='gwt-debug-FormCampaignModelCreation']";
 	
@@ -49,7 +49,7 @@ public class CampaignsForm extends CampaignManagerForm {
 
 	};
 
-	public CampaignsForm( SeleniumWebDriver selenium, JSONCampaign_ campaignCfg, long timeout, long interval ) {
+	public CampaignsForm( SeleniumWebDriver selenium, JSONCampaigns campaignCfg, long timeout, long interval ) {
 		
 		super(selenium, timeout, interval);
 		
@@ -67,13 +67,11 @@ public class CampaignsForm extends CampaignManagerForm {
 
 	public CampaignsForm addCampaigns() throws FormException, JSONException {
 		
-		JSONArray campaigns = campaignCfg.getList();
-		
-		for( int campaignIndex = 0; campaignIndex < campaigns.length(); campaignIndex++ ) {
+		for( int campaignIndex = 0; campaignIndex < campaignCfg.size(); campaignIndex++ ) {
 			
-			campaignCfg.setCampaignById( campaignIndex );
+			campaignCfg.cursor( campaignIndex );
 			
-			if( isActive() ) {
+			if( campaignCfg.isEnabled() ) {
 			
 				clickId( "gwt-debug-Add Campaign" ).
 				configureCampaign()
@@ -83,6 +81,7 @@ public class CampaignsForm extends CampaignManagerForm {
 				*/;
 			}
 					
+			
 		}
 		
 		return this;
@@ -124,7 +123,7 @@ public class CampaignsForm extends CampaignManagerForm {
 
 	public CampaignsForm configureCampaignDefinition() throws FormException, JSONException {
 		
-		String executionModeXPath = "//span[contains(@id, 'gwt-debug-Campaign " + ExecutionMode.valueOf( campaignCfg.getExecutionMode() ) + "' )]/input";
+		String executionModeXPath = "//span[contains(@id, 'gwt-debug-Campaign " + ExecutionMode.valueOf( campaignCfg.executionMode() ) + "' )]/input";
 		String campaignTypeXPath = "//td[@class='headers' and text()='Campaign Type']/parent::tr//select";
 		String byPassMediaTypeXPath = "//td[@class='headers' and text()='Bypass Meta Type']/parent::tr//input";
 		String campaignNameXPath = "//input[@id='gwt-debug-Campaign Name']";
@@ -132,12 +131,12 @@ public class CampaignsForm extends CampaignManagerForm {
 				
 		clickXPath( getWizardTabXPath( WizardTab.Definition ) ).
 		clickXPath( executionModeXPath ).
-		typeByXPath( campaignNameXPath, campaignCfg.getName() ).
-		typeByXPath( campaignDescriptionXPath, campaignCfg.getDescription() );
+		typeByXPath( campaignNameXPath, campaignCfg.name() ).
+		typeByXPath( campaignDescriptionXPath, campaignCfg.description() );
 		
-		if( null != campaignCfg.getCampaignType() ) { selectByXPathAndVisibleText( campaignTypeXPath, campaignCfg.getCampaignType() ); }
+		if( null != campaignCfg.campaignType() ) { selectByXPathAndVisibleText( campaignTypeXPath, campaignCfg.campaignType() ); }
 		
-		if( campaignCfg.getBypassMediaType() ) { clickXPath( byPassMediaTypeXPath ); }
+		if( campaignCfg.byPassMediaType() ) { clickXPath( byPassMediaTypeXPath ); }
 		
 		return this;
 		
@@ -148,9 +147,9 @@ public class CampaignsForm extends CampaignManagerForm {
 		String campaignSchedulingTypeOfRecurrenceXPath = "//td[@class='headers' and contains( text(), 'Type of Recurrence' )]/parent::tr//select";
 		
 		clickXPath( getWizardTabXPath( WizardTab.Scheduling ) ).
-		selectByXPathAndVisibleText( campaignSchedulingTypeOfRecurrenceXPath, campaignCfg.getSchedulingTypeOfRecurrence() );
+		selectByXPathAndVisibleText( campaignSchedulingTypeOfRecurrenceXPath, campaignCfg.schedulingTypeOfRecurrence() );
 		
-		switch( SchedulingType.valueOf( campaignCfg.getSchedulingTypeOfRecurrence() ) ) {
+		switch( SchedulingType.valueOf( campaignCfg.schedulingTypeOfRecurrence() ) ) {
 		
 			case Single: {
 				configureCampaignSingleScheduling();				
@@ -175,19 +174,19 @@ public class CampaignsForm extends CampaignManagerForm {
 		String campaignSchedulingSingleProvisioningEndXPath = "//td[@class='headers' and text()='Provisioning End']/parent::tr//input";
 		String campaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates = "//td[@class='headers' and text()='Days between provisioning and execution start dates']/parent::tr//input";
 				
-		typeByXPath( campaignSchedulingSingleExecutionStartXPath, campaignCfg.getSchedulingSingleExecutionStart() ).
-		selectByXPathAndVisibleText( campaignSchedulingSingleExecutionEndTypeXPath, campaignCfg.getSchedulingSingleExecutionEndType() ).
-		typeByXPath( campaignSchedulingSingleExecutionEndValueXPath, campaignCfg.getSchedulingSingleExecutionEndValue() ).
-		typeByXPath( campaignSchedulingSingleProvisioningStartXPath, campaignCfg.getSchedulingSingleProvisioningStart() ).
-		typeByXPath( campaignSchedulingSingleProvisioningEndXPath, campaignCfg.getSchedulingSingleProvisioningEnd() ).
-		typeByXPath( campaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates, campaignCfg.getSchedulingSingleDaysBetweenProvisioningAndStartDates() );
+		typeByXPath( campaignSchedulingSingleExecutionStartXPath, campaignCfg.schedulingSingleExecutionStart() ).
+		selectByXPathAndVisibleText( campaignSchedulingSingleExecutionEndTypeXPath, campaignCfg.schedulingSingleExecutionEndType() ).
+		typeByXPath( campaignSchedulingSingleExecutionEndValueXPath, campaignCfg.schedulingSingleExecutionEndValue() ).
+		typeByXPath( campaignSchedulingSingleProvisioningStartXPath, campaignCfg.schedulingSingleProvisioningStart() ).
+		typeByXPath( campaignSchedulingSingleProvisioningEndXPath, campaignCfg.schedulingSingleProvisioningEnd() ).
+		typeByXPath( campaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates, campaignCfg.schedulingSingleDaysBetweenProvisioningAndStartDates() );
 		
 		return this;
 		
 	}
 	
 	public CampaignsForm configureCampaignMultipleScheduling() throws FormException, JSONException {
-		
+/*		
 		String campaignSchedulingMultipleRecurrencePatternXPath = "//td[@class='headers' and contains( text(), 'Recurrence pattern' )]/parent::tr//select";
 		String campaignSchedulingMultipleRecurrencePatternTypeXPath = "//td[@class='headers' and contains( text(), 'Recurrence pattern' )]/parent::tr/parent::tbody//table[@class='recurrenceWidget']//div[text()='Recur every']/parent::td/parent::tr//input";
 		String campaignSchedulingMultipleRecurrencePatternValueXPath = "//td[@class='headers' and contains( text(), 'Recurrence pattern' )]/parent::tr/parent::tbody//table[@class='recurrenceWidget']//label[starts-with(text(), '${dayOfWeek}')]/parent::span/input";
@@ -524,11 +523,6 @@ public class CampaignsForm extends CampaignManagerForm {
 		
 	}
 */	
-	private Boolean isActive() throws JSONException {
-		
-		return this.campaignCfg.getEnabled();
-		
-	}
 	
 	@Override
 	public CampaignsForm clickId( String id ) throws FormException {

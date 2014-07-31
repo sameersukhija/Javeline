@@ -6,6 +6,8 @@ import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCPrice;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCProduct;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberChannel;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberChannel.ChannelType;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberChannel.Status;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberRelation;
 
 public class XMLRPCRequestMethods {
@@ -186,8 +188,12 @@ public class XMLRPCRequestMethods {
 	
 	public static XMLRPCRequestMethods subscriber( Long msisdn ) {
 		
-		return XMLRPCRequestMethods.subscriber( String.valueOf( msisdn ), null, null, null, null, null, null, null, null );
+		return subscriber( String.valueOf( msisdn ), null, null, null, null, null, null, null, null );
 		
+	}
+	
+	public static XMLRPCRequestMethods subscriber( String msisdn ) {
+		return subscriber( msisdn, null, null, null, null, null, null, null, null, null, null );
 	}
 	
 	public static XMLRPCRequestMethods subscriber( String msisdn, String subscriptionDate, String profile, String ratePlan, String status, String inTag, String network, XMLRPCParameter[] params, String[] services ) {
@@ -262,6 +268,22 @@ public class XMLRPCRequestMethods {
 								if( null != services ) { subscriberPOSTBody.append("<services>").append( servicesBody ).append("</services>"); }
 															
 		subscriberPOSTBody.append("</subscriber></value></param>");
+		
+		return new XMLRPCRequestMethods( subscriberPOSTBody );
+		
+	}
+	
+	public static XMLRPCRequestMethods subscriberChannel( String msisdn, ChannelType channel, String address, Boolean active ) {
+		
+		StringBuilder subscriberPOSTBody = new StringBuilder();
+	
+		subscriberPOSTBody.append("<param><value><subscriberChannel>");
+								if( null != msisdn ) { subscriberPOSTBody.append("<msisdn>").append( msisdn ).append("</msisdn>"); }
+								if( null != channel ) { subscriberPOSTBody.append("<channel>").append( channel.name() ).append("</channel>"); }
+								if( null != address ) { subscriberPOSTBody.append("<address>").append( address ).append("</address>"); }
+								if( null != active ) { subscriberPOSTBody.append("<active>").append( active ).append("</active>"); }
+																							
+		subscriberPOSTBody.append("</subscriberChannel></value></param>");
 		
 		return new XMLRPCRequestMethods( subscriberPOSTBody );
 		

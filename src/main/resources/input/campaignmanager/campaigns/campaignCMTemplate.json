@@ -9,7 +9,7 @@
 				"byPassMediaType": true
 			},
 			"scheduling": {
-				"typeOfRecurrence": "Multiple",
+				"typeOfRecurrence": "Single",
 				"singleRecurrence": {
 					"executionStart": "2014-05-01",
 					"executionEndType": "Relative",
@@ -34,16 +34,29 @@
 			},
 			"dialogue": {
 				"channel": {
-					"shortCode": null,
-					"emailAddress": null				
+					"shortCode": "111",
+					"emailAddress": "info@lumatagroup.com"				
 				},
 				"notification": {
-					"daysOfNotificationBeforeExecution": "",
+					"daysOfNotificationBeforeExecution": "5",
 					"messages": null,
-					"applyCampaignToNotifiedOnly": "",	
-					"time": ""			
+					"applyCampaignToNotifiedOnly": true,	
+					"time": "10:00"			
 				}
 			},
+			"target": {
+				"targetingMode": "Opened",
+				"targetingOpened": {
+					"subscriberProfileRestrictions": null,
+					"subscriberRestrictions": null				
+				},
+				"targetingRestricted": {
+					"mode": "Criteria",
+					"modeCriteria": null				
+				}
+			},	
+			"limit": null,
+			"activation": null,		
 			"delete": false
 		}		
 	],

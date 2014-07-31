@@ -27,6 +27,7 @@ import com.lumata.e4o.exceptions.CommoditiesException;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaign_;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCampaigns;
 
 public class ConfigureCampaign {
 
@@ -63,7 +64,7 @@ public class ConfigureCampaign {
 	
 	/* 	Initialize TestCase Name */
 	@BeforeMethod
-	protected void startSession(Method method) throws Exception {
+	protected void startSession( Method method ) throws Exception {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}
 	
@@ -71,10 +72,9 @@ public class ConfigureCampaign {
 	@Test(enabled=true, priority = 1 )
 	public void loadCampaigns() throws CampaignException, JSONSException, FormException, JSONException {
 		
-		CampaignsForm campaignForm = new CampaignsForm( seleniumWebDriver, new JSONCampaign_( "input/campaignmanager/campaigns", "campaignCMAllEvents" ), TIMEOUT, ATTEMPT_TIMEOUT );
+		CampaignsForm campaignForm = new CampaignsForm( seleniumWebDriver, new JSONCampaigns( "input/campaignmanager/campaigns", "campaignCMTemplate" ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		
-		//campaignForm.open().addCampaigns();
+		campaignForm.open().addCampaigns();
 		
 		
 		//Assert.assertTrue( CampaignCreationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );		

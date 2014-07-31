@@ -55,7 +55,7 @@ public class GenerateSubscribers {
 		final Long FIXED_MSISDN = 3399900001L;
 		final Boolean HAS_SMS_CHANNEL = true;
 		final Boolean HAS_MAIL_CHANNEL = true;
-		final Long SUBSCRIBERS_TO_GENERATE = 100000L;
+		final Long SUBSCRIBERS_TO_GENERATE = 200L;
 		
 		
 		Generator.subscribers()
