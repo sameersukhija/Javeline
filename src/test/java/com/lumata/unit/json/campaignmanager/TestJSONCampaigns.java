@@ -17,6 +17,8 @@ public class TestJSONCampaigns {
 		 
 		 Assert.assertTrue( campaigns.size() > 0 );
 		 
+		 Assert.assertTrue( campaigns.get( 0 ).isEnabled() );
+		 		 
 		 /** DEFINITION */
 		 Assert.assertEquals( campaigns.get( 0 ).name(), "campaignCMTemplate" );
 		 
@@ -29,6 +31,8 @@ public class TestJSONCampaigns {
 		 Assert.assertTrue( campaigns.get( 0 ).byPassMediaType() );
 		 
 		 /** SCHEDULING */
+		 Assert.assertTrue( campaigns.get( 0 ).hasSchedulingSettings() );
+		 
 		 Assert.assertEquals( campaigns.get( 0 ).schedulingTypeOfRecurrence(), "Multiple" );
 		 
 		 /** SCHEDULING SINGLE */
@@ -62,6 +66,30 @@ public class TestJSONCampaigns {
 		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleRangeOfRecurrenceType(), "No end Date" );
 		 
 		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleRangeOfRecurrenceValue(), "" );
+		 
+		 /** DIALOGUE */
+		 Assert.assertTrue( campaigns.get( 0 ).hasDialogueSettings() );
+		 
+		 Assert.assertEquals( campaigns.get( 0 ).channelShortCode(), "111" );
+		
+		 Assert.assertEquals( campaigns.get( 0 ).channelEmailAddress(), "info@lumatagroup.com" );
+		 
+		 Assert.assertEquals( campaigns.get( 0 ).notificationDaysOfNotificationBeforeExecution(), "5" );
+		 
+		 Assert.assertEquals( campaigns.get( 0 ).notificationMessages(), null );
+		 
+		 Assert.assertTrue( campaigns.get( 0 ).notificationApplyCampaignToNotifiedOnly() );
+		 
+		 Assert.assertEquals( campaigns.get( 0 ).notificationTime(), "10:00" );
+	
+		 /** TARGET */
+		 Assert.assertTrue( campaigns.get( 0 ).hasTargetSettings() );
+		 
+		 /** LIMIT */
+		 Assert.assertFalse( campaigns.get( 0 ).hasLimitSettings() );
+		 		 
+		 /** ACTIVATION */
+		 Assert.assertFalse( campaigns.get( 0 ).hasActivationSettings() );
 		 
 	 }
  

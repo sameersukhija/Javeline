@@ -59,6 +59,8 @@ import com.lumata.e4o.system.cdr.fields.OldSubProfile;
 import com.lumata.e4o.system.cdr.fields.OldSubscriptionDate;
 import com.lumata.e4o.system.cdr.fields.OldTongue;
 import com.lumata.e4o.system.cdr.fields.Partner;
+import com.lumata.e4o.system.cdr.fields.RawData;
+import com.lumata.e4o.system.cdr.fields.RechargeAmount;
 import com.lumata.e4o.system.cdr.fields.Sms;
 import com.lumata.e4o.system.cdr.fields.TenantId;
 import com.lumata.e4o.system.cdr.fields.Terminating;
@@ -114,6 +116,11 @@ public class CDRClassGenerator {
 		RevenueMultitenant {	
 			public List<Class<? extends Annotation>> fields() {
 				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class, ValidityDate.class, DeactivationDate.class, Type.class, Delay.class, TenantId.class );
+			}
+		},
+		RevenueO2 {	
+			public List<Class<? extends Annotation>> fields() {
+				return Arrays.asList( RawData.class, RechargeAmount.class  );
 			}
 		},
 		Bundle {	

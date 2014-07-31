@@ -57,7 +57,7 @@ public class GenerateSubscribersRecharge {
 	public void generateFixedSubscriber() throws GeneratorException {
 		
 		final Long FIXED_MSISDN = 3399900001L;
-		final Long RECHARGE_TO_GENERATE = 1L;
+		final Long RECHARGE_TO_GENERATE = 10L;
 				
 		Generator.subscribers()
 					.server( guiServer )
@@ -90,7 +90,7 @@ public class GenerateSubscribersRecharge {
 		final Integer INCREMENT = 1;
 		final Boolean HAS_SMS_CHANNEL = true;
 		final Boolean HAS_MAIL_CHANNEL = true;
-		final Integer REPEAT = 100000;
+		final Integer REPEAT = 200;
 		final Long RECHARGE_TO_GENERATE = 1L;
 		
 		Generator.subscribers()
