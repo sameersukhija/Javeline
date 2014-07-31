@@ -27,6 +27,9 @@ import com.lumata.e4o.gui.xmlrpc.XMLRPCTokenList;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCTokenList.Token;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 
+/**
+ *	This class contains tests for O2 custom reporter testing
+ */
 public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 	
 	@Test
