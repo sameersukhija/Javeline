@@ -67,13 +67,13 @@ public class RegressionSuiteXMLRPC {
 	/**
 	 * Intermediate object to handle XMLRPC init
 	 */
-	private Server gui = null;
-	private User user = null;
+	protected Server gui = null;
+	protected User user = null;
 	
 	/**
 	 * Print to standard output during execution
 	 */
-	private static final Boolean PRINT2STDOUT__ = Boolean.TRUE;
+	protected static final Boolean PRINT2STDOUT__ = Boolean.TRUE;
 	
 	private static String envPath = null;
 	private static String envFile = null;

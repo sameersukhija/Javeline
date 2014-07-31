@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="O2 Custom Reporter Suite" verbose="1" parallel="false">
+
+  <!-- 
+    Browser to be used 
+  -->
+  <parameter name="browser" value="firefox"/>
+  <!-- 
+    Start path where locate configuration files 
+  -->
+  <parameter name="resourceStartPath" value="input"/>
+  <parameter name="loadingType" value="RESOURCE"/>
+  <!-- 
+    In default configuration environment configuration is looked into application class-path 
+  -->
+  <parameter name="environment" value="e4o_vincenzo_ne"/>
+  <parameter name="gui_server" value="actrule"/>
+  <parameter name="tenant" value="qa"/>
+  <parameter name="user" value="superman"/>
+
+  <!-- 
+    Parameters Section 
+  -->
+  <parameter name="tokens2BeGenerated" value="50"/>
+  <parameter name="msisdn" value="393492135019"/>
+  <parameter name="offerIds" value="1002;1003"/>
+
+  <!-- 
+    Test Section 
+  -->
+  <test name="Summary Tokens before test">
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>
+        	<include name="getActiveTokensList"/>
+        	<include name="getAllocatedTokensList"/>
+        	<include name="getConsumedTokensList"/>
+        </methods>        
+      </class>    	
+    </classes>
+  </test>
+
+  <test name="Core XMLRPC - Generate Tokens">
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>
+        	<include name="generateTokens"/>
+        	<include name="getActiveTokensList"/>
+         	<include name="allocateToken"/> 
+            <include name="getAllocatedTokensList"/>
+        	<include name="acceptToken"/>
+        </methods>        
+      </class>
+    </classes>
+  </test>
+
+  <test name="Summary Tokens after test">
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>
+        	<include name="getActiveTokensList"/>
+        	<include name="getAllocatedTokensList"/>
+        	<include name="getConsumedTokensList"/>
+        </methods>        
+      </class>    	
+    </classes>
+  </test>  
+ 
+</suite>
