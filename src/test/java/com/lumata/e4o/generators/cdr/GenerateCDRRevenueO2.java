@@ -1,5 +1,6 @@
 package com.lumata.e4o.generators.cdr;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -28,6 +29,8 @@ public class GenerateCDRRevenueO2 {
 	String sshUser = "root";
 	User superman;
 			
+	private final String TOPUP_FORMAT_ = "TUS${datetime}${msisdn}";
+	
 	/* 	Initialize Environment */
 	@Parameters({"environment", "gui_server", "user"})
 	@BeforeClass
@@ -50,20 +53,26 @@ public class GenerateCDRRevenueO2 {
 				
 		String currentTimestamp = Format.getSystemTimestamp();
 		
-		String fileName = "cdr_revenue_o2_" + currentTimestamp + ".csv";
+		String fileName = "cdr_revenue_o2_" + currentTimestamp + "_PPIT_TOPUP.csv";
 		
 		cdrRO2.setOutputPath( "/cdr/", fileName );
-				
+		
+		Long msisdn = 3399900001L;
+		
 		// today
 		Calendar date = Calendar.getInstance();
-		
+		date.add( Calendar.DATE, 1 );
+		SimpleDateFormat sdf = new SimpleDateFormat( "yyyyMMddHHmmss" );
+				
+		String topup = TOPUP_FORMAT_.replace( "${datetime}", sdf.format( date.getTime() ) ).replace( "${msisdn}", msisdn.toString() );
+				
 		cdrRO2.setSeparator( "  " );
 		
 		// add 1 day to date
-		cdrRO2.setRawDataStrategyFixed( "TUS2014073016031333123456789");
+		cdrRO2.setRawDataStrategyFixed( topup.toString() );
 		cdrRO2.setRechargeAmountStrategyFixed( 2000L );
 				
-		cdrRO2.addLines( 20 );
+		cdrRO2.addLines( 1 );
 				
 		cdrRO2.print();
 		

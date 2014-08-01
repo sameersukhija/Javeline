@@ -29,9 +29,9 @@ public class GenerateSubscribersRecharge {
 	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersRecharge.class );
 	
 	final boolean GENERATE_FIXED_SUBSCRIBER = false;
-	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = false;
+	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = true;
 	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE = false;
-	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = true;
+	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = false;
 	final boolean GENERATE_RANDOM_SUBSCRIBERS = false;
 	
 	NetworkEnvironment env;	
@@ -57,8 +57,8 @@ public class GenerateSubscribersRecharge {
 	public void generateFixedSubscriber() throws GeneratorException {
 		
 		final Long FIXED_MSISDN = 3399900001L;
-		final Long RECHARGE_TO_GENERATE = 10L;
-				
+		final Long RECHARGE_TO_GENERATE = 1L;
+						
 		Generator.subscribers()
 					.server( guiServer )
 					.user( superman )
