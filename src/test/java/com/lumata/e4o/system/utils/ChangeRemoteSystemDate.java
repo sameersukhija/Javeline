@@ -42,13 +42,13 @@ public class ChangeRemoteSystemDate {
 		
 		Calendar date = Calendar.getInstance();
 		
-		date.set( Calendar.HOUR_OF_DAY, 23 );
-		date.set( Calendar.MINUTE, 56 );
+		date.set( Calendar.HOUR_OF_DAY, 18 );
+		date.set( Calendar.MINUTE, 00 );
 		date.set( Calendar.SECOND, 00 );
 		
 		final int YEAR_ = 2014;
-		final int MONTH_ = Calendar.JULY;
-		final int DAY_ = 25;
+		final int MONTH_ = Calendar.AUGUST;
+		final int DAY_ = 02;
 		final int HOUR_ = date.get( Calendar.HOUR_OF_DAY );
 		final int MINUTE_ = date.get( Calendar.MINUTE );
 		final int SECOND_ = date.get( Calendar.SECOND );

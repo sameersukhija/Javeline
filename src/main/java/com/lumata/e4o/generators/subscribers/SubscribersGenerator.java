@@ -402,10 +402,10 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 			if( parameterList[ p ].getParameter().toString().contains( "<name>recharge</name>" ) ) { 
 				hasRechargeParameter = true;
 			}
-			
+			/*
 			if( parameterList[ p ].getParameter().toString().contains( "<name>event_time</name>" ) ) { 
 				hasEventTimeParameter = true;
-			}
+			}*/
 			
 		}
 		
@@ -414,12 +414,12 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 			parameterList = Arrays.copyOf( parameterList, parameterList.length + 1 );
 			parameterList[ parameterList.length - 1 ] = XMLRPCParameter.parameter( ParameterType.event_time, new SimpleDateFormat("HH:mm:ss").format( new Date() ) );
 		}
-		
+		/*
 		if( !hasEventTimeParameter ) {
 			parameterList = Arrays.copyOf( parameterList, parameterList.length + 1 );
 			parameterList[ parameterList.length - 1 ] = XMLRPCParameter.parameter( ParameterType.event_time, new SimpleDateFormat("HH:mm:ss").format( new Date() ) );
 		}
-		
+		*/
 		configureParameters();
 		
 		Server server = (Server)parameters.getParameterValue( GeneratorParameterType.server );
