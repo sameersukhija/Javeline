@@ -1,0 +1,22 @@
+{
+	"tokenTypes": [
+		{
+			"enabled": true,
+			"name":"Token100min",
+			"description":"Token100min",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"100",
+			"validityUnit":"minutes",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		}
+	]
+}

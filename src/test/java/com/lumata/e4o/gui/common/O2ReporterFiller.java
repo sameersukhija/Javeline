@@ -32,8 +32,45 @@ import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
  */
 public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 	
+	/**
+	 * Active tokens list
+	 */
+	private static List<String> currentActiveTokens = null; 
+
+	/**
+	 * Allocated tokens list
+	 */
+	private static List<String> currentAllocatedTokens = null; 
+	
+	/**
+	 * Consumed tokens list
+	 */
+	private static List<String> currentConsumedTokens = null;
+	
+	/**
+	 * Surrounded token status
+	 */
+	enum TokenStatus {
+		
+		ACTIVE("active"),
+		ALLOCATED("offers_allocated"),
+		CONSUMED("consumed");
+		
+		private String value = null;
+		private TokenStatus(String in) { value = in; }
+		public String toString() { return value; }
+	};
+	
+	/**
+	 * 
+	 * @param msisdn
+	 * @param tokens2BeGenerated
+	 * @throws NumberFormatException
+	 * @throws GeneratorException
+	 */
+	
 	@Test
-	@Parameters({"msisdn","tokens2BeGenerated"})
+	@Parameters({ "msisdn", "tokens2BeGenerated"})
 	public void generateTokens(@Optional("393492135019") String msisdn, @Optional("10") Integer tokens2BeGenerated) throws NumberFormatException, GeneratorException {
 		
 		Reporter.log( "Generate "+tokens2BeGenerated+" tokens for subscriber "+ msisdn , PRINT2STDOUT__);
@@ -57,73 +94,117 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 			}
 		}				
 	}	
-	
+
 	/**
 	 * 
+	 * @param msisdn
+	 * @throws Exception
 	 */
-	private static List<String> currentActiveTokens = null; 
 	
-	/**
-	 * @throws Exception 
-	 * 
-	 */
 	@Test
 	@Parameters("msisdn")
-	public void getActiveTokensList(@Optional("393492135019") String msisdn) throws Exception {
-		
-		currentActiveTokens = getTokenByStatus(msisdn, "active", false);
+	public void getTokensList(@Optional("393492135019") String msisdn) throws Exception {
 
-		Reporter.log( "###############", PRINT2STDOUT__);
-		Reporter.log( "##### The subscriber "+ msisdn +" has " + currentActiveTokens.size() + " active tokens.", PRINT2STDOUT__);
-		Reporter.log( "###############", PRINT2STDOUT__);
-	}	
-	
-	/**
-	 * 
-	 */
-	private static List<String> currentAllocatedTokens = null; 
-	
-	/**
-	 * @throws Exception 
-	 * 
-	 */
-	@Test(groups="preparation4Accept")
-	@Parameters("msisdn")
-	public void getAllocatedTokensList(@Optional("393492135019") String msisdn) throws Exception {
+		refreshTokenStatus( msisdn, false);
 		
-		currentAllocatedTokens = getTokenByStatus(msisdn, "offers_allocated", false);
-
 		Reporter.log( "###############", PRINT2STDOUT__);
-		Reporter.log( "##### The subscriber "+ msisdn +" has " + currentAllocatedTokens.size() + " allocated tokens.", PRINT2STDOUT__);
+		Reporter.log( "##### The subscriber "+ msisdn +" has : ");
+		Reporter.log( "##### " + currentActiveTokens.size() + " active tokens.", PRINT2STDOUT__);
+		Reporter.log( "##### " + currentAllocatedTokens.size() + " allocated tokens.", PRINT2STDOUT__);
+		Reporter.log( "##### " + currentConsumedTokens.size() + " consumed tokens.", PRINT2STDOUT__);
 		Reporter.log( "###############", PRINT2STDOUT__);
 	}
 	
 	/**
-	 * @throws Exception 
 	 * 
+	 * @param msisdn
+	 * @throws Exception
 	 */
-	@Test
+
+	@Test( dependsOnMethods={"getTokensList"} )
 	@Parameters("msisdn")
-	public void getConsumedTokensList(@Optional("393492135019") String msisdn) throws Exception {
+	public void allocateToken(@Optional("393492135019") String msisdn) throws Exception {
 		
-		List<String> consumed = getTokenByStatus(msisdn, "consumed", false);
-
 		Reporter.log( "###############", PRINT2STDOUT__);
-		Reporter.log( "##### The subscriber "+ msisdn +" has " + consumed.size() + " consumed tokens.", PRINT2STDOUT__);
+		Reporter.log( "##### The subscriber "+ msisdn +" has " + currentActiveTokens.size() + " active tokens.", PRINT2STDOUT__);
+		Reporter.log( "##### Allocate each token.", PRINT2STDOUT__);
+		Reporter.log( "##### Tokens ready to be allocated : " + currentActiveTokens, PRINT2STDOUT__);
 		Reporter.log( "###############", PRINT2STDOUT__);
-	}	
-
+		
+		for (String code : currentActiveTokens) {
+		
+			Reporter.log( "Token code : " + code, PRINT2STDOUT__);
+	
+			XMLRPCRequest.offeroptimizer_allocate().call( 
+					gui, 
+					xmlrpcBody(
+						authentication( user ),
+						string( msisdn ),
+						string( code )
+					),
+					xmlrpcOptions(
+						sleep( 100L )	
+					)
+			);		
+		}
+	}
 	
 	/**
 	 * 
 	 * @param msisdn
-	 * @param string
-	 * @return
+	 * @param offerIds
 	 * @throws Exception
 	 */
-	private List<String> getTokenByStatus(String msisdn, String lookedStatus, Boolean print) throws Exception {
+	
+	@Test( dependsOnMethods={"getTokensList"} )
+	@Parameters({"msisdn","offerIds"})
+	public void acceptToken(@Optional("393492135019") String msisdn, @Optional("1000;1001") String offerIds) throws Exception {
 		
-		List<String> resp = new ArrayList<>();
+		Reporter.log( "###############", PRINT2STDOUT__);		
+		Reporter.log( "##### The subscriber "+ msisdn +" has " + currentAllocatedTokens.size() + " allocted tokens.", PRINT2STDOUT__);
+		Reporter.log( "##### Purchase one offer among : " + offerIds.replace(";", " "), PRINT2STDOUT__);
+		Reporter.log( "##### Tokens ready to be purchased : " + currentAllocatedTokens, PRINT2STDOUT__);
+		Reporter.log( "###############", PRINT2STDOUT__);
+		
+		String[] offerIdArray = offerIds.split(";");
+		
+		Random randomGenerator = new Random();
+		
+		for (String code : currentAllocatedTokens) {
+			
+			String offerId = offerIdArray[randomGenerator.nextInt(offerIdArray.length)];
+		    
+			Reporter.log( "##### Token code -> " + code + "\tOffer Id -> " + offerId, PRINT2STDOUT__);
+			
+			XMLRPCRequest.offeroptimizer_accept().call( 
+					gui, 
+					xmlrpcBody(
+						authentication( user ),
+						string( msisdn ),
+						string( code ),
+						arrayInt( offerId),
+						string( "acceptToken" )
+					),
+					xmlrpcOptions(
+						sleep( 100L )	
+					)
+			);		
+		}
+	}	
+	
+	/**
+	 * 
+	 * @param msisdn
+	 * @param print
+	 * 
+	 * @throws Exception 
+	 */
+	
+	private void refreshTokenStatus(String msisdn, Boolean print) throws Exception {
+		
+		currentActiveTokens = new ArrayList<String>();
+		currentAllocatedTokens = new ArrayList<String>();
+		currentConsumedTokens = new ArrayList<String>();
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 		
@@ -171,79 +252,12 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 			
 			printable.append("(").append(code).append(",").append(status).append(")\t");
 			
-			if ( status.equals(lookedStatus) )
-				resp.add(code);
-		}
-				
-		Reporter.log( "###############", print);
-		Reporter.log( "##### The subscriber "+ msisdn +" has the token list (code,status) : ", print);
-		Reporter.log( "##### " + printable, print);
-		Reporter.log( "###############", print);
-
-		return resp;
-	}
-
-	@Test( groups = {"preparation4Accept"}, dependsOnMethods = {"getActiveTokensList"} )
-	@Parameters("msisdn")
-	public void allocateToken(@Optional("393492135019") String msisdn) throws Exception {
-		
-		Reporter.log( "###############", PRINT2STDOUT__);
-		Reporter.log( "##### The subscriber "+ msisdn +" has " + currentActiveTokens.size() + " active tokens.", PRINT2STDOUT__);
-		Reporter.log( "##### Allocate each token.", PRINT2STDOUT__);
-		Reporter.log( "##### Tokens ready to be allocated : " + currentActiveTokens, PRINT2STDOUT__);
-		Reporter.log( "###############", PRINT2STDOUT__);
-		
-		for (String code : currentActiveTokens) {
-		
-			Reporter.log( "Token code : " + code, PRINT2STDOUT__);
-	
-			XMLRPCRequest.offeroptimizer_allocate().call( 
-					gui, 
-					xmlrpcBody(
-						authentication( user ),
-						string( msisdn ),
-						string( code )
-					),
-					xmlrpcOptions(
-						sleep( 100L )	
-					)
-			);		
-		}
-	}
-	
-	@Test(dependsOnGroups={"preparation4Accept"})
-	@Parameters({"msisdn","offerIds"})
-	public void acceptToken(@Optional("393492135019") String msisdn, @Optional("1000;1001") String offerIds) throws Exception {
-		
-		Reporter.log( "###############", PRINT2STDOUT__);		
-		Reporter.log( "##### The subscriber "+ msisdn +" has " + currentAllocatedTokens.size() + " active tokens.", PRINT2STDOUT__);
-		Reporter.log( "##### Purchase one offer among : " + offerIds.replace(";", " "), PRINT2STDOUT__);
-		Reporter.log( "##### Tokens ready to be purchased : " + currentAllocatedTokens, PRINT2STDOUT__);
-		Reporter.log( "###############", PRINT2STDOUT__);
-		
-		String[] offerIdArray = offerIds.split(";");
-		
-		Random randomGenerator = new Random();
-		
-		for (String code : currentAllocatedTokens) {
-			
-			String offerId = offerIdArray[randomGenerator.nextInt(offerIdArray.length)];
-		    
-			Reporter.log( "##### Token code -> " + code + "\tOffer Id -> " + offerId, PRINT2STDOUT__);
-			
-			XMLRPCRequest.offeroptimizer_accept().call( 
-					gui, 
-					xmlrpcBody(
-						authentication( user ),
-						string( msisdn ),
-						string( code ),
-						arrayInt( offerId),
-						string( "acceptToken" )
-					),
-					xmlrpcOptions(
-						sleep( 100L )	
-					)
-			);		
+			if ( status.equals(TokenStatus.ACTIVE.toString()) )
+				currentActiveTokens.add(code);
+			else if ( status.equals(TokenStatus.ALLOCATED.toString()) )
+				currentAllocatedTokens.add(code);
+			else if ( status.equals(TokenStatus.CONSUMED.toString()) )
+				currentConsumedTokens.add(code);
 		}
 	}
 }

@@ -18,7 +18,7 @@ import org.jboss.resteasy.client.ClientResponse;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -51,8 +51,8 @@ public class RegressionSuiteXMLRPC {
 	/**
 	 * 
 	 */
-	private NetworkEnvironment env;
-	private Mysql mysql;
+	protected static NetworkEnvironment env;
+	protected static Mysql mysql;
 
 	/**
 	 * Default seed for subscribers msisdn
@@ -67,8 +67,8 @@ public class RegressionSuiteXMLRPC {
 	/**
 	 * Intermediate object to handle XMLRPC init
 	 */
-	protected Server gui = null;
-	protected User user = null;
+	protected static Server gui = null;
+	protected static User user = null;
 	
 	/**
 	 * Print to standard output during execution
@@ -99,7 +99,7 @@ public class RegressionSuiteXMLRPC {
 	 * @throws NetworkEnvironmentException
 	 */
 	@Parameters({ "browser", "environment", "tenant", "gui_server", "user_name" })
-	@BeforeClass
+	@BeforeSuite
 	public void init(	@Optional("FIREFOX") String browser,
 						@Optional("E4O_QA") String environment,
 						@Optional("qa") String tenant, 

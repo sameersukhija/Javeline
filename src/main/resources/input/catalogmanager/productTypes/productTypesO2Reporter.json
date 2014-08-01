@@ -1,0 +1,46 @@
+{
+	"productTypes": [
+		{
+			"enabled" : true,
+			"name" : "Network",
+			"description" : "Network PT",
+			"delete" : false,
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+            "characteristics": [ 
+            	{
+	            	"enabled": true,
+					"name": "TextA",
+					"type": "Text",
+					"list" :  null,
+					"choice" : null,
+					"text" : "Super Text",
+					"unit" : null
+	            }
+	        ]
+		},
+		{
+			"enabled" : true,
+			"name" : "Physical",
+			"description" : "Physical PT",
+			"delete" : false,
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+            "characteristics": [ 
+            	{
+	            	"enabled": true,
+					"name": "TextA",
+					"type": "Text",
+					"list" :  null,
+					"choice" : null,
+					"text" : "Super Text",
+					"unit" : null
+	            }
+	        ]
+		}
+	]
+}

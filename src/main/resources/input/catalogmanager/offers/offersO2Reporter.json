@@ -1,0 +1,90 @@
+{
+	"offers": [
+		{
+			"enabled": true,
+			"name": "Offer_Network",
+			"definition" : {
+				"externalId" : null,
+				"description": null,
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : null,
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch A" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100000,
+				"reservations" : [
+					{
+						"channel" : "Ch A",
+						"quantity" : 100000
+					}									
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},	
+		{
+			"enabled": true,
+			"name": "Offer_Physical",
+			"definition" : {
+				"externalId" : null,
+				"description": null,
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : null,
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch A" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100000,
+				"reservations" : [
+					{
+						"channel" : "Ch A",
+						"quantity" : 100000
+					}									
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		}		
+	],
+}
