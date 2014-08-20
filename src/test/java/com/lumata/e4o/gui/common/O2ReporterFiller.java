@@ -6,6 +6,8 @@ import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.sleep;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.arrayInt;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.authentication;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.string;
+import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.parameter;
+import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType.*;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,7 +22,6 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.e4o.exceptions.GeneratorException;
 import com.lumata.e4o.generators.common.Generator;
 import com.lumata.e4o.gui.xmlrpc.HTTPXMLRPCForm;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCTokenList;
@@ -65,29 +66,34 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 	 * 
 	 * @param msisdn
 	 * @param tokens2BeGenerated
-	 * @throws NumberFormatException
-	 * @throws GeneratorException
+	 * @throws Exception 
 	 */
 	
 	@Test
 	@Parameters({ "msisdn", "tokens2BeGenerated"})
-	public void generateTokens(@Optional("393492135019") String msisdn, @Optional("10") Integer tokens2BeGenerated) throws NumberFormatException, GeneratorException {
+	public void generateTokens(@Optional("393492135019") String msisdn, @Optional("10") Integer tokens2BeGenerated) throws Exception {
 		
 		Reporter.log( "Generate "+tokens2BeGenerated+" tokens for subscriber "+ msisdn , PRINT2STDOUT__);
 
 		String local_msisdn = msisdn;
 		
+		final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+		Calendar today = Calendar.getInstance(); 
+		
 		for( int i = 0; i < tokens2BeGenerated; i++ ) {
 
 			Generator.subscribers()
-				.server( gui )
-				.user( user )
-				.msisdnFixed( Long.parseLong(local_msisdn) )
-				.xmlrpcRecharge( 1L );			
-			
+						.server( gui )
+						.user( user )
+						.msisdnFixed( Long.parseLong(local_msisdn) )
+						.xmlrpcRecharge( 	1L, 
+											parameter( recharge, true ), 
+											parameter( event_time, sdf.format( today.getTime() ) ) 
+										);			
+
 			try {
 			
-				Thread.sleep( 1_000 );
+				Thread.sleep( 2_000 );
 			
 			} catch(  InterruptedException e ) {
 				Assert.fail("General error on Java VM!");			  
@@ -100,9 +106,9 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 	 * @param msisdn
 	 * @throws Exception
 	 */
-	
-	@Test
+
 	@Parameters("msisdn")
+	@Test
 	public void getTokensList(@Optional("393492135019") String msisdn) throws Exception {
 
 		refreshTokenStatus( msisdn, false);
@@ -211,7 +217,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 		Calendar cal = Calendar.getInstance();  
 		String now = sdf.format(cal.getTime()) + "+0000";
 		
-		cal.add(Calendar.DAY_OF_YEAR, -2);
+		cal.add(Calendar.DAY_OF_YEAR, -7);
 		String past = sdf.format(cal.getTime()) + "+0000";
 		
 		String local_msisdn = msisdn;
