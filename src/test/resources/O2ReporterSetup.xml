@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Basic Regression Suite" verbose="1" parallel="false" time-out="40000">
+
+  <!-- 
+    Browser to be used 
+  -->
+  <parameter name="browser" value="firefox"/>
+
+  <!-- 
+    Start path where locate configuration files 
+  -->
+  <parameter name="resourceStartPath" value="input"/>
+  <parameter name="loadingType" value="RESOURCE"/>
+
+  <!-- 
+    Configuration environment file and its parameter
+  -->
+  <parameter name="environment" value="e4o_qa_ne"/>
+  <parameter name="gui_server" value="actrule"/>
+  <parameter name="tenant" value="qa"/>
+  <parameter name="user" value="superman"/>
+
+  <!--  
+    After test the configuration is removed
+  -->
+  <parameter name="cleanup" value="FALSE"/>
+
+  <!-- 
+    Commodities, Complements & Notifications configuration file 
+  -->
+  <parameter name="salesChannelsList" value="salesChannelsEFOGC2109"/>
+  <parameter name="productTypesFile" value="productTypesO2Reporter"/>
+  <parameter name="offersFile" value="offersO2Reporter"/>
+  <parameter name="tokenTypeList" value="tokenTypeO2Reporter"/>
+  <parameter name="ruleListFile" value="rulesO2Reporter"/>
+
+  <parameter name="inputSeed" value="393492135"/>
+  
+  <!-- 
+    Test Section 
+  -->
+  <test name="Basic regression suite for E4O">
+
+    <classes>
+
+      <!-- 
+        Running section
+      -->      
+      <class name="com.lumata.e4o.gui.catalogmanager.ConfigureProductTypes">
+        <methods>
+          <include name="configureProductTypesTest"/>
+          <include name="cleanupProductTypesForm"/>
+        </methods>
+      </class>
+      
+      <class name="com.lumata.e4o.gui.common.RegressionSuiteAppender">
+         <methods>
+            <include name="configureSuppliers"/>
+            <include name="configureSalesChannels"/>
+            <include name="configureTokeType"/>
+            <include name="configureRules"/>
+            <include name="configureCampaignModel"/>
+        </methods>
+      </class>
+
+      <class name="com.lumata.e4o.gui.catalogmanager.ConfigureOffers">
+        <methods>
+          <include name="configureOffers"/>
+        </methods>
+      </class>
+ 
+      <class name="com.lumata.e4o.gui.common.RegressionSuiteXMLRPC">
+        <methods>
+        </methods>        
+      </class>
+
+    </classes>
+
+  </test>
+</suite>
