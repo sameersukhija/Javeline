@@ -74,7 +74,7 @@ public class RestClient {
 	}
 
 	public Map<String, String> getBody() {
-		return this.header;
+		return this.body;
 	}
 
 	public ClientRequest getRequest() {
