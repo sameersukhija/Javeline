@@ -10,12 +10,13 @@ import com.lumata.common.testing.annotations.mysql.Column;
 import java.util.Date;
 import java.text.ParseException;
 import com.lumata.common.testing.validating.Format;
+import java.sql.Timestamp;
 
 
 @Table( "ussd_events" )
 public class UssdEvents { 
 
-	public enum Fields { format, msisdn, event_date, transaction_id, event_data }
+	public enum Fields { format, msisdn, event_date, transaction_id, event_data, id, insert_time }
 
 	@Column(
 			table = "ussd_events",
@@ -107,6 +108,42 @@ public class UssdEvents {
 	)
 	private String event_data;
 
+	@Column(
+			table = "ussd_events",
+			field = "id",
+			type = "int(11)",
+			mysqlType = "int",
+			javaType = "Integer",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = true,
+			key = "MUL",
+			defaultValue = "null",
+			extra = "auto_increment",
+			length = 11,
+			getMethod = "getId",
+			setMethod = "setId"
+	)
+	private Integer id;
+
+	@Column(
+			table = "ussd_events",
+			field = "insert_time",
+			type = "timestamp",
+			mysqlType = "timestamp",
+			javaType = "Timestamp",
+			categoryType = "Date",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "CURRENT_TIMESTAMP",
+			extra = "",
+			length = 0,
+			getMethod = "getInsertTime",
+			setMethod = "setInsertTime"
+	)
+	private Timestamp insert_time;
+
 
 	public UssdEvents() {} 
 
@@ -117,6 +154,8 @@ public class UssdEvents {
 		this.event_date = rs.getDate( UssdEvents.Fields.event_date.name() );
 		this.transaction_id = rs.getString( UssdEvents.Fields.transaction_id.name() );
 		this.event_data = rs.getString( UssdEvents.Fields.event_data.name() );
+		this.id = rs.getInt( UssdEvents.Fields.id.name() );
+		this.insert_time = rs.getTimestamp( UssdEvents.Fields.insert_time.name() );
 
 	}
 
@@ -127,6 +166,8 @@ public class UssdEvents {
 		this.event_date = Format.getMysqlDateTime( jo.getString( UssdEvents.Fields.event_date.name() ) );
 		this.transaction_id = jo.getString( UssdEvents.Fields.transaction_id.name() );
 		this.event_data = jo.getString( UssdEvents.Fields.event_data.name() );
+		this.id = (int)jo.getInt( UssdEvents.Fields.id.name() );
+		this.insert_time = new Timestamp( Format.getMysqlDateTime( jo.getString( UssdEvents.Fields.insert_time.name() ) ).getTime() );
 
 	}
 
@@ -190,6 +231,30 @@ public class UssdEvents {
 
 	}
 
+	public Integer getId() {
+
+		return this.id;
+
+	}
+
+	public void setId( Integer id ) {
+
+		this.id = id;
+
+	}
+
+	public Timestamp getInsertTime() {
+
+		return this.insert_time;
+
+	}
+
+	public void setInsertTime( Timestamp insert_time ) {
+
+		this.insert_time = insert_time;
+
+	}
+
 	public Fields[] getEntityFields() {
 
 		return UssdEvents.Fields.values();
@@ -205,7 +270,9 @@ public class UssdEvents {
 			.append( "\"msisdn\": \"" ).append( this.getMsisdn() ).append( "\", " )
 			.append( "\"event_date\": \"" ).append( this.getEventDate() ).append( "\", " )
 			.append( "\"transaction_id\": \"" ).append( this.getTransactionId() ).append( "\", " )
-			.append( "\"event_data\": \"" ).append( this.getEventData() ).append( "\"" )
+			.append( "\"event_data\": \"" ).append( this.getEventData() ).append( "\", " )
+			.append( "\"id\": \"" ).append( this.getId() ).append( "\", " )
+			.append( "\"insert_time\": \"" ).append( this.getInsertTime() ).append( "\"" )
 			.append( " }" );
 
 		return str.toString();

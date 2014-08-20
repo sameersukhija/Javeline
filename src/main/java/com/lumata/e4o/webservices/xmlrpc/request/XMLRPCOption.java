@@ -12,7 +12,7 @@ public class XMLRPCOption {
 	
 	private static final Logger logger = LoggerFactory.getLogger( XMLRPCOption.class );
 	
-	public enum XMLRPCOptionType { sleep, repeat, average, storeResource, storeFile }
+	public enum XMLRPCOptionType { sleep, repeat, average, storeRequestAsResource, storeResponseAsResource, storeRequestAsFile, storeResponseAsFile  }
 	
 	Object value;
 	
@@ -83,20 +83,36 @@ public class XMLRPCOption {
 		return new XMLRPCOption( XMLRPCOptionType.average, startSample, endSample );
 		
 	}	
+
+	public static XMLRPCOption storeRequestAsResource( String folderName, String fileName ) throws XMLRPCException {
+		
+		logger.debug( Log.SAVED.createMessage( "option " + XMLRPCOptionType.storeRequestAsResource.name() ) );
+				
+		return new XMLRPCOption( XMLRPCOptionType.storeRequestAsResource, folderName, fileName );
+		
+	}
 	
 	public static XMLRPCOption storeResponseAsResource( String folderName, String fileName ) throws XMLRPCException {
 						
-		logger.debug( Log.SAVED.createMessage( "option " + XMLRPCOptionType.storeResource.name() ) );
+		logger.debug( Log.SAVED.createMessage( "option " + XMLRPCOptionType.storeResponseAsResource.name() ) );
 				
-		return new XMLRPCOption( XMLRPCOptionType.storeResource, folderName, fileName );
+		return new XMLRPCOption( XMLRPCOptionType.storeResponseAsResource, folderName, fileName );
+		
+	}
+
+	public static XMLRPCOption storeRequestAsFile( String folderName, String fileName ) throws XMLRPCException {
+		
+		logger.debug( Log.SAVED.createMessage( "option " + XMLRPCOptionType.storeRequestAsFile.name() ) );
+				
+		return new XMLRPCOption( XMLRPCOptionType.storeRequestAsFile, folderName, fileName );
 		
 	}
 	
 	public static XMLRPCOption storeResponseAsFile( String folderName, String fileName ) throws XMLRPCException {
 		
-		logger.debug( Log.SAVED.createMessage( "option " + XMLRPCOptionType.storeFile.name() ) );
+		logger.debug( Log.SAVED.createMessage( "option " + XMLRPCOptionType.storeResponseAsFile.name() ) );
 				
-		return new XMLRPCOption( XMLRPCOptionType.storeFile, folderName, fileName );
+		return new XMLRPCOption( XMLRPCOptionType.storeResponseAsFile, folderName, fileName );
 		
 	}
 	

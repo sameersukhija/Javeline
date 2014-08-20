@@ -20,7 +20,7 @@ public class StatsRangeCustom {
 	@Column(
 			table = "stats_range_custom",
 			field = "msisdn",
-			type = "bigint(20)",
+			type = "bigint(20) unsigned",
 			mysqlType = "bigint",
 			javaType = "Long",
 			categoryType = "Number",

@@ -21,6 +21,7 @@ public class XMLRPCRequest {
 	private static final Logger logger = LoggerFactory.getLogger( XMLRPCRequest.class );
 		
 	private String callName;
+	private String request;
 	private XMLRPCResponse response;
 	private XMLRPCResponseValidator[] validators;
 	private Integer repeat;
@@ -31,14 +32,20 @@ public class XMLRPCRequest {
 	private Long startTime;
 	private Long endTime;
 	private Long expiredTime;
-	private String folderName;
-	private String fileName;
-	private IOFileUtils.IOLoadingType loadingType;
+	private String requestFolderName;
+	private String requestFileName;
+	private String responseFolderName;
+	private String responseFileName;
+	private IOFileUtils.IOLoadingType requestLoadingType;
+	private IOFileUtils.IOLoadingType responseLoadingType;
+	private Boolean storeRequest;
+	private Boolean storeResponse;
 	
 	private final String ASSERTION_ERROR_ = "expected ${tag} ${expected} but found ${tag} ${actual}";
 	
 	XMLRPCRequest( String callName ) {
 		this.callName = callName;
+		this.request = null;
 		this.response = null;
 		this.validators = null;
 		this.repeat = 1;
@@ -47,6 +54,9 @@ public class XMLRPCRequest {
 		this.startTime = null;
 		this.endTime = null;
 		this.expiredTime = null;
+		this.storeRequest = false;
+		this.storeResponse = false;
+		
 	}
 	
 	public static XMLRPCRequest badgemanager_getBadgeList() {
@@ -272,7 +282,7 @@ public class XMLRPCRequest {
 		String url = server.getLink() + "xmlrpc/";
 		
 		RestClient restClient = new RestClient( url );
-		
+				
 		parseComponents( restClient, xmlrpcComponents );
 		
 		for( int r = 1; r <= repeat; r++ ) {
@@ -280,6 +290,8 @@ public class XMLRPCRequest {
 			startTime = System.currentTimeMillis();
 			
 			response.setResponse( restClient.post() );
+			
+			request = restClient.getRequest().getBody().toString();
 			
 			endTime = System.currentTimeMillis();
 			
@@ -311,11 +323,9 @@ public class XMLRPCRequest {
 			
 		}
 		
-		if( null != loadingType ) { 
-			
-			storeFile(); 
+		if( storeRequest ) { storeRequestFile(); }
 		
-		}
+		if( storeResponse ) { storeResponseFile(); }
 		
 		return response;
 		
@@ -417,24 +427,54 @@ public class XMLRPCRequest {
 						break;
 					
 					}
-					case storeResource: {
+					case storeRequestAsResource: {
 						
-						folderName = (String)option.getOptionValues()[ 0 ];
+						requestFolderName = (String)option.getOptionValues()[ 0 ];
 						
-						fileName = (String)option.getOptionValues()[ 1 ];
+						requestFileName = (String)option.getOptionValues()[ 1 ];
 						
-						loadingType = IOFileUtils.IOLoadingType.RESOURCE;
+						requestLoadingType = IOFileUtils.IOLoadingType.RESOURCE;
+						
+						storeRequest = true;
 						
 						break;
 					
 					}
-					case storeFile: {
+					case storeResponseAsResource: {
 						
-						folderName = (String)option.getOptionValues()[ 0 ];
+						responseFolderName = (String)option.getOptionValues()[ 0 ];
 						
-						fileName = (String)option.getOptionValues()[ 1 ];
+						responseFileName = (String)option.getOptionValues()[ 1 ];
 						
-						loadingType = IOFileUtils.IOLoadingType.FILE;
+						responseLoadingType = IOFileUtils.IOLoadingType.RESOURCE;
+						
+						storeResponse = true;
+						
+						break;
+					
+					}
+					case storeRequestAsFile: {
+						
+						requestFolderName = (String)option.getOptionValues()[ 0 ];
+						
+						requestFileName = (String)option.getOptionValues()[ 1 ];
+						
+						requestLoadingType = IOFileUtils.IOLoadingType.FILE;
+						
+						storeRequest = true;
+						
+						break;
+					
+					}
+					case storeResponseAsFile: {
+						
+						responseFolderName = (String)option.getOptionValues()[ 0 ];
+						
+						responseFileName = (String)option.getOptionValues()[ 1 ];
+						
+						responseLoadingType = IOFileUtils.IOLoadingType.FILE;
+						
+						storeResponse = true;
 						
 						break;
 					
@@ -540,22 +580,52 @@ public class XMLRPCRequest {
 		
 	}
 	
-	private void storeFile() {
+	private void storeRequestFile() {
 		
 		try {
 		
-			switch( loadingType ) {
+			switch( requestLoadingType ) {
 		
 				case RESOURCE: {
 					
-					IOFileUtils.saveResource( response.getResponse().getEntity().toString(), folderName, fileName );
+					IOFileUtils.saveResource( request, requestFolderName, requestFileName );
 					
 					break;
 					
 				}
 				case FILE: {
 					
-					IOFileUtils.saveFile( response.getResponse().getEntity().toString(), folderName, fileName );
+					IOFileUtils.saveFile( request, requestFolderName, requestFileName );
+					
+					break;
+					
+				}
+			}
+			
+		} catch (IOFileException e) {
+			
+			logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+			
+		}
+				
+	}
+	
+	private void storeResponseFile() {
+		
+		try {
+		
+			switch( responseLoadingType ) {
+		
+				case RESOURCE: {
+					
+					IOFileUtils.saveResource( response.getResponse().getEntity().toString(), responseFolderName, responseFileName );
+					
+					break;
+					
+				}
+				case FILE: {
+					
+					IOFileUtils.saveFile( response.getResponse().getEntity().toString(), responseFolderName, responseFileName );
 					
 					break;
 					

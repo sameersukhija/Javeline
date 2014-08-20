@@ -20,7 +20,7 @@ public class SubsBadges {
 	@Column(
 			table = "subs_badges",
 			field = "msisdn",
-			type = "bigint(20)",
+			type = "bigint(20) unsigned",
 			mysqlType = "bigint",
 			javaType = "Long",
 			categoryType = "Number",

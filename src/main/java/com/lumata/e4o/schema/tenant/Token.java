@@ -152,7 +152,7 @@ public class Token {
 			categoryType = "Date",
 			isNull = false,
 			isAutoincrement = false,
-			key = "",
+			key = "MUL",
 			defaultValue = "null",
 			extra = "",
 			length = 0,
