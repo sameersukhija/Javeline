@@ -6,6 +6,7 @@ import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.sleep;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeResponseAsResource;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.arrayInt;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.authentication;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.custoEvent;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.string;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.parameter;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType.*;
@@ -25,10 +26,10 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.e4o.generators.common.Generator;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCTokenList;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCTokenList.Token;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.EventType;
 
 /**
  *	This class contains tests for O2 custom reporter testing
@@ -102,29 +103,46 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 		
 		Reporter.log( "Generate "+tokens2BeGenerated+" tokens for subscriber "+ msisdn , PRINT2STDOUT__);
 
-		String local_msisdn = msisdn;
+//		String local_msisdn = msisdn;
 		
 		final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		Calendar today = Calendar.getInstance(); 
 		
 		for( int i = 0; i < tokens2BeGenerated; i++ ) {
 
-			Generator.subscribers()
-						.server( gui )
-						.user( user )
-						.msisdnFixed( Long.parseLong(local_msisdn) )
-						.xmlrpcRecharge( 	1L, 
-											parameter( recharge, true ), 
-											parameter( event_time, sdf.format( today.getTime() ) ) 
-										);			
-
-			try {
+			XMLRPCRequest.eventmanager_generateCustomEvent().call( 	
+					gui, 
+					xmlrpcBody(
+						authentication( user ),
+						custoEvent( Long.parseLong(msisdn), 
+									EventType.revenue,
+									parameter( recharge, Boolean.TRUE ),
+									parameter( event_time, sdf.format( today.getTime() ) )
+						)
+					),
+					xmlrpcOptions( 
+						sleep( 2000L ),
+						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_generateCustomEvent_"+i+".xml" )	
+					)
+			);	
 			
-				Thread.sleep( 2_000 );
+//			Generator.subscribers()
+//						.server( gui )
+//						.user( user )
+//						.msisdnFixed( Long.parseLong(local_msisdn) )
+//						.xmlrpcRecharge( 	1L, 
+//											parameter( recharge, true ), 
+//											parameter( event_time, sdf.format( today.getTime() ) ) 
+//										);			
+//
+//			try {
+//			
+//				Thread.sleep( 2_000 );
+//			
+//			} catch(  InterruptedException e ) {
+//				Assert.fail("General error on Java VM!");			  
+//			}
 			
-			} catch(  InterruptedException e ) {
-				Assert.fail("General error on Java VM!");			  
-			}
 		}				
 	}	
 
@@ -226,6 +244,36 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 			);		
 		}
 	}	
+	
+	@Test( dependsOnMethods={"getTokensList"} )
+	@Parameters({"msisdn"})
+	public void refuseAllToken(@Optional("393492135019") String msisdn) throws Exception {
+
+		Reporter.log( "###############", PRINT2STDOUT__);		
+		Reporter.log( "##### The subscriber "+ msisdn +" has " + currentAllocatedTokens.size() + " allocted tokens.", PRINT2STDOUT__);
+		Reporter.log( "##### Tokens ready to be purchased : " + currentAllocatedTokens, PRINT2STDOUT__);
+		Reporter.log( "##### Refuse all tokens", PRINT2STDOUT__);
+		Reporter.log( "###############", PRINT2STDOUT__);
+		
+		for (String code : currentAllocatedTokens) {
+			
+			Reporter.log( "##### Token code -> " + code, PRINT2STDOUT__);
+			
+			XMLRPCRequest.offeroptimizer_refuseAll().call( 	
+					gui, 
+					xmlrpcBody(
+						authentication( user ),
+						string( msisdn ),
+						string( code ),
+						string( "my_sofa" )
+					),
+					xmlrpcOptions(
+							sleep( 1000L ),
+							storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_refuseAll_"+code+".xml" )	
+					)
+				);					
+		}
+	}
 	
 	/**
 	 * 
