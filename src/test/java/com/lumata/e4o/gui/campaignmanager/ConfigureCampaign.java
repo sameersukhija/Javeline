@@ -26,7 +26,6 @@ import com.lumata.e4o.exceptions.CampaignException;
 import com.lumata.e4o.exceptions.CommoditiesException;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.security.Authorization;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCampaign_;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaigns;
 
 public class ConfigureCampaign {

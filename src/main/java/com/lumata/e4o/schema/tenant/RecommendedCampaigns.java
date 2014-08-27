@@ -20,7 +20,7 @@ public class RecommendedCampaigns {
 	@Column(
 			table = "recommended_campaigns",
 			field = "msisdn",
-			type = "bigint(20)",
+			type = "bigint(20) unsigned",
 			mysqlType = "bigint",
 			javaType = "Long",
 			categoryType = "Number",

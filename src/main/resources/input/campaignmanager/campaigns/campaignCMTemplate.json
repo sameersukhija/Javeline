@@ -11,11 +11,11 @@
 			"scheduling": {
 				"typeOfRecurrence": "Single",
 				"singleRecurrence": {
-					"executionStart": "2014-05-01",
-					"executionEndType": "Relative",
-					"executionEndValue": "1",
-					"provisioningStart": "2014-05-01",
-					"provisioningEnd": "2014-05-01",
+					"executionStart": "2015-05-01",
+					"executionEndType": "Absolute",
+					"executionEndValue": "2015-06-02",
+					"provisioningStart": "2015-05-01",
+					"provisioningEnd": "2015-05-31",
 					"daysBetweenProvisioningAndExecutionStartDates": "2"
 				},
 				"multipleRecurrence": {

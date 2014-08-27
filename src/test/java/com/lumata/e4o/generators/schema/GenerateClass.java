@@ -8,29 +8,32 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.DataModelException;
-import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
+import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.generators.ClassGenerator;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.system.NetworkEnvironment;
 
 
 public class GenerateClass {
 
 	private static final Logger logger = LoggerFactory.getLogger( GenerateClass.class );
 	
-	Environment env;
+	//Environment env;
+	NetworkEnvironment env;
 	ClassGenerator generatorDAO;
 	
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment"})
 	@BeforeSuite
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment ) throws EnvironmentException {		
+	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment ) throws NetworkEnvironmentException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
-		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		//env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		
+		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
 		generatorDAO = new ClassGenerator();
 						
@@ -42,7 +45,7 @@ public class GenerateClass {
 		
 		logger.info( Log.PUTTING.createMessage( "createDAO" , "Create DAO Classes" ) );
 				
-		generatorDAO.createDAO( env, "tenant", "com.lumata.e4o.schema.tenant" );
+		generatorDAO.createDAO( env, "dm", "com.lumata.e4o.schema.dialogmanager" );
 				
 	}		
 	

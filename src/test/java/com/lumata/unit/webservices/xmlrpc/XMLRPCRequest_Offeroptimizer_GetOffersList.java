@@ -40,7 +40,7 @@ public class XMLRPCRequest_Offeroptimizer_GetOffersList {
 	public void callXMLRPCCRequest() throws Exception {
 		
 		final String msisdn = "3399900001";
-		final String tokenCode = "sl-019df";
+		final String tokenCode = "gl-1898c";
 		
 		XMLRPCRequest.offeroptimizer_getOffersList().call( 	
 			actruleServer, 
@@ -50,6 +50,7 @@ public class XMLRPCRequest_Offeroptimizer_GetOffersList {
 				string( tokenCode )
 			),
 			xmlrpcOptions(
+				storeRequestAsResource( "xmlrpc/request/", "request.xml" ),	
 				storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
 			)
 		);

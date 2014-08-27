@@ -1,6 +1,9 @@
 package com.lumata.e4o.gui.common;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +43,26 @@ public abstract class Form {
 		this.timeout = timeout;
 		this.interval = interval;
 	
+	}
+	
+	public Calendar getDate( String dateStr ) {
+		
+		Calendar date = Calendar.getInstance();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
+	    
+		try {
+			
+			date.setTime( sdf.parse( dateStr ) );
+		
+		} catch ( ParseException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return date;
+		
 	}
 	
 	public long getTimeout() {
@@ -460,7 +483,9 @@ public abstract class Form {
 	private Form type( SeleniumUtils.SearchBy by, String tag, String text ) throws FormException {
 		
 		lastWebElement = search( by, tag );
-			
+		
+		lastWebElement.clear();
+		
 		lastWebElement.sendKeys(text);
 			
 		return this;

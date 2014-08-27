@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "overall_account" )
 public class OverallAccount { 
 
-	public enum Fields { agg_date, period, profile_id, rate_plan_id, status_id, network_id, arpu_id, seniority_id, ucg, sum_invoice, sum_amount_invoice, sum_payment, sum_amount_payment, qty_msisdn }
+	public enum Fields { agg_date, period, profile_id, rate_plan_id, status_id, network_id, arpu_id, seniority_id, ucg, qty_msisdn }
 
 	@Column(
 			table = "overall_account",
@@ -181,78 +181,6 @@ public class OverallAccount {
 
 	@Column(
 			table = "overall_account",
-			field = "sum_invoice",
-			type = "float",
-			mysqlType = "float",
-			javaType = "Float",
-			categoryType = "Number",
-			isNull = false,
-			isAutoincrement = false,
-			key = "",
-			defaultValue = "null",
-			extra = "",
-			length = 4,
-			getMethod = "getSumInvoice",
-			setMethod = "setSumInvoice"
-	)
-	private Float sum_invoice;
-
-	@Column(
-			table = "overall_account",
-			field = "sum_amount_invoice",
-			type = "float",
-			mysqlType = "float",
-			javaType = "Float",
-			categoryType = "Number",
-			isNull = false,
-			isAutoincrement = false,
-			key = "",
-			defaultValue = "null",
-			extra = "",
-			length = 4,
-			getMethod = "getSumAmountInvoice",
-			setMethod = "setSumAmountInvoice"
-	)
-	private Float sum_amount_invoice;
-
-	@Column(
-			table = "overall_account",
-			field = "sum_payment",
-			type = "float",
-			mysqlType = "float",
-			javaType = "Float",
-			categoryType = "Number",
-			isNull = false,
-			isAutoincrement = false,
-			key = "",
-			defaultValue = "null",
-			extra = "",
-			length = 4,
-			getMethod = "getSumPayment",
-			setMethod = "setSumPayment"
-	)
-	private Float sum_payment;
-
-	@Column(
-			table = "overall_account",
-			field = "sum_amount_payment",
-			type = "float",
-			mysqlType = "float",
-			javaType = "Float",
-			categoryType = "Number",
-			isNull = false,
-			isAutoincrement = false,
-			key = "",
-			defaultValue = "null",
-			extra = "",
-			length = 4,
-			getMethod = "getSumAmountPayment",
-			setMethod = "setSumAmountPayment"
-	)
-	private Float sum_amount_payment;
-
-	@Column(
-			table = "overall_account",
 			field = "qty_msisdn",
 			type = "int(11)",
 			mysqlType = "int",
@@ -283,10 +211,6 @@ public class OverallAccount {
 		this.arpu_id = rs.getByte( OverallAccount.Fields.arpu_id.name() );
 		this.seniority_id = rs.getByte( OverallAccount.Fields.seniority_id.name() );
 		this.ucg = rs.getByte( OverallAccount.Fields.ucg.name() );
-		this.sum_invoice = rs.getFloat( OverallAccount.Fields.sum_invoice.name() );
-		this.sum_amount_invoice = rs.getFloat( OverallAccount.Fields.sum_amount_invoice.name() );
-		this.sum_payment = rs.getFloat( OverallAccount.Fields.sum_payment.name() );
-		this.sum_amount_payment = rs.getFloat( OverallAccount.Fields.sum_amount_payment.name() );
 		this.qty_msisdn = rs.getInt( OverallAccount.Fields.qty_msisdn.name() );
 
 	}
@@ -302,10 +226,6 @@ public class OverallAccount {
 		this.arpu_id = (byte)jo.getInt( OverallAccount.Fields.arpu_id.name() );
 		this.seniority_id = (byte)jo.getInt( OverallAccount.Fields.seniority_id.name() );
 		this.ucg = (byte)jo.getInt( OverallAccount.Fields.ucg.name() );
-		this.sum_invoice = (float)jo.getDouble( OverallAccount.Fields.sum_invoice.name() );
-		this.sum_amount_invoice = (float)jo.getDouble( OverallAccount.Fields.sum_amount_invoice.name() );
-		this.sum_payment = (float)jo.getDouble( OverallAccount.Fields.sum_payment.name() );
-		this.sum_amount_payment = (float)jo.getDouble( OverallAccount.Fields.sum_amount_payment.name() );
 		this.qty_msisdn = (int)jo.getInt( OverallAccount.Fields.qty_msisdn.name() );
 
 	}
@@ -418,54 +338,6 @@ public class OverallAccount {
 
 	}
 
-	public Float getSumInvoice() {
-
-		return this.sum_invoice;
-
-	}
-
-	public void setSumInvoice( Float sum_invoice ) {
-
-		this.sum_invoice = sum_invoice;
-
-	}
-
-	public Float getSumAmountInvoice() {
-
-		return this.sum_amount_invoice;
-
-	}
-
-	public void setSumAmountInvoice( Float sum_amount_invoice ) {
-
-		this.sum_amount_invoice = sum_amount_invoice;
-
-	}
-
-	public Float getSumPayment() {
-
-		return this.sum_payment;
-
-	}
-
-	public void setSumPayment( Float sum_payment ) {
-
-		this.sum_payment = sum_payment;
-
-	}
-
-	public Float getSumAmountPayment() {
-
-		return this.sum_amount_payment;
-
-	}
-
-	public void setSumAmountPayment( Float sum_amount_payment ) {
-
-		this.sum_amount_payment = sum_amount_payment;
-
-	}
-
 	public Integer getQtyMsisdn() {
 
 		return this.qty_msisdn;
@@ -498,10 +370,6 @@ public class OverallAccount {
 			.append( "\"arpu_id\": \"" ).append( this.getArpuId() ).append( "\", " )
 			.append( "\"seniority_id\": \"" ).append( this.getSeniorityId() ).append( "\", " )
 			.append( "\"ucg\": \"" ).append( this.getUcg() ).append( "\", " )
-			.append( "\"sum_invoice\": \"" ).append( this.getSumInvoice() ).append( "\", " )
-			.append( "\"sum_amount_invoice\": \"" ).append( this.getSumAmountInvoice() ).append( "\", " )
-			.append( "\"sum_payment\": \"" ).append( this.getSumPayment() ).append( "\", " )
-			.append( "\"sum_amount_payment\": \"" ).append( this.getSumAmountPayment() ).append( "\", " )
 			.append( "\"qty_msisdn\": \"" ).append( this.getQtyMsisdn() ).append( "\"" )
 			.append( " }" );
 
