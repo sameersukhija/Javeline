@@ -28,6 +28,7 @@ public class XMLRPCRequest {
 	private ArrayList<Long> samples;
 	private Integer leftSample;
 	private Integer rightSample;
+	private Long sleep;
 	private Long average;
 	private Long startTime;
 	private Long endTime;
@@ -50,6 +51,7 @@ public class XMLRPCRequest {
 		this.validators = null;
 		this.repeat = 1;
 		this.samples = null;
+		this.sleep = 0L;
 		this.average = null;
 		this.startTime = null;
 		this.endTime = null;
@@ -287,6 +289,8 @@ public class XMLRPCRequest {
 		
 		for( int r = 1; r <= repeat; r++ ) {
 			
+			sleep( sleep );
+			
 			startTime = System.currentTimeMillis();
 			
 			response.setResponse( restClient.post() );
@@ -402,8 +406,8 @@ public class XMLRPCRequest {
 				
 					case sleep: {
 						
-						sleep( (Long)option.getOptionValue() );
-						
+						sleep = (Long)option.getOptionValue();
+												
 						break;
 					
 					}
