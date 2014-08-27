@@ -50,6 +50,23 @@
 			"options": {
 				"TOKEN_TYPE_AUTOINCREMENT": true	
 			}
+		},
+		{
+			"enabled": true,
+			"name":"TokenD",
+			"description":"TokenD",
+			"imageUrl":"http://i-neti.ru/sites/default/files/blogimages/test_icon.jpg",
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityUnit":"days",
+			"validity":"100",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
 		}
 	]
 }

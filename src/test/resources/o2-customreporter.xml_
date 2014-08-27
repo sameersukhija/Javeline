@@ -21,7 +21,7 @@
   <!-- 
     Parameters Section 
   -->
-  <parameter name="tokens2BeGenerated" value="50"/>
+  <parameter name="tokens2BeGenerated" value="500"/>
   <parameter name="msisdn" value="393492135019"/>
   <parameter name="offerIds" value="1002;1003"/>
   <!-- 
@@ -41,8 +41,24 @@
       <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
         <methods>
           <include name="generateTokens"/>
+        </methods>
+      </class>
+    </classes>
+  </test>        
+  <test name="Core XMLRPC - Allocate Tokens">
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>    
           <include name="getTokensList"/>
           <include name="allocateToken"/>
+        </methods>
+      </class>
+    </classes>
+  </test>          
+  <test name="Core XMLRPC - Accept Tokens">
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>      
           <include name="getTokensList"/>
           <include name="acceptToken"/> 
         </methods>
