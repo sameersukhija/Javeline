@@ -79,16 +79,16 @@
          "user":"system",
          "password":"bHhsa2Jy"
       },
-    "dm": {
-      "hostName": "dm",
-      "hostAddress": "10.120.44.28",
-      "hostPort": "3310",
-      "maxActive": 100,
-      "maxIdle": 30,
-      "maxWait": 10000,
-      "user": "tech_product",
-      "password": "cmdISnJjdQ=="
-    }
+	"dm": {
+	  "hostName": "dialog_manager",
+	  "hostAddress": "10.120.44.28",
+	  "hostPort": "3310",
+	  "maxActive": 100,
+	  "maxIdle": 30,
+	  "maxWait": 10000,
+	  "user": "tech_product",
+	  "password": "cmdISnJjdQ=="
+	}
   },
   "services": {
     "ssh": {
