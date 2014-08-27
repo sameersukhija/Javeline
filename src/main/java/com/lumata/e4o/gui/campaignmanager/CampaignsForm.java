@@ -1,5 +1,7 @@
 package com.lumata.e4o.gui.campaignmanager;
 
+import java.util.Calendar;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.slf4j.Logger;
@@ -7,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.common.GWTCalendarForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaigns;
 
 public class CampaignsForm extends CampaignManagerForm {
@@ -27,6 +30,10 @@ public class CampaignsForm extends CampaignManagerForm {
 
 	private enum SchedulingType {
 		Single, Multiple
+	}
+	
+	private enum SchedulingExecutionEndType {
+		Relative, Absolute
 	}
 	
 	private enum SchedulingMultipleRecurrencePattern {
@@ -174,11 +181,23 @@ public class CampaignsForm extends CampaignManagerForm {
 		String campaignSchedulingSingleProvisioningEndXPath = "//td[@class='headers' and text()='Provisioning End']/parent::tr//input";
 		String campaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates = "//td[@class='headers' and text()='Days between provisioning and execution start dates']/parent::tr//input";
 				
-		typeByXPath( campaignSchedulingSingleExecutionStartXPath, campaignCfg.schedulingSingleExecutionStart() ).
-		selectByXPathAndVisibleText( campaignSchedulingSingleExecutionEndTypeXPath, campaignCfg.schedulingSingleExecutionEndType() ).
-		typeByXPath( campaignSchedulingSingleExecutionEndValueXPath, campaignCfg.schedulingSingleExecutionEndValue() ).
-		typeByXPath( campaignSchedulingSingleProvisioningStartXPath, campaignCfg.schedulingSingleProvisioningStart() ).
-		typeByXPath( campaignSchedulingSingleProvisioningEndXPath, campaignCfg.schedulingSingleProvisioningEnd() ).
+		configureGWTCalendarByXPath( campaignSchedulingSingleExecutionStartXPath, getDate( campaignCfg.schedulingSingleExecutionStart() ) ).
+		selectByXPathAndVisibleText( campaignSchedulingSingleExecutionEndTypeXPath, campaignCfg.schedulingSingleExecutionEndType() );
+		
+		switch( SchedulingExecutionEndType.valueOf( campaignCfg.schedulingSingleExecutionEndType() ) ) {
+		
+			case Relative: {
+				typeByXPath( campaignSchedulingSingleExecutionEndValueXPath, campaignCfg.schedulingSingleExecutionEndValue() );				
+				break;
+			}
+			case Absolute: {
+				configureGWTCalendarByXPath( campaignSchedulingSingleExecutionEndValueXPath, getDate( campaignCfg.schedulingSingleExecutionEndValue() ) );
+				break;
+			}
+		}
+
+		configureGWTCalendarByXPath( campaignSchedulingSingleProvisioningEndXPath, getDate( campaignCfg.schedulingSingleProvisioningEnd() ) ).
+		configureGWTCalendarByXPath( campaignSchedulingSingleProvisioningStartXPath, getDate( campaignCfg.schedulingSingleProvisioningStart() ) ).
 		typeByXPath( campaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates, campaignCfg.schedulingSingleDaysBetweenProvisioningAndStartDates() );
 		
 		return this;
@@ -279,6 +298,17 @@ public class CampaignsForm extends CampaignManagerForm {
 		
 	}
 	
+	public CampaignsForm configureGWTCalendarByXPath( String xpath, Calendar date ) throws FormException, JSONException {
+		
+		GWTCalendarForm.
+			create( selenium, timeout, interval ).
+			openByXPath( xpath ).
+			setDate( date );
+		
+		return this;
+		
+	}
+	
 	private String getWizardTabXPath( WizardTab wizardTab ) {
 		
 		String wizardDefinitionTabXPath = "//div[contains(@class, 'gwt-Hyperlink') and contains(@class, 'selectableSC')]/a[text()='" + wizardTab.name() + "']";
@@ -286,6 +316,7 @@ public class CampaignsForm extends CampaignManagerForm {
 		return wizardDefinitionTabXPath;
 		
 	}
+	
 	
 	
 	/*

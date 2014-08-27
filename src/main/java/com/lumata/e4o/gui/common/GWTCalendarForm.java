@@ -13,14 +13,13 @@ public class GWTCalendarForm extends Form {
 	private static final Logger logger = LoggerFactory.getLogger( GWTCalendarForm.class );
 	
 	private final String CALENDAR_FORM_XPATH_ = "//table[@class='gwt-DatePicker']";
-	private final String CALENDAR_FORM_MONTH_YEAR_XPATH_ = CALENDAR_FORM_XPATH_ + "//button[@class='btn btn-block']";
-	private final String CALENDAR_FORM_DAY_XPATH_ = CALENDAR_FORM_XPATH_ + "//button[@class='btn btn-info']";
+	private final String CALENDAR_FORM_MONTH_YEAR_XPATH_ = CALENDAR_FORM_XPATH_ + "//td[@class='datePickerMonth']";
+	private final String CALENDAR_FORM_DAY_XPATH_ = CALENDAR_FORM_XPATH_ + "//td[contains(@class, 'datePickerDayIsValue')]";
 	
-	private final String CALENDAR_FORM_MONTH_SELECTION_XPATH_ = CALENDAR_FORM_XPATH_ + "//span[text()='${month}']/parent::button";
 	private final String CALENDAR_FORM_DAY_SELECTION_XPATH_ = CALENDAR_FORM_XPATH_ + "//td[contains(@class,'datePickerDay') and text() = '${day}' ]";
 	
-	private final String CALENDAR_FORM_PULL_LEFT_XPATH_ = CALENDAR_FORM_XPATH_ + "//div[@class='datePickerPreviousButton datePickerPreviousButton-up']";
-	private final String CALENDAR_FORM_PULL_RIGHT_XPATH_ = CALENDAR_FORM_XPATH_ + "//div[@class='datePickerPreviousButton datePickerNextButton-up']";
+	private final String CALENDAR_FORM_PULL_LEFT_XPATH_ = CALENDAR_FORM_XPATH_ + "//div[contains(@class, 'datePickerPreviousButton')]";
+	private final String CALENDAR_FORM_PULL_RIGHT_XPATH_ = CALENDAR_FORM_XPATH_ + "//div[contains(@class, 'datePickerNextButton')]";
 	
 	private Calendar currDate;
 	
@@ -56,17 +55,17 @@ public class GWTCalendarForm extends Form {
 		
 	}
 	
-	public GWTCalendarForm( SeleniumWebDriver selenium, Calendar date, long timeout, long interval ) {
+	public GWTCalendarForm( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
 		super(selenium, timeout, interval);
 		
-		this.currDate = date;
+		this.currDate = Calendar.getInstance();
 		
 	}	
 
-	public static GWTCalendarForm create( SeleniumWebDriver selenium, Calendar date, long timeout, long interval ) {
+	public static GWTCalendarForm create( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
-		return new GWTCalendarForm( selenium, date, timeout, interval );
+		return new GWTCalendarForm( selenium, timeout, interval );
 		
 	}
 	
@@ -78,13 +77,20 @@ public class GWTCalendarForm extends Form {
 		
 	}
 	
+	public GWTCalendarForm openByXPath( String xpath ) throws FormException {
+		
+		clickXPath( xpath );
+		
+		return this;
+		
+	}
+	
 	public GWTCalendarForm setDate( Calendar date ) throws FormException {
 		
 		try {
 			
 			buildCurrDate().
-			setYear( date.get( Calendar.YEAR ) ).
-			setMonth( date.get( Calendar.MONTH ) ).
+			setMonthYear( date ).
 			setDay( date.get( Calendar.DATE ) );
 			
 		} catch ( FormException ne ) {
@@ -97,49 +103,33 @@ public class GWTCalendarForm extends Form {
 		
 	}	
 	
-	public GWTCalendarForm setYear( int year ) throws FormException {
+	public GWTCalendarForm setMonthYear( Calendar date ) throws FormException {
 		
-		int diffYear = year - currDate.get( Calendar.YEAR );
-		
-		if( 0 != diffYear ) {
+		int diffYears = date.get( Calendar.YEAR ) - currDate.get( Calendar.YEAR );
+	
+		int diffMonths = ( 12 * diffYears ) + ( date.get( Calendar.MONTH ) - currDate.get( Calendar.MONTH ) );
+	
+		if( 0 != diffMonths ) {
 			
-			clickXPath( CALENDAR_FORM_MONTH_YEAR_XPATH_ );
-			
-			if( diffYear > 0 ) {
+			if( diffMonths > 0 ) {
 				
-				increment( diffYear );
+				increment( diffMonths );
 				
 			} else {
 				
-				decrement( Math.abs( diffYear ) );
+				decrement( Math.abs( diffMonths ) );
 				
 			}
-			
-			clickXPath( CALENDAR_FORM_MONTH_YEAR_XPATH_ ).
-			clickXPath( CALENDAR_FORM_MONTH_YEAR_XPATH_ );
 						
 		}
 				
 		return this;
 		
 	}	
-	
-	public GWTCalendarForm setMonth( int month ) throws FormException {
-		
-		if( currDate.get( Calendar.MONTH ) != month ) {
-			
-			clickXPath( CALENDAR_FORM_MONTH_YEAR_XPATH_ ).
-			clickXPath( CALENDAR_FORM_MONTH_SELECTION_XPATH_.replace( "${month}", Month.values()[ month ].name() ) );
-		
-		}	
-			
-		return this;
-		
-	}	
-	
+
 	public GWTCalendarForm setDay( int day ) throws FormException {
 		
-		clickXPath( CALENDAR_FORM_DAY_SELECTION_XPATH_.replace( "${day}", String.format("%02d", day ) ) );
+		clickXPath( CALENDAR_FORM_DAY_SELECTION_XPATH_.replace( "${day}", String.format("%d", day ) ) );
 		
 		return this;
 		
@@ -153,9 +143,9 @@ public class GWTCalendarForm extends Form {
 			
 			if( currentMonthYear.length == 2 ) {
 				
-				currDate.set( Calendar.YEAR, Integer.valueOf( currentMonthYear[ 1 ] ) );
+				currDate.set( Calendar.YEAR, Integer.valueOf( currentMonthYear[ 0 ] ) );
 				
-				currDate.set( Calendar.MONTH, Month.valueOf( currentMonthYear[ 0 ] ).month() );
+				currDate.set( Calendar.MONTH, Month.valueOf( currentMonthYear[ 1 ] ).month() );
 								
 			} else {
 								

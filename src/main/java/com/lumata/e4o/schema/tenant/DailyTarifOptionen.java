@@ -13,13 +13,13 @@ import com.lumata.common.testing.validating.Format;
 import java.sql.Timestamp;
 
 
-@Table( "daily_account" )
-public class DailyAccount { 
+@Table( "daily_tarif_optionen" )
+public class DailyTarifOptionen { 
 
-	public enum Fields { msisdn, qty_rate_plan_id_change, qty_status_id_change, agg_date, update_time }
+	public enum Fields { msisdn, tarif_optionen, tarif_optionen_enabled, agg_date, update_time }
 
 	@Column(
-			table = "daily_account",
+			table = "daily_tarif_optionen",
 			field = "msisdn",
 			type = "bigint(20) unsigned",
 			mysqlType = "bigint",
@@ -37,43 +37,43 @@ public class DailyAccount {
 	private Long msisdn;
 
 	@Column(
-			table = "daily_account",
-			field = "qty_rate_plan_id_change",
-			type = "smallint(5) unsigned",
-			mysqlType = "smallint",
-			javaType = "Short",
+			table = "daily_tarif_optionen",
+			field = "tarif_optionen",
+			type = "bigint(20) unsigned",
+			mysqlType = "bigint",
+			javaType = "Long",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "PRI",
+			defaultValue = "null",
+			extra = "",
+			length = 20,
+			getMethod = "getTarifOptionen",
+			setMethod = "setTarifOptionen"
+	)
+	private Long tarif_optionen;
+
+	@Column(
+			table = "daily_tarif_optionen",
+			field = "tarif_optionen_enabled",
+			type = "tinyint(3) unsigned",
+			mysqlType = "tinyint",
+			javaType = "Byte",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
 			key = "",
 			defaultValue = "null",
 			extra = "",
-			length = 5,
-			getMethod = "getQtyRatePlanIdChange",
-			setMethod = "setQtyRatePlanIdChange"
+			length = 3,
+			getMethod = "getTarifOptionenEnabled",
+			setMethod = "setTarifOptionenEnabled"
 	)
-	private Short qty_rate_plan_id_change;
+	private Byte tarif_optionen_enabled;
 
 	@Column(
-			table = "daily_account",
-			field = "qty_status_id_change",
-			type = "smallint(5) unsigned",
-			mysqlType = "smallint",
-			javaType = "Short",
-			categoryType = "Number",
-			isNull = false,
-			isAutoincrement = false,
-			key = "",
-			defaultValue = "null",
-			extra = "",
-			length = 5,
-			getMethod = "getQtyStatusIdChange",
-			setMethod = "setQtyStatusIdChange"
-	)
-	private Short qty_status_id_change;
-
-	@Column(
-			table = "daily_account",
+			table = "daily_tarif_optionen",
 			field = "agg_date",
 			type = "date",
 			mysqlType = "date",
@@ -91,7 +91,7 @@ public class DailyAccount {
 	private Date agg_date;
 
 	@Column(
-			table = "daily_account",
+			table = "daily_tarif_optionen",
 			field = "update_time",
 			type = "timestamp",
 			mysqlType = "timestamp",
@@ -109,25 +109,25 @@ public class DailyAccount {
 	private Timestamp update_time;
 
 
-	public DailyAccount() {} 
+	public DailyTarifOptionen() {} 
 
-	public DailyAccount( ResultSet rs ) throws SQLException {
+	public DailyTarifOptionen( ResultSet rs ) throws SQLException {
 
-		this.msisdn = rs.getLong( DailyAccount.Fields.msisdn.name() );
-		this.qty_rate_plan_id_change = rs.getShort( DailyAccount.Fields.qty_rate_plan_id_change.name() );
-		this.qty_status_id_change = rs.getShort( DailyAccount.Fields.qty_status_id_change.name() );
-		this.agg_date = rs.getDate( DailyAccount.Fields.agg_date.name() );
-		this.update_time = rs.getTimestamp( DailyAccount.Fields.update_time.name() );
+		this.msisdn = rs.getLong( DailyTarifOptionen.Fields.msisdn.name() );
+		this.tarif_optionen = rs.getLong( DailyTarifOptionen.Fields.tarif_optionen.name() );
+		this.tarif_optionen_enabled = rs.getByte( DailyTarifOptionen.Fields.tarif_optionen_enabled.name() );
+		this.agg_date = rs.getDate( DailyTarifOptionen.Fields.agg_date.name() );
+		this.update_time = rs.getTimestamp( DailyTarifOptionen.Fields.update_time.name() );
 
 	}
 
-	public DailyAccount( JSONObject jo ) throws JSONException, ParseException {
+	public DailyTarifOptionen( JSONObject jo ) throws JSONException, ParseException {
 
-		this.msisdn = (long)jo.getLong( DailyAccount.Fields.msisdn.name() );
-		this.qty_rate_plan_id_change = (short)jo.getInt( DailyAccount.Fields.qty_rate_plan_id_change.name() );
-		this.qty_status_id_change = (short)jo.getInt( DailyAccount.Fields.qty_status_id_change.name() );
-		this.agg_date = Format.getMysqlDateTime( jo.getString( DailyAccount.Fields.agg_date.name() ) );
-		this.update_time = new Timestamp( Format.getMysqlDateTime( jo.getString( DailyAccount.Fields.update_time.name() ) ).getTime() );
+		this.msisdn = (long)jo.getLong( DailyTarifOptionen.Fields.msisdn.name() );
+		this.tarif_optionen = (long)jo.getLong( DailyTarifOptionen.Fields.tarif_optionen.name() );
+		this.tarif_optionen_enabled = (byte)jo.getInt( DailyTarifOptionen.Fields.tarif_optionen_enabled.name() );
+		this.agg_date = Format.getMysqlDateTime( jo.getString( DailyTarifOptionen.Fields.agg_date.name() ) );
+		this.update_time = new Timestamp( Format.getMysqlDateTime( jo.getString( DailyTarifOptionen.Fields.update_time.name() ) ).getTime() );
 
 	}
 
@@ -143,27 +143,27 @@ public class DailyAccount {
 
 	}
 
-	public Short getQtyRatePlanIdChange() {
+	public Long getTarifOptionen() {
 
-		return this.qty_rate_plan_id_change;
-
-	}
-
-	public void setQtyRatePlanIdChange( Short qty_rate_plan_id_change ) {
-
-		this.qty_rate_plan_id_change = qty_rate_plan_id_change;
+		return this.tarif_optionen;
 
 	}
 
-	public Short getQtyStatusIdChange() {
+	public void setTarifOptionen( Long tarif_optionen ) {
 
-		return this.qty_status_id_change;
+		this.tarif_optionen = tarif_optionen;
 
 	}
 
-	public void setQtyStatusIdChange( Short qty_status_id_change ) {
+	public Byte getTarifOptionenEnabled() {
 
-		this.qty_status_id_change = qty_status_id_change;
+		return this.tarif_optionen_enabled;
+
+	}
+
+	public void setTarifOptionenEnabled( Byte tarif_optionen_enabled ) {
+
+		this.tarif_optionen_enabled = tarif_optionen_enabled;
 
 	}
 
@@ -193,7 +193,7 @@ public class DailyAccount {
 
 	public Fields[] getEntityFields() {
 
-		return DailyAccount.Fields.values();
+		return DailyTarifOptionen.Fields.values();
 
 	}
 
@@ -203,8 +203,8 @@ public class DailyAccount {
 
 		str.append( "{ " )
 			.append( "\"msisdn\": \"" ).append( this.getMsisdn() ).append( "\", " )
-			.append( "\"qty_rate_plan_id_change\": \"" ).append( this.getQtyRatePlanIdChange() ).append( "\", " )
-			.append( "\"qty_status_id_change\": \"" ).append( this.getQtyStatusIdChange() ).append( "\", " )
+			.append( "\"tarif_optionen\": \"" ).append( this.getTarifOptionen() ).append( "\", " )
+			.append( "\"tarif_optionen_enabled\": \"" ).append( this.getTarifOptionenEnabled() ).append( "\", " )
 			.append( "\"agg_date\": \"" ).append( this.getAggDate() ).append( "\", " )
 			.append( "\"update_time\": \"" ).append( this.getUpdateTime() ).append( "\"" )
 			.append( " }" );
