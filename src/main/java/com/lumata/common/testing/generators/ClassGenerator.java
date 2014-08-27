@@ -13,7 +13,7 @@ import com.lumata.common.testing.exceptions.DataModelException;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.model.DataModel;
-import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.system.NetworkEnvironment;
 
 
 public class ClassGenerator {
@@ -101,11 +101,11 @@ public class ClassGenerator {
 	
 	public ClassGenerator() {}
 	
-	public void createDAO( Environment env, String db_name, String package_path ) throws DataModelException, IOFileException {
+	public void createDAO( NetworkEnvironment env, String db_name, String package_path ) throws DataModelException, IOFileException {
 		
 		logger.info( "Get JSON Data Model" );
 		
-		DataModel dataModel = new DataModel( db_name, env.getDataSource( db_name ), null );
+		DataModel dataModel = new DataModel( db_name, env.getDataSource( db_name ).getJSON(), null );
 			
 		JSONObject schema = dataModel.getDataModel();
 		
@@ -243,6 +243,7 @@ public class ClassGenerator {
 	        				
 	        				break;
 	        			}
+	        			default: break;
 	        		
 	        		}
 	        			        		

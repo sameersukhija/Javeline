@@ -23,7 +23,7 @@ public class Mysql {
 	private Connection dbConn;
 	private String dbHost;
 	private String dbName;
-	private int dbPort; 
+	private Integer dbPort; 
 	private String dbUser;
 	private String dbPasswd;
 				
@@ -32,16 +32,12 @@ public class Mysql {
 		try {
 		
 			this.dbConn = null;
-			this.dbHost = System.getProperty("host");
-			this.dbName = System.getProperty("name");
-			this.dbPort = Integer.parseInt(System.getProperty("port"));
-			this.dbUser = System.getProperty("user");
-			this.dbPasswd = Security.decrypt( System.getProperty("password") );		
-			
-			logger.debug( "Mysql parameters has been loaded");
-			
-			this.connect();
-					
+			this.dbHost = null;
+			this.dbName = null;
+			this.dbPort = null;
+			this.dbUser = null;
+			this.dbPasswd = null;		
+								
 		} catch( Exception e ) {
 			
 			logger.error( e.getMessage(), e );

@@ -1,8 +1,8 @@
 package com.lumata.common.testing.system;
 
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DataSource extends Server {
 
-	private static final  Logger logger = LoggerFactory.getLogger( DataSource.class );
+	//private static final  Logger logger = LoggerFactory.getLogger( DataSource.class );
 	
 	private JSONObject dataSourceCfg;
 	private String hostName;
@@ -38,6 +38,10 @@ public class DataSource extends Server {
 		
 	}
 
+	public JSONObject getJSON() {
+		return this.dataSourceCfg;
+	}
+	
 	public String getHostName() {
 		return this.hostName;
 	}
@@ -59,7 +63,7 @@ public class DataSource extends Server {
 	}
 	
 	public Integer getMaxWait() {
-		return this.getMaxWait();
+		return this.maxWait;
 	}
 	
 	public String getUser() {
