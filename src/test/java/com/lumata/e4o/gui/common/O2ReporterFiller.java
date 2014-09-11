@@ -3,30 +3,33 @@ package com.lumata.e4o.gui.common;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.xmlrpcBody;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.xmlrpcOptions;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.sleep;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeResponseAsResource;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.arrayInt;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.authentication;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.custoEvent;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.string;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.parameter;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType.*;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import org.jboss.resteasy.client.ClientResponse;
 import org.testng.Assert;
 import org.testng.Reporter;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.e4o.generators.common.Generator;
-import com.lumata.e4o.gui.xmlrpc.HTTPXMLRPCForm;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCTokenList;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCTokenList.Token;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.EventType;
 
 /**
  *	This class contains tests for O2 custom reporter testing
@@ -49,6 +52,31 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 	private static List<String> currentConsumedTokens = null;
 	
 	/**
+	 * Base folder where XML file are stored
+	 */
+	private static String baseXmlrpcLogFolder = "xmlrpc";
+	
+	/**
+	 * Current log folder
+	 */
+	private static String xmlrpcLogFolder = null;
+	
+	/**
+	 * This object describe the origin of time for current test execution
+	 */
+	private static Date startOfTime4Suite = null;
+	
+	/**
+	 * It describes the execution time for single test for log purpose
+	 */
+	private String testTime = null;
+	
+	/**
+	 * Default sleep time for XMLPRC message
+	 */
+	private static Long SLEEP_TIME_ = 100L;
+	
+	/**
 	 * Surrounded token status
 	 */
 	enum TokenStatus {
@@ -61,6 +89,32 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 		private TokenStatus(String in) { value = in; }
 		public String toString() { return value; }
 	};
+	
+	@BeforeMethod
+	private void testSetup() {
+
+		/**
+		 * Common suite section
+		 */
+		
+		if ( startOfTime4Suite == null )
+			startOfTime4Suite = new Date(Calendar.getInstance().getTimeInMillis() - 60000);
+		
+		if ( xmlrpcLogFolder == null ) {
+			xmlrpcLogFolder = baseXmlrpcLogFolder + File.separator + "execution_" + new SimpleDateFormat("yyyy_MM_dd_HH_mm").format(startOfTime4Suite) + File.separator;
+			
+			Reporter.log( "###############", PRINT2STDOUT__);
+			Reporter.log( "##### XMLRPC response message are stored into folder "+ "execution_" + new SimpleDateFormat("yyyy_MM_dd_HH_mm").format(startOfTime4Suite), PRINT2STDOUT__);
+			Reporter.log( "###############", PRINT2STDOUT__);
+		}
+
+		/**
+		 * Specific test method section
+		 */
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+		testTime = sdf.format(new Date());
+	}
 	
 	/**
 	 * 
@@ -75,30 +129,29 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 		
 		Reporter.log( "Generate "+tokens2BeGenerated+" tokens for subscriber "+ msisdn , PRINT2STDOUT__);
 
-		String local_msisdn = msisdn;
-		
 		final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		Calendar today = Calendar.getInstance(); 
 		
 		for( int i = 0; i < tokens2BeGenerated; i++ ) {
 
-			Generator.subscribers()
-						.server( gui )
-						.user( user )
-						.msisdnFixed( Long.parseLong(local_msisdn) )
-						.xmlrpcRecharge( 	1L, 
-											parameter( recharge, true ), 
-											parameter( event_time, sdf.format( today.getTime() ) ) 
-										);			
-
-			try {
-			
-				Thread.sleep( 2_000 );
-			
-			} catch(  InterruptedException e ) {
-				Assert.fail("General error on Java VM!");			  
-			}
-		}				
+			XMLRPCRequest.eventmanager_generateCustomEvent().call( 	
+					gui, 
+					xmlrpcBody(
+						authentication( user ),
+						custoEvent( Long.parseLong(msisdn), 
+									EventType.revenue,
+									parameter( recharge, Boolean.TRUE ),
+									parameter( event_time, sdf.format( today.getTime() ) )
+						)
+					),
+					xmlrpcOptions( 
+						sleep( SLEEP_TIME_ ),
+						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_generateCustomEvent_"+i+".xml" )	
+					)
+			);		
+		}	
+		
+		Thread.sleep(2000L);
 	}	
 
 	/**
@@ -111,7 +164,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 	@Test
 	public void getTokensList(@Optional("393492135019") String msisdn) throws Exception {
 
-		refreshTokenStatus( msisdn, false);
+		refreshTokenStatus( msisdn, true);
 		
 		Reporter.log( "###############", PRINT2STDOUT__);
 		Reporter.log( "##### The subscriber "+ msisdn +" has : ");
@@ -149,7 +202,8 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 						string( code )
 					),
 					xmlrpcOptions(
-						sleep( 100L )	
+						sleep( SLEEP_TIME_ ),
+						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_allocate_"+code+".xml" )	
 					)
 			);		
 		}
@@ -192,11 +246,42 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 						string( "acceptToken" )
 					),
 					xmlrpcOptions(
-						sleep( 100L )	
+							sleep( SLEEP_TIME_ ),
+							storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_accept_"+code+".xml" )	
 					)
 			);		
 		}
 	}	
+	
+	@Test( dependsOnMethods={"getTokensList"} )
+	@Parameters({"msisdn"})
+	public void refuseAllToken(@Optional("393492135019") String msisdn) throws Exception {
+
+		Reporter.log( "###############", PRINT2STDOUT__);		
+		Reporter.log( "##### The subscriber "+ msisdn +" has " + currentAllocatedTokens.size() + " allocted tokens.", PRINT2STDOUT__);
+		Reporter.log( "##### Tokens ready to be purchased : " + currentAllocatedTokens, PRINT2STDOUT__);
+		Reporter.log( "##### Refuse all tokens", PRINT2STDOUT__);
+		Reporter.log( "###############", PRINT2STDOUT__);
+		
+		for (String code : currentAllocatedTokens) {
+			
+			Reporter.log( "##### Token code -> " + code, PRINT2STDOUT__);
+			
+			XMLRPCRequest.offeroptimizer_refuseAll().call( 	
+					gui, 
+					xmlrpcBody(
+						authentication( user ),
+						string( msisdn ),
+						string( code ),
+						string( "my_sofa" )
+					),
+					xmlrpcOptions(
+							sleep( SLEEP_TIME_ ),
+							storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_refuseAll_"+code+".xml" )	
+					)
+				);					
+		}
+	}
 	
 	/**
 	 * 
@@ -214,19 +299,16 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 		
-		Calendar cal = Calendar.getInstance();  
-		String now = sdf.format(cal.getTime()) + "+0000";
+//		String now = sdf.format(new Date().getTime()) + "+0000";
 		
-		cal.add(Calendar.DAY_OF_YEAR, -7);
-		String past = sdf.format(cal.getTime()) + "+0000";
-		
-		String local_msisdn = msisdn;
+//		cal.add(Calendar.DAY_OF_YEAR, -7);
+		String past = sdf.format(startOfTime4Suite) + "+0000";
 		
 		Reporter.log( "###############", print);
 		Reporter.log( "##### Request current token list for subscriber "+ msisdn , print);
 		Reporter.log( "##### Time interval : " , print);
 		Reporter.log( "##### Starting -> " + past , print);
-		Reporter.log( "##### Ending -> " + now , print);
+		Reporter.log( "##### Ending -> Right now" , print);
 		Reporter.log( "###############", print);
 
 		try {
@@ -236,16 +318,21 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 		} catch(  InterruptedException e ) {
 			Assert.fail("General error on Java VM!");			  
 		}
-		
-		ArrayList<String> params = new ArrayList<String>();
-		
-		params.add( HTTPXMLRPCForm.getAuthenticationParam( user.getUsername(), user.getPassword()) );
-		params.add( HTTPXMLRPCForm.getStringParam(local_msisdn) );
-		params.add( HTTPXMLRPCForm.getStringParam(past) );
-		params.add( HTTPXMLRPCForm.getStringParam(now) );
-																																										
-		ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.offeroptimizer_getTokensList.call( gui.getLink() + "xmlrpc/" , params );
-		XMLRPCTokenList tokenList = new XMLRPCTokenList(response.getEntity().toString()).parse();
+
+		XMLRPCTokenList tokenList = new XMLRPCTokenList(		
+				XMLRPCRequest.offeroptimizer_getTokensList().call( 	
+				gui, 
+				xmlrpcBody(
+					authentication( user ),
+					string( msisdn ),
+					string(past),
+					string("")
+				),
+				xmlrpcOptions(
+					sleep( SLEEP_TIME_ ),
+					storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_getTokensList.xml" )	
+				)
+			).getResponse().getEntity().toString()).parse();
 
 		List<Token> tokens = tokenList.getTokenList();
 		

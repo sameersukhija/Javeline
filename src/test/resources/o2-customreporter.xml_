@@ -14,16 +14,16 @@
   <!-- 
     In default configuration environment
   -->
-  <parameter name="environment" value="e4o_qa2_ne"/>
+  <parameter name="environment" value="e4o_qa3_ne"/>
   <parameter name="gui_server" value="actrule"/>
   <parameter name="tenant" value="tenant"/>
   <parameter name="user" value="superman"/>
   <!-- 
     Parameters Section 
   -->
-  <parameter name="tokens2BeGenerated" value="10"/>
-  <parameter name="msisdn" value="393492135110"/>
-  <parameter name="offerIds" value="1002"/>
+  <parameter name="tokens2BeGenerated" value="500"/>
+  <parameter name="msisdn" value="393492135019"/>
+  <parameter name="offerIds" value="1002;1003"/>
   <!-- 
     Test Section 
   -->
@@ -40,11 +40,27 @@
     <classes>
       <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
         <methods>
-          <!-- <include name="generateTokens"/> -->
+          <include name="generateTokens"/>
+        </methods>
+      </class>
+    </classes>
+  </test>        
+  <test name="Core XMLRPC - Allocate Tokens">
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>    
           <include name="getTokensList"/>
           <include name="allocateToken"/>
+        </methods>
+      </class>
+    </classes>
+  </test>          
+  <test name="Core XMLRPC - Accept Tokens">
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>      
           <include name="getTokensList"/>
-          <include name="acceptToken"/>
+          <include name="acceptToken"/> 
         </methods>
       </class>
     </classes>
