@@ -118,6 +118,28 @@
       }
     }
   },
+  "jmx": {
+	  "actrule": {
+	    "hostName": "md1-da012-e4o04",
+	    "hostAddress": "127.0.0.1",
+	    "hostPort": "23500",
+	    "users": null
+	  },
+	  "collector": {
+	    "hostName": "md1-da012-e4o04",
+	    "hostAddress": "127.0.0.1",
+	    "hostPort": "23500",
+	    "users": null    
+	  }
+  },
+  "activemq": {
+ 	  "dm": {
+      "hostName": "md1-da012-e4o04",
+      "hostAddress": "10.120.44.40",
+        "hostPort": "61616",
+        "users": {}	        
+     }	 
+  },
   "options": {
     "multiTenant": true
   }

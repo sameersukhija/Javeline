@@ -79,14 +79,14 @@
       "password": "bHhsa2Jy"
     },
     "dm": {
-      "hostName": "dm",
+      "hostName": "dialog_manager",
       "hostAddress": "10.120.42.11",
       "hostPort": "3309",
       "maxActive": 100,
       "maxIdle": 30,
       "maxWait": 10000,
-      "user": "dialog_manager",
-      "password": "aXJnSEpyY3U="
+      "user": "tech_product",
+      "password": "cmdISnJjdQ=="
     }
   },
   "services": {
@@ -118,7 +118,7 @@
     },
     "jmx": {
       "actrule": {
-         "hostName": "md1-sa014-e4o02",
+        "hostName": "md1-sa014-e4o02",
         "hostAddress": "127.0.0.1",
         "hostPort": "23500",
         "users": null
@@ -129,7 +129,15 @@
         "hostPort": "23500",
         "users": null    
       }
-    }    
+    },
+	"activemq": {
+	 	"dm": {
+	      "hostName": "md1-sa014-e4o02",
+	      "hostAddress": "10.120.38.27",
+	        "hostPort": "61616",
+	        "users": {}	        
+	     }	 
+	 }    
   },
   "options": {
     "multiTenant": true

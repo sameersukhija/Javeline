@@ -75,7 +75,7 @@ public class GenerateSubscribers {
 		final Integer INCREMENT = 1;
 		final Boolean HAS_SMS_CHANNEL = true;
 		final Boolean HAS_MAIL_CHANNEL = true;
-		final Long SUBSCRIBERS_TO_GENERATE = 100000L;
+		final Long SUBSCRIBERS_TO_GENERATE = 2L;
 		
 		
 		Generator.subscribers()

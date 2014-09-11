@@ -56,7 +56,7 @@ public class GenerateSubscribersRecharge {
 	@Test( enabled = GENERATE_FIXED_SUBSCRIBER )
 	public void generateFixedSubscriber() throws GeneratorException {
 		
-		final Long FIXED_MSISDN = 3399900001L;
+		final Long FIXED_MSISDN = 393669393643L;
 		final Long RECHARGE_TO_GENERATE = 50L;
 						
 		Generator.subscribers()
@@ -81,6 +81,26 @@ public class GenerateSubscribersRecharge {
 					.msisdnFixed( FIXED_MSISDN )
 					.xmlrpcRecharge( RECHARGE_TO_GENERATE, parameter( recharge, true ), parameter( event_date, sdf.format( today.getTime() ) ) );
 					
+	}
+	
+	@Test( enabled = false )
+	public void generateFixedMultiSubscribers() throws GeneratorException {
+		
+		final Long[] FIXED_MSISDN = { 393669393643L, 393356848728L, 393280654379L  };
+		final Long RECHARGE_TO_GENERATE = 1L;
+		final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
+		Calendar today = Calendar.getInstance(); 
+		
+		for( Long msisdn : FIXED_MSISDN ) {
+			
+			Generator.subscribers()
+						.server( guiServer )
+						.user( superman )
+						.msisdnFixed( msisdn )
+						.xmlrpcRecharge( RECHARGE_TO_GENERATE, parameter( recharge, true ), parameter( event_date, sdf.format( today.getTime() ) ) );
+						
+		}
+		
 	}
 	
 	@Test( enabled = GENERATE_INCREMENTAL_SUBSCRIBERS )
