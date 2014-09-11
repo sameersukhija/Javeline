@@ -56,9 +56,9 @@ import com.lumata.e4o.schema.tenant.SubsNotif;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.system.environment.ExpressionKernelCommands;
 
-public class SMSSending {
+public class SMSSendingConfiguration {
 
-	private static final Logger logger = LoggerFactory.getLogger( SMSSending.class );
+	private static final Logger logger = LoggerFactory.getLogger( SMSSendingConfiguration.class );
 	
 	private final long XMLRPC_CALL_DELAY = 100;
 	private final long FEEDBACK_TIMEOUT = 300000;
