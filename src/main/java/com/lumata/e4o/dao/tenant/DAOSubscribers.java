@@ -12,6 +12,7 @@ import java.util.Calendar;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.orm.Val;
+import com.lumata.common.testing.utils.Arithmetic;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.schema.tenant.Token;
 
@@ -120,9 +121,43 @@ public class DAOSubscribers extends DAO {
 		
 	}
 	
+	private ArrayList<Subscribers> getAllSubscribers( String query ) {
+		
+		ResultSet rs = this.getMysql().execQuery( query );
+		
+		ArrayList<Subscribers> allSubscribers = new ArrayList<Subscribers>();
+		
+		try {
+			
+			while( rs.next() ) {
+							
+				Subscribers subscriber = new Subscribers( rs );
+				
+				allSubscribers.add( subscriber );
+											
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		
+		}
+		
+		return allSubscribers;
+		
+	}
+	
 	public Subscribers getAvailableSubscriber() {
 				
 		String query = select().from( new Subscribers() ).orderBy( Subscribers.Fields.msisdn ).limit( 1 ).build();
+		
+		return getSubscriber( query );
+		
+	}
+	
+	public Subscribers getSubscriber( Long msisdn ) {
+		
+		String query = select().from( new Subscribers() ).where( op( Subscribers.Fields.msisdn ).eq( msisdn ) ).build();
 		
 		return getSubscriber( query );
 		
@@ -146,13 +181,31 @@ public class DAOSubscribers extends DAO {
 		
 	}
 	
+	public Boolean hasTokens( Long msisdn ) {
+				
+		String query = select().
+						from( new Subscribers() ).
+						join( new Token() ).
+						on( 
+							op( Subscribers.Fields.msisdn).eq( Token.Fields.msisdn ) 
+						).
+						where( 
+							op( Subscribers.Fields.msisdn ).eq( msisdn )
+						).
+						build();
+						
+		return ( null != getSubscriber( query ) ? true : false );
+		
+	}
+
+	
 	public Subscribers getSubscriberWithActiveToken() {
 		
 		String query = select().
 				from( new Subscribers() ).
 				where( 
 						op( Subscribers.Fields.msisdn ).in(  
-								select( Subscribers.Fields.msisdn ).
+								select( Token.Fields.msisdn ).
 								from( new Token() ).
 								where( 
 										op( Token.Fields.expiration_date ).get( sdf.format( Calendar.getInstance().getTime() ) ),
@@ -168,6 +221,31 @@ public class DAOSubscribers extends DAO {
 				build();
 		
 		return getSubscriber( query );
+		
+	}
+	
+	public ArrayList<Subscribers> getSubscriberWithNoActiveToken() {
+		
+		String query = select().
+				from( new Subscribers() ).
+				where( 
+						op( Subscribers.Fields.msisdn ).not_in(  
+								select( Token.Fields.msisdn ).
+								from( new Token() ).
+								where( 
+										op( Token.Fields.expiration_date ).get( sdf.format( Calendar.getInstance().getTime() ) ),
+										and(
+											op( Token.Fields.last_redeem_date ).is( NULL ),
+											op( Token.Fields.consumed_date ).is( NULL )											
+										)
+								).
+								statement()
+						) 
+						
+				).
+				build();
+		
+		return getAllSubscribers( query );
 		
 	}
 	
@@ -253,6 +331,26 @@ public class DAOSubscribers extends DAO {
 		String query = select().from( new Subscribers() ).orderBy( Subscribers.Fields.msisdn ).build();
 	
 		return getSubscriberList( query );
+		
+	}
+	
+	public Long getNotExitingMsisdn( Long startValue, Long endValue, Integer attempts ) {
+		
+		Long msisdn = null;
+		
+		for( int a = 0; a < attempts; a++ ) {
+			
+			msisdn = Arithmetic.random( startValue, endValue );
+			
+			if( !this.isSubscriber( msisdn ) ) {
+				
+				return msisdn;
+				
+			}
+			
+		}
+		
+		return msisdn;
 		
 	}
 	

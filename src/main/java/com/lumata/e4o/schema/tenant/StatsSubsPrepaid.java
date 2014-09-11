@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "stats_subs_prepaid" )
 public class StatsSubsPrepaid { 
 
-	public enum Fields { msisdn, amount_usage, balance_main_account, qty_recharge, amount_recharge, validity_date, deactivation_date, qty_rate_plan_id_change, last_rate_plan_id_change_date, qty_status_id_change, last_status_id_change_date, last_recharge_date, validity_days_at_recharge, agg_date, churn_risk, smartphone_data_usage }
+	public enum Fields { msisdn, amount_usage, balance_main_account, qty_recharge, amount_recharge, validity_date, deactivation_date, qty_rate_plan_id_change, last_rate_plan_id_change_date, qty_status_id_change, last_status_id_change_date, last_recharge_date, validity_days_at_recharge, agg_date }
 
 	@Column(
 			table = "stats_subs_prepaid",
@@ -269,42 +269,6 @@ public class StatsSubsPrepaid {
 	)
 	private Date agg_date;
 
-	@Column(
-			table = "stats_subs_prepaid",
-			field = "churn_risk",
-			type = "tinyint(3) unsigned",
-			mysqlType = "tinyint",
-			javaType = "Byte",
-			categoryType = "Number",
-			isNull = false,
-			isAutoincrement = false,
-			key = "",
-			defaultValue = "null",
-			extra = "",
-			length = 3,
-			getMethod = "getChurnRisk",
-			setMethod = "setChurnRisk"
-	)
-	private Byte churn_risk;
-
-	@Column(
-			table = "stats_subs_prepaid",
-			field = "smartphone_data_usage",
-			type = "enum('smartphone_Y_data_usage_N','smartphone_Y_data_usage_Y','smartphone_N_data_usage_N','smartphone_N_data_usage_Y')",
-			mysqlType = "enum",
-			javaType = "Enum",
-			categoryType = "Collection",
-			isNull = false,
-			isAutoincrement = false,
-			key = "",
-			defaultValue = "null",
-			extra = "",
-			length = 4,
-			getMethod = "getSmartphoneDataUsage",
-			setMethod = "setSmartphoneDataUsage"
-	)
-	private String smartphone_data_usage;
-
 
 	public StatsSubsPrepaid() {} 
 
@@ -324,8 +288,6 @@ public class StatsSubsPrepaid {
 		this.last_recharge_date = rs.getDate( StatsSubsPrepaid.Fields.last_recharge_date.name() );
 		this.validity_days_at_recharge = rs.getInt( StatsSubsPrepaid.Fields.validity_days_at_recharge.name() );
 		this.agg_date = rs.getDate( StatsSubsPrepaid.Fields.agg_date.name() );
-		this.churn_risk = rs.getByte( StatsSubsPrepaid.Fields.churn_risk.name() );
-		this.smartphone_data_usage = rs.getString( StatsSubsPrepaid.Fields.smartphone_data_usage.name() );
 
 	}
 
@@ -345,8 +307,6 @@ public class StatsSubsPrepaid {
 		this.last_recharge_date = Format.getMysqlDateTime( jo.getString( StatsSubsPrepaid.Fields.last_recharge_date.name() ) );
 		this.validity_days_at_recharge = (int)jo.getInt( StatsSubsPrepaid.Fields.validity_days_at_recharge.name() );
 		this.agg_date = Format.getMysqlDateTime( jo.getString( StatsSubsPrepaid.Fields.agg_date.name() ) );
-		this.churn_risk = (byte)jo.getInt( StatsSubsPrepaid.Fields.churn_risk.name() );
-		this.smartphone_data_usage = jo.getString( StatsSubsPrepaid.Fields.smartphone_data_usage.name() );
 
 	}
 
@@ -518,30 +478,6 @@ public class StatsSubsPrepaid {
 
 	}
 
-	public Byte getChurnRisk() {
-
-		return this.churn_risk;
-
-	}
-
-	public void setChurnRisk( Byte churn_risk ) {
-
-		this.churn_risk = churn_risk;
-
-	}
-
-	public String getSmartphoneDataUsage() {
-
-		return this.smartphone_data_usage;
-
-	}
-
-	public void setSmartphoneDataUsage( String smartphone_data_usage ) {
-
-		this.smartphone_data_usage = smartphone_data_usage;
-
-	}
-
 	public Fields[] getEntityFields() {
 
 		return StatsSubsPrepaid.Fields.values();
@@ -566,9 +502,7 @@ public class StatsSubsPrepaid {
 			.append( "\"last_status_id_change_date\": \"" ).append( this.getLastStatusIdChangeDate() ).append( "\", " )
 			.append( "\"last_recharge_date\": \"" ).append( this.getLastRechargeDate() ).append( "\", " )
 			.append( "\"validity_days_at_recharge\": \"" ).append( this.getValidityDaysAtRecharge() ).append( "\", " )
-			.append( "\"agg_date\": \"" ).append( this.getAggDate() ).append( "\", " )
-			.append( "\"churn_risk\": \"" ).append( this.getChurnRisk() ).append( "\", " )
-			.append( "\"smartphone_data_usage\": \"" ).append( this.getSmartphoneDataUsage() ).append( "\"" )
+			.append( "\"agg_date\": \"" ).append( this.getAggDate() ).append( "\"" )
 			.append( " }" );
 
 		return str.toString();

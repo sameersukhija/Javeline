@@ -15,6 +15,9 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.log.Log;
+import com.lumata.e4o.schema.tenant.CatalogOffers;
+import com.lumata.e4o.schema.tenant.OffoptimCustomerItems;
+import com.lumata.e4o.schema.tenant.OffoptimCustomerPack;
 import com.lumata.e4o.schema.tenant.Token;
 
 public class DAOToken extends DAO {
@@ -121,6 +124,32 @@ public class DAOToken extends DAO {
 		
 	}
 	
+	private ArrayList<CatalogOffers> getOfferList( String query ) {
+		
+		ResultSet rs = this.getMysql().execQuery( query );
+		
+		ArrayList<CatalogOffers> offerList = new ArrayList<CatalogOffers>();
+		
+		try {
+			
+			while( rs.next() ) {
+				
+				CatalogOffers offer = new CatalogOffers( rs );
+
+				offerList.add( offer );
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		
+		}
+		
+		return offerList;
+		
+	}
+	
 	@SuppressWarnings("all")
 	public ArrayList<Token> convert(ArrayList<Object> a) {
 	   return (ArrayList) a;
@@ -186,7 +215,32 @@ public class DAOToken extends DAO {
 									op( Token.Fields.expiration_date ).get( sdf.format( Calendar.getInstance().getTime() ) )
 								),
 								and(
-									op( Token.Fields.qty_current_redeems ).let( Token.Fields.qty_max_redeems )										
+									or( op( Token.Fields.qty_current_redeems ).let( Token.Fields.qty_max_redeems ) ),
+									or( op( Token.Fields.qty_max_redeems ).eq( -1 )	)										
+								)
+						).build();
+		
+		logger.info( Log.CREATING.createMessage( query ) );
+		
+		return getTokenList( query );
+		
+	}
+	
+	public ArrayList<Token> getAvailableAllocatedActiveTokensAndOffers( Long msisdn ) {
+		
+		String query = select().
+						from( new Token() ).
+						where( 
+								op( Token.Fields.msisdn ).eq( msisdn ), 
+								and(
+									op( Token.Fields.last_redeem_date ).is_not( NULL ),
+									op( Token.Fields.consumed_date ).is( NULL ),
+									op( Token.Fields.expiration_date ).get( sdf.format( Calendar.getInstance().getTime() ) ),
+									op( Token.Fields.has_offers_associated ).neq( 0 ) 
+								),
+								and(
+									or( op( Token.Fields.qty_current_redeems ).let( Token.Fields.qty_max_redeems ) ),
+									or( op( Token.Fields.qty_max_redeems ).eq( -1 )	)								
 								)
 						).build();
 		
@@ -205,11 +259,12 @@ public class DAOToken extends DAO {
 								and(
 									op( Token.Fields.last_redeem_date ).is_not( NULL ),
 									op( Token.Fields.consumed_date ).is_not( NULL ),
-									op( Token.Fields.expiration_date ).get( sdf.format( Calendar.getInstance().getTime() ) )
+									op( Token.Fields.expiration_date ).get( sdf.format( Calendar.getInstance().getTime() ) ),
+									op( Token.Fields.consumed_notes ).eq( "Accept" )
 								)
 						).build();
 		
-		logger.debug( Log.CREATING.createMessage( query ) );
+		logger.info( Log.CREATING.createMessage( query ) );
 		
 		return getTokenList( query );
 		
@@ -224,13 +279,97 @@ public class DAOToken extends DAO {
 								and(
 									op( Token.Fields.last_redeem_date ).is_not( NULL ),
 									op( Token.Fields.consumed_date ).is_not( NULL ),
-									op( Token.Fields.expiration_date ).get( sdf.format( Calendar.getInstance().getTime() ) )
+									op( Token.Fields.expiration_date ).get( sdf.format( Calendar.getInstance().getTime() ) ),
+									op( Token.Fields.consumed_notes ).eq( "Accept" )
 								)
 						).build();
 		
-		logger.debug( Log.CREATING.createMessage( query ) );
+		logger.info( Log.CREATING.createMessage( query ) );
 		
 		return getTokenList( query );
+		
+	}
+	
+	public ArrayList<Token> getRefusedTokens( Long msisdn ) {
+		
+		String query = select().
+						from( new Token() ).
+						where( 
+								op( Token.Fields.msisdn ).eq( msisdn ), 
+								and(
+									op( Token.Fields.last_redeem_date ).is_not( NULL ),
+									op( Token.Fields.consumed_date ).is_not( NULL ),
+									op( Token.Fields.consumed_notes ).eq( "Refuse" )
+								)
+						).build();
+		
+		logger.info( Log.CREATING.createMessage( query ) );
+		
+		return getTokenList( query );
+		
+	}
+
+	public ArrayList<Token> getExpiredTokens( Long msisdn ) {
+		
+		String query = select().
+						from( new Token() ).
+						where( 
+								op( Token.Fields.msisdn ).eq( msisdn ), 
+								and(
+										op( Token.Fields.expiration_date ).let( sdf.format( Calendar.getInstance().getTime() ) )
+								)
+						).build();
+		
+		logger.info( Log.CREATING.createMessage( query ) );
+		
+		return getTokenList( query );
+		
+	}
+	
+	public ArrayList<CatalogOffers> getAssociatedOffers( Long msisdn, String token ) {
+		
+		String query = select().
+						from( new CatalogOffers() ).
+						where(
+							op( CatalogOffers.Fields.offer_id ).in(	
+								select( OffoptimCustomerItems.Fields.offer_id ).			
+								from( new Token() ).
+								join( new OffoptimCustomerPack() ).
+								on( 
+									op( Token.Fields.token_code ).eq( OffoptimCustomerPack.Fields.token_code ) 
+								).
+								join( new OffoptimCustomerItems() ).
+								on( 
+									op( OffoptimCustomerPack.Fields.customer_offer_pack_id ).eq( OffoptimCustomerItems.Fields.customer_offer_pack_id ) 
+								).
+								where(  
+									op( Token.Fields.msisdn ).eq( msisdn ),
+									and(
+										op( Token.Fields.token_code ).eq( token )	
+									)
+								).
+								statement()
+							)
+						).build();
+		
+		logger.info( Log.CREATING.createMessage( query ) );
+		
+		return getOfferList( query );
+		
+	}
+
+	public void setTokenDates( Token token ) {
+		
+		String query = update( token ).
+						set().
+						where(
+							op( Token.Fields.token_code ).eq()	
+						).
+						build();
+		
+		this.getMysql().execUpdate( query );
+	
+		logger.info( Log.UPDATING.createMessage( query ) );
 		
 	}
 	

@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "voucher_codes" )
 public class VoucherCodes { 
 
-	public enum Fields { offer_id, code, expiryDate, purchase_id, redeemed_date, location_id, partner_id, format }
+	public enum Fields { offer_id, code, expiryDate, purchase_id, redeemed_date, location_id, partner_id, format, voucher_id, type }
 
 	@Column(
 			table = "voucher_codes",
@@ -44,7 +44,7 @@ public class VoucherCodes {
 			categoryType = "String",
 			isNull = false,
 			isAutoincrement = false,
-			key = "PRI",
+			key = "",
 			defaultValue = "null",
 			extra = "",
 			length = 512,
@@ -134,7 +134,7 @@ public class VoucherCodes {
 			categoryType = "String",
 			isNull = false,
 			isAutoincrement = false,
-			key = "PRI",
+			key = "",
 			defaultValue = "",
 			extra = "",
 			length = 50,
@@ -161,6 +161,42 @@ public class VoucherCodes {
 	)
 	private String format;
 
+	@Column(
+			table = "voucher_codes",
+			field = "voucher_id",
+			type = "int(11)",
+			mysqlType = "int",
+			javaType = "Integer",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = true,
+			key = "PRI",
+			defaultValue = "null",
+			extra = "auto_increment",
+			length = 11,
+			getMethod = "getVoucherId",
+			setMethod = "setVoucherId"
+	)
+	private Integer voucher_id;
+
+	@Column(
+			table = "voucher_codes",
+			field = "type",
+			type = "varchar(30)",
+			mysqlType = "varchar",
+			javaType = "String",
+			categoryType = "String",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 30,
+			getMethod = "getType",
+			setMethod = "setType"
+	)
+	private String type;
+
 
 	public VoucherCodes() {} 
 
@@ -174,6 +210,8 @@ public class VoucherCodes {
 		this.location_id = rs.getString( VoucherCodes.Fields.location_id.name() );
 		this.partner_id = rs.getString( VoucherCodes.Fields.partner_id.name() );
 		this.format = rs.getString( VoucherCodes.Fields.format.name() );
+		this.voucher_id = rs.getInt( VoucherCodes.Fields.voucher_id.name() );
+		this.type = rs.getString( VoucherCodes.Fields.type.name() );
 
 	}
 
@@ -187,6 +225,8 @@ public class VoucherCodes {
 		this.location_id = jo.getString( VoucherCodes.Fields.location_id.name() );
 		this.partner_id = jo.getString( VoucherCodes.Fields.partner_id.name() );
 		this.format = jo.getString( VoucherCodes.Fields.format.name() );
+		this.voucher_id = (int)jo.getInt( VoucherCodes.Fields.voucher_id.name() );
+		this.type = jo.getString( VoucherCodes.Fields.type.name() );
 
 	}
 
@@ -286,6 +326,30 @@ public class VoucherCodes {
 
 	}
 
+	public Integer getVoucherId() {
+
+		return this.voucher_id;
+
+	}
+
+	public void setVoucherId( Integer voucher_id ) {
+
+		this.voucher_id = voucher_id;
+
+	}
+
+	public String getType() {
+
+		return this.type;
+
+	}
+
+	public void setType( String type ) {
+
+		this.type = type;
+
+	}
+
 	public Fields[] getEntityFields() {
 
 		return VoucherCodes.Fields.values();
@@ -304,7 +368,9 @@ public class VoucherCodes {
 			.append( "\"redeemed_date\": \"" ).append( this.getRedeemedDate() ).append( "\", " )
 			.append( "\"location_id\": \"" ).append( this.getLocationId() ).append( "\", " )
 			.append( "\"partner_id\": \"" ).append( this.getPartnerId() ).append( "\", " )
-			.append( "\"format\": \"" ).append( this.getFormat() ).append( "\"" )
+			.append( "\"format\": \"" ).append( this.getFormat() ).append( "\", " )
+			.append( "\"voucher_id\": \"" ).append( this.getVoucherId() ).append( "\", " )
+			.append( "\"type\": \"" ).append( this.getType() ).append( "\"" )
 			.append( " }" );
 
 		return str.toString();

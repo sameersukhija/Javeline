@@ -57,7 +57,7 @@ public class CatalogOffers {
 	@Column(
 			table = "catalog_offers",
 			field = "offer_name",
-			type = "varchar(45)",
+			type = "varchar(64)",
 			mysqlType = "varchar",
 			javaType = "String",
 			categoryType = "String",
@@ -66,7 +66,7 @@ public class CatalogOffers {
 			key = "UNI",
 			defaultValue = "null",
 			extra = "",
-			length = 45,
+			length = 64,
 			getMethod = "getOfferName",
 			setMethod = "setOfferName"
 	)
@@ -201,8 +201,8 @@ public class CatalogOffers {
 	@Column(
 			table = "catalog_offers",
 			field = "eligibility_criteria",
-			type = "blob",
-			mysqlType = "blob",
+			type = "mediumblob",
+			mysqlType = "mediumblob",
 			javaType = "String",
 			categoryType = "String",
 			isNull = false,
