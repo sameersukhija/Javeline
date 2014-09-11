@@ -28,6 +28,14 @@ public class TestDMNotificationEnabled {
 	
 	NetworkEnvironment env;	
 	
+//	public TestDMNotificationEnabled( NetworkEnvironment env ) {
+//		this.env = env;
+//	}
+//	
+//	public static TestDMNotificationEnabled getInstance( NetworkEnvironment env ) {
+//		return new TestDMNotificationEnabled( env );
+//	}
+ 	
 	/* 	Initialize Environment */
 	@Parameters({"environment"})
 	@BeforeSuite
@@ -39,9 +47,9 @@ public class TestDMNotificationEnabled {
 					
 	}
 	
-	@Parameters({"tenant"})
+	@Parameters({"tenant", "notifXMLFolder", "notifXMLFile"})
 	@Test
-	public void configureDMNotifications( @Optional("tenant") String tenant ) throws SQLException, IOFileException {
+	public void configureDMNotifications( @Optional("tenant") String tenant, @Optional("input/configuration") String notifXMLFolder, @Optional("notif.xml") String notifXMLFile ) throws SQLException, IOFileException {
 		
 		Mysql mysql = new Mysql( env.getDataSource( tenant ) );
 		
@@ -78,9 +86,9 @@ public class TestDMNotificationEnabled {
 		
 		while( rs.next() ) { fd = new FilesData( rs ); }
 		
-		String notifXML = IOFileUtils.loadResourceAsString( "input/configuration", "notif.xml" );
+		String notifXMLContent = IOFileUtils.loadResourceAsString( notifXMLFolder, notifXMLFile );
 		
-		fd.setContent( notifXML );
+		fd.setContent( notifXMLContent );
 		
 		// add notif.xml entry if not exist
 		if( fd.getId() == null ) {
