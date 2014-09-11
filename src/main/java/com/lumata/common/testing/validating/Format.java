@@ -170,6 +170,14 @@ public final class Format {
 		
 	}
 	
+	public static String getMysqlDateTime( Calendar date ) throws ParseException {
+		
+		DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+			
+		return formatter.format( date.getTime() );
+		
+	}
+	
 	public static String getSystemTimestamp() {
 		
 		Calendar currentDate = Calendar.getInstance();

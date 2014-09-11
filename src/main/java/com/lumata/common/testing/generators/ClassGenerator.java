@@ -302,6 +302,7 @@ public class ClassGenerator {
 		return type.replaceAll( "^varchar.*", ClassGenerator.FieldTypes.STRING.name() )
 					.replaceAll( "^char.*", ClassGenerator.FieldTypes.STRING.name() )
 					.replaceAll( "^blob.*", ClassGenerator.FieldTypes.STRING.name() )
+					.replaceAll( "^mediumblob.*", ClassGenerator.FieldTypes.STRING.name() )
 					.replaceAll( "^longblob.*", ClassGenerator.FieldTypes.STRING.name() )
 					.replaceAll( "^text.*", ClassGenerator.FieldTypes.STRING.name() )
 					.replaceAll( "^int.*", ClassGenerator.FieldTypes.INT.name() )

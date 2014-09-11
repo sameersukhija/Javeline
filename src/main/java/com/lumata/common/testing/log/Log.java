@@ -18,7 +18,10 @@ public enum Log {
 	FAILED,
 	CREATING,
 	SAVING,
-	SAVED;
+	SAVED,
+	INSERTING,
+	UPDATING,
+	STORED;
 	
 	/**
 	 * @param message The message to write in the log
