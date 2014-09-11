@@ -7,7 +7,6 @@ import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCPrice;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCProduct;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberChannel;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberChannel.ChannelType;
-import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberChannel.Status;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberRelation;
 
 public class XMLRPCRequestMethods {
@@ -26,7 +25,7 @@ public class XMLRPCRequestMethods {
 	
 	public static XMLRPCRequestMethods authentication( User user ) {
 		
-		return XMLRPCRequestMethods.authentication( user.getUsername(), user.getPassword() );
+		return XMLRPCRequestMethods.authentication( ( null != user ? user.getUsername() : null ), ( null != user ? user.getPassword() : null ) );
 		
 	}
 	

@@ -19,6 +19,12 @@ public class XMLRPCResponseValidatorMethods {
 		
 	}
 	
+	public static XMLRPCResponseValidator successFault() {
+		
+		return new XMLRPCResponseValidator( "params.param.value.fault.code", equalTo( 0 ), Integer.class, "Success" );
+		
+	}
+	
 	public static XMLRPCResponseFault fault() {
 		
 		return new XMLRPCResponseFault();
