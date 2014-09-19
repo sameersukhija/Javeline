@@ -304,6 +304,8 @@ public class ClassGenerator {
 					.replaceAll( "^blob.*", ClassGenerator.FieldTypes.STRING.name() )
 					.replaceAll( "^mediumblob.*", ClassGenerator.FieldTypes.STRING.name() )
 					.replaceAll( "^longblob.*", ClassGenerator.FieldTypes.STRING.name() )
+					.replaceAll( "^binary.*", ClassGenerator.FieldTypes.STRING.name() )
+					.replaceAll( "^varbinary.*", ClassGenerator.FieldTypes.STRING.name() )
 					.replaceAll( "^text.*", ClassGenerator.FieldTypes.STRING.name() )
 					.replaceAll( "^int.*", ClassGenerator.FieldTypes.INT.name() )
 					.replaceAll( "^bigint.*", ClassGenerator.FieldTypes.INT.name() )
