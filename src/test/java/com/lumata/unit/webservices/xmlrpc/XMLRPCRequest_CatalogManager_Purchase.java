@@ -12,9 +12,17 @@ import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCRequestOld;
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberChannel.ChannelType;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberChannel.Status;
 
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.sleep;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeRequestAsResource;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeResponseAsResource;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.param;
+import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberChannel.channel;
 
 public class XMLRPCRequest_CatalogManager_Purchase {
 	
@@ -29,7 +37,9 @@ public class XMLRPCRequest_CatalogManager_Purchase {
 		
 		/** Create environment configuration */
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-
+		
+		gui_server = "actrule1";
+		
 		actruleServer = env.getServer( gui_server );
 		
 		superman = actruleServer.getUser( user );
@@ -37,26 +47,29 @@ public class XMLRPCRequest_CatalogManager_Purchase {
 	}
 	
 	@Test(enabled=true, priority = 1 )
-	public void callXMLRPCCRequest() throws Exception {
-		
-		ClientResponse<String> response = XMLRPCRequestOld.catalogmanager_purchase.call( 	
-														actruleServer, 
-														xmlrpcBody(
-															authentication( superman.getUsername(), superman.getPassword() ),
-															string("3399900001"),
-															string("OFFA"),
-															string("Ch A"),
-															arrayProductPrices( 
-																//price( 10, "internal points" )	
-															),
-															arraySelectedProducts( 
-																	/* product() */	
-															),
-															string(1)
-														)
-											);
-		
-		System.out.println( response.getEntity().toString() );
+	public void callXMLRPCCRequestNew() throws Exception {
+				
+		XMLRPCRequest.catalogmanager_purchase().call( 
+			actruleServer, 
+			xmlrpcBody(
+				authentication( superman ),
+				string("491794052176"),
+				string("30 extra Freiminuten (alle dt Netze)"),
+				string("imm"),
+				arrayProductPrices( 
+					//price( 10, "internal points" )	
+				),
+				arraySelectedProducts( 
+					/* product() */	
+				),
+				string(1)
+			),
+			xmlrpcOptions(
+				sleep( 100L ),
+				storeRequestAsResource( "xmlrpc/request/", "request.xml" ),
+				storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
+			)
+		);
 		
 	}
 	

@@ -100,6 +100,47 @@ public class FieldSet {
 	}
 	
 	@FieldMethod
+	public void setSetOptions( final String... values ) throws FieldException {
+		
+		if( null != values ) {
+			
+			set = new LinkedHashSet<String>( Arrays.asList( values ) );
+			
+		}
+		
+	}
+	
+	@FieldMethod
+	public void setSetOptions( final Enum<?>... values ) throws FieldException {
+		
+		if( null != values ) {
+			
+			for( Enum<?> value : values ) {
+				
+				set.add( value.name() );
+				
+			}
+			
+		}
+		
+	}
+	
+	@FieldMethod
+	public void setSetOptions( final Set<String> values ) throws FieldException {
+		
+		if( null != values ) {
+			
+			for( String value : values ) {
+				
+				set.add( value );
+				
+			}
+			
+		}
+		
+	}
+	
+	@FieldMethod
 	public void setSetStrategyFixed() throws FieldException {	
 		
 		this.set_current_value = this.set;
@@ -119,7 +160,7 @@ public class FieldSet {
 			
 			for( String value : values ) {
 				
-				if( set.contains( value ) ) { this.set_current_value.add( value  ); }
+				if( set.contains( value ) ) { this.set_current_value.add( value ); }
 				
 			}
 			

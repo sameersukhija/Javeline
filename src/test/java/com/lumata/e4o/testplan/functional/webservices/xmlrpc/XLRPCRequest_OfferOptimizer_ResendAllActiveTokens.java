@@ -47,6 +47,7 @@ public class XLRPCRequest_OfferOptimizer_ResendAllActiveTokens {
 	Mysql mysql;
 	Subscribers subscriberWithNoTokens;
 	Subscribers subscriberWithActiveTokens;
+	Subscribers subscriberWithActiveTokensAndNoChannelSMS;
 	ArrayList<Subscribers> allSubscribers;
 	DAOToken daoToken;
 	DAOSubscribers daoSubscribers;
@@ -108,8 +109,20 @@ public class XLRPCRequest_OfferOptimizer_ResendAllActiveTokens {
 			allSubscribers.add( daoSubscribers.getSubscriber( msisdn ) );
 			
 		}
+		
+		Long msisdn = daoSubscribers.getNotExitingMsisdn( 3399900001L, 3399910000L, 100 );
+		
+		Generator.subscribers()
+			.environment( env )
+			.mysql( mysql )
+			.msisdnFixed( msisdn )
+			.subscriberHasSMSChannel( false )
+			.subscriberHasMAILChannel( false )
+			.insertIntoEnvironment( 1L );
+		
+		allSubscribers.add( daoSubscribers.getSubscriber( msisdn ) );
 				
-		Assert.assertTrue( allSubscribers.size() == 2 );
+		Assert.assertTrue( allSubscribers.size() == 3 );
 		
 	}
 		

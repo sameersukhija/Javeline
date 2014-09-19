@@ -1,39 +1,53 @@
 package com.lumata.e4o.generators.cdr;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
+
+import static com.lumata.common.testing.orm.Query.*;
+
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Service;
 import com.lumata.common.testing.system.User;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FieldException;
+import com.lumata.e4o.schema.tenant.SetOptions;
 import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.types.CDRLifeCycle;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
 
+
 public class GenerateCDRLifeCycle {
 	
 	NetworkEnvironment env;
+	Mysql mysql;
 	Service sshService;
 	String sshUser = "root";
 	User superman;
 			
 	/* 	Initialize Environment */
-	@Parameters({"environment", "gui_server", "user"})
+	@Parameters({"environment", "tenant", "gui_server", "user"})
 	@BeforeClass
-	public void init( @Optional("E4O_VM") String environment, @Optional("collector") String collectorServer, @Optional("superman") String user ) throws NetworkEnvironmentException {		
+	public void init( @Optional("E4O_VM") String environment, @Optional("tenant") String tenant, @Optional("collector") String collectorServer, @Optional("superman") String user ) throws NetworkEnvironmentException {		
 		
 		/** Create environment configuration */
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 
+		mysql = new Mysql( env.getDataSource( tenant ) );
+		
 		sshService = env.getService( Service.Type.ssh, collectorServer );
 		
 		sshUser = "root";
@@ -42,7 +56,7 @@ public class GenerateCDRLifeCycle {
 	
 	@Test( enabled = true )
 	//@Test( enabled = true )
-	public void cdr_lifecycle_preferences() throws IOFileException, FieldException {
+	public void cdr_lifecycle_preferences() throws IOFileException, FieldException, SQLException {
 		
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_lifecycle" );
@@ -62,6 +76,9 @@ public class GenerateCDRLifeCycle {
 		FieldDateIncrement increment = new FieldDateIncrement();
 		increment.setDayIncrement( 1 );
 	
+		Set<String> options = getOptions();
+		if( null != options ) { cdrLCP.setNewOptionsOptions( options ); }
+		  
 		cdrLCP.setMsisdnStrategyIncrement( 3399900001L, 1 );
 		cdrLCP.setDateStrategyFixed( date );
 		cdrLCP.setNewImeiStrategyIncrement( 300000000000000L, Integer.valueOf( RandomStringUtils.randomNumeric( 9 ) ) );
@@ -71,6 +88,7 @@ public class GenerateCDRLifeCycle {
 		cdrLCP.setNewTongueStrategyFixed( "ENG" );
 		cdrLCP.setNewInTagStrategyFixed( "QAIN" );
 		cdrLCP.setNewHobbiesStrategyRandom( 4 );
+		cdrLCP.setNewOptionsStrategyRandom( 4 );
 		cdrLCP.setNewGenderStrategyRandom();
 		cdrLCP.setNewSalaryStrategyFixed( "2000" );
 				
@@ -83,6 +101,24 @@ public class GenerateCDRLifeCycle {
 		cdrLCP.send( sshService, "/nfsdata/files/cdr/deposit/LIFECYCLE_CDR/", sshUser );
 		
 		System.out.println( "File name: " + cdrLCP.getFileName() );
+		
+	}
+	
+	private Set<String> getOptions() throws SQLException {
+		
+		Set<String> options = new TreeSet<String>();
+		
+		String query = select().from( new SetOptions() ).orderBy( SetOptions.Fields.options_name ).build();
+		
+		ResultSet rs = mysql.execQuery( query );
+		
+		while( rs.next() ) {
+			
+			options.add( rs.getString( SetOptions.Fields.options_name.name() ) );
+			
+		}
+		
+		return options;
 		
 	}
 

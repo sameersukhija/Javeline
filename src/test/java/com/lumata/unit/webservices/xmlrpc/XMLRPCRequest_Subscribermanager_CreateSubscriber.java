@@ -41,6 +41,9 @@ import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
 //import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberChannel.*;
 //import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberRelation.*;
+import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.fault;
+import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.success;
+import static org.hamcrest.Matchers.equalTo;
 
 public class XMLRPCRequest_Subscribermanager_CreateSubscriber {
 	
@@ -260,11 +263,62 @@ public class XMLRPCRequest_Subscribermanager_CreateSubscriber {
 	}
 	
 	@Test(enabled=true, priority = 1 )
-	public void createSubscriberWithNullMsisdn() throws Exception {
+	public void createSubscriber() throws Exception {
 		
-		msisdn = "3399900001";
+		supportedRatePlan = getFirstValidRatePlan();
+		profileObj = getProfileByValidRatePlan( supportedRatePlan.getProfileId() );
+		statusObj = getStatusByProfileId( supportedRatePlan.getProfileId() );
+		confObjInTag = getFirstValidConfTagByName( ConfTag.in_tags_list ); 
+		confObjTongue = getFirstValidConfTagByName( ConfTag.language ); 
+		networks = getFirstAvailableNetwork();
+	
+		msisdn = "3399900011";
+		subscriptionDate = sdf.format( today.getTime() );
+		ratePlan = supportedRatePlan.getRatePlan();
+		profile = profileObj.getProfile();
+		String subprofile = "subfun";
+		status = statusObj.getStatus();
+		inTag = confObjInTag.getCurrent();
+		network = networks.getNetwork();
+		tongue = "ENG";
+		
+		XMLRPCRequest.subscribermanager_createSubscriber().call( 
+				actruleServer, 
+				xmlrpcBody(
+					authentication( superman ),
+					subscriber( 
+							msisdn,
+							subscriptionDate,
+							profile,
+							subprofile,
+							ratePlan,
+							status,
+							inTag,
+							network,
+							params(),
+							services()																
+					)
+				),
+				xmlrpcValidator(
+					success()
+				),
+				xmlrpcOptions(
+					sleep( 100L ),
+					storeRequestAsResource( "xmlrpc/request/", "request.xml" ),
+					storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
+				)
+		
+		);
+		
+	}
+	
+	@Test(enabled=false, priority = 2 )
+	public void updateSubscriber() throws Exception {
+		
+		msisdn = "3399900010";
 		subscriptionDate = sdf.format( today.getTime() );
 		profile = "prepaid";
+		String subprofile = "subfun";
 		ratePlan = "FUN";
 		status = "active";	
 		inTag = "QAIN";
@@ -278,6 +332,7 @@ public class XMLRPCRequest_Subscribermanager_CreateSubscriber {
 										msisdn,
 										subscriptionDate,
 										profile,
+										subprofile,
 										ratePlan,
 										status,
 										inTag,

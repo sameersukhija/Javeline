@@ -62,7 +62,7 @@ public class GenerateCDRRevenue {
 		FieldDateIncrement increment = new FieldDateIncrement();
 		increment.setDayIncrement( 1 );
 		
-		cdrRevenue.setMsisdnStrategyFixed( 3399900003L );
+		cdrRevenue.setMsisdnStrategyFixed( 3399900001L );
 		cdrRevenue.setDateStrategyFixed( date );
 		cdrRevenue.setAmountStrategyRandom( 100L, 1000L );
 		cdrRevenue.setBalanceStrategyRandom( 100L, 300L );

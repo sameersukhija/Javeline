@@ -187,19 +187,19 @@ public class XMLRPCRequestMethods {
 	
 	public static XMLRPCRequestMethods subscriber( Long msisdn ) {
 		
-		return subscriber( String.valueOf( msisdn ), null, null, null, null, null, null, null, null );
+		return subscriber( String.valueOf( msisdn ), null, null, null, null, null, null, null, null, null );
 		
 	}
 	
 	public static XMLRPCRequestMethods subscriber( String msisdn ) {
-		return subscriber( msisdn, null, null, null, null, null, null, null, null, null, null );
+		return subscriber( msisdn, null, null, null, null, null, null, null, null, null, null, null );
 	}
 	
-	public static XMLRPCRequestMethods subscriber( String msisdn, String subscriptionDate, String profile, String ratePlan, String status, String inTag, String network, XMLRPCParameter[] params, String[] services ) {
-		return subscriber( msisdn, subscriptionDate, profile, ratePlan, status, inTag, network, params,  services );
+	public static XMLRPCRequestMethods subscriber( String msisdn, String subscriptionDate, String profile, String subprofile, String ratePlan, String status, String inTag, String network, XMLRPCParameter[] params, String[] services ) {
+		return subscriber( msisdn, subscriptionDate, profile, subprofile, ratePlan, status, inTag, network, null, null, params,  services );
 	}
 	
-	public static XMLRPCRequestMethods subscriber( String msisdn, String subscriptionDate, String profile, String ratePlan, String status, String inTag, String network, XMLRPCSubscriberChannel[] channels, XMLRPCSubscriberRelation[] relations, XMLRPCParameter[] params, String[] services ) {
+	public static XMLRPCRequestMethods subscriber( String msisdn, String subscriptionDate, String profile, String subprofile, String ratePlan, String status, String inTag, String network, XMLRPCSubscriberChannel[] channels, XMLRPCSubscriberRelation[] relations, XMLRPCParameter[] params, String[] services ) {
 		
 		StringBuilder subscriberPOSTBody = new StringBuilder();
 		
@@ -257,6 +257,7 @@ public class XMLRPCRequestMethods {
 								if( null != msisdn ) { subscriberPOSTBody.append("<msisdn>").append( msisdn ).append("</msisdn>"); }
 								if( null != subscriptionDate ) { subscriberPOSTBody.append("<subscription_date>").append( subscriptionDate ).append("</subscription_date>"); }
 								if( null != profile ) { subscriberPOSTBody.append("<profile>").append( profile ).append("</profile>"); }
+								if( null != subprofile ) { subscriberPOSTBody.append("<subprofile>").append( subprofile ).append("</subprofile>"); }
 								if( null != ratePlan ) { subscriberPOSTBody.append("<rate_plan>").append( ratePlan ).append("</rate_plan>"); }
 								if( null != status ) { subscriberPOSTBody.append("<status>").append( status ).append("</status>"); }
 								if( null != inTag ) { subscriberPOSTBody.append("<in_tag>").append( inTag ).append("</in_tag>"); }

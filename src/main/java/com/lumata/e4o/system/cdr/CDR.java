@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,15 +25,13 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.io.JSONUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.network.SFTPClient;
-import com.lumata.common.testing.system.Environment;
-import com.lumata.common.testing.system.Environment.ServicesType;
+//import com.lumata.common.testing.system.Environment.ServicesType;
+//import com.lumata.common.testing.system.Environment;
+//import com.lumata.common.testing.system.Environment.ServicesType;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Service;
 import com.lumata.e4o.exceptions.CDRException;
-import com.lumata.e4o.schema.tenant.Profiles;
-import com.lumata.e4o.schema.tenant.Statuses;
-import com.lumata.e4o.schema.tenant.SupportedRatePlan;
-import com.lumata.e4o.schema.tenant.VoucherCodes;
+
 /** cdr field types */
 import com.lumata.e4o.system.cdr.fields.Amount;
 import com.lumata.e4o.system.cdr.fields.AmountInvoice;
@@ -55,6 +54,7 @@ import com.lumata.e4o.system.cdr.fields.NewImei;
 import com.lumata.e4o.system.cdr.fields.NewImsi;
 import com.lumata.e4o.system.cdr.fields.NewInTag;
 import com.lumata.e4o.system.cdr.fields.NewNetwork;
+import com.lumata.e4o.system.cdr.fields.NewOptions;
 import com.lumata.e4o.system.cdr.fields.NewProfile;
 import com.lumata.e4o.system.cdr.fields.NewRatePlan;
 import com.lumata.e4o.system.cdr.fields.NewSalary;
@@ -68,6 +68,7 @@ import com.lumata.e4o.system.cdr.fields.OldImei;
 import com.lumata.e4o.system.cdr.fields.OldImsi;
 import com.lumata.e4o.system.cdr.fields.OldInTag;
 import com.lumata.e4o.system.cdr.fields.OldNetwork;
+import com.lumata.e4o.system.cdr.fields.OldOptions;
 import com.lumata.e4o.system.cdr.fields.OldProfile;
 import com.lumata.e4o.system.cdr.fields.OldRatePlan;
 import com.lumata.e4o.system.cdr.fields.OldSalary;
@@ -86,14 +87,14 @@ import com.lumata.e4o.system.cdr.fields.Upload;
 import com.lumata.e4o.system.cdr.fields.ValidityDate;
 import com.lumata.e4o.system.cdr.fields.VoucherCode;
 /** field types */
-import com.lumata.e4o.system.environment.ExpressionKernelCommands;
+//import com.lumata.e4o.system.environment.ExpressionKernelCommands;
 /** schema classes */
 import com.lumata.e4o.system.fields.FieldBoolean;
 import com.lumata.e4o.system.fields.FieldDate;
 import com.lumata.e4o.system.fields.FieldEnum;
 import com.lumata.e4o.system.fields.FieldLong;
 import com.lumata.e4o.system.fields.FieldMsisdn;
-import com.lumata.e4o.system.fields.FieldSchemaTable;
+//import com.lumata.e4o.system.fields.FieldSchemaTable;
 import com.lumata.e4o.system.fields.FieldSet;
 import com.lumata.e4o.system.fields.FieldString;
 import com.lumata.e4o.system.fields.IFieldEnum;
@@ -249,6 +250,12 @@ public class CDR {
 
 	@OldHobbies
 	protected FieldSet oldHobbies; 
+	
+	@NewOptions
+	protected FieldSet newOptions; 
+
+	@OldOptions
+	protected FieldSet oldOptions; 
 
 	@NewGender
 	protected FieldEnum newGender; 
@@ -463,6 +470,8 @@ public class CDR {
 		this.oldInTag = new FieldString();		
 		this.newHobbies = new FieldSet( HOBBIES.values() );
 		this.oldHobbies = new FieldSet( HOBBIES.values() );
+		this.newOptions = new FieldSet( new TreeSet<String>() );
+		this.oldOptions = new FieldSet( new TreeSet<String>() );
 		this.newGender = new FieldEnum( GENDER.values() ); 
 		this.oldGender = new FieldEnum( GENDER.values() );
 		this.newSalary = new FieldString();
@@ -619,7 +628,7 @@ public class CDR {
 	}
 
 	public void send( Service remote_host, String remote_path, String sftp_user ) {
-		System.out.println( remote_host.getHostAddress() );		
+				
 		SFTPClient sftp = new SFTPClient( remote_host, sftp_user );
 		
 		if( sftp.isConnected() ) {
@@ -632,14 +641,18 @@ public class CDR {
 				
 	}
 
-	public void send( Environment remote_host, String remote_path ) {
+	public void send( NetworkEnvironment remote_host, String remote_path ) {
 		
-		try {
+		//try {
 			
-			JSONObject ssh = remote_host.getServiceType( ServicesType.SSH );
+			//JSONObject ssh = remote_host.getService( com.lumata.common.testing.system.Service.Type.ssh , "" );
 			
-			SFTPClient sftp = new SFTPClient( ssh.getString( "host" ), ssh.getInt( "port" ), ssh.getString( "user" ), ssh.getString( "password" ) );
+			Service service = remote_host.getService( com.lumata.common.testing.system.Service.Type.ssh , "" );
 			
+			//SFTPClient sftp = new SFTPClient( ssh.getString( "host" ), ssh.getInt( "port" ), ssh.getString( "user" ), ssh.getString( "password" ) );
+			
+			SFTPClient sftp = new SFTPClient( service.getHostAddress(), service.getHostPort(), service.getUser( "root" ).getUsername(), service.getUser( "root" ).getPassword() );
+						
 			if( sftp.isConnected() ) {
 				
 				String local_path = System.getProperty( "user.dir" ) + "/output/" + this.getOutputDir() + "/";
@@ -648,7 +661,7 @@ public class CDR {
 	            		
 			}
 						
-		} catch( JSONException e ) {}
+		//} catch( JSONException e ) {}
 		
 	}
 	

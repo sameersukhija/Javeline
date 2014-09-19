@@ -2,6 +2,7 @@ package com.lumata.e4o.generators.subscribers;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,13 +16,17 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
+import com.lumata.e4o.dao.tenant.DAOToken;
 import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.exceptions.GeneratorException;
+import com.lumata.e4o.exceptions.XMLRPCException;
 import com.lumata.e4o.generators.common.GeneratorParameter;
 import com.lumata.e4o.generators.common.GeneratorParametersList;
 import com.lumata.e4o.generators.common.GeneratorParameter.GeneratorParameterType;
+import com.lumata.e4o.schema.tenant.SetOptions;
 import com.lumata.e4o.schema.tenant.SubsNotif;
 import com.lumata.e4o.schema.tenant.Subscribers;
+import com.lumata.e4o.schema.tenant.Token;
 import com.lumata.e4o.system.fields.FieldMsisdn;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter;
@@ -30,9 +35,7 @@ import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.Parameter
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
-import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.EventType.*;
-import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType.*;
 import static com.lumata.common.testing.orm.Query.*;
 
 public class SubscribersGenerator implements IGeneratorSubscriberParameters {
@@ -65,7 +68,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 	SubscriberAction actionType;
 	
 	private enum SubscriberAction {
-		insertSubscriber, recharge
+		insertSubscriber, insertHobbies, insertOptions, recharge, tokenAllocation
 	}
 	
 	
@@ -187,7 +190,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 		String mandatoryFieldNull = "the mandatory field ${fieldType} is null";
 		
-		if( actionType.equals( SubscriberAction.insertSubscriber ) ) {
+		if( actionType.equals( SubscriberAction.insertSubscriber ) || actionType.equals( SubscriberAction.insertOptions ) || actionType.equals( SubscriberAction.tokenAllocation ) ) {
 			
 			if( !parameters.containsKey( GeneratorParameterType.environment ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.environment.name() ) ); }
 			else if( null == parameters.getParameter( GeneratorParameterType.environment ) ) { throw new GeneratorException( mandatoryFieldNull.replace( "${fieldType}", GeneratorParameterType.environment.name() ) ); }
@@ -197,7 +200,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 
 		}
 		
-		if( actionType.equals( SubscriberAction.recharge ) ) {
+		if( actionType.equals( SubscriberAction.recharge ) || actionType.equals( SubscriberAction.tokenAllocation ) ) {
 			
 			if( !parameters.containsKey( GeneratorParameterType.server ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.server.name() ) ); }
 			else if( null == parameters.getParameter( GeneratorParameterType.server ) ) { throw new GeneratorException( mandatoryFieldNull.replace( "${fieldType}", GeneratorParameterType.server.name() ) ); }
@@ -207,55 +210,59 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 
 		}
 		
-		if( !parameters.containsKey( GeneratorParameterType.msisdn_strategy ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.msisdn_strategy.name() ) + ".It needs to configure a parameter among " + GeneratorParameterType.msisdn_fixed.name() + " or " + GeneratorParameterType.msisdn_incremental.name()  + " or " + GeneratorParameterType.msisdn_random.name() ); }
-		else {
-			if( null == parameters.getParameter( GeneratorParameterType.msisdn_strategy ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.msisdn_strategy.name() ) + ".It needs to configure a parameter among " + GeneratorParameterType.msisdn_fixed.name() + " or " + GeneratorParameterType.msisdn_incremental.name()  + " or " + GeneratorParameterType.msisdn_random.name() ); }
+		if( !actionType.equals( SubscriberAction.insertOptions ) ) {
+		
+			if( !parameters.containsKey( GeneratorParameterType.msisdn_strategy ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.msisdn_strategy.name() ) + ".It needs to configure a parameter among " + GeneratorParameterType.msisdn_fixed.name() + " or " + GeneratorParameterType.msisdn_incremental.name()  + " or " + GeneratorParameterType.msisdn_random.name() ); }
 			else {
-				
-				try {
+				if( null == parameters.getParameter( GeneratorParameterType.msisdn_strategy ) ) { throw new GeneratorException( mandatoryFieldMissing.replace( "${fieldType}", GeneratorParameterType.msisdn_strategy.name() ) + ".It needs to configure a parameter among " + GeneratorParameterType.msisdn_fixed.name() + " or " + GeneratorParameterType.msisdn_incremental.name()  + " or " + GeneratorParameterType.msisdn_random.name() ); }
+				else {
 					
-					switch( parameters.getParameterType( GeneratorParameterType.msisdn_strategy ) ) {
+					try {
+						
+						switch( parameters.getParameterType( GeneratorParameterType.msisdn_strategy ) ) {
+						
+							case msisdn_fixed: {
+								
+								fieldMsisdn.setMsisdnStrategyFixed( (Long)parameters.getParameterValue( GeneratorParameterType.msisdn_strategy ) );
+								
+								break;
+								
+							} 
+							case msisdn_incremental: {
+								
+								fieldMsisdn.setMsisdnStrategyIncrement( 
+										(Long)parameters.getParameterLeftValue( GeneratorParameterType.msisdn_strategy ), 
+										(Integer)parameters.getParameterRightValue( GeneratorParameterType.msisdn_strategy )									
+								);	
+								
+								break;
+								
+							} 
+							case msisdn_random: {
+								
+								fieldMsisdn.setMsisdnStrategyRandom(
+										(Long)parameters.getParameterLeftValue( GeneratorParameterType.msisdn_strategy ), 
+										(Long)parameters.getParameterRightValue( GeneratorParameterType.msisdn_strategy )									
+								);
+								
+								break;
+								
+							} 
+							default: { break; }
+						}
 					
-						case msisdn_fixed: {
-							
-							fieldMsisdn.setMsisdnStrategyFixed( (Long)parameters.getParameterValue( GeneratorParameterType.msisdn_strategy ) );
-							
-							break;
-							
-						} 
-						case msisdn_incremental: {
-							
-							fieldMsisdn.setMsisdnStrategyIncrement( 
-									(Long)parameters.getParameterLeftValue( GeneratorParameterType.msisdn_strategy ), 
-									(Integer)parameters.getParameterRightValue( GeneratorParameterType.msisdn_strategy )									
-							);	
-							
-							break;
-							
-						} 
-						case msisdn_random: {
-							
-							fieldMsisdn.setMsisdnStrategyRandom(
-									(Long)parameters.getParameterLeftValue( GeneratorParameterType.msisdn_strategy ), 
-									(Long)parameters.getParameterRightValue( GeneratorParameterType.msisdn_strategy )									
-							);
-							
-							break;
-							
-						} 
-						default: { break; }
+					} catch( FieldException e ) {
+						
+						logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+						
 					}
-				
-				} catch( FieldException e ) {
-					
-					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
-					
+	
 				}
-
+				
 			}
-			
+		
 		}
-
+		
 		if( parameters.containsKey( GeneratorParameterType.msisdn_options ) ) { 
 			
 			subcriberPrefix = (String)parameters.getParameter( GeneratorParameterType.msisdn_options ).getGeneratorParameterLeftValue(); 
@@ -361,7 +368,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 								
 	}
 	
-	private void insertChannel( Long msisdn, String address, Byte channelId ) {
+	private void insertChannel( final Long msisdn, final String address, final Byte channelId ) {
 		
 		SubsNotif subsNotif = new SubsNotif();
 		
@@ -374,6 +381,84 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		Mysql mysql = (Mysql)parameters.getParameterValue( GeneratorParameterType.mysql );
 		
 		mysql.execUpdate( query );
+		
+	}
+	
+	public void insertOptions( final String prefix, final Long qtyOptions ) throws GeneratorException {
+		
+		actionType = SubscriberAction.insertOptions;
+		
+		configureParameters();
+			
+		for( long opt = 1; opt <= qtyOptions; opt++ ) {
+		
+			SetOptions option = new SetOptions();
+			
+			option.setOptions( (long)opt );
+			
+			option.setOptionsName( prefix + opt );
+			
+			addSets( option );
+		
+			logger.info( Log.STORED.createMessage( "option ( " + option.getOptions() + " - " + option.getOptionsName() + " )" ) );
+			
+		}		
+				
+	}
+	
+	private void addSets( final Object table ) {
+		
+			
+		String query = insert_ignore( table ).values().build();
+		
+		Mysql mysql = (Mysql)parameters.getParameterValue( GeneratorParameterType.mysql );
+		
+		mysql.execUpdate( query );
+						
+	}
+	
+	public void xmlrpcAllTokenAllocation() throws GeneratorException, NumberFormatException, FieldException {
+		
+		actionType = SubscriberAction.tokenAllocation;
+		
+		configureParameters();
+		
+		Server server = (Server)parameters.getParameterValue( GeneratorParameterType.server );
+		
+		User user = (User)parameters.getParameterValue( GeneratorParameterType.user );
+		
+		Mysql mysql = (Mysql)parameters.getParameterValue( GeneratorParameterType.mysql );
+		
+		ArrayList<Token> tokens = DAOToken.getInstance( mysql ).getAvailableActiveTokens( Long.valueOf( fieldMsisdn.getMsisdn() ) );
+		
+		for ( Token token : tokens ) {
+			
+			try {
+				
+				XMLRPCRequest.offeroptimizer_allocate().call( 	
+					server, 
+					xmlrpcBody(
+						authentication( user ),
+						string( fieldMsisdn.getMsisdn() ),
+						string( token.getTokenCode() )
+					),
+					xmlrpcOptions(
+						storeRequestAsResource( "xmlrpc/request/", "request.xml" ),
+						storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
+					)
+				);
+				
+			} catch (XMLRPCException e) {
+				
+				logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+			
+			} catch (Exception e) {
+				
+				logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+			
+			}
+			
+		}
 		
 	}
 	

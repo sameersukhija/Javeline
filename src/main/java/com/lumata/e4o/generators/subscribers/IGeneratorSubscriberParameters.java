@@ -4,6 +4,7 @@ import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
+import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.exceptions.GeneratorException;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter;
 
@@ -33,7 +34,11 @@ public interface IGeneratorSubscriberParameters {
 	
 	public IGeneratorSubscriberParameters repeat( final Integer repeat );
 	
-	public void insertIntoEnvironment( Long qtySubscribers ) throws GeneratorException;
+	public void insertIntoEnvironment( final Long qtySubscribers ) throws GeneratorException;
+	
+	public void insertOptions( final String prefix, final Long qtyOptions ) throws GeneratorException;
+	
+	public void xmlrpcAllTokenAllocation() throws GeneratorException, NumberFormatException, FieldException;
 	
 	public void xmlrpcRecharge() throws GeneratorException;
 	

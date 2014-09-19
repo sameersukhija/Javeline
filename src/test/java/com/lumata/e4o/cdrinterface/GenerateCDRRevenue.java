@@ -195,9 +195,9 @@ public class GenerateCDRRevenue {
 	
 	private void send_file( CDRRevenueRecharge cdrRevenue ) {
 		
-		cdrRevenue.send( env, "/nfsdata/files/cdr/deposit/REVENUE_CDR/" );
+		//cdrRevenue.send( env, "/nfsdata/files/cdr/deposit/REVENUE_CDR/" );
 		
-		logger.info( Log.PUTTING.createMessage( "The cdr file " + cdrRevenue.generateFileName() + " has been sent to remote host" ) );
+		//logger.info( Log.PUTTING.createMessage( "The cdr file " + cdrRevenue.generateFileName() + " has been sent to remote host" ) );
 		
 	}
 	

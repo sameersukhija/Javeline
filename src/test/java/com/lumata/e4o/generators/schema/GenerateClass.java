@@ -39,13 +39,13 @@ public class GenerateClass {
 						
 	}
 	
-	@Parameters({"qa"})
+	@Parameters({"tenant"})
 	@Test()
 	public void createDAO( @Optional("tenant") String tenant ) throws DataModelException, IOFileException {
 		
 		logger.info( Log.PUTTING.createMessage( "createDAO" , "Create DAO Classes" ) );
 				
-		generatorDAO.createDAO( env, "tenant", "com.lumata.e4o.schema.tenant" );
+		generatorDAO.createDAO( env, tenant, "com.lumata.e4o.schema.tenant" );
 				
 	}		
 	

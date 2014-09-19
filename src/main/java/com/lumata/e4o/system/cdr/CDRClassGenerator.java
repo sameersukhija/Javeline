@@ -38,6 +38,7 @@ import com.lumata.e4o.system.cdr.fields.NewImei;
 import com.lumata.e4o.system.cdr.fields.NewImsi;
 import com.lumata.e4o.system.cdr.fields.NewInTag;
 import com.lumata.e4o.system.cdr.fields.NewNetwork;
+import com.lumata.e4o.system.cdr.fields.NewOptions;
 import com.lumata.e4o.system.cdr.fields.NewProfile;
 import com.lumata.e4o.system.cdr.fields.NewRatePlan;
 import com.lumata.e4o.system.cdr.fields.NewSalary;
@@ -51,6 +52,7 @@ import com.lumata.e4o.system.cdr.fields.OldImei;
 import com.lumata.e4o.system.cdr.fields.OldImsi;
 import com.lumata.e4o.system.cdr.fields.OldInTag;
 import com.lumata.e4o.system.cdr.fields.OldNetwork;
+import com.lumata.e4o.system.cdr.fields.OldOptions;
 import com.lumata.e4o.system.cdr.fields.OldProfile;
 import com.lumata.e4o.system.cdr.fields.OldRatePlan;
 import com.lumata.e4o.system.cdr.fields.OldSalary;
@@ -140,7 +142,7 @@ public class CDRClassGenerator {
 		},
 		LifeCycle {	
 			public List<Class<? extends Annotation>> fields() {
-				return Arrays.asList( Msisdn.class, Date.class, NewImei.class, OldImei.class, NewImsi.class, OldImsi.class, NewSubscriptionDate.class, OldSubscriptionDate.class, NewProfile.class, OldProfile.class, NewRatePlan.class, OldRatePlan.class, NewStatus.class, OldStatus.class, NewNetwork.class, OldNetwork.class, NewTongue.class, OldTongue.class, NewInTag.class, OldInTag.class, NewHobbies.class, OldHobbies.class, NewGender.class, OldGender.class, NewSalary.class, OldSalary.class );
+				return Arrays.asList( Msisdn.class, Date.class, NewImei.class, OldImei.class, NewImsi.class, OldImsi.class, NewSubscriptionDate.class, OldSubscriptionDate.class, NewProfile.class, OldProfile.class, NewRatePlan.class, OldRatePlan.class, NewStatus.class, OldStatus.class, NewNetwork.class, OldNetwork.class, NewTongue.class, OldTongue.class, NewInTag.class, OldInTag.class, NewHobbies.class, OldHobbies.class, NewOptions.class, OldOptions.class, NewGender.class, OldGender.class, NewSalary.class, OldSalary.class );
 			}
 		},
 		LifeCycleDelete {	

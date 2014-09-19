@@ -64,8 +64,8 @@ public class EventFiles {
 			isNull = false,
 			isAutoincrement = false,
 			key = "",
-			defaultValue = "null",
-			extra = "",
+			defaultValue = "CURRENT_TIMESTAMP",
+			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
 			getMethod = "getFileTime",
 			setMethod = "setFileTime"
