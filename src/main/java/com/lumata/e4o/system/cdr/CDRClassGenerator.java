@@ -32,6 +32,7 @@ import com.lumata.e4o.system.cdr.fields.Download;
 import com.lumata.e4o.system.cdr.fields.Duration;
 import com.lumata.e4o.system.cdr.fields.Location;
 import com.lumata.e4o.system.cdr.fields.Msisdn;
+import com.lumata.e4o.system.cdr.fields.NewAddress;
 import com.lumata.e4o.system.cdr.fields.NewGender;
 import com.lumata.e4o.system.cdr.fields.NewHobbies;
 import com.lumata.e4o.system.cdr.fields.NewImei;
@@ -42,10 +43,12 @@ import com.lumata.e4o.system.cdr.fields.NewOptions;
 import com.lumata.e4o.system.cdr.fields.NewProfile;
 import com.lumata.e4o.system.cdr.fields.NewRatePlan;
 import com.lumata.e4o.system.cdr.fields.NewSalary;
+import com.lumata.e4o.system.cdr.fields.NewSponsor;
 import com.lumata.e4o.system.cdr.fields.NewStatus;
 import com.lumata.e4o.system.cdr.fields.NewSubProfile;
 import com.lumata.e4o.system.cdr.fields.NewSubscriptionDate;
 import com.lumata.e4o.system.cdr.fields.NewTongue;
+import com.lumata.e4o.system.cdr.fields.OldAddress;
 import com.lumata.e4o.system.cdr.fields.OldGender;
 import com.lumata.e4o.system.cdr.fields.OldHobbies;
 import com.lumata.e4o.system.cdr.fields.OldImei;
@@ -56,6 +59,7 @@ import com.lumata.e4o.system.cdr.fields.OldOptions;
 import com.lumata.e4o.system.cdr.fields.OldProfile;
 import com.lumata.e4o.system.cdr.fields.OldRatePlan;
 import com.lumata.e4o.system.cdr.fields.OldSalary;
+import com.lumata.e4o.system.cdr.fields.OldSponsor;
 import com.lumata.e4o.system.cdr.fields.OldStatus;
 import com.lumata.e4o.system.cdr.fields.OldSubProfile;
 import com.lumata.e4o.system.cdr.fields.OldSubscriptionDate;
@@ -142,7 +146,7 @@ public class CDRClassGenerator {
 		},
 		LifeCycle {	
 			public List<Class<? extends Annotation>> fields() {
-				return Arrays.asList( Msisdn.class, Date.class, NewImei.class, OldImei.class, NewImsi.class, OldImsi.class, NewSubscriptionDate.class, OldSubscriptionDate.class, NewProfile.class, OldProfile.class, NewRatePlan.class, OldRatePlan.class, NewStatus.class, OldStatus.class, NewNetwork.class, OldNetwork.class, NewTongue.class, OldTongue.class, NewInTag.class, OldInTag.class, NewHobbies.class, OldHobbies.class, NewOptions.class, OldOptions.class, NewGender.class, OldGender.class, NewSalary.class, OldSalary.class );
+				return Arrays.asList( Msisdn.class, Date.class, NewImei.class, OldImei.class, NewImsi.class, OldImsi.class, NewSubscriptionDate.class, OldSubscriptionDate.class, NewProfile.class, OldProfile.class, NewRatePlan.class, OldRatePlan.class, NewStatus.class, OldStatus.class, NewNetwork.class, OldNetwork.class, NewTongue.class, OldTongue.class, NewInTag.class, OldInTag.class, NewHobbies.class, OldHobbies.class, NewOptions.class, OldOptions.class, NewGender.class, OldGender.class, NewSalary.class, OldSalary.class, NewAddress.class, OldAddress.class, NewSponsor.class, OldSponsor.class );
 			}
 		},
 		LifeCycleDelete {	

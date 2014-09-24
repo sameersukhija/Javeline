@@ -3,6 +3,7 @@ package com.lumata.e4o.generators.cdr;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -76,23 +77,34 @@ public class GenerateCDRLifeCycle {
 		FieldDateIncrement increment = new FieldDateIncrement();
 		increment.setDayIncrement( 1 );
 	
-		Set<String> options = getOptions();
+		// Set<String> options = getOptions();
+		
+		Set<String> options = new LinkedHashSet<String>();
+		for( int o = 1; o <= 1024; o++ ) {
+		
+			options.add( "option_" + o );
+						
+		}
+		
 		if( null != options ) { cdrLCP.setNewOptionsOptions( options ); }
 		  
-		cdrLCP.setMsisdnStrategyIncrement( 3399900001L, 1 );
+		cdrLCP.setMsisdnStrategyIncrement( 3399900016L, 1 );
 		cdrLCP.setDateStrategyFixed( date );
 		cdrLCP.setNewImeiStrategyIncrement( 300000000000000L, Integer.valueOf( RandomStringUtils.randomNumeric( 9 ) ) );
 		cdrLCP.setNewImsiStrategyIncrement( 300000000000000L, Integer.valueOf( RandomStringUtils.randomNumeric( 9 ) ) );
 		cdrLCP.setNewSubscriptionDateStrategyFixed( date );
+		
 		cdrLCP.setNewStatusStrategyFixed( CDR.SUBSTATUS.ACTIVE );
 		cdrLCP.setNewTongueStrategyFixed( "ENG" );
 		cdrLCP.setNewInTagStrategyFixed( "QAIN" );
 		cdrLCP.setNewHobbiesStrategyRandom( 4 );
-		cdrLCP.setNewOptionsStrategyRandom( 4 );
+		cdrLCP.setNewOptionsStrategyRandom( 10 );
 		cdrLCP.setNewGenderStrategyRandom();
 		cdrLCP.setNewSalaryStrategyFixed( "2000" );
-				
-		cdrLCP.addLines( 20 );
+		cdrLCP.setNewAddressStrategyFixed( "sms" );
+		cdrLCP.setNewSponsorStrategyFixed( "" );		
+		
+		cdrLCP.addLines( 1 );
 				
 		cdrLCP.print();
 		

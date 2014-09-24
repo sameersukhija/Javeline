@@ -48,6 +48,7 @@ import com.lumata.e4o.system.cdr.fields.Download;
 import com.lumata.e4o.system.cdr.fields.Duration;
 import com.lumata.e4o.system.cdr.fields.Location;
 import com.lumata.e4o.system.cdr.fields.Msisdn;
+import com.lumata.e4o.system.cdr.fields.NewAddress;
 import com.lumata.e4o.system.cdr.fields.NewGender;
 import com.lumata.e4o.system.cdr.fields.NewHobbies;
 import com.lumata.e4o.system.cdr.fields.NewImei;
@@ -58,10 +59,12 @@ import com.lumata.e4o.system.cdr.fields.NewOptions;
 import com.lumata.e4o.system.cdr.fields.NewProfile;
 import com.lumata.e4o.system.cdr.fields.NewRatePlan;
 import com.lumata.e4o.system.cdr.fields.NewSalary;
+import com.lumata.e4o.system.cdr.fields.NewSponsor;
 import com.lumata.e4o.system.cdr.fields.NewStatus;
 import com.lumata.e4o.system.cdr.fields.NewSubProfile;
 import com.lumata.e4o.system.cdr.fields.NewSubscriptionDate;
 import com.lumata.e4o.system.cdr.fields.NewTongue;
+import com.lumata.e4o.system.cdr.fields.OldAddress;
 import com.lumata.e4o.system.cdr.fields.OldGender;
 import com.lumata.e4o.system.cdr.fields.OldHobbies;
 import com.lumata.e4o.system.cdr.fields.OldImei;
@@ -72,6 +75,7 @@ import com.lumata.e4o.system.cdr.fields.OldOptions;
 import com.lumata.e4o.system.cdr.fields.OldProfile;
 import com.lumata.e4o.system.cdr.fields.OldRatePlan;
 import com.lumata.e4o.system.cdr.fields.OldSalary;
+import com.lumata.e4o.system.cdr.fields.OldSponsor;
 import com.lumata.e4o.system.cdr.fields.OldStatus;
 import com.lumata.e4o.system.cdr.fields.OldSubProfile;
 import com.lumata.e4o.system.cdr.fields.OldSubscriptionDate;
@@ -250,12 +254,6 @@ public class CDR {
 
 	@OldHobbies
 	protected FieldSet oldHobbies; 
-	
-	@NewOptions
-	protected FieldSet newOptions; 
-
-	@OldOptions
-	protected FieldSet oldOptions; 
 
 	@NewGender
 	protected FieldEnum newGender; 
@@ -268,6 +266,24 @@ public class CDR {
 
 	@OldSalary
 	protected FieldString oldSalary; 
+
+	@NewAddress
+	protected FieldString newAddress; 
+
+	@OldAddress
+	protected FieldString oldAddress; 
+
+	@NewSponsor
+	protected FieldString newSponsor; 
+
+	@OldSponsor
+	protected FieldString oldSponsor;
+	
+	@NewOptions
+	protected FieldSet newOptions; 
+
+	@OldOptions
+	protected FieldSet oldOptions;
 	
 	@Delete
 	protected FieldEnum delete; 
@@ -470,12 +486,16 @@ public class CDR {
 		this.oldInTag = new FieldString();		
 		this.newHobbies = new FieldSet( HOBBIES.values() );
 		this.oldHobbies = new FieldSet( HOBBIES.values() );
-		this.newOptions = new FieldSet( new TreeSet<String>() );
-		this.oldOptions = new FieldSet( new TreeSet<String>() );
 		this.newGender = new FieldEnum( GENDER.values() ); 
 		this.oldGender = new FieldEnum( GENDER.values() );
 		this.newSalary = new FieldString();
-		this.oldSalary = new FieldString(); 
+		this.oldSalary = new FieldString();
+		this.newAddress = new FieldString();
+		this.oldAddress = new FieldString();
+		this.newSponsor = new FieldString();
+		this.oldSponsor = new FieldString();
+		this.newOptions = new FieldSet( new TreeSet<String>() );
+		this.oldOptions = new FieldSet( new TreeSet<String>() );
 		this.delete = new FieldEnum( DELETE.values() );
 		
 		this.sms = new FieldEnum( SMS.values() );

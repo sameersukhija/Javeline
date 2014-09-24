@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class CDRLifeCycle extends CDR { 
 
-	private final int FIELDS = 28;
+	private final int FIELDS = 32;
 
 	public CDRLifeCycle() {
 		super();
@@ -1090,6 +1090,154 @@ public class CDRLifeCycle extends CDR {
 	@OldSalary( position = 27 )
 	public String getOldSalary() throws FieldException  {
 		return this.oldSalary.getString();
+	}
+
+	public void setNewAddressLength( final Integer length ) throws FieldException  {
+		if( this.newAddress != null ) { this.newAddress.setStringLength( length ); }
+	}
+
+	public void setNewAddressStrategyFixed( final String value ) throws FieldException  {
+		if( this.newAddress != null ) { this.newAddress.setStringStrategyFixed( value ); }
+	}
+
+	public void cleanNewAddressStrategyIncrement()  {
+		if( this.newAddress != null ) { this.newAddress.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanNewAddressStrategyRandom()  {
+		if( this.newAddress != null ) { this.newAddress.cleanStringStrategyRandom(); }
+	}
+
+	public void setNewAddressStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.newAddress != null ) { this.newAddress.setStringStrategyIncrement( value, start_value, increment ); }
+	}
+
+	public void setNewAddressStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.newAddress != null ) { this.newAddress.setStringStrategyRandom( length ); }
+	}
+
+	public void cleanNewAddress()  {
+		if( this.newAddress != null ) { this.newAddress.cleanString(); }
+	}
+
+	public void cleanNewAddressLength()  {
+		if( this.newAddress != null ) { this.newAddress.cleanStringLength(); }
+	}
+
+	@NewAddress( position = 28 )
+	public String getNewAddress() throws FieldException  {
+		return this.newAddress.getString();
+	}
+
+	public void setOldAddressLength( final Integer length ) throws FieldException  {
+		if( this.oldAddress != null ) { this.oldAddress.setStringLength( length ); }
+	}
+
+	public void setOldAddressStrategyFixed( final String value ) throws FieldException  {
+		if( this.oldAddress != null ) { this.oldAddress.setStringStrategyFixed( value ); }
+	}
+
+	public void cleanOldAddressStrategyIncrement()  {
+		if( this.oldAddress != null ) { this.oldAddress.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanOldAddressStrategyRandom()  {
+		if( this.oldAddress != null ) { this.oldAddress.cleanStringStrategyRandom(); }
+	}
+
+	public void setOldAddressStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.oldAddress != null ) { this.oldAddress.setStringStrategyIncrement( value, start_value, increment ); }
+	}
+
+	public void setOldAddressStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.oldAddress != null ) { this.oldAddress.setStringStrategyRandom( length ); }
+	}
+
+	public void cleanOldAddress()  {
+		if( this.oldAddress != null ) { this.oldAddress.cleanString(); }
+	}
+
+	public void cleanOldAddressLength()  {
+		if( this.oldAddress != null ) { this.oldAddress.cleanStringLength(); }
+	}
+
+	@OldAddress( position = 29 )
+	public String getOldAddress() throws FieldException  {
+		return this.oldAddress.getString();
+	}
+
+	public void setNewSponsorLength( final Integer length ) throws FieldException  {
+		if( this.newSponsor != null ) { this.newSponsor.setStringLength( length ); }
+	}
+
+	public void setNewSponsorStrategyFixed( final String value ) throws FieldException  {
+		if( this.newSponsor != null ) { this.newSponsor.setStringStrategyFixed( value ); }
+	}
+
+	public void cleanNewSponsorStrategyIncrement()  {
+		if( this.newSponsor != null ) { this.newSponsor.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanNewSponsorStrategyRandom()  {
+		if( this.newSponsor != null ) { this.newSponsor.cleanStringStrategyRandom(); }
+	}
+
+	public void setNewSponsorStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.newSponsor != null ) { this.newSponsor.setStringStrategyIncrement( value, start_value, increment ); }
+	}
+
+	public void setNewSponsorStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.newSponsor != null ) { this.newSponsor.setStringStrategyRandom( length ); }
+	}
+
+	public void cleanNewSponsor()  {
+		if( this.newSponsor != null ) { this.newSponsor.cleanString(); }
+	}
+
+	public void cleanNewSponsorLength()  {
+		if( this.newSponsor != null ) { this.newSponsor.cleanStringLength(); }
+	}
+
+	@NewSponsor( position = 30 )
+	public String getNewSponsor() throws FieldException  {
+		return this.newSponsor.getString();
+	}
+
+	public void setOldSponsorLength( final Integer length ) throws FieldException  {
+		if( this.oldSponsor != null ) { this.oldSponsor.setStringLength( length ); }
+	}
+
+	public void setOldSponsorStrategyFixed( final String value ) throws FieldException  {
+		if( this.oldSponsor != null ) { this.oldSponsor.setStringStrategyFixed( value ); }
+	}
+
+	public void cleanOldSponsorStrategyIncrement()  {
+		if( this.oldSponsor != null ) { this.oldSponsor.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanOldSponsorStrategyRandom()  {
+		if( this.oldSponsor != null ) { this.oldSponsor.cleanStringStrategyRandom(); }
+	}
+
+	public void setOldSponsorStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.oldSponsor != null ) { this.oldSponsor.setStringStrategyIncrement( value, start_value, increment ); }
+	}
+
+	public void setOldSponsorStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.oldSponsor != null ) { this.oldSponsor.setStringStrategyRandom( length ); }
+	}
+
+	public void cleanOldSponsor()  {
+		if( this.oldSponsor != null ) { this.oldSponsor.cleanString(); }
+	}
+
+	public void cleanOldSponsorLength()  {
+		if( this.oldSponsor != null ) { this.oldSponsor.cleanStringLength(); }
+	}
+
+	@OldSponsor( position = 31 )
+	public String getOldSponsor() throws FieldException  {
+		return this.oldSponsor.getString();
 	}
 
 }
