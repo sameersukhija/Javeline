@@ -89,6 +89,18 @@ public class CDRLifeCycleDelete extends CDR {
 		return this.date.getDate();
 	}
 
+	public void setDeleteStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
+		if( this.delete != null ) { this.delete.setEnumStrategyIncrement( value, increment ); }
+	}
+
+	public void setDeleteStrategyRandom() throws FieldException  {
+		if( this.delete != null ) { this.delete.setEnumStrategyRandom(); }
+	}
+
+	public void cleanDeleteStrategyFixed()  {
+		if( this.delete != null ) { this.delete.cleanEnumStrategyFixed(); }
+	}
+
 	@Delete( position = 2 )
 	public String getDelete() throws FieldException  {
 		return this.delete.getEnum();
@@ -104,18 +116,6 @@ public class CDRLifeCycleDelete extends CDR {
 
 	public void cleanDeleteStrategyRandom()  {
 		if( this.delete != null ) { this.delete.cleanEnumStrategyRandom(); }
-	}
-
-	public void setDeleteStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
-		if( this.delete != null ) { this.delete.setEnumStrategyIncrement( value, increment ); }
-	}
-
-	public void setDeleteStrategyRandom() throws FieldException  {
-		if( this.delete != null ) { this.delete.setEnumStrategyRandom(); }
-	}
-
-	public void cleanDeleteStrategyFixed()  {
-		if( this.delete != null ) { this.delete.cleanEnumStrategyFixed(); }
 	}
 
 }

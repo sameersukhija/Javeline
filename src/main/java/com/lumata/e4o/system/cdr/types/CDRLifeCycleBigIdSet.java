@@ -8,11 +8,11 @@ import com.lumata.e4o.system.fields.FieldDateIncrement;
 import com.lumata.e4o.system.fields.IFieldEnum;
 import java.util.Set;
 
-public class CDRLifeCycle extends CDR { 
+public class CDRLifeCycleBigIdSet extends CDR { 
 
-	private final int FIELDS = 30;
+	private final int FIELDS = 32;
 
-	public CDRLifeCycle() {
+	public CDRLifeCycleBigIdSet() {
 		super();
 	} 
 
@@ -830,6 +830,136 @@ public class CDRLifeCycle extends CDR {
 		if( this.oldHobbies != null ) { this.oldHobbies.cleanSetStrategyFixed(); }
 	}
 
+	@NewOptions( position = 22 )
+	public String getNewOptions() throws FieldException  {
+		return this.newOptions.getSet();
+	}
+
+	public void setNewOptionsOptions( final Set<String> values ) throws FieldException  {
+		if( this.newOptions != null ) { this.newOptions.setSetOptions( values ); }
+	}
+
+	public void setNewOptionsOptions( final Enum<?>... values ) throws FieldException  {
+		if( this.newOptions != null ) { this.newOptions.setSetOptions( values ); }
+	}
+
+	public void setNewOptionsOptions( final String... values ) throws FieldException  {
+		if( this.newOptions != null ) { this.newOptions.setSetOptions( values ); }
+	}
+
+	public void setNewOptionsOptions( final String separator ) throws FieldException  {
+		if( this.newOptions != null ) { this.newOptions.setSetOptions( separator ); }
+	}
+
+	public void setNewOptionsStrategyFixed( final Set<String> values ) throws FieldException  {
+		if( this.newOptions != null ) { this.newOptions.setSetStrategyFixed( values ); }
+	}
+
+	public void setNewOptionsStrategyFixed( final Enum<?>[] values ) throws FieldException  {
+		if( this.newOptions != null ) { this.newOptions.setSetStrategyFixed( values ); }
+	}
+
+	public void setNewOptionsStrategyFixed( final String... values ) throws FieldException  {
+		if( this.newOptions != null ) { this.newOptions.setSetStrategyFixed( values ); }
+	}
+
+	public void setNewOptionsStrategyFixed() throws FieldException  {
+		if( this.newOptions != null ) { this.newOptions.setSetStrategyFixed(); }
+	}
+
+	public void cleanNewOptionsStrategyIncrement()  {
+		if( this.newOptions != null ) { this.newOptions.cleanSetStrategyIncrement(); }
+	}
+
+	public void cleanNewOptionsStrategyRandom()  {
+		if( this.newOptions != null ) { this.newOptions.cleanSetStrategyRandom(); }
+	}
+
+	public void setNewOptionsStrategyIncrement( final Enum<?> startValue, final Integer increment, final Integer range ) throws FieldException  {
+		if( this.newOptions != null ) { this.newOptions.setSetStrategyIncrement( startValue, increment, range ); }
+	}
+
+	public void setNewOptionsStrategyIncrement( final String startValue, final Integer increment, final Integer range ) throws FieldException  {
+		if( this.newOptions != null ) { this.newOptions.setSetStrategyIncrement( startValue, increment, range ); }
+	}
+
+	public void setNewOptionsStrategyRandom() throws FieldException  {
+		if( this.newOptions != null ) { this.newOptions.setSetStrategyRandom(); }
+	}
+
+	public void setNewOptionsStrategyRandom( final Integer range ) throws FieldException  {
+		if( this.newOptions != null ) { this.newOptions.setSetStrategyRandom( range ); }
+	}
+
+	public void cleanNewOptionsStrategyFixed()  {
+		if( this.newOptions != null ) { this.newOptions.cleanSetStrategyFixed(); }
+	}
+
+	@OldOptions( position = 23 )
+	public String getOldOptions() throws FieldException  {
+		return this.oldOptions.getSet();
+	}
+
+	public void setOldOptionsOptions( final Set<String> values ) throws FieldException  {
+		if( this.oldOptions != null ) { this.oldOptions.setSetOptions( values ); }
+	}
+
+	public void setOldOptionsOptions( final Enum<?>... values ) throws FieldException  {
+		if( this.oldOptions != null ) { this.oldOptions.setSetOptions( values ); }
+	}
+
+	public void setOldOptionsOptions( final String... values ) throws FieldException  {
+		if( this.oldOptions != null ) { this.oldOptions.setSetOptions( values ); }
+	}
+
+	public void setOldOptionsOptions( final String separator ) throws FieldException  {
+		if( this.oldOptions != null ) { this.oldOptions.setSetOptions( separator ); }
+	}
+
+	public void setOldOptionsStrategyFixed( final Set<String> values ) throws FieldException  {
+		if( this.oldOptions != null ) { this.oldOptions.setSetStrategyFixed( values ); }
+	}
+
+	public void setOldOptionsStrategyFixed( final Enum<?>[] values ) throws FieldException  {
+		if( this.oldOptions != null ) { this.oldOptions.setSetStrategyFixed( values ); }
+	}
+
+	public void setOldOptionsStrategyFixed( final String... values ) throws FieldException  {
+		if( this.oldOptions != null ) { this.oldOptions.setSetStrategyFixed( values ); }
+	}
+
+	public void setOldOptionsStrategyFixed() throws FieldException  {
+		if( this.oldOptions != null ) { this.oldOptions.setSetStrategyFixed(); }
+	}
+
+	public void cleanOldOptionsStrategyIncrement()  {
+		if( this.oldOptions != null ) { this.oldOptions.cleanSetStrategyIncrement(); }
+	}
+
+	public void cleanOldOptionsStrategyRandom()  {
+		if( this.oldOptions != null ) { this.oldOptions.cleanSetStrategyRandom(); }
+	}
+
+	public void setOldOptionsStrategyIncrement( final Enum<?> startValue, final Integer increment, final Integer range ) throws FieldException  {
+		if( this.oldOptions != null ) { this.oldOptions.setSetStrategyIncrement( startValue, increment, range ); }
+	}
+
+	public void setOldOptionsStrategyIncrement( final String startValue, final Integer increment, final Integer range ) throws FieldException  {
+		if( this.oldOptions != null ) { this.oldOptions.setSetStrategyIncrement( startValue, increment, range ); }
+	}
+
+	public void setOldOptionsStrategyRandom() throws FieldException  {
+		if( this.oldOptions != null ) { this.oldOptions.setSetStrategyRandom(); }
+	}
+
+	public void setOldOptionsStrategyRandom( final Integer range ) throws FieldException  {
+		if( this.oldOptions != null ) { this.oldOptions.setSetStrategyRandom( range ); }
+	}
+
+	public void cleanOldOptionsStrategyFixed()  {
+		if( this.oldOptions != null ) { this.oldOptions.cleanSetStrategyFixed(); }
+	}
+
 	public void setNewGenderStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
 		if( this.newGender != null ) { this.newGender.setEnumStrategyIncrement( value, increment ); }
 	}
@@ -842,7 +972,7 @@ public class CDRLifeCycle extends CDR {
 		if( this.newGender != null ) { this.newGender.cleanEnumStrategyFixed(); }
 	}
 
-	@NewGender( position = 22 )
+	@NewGender( position = 24 )
 	public String getNewGender() throws FieldException  {
 		return this.newGender.getEnum();
 	}
@@ -871,7 +1001,7 @@ public class CDRLifeCycle extends CDR {
 		if( this.oldGender != null ) { this.oldGender.cleanEnumStrategyFixed(); }
 	}
 
-	@OldGender( position = 23 )
+	@OldGender( position = 25 )
 	public String getOldGender() throws FieldException  {
 		return this.oldGender.getEnum();
 	}
@@ -920,7 +1050,7 @@ public class CDRLifeCycle extends CDR {
 		if( this.newSalary != null ) { this.newSalary.cleanStringLength(); }
 	}
 
-	@NewSalary( position = 24 )
+	@NewSalary( position = 26 )
 	public String getNewSalary() throws FieldException  {
 		return this.newSalary.getString();
 	}
@@ -957,7 +1087,7 @@ public class CDRLifeCycle extends CDR {
 		if( this.oldSalary != null ) { this.oldSalary.cleanStringLength(); }
 	}
 
-	@OldSalary( position = 25 )
+	@OldSalary( position = 27 )
 	public String getOldSalary() throws FieldException  {
 		return this.oldSalary.getString();
 	}
@@ -994,7 +1124,7 @@ public class CDRLifeCycle extends CDR {
 		if( this.newAddress != null ) { this.newAddress.cleanStringLength(); }
 	}
 
-	@NewAddress( position = 26 )
+	@NewAddress( position = 28 )
 	public String getNewAddress() throws FieldException  {
 		return this.newAddress.getString();
 	}
@@ -1031,7 +1161,7 @@ public class CDRLifeCycle extends CDR {
 		if( this.oldAddress != null ) { this.oldAddress.cleanStringLength(); }
 	}
 
-	@OldAddress( position = 27 )
+	@OldAddress( position = 29 )
 	public String getOldAddress() throws FieldException  {
 		return this.oldAddress.getString();
 	}
@@ -1068,7 +1198,7 @@ public class CDRLifeCycle extends CDR {
 		if( this.newSponsor != null ) { this.newSponsor.cleanStringLength(); }
 	}
 
-	@NewSponsor( position = 28 )
+	@NewSponsor( position = 30 )
 	public String getNewSponsor() throws FieldException  {
 		return this.newSponsor.getString();
 	}
@@ -1105,7 +1235,7 @@ public class CDRLifeCycle extends CDR {
 		if( this.oldSponsor != null ) { this.oldSponsor.cleanStringLength(); }
 	}
 
-	@OldSponsor( position = 29 )
+	@OldSponsor( position = 31 )
 	public String getOldSponsor() throws FieldException  {
 		return this.oldSponsor.getString();
 	}

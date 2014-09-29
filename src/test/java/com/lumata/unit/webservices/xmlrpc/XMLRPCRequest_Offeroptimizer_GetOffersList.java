@@ -25,7 +25,7 @@ public class XMLRPCRequest_Offeroptimizer_GetOffersList {
 	/* 	Initialize Environment */
 	@Parameters({"environment", "gui_server", "user"})
 	@BeforeClass
-	public void init( @Optional("E4O_VM") String environment, @Optional("actrule") String gui_server, @Optional("superman") String user ) throws NetworkEnvironmentException {		
+	public void init( @Optional("E4O_VM") String environment, @Optional("actrule1") String gui_server, @Optional("superman") String user ) throws NetworkEnvironmentException {		
 		
 		/** Create environment configuration */
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
@@ -39,8 +39,8 @@ public class XMLRPCRequest_Offeroptimizer_GetOffersList {
 	@Test(enabled=true, priority = 1 )
 	public void callXMLRPCCRequest() throws Exception {
 		
-		final String msisdn = "3399900001";
-		final String tokenCode = "K7TYJ";
+		final String msisdn = "4917687311718";
+		final String tokenCode = "K7TQ9";
 		
 		XMLRPCRequest.offeroptimizer_getOffersList().call( 	
 			actruleServer, 

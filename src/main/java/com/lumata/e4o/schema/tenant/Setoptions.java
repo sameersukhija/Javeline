@@ -10,7 +10,7 @@ import com.lumata.common.testing.annotations.mysql.Column;
 
 
 @Table( "set_hobbies" )
-public class SetHobbies { 
+public class Setoptions { 
 
 	public enum Fields { hobbies, hobbies_name }
 
@@ -51,19 +51,19 @@ public class SetHobbies {
 	private String hobbies_name;
 
 
-	public SetHobbies() {} 
+	public Setoptions() {} 
 
-	public SetHobbies( ResultSet rs ) throws SQLException {
+	public Setoptions( ResultSet rs ) throws SQLException {
 
-		this.hobbies = rs.getLong( SetHobbies.Fields.hobbies.name() );
-		this.hobbies_name = rs.getString( SetHobbies.Fields.hobbies_name.name() );
+		this.hobbies = rs.getLong( Setoptions.Fields.hobbies.name() );
+		this.hobbies_name = rs.getString( Setoptions.Fields.hobbies_name.name() );
 
 	}
 
-	public SetHobbies( JSONObject jo ) throws JSONException {
+	public Setoptions( JSONObject jo ) throws JSONException {
 
-		this.hobbies = (long)jo.getLong( SetHobbies.Fields.hobbies.name() );
-		this.hobbies_name = jo.getString( SetHobbies.Fields.hobbies_name.name() );
+		this.hobbies = (long)jo.getLong( Setoptions.Fields.hobbies.name() );
+		this.hobbies_name = jo.getString( Setoptions.Fields.hobbies_name.name() );
 
 	}
 
@@ -93,7 +93,7 @@ public class SetHobbies {
 
 	public Fields[] getEntityFields() {
 
-		return SetHobbies.Fields.values();
+		return Setoptions.Fields.values();
 
 	}
 

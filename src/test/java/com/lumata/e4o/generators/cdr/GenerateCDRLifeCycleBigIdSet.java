@@ -27,11 +27,11 @@ import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.schema.tenant.SetOptions;
 import com.lumata.e4o.system.cdr.CDR;
-import com.lumata.e4o.system.cdr.types.CDRLifeCycle;
+import com.lumata.e4o.system.cdr.types.CDRLifeCycleBigIdSet;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
 
 
-public class GenerateCDRLifeCycle {
+public class GenerateCDRLifeCycleBigIdSet {
 	
 	NetworkEnvironment env;
 	Mysql mysql;
@@ -62,7 +62,7 @@ public class GenerateCDRLifeCycle {
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_lifecycle" );
 
-		CDRLifeCycle cdrLCP = new CDRLifeCycle();
+		CDRLifeCycleBigIdSet cdrLCP = new CDRLifeCycleBigIdSet();
 				
 		String currentTimestamp = Format.getSystemTimestamp();
 		
@@ -88,7 +88,7 @@ public class GenerateCDRLifeCycle {
 		
 		if( null != options ) { cdrLCP.setNewOptionsOptions( options ); }
 		  
-		cdrLCP.setMsisdnStrategyIncrement( 3399900016L, 1 );
+		cdrLCP.setMsisdnStrategyIncrement( 3399900017L, 1 );
 		cdrLCP.setDateStrategyFixed( date );
 		cdrLCP.setNewImeiStrategyIncrement( 300000000000000L, Integer.valueOf( RandomStringUtils.randomNumeric( 9 ) ) );
 		cdrLCP.setNewImsiStrategyIncrement( 300000000000000L, Integer.valueOf( RandomStringUtils.randomNumeric( 9 ) ) );
@@ -104,7 +104,7 @@ public class GenerateCDRLifeCycle {
 		cdrLCP.setNewAddressStrategyFixed( "sms" );
 		cdrLCP.setNewSponsorStrategyFixed( "" );		
 		
-		cdrLCP.addLines( 1 );
+		cdrLCP.addLines( 5 );
 				
 		cdrLCP.print();
 		

@@ -147,6 +147,18 @@ public class CDRRevenueInvoice extends CDR {
 		return this.balance.getLong();
 	}
 
+	public void setTypeStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
+		if( this.type != null ) { this.type.setEnumStrategyIncrement( value, increment ); }
+	}
+
+	public void setTypeStrategyRandom() throws FieldException  {
+		if( this.type != null ) { this.type.setEnumStrategyRandom(); }
+	}
+
+	public void cleanTypeStrategyFixed()  {
+		if( this.type != null ) { this.type.cleanEnumStrategyFixed(); }
+	}
+
 	@Type( position = 4 )
 	public String getType() throws FieldException  {
 		return this.type.getEnum();
@@ -162,18 +174,6 @@ public class CDRRevenueInvoice extends CDR {
 
 	public void cleanTypeStrategyRandom()  {
 		if( this.type != null ) { this.type.cleanEnumStrategyRandom(); }
-	}
-
-	public void setTypeStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
-		if( this.type != null ) { this.type.setEnumStrategyIncrement( value, increment ); }
-	}
-
-	public void setTypeStrategyRandom() throws FieldException  {
-		if( this.type != null ) { this.type.setEnumStrategyRandom(); }
-	}
-
-	public void cleanTypeStrategyFixed()  {
-		if( this.type != null ) { this.type.cleanEnumStrategyFixed(); }
 	}
 
 }
