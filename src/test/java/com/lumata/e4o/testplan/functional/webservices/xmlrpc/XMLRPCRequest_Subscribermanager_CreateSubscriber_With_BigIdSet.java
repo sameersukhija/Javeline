@@ -240,24 +240,33 @@ public class XMLRPCRequest_Subscribermanager_CreateSubscriber_With_BigIdSet {
 	@Test( enabled=true, priority = 1 )
 	public void createSubscriberWithExtendedParametersBigIdSet() throws Exception {
 		
-		//ArrayList<SetOptions> options = DAOSetOptions.getInstance( mysql ).getOptionsList();
-	
-		//		for( SetOptions option : options ) {
-		//		
-		//		setOptions.add( option.getOptionsName() );
-		//		
-		//	}
+		Boolean useMoreThan1024Options = false;
 		
 		Set<String> setOptions = new LinkedHashSet<String>();
-		for( int o = 1; o <= 1024; o++ ) {
 		
-			setOptions.add( "option_" + o );
-						
-		}
+		if( useMoreThan1024Options ) {
 			
+			ArrayList<SetOptions> options = DAOSetOptions.getInstance( mysql ).getOptionsList();
+			
+			for( SetOptions option : options ) {
+			
+				setOptions.add( option.getOptionsName() );
+					
+			}
+			
+		} else {
+			
+			for( int o = 1; o <= 1024; o++ ) {
+			
+				setOptions.add( "option_" + o );
+							
+			}
+			
+		}
+		
 		FieldSet fs = new FieldSet( setOptions );
 		
-		fs.setSetStrategyRandom( 200 );
+		fs.setSetStrategyRandom( 1000 );
 		
 		for( int subscriber = 1; subscriber <= 1; subscriber++ ) {
 		
