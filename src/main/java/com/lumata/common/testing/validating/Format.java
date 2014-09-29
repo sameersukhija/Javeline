@@ -1,6 +1,7 @@
 package com.lumata.common.testing.validating;
 
 import java.lang.reflect.Field;
+import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,7 +11,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
 
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
@@ -41,6 +41,24 @@ public final class Format {
 		public String getValue() {
 			return this.value;
 		}		
+		
+	}
+	
+	public enum NumberFormat {
+		
+		BINARY( 2 ),
+		DECIMAL( 10 ),
+		HEXADECIMAL( 16 );
+		
+		private int format;
+		
+		NumberFormat( int format ) {
+			this.format = format;
+		}
+		
+		public Integer getFormat() {
+			return this.format;
+		}
 		
 	}
 	
@@ -131,12 +149,12 @@ public final class Format {
 		
 		if( value.isEmpty() ) { return allowBlank; }
 		
-		Map map;
+		Map<?, ?> map;
 		
 		try {
 			
 			Field f = obj.getClass().getField(type);
-			map = (Map)f.get(obj);
+			map = (Map<?, ?>)f.get(obj);
 		
 		} catch( NoSuchFieldException e ) { return false; }
 		  catch( IllegalAccessException e ) { return false; }
@@ -190,6 +208,7 @@ public final class Format {
 		
 		try {  
 			
+			@SuppressWarnings("unused")
 			double d = Double.parseDouble( value );  
 		
 		} catch( NumberFormatException nfe ) {  
@@ -216,6 +235,11 @@ public final class Format {
 		
 	}
 
+	public static String toNumberFormat( String number, NumberFormat originType, NumberFormat destinationType ) {
+		
+		return new BigInteger( number.toString(), originType.getFormat() ).toString( destinationType.getFormat() );
+		
+	}
 	
 	
 }
