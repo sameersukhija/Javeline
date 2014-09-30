@@ -52,9 +52,9 @@ import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
 import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.*;
 
 
-public class XMLRPCRequest_Subscribermanager_CreateSubscriber_With_BigIdSet {
+public class XMLRPCRequest_Subscribermanager_UpdateSubscriber_With_BigIdSet {
 	
-	private static final Logger logger = LoggerFactory.getLogger( XMLRPCRequest_Subscribermanager_CreateSubscriber_With_BigIdSet.class );
+	private static final Logger logger = LoggerFactory.getLogger( XMLRPCRequest_Subscribermanager_UpdateSubscriber_With_BigIdSet.class );
 	
 	public enum ExtendedParameters {
 		tongue, gender, salary, imei, imsi, hobbies 
@@ -218,7 +218,7 @@ public class XMLRPCRequest_Subscribermanager_CreateSubscriber_With_BigIdSet {
 	}
 		
 	@Test( enabled=true, priority = 1 )
-	public void createSubscriberWithExtendedParametersBigIdSet() throws Exception {
+	public void updateSubscriberWithExtendedParametersBigIdSet() throws Exception {
 		
 		Boolean useMoreThan1024Options = false;
 		
@@ -248,11 +248,13 @@ public class XMLRPCRequest_Subscribermanager_CreateSubscriber_With_BigIdSet {
 		
 		fs.setSetStrategyRandom( 1000 );
 		
-		for( int subscriber = 1; subscriber <= 1; subscriber++ ) {
+		//for( int subscriber = 1; subscriber <= 1; subscriber++ ) {
 		
-			String msisdn = String.valueOf( DAOSubscribers.getInstance( mysql ).getNotExitingMsisdn( 3310000000L, 3999999999L, 100 ) );
-						
-			XMLRPCRequest.subscribermanager_createSubscriber().call( 
+			//String msisdn = String.valueOf( DAOSubscribers.getInstance( mysql ).getNotExitingMsisdn( 3310000000L, 3999999999L, 100 ) );
+				
+			String msisdn = "3931975305";
+		
+			XMLRPCRequest.subscribermanager_updateSubscriber().call( 
 				actruleServer, 
 				xmlrpcBody(
 					authentication( superman ),
@@ -282,7 +284,7 @@ public class XMLRPCRequest_Subscribermanager_CreateSubscriber_With_BigIdSet {
 				
 			);
 			
-		}
+		//}
 		
 	}	
 
