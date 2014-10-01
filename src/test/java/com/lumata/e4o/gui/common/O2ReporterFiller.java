@@ -3,6 +3,7 @@ package com.lumata.e4o.gui.common;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.xmlrpcBody;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.xmlrpcOptions;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.sleep;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeRequestAsResource;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeResponseAsResource;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.arrayInt;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.authentication;
@@ -146,6 +147,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 					),
 					xmlrpcOptions( 
 						sleep( SLEEP_TIME_ ),
+						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_generateCustomEvent_"+i+".xml" ),
 						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_generateCustomEvent_"+i+".xml" )	
 					)
 			);		
@@ -203,6 +205,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 					),
 					xmlrpcOptions(
 						sleep( SLEEP_TIME_ ),
+						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_allocate_"+code+".xml" ),
 						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_allocate_"+code+".xml" )	
 					)
 			);		
@@ -247,6 +250,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 					),
 					xmlrpcOptions(
 							sleep( SLEEP_TIME_ ),
+							storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_accept_"+code+".xml" ),
 							storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_accept_"+code+".xml" )	
 					)
 			);		
@@ -279,6 +283,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 					),
 					xmlrpcOptions(
 							sleep( SLEEP_TIME_ ),
+							storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_refuseAll_"+code+".xml" ),
 							storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_refuseAll_"+code+".xml" )	
 					)
 				);					
@@ -339,6 +344,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 				),
 				xmlrpcOptions(
 					sleep( SLEEP_TIME_ ),
+					storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_getTokensList.xml" ),
 					storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_getTokensList.xml" )	
 				)
 			).getResponse().getEntity().toString()).parse();
