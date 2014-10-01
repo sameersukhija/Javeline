@@ -118,6 +118,18 @@ public class CDRMessage extends CDR {
 		return this.amount.getLong();
 	}
 
+	public void setSmsStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
+		if( this.sms != null ) { this.sms.setEnumStrategyIncrement( value, increment ); }
+	}
+
+	public void setSmsStrategyRandom() throws FieldException  {
+		if( this.sms != null ) { this.sms.setEnumStrategyRandom(); }
+	}
+
+	public void cleanSmsStrategyFixed()  {
+		if( this.sms != null ) { this.sms.cleanEnumStrategyFixed(); }
+	}
+
 	@Sms( position = 3 )
 	public String getSms() throws FieldException  {
 		return this.sms.getEnum();
@@ -133,18 +145,6 @@ public class CDRMessage extends CDR {
 
 	public void cleanSmsStrategyRandom()  {
 		if( this.sms != null ) { this.sms.cleanEnumStrategyRandom(); }
-	}
-
-	public void setSmsStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
-		if( this.sms != null ) { this.sms.setEnumStrategyIncrement( value, increment ); }
-	}
-
-	public void setSmsStrategyRandom() throws FieldException  {
-		if( this.sms != null ) { this.sms.setEnumStrategyRandom(); }
-	}
-
-	public void cleanSmsStrategyFixed()  {
-		if( this.sms != null ) { this.sms.cleanEnumStrategyFixed(); }
 	}
 
 	public void setBalanceStrategyFixed( final Long value ) throws FieldException  {

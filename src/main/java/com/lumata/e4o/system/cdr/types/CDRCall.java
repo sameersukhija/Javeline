@@ -176,6 +176,18 @@ public class CDRCall extends CDR {
 		return this.balance.getLong();
 	}
 
+	public void setTerminatingStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
+		if( this.terminating != null ) { this.terminating.setEnumStrategyIncrement( value, increment ); }
+	}
+
+	public void setTerminatingStrategyRandom() throws FieldException  {
+		if( this.terminating != null ) { this.terminating.setEnumStrategyRandom(); }
+	}
+
+	public void cleanTerminatingStrategyFixed()  {
+		if( this.terminating != null ) { this.terminating.cleanEnumStrategyFixed(); }
+	}
+
 	@Terminating( position = 5 )
 	public String getTerminating() throws FieldException  {
 		return this.terminating.getEnum();
@@ -191,18 +203,6 @@ public class CDRCall extends CDR {
 
 	public void cleanTerminatingStrategyRandom()  {
 		if( this.terminating != null ) { this.terminating.cleanEnumStrategyRandom(); }
-	}
-
-	public void setTerminatingStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
-		if( this.terminating != null ) { this.terminating.setEnumStrategyIncrement( value, increment ); }
-	}
-
-	public void setTerminatingStrategyRandom() throws FieldException  {
-		if( this.terminating != null ) { this.terminating.setEnumStrategyRandom(); }
-	}
-
-	public void cleanTerminatingStrategyFixed()  {
-		if( this.terminating != null ) { this.terminating.cleanEnumStrategyFixed(); }
 	}
 
 }

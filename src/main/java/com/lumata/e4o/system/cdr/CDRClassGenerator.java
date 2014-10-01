@@ -146,6 +146,11 @@ public class CDRClassGenerator {
 		},
 		LifeCycle {	
 			public List<Class<? extends Annotation>> fields() {
+				return Arrays.asList( Msisdn.class, Date.class, NewImei.class, OldImei.class, NewImsi.class, OldImsi.class, NewSubscriptionDate.class, OldSubscriptionDate.class, NewProfile.class, OldProfile.class, NewRatePlan.class, OldRatePlan.class, NewStatus.class, OldStatus.class, NewNetwork.class, OldNetwork.class, NewTongue.class, OldTongue.class, NewInTag.class, OldInTag.class, NewHobbies.class, OldHobbies.class, NewGender.class, OldGender.class, NewSalary.class, OldSalary.class, NewAddress.class, OldAddress.class, NewSponsor.class, OldSponsor.class );
+			}
+		},
+		LifeCycleBigIdSet {	
+			public List<Class<? extends Annotation>> fields() {
 				return Arrays.asList( Msisdn.class, Date.class, NewImei.class, OldImei.class, NewImsi.class, OldImsi.class, NewSubscriptionDate.class, OldSubscriptionDate.class, NewProfile.class, OldProfile.class, NewRatePlan.class, OldRatePlan.class, NewStatus.class, OldStatus.class, NewNetwork.class, OldNetwork.class, NewTongue.class, OldTongue.class, NewInTag.class, OldInTag.class, NewHobbies.class, OldHobbies.class, NewOptions.class, OldOptions.class, NewGender.class, OldGender.class, NewSalary.class, OldSalary.class, NewAddress.class, OldAddress.class, NewSponsor.class, OldSponsor.class );
 			}
 		},

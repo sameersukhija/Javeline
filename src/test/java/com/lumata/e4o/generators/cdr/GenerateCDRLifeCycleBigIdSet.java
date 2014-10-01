@@ -1,9 +1,11 @@
 package com.lumata.e4o.generators.cdr;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.BeforeClass;
@@ -16,18 +18,20 @@ import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 
+import static com.lumata.common.testing.orm.Query.*;
 
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Service;
 import com.lumata.common.testing.system.User;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FieldException;
+import com.lumata.e4o.schema.tenant.SetOptions;
 import com.lumata.e4o.system.cdr.CDR;
-import com.lumata.e4o.system.cdr.types.CDRLifeCycle;
+import com.lumata.e4o.system.cdr.types.CDRLifeCycleBigIdSet;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
 
 
-public class GenerateCDRLifeCycle {
+public class GenerateCDRLifeCycleBigIdSet {
 	
 	NetworkEnvironment env;
 	Mysql mysql;
@@ -58,7 +62,7 @@ public class GenerateCDRLifeCycle {
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_lifecycle" );
 
-		CDRLifeCycle cdrLCP = new CDRLifeCycle();
+		CDRLifeCycleBigIdSet cdrLCP = new CDRLifeCycleBigIdSet();
 				
 		String currentTimestamp = Format.getSystemTimestamp();
 		
@@ -82,6 +86,8 @@ public class GenerateCDRLifeCycle {
 						
 		}
 		
+		if( null != options ) { cdrLCP.setNewOptionsOptions( options ); }
+		  
 		cdrLCP.setMsisdnStrategyIncrement( 3399900017L, 1 );
 		cdrLCP.setDateStrategyFixed( date );
 		cdrLCP.setNewImeiStrategyIncrement( 300000000000000L, Integer.valueOf( RandomStringUtils.randomNumeric( 9 ) ) );
@@ -92,6 +98,7 @@ public class GenerateCDRLifeCycle {
 		cdrLCP.setNewTongueStrategyFixed( "ENG" );
 		cdrLCP.setNewInTagStrategyFixed( "QAIN" );
 		cdrLCP.setNewHobbiesStrategyRandom( 4 );
+		cdrLCP.setNewOptionsStrategyRandom( 10 );
 		cdrLCP.setNewGenderStrategyRandom();
 		cdrLCP.setNewSalaryStrategyFixed( "2000" );
 		cdrLCP.setNewAddressStrategyFixed( "sms" );
@@ -109,4 +116,22 @@ public class GenerateCDRLifeCycle {
 		
 	}
 	
+	private Set<String> getOptions() throws SQLException {
+		
+		Set<String> options = new TreeSet<String>();
+		
+		String query = select().from( new SetOptions() ).orderBy( SetOptions.Fields.options_name ).build();
+		
+		ResultSet rs = mysql.execQuery( query );
+		
+		while( rs.next() ) {
+			
+			options.add( rs.getString( SetOptions.Fields.options_name.name() ) );
+			
+		}
+		
+		return options;
+		
+	}
+
 }

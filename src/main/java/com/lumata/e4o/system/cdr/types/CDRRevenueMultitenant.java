@@ -213,6 +213,18 @@ public class CDRRevenueMultitenant extends CDR {
 		return this.deactivationDate.getDate();
 	}
 
+	public void setTypeStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
+		if( this.type != null ) { this.type.setEnumStrategyIncrement( value, increment ); }
+	}
+
+	public void setTypeStrategyRandom() throws FieldException  {
+		if( this.type != null ) { this.type.setEnumStrategyRandom(); }
+	}
+
+	public void cleanTypeStrategyFixed()  {
+		if( this.type != null ) { this.type.cleanEnumStrategyFixed(); }
+	}
+
 	@Type( position = 6 )
 	public String getType() throws FieldException  {
 		return this.type.getEnum();
@@ -228,18 +240,6 @@ public class CDRRevenueMultitenant extends CDR {
 
 	public void cleanTypeStrategyRandom()  {
 		if( this.type != null ) { this.type.cleanEnumStrategyRandom(); }
-	}
-
-	public void setTypeStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
-		if( this.type != null ) { this.type.setEnumStrategyIncrement( value, increment ); }
-	}
-
-	public void setTypeStrategyRandom() throws FieldException  {
-		if( this.type != null ) { this.type.setEnumStrategyRandom(); }
-	}
-
-	public void cleanTypeStrategyFixed()  {
-		if( this.type != null ) { this.type.cleanEnumStrategyFixed(); }
 	}
 
 	public void setDelayStrategyFixed( final Long value ) throws FieldException  {
