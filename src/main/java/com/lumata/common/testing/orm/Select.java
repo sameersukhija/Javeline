@@ -24,5 +24,19 @@ public class Select implements ISelect {
 		return new From(statement);
 	
 	}
+	
+	@Override
+	public IFrom from( Object entity, String suffix ) {
+		
+		Table table = (Table)entity.getClass().getAnnotation( Table.class );
+		
+		this.statement.addEntity( entity, table.value() + suffix );
+		
+		this.statement.append( MysqlStatement.FROM.getName() )
+						.append( table.value() );
+			
+		return new From(statement);
+	
+	}
 
 }

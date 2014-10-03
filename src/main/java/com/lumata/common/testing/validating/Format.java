@@ -62,6 +62,24 @@ public final class Format {
 		
 	}
 	
+	public enum DateSimpleFormat {
+		
+		MYSQL_DATE( 2 ),
+		MYSQL_TIME( 10 ),
+		MYSQL_DATETIME( 16 );
+		
+		private int format;
+		
+		DateSimpleFormat( int format ) {
+			this.format = format;
+		}
+		
+		public Integer getFormat() {
+			return this.format;
+		}
+		
+	}
+	
 	public static boolean isLength( String value, Integer length, Operators op, boolean allowBlank ) {
 		
 		if( value.isEmpty() ) { return allowBlank; } 
