@@ -3,6 +3,7 @@ package com.lumata.e4o.gui.common;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.xmlrpcBody;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.xmlrpcOptions;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.sleep;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeRequestAsResource;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeResponseAsResource;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.arrayInt;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.authentication;
@@ -146,6 +147,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 					),
 					xmlrpcOptions( 
 						sleep( SLEEP_TIME_ ),
+						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_generateCustomEvent_"+i+".xml" ),
 						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_generateCustomEvent_"+i+".xml" )	
 					)
 			);		
@@ -164,7 +166,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 	@Test
 	public void getTokensList(@Optional("393492135019") String msisdn) throws Exception {
 
-		refreshTokenStatus( msisdn, true);
+		refreshTokenStatus( msisdn, false, true);
 		
 		Reporter.log( "###############", PRINT2STDOUT__);
 		Reporter.log( "##### The subscriber "+ msisdn +" has : ");
@@ -203,6 +205,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 					),
 					xmlrpcOptions(
 						sleep( SLEEP_TIME_ ),
+						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_allocate_"+code+".xml" ),
 						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_allocate_"+code+".xml" )	
 					)
 			);		
@@ -247,16 +250,19 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 					),
 					xmlrpcOptions(
 							sleep( SLEEP_TIME_ ),
+							storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_accept_"+code+".xml" ),
 							storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_accept_"+code+".xml" )	
 					)
 			);		
 		}
 	}	
 	
-	@Test( dependsOnMethods={"getTokensList"} )
+	@Test()
 	@Parameters({"msisdn"})
 	public void refuseAllToken(@Optional("393492135019") String msisdn) throws Exception {
 
+		refreshTokenStatus( msisdn, true, false);
+		
 		Reporter.log( "###############", PRINT2STDOUT__);		
 		Reporter.log( "##### The subscriber "+ msisdn +" has " + currentAllocatedTokens.size() + " allocted tokens.", PRINT2STDOUT__);
 		Reporter.log( "##### Tokens ready to be purchased : " + currentAllocatedTokens, PRINT2STDOUT__);
@@ -277,6 +283,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 					),
 					xmlrpcOptions(
 							sleep( SLEEP_TIME_ ),
+							storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_refuseAll_"+code+".xml" ),
 							storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_refuseAll_"+code+".xml" )	
 					)
 				);					
@@ -291,24 +298,31 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 	 * @throws Exception 
 	 */
 	
-	private void refreshTokenStatus(String msisdn, Boolean print) throws Exception {
+	private void refreshTokenStatus(String msisdn, Boolean wideTime, Boolean print) throws Exception {
 		
 		currentActiveTokens = new ArrayList<String>();
 		currentAllocatedTokens = new ArrayList<String>();
 		currentConsumedTokens = new ArrayList<String>();
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-		
-//		String now = sdf.format(new Date().getTime()) + "+0000";
-		
-//		cal.add(Calendar.DAY_OF_YEAR, -7);
+
 		String past = sdf.format(startOfTime4Suite) + "+0000";
 		
 		Reporter.log( "###############", print);
 		Reporter.log( "##### Request current token list for subscriber "+ msisdn , print);
-		Reporter.log( "##### Time interval : " , print);
-		Reporter.log( "##### Starting -> " + past , print);
-		Reporter.log( "##### Ending -> Right now" , print);
+		 
+		if ( wideTime ) {
+			
+			Reporter.log( "##### All existing tokens" , print);
+			
+			past = "";
+		}
+		else {
+			Reporter.log( "##### Time interval : " , print);
+			Reporter.log( "##### Starting -> " + past , print);
+			Reporter.log( "##### Ending -> Right now" , print);
+		}
+		
 		Reporter.log( "###############", print);
 
 		try {
@@ -330,6 +344,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 				),
 				xmlrpcOptions(
 					sleep( SLEEP_TIME_ ),
+					storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_getTokensList.xml" ),
 					storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_getTokensList.xml" )	
 				)
 			).getResponse().getEntity().toString()).parse();

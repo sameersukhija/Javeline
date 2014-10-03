@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="O2 Refuse All allocated token" verbose="1" parallel="false">
+
+  <!-- 
+    Browser to be used 
+  -->
+  <parameter name="browser" value="firefox"/>
+  <!-- 
+    Start path where locate configuration files 
+  -->
+  <parameter name="resourceStartPath" value="input"/>
+  <parameter name="loadingType" value="RESOURCE"/>
+  <!-- 
+    In default configuration environment configuration is looked into application class-path 
+  -->
+  <parameter name="environment" value="e4o_qa3_ne"/>
+  <parameter name="gui_server" value="actrule"/>
+  <parameter name="tenant" value="tenant"/>
+  <parameter name="user" value="superman"/>
+
+  <!-- 
+    Parameters Section 
+  -->
+  <parameter name="msisdn" value="393492135019"/>
+
+  <!-- 
+    Test Section 
+  -->
+  <test name="Main test">
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>
+        	<include name="refuseAllToken"/>
+        </methods>        
+      </class>    	
+    </classes>
+  </test>
+
+</suite>

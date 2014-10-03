@@ -21,7 +21,7 @@
   <!-- 
     Parameters Section 
   -->
-  <parameter name="tokens2BeGenerated" value="500"/>
+  <parameter name="tokens2BeGenerated" value="10"/>
   <parameter name="msisdn" value="393492135019"/>
   <parameter name="offerIds" value="1002;1003"/>
   <!-- 
