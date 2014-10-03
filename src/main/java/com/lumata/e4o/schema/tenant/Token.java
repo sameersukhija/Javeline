@@ -398,16 +398,16 @@ public class Token {
 	@Column(
 			table = "token",
 			field = "feature_id",
-			type = "varchar(256)",
+			type = "varchar(255)",
 			mysqlType = "varchar",
 			javaType = "String",
 			categoryType = "String",
 			isNull = false,
 			isAutoincrement = false,
-			key = "",
+			key = "MUL",
 			defaultValue = "null",
 			extra = "",
-			length = 256,
+			length = 255,
 			getMethod = "getFeatureId",
 			setMethod = "setFeatureId"
 	)

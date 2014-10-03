@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @Table( "subscribers" )
 public class Subscribers { 
 
-	public enum Fields { msisdn, imei, imsi, subscription_date, profile_id, rate_plan_id, status_id, service_id_list, channel_id_list, network_id, tongue, ucg, ucg_start_date, in_tag, hobbies, options, gender, salary, update_time }
+	public enum Fields { msisdn, imei, imsi, subscription_date, profile_id, rate_plan_id, status_id, service_id_list, channel_id_list, network_id, tongue, ucg, ucg_start_date, in_tag, hobbies, gender, salary, update_time }
 
 	@Column(
 			table = "subscribers",
@@ -290,24 +290,6 @@ public class Subscribers {
 
 	@Column(
 			table = "subscribers",
-			field = "options",
-			type = "varbinary(128)",
-			mysqlType = "varbinary",
-			javaType = "String",
-			categoryType = "String",
-			isNull = false,
-			isAutoincrement = false,
-			key = "",
-			defaultValue = "null",
-			extra = "",
-			length = 128,
-			getMethod = "getOptions",
-			setMethod = "setOptions"
-	)
-	private String options;
-
-	@Column(
-			table = "subscribers",
 			field = "gender",
 			type = "enum('COMPANY','FEMALE','MALE','UNDEFINED')",
 			mysqlType = "enum",
@@ -380,7 +362,6 @@ public class Subscribers {
 		this.ucg_start_date = rs.getDate( Subscribers.Fields.ucg_start_date.name() );
 		this.in_tag = rs.getString( Subscribers.Fields.in_tag.name() );
 		this.hobbies = rs.getString( Subscribers.Fields.hobbies.name() );
-		this.options = rs.getString( Subscribers.Fields.options.name() );
 		this.gender = rs.getString( Subscribers.Fields.gender.name() );
 		this.salary = rs.getFloat( Subscribers.Fields.salary.name() );
 		this.update_time = rs.getTimestamp( Subscribers.Fields.update_time.name() );
@@ -404,7 +385,6 @@ public class Subscribers {
 		this.ucg_start_date = Format.getMysqlDateTime( jo.getString( Subscribers.Fields.ucg_start_date.name() ) );
 		this.in_tag = jo.getString( Subscribers.Fields.in_tag.name() );
 		this.hobbies = jo.getString( Subscribers.Fields.hobbies.name() );
-		this.options = jo.getString( Subscribers.Fields.options.name() );
 		this.gender = jo.getString( Subscribers.Fields.gender.name() );
 		this.salary = (float)jo.getDouble( Subscribers.Fields.salary.name() );
 		this.update_time = new Timestamp( Format.getMysqlDateTime( jo.getString( Subscribers.Fields.update_time.name() ) ).getTime() );
@@ -591,18 +571,6 @@ public class Subscribers {
 
 	}
 
-	public String getOptions() {
-
-		return this.options;
-
-	}
-
-	public void setOptions( String options ) {
-
-		this.options = options;
-
-	}
-
 	public String getGender() {
 
 		return this.gender;
@@ -665,7 +633,6 @@ public class Subscribers {
 			.append( "\"ucg_start_date\": \"" ).append( this.getUcgStartDate() ).append( "\", " )
 			.append( "\"in_tag\": \"" ).append( this.getInTag() ).append( "\", " )
 			.append( "\"hobbies\": \"" ).append( this.getHobbies() ).append( "\", " )
-			.append( "\"options\": \"" ).append( this.getOptions() ).append( "\", " )
 			.append( "\"gender\": \"" ).append( this.getGender() ).append( "\", " )
 			.append( "\"salary\": \"" ).append( this.getSalary() ).append( "\", " )
 			.append( "\"update_time\": \"" ).append( this.getUpdateTime() ).append( "\"" )

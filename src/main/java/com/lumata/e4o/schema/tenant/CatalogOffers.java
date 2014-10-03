@@ -111,7 +111,7 @@ public class CatalogOffers {
 	@Column(
 			table = "catalog_offers",
 			field = "voucher_unlimited_code",
-			type = "varchar(15)",
+			type = "varchar(512)",
 			mysqlType = "varchar",
 			javaType = "String",
 			categoryType = "String",
@@ -120,7 +120,7 @@ public class CatalogOffers {
 			key = "",
 			defaultValue = "null",
 			extra = "",
-			length = 15,
+			length = 512,
 			getMethod = "getVoucherUnlimitedCode",
 			setMethod = "setVoucherUnlimitedCode"
 	)

@@ -1,0 +1,124 @@
+{
+	"tokenTypes": [
+		{
+			"enabled": true,
+			"name":"TokenA",
+			"description":"TokenA",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"1",
+			"validityUnit":"days",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},{
+			"enabled": true,
+			"name":"TokenB",
+			"description":"TokenB",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"1",
+			"validityUnit":"days",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},{
+			"enabled": true,
+			"name":"TokenC",
+			"description":"TokenC",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"1",
+			"validityUnit":"days",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},{
+			"enabled": true,
+			"name":"TokenAB",
+			"description":"TokenAB",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"1",
+			"validityUnit":"days",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},{
+			"enabled": true,
+			"name":"TokenBC",
+			"description":"TokenBC",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"1",
+			"validityUnit":"days",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},{
+			"enabled": true,
+			"name":"TokenAC",
+			"description":"TokenAC",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"1",
+			"validityUnit":"days",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},{
+			"enabled": true,
+			"name":"TokenABC",
+			"description":"TokenABC",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"1",
+			"validityUnit":"days",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		}	
+	]
+}

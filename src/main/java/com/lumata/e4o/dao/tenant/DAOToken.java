@@ -352,7 +352,7 @@ public class DAOToken extends DAO {
 							)
 						).build();
 		
-		logger.info( Log.CREATING.createMessage( query ) );
+		logger.info( Log.LOADING.createMessage( query ) );
 		
 		return getOfferList( query );
 		

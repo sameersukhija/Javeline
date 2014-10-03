@@ -300,7 +300,7 @@ public class ActiveMQ {
 						.append( " ( code, date, acked, delivered, user, service, ip, phone, sender, message, promoter, id, id_obj, status, ack, error, type, tag, operator, rights, notes, autotimestamp ) " )
 						.append( "SELECT " )
 						.append( codeId )
-						.append( ", NOW(), NOW(), DATE_ADD( NOW(), INTERVAL 2 HOUR ), 'user', 'e4O', '10.120.8.31', '" )
+						.append( ", NOW(), NOW(), DATE_ADD( NOW(), INTERVAL 2 HOUR ), 'user', 'e4O', '10.120.8.31', '+" )
 						.append( sms.getRecipient() )
 						.append( "', '" )
 						.append( sms.getSenderName() )

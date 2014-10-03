@@ -1,0 +1,170 @@
+{
+	"rules": [
+		{
+			"enabled": true,
+			"name":"RuleA",
+			"description":"RuleA",
+			"tokenType":"TokenA",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"RuleB",
+			"description":"RuleB",
+			"tokenType":"TokenA",
+			"channels":[ {
+				"name":"Ch B",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"RuleC",
+			"description":"RuleC",
+			"tokenType":"TokenC",
+			"channels":[ {
+				"name":"Ch C",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"RuleAB",
+			"description":"RuleAB",
+			"tokenType":"TokenAB",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			},{
+				"name":"Ch B",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"RuleBC",
+			"description":"RuleBC",
+			"tokenType":"TokenBC",
+			"channels":[ {
+				"name":"Ch B",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			},{
+				"name":"Ch C",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"RuleAC",
+			"description":"RuleAC",
+			"tokenType":"TokenAC",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			},{
+				"name":"Ch C",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},{
+			"enabled": true,
+			"name":"RuleABC",
+			"description":"RuleABC",
+			"tokenType":"TokenABC",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			},{
+				"name":"Ch B",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			},{
+				"name":"Ch C",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
+			}],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"unlimitedOffers": true,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}
+	]
+}

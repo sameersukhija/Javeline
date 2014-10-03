@@ -255,7 +255,7 @@ public class DAOSubscribers extends DAO {
 				from( new Subscribers() ).
 				where( 
 						op( Subscribers.Fields.msisdn ).in(  
-								select( Subscribers.Fields.msisdn ).
+								select( Token.Fields.msisdn ).
 								from( new Token() ).
 								where( 
 										op( Token.Fields.expiration_date ).get( sdf.format( Calendar.getInstance().getTime() ) ), 
@@ -264,15 +264,66 @@ public class DAOSubscribers extends DAO {
 											op( Token.Fields.consumed_date ).is( NULL )											
 										),
 										and(
-											op( Token.Fields.qty_current_redeems ).let( Token.Fields.qty_max_redeems )										
+											or( op( Token.Fields.qty_current_redeems ).let( Token.Fields.qty_max_redeems ) ),
+											or( op( Token.Fields.qty_max_redeems ).eq( -1 ) )
 										)
-								).
+								).								
 								statement()
 						) 						
 				).
+				orderBy( Subscribers.Fields.msisdn ).
 				build();
 		
 		return getSubscriber( query );
+		
+	}
+	
+	public ArrayList<Subscribers> getSubscriberListWithAllocatedActiveToken() {
+		
+		String query = 
+				select( 
+					distinct( Subscribers.Fields.msisdn ),
+					Subscribers.Fields.imei,
+					Subscribers.Fields.imsi,
+					Subscribers.Fields.subscription_date,
+					Subscribers.Fields.profile_id,
+					Subscribers.Fields.rate_plan_id,
+					Subscribers.Fields.status_id,
+					Subscribers.Fields.service_id_list,
+					Subscribers.Fields.channel_id_list,
+					Subscribers.Fields.network_id,
+					Subscribers.Fields.tongue,
+					Subscribers.Fields.ucg,
+					Subscribers.Fields.ucg_start_date,
+					Subscribers.Fields.in_tag,
+					Subscribers.Fields.hobbies,
+					Subscribers.Fields.gender,
+					Subscribers.Fields.salary,
+					Subscribers.Fields.update_time
+				).
+				from( new Subscribers() ).
+				where( 
+						op( Subscribers.Fields.msisdn ).in(  
+								select( Token.Fields.msisdn ).
+								from( new Token() ).
+								where( 
+										op( Token.Fields.expiration_date ).get( sdf.format( Calendar.getInstance().getTime() ) ), 
+										and(
+											op( Token.Fields.last_redeem_date ).is_not( NULL ),
+											op( Token.Fields.consumed_date ).is( NULL )											
+										),
+										and(
+											or( op( Token.Fields.qty_current_redeems ).let( Token.Fields.qty_max_redeems ) ),
+											or( op( Token.Fields.qty_max_redeems ).eq( -1 ) )
+										)
+								).								
+								statement()
+						) 						
+				).
+				orderBy( Subscribers.Fields.msisdn ).
+				build();
+		
+		return getAllSubscribers( query );
 		
 	}
 	

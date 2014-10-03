@@ -82,7 +82,7 @@ public class GenerateCDRLifeCycle {
 						
 		}
 		
-		cdrLCP.setMsisdnStrategyIncrement( 3399900017L, 1 );
+		cdrLCP.setMsisdnStrategyIncrement( 3399900001L, 1 );
 		cdrLCP.setDateStrategyFixed( date );
 		cdrLCP.setNewImeiStrategyIncrement( 300000000000000L, Integer.valueOf( RandomStringUtils.randomNumeric( 9 ) ) );
 		cdrLCP.setNewImsiStrategyIncrement( 300000000000000L, Integer.valueOf( RandomStringUtils.randomNumeric( 9 ) ) );
@@ -97,7 +97,7 @@ public class GenerateCDRLifeCycle {
 		cdrLCP.setNewAddressStrategyFixed( "sms" );
 		cdrLCP.setNewSponsorStrategyFixed( "" );		
 		
-		cdrLCP.addLines( 5 );
+		cdrLCP.addLines( 20 );
 				
 		cdrLCP.print();
 		

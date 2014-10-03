@@ -73,7 +73,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		sendKeysByXPath( "//textarea[@ng-model='tokenType.description']", tokenTypeCfg.getDescription() ).
 		sendKeysByXPath( "//input[@ng-model='tokenType.imageUrl']", tokenTypeCfg.getImageUrl() ).
 		selectByNameAndVisibleText( "format", tokenTypeCfg.getFormat() ).		
-		selectByXPathAndVisibleText( "//select/option[contains(@value, 'Relative')]/parent::select", tokenTypeCfg.getValidityType() );
+		selectByXPathAndVisibleText( "//select[@name='schedulingType']", tokenTypeCfg.getValidityType() );
 				
 		if( tokenTypeCfg.getValidityType().equals( "Relative" ) ) {
 			
