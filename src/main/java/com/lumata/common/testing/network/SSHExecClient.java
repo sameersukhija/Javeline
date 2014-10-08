@@ -50,7 +50,7 @@ public class SSHExecClient extends SSHClient {
 	public ArrayList<String> execCommand( String command ) {
 		
 		ArrayList<String> result = new ArrayList<String>();
-		
+				
 		try {
 		
 			((ChannelExec)this.channel).setCommand(command);
@@ -75,6 +75,8 @@ public class SSHExecClient extends SSHClient {
 	        int exitStatus = ((ChannelExec)channel).getExitStatus();
 	        ((ChannelExec)channel).disconnect();
 	        session.disconnect();
+	        
+	        if( null != in ) { in.close(); }
 	        
 	        if( exitStatus < 0 ) {
 	        	logger.warn( Log.CHECKING.createMessage( "command executed with exit status not set" ) );

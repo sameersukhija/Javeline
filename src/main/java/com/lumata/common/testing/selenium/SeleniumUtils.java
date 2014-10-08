@@ -150,7 +150,7 @@ public final class SeleniumUtils {
 		
 		}
 		
-		if( elements.size() <= 0 ) { elements = null; }
+		if( null != elements && elements.size() <= 0 ) { elements = null; }
 		
 		return elements;
 		
@@ -172,7 +172,7 @@ public final class SeleniumUtils {
 		
 		List<WebElement> elements = null;			
 		
-		logger.debug( Log.CHECKING.createMessage( " for all elements ( " + locator + " ) contained ( in " + rootElement.getText() + " )" ) );
+		logger.debug( Log.CHECKING.createMessage( " for all elements ( " + ( null != locator ? locator : "" ) + " ) contained ( in " + ( null != rootElement ? rootElement.getText() : "" ) + " )" ) );
 		
 		if( rootElement != null ) {
 				

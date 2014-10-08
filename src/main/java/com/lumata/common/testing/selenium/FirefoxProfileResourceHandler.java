@@ -58,7 +58,7 @@ public class FirefoxProfileResourceHandler {
 	/**
 	 * Singleton
 	 */
-	private static FirefoxProfileResourceHandler instance_ = null;
+	private static volatile FirefoxProfileResourceHandler instance_ = null;
 	
 	/**
 	 * Dictionary of running temp profiles 
@@ -116,9 +116,10 @@ public class FirefoxProfileResourceHandler {
 	 */
 	private static FirefoxProfileResourceHandler getInstance() {
 		
-		if ( instance_ == null )
+		if ( null == instance_ ) {
 			instance_ = new FirefoxProfileResourceHandler();
-			
+		}	
+		
 		return instance_;
 	}
 	
@@ -158,7 +159,7 @@ public class FirefoxProfileResourceHandler {
 													resourceAsUrl.getPath().indexOf("!")
 												  ); // strip out only the JAR file
 			
-			@SuppressWarnings("resource")
+			@SuppressWarnings("all")
 			JarFile jarFile = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
 			Enumeration<JarEntry> entries = jarFile.entries(); // gives ALL entries in jar
 													
@@ -199,6 +200,9 @@ public class FirefoxProfileResourceHandler {
 			}
 
 			resp = localFs_.getPath(tempFolder.toString(), resourceName);
+			
+			if( null != jarFile ) { jarFile.close(); }
+			
 		}
 		else { // resource path is a real folder for local class path
 

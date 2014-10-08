@@ -540,7 +540,7 @@ public class MysqlColumn {
 	
 	public void setTypeValues( String[] type_values ) {
 		
-		this.type_values = type_values;
+		this.type_values = type_values.clone();
 		
 	}
 

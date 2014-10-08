@@ -70,17 +70,21 @@ public class Mysql {
 	public Mysql( DataSource dataSource ) {
 		
 		try {
-			if( dataSource == null ) { System.out.println( "NULL" ); }
-			this.setConnection( null );
-			this.setHost( dataSource.getHostAddress() );
-			this.setName( dataSource.getHostName() );
-			this.setPort( dataSource.getHostPort() );
-			this.setUser( dataSource.getUser() );
-			this.setPassword( Security.decrypt( dataSource.getPassword() ) );
-							
-			logger.debug( "Mysql parameters has been loaded");
 			
-			this.connect();
+			if( null != dataSource ) { 
+			
+				this.setConnection( null );
+				this.setHost( ( null != dataSource.getHostAddress() ? dataSource.getHostAddress() : null ) );
+				this.setName( ( null != dataSource.getHostName() ? dataSource.getHostName() : null ) );
+				this.setPort( ( null != dataSource.getHostPort() ? dataSource.getHostPort() : null ) );
+				this.setUser( ( null != dataSource.getUser() ? dataSource.getUser() : null ));
+				this.setPassword( ( null != dataSource.getPassword() ? Security.decrypt( dataSource.getPassword() ) : null ) );
+								
+				logger.debug( "Mysql parameters has been loaded");
+				
+				this.connect();
+				
+			}
 		
 		} catch( JSONException e ) {
 

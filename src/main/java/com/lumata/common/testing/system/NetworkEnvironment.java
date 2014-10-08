@@ -148,8 +148,6 @@ public class NetworkEnvironment {
 
 	public Service getService( Service.Type type, String serviceName ) {
 		
-		if(this.services == null ) { return null; }
-		
 		return ( this.services != null ? this.services.get( type.name() + "#" + serviceName ) : null );
 		
 	}
