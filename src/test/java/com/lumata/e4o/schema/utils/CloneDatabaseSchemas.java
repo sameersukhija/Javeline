@@ -1,8 +1,6 @@
 package com.lumata.e4o.schema.utils;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,14 +20,11 @@ import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.database.MysqlUtils;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.generators.container.CampaignTypes;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.NetworkEnvironment;
+import com.lumata.e4o.schema.tenant.CampaignTypes;
 import com.lumata.e4o.schema.tenant.Campaigns;
-import com.lumata.e4o.schema.tenant.Token;
-
-import static com.lumata.common.testing.orm.Query.*;
 
 public class CloneDatabaseSchemas {
 	
