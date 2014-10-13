@@ -45,9 +45,9 @@ public class GenerateClass {
 		
 		logger.info( Log.PUTTING.createMessage( "createDAO" , "Create DAO Classes" ) );
 				
-		tenant = "jmailer_it";
+		tenant = "qa";
 		
-		generatorDAO.createDAO( env, tenant, "com.lumata.e4o.schema.jmailer" );
+		generatorDAO.createDAO( env, tenant, "com.lumata.e4o.schema.tenant" );
 				
 	}		
 	

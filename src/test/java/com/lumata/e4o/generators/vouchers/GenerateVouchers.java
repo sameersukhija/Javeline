@@ -14,8 +14,8 @@ public class GenerateVouchers {
 	private static final Logger logger = LoggerFactory.getLogger( GenerateVouchers.class );
 	
 	final boolean GENERATE_FIXED_VOUCHER = false;
-	final boolean GENERATE_INCREMENTAL_VOUCHERS = true;
-	final boolean GENERATE_RANDOM_VOUCHERS = false;
+	final boolean GENERATE_INCREMENTAL_VOUCHERS = false;
+	final boolean GENERATE_RANDOM_VOUCHERS = true;
 	
 	@Test( enabled = GENERATE_FIXED_VOUCHER )
 	public void generateFixedVoucherCSVFile() throws GeneratorException {
@@ -56,12 +56,12 @@ public class GenerateVouchers {
 		
 		final String VOUCHER_FOLDER = "/catalogmanager/vouchers";
 		final String VOUCHER_FILE = "voucherList";
-		final Long VOUCHERS_TO_GENERATE = 10L;		
+		final Long VOUCHERS_TO_GENERATE = 100L;		
 		
 		logger.info( Log.CREATING.createMessage( "voucher with random code" ) );
 		
 		Generator.vouchers()
-					.voucherRandom( 5 )
+					.voucherRandom( 8 )
 					.createCSVFile( VOUCHER_FOLDER, VOUCHER_FILE, VOUCHERS_TO_GENERATE );
 				
 	}

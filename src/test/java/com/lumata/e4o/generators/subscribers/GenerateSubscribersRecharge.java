@@ -28,10 +28,10 @@ public class GenerateSubscribersRecharge {
 
 	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersRecharge.class );
 	
-	final boolean GENERATE_FIXED_SUBSCRIBER = false;
+	final boolean GENERATE_FIXED_SUBSCRIBER = true;
 	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE = false;
-	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE_AND_SUBSCRIBERS = true;
+	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE_AND_SUBSCRIBERS = false;
 	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = false;
 	final boolean GENERATE_RANDOM_SUBSCRIBERS = false;
 	
@@ -147,8 +147,8 @@ public class GenerateSubscribersRecharge {
 		
 		final Long MIN_MSISDN = 3399900001L;
 		final Long MAX_MSISDN = 3399900020L;
-		final Integer MIN_EVENTS = 5;
-		final Integer MAX_EVENTS = 100;
+		final Integer MIN_EVENTS = 10;
+		final Integer MAX_EVENTS = 30;
 				
 		Generator.subscribers()
 					.server( guiServer )

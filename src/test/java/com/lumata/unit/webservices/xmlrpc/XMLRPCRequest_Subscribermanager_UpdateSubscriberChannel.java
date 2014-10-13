@@ -185,27 +185,33 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriberChannel {
 	}
 	
 	@Test(enabled=true, priority = 1 )
-	public void createSubscriberWithNullMsisdn() throws Exception {
+	public void updateSubscriberChannels() throws Exception {
 		
-		msisdn = "3399900001";
-		channel = ChannelType.MAIL;
-		address = "customer@lumatagroup.com";
+//		msisdn = "3399900002";
+//		channel = ChannelType.MAIL;
+//		address = "customer@lumatagroup.com";
+//		active = true;
+//		
+		msisdn = "3399900002";
+		channel = ChannelType.SMS;
+		address = "3399900002";
 		active = true;
 		
+		
 		XMLRPCRequest.subscribermanager_updateSubscriberChannel().call( 
-							actruleServer, 
-							xmlrpcBody(
-								authentication( superman ),
-								subscriberChannel( 
-										msisdn,
-										channel,
-										address,
-										active																
-								)
-							),
-							xmlrpcOptions(
-								sleep( 100L )								
-							)
+			actruleServer, 
+			xmlrpcBody(
+				authentication( superman ),
+				subscriberChannel( 
+						msisdn,
+						channel,
+						address,
+						active																
+				)
+			),
+			xmlrpcOptions(
+				sleep( 100L )								
+			)
 		
 		);
 		

@@ -6,15 +6,18 @@ import static com.lumata.common.testing.orm.Val.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.log.Log;
+import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.schema.tenant.CatalogOffers;
 import com.lumata.e4o.schema.tenant.OffoptimCustomerItems;
 import com.lumata.e4o.schema.tenant.OffoptimCustomerPack;
@@ -121,6 +124,12 @@ public class DAOToken extends DAO {
 		}
 		
 		return tokenList;
+		
+	}
+	
+	private void setTokens( String query ) {
+		
+		this.getMysql().execUpdate( query );
 		
 	}
 	
@@ -309,6 +318,20 @@ public class DAOToken extends DAO {
 		
 	}
 
+	public ArrayList<Token> getExpiredTokens() {
+		
+		String query = select().
+						from( new Token() ).
+						where( 
+							op( Token.Fields.expiration_date ).let( sdf.format( Calendar.getInstance().getTime() ) )								
+						).build();
+		
+		logger.info( Log.CREATING.createMessage( query ) );
+		
+		return getTokenList( query );
+		
+	}
+
 	public ArrayList<Token> getExpiredTokens( Long msisdn ) {
 		
 		String query = select().
@@ -370,6 +393,41 @@ public class DAOToken extends DAO {
 		this.getMysql().execUpdate( query );
 	
 		logger.info( Log.UPDATING.createMessage( query ) );
+		
+	}
+	
+	public void changeDateExpiredTokenRamdomly() throws ParseException {
+		
+		ArrayList<Token> tokens = getExpiredTokens();
+		
+		Collections.shuffle( tokens );
+			
+		int tokensToActivate = 1 + (int)( Math.random() * ( tokens.size() - 1 ) );
+		
+		Object[] tokenIds = new Object[ tokensToActivate ];
+		
+		for( int t = 0; t < tokensToActivate; t++ ) {
+			
+			tokenIds[ t ] = tokens.get( t ).getTokenCode();
+						
+		}
+ 		
+		Calendar today = Calendar.getInstance();
+		
+		today.add( Calendar.DATE, 30 );
+		
+		String newExpirationDate = Format.getMysqlDateTime( today );
+		
+		String query = update( new Token() ).
+						set( 
+							op( Token.Fields.expiration_date ).eq( newExpirationDate ) 
+						).
+						where( 
+							op( Token.Fields.token_code  ).in( tokenIds ) 
+						).
+						build();
+		
+		setTokens( query );
 		
 	}
 	

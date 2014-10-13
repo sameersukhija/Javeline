@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.database.MysqlUtils;
 import com.lumata.common.testing.exceptions.DataBaseException;
-import com.lumata.e4o.schema.tenant.Setoptions;
+import com.lumata.e4o.schema.tenant.SetHobbies;
 
 public class DAOSetHobbies extends DAO {
 
@@ -29,11 +29,11 @@ public class DAOSetHobbies extends DAO {
 	
 	public Boolean isHobby( String hobbyName ) {
 		
-		Setoptions hobbies = new Setoptions();
+		SetHobbies hobbies = new SetHobbies();
 		
 		hobbies.setHobbiesName( hobbyName );
 		
-		String query = select().from( hobbies ).where( op( Setoptions.Fields.hobbies_name ).eq() ).build();
+		String query = select().from( hobbies ).where( op( SetHobbies.Fields.hobbies_name ).eq() ).build();
 		
 		ResultSet rs = this.getMysql().execQuery( query );
 	
@@ -57,23 +57,23 @@ public class DAOSetHobbies extends DAO {
 		
 	}
 
-	public Setoptions getHobby( String hobbyName ) {
+	public SetHobbies getHobby( String hobbyName ) {
 		
-		Setoptions hobbies = new Setoptions();
+		SetHobbies hobbies = new SetHobbies();
 		
 		hobbies.setHobbiesName( hobbyName );
 		
-		String query = select().from( hobbies ).where( op( Setoptions.Fields.hobbies_name ).eq() ).build();
+		String query = select().from( hobbies ).where( op( SetHobbies.Fields.hobbies_name ).eq() ).build();
 		
 		ResultSet rs = this.getMysql().execQuery( query );
 	
-		Setoptions hobby = null;
+		SetHobbies hobby = null;
 		
 		try {
 			
 			while( rs.next() ) {
 				
-				hobby = new Setoptions( rs );
+				hobby = new SetHobbies( rs );
 			
 				break;
 				
@@ -89,19 +89,19 @@ public class DAOSetHobbies extends DAO {
 		
 	}
 		
-	public ArrayList<Setoptions> getHobbiesList() {
+	public ArrayList<SetHobbies> getHobbiesList() {
 		
-		String query = select().from( new Setoptions() ).build();
+		String query = select().from( new SetHobbies() ).build();
 		
 		ResultSet rs = this.getMysql().execQuery( query );
 		
-		ArrayList<Setoptions> hobbyList = new ArrayList<Setoptions>();
+		ArrayList<SetHobbies> hobbyList = new ArrayList<SetHobbies>();
 		
 		try {
 			
 			while( rs.next() ) {
 				
-				Setoptions hobby = new Setoptions( rs );
+				SetHobbies hobby = new SetHobbies( rs );
 
 				hobbyList.add( hobby );
 				
@@ -119,13 +119,13 @@ public class DAOSetHobbies extends DAO {
 	
 	public void insertHobbies( Enum<?>... hobbies ) {
 		
-		Setoptions hobbyRow = new Setoptions();
+		SetHobbies hobbyRow = new SetHobbies();
 		
 		long hobbyId = 1;
 		
 		try {
 			
-			hobbyId = (long)(MysqlUtils.getMaxID( "set_hobbies", Setoptions.Fields.hobbies.name(), this.getMysql() ) + 1 );
+			hobbyId = (long)(MysqlUtils.getMaxID( "set_hobbies", SetHobbies.Fields.hobbies.name(), this.getMysql() ) + 1 );
 		
 		} catch (SQLException e ) {
 			
