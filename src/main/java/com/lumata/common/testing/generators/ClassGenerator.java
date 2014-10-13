@@ -125,7 +125,7 @@ public class ClassGenerator {
 			Iterator<?> table_names = schema.keys();
 
 			while( table_names.hasNext() ){
-	           	
+	           
 	        	loggerClass = new StringBuilder();
 	        	
 	        	pojoClass = new StringBuilder();
@@ -192,10 +192,8 @@ public class ClassGenerator {
 	        		JSONObject column = fields.getJSONObject( i );
 	        		
 	        		MysqlColumn mysqlColumn = new MysqlColumn( tableName, column );
-	               	        		
 	        		
 	        		fieldsEnumFieldsPojoClass.append( mysqlColumn.getField() ).append( ", " );
-	        		 			        		
 	        		
 	        		this.addToStringField( mysqlColumn );	        			        		
 	        		
@@ -214,7 +212,7 @@ public class ClassGenerator {
 	        		//if( mysqlColumn.getMysqlType().equals( "enum" ) ) { this.addEnumField( mysqlColumn ); }
 	        		
 	        		this.addJSONObjectField( mysqlColumn, mysqlColumn.getField() );
-    					        		
+	        			        		
 	        		switch( ClassGenerator.FieldTypes.valueOf( typeValue ) ) {
 	        			        			
 	        			case ENUM: {

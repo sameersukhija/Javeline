@@ -511,13 +511,13 @@ public class MysqlColumn {
 		
 		this.setTable( table );
 		this.setField( ( column.isNull( MysqlColumn.Fields.FIELD.getValue() ) ? null : column.getString( MysqlColumn.Fields.FIELD.getValue() ) ) );
-		this.setType( ( column.isNull( MysqlColumn.Fields.TYPE.getValue() ) ? null : column.getString( MysqlColumn.Fields.TYPE.getValue() ) ) );
+		this.setType( ( column.isNull( MysqlColumn.Fields.TYPE.getValue() ) ? null : column.getString( MysqlColumn.Fields.TYPE.getValue() ) ) );		
 		this.generateTypeValues( this.getType() );
 		this.setNull( ( column.getString( MysqlColumn.Fields.NULL.getValue() ).toUpperCase() == "YES" ? true : false  ) );
 		this.setKey( ( column.isNull( MysqlColumn.Fields.KEY.getValue() ) ? null : column.getString( MysqlColumn.Fields.KEY.getValue() ) ) );
 		this.setDefaultValue( ( column.isNull( MysqlColumn.Fields.DEFAULT.getValue() ) ? null : column.getString( MysqlColumn.Fields.DEFAULT.getValue() ) ) );
 		this.setExtra( ( column.isNull( MysqlColumn.Fields.EXTRA.getValue() ) ? null : column.getString( MysqlColumn.Fields.EXTRA.getValue() ) ) );
-		
+
 	}
 	
 	public void setTable( String table ) {
@@ -636,8 +636,8 @@ public class MysqlColumn {
 	
 	private void generateTypeValues( String type ) {
 		
-		 Pattern primitive_type = Pattern.compile("([a-z]+)[( ]*([0-9]+[,0-9]*|['0-9a-zA-Z,._ ]+)*[ )]*(unsigned)?([a-z) ]*)");
-		 
+		 Pattern primitive_type = Pattern.compile("([a-z]+)[( ]*([0-9]+[,0-9]*|['0-9a-zA-Z,._ -]+)*[ )]*(unsigned)?([a-z) ]*)");
+		
 		 Matcher values = primitive_type.matcher( type );
 		 
 		 if( values.matches() ) {
@@ -681,7 +681,7 @@ public class MysqlColumn {
 			 		this.setLength( Integer.valueOf( ( values.group( 2 ) != null ? values.group( 2 ) : "0" ) ) ); 
 			 		break;
 			 	}
-			 	case Enum: {
+			 	case Enum: {			 		
 			 		this.setTypeValues( this.getCollectionValues( values.group( 2 ) ) );
 			 		this.setLength( this.getTypeValues().length );
 			 		break;

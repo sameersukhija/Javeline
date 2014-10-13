@@ -130,7 +130,7 @@ public class NetworkEnvironment {
 
 	public Server getServer( String serverName ) {
 		
-		return ( this.servers != null ? this.servers.get( serverName ) : null );
+		return ( null != this.servers ? this.servers.get( serverName ) : null );
 		
 	}
 	
