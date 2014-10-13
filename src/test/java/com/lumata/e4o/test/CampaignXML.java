@@ -1,9 +1,6 @@
 package com.lumata.e4o.test;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,22 +11,14 @@ import org.testng.annotations.Test;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.generators.container.FilesData;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
 import com.lumata.e4o.dao.tenant.DAOToken;
-import com.lumata.e4o.schema.tenant.CatalogOffers;
-import com.lumata.e4o.schema.tenant.FilesMeta;
-import com.lumata.e4o.schema.tenant.Subscribers;
-import com.lumata.e4o.schema.tenant.Token;
-import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
+import com.lumata.e4o.schema.tenant.FilesData;
 
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 import static com.lumata.common.testing.orm.Query.*;
 import static com.lumata.common.testing.orm.Filter.*;
 
