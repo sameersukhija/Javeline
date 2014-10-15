@@ -1,0 +1,90 @@
+{
+	"campaignModels": [
+		{
+			"enabled": false,
+			"name": "CM-2835X",
+			"description": "CM-2835",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.Rule 01", "value": "", "option":"Allocate offer immediately", "time": null, "delete": false },
+						{ "name": "Accept Offer", "value": null, "option":null, "time": null, "delete": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},
+
+		{
+			"enabled": true,
+			"name": "CM-2835 P2X",
+			"description": "CM-2835",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.Rule 01", "value": "Allocate offer immediately", "option":null, "time": null, "delete": false },
+
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				},
+				{	
+					"eventType":"Call", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Accept Offer", "value": null, "option":null, "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},
+
+		{
+			"enabled": true,
+			"name": "CM-One",
+			"description": "CM-One",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.Rule 01", "value": null, "option":null, "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		}		
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+}

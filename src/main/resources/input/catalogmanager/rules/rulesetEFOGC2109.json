@@ -31,7 +31,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"maximumNumberOfOffers": 10,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
@@ -65,7 +65,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"maximumNumberOfOffers": 10,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
@@ -99,7 +99,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"maximumNumberOfOffers": 3,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
@@ -133,7 +133,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"maximumNumberOfOffers": 3,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
@@ -167,7 +167,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"maximumNumberOfOffers": 10,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
@@ -201,7 +201,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"maximumNumberOfOffers": 8,
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		}

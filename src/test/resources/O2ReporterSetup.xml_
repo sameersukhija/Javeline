@@ -16,9 +16,9 @@
   <!-- 
     Configuration environment file and its parameter
   -->
-  <parameter name="environment" value="e4o_qa_ne"/>
+  <parameter name="environment" value="e4o_qa3_ne"/>
   <parameter name="gui_server" value="actrule"/>
-  <parameter name="tenant" value="qa"/>
+  <parameter name="tenant" value="tenant"/>
   <parameter name="user" value="superman"/>
 
   <!--  

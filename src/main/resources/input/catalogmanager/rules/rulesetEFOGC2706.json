@@ -1,0 +1,109 @@
+{
+	"rules": [
+		{
+			"enabled": true,
+			"name":"Rule Random",
+			"description":"EFOGC-2706",
+			"tokenType":"TokenA",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				}
+			],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 3,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Rule Best",
+			"description":"EFOGC-2706",
+			"tokenType":"TokenA",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				}
+			],
+			"optimizationAlgorithm":"Best Offer",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 3,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Rule History",
+			"description":"EFOGC-2706",
+			"tokenType":"TokenA",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				}
+			],
+			"optimizationAlgorithm":"History based",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 3,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Rule Stock",
+			"description":"EFOGC-2706",
+			"tokenType":"TokenA",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				}
+			],
+			"optimizationAlgorithm":"Stock based",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 3,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Rule Preference",
+			"description":"EFOGC-2706",
+			"tokenType":"TokenA",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				}
+			],
+			"optimizationAlgorithm":"Preference Based",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 3,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}
+	]
+}
