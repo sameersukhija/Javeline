@@ -24,6 +24,7 @@ import com.lumata.e4o.generators.common.GeneratorParameter;
 import com.lumata.e4o.generators.common.GeneratorParametersList;
 import com.lumata.e4o.generators.common.GeneratorParameter.GeneratorParameterType;
 import com.lumata.e4o.schema.tenant.CatalogOffers;
+import com.lumata.e4o.schema.tenant.SetHobbies;
 import com.lumata.e4o.schema.tenant.SetOptions;
 import com.lumata.e4o.schema.tenant.SubsNotif;
 import com.lumata.e4o.schema.tenant.Subscribers;
@@ -383,6 +384,32 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 		mysql.execUpdate( query );
 		
+	}
+	
+	public void insertHobbies( final String[] hobbies ) throws GeneratorException {
+		
+		actionType = SubscriberAction.insertOptions;
+		
+		configureParameters();
+			
+		long countHobbies = 0;
+		
+		for( String hobbyName : hobbies ) {
+		
+			countHobbies++;
+			
+			SetHobbies hobby = new SetHobbies();
+			
+			hobby.setHobbies( countHobbies );
+			
+			hobby.setHobbiesName( hobbyName );
+
+			addSets( hobby );
+		
+			logger.info( Log.STORED.createMessage( "hobby ( " + hobby.getHobbies() + " - " + hobby.getHobbiesName() + " )" ) );
+			
+		}		
+				
 	}
 	
 	public void insertOptions( final String prefix, final Long qtyOptions ) throws GeneratorException {
