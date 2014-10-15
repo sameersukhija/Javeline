@@ -14,7 +14,7 @@
 					"eventType":"Revenue", 
 					"criteria": null, 
 					"actions": [
-						{ "name": "Rulesets.Rule Random", "value": null, "option":"Allocate offer immediately", "time": null, "delete": false }
+						{ "name": "Rulesets.Rule Random", "value": null, "option": null, "time": null, "delete": false }
 					],
 					"beneficiary": true,
 					"notifications": null,
@@ -37,7 +37,7 @@
 					"eventType":"Revenue", 
 					"criteria": null, 
 					"actions": [
-						{ "name": "Rulesets.Rule Best", "value": null, "option":"Allocate offer immediately", "time": null, "delete": false }
+						{ "name": "Rulesets.Rule Best", "value": null, "option": null, "time": null, "delete": false }
 					],
 					"beneficiary": true,
 					"notifications": null,
@@ -60,7 +60,7 @@
 					"eventType":"Revenue", 
 					"criteria": null, 
 					"actions": [
-						{ "name": "Rulesets.Rule History", "value": null, "option":"Allocate offer immediately", "time": null, "delete": false }
+						{ "name": "Rulesets.Rule History", "value": null, "option": null, "time": null, "delete": false }
 					],
 					"beneficiary": true,
 					"notifications": null,
@@ -83,7 +83,7 @@
 					"eventType":"Revenue", 
 					"criteria": null, 
 					"actions": [
-						{ "name": "Rulesets.Rule Stock", "value": null, "option":"Allocate offer immediately", "time": null, "delete": false }
+						{ "name": "Rulesets.Rule Stock", "value": null, "option": null, "time": null, "delete": false }
 					],
 					"beneficiary": true,
 					"notifications": null,
@@ -106,7 +106,7 @@
 					"eventType":"Revenue", 
 					"criteria": null, 
 					"actions": [
-						{ "name": "Rulesets.Rule Preference", "value": null, "option":"Allocate offer immediately", "time": null, "delete": false }
+						{ "name": "Rulesets.Rule Preference", "value": null, "option": null, "time": null, "delete": false }
 					],
 					"beneficiary": true,
 					"notifications": null,

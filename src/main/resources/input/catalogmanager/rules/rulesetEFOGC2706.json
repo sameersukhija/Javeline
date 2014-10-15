@@ -15,7 +15,7 @@
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"maximumNumberOfOffers": 3,
+			"maximumNumberOfOffers": 6,
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -36,7 +36,7 @@
 			"optimizationAlgorithm":"Best Offer",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"maximumNumberOfOffers": 3,
+			"maximumNumberOfOffers": 6,
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -57,7 +57,7 @@
 			"optimizationAlgorithm":"History based",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"maximumNumberOfOffers": 3,
+			"maximumNumberOfOffers": 6,
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -78,7 +78,7 @@
 			"optimizationAlgorithm":"Stock based",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"maximumNumberOfOffers": 3,
+			"maximumNumberOfOffers": 6,
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -99,7 +99,7 @@
 			"optimizationAlgorithm":"Preference Based",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"maximumNumberOfOffers": 3,
+			"maximumNumberOfOffers": 6,
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
