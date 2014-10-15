@@ -36,6 +36,8 @@ public interface IGeneratorSubscriberParameters {
 	
 	public void insertIntoEnvironment( final Long qtySubscribers ) throws GeneratorException;
 	
+	public void insertHobbies( final String[] hobbies ) throws GeneratorException;
+	
 	public void insertOptions( final String prefix, final Long qtyOptions ) throws GeneratorException;
 	
 	public void xmlrpcAllTokenAllocation() throws GeneratorException, NumberFormatException, FieldException;
