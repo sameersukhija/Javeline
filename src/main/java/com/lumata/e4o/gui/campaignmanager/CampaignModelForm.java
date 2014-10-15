@@ -15,7 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.common.Form;
 import com.lumata.e4o.gui.common.NotificationForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONAction;
 import com.lumata.e4o.json.gui.campaignmanager.JSONActionTime;
@@ -321,13 +323,16 @@ public class CampaignModelForm extends CampaignManagerForm {
 
 	public CampaignModelForm configureAction( JSONAction action, Integer eventRow, Integer actionRow ) throws JSONException, FormException {
 				
+		String ruleActionPattern = "^Rulesets[.].*";		
+		
 		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow' ) and position() = " + eventRow + " ]//td[@class='column_commodity']"; 
 		String actionXPathRow = eventXPathRow + "//table[@class='commodityContainer']/tbody/tr[" + actionRow + "]";
 		
 		String actionXPathRowAValue = actionXPathRow + "//*[@id='gwt-debug-TextCampaignModelCreationEAValue']";			
 		String actionXPathRowAType = actionXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationEAType']";
 		String actionXPathRowAUnit = actionXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']";			
-				
+		String actionXPathRowAAutoAllocation = actionXPathRow + "//*[contains(text(), '::AUTO_ALLOCATE::') ]/parent::select";
+		
 		/** configure action time */
 		if( action.hasActionTime() ) {
 			
@@ -340,9 +345,19 @@ public class CampaignModelForm extends CampaignManagerForm {
 		/** configure action */
 		clickXPath( actionXPathRowAType ).
 		selectDropDownListItem( action.getName() );
-		if( null != action.getValue() ) { typeByXPath( actionXPathRowAValue, action.getValue() ); }
-		if( null != action.getOption() ) { selectByXPathAndVisibleText( actionXPathRowAUnit, action.getOption() ); }
 		
+		if( null != action.getValue() ) { typeByXPath( actionXPathRowAValue, action.getValue() ); }
+		
+		if( null != action.getOption() ) { 
+			
+			if( action.getName().matches( ruleActionPattern ) ) {
+				
+				selectByXPathAndVisibleText( actionXPathRowAAutoAllocation.replace( "::AUTO_ALLOCATE::" , action.getOption() ), action.getOption() );
+				
+			} else { selectByXPathAndVisibleText( actionXPathRowAUnit, action.getOption() ); }
+		
+		}
+				
 		return this;
 		
 	}
@@ -583,6 +598,15 @@ public class CampaignModelForm extends CampaignManagerForm {
 	public CampaignModelForm selectByXPathAndVisibleText( String xpath, String text ) throws FormException {
 		
 		super.selectByXPathAndVisibleText( xpath, text );
+		
+		return this;
+		
+	}
+	
+	@Override		
+	public Form selectByXPathAndValue( String xpath, String value ) throws FormException {
+		
+		super.selectByXPathAndValue( xpath, value );	
 		
 		return this;
 		

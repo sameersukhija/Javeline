@@ -448,6 +448,28 @@ public abstract class Form {
 		
 	}
 	
+	protected Form selectByValue( SeleniumUtils.SearchBy by, String tag, String value ) throws FormException {
+		
+		lastWebElement = search( by, tag );
+		
+		if( lastWebElement == null ) {
+			throw new FormException("Element not found");
+		}
+		
+		Select select = new Select( lastWebElement );
+		
+		select.selectByValue( value );
+		
+		return this;
+	
+	}
+	
+	public Form selectByXPathAndValue( String xpath, String value ) throws FormException {
+		
+		return selectByValue( SearchBy.XPATH, xpath, value );	
+		
+	}
+	
 	private Form multiselectByVisibleText( SeleniumUtils.SearchBy by, String tag, JSONArray list ) throws FormException {
 		
 		lastWebElement = search( by, tag );

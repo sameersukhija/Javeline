@@ -24,7 +24,7 @@
 			"enabled": true,
 			"name":"RuleB",
 			"description":"RuleB",
-			"tokenType":"TokenA",
+			"tokenType":"TokenB",
 			"channels":[ {
 				"name":"Ch B",
 				"mandatory":false,

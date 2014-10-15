@@ -20,9 +20,9 @@ import com.lumata.e4o.exceptions.GeneratorException;
 import com.lumata.e4o.generators.common.Generator;
 
 
-public class GenerateSubscribersAllTokenAllocation {
+public class GenerateSubscribersRandomTokenAccepting {
 
-	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersAllTokenAllocation.class );
+	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersRandomTokenAccepting.class );
 	
 	final boolean GENERATE_FIXED_SUBSCRIBER = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = false;
@@ -52,39 +52,39 @@ public class GenerateSubscribersAllTokenAllocation {
 		
 	}
 
-	@Test( enabled = GENERATE_FIXED_SUBSCRIBER )
-	public void allocateAllTokensWithFixedSubscriber() throws GeneratorException, NumberFormatException, FieldException {
-		
-		final Long FIXED_MSISDN = 3399900001L;
-								
-		Generator.subscribers()
-					.environment( env )
-					.mysql( mysql )
-					.server( guiServer )
-					.user( superman )
-					.msisdnFixed( FIXED_MSISDN )
-					.xmlrpcAllTokenAllocation();
-					
-	}
-
-	@Test( enabled = false )
-	public void allocateAllTokensWithFixedMultiSubscribers() throws GeneratorException, NumberFormatException, FieldException {
-		
-		final Long[] FIXED_MSISDN = { 393669393643L, 393356848728L, 393280654379L  };
-		
-		for( Long msisdn : FIXED_MSISDN ) {
-			
-			Generator.subscribers()
-						.environment( env )
-						.mysql( mysql )
-						.server( guiServer )
-						.user( superman )
-						.msisdnFixed( msisdn )
-						.xmlrpcAllTokenAllocation();
-			
-		}
-		
-	}
+//	@Test( enabled = GENERATE_FIXED_SUBSCRIBER )
+//	public void allocateAllTokensWithFixedSubscriber() throws GeneratorException, NumberFormatException, FieldException {
+//		
+//		final Long FIXED_MSISDN = 3399900001L;
+//								
+//		Generator.subscribers()
+//					.environment( env )
+//					.mysql( mysql )
+//					.server( guiServer )
+//					.user( superman )
+//					.msisdnFixed( FIXED_MSISDN )
+//					.xmlrpcAllTokenAllocation();
+//					
+//	}
+//
+//	@Test( enabled = false )
+//	public void allocateAllTokensWithFixedMultiSubscribers() throws GeneratorException, NumberFormatException, FieldException {
+//		
+//		final Long[] FIXED_MSISDN = { 393669393643L, 393356848728L, 393280654379L  };
+//		
+//		for( Long msisdn : FIXED_MSISDN ) {
+//			
+//			Generator.subscribers()
+//						.environment( env )
+//						.mysql( mysql )
+//						.server( guiServer )
+//						.user( superman )
+//						.msisdnFixed( msisdn )
+//						.xmlrpcAllTokenAllocation();
+//			
+//		}
+//		
+//	}
 	
 	@Test( enabled = GENERATE_INCREMENTAL_SUBSCRIBERS )
 	public void allocateAllTokensWithIncrementalSubscribers() throws GeneratorException, NumberFormatException, FieldException {
@@ -100,28 +100,28 @@ public class GenerateSubscribersAllTokenAllocation {
 					.user( superman )
 					.msisdnIncremental( STARTED_MSISDN, INCREMENT )
 					.repeat( REPEAT )
-					.xmlrpcAllTokenAllocation();
+					.xmlrpcRandomTokenAccepting();
 		
 	}
 	
-	@Test( enabled = GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE )
-	public void allocateAllTokensWithFixedSubscriberRandomRecharge() throws GeneratorException, NumberFormatException, FieldException {
-		
-		final Long FIXED_MSISDN = 3399900001L;
-		final Integer MIN_EVENTS = 1;
-		final Integer MAX_EVENTS = 1;
-				
-		Generator.subscribers()
-					.environment( env )
-					.mysql( mysql )
-					.server( guiServer )
-					.user( superman )
-					.msisdnFixed( FIXED_MSISDN )
-					.minRandomEvents( MIN_EVENTS )
-					.maxRandomEvents( MAX_EVENTS )
-					.xmlrpcAllTokenAllocation();
-					
-	}
+//	@Test( enabled = GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE )
+//	public void allocateAllTokensWithFixedSubscriberRandomRecharge() throws GeneratorException, NumberFormatException, FieldException {
+//		
+//		final Long FIXED_MSISDN = 3399900001L;
+//		final Integer MIN_EVENTS = 1;
+//		final Integer MAX_EVENTS = 1;
+//				
+//		Generator.subscribers()
+//					.environment( env )
+//					.mysql( mysql )
+//					.server( guiServer )
+//					.user( superman )
+//					.msisdnFixed( FIXED_MSISDN )
+//					.minRandomEvents( MIN_EVENTS )
+//					.maxRandomEvents( MAX_EVENTS )
+//					.xmlrpcAllTokenAllocation();
+//					
+//	}
 	
 	@AfterSuite
 	public void end() {

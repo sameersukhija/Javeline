@@ -23,6 +23,7 @@ import com.lumata.e4o.exceptions.XMLRPCException;
 import com.lumata.e4o.generators.common.GeneratorParameter;
 import com.lumata.e4o.generators.common.GeneratorParametersList;
 import com.lumata.e4o.generators.common.GeneratorParameter.GeneratorParameterType;
+import com.lumata.e4o.schema.tenant.CatalogOffers;
 import com.lumata.e4o.schema.tenant.SetOptions;
 import com.lumata.e4o.schema.tenant.SubsNotif;
 import com.lumata.e4o.schema.tenant.Subscribers;
@@ -68,7 +69,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 	SubscriberAction actionType;
 	
 	private enum SubscriberAction {
-		insertSubscriber, insertHobbies, insertOptions, recharge, tokenAllocation
+		insertSubscriber, insertHobbies, insertOptions, recharge, tokenAllocation, tokenAccepting
 	}
 	
 	
@@ -429,35 +430,102 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 		Mysql mysql = (Mysql)parameters.getParameterValue( GeneratorParameterType.mysql );
 		
-		ArrayList<Token> tokens = DAOToken.getInstance( mysql ).getAvailableActiveTokens( Long.valueOf( fieldMsisdn.getMsisdn() ) );
+		for( int rp = 1; rp <= repeat; rp++ ) {
 		
-		for ( Token token : tokens ) {
+			Long msisdn = Long.valueOf( fieldMsisdn.getMsisdn() );
 			
-			try {
-				
-				XMLRPCRequest.offeroptimizer_allocate().call( 	
-					server, 
-					xmlrpcBody(
-						authentication( user ),
-						string( fieldMsisdn.getMsisdn() ),
-						string( token.getTokenCode() )
-					),
-					xmlrpcOptions(
-						storeRequestAsResource( "xmlrpc/request/", "request.xml" ),
-						storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
-					)
-				);
-				
-			} catch (XMLRPCException e) {
-				
-				logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+			ArrayList<Token> tokens = DAOToken.getInstance( mysql ).getAvailableActiveTokens( msisdn );
 			
-			} catch (Exception e) {
+			for ( Token token : tokens ) {
 				
-				logger.error( Log.FAILED.createMessage( e.getMessage() ) );
-			
+				try {
+					
+					XMLRPCRequest.offeroptimizer_allocate().call( 	
+						server, 
+						xmlrpcBody(
+							authentication( user ),
+							string( msisdn ),
+							string( token.getTokenCode() )
+						),
+						xmlrpcOptions(
+							storeRequestAsResource( "xmlrpc/request/", "request.xml" ),
+							storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
+						)
+					);
+					
+				} catch (XMLRPCException e) {
+					
+					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+				
+				} catch (Exception e) {
+					
+					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+				
+				}
+				
 			}
+		
+		}
+		
+	}
+	
+	public void xmlrpcRandomTokenAccepting() throws GeneratorException, NumberFormatException, FieldException {
+		
+		actionType = SubscriberAction.tokenAccepting;
+		
+		configureParameters();
+		
+		Server server = (Server)parameters.getParameterValue( GeneratorParameterType.server );
+		
+		User user = (User)parameters.getParameterValue( GeneratorParameterType.user );
+		
+		Mysql mysql = (Mysql)parameters.getParameterValue( GeneratorParameterType.mysql );
+		
+		for( int rp = 1; rp <= repeat; rp++ ) {
+		
+			Long msisdn = Long.valueOf( fieldMsisdn.getMsisdn() );
 			
+			ArrayList<Token> tokens = DAOToken.getInstance( mysql ).getAvailableAllocatedActiveTokens( msisdn );
+			
+			int tokensToAccept = (int)( 1 + Math.random() * ( tokens.size() - 1 ) );
+			
+			for( int tta = 0; tta < tokensToAccept; tta++ ) {
+				
+				ArrayList<CatalogOffers> offers = DAOToken.getInstance( mysql ).getAssociatedOffers( msisdn, tokens.get( tta ).getTokenCode() );
+				
+				int offerToAcceptIndex = (int)( 1 + Math.random() * ( offers.size() - 1 ) );
+							
+				final Object[] offer_id = new Integer[]{ Integer.valueOf( offers.get( offerToAcceptIndex ).getOfferId() ) };
+				
+				try {
+				
+					XMLRPCRequest.offeroptimizer_accept().call( 	
+						server, 
+						xmlrpcBody(
+							authentication( user ),
+							string( msisdn ),
+							string( tokens.get( tta ).getTokenCode() ),
+							arrayInt( offer_id ),
+							string( "web" )
+						),
+						xmlrpcOptions(
+							storeRequestAsResource( "xmlrpc/request/", "request.xml" ),
+							storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
+						)
+					);
+					
+				} catch (XMLRPCException e) {
+					
+					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+				
+				} catch (Exception e) {
+					
+					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+				
+				}
+				
+			}
+		
 		}
 		
 	}

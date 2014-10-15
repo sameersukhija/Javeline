@@ -40,6 +40,8 @@ public interface IGeneratorSubscriberParameters {
 	
 	public void xmlrpcAllTokenAllocation() throws GeneratorException, NumberFormatException, FieldException;
 	
+	public void xmlrpcRandomTokenAccepting() throws GeneratorException, NumberFormatException, FieldException;
+	
 	public void xmlrpcRecharge() throws GeneratorException;
 	
 	public void xmlrpcRecharge( final Long qtySubscribers ) throws GeneratorException;
