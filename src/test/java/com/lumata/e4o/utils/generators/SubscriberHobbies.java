@@ -1,5 +1,8 @@
 package com.lumata.e4o.utils.generators;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
@@ -15,7 +18,6 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
-import com.lumata.common.testing.system.User;
 import com.lumata.e4o.dao.tenant.DAOSetHobbies;
 import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.cdr.CDR;
@@ -47,8 +49,14 @@ public class SubscriberHobbies {
 	//@Test( enabled = true )
 	public void generateHobbies() throws IOFileException, FieldException {
 
-		DAOSetHobbies.getInstance( mysql ).insertHobbies( CDR.HOBBIES.values() );
+		List<String> input = new ArrayList<String>();
 		
+		for (Enum<?> string : CDR.HOBBIES.values()) 
+			input.add(string.name());
+		
+//		String[] input = (String[]) tmp.toArray();
+		
+		DAOSetHobbies.getInstance( mysql ).insertHobbies( input );
 	}
 	
 	@AfterSuite

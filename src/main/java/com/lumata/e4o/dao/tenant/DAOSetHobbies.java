@@ -6,6 +6,7 @@ import static com.lumata.common.testing.orm.Filter.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -117,7 +118,7 @@ public class DAOSetHobbies extends DAO {
 		
 	}
 	
-	public void insertHobbies( Enum<?>... hobbies ) {
+	public void insertHobbies( List<String> hobbies ) {
 		
 		SetHobbies hobbyRow = new SetHobbies();
 		
@@ -133,13 +134,13 @@ public class DAOSetHobbies extends DAO {
 			
 		}
 				
-		for( Enum<?> hobby : hobbies ) {
+		for( String hobby : hobbies ) {
 			
-			if( !isHobby( hobby.name() ) ) {
+			if( !isHobby( hobby ) ) {
 				
 				hobbyRow.setHobbies( hobbyId );
 				
-				hobbyRow.setHobbiesName( hobby.name() );
+				hobbyRow.setHobbiesName( hobby );
 				
 				String query = insert( hobbyRow ).values().build();
 			
