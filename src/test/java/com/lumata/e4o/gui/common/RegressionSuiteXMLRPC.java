@@ -1,8 +1,17 @@
 package com.lumata.e4o.gui.common;
 
-import static com.lumata.common.testing.orm.Query.select;
-import static com.lumata.common.testing.orm.Filter.op;
 import static com.lumata.common.testing.orm.Filter.and;
+import static com.lumata.common.testing.orm.Filter.op;
+import static com.lumata.common.testing.orm.Query.select;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.xmlrpcBody;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.xmlrpcOptions;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.xmlrpcValidator;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.sleep;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeRequestAsResource;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeResponseAsResource;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.authentication;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.subscriber;
+import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.success;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,24 +20,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Map.Entry;
 
 import org.jboss.resteasy.client.ClientResponse;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.database.Mysql;
-import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.common.testing.system.Server;
-import com.lumata.common.testing.system.User;
+import com.lumata.e4o.exceptions.XMLRPCException;
 import com.lumata.e4o.exceptions.XMLRPCParserException;
 import com.lumata.e4o.gui.xmlrpc.HTTPXMLRPCForm;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCChannel;
@@ -40,19 +43,11 @@ import com.lumata.e4o.gui.xmlrpc.XMLRPCSubscriber;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCResultParser.ResultType;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.schema.tenant.SupportedRatePlan;
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter;
 
-public class RegressionSuiteXMLRPC {
-
-	/**
-	 * default delay is 100 msec
-	 */
-	private static long XMLRPC_CALL_DELAY = 100;
-
-	/**
-	 * 
-	 */
-	protected static NetworkEnvironment env;
-	protected static Mysql mysql;
+public class RegressionSuiteXMLRPC extends RegressionSuiteXmlrpcCore {
+	
 
 	/**
 	 * Default seed for subscribers msisdn
@@ -60,23 +55,9 @@ public class RegressionSuiteXMLRPC {
 	private final String default_msisdn_seed = "331234501";
 	
 	/**
-	 * max lenght for msisdn
+	 * max length for msisdn
 	 */
 	private final Integer MaxMsisdnLength = 12;
-
-	/**
-	 * Intermediate object to handle XMLRPC init
-	 */
-	protected static Server gui = null;
-	protected static User user = null;
-	
-	/**
-	 * Print to standard output during execution
-	 */
-	protected static final Boolean PRINT2STDOUT__ = Boolean.TRUE;
-	
-	private static String envPath = null;
-	private static String envFile = null;
 	
 	/**
 	 * XMLRPC Request / Result
@@ -88,40 +69,12 @@ public class RegressionSuiteXMLRPC {
 	 * Exchange variable for tests
 	 */
 	private String nextTestMsisdn = null;
-
-	/**
-	 * 
-	 * @param browser
-	 * @param environment
-	 * @param tenant
-	 * @param gui_server
-	 * @param user_name
-	 * @throws NetworkEnvironmentException
-	 */
-	@Parameters({ "browser", "environment", "tenant", "gui_server", "user_name" })
-	@BeforeSuite
-	public void init(	@Optional("FIREFOX") String browser,
-						@Optional("E4O_QA") String environment,
-						@Optional("qa") String tenant, 
-						@Optional("actrule") String gui_server,
-						@Optional("superman") String user_name	) throws NetworkEnvironmentException {
+	
+	@AfterMethod
+	public void tearDown() {
 		
-		envPath = "input/environments";
-		envFile = environment;
-		
-		Reporter.log( "Init testing environment with reosurce file : ", PRINT2STDOUT__);
-		Reporter.log( "Resource path -> " + envPath, PRINT2STDOUT__);
-		Reporter.log( "Resource file -> " + envFile, PRINT2STDOUT__);		
-
-		env = new NetworkEnvironment( envPath, envFile, IOFileUtils.IOLoadingType.RESOURCE);
-
-		Reporter.log( "Startup MySql driver with schema \""+tenant+"\".", PRINT2STDOUT__);
-		
-		mysql = new Mysql(env.getDataSource(tenant));
-
-		gui = env.getServer(gui_server);
-		user = gui.getUser(user_name);		
-	}
+		waitState();
+	}	
 
 	/**
 	 * Create subscriber with wrong xmlrpc requests ( some mandatory field is missing )
@@ -143,7 +96,7 @@ public class RegressionSuiteXMLRPC {
 		Map<String, Object> subscriberParams = new HashMap<String, Object>();
 		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "5");
 		Assert.assertEquals(resultFault.getMessage(), "missing mandatory param subscription_date");
 
@@ -154,7 +107,7 @@ public class RegressionSuiteXMLRPC {
 		
 		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), today());
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "5");
 		Assert.assertEquals(resultFault.getMessage(), "missing mandatory param rate_plan");
 
@@ -165,7 +118,7 @@ public class RegressionSuiteXMLRPC {
 		
 		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), "FUN");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "5");
 		Assert.assertEquals(resultFault.getMessage(), "missing mandatory param status");
 
@@ -176,7 +129,7 @@ public class RegressionSuiteXMLRPC {
 		
 		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), "active");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "5");
 		Assert.assertEquals(resultFault.getMessage(), "missing mandatory param in_tag");
 
@@ -187,7 +140,7 @@ public class RegressionSuiteXMLRPC {
 		
 		subscriberParams.put(XMLRPCSubscriber.Params.in_tag.name(), "QAIN");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "5");
 		Assert.assertEquals(resultFault.getMessage(), "missing mandatory param network");
 
@@ -199,7 +152,7 @@ public class RegressionSuiteXMLRPC {
 		
 		subscriberParams.put(XMLRPCSubscriber.Params.network.name(), "mobile");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		XMLRPCResultSuccess resultSuccess = RegressionSuiteXMLRPC.getSuccess(responseParser);
+		XMLRPCResultSuccess resultSuccess = getSuccess(responseParser);
 		Assert.assertNotNull(resultSuccess);
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
 		
@@ -251,43 +204,56 @@ public class RegressionSuiteXMLRPC {
 
 	@Parameters("inputSeed")
 	@Test(priority = 1)
-	public void createNewSubscriberWithOptionalParams( @Optional(default_msisdn_seed) String inputSeed ) throws XMLRPCParserException {
+	public void createNewSubscriberWithOptionalParams( @Optional(default_msisdn_seed) String inputSeed ) throws XMLRPCException, Exception {
 
 		String msisdn = generateNewMsisdn(inputSeed);
 
 		Reporter.log("Create a subscribers with optional parameters.", PRINT2STDOUT__);
 
-		Map<String, Object> subscriberParams = new HashMap<String, Object>();
-		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
-		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), today());
-		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), "FUN");
-		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), "active");
-		subscriberParams.put(XMLRPCSubscriber.Params.in_tag.name(), "QAIN");
-		subscriberParams.put(XMLRPCSubscriber.Params.network.name(), "mobile");
-		
-		String imei = "741258965412365478";
-		String imsi = "740000000412365478";
-		String gender = "MALE";
-		String salary = "78000";
-		String tongue = "ENG";
-		
-		Map<String, String> optionalParams = new HashMap<String, String>();
-		optionalParams.put("imei", imei);
-		optionalParams.put("imsi", imsi);
-		optionalParams.put("gender", gender);
-		optionalParams.put("salary", salary);
-		optionalParams.put("tongue", tongue);
+		Map<String,String> params = new HashMap<>();
+		params.put( "imei", "741258965412365478");
+		params.put( "imsi", "741258965412365478");
+		params.put( "gender", "MALE");
+		params.put( "salary", "220");
+		params.put( "tongue", "ENG");
 
-		for (Entry<String, String> entry : optionalParams.entrySet()) 
-			Reporter.log( "Optional parameter -> " + entry.getKey() + "\t Value -> " + entry.getValue(), PRINT2STDOUT__);
+		XMLRPCParameter[] xmlrpcParams = params.size() == 0 ? null : new XMLRPCParameter[params.size()];
 		
-		subscriberParams.put(XMLRPCSubscriber.Params.params.name(), optionalParams);
+		int count = 0;
 		
-		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		XMLRPCResultSuccess resultSuccess = RegressionSuiteXMLRPC.getSuccess(responseParser);
-		Assert.assertNotNull(resultSuccess);
-		Assert.assertEquals(resultSuccess.getBoolean(), "0");
+		for (Entry<String, String> param : params.entrySet() ) {
+			
+			Reporter.log( "Optional parameter -> " + param.getKey() + "\t Value -> " + param.getValue(), PRINT2STDOUT__);
+			xmlrpcParams[count++] = XMLRPCParameter.param(param.getKey(), param.getValue());
+		}
 		
+		XMLRPCRequest.subscribermanager_createSubscriber().call( 	
+				gui, 
+				xmlrpcBody(
+					authentication( user ),
+					subscriber( 
+							msisdn,
+							today(),
+							"prepaid",
+							"subfun",
+							"FUN",
+							"active",
+							"QAIN",
+							"mobile",
+							xmlrpcParams,
+							null
+					)
+				),
+				xmlrpcValidator(
+						success()
+				),				
+				xmlrpcOptions( 
+					sleep( XMLRPC_CALL_DELAY ),
+					storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_createSubscriber.xml" ),
+					storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_createSubscriber.xml" )	
+				)
+		);	
+
 		// DB check
 		// Technical debt
 	}
@@ -347,7 +313,7 @@ public class RegressionSuiteXMLRPC {
 		
 		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), wrong);
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "2");
 		Assert.assertEquals(resultFault.getMessage(), "unable to create subscriber");
 		
@@ -365,7 +331,7 @@ public class RegressionSuiteXMLRPC {
 		
 		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), wrong);
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "6");
 		Assert.assertEquals(resultFault.getMessage(), "invalid subscription_date " + wrong);
 		
@@ -383,7 +349,7 @@ public class RegressionSuiteXMLRPC {
 		
 		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), wrong);
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "6");
 		Assert.assertEquals(resultFault.getMessage(), "invalid rate_plan " + wrong);
 		
@@ -401,7 +367,7 @@ public class RegressionSuiteXMLRPC {
 		
 		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), wrong);
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "6");
 		Assert.assertEquals(resultFault.getMessage(), "invalid status " + wrong);
 		
@@ -419,7 +385,7 @@ public class RegressionSuiteXMLRPC {
 		
 		subscriberParams.put(XMLRPCSubscriber.Params.in_tag.name(), "WRONG IN TAG");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "6");
 		Assert.assertEquals(resultFault.getMessage(), "invalid in_tag " + wrong);
 		
@@ -437,7 +403,7 @@ public class RegressionSuiteXMLRPC {
 		
 		subscriberParams.put(XMLRPCSubscriber.Params.network.name(), "wrong network");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "6");
 		Assert.assertEquals(resultFault.getMessage(), "invalid network " + wrong);
 		
@@ -450,7 +416,7 @@ public class RegressionSuiteXMLRPC {
 		Reporter.log( "Case 7 -> Success creation without wrong parameters.", PRINT2STDOUT__);
 		
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		XMLRPCResultSuccess resultSuccess = RegressionSuiteXMLRPC.getSuccess(responseParser);
+		XMLRPCResultSuccess resultSuccess = getSuccess(responseParser);
 		Assert.assertNotNull(resultSuccess);
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
 		
@@ -484,7 +450,7 @@ public class RegressionSuiteXMLRPC {
 		// Case 1 ( wrong profile )
 		subscriberParams.put(XMLRPCSubscriber.Params.profile.name(), "wrong profile");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "6");
 		Assert.assertEquals(resultFault.getMessage(), "invalid profile wrong profile");
 
@@ -495,7 +461,7 @@ public class RegressionSuiteXMLRPC {
 		// statuses table)
 		subscriberParams.put(XMLRPCSubscriber.Params.profile.name(), "postpaid");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		XMLRPCResultSuccess resultSuccess = RegressionSuiteXMLRPC.getSuccess(responseParser);
+		XMLRPCResultSuccess resultSuccess = getSuccess(responseParser);
 		Assert.assertNotNull(resultSuccess);
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
 
@@ -546,7 +512,7 @@ public class RegressionSuiteXMLRPC {
 
 		// Case 3 ( all parameters ( channels and relations excluded )
 		responseParser = this.xmlrpc(HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultSuccess = RegressionSuiteXMLRPC.getSuccess(responseParser);
+		resultSuccess = getSuccess(responseParser);
 		Assert.assertNotNull(resultSuccess);
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
 	}
@@ -584,7 +550,7 @@ public class RegressionSuiteXMLRPC {
 		// Case 1 ( wrong channel name )
 		sms_channel.setName("SMS1");
 		responseParser = this.xmlrpc(HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "6");
 		Assert.assertEquals(resultFault.getMessage(), "Invalid channel SMS1");
 		sms_channel.setName("SMS");
@@ -594,7 +560,7 @@ public class RegressionSuiteXMLRPC {
 		// Case 2 ( wrong address )
 		sms_channel.setAddress("");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "5");
 		Assert.assertEquals(resultFault.getMessage(), "Missing address for channel SMS");
 		sms_channel.setAddress(msisdn);
@@ -604,7 +570,7 @@ public class RegressionSuiteXMLRPC {
 		// Case 3 ( wrong active )
 		sms_channel.setActive("wrong active value");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "6");
 		Assert.assertEquals(resultFault.getMessage(), "Invalid active for channel SMS");
 		sms_channel.setActive("true");
@@ -613,17 +579,11 @@ public class RegressionSuiteXMLRPC {
 
 		// Case 4 ( Success )
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		XMLRPCResultSuccess resultSuccess = RegressionSuiteXMLRPC.getSuccess(responseParser);
+		XMLRPCResultSuccess resultSuccess = getSuccess(responseParser);
 		Assert.assertNotNull(resultSuccess);
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
 	}
 
-	@AfterMethod
-	public void tearDown() {
-		
-		waitState();
-	}
-	
 	/**
 	 * Create subscriber using relation parameters
 	 * 
@@ -662,7 +622,7 @@ public class RegressionSuiteXMLRPC {
 		// Case 1 ( wrong relation type )
 		relation.setType("wrong account");
 		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "6");
 		Assert.assertEquals(resultFault.getMessage(), "Invalid relation wrong account");
 		relation.setType("account");
@@ -690,7 +650,7 @@ public class RegressionSuiteXMLRPC {
 		responseParser = this.xmlrpc(
 				HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber,
 				subscriberParams);
-		resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		resultFault = getFault(responseParser);
 		Assert.assertEquals(resultFault.getCode(), "100");
 		Assert.assertEquals(resultFault.getMessage(),
 				"subscriber not found with msisdn " + related_msisdn);
@@ -711,8 +671,7 @@ public class RegressionSuiteXMLRPC {
 		responseParser = this.xmlrpc(
 				HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber,
 				subscriberParams2);
-		XMLRPCResultSuccess resultSuccess = RegressionSuiteXMLRPC
-				.getSuccess(responseParser);
+		XMLRPCResultSuccess resultSuccess = getSuccess(responseParser);
 		Assert.assertNotNull(resultSuccess);
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
 
@@ -722,7 +681,7 @@ public class RegressionSuiteXMLRPC {
 		responseParser = this.xmlrpc(
 				HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber,
 				subscriberParams);
-		resultSuccess = RegressionSuiteXMLRPC.getSuccess(responseParser);
+		resultSuccess = getSuccess(responseParser);
 		Assert.assertNotNull(resultSuccess);
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
 
@@ -754,7 +713,7 @@ public class RegressionSuiteXMLRPC {
 
 		XMLRPCResultParser responseParser = new XMLRPCResultParser(response.getEntity().toString());
 
-		XMLRPCResultFault resultFault = RegressionSuiteXMLRPC.getFault(responseParser);
+		XMLRPCResultFault resultFault = getFault(responseParser);
 
 		Assert.assertNotNull(resultFault);
 
@@ -795,7 +754,7 @@ public class RegressionSuiteXMLRPC {
 
 		ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber.call(gui.getLink() + "xmlrpc/", params);
 		XMLRPCResultParser responseParser = new XMLRPCResultParser(response.getEntity().toString());
-		XMLRPCResultSuccess resultSuccess = RegressionSuiteXMLRPC.getSuccess(responseParser);
+		XMLRPCResultSuccess resultSuccess = getSuccess(responseParser);
 
 		Assert.assertNotNull(resultSuccess);
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");
@@ -885,7 +844,7 @@ public class RegressionSuiteXMLRPC {
 
 		responseParser = new XMLRPCResultParser(response.getEntity().toString());
 
-		XMLRPCResultSuccess resultSuccess = RegressionSuiteXMLRPC.getSuccess(responseParser);
+		XMLRPCResultSuccess resultSuccess = getSuccess(responseParser);
 
 		Assert.assertNotNull(resultSuccess);
 		Assert.assertEquals(resultSuccess.getBoolean(), "0");

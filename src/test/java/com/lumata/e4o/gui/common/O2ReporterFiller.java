@@ -12,17 +12,14 @@ import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.str
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.parameter;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType.*;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import org.testng.Assert;
 import org.testng.Reporter;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -35,7 +32,7 @@ import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.EventType;
 /**
  *	This class contains tests for O2 custom reporter testing
  */
-public class O2ReporterFiller extends RegressionSuiteXMLRPC {
+public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	
 	/**
 	 * Active tokens list
@@ -52,30 +49,30 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 	 */
 	private static List<String> currentConsumedTokens = null;
 	
-	/**
-	 * Base folder where XML file are stored
-	 */
-	private static String baseXmlrpcLogFolder = "xmlrpc";
-	
-	/**
-	 * Current log folder
-	 */
-	private static String xmlrpcLogFolder = null;
-	
-	/**
-	 * This object describe the origin of time for current test execution
-	 */
-	private static Date startOfTime4Suite = null;
-	
-	/**
-	 * It describes the execution time for single test for log purpose
-	 */
-	private String testTime = null;
-	
-	/**
-	 * Default sleep time for XMLPRC message
-	 */
-	private static Long SLEEP_TIME_ = 100L;
+//	/**
+//	 * Base folder where XML file are stored
+//	 */
+//	private static String baseXmlrpcLogFolder = "xmlrpc";
+//	
+//	/**
+//	 * Current log folder
+//	 */
+//	private static String xmlrpcLogFolder = null;
+//	
+//	/**
+//	 * This object describe the origin of time for current test execution
+//	 */
+//	private static Date startOfTime4Suite = null;
+//	
+//	/**
+//	 * It describes the execution time for single test for log purpose
+//	 */
+//	private String testTime = null;
+//	
+//	/**
+//	 * Default sleep time for XMLPRC message
+//	 */
+//	private static Long XMLRPC_CALL_DELAY = 100L;
 	
 	/**
 	 * Surrounded token status
@@ -91,31 +88,31 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 		public String toString() { return value; }
 	};
 	
-	@BeforeMethod
-	private void testSetup() {
-
-		/**
-		 * Common suite section
-		 */
-		
-		if ( startOfTime4Suite == null )
-			startOfTime4Suite = new Date(Calendar.getInstance().getTimeInMillis() - 60000);
-		
-		if ( xmlrpcLogFolder == null ) {
-			xmlrpcLogFolder = baseXmlrpcLogFolder + File.separator + "execution_" + new SimpleDateFormat("yyyy_MM_dd_HH_mm").format(startOfTime4Suite) + File.separator;
-			
-			Reporter.log( "###############", PRINT2STDOUT__);
-			Reporter.log( "##### XMLRPC response message are stored into folder "+ "execution_" + new SimpleDateFormat("yyyy_MM_dd_HH_mm").format(startOfTime4Suite), PRINT2STDOUT__);
-			Reporter.log( "###############", PRINT2STDOUT__);
-		}
-
-		/**
-		 * Specific test method section
-		 */
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-		testTime = sdf.format(new Date());
-	}
+//	@BeforeMethod
+//	private void testSetup() {
+//
+//		/**
+//		 * Common suite section
+//		 */
+//		
+//		if ( startOfTime4Suite == null )
+//			startOfTime4Suite = new Date(Calendar.getInstance().getTimeInMillis() - 60000);
+//		
+//		if ( xmlrpcLogFolder == null ) {
+//			xmlrpcLogFolder = baseXmlrpcLogFolder + File.separator + "execution_" + new SimpleDateFormat("yyyy_MM_dd_HH_mm").format(startOfTime4Suite) + File.separator;
+//			
+//			Reporter.log( "###############", PRINT2STDOUT__);
+//			Reporter.log( "##### XMLRPC response message are stored into folder "+ "execution_" + new SimpleDateFormat("yyyy_MM_dd_HH_mm").format(startOfTime4Suite), PRINT2STDOUT__);
+//			Reporter.log( "###############", PRINT2STDOUT__);
+//		}
+//
+//		/**
+//		 * Specific test method section
+//		 */
+//		
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+//		testTime = sdf.format(new Date());
+//	}
 	
 	/**
 	 * 
@@ -146,7 +143,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 						)
 					),
 					xmlrpcOptions( 
-						sleep( SLEEP_TIME_ ),
+						sleep( XMLRPC_CALL_DELAY ),
 						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_generateCustomEvent_"+i+".xml" ),
 						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_generateCustomEvent_"+i+".xml" )	
 					)
@@ -204,7 +201,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 						string( code )
 					),
 					xmlrpcOptions(
-						sleep( SLEEP_TIME_ ),
+						sleep( XMLRPC_CALL_DELAY ),
 						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_allocate_"+code+".xml" ),
 						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_allocate_"+code+".xml" )	
 					)
@@ -249,7 +246,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 						string( "acceptToken" )
 					),
 					xmlrpcOptions(
-							sleep( SLEEP_TIME_ ),
+							sleep( XMLRPC_CALL_DELAY ),
 							storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_accept_"+code+".xml" ),
 							storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_accept_"+code+".xml" )	
 					)
@@ -282,12 +279,32 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 						string( "my_sofa" )
 					),
 					xmlrpcOptions(
-							sleep( SLEEP_TIME_ ),
+							sleep( XMLRPC_CALL_DELAY ),
 							storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_refuseAll_"+code+".xml" ),
 							storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_refuseAll_"+code+".xml" )	
 					)
 				);					
 		}
+	}
+	
+	@Parameters({"msisdn", "status"})
+	@Test(priority = 10)
+	public void getSubscribersCampaignDetails(@Optional("393492135019") String msisdn, @Optional("ACTIVATED") String status) throws Exception {
+	
+		Reporter.log( "Get Subscribers Campaign Details for msisdn -> " + msisdn, PRINT2STDOUT__);
+		
+		XMLRPCRequest.campaignmanager_getSubscribersCampaignDetails().call( 	
+				gui, 
+				xmlrpcBody(
+					authentication( user ),
+					string( msisdn ),
+					string( status )
+				),
+				xmlrpcOptions(
+						sleep( XMLRPC_CALL_DELAY ),
+						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_getSubscribersCampaignDetails.xml" ),
+						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_getSubscribersCampaignDetails.xml" )	
+				));
 	}
 	
 	/**
@@ -343,7 +360,7 @@ public class O2ReporterFiller extends RegressionSuiteXMLRPC {
 					string("")
 				),
 				xmlrpcOptions(
-					sleep( SLEEP_TIME_ ),
+					sleep( XMLRPC_CALL_DELAY ),
 					storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_getTokensList.xml" ),
 					storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_getTokensList.xml" )	
 				)

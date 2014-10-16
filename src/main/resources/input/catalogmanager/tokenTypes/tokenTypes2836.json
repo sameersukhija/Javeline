@@ -1,0 +1,112 @@
+{
+	"tokenTypes": [
+		{
+			"enabled": true,
+			"name":"TokenA",
+			"description":"TokenRelative10days",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"10",
+			"validityUnit":"days",			
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},	
+		{
+			"enabled": true,
+			"name":"TokenA-2836",
+			"description":"TokenRelative100days",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"100",
+			"validityUnit":"days",			
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"TokenB-2836",
+			"description":"TokenRelative50minutes",
+			"imageUrl": null,
+			"format":"br-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"50",
+			"validityUnit":"minutes",			
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"TokenC-2836",
+			"description":"TokenRelative59sec",
+			"imageUrl": null,
+			"format":"sl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"59",
+			"validityUnit":"seconds",			
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"TokenD-2836",
+			"description":"TokenRelative21hour",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"21",
+			"validityUnit":"hour",			
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		},
+		{
+			"enabled": true,
+			"name":"TokenE-2836",
+			"description":"TokenAbsolute2Months",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Absolute",
+			"validityValue":"@current+2month",
+			"validityUnit":"",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true	
+			}
+		}
+	]
+}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Basic Regression Suite" verbose="1" parallel="false" time-out="40000">
+<suite name="Basic Regression Suite" verbose="1" parallel="false" time-out="5000">
 
   <!-- 
     Browser to be used 
@@ -41,7 +41,9 @@
   <parameter name="campaignModelList" value="campaignModelEFOGC2706"/>
 
   <parameter name="inputSeed" value="393492135"/>
-  
+
+  <parameter name="hobbiesList" value="Read;Paint;Play;Drive"/>
+
   <!-- 
     Test Section 
   -->
@@ -50,8 +52,8 @@
     <classes>
 
       <!-- 
-        Exclusion section - Maybe under test code 
-      --> 
+        Running section
+      -->      
       <class name="com.lumata.e4o.gui.administrationmanager.ConfigureNotifications">
         <methods>
           <include name="configureNotificationsTest"/>
@@ -59,9 +61,6 @@
         </methods>
       </class>
 
-      <!-- 
-        Running section
-      -->      
       <class name="com.lumata.e4o.gui.administrationmanager.ConfigureCommodities">
         <methods>
           <include name="configureCommoditiesTest"/>
@@ -99,10 +98,14 @@
           <include name="configureOffers"/>
         </methods>
       </class>
- 
-      <class name="com.lumata.e4o.gui.common.RegressionSuiteXMLRPC">
+
+      <class name="com.lumata.e4o.gui.common.RegressionSuiteUtils">
         <methods>
-        </methods>        
+          <include name="generateHobbies"/>
+        </methods>
+      </class>
+
+       <class name="com.lumata.e4o.gui.common.RegressionSuiteXMLRPC">
       </class>
 
     </classes>
