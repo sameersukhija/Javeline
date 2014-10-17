@@ -16,6 +16,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
+import com.lumata.e4o.dao.tenant.DAOSetHobbies;
 import com.lumata.e4o.dao.tenant.DAOToken;
 import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.exceptions.GeneratorException;
@@ -385,6 +386,16 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		mysql.execUpdate( query );
 		
 	}
+
+	public void insertDefaultHobbies() throws GeneratorException {
+		
+		actionType = SubscriberAction.insertOptions;
+		
+		configureParameters();
+		
+		DAOSetHobbies.getInstance( (Mysql)parameters.getParameterValue( GeneratorParameterType.mysql ) ).insertDefaultHobbies();
+			
+	}
 	
 	public void insertHobbies( final String[] hobbies ) throws GeneratorException {
 		
@@ -575,7 +586,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 		Boolean hasRechargeParameter = false;
 		
-		Boolean hasEventTimeParameter = false;
+		//Boolean hasEventTimeParameter = false;
 		
 		for( int p = 0; p < parameterList.length; p++ ) {
 			

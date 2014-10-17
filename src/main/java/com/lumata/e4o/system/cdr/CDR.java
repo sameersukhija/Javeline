@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeSet;
@@ -109,7 +110,7 @@ import com.lumata.e4o.system.fields.IFieldEnum;
 public class CDR {
 	
 	private static final Logger logger = LoggerFactory.getLogger( CDR.class );
-	
+
 	private final String DEFAULT_SEPARETOR_ = "|";
 	private String separator;
 	

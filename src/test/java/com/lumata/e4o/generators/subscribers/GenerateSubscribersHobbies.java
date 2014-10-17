@@ -23,7 +23,8 @@ public class GenerateSubscribersHobbies {
 
 	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersHobbies.class );
 	
-	final boolean GENERATE_OPTIONS = true;
+	final boolean GENERATE_DEFAULT_HOBBIES = true;
+	final boolean GENERATE_CUSTOM_HOBBIES = false;
 	
 	NetworkEnvironment env;	
 	Server guiServer;
@@ -47,8 +48,18 @@ public class GenerateSubscribersHobbies {
 			
 	}
 
-	@Test( enabled = GENERATE_OPTIONS )
-	public void generateOptions() throws GeneratorException {
+	@Test( enabled = GENERATE_DEFAULT_HOBBIES )
+	public void generateDefaultHobbies() throws GeneratorException {
+				
+		Generator.subscribers()
+					.environment( env )
+					.mysql( mysql )
+					.insertDefaultHobbies();
+		
+	}
+	
+	@Test( enabled = GENERATE_CUSTOM_HOBBIES )
+	public void generateCustomHobbies() throws GeneratorException {
 				
 		String[] hobbies = new String[] { "Football", "Dance" };
 		
