@@ -1,8 +1,8 @@
 package com.lumata.common.testing.plan;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-
 import java.nio.file.Path;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -75,8 +75,10 @@ public class TestFirefoxProfileResourceHandler {
 //
 //		Thread.currentThread().setContextClassLoader(loader);
 		
-		String resourceCompletePath = "input/browsers/profiles/firefox.default";		
+		File file = new File( "input/browsers/profiles/firefox.default");
 		
+		String resourceCompletePath = file.getPath();	
+				
 		try {
 			finalProfileFolder_ = FirefoxProfileResourceHandler.prepareProfileFromResource(resourceCompletePath);
 		} catch (IOFileException e) {

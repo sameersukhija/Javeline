@@ -141,7 +141,7 @@ public class FirefoxProfileResourceHandler {
 	
 		logger_.info("Adopted relative resource path -> ("+resourcePath+","+resourceName+")");
 		
-		resourceAsUrl = Thread.currentThread().getContextClassLoader().getResource(resourcePath + "/" + resourceName);		
+		resourceAsUrl = Thread.currentThread().getContextClassLoader().getResource(resourcePath + File.separator + resourceName);		
 
 		// profile folder is a resource into a class path JAR
 		if (resourceAsUrl.getProtocol().equals("jar")) {
@@ -240,14 +240,14 @@ public class FirefoxProfileResourceHandler {
 	 */
 	public static Path prepareProfileFromResource(String completeResourcePath) throws IOFileException {
 		
-		String[] ans = completeResourcePath.split("/");
+		String[] ans = completeResourcePath.split( File.separator );
 		
 		String resourceName = ans[ans.length - 1];
 		StringBuilder resourcePath = new StringBuilder();
 		
 		for (String string : ans) {
 			if ( !string.equals(ans[ans.length - 1]))
-				resourcePath.append(string + "/");
+				resourcePath.append(string + File.separator );
 		}
 		
 		// remove latest "/"
@@ -272,7 +272,7 @@ public class FirefoxProfileResourceHandler {
 		
 		try {
 			
-			String candidateResource = resourcePath + "/" + resourceName;
+			String candidateResource = resourcePath + File.separator + resourceName;
 			
 			/**
 			 * check profiles dictionary
