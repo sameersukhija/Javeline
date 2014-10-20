@@ -28,7 +28,7 @@ public class Browser {
 	private String fileFolderName;
 	private String fileName;
 	private JSONObject options;
-	private Enum<IOFileUtils.IOLoadingType> fileLoadingType;
+	private IOFileUtils.IOLoadingType fileLoadingType;
 	
 	/**
 	 * Browser application file
@@ -176,7 +176,7 @@ public class Browser {
 		return this.fileName;		
 	}
 	
-	public Enum<IOFileUtils.IOLoadingType> getFileLoadingType() {
+	public IOFileUtils.IOLoadingType getFileLoadingType() {
 		return this.fileLoadingType;
 	}
 
@@ -208,7 +208,7 @@ public class Browser {
 		this.fileName = fileName;		
 	}
 	
-	public void setFileLoadingType( Enum<IOFileUtils.IOLoadingType> fileLoadingType ) {
+	public void setFileLoadingType( IOFileUtils.IOLoadingType fileLoadingType ) {
 		this.fileLoadingType = fileLoadingType;
 	}
 

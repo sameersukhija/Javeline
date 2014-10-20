@@ -37,6 +37,7 @@ import com.lumata.common.testing.exceptions.IOFileException;
  * 
  * @author <a href="mailto:vincenzo.marrazzo@lumatagroup.com">Vincenzo Marrazzo</a>
  */
+@Deprecated
 public class FirefoxProfileResourceHandler {
 	
 	/**

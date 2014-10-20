@@ -3,7 +3,6 @@ package com.lumata.common.testing.selenium;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -25,7 +24,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Browser;
 import com.opera.core.systems.OperaDriver;
@@ -211,36 +209,40 @@ public class SeleniumWebDriver {
 				try {				
 		
 					// there is a profile section
-					if( browserProfile != null ) {
+					if( null != browserProfile ) {
 						
 						JSONObject browserProfileFileInfo = browser.getFile();
 						
 						// there is a profile folder description
-						if( browserProfileFileInfo != null ) { 
+						if( null != browserProfileFileInfo ) { 
 
 							StringBuilder profilePath = new StringBuilder();
 							
-							IOLoadingType loadingProcedure = (IOLoadingType) browser.getFileLoadingType();
+							File profileFolder = new File( browser.getFileFolderName() );
 							
-							String profileFolder = browser.getFileFolderName();
-							String profileName = browser.getFileName();
+							File profileName = new File( browser.getFileName() );
 							
-							// the profile is a "resource" into class path application
-							if( loadingProcedure.equals( IOLoadingType.RESOURCE ) ) {
-
-								logger.info("Browser configuration selects Firefox profile as \"Resource\".");
-								
-								Path newProfile = FirefoxProfileResourceHandler.prepareProfileFromResource(profileFolder, profileName);
-								profilePath = new StringBuilder(newProfile.toAbsolutePath().toString());
-								
+							switch( browser.getFileLoadingType() ) {
+							
+								case RESOURCE: {
+									
+									logger.info("Browser configuration selects Firefox profile as \"Resource\".");
+									
+									File resourceFolderPath = new File( "/src/main/resources/" );
+									
+									profilePath.append( System.getProperty( "user.dir" ) ).append( resourceFolderPath.getPath() ).append( File.separator );
+									
+								}
+								case FILE: {
+									
+									logger.info("Browser configuration selects Firefox profile as \"File\".");
+									
+									profilePath.append( profileFolder.getPath() ).append( File.separator ).append( profileName.getPath() );
+									
+								}
+							
 							}
-							else if ( loadingProcedure.equals( IOLoadingType.FILE ) ) { // the profile is a "file" into local file system
-
-								logger.info("Browser configuration selects Firefox profile as \"File\".");
 								
-								profilePath.append(profileFolder).append(File.separator).append(profileName);
-							}
-							
 							logger.debug( Log.LOADING.createMessage( "Firefox profile on local file system ( " + profilePath.toString() + " )" ) );	
 							
 							profile = new FirefoxProfile( new File( profilePath.toString() ) ); 				
@@ -292,13 +294,19 @@ public class SeleniumWebDriver {
 					} // end profile description
 			
 				} catch( Exception e ) {					
+					
 					logger.error( e.getMessage(), e );
+				
 				}
 
 				if ( profile != null ) {
+					
 					resp = ( binary!= null ? new FirefoxDriver( binary, profile) : new FirefoxDriver(profile) );
+				
 				} else {
+					
 					resp = new FirefoxDriver();
+				
 				}
 				
 				break;

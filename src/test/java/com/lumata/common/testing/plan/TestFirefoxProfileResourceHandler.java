@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.selenium.FirefoxProfileResourceHandler;
 
+@Deprecated
 public class TestFirefoxProfileResourceHandler {
 
 	/**
@@ -49,7 +50,7 @@ public class TestFirefoxProfileResourceHandler {
 		driver.close();
 	}
 
-	@Test
+	@Test(enabled=false)
 	public void prepareProfileFromFolderResource() {
 		
 		String resourcePath = "input/browsers/profiles";
@@ -63,7 +64,7 @@ public class TestFirefoxProfileResourceHandler {
 		}
 	}
 	
-	@Test
+	@Test(enabled=false)
 	public void prepareProfileFromCompleteResourceName() throws MalformedURLException {
 
 //		Path jarPath = FileSystems.getDefault().getPath(System.getProperty("user.dir") + File.separator + "src/test/resources", "test.jar");
