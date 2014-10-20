@@ -24,6 +24,8 @@ import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidator
 
 public class XMLRPCRequest_Subscribermanager_DeleteSubscriber {
 	
+	final boolean TEST_ENABLED = true;
+	
 	NetworkEnvironment env;
 	Server actruleServer;
 	User superman;
@@ -48,7 +50,7 @@ public class XMLRPCRequest_Subscribermanager_DeleteSubscriber {
 		
 	}
 
-	@Test(enabled=true, priority = 1 )
+	@Test(enabled=TEST_ENABLED, priority = 1 )
 	public void deleteSubscriberWidthMsisdnNull() throws Exception {
 	
 		Long msisdn = null;
@@ -72,7 +74,7 @@ public class XMLRPCRequest_Subscribermanager_DeleteSubscriber {
 		
 	}
 	
-	@Test(enabled=true, priority = 2 )
+	@Test(enabled=TEST_ENABLED, priority = 2 )
 	public void deleteSubscriberWidthNotExistingMsisdn() throws Exception {
 	
 		Long msisdn = 0L;
@@ -100,7 +102,7 @@ public class XMLRPCRequest_Subscribermanager_DeleteSubscriber {
 		
 	}
 
-	@Test(enabled=true, priority = 3 )
+	@Test(enabled=TEST_ENABLED, priority = 3 )
 	public void deleteSubscriberWidthExistingMsisdn() throws Exception {
 	
 		Subscribers subscriber = daoSubscribers.getAvailableSubscriber();

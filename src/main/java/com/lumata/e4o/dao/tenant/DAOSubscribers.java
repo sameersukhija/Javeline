@@ -149,7 +149,11 @@ public class DAOSubscribers extends DAO {
 	
 	public Subscribers getAvailableSubscriber() {
 				
-		String query = select().from( new Subscribers() ).orderBy( Subscribers.Fields.msisdn ).limit( 1 ).build();
+		Subscribers subscriber = new Subscribers();
+		
+		subscriber.setStatusId( (byte)1 );
+		
+		String query = select().from( subscriber ).where( op( Subscribers.Fields.status_id ).eq() ).orderBy( Subscribers.Fields.msisdn ).limit( 1 ).build();
 		
 		return getSubscriber( query );
 		
