@@ -196,7 +196,17 @@ public class SeleniumWebDriver {
 		
 		switch( BrowserType.valueOf( browser.getType().toString().toUpperCase() ) ) {
 		
-			case CHROME: { resp = new ChromeDriver(); break; }
+			case CHROME: { 
+				
+				File chromeDriverRelativePath = new File( "/src/main/resources/browser/chrome/chromedriver" );
+				
+				System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + chromeDriverRelativePath.getPath() );
+				
+				resp = new ChromeDriver(); 
+				
+				break; 
+			
+			}
 			case FIREFOX: { 
 
 				FirefoxProfile profile = null;
@@ -337,7 +347,11 @@ public class SeleniumWebDriver {
 		
 		switch( BrowserType.valueOf( browser.toUpperCase() ) ) {
 		
-			case CHROME: { resp = new ChromeDriver(); break; }
+			case CHROME: { 
+				System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/main/resources/browser/chrome/chromedriver");
+				resp = new ChromeDriver(); 
+				break; 
+			}
 			case FIREFOX: { 
 					
 				FirefoxProfile profile = null;
