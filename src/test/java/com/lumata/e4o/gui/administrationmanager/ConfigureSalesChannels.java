@@ -67,7 +67,7 @@ public class ConfigureSalesChannels {
 		
 		SalesChannelsForm salesChannelsForm = new SalesChannelsForm( seleniumWebDriver, new JSONSalesChannels( "input/administrationmanager/salesChannels", salesChannelsList ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Assert.assertFalse( salesChannelsForm.open().addSalesChannels().navigate() );
+		Assert.assertTrue( salesChannelsForm.open().addSalesChannels().navigate() );
 				
 	}
 		
