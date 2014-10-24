@@ -5,7 +5,7 @@
 			"name": "Offer A",
 			"definition" : {
 				"externalId" : null,
-				"description": null,
+				"description": "Questa è la descrizione della mia offerta bella bella!\nQuesta è la seconda line della descrizione.\nQuesta è la terza line della descrizione.",
 				"labels" : null,
 				"voucher": "none",
 				"imageUrlOffer": null,
@@ -189,6 +189,57 @@
                     "GENERAL_ERROR" : "RETURN_ERROR" 
             },
 			"delete": false
-		}		
+		},
+		{
+			"enabled": false,
+			"name": "Voucher oneTimeUse",
+			"definition" : {
+				"externalId" : null,
+				"description": null,
+				"labels" : null,
+				"voucher": "oneTimeUse",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : {
+				"voucherListFile": null,
+				"voucherList": [ 	"voucher1", 
+									"voucher2", 
+									"voucher3"
+				],
+				"unlimitedVoucherCode": null,
+				"format": "plainText",
+				"partner": "Lumata",
+				"expiryDate": "@current+1month",
+				"expiryTime": null
+			},
+			"offer" : null,
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch A" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : 100000,
+				"reservations" : [
+					{
+						"channel" : "Ch A",
+						"quantity" : 100000
+					}									
+				],
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		}				
 	],
 }
