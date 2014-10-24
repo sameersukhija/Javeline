@@ -1,5 +1,9 @@
 package com.lumata.unit.json.catalogmanager;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -19,6 +23,7 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONOfferContentElement;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONReservationElement;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.OfferContentType;
+import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.VoucherType;
 
 public class JSONOffersTest {
 	
@@ -35,9 +40,37 @@ public class JSONOffersTest {
 	}
 	
 	@Test
+	public void readVoucherOffers() throws JSONSException, IOException {
+		
+		underTest.setCurrentElementById(3);
+		
+		Assert.assertEquals(underTest.getCurrentElement().getEnabled(), Boolean.FALSE);
+		Assert.assertEquals(underTest.getCurrentElement().getDelete(), Boolean.FALSE);
+		Assert.assertEquals(underTest.getName(), "Voucher oneTimeUse");
+		Assert.assertEquals(underTest.getDescription(), null);
+		Assert.assertEquals(underTest.getVoucher(), VoucherType.oneTimeUse);
+		Assert.assertEquals(underTest.getImageUrlOffer(), null);
+		Assert.assertEquals(underTest.getTermsAndConditions(), null);
+		
+		File obtained = underTest.getVoucherFile();
+		
+		List<String> lines = Files.readAllLines( obtained.toPath(), Charset.forName("UTF-8"));
+		
+		Assert.assertEquals( lines.size(), 3);
+		
+		Assert.assertTrue(lines.contains("voucher1"));
+		Assert.assertTrue(lines.contains("voucher2"));
+		Assert.assertTrue(lines.contains("voucher3"));
+		
+		Assert.assertEquals(underTest.getVoucherFormat(), "plainText");
+		Assert.assertEquals(underTest.getVoucherPartner(), "Lumata");
+		Assert.assertEquals(underTest.getVoucherExpiryDate(), "@current+1month");
+	}
+	
+	@Test
 	public void readEntire() throws JSONSException, ParseException {
 		
-		Assert.assertEquals( underTest.getList().size(), 3, "The lenght does not match!");
+		Assert.assertEquals( underTest.getList().size(), 4, "The lenght does not match!");
 		
 		underTest.setCurrentElementById(1);
 		
@@ -45,7 +78,7 @@ public class JSONOffersTest {
 		Assert.assertEquals(underTest.getCurrentElement().getDelete(), Boolean.FALSE);
 		Assert.assertEquals(underTest.getName(), "Offer Test A");
 		Assert.assertEquals(underTest.getDescription(), null);
-		Assert.assertEquals(underTest.getVoucher(), "none");
+		Assert.assertEquals(underTest.getVoucher(), VoucherType.none);
 		Assert.assertEquals(underTest.getImageUrlOffer(), null);
 		Assert.assertEquals(underTest.getTermsAndConditions(), null);
 		

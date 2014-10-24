@@ -1,5 +1,12 @@
 package com.lumata.e4o.json.gui.catalogmanager;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,9 +71,11 @@ public class JSONOffers extends JsonConfigurationFile {
 	 * 
      * @return
      */
-	public String getVoucher() {
+	public VoucherType getVoucher() {
 		
-		return getCurrentElement().getStringFromPath( "definition.voucher" );
+		String raw = getCurrentElement().getStringFromPath( "definition.voucher" ); 
+		
+		return VoucherType.valueOf(raw);
 	}
 	
     /**
@@ -92,9 +101,129 @@ public class JSONOffers extends JsonConfigurationFile {
 	}
 	
 	/**
-	 * voucher 
+	 * voucher  
 	 */
+	
+	/**
+	 * This method checks into voucher section ad return a <b>File</b> object that contains
+	 * the voucher codes to be assigned.
+	 * 
+	 * The JSON file can contains file absolute reference or list of voucher file lines.
+	 * 
+	 * "voucherList" parameter is preferred by "voucherListFile" @ run-time
+	 * 
+	 * @return
+	 * @throws IOException
+	 * @throws JSONSException 
+	 */
+	public File getVoucherFile() throws JSONSException {
+		
+		File resp = null;
+		
+		List<Object> voucherList = getCurrentElement().getJsonListFromPath("voucher.voucherList");
+		String voucherListFile = getCurrentElement().getStringFromPath("voucher.voucherListFile");
+		
+		if ( voucherList != null && voucherList.size() != 0 )
+			resp = generateVoucherFileFromList(voucherList);
+		else if ( voucherListFile != null && voucherListFile.length() != 0 )
+			resp = fetchExistingVoucherFile(voucherListFile);
+		
+		return resp;
+	}
+	
+	/**
+	 * This method fetches into local file system the voucher files
+	 * 
+	 * @param voucherListFile
+	 * @return
+	 * @throws JSONSException 
+	 */
+	private File fetchExistingVoucherFile(String voucherListFile) throws JSONSException {
 
+		File resp = Paths.get(voucherListFile).toFile();
+
+		if ( !resp.exists() )
+			throw new JSONSException("Fail to retrive existing voucher code file!");
+			
+		return resp;
+	}
+
+	/**
+	 * This method generates a temporary file that contains lines passed.
+	 * 
+	 * @param voucherList
+	 * 
+	 * @return File object
+	 * @throws JSONSException 
+	 */
+	private File generateVoucherFileFromList(List<Object> voucherList) throws JSONSException {
+
+		File resp = null;
+		
+		try {
+			Path temp = Files.createTempFile("tempVoucherCodeFile", ".csv");
+			List<String> lines = new ArrayList<String>();
+			
+			for (Object single : voucherList) 
+				lines.add(single.toString());
+				
+		    Files.write(temp, lines, Charset.defaultCharset(), StandardOpenOption.WRITE);		
+			
+			resp = temp.toFile();	
+		}
+		catch ( IOException e ) {
+			
+			throw new JSONSException("Error during voucher file creation : " + e.getMessage());
+		}
+		
+		return resp;
+	}
+
+	/**
+	 * It returns the unlimited voucher code for current element.
+	 * 
+	 * @return
+	 */
+	public String getUnlimitedVoucherCode() {
+		
+		return getCurrentElement().getStringFromPath("voucher.unlimitedVoucherCode");
+	}
+	
+	/**
+	 * It returns the voucher code format
+	 * 
+	 * @return
+	 */
+	public String getVoucherFormat() {
+		
+		return getCurrentElement().getStringFromPath("voucher.format");
+	}
+	
+	/**
+	 * It returns the voucher partner
+	 * 
+	 * @return
+	 */
+	public String getVoucherPartner() {
+		
+		return getCurrentElement().getStringFromPath("voucher.partner");
+	}	
+
+	/**
+	 * It returns the voucher expiration date to be inserted into UI panel 
+	 * 
+	 * @return
+	 */
+	public String getVoucherExpiryDate() {
+		
+		return getCurrentElement().getStringFromPath("voucher.expiryDate");
+	}
+	
+	public String getVoucherExpiryTime() {
+		
+		return null;
+	}	
+	
 	/**
 	 * offer 
 	 */
@@ -119,6 +248,27 @@ public class JSONOffers extends JsonConfigurationFile {
 		 */
 		Offers;
 	}
+	
+	/**
+	 * This enum describes the Voucher Type
+	 */
+	public enum VoucherType {
+		
+		/**
+		 * no voucher
+		 */
+		none,
+		
+		/**
+		 * One time use voucher
+		 */
+		oneTimeUse,
+		
+		/**
+		 * Unlimited use voucher
+		 */
+		unlimitedUse;
+	}	
 	
 	/**
 	 * This object maps the "Offer Content" element
@@ -327,8 +477,9 @@ public class JSONOffers extends JsonConfigurationFile {
 		List<Object> raw = getCurrentElement().getJsonListFromPath("availability.reservations");
 		List<JSONReservationElement> resp = new ArrayList<JSONOffers.JSONReservationElement>();
 		
-		for (Object object : raw) 
-			resp.add(new JSONReservationElement((Map<String, Object>) object));
+		if ( raw != null)
+			for (Object object : raw) 
+				resp.add(new JSONReservationElement((Map<String, Object>) object));
 		
 		return resp;
 	}	

@@ -26,11 +26,11 @@
 			"notification" : null,
 			"eligibility" : null,
 			"availability" : {
-				"stock" : 20,
+				"stock" : 50,
 				"reservations" : [
 					{
 						"channel" : "Ch A",
-						"quantity" : 20
+						"quantity" : 50
 					}										
 				],
 				"provisioningStart": null,
@@ -69,11 +69,11 @@
 			"notification" : null,
 			"eligibility" : null,
 			"availability" : {
-				"stock" : 20,
+				"stock" : 50,
 				"reservations" : [
 					{
 						"channel" : "Ch A",
-						"quantity" : 20
+						"quantity" : 50
 					}
 				],
 				"provisioningStart": null,
@@ -112,11 +112,11 @@
 			"notification" : null,
 			"eligibility" : null,
 			"availability" : {
-				"stock" : 20,
+				"stock" : 50,
 				"reservations" : [
 					{
 						"channel" : "Ch A",
-						"quantity" : 20
+						"quantity" : 50
 					}
 				],
 				"provisioningStart": null,
@@ -155,11 +155,11 @@
 			"notification" : null,
 			"eligibility" : null,
 			"availability" : {
-				"stock" : 20,
+				"stock" : 50,
 				"reservations" : [
 					{
 						"channel" : "Ch A",
-						"quantity" : 20
+						"quantity" : 50
 					}										
 				],
 				"provisioningStart": null,
@@ -198,11 +198,11 @@
 			"notification" : null,
 			"eligibility" : null,
 			"availability" : {
-				"stock" : 20,
+				"stock" : 50,
 				"reservations" : [
 					{
 						"channel" : "Ch A",
-						"quantity" : 20
+						"quantity" : 50
 					}
 				],
 				"provisioningStart": null,
@@ -241,11 +241,11 @@
 			"notification" : null,
 			"eligibility" : null,
 			"availability" : {
-				"stock" : 20,
+				"stock" : 50,
 				"reservations" : [
 					{
 						"channel" : "Ch A",
-						"quantity" : 20
+						"quantity" : 50
 					}
 				],
 				"provisioningStart": null,

@@ -1,5 +1,9 @@
 package com.lumata.e4o.gui.catalogmanager;
 
+import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -7,16 +11,22 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.ErrorModificableElement;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
+import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONPricesElement;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONReservationElement;
+import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.VoucherType;
 
 public class OffersForm extends CatalogueManagerForm {
 
@@ -53,7 +63,7 @@ public class OffersForm extends CatalogueManagerForm {
 	/**
 	 * 
 	 * @return
-	 * @throws FormException
+	 * @throws FormException 
 	 * @throws JSONSException
 	 */
 	public OffersForm addOffers() throws FormException, JSONSException {
@@ -99,15 +109,14 @@ public class OffersForm extends CatalogueManagerForm {
 		
 		configureDefinition();
 		
-		if ( offerCfg.getVoucher().equals("none") ) {
+		if ( offerCfg.getVoucher().equals(VoucherType.none) )
 			configureOfferContent();
-			
-			configurePrices();
-			
-			configureAvailability();
-		}
 		else
 			configureVoucher();
+		
+		configurePrices();
+		
+		configureAvailability();
 		
 		return this;
 		
@@ -119,9 +128,60 @@ public class OffersForm extends CatalogueManagerForm {
 	 * @throws JSONSException
 	 * @throws FormException
 	 */
-	private void configureVoucher() throws FormException {
+	private void configureVoucher() throws FormException, JSONSException {
 
-		throw new FormException("Not supported yet!");
+		clickId("gwt-debug-Anchor-actrule-customerCare-catalog-voucherDefinition");
+		
+		// file upload
+		if ( offerCfg.getVoucher().equals(VoucherType.oneTimeUse) ) {
+			
+			File voucherFile = offerCfg.getVoucherFile();
+			
+			WebElement fileUpload = selenium.getWrappedDriver().findElement(By.xpath("//form[contains(@action,'voucherImport')]//input[@name='uploadFormElement']"));
+			fileUpload.sendKeys(voucherFile.getAbsolutePath());
+
+			// manage errors
+			VoucherImporterHandler handler = new VoucherImporterHandler( 	selenium.getWrappedDriver(), 
+																			offerCfg.getCurrentElement());
+			
+			handler.saveAction();			
+			
+			clickXPath("//span[text()='OK']");
+		}
+		else if ( offerCfg.getVoucher().equals(VoucherType.unlimitedUse) ) {
+		
+			throw new FormException("Not supported yet!");
+		} 
+		
+		selectByIdAndVisibleText( "gwt-debug-ListBox-VPOfferEdit-supplierListBox", offerCfg.getVoucherPartner());
+
+		String expiryDate = offerCfg.getVoucherExpiryDate();
+		
+		if ( expiryDate != null && expiryDate.length() != 0 ) {
+			
+			Calendar date = Calendar.getInstance();
+			
+			try {
+				
+				if( PlaceHolderDate.getInstance( expiryDate ).isPlaceHolderDate() ) {
+				
+					date = PlaceHolderDate.getInstance( expiryDate ).parse();
+										
+				} else {
+									
+					date.setTime( new SimpleDateFormat("yyyy-MM-dd").parse( expiryDate ) );
+				
+				}
+
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				sendKeysByXPath( "//td[text()='Expiry Date']//ancestor::tr[1]//input", dateFormat.format(date.getTime()));
+				
+			} catch ( ParseException e ) {
+				
+				throw new FormException( e.getMessage(), e );
+				
+			}
+		}
 	}
 
 	/**
@@ -136,9 +196,14 @@ public class OffersForm extends CatalogueManagerForm {
 		
 		clickXPath("//td[text()='Available Offers']//ancestor::tr[1]//button");
 		
-		sendKeysByXPath("//td[contains(text(),'Available Stock')]//ancestor::tr[1]//input", offerCfg.getStock().toString());
+		Integer stock = offerCfg.getStock();
 		
-		clickXPath("//td[contains(text(),'Available Stock')]//ancestor::tr[1]//ancestor::table[3]//button[@title='Save']");
+		if ( stock != null ) {
+
+			sendKeysByXPath("//td[contains(text(),'Available Stock')]//ancestor::tr[1]//input", stock.toString());
+			
+			clickXPath("//td[contains(text(),'Available Stock')]//ancestor::tr[1]//ancestor::table[3]//button[@title='Save']");
+		}
 		
 		for (JSONReservationElement reservation : offerCfg.getReservations()) {
 			
@@ -246,6 +311,15 @@ public class OffersForm extends CatalogueManagerForm {
 			
 			clickXPath("//textarea//ancestor::div[1]//button[@title='Save']");
 		}
+
+		//*[@id='gwt-debug-ListBox-VPOfferEdit-voucherLB']
+		WebElement we = search(SearchBy.XPATH, "//select[@id='gwt-debug-ListBox-VPOfferEdit-voucherLB']");
+			
+		Select select = new Select( we );
+		select.selectByValue(offerCfg.getVoucher().toString());
+		
+		WebDriverWait wait = new WebDriverWait(selenium.getWrappedDriver(), 15);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@id='gwt-debug-ListBox-VPOfferEdit-voucherLB']//option[@value='"+offerCfg.getVoucher().toString()+"']"))).click();
 		
 		return this;
 	}
@@ -381,6 +455,53 @@ public class OffersForm extends CatalogueManagerForm {
 			return resp;
 		}
 		
+	}
+	
+	private class VoucherImporterHandler extends FormSaveConfigurationHandler {
+
+		protected VoucherImporterHandler( WebDriver inDriver, ErrorModificableElement inCurrentElement) {
+			
+			super(inDriver, inCurrentElement);
+		}
+
+		@Override
+		protected Boolean containsErrorElement() {
+			// TODO Auto-generated method stub
+			return Boolean.FALSE;
+		}
+
+		/**
+		 * 
+		 */
+		private WebElement saveElement = null;
+		
+		@Override
+		protected WebElement getSaveWebElement() {
+
+			if ( saveElement == null )
+				saveElement = getWebDriver().findElement(By.xpath("//td[text()='Import voucher list']//ancestor::td[1]//button")); 
+			
+			return saveElement;			
+		}
+
+		@Override
+		protected ElementErrorConditionType defineErrorCondition() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		protected Boolean cancelAction() {
+
+			throw new RuntimeException("Not supported yet!");
+		}
+
+		@Override
+		protected Boolean addTimestampAction() {
+			
+			throw new RuntimeException("Not supported yet!");
+		}
+
 	}
 	
 }

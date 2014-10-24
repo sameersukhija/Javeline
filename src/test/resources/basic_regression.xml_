@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Basic Regression Suite" verbose="1" parallel="false" time-out="5000">
+<suite name="Basic Regression Suite" verbose="1" parallel="false" time-out="40000">
 
   <!-- 
     Browser to be used 
@@ -16,7 +16,7 @@
   <!-- 
     Configuration environment file and its parameter
   -->
-  <parameter name="environment" value="e4o_qa3_ne"/>
+  <parameter name="environment" value="e4o_qa2_ne"/>
   <parameter name="gui_server" value="actrule"/>
   <parameter name="tenant" value="tenant"/>
   <parameter name="user" value="superman"/>
