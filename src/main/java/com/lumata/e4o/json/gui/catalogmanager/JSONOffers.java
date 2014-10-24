@@ -55,6 +55,21 @@ public class JSONOffers extends JsonConfigurationFile {
 	}
 	
     /**
+	 * This method returns if the current element must be activated after a correct configuration.
+	 * The current element must be selected with "setCurrentElementById" method.
+	 * 
+	 * In case of legacy json file without "activate" key this method returns FALSE.
+	 * 
+     * @return
+     */
+	public Boolean getActivation() {
+		
+		Boolean resp = getCurrentElement().getBooleanFromPath( "activate" ); 
+		
+		return resp != null ? resp : Boolean.FALSE; 
+	}	
+	
+    /**
 	 * This method returns the "description" of current element.
 	 * The current element must be selected with "setCurrentElementById" method.
 	 * 
@@ -561,7 +576,7 @@ public class JSONOffers extends JsonConfigurationFile {
 		
 		return resp != null ? resp : 0 ;
 	}
-	
+
 	@Override
 	public String getElementsSectionLabel() {
 
