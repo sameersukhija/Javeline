@@ -1,5 +1,7 @@
 package com.lumata.e4o.generators.subscribers;
 
+import java.util.Calendar;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
@@ -91,8 +93,22 @@ public class GenerateSubscribersAllTokenAllocation {
 		
 		final Long STARTED_MSISDN = 3399900001L;
 		final Integer INCREMENT = 1;
-		final Integer REPEAT = 20;
+		final Integer REPEAT = 50;
+		final Boolean CUSTOM_DATE = true;
 		
+		Calendar event_date = Calendar.getInstance();
+		
+		if( CUSTOM_DATE ) {
+			
+			event_date.set( Calendar.YEAR, 2014 );
+			event_date.set( Calendar.MONTH, Calendar.OCTOBER );
+			event_date.set( Calendar.DAY_OF_MONTH, 26 );
+			event_date.set( Calendar.HOUR_OF_DAY, 13 );
+			event_date.set( Calendar.MINUTE, 00 );
+			event_date.set( Calendar.SECOND, 00 );
+				
+		}
+			
 		Generator.subscribers()
 					.environment( env )
 					.mysql( mysql )

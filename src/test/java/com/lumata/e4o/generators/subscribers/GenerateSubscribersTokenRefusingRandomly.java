@@ -20,9 +20,9 @@ import com.lumata.e4o.exceptions.GeneratorException;
 import com.lumata.e4o.generators.common.Generator;
 
 
-public class GenerateSubscribersRandomTokenAccepting {
+public class GenerateSubscribersTokenRefusingRandomly {
 
-	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersRandomTokenAccepting.class );
+	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersTokenRefusingRandomly.class );
 	
 	final boolean GENERATE_FIXED_SUBSCRIBER = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = false;
@@ -87,11 +87,11 @@ public class GenerateSubscribersRandomTokenAccepting {
 //	}
 	
 	@Test( enabled = GENERATE_INCREMENTAL_SUBSCRIBERS )
-	public void allocateAllTokensWithIncrementalSubscribers() throws GeneratorException, NumberFormatException, FieldException {
+	public void refuseTokensRamdolyWithIncrementalSubscribers() throws GeneratorException, NumberFormatException, FieldException {
 		
 		final Long STARTED_MSISDN = 3399900001L;
 		final Integer INCREMENT = 1;
-		final Integer REPEAT = 20;
+		final Integer REPEAT = 50;
 		
 		Generator.subscribers()
 					.environment( env )
@@ -100,7 +100,7 @@ public class GenerateSubscribersRandomTokenAccepting {
 					.user( superman )
 					.msisdnIncremental( STARTED_MSISDN, INCREMENT )
 					.repeat( REPEAT )
-					.xmlrpcRandomTokenAccepting();
+					.xmlrpcRandomTokenRefusing();
 		
 	}
 	

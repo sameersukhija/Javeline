@@ -1,5 +1,7 @@
 package com.lumata.e4o.generators.subscribers;
 
+import java.util.Calendar;
+
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
@@ -44,7 +46,13 @@ public interface IGeneratorSubscriberParameters {
 	
 	public void xmlrpcAllTokenAllocation() throws GeneratorException, NumberFormatException, FieldException;
 	
+	public void xmlrpcAllTokenAllocation( Calendar event_date ) throws GeneratorException, NumberFormatException, FieldException;
+	
 	public void xmlrpcRandomTokenAccepting() throws GeneratorException, NumberFormatException, FieldException;
+	
+	//public void xmlrpcRandomTokenAccepting( Calendar event_date ) throws GeneratorException, NumberFormatException, FieldException;
+	
+	public void xmlrpcRandomTokenRefusing() throws GeneratorException, NumberFormatException, FieldException;
 	
 	public void xmlrpcRecharge() throws GeneratorException;
 	

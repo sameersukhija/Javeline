@@ -159,6 +159,50 @@ public class DAOSubscribers extends DAO {
 		
 	}
 	
+	public Subscribers getExitingSubscriber( Long startValue, Long endValue, Integer attempts ) {
+		
+		Subscribers subscriber = new Subscribers();
+		
+		for( int a = 0; a < attempts; a++ ) {
+			
+			Long msisdn = Arithmetic.random( startValue, endValue );
+			
+			if( !this.isSubscriber( msisdn ) ) {
+				
+				subscriber.setMsisdn( msisdn );
+				
+				return subscriber;
+				
+			}
+			
+		}
+		
+		return null;
+		
+	}
+	
+	public Subscribers getNotExitingSubscriber( Long startValue, Long endValue, Integer attempts ) {
+		
+		Subscribers subscriber = new Subscribers();
+		
+		for( int a = 0; a < attempts; a++ ) {
+			
+			Long msisdn = Arithmetic.random( startValue, endValue );
+			
+			if( !this.isSubscriber( msisdn ) ) {
+				
+				subscriber.setMsisdn( msisdn );
+				
+				return subscriber;
+				
+			}
+			
+		}
+		
+		return null;
+		
+	}
+	
 	public Subscribers getSubscriber( Long msisdn ) {
 		
 		String query = select().from( new Subscribers() ).where( op( Subscribers.Fields.msisdn ).eq( msisdn ) ).build();

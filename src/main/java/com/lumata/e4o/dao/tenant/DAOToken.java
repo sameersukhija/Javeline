@@ -192,6 +192,26 @@ public class DAOToken extends DAO {
 		return getTokenList( query );
 		
 	}
+	
+	public ArrayList<Token> getAvailableActiveTokensByEventDate( Long msisdn, Calendar event_date ) {
+		
+		String query = select().
+						from( new Token() ).
+						where( 
+								op( Token.Fields.msisdn ).eq( msisdn ), 
+								and(
+									op( Token.Fields.last_redeem_date ).is( NULL ),
+									op( Token.Fields.consumed_date ).is( NULL ),
+									op( Token.Fields.expiration_date ).get( sdf.format( Calendar.getInstance().getTime() ) ),
+									op( Token.Fields.event_date ).like( sdf.format( event_date.getTime() ) )
+								)
+						).build();
+		
+		logger.debug( Log.CREATING.createMessage( query ) );
+		
+		return getTokenList( query );
+		
+	}
 
 	public ArrayList<Token> getAvailableAllocatedTokens( Long msisdn ) {
 		
