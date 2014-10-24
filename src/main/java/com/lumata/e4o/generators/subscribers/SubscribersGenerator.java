@@ -71,7 +71,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 	SubscriberAction actionType;
 	
 	private enum SubscriberAction {
-		insertSubscriber, insertHobbies, insertOptions, recharge, tokenAllocation, tokenAccepting
+		insertSubscriber, insertHobbies, insertOptions, recharge, tokenAllocation, tokenAccepting, tokenRefusing
 	}
 	
 	
@@ -458,6 +458,12 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 	
 	public void xmlrpcAllTokenAllocation() throws GeneratorException, NumberFormatException, FieldException {
 		
+		xmlrpcAllTokenAllocation( null );
+		
+	}
+	
+	public void xmlrpcAllTokenAllocation( Calendar event_date ) throws GeneratorException, NumberFormatException, FieldException {
+		
 		actionType = SubscriberAction.tokenAllocation;
 		
 		configureParameters();
@@ -472,7 +478,10 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 			Long msisdn = Long.valueOf( fieldMsisdn.getMsisdn() );
 			
-			ArrayList<Token> tokens = DAOToken.getInstance( mysql ).getAvailableActiveTokens( msisdn );
+			ArrayList<Token> tokens;
+			
+			if( null == event_date ) { tokens = DAOToken.getInstance( mysql ).getAvailableActiveTokens( msisdn ); }
+			else { tokens = DAOToken.getInstance( mysql ).getAvailableActiveTokensByEventDate( msisdn, event_date ); }
 			
 			for ( Token token : tokens ) {
 				
@@ -531,7 +540,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 				
 				ArrayList<CatalogOffers> offers = DAOToken.getInstance( mysql ).getAssociatedOffers( msisdn, tokens.get( tta ).getTokenCode() );
 				
-				int offerToAcceptIndex = (int)( 1 + Math.random() * ( offers.size() - 1 ) );
+				int offerToAcceptIndex = (int)( Math.random() * ( offers.size() - 1 ) );
 							
 				final Object[] offer_id = new Integer[]{ Integer.valueOf( offers.get( offerToAcceptIndex ).getOfferId() ) };
 				
@@ -544,6 +553,60 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 							string( msisdn ),
 							string( tokens.get( tta ).getTokenCode() ),
 							arrayInt( offer_id ),
+							string( "web" )
+						),
+						xmlrpcOptions(
+							storeRequestAsResource( "xmlrpc/request/", "request.xml" ),
+							storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
+						)
+					);
+					
+				} catch (XMLRPCException e) {
+					
+					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+				
+				} catch (Exception e) {
+					
+					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+				
+				}
+				
+			}
+		
+		}
+		
+	}
+	
+	public void xmlrpcRandomTokenRefusing() throws GeneratorException, NumberFormatException, FieldException {
+		
+		actionType = SubscriberAction.tokenRefusing;
+		
+		configureParameters();
+		
+		Server server = (Server)parameters.getParameterValue( GeneratorParameterType.server );
+		
+		User user = (User)parameters.getParameterValue( GeneratorParameterType.user );
+		
+		Mysql mysql = (Mysql)parameters.getParameterValue( GeneratorParameterType.mysql );
+		
+		for( int rp = 1; rp <= repeat; rp++ ) {
+		
+			Long msisdn = Long.valueOf( fieldMsisdn.getMsisdn() );
+			
+			ArrayList<Token> tokens = DAOToken.getInstance( mysql ).getAvailableAllocatedActiveTokens( msisdn );
+			
+			int tokensToRefuse = (int)( 1 + Math.random() * ( tokens.size() - 1 ) );
+			
+			for( int tta = 0; tta < tokensToRefuse; tta++ ) {
+				
+				try {
+				
+					XMLRPCRequest.offeroptimizer_refuseAll().call( 	
+						server, 
+						xmlrpcBody(
+							authentication( user ),
+							string( msisdn ),
+							string( tokens.get( tta ).getTokenCode() ),
 							string( "web" )
 						),
 						xmlrpcOptions(

@@ -145,17 +145,19 @@ public class GenerateSubscribersRecharge {
 	@Test( enabled = GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE_AND_SUBSCRIBERS )
 	public void generateFixedSubscriberRandomRechargeAndSubscribers() throws GeneratorException {
 		
-		final Long MIN_MSISDN = 3399900001L;
-		final Long MAX_MSISDN = 3399900020L;
+		final Long STARTED_MSISDN = 3399900001L;
+		final Integer INCREMENT = 1;
+		final Integer REPEAT = 50;
 		final Integer MIN_EVENTS = 20;
 		final Integer MAX_EVENTS = 50;
 				
 		Generator.subscribers()
 					.server( guiServer )
 					.user( superman )
-					.msisdnRandom( MIN_MSISDN, MAX_MSISDN )
+					.msisdnIncremental( STARTED_MSISDN, INCREMENT )
 					.minRandomEvents( MIN_EVENTS )
 					.maxRandomEvents( MAX_EVENTS )
+					.repeat( REPEAT )
 					.xmlrpcRecharge();
 					
 	}

@@ -47,9 +47,9 @@ import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
 import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.*;
 
-public class XLRPCRequest_OfferOptimizer_GetOffersList {
+public class XLRPCRequest_OfferOptimizer_GetTokensList {
 	
-	private static final Logger logger = LoggerFactory.getLogger( XLRPCRequest_OfferOptimizer_GetOffersList.class );
+	private static final Logger logger = LoggerFactory.getLogger( XLRPCRequest_OfferOptimizer_GetTokensList.class );
 	
 	public enum ExtendedParameters {
 		tongue, gender, salary, imei, imsi, hobbies 
@@ -126,46 +126,28 @@ public class XLRPCRequest_OfferOptimizer_GetOffersList {
 			
 	}
 	
-//	private Integer getColumnLenght( Class<?> obj, Enum<?> column ) {
-//		
-//		try {
-//			
-//			Column col = obj.getDeclaredField( column.name() ).getAnnotation( Column.class );
-//			
-//			return col.length();
-//		
-//		} catch (NoSuchFieldException | SecurityException e) {
-//			
-//			logger.error( Log.FAILED.createMessage( e.getMessage() ), e );
-//			
-//		}
-//		
-//		return null;
-//		
-//	}
-	
 	@Test(enabled=true, priority = 1 )
-	public void getOffersList() throws Exception {
+	public void getTokenList() throws Exception {
 		
-		String msisdn = "3399900001";
-		String token = "gl-cc48b";
-  		
-		XMLRPCRequest.offeroptimizer_getOffersList().call( 
-			actruleServer, 
-			xmlrpcBody(
-				authentication( superman ),
-				string( msisdn ),
-				string( token )
-			),
-			/*xmlrpcValidator(
-				fault().code( equalTo( 100 ) ),
-				fault().message( equalTo( "Subscriber not found: " ) )
-			),*/
-			xmlrpcOptions(
-				sleep( 100L ),
-				storeRequestAsResource( "xmlrpc/request/", "request.xml" ),
-				storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
-			)
+		System.out.println( actruleServer.getHostAddress() );
+		
+		String msisdn = "491798456944";
+		
+		XMLRPCRequest.offeroptimizer_getTokensList().call( 
+							actruleServer, 
+							xmlrpcBody(
+								authentication( superman ),
+								string( msisdn ),
+								string(""),
+								string("")
+							),
+							/*xmlrpcValidator(
+								fault().code( equalTo( 100 ) ),
+								fault().message( equalTo( "Subscriber not found: " ) )
+							),*/
+							xmlrpcOptions(
+								sleep( 100L )	
+							)
 		
 		);
 		

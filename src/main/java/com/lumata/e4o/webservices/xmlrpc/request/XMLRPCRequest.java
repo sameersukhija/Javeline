@@ -51,7 +51,7 @@ public class XMLRPCRequest {
 		this.validators = null;
 		this.repeat = 1;
 		this.samples = null;
-		this.sleep = 0L;
+		this.sleep = 100L;
 		this.average = null;
 		this.startTime = null;
 		this.endTime = null;
