@@ -14,16 +14,18 @@
   <!-- 
     In default configuration environment
   -->
-  <parameter name="environment" value="e4o_qa2_ne"/>
+  <parameter name="environment" value="e4o_qa_ne"/>
   <parameter name="gui_server" value="actrule"/>
-  <parameter name="tenant" value="tenant"/>
+  <parameter name="tenant" value="qa"/>
   <parameter name="user" value="superman"/>
   <!-- 
     Parameters Section 
   -->
-  <parameter name="tokens2BeGenerated" value="5"/>
-  <parameter name="msisdn" value="393492135261"/>
-  <parameter name="offerIds" value="1003"/>
+  <parameter name="tokens2BeGenerated" value="1"/>
+  <parameter name="msisdn" value="393492135124"/>
+  
+  <parameter name="performAccept" value="false"/>
+  <parameter name="offerIds" value="1002"/>
 
   <!-- 
     Test Section 
@@ -55,13 +57,24 @@
         </methods>
       </class>
     </classes>
-  </test>          
-  <test name="Core XMLRPC - Accept Tokens">
+  </test>
+  <test name="Core XMLRPC - Accept Tokens" enabled="false">
     <classes>
       <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
         <methods>      
           <include name="getTokensList"/>
           <include name="acceptToken"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="Core XMLRPC - Refuse Just Allocated Tokens" enabled="true">
+    <parameter name="wideTime" value="false"/>
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>      
+          <include name="getTokensList"/>
+          <include name="refuseTokens"/>
         </methods>
       </class>
     </classes>

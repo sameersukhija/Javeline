@@ -14,26 +14,27 @@
   <!-- 
     In default configuration environment configuration is looked into application class-path 
   -->
-  <parameter name="environment" value="e4o_qa3_ne"/>
+  <parameter name="environment" value="e4o_qa_ne"/>
   <parameter name="gui_server" value="actrule"/>
-  <parameter name="tenant" value="tenant"/>
+  <parameter name="tenant" value="qa"/>
   <parameter name="user" value="superman"/>
 
   <!-- 
     Parameters Section 
   -->
-  <parameter name="msisdn" value="393492135019"/>
+  <parameter name="msisdn" value="393492135124"/>
 
   <!-- 
     Test Section 
   -->
   <test name="Main test">
+    <parameter name="wideTime" value="true"/>
     <classes>
       <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
         <methods>
-        	<include name="refuseAllToken"/>
-        </methods>        
-      </class>    	
+        	<include name="refuseTokens"/>
+        </methods>
+      </class>
     </classes>
   </test>
 

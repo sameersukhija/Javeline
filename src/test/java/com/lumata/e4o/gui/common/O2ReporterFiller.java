@@ -255,10 +255,17 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	}	
 	
 	@Test()
-	@Parameters({"msisdn"})
-	public void refuseAllToken(@Optional("393492135019") String msisdn) throws Exception {
+	@Parameters({"msisdn", "wideTime"})
+	public void refuseTokens(@Optional("393492135019") String msisdn, @Optional("true") Boolean wideTime) throws Exception {
 
-		refreshTokenStatus( msisdn, true, false);
+		if ( wideTime ) {
+			
+			Reporter.log( "###############", PRINT2STDOUT__);		
+			Reporter.log( "##### Application refuses all allocated tokens.", PRINT2STDOUT__);
+			Reporter.log( "###############", PRINT2STDOUT__);	
+		}
+		
+		refreshTokenStatus( msisdn, wideTime, false);
 		
 		Reporter.log( "###############", PRINT2STDOUT__);		
 		Reporter.log( "##### The subscriber "+ msisdn +" has " + currentAllocatedTokens.size() + " allocted tokens.", PRINT2STDOUT__);

@@ -102,7 +102,7 @@ public class OffersForm extends CatalogueManagerForm {
 				}
 				
 				try {
-					Thread.sleep(1_000);
+					Thread.sleep(2_000);
 				} catch (InterruptedException e) {
 
 					e.printStackTrace();
