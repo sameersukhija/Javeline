@@ -16,9 +16,11 @@
   <!-- 
     Configuration environment file and its parameter
   -->
-  <parameter name="environment" value="e4o_qa2_ne"/>
+  <!-- <parameter name="environment" value="e4o_vm_report_ne"/> -->
+  <parameter name="environment" value="e4o_qa_ne"/>
   <parameter name="gui_server" value="actrule"/>
-  <parameter name="tenant" value="tenant"/>
+  <parameter name="tenant" value="qa"/>
+  <!-- <parameter name="tenant" value="tenantMaster"/> -->
   <parameter name="user" value="superman"/>
 
   <!--  
@@ -32,7 +34,7 @@
   <parameter name="salesChannelsList" value="salesChannelsEFOGC2109"/>
   <parameter name="commoditiesFile" value="commoditiesTemplate"/>
   <parameter name="complementsFile" value="complementsTemplate"/>
-  <parameter name="notificationsFile" value="notificationsTemplate"/>
+  <parameter name="notificationsFile" value="notificationsEFOGC2667"/>
   <parameter name="productTypesFile" value="productTypesTemplate"/>
   <parameter name="loyaltyCreationFile" value="loyaltyCreationTemplate"/>
   <parameter name="offersFile" value="offersEFOGC2706"/>

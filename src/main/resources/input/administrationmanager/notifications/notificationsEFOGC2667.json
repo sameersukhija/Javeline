@@ -1,0 +1,57 @@
+{
+    "notifications": [
+        {
+        	"enabled": true,
+           	"chooseChannel"	: "SMS",
+			"chooseLanguage": "English",
+			"mailObject" 	: null,
+			"textMessage"	: "text sms",
+			"templateName"	: "Sample SMS",
+			"contentFile"	: null,
+            "errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+            "delete": true
+        },
+        {
+            "chooseChannel": "MAIL",
+            "chooseLanguage": "English",
+            "contentFile": "<html>\n<body>\nFIRST\nFIRST\nFIRST\n\nHello ###subscriber_msisdn### your offer is ###offer_name### !<br>\nThis is the FIRST send and you voucher code is ###voucher_code### .\n\nOffer External Id : ###offer_external_id### <br>\nOffer Description : <br> ###offer_description### <br>\n\nThe ###subscriber_msisdn### has the following list of active vouchers : ###all_active_voucher_code### <br>\n\n</body>",
+            "enabled": true,
+            "errorActions": {
+                "ELEMENT_AREADY_EXISTS": "ABORT_CANCEL",
+                "GENERAL_ERROR": "RETURN_ERROR"
+            },
+            "mailObject": "First Send Voucher",
+            "templateName": "First_Send_Voucher",
+            "textMessage": null
+        },
+        {
+            "chooseChannel": "MAIL",
+            "chooseLanguage": "English",
+            "contentFile": "<html>\n<body>\nRESEND\nRESEND\nRESEND\n\nHello ###subscriber_msisdn### your offer is ###offer_name### !<br>\nThis is the RESEND notification and you voucher code is ###voucher_code###\n\nOffer External Id : ###offer_external_id### <br>\nOffer Description : <br> ###offer_description### <br>\n\nThe ###subscriber_msisdn### has the following list of active vouchers : ###all_active_voucher_code### <br>\n\n</body>",
+            "enabled": true,
+            "errorActions": {
+                "ELEMENT_AREADY_EXISTS": "ABORT_CANCEL",
+                "GENERAL_ERROR": "RETURN_ERROR"
+            },
+            "mailObject": "Resend Voucher",
+            "templateName": "Resend_Voucher",
+            "textMessage": null
+        },
+        {
+            "chooseChannel": "MAIL",
+            "chooseLanguage": "English",
+            "contentFile": "<html>\n<body>\nACTIVE SEND\nACTIVE SEND\nACTIVE SEND\n\nHello ###subscriber_msisdn### !\n\nThis is the ###campaign_name### services.\n\nYou have following list of active vouchers : ###all_active_voucher_code### <br>\n\nIMHO it's best that use them!\n\n</body>",
+            "enabled": true,
+            "errorActions": {
+                "ELEMENT_AREADY_EXISTS": "ABORT_CANCEL",
+                "GENERAL_ERROR": "RETURN_ERROR"
+            },
+            "mailObject": "Send Active Voucher",
+            "templateName": "Send_Active_Voucher",
+            "textMessage": null
+        }
+    ]
+}

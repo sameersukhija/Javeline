@@ -15,17 +15,18 @@
             "delete": true
         },
         {
-        	"enabled": false,
-           	"chooseChannel"	: "MAIL",
-			"chooseLanguage": "Spanish",
-			"mailObject" 	: "Object of mail",
-			"textMessage"	: null,
-			"templateName"	: "Sample MAIL",
-			"contentFile"	: "<html><head><title>Html Mail Notification Content< \/title></head><body><h3>This is the mail content.< \/h3></body></html>",
-            "errorActions" : {
-                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
-                    "GENERAL_ERROR" : "RETURN_ERROR" 
-            }
-        }    
+            "enabled": true,
+            "chooseChannel": "MAIL",
+            "chooseLanguage": "English",
+            "mailObject": "First Send Voucher",
+            "textMessage": null,
+            "templateName": "Sample MAIL",
+            "contentFile": "<html>\n<body>\nFIRST\nFIRST\nFIRST\n\nHello ###subscriber_msisdn### your offer is ###offer_name### !<br>\nThis is the FIRST send and you voucher code is ###voucher_code### .\n\nOffer External Id : ###offer_external_id### <br>\nOffer Description : <br> ###offer_description### <br>\n\nThe ###subscriber_msisdn### has the following list of active vouchers : ###all_active_voucher_code### <br>\n\n</body>",
+            "errorActions": {
+                "ELEMENT_AREADY_EXISTS": "ABORT_CANCEL",
+                "GENERAL_ERROR": "RETURN_ERROR"
+            },
+            "delete": true
+        }
     ]
 }
