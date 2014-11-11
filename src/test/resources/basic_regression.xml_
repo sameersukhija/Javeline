@@ -37,10 +37,10 @@
   <parameter name="notificationsFile" value="notificationsEFOGC2667"/>
   <parameter name="productTypesFile" value="productTypesTemplate"/>
   <parameter name="loyaltyCreationFile" value="loyaltyCreationTemplate"/>
-  <parameter name="offersFile" value="offersEFOGC2706"/>
-  <parameter name="tokenTypeList" value="tokenTypes2836"/>
-  <parameter name="ruleListFile" value="rulesetEFOGC2706"/>
-  <parameter name="campaignModelList" value="campaignModelEFOGC2706"/>
+  <parameter name="offersFile" value="offersVoucher2667"/>
+  <parameter name="tokenTypeList" value="tokenTypes2667"/>
+  <parameter name="ruleListFile" value="rulesetEFOGC2667"/>
+  <parameter name="campaignModelList" value="campaignModelEFOGC2667"/>
 
   <parameter name="inputSeed" value="393492135"/>
 
@@ -55,7 +55,13 @@
 
       <!-- 
         Running section
-      -->      
+      -->
+      <class name="com.lumata.e4o.schema.configuration.TestDMNotificationEnabled">
+        <methods>
+          <include name="configureDMNotifications"/>
+        </methods>
+      </class>
+
       <class name="com.lumata.e4o.gui.administrationmanager.ConfigureNotifications">
         <methods>
           <include name="configureNotificationsTest"/>

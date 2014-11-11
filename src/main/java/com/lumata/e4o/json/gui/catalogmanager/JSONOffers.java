@@ -489,8 +489,14 @@ public class JSONOffers extends JsonConfigurationFile {
 	@SuppressWarnings("unchecked")
 	public List<JSONReservationElement> getReservations() throws JSONSException {
 		
-		List<Object> raw = getCurrentElement().getJsonListFromPath("availability.reservations");
+		List<Object> raw = null;
 		List<JSONReservationElement> resp = new ArrayList<JSONOffers.JSONReservationElement>();
+		
+		try {
+			raw = getCurrentElement().getJsonListFromPath("availability.reservations");
+		} catch ( JSONSException e ) {
+			logger.info("Offer \""+getName()+"\" does NOT contains resertavion section.");
+		}
 		
 		if ( raw != null)
 			for (Object object : raw) 

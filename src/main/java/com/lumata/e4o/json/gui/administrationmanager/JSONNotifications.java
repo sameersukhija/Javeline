@@ -76,7 +76,7 @@ public class JSONNotifications extends JsonConfigurationFile {
 		File resp = null;
 		
 		try {
-			Path temp = Files.createTempFile("tempMailTemplateFile", ".html");
+			Path temp = Files.createTempFile(getTemplateName(), ".html");
 			
 		    Files.write(temp, getMailTemplate(), Charset.defaultCharset(), StandardOpenOption.WRITE);		
 			
