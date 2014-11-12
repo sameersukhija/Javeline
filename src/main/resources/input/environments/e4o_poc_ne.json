@@ -111,7 +111,7 @@
       "password": "YGRramxt"
     },
     "tenant": {
-      "hostName": "tenant",
+      "hostName": "extdeploy",
       "hostAddress": "172.17.5.40",
       "hostPort": "3306",
       "maxActive": 100,
