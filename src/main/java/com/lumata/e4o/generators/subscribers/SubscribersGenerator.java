@@ -534,42 +534,50 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 			
 			ArrayList<Token> tokens = DAOToken.getInstance( mysql ).getAvailableAllocatedActiveTokens( msisdn );
 			
-			int tokensToAccept = (int)( 1 + Math.random() * ( tokens.size() - 1 ) );
+			int randomQtyTokenToAccept = minRandomEvents + (int)( Math.random() * ( maxRandomEvents - minRandomEvents ) ); 
+			
+			int maxTokenToAccept = Math.min( ( tokens.size() - 1 ), randomQtyTokenToAccept );
+			
+			int tokensToAccept = ( (int)( 1 + Math.random() * maxTokenToAccept ) );
 			
 			for( int tta = 0; tta < tokensToAccept; tta++ ) {
 				
 				ArrayList<CatalogOffers> offers = DAOToken.getInstance( mysql ).getAssociatedOffers( msisdn, tokens.get( tta ).getTokenCode() );
 				
-				int offerToAcceptIndex = (int)( Math.random() * ( offers.size() - 1 ) );
-							
-				final Object[] offer_id = new Integer[]{ Integer.valueOf( offers.get( offerToAcceptIndex ).getOfferId() ) };
+				if( offers.size() > 0 ) {
 				
-				try {
+					int offerToAcceptIndex = (int)( Math.random() * ( offers.size() ) );
+										
+					final Object[] offer_id = new Integer[]{ Integer.valueOf( offers.get( offerToAcceptIndex ).getOfferId() ) };
 				
-					XMLRPCRequest.offeroptimizer_accept().call( 	
-						server, 
-						xmlrpcBody(
-							authentication( user ),
-							string( msisdn ),
-							string( tokens.get( tta ).getTokenCode() ),
-							arrayInt( offer_id ),
-							string( "web" )
-						),
-						xmlrpcOptions(
-							storeRequestAsResource( "xmlrpc/request/", "request.xml" ),
-							storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
-						)
-					);
+					try {
 					
-				} catch (XMLRPCException e) {
+						XMLRPCRequest.offeroptimizer_accept().call( 	
+							server, 
+							xmlrpcBody(
+								authentication( user ),
+								string( msisdn ),
+								string( tokens.get( tta ).getTokenCode() ),
+								arrayInt( offer_id ),
+								string( "web" )
+							),
+							xmlrpcOptions(
+								storeRequestAsResource( "xmlrpc/request/", "request.xml" ),
+								storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
+							)
+						);
+						
+					} catch (XMLRPCException e) {
+						
+						logger.error( Log.FAILED.createMessage( e.getMessage() ) );
 					
-					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
-				
-				} catch (Exception e) {
+					} catch (Exception e) {
+						
+						logger.error( Log.FAILED.createMessage( e.getMessage() ) );
 					
-					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
-				
-				}
+					}
+					
+				}	
 				
 			}
 		
@@ -682,17 +690,19 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 		for( int rp = 1; rp <= repeat; rp++ ) {
 		
-			Long rechargeToGenerate = ( !randomEvents ? qtyRecharges : minRandomEvents + (long)( Math.random() * ( maxRandomEvents - minRandomEvents ) ) );
-			
-			for( long rc = 0; rc < rechargeToGenerate; rc++ ) {
-								
-				try {
-					
+			try {
+				
+				String msisdn = fieldMsisdn.getMsisdn();
+				
+				Long rechargeToGenerate = ( !randomEvents ? qtyRecharges : minRandomEvents + (long)( Math.random() * ( maxRandomEvents - minRandomEvents ) ) );
+				
+				for( long rc = 0; rc < rechargeToGenerate; rc++ ) {
+									
 					XMLRPCRequest.eventmanager_generateCustomEvent().call( 	
 							server, 
 							xmlrpcBody(
 								authentication( user ),
-								custoEvent( Long.valueOf( fieldMsisdn.getMsisdn() ), 
+								custoEvent( Long.valueOf( msisdn ), 
 											revenue,
 											parameterList
 								)
@@ -700,14 +710,14 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 							xmlrpcOptions( 
 								sleep( 100L )
 							)
-					);
+					);								
+									
+				}
+			
+			} catch (Exception e) {
 				
-				} catch (Exception e) {
-					
-					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
-					
-				}			
-								
+				logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+				
 			}
 			
 		}

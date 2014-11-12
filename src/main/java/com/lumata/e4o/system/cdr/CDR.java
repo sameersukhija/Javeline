@@ -7,7 +7,6 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeSet;
@@ -33,6 +32,7 @@ import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Service;
 import com.lumata.e4o.exceptions.CDRException;
 
+import com.lumata.e4o.system.cdr.fields.Address;
 /** cdr field types */
 import com.lumata.e4o.system.cdr.fields.Amount;
 import com.lumata.e4o.system.cdr.fields.AmountInvoice;
@@ -41,6 +41,7 @@ import com.lumata.e4o.system.cdr.fields.Balance;
 import com.lumata.e4o.system.cdr.fields.BundleBalance;
 import com.lumata.e4o.system.cdr.fields.BundleName;
 import com.lumata.e4o.system.cdr.fields.BundlePurchased;
+import com.lumata.e4o.system.cdr.fields.ChannelName;
 import com.lumata.e4o.system.cdr.fields.Date;
 import com.lumata.e4o.system.cdr.fields.DeactivationDate;
 import com.lumata.e4o.system.cdr.fields.Delay;
@@ -87,6 +88,8 @@ import com.lumata.e4o.system.cdr.fields.RechargeAmount;
 import com.lumata.e4o.system.cdr.fields.Sms;
 import com.lumata.e4o.system.cdr.fields.TenantId;
 import com.lumata.e4o.system.cdr.fields.Terminating;
+import com.lumata.e4o.system.cdr.fields.Text;
+import com.lumata.e4o.system.cdr.fields.Time;
 import com.lumata.e4o.system.cdr.fields.Type;
 import com.lumata.e4o.system.cdr.fields.Upload;
 import com.lumata.e4o.system.cdr.fields.ValidityDate;
@@ -300,6 +303,19 @@ public class CDR {
 	
 	@RechargeAmount
 	protected FieldLong recharge_amount;
+	
+	@Address
+	protected FieldString address;
+	
+	@Time
+	protected FieldString time;
+	
+	@ChannelName
+	protected FieldString channel_name;
+	
+	@Text
+	protected FieldString text;
+	
 		
 	public enum Parameters {
 		env, 
@@ -509,6 +525,11 @@ public class CDR {
 		
 		this.rawData = new FieldString();		
 		this.recharge_amount = new FieldLong();
+		
+		this.address = new FieldString();
+		this.time = new FieldString();
+		this.channel_name = new FieldString();
+		this.text = new FieldString();
 		
 	}
 	

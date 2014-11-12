@@ -32,14 +32,6 @@ public class CDRRevenuePayment extends CDR {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
 	}
 
-	public void cleanMsisdnStrategyIncrement()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement(); }
-	}
-
-	public void cleanMsisdnStrategyRandom()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
-	}
-
 	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
 	}
@@ -56,16 +48,16 @@ public class CDRRevenuePayment extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
+	public void cleanMsisdnStrategyIncrement()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement(); }
+	}
+
+	public void cleanMsisdnStrategyRandom()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
+	}
+
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
-	}
-
-	public void cleanDateStrategyIncrement()  {
-		if( this.date != null ) { this.date.cleanDateStrategyIncrement(); }
-	}
-
-	public void cleanDateStrategyRandom()  {
-		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
 	public void setDateFormat( String format ) throws FieldException  {
@@ -84,6 +76,14 @@ public class CDRRevenuePayment extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
 	}
 
+	public void cleanDateStrategyIncrement()  {
+		if( this.date != null ) { this.date.cleanDateStrategyIncrement(); }
+	}
+
+	public void cleanDateStrategyRandom()  {
+		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
+	}
+
 	@Date( position = 1 )
 	public String getDate()  {
 		return this.date.getDate();
@@ -91,14 +91,6 @@ public class CDRRevenuePayment extends CDR {
 
 	public void setAmountPaymentStrategyFixed( final Long value ) throws FieldException  {
 		if( this.amountPayment != null ) { this.amountPayment.setLongStrategyFixed( value ); }
-	}
-
-	public void cleanAmountPaymentStrategyIncrement()  {
-		if( this.amountPayment != null ) { this.amountPayment.cleanLongStrategyIncrement(); }
-	}
-
-	public void cleanAmountPaymentStrategyRandom()  {
-		if( this.amountPayment != null ) { this.amountPayment.cleanLongStrategyRandom(); }
 	}
 
 	public void setAmountPaymentStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
@@ -113,6 +105,14 @@ public class CDRRevenuePayment extends CDR {
 		if( this.amountPayment != null ) { this.amountPayment.cleanLongStrategyFixed(); }
 	}
 
+	public void cleanAmountPaymentStrategyIncrement()  {
+		if( this.amountPayment != null ) { this.amountPayment.cleanLongStrategyIncrement(); }
+	}
+
+	public void cleanAmountPaymentStrategyRandom()  {
+		if( this.amountPayment != null ) { this.amountPayment.cleanLongStrategyRandom(); }
+	}
+
 	@AmountPayment( position = 2 )
 	public String getAmountPayment() throws FieldException  {
 		return this.amountPayment.getLong();
@@ -120,14 +120,6 @@ public class CDRRevenuePayment extends CDR {
 
 	public void setBalanceStrategyFixed( final Long value ) throws FieldException  {
 		if( this.balance != null ) { this.balance.setLongStrategyFixed( value ); }
-	}
-
-	public void cleanBalanceStrategyIncrement()  {
-		if( this.balance != null ) { this.balance.cleanLongStrategyIncrement(); }
-	}
-
-	public void cleanBalanceStrategyRandom()  {
-		if( this.balance != null ) { this.balance.cleanLongStrategyRandom(); }
 	}
 
 	public void setBalanceStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
@@ -142,9 +134,26 @@ public class CDRRevenuePayment extends CDR {
 		if( this.balance != null ) { this.balance.cleanLongStrategyFixed(); }
 	}
 
+	public void cleanBalanceStrategyIncrement()  {
+		if( this.balance != null ) { this.balance.cleanLongStrategyIncrement(); }
+	}
+
+	public void cleanBalanceStrategyRandom()  {
+		if( this.balance != null ) { this.balance.cleanLongStrategyRandom(); }
+	}
+
 	@Balance( position = 3 )
 	public String getBalance() throws FieldException  {
 		return this.balance.getLong();
+	}
+
+	@Type( position = 4 )
+	public String getType() throws FieldException  {
+		return this.type.getEnum();
+	}
+
+	public void setTypeStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException  {
+		if( this.type != null ) { this.type.setEnumStrategyFixed( value ); }
 	}
 
 	public void setTypeStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
@@ -159,15 +168,6 @@ public class CDRRevenuePayment extends CDR {
 		if( this.type != null ) { this.type.cleanEnumStrategyFixed(); }
 	}
 
-	@Type( position = 4 )
-	public String getType() throws FieldException  {
-		return this.type.getEnum();
-	}
-
-	public void setTypeStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException  {
-		if( this.type != null ) { this.type.setEnumStrategyFixed( value ); }
-	}
-
 	public void cleanTypeStrategyIncrement()  {
 		if( this.type != null ) { this.type.cleanEnumStrategyIncrement(); }
 	}
@@ -180,14 +180,6 @@ public class CDRRevenuePayment extends CDR {
 		if( this.delay != null ) { this.delay.setLongStrategyFixed( value ); }
 	}
 
-	public void cleanDelayStrategyIncrement()  {
-		if( this.delay != null ) { this.delay.cleanLongStrategyIncrement(); }
-	}
-
-	public void cleanDelayStrategyRandom()  {
-		if( this.delay != null ) { this.delay.cleanLongStrategyRandom(); }
-	}
-
 	public void setDelayStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
 		if( this.delay != null ) { this.delay.setLongStrategyIncrement( value, increment ); }
 	}
@@ -198,6 +190,14 @@ public class CDRRevenuePayment extends CDR {
 
 	public void cleanDelayStrategyFixed()  {
 		if( this.delay != null ) { this.delay.cleanLongStrategyFixed(); }
+	}
+
+	public void cleanDelayStrategyIncrement()  {
+		if( this.delay != null ) { this.delay.cleanLongStrategyIncrement(); }
+	}
+
+	public void cleanDelayStrategyRandom()  {
+		if( this.delay != null ) { this.delay.cleanLongStrategyRandom(); }
 	}
 
 	@Delay( position = 5 )

@@ -31,14 +31,6 @@ public class CDRVoucherRedemption extends CDR {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
 	}
 
-	public void cleanMsisdnStrategyIncrement()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement(); }
-	}
-
-	public void cleanMsisdnStrategyRandom()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
-	}
-
 	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
 	}
@@ -55,20 +47,20 @@ public class CDRVoucherRedemption extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
+	public void cleanMsisdnStrategyIncrement()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement(); }
+	}
+
+	public void cleanMsisdnStrategyRandom()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
+	}
+
 	public void setVoucherCodeLength( final Integer length ) throws FieldException  {
 		if( this.voucherCode != null ) { this.voucherCode.setStringLength( length ); }
 	}
 
 	public void setVoucherCodeStrategyFixed( final String value ) throws FieldException  {
 		if( this.voucherCode != null ) { this.voucherCode.setStringStrategyFixed( value ); }
-	}
-
-	public void cleanVoucherCodeStrategyIncrement()  {
-		if( this.voucherCode != null ) { this.voucherCode.cleanStringStrategyIncrement(); }
-	}
-
-	public void cleanVoucherCodeStrategyRandom()  {
-		if( this.voucherCode != null ) { this.voucherCode.cleanStringStrategyRandom(); }
 	}
 
 	public void setVoucherCodeStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
@@ -87,6 +79,14 @@ public class CDRVoucherRedemption extends CDR {
 		if( this.voucherCode != null ) { this.voucherCode.cleanStringLength(); }
 	}
 
+	public void cleanVoucherCodeStrategyIncrement()  {
+		if( this.voucherCode != null ) { this.voucherCode.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanVoucherCodeStrategyRandom()  {
+		if( this.voucherCode != null ) { this.voucherCode.cleanStringStrategyRandom(); }
+	}
+
 	@VoucherCode( position = 1 )
 	public String getVoucherCode() throws FieldException  {
 		return this.voucherCode.getString();
@@ -94,14 +94,6 @@ public class CDRVoucherRedemption extends CDR {
 
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
-	}
-
-	public void cleanDateStrategyIncrement()  {
-		if( this.date != null ) { this.date.cleanDateStrategyIncrement(); }
-	}
-
-	public void cleanDateStrategyRandom()  {
-		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
 	public void setDateFormat( String format ) throws FieldException  {
@@ -120,6 +112,14 @@ public class CDRVoucherRedemption extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
 	}
 
+	public void cleanDateStrategyIncrement()  {
+		if( this.date != null ) { this.date.cleanDateStrategyIncrement(); }
+	}
+
+	public void cleanDateStrategyRandom()  {
+		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
+	}
+
 	@Date( position = 2 )
 	public String getDate()  {
 		return this.date.getDate();
@@ -131,14 +131,6 @@ public class CDRVoucherRedemption extends CDR {
 
 	public void setLocationStrategyFixed( final String value ) throws FieldException  {
 		if( this.location != null ) { this.location.setStringStrategyFixed( value ); }
-	}
-
-	public void cleanLocationStrategyIncrement()  {
-		if( this.location != null ) { this.location.cleanStringStrategyIncrement(); }
-	}
-
-	public void cleanLocationStrategyRandom()  {
-		if( this.location != null ) { this.location.cleanStringStrategyRandom(); }
 	}
 
 	public void setLocationStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
@@ -157,6 +149,14 @@ public class CDRVoucherRedemption extends CDR {
 		if( this.location != null ) { this.location.cleanStringLength(); }
 	}
 
+	public void cleanLocationStrategyIncrement()  {
+		if( this.location != null ) { this.location.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanLocationStrategyRandom()  {
+		if( this.location != null ) { this.location.cleanStringStrategyRandom(); }
+	}
+
 	@Location( position = 3 )
 	public String getLocation() throws FieldException  {
 		return this.location.getString();
@@ -168,14 +168,6 @@ public class CDRVoucherRedemption extends CDR {
 
 	public void setPartnerStrategyFixed( final String value ) throws FieldException  {
 		if( this.partner != null ) { this.partner.setStringStrategyFixed( value ); }
-	}
-
-	public void cleanPartnerStrategyIncrement()  {
-		if( this.partner != null ) { this.partner.cleanStringStrategyIncrement(); }
-	}
-
-	public void cleanPartnerStrategyRandom()  {
-		if( this.partner != null ) { this.partner.cleanStringStrategyRandom(); }
 	}
 
 	public void setPartnerStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
@@ -192,6 +184,14 @@ public class CDRVoucherRedemption extends CDR {
 
 	public void cleanPartnerLength()  {
 		if( this.partner != null ) { this.partner.cleanStringLength(); }
+	}
+
+	public void cleanPartnerStrategyIncrement()  {
+		if( this.partner != null ) { this.partner.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanPartnerStrategyRandom()  {
+		if( this.partner != null ) { this.partner.cleanStringStrategyRandom(); }
 	}
 
 	@Partner( position = 4 )

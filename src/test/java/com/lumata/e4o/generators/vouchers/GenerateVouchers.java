@@ -39,8 +39,8 @@ public class GenerateVouchers {
 		final String VOUCHER_CODE_PREFIX = "voucher";
 		final String VOUCHER_FOLDER = "/catalogmanager/vouchers";
 		final String VOUCHER_FILE = "voucherList";
-		final Long VOUCHERS_TO_GENERATE = 10L;
-		final Integer startValue = 60;
+		final Long VOUCHERS_TO_GENERATE = 100000L;
+		final Integer startValue = 1;
 		final Integer incrementalValue = 1;
 		
 		logger.info( Log.CREATING.createMessage( "voucher with incremental code" ) );
@@ -56,7 +56,7 @@ public class GenerateVouchers {
 		
 		final String VOUCHER_FOLDER = "/catalogmanager/vouchers";
 		final String VOUCHER_FILE = "voucherList";
-		final Long VOUCHERS_TO_GENERATE = 100L;		
+		final Long VOUCHERS_TO_GENERATE = 100000L;		
 		
 		logger.info( Log.CREATING.createMessage( "voucher with random code" ) );
 		

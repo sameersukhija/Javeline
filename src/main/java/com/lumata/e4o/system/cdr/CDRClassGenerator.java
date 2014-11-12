@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils;
+import com.lumata.e4o.system.cdr.fields.Address;
 import com.lumata.e4o.system.cdr.fields.Amount;
 import com.lumata.e4o.system.cdr.fields.AmountInvoice;
 import com.lumata.e4o.system.cdr.fields.AmountPayment;
@@ -24,6 +25,7 @@ import com.lumata.e4o.system.cdr.fields.Balance;
 import com.lumata.e4o.system.cdr.fields.BundleBalance;
 import com.lumata.e4o.system.cdr.fields.BundleName;
 import com.lumata.e4o.system.cdr.fields.BundlePurchased;
+import com.lumata.e4o.system.cdr.fields.ChannelName;
 import com.lumata.e4o.system.cdr.fields.Date;
 import com.lumata.e4o.system.cdr.fields.DeactivationDate;
 import com.lumata.e4o.system.cdr.fields.Delay;
@@ -70,6 +72,8 @@ import com.lumata.e4o.system.cdr.fields.RechargeAmount;
 import com.lumata.e4o.system.cdr.fields.Sms;
 import com.lumata.e4o.system.cdr.fields.TenantId;
 import com.lumata.e4o.system.cdr.fields.Terminating;
+import com.lumata.e4o.system.cdr.fields.Text;
+import com.lumata.e4o.system.cdr.fields.Time;
 import com.lumata.e4o.system.cdr.fields.Type;
 import com.lumata.e4o.system.cdr.fields.Upload;
 import com.lumata.e4o.system.cdr.fields.ValidityDate;
@@ -106,7 +110,7 @@ public class CDRClassGenerator {
 		},
 		RevenueRecharge {	
 			public List<Class<? extends Annotation>> fields() {
-				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class, ValidityDate.class, DeactivationDate.class, Type.class );
+				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class, ValidityDate.class, DeactivationDate.class );
 			}
 		},
 		RevenuePayment {	
@@ -182,6 +186,11 @@ public class CDRClassGenerator {
 		OtherUsage {	
 			public List<Class<? extends Annotation>> fields() {
 				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class );
+			}
+		},
+		DailogSMS {	
+			public List<Class<? extends Annotation>> fields() {
+				return Arrays.asList( Msisdn.class, Address.class, Time.class, ChannelName.class, Text.class );
 			}
 		};
 		

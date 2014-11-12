@@ -91,7 +91,9 @@ public class GenerateSubscribersTokenAcceptingRandomly {
 		
 		final Long STARTED_MSISDN = 3399900001L;
 		final Integer INCREMENT = 1;
-		final Integer REPEAT = 50;
+		final Integer MIN_EVENTS = 1;
+		final Integer MAX_EVENTS = 5;
+		final Integer REPEAT = 10;
 		
 		Generator.subscribers()
 					.environment( env )
@@ -99,6 +101,8 @@ public class GenerateSubscribersTokenAcceptingRandomly {
 					.server( guiServer )
 					.user( superman )
 					.msisdnIncremental( STARTED_MSISDN, INCREMENT )
+					.minRandomEvents( MIN_EVENTS )
+					.maxRandomEvents( MAX_EVENTS )
 					.repeat( REPEAT )
 					.xmlrpcRandomTokenAccepting();
 		

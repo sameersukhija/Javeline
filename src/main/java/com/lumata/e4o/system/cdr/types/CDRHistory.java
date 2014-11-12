@@ -29,14 +29,6 @@ public class CDRHistory extends CDR {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
 	}
 
-	public void cleanMsisdnStrategyIncrement()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement(); }
-	}
-
-	public void cleanMsisdnStrategyRandom()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
-	}
-
 	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
 	}
@@ -51,6 +43,14 @@ public class CDRHistory extends CDR {
 
 	public void cleanMsisdnOptions()  {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
+	}
+
+	public void cleanMsisdnStrategyIncrement()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement(); }
+	}
+
+	public void cleanMsisdnStrategyRandom()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
 }

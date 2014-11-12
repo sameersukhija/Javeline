@@ -1,0 +1,177 @@
+{
+  "servers": {
+    "actrule": {
+      "hostName": "gO1-e4o-app01",
+      "hostAddress": "172.17.5.34",
+      "users": {
+        "root": {
+          "username": "root",
+          "password": "cmdISnJjdQ=="
+        },
+        "superman": {
+          "username": "superman",
+          "password": "bGppYm1NSUhJMmB3"
+        }
+      },
+      "link": "http://172.17.5.34:7070/",
+      "browsers": {
+        "SAFARI": {
+          
+        },
+        "OPERA": {
+          
+        },
+        "FIREFOX": {
+          "profile": {
+            "file": {
+              "folderName": "input/browsers/profiles",
+              "fileName": "firefox.default",
+              "loadingType": "RESOURCE"
+            },
+            "options": {
+              "extensions.firebug.allPagesActivation": "on",
+              "extensions.firebug.defaultPanelName": "console"
+            }
+          }
+        },
+        "CHROME": {
+          
+        },
+        "IE": {
+          
+        }
+      }
+    },
+    "actrule2": {
+      "hostName": "gO1-e4o-app02",
+      "hostAddress": "172.17.5.35",
+      "users": {
+        "root": {
+          "username": "root",
+          "password": "cmdISnJjdQ=="
+        },
+        "superman": {
+          "username": "superman",
+          "password": "bGppYm1NSUhJMmB3"
+        }
+      },
+      "link": "http://172.17.5.35:7070/",
+      "browsers": {
+        "SAFARI": {
+          
+        },
+        "OPERA": {
+          
+        },
+        "FIREFOX": {
+          "profile": {
+            "file": {
+              "folderName": "input/browsers/profiles",
+              "fileName": "firefox.default",
+              "loadingType": "RESOURCE"
+            },
+            "options": {
+              "extensions.firebug.allPagesActivation": "on",
+              "extensions.firebug.defaultPanelName": "console"
+            }
+          }
+        },
+        "CHROME": {
+          
+        },
+        "IE": {
+          
+        }
+      }
+    },
+    "collector": {
+      "hostName": "gO1-e4o-coll01",
+      "hostAddress": "172.17.5.36",
+      "users": {
+        "root": {
+          "username": "root",
+          "password": "cmdISnJjdQ=="
+        }
+      },
+      "link": "",
+      "browsers": {
+        
+      }
+    }
+  },
+  "dataSources": {
+    "global": {
+      "hostName": "global",
+      "hostAddress": "172.17.5.40",
+      "hostPort": "3306",
+      "maxActive": 100,
+      "maxIdle": 30,
+      "maxWait": 10000,
+      "user": "actusr",
+      "password": "YGRramxt"
+    },
+    "tenant": {
+      "hostName": "tenant",
+      "hostAddress": "172.17.5.40",
+      "hostPort": "3306",
+      "maxActive": 100,
+      "maxIdle": 30,      
+      "maxWait": 10000,
+      "user": "actusr",
+      "password": "YGRramxt"
+    },
+    "dm": {
+      "hostName": "dialog_manager",
+      "hostAddress": "172.17.5.40",
+      "hostPort": "3306",
+      "maxActive": 100,
+      "maxIdle": 30,
+      "maxWait": 10000,
+      "user": "dialog_manager",
+      "password": "aXJnSEpyY3U="
+    }
+  },
+  "services": {
+    "ssh": {
+      "actrule": {
+      "hostName": "gO1-e4o-app01",
+      "hostAddress": "172.17.5.34",
+        "hostPort": "22",
+        "users": {
+          "root": {
+            "username": "root",
+            "password": "cmdISnJjdQ==",
+            "privateKey": "/opt/lumata/e4o_test"
+          }
+        }
+      },
+      "actrule2": {
+	      "hostName": "gO1-e4o-app02",
+	      "hostAddress": "172.17.5.35",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
+      },
+      "collector": {
+	      "hostName": "gO1-e4o-coll01",
+	      "hostAddress": "172.17.5.36",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
+	   }
+    }
+  },
+  "options": {
+    "multiTenant": true
+  }
+}

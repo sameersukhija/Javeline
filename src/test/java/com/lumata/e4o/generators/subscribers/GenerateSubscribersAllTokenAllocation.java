@@ -93,7 +93,7 @@ public class GenerateSubscribersAllTokenAllocation {
 		
 		final Long STARTED_MSISDN = 3399900001L;
 		final Integer INCREMENT = 1;
-		final Integer REPEAT = 50;
+		final Integer REPEAT = 51;
 		final Boolean CUSTOM_DATE = true;
 		
 		Calendar event_date = Calendar.getInstance();

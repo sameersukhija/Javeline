@@ -15,11 +15,10 @@ import com.lumata.common.testing.system.Service;
 import com.lumata.common.testing.system.User;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FieldException;
-import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.system.cdr.types.CDRRevenueRecharge;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
 
-public class GenerateCDRRevenue {
+public class GenerateCDRRevenueRecharge {
 	
 	NetworkEnvironment env;
 	Service sshService;
@@ -53,6 +52,8 @@ public class GenerateCDRRevenue {
 		
 		String fileName = "cdr_revenue_" + currentTimestamp + ".csv";
 		
+		System.out.println( "file: " + fileName );
+		
 		cdrRevenue.setOutputPath( "/cdr/", fileName );
 				
 		// today
@@ -62,13 +63,13 @@ public class GenerateCDRRevenue {
 		FieldDateIncrement increment = new FieldDateIncrement();
 		increment.setDayIncrement( 1 );
 		
-		cdrRevenue.setMsisdnStrategyFixed( 3399900001L );
+		cdrRevenue.setMsisdnStrategyFixed( 393669393643L );
+		cdrRevenue.setDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		cdrRevenue.setDateStrategyFixed( date );
 		cdrRevenue.setAmountStrategyRandom( 100L, 1000L );
 		cdrRevenue.setBalanceStrategyRandom( 100L, 300L );
 		cdrRevenue.setValidityDateStrategyFixed( date );
 		cdrRevenue.setDeactivationDateStrategyFixed( date );
-		cdrRevenue.setTypeStrategyFixed( CDR.TYPE.RELOAD );
 		
 		cdrRevenue.addLines( 1 );
 		
@@ -76,7 +77,7 @@ public class GenerateCDRRevenue {
 		
 		cdrRevenue.save();
 		
-		cdrRevenue.send( sshService, "/nfsdata/files/cdr/deposit/REVENUE_CDR/", sshUser );
+		cdrRevenue.send( sshService, "/nfsdata/files/cdr/deposit/REVENUE_RECHARGE_CDR/", sshUser );
 		
 	}
 

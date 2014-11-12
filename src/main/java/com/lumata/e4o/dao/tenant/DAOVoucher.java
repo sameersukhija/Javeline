@@ -18,6 +18,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.e4o.schema.tenant.CatalogOffers;
 import com.lumata.e4o.schema.tenant.OffoptimCustomerItems;
 import com.lumata.e4o.schema.tenant.OffoptimCustomerPack;
+import com.lumata.e4o.schema.tenant.StatsPurchase;
 import com.lumata.e4o.schema.tenant.VoucherCodes;
 
 public class DAOVoucher extends DAO {
@@ -90,6 +91,7 @@ public class DAOVoucher extends DAO {
 		return voucherCode;
 		
 	}
+	
 	public VoucherCodes getAvailableVoucher() {
 		
 		String query = select().from( new VoucherCodes() ).orderBy( VoucherCodes.Fields.code ).limit( 1 ).build();
@@ -124,14 +126,67 @@ public class DAOVoucher extends DAO {
 		
 	}
 	
+	public ArrayList<VoucherCodes> getPurchasedVoucher() {
+		
+		String query = select().
+						from( new VoucherCodes() ).
+						join( new StatsPurchase() ).
+						on( 
+							op( VoucherCodes.Fields.purchase_id ).
+							eq( StatsPurchase.Fields.purchase_id ) 
+						).
+						where( op( VoucherCodes.Fields.redeemed_date ).is( NULL ) ).
+						orderBy( VoucherCodes.Fields.code ).
+						build();
+		
+		return getVoucherList( query );
+		
+	}
+	
+	public ArrayList<VoucherCodes> getPurchasedVoucherOnDate( Calendar date ) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
+		
+		String query = select().
+						from( new VoucherCodes() ).
+						join( new StatsPurchase() ).
+						on( 
+							op( VoucherCodes.Fields.purchase_id ).
+							eq( StatsPurchase.Fields.purchase_id ) 
+						).
+						where(
+							op( StatsPurchase.Fields.agg_date_time ).like( sdf.format( date.getTime() ) ),
+							and( op( VoucherCodes.Fields.redeemed_date ).is( NULL ) )
+						).
+						orderBy( VoucherCodes.Fields.code ).
+						build();
+		
+		return getVoucherList( query );
+		
+	}
+	
+	public ArrayList<VoucherCodes> getRedeemedVoucherOnDate( Calendar date) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
+		
+		String query = select().
+						from( new VoucherCodes() ).
+						where(
+							op( VoucherCodes.Fields.redeemed_date ).like( sdf.format( date.getTime() ) )
+						).
+						orderBy( VoucherCodes.Fields.code ).
+						build();
+		
+		return getVoucherList( query );
+		
+	}
+	
 	/*
 	 * select msisdn, count(code) from stats_purchase sp join voucher_codes vc on sp.purchase_id = vc.purchase_id and sp.offer_id = 3 and ( vc.expiryDate is null || vc.expiryDate >= NOW() ) and vc.redeemed_date is null group by msisdn;
 
 	 */
 	
-	
-	
-	
+
 	
 	
 	

@@ -13,6 +13,7 @@ import java.util.Calendar;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.orm.Val;
 import com.lumata.common.testing.utils.Arithmetic;
+import com.lumata.e4o.schema.tenant.StatsPurchase;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.schema.tenant.Token;
 
@@ -294,6 +295,26 @@ public class DAOSubscribers extends DAO {
 				build();
 		
 		return getAllSubscribers( query );
+		
+	}
+	
+	public Subscribers getSubscriberFromStatsPurchase( Long purchaseId ) {
+		
+		String query = select().
+				from( new Subscribers() ).
+				where( 
+						op( Subscribers.Fields.msisdn ).in(  
+								select( StatsPurchase.Fields.msisdn ).
+								from( new StatsPurchase() ).
+								where( 
+										op( StatsPurchase.Fields.purchase_id ).eq( purchaseId )
+								).
+								statement()
+						)						
+				).
+				build();
+		
+		return getSubscriber( query );
 		
 	}
 	

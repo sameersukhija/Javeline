@@ -67,7 +67,7 @@ public class GenerateCDRVoucherRedemption {
 		increment.setDayIncrement( 1 );
 	
 		cdrVR.setMsisdnStrategyFixed( 393669393643L );
-		cdrVR.setVoucherCodeStrategyFixed( "voucher63" );
+		cdrVR.setVoucherCodeStrategyFixed( "3OgEhWUi" );
 		cdrVR.setDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		cdrVR.setDateStrategyFixed( date );
 		cdrVR.setLocationStrategyFixed( "Milan" );
