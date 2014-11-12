@@ -6,6 +6,10 @@ public interface IOn extends IBuild, IStatement {
 	
 	IWhere where( IExprFV expr, ICond... cond );
 	
+	IWhere where( final IExprFF expr );
+	
+	IWhere where( final IExprFF expr, ICond... cond );
+	
 	IJoin join( Object entity );
 	
 	IGroupBy groupBy( Enum<?>... order );

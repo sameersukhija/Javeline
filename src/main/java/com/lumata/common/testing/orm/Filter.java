@@ -5,6 +5,29 @@ import com.lumata.common.testing.orm.Statement.MysqlStatement;
 
 public class Filter {
 	
+	public static enum DATE_UNIT {
+		MICROSECOND,
+		SECOND,
+		MINUTE,
+		HOUR,
+		DAY,
+		WEEK,
+		MONTH,
+		QUARTER,
+		YEAR,
+		SECOND_MICROSECOND,
+		MINUTE_MICROSECOND,
+		MINUTE_SECOND,
+		HOUR_MICROSECOND,
+		HOUR_SECOND,
+		HOUR_MINUTE,
+		DAY_MICROSECOND,
+		DAY_SECOND,
+		DAY_MINUTE,
+		DAY_HOUR,
+		YEAR_MONTH
+	} 
+	
 	public static IOp op( final Enum<?> field ) {
 		
 		return new Op(field);
@@ -228,6 +251,58 @@ public class Filter {
 		MysqlSelectFuncType.CONCAT.setValueType( MysqlSelectFuncType.ValueTypes.Multiple_Values );
 		
 		return MysqlSelectFuncType.CONCAT.setObjectArray( values );
+		
+	}
+
+	public static Enum<?> date_add( final Enum<?> field, Object expr, DATE_UNIT dateUnit  ) {
+		
+		Object[] values = new Object[2];
+		
+		values[0] = field;
+		values[1] = "INTERVAL " + expr + " " + dateUnit.name();
+		
+		MysqlSelectFuncType.DATE_ADD.setValueType( MysqlSelectFuncType.ValueTypes.Multiple_Values );
+		
+		return MysqlSelectFuncType.DATE_ADD.setObjectArray( values );
+		
+	}
+
+	public static Enum<?> date_add( final String field, Object expr, DATE_UNIT dateUnit  ) {
+		
+		Object[] values = new Object[2];
+		
+		values[0] = field;
+		values[1] = "INTERVAL " + expr + " " + dateUnit.name();
+		
+		MysqlSelectFuncType.DATE_ADD.setValueType( MysqlSelectFuncType.ValueTypes.Multiple_Values );
+		
+		return MysqlSelectFuncType.DATE_ADD.setObjectArray( values );
+		
+	}
+	
+	public static Enum<?> date_sub( final Enum<?> field, Object expr, DATE_UNIT dateUnit  ) {
+		
+		Object[] values = new Object[2];
+		
+		values[0] = field;
+		values[1] = "INTERVAL " + expr + " " + dateUnit.name();
+		
+		MysqlSelectFuncType.DATE_SUB.setValueType( MysqlSelectFuncType.ValueTypes.Multiple_Values );
+		
+		return MysqlSelectFuncType.DATE_SUB.setObjectArray( values );
+		
+	}
+	
+	public static Enum<?> date_sub( final String field, Object expr, DATE_UNIT dateUnit  ) {
+		
+		Object[] values = new Object[2];
+		
+		values[0] = field;
+		values[1] = "INTERVAL " + expr + " " + dateUnit.name();
+		
+		MysqlSelectFuncType.DATE_ADD.setValueType( MysqlSelectFuncType.ValueTypes.Multiple_Values );
+		
+		return MysqlSelectFuncType.DATE_ADD.setObjectArray( values );
 		
 	}
 	

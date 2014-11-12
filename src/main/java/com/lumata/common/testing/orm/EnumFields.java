@@ -1,7 +1,10 @@
 package com.lumata.common.testing.orm;
 
+import java.lang.reflect.Type;
+
 import com.lumata.common.testing.annotations.mysql.Column;
 import com.lumata.common.testing.annotations.mysql.Table;
+import com.lumata.common.testing.orm.Statement.MysqlSelectFuncType;
 
 public class EnumFields<F extends Enum<?>> implements IEnumFields {
 
@@ -47,6 +50,38 @@ public class EnumFields<F extends Enum<?>> implements IEnumFields {
 		
 		return null;
 		
-	}	
+	}
 	
+	@Override
+	public String function() {
+		
+		final String FUNC_PLACEHOLDER = "::expr::";
+		
+		String function = MysqlSelectFuncType.valueOf( field.name() ).name() + "( " + FUNC_PLACEHOLDER + " )";
+		
+		switch( MysqlSelectFuncType.valueOf( field.name() ).getValueType() ) {
+		
+			case Single_Field: {
+				return function.replace( FUNC_PLACEHOLDER, Statement.field( MysqlSelectFuncType.valueOf( field.name() ).getField() ).toString() );
+			}
+			case Single_Value: {
+				return function.replace( FUNC_PLACEHOLDER, MysqlSelectFuncType.valueOf( field.name() ).getValue() );				
+			}
+			case Multiple_Values: {
+				return function.replace( FUNC_PLACEHOLDER, Statement.field( null, MysqlSelectFuncType.valueOf( field.name() ).getObjectArray() ) );				
+			}
+			default: { return ""; }
+		}
+					
+	}
+	
+	@Override
+	public Boolean isFunction() {
+		
+		Type typeFunc = MysqlSelectFuncType.class;
+		
+		return typeFunc.equals( field.getClass() );
+				
+	}
+		
 }

@@ -58,7 +58,9 @@ public class Statement {
 		UCASE,
 		LCASE,
 		CONCAT,
-		DISTINCT;
+		DISTINCT,
+		DATE_ADD,
+		DATE_SUB;
 		
 		public enum ValueTypes { Single_Field, Single_Value, Multiple_Values, Enum }
 		
@@ -199,6 +201,7 @@ public class Statement {
 			for( int i = 0; i < fields.length; i++ ) {
 								
 				StringBuilder field_value = new StringBuilder();
+				
 				boolean function = false;
 				
 				function = typeFunc.equals( fields[ i ].getClass() );
@@ -270,11 +273,17 @@ public class Statement {
 					else {
 						
 						String value = String.valueOf( values[ i ] );
-										
+									
 						if( col != null && col.categoryType().equals( MysqlColumn.CategoryTypes.Number.name() ) ) { 
 							field_value.append( value ); 
-						} else { field_value.append( "\"" ).append( value ).append( "\"" ); }					 
-				
+						} else { 
+							if( value.matches( "^INTERVAL[ ]+.*" ) ) {
+								field_value.append( value ); 
+							} else {
+								field_value.append( "\"" ).append( value ).append( "\"" );							
+							}
+						}
+					
 					}
 					
 				}
@@ -404,7 +413,7 @@ public class Statement {
 	public static String expr( IExprFV expr ) {
 		
 		StringBuilder content = new StringBuilder();
-				
+		
 		IEnumFields field = new EnumFields<Enum<?>>( expr.getField() );
 		
 		if( expr.getUsePlaceHolder() ) { 
@@ -413,8 +422,7 @@ public class Statement {
 			
 		}
 		
-		content.append( Statement.field( expr.getField() ) )
-				.append( expr.getOp().value() );
+		content.append( ( field.isFunction() ? field.function() : Statement.field( expr.getField() ) ) ).append( expr.getOp().value() );
 		
 		if( expr.getOp().equals( Op.Types.in ) || expr.getOp().equals( Op.Types.not_in ) ) { 
 			
@@ -435,13 +443,9 @@ public class Statement {
 		IEnumFields left_field = new EnumFields<Enum<?>>( expr.getLeftField() );
 		IEnumFields right_field = new EnumFields<Enum<?>>( expr.getRightField() );
 		
-		content.append( left_field.col().table() )
-				.append( "." )
-				.append( left_field.col().field() )
+		content.append( left_field.isFunction() ? left_field.function() : ( left_field.col().table() + "." + left_field.col().field() ) )
 				.append( expr.getOp().value() )
-				.append( right_field.col().table() )
-				.append( "." )
-				.append( right_field.col().field() );
+				.append( right_field.isFunction() ? right_field.function() : ( right_field.col().table() + "." + right_field.col().field() ) );				
 		
 		return content.toString();
 		

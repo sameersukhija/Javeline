@@ -33,7 +33,7 @@ public class Op implements IOp {
 	Op( final Enum<?> field ) {
 		this.field = field;
 	}
-	
+		
 	@Override
 	public ExprFV eq() {
 		

@@ -8,5 +8,7 @@ public interface IEnumFields {
 	String simpleName();
 	String table();
 	Column col();
+	String function();
+	Boolean isFunction();
 	
 }

@@ -41,6 +41,33 @@ public class From implements IFrom {
 	}
 	
 	@Override
+	public IWhere where( final IExprFF expr ) {
+		
+		this.statement.append( MysqlStatement.WHERE.getName() )
+						.append( Statement.expr( expr ) );
+				
+		return new Where(statement);
+		
+	}
+	
+	@Override
+	public IWhere where( final IExprFF expr, final ICond... cond ) {
+		
+		this.where( expr );
+		
+		for( int i = 0; i < cond.length; i++ ) {
+			
+			this.statement.append( cond[ i ].build() );
+			
+			this.statement.addAllPlaceHolders( cond[ i ].getPlaceHolders() );
+							
+		}
+		
+		return new Where(statement);
+		
+	}
+	
+	@Override
 	public IJoin join( final Object entity ) {
 		
 		Table table = (Table)entity.getClass().getAnnotation( Table.class );

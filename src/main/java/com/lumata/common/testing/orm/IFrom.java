@@ -6,6 +6,10 @@ public interface IFrom extends IQueryTemplate, ISub, IBuild, IStatement {
 	
 	IWhere where( final IExprFV expr, ICond... cond );
 	
+	IWhere where( final IExprFF expr );
+	
+	IWhere where( final IExprFF expr, ICond... cond );
+	
 	IJoin join( final Object entity );
 	
 	IGroupBy groupBy( final Enum<?>... order );
