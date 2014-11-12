@@ -81,7 +81,7 @@ public class JSONOffersTest {
 		Assert.assertEquals(underTest.getVoucher(), VoucherType.none);
 		Assert.assertEquals(underTest.getImageUrlOffer(), null);
 		Assert.assertEquals(underTest.getTermsAndConditions(), null);
-		
+
 		JsonErrorActions errorActions = underTest.getCurrentElement().getErrorActions();
 
 		Assert.assertNotNull(errorActions);
@@ -158,5 +158,11 @@ public class JSONOffersTest {
 		Assert.assertEquals( underTest.getProvisioningEnd(), sdf.parse("2014-05-01"));
 		
 		Assert.assertEquals( underTest.getLimitPerSubscribers().intValue(), 0 );
+		
+		underTest.setCurrentElementById(0);
+		Assert.assertEquals(underTest.getActivation(), Boolean.TRUE);
+		
+		underTest.setCurrentElementById(2);
+		Assert.assertEquals(underTest.getActivation(), Boolean.FALSE);
 	}
 }

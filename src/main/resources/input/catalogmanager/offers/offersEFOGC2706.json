@@ -41,6 +41,7 @@
                     "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
                     "GENERAL_ERROR" : "RETURN_ERROR" 
             },
+			"activate":true,
 			"delete": false
 		},	
 		{
@@ -84,6 +85,7 @@
                     "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
                     "GENERAL_ERROR" : "RETURN_ERROR" 
             },
+			"activate":true,
 			"delete": false
 		},
 		{
@@ -127,6 +129,7 @@
                     "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
                     "GENERAL_ERROR" : "RETURN_ERROR" 
             },
+			"activate":true,
 			"delete": false
 		},
 		{
@@ -170,6 +173,7 @@
                     "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
                     "GENERAL_ERROR" : "RETURN_ERROR" 
             },
+			"activate":true,
 			"delete": false
 		},	
 		{
@@ -213,6 +217,7 @@
                     "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
                     "GENERAL_ERROR" : "RETURN_ERROR" 
             },
+			"activate":true,
 			"delete": false
 		},
 		{
@@ -256,6 +261,7 @@
                     "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
                     "GENERAL_ERROR" : "RETURN_ERROR" 
             },
+			"activate":true,
 			"delete": false
 		}
 	],

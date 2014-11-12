@@ -23,6 +23,7 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
+import com.lumata.e4o.gui.common.FormSaveConfigurationHandler.SaveResult;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONPricesElement;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONReservationElement;
@@ -83,7 +84,22 @@ public class OffersForm extends CatalogueManagerForm {
 				OffersSaveHandler handler = new OffersSaveHandler( 	selenium.getWrappedDriver(), 
 																	offerCfg.getCurrentElement());
 				
-				handler.saveAction();
+				SaveResult result = handler.saveAction();
+				Boolean isActivable = result.equals(SaveResult.SavedCorrectly) || result.equals(SaveResult.SavedWithTimestamp);
+				
+				try {
+					Thread.sleep(1_000);
+				} catch (InterruptedException e) {
+
+					e.printStackTrace();
+				}
+				
+				// if saved correctly, check activation status
+				if ( isActivable && offerCfg.getActivation() ) {
+					String activationRule = "//div[contains(text(),'"+offerCfg.getName()+"')]//ancestor::tr[1]//button[@title='Activate']";
+					clickXPath(activationRule);
+					handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+				}
 				
 				try {
 					Thread.sleep(2_000);

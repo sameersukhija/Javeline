@@ -1,22 +1,24 @@
 package com.lumata.e4o.gui.administrationmanager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.json.HasErrorActions.ElementErrorActionType;
+import com.lumata.common.testing.json.ErrorModificableElement;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
-import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
-import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
 import com.lumata.e4o.json.gui.administrationmanager.JSONNotifications;
 import com.lumata.e4o.json.gui.administrationmanager.JSONNotifications.NotificationLanguage;
 import com.lumata.e4o.json.gui.administrationmanager.JSONNotifications.NotificationType;
@@ -105,124 +107,49 @@ public class NotificationsForm extends AdministrationForm {
 			sendKeysByXPath("//textarea[contains(@id,'TextCampaignModelCreationENEValue')]", notificationsCfg.getTextMessage());
 			
 			clickXPath("//button[@id='gwt-debug-BtnCampaignModelCreationENESaveTemplate']");
-			
-			sendKeysByXPath("//td[contains(text(),'Template Name')]/ancestor::tr[1]//input", notificationsCfg.getTemplateName());
 		}
 		else if ( currentType.equals(NotificationType.MAIL) ) {
 
-			sendKeysByXPath("//textarea[contains(@id,'TextCampaignModelCreationENEValue')]", notificationsCfg.getTextMessage());
+			// oggetto mail
+			//td[contains(text(),'Object')]//ancestor::tr[1]//input			
+			sendKeysByXPath("//td[contains(text(),'Object')]//ancestor::tr[1]//input", notificationsCfg.getMailObject());
+			
+			File templateFile = notificationsCfg.getMailNotificationFile();
+			
+			WebElement fileUpload = selenium.getWrappedDriver().findElement(By.xpath("//form[contains(@action,'dialogImport')]//input[@name='uploadFormElement']"));
+			fileUpload.sendKeys(templateFile.getAbsolutePath());
 
-			throw new FormException(getClass().getSimpleName() + " \"Mail Notification\" not implemented!");
+			// manage errors
+			MailNotificationImporterHandler handler = new MailNotificationImporterHandler( 	selenium.getWrappedDriver(), 
+																							notificationsCfg.getCurrentElement());
+			
+			handler.saveAction();		
+			
+			try {
+				Thread.sleep(2_000);
+			} catch (InterruptedException e) {
+
+				e.printStackTrace();
+			}
+			
+			// Save template
+			clickXPath("//div[contains(@class,'dialogMiddleCenterInner')]//button[@title='Save Template']");
 		}
 		
 		return this;
 	}
 	
 	public NotificationsForm saveNotification() throws FormException, JSONSException {
-		
-		/**
-		 * 
-		 * 
-		 * Start error handling refactoring
-		 * 
-		 * 
-		 * 
-		 */
-		
-		if ( containsErrorElement() )
-			logger.error("Without click \"save\" panel is in error!");
-		
-		Boolean completed = Boolean.FALSE;
-		
-		do {
-			
-			/**
-			 * Core save procedure
-			 */
-			
-			clickXPath("//td[contains(text(),'Template Name')]/ancestor::div[1]//button[@title='OK']");
-			
-			/**
-			 * End - Core save procedure
-			 */
-			
-			// in case no confirmation was executed, check element in error
-			if ( templateNameErrorElement() ) {
 
-				JsonCurrentElement current = notificationsCfg.getCurrentElement();
-				
-				logger.warn("After click \"Save\" panel is in error!");
-				
-				ElementErrorConditionType condition = null;
-				
-				searchByXPath("//div[@class='gwt-DialogBox']");
-				
-				// error condition
-				//div[text()='Bonus name already used']
-				List<WebElement> element = SeleniumUtils.findListForComponentDisplayed(	selenium, 
-																						SearchBy.XPATH, 
-																						lastWebElement, 
-																						"//div[text()='An error occured']"
-																					);
-				
-				// close error popup
-				//div[text()='An error occured']/ancestor::div[2]//button[@title='OK']
-				
-				clickXPath( "//div[text()='An error occured']/ancestor::div[2]//button[@title='OK']" );
-				
-				if ( element.size() != 0 )
-					condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
-				else
-					condition = ElementErrorConditionType.GENERAL_ERROR;
-				
-				ElementErrorActionType action = current.getErrorActions().getAction(condition);
-				
-				// abort insertion
-				if ( action.equals(ElementErrorActionType.ABORT_CANCEL) ) {
-					clickId( "gwt-debug-BtnCampaignModelCreationENECancel" );
-					
-					completed = Boolean.TRUE;
-				}
-				// stop execution and return error
-				else if ( action.equals(ElementErrorActionType.RETURN_ERROR) )
-					throw new FormException(getClass().getSimpleName() + " cannot configure \""+current.getStringFromPath("name")+"\" commodities!");
-				// add timestamp to name
-				else if ( action.equals(ElementErrorActionType.ADD_TIMESTAMP_TO_FIELD) ) {
-					
-					Long timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-					current.modifyStringFromPath("templateName", current.getStringFromPath("templateName") + timestamp);
-					current.modifyStringFromPath("textMessage", current.getStringFromPath("textMessage") + timestamp);
-					
-					// clean text
-					// one click su input
-					clickXPath( "//textarea[contains(@id,'TextCampaignModelCreationENEValue')]" );
-					
-					// delete current text
-					lastWebElement.clear();					
-					
-					sendKeysByXPath("//textarea[contains(@id,'TextCampaignModelCreationENEValue')]", notificationsCfg.getTextMessage());
-					
-					clickXPath("//button[@id='gwt-debug-BtnCampaignModelCreationENESaveTemplate']");
-					
-					sendKeysByXPath("//td[contains(text(),'Template Name')]/ancestor::tr[1]//input", notificationsCfg.getTemplateName());
-	
-					completed = Boolean.FALSE;
-				}
-			}
-			else // all ok!
-				completed = Boolean.TRUE;			
-		}
-		while ( !completed );
+		// Template name
+		//td[contains(text(),'Template Name')]//ancestor::tr[1]//input
+		sendKeysByXPath("//td[contains(text(),'Template Name')]//ancestor::tr[1]//input", notificationsCfg.getTemplateName());
 		
-		/**
-		 * 
-		 * 
-		 * End error handling refactoring
-		 * 
-		 * 
-		 * 
-		 */
-		
+		// manage errors
+		SaveNotifTemplateHandler handler = new SaveNotifTemplateHandler(	selenium.getWrappedDriver(), 
+																				notificationsCfg.getCurrentElement());				
+		handler.saveAction();		
+
 		return this;
 	}
 	
@@ -292,37 +219,218 @@ public class NotificationsForm extends AdministrationForm {
 
 		return resp;
 	}
-	
+
 	/**
-	 * This method returns the presence of web component that inform "Template name" error.
-	 * The error condition is at application level for the actual form.
-	 * (e.g. duplication of value, missing field) 
 	 * 
-	 * @return true if "Template Name" error is displayed.
 	 * 
-	 * @throws FormException
+	 * Save Handler
+	 * 
+	 * 
+	 * 
 	 */
-	private Boolean templateNameErrorElement() throws FormException {
-		
-		Integer numbers = null;
-		Boolean resp = Boolean.TRUE;
+	
+	private class SaveNotifTemplateHandler extends FormSaveConfigurationHandler {
 
-		// error condition
-		//div[text()='An error occured']
-		//div[text()='An error occured']/ancestor::div[2]//button[@title='OK']
-		
-		List<WebElement> elements = getErrorElement("//div[text()='An error occured']");
+		protected SaveNotifTemplateHandler(WebDriver inDriver, ErrorModificableElement inCurrentElement) {
+			
+			super(inDriver, inCurrentElement);
+		}
 
-		if ( elements == null )
-			numbers = 0;
-		else
-			numbers = elements.size();
+		@Override
+		protected Boolean containsErrorElement() {
+			
+			Integer numbers = null;
+			Boolean resp = Boolean.TRUE;
+
+			// error condition
+			//div[text()='An error occured']
+			//div[text()='An error occured']/ancestor::div[2]//button[@title='OK']
+			
+			List<WebElement> elements = getWebDriver().findElements(By.xpath("//div[text()='An error occured']")); 
+					
+			if ( elements == null )
+				numbers = 0;
+			else
+				numbers = elements.size();
+			
+			if ( numbers != 0 )
+				resp = true;
+			else
+				resp = false;
+			
+			return resp;
+		}		
 		
-		if ( numbers != 0 )
-			resp = true;
-		else
-			resp = false;
+		/**
+		 * 
+		 */
+		private WebElement saveElement = null;
 		
-		return resp;
+		@Override
+		protected WebElement getSaveWebElement() {
+
+			if ( saveElement == null )
+				saveElement = getWebDriver().findElement(By.xpath("//div[contains(text(),'Template Name')]//ancestor::tbody//button[@title='OK']")); 
+			
+			return saveElement;			
+		}
+
+		@Override
+		protected ElementErrorConditionType defineErrorCondition() {
+			
+			ElementErrorConditionType condition = null;
+			
+			WebElement dialogBox = getWebDriver().findElement(By.xpath("//div[@class='gwt-DialogBox']"));
+			
+			// error condition
+			//div[text()='Bonus name already used']			
+			List<WebElement> element = dialogBox.findElements(By.xpath("//div[text()='Name is not valid or is already used']"));
+								
+			if ( element.size() != 0 )
+				condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
+			else
+				condition = ElementErrorConditionType.GENERAL_ERROR;
+
+			return condition;
+		}
+
+		@Override
+		protected Boolean cancelAction() {
+			
+			Boolean resp = Boolean.FALSE;
+
+			try {
+
+				getWebDriver().findElement(By.xpath("//div[contains(text(),'An error occured')]//ancestor::tbody//button")).click();
+				
+				Thread.sleep(1_000);
+				
+				NotificationType currentType = notificationsCfg.getNotificationType();
+				WebElement cancelButton = null;
+				
+				if ( currentType.equals(NotificationType.SMS) )
+					cancelButton = getWebDriver().findElement(By.id("gwt-debug-BtnCampaignModelCreationENECancel"));
+				else if ( currentType.equals(NotificationType.MAIL) ) 
+					cancelButton = getWebDriver().findElement(By.xpath("//div[contains(@class,'dialogMiddleCenterInner')]//button[@title='Cancel']"));
+				else
+					throw new NoSuchElementException("Missing notification type during cancel procedure!");
+				
+				cancelButton.click();
+				
+				resp = Boolean.TRUE;
+			}
+			catch ( NoSuchElementException | InterruptedException e ) {
+			
+				e.printStackTrace();
+				
+				resp = Boolean.FALSE;
+			}
+			
+			return resp;
+		}
+
+		@Override
+		protected Boolean addTimestampAction() {
+			
+			Boolean resp = Boolean.FALSE;
+
+			Long timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+			NotificationType currentType = notificationsCfg.getNotificationType(); 
+			
+			try {
+			
+				String oldTemplateName = notificationsCfg.getTemplateName();
+				
+				getCurrentElement().modifyStringFromPath("templateName", oldTemplateName + timestamp);
+				
+				// clean text
+				// one click su input
+				clickXPath( "//textarea[contains(@id,'TextCampaignModelCreationENEValue')]" );
+				
+				// delete current text
+				lastWebElement.clear();	
+				
+				if ( currentType.equals(NotificationType.SMS) ) { // SMS
+
+					// clean text
+					// one click su input
+					//clickXPath( "//textarea[contains(@id,'TextCampaignModelCreationENEValue')]" );
+					
+					// delete current text
+					//lastWebElement.clear();					
+					
+					sendKeysByXPath("//textarea[contains(@id,'TextCampaignModelCreationENEValue')]", notificationsCfg.getTextMessage());
+					
+					clickXPath("//button[@id='gwt-debug-BtnCampaignModelCreationENESaveTemplate']");
+					
+					sendKeysByXPath("//td[contains(text(),'Template Name')]/ancestor::tr[1]//input", notificationsCfg.getTemplateName());
+				}
+				else if ( currentType.equals(NotificationType.MAIL) ) { // MAIL
+					
+					sendKeysByXPath("//td[contains(text(),'Template Name')]/ancestor::tr[1]//input", notificationsCfg.getTemplateName());
+				}
+
+				saveAction();
+				
+				resp = Boolean.TRUE;
+				
+			} catch ( NoSuchElementException | FormException | JSONSException e ) {
+				
+				e.printStackTrace();
+				
+				resp = Boolean.FALSE;
+			}
+			
+			return resp;
+		}
+		
 	}
+	
+	
+	private class MailNotificationImporterHandler extends FormSaveConfigurationHandler {
+
+		protected MailNotificationImporterHandler( WebDriver inDriver, ErrorModificableElement inCurrentElement) {
+			
+			super(inDriver, inCurrentElement);
+		}
+
+		@Override
+		protected Boolean containsErrorElement() {
+			// TODO Auto-generated method stub
+			return Boolean.FALSE;
+		}
+
+		/**
+		 * 
+		 */
+		private WebElement saveElement = null;
+		
+		@Override
+		protected WebElement getSaveWebElement() {
+
+			if ( saveElement == null )
+				saveElement = getWebDriver().findElement(By.xpath("//form[contains(@action,'dialogImport')]//ancestor::tr[1]//button")); 
+			
+			return saveElement;			
+		}
+
+		@Override
+		protected ElementErrorConditionType defineErrorCondition() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		protected Boolean cancelAction() {
+
+			throw new RuntimeException("Not supported yet!");
+		}
+
+		@Override
+		protected Boolean addTimestampAction() {
+			
+			throw new RuntimeException("Not supported yet!");
+		}
+
+	}	
 }

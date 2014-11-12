@@ -1,5 +1,14 @@
 package com.lumata.e4o.json.gui.administrationmanager;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.JsonConfigurationFile;
 
@@ -43,6 +52,43 @@ public class JSONNotifications extends JsonConfigurationFile {
 		
 		return getCurrentElement().getStringFromPath("mailObject");
 	}
+	
+	private List<String> getMailTemplate() {
+		
+		List<String> resp = new ArrayList<String>();
+		
+		String raw = getCurrentElement().getStringFromPath("contentFile");
+		
+		for (String singleLine : raw.split("\n")) 
+			resp.add(singleLine);
+		
+		return resp;
+	}	
+	
+	/**
+	 * This method generates a temporary file that contains html mail template.
+	 * 
+	 * @return File object
+	 * @throws JSONSException 
+	 */
+	public File getMailNotificationFile() throws JSONSException {
+
+		File resp = null;
+		
+		try {
+			Path temp = Files.createTempFile(getTemplateName(), ".html");
+			
+		    Files.write(temp, getMailTemplate(), Charset.defaultCharset(), StandardOpenOption.WRITE);		
+			
+			resp = temp.toFile();	
+		}
+		catch ( IOException e ) {
+			
+			throw new JSONSException("Error during mail template file creation : " + e.getMessage());
+		}
+		
+		return resp;
+	}	
 	
 	public String getTextMessage() {
 		
