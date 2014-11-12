@@ -1,0 +1,29 @@
+{
+  "servers": {
+    "local": {
+      "hostName": "localhost",
+      "hostAddress": "127.0.0.1",
+      "users": {},
+      "link": "",
+      "browsers": {
+        "SAFARI": {},
+        "OPERA": {},
+        "FIREFOX": {},
+        "CHROME": {},
+        "IE": {}
+      }
+    }
+  },
+  "dataSources": {
+    "local_relative": {
+      "hostName": "test.db",
+      "hostAddress": "relative:/sqlite/"     
+    },
+    "local_absolute": {
+      "hostName": "test.db",
+      "hostAddress": "absolute:/{user.dir}/src/main/resources/databases/sqlite/"
+    }
+  },
+  "services": {},
+  "options": {}
+}
