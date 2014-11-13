@@ -37,7 +37,10 @@ public class OfferOptimisationForm extends CatalogueManagerForm {
 		super.open();
 		
 		clickId( "gwt-debug-actrule-catalog-offerOptimisation" ).		
-		openAngularFrame().
+		openAngularFrame();
+		
+		try { Thread.sleep( 3000 );  } catch( Exception e) {}
+		
 		clickLink( offerOptimisationSection.value() );
 					
 		return this;
