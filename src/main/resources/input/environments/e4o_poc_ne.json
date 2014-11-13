@@ -1,7 +1,7 @@
 {
   "servers": {
     "actrule": {
-      "hostName": "gO1-e4o-app01",
+      "hostName": "go1-e4o-app01",
       "hostAddress": "172.17.5.34",
       "users": {
         "root": {
@@ -43,7 +43,7 @@
       }
     },
     "actrule2": {
-      "hostName": "gO1-e4o-app02",
+      "hostName": "go1-e4o-app02",
       "hostAddress": "172.17.5.35",
       "users": {
         "root": {
@@ -85,7 +85,7 @@
       }
     },
     "collector": {
-      "hostName": "gO1-e4o-coll01",
+      "hostName": "go1-e4o-coll01",
       "hostAddress": "172.17.5.36",
       "users": {
         "root": {
@@ -134,7 +134,7 @@
   "services": {
     "ssh": {
       "actrule": {
-      "hostName": "gO1-e4o-app01",
+      "hostName": "go1-e4o-app01",
       "hostAddress": "172.17.5.34",
         "hostPort": "22",
         "users": {
@@ -146,7 +146,7 @@
         }
       },
       "actrule2": {
-	      "hostName": "gO1-e4o-app02",
+	      "hostName": "go1-e4o-app02",
 	      "hostAddress": "172.17.5.35",
 	        "hostPort": "22",
 	        "users": {
@@ -158,8 +158,20 @@
 	        }
       },
       "collector": {
-	      "hostName": "gO1-e4o-coll01",
+	      "hostName": "go1-e4o-coll01",
 	      "hostAddress": "172.17.5.36",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
+	   },
+      "nfsdata": {
+	      "hostName": "go1-e4o-svc01",
+	      "hostAddress": "172.17.5.37",
 	        "hostPort": "22",
 	        "users": {
 	          "root": {
