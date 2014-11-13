@@ -52,6 +52,19 @@
             "mailObject": "Send Active Voucher",
             "templateName": "Send_Active_Voucher",
             "textMessage": null
+        },
+        {
+            "chooseChannel": "MAIL",
+            "chooseLanguage": "English",
+            "contentFile": "D|###subscriber_msisdn###|[FIELD_MISSING]|###offer_external_id###|###vorname###|###nachname###|###customer_email###|###voucher_code###|###offer_description###|###subscriber_rate_plan###",
+            "enabled": true,
+            "errorActions": {
+                "ELEMENT_AREADY_EXISTS": "ABORT_CANCEL",
+                "GENERAL_ERROR": "RETURN_ERROR"
+            },
+            "mailObject": "Send Voucher O2",
+            "templateName": "Send_Voucher_O2",
+            "textMessage": null
         }
     ]
 }

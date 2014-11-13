@@ -1,0 +1,190 @@
+{
+	"offers": [
+		{
+			"enabled": true,
+			"name": "Voucher Offer One",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-2667",
+				"labels" : null,
+				"voucher": "oneTimeUse",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : {
+				"voucherListFile": null,
+				"voucherList": [ 	"VoucherOffer_One_000",
+									"VoucherOffer_One_001",
+									"VoucherOffer_One_002",
+									"VoucherOffer_One_003",
+									"VoucherOffer_One_004",
+									"VoucherOffer_One_005",
+									"VoucherOffer_One_006",
+									"VoucherOffer_One_007",
+									"VoucherOffer_One_008",
+									"VoucherOffer_One_009",
+									"VoucherOffer_One_010",
+									"VoucherOffer_One_011",
+									"VoucherOffer_One_012",
+									"VoucherOffer_One_013",
+									"VoucherOffer_One_014",
+									"VoucherOffer_One_015",
+									"VoucherOffer_One_016",
+									"VoucherOffer_One_017",
+									"VoucherOffer_One_018",
+									"VoucherOffer_One_019"
+				],
+				"unlimitedVoucherCode": null,
+				"format": "plainText",
+				"partner": "O2",
+				"expiryDate": "@current+1month",
+				"expiryTime": null
+			},
+			"offer" : null,
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch A" ]
+				}
+			],
+			"notification" : null,
+			"availability" : {
+				"stock" : null,
+				"reservations" : null,
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "Voucher Offer Two",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-2667",
+				"labels" : null,
+				"voucher": "oneTimeUse",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : {
+				"voucherListFile": null,
+				"voucherList": [ 	"VoucherOffer_Two_000",
+									"VoucherOffer_Two_001",
+									"VoucherOffer_Two_002",
+									"VoucherOffer_Two_003",
+									"VoucherOffer_Two_004",
+									"VoucherOffer_Two_005",
+									"VoucherOffer_Two_006",
+									"VoucherOffer_Two_007",
+									"VoucherOffer_Two_008",
+									"VoucherOffer_Two_009",
+									"VoucherOffer_Two_010",
+									"VoucherOffer_Two_011",
+									"VoucherOffer_Two_012",
+									"VoucherOffer_Two_013",
+									"VoucherOffer_Two_014",
+									"VoucherOffer_Two_015",
+									"VoucherOffer_Two_016",
+									"VoucherOffer_Two_017",
+									"VoucherOffer_Two_018",
+									"VoucherOffer_Two_019"
+				],
+				"unlimitedVoucherCode": null,
+				"format": "plainText",
+				"partner": "Mobistar",
+				"expiryDate": "@current+1month",
+				"expiryTime": null
+			},
+			"offer" : null,
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch A" ]
+				}
+			],
+			"notification" : null,
+			"availability" : {
+				"stock" : null,
+				"reservations" : null,
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "Voucher Offer Three",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-2667",
+				"labels" : null,
+				"voucher": "oneTimeUse",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : {
+				"voucherListFile": null,
+				"voucherList": [ 	"VoucherOffer_Three_000",
+									"VoucherOffer_Three_001",
+									"VoucherOffer_Three_002",
+									"VoucherOffer_Three_003",
+									"VoucherOffer_Three_004",
+									"VoucherOffer_Three_005",
+									"VoucherOffer_Three_006",
+									"VoucherOffer_Three_007",
+									"VoucherOffer_Three_008",
+									"VoucherOffer_Three_009",
+									"VoucherOffer_Three_010",
+									"VoucherOffer_Three_011",
+									"VoucherOffer_Three_012",
+									"VoucherOffer_Three_013",
+									"VoucherOffer_Three_014",
+									"VoucherOffer_Three_015",
+									"VoucherOffer_Three_016",
+									"VoucherOffer_Three_017",
+									"VoucherOffer_Three_018",
+									"VoucherOffer_Three_019"
+				],
+				"unlimitedVoucherCode": null,
+				"format": "plainText",
+				"partner": "Lumata",
+				"expiryDate": "@current+1month",
+				"expiryTime": null
+			},
+			"offer" : null,
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch B" ]
+				}
+			],
+			"notification" : null,
+			"availability" : {
+				"stock" : null,
+				"reservations" : null,
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		}
+	],
+}
