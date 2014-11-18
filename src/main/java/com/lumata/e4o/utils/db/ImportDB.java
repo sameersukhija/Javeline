@@ -223,6 +223,23 @@ public class ImportDB {
 	}
 	
 	/**
+	 * Show the count of all the records for each tenant table
+	 * 
+	 * @param nEnv
+	 * @param dataSourceName
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static void showAllTenantTablesCount(NetworkEnvironment nEnv, String dataSourceName) throws ClassNotFoundException, SQLException {
+		
+		System.out.println("\nTenant tables count");
+		System.out.println(  "-------------------");
+		for (String table : ALL_TENANT_TABLES) {
+			System.out.println(String.format("%s: %d", table, execCount(table, nEnv, DS_TENANT)));
+		}
+	}
+	
+	/**
 	 * This method is used to dump the schema only
 	 * 
 	 * @param tablesList
@@ -333,9 +350,6 @@ public class ImportDB {
 			return;
 		}
 		
-		// showAllDatabases(nEnv, DS_TENANT);
-		// showAllTables(nEnv, DS_TENANT);
-		
-		System.out.println(execCount("token", nEnv, DS_TENANT));
+		showAllTenantTablesCount(nEnv, DS_TENANT);
 	}
 }
