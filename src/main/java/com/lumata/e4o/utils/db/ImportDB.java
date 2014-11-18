@@ -1,7 +1,9 @@
 package com.lumata.e4o.utils.db;
 
 import com.lumata.common.testing.io.IOFileUtils;
+import com.lumata.common.testing.system.DataSource;
 import com.lumata.common.testing.system.NetworkEnvironment;
+import com.lumata.common.testing.system.Security;
 
 /**
  * This class is the main generic utility used to import the database tables (from "tenant", "global" or other)
@@ -46,6 +48,11 @@ public class ImportDB {
 		
 		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", "e4o_qa4_ne", IOFileUtils.IOLoadingType.RESOURCE);
 		
-		System.out.println(nEnv);
+		// parameters for mysqldump
+		DataSource ds = nEnv.getDataSources().get("tenant");
+		System.out.println("HostAddress: " + ds.getHostAddress());
+		System.out.println("HostPort: " + ds.getHostPort());
+		System.out.println("User: " + ds.getUser());
+		System.out.println("Password: " + Security.decrypt(ds.getPassword()));
 	}
 }
