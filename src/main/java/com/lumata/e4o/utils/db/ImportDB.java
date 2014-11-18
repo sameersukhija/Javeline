@@ -1,5 +1,8 @@
 package com.lumata.e4o.utils.db;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.DataSource;
 import com.lumata.common.testing.system.NetworkEnvironment;
@@ -54,5 +57,14 @@ public class ImportDB {
 		System.out.println("HostPort: " + ds.getHostPort());
 		System.out.println("User: " + ds.getUser());
 		System.out.println("Password: " + Security.decrypt(ds.getPassword()));
+		
+		// low-level call to mysqldump (TODO check if command exists)
+		Process p = Runtime.getRuntime().exec("mysqldump --version");
+		BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		String line;
+		while ((line = input.readLine()) != null) {
+			System.out.println(line);
+		}
+		input.close();
 	}
 }
