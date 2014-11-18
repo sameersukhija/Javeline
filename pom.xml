@@ -219,6 +219,7 @@
  						<exclude>**/plan/TestSeleniumWebDriver.java</exclude>
 						<exclude>**/plan/TestSFTP.java</exclude>
 						<exclude>**/plan/TestSSHExec.java</exclude>
+						<exclude>**/plan/TestSQLite.java</exclude>
 				    </excludes>
 <!-- 	          		<skipTests>true</skipTests> -->
 						<workingDirectory>target/</workingDirectory>
