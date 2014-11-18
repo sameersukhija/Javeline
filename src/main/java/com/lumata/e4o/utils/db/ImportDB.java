@@ -246,6 +246,9 @@ public class ImportDB {
 	 * @throws SQLException
 	 */
 	public static void diffTenantTables(DataSource ds) throws ClassNotFoundException, SQLException {
+		System.out.println("\nDiff tenant tables");
+		System.out.println(  "------------------");
+		
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection c = DriverManager.getConnection(
 				String.format("jdbc:mysql://%s:%s/information_schema", ds.getHostAddress(), ds.getHostPort()),
