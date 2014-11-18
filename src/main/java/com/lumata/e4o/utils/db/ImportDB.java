@@ -200,9 +200,7 @@ public class ImportDB {
 	 * @param dataSourceName
 	 * @throws IOException
 	 */
-	public static void showAllDatabases(NetworkEnvironment nEnv, String dataSourceName) throws IOException {
-		DataSource ds = nEnv.getDataSources().get(dataSourceName);
-		
+	public static void showAllDatabases(DataSource ds) throws IOException {
 		System.out.println("\nmysql> show databases");
 		System.out.println(  "---------------------");
 		String[] command = {"mysql", "-h"+ds.getHostAddress(), "-P"+ds.getHostPort(), "-u"+ds.getUser(), "-p"+Security.decrypt(ds.getPassword()), "-e", "show databases"};
@@ -216,9 +214,7 @@ public class ImportDB {
 	 * @param dataSourceName
 	 * @throws IOException
 	 */
-	public static void showAllTables(NetworkEnvironment nEnv, String dataSourceName) throws IOException {
-		DataSource ds = nEnv.getDataSources().get(dataSourceName);
-		
+	public static void showAllTables(DataSource ds) throws IOException {
 		System.out.println("\nmysql> show tables");
 		System.out.println(  "------------------");
 		String[] command = {"mysql", "-h"+ds.getHostAddress(), "-P"+ds.getHostPort(), "-u"+ds.getUser(), "-p"+Security.decrypt(ds.getPassword()), "-D"+ds.getHostName(), "-e", "show tables"};
@@ -233,12 +229,11 @@ public class ImportDB {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static void showAllTenantTablesCount(NetworkEnvironment nEnv, String dataSourceName) throws ClassNotFoundException, SQLException {
-		
+	public static void showAllTenantTablesCount(DataSource ds) throws ClassNotFoundException, SQLException {
 		System.out.println("\nTenant tables count");
 		System.out.println(  "-------------------");
 		for (String table : ALL_TENANT_TABLES) {
-			System.out.println(String.format("%s: %d", table, execCount(table, nEnv, DS_TENANT)));
+			System.out.println(String.format("%s: %d", table, execCount(table, ds)));
 		}
 	}
 	
@@ -250,9 +245,7 @@ public class ImportDB {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static void diffTenantTables(NetworkEnvironment nEnv, String dataSourceName) throws ClassNotFoundException, SQLException {
-		DataSource ds = nEnv.getDataSources().get(dataSourceName);
-		
+	public static void diffTenantTables(DataSource ds) throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection c = DriverManager.getConnection(
 				String.format("jdbc:mysql://%s:%s/information_schema", ds.getHostAddress(), ds.getHostPort()),
@@ -286,7 +279,7 @@ public class ImportDB {
 	 * 
 	 * @param tablesList
 	 */
-	public static void dumpStruct(String[] tablesList, NetworkEnvironment nEnv, String dataSourceName) {
+	public static void dumpStruct(String[] tablesList, DataSource ds) {
 		// TODO...
 	}
 	
@@ -295,7 +288,7 @@ public class ImportDB {
 	 * 
 	 * @param tablesList
 	 */
-	public static void dumpLight(String[] tablesList, NetworkEnvironment nEnv, String dataSourceName) {
+	public static void dumpLight(String[] tablesList, DataSource ds) {
 		// TODO...
 	}
 	
@@ -307,7 +300,7 @@ public class ImportDB {
 	 * 
 	 * @param tablesList
 	 */
-	public static void dumpBig(String[] tablesList, String where, NetworkEnvironment nEnv, String dataSourceName) {
+	public static void dumpBig(String[] tablesList, String where, DataSource ds) {
 		// TODO...
 	}
 
@@ -346,9 +339,7 @@ public class ImportDB {
 	}
 	
 	// count(*) SQL
-	private static long execCount(String tableName, NetworkEnvironment nEnv, String dataSourceName) throws ClassNotFoundException, SQLException {
-		DataSource ds = nEnv.getDataSources().get(dataSourceName);
-		
+	private static long execCount(String tableName, DataSource ds) throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection c = DriverManager.getConnection(
 				String.format("jdbc:mysql://%s:%s/%s", ds.getHostAddress(), ds.getHostPort(), ds.getHostName()),
@@ -392,7 +383,9 @@ public class ImportDB {
 			return;
 		}
 		
-		//showAllTenantTablesCount(nEnv, DS_TENANT);
-		diffTenantTables(nEnv, DS_TENANT);
+		showAllDatabases(ds);
+		showAllTables(ds);
+		showAllTenantTablesCount(ds);
+		diffTenantTables(ds);
 	}
 }
