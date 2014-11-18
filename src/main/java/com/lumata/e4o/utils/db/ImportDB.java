@@ -1,5 +1,6 @@
 package com.lumata.e4o.utils.db;
 
+import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 
 /**
@@ -33,5 +34,18 @@ public class ImportDB {
 	 */
 	public static void dumpBig(String[] tablesList, NetworkEnvironment nEnv) {
 		// TODO...
+	}
+	
+	/**
+	 * This main is used to dev/test this utility 
+	 * 
+	 * @param args
+	 * @throws Exception
+	 */
+	public static void main(String[] args) throws Exception {
+		
+		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", "e4o_qa4_ne", IOFileUtils.IOLoadingType.RESOURCE);
+		
+		System.out.println(nEnv);
 	}
 }
