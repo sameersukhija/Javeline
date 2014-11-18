@@ -16,6 +16,7 @@ import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.common.testing.system.Browser;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.e4o.exceptions.FormException;
@@ -43,11 +44,17 @@ public abstract class ParentUITestCase {
 	private static final String DEFAULT_RESOURCE_START_PATH__ = "input";
 	private static final String DEFAULT_LOADING_TYPE__ = "RESOURCE";
 	
+	/**
+	 * Default value blocks the invocation of selenium grid
+	 */
+	private static final String DEFAULT_GRID_CONF__ = "http://no.selenium.grid:5555/wd/hub";
+	
 	protected final Integer TIMEOUT = 60000;
 	protected final Integer ATTEMPT_TIMEOUT = 50;
 	
 	static protected NetworkEnvironment env = null;
 	static protected Server gui = null;
+	static protected String gridAddress = null;
 	static protected SeleniumWebDriver seleniumWebDriver = null;
 	
 	static private Authorization auth = null;
@@ -65,12 +72,13 @@ public abstract class ParentUITestCase {
 	
 	/* 	Initialize Environment */
 	@BeforeSuite
-	@Parameters({"browser", "environment", "loadingType", "resourceStartPath", "gui_server"})
+	@Parameters({"browser", "environment", "loadingType", "resourceStartPath", "gui_server", "seleniumGrid"})
 	public void setUp( 	@Optional("FIREFOX") String browser, 
 						@Optional("E4O_VM_NE") String environment, 
 						@Optional(DEFAULT_LOADING_TYPE__) String loadingType,
 						@Optional(DEFAULT_RESOURCE_START_PATH__) String resourceStartPath,
-						@Optional("actrule") String gui_server
+						@Optional("actrule") String gui_server,
+						@Optional(DEFAULT_GRID_CONF__) String seleniumGrid
 					) throws JSONSException, IOFileException, NetworkEnvironmentException {		
 		
 		currentResourceStartPath = resourceStartPath;
@@ -92,14 +100,42 @@ public abstract class ParentUITestCase {
 
 		browserSession = browser;
 		
-		Reporter.log( "Startup Selenium driver with \""+browserSession+"\".", PRINT2STDOUT__);
+		gridAddress = seleniumGrid;
 		
 		/** Create Selenium WebDriver instance */
 		gui = env.getServer( gui_server );
-		seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browserSession ), gui.getLink() );
 		
+		seleniumWebDriver = initSeleniumDriver( gui.getBrowser( browserSession ), gui.getLink(), gridAddress);
+
 		auth = new Authorization(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 	}	
+
+	/**
+	 * According passed parameter this method inizialize a local or remote web driver
+	 * 
+	 * @param browser
+	 * @param baseUrl
+	 * @param gridUrl
+	 */
+	private SeleniumWebDriver initSeleniumDriver(Browser browser, String baseUrl, String gridUrl) {
+
+		SeleniumWebDriver resp = null;
+		
+		if ( gridUrl.equals(DEFAULT_GRID_CONF__) ) {
+			
+			Reporter.log( "Startup Selenium driver with \""+browserSession+"\".", PRINT2STDOUT__);
+			
+			resp = new SeleniumWebDriver( browser, baseUrl);
+		}
+		else {
+			
+			Reporter.log( "Startup RemoteWebDriver with \""+browserSession+"\".", PRINT2STDOUT__);
+			
+			resp = new SeleniumWebDriver( browser, baseUrl, gridUrl);
+		}
+		
+		return resp;
+	}
 
 	@BeforeTest
 	@Parameters({"user"})
@@ -140,7 +176,7 @@ public abstract class ParentUITestCase {
 	    	
 	    	seleniumWebDriver.close();
 	    	
-	    	seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browserSession ), gui.getLink() );
+			seleniumWebDriver = initSeleniumDriver( gui.getBrowser( browserSession ), gui.getLink(), gridAddress);
 			
 	    	auth = new Authorization(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 	    	
