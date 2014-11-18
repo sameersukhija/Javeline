@@ -185,6 +185,13 @@ public class ImportDB {
 		}
 	}
 
+	/**
+	 * This command is used to show all databases via MySQL command
+	 * 
+	 * @param nEnv
+	 * @param dataSourceName
+	 * @throws IOException
+	 */
 	public static void showAllDatabases(NetworkEnvironment nEnv, String dataSourceName) throws IOException {
 		DataSource ds = nEnv.getDataSources().get(dataSourceName);
 		
@@ -194,6 +201,13 @@ public class ImportDB {
 		exec(command);
 	}
 
+	/**
+	 * This command is used to show all tables via MySQL command
+	 * 
+	 * @param nEnv
+	 * @param dataSourceName
+	 * @throws IOException
+	 */
 	public static void showAllTables(NetworkEnvironment nEnv, String dataSourceName) throws IOException {
 		DataSource ds = nEnv.getDataSources().get(dataSourceName);
 		
