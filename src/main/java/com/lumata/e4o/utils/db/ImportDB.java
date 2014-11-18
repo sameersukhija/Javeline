@@ -38,17 +38,18 @@ public class ImportDB {
 	public static void showAllDatabases(NetworkEnvironment nEnv, String dataSourceName) throws IOException {
 		DataSource ds = nEnv.getDataSources().get(dataSourceName);
 		
-		String command = String.format("mysql -h%s -u%s -p%s -e'show databases'", ds.getHostAddress(), ds.getUser(), Security.decrypt(ds.getPassword()));
-		System.out.println(command);
+		System.out.println("\nmysql> show databases");
+		System.out.println(  "---------------------");
+		String[] command = {"mysql", "-h"+ds.getHostAddress(), "-P"+ds.getHostPort(), "-u"+ds.getUser(), "-p"+Security.decrypt(ds.getPassword()), "-e", "show databases"};
 		exec(command);
 	}
 
 	public static void showAllTables(NetworkEnvironment nEnv, String dataSourceName) throws IOException {
 		DataSource ds = nEnv.getDataSources().get(dataSourceName);
 		
-		// -e'show tables' 
-		String command = String.format("mysql -h%s -u%s -p%s -D%s -e'show tables'", ds.getHostAddress(), ds.getUser(), Security.decrypt(ds.getPassword()), ds.getHostName());
-		System.out.println(command);
+		System.out.println("\nmysql> show tables");
+		System.out.println(  "------------------");
+		String[] command = {"mysql", "-h"+ds.getHostAddress(), "-P"+ds.getHostPort(), "-u"+ds.getUser(), "-p"+Security.decrypt(ds.getPassword()), "-D"+ds.getHostName(), "-e", "show tables"};
 		exec(command);
 	}
 	
@@ -86,10 +87,8 @@ public class ImportDB {
 	// Private static methods
 	// ---------------------------------------------------------------------
 
-	// low-level command call
-	private static void exec(String command) throws IOException {
-		Process p = Runtime.getRuntime().exec(command);
-		
+	// low-level Process input/error
+	private static void execOutput(Process p) throws IOException {
 		// input
 		BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		String line;
@@ -104,6 +103,18 @@ public class ImportDB {
 			System.out.println(line);
 		}
 		error.close();
+	}
+	
+	// low-level command call
+	private static void exec(String command) throws IOException {
+		Process p = Runtime.getRuntime().exec(command);
+		execOutput(p);
+	}
+
+	// low-level command call
+	private static void exec(String[] command) throws IOException {
+		Process p = Runtime.getRuntime().exec(command);
+		execOutput(p);
 	}
 	
 	// ---------------------------------------------------------------------
@@ -134,7 +145,6 @@ public class ImportDB {
 		}
 		
 		showAllDatabases(nEnv, DS_TENANT);
-		
-		// TODO...
+		showAllTables(nEnv, DS_TENANT);
 	}
 }
