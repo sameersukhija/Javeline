@@ -14,4 +14,13 @@ public class ImportDB {
 	public static void dumpStruct(String[] tablesList) {
 		// TODO...
 	}
+	
+	/**
+	 * This method is used to dump the data only, all the records (configuration tables)
+	 * 
+	 * @param tablesList
+	 */
+	public static void dumpLight(String[] tablesList) {
+		// TODO...
+	}
 }
