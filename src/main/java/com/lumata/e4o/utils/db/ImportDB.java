@@ -1,6 +1,7 @@
 package com.lumata.e4o.utils.db;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.lumata.common.testing.io.IOFileUtils;
@@ -14,6 +15,24 @@ import com.lumata.common.testing.system.Security;
  */
 public class ImportDB {
 
+	// ---------------------------------------------------------------------
+	// Public static methods
+	// ---------------------------------------------------------------------
+	
+	/**
+	 * This command is used to check if mysqldump exist on your machine
+	 * 
+	 */
+	public static boolean checkMysqldump() {
+		try {
+			exec("mysqldump --version");
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	/**
 	 * This method is used to dump the schema only
 	 * 
@@ -40,7 +59,26 @@ public class ImportDB {
 	public static void dumpBig(String[] tablesList, NetworkEnvironment nEnv) {
 		// TODO...
 	}
+
+	// ---------------------------------------------------------------------
+	// Private static methods
+	// ---------------------------------------------------------------------
+
+	// low-level command call
+	private static void exec(String command) throws IOException {
+		Process p = Runtime.getRuntime().exec(command);
+		BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		String line;
+		while ((line = input.readLine()) != null) {
+			System.out.println(line);
+		}
+		input.close();
+	}
 	
+	// ---------------------------------------------------------------------
+	// MAIN
+	// ---------------------------------------------------------------------
+
 	/**
 	 * This main is used to dev/test this utility 
 	 * 
@@ -58,13 +96,6 @@ public class ImportDB {
 		System.out.println("User: " + ds.getUser());
 		System.out.println("Password: " + Security.decrypt(ds.getPassword()));
 		
-		// low-level call to mysqldump (TODO check if command exists)
-		Process p = Runtime.getRuntime().exec("mysqldump --version");
-		BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		String line;
-		while ((line = input.readLine()) != null) {
-			System.out.println(line);
-		}
-		input.close();
+		System.out.println("checkMysqldump: " + checkMysqldump());
 	}
 }
