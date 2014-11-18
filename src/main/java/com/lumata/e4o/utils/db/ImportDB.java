@@ -242,6 +242,14 @@ public class ImportDB {
 		}
 	}
 	
+	/**
+	 * Show the difference between the Array of tenant tables and the database
+	 * 
+	 * @param nEnv
+	 * @param dataSourceName
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static void diffTenantTables(NetworkEnvironment nEnv, String dataSourceName) throws ClassNotFoundException, SQLException {
 		DataSource ds = nEnv.getDataSources().get(dataSourceName);
 		
