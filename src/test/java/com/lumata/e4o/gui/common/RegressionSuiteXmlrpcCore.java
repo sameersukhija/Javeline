@@ -58,13 +58,26 @@ public class RegressionSuiteXmlrpcCore {
 	protected static User user = null;
 	
 	/**
+	 * Path to environment file
+	 */
+	private static String envPath = null;
+	
+	/**
+	 * Environment file name
+	 */
+	private static String envFile = null;
+	
+	/**
 	 * Print to standard output during execution
 	 */
 	protected static final Boolean PRINT2STDOUT__ = Boolean.TRUE;
-	
-	private static String envPath = null;
-	private static String envFile = null;
 
+	/**
+	 * This delta in minutes is applied to suite start time of observation
+	 * (start time for xmlrpc query) = (suite start time) - wherePlaceT0
+	 */
+	protected static Integer wherePlaceT0 = 2;
+	
 	/**
 	 * 
 	 * @param browser
@@ -107,7 +120,7 @@ public class RegressionSuiteXmlrpcCore {
 		 */
 		
 		if ( startOfTime4Suite == null )
-			startOfTime4Suite = new Date(Calendar.getInstance().getTimeInMillis() - 60_000);
+			startOfTime4Suite = new Date(Calendar.getInstance().getTimeInMillis() - wherePlaceT0 * 60_000);
 		
 		if ( xmlrpcLogFolder == null ) {
 			xmlrpcLogFolder = baseXmlrpcLogFolder + File.separator + "execution_" + new SimpleDateFormat("yyyy_MM_dd_HH_mm").format(startOfTime4Suite) + File.separator;

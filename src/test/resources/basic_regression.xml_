@@ -10,52 +10,72 @@
   <!-- 
     Start path where locate configuration files 
   -->
-  <parameter name="resourceStartPath" value="input"/>
-  <parameter name="loadingType" value="RESOURCE"/>
+  <parameter name="resourceStartPath"   value="input"/>
+  <parameter name="loadingType"         value="RESOURCE"/>
 
   <!-- 
-    Configuration environment file and its parameter
+    ##### 
+    ##### 
+    ##### Configuration environment file and its main correlated parameters
+    ##### 
+    ##### 
   -->
-  <!-- <parameter name="environment" value="e4o_vm_report_ne"/> -->
-  <parameter name="environment" value="e4o_qa_ne"/>
-  <parameter name="gui_server" value="actrule"/>
-  <parameter name="tenant" value="qa"/>
-  <!-- <parameter name="tenant" value="tenantMaster"/> -->
-  <parameter name="user" value="superman"/>
+  <!-- <parameter name="environment"         value="e4o_vm_report_ne"/> -->
+  <parameter name="environment"         value="e4o_qa_ne"/>
+  <parameter name="gui_server"          value="actrule"/>
+  <parameter name="tenant"              value="qa"/>
+  <!-- <parameter name="tenant"              value="tenantMaster"/> -->
+  <parameter name="user"                value="superman"/>
+
+  <!-- 
+    ##### 
+    ##### 
+    ##### Commodities, Complements, Notifications, ... configuration files
+    ##### This section collects the specific configuration files for test execution.
+    ##### 
+    ##### BEWARE : Scenario execution can fail when one of this file is missing!
+    #####          In case of doubt "comment" the tag and execute default configuration
+    ##### 
+  -->
+  <parameter name="salesChannelsList"   value="salesChannelsEFOGC2109"/>
+  <parameter name="commoditiesFile"     value="commoditiesTemplate"/>
+  <parameter name="complementsFile"     value="complementsTemplate"/>
+  <parameter name="notificationsFile"   value="notificationsEFOGC2667"/>
+  <parameter name="productTypesFile"    value="productTypesTemplate"/>
+  <parameter name="loyaltyCreationFile" value="loyaltyCreationTemplate"/>
+  <parameter name="offersFile"          value="offersVoucher2667"/>
+  <parameter name="tokenTypeList"       value="tokenTypes2667"/>
+  <parameter name="ruleListFile"        value="rulesetEFOGC2667"/>
+  <parameter name="campaignModelList"   value="campaignModelEFOGC2667"/>
+
+  <!-- 
+    ##### 
+    ##### Seed used into msisdn auto-generation, the final msisdn contains in append three random digit.
+    ##### 
+  -->
+  <parameter name="inputSeed"           value="393492135"/>
+
+  <!-- 
+    ##### 
+    ##### This list contains the subscriber preferences to be assigned to "hobbies".
+    ##### 
+  -->
+  <parameter name="hobbiesList" value="Read;Paint;Play;Drive"/>
 
   <!--  
-    After test the configuration is removed
+    After test the configuration is removed ( where applicable )
   -->
   <parameter name="cleanup" value="FALSE"/>
 
   <!-- 
-    Commodities, Complements & Notifications configuration file 
-  -->
-  <parameter name="salesChannelsList" value="salesChannelsEFOGC2109"/>
-  <parameter name="commoditiesFile" value="commoditiesTemplate"/>
-  <parameter name="complementsFile" value="complementsTemplate"/>
-  <parameter name="notificationsFile" value="notificationsEFOGC2667"/>
-  <parameter name="productTypesFile" value="productTypesTemplate"/>
-  <parameter name="loyaltyCreationFile" value="loyaltyCreationTemplate"/>
-  <parameter name="offersFile" value="offersVoucher2667"/>
-  <parameter name="tokenTypeList" value="tokenTypes2667"/>
-  <parameter name="ruleListFile" value="rulesetEFOGC2667"/>
-  <parameter name="campaignModelList" value="campaignModelEFOGC2667"/>
-
-  <parameter name="inputSeed" value="393492135"/>
-
-  <parameter name="hobbiesList" value="Read;Paint;Play;Drive"/>
-
-  <!-- 
-    Test Section 
+    >>>>>>> 
+    >>>>>>> Test Section 
+    >>>>>>> 
   -->
   <test name="Basic regression suite for E4O">
 
     <classes>
 
-      <!-- 
-        Running section
-      -->
       <class name="com.lumata.e4o.schema.configuration.TestDMNotificationEnabled">
         <methods>
           <include name="configureDMNotifications"/>

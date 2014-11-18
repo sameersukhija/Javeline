@@ -1,0 +1,46 @@
+{
+	"rules": [
+		{
+			"enabled": true,
+			"name":"Rule A",
+			"description":"EFOGC-2667",
+			"tokenType":"Token",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				}
+			],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Rule B",
+			"description":"EFOGC-2667",
+			"tokenType":"Token",
+			"channels":[ {
+				"name":"Ch B",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				}
+			],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}
+	]
+}

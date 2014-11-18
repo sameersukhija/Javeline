@@ -2,35 +2,55 @@
 <!DOCTYPE suite
   SYSTEM 'http://testng.org/testng-1.0.dtd'>
 <suite name="O2 Custom Reporter Suite" parallel="false" verbose="1">
-  <!-- 
-    Browser to be used 
-  -->
-  <parameter name="browser" value="firefox"/>
+
   <!-- 
     Start path where locate configuration files 
   -->
-  <parameter name="resourceStartPath" value="input"/>
-  <parameter name="loadingType" value="RESOURCE"/>
-  <!-- 
-    In default configuration environment
-  -->
-  <parameter name="environment" value="e4o_qa_ne"/>
-  <parameter name="gui_server" value="actrule"/>
-  <parameter name="tenant" value="qa"/>
-  <parameter name="user" value="superman"/>
-  <!-- 
-    Parameters Section 
-  -->
-  <parameter name="tokens2BeGenerated" value="1"/>
-  <parameter name="msisdn" value="393492135124"/>
-  
-  <parameter name="performAccept" value="false"/>
-  <parameter name="offerIds" value="1002"/>
+  <parameter name="resourceStartPath"   value="input"/>
+  <parameter name="loadingType"         value="RESOURCE"/>
 
   <!-- 
-    Test Section 
+    ##### 
+    ##### 
+    ##### Configuration environment file and its main correlated parameters
+    ##### 
+    ##### 
   -->
-  <test name="Summary Tokens before test">
+  <!-- <parameter name="environment"         value="e4o_vm_report_ne"/> -->
+  <parameter name="environment"         value="e4o_qa_ne"/>
+  <parameter name="gui_server"          value="actrule"/>
+  <parameter name="tenant"              value="qa"/>
+  <!-- <parameter name="tenant"              value="tenantMaster"/> -->
+  <parameter name="user"                value="superman"/>
+
+  <!-- 
+    ##### 
+    ##### Subscriber under test
+    ##### 
+  -->
+  <parameter name="msisdn"              value="393492135907"/>
+
+  <!-- 
+    ##### 
+    ##### Number of tokens to be generated
+    ##### 
+  -->
+  <parameter name="tokens2BeGenerated"  value="10"/>
+
+  <!-- 
+    ##### 
+    ##### List of offer_id separated with ";" the purchased offer is chosen randomically
+    ##### 
+  -->
+  <parameter name="offerIds"            value="1000;1003"/>
+
+  <!-- 
+    >>>>>>> 
+    >>>>>>> Test Section 
+    >>>>>>> 
+  -->
+
+  <test name="Start tokens status">
     <classes>
       <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
         <methods>
@@ -39,6 +59,7 @@
       </class>
     </classes>
   </test>
+
   <test name="Core XMLRPC - Generate Tokens">
     <classes>
       <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
@@ -47,7 +68,8 @@
         </methods>
       </class>
     </classes>
-  </test>        
+  </test>
+
   <test name="Core XMLRPC - Allocate Tokens">
     <classes>
       <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
@@ -58,7 +80,11 @@
       </class>
     </classes>
   </test>
-  <test name="Core XMLRPC - Accept Tokens" enabled="false">
+
+  <!-- 
+    >>>>>>> Accept the allocate token with a random offer from input bucket
+  -->
+  <test name="Core XMLRPC - Accept Tokens" enabled="true">
     <classes>
       <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
         <methods>      
@@ -68,7 +94,11 @@
       </class>
     </classes>
   </test>
-  <test name="Core XMLRPC - Refuse Just Allocated Tokens" enabled="true">
+
+  <!-- 
+    >>>>>>> Refuse all allocated token in observation time
+  -->
+  <test name="Core XMLRPC - Refuse Just Allocated Tokens" enabled="false">
     <parameter name="wideTime" value="false"/>
     <classes>
       <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
@@ -79,7 +109,8 @@
       </class>
     </classes>
   </test>
-  <test name="Summary Tokens after test">
+
+  <test name="End tokens status">
     <classes>
       <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
         <methods>
@@ -88,4 +119,5 @@
       </class>
     </classes>
   </test>
+
 </suite>
