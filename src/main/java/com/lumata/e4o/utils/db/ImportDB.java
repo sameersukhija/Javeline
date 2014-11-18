@@ -15,6 +15,8 @@ import com.lumata.common.testing.system.Security;
  */
 public class ImportDB {
 
+	public final static String DS_TENANT = "tenant";
+	
 	// ---------------------------------------------------------------------
 	// Public static methods
 	// ---------------------------------------------------------------------
@@ -32,13 +34,30 @@ public class ImportDB {
 			return false;
 		}
 	}
+
+	public static void showAllDatabases(NetworkEnvironment nEnv, String dataSourceName) throws IOException {
+		DataSource ds = nEnv.getDataSources().get(dataSourceName);
+		
+		String command = String.format("mysql -h%s -u%s -p%s -e'show databases'", ds.getHostAddress(), ds.getUser(), Security.decrypt(ds.getPassword()));
+		System.out.println(command);
+		exec(command);
+	}
+
+	public static void showAllTables(NetworkEnvironment nEnv, String dataSourceName) throws IOException {
+		DataSource ds = nEnv.getDataSources().get(dataSourceName);
+		
+		// -e'show tables' 
+		String command = String.format("mysql -h%s -u%s -p%s -D%s -e'show tables'", ds.getHostAddress(), ds.getUser(), Security.decrypt(ds.getPassword()), ds.getHostName());
+		System.out.println(command);
+		exec(command);
+	}
 	
 	/**
 	 * This method is used to dump the schema only
 	 * 
 	 * @param tablesList
 	 */
-	public static void dumpStruct(String[] tablesList, NetworkEnvironment nEnv) {
+	public static void dumpStruct(String[] tablesList, NetworkEnvironment nEnv, String dataSourceName) {
 		// TODO...
 	}
 	
@@ -47,7 +66,7 @@ public class ImportDB {
 	 * 
 	 * @param tablesList
 	 */
-	public static void dumpLight(String[] tablesList, NetworkEnvironment nEnv) {
+	public static void dumpLight(String[] tablesList, NetworkEnvironment nEnv, String dataSourceName) {
 		// TODO...
 	}
 	
@@ -59,7 +78,7 @@ public class ImportDB {
 	 * 
 	 * @param tablesList
 	 */
-	public static void dumpBig(String[] tablesList, String where, NetworkEnvironment nEnv) {
+	public static void dumpBig(String[] tablesList, String where, NetworkEnvironment nEnv, String dataSourceName) {
 		// TODO...
 	}
 
@@ -70,12 +89,21 @@ public class ImportDB {
 	// low-level command call
 	private static void exec(String command) throws IOException {
 		Process p = Runtime.getRuntime().exec(command);
+		
+		// input
 		BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		String line;
 		while ((line = input.readLine()) != null) {
 			System.out.println(line);
 		}
 		input.close();
+		
+		// error
+		BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+		while ((line = error.readLine()) != null) {
+			System.out.println(line);
+		}
+		error.close();
 	}
 	
 	// ---------------------------------------------------------------------
@@ -90,19 +118,22 @@ public class ImportDB {
 	 */
 	public static void main(String[] args) throws Exception {
 		
-		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", "e4o_qa4_ne", IOFileUtils.IOLoadingType.RESOURCE);
+		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", "e4o_qa2_ne", IOFileUtils.IOLoadingType.RESOURCE);
 		
 		// parameters for mysqldump
-		DataSource ds = nEnv.getDataSources().get("tenant");
+		DataSource ds = nEnv.getDataSources().get(DS_TENANT);
 		System.out.println("HostAddress: " + ds.getHostAddress());
 		System.out.println("HostPort: " + ds.getHostPort());
 		System.out.println("User: " + ds.getUser());
 		System.out.println("Password: " + Security.decrypt(ds.getPassword()));
+		System.out.println("HostName" + ds.getHostName()); // DB name
 		
 		if (!checkMysqldump()) {
 			System.out.println("WARNING: mysqldump command is not present on your machine");
 			return;
 		}
+		
+		showAllDatabases(nEnv, DS_TENANT);
 		
 		// TODO...
 	}
