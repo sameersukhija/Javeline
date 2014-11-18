@@ -23,4 +23,13 @@ public class ImportDB {
 	public static void dumpLight(String[] tablesList) {
 		// TODO...
 	}
+	
+	/**
+	 * This method is used to dump the data only, some records using the where condition (user tables)
+	 * 
+	 * @param tablesList
+	 */
+	public static void dumpBig(String[] tablesList) {
+		// TODO...
+	}
 }
