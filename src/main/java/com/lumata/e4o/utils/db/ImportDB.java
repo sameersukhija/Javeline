@@ -8,6 +8,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.DataSource;
@@ -239,6 +242,37 @@ public class ImportDB {
 		}
 	}
 	
+	public static void diffTenantTables(NetworkEnvironment nEnv, String dataSourceName) throws ClassNotFoundException, SQLException {
+		DataSource ds = nEnv.getDataSources().get(dataSourceName);
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection c = DriverManager.getConnection(
+				String.format("jdbc:mysql://%s:%s/information_schema", ds.getHostAddress(), ds.getHostPort()),
+					ds.getUser(), Security.decrypt(ds.getPassword()));
+		
+		Statement stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery(
+				String.format("SELECT TABLE_NAME FROM TABLES WHERE TABLE_SCHEMA = '%s'", ds.getHostName()));
+		
+		List<String> tables = new ArrayList<String>();
+		while(rs.next()) {
+			tables.add(rs.getString(1));
+		}
+		
+		for (String table : ALL_TENANT_TABLES) {
+			if (!tables.contains(table)) {
+				System.out.println(" + " + table);
+			}
+		}
+		
+		List<String> allTenantTable = Arrays.asList(ALL_TENANT_TABLES); 
+		for (String table : tables) {
+			if (!allTenantTable.contains(table)) {
+				System.out.println(" - " + table);				
+			}
+		}
+	}
+	
 	/**
 	 * This method is used to dump the schema only
 	 * 
@@ -335,7 +369,7 @@ public class ImportDB {
 	 */
 	public static void main(String[] args) throws Exception {
 		
-		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", "e4o_qa2_ne", IOFileUtils.IOLoadingType.RESOURCE);
+		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", "e4o_qa3_ne", IOFileUtils.IOLoadingType.RESOURCE);
 		
 		// parameters for mysqldump
 		DataSource ds = nEnv.getDataSources().get(DS_TENANT);
@@ -350,6 +384,7 @@ public class ImportDB {
 			return;
 		}
 		
-		showAllTenantTablesCount(nEnv, DS_TENANT);
+		//showAllTenantTablesCount(nEnv, DS_TENANT);
+		diffTenantTables(nEnv, DS_TENANT);
 	}
 }
