@@ -54,9 +54,12 @@ public class ImportDB {
 	/**
 	 * This method is used to dump the data only, some records using the where condition (user tables)
 	 * 
+	 * Example:
+	 * ... --where=userId in (...)
+	 * 
 	 * @param tablesList
 	 */
-	public static void dumpBig(String[] tablesList, NetworkEnvironment nEnv) {
+	public static void dumpBig(String[] tablesList, String where, NetworkEnvironment nEnv) {
 		// TODO...
 	}
 
