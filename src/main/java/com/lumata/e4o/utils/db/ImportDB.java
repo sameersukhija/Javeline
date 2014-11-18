@@ -6,4 +6,12 @@ package com.lumata.e4o.utils.db;
  */
 public class ImportDB {
 
+	/**
+	 * This method is used to dump the schema only
+	 * 
+	 * @param tablesList
+	 */
+	public static void dumpStruct(String[] tablesList) {
+		// TODO...
+	}
 }
