@@ -31,7 +31,6 @@ import com.lumata.common.testing.network.SFTPClient;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Service;
 import com.lumata.e4o.exceptions.CDRException;
-
 import com.lumata.e4o.system.cdr.fields.Address;
 /** cdr field types */
 import com.lumata.e4o.system.cdr.fields.Amount;
@@ -85,6 +84,7 @@ import com.lumata.e4o.system.cdr.fields.OldTongue;
 import com.lumata.e4o.system.cdr.fields.Partner;
 import com.lumata.e4o.system.cdr.fields.RawData;
 import com.lumata.e4o.system.cdr.fields.RechargeAmount;
+import com.lumata.e4o.system.cdr.fields.ShortCode;
 import com.lumata.e4o.system.cdr.fields.Sms;
 import com.lumata.e4o.system.cdr.fields.TenantId;
 import com.lumata.e4o.system.cdr.fields.Terminating;
@@ -313,6 +313,9 @@ public class CDR {
 	@ChannelName
 	protected FieldString channel_name;
 	
+	@ShortCode
+	protected FieldString short_code;
+	
 	@Text
 	protected FieldString text;
 	
@@ -529,6 +532,7 @@ public class CDR {
 		this.address = new FieldString();
 		this.time = new FieldString();
 		this.channel_name = new FieldString();
+		this.short_code = new FieldString();
 		this.text = new FieldString();
 		
 	}

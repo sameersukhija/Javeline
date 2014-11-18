@@ -1,9 +1,5 @@
 package com.lumata.e4o.testplan.functional.tokens;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
@@ -19,14 +15,6 @@ import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
 import com.lumata.e4o.dao.tenant.DAOToken;
-import com.lumata.e4o.schema.tenant.CatalogOffers;
-import com.lumata.e4o.schema.tenant.Subscribers;
-import com.lumata.e4o.schema.tenant.Token;
-import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
-
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 
 public class Tokens_Management {
 	

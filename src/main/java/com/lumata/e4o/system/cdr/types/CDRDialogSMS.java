@@ -5,13 +5,12 @@ import com.lumata.e4o.system.cdr.fields.*;
 import com.lumata.e4o.exceptions.FieldException;
 import java.util.Calendar;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
-import com.lumata.e4o.system.fields.IFieldEnum;
 
-public class CDRLifeCycleDelete extends CDR { 
+public class CDRDialogSMS extends CDR { 
 
-	private final int FIELDS = 3;
+	private final int FIELDS = 4;
 
-	public CDRLifeCycleDelete() {
+	public CDRDialogSMS() {
 		super();
 	} 
 
@@ -89,33 +88,78 @@ public class CDRLifeCycleDelete extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
-	@Delete( position = 2 )
-	public String getDelete() throws FieldException  {
-		return this.delete.getEnum();
+	@ShortCode( position = 2 )
+	public String getShortCode() throws FieldException  {
+		return this.short_code.getString();
 	}
 
-	public void setDeleteStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException  {
-		if( this.delete != null ) { this.delete.setEnumStrategyFixed( value ); }
+	public void setShortCodeLength( final Integer length ) throws FieldException  {
+		if( this.short_code != null ) { this.short_code.setStringLength( length ); }
 	}
 
-	public void setDeleteStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
-		if( this.delete != null ) { this.delete.setEnumStrategyIncrement( value, increment ); }
+	public void setShortCodeStrategyFixed( final String value ) throws FieldException  {
+		if( this.short_code != null ) { this.short_code.setStringStrategyFixed( value ); }
 	}
 
-	public void setDeleteStrategyRandom() throws FieldException  {
-		if( this.delete != null ) { this.delete.setEnumStrategyRandom(); }
+	public void setShortCodeStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.short_code != null ) { this.short_code.setStringStrategyIncrement( value, start_value, increment ); }
 	}
 
-	public void cleanDeleteStrategyFixed()  {
-		if( this.delete != null ) { this.delete.cleanEnumStrategyFixed(); }
+	public void setShortCodeStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.short_code != null ) { this.short_code.setStringStrategyRandom( length ); }
 	}
 
-	public void cleanDeleteStrategyIncrement()  {
-		if( this.delete != null ) { this.delete.cleanEnumStrategyIncrement(); }
+	public void cleanShortCode()  {
+		if( this.short_code != null ) { this.short_code.cleanString(); }
 	}
 
-	public void cleanDeleteStrategyRandom()  {
-		if( this.delete != null ) { this.delete.cleanEnumStrategyRandom(); }
+	public void cleanShortCodeLength()  {
+		if( this.short_code != null ) { this.short_code.cleanStringLength(); }
+	}
+
+	public void cleanShortCodeStrategyIncrement()  {
+		if( this.short_code != null ) { this.short_code.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanShortCodeStrategyRandom()  {
+		if( this.short_code != null ) { this.short_code.cleanStringStrategyRandom(); }
+	}
+
+	@Text( position = 3 )
+	public String getText() throws FieldException  {
+		return this.text.getString();
+	}
+
+	public void setTextLength( final Integer length ) throws FieldException  {
+		if( this.text != null ) { this.text.setStringLength( length ); }
+	}
+
+	public void setTextStrategyFixed( final String value ) throws FieldException  {
+		if( this.text != null ) { this.text.setStringStrategyFixed( value ); }
+	}
+
+	public void setTextStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.text != null ) { this.text.setStringStrategyIncrement( value, start_value, increment ); }
+	}
+
+	public void setTextStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.text != null ) { this.text.setStringStrategyRandom( length ); }
+	}
+
+	public void cleanText()  {
+		if( this.text != null ) { this.text.cleanString(); }
+	}
+
+	public void cleanTextLength()  {
+		if( this.text != null ) { this.text.cleanStringLength(); }
+	}
+
+	public void cleanTextStrategyIncrement()  {
+		if( this.text != null ) { this.text.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanTextStrategyRandom()  {
+		if( this.text != null ) { this.text.cleanStringStrategyRandom(); }
 	}
 
 }

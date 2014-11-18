@@ -92,28 +92,40 @@
   "services": {
     "ssh": {
       "actrule": {
-      "hostName": "md1-sa029-e4o01",
-      "hostAddress": "10.120.38.36",
-        "hostPort": "22",
-        "users": {
-          "root": {
-            "username": "root",
-            "password": "cmdISnJjdQ==",
-            "privateKey": "/opt/lumata/e4o_test"
-          }
-        }
+	      "hostName": "md1-sa029-e4o01",
+	      "hostAddress": "10.120.38.36",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
       },
       "collector": {
-      "hostName": "md1-sa029-e4o01",
-      "hostAddress": "10.120.38.36",
-        "hostPort": "22",
-        "users": {
-          "root": {
-            "username": "root",
-            "password": "cmdISnJjdQ==",
-            "privateKey": "/opt/lumata/e4o_test"
-          }
-        }
+	      "hostName": "md1-sa029-e4o01",
+	      "hostAddress": "10.120.38.36",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
+      },
+      "nfsdata": {
+	      "hostName": "md1-sa029-e4o01",
+	      "hostAddress": "10.120.38.36",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
       }
     }
   },

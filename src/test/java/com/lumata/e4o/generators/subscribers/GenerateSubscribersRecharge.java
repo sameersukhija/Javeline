@@ -147,9 +147,9 @@ public class GenerateSubscribersRecharge {
 		
 		final Long STARTED_MSISDN = 3399900001L;
 		final Integer INCREMENT = 1;
-		final Integer REPEAT = 50;
-		final Integer MIN_EVENTS = 10;
-		final Integer MAX_EVENTS = 20;
+		final Integer REPEAT = 1;
+		final Integer MIN_EVENTS = 20;
+		final Integer MAX_EVENTS = 50;
 				
 		Generator.subscribers()
 					.server( guiServer )

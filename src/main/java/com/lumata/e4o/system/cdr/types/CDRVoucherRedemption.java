@@ -55,6 +55,11 @@ public class CDRVoucherRedemption extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
+	@VoucherCode( position = 1 )
+	public String getVoucherCode() throws FieldException  {
+		return this.voucherCode.getString();
+	}
+
 	public void setVoucherCodeLength( final Integer length ) throws FieldException  {
 		if( this.voucherCode != null ) { this.voucherCode.setStringLength( length ); }
 	}
@@ -87,9 +92,9 @@ public class CDRVoucherRedemption extends CDR {
 		if( this.voucherCode != null ) { this.voucherCode.cleanStringStrategyRandom(); }
 	}
 
-	@VoucherCode( position = 1 )
-	public String getVoucherCode() throws FieldException  {
-		return this.voucherCode.getString();
+	@Date( position = 2 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
@@ -120,9 +125,9 @@ public class CDRVoucherRedemption extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
-	@Date( position = 2 )
-	public String getDate()  {
-		return this.date.getDate();
+	@Location( position = 3 )
+	public String getLocation() throws FieldException  {
+		return this.location.getString();
 	}
 
 	public void setLocationLength( final Integer length ) throws FieldException  {
@@ -157,9 +162,9 @@ public class CDRVoucherRedemption extends CDR {
 		if( this.location != null ) { this.location.cleanStringStrategyRandom(); }
 	}
 
-	@Location( position = 3 )
-	public String getLocation() throws FieldException  {
-		return this.location.getString();
+	@Partner( position = 4 )
+	public String getPartner() throws FieldException  {
+		return this.partner.getString();
 	}
 
 	public void setPartnerLength( final Integer length ) throws FieldException  {
@@ -192,11 +197,6 @@ public class CDRVoucherRedemption extends CDR {
 
 	public void cleanPartnerStrategyRandom()  {
 		if( this.partner != null ) { this.partner.cleanStringStrategyRandom(); }
-	}
-
-	@Partner( position = 4 )
-	public String getPartner() throws FieldException  {
-		return this.partner.getString();
 	}
 
 }

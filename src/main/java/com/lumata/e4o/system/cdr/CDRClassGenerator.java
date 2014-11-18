@@ -69,6 +69,7 @@ import com.lumata.e4o.system.cdr.fields.OldTongue;
 import com.lumata.e4o.system.cdr.fields.Partner;
 import com.lumata.e4o.system.cdr.fields.RawData;
 import com.lumata.e4o.system.cdr.fields.RechargeAmount;
+import com.lumata.e4o.system.cdr.fields.ShortCode;
 import com.lumata.e4o.system.cdr.fields.Sms;
 import com.lumata.e4o.system.cdr.fields.TenantId;
 import com.lumata.e4o.system.cdr.fields.Terminating;
@@ -188,9 +189,9 @@ public class CDRClassGenerator {
 				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class );
 			}
 		},
-		DailogSMS {	
+		DialogSMS {	
 			public List<Class<? extends Annotation>> fields() {
-				return Arrays.asList( Msisdn.class, Address.class, Time.class, ChannelName.class, Text.class );
+				return Arrays.asList( Msisdn.class, Date.class, ShortCode.class, Text.class );
 			}
 		};
 		
