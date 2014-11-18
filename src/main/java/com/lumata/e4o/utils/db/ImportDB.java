@@ -96,6 +96,11 @@ public class ImportDB {
 		System.out.println("User: " + ds.getUser());
 		System.out.println("Password: " + Security.decrypt(ds.getPassword()));
 		
-		System.out.println("checkMysqldump: " + checkMysqldump());
+		if (!checkMysqldump()) {
+			System.out.println("WARNING: mysqldump command is not present on your machine");
+			return;
+		}
+		
+		// TODO...
 	}
 }
