@@ -3,6 +3,11 @@ package com.lumata.e4o.utils.db;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.DataSource;
@@ -281,6 +286,26 @@ public class ImportDB {
 		execOutput(p);
 	}
 	
+	// count(*) SQL
+	private static long execCount(String tableName, NetworkEnvironment nEnv, String dataSourceName) throws ClassNotFoundException, SQLException {
+		DataSource ds = nEnv.getDataSources().get(dataSourceName);
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection c = DriverManager.getConnection(
+				String.format("jdbc:mysql://%s:%s/%s", ds.getHostAddress(), ds.getHostPort(), ds.getHostName()),
+					ds.getUser(), Security.decrypt(ds.getPassword()));
+		
+		Statement stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM " + tableName);
+		
+		long count = 0;
+		while(rs.next()) {
+			count = rs.getLong(1);
+		}
+		
+		return count;
+	}
+	
 	// ---------------------------------------------------------------------
 	// MAIN
 	// ---------------------------------------------------------------------
@@ -308,7 +333,9 @@ public class ImportDB {
 			return;
 		}
 		
-		showAllDatabases(nEnv, DS_TENANT);
-		showAllTables(nEnv, DS_TENANT);
+		// showAllDatabases(nEnv, DS_TENANT);
+		// showAllTables(nEnv, DS_TENANT);
+		
+		System.out.println(execCount("token", nEnv, DS_TENANT));
 	}
 }
