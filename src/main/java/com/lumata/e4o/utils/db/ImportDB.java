@@ -1,6 +1,7 @@
 package com.lumata.e4o.utils.db;
 
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -278,12 +279,16 @@ public class ImportDB {
 	}
 	
 	/**
-	 * This method is used to dump the schema only
+	 * This method is used to dump the schema onlyhttp://www.ccsg.it/UomoTigre.htm
 	 * 
 	 * @param tablesList
+	 * @throws IOException 
 	 */
-	public static void dumpStruct(String[] tablesList, DataSource ds) {
+	public static void dumpStruct(String[] tablesList, DataSource ds, String filename) throws IOException {
+
 		// TODO...
+		
+		execFile("mysqldump --version", filename); // TODO change, only for test
 	}
 	
 	/**
@@ -296,7 +301,7 @@ public class ImportDB {
 	}
 	
 	/**
-	 * This method is used to dump the data only, some records using the where condition (user tables)
+	 * This method is used to dump the data only, some records usihttp://www.ccsg.it/UomoTigre.htmng the where condition (user tables)
 	 * 
 	 * Example:
 	 * ... --where=userId in (...)
@@ -328,11 +333,33 @@ public class ImportDB {
 		}
 		error.close();
 	}
+	private static void execFileOutput(Process p, String filename) throws IOException {
+		// input
+		FileWriter filew = new FileWriter(filename, true);
+		BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		String line;
+		while ((line = input.readLine()) != null) {
+			filew.write(line);
+		}
+		input.close();
+		filew.close();
+		
+		// error
+		BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+		while ((line = error.readLine()) != null) {
+			System.out.println(line);
+		}
+		error.close();
+	}
 	
 	// low-level command call
 	private static void exec(String command) throws IOException {
 		Process p = Runtime.getRuntime().exec(command);
 		execOutput(p);
+	}
+	private static void execFile(String command, String filename) throws IOException {
+		Process p = Runtime.getRuntime().exec(command);
+		execFileOutput(p, filename);
 	}
 
 	// low-level command call
@@ -386,9 +413,13 @@ public class ImportDB {
 			return;
 		}
 		
+		/*
 		showAllDatabases(ds);
 		showAllTables(ds);
 		showAllTenantTablesCount(ds);
 		diffTenantTables(ds);
+		*/
+		
+		dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
 	}
 }
