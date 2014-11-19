@@ -1,6 +1,7 @@
 package com.lumata.e4o.utils.db;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -288,7 +289,23 @@ public class ImportDB {
 
 		// TODO...
 		
-		execFile("mysqldump --version", filename); // TODO change, only for test
+		// delete file if exist
+		File file = new File(filename);
+		if (file.exists()) {
+			file.delete();
+			System.out.println("Old file deleted: " + filename);
+		}
+		
+		// TODO add the loop
+		
+		execFile(String.format(
+				"mysqldump -h%s -u%s -p%s -P%s --lock-tables=false --no-data --skip-triggers %s %s",
+				ds.getHostAddress(),
+				ds.getUser(),
+				Security.decrypt(ds.getPassword()),
+				ds.getHostPort(),
+				ds.getHostName(),
+				"token"), filename); // TODO change, only for test
 	}
 	
 	/**
@@ -339,7 +356,7 @@ public class ImportDB {
 		BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		String line;
 		while ((line = input.readLine()) != null) {
-			filew.write(line);
+			filew.write(line + "\n");
 		}
 		input.close();
 		filew.close();
@@ -406,7 +423,7 @@ public class ImportDB {
 		System.out.println("HostPort: " + ds.getHostPort());
 		System.out.println("User: " + ds.getUser());
 		System.out.println("Password: " + Security.decrypt(ds.getPassword()));
-		System.out.println("HostName" + ds.getHostName()); // DB name
+		System.out.println("HostName: " + ds.getHostName()); // DB name
 		
 		if (!checkMysqldump()) {
 			System.out.println("WARNING: mysqldump command is not present on your machine");
