@@ -287,8 +287,6 @@ public class ImportDB {
 	 */
 	public static void dumpStruct(String[] tablesList, DataSource ds, String filename) throws IOException {
 
-		// TODO...
-		
 		// delete file if exist
 		File file = new File(filename);
 		if (file.exists()) {
@@ -296,7 +294,7 @@ public class ImportDB {
 			System.out.println("Old file deleted: " + filename);
 		}
 		
-		// TODO add the loop
+		String tablesListStr = convertArrayToString(tablesList, " ");
 		
 		execFile(String.format(
 				"mysqldump -h%s -u%s -p%s -P%s --lock-tables=false --no-data --skip-triggers %s %s",
@@ -305,7 +303,7 @@ public class ImportDB {
 				Security.decrypt(ds.getPassword()),
 				ds.getHostPort(),
 				ds.getHostName(),
-				"token"), filename); // TODO change, only for test
+				tablesListStr), filename);
 	}
 	
 	/**
@@ -333,6 +331,20 @@ public class ImportDB {
 	// Private static methods
 	// ---------------------------------------------------------------------
 
+	private static String convertArrayToString(String[] list, String sep) {
+		String res = "";
+		
+		for (String element : list) {
+			if (res.length() == 0) {
+				res += element;
+			} else {
+				res += sep + element;
+			}
+		}
+		
+		return res;
+	}
+	
 	// low-level Process input/error
 	private static void execOutput(Process p) throws IOException {
 		// input
