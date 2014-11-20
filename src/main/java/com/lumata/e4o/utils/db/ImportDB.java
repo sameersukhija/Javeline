@@ -311,7 +311,7 @@ public class ImportDB {
 	}
 	
 	/**
-	 * This method is used to dump the data only, some records usihttp://www.ccsg.it/UomoTigre.htmng the where condition (user tables)
+	 * This method is used to dump the data only, some records using the where condition (user tables)
 	 * 
 	 * Example:
 	 * ... --where=userId in (...)
