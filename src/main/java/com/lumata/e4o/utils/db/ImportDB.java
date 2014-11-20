@@ -30,14 +30,16 @@ public class ImportDB {
 	// TODO find other big tables and configure this list in JSON
 	public final static String[] BIG_TENANT_TABLES = {
 		"^daily_.+", // more
-		"^campaigns$",
 		"^campaigns_.+", // more
+		"^odr_events$",
+		"^purchase_repartition$",
 		"^stats_.+", // more
 		"^subs_.+", // more
 		"^subscriber$",
 		"^subscribers_all$",
 		"^token$",
-		"^token_event$"
+		"^token_event$",
+		"^voucher_codes$"
 	};
 	
 	// TODO configure this list in JSON
