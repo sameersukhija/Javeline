@@ -367,6 +367,7 @@ public class ImportDB {
 		return res;
 	}
 	
+	// to exclude elements from the first list, set the "include" parameter to false
 	private static String[] excludeElementsFrom(String[] fromList, String[] exclusionsList, boolean include) {
 		List<String> list = new ArrayList<String>();
 		
