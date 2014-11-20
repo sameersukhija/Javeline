@@ -287,12 +287,7 @@ public class ImportDB {
 	 */
 	public static void dumpStruct(String[] tablesList, DataSource ds, String filename) throws IOException {
 
-		// delete file if exist
-		File file = new File(filename);
-		if (file.exists()) {
-			file.delete();
-			System.out.println("Old file deleted: " + filename);
-		}
+		deleteOldFileIfExists(filename);
 		
 		String tablesListStr = convertArrayToString(tablesList, " ");
 		
@@ -331,6 +326,14 @@ public class ImportDB {
 	// Private static methods
 	// ---------------------------------------------------------------------
 
+	private static void deleteOldFileIfExists(String filename) {
+		File file = new File(filename);
+		if (file.exists()) {
+			file.delete();
+			System.out.println("Old file deleted: " + filename);
+		}
+	}
+	
 	private static String convertArrayToString(String[] list, String sep) {
 		String res = "";
 		
