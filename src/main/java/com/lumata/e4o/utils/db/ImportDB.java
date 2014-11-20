@@ -367,7 +367,7 @@ public class ImportDB {
 		return res;
 	}
 	
-	private static String[] excludeElementsFrom(String[] fromList, String[] exclusionsList) {
+	private static String[] excludeElementsFrom(String[] fromList, String[] exclusionsList, boolean include) {
 		List<String> list = new ArrayList<String>();
 		
 		for (String from : fromList) {
@@ -381,7 +381,7 @@ public class ImportDB {
 				}
 			}
 			
-			if (found == false) {
+			if (found == include) {
 				list.add(from);
 			}
 		}
@@ -495,7 +495,7 @@ public class ImportDB {
 		
 		//dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
 		
-		String[] lightTenantTables = excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES);
+		String[] lightTenantTables = excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, true);
 		for (String table : lightTenantTables) {
 			System.out.println(table);
 		}
