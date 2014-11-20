@@ -280,7 +280,7 @@ public class ImportDB {
 	}
 	
 	/**
-	 * This method is used to dump the schema onlyhttp://www.ccsg.it/UomoTigre.htm
+	 * This method is used to dump the schema only
 	 * 
 	 * @param tablesList
 	 * @throws IOException 
