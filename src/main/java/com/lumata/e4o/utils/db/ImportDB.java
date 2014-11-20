@@ -27,6 +27,7 @@ public class ImportDB {
 
 	public final static String DS_TENANT = "tenant";
 	
+	// TODO find other big tables and configure this list in JSON
 	public final static String[] BIG_TENANT_TABLES = {
 		"^daily_.+",
 		"^campaigns$",
@@ -494,14 +495,15 @@ public class ImportDB {
 		diffTenantTables(ds);
 		*/
 		
-		//dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
+		/*
+		dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
+		dumpLight(excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, false),
+				ds, "light.sql");
+		*/
 		
 		String[] lightTenantTables = excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, true);
 		for (String table : lightTenantTables) {
 			System.out.println(table);
-		}
-		
-		//dumpLight(ALL_TENANT_TABLES, ds, "light.sql");
-		
+		}		
 	}
 }
