@@ -1,8 +1,18 @@
 package com.lumata.e4o.utils.db;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.DataSource;
@@ -17,6 +27,22 @@ public class ImportDB {
 
 	public final static String DS_TENANT = "tenant";
 	
+	// TODO find other big tables and configure this list in JSON
+	public final static String[] BIG_TENANT_TABLES = {
+		"^daily_.+", // more
+		"^campaigns_.+", // more
+		"^odr_events$",
+		"^purchase_repartition$",
+		"^stats_.+", // more
+		"^subs_.+", // more
+		"^subscriber$",
+		"^subscribers_all$",
+		"^token$",
+		"^token_event$",
+		"^voucher_codes$"
+	};
+	
+	// TODO configure this list in JSON
 	public final static String[] ALL_TENANT_TABLES = {
 		"agencies",
 		"agrp_caps",
@@ -55,7 +81,7 @@ public class ImportDB {
 		"collected_files",
 		"collected_files_stats",
 		"composite_bundle",
-		"conf",
+		"conf", // TODO this table is complex to import (check the info inside)
 		"conf_update_log",
 		"conf_update_log_rrd_key",
 		"daily_account",
@@ -192,9 +218,7 @@ public class ImportDB {
 	 * @param dataSourceName
 	 * @throws IOException
 	 */
-	public static void showAllDatabases(NetworkEnvironment nEnv, String dataSourceName) throws IOException {
-		DataSource ds = nEnv.getDataSources().get(dataSourceName);
-		
+	public static void showAllDatabases(DataSource ds) throws IOException {
 		System.out.println("\nmysql> show databases");
 		System.out.println(  "---------------------");
 		String[] command = {"mysql", "-h"+ds.getHostAddress(), "-P"+ds.getHostPort(), "-u"+ds.getUser(), "-p"+Security.decrypt(ds.getPassword()), "-e", "show databases"};
@@ -208,9 +232,7 @@ public class ImportDB {
 	 * @param dataSourceName
 	 * @throws IOException
 	 */
-	public static void showAllTables(NetworkEnvironment nEnv, String dataSourceName) throws IOException {
-		DataSource ds = nEnv.getDataSources().get(dataSourceName);
-		
+	public static void showAllTables(DataSource ds) throws IOException {
 		System.out.println("\nmysql> show tables");
 		System.out.println(  "------------------");
 		String[] command = {"mysql", "-h"+ds.getHostAddress(), "-P"+ds.getHostPort(), "-u"+ds.getUser(), "-p"+Security.decrypt(ds.getPassword()), "-D"+ds.getHostName(), "-e", "show tables"};
@@ -218,21 +240,99 @@ public class ImportDB {
 	}
 	
 	/**
+	 * Show the count of all the records for each tenant table
+	 * 
+	 * @param nEnv
+	 * @param dataSourceName
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static void showAllTenantTablesCount(DataSource ds) throws ClassNotFoundException, SQLException {
+		System.out.println("\nTenant tables count");
+		System.out.println(  "-------------------");
+		for (String table : ALL_TENANT_TABLES) {
+			System.out.println(String.format("%s: %d", table, execCount(table, ds)));
+		}
+	}
+	
+	/**
+	 * Show the difference between the Array of tenant tables and the database
+	 * 
+	 * @param nEnv
+	 * @param dataSourceName
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static void diffTenantTables(DataSource ds) throws ClassNotFoundException, SQLException {
+		System.out.println("\nDiff tenant tables");
+		System.out.println(  "------------------");
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection c = DriverManager.getConnection(
+				String.format("jdbc:mysql://%s:%s/information_schema", ds.getHostAddress(), ds.getHostPort()),
+					ds.getUser(), Security.decrypt(ds.getPassword()));
+		
+		Statement stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery(
+				String.format("SELECT TABLE_NAME FROM TABLES WHERE TABLE_SCHEMA = '%s'", ds.getHostName()));
+		
+		List<String> tables = new ArrayList<String>();
+		while(rs.next()) {
+			tables.add(rs.getString(1));
+		}
+		
+		for (String table : ALL_TENANT_TABLES) {
+			if (!tables.contains(table)) {
+				System.out.println(" + " + table);
+			}
+		}
+		
+		List<String> allTenantTable = Arrays.asList(ALL_TENANT_TABLES); 
+		for (String table : tables) {
+			if (!allTenantTable.contains(table)) {
+				System.out.println(" - " + table);				
+			}
+		}
+	}
+	
+	/**
 	 * This method is used to dump the schema only
 	 * 
 	 * @param tablesList
+	 * @throws IOException 
 	 */
-	public static void dumpStruct(String[] tablesList, NetworkEnvironment nEnv, String dataSourceName) {
-		// TODO...
+	public static void dumpStruct(String[] tablesList, DataSource ds, String filename) throws IOException {
+
+		deleteOldFileIfExists(filename);
+		
+		execFile(String.format(
+				"mysqldump -h%s -u%s -p%s -P%s --lock-tables=false --no-data --skip-triggers %s %s",
+				ds.getHostAddress(),
+				ds.getUser(),
+				Security.decrypt(ds.getPassword()),
+				ds.getHostPort(),
+				ds.getHostName(),
+				convertArrayToString(tablesList, " ")), filename);
 	}
 	
 	/**
 	 * This method is used to dump the data only, all the records (configuration tables)
 	 * 
 	 * @param tablesList
+	 * @throws IOException 
 	 */
-	public static void dumpLight(String[] tablesList, NetworkEnvironment nEnv, String dataSourceName) {
-		// TODO...
+	public static void dumpLight(String[] tablesList, DataSource ds, String filename) throws IOException {
+
+		deleteOldFileIfExists(filename);
+		
+		execFile(String.format(
+				"mysqldump -h%s -u%s -p%s -P%s --lock-tables=false --no-create-info %s %s",
+				ds.getHostAddress(),
+				ds.getUser(),
+				Security.decrypt(ds.getPassword()),
+				ds.getHostPort(),
+				ds.getHostName(),
+				convertArrayToString(tablesList, " ")), filename);
 	}
 	
 	/**
@@ -243,7 +343,7 @@ public class ImportDB {
 	 * 
 	 * @param tablesList
 	 */
-	public static void dumpBig(String[] tablesList, String where, NetworkEnvironment nEnv, String dataSourceName) {
+	public static void dumpBig(String[] tablesList, String where, DataSource ds) {
 		// TODO...
 	}
 
@@ -251,6 +351,51 @@ public class ImportDB {
 	// Private static methods
 	// ---------------------------------------------------------------------
 
+	private static void deleteOldFileIfExists(String filename) {
+		File file = new File(filename);
+		if (file.exists()) {
+			file.delete();
+			System.out.println("Old file deleted: " + filename);
+		}
+	}
+	
+	private static String convertArrayToString(String[] list, String sep) {
+		String res = "";
+		
+		for (String element : list) {
+			if (res.length() == 0) {
+				res += element;
+			} else {
+				res += sep + element;
+			}
+		}
+		
+		return res;
+	}
+	
+	// to exclude elements from the first list, set the "include" parameter to false
+	private static String[] excludeElementsFrom(String[] fromList, String[] exclusionsList, boolean include) {
+		List<String> list = new ArrayList<String>();
+		
+		for (String from : fromList) {
+			boolean found = false;
+			
+			for (String exclusion : exclusionsList) {
+				found = from.matches(exclusion);
+				
+				if (found == true) {
+					break;
+				}
+			}
+			
+			if (found == include) {
+				list.add(from);
+			}
+		}
+		
+		return list.toArray(new String[list.size()]);
+	}
+	
 	// low-level Process input/error
 	private static void execOutput(Process p) throws IOException {
 		// input
@@ -268,17 +413,57 @@ public class ImportDB {
 		}
 		error.close();
 	}
+	private static void execFileOutput(Process p, String filename) throws IOException {
+		// input
+		FileWriter filew = new FileWriter(filename, true);
+		BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		String line;
+		while ((line = input.readLine()) != null) {
+			filew.write(line + "\n");
+		}
+		input.close();
+		filew.close();
+		
+		// error
+		BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+		while ((line = error.readLine()) != null) {
+			System.out.println(line);
+		}
+		error.close();
+	}
 	
 	// low-level command call
 	private static void exec(String command) throws IOException {
 		Process p = Runtime.getRuntime().exec(command);
 		execOutput(p);
 	}
+	private static void execFile(String command, String filename) throws IOException {
+		Process p = Runtime.getRuntime().exec(command);
+		execFileOutput(p, filename);
+	}
 
 	// low-level command call
 	private static void exec(String[] command) throws IOException {
 		Process p = Runtime.getRuntime().exec(command);
 		execOutput(p);
+	}
+	
+	// count(*) SQL
+	private static long execCount(String tableName, DataSource ds) throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection c = DriverManager.getConnection(
+				String.format("jdbc:mysql://%s:%s/%s", ds.getHostAddress(), ds.getHostPort(), ds.getHostName()),
+					ds.getUser(), Security.decrypt(ds.getPassword()));
+		
+		Statement stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM " + tableName);
+		
+		long count = 0;
+		while(rs.next()) {
+			count = rs.getLong(1);
+		}
+		
+		return count;
 	}
 	
 	// ---------------------------------------------------------------------
@@ -293,7 +478,7 @@ public class ImportDB {
 	 */
 	public static void main(String[] args) throws Exception {
 		
-		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", "e4o_qa2_ne", IOFileUtils.IOLoadingType.RESOURCE);
+		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", "e4o_qa3_ne", IOFileUtils.IOLoadingType.RESOURCE);
 		
 		// parameters for mysqldump
 		DataSource ds = nEnv.getDataSources().get(DS_TENANT);
@@ -301,14 +486,29 @@ public class ImportDB {
 		System.out.println("HostPort: " + ds.getHostPort());
 		System.out.println("User: " + ds.getUser());
 		System.out.println("Password: " + Security.decrypt(ds.getPassword()));
-		System.out.println("HostName" + ds.getHostName()); // DB name
+		System.out.println("HostName: " + ds.getHostName()); // DB name
 		
 		if (!checkMysqldump()) {
 			System.out.println("WARNING: mysqldump command is not present on your machine");
 			return;
 		}
 		
-		showAllDatabases(nEnv, DS_TENANT);
-		showAllTables(nEnv, DS_TENANT);
+		/*
+		showAllDatabases(ds);
+		showAllTables(ds);
+		showAllTenantTablesCount(ds);
+		diffTenantTables(ds);
+		*/
+		
+		/*
+		dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
+		dumpLight(excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, false),
+				ds, "light.sql");
+		*/
+		
+		String[] lightTenantTables = excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, true);
+		for (String table : lightTenantTables) {
+			System.out.println(table);
+		}		
 	}
 }
