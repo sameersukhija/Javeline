@@ -27,6 +27,7 @@ public class ImportDB {
 
 	public final static String DS_TENANT = "tenant";
 	
+	// TODO configure this list in JSON
 	public final static String[] ALL_TENANT_TABLES = {
 		"agencies",
 		"agrp_caps",
