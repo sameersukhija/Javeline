@@ -289,8 +289,6 @@ public class ImportDB {
 
 		deleteOldFileIfExists(filename);
 		
-		String tablesListStr = convertArrayToString(tablesList, " ");
-		
 		execFile(String.format(
 				"mysqldump -h%s -u%s -p%s -P%s --lock-tables=false --no-data --skip-triggers %s %s",
 				ds.getHostAddress(),
@@ -298,7 +296,7 @@ public class ImportDB {
 				Security.decrypt(ds.getPassword()),
 				ds.getHostPort(),
 				ds.getHostName(),
-				tablesListStr), filename);
+				convertArrayToString(tablesList, " ")), filename);
 	}
 	
 	/**
