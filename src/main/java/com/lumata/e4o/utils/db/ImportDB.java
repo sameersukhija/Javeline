@@ -29,12 +29,15 @@ public class ImportDB {
 	
 	// TODO find other big tables and configure this list in JSON
 	public final static String[] BIG_TENANT_TABLES = {
-		"^daily_.+",
+		"^daily_.+", // more
 		"^campaigns$",
-		"^catalog_offers$",
-		"^stats_.+",
-		"^subs_.*+",
+		"^campaigns_.+", // more
+		"^stats_.+", // more
+		"^subs_.+", // more
 		"^subscriber$",
+		"^subscribers_all$",
+		"^token$",
+		"^token_event$"
 	};
 	
 	// TODO configure this list in JSON
@@ -76,7 +79,7 @@ public class ImportDB {
 		"collected_files",
 		"collected_files_stats",
 		"composite_bundle",
-		"conf",
+		"conf", // TODO this table is complex to import (check the info inside)
 		"conf_update_log",
 		"conf_update_log_rrd_key",
 		"daily_account",
