@@ -27,6 +27,15 @@ public class ImportDB {
 
 	public final static String DS_TENANT = "tenant";
 	
+	public final static String[] BIG_TENANT_TABLES = {
+		"^daily_.+",
+		"^campaigns$",
+		"^catalog_offers$",
+		"^stats_.+",
+		"^subs_.*+",
+		"^subscriber$",
+	};
+	
 	// TODO configure this list in JSON
 	public final static String[] ALL_TENANT_TABLES = {
 		"agencies",
@@ -358,6 +367,28 @@ public class ImportDB {
 		return res;
 	}
 	
+	private static String[] excludeElementsFrom(String[] fromList, String[] exclusionsList) {
+		List<String> list = new ArrayList<String>();
+		
+		for (String from : fromList) {
+			boolean found = false;
+			
+			for (String exclusion : exclusionsList) {
+				found = from.matches(exclusion);
+				
+				if (found == true) {
+					break;
+				}
+			}
+			
+			if (found == false) {
+				list.add(from);
+			}
+		}
+		
+		return list.toArray(new String[list.size()]);
+	}
+	
 	// low-level Process input/error
 	private static void execOutput(Process p) throws IOException {
 		// input
@@ -463,7 +494,13 @@ public class ImportDB {
 		*/
 		
 		//dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
-		dumpLight(ALL_TENANT_TABLES, ds, "light.sql");
+		
+		String[] lightTenantTables = excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES);
+		for (String table : lightTenantTables) {
+			System.out.println(table);
+		}
+		
+		//dumpLight(ALL_TENANT_TABLES, ds, "light.sql");
 		
 	}
 }
