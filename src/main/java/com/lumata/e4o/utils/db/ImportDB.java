@@ -303,9 +303,20 @@ public class ImportDB {
 	 * This method is used to dump the data only, all the records (configuration tables)
 	 * 
 	 * @param tablesList
+	 * @throws IOException 
 	 */
-	public static void dumpLight(String[] tablesList, DataSource ds) {
-		// TODO...
+	public static void dumpLight(String[] tablesList, DataSource ds, String filename) throws IOException {
+
+		deleteOldFileIfExists(filename);
+		
+		execFile(String.format(
+				"mysqldump -h%s -u%s -p%s -P%s --lock-tables=false --no-create-info %s %s",
+				ds.getHostAddress(),
+				ds.getUser(),
+				Security.decrypt(ds.getPassword()),
+				ds.getHostPort(),
+				ds.getHostName(),
+				convertArrayToString(tablesList, " ")), filename);
 	}
 	
 	/**
@@ -450,6 +461,8 @@ public class ImportDB {
 		diffTenantTables(ds);
 		*/
 		
-		dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
+		//dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
+		dumpLight(ALL_TENANT_TABLES, ds, "light.sql");
+		
 	}
 }
