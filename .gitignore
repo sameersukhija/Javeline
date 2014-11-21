@@ -8,3 +8,5 @@
 target/*
 test-output/*
 **/firefox.default/*
+/target/
+/output/
