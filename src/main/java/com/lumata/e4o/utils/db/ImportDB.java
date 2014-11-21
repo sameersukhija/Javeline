@@ -248,11 +248,15 @@ public class ImportDB {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static void showAllTenantTablesCount(DataSource ds) throws ClassNotFoundException, SQLException {
+	public static void showAllTenantTablesCount(DataSource ds) throws ClassNotFoundException {
 		System.out.println("\nTenant tables count");
 		System.out.println(  "-------------------");
 		for (String table : ALL_TENANT_TABLES) {
-			System.out.println(String.format("%s: %d", table, execCount(table, ds)));
+			try {
+				System.out.println(String.format("%s: %d", table, execCount(table, ds)));
+			} catch (SQLException e) {
+				System.out.println(String.format("%s: ERROR: %s", table, e.getMessage()));
+			}
 		}
 	}
 	
@@ -493,7 +497,7 @@ public class ImportDB {
 			System.out.println("WARNING: mysqldump command is not present on your machine");
 			return;
 		}
-		
+		showAllTenantTablesCount(ds);
 		/*
 		showAllDatabases(ds);
 		showAllTables(ds);
