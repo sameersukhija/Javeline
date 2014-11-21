@@ -113,7 +113,7 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 			);		
 		}	
 		
-		Thread.sleep(2000L);
+		Thread.sleep(XMLRPC_CALL_DELAY);
 	}	
 
 	/**
