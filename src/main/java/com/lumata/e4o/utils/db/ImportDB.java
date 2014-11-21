@@ -26,6 +26,7 @@ import com.lumata.common.testing.system.Security;
 public class ImportDB {
 
 	public final static String DS_TENANT = "tenant";
+	public final static String DS_TENANT_CRM = "tenant_crm";
 	
 	// TODO find other big tables and configure this list in JSON
 	public final static String[] BIG_TENANT_TABLES = {
@@ -478,10 +479,10 @@ public class ImportDB {
 	 */
 	public static void main(String[] args) throws Exception {
 		
-		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", "e4o_qa3_ne", IOFileUtils.IOLoadingType.RESOURCE);
+		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", "e4o_o2_prod_ne", IOFileUtils.IOLoadingType.RESOURCE);
 		
 		// parameters for mysqldump
-		DataSource ds = nEnv.getDataSources().get(DS_TENANT);
+		DataSource ds = nEnv.getDataSources().get(DS_TENANT_CRM);
 		System.out.println("HostAddress: " + ds.getHostAddress());
 		System.out.println("HostPort: " + ds.getHostPort());
 		System.out.println("User: " + ds.getUser());
@@ -506,9 +507,9 @@ public class ImportDB {
 				ds, "light.sql");
 		*/
 		
-		String[] lightTenantTables = excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, true);
+		/*String[] lightTenantTables = excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, true);
 		for (String table : lightTenantTables) {
 			System.out.println(table);
-		}		
+		}*/		
 	}
 }
