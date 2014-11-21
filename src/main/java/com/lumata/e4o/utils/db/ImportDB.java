@@ -43,6 +43,47 @@ public class ImportDB {
 		"^voucher_codes$"
 	};
 	
+	/* Comparing the Java list of tables (tenant) with the O2 environment we have:
+		 + composite_bundle
+		 + daily_bundle
+		 + daily_data
+		 + daily_postpaid
+		 + daily_voice
+		 + overall_data
+		 + overall_postpaid
+		 + overall_voice
+		 + set_hobbies
+		 + set_options
+		 + stats_subs_bundle
+		 + stats_subs_data
+		 + stats_subs_data_old
+		 + stats_subs_postpaid
+		 + stats_subs_voice
+		 + subs_data
+		 + subs_voice
+		 - catalog_offer_price_channels_old
+		 - catalog_offer_price_old
+		 - catalog_offers_eligibility
+		 - catalog_offers_old
+		 - catalog_offers_old2
+		 - composite_tarif_optionen
+		 - daily_tarif_optionen
+		 - dp_Engagement_subprofiles
+		 - files_data_gas
+		 - id_ARPU_klasse
+		 - id_smartphone_data_usage
+		 - id_voice_oder_data
+		 - nagios_support
+		 - offer_stock_old
+		 - option_to_export
+		 - rtm_disrangemon_range_pre_prod
+		 - rtm_disrangemon_range_prod
+		 - set_tarif_optionen
+		 - stats_dp_Engagement_subprofiles
+		 - stats_subs_account_old
+		 - stats_subs_prepaid_old
+		 - stats_subs_tarif_optionen
+	 */
 	// TODO configure this list in JSON
 	public final static String[] ALL_TENANT_TABLES = {
 		"agencies",
@@ -69,8 +110,13 @@ public class ImportDB {
 		"catalog_offer_content",
 		"catalog_offer_price",
 		"catalog_offer_price_channels",
+		"catalog_offer_price_channels_old",
+		"catalog_offer_price_old",
 		"catalog_offer_price_prices",
 		"catalog_offers",
+		"catalog_offers_eligibility",
+		"catalog_offers_old",
+		"catalog_offers_old2",
 		"catalog_product_characteristics",
 		"catalog_product_specific_characteristics",
 		"catalog_product_type_characteristics",
@@ -81,6 +127,7 @@ public class ImportDB {
 		"channel_references",
 		"collected_files",
 		"collected_files_stats",
+		"composite_tarif_optionen",
 		//O2: "composite_bundle",
 		"conf", // TODO this table is complex to import (check the info inside)
 		"conf_update_log",
@@ -92,21 +139,27 @@ public class ImportDB {
 		//O2: "daily_postpaid",
 		"daily_prepaid",
 		"daily_subs",
+		"daily_tarif_optionen",
 		//O2: "daily_voice",
 		"delayed_bonus",
 		"devices",
 		"distributed_jobs",
+		"dp_Engagement_subprofiles",
 		"dynamic_profiles",
 		"event_files",
 		"event_formats",
 		"events",
 		"files_data",
+		"files_data_gas",
 		"files_data_backup",
 		"files_meta",
 		"groups",
 		"groups_tabs",
 		"gui_users",
 		"gui_users_groups",
+		"id_ARPU_klasse",
+		"id_smartphone_data_usage",
+		"id_voice_oder_data",
 		"integers",
 		"kpi_campaign",
 		"library_bonuses",
@@ -121,11 +174,13 @@ public class ImportDB {
 		"loyalty_programs",
 		"loyalty_subs_test",
 		"members_all",
+		"nagios_support",
 		"nb_relations",
 		"networks",
 		"notif_reward_events",
 		"odr_events",
 		"offer_stock",
+		"offer_stock_old",
 		"offoptim_algorithm",
 		"offoptim_customer_items",
 		"offoptim_customer_items_released",
@@ -134,6 +189,7 @@ public class ImportDB {
 		"offoptim_offer_history",
 		"offoptim_ruleset",
 		"offoptim_ruleset_requestor",
+		"option_to_export",
 		"overall_account",
 		//O2: "overall_data",
 		//O2: "overall_postpaid",
@@ -151,28 +207,35 @@ public class ImportDB {
 		"relation_types",
 		"revenue_events",
 		"reward_events",
+		"rtm_disrangemon_range_pre_prod",
+		"rtm_disrangemon_range_prod",
 		"ruleset_channel",
 		"sales_channels",
 		"scheduled_tasks",
 		"services",
 		//O2: "set_hobbies",
 		//O2: "set_options",
+		"set_tarif_optionen",
 		"stats",
 		"stats_bonus",
 		"stats_campaign",
 		"stats_campaign_archive",
 		"stats_churn",
+		"stats_dp_Engagement_subprofiles",
 		"stats_offer",
 		"stats_purchase",
 		"stats_range",
 		"stats_range_custom",
 		"stats_subs",
 		"stats_subs_account",
+		"stats_subs_account_old",
 		//O2: "stats_subs_bundle",
 		//O2: "stats_subs_data",
 		//O2: "stats_subs_data_old",
 		//O2: "stats_subs_postpaid",
 		"stats_subs_prepaid",
+		"stats_subs_prepaid_old",
+		"stats_subs_tarif_optionen",
 		//O2: "stats_subs_voice",
 		"statuses",
 		"subs_badges",
@@ -497,7 +560,7 @@ public class ImportDB {
 			System.out.println("WARNING: mysqldump command is not present on your machine");
 			return;
 		}
-		diffTenantTables(ds);
+		
 		/*
 		showAllDatabases(ds);
 		showAllTables(ds);
