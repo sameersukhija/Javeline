@@ -26,6 +26,7 @@ import com.lumata.common.testing.system.Security;
 public class ImportDB {
 
 	public final static String DS_TENANT = "tenant";
+	public final static String DS_TENANT_CRM = "tenant_crm";
 	
 	// TODO find other big tables and configure this list in JSON
 	public final static String[] BIG_TENANT_TABLES = {
@@ -80,18 +81,18 @@ public class ImportDB {
 		"channel_references",
 		"collected_files",
 		"collected_files_stats",
-		"composite_bundle",
+		//O2: "composite_bundle",
 		"conf", // TODO this table is complex to import (check the info inside)
 		"conf_update_log",
 		"conf_update_log_rrd_key",
 		"daily_account",
 		"daily_bonus",
-		"daily_bundle",
-		"daily_data",
-		"daily_postpaid",
+		//O2: "daily_bundle",
+		//O2: "daily_data",
+		//O2: "daily_postpaid",
 		"daily_prepaid",
 		"daily_subs",
-		"daily_voice",
+		//O2: "daily_voice",
 		"delayed_bonus",
 		"devices",
 		"distributed_jobs",
@@ -134,10 +135,10 @@ public class ImportDB {
 		"offoptim_ruleset",
 		"offoptim_ruleset_requestor",
 		"overall_account",
-		"overall_data",
-		"overall_postpaid",
+		//O2: "overall_data",
+		//O2: "overall_postpaid",
 		"overall_prepaid",
-		"overall_voice",
+		//O2: "overall_voice",
 		"prediction_accuracy",
 		"prediction_repartition",
 		"product_stock",
@@ -154,8 +155,8 @@ public class ImportDB {
 		"sales_channels",
 		"scheduled_tasks",
 		"services",
-		"set_hobbies",
-		"set_options",
+		//O2: "set_hobbies",
+		//O2: "set_options",
 		"stats",
 		"stats_bonus",
 		"stats_campaign",
@@ -167,19 +168,19 @@ public class ImportDB {
 		"stats_range_custom",
 		"stats_subs",
 		"stats_subs_account",
-		"stats_subs_bundle",
-		"stats_subs_data",
-		"stats_subs_data_old",
-		"stats_subs_postpaid",
+		//O2: "stats_subs_bundle",
+		//O2: "stats_subs_data",
+		//O2: "stats_subs_data_old",
+		//O2: "stats_subs_postpaid",
 		"stats_subs_prepaid",
-		"stats_subs_voice",
+		//O2: "stats_subs_voice",
 		"statuses",
 		"subs_badges",
 		"subs_classes",
-		"subs_data",
+		//O2: "subs_data",
 		"subs_notif",
 		"subs_relations",
-		"subs_voice",
+		//O2: "subs_voice",
 		"subscribers",
 		"subscribers_all",
 		"suppliers",
@@ -247,11 +248,15 @@ public class ImportDB {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static void showAllTenantTablesCount(DataSource ds) throws ClassNotFoundException, SQLException {
+	public static void showAllTenantTablesCount(DataSource ds) throws ClassNotFoundException {
 		System.out.println("\nTenant tables count");
 		System.out.println(  "-------------------");
 		for (String table : ALL_TENANT_TABLES) {
-			System.out.println(String.format("%s: %d", table, execCount(table, ds)));
+			try {
+				System.out.println(String.format("%s: %d", table, execCount(table, ds)));
+			} catch (SQLException e) {
+				System.out.println(String.format("%s: ERROR: %s", table, e.getMessage()));
+			}
 		}
 	}
 	
@@ -478,10 +483,10 @@ public class ImportDB {
 	 */
 	public static void main(String[] args) throws Exception {
 		
-		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", "e4o_qa3_ne", IOFileUtils.IOLoadingType.RESOURCE);
+		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", "e4o_o2_prod_ne", IOFileUtils.IOLoadingType.RESOURCE);
 		
 		// parameters for mysqldump
-		DataSource ds = nEnv.getDataSources().get(DS_TENANT);
+		DataSource ds = nEnv.getDataSources().get(DS_TENANT_CRM);
 		System.out.println("HostAddress: " + ds.getHostAddress());
 		System.out.println("HostPort: " + ds.getHostPort());
 		System.out.println("User: " + ds.getUser());
@@ -492,7 +497,7 @@ public class ImportDB {
 			System.out.println("WARNING: mysqldump command is not present on your machine");
 			return;
 		}
-		
+		diffTenantTables(ds);
 		/*
 		showAllDatabases(ds);
 		showAllTables(ds);
@@ -506,9 +511,9 @@ public class ImportDB {
 				ds, "light.sql");
 		*/
 		
-		String[] lightTenantTables = excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, true);
+		/*String[] lightTenantTables = excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, true);
 		for (String table : lightTenantTables) {
 			System.out.println(table);
-		}		
+		}*/		
 	}
 }

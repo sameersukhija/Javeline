@@ -152,6 +152,16 @@
          "user":"root",
          "password":"YGRr=="
       },
+      "tenant_crm":{
+         "hostName":"tenant",
+         "hostAddress":"10.210.2.58",
+         "hostPort":"3301",
+         "maxActive":100,
+         "maxIdle":30,
+         "maxWait":10000,
+         "user":"root",
+         "password":"YGRr=="
+      },
 	"dm": {
 	  "hostName": "dialog_manager",
       "hostAddress":"10.120.42.26",
