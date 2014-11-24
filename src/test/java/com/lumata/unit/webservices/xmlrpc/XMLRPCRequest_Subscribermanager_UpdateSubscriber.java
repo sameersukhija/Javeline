@@ -284,7 +284,7 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 										inTag,
 										network,
 										channels(
-											channel( ChannelType.MAIL, "customer@lumatagroup.com", Status.active )	
+											channel( ChannelType.MAIL, "customer@lumatagroup.com", Boolean.TRUE )	
 										),
 										relations(),
 										params(
