@@ -479,6 +479,27 @@ public class ImportDB {
 			}
 		}
 	}
+	public static void showAllTenantTablesCountJSON(DataSource ds) throws ClassNotFoundException {
+		JSONArray array = new JSONArray(); 
+		
+		for (String table : ALL_TENANT_TABLES) {
+			System.out.println(table);
+			
+			JSONObject object = new JSONObject();
+			object.accumulate("table_name", table);
+			
+			try {
+				object.accumulate("row_count", execCount(table, ds));
+				
+			} catch (SQLException e) {
+				// pass
+			}
+			
+			array.put(object);
+		}
+		
+		System.out.println(array.toString(4));
+	}
 	
 	/**
 	 * Show the difference between the Array of tenant tables and the database
@@ -725,6 +746,7 @@ public class ImportDB {
 		showAllTenantTablesCount(ds);
 		diffTenantTables(ds);
 		*/
+		showAllTenantTablesCountJSON(ds);
 		
 		/*
 		dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
@@ -749,7 +771,7 @@ public class ImportDB {
 			System.out.println(count);
 		}*/
 		
-		JSONArray array = new JSONArray(); 
+		/*JSONArray array = new JSONArray(); 
 		
 		for (String line : SHOW_ALL_TENANT_TABLES_COUNT.split("\n")) {
 			String[] cols = line.split(": ");
@@ -761,6 +783,6 @@ public class ImportDB {
 			array.put(object);
 		}
 		
-		System.out.println(array.toString(4));
+		System.out.println(array.toString(4));*/
 	}
 }
