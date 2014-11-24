@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -465,6 +468,11 @@ public class ImportDB {
 		return res;
 	}
 	
+	private static JSONArray parseJSONArray(String filepath) throws IOException {
+		String text = new String(Files.readAllBytes(Paths.get(filepath)), StandardCharsets.UTF_8);
+		return new JSONArray(text);
+	}
+	
 	// to exclude elements from the first list, set the "include" parameter to false
 	@SuppressWarnings("unused")
 	private static String[] excludeElementsFrom(String[] fromList, String[] exclusionsList, boolean include) {
@@ -603,6 +611,12 @@ public class ImportDB {
 		/*String[] lightTenantTables = excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, true);
 		for (String table : lightTenantTables) {
 			System.out.println(table);
-		}*/		
+		}*/
+		
+		JSONArray array = parseJSONArray("src/main/resources/input/database/e4o_o2_prod_tenant_crm.json");
+		
+		for (int i=0; i < array.length(); i++) {
+			System.out.println(array.getJSONObject(i));
+		}
 	}
 }
