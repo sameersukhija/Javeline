@@ -350,6 +350,20 @@ public class ImportDB {
 		System.out.println(array.toString(4));
 	}
 	
+	public static void showAllTenantTablesZeroRows() throws IOException {
+		System.out.println("\nTenant tables count zero");
+		System.out.println(  "------------------------");
+		
+		JSONArray array = parseJSONArray("src/main/resources/input/database/e4o_o2_prod_tenant_crm.json");
+		
+		for (int i=0; i < array.length(); i++) {
+			JSONObject object = array.getJSONObject(i);
+			if (object.getInt("row_count") == 0) {
+				System.out.println(object.getString("table_name"));
+			}
+		}
+	}
+	
 	/**
 	 * Show the difference between the Array of tenant tables and the database
 	 * 
@@ -599,6 +613,7 @@ public class ImportDB {
 		showAllTables(ds);
 		showAllTenantTablesCount(ds);
 		showAllTenantTablesCountJSON(ds);
+		showAllTenantTablesZeroRows();
 		diffTenantTables(ds);
 		*/
 		
@@ -612,11 +627,5 @@ public class ImportDB {
 		for (String table : lightTenantTables) {
 			System.out.println(table);
 		}*/
-		
-		JSONArray array = parseJSONArray("src/main/resources/input/database/e4o_o2_prod_tenant_crm.json");
-		
-		for (int i=0; i < array.length(); i++) {
-			System.out.println(array.getJSONObject(i));
-		}
 	}
 }
