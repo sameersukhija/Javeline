@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -260,159 +259,6 @@ public class ImportDB {
 		"voucher_code_unlimited",
 		"voucher_codes"
 	};
-	
-	public final static String SHOW_ALL_TENANT_TABLES_COUNT = "agencies: 1\n" + 
-			"agrp_caps: 298\n" + 
-			"bdr_events: 1077659\n" + 
-			"billables: 0\n" + 
-			"bonus_balance: 0\n" + 
-			"bonus_campaign_limits: 0\n" + 
-			"bonuses: 1\n" + 
-			"bonuses_all: 0\n" + 
-			"campaign_expected_kpi: 0\n" + 
-			"campaign_infos: 130\n" + 
-			"campaign_master: 0\n" + 
-			"campaign_notif: 2\n" + 
-			"campaign_params: 0\n" + 
-			"campaign_rewards: 759616\n" + 
-			"campaign_substates: 0\n" + 
-			"campaign_types: 8\n" + 
-			"campaigns: 138\n" + 
-			"campaigns_history: 140\n" + 
-			"campaigns_hourly: 29816\n" + 
-			"campaigns_weekly: 1\n" + 
-			"campaigns_weekly_subs_status: 1\n" + 
-			"catalog_offer_content: 248\n" + 
-			"catalog_offer_price: 280\n" + 
-			"catalog_offer_price_channels: 463\n" + 
-			"catalog_offer_price_channels_old: 424\n" + 
-			"catalog_offer_price_old: 227\n" + 
-			"catalog_offer_price_prices: 0\n" + 
-			"catalog_offers: 275\n" + 
-			"catalog_offers_eligibility: 234\n" + 
-			"catalog_offers_old: 234\n" + 
-			"catalog_offers_old2: 234\n" + 
-			"catalog_product_characteristics: 3\n" + 
-			"catalog_product_specific_characteristics: 0\n" + 
-			"catalog_product_type_characteristics: 0\n" + 
-			"catalog_product_types: 3\n" + 
-			"catalog_products: 3\n" + 
-			"catalog_related_offers: 0\n" + 
-			"catalog_related_products: 0\n" + 
-			"channel_references: 0\n" + 
-			"collected_files: 3\n" + 
-			"collected_files_stats: 5\n" + 
-			"composite_tarif_optionen: 150\n" + 
-			"conf: 371\n" + 
-			"conf_update_log: 1\n" + 
-			"conf_update_log_rrd_key: 0\n" + 
-			"daily_account: 0\n" + 
-			"daily_bonus: 0\n" + 
-			"daily_prepaid: 596597\n" + 
-			"daily_subs: 273777\n" + 
-			"daily_tarif_optionen: 0\n" + 
-			"delayed_bonus: 0\n" + 
-			"devices: 0\n" + 
-			"distributed_jobs: 8\n" + 
-			"dp_Engagement_subprofiles: 6\n" + 
-			"dynamic_profiles: 1\n" + 
-			"event_files: 0\n" + 
-			"event_formats: 6\n" + 
-			"events: 0\n" + 
-			"files_data: 17\n" + 
-			"files_data_gas: 17\n" + 
-			"files_data_backup: 326\n" + 
-			"files_meta: 17\n" + 
-			"groups: 11\n" + 
-			"groups_tabs: 156\n" + 
-			"gui_users: 321\n" + 
-			"gui_users_groups: 418\n" + 
-			"id_ARPU_klasse: 8\n" + 
-			"id_smartphone_data_usage: 4\n" + 
-			"id_voice_oder_data: 2\n" + 
-			"integers: 31\n" + 
-			"kpi_campaign: 768118\n" + 
-			"library_bonuses: 17\n" + 
-			"library_profiles: 4\n" + 
-			"library_ranges: 0\n" + 
-			"library_statuses: 9\n" + 
-			"locks: 3\n" + 
-			"logical_lock: 13\n" + 
-			"loyalty_badges: 0\n" + 
-			"loyalty_badges_types: 0\n" + 
-			"loyalty_classes: 0\n" + 
-			"loyalty_programs: 0\n" + 
-			"loyalty_subs_test: 0\n" + 
-			"members_all: 0\n" + 
-			"nagios_support: 1\n" + 
-			"nb_relations: 0\n" + 
-			"networks: 2\n" + 
-			"notif_reward_events: 0\n" + 
-			"odr_events: 381311\n" + 
-			"offer_stock: 757\n" + 
-			"offer_stock_old: 826\n" + 
-			"offoptim_algorithm: 5\n" + 
-			"offoptim_customer_items: 575075\n" + 
-			"offoptim_customer_items_released: 0\n" + 
-			"offoptim_customer_pack: 486558\n" + 
-			"offoptim_customer_pack_released: 0\n" + 
-			"offoptim_offer_history: 113\n" + 
-			"offoptim_ruleset: 101\n" + 
-			"offoptim_ruleset_requestor: 303\n" + 
-			"option_to_export: 99\n" + 
-			"overall_account: 0\n" + 
-			"overall_prepaid: 2693\n" + 
-			"prediction_accuracy: 0\n" + 
-			"prediction_repartition: 0\n" + 
-			"product_stock: 3\n" + 
-			"profiles: 2\n" + 
-			"purchase_repartition: 6539\n" + 
-			"range_dev: 0\n" + 
-			"range_pre_prod: 0\n" + 
-			"range_prod: 2\n" + 
-			"recommended_campaigns: 0\n" + 
-			"relation_types: 1\n" + 
-			"revenue_events: 0\n" + 
-			"reward_events: 0\n" + 
-			"rtm_disrangemon_range_pre_prod: 0\n" + 
-			"rtm_disrangemon_range_prod: 2\n" + 
-			"ruleset_channel: 457\n" + 
-			"sales_channels: 46\n" + 
-			"scheduled_tasks: 35\n" + 
-			"services: 0\n" + 
-			"set_tarif_optionen: 150\n" + 
-			"stats: 517200\n" + 
-			"stats_bonus: 0\n" + 
-			"stats_campaign: 768125\n" + 
-			"stats_campaign_archive: 753884\n" + 
-			"stats_churn: 0\n" + 
-			"stats_dp_Engagement_subprofiles: 6490622\n" + 
-			"stats_offer: 101498\n" + 
-			"stats_purchase: 211494\n" + 
-			"stats_range: 0\n" + 
-			"stats_range_custom: 0\n" + 
-			"stats_subs: 108926732\n" + 
-			"stats_subs_account: 0\n" + 
-			"stats_subs_account_old: 0\n" + 
-			"stats_subs_prepaid: 108926732\n" + 
-			"stats_subs_prepaid_old: 0\n" + 
-			"stats_subs_tarif_optionen: 3084029\n" + 
-			"statuses: 4\n" + 
-			"subs_badges: 0\n" + 
-			"subs_classes: 0\n" + 
-			"subs_notif: 8193627\n" + 
-			"subs_relations: 0\n" + 
-			"subscribers: 6496129\n" + 
-			"subscribers_all: 2072\n" + 
-			"suppliers: 1\n" + 
-			"supported_rate_plan: 43\n" + 
-			"token: 8929917\n" + 
-			"token_event: 10878348\n" + 
-			"token_label: 4\n" + 
-			"token_type: 4\n" + 
-			"ussd_events: 0\n" + 
-			"voucher_code_unlimited: 4\n" + 
-			"voucher_codes: 999738";
 	
 	// ---------------------------------------------------------------------
 	// Public static methods
@@ -744,9 +590,9 @@ public class ImportDB {
 		showAllDatabases(ds);
 		showAllTables(ds);
 		showAllTenantTablesCount(ds);
+		showAllTenantTablesCountJSON(ds);
 		diffTenantTables(ds);
 		*/
-		showAllTenantTablesCountJSON(ds);
 		
 		/*
 		dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
@@ -757,32 +603,6 @@ public class ImportDB {
 		/*String[] lightTenantTables = excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, true);
 		for (String table : lightTenantTables) {
 			System.out.println(table);
-		}*/
-		
-		/*
-		List<Integer> counts = new ArrayList<Integer>();
-		for (String line : SHOW_ALL_TENANT_TABLES_COUNT.split("\n")) {
-			String[] cols = line.split(": ");
-			counts.add(Integer.parseInt(cols[1]));
-		}
-		
-		Collections.sort(counts);
-		for (Integer count : counts) {
-			System.out.println(count);
-		}*/
-		
-		/*JSONArray array = new JSONArray(); 
-		
-		for (String line : SHOW_ALL_TENANT_TABLES_COUNT.split("\n")) {
-			String[] cols = line.split(": ");
-			
-			JSONObject object = new JSONObject();
-			object.accumulate("table_name", cols[0]);
-			object.accumulate("row_count", Integer.parseInt(cols[1]));
-			
-			array.put(object);
-		}
-		
-		System.out.println(array.toString(4));*/
+		}*/		
 	}
 }
