@@ -15,6 +15,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.DataSource;
 import com.lumata.common.testing.system.NetworkEnvironment;
@@ -734,6 +737,7 @@ public class ImportDB {
 			System.out.println(table);
 		}*/
 		
+		/*
 		List<Integer> counts = new ArrayList<Integer>();
 		for (String line : SHOW_ALL_TENANT_TABLES_COUNT.split("\n")) {
 			String[] cols = line.split(": ");
@@ -743,6 +747,20 @@ public class ImportDB {
 		Collections.sort(counts);
 		for (Integer count : counts) {
 			System.out.println(count);
+		}*/
+		
+		JSONArray array = new JSONArray(); 
+		
+		for (String line : SHOW_ALL_TENANT_TABLES_COUNT.split("\n")) {
+			String[] cols = line.split(": ");
+			
+			JSONObject object = new JSONObject();
+			object.accumulate("table_name", cols[0]);
+			object.accumulate("row_count", Integer.parseInt(cols[1]));
+			
+			array.put(object);
 		}
+		
+		System.out.println(array.toString(4));
 	}
 }
