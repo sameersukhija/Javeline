@@ -351,7 +351,7 @@ public class ImportDB {
 	}
 	
 	/**
-	 * Show the count of all the records for each tenant table, from the cached JSON
+	 * Show the tenant tables with zero records, from the cached JSON
 	 * 
 	 * @throws IOException
 	 */
@@ -621,7 +621,7 @@ public class ImportDB {
 		showAllTenantTablesZeroRows();
 		diffTenantTables(ds);
 		*/
-		
+		showAllTenantTablesZeroRows();
 		/*
 		dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
 		dumpLight(excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, false),
