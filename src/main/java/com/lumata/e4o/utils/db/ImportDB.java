@@ -620,6 +620,15 @@ public class ImportDB {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
+		String task = "";
+		
+		if (args.length == 0) {
+			// TODO print help
+		} else {
+			System.out.println("======================================");
+			System.out.println("Task: " + args[0]);			
+			System.out.println("======================================");
+		}
 		
 		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", "e4o_o2_prod_ne", IOFileUtils.IOLoadingType.RESOURCE);
 		
@@ -636,27 +645,33 @@ public class ImportDB {
 			return;
 		}
 		
-		/*
-		showAllDatabases(ds);
-		showAllTables(ds);
-		showAllTenantTablesCount(ds);
-		showAllTenantTablesCountJSON(ds);
-		showAllTenantTablesZeroRows("e4o_o2_prod_tenant_crm");
-		diffTenantTables(ds);
-		*/
-		
-		/*
-		dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
-		dumpLight(excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, false),
-				ds, "light.sql");
-		*/
-		for (String table : lightOrBigTablesList("e4o_o2_prod_tenant_crm", true, 10000)) {
-			System.out.println(table);
+		if (task.equals("test")) { // dev/test here
+			
+			/*for (String table : lightOrBigTablesList("e4o_o2_prod_tenant_crm", true, 10000)) {
+				System.out.println(table);
+			}*/
+			
+			/*String[] lightTenantTables = excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, true);
+			for (String table : lightTenantTables) {
+				System.out.println(table);
+			}*/
+			
+		} else if (task.equals("showAllDatabases")) {
+			showAllDatabases(ds);
+		} else if (task.equals("showAllTables")) {
+			showAllTables(ds);
+		} else if (task.equals("showAllTenantTablesCount")) {
+			showAllTenantTablesCount(ds);
+		} else if (task.equals("showAllTenantTablesCountJSON")) {
+			showAllTenantTablesCountJSON(ds);
+		} else if (task.equals("showAllTenantTablesZeroRows")) {
+			showAllTenantTablesZeroRows("e4o_o2_prod_tenant_crm");
+		} else if (task.equals("diffTenantTables")) {
+			diffTenantTables(ds);
+		} else if (task.equals("dumpStruct")) {
+			dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
+		} else if (task.equals("dumpStruct")) {
+			// TODO change this dumpLight(excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, false), ds, "light.sql");
 		}
-		
-		/*String[] lightTenantTables = excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, true);
-		for (String table : lightTenantTables) {
-			System.out.println(table);
-		}*/
 	}
 }
