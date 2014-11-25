@@ -350,6 +350,11 @@ public class ImportDB {
 		System.out.println(array.toString(4));
 	}
 	
+	/**
+	 * Show the count of all the records for each tenant table, from the cached JSON
+	 * 
+	 * @throws IOException
+	 */
 	public static void showAllTenantTablesZeroRows() throws IOException {
 		System.out.println("\nTenant tables count zero");
 		System.out.println(  "------------------------");
