@@ -517,6 +517,28 @@ public class ImportDB {
 		return list.toArray(new String[list.size()]);
 	}
 	
+	@SuppressWarnings("unused")
+	private static String[] lightOrBigTablesList(String filename, boolean isLight, int limit) throws IOException {
+		List<String> list = new ArrayList<String>();
+		
+		JSONArray array = parseJSONArray(
+				String.format("src/main/resources/input/database/%s.json", filename));
+		
+		for (int i=0; i < array.length(); i++) {
+			JSONObject object = array.getJSONObject(i);
+			
+			if (isLight == true && object.getInt("row_count") < limit) {
+				
+				list.add(object.getString("table_name"));
+				
+			} else if (isLight == false && object.getInt("row_count") >= limit) {
+				
+				list.add(object.getString("table_name"));				
+			}		}
+		
+		return list.toArray(new String[list.size()]);
+	}
+	
 	// low-level Process input/error
 	private static void execOutput(Process p) throws IOException {
 		// input
@@ -628,6 +650,9 @@ public class ImportDB {
 		dumpLight(excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, false),
 				ds, "light.sql");
 		*/
+		for (String table : lightOrBigTablesList("e4o_o2_prod_tenant_crm", true, 10000)) {
+			System.out.println(table);
+		}
 		
 		/*String[] lightTenantTables = excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, true);
 		for (String table : lightTenantTables) {
