@@ -645,6 +645,8 @@ public class ImportDB {
 			return;
 		}
 		
+		System.out.println("--------------------------------------");
+		
 		if (task.equals("test")) { // dev/test here
 			
 			/*for (String table : lightOrBigTablesList("e4o_o2_prod_tenant_crm", true, 10000)) {
