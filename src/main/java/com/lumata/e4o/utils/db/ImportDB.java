@@ -355,11 +355,12 @@ public class ImportDB {
 	 * 
 	 * @throws IOException
 	 */
-	public static void showAllTenantTablesZeroRows() throws IOException {
+	public static void showAllTenantTablesZeroRows(String filename) throws IOException {
 		System.out.println("\nTenant tables count zero");
 		System.out.println(  "------------------------");
 		
-		JSONArray array = parseJSONArray("src/main/resources/input/database/e4o_o2_prod_tenant_crm.json");
+		JSONArray array = parseJSONArray(
+				String.format("src/main/resources/input/database/%s.json", filename));
 		
 		for (int i=0; i < array.length(); i++) {
 			JSONObject object = array.getJSONObject(i);
@@ -618,10 +619,10 @@ public class ImportDB {
 		showAllTables(ds);
 		showAllTenantTablesCount(ds);
 		showAllTenantTablesCountJSON(ds);
-		showAllTenantTablesZeroRows();
+		showAllTenantTablesZeroRows("e4o_o2_prod_tenant_crm");
 		diffTenantTables(ds);
 		*/
-		showAllTenantTablesZeroRows();
+		
 		/*
 		dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
 		dumpLight(excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, false),
