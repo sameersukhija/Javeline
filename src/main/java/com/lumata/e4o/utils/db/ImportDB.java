@@ -672,7 +672,7 @@ public class ImportDB {
 			diffTenantTables(ds);
 		} else if (task.equals("dumpStruct")) {
 			dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
-		} else if (task.equals("dumpStruct")) {
+		} else if (task.equals("dumpLight")) {
 			// TODO change this dumpLight(excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, false), ds, "light.sql");
 		}
 	}
