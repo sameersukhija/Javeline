@@ -85,6 +85,18 @@ public class SeleniumWebDriver {
 	}
 	
 	/**
+	 * New SeleniumWebDriver instance for Grid application
+	 * 
+	 * @param browser is the <b>Browser</b> from input configuration
+	 * @param baseUrl is the base URL for startup
+	 * @param baseHubAddress is the URL of Selenium Hub
+	 */
+	public SeleniumWebDriver ( Browser browser, String baseUrl, String baseHubAddress ) {
+		
+		this(BrowserType.valueOf(browser.getType().toString().toUpperCase()), baseUrl, baseHubAddress);
+	}
+	
+	/**
 	 * This method reproduces the "WebDriverBackedSelenium" object behavior.
 	 * 
 	 * It will append relative path to base URL provided during construction. 
@@ -127,14 +139,7 @@ public class SeleniumWebDriver {
 		
 		instance.get(baseUrl);	
 	}
-	
-	/**
-	 * New SeleniumWebDriver instance for Grid application
-	 * 
-	 * @param browser is the <b>Browser</b> from input configuration
-	 * @param baseUrl is the base URL for startup
-	 * @param baseHubAddress is the URL of Selenium Hub
-	 */
+
 	public SeleniumWebDriver ( BrowserType baseBrowser, String baseUrl, String baseHubAddress ) {
 		
 		instance = getRemoteWebDriver( baseBrowser, baseHubAddress );
@@ -144,8 +149,8 @@ public class SeleniumWebDriver {
 		logger.debug("Save the driver base URL : " + driverBaseUrl);
 		
 		adjustWindows(baseUrl);
-	}
-
+	}	
+	
 	/**
 	 * reload page using set url
 	 * 
