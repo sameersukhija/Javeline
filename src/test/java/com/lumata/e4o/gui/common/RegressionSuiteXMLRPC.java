@@ -10,8 +10,12 @@ import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.sleep;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeRequestAsResource;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeResponseAsResource;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.authentication;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.channels;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.subscriber;
+import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberChannel.channel;
 import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.success;
+import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.fault;
+import static org.hamcrest.Matchers.equalTo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,6 +49,7 @@ import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.schema.tenant.SupportedRatePlan;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberChannel.ChannelType;
 
 public class RegressionSuiteXMLRPC extends RegressionSuiteXmlrpcCore {
 	
@@ -240,7 +245,12 @@ public class RegressionSuiteXMLRPC extends RegressionSuiteXmlrpcCore {
 							"active",
 							"QAIN",
 							"mobile",
-							xmlrpcParams,
+							channels(
+									channel( ChannelType.MAIL, "pippovedelungo"+msisdn.replace(inputSeed, "")+"@gmail.com", Boolean.TRUE ),
+									channel( ChannelType.SMS, msisdn, Boolean.TRUE )	
+							),
+							null,							
+							null,
 							null
 					)
 				),
@@ -249,8 +259,8 @@ public class RegressionSuiteXMLRPC extends RegressionSuiteXmlrpcCore {
 				),				
 				xmlrpcOptions( 
 					sleep( XMLRPC_CALL_DELAY ),
-					storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_createSubscriber.xml" ),
-					storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_createSubscriber.xml" )	
+					storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_createNewSubscriberWithOptionalParams.xml" ),
+					storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_createNewSubscriberWithOptionalParams.xml" )	
 				)
 		);	
 
@@ -269,7 +279,13 @@ public class RegressionSuiteXMLRPC extends RegressionSuiteXmlrpcCore {
 		
 		String resp = inputSeed;
 		Random rnd = new Random(System.currentTimeMillis());
-		resp += rnd.nextInt(new Double(Math.pow(10, maxLength - inputSeed.length())).intValue());
+		
+		int numbDigit = maxLength - inputSeed.length();
+		
+		if ( numbDigit <= 0 ) 
+			throw new NumberFormatException("Numerical error : seed is equal or longer than max number of digit!");
+		
+		resp += String.format("%0"+numbDigit+"d", rnd.nextInt(new Double(Math.pow(10, numbDigit)).intValue()));
 		
 		return resp;
 	}
@@ -282,7 +298,7 @@ public class RegressionSuiteXMLRPC extends RegressionSuiteXmlrpcCore {
 	 */
 	@Parameters("inputSeed")
 	@Test(priority = 2)
-	public void createNewSubscriberWithWrongMinimalParameters( @Optional(default_msisdn_seed) String inputSeed ) throws XMLRPCParserException {
+	public void createNewSubscriberWithWrongMinimalParameters( @Optional(default_msisdn_seed) String inputSeed ) throws Exception {
 
 		Reporter.log( "Create New Subscriber With Wrong Minimal Parameters", PRINT2STDOUT__);
 		
@@ -291,134 +307,271 @@ public class RegressionSuiteXMLRPC extends RegressionSuiteXmlrpcCore {
 		// Minimal parameters
 		Reporter.log( "Create a set of correct minimal parameters :", PRINT2STDOUT__);
 		
-		Map<String, Object> subscriberParams = new HashMap<String, Object>();
-		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
-		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), today());
-		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), "FUN");
-		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), "active");
-		subscriberParams.put(XMLRPCSubscriber.Params.in_tag.name(), "QAIN");
-		subscriberParams.put(XMLRPCSubscriber.Params.network.name(), "mobile");
-
-		for (Entry<String, Object> entry : subscriberParams.entrySet()) 
+		Map<String, String> subscriberParams = new HashMap<String, String>();
+		subscriberParams.put( "subscriptionDate", 	today().toString());
+		subscriberParams.put( "profile", 			"prepaid");
+		subscriberParams.put( "subprofile", 		"subfun");
+		subscriberParams.put( "status", 			"active");
+		subscriberParams.put( "rate_plan", 			"FUN");
+		subscriberParams.put( "in_tag", 			"QAIN");
+		subscriberParams.put( "network", 			"mobile");
+		
+		for (Entry<String, String> entry : subscriberParams.entrySet()) 
 			Reporter.log( "Parameter -> " + entry.getKey() + "\t Value -> " + entry.getValue(), PRINT2STDOUT__);
 		
 		waitState();
 
-		// Case 1 ( wrong msisdn )
+		/**
+		 *  Case 1 ( wrong msisdn )
+		 */
+		
 		Reporter.log( "Case 1 -> replace with a wrong \"msisdn\" value.", PRINT2STDOUT__);
 		
-		String wrong = "wrong_msisdn";
+		String caseDescription = "createNewSubscriberWithWrongMinimalParameters";
+		String wrongCause = "wrong_msisdn";
 		
-		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.msisdn.name() + "\t Value -> " + wrong, PRINT2STDOUT__);
+		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.msisdn.name() + "\t Value -> " + wrongCause, PRINT2STDOUT__);
 		
-		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), wrong);
-		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = getFault(responseParser);
-		Assert.assertEquals(resultFault.getCode(), "2");
-		Assert.assertEquals(resultFault.getMessage(), "unable to create subscriber");
-		
-		// replace with correct value
-		subscriberParams.put(XMLRPCSubscriber.Params.msisdn.name(), msisdn);
+		XMLRPCRequest.subscribermanager_createSubscriber().call( 
+				gui, 
+				xmlrpcBody(
+					authentication(user),
+					subscriber( 
+							wrongCause,
+							subscriberParams.get("subscriptionDate"),
+							subscriberParams.get("profile"),
+							subscriberParams.get("subprofile"),
+							subscriberParams.get("rate_plan"),
+							subscriberParams.get("status"),
+							subscriberParams.get("in_tag"),
+							subscriberParams.get("network"),
+							null,
+							null
+					)
+				),
+				xmlrpcValidator(
+						fault().code( equalTo( 2 ) ),
+						fault().message( equalTo( "unable to create subscriber" ) )
+				),				
+				xmlrpcOptions(
+					sleep( XMLRPC_CALL_DELAY ),
+					storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_"+caseDescription+"_"+wrongCause+".xml" ),
+					storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_"+caseDescription+"_"+wrongCause+".xml" )	
+				)
+		);		
 
 		waitState();
 
-		// Case 2 ( wrong subscription_date )
+		/**
+		 *  Case 2 ( wrong subscription_date )
+		 */
+		
 		Reporter.log( "Case 2 -> replace with a wrong \"subscription date\" value.", PRINT2STDOUT__);
 		
-		wrong = "2014-01-";
+		wrongCause = "2014-01-";
 		
-		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.subscription_date.name() + "\t Value -> " + wrong, PRINT2STDOUT__);		
+		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.subscription_date.name() + "\t Value -> " + wrongCause, PRINT2STDOUT__);		
 		
-		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), wrong);
-		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = getFault(responseParser);
-		Assert.assertEquals(resultFault.getCode(), "6");
-		Assert.assertEquals(resultFault.getMessage(), "invalid subscription_date " + wrong);
-		
-		// replace with correct value
-		subscriberParams.put(XMLRPCSubscriber.Params.subscription_date.name(), today());
+		XMLRPCRequest.subscribermanager_createSubscriber().call( 
+				gui, 
+				xmlrpcBody(
+					authentication(user),
+					subscriber( 
+							msisdn,
+							wrongCause,
+							subscriberParams.get("profile"),
+							subscriberParams.get("subprofile"),
+							subscriberParams.get("rate_plan"),
+							subscriberParams.get("status"),
+							subscriberParams.get("in_tag"),
+							subscriberParams.get("network"),
+							null,
+							null																
+					)
+				),
+				xmlrpcOptions(
+						sleep( XMLRPC_CALL_DELAY ),
+						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_"+caseDescription+"_"+wrongCause+".xml" ),
+						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_"+caseDescription+"_"+wrongCause+".xml" )	
+					)
+		);		
 
 		waitState();
 
-		// Case 3 ( wrong rate_plan )
+		/**
+		 *  Case 3 ( wrong rate_plan )
+		 */
+		
 		Reporter.log( "Case 3 -> replace with a wrong \"rate plan\" value.", PRINT2STDOUT__);
 		
-		wrong = "WRONG_RATE_PLAN";
+		wrongCause = "WRONG_RATE_PLAN";
 		
-		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.rate_plan.name() + "\t Value -> " + wrong, PRINT2STDOUT__);		
+		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.rate_plan.name() + "\t Value -> " + wrongCause, PRINT2STDOUT__);		
 		
-		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), wrong);
-		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = getFault(responseParser);
-		Assert.assertEquals(resultFault.getCode(), "6");
-		Assert.assertEquals(resultFault.getMessage(), "invalid rate_plan " + wrong);
-		
-		// replace with correct value
-		subscriberParams.put(XMLRPCSubscriber.Params.rate_plan.name(), "FUN");
+		XMLRPCRequest.subscribermanager_createSubscriber().call( 
+				gui, 
+				xmlrpcBody(
+					authentication(user),
+					subscriber( 
+							msisdn,
+							subscriberParams.get("subscriptionDate"),
+							subscriberParams.get("profile"),
+							subscriberParams.get("subprofile"),
+							wrongCause,
+							subscriberParams.get("status"),
+							subscriberParams.get("in_tag"),
+							subscriberParams.get("network"),
+							null,
+							null																
+					)
+				),
+				xmlrpcOptions(
+						sleep( XMLRPC_CALL_DELAY ),
+						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_"+caseDescription+"_"+wrongCause+".xml" ),
+						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_"+caseDescription+"_"+wrongCause+".xml" )	
+					)
+		);	
 
 		waitState();
 
-		// Case 4 ( wrong status )
+		/**
+		 *  Case 4 ( wrong status )
+		 */
+		
 		Reporter.log( "Case 4 -> replace with a wrong \"status\" value.", PRINT2STDOUT__);
 		
-		wrong = "wrong status";
+		wrongCause = "wrong status";
 		
-		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.status.name() + "\t Value -> " + wrong, PRINT2STDOUT__);		
-		
-		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), wrong);
-		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = getFault(responseParser);
-		Assert.assertEquals(resultFault.getCode(), "6");
-		Assert.assertEquals(resultFault.getMessage(), "invalid status " + wrong);
-		
-		// replace with correct value
-		subscriberParams.put(XMLRPCSubscriber.Params.status.name(), "active");
+		XMLRPCRequest.subscribermanager_createSubscriber().call( 
+				gui, 
+				xmlrpcBody(
+					authentication(user),
+					subscriber( 
+							msisdn,
+							subscriberParams.get("subscriptionDate"),
+							subscriberParams.get("profile"),
+							subscriberParams.get("subprofile"),
+							subscriberParams.get("rate_plan"),
+							wrongCause,
+							subscriberParams.get("in_tag"),
+							subscriberParams.get("network"),
+							null,
+							null																
+					)
+				),
+				xmlrpcOptions(
+						sleep( XMLRPC_CALL_DELAY ),
+						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_"+caseDescription+"_"+wrongCause+".xml" ),
+						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_"+caseDescription+"_"+wrongCause+".xml" )	
+				)
+		);		
 		
 		waitState();
 
-		// Case 5 ( wrong in_tag )
+		/**
+		 *  Case 5 ( wrong in_tag )
+		 */
+		
 		Reporter.log( "Case 5 -> replace with a wrong \"IN tag\" value.", PRINT2STDOUT__);
 		
-		wrong = "WRONG IN TAG";
+		wrongCause = "WRONG IN TAG";
 		
-		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.in_tag.name() + "\t Value -> " + wrong, PRINT2STDOUT__);		
+		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.in_tag.name() + "\t Value -> " + wrongCause, PRINT2STDOUT__);		
 		
-		subscriberParams.put(XMLRPCSubscriber.Params.in_tag.name(), "WRONG IN TAG");
-		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = getFault(responseParser);
-		Assert.assertEquals(resultFault.getCode(), "6");
-		Assert.assertEquals(resultFault.getMessage(), "invalid in_tag " + wrong);
-		
-		// replace with correct value
-		subscriberParams.put(XMLRPCSubscriber.Params.in_tag.name(), "QAIN");
+		XMLRPCRequest.subscribermanager_createSubscriber().call( 
+				gui, 
+				xmlrpcBody(
+					authentication(user),
+					subscriber( 
+							msisdn,
+							subscriberParams.get("subscriptionDate"),
+							subscriberParams.get("profile"),
+							subscriberParams.get("subprofile"),
+							subscriberParams.get("rate_plan"),
+							subscriberParams.get("status"),
+							wrongCause,
+							subscriberParams.get("network"),
+							null,
+							null																
+					)
+				),
+				xmlrpcOptions(
+						sleep( XMLRPC_CALL_DELAY ),
+						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_"+caseDescription+"_"+wrongCause+".xml" ),
+						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_"+caseDescription+"_"+wrongCause+".xml" )	
+				)
+		);	
 
 		waitState();
 
-		// Case 6 ( wrong network )
+		/**
+		 *  Case 6 ( wrong network )
+		 */
+		
 		Reporter.log( "Case 6 -> replace with a wrong \"network\" value.", PRINT2STDOUT__);
 		
-		wrong = "wrong network";
+		wrongCause = "wrong network";
 		
-		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.network.name() + "\t Value -> " + wrong, PRINT2STDOUT__);		
+		Reporter.log( "Parameter -> " + XMLRPCSubscriber.Params.network.name() + "\t Value -> " + wrongCause, PRINT2STDOUT__);		
 		
-		subscriberParams.put(XMLRPCSubscriber.Params.network.name(), "wrong network");
-		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		resultFault = getFault(responseParser);
-		Assert.assertEquals(resultFault.getCode(), "6");
-		Assert.assertEquals(resultFault.getMessage(), "invalid network " + wrong);
-		
-		// replace with correct value
-		subscriberParams.put(XMLRPCSubscriber.Params.network.name(), "mobile");
+		XMLRPCRequest.subscribermanager_createSubscriber().call( 
+				gui, 
+				xmlrpcBody(
+					authentication(user),
+					subscriber( 
+							msisdn,
+							subscriberParams.get("subscriptionDate"),
+							subscriberParams.get("profile"),
+							subscriberParams.get("subprofile"),
+							subscriberParams.get("rate_plan"),
+							subscriberParams.get("status"),
+							subscriberParams.get("in_tag"),
+							wrongCause,
+							null,
+							null																
+					)
+				),
+				xmlrpcOptions(
+						sleep( XMLRPC_CALL_DELAY ),
+						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_"+caseDescription+"_"+wrongCause+".xml" ),
+						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_"+caseDescription+"_"+wrongCause+".xml" )	
+				)
+		);		
 
 		waitState();
 
-		// Case 7 ( Success )
+		/**
+		 *  Case 7 ( Success )
+		 */
+		
 		Reporter.log( "Case 7 -> Success creation without wrong parameters.", PRINT2STDOUT__);
 		
-		responseParser = this.xmlrpc( HTTPXMLRPCForm.CallTypes.subscribermanager_createSubscriber, subscriberParams);
-		XMLRPCResultSuccess resultSuccess = getSuccess(responseParser);
-		Assert.assertNotNull(resultSuccess);
-		Assert.assertEquals(resultSuccess.getBoolean(), "0");
+		XMLRPCRequest.subscribermanager_createSubscriber().call( 
+				gui, 
+				xmlrpcBody(
+					authentication(user),
+					subscriber( 
+							msisdn,
+							subscriberParams.get("subscriptionDate"),
+							subscriberParams.get("profile"),
+							subscriberParams.get("subprofile"),
+							subscriberParams.get("rate_plan"),
+							subscriberParams.get("status"),
+							subscriberParams.get("in_tag"),
+							subscriberParams.get("network"),
+							null,
+							null																
+					)
+				),
+				xmlrpcValidator(
+						success()
+				),
+				xmlrpcOptions(
+						sleep( XMLRPC_CALL_DELAY ),
+						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_"+caseDescription+"_correct.xml" ),
+						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_"+caseDescription+"_correct.xml" )	
+				)
+		);		
 		
 		// DB check
 		// Technical debt

@@ -33,17 +33,14 @@ import com.lumata.e4o.schema.tenant.Profiles;
 import com.lumata.e4o.schema.tenant.Statuses;
 import com.lumata.e4o.schema.tenant.SupportedRatePlan;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberChannel.ChannelType;
 
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
-//import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberChannel.*;
-//import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCSubscriberRelation.*;
-import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.fault;
 import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.success;
-import static org.hamcrest.Matchers.equalTo;
 
 public class XMLRPCRequest_Subscribermanager_CreateSubscriber {
 	
@@ -295,6 +292,11 @@ public class XMLRPCRequest_Subscribermanager_CreateSubscriber {
 							status,
 							inTag,
 							network,
+							channels(
+									channel( ChannelType.MAIL, "pippo"+msisdn+"@gmail.com", Boolean.TRUE ),
+									channel( ChannelType.SMS, msisdn, Boolean.TRUE )
+							),
+							null,
 							params(),
 							services()																
 					)
@@ -338,7 +340,7 @@ public class XMLRPCRequest_Subscribermanager_CreateSubscriber {
 										inTag,
 										network,
 										channels(
-											channel( ChannelType.MAIL, "customer@lumatagroup.com", Status.active )	
+											channel( ChannelType.MAIL, "customer@lumatagroup.com", Boolean.TRUE )	
 										),
 										relations(),
 										params(

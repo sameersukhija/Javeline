@@ -9,3 +9,5 @@ target/*
 test-output/*
 **/firefox.default/*
 /bin/
+/target/
+/output/

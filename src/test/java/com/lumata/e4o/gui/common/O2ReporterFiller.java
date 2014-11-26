@@ -15,7 +15,9 @@ import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.Pa
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.testng.Assert;
@@ -24,6 +26,8 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.lumata.e4o.gui.xmlrpc.XMLRPCAllocate;
+import com.lumata.e4o.gui.xmlrpc.XMLRPCAllocate.Offer;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCTokenList;
 import com.lumata.e4o.gui.xmlrpc.XMLRPCTokenList.Token;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
@@ -49,30 +53,15 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	 */
 	private static List<String> currentConsumedTokens = null;
 	
-//	/**
-//	 * Base folder where XML file are stored
-//	 */
-//	private static String baseXmlrpcLogFolder = "xmlrpc";
-//	
-//	/**
-//	 * Current log folder
-//	 */
-//	private static String xmlrpcLogFolder = null;
-//	
-//	/**
-//	 * This object describe the origin of time for current test execution
-//	 */
-//	private static Date startOfTime4Suite = null;
-//	
-//	/**
-//	 * It describes the execution time for single test for log purpose
-//	 */
-//	private String testTime = null;
-//	
-//	/**
-//	 * Default sleep time for XMLPRC message
-//	 */
-//	private static Long XMLRPC_CALL_DELAY = 100L;
+	/**
+	 * Default value tracks that user does not provide an external group offer ids
+	 */
+	private final static String NO_EXT_OFFER_LIST__ = "no offer list";
+	
+	/**
+	 * This map tracks allocation information
+	 */
+	private static Map<String,StringBuilder> token2Allocation = null;
 	
 	/**
 	 * Surrounded token status
@@ -87,32 +76,6 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 		private TokenStatus(String in) { value = in; }
 		public String toString() { return value; }
 	};
-	
-//	@BeforeMethod
-//	private void testSetup() {
-//
-//		/**
-//		 * Common suite section
-//		 */
-//		
-//		if ( startOfTime4Suite == null )
-//			startOfTime4Suite = new Date(Calendar.getInstance().getTimeInMillis() - 60000);
-//		
-//		if ( xmlrpcLogFolder == null ) {
-//			xmlrpcLogFolder = baseXmlrpcLogFolder + File.separator + "execution_" + new SimpleDateFormat("yyyy_MM_dd_HH_mm").format(startOfTime4Suite) + File.separator;
-//			
-//			Reporter.log( "###############", PRINT2STDOUT__);
-//			Reporter.log( "##### XMLRPC response message are stored into folder "+ "execution_" + new SimpleDateFormat("yyyy_MM_dd_HH_mm").format(startOfTime4Suite), PRINT2STDOUT__);
-//			Reporter.log( "###############", PRINT2STDOUT__);
-//		}
-//
-//		/**
-//		 * Specific test method section
-//		 */
-//		
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-//		testTime = sdf.format(new Date());
-//	}
 	
 	/**
 	 * 
@@ -150,7 +113,7 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 			);		
 		}	
 		
-		Thread.sleep(2000L);
+		Thread.sleep(XMLRPC_CALL_DELAY);
 	}	
 
 	/**
@@ -193,7 +156,7 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 		
 			Reporter.log( "Token code : " + code, PRINT2STDOUT__);
 	
-			XMLRPCRequest.offeroptimizer_allocate().call( 
+			XMLRPCAllocate offerPack = new XMLRPCAllocate(XMLRPCRequest.offeroptimizer_allocate().call( 
 					gui, 
 					xmlrpcBody(
 						authentication( user ),
@@ -205,7 +168,26 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_allocate_"+code+".xml" ),
 						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_allocate_"+code+".xml" )	
 					)
-			);		
+			).getResponse().getEntity().toString()).parse();
+			
+			List<Offer> offers = offerPack.getOfferList();
+			
+			StringBuilder allocatedOffer = new StringBuilder();
+			
+			String prefix = "";
+			
+			for (Offer offer : offers) {
+				allocatedOffer.append(prefix);
+				prefix = ";";
+				allocatedOffer.append(offer.getId());
+			}
+
+			Reporter.log( "###############", PRINT2STDOUT__);
+			Reporter.log( "##### The subscriber "+ msisdn +" has allocated token " + code, PRINT2STDOUT__);
+			Reporter.log( "##### Offer List : " + ( allocatedOffer.length() != 0 ? allocatedOffer : "{empty}"), PRINT2STDOUT__);
+			Reporter.log( "###############", PRINT2STDOUT__);
+			
+			token2Allocation.put( code, allocatedOffer);
 		}
 	}
 	
@@ -218,19 +200,37 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	
 	@Test( dependsOnMethods={"getTokensList"} )
 	@Parameters({"msisdn","offerIds"})
-	public void acceptToken(@Optional("393492135019") String msisdn, @Optional("1000;1001") String offerIds) throws Exception {
+	public void acceptToken(@Optional("393492135019") String msisdn, @Optional(NO_EXT_OFFER_LIST__) String offerIds) throws Exception {
 		
 		Reporter.log( "###############", PRINT2STDOUT__);		
 		Reporter.log( "##### The subscriber "+ msisdn +" has " + currentAllocatedTokens.size() + " allocted tokens.", PRINT2STDOUT__);
-		Reporter.log( "##### Purchase one offer among : " + offerIds.replace(";", " "), PRINT2STDOUT__);
+		if ( offerIds.equals(NO_EXT_OFFER_LIST__) )
+			Reporter.log( "##### Each token will be purchased according allocation (if avaiable)", PRINT2STDOUT__);
+		else
+			Reporter.log( "##### Purchase one offer among : " + offerIds.replace(";", " "), PRINT2STDOUT__);
 		Reporter.log( "##### Tokens ready to be purchased : " + currentAllocatedTokens, PRINT2STDOUT__);
 		Reporter.log( "###############", PRINT2STDOUT__);
 		
-		String[] offerIdArray = offerIds.split(";");
+		String[] extOfferIdArray = offerIds.equals(NO_EXT_OFFER_LIST__) ? null : offerIds.split(";");
 		
 		Random randomGenerator = new Random();
 		
 		for (String code : currentAllocatedTokens) {
+		
+			String[] offerIdArray = null;
+			
+			// force external
+			if ( extOfferIdArray != null )
+				offerIdArray = extOfferIdArray;
+			else // no ext
+				if ( token2Allocation.containsKey(code) ) // allocation
+					offerIdArray = token2Allocation.get(code).toString().split(";");
+				// no allocation -> nothing to do and skip token
+			
+			if ( offerIdArray == null ) {
+				Reporter.log( "##### Token code -> " + code + " is missing information for purchase.", PRINT2STDOUT__);
+				continue;
+			}
 			
 			String offerId = offerIdArray[randomGenerator.nextInt(offerIdArray.length)];
 		    
@@ -250,7 +250,11 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 							storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_accept_"+code+".xml" ),
 							storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_accept_"+code+".xml" )	
 					)
-			);		
+			);
+			
+			// cleanup
+			if ( token2Allocation.containsKey(code) )
+				token2Allocation.remove(code);
 		}
 	}	
 	
@@ -391,5 +395,144 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 			else if ( status.equals(TokenStatus.CONSUMED.toString()) )
 				currentConsumedTokens.add(code);
 		}
+	}
+	
+	@Test( dependsOnMethods={"getTokensList"} )
+	@Parameters({"msisdn","offerIds"})
+	public void allocatePurchaseToken(@Optional("393492135019") String msisdn, @Optional(NO_EXT_OFFER_LIST__) String offerIds) throws Exception {
+		
+		Reporter.log( "###############", PRINT2STDOUT__);
+		Reporter.log( "##### The subscriber "+ msisdn +" has " + currentActiveTokens.size() + " active tokens.", PRINT2STDOUT__);
+		Reporter.log( "##### Allocate/Purchase each token.", PRINT2STDOUT__);
+		Reporter.log( "##### Tokens ready to be allocated : " + currentActiveTokens, PRINT2STDOUT__);
+		Reporter.log( "###############", PRINT2STDOUT__);
+		
+		/**
+		 * Start main loop
+		 */
+		for (String code : currentActiveTokens) {
+		
+			/**
+			 * Start allocation
+			 */
+			Reporter.log( "Token code : " + code, PRINT2STDOUT__);
+	
+			XMLRPCAllocate offerPack = new XMLRPCAllocate(XMLRPCRequest.offeroptimizer_allocate().call( 
+					gui, 
+					xmlrpcBody(
+						authentication( user ),
+						string( msisdn ),
+						string( code )
+					),
+					xmlrpcOptions(
+						sleep( XMLRPC_CALL_DELAY ),
+						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_allocate_"+code+".xml" ),
+						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_allocate_"+code+".xml" )	
+					)
+			).getResponse().getEntity().toString()).parse();
+			
+			/**
+			 * Technical debt
+			 * How to ensure that status?
+			 */
+			
+			List<Offer> offers = offerPack.getOfferList();
+			
+			StringBuilder allocatedOffer = new StringBuilder();
+			
+			String prefix = "";
+			
+			for (Offer offer : offers) {
+				allocatedOffer.append(prefix);
+				prefix = ";";
+				allocatedOffer.append(offer.getId());
+			}
+
+			Reporter.log( "###############", PRINT2STDOUT__);
+			Reporter.log( "##### The subscriber "+ msisdn +" has allocated token " + code, PRINT2STDOUT__);
+			Reporter.log( "##### Offer List : " + ( allocatedOffer.length() != 0 ? allocatedOffer : "{empty}"), PRINT2STDOUT__);
+			Reporter.log( "###############", PRINT2STDOUT__);
+			
+//			token2Allocation.put( code, allocatedOffer);
+
+			/**
+			 * End allocation
+			 */
+			
+			/**
+			 * Start purchase
+			 */
+			
+			Reporter.log( "###############", PRINT2STDOUT__);		
+			Reporter.log( "##### The subscriber "+ msisdn +" has " + code + " allocted token.", PRINT2STDOUT__);
+			if ( offerIds.equals(NO_EXT_OFFER_LIST__) )
+				Reporter.log( "##### Token will be purchased according allocation (if available)", PRINT2STDOUT__);
+			else
+				Reporter.log( "##### Purchase one offer among : " + offerIds.replace(";", " "), PRINT2STDOUT__);
+//			Reporter.log( "##### Tokens ready to be purchased : " + currentAllocatedTokens, PRINT2STDOUT__);
+			Reporter.log( "###############", PRINT2STDOUT__);
+			
+			String[] extOfferIdArray = offerIds.equals(NO_EXT_OFFER_LIST__) ? null : offerIds.split(";");
+			
+			Random randomGenerator = new Random();
+			
+			String[] offerIdArray = null;
+			
+			// force external
+			if ( extOfferIdArray != null )
+				offerIdArray = extOfferIdArray;
+			else // no ext
+				if ( allocatedOffer != null && allocatedOffer.length() != 0 ) // allocation
+					offerIdArray = allocatedOffer.toString().split(";");
+				// no allocation -> nothing to do and skip token
+			
+			if ( offerIdArray == null ) {
+				Reporter.log( "##### Token code -> " + code + " is missing information for purchase.", PRINT2STDOUT__);
+				continue;
+			}			
+			
+			String offerId = offerIdArray[randomGenerator.nextInt(offerIdArray.length)];
+		    
+			Reporter.log( "##### Token code -> " + code + "\tOffer Id -> " + offerId, PRINT2STDOUT__);
+			
+			XMLRPCRequest.offeroptimizer_accept().call( 
+					gui, 
+					xmlrpcBody(
+						authentication( user ),
+						string( msisdn ),
+						string( code ),
+						arrayInt( offerId),
+						string( "acceptToken" )
+					),
+					xmlrpcOptions(
+							sleep( XMLRPC_CALL_DELAY ),
+							storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_accept_"+code+".xml" ),
+							storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_accept_"+code+".xml" )	
+					)
+			);
+			
+			/**
+			 * Technical debt
+			 * How to ensure that status?
+			 */			
+			
+			// cleanup
+//			if ( token2Allocation.containsKey(code) )
+//				token2Allocation.remove(code);		
+			
+			/**
+			 * End purchase
+			 */
+		}
+		/**
+		 * End main loop
+		 */
+	}
+	
+	/**
+	 * Static section
+	 */
+	static {
+		token2Allocation = new HashMap<String, StringBuilder>();
 	}
 }

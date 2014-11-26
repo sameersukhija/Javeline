@@ -43,7 +43,7 @@
   <parameter name="notificationsFile"   value="notificationsEFOGC2667"/>
   <parameter name="productTypesFile"    value="productTypesTemplate"/>
   <parameter name="loyaltyCreationFile" value="loyaltyCreationTemplate"/>
-  <parameter name="offersFile"          value="offersVoucher2667"/>
+  <parameter name="offersFile"          value="offersVoucher2753"/>
   <parameter name="tokenTypeList"       value="tokenTypes2667"/>
   <parameter name="ruleListFile"        value="rulesetEFOGC2667"/>
   <parameter name="campaignModelList"   value="campaignModelEFOGC2667"/>
@@ -134,6 +134,10 @@
       </class>
 
        <class name="com.lumata.e4o.gui.common.RegressionSuiteXMLRPC">
+        <methods>
+            <include name="createNewSubscriberWithOptionalParams"/>
+            <include name="createNewSubscriberWithWrongMinimalParameters"/>
+        </methods>
       </class>
 
     </classes>

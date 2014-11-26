@@ -1,0 +1,610 @@
+[
+    {
+        "table_name": "agencies",
+        "row_count": 1
+    },
+    {
+        "table_name": "agrp_caps",
+        "row_count": 298
+    },
+    {
+        "table_name": "bdr_events",
+        "row_count": 1077659
+    },
+    {
+        "table_name": "billables",
+        "row_count": 0
+    },
+    {
+        "table_name": "bonus_balance",
+        "row_count": 0
+    },
+    {
+        "table_name": "bonus_campaign_limits",
+        "row_count": 0
+    },
+    {
+        "table_name": "bonuses",
+        "row_count": 1
+    },
+    {
+        "table_name": "bonuses_all",
+        "row_count": 0
+    },
+    {
+        "table_name": "campaign_expected_kpi",
+        "row_count": 0
+    },
+    {
+        "table_name": "campaign_infos",
+        "row_count": 130
+    },
+    {
+        "table_name": "campaign_master",
+        "row_count": 0
+    },
+    {
+        "table_name": "campaign_notif",
+        "row_count": 2
+    },
+    {
+        "table_name": "campaign_params",
+        "row_count": 0
+    },
+    {
+        "table_name": "campaign_rewards",
+        "row_count": 759616
+    },
+    {
+        "table_name": "campaign_substates",
+        "row_count": 0
+    },
+    {
+        "table_name": "campaign_types",
+        "row_count": 8
+    },
+    {
+        "table_name": "campaigns",
+        "row_count": 138
+    },
+    {
+        "table_name": "campaigns_history",
+        "row_count": 140
+    },
+    {
+        "table_name": "campaigns_hourly",
+        "row_count": 29816
+    },
+    {
+        "table_name": "campaigns_weekly",
+        "row_count": 1
+    },
+    {
+        "table_name": "campaigns_weekly_subs_status",
+        "row_count": 1
+    },
+    {
+        "table_name": "catalog_offer_content",
+        "row_count": 248
+    },
+    {
+        "table_name": "catalog_offer_price",
+        "row_count": 280
+    },
+    {
+        "table_name": "catalog_offer_price_channels",
+        "row_count": 463
+    },
+    {
+        "table_name": "catalog_offer_price_channels_old",
+        "row_count": 424
+    },
+    {
+        "table_name": "catalog_offer_price_old",
+        "row_count": 227
+    },
+    {
+        "table_name": "catalog_offer_price_prices",
+        "row_count": 0
+    },
+    {
+        "table_name": "catalog_offers",
+        "row_count": 275
+    },
+    {
+        "table_name": "catalog_offers_eligibility",
+        "row_count": 234
+    },
+    {
+        "table_name": "catalog_offers_old",
+        "row_count": 234
+    },
+    {
+        "table_name": "catalog_offers_old2",
+        "row_count": 234
+    },
+    {
+        "table_name": "catalog_product_characteristics",
+        "row_count": 3
+    },
+    {
+        "table_name": "catalog_product_specific_characteristics",
+        "row_count": 0
+    },
+    {
+        "table_name": "catalog_product_type_characteristics",
+        "row_count": 0
+    },
+    {
+        "table_name": "catalog_product_types",
+        "row_count": 3
+    },
+    {
+        "table_name": "catalog_products",
+        "row_count": 3
+    },
+    {
+        "table_name": "catalog_related_offers",
+        "row_count": 0
+    },
+    {
+        "table_name": "catalog_related_products",
+        "row_count": 0
+    },
+    {
+        "table_name": "channel_references",
+        "row_count": 0
+    },
+    {
+        "table_name": "collected_files",
+        "row_count": 3
+    },
+    {
+        "table_name": "collected_files_stats",
+        "row_count": 5
+    },
+    {
+        "table_name": "composite_tarif_optionen",
+        "row_count": 150
+    },
+    {
+        "table_name": "conf",
+        "row_count": 371
+    },
+    {
+        "table_name": "conf_update_log",
+        "row_count": 1
+    },
+    {
+        "table_name": "conf_update_log_rrd_key",
+        "row_count": 0
+    },
+    {
+        "table_name": "daily_account",
+        "row_count": 0
+    },
+    {
+        "table_name": "daily_bonus",
+        "row_count": 0
+    },
+    {
+        "table_name": "daily_prepaid",
+        "row_count": 596597
+    },
+    {
+        "table_name": "daily_subs",
+        "row_count": 273777
+    },
+    {
+        "table_name": "daily_tarif_optionen",
+        "row_count": 0
+    },
+    {
+        "table_name": "delayed_bonus",
+        "row_count": 0
+    },
+    {
+        "table_name": "devices",
+        "row_count": 0
+    },
+    {
+        "table_name": "distributed_jobs",
+        "row_count": 8
+    },
+    {
+        "table_name": "dp_Engagement_subprofiles",
+        "row_count": 6
+    },
+    {
+        "table_name": "dynamic_profiles",
+        "row_count": 1
+    },
+    {
+        "table_name": "event_files",
+        "row_count": 0
+    },
+    {
+        "table_name": "event_formats",
+        "row_count": 6
+    },
+    {
+        "table_name": "events",
+        "row_count": 0
+    },
+    {
+        "table_name": "files_data",
+        "row_count": 17
+    },
+    {
+        "table_name": "files_data_gas",
+        "row_count": 17
+    },
+    {
+        "table_name": "files_data_backup",
+        "row_count": 326
+    },
+    {
+        "table_name": "files_meta",
+        "row_count": 17
+    },
+    {
+        "table_name": "groups",
+        "row_count": 11
+    },
+    {
+        "table_name": "groups_tabs",
+        "row_count": 156
+    },
+    {
+        "table_name": "gui_users",
+        "row_count": 321
+    },
+    {
+        "table_name": "gui_users_groups",
+        "row_count": 418
+    },
+    {
+        "table_name": "id_ARPU_klasse",
+        "row_count": 8
+    },
+    {
+        "table_name": "id_smartphone_data_usage",
+        "row_count": 4
+    },
+    {
+        "table_name": "id_voice_oder_data",
+        "row_count": 2
+    },
+    {
+        "table_name": "integers",
+        "row_count": 31
+    },
+    {
+        "table_name": "kpi_campaign",
+        "row_count": 768118
+    },
+    {
+        "table_name": "library_bonuses",
+        "row_count": 17
+    },
+    {
+        "table_name": "library_profiles",
+        "row_count": 4
+    },
+    {
+        "table_name": "library_ranges",
+        "row_count": 0
+    },
+    {
+        "table_name": "library_statuses",
+        "row_count": 9
+    },
+    {
+        "table_name": "locks",
+        "row_count": 3
+    },
+    {
+        "table_name": "logical_lock",
+        "row_count": 13
+    },
+    {
+        "table_name": "loyalty_badges",
+        "row_count": 0
+    },
+    {
+        "table_name": "loyalty_badges_types",
+        "row_count": 0
+    },
+    {
+        "table_name": "loyalty_classes",
+        "row_count": 0
+    },
+    {
+        "table_name": "loyalty_programs",
+        "row_count": 0
+    },
+    {
+        "table_name": "loyalty_subs_test",
+        "row_count": 0
+    },
+    {
+        "table_name": "members_all",
+        "row_count": 0
+    },
+    {
+        "table_name": "nagios_support",
+        "row_count": 1
+    },
+    {
+        "table_name": "nb_relations",
+        "row_count": 0
+    },
+    {
+        "table_name": "networks",
+        "row_count": 2
+    },
+    {
+        "table_name": "notif_reward_events",
+        "row_count": 0
+    },
+    {
+        "table_name": "odr_events",
+        "row_count": 381311
+    },
+    {
+        "table_name": "offer_stock",
+        "row_count": 757
+    },
+    {
+        "table_name": "offer_stock_old",
+        "row_count": 826
+    },
+    {
+        "table_name": "offoptim_algorithm",
+        "row_count": 5
+    },
+    {
+        "table_name": "offoptim_customer_items",
+        "row_count": 575075
+    },
+    {
+        "table_name": "offoptim_customer_items_released",
+        "row_count": 0
+    },
+    {
+        "table_name": "offoptim_customer_pack",
+        "row_count": 486558
+    },
+    {
+        "table_name": "offoptim_customer_pack_released",
+        "row_count": 0
+    },
+    {
+        "table_name": "offoptim_offer_history",
+        "row_count": 113
+    },
+    {
+        "table_name": "offoptim_ruleset",
+        "row_count": 101
+    },
+    {
+        "table_name": "offoptim_ruleset_requestor",
+        "row_count": 303
+    },
+    {
+        "table_name": "option_to_export",
+        "row_count": 99
+    },
+    {
+        "table_name": "overall_account",
+        "row_count": 0
+    },
+    {
+        "table_name": "overall_prepaid",
+        "row_count": 2693
+    },
+    {
+        "table_name": "prediction_accuracy",
+        "row_count": 0
+    },
+    {
+        "table_name": "prediction_repartition",
+        "row_count": 0
+    },
+    {
+        "table_name": "product_stock",
+        "row_count": 3
+    },
+    {
+        "table_name": "profiles",
+        "row_count": 2
+    },
+    {
+        "table_name": "purchase_repartition",
+        "row_count": 6539
+    },
+    {
+        "table_name": "range_dev",
+        "row_count": 0
+    },
+    {
+        "table_name": "range_pre_prod",
+        "row_count": 0
+    },
+    {
+        "table_name": "range_prod",
+        "row_count": 2
+    },
+    {
+        "table_name": "recommended_campaigns",
+        "row_count": 0
+    },
+    {
+        "table_name": "relation_types",
+        "row_count": 1
+    },
+    {
+        "table_name": "revenue_events",
+        "row_count": 0
+    },
+    {
+        "table_name": "reward_events",
+        "row_count": 0
+    },
+    {
+        "table_name": "rtm_disrangemon_range_pre_prod",
+        "row_count": 0
+    },
+    {
+        "table_name": "rtm_disrangemon_range_prod",
+        "row_count": 2
+    },
+    {
+        "table_name": "ruleset_channel",
+        "row_count": 457
+    },
+    {
+        "table_name": "sales_channels",
+        "row_count": 46
+    },
+    {
+        "table_name": "scheduled_tasks",
+        "row_count": 35
+    },
+    {
+        "table_name": "services",
+        "row_count": 0
+    },
+    {
+        "table_name": "set_tarif_optionen",
+        "row_count": 150
+    },
+    {
+        "table_name": "stats",
+        "row_count": 517200
+    },
+    {
+        "table_name": "stats_bonus",
+        "row_count": 0
+    },
+    {
+        "table_name": "stats_campaign",
+        "row_count": 768125
+    },
+    {
+        "table_name": "stats_campaign_archive",
+        "row_count": 753884
+    },
+    {
+        "table_name": "stats_churn",
+        "row_count": 0
+    },
+    {
+        "table_name": "stats_dp_Engagement_subprofiles",
+        "row_count": 6490622
+    },
+    {
+        "table_name": "stats_offer",
+        "row_count": 101498
+    },
+    {
+        "table_name": "stats_purchase",
+        "row_count": 211494
+    },
+    {
+        "table_name": "stats_range",
+        "row_count": 0
+    },
+    {
+        "table_name": "stats_range_custom",
+        "row_count": 0
+    },
+    {
+        "table_name": "stats_subs",
+        "row_count": 108926732
+    },
+    {
+        "table_name": "stats_subs_account",
+        "row_count": 0
+    },
+    {
+        "table_name": "stats_subs_account_old",
+        "row_count": 0
+    },
+    {
+        "table_name": "stats_subs_prepaid",
+        "row_count": 108926732
+    },
+    {
+        "table_name": "stats_subs_prepaid_old",
+        "row_count": 0
+    },
+    {
+        "table_name": "stats_subs_tarif_optionen",
+        "row_count": 3084029
+    },
+    {
+        "table_name": "statuses",
+        "row_count": 4
+    },
+    {
+        "table_name": "subs_badges",
+        "row_count": 0
+    },
+    {
+        "table_name": "subs_classes",
+        "row_count": 0
+    },
+    {
+        "table_name": "subs_notif",
+        "row_count": 8193627
+    },
+    {
+        "table_name": "subs_relations",
+        "row_count": 0
+    },
+    {
+        "table_name": "subscribers",
+        "row_count": 6496129
+    },
+    {
+        "table_name": "subscribers_all",
+        "row_count": 2072
+    },
+    {
+        "table_name": "suppliers",
+        "row_count": 1
+    },
+    {
+        "table_name": "supported_rate_plan",
+        "row_count": 43
+    },
+    {
+        "table_name": "token",
+        "row_count": 8929917
+    },
+    {
+        "table_name": "token_event",
+        "row_count": 10878348
+    },
+    {
+        "table_name": "token_label",
+        "row_count": 4
+    },
+    {
+        "table_name": "token_type",
+        "row_count": 4
+    },
+    {
+        "table_name": "ussd_events",
+        "row_count": 0
+    },
+    {
+        "table_name": "voucher_code_unlimited",
+        "row_count": 4
+    },
+    {
+        "table_name": "voucher_codes",
+        "row_count": 999738
+    }
+]
