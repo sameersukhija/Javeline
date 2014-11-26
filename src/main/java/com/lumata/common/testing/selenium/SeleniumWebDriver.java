@@ -242,12 +242,16 @@ public class SeleniumWebDriver {
 									
 									profilePath.append( System.getProperty( "user.dir" ) ).append( resourceFolderPath.getPath() ).append( File.separator );
 									
+									break;
+									
 								}
 								case FILE: {
 									
 									logger.info("Browser configuration selects Firefox profile as \"File\".");
 									
 									profilePath.append( profileFolder.getPath() ).append( File.separator ).append( profileName.getPath() );
+									
+									break;
 									
 								}
 							
