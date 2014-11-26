@@ -621,6 +621,7 @@ public class ImportDB {
 	 */
 	public static void main(String[] args) throws Exception {
 		String task = "";
+		String environment = "";
 		
 		if (args.length == 0) {
 			// TODO print help
@@ -630,9 +631,10 @@ public class ImportDB {
 			System.out.println("======================================");
 			
 			task = args[0];
+			environment = System.getProperty("environment", "e4o_o2_prod_ne");
 		}
 		
-		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", "e4o_o2_prod_ne", IOFileUtils.IOLoadingType.RESOURCE);
+		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE);
 		
 		// parameters for mysqldump
 		DataSource ds = nEnv.getDataSources().get(DS_TENANT_CRM);
