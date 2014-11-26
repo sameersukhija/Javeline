@@ -517,7 +517,6 @@ public class ImportDB {
 		return list.toArray(new String[list.size()]);
 	}
 	
-	@SuppressWarnings("unused")
 	private static String[] lightOrBigTablesList(String filename, boolean isLight, int limit) throws IOException {
 		List<String> list = new ArrayList<String>();
 		
@@ -628,6 +627,8 @@ public class ImportDB {
 			System.out.println("======================================");
 			System.out.println("Task: " + args[0]);			
 			System.out.println("======================================");
+			
+			task = args[0];
 		}
 		
 		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", "e4o_o2_prod_ne", IOFileUtils.IOLoadingType.RESOURCE);
@@ -673,7 +674,7 @@ public class ImportDB {
 		} else if (task.equals("dumpStruct")) {
 			dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
 		} else if (task.equals("dumpLight")) {
-			// TODO change this dumpLight(excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, false), ds, "light.sql");
+			dumpLight(lightOrBigTablesList("e4o_o2_prod_tenant_crm", true, 10000), ds, "light.sql");
 		}
 	}
 }
