@@ -533,7 +533,8 @@ public class ImportDB {
 			} else if (isLight == false && object.getInt("row_count") >= limit) {
 				
 				list.add(object.getString("table_name"));				
-			}		}
+			}
+		}
 		
 		return list.toArray(new String[list.size()]);
 	}
