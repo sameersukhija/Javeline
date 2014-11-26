@@ -145,9 +145,9 @@ public class GenerateSubscribersRecharge {
 	@Test( enabled = GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE_AND_SUBSCRIBERS )
 	public void generateFixedSubscriberRandomRechargeAndSubscribers() throws GeneratorException {
 		
-		final Long STARTED_MSISDN = 3399900001L;
+		final Long STARTED_MSISDN = 3399900002L;
 		final Integer INCREMENT = 1;
-		final Integer REPEAT = 1;
+		final Integer REPEAT = 49;
 		final Integer MIN_EVENTS = 20;
 		final Integer MAX_EVENTS = 50;
 				

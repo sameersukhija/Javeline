@@ -131,7 +131,7 @@ public class XLRPCRequest_OfferOptimizer_GetTokensList {
 		
 		System.out.println( actruleServer.getHostAddress() );
 		
-		String msisdn = "491798456944";
+		String msisdn = "3399900001";
 		
 		XMLRPCRequest.offeroptimizer_getTokensList().call( 
 							actruleServer, 

@@ -3,7 +3,6 @@ package com.lumata.e4o.gui.catalogmanager;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;

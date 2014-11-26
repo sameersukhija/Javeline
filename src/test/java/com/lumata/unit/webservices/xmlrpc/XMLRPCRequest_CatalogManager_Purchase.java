@@ -46,7 +46,7 @@ public class XMLRPCRequest_CatalogManager_Purchase {
 			xmlrpcBody(
 				authentication( superman ),
 				string("3399900001"),
-				string("OFFBVU1"),
+				string("OFFABC"),
 				string("Ch A"),
 				arrayProductPrices( 
 					//price( 10, "internal points" )	

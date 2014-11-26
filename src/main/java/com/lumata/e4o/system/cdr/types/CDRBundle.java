@@ -55,11 +55,6 @@ public class CDRBundle extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
-	}
-
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
@@ -88,9 +83,9 @@ public class CDRBundle extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
-	@BundleName( position = 2 )
-	public String getBundleName() throws FieldException  {
-		return this.bundleName.getString();
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setBundleNameLength( final Integer length ) throws FieldException  {
@@ -125,9 +120,9 @@ public class CDRBundle extends CDR {
 		if( this.bundleName != null ) { this.bundleName.cleanStringStrategyRandom(); }
 	}
 
-	@BundleBalance( position = 3 )
-	public String getBundleBalance() throws FieldException  {
-		return this.bundleBalance.getLong();
+	@BundleName( position = 2 )
+	public String getBundleName() throws FieldException  {
+		return this.bundleName.getString();
 	}
 
 	public void setBundleBalanceStrategyFixed( final Long value ) throws FieldException  {
@@ -154,17 +149,9 @@ public class CDRBundle extends CDR {
 		if( this.bundleBalance != null ) { this.bundleBalance.cleanLongStrategyRandom(); }
 	}
 
-	@BundlePurchased( position = 4 )
-	public String getBundlePurchased() throws FieldException  {
-		return this.bundlePurchased.getBoolean();
-	}
-
-	public void setBundlePurchasedStrategyFixed( final Boolean value ) throws FieldException  {
-		if( this.bundlePurchased != null ) { this.bundlePurchased.setBooleanStrategyFixed( value ); }
-	}
-
-	public void setBundlePurchasedStrategyIncrement( final Boolean start_value, final Integer increment ) throws FieldException  {
-		if( this.bundlePurchased != null ) { this.bundlePurchased.setBooleanStrategyIncrement( start_value, increment ); }
+	@BundleBalance( position = 3 )
+	public String getBundleBalance() throws FieldException  {
+		return this.bundleBalance.getLong();
 	}
 
 	public void setBundlePurchasedStrategyRandom() throws FieldException  {
@@ -181,6 +168,19 @@ public class CDRBundle extends CDR {
 
 	public void cleanBundlePurchasedStrategyRandom()  {
 		if( this.bundlePurchased != null ) { this.bundlePurchased.cleanBooleanStrategyRandom(); }
+	}
+
+	public void setBundlePurchasedStrategyFixed( final Boolean value ) throws FieldException  {
+		if( this.bundlePurchased != null ) { this.bundlePurchased.setBooleanStrategyFixed( value ); }
+	}
+
+	public void setBundlePurchasedStrategyIncrement( final Boolean start_value, final Integer increment ) throws FieldException  {
+		if( this.bundlePurchased != null ) { this.bundlePurchased.setBooleanStrategyIncrement( start_value, increment ); }
+	}
+
+	@BundlePurchased( position = 4 )
+	public String getBundlePurchased() throws FieldException  {
+		return this.bundlePurchased.getBoolean();
 	}
 
 }

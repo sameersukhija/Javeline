@@ -55,11 +55,6 @@ public class CDRRevenueRecharge extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
-	}
-
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
@@ -88,9 +83,9 @@ public class CDRRevenueRecharge extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
-	@Amount( position = 2 )
-	public String getAmount() throws FieldException  {
-		return this.amount.getLong();
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setAmountStrategyFixed( final Long value ) throws FieldException  {
@@ -117,9 +112,9 @@ public class CDRRevenueRecharge extends CDR {
 		if( this.amount != null ) { this.amount.cleanLongStrategyRandom(); }
 	}
 
-	@Balance( position = 3 )
-	public String getBalance() throws FieldException  {
-		return this.balance.getLong();
+	@Amount( position = 2 )
+	public String getAmount() throws FieldException  {
+		return this.amount.getLong();
 	}
 
 	public void setBalanceStrategyFixed( final Long value ) throws FieldException  {
@@ -146,9 +141,9 @@ public class CDRRevenueRecharge extends CDR {
 		if( this.balance != null ) { this.balance.cleanLongStrategyRandom(); }
 	}
 
-	@ValidityDate( position = 4 )
-	public String getValidityDate()  {
-		return this.validityDate.getDate();
+	@Balance( position = 3 )
+	public String getBalance() throws FieldException  {
+		return this.balance.getLong();
 	}
 
 	public void setValidityDateStrategyFixed( final Calendar date ) throws FieldException  {
@@ -179,9 +174,9 @@ public class CDRRevenueRecharge extends CDR {
 		if( this.validityDate != null ) { this.validityDate.cleanDateStrategyRandom(); }
 	}
 
-	@DeactivationDate( position = 5 )
-	public String getDeactivationDate()  {
-		return this.deactivationDate.getDate();
+	@ValidityDate( position = 4 )
+	public String getValidityDate()  {
+		return this.validityDate.getDate();
 	}
 
 	public void setDeactivationDateStrategyFixed( final Calendar date ) throws FieldException  {
@@ -210,6 +205,11 @@ public class CDRRevenueRecharge extends CDR {
 
 	public void cleanDeactivationDateStrategyRandom()  {
 		if( this.deactivationDate != null ) { this.deactivationDate.cleanDateStrategyRandom(); }
+	}
+
+	@DeactivationDate( position = 5 )
+	public String getDeactivationDate()  {
+		return this.deactivationDate.getDate();
 	}
 
 }

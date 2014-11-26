@@ -305,17 +305,14 @@ public class CDR {
 	protected FieldLong recharge_amount;
 	
 	@Address
-	protected FieldString address;
-	
-	@Time
-	protected FieldString time;
-	
-	@ChannelName
-	protected FieldString channel_name;
+	protected FieldLong address;
 	
 	@ShortCode
 	protected FieldString short_code;
-	
+
+	@ChannelName
+	protected FieldString channel_name;
+
 	@Text
 	protected FieldString text;
 	
@@ -529,10 +526,9 @@ public class CDR {
 		this.rawData = new FieldString();		
 		this.recharge_amount = new FieldLong();
 		
-		this.address = new FieldString();
-		this.time = new FieldString();
-		this.channel_name = new FieldString();
+		this.address = new FieldLong();
 		this.short_code = new FieldString();
+		this.channel_name = new FieldString();
 		this.text = new FieldString();
 		
 	}

@@ -39,8 +39,8 @@ public class XMLRPCRequest_Offeroptimizer_Allocate {
 	@Test(enabled=true, priority = 1 )
 	public void callXMLRPCCRequest() throws Exception {
 		
-		final String msisdn = "440000001";
-		final String token_code = "AK9X4";
+		final String msisdn = "3399900200";
+		final String token_code = "X6CPK";
 		
 		XMLRPCRequest.offeroptimizer_allocate().call( 	
 			actruleServer, 

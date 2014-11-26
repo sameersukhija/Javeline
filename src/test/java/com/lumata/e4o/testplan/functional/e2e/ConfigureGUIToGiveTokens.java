@@ -21,6 +21,8 @@ import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.exceptions.GeneratorException;
+import com.lumata.e4o.generators.common.Generator;
 import com.lumata.e4o.gui.administrationmanager.SalesChannelsForm;
 import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
 import com.lumata.e4o.gui.catalogmanager.RulesForm;
@@ -107,7 +109,7 @@ public class ConfigureGUIToGiveTokens {
 		Assert.assertTrue( campaignModelForm.open().addCampaignModels().navigate() );		
 				
     }
-		
+	
 	@AfterClass
 	public void end() throws FormException {		
 		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).quit().navigate() );		

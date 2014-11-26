@@ -8,7 +8,7 @@ import com.lumata.e4o.system.fields.FieldDateIncrement;
 
 public class CDRDialogSMS extends CDR { 
 
-	private final int FIELDS = 4;
+	private final int FIELDS = 6;
 
 	public CDRDialogSMS() {
 		super();
@@ -55,9 +55,33 @@ public class CDRDialogSMS extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
+	public void setAddressStrategyFixed( final Long value ) throws FieldException  {
+		if( this.address != null ) { this.address.setLongStrategyFixed( value ); }
+	}
+
+	public void setAddressStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
+		if( this.address != null ) { this.address.setLongStrategyIncrement( value, increment ); }
+	}
+
+	public void setAddressStrategyRandom( final Long min_value, final Long max_value ) throws FieldException  {
+		if( this.address != null ) { this.address.setLongStrategyRandom( min_value, max_value ); }
+	}
+
+	public void cleanAddressStrategyFixed()  {
+		if( this.address != null ) { this.address.cleanLongStrategyFixed(); }
+	}
+
+	public void cleanAddressStrategyIncrement()  {
+		if( this.address != null ) { this.address.cleanLongStrategyIncrement(); }
+	}
+
+	public void cleanAddressStrategyRandom()  {
+		if( this.address != null ) { this.address.cleanLongStrategyRandom(); }
+	}
+
+	@Address( position = 1 )
+	public String getAddress() throws FieldException  {
+		return this.address.getLong();
 	}
 
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
@@ -88,9 +112,9 @@ public class CDRDialogSMS extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
-	@ShortCode( position = 2 )
-	public String getShortCode() throws FieldException  {
-		return this.short_code.getString();
+	@Date( position = 2 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setShortCodeLength( final Integer length ) throws FieldException  {
@@ -125,9 +149,46 @@ public class CDRDialogSMS extends CDR {
 		if( this.short_code != null ) { this.short_code.cleanStringStrategyRandom(); }
 	}
 
-	@Text( position = 3 )
-	public String getText() throws FieldException  {
-		return this.text.getString();
+	@ShortCode( position = 3 )
+	public String getShortCode() throws FieldException  {
+		return this.short_code.getString();
+	}
+
+	public void setChannelNameLength( final Integer length ) throws FieldException  {
+		if( this.channel_name != null ) { this.channel_name.setStringLength( length ); }
+	}
+
+	public void setChannelNameStrategyFixed( final String value ) throws FieldException  {
+		if( this.channel_name != null ) { this.channel_name.setStringStrategyFixed( value ); }
+	}
+
+	public void setChannelNameStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
+		if( this.channel_name != null ) { this.channel_name.setStringStrategyIncrement( value, start_value, increment ); }
+	}
+
+	public void setChannelNameStrategyRandom( final Integer length ) throws FieldException  {
+		if( this.channel_name != null ) { this.channel_name.setStringStrategyRandom( length ); }
+	}
+
+	public void cleanChannelName()  {
+		if( this.channel_name != null ) { this.channel_name.cleanString(); }
+	}
+
+	public void cleanChannelNameLength()  {
+		if( this.channel_name != null ) { this.channel_name.cleanStringLength(); }
+	}
+
+	public void cleanChannelNameStrategyIncrement()  {
+		if( this.channel_name != null ) { this.channel_name.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanChannelNameStrategyRandom()  {
+		if( this.channel_name != null ) { this.channel_name.cleanStringStrategyRandom(); }
+	}
+
+	@ChannelName( position = 4 )
+	public String getChannelName() throws FieldException  {
+		return this.channel_name.getString();
 	}
 
 	public void setTextLength( final Integer length ) throws FieldException  {
@@ -160,6 +221,11 @@ public class CDRDialogSMS extends CDR {
 
 	public void cleanTextStrategyRandom()  {
 		if( this.text != null ) { this.text.cleanStringStrategyRandom(); }
+	}
+
+	@Text( position = 5 )
+	public String getText() throws FieldException  {
+		return this.text.getString();
 	}
 
 }

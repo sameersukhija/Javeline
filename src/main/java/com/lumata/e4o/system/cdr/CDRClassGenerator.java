@@ -191,7 +191,7 @@ public class CDRClassGenerator {
 		},
 		DialogSMS {	
 			public List<Class<? extends Annotation>> fields() {
-				return Arrays.asList( Msisdn.class, Date.class, ShortCode.class, Text.class );
+				return Arrays.asList( Msisdn.class, Address.class, Date.class, ShortCode.class, ChannelName.class, Text.class );
 			}
 		};
 		

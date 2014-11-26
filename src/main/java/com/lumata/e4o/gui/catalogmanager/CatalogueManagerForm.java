@@ -3,8 +3,6 @@ package com.lumata.e4o.gui.catalogmanager;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.Form;
-import com.lumata.e4o.gui.common.MenuBar;
-import com.lumata.e4o.gui.common.SectionImpl;
 
 public class CatalogueManagerForm extends Form {
 	

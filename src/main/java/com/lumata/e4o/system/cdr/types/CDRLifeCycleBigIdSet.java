@@ -57,11 +57,6 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
-	}
-
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
@@ -90,9 +85,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
-	@NewImei( position = 2 )
-	public String getNewImei() throws FieldException  {
-		return this.newImei.getLong();
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setNewImeiStrategyFixed( final Long value ) throws FieldException  {
@@ -119,9 +114,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.newImei != null ) { this.newImei.cleanLongStrategyRandom(); }
 	}
 
-	@OldImei( position = 3 )
-	public String getOldImei() throws FieldException  {
-		return this.oldImei.getLong();
+	@NewImei( position = 2 )
+	public String getNewImei() throws FieldException  {
+		return this.newImei.getLong();
 	}
 
 	public void setOldImeiStrategyFixed( final Long value ) throws FieldException  {
@@ -148,9 +143,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.oldImei != null ) { this.oldImei.cleanLongStrategyRandom(); }
 	}
 
-	@NewImsi( position = 4 )
-	public String getNewImsi() throws FieldException  {
-		return this.newImsi.getLong();
+	@OldImei( position = 3 )
+	public String getOldImei() throws FieldException  {
+		return this.oldImei.getLong();
 	}
 
 	public void setNewImsiStrategyFixed( final Long value ) throws FieldException  {
@@ -177,9 +172,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.newImsi != null ) { this.newImsi.cleanLongStrategyRandom(); }
 	}
 
-	@OldImsi( position = 5 )
-	public String getOldImsi() throws FieldException  {
-		return this.oldImsi.getLong();
+	@NewImsi( position = 4 )
+	public String getNewImsi() throws FieldException  {
+		return this.newImsi.getLong();
 	}
 
 	public void setOldImsiStrategyFixed( final Long value ) throws FieldException  {
@@ -206,9 +201,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.oldImsi != null ) { this.oldImsi.cleanLongStrategyRandom(); }
 	}
 
-	@NewSubscriptionDate( position = 6 )
-	public String getNewSubscriptionDate()  {
-		return this.newSubscriptionDate.getDate();
+	@OldImsi( position = 5 )
+	public String getOldImsi() throws FieldException  {
+		return this.oldImsi.getLong();
 	}
 
 	public void setNewSubscriptionDateStrategyFixed( final Calendar date ) throws FieldException  {
@@ -239,9 +234,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.newSubscriptionDate != null ) { this.newSubscriptionDate.cleanDateStrategyRandom(); }
 	}
 
-	@OldSubscriptionDate( position = 7 )
-	public String getOldSubscriptionDate()  {
-		return this.oldSubscriptionDate.getDate();
+	@NewSubscriptionDate( position = 6 )
+	public String getNewSubscriptionDate()  {
+		return this.newSubscriptionDate.getDate();
 	}
 
 	public void setOldSubscriptionDateStrategyFixed( final Calendar date ) throws FieldException  {
@@ -272,9 +267,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.oldSubscriptionDate != null ) { this.oldSubscriptionDate.cleanDateStrategyRandom(); }
 	}
 
-	@NewProfile( position = 8 )
-	public String getNewProfile() throws FieldException  {
-		return this.newProfile.getString();
+	@OldSubscriptionDate( position = 7 )
+	public String getOldSubscriptionDate()  {
+		return this.oldSubscriptionDate.getDate();
 	}
 
 	public void setNewProfileLength( final Integer length ) throws FieldException  {
@@ -309,9 +304,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.newProfile != null ) { this.newProfile.cleanStringStrategyRandom(); }
 	}
 
-	@OldProfile( position = 9 )
-	public String getOldProfile() throws FieldException  {
-		return this.oldProfile.getString();
+	@NewProfile( position = 8 )
+	public String getNewProfile() throws FieldException  {
+		return this.newProfile.getString();
 	}
 
 	public void setOldProfileLength( final Integer length ) throws FieldException  {
@@ -346,9 +341,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.oldProfile != null ) { this.oldProfile.cleanStringStrategyRandom(); }
 	}
 
-	@NewRatePlan( position = 10 )
-	public String getNewRatePlan() throws FieldException  {
-		return this.newRatePlan.getString();
+	@OldProfile( position = 9 )
+	public String getOldProfile() throws FieldException  {
+		return this.oldProfile.getString();
 	}
 
 	public void setNewRatePlanLength( final Integer length ) throws FieldException  {
@@ -383,9 +378,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.newRatePlan != null ) { this.newRatePlan.cleanStringStrategyRandom(); }
 	}
 
-	@OldRatePlan( position = 11 )
-	public String getOldRatePlan() throws FieldException  {
-		return this.oldRatePlan.getString();
+	@NewRatePlan( position = 10 )
+	public String getNewRatePlan() throws FieldException  {
+		return this.newRatePlan.getString();
 	}
 
 	public void setOldRatePlanLength( final Integer length ) throws FieldException  {
@@ -418,6 +413,11 @@ public class CDRLifeCycleBigIdSet extends CDR {
 
 	public void cleanOldRatePlanStrategyRandom()  {
 		if( this.oldRatePlan != null ) { this.oldRatePlan.cleanStringStrategyRandom(); }
+	}
+
+	@OldRatePlan( position = 11 )
+	public String getOldRatePlan() throws FieldException  {
+		return this.oldRatePlan.getString();
 	}
 
 	@NewStatus( position = 12 )
@@ -478,11 +478,6 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.oldStatus != null ) { this.oldStatus.cleanEnumStrategyRandom(); }
 	}
 
-	@NewNetwork( position = 14 )
-	public String getNewNetwork() throws FieldException  {
-		return this.newNetwork.getString();
-	}
-
 	public void setNewNetworkLength( final Integer length ) throws FieldException  {
 		if( this.newNetwork != null ) { this.newNetwork.setStringLength( length ); }
 	}
@@ -515,9 +510,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.newNetwork != null ) { this.newNetwork.cleanStringStrategyRandom(); }
 	}
 
-	@OldNetwork( position = 15 )
-	public String getOldNetwork() throws FieldException  {
-		return this.oldNetwork.getString();
+	@NewNetwork( position = 14 )
+	public String getNewNetwork() throws FieldException  {
+		return this.newNetwork.getString();
 	}
 
 	public void setOldNetworkLength( final Integer length ) throws FieldException  {
@@ -552,9 +547,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.oldNetwork != null ) { this.oldNetwork.cleanStringStrategyRandom(); }
 	}
 
-	@NewTongue( position = 16 )
-	public String getNewTongue() throws FieldException  {
-		return this.newTongue.getString();
+	@OldNetwork( position = 15 )
+	public String getOldNetwork() throws FieldException  {
+		return this.oldNetwork.getString();
 	}
 
 	public void setNewTongueLength( final Integer length ) throws FieldException  {
@@ -589,9 +584,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.newTongue != null ) { this.newTongue.cleanStringStrategyRandom(); }
 	}
 
-	@OldTongue( position = 17 )
-	public String getOldTongue() throws FieldException  {
-		return this.oldTongue.getString();
+	@NewTongue( position = 16 )
+	public String getNewTongue() throws FieldException  {
+		return this.newTongue.getString();
 	}
 
 	public void setOldTongueLength( final Integer length ) throws FieldException  {
@@ -626,9 +621,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.oldTongue != null ) { this.oldTongue.cleanStringStrategyRandom(); }
 	}
 
-	@NewInTag( position = 18 )
-	public String getNewInTag() throws FieldException  {
-		return this.newInTag.getString();
+	@OldTongue( position = 17 )
+	public String getOldTongue() throws FieldException  {
+		return this.oldTongue.getString();
 	}
 
 	public void setNewInTagLength( final Integer length ) throws FieldException  {
@@ -663,9 +658,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.newInTag != null ) { this.newInTag.cleanStringStrategyRandom(); }
 	}
 
-	@OldInTag( position = 19 )
-	public String getOldInTag() throws FieldException  {
-		return this.oldInTag.getString();
+	@NewInTag( position = 18 )
+	public String getNewInTag() throws FieldException  {
+		return this.newInTag.getString();
 	}
 
 	public void setOldInTagLength( final Integer length ) throws FieldException  {
@@ -700,16 +695,21 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.oldInTag != null ) { this.oldInTag.cleanStringStrategyRandom(); }
 	}
 
+	@OldInTag( position = 19 )
+	public String getOldInTag() throws FieldException  {
+		return this.oldInTag.getString();
+	}
+
 	@NewHobbies( position = 20 )
 	public String getNewHobbies() throws FieldException  {
 		return this.newHobbies.getSet();
 	}
 
-	public void setNewHobbiesOptions( final Set<String> values ) throws FieldException  {
+	public void setNewHobbiesOptions( final Enum<?>... values ) throws FieldException  {
 		if( this.newHobbies != null ) { this.newHobbies.setSetOptions( values ); }
 	}
 
-	public void setNewHobbiesOptions( final Enum<?>... values ) throws FieldException  {
+	public void setNewHobbiesOptions( final Set<String> values ) throws FieldException  {
 		if( this.newHobbies != null ) { this.newHobbies.setSetOptions( values ); }
 	}
 
@@ -725,15 +725,15 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.newHobbies != null ) { this.newHobbies.setSetStrategyFixed( values ); }
 	}
 
-	public void setNewHobbiesStrategyFixed( final String... values ) throws FieldException  {
-		if( this.newHobbies != null ) { this.newHobbies.setSetStrategyFixed( values ); }
-	}
-
 	public void setNewHobbiesStrategyFixed() throws FieldException  {
 		if( this.newHobbies != null ) { this.newHobbies.setSetStrategyFixed(); }
 	}
 
 	public void setNewHobbiesStrategyFixed( final Set<String> values ) throws FieldException  {
+		if( this.newHobbies != null ) { this.newHobbies.setSetStrategyFixed( values ); }
+	}
+
+	public void setNewHobbiesStrategyFixed( final String... values ) throws FieldException  {
 		if( this.newHobbies != null ) { this.newHobbies.setSetStrategyFixed( values ); }
 	}
 
@@ -770,11 +770,11 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		return this.oldHobbies.getSet();
 	}
 
-	public void setOldHobbiesOptions( final Set<String> values ) throws FieldException  {
+	public void setOldHobbiesOptions( final Enum<?>... values ) throws FieldException  {
 		if( this.oldHobbies != null ) { this.oldHobbies.setSetOptions( values ); }
 	}
 
-	public void setOldHobbiesOptions( final Enum<?>... values ) throws FieldException  {
+	public void setOldHobbiesOptions( final Set<String> values ) throws FieldException  {
 		if( this.oldHobbies != null ) { this.oldHobbies.setSetOptions( values ); }
 	}
 
@@ -790,15 +790,15 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.oldHobbies != null ) { this.oldHobbies.setSetStrategyFixed( values ); }
 	}
 
-	public void setOldHobbiesStrategyFixed( final String... values ) throws FieldException  {
-		if( this.oldHobbies != null ) { this.oldHobbies.setSetStrategyFixed( values ); }
-	}
-
 	public void setOldHobbiesStrategyFixed() throws FieldException  {
 		if( this.oldHobbies != null ) { this.oldHobbies.setSetStrategyFixed(); }
 	}
 
 	public void setOldHobbiesStrategyFixed( final Set<String> values ) throws FieldException  {
+		if( this.oldHobbies != null ) { this.oldHobbies.setSetStrategyFixed( values ); }
+	}
+
+	public void setOldHobbiesStrategyFixed( final String... values ) throws FieldException  {
 		if( this.oldHobbies != null ) { this.oldHobbies.setSetStrategyFixed( values ); }
 	}
 
@@ -835,11 +835,11 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		return this.newOptions.getSet();
 	}
 
-	public void setNewOptionsOptions( final Set<String> values ) throws FieldException  {
+	public void setNewOptionsOptions( final Enum<?>... values ) throws FieldException  {
 		if( this.newOptions != null ) { this.newOptions.setSetOptions( values ); }
 	}
 
-	public void setNewOptionsOptions( final Enum<?>... values ) throws FieldException  {
+	public void setNewOptionsOptions( final Set<String> values ) throws FieldException  {
 		if( this.newOptions != null ) { this.newOptions.setSetOptions( values ); }
 	}
 
@@ -855,15 +855,15 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.newOptions != null ) { this.newOptions.setSetStrategyFixed( values ); }
 	}
 
-	public void setNewOptionsStrategyFixed( final String... values ) throws FieldException  {
-		if( this.newOptions != null ) { this.newOptions.setSetStrategyFixed( values ); }
-	}
-
 	public void setNewOptionsStrategyFixed() throws FieldException  {
 		if( this.newOptions != null ) { this.newOptions.setSetStrategyFixed(); }
 	}
 
 	public void setNewOptionsStrategyFixed( final Set<String> values ) throws FieldException  {
+		if( this.newOptions != null ) { this.newOptions.setSetStrategyFixed( values ); }
+	}
+
+	public void setNewOptionsStrategyFixed( final String... values ) throws FieldException  {
 		if( this.newOptions != null ) { this.newOptions.setSetStrategyFixed( values ); }
 	}
 
@@ -900,11 +900,11 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		return this.oldOptions.getSet();
 	}
 
-	public void setOldOptionsOptions( final Set<String> values ) throws FieldException  {
+	public void setOldOptionsOptions( final Enum<?>... values ) throws FieldException  {
 		if( this.oldOptions != null ) { this.oldOptions.setSetOptions( values ); }
 	}
 
-	public void setOldOptionsOptions( final Enum<?>... values ) throws FieldException  {
+	public void setOldOptionsOptions( final Set<String> values ) throws FieldException  {
 		if( this.oldOptions != null ) { this.oldOptions.setSetOptions( values ); }
 	}
 
@@ -920,15 +920,15 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.oldOptions != null ) { this.oldOptions.setSetStrategyFixed( values ); }
 	}
 
-	public void setOldOptionsStrategyFixed( final String... values ) throws FieldException  {
-		if( this.oldOptions != null ) { this.oldOptions.setSetStrategyFixed( values ); }
-	}
-
 	public void setOldOptionsStrategyFixed() throws FieldException  {
 		if( this.oldOptions != null ) { this.oldOptions.setSetStrategyFixed(); }
 	}
 
 	public void setOldOptionsStrategyFixed( final Set<String> values ) throws FieldException  {
+		if( this.oldOptions != null ) { this.oldOptions.setSetStrategyFixed( values ); }
+	}
+
+	public void setOldOptionsStrategyFixed( final String... values ) throws FieldException  {
 		if( this.oldOptions != null ) { this.oldOptions.setSetStrategyFixed( values ); }
 	}
 
@@ -1018,11 +1018,6 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.oldGender != null ) { this.oldGender.cleanEnumStrategyRandom(); }
 	}
 
-	@NewSalary( position = 26 )
-	public String getNewSalary() throws FieldException  {
-		return this.newSalary.getString();
-	}
-
 	public void setNewSalaryLength( final Integer length ) throws FieldException  {
 		if( this.newSalary != null ) { this.newSalary.setStringLength( length ); }
 	}
@@ -1055,9 +1050,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.newSalary != null ) { this.newSalary.cleanStringStrategyRandom(); }
 	}
 
-	@OldSalary( position = 27 )
-	public String getOldSalary() throws FieldException  {
-		return this.oldSalary.getString();
+	@NewSalary( position = 26 )
+	public String getNewSalary() throws FieldException  {
+		return this.newSalary.getString();
 	}
 
 	public void setOldSalaryLength( final Integer length ) throws FieldException  {
@@ -1092,9 +1087,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.oldSalary != null ) { this.oldSalary.cleanStringStrategyRandom(); }
 	}
 
-	@NewAddress( position = 28 )
-	public String getNewAddress() throws FieldException  {
-		return this.newAddress.getString();
+	@OldSalary( position = 27 )
+	public String getOldSalary() throws FieldException  {
+		return this.oldSalary.getString();
 	}
 
 	public void setNewAddressLength( final Integer length ) throws FieldException  {
@@ -1129,9 +1124,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.newAddress != null ) { this.newAddress.cleanStringStrategyRandom(); }
 	}
 
-	@OldAddress( position = 29 )
-	public String getOldAddress() throws FieldException  {
-		return this.oldAddress.getString();
+	@NewAddress( position = 28 )
+	public String getNewAddress() throws FieldException  {
+		return this.newAddress.getString();
 	}
 
 	public void setOldAddressLength( final Integer length ) throws FieldException  {
@@ -1166,9 +1161,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.oldAddress != null ) { this.oldAddress.cleanStringStrategyRandom(); }
 	}
 
-	@NewSponsor( position = 30 )
-	public String getNewSponsor() throws FieldException  {
-		return this.newSponsor.getString();
+	@OldAddress( position = 29 )
+	public String getOldAddress() throws FieldException  {
+		return this.oldAddress.getString();
 	}
 
 	public void setNewSponsorLength( final Integer length ) throws FieldException  {
@@ -1203,9 +1198,9 @@ public class CDRLifeCycleBigIdSet extends CDR {
 		if( this.newSponsor != null ) { this.newSponsor.cleanStringStrategyRandom(); }
 	}
 
-	@OldSponsor( position = 31 )
-	public String getOldSponsor() throws FieldException  {
-		return this.oldSponsor.getString();
+	@NewSponsor( position = 30 )
+	public String getNewSponsor() throws FieldException  {
+		return this.newSponsor.getString();
 	}
 
 	public void setOldSponsorLength( final Integer length ) throws FieldException  {
@@ -1238,6 +1233,11 @@ public class CDRLifeCycleBigIdSet extends CDR {
 
 	public void cleanOldSponsorStrategyRandom()  {
 		if( this.oldSponsor != null ) { this.oldSponsor.cleanStringStrategyRandom(); }
+	}
+
+	@OldSponsor( position = 31 )
+	public String getOldSponsor() throws FieldException  {
+		return this.oldSponsor.getString();
 	}
 
 }

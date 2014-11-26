@@ -56,11 +56,6 @@ public class CDRRevenuePayment extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
-	}
-
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
@@ -89,9 +84,9 @@ public class CDRRevenuePayment extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
-	@AmountPayment( position = 2 )
-	public String getAmountPayment() throws FieldException  {
-		return this.amountPayment.getLong();
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setAmountPaymentStrategyFixed( final Long value ) throws FieldException  {
@@ -118,9 +113,9 @@ public class CDRRevenuePayment extends CDR {
 		if( this.amountPayment != null ) { this.amountPayment.cleanLongStrategyRandom(); }
 	}
 
-	@Balance( position = 3 )
-	public String getBalance() throws FieldException  {
-		return this.balance.getLong();
+	@AmountPayment( position = 2 )
+	public String getAmountPayment() throws FieldException  {
+		return this.amountPayment.getLong();
 	}
 
 	public void setBalanceStrategyFixed( final Long value ) throws FieldException  {
@@ -145,6 +140,11 @@ public class CDRRevenuePayment extends CDR {
 
 	public void cleanBalanceStrategyRandom()  {
 		if( this.balance != null ) { this.balance.cleanLongStrategyRandom(); }
+	}
+
+	@Balance( position = 3 )
+	public String getBalance() throws FieldException  {
+		return this.balance.getLong();
 	}
 
 	@Type( position = 4 )
@@ -176,11 +176,6 @@ public class CDRRevenuePayment extends CDR {
 		if( this.type != null ) { this.type.cleanEnumStrategyRandom(); }
 	}
 
-	@Delay( position = 5 )
-	public String getDelay() throws FieldException  {
-		return this.delay.getLong();
-	}
-
 	public void setDelayStrategyFixed( final Long value ) throws FieldException  {
 		if( this.delay != null ) { this.delay.setLongStrategyFixed( value ); }
 	}
@@ -203,6 +198,11 @@ public class CDRRevenuePayment extends CDR {
 
 	public void cleanDelayStrategyRandom()  {
 		if( this.delay != null ) { this.delay.cleanLongStrategyRandom(); }
+	}
+
+	@Delay( position = 5 )
+	public String getDelay() throws FieldException  {
+		return this.delay.getLong();
 	}
 
 }

@@ -56,11 +56,6 @@ public class CDRRevenueInvoice extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
-	}
-
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
@@ -89,9 +84,9 @@ public class CDRRevenueInvoice extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
-	@AmountInvoice( position = 2 )
-	public String getAmountInvoice() throws FieldException  {
-		return this.amountInvoice.getLong();
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setAmountInvoiceStrategyFixed( final Long value ) throws FieldException  {
@@ -118,9 +113,9 @@ public class CDRRevenueInvoice extends CDR {
 		if( this.amountInvoice != null ) { this.amountInvoice.cleanLongStrategyRandom(); }
 	}
 
-	@Balance( position = 3 )
-	public String getBalance() throws FieldException  {
-		return this.balance.getLong();
+	@AmountInvoice( position = 2 )
+	public String getAmountInvoice() throws FieldException  {
+		return this.amountInvoice.getLong();
 	}
 
 	public void setBalanceStrategyFixed( final Long value ) throws FieldException  {
@@ -145,6 +140,11 @@ public class CDRRevenueInvoice extends CDR {
 
 	public void cleanBalanceStrategyRandom()  {
 		if( this.balance != null ) { this.balance.cleanLongStrategyRandom(); }
+	}
+
+	@Balance( position = 3 )
+	public String getBalance() throws FieldException  {
+		return this.balance.getLong();
 	}
 
 	@Type( position = 4 )

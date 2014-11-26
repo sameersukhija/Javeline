@@ -63,9 +63,22 @@ public class GenerateCDRDialogSms {
 		increment.setDayIncrement( 1 );
 
 		cdrDialogSms.setMsisdnStrategyFixed( 3399900100L );
+		cdrDialogSms.setAddressStrategyFixed( 3399900100L );
 		cdrDialogSms.setDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		cdrDialogSms.setDateStrategyFixed( date );
-		cdrDialogSms.setShortCodeStrategyFixed( "66" );
+		cdrDialogSms.setShortCodeStrategyFixed( "5555" );
+		cdrDialogSms.setChannelNameStrategyFixed( "SMS" );
+		//cdrDialogSms.setTextStrategyIncrement( "ACCEPT ", 0, 1 );
+		cdrDialogSms.setTextStrategyFixed( "ACCEPT 3" );
+				
+		cdrDialogSms.addLines( 1 );
+		
+		cdrDialogSms.setMsisdnStrategyFixed( 3399900200L );
+		cdrDialogSms.setAddressStrategyFixed( 3399900200L );
+		cdrDialogSms.setDateFormat( "yyyy-MM-dd HH:mm:ss" );
+		cdrDialogSms.setDateStrategyFixed( date );
+		cdrDialogSms.setShortCodeStrategyFixed( "5555" );
+		cdrDialogSms.setChannelNameStrategyFixed( "SMS" );
 		//cdrDialogSms.setTextStrategyIncrement( "ACCEPT ", 0, 1 );
 		cdrDialogSms.setTextStrategyFixed( "ACCEPT 3" );
 				
@@ -75,7 +88,7 @@ public class GenerateCDRDialogSms {
 		
 		cdrDialogSms.save();
 		
-		cdrDialogSms.send( sshService, "/nfsdata/files/cdr/deposit/DIALOG_SMS/", sshUser );
+		cdrDialogSms.send( sshService, "/usr/local/actrule/data/dialog/tenant1/", sshUser );
 		
 		System.out.println( "File name: " + cdrDialogSms.getFileName() );
 		
