@@ -649,15 +649,40 @@ public class ImportDB {
 		System.out.println("--------------------------------------");
 		
 		if (task.equals("test")) { // dev/test here
-			
-			/*for (String table : lightOrBigTablesList("e4o_o2_prod_tenant_crm", true, 10000)) {
-				System.out.println(table);
-			}*/
-			
+					
 			/*String[] lightTenantTables = excludeElementsFrom(ALL_TENANT_TABLES, BIG_TENANT_TABLES, true);
 			for (String table : lightTenantTables) {
 				System.out.println(table);
 			}*/
+		
+			/* LIST OF BIG TABLES:
+				bdr_events
+				campaign_rewards
+				campaigns_hourly
+				daily_prepaid
+				daily_subs
+				kpi_campaign
+				odr_events
+				offoptim_customer_items
+				offoptim_customer_pack
+				stats
+				stats_campaign
+				stats_campaign_archive
+				stats_dp_Engagement_subprofiles
+				stats_offer
+				stats_purchase
+				stats_subs
+				stats_subs_prepaid
+				stats_subs_tarif_optionen
+				subs_notif
+				subscribers
+				token
+				token_event
+				voucher_codes
+			 */
+			for (String table : lightOrBigTablesList("e4o_o2_prod_tenant_crm", false, 10000)) {
+				System.out.println(table);
+			}
 			
 		} else if (task.equals("showAllDatabases")) {
 			showAllDatabases(ds);
