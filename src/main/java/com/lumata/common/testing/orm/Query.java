@@ -171,4 +171,12 @@ public class Query {
 		
 	}
 	
+	public static IMysqlDump mysqldump() {
+		
+		Dump dump = new Dump();
+		
+		return new MysqlDump( dump );
+		
+	}
+	
 }
