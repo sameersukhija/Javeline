@@ -31,8 +31,13 @@ import com.lumata.common.testing.system.Security;
  */
 public class ImportDB {
 
+	public final static String ENV_E4O_O2_PROD = "e4o_o2_prod_ne";
 	public final static String DS_TENANT = "tenant";
 	public final static String DS_TENANT_CRM = "tenant_crm";
+	public final static String TABLES_TENANT_E4O_O2_PROD_CRM = "e4o_o2_prod_tenant_crm";
+	public final static String LIGHT_BIG_TABLE_LIMIT = "10000";
+	public final static String DUMP_STRUCT_NAME = "struct.sql";
+	public final static String DUMP_LIGHT_NAME = "light.sql";
 	
 	// TODO find other big tables and configure this list in JSON
 	public final static String[] BIG_TENANT_TABLES = {
@@ -622,6 +627,11 @@ public class ImportDB {
 	public static void main(String[] args) throws Exception {
 		String task = "";
 		String environment = "";
+		String dataSource = "";
+		String tablesList = "";
+		String dumpStructName = "";
+		String dumpLightName = "";
+		Integer lightBigTableLimit = 0;
 		
 		if (args.length == 0) {
 			// TODO print help
@@ -631,13 +641,19 @@ public class ImportDB {
 			System.out.println("======================================");
 			
 			task = args[0];
-			environment = System.getProperty("environment", "e4o_o2_prod_ne");
+			environment = System.getProperty("environment", ENV_E4O_O2_PROD);
+			dataSource = System.getProperty("dataSource", DS_TENANT_CRM);
+			tablesList = System.getProperty("tablesList", TABLES_TENANT_E4O_O2_PROD_CRM);
+			dumpStructName = System.getProperty("dumpStructName", DUMP_STRUCT_NAME);
+			dumpLightName = System.getProperty("dumpLightName", DUMP_LIGHT_NAME);
+			
+			lightBigTableLimit = Integer.parseInt(System.getProperty("dumpLightName", LIGHT_BIG_TABLE_LIMIT));
 		}
 		
 		NetworkEnvironment nEnv = new NetworkEnvironment("input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE);
 		
 		// parameters for mysqldump
-		DataSource ds = nEnv.getDataSources().get(DS_TENANT_CRM);
+		DataSource ds = nEnv.getDataSources().get(dataSource);
 		System.out.println("HostAddress: " + ds.getHostAddress());
 		System.out.println("HostPort: " + ds.getHostPort());
 		System.out.println("User: " + ds.getUser());
@@ -689,20 +705,27 @@ public class ImportDB {
 			
 		} else if (task.equals("showAllDatabases")) {
 			showAllDatabases(ds);
+			
 		} else if (task.equals("showAllTables")) {
 			showAllTables(ds);
+			
 		} else if (task.equals("showAllTenantTablesCount")) {
 			showAllTenantTablesCount(ds);
+			
 		} else if (task.equals("showAllTenantTablesCountJSON")) {
 			showAllTenantTablesCountJSON(ds);
+			
 		} else if (task.equals("showAllTenantTablesZeroRows")) {
 			showAllTenantTablesZeroRows("e4o_o2_prod_tenant_crm");
+			
 		} else if (task.equals("diffTenantTables")) {
 			diffTenantTables(ds);
+			
 		} else if (task.equals("dumpStruct")) {
-			dumpStruct(ALL_TENANT_TABLES, ds, "struct.sql");
+			dumpStruct(ALL_TENANT_TABLES, ds, dumpStructName);
+			
 		} else if (task.equals("dumpLight")) {
-			dumpLight(lightOrBigTablesList("e4o_o2_prod_tenant_crm", true, 10000), ds, "light.sql");
+			dumpLight(lightOrBigTablesList(tablesList, true, lightBigTableLimit), ds, dumpLightName);
 		}
 	}
 }
