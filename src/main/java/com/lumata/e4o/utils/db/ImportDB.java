@@ -38,6 +38,7 @@ public class ImportDB {
 	public final static String LIGHT_BIG_TABLE_LIMIT = "10000";
 	public final static String DUMP_STRUCT_NAME = "struct.sql";
 	public final static String DUMP_LIGHT_NAME = "light.sql";
+	public final static String DUMP_BIG_NAME = "big.sql";
 	
 	// TODO find other big tables and configure this list in JSON
 	public final static String[] BIG_TENANT_TABLES = {
@@ -462,8 +463,43 @@ public class ImportDB {
 	 * ... --where=userId in (...)
 	 * 
 	 * @param tablesList
+	 * @throws IOException 
 	 */
-	public static void dumpBig(String[] tablesList, String where, DataSource ds) {
+	public static void dumpBig(String[] tablesList, String[] inConditionList, DataSource ds, String filename) throws IOException {
+		
+		deleteOldFileIfExists(filename);
+		
+		for (String table : tablesList) {
+			
+			String whereColumn = "msisdn";
+			
+			if (table.equals("TODO")) {
+				// TODO...
+			}
+			
+			// dump("a", fileName, '''mysqldump -h%(host)s -u%(user)s -p%(pass)s -P %(port)s --lock-tables=false --no-create-info "--where=user_prizeId in (%(user_prize_ids)s)" %(db)s user_prize_detail''' % DBINFO)		
+			/*execFile(String.format(
+					"mysqldump -h%s -u%s -p%s -P%s --lock-tables=false --no-create-info \"--where=%s in (%s)\" %s %s",
+					ds.getHostAddress(),
+					ds.getUser(),
+					Security.decrypt(ds.getPassword()),
+					ds.getHostPort(),
+					whereColumn,
+					convertArrayToString(inConditionList, ","),
+					ds.getHostName(),
+					table), filename);*/
+			
+			String[] command = {"mysqldump", "-h"+ds.getHostAddress(), "-P"+ds.getHostPort(),
+					"-u"+ds.getUser(), "-p"+Security.decrypt(ds.getPassword()), "-P"+ds.getHostPort(),
+					"--lock-tables=false", "--no-create-info",
+					String.format("--where=%s in (%s)", whereColumn, convertArrayToString(inConditionList, ",")),
+					ds.getHostName(), table};
+			
+			execFile(command, filename);
+			
+			break; // TODO remove
+		}
+		
 		// TODO...
 	}
 
@@ -595,6 +631,10 @@ public class ImportDB {
 		Process p = Runtime.getRuntime().exec(command);
 		execOutput(p);
 	}
+	private static void execFile(String[] command, String filename) throws IOException {
+		Process p = Runtime.getRuntime().exec(command);
+		execFileOutput(p, filename);
+	}
 	
 	// count(*) SQL
 	private static long execCount(String tableName, DataSource ds) throws ClassNotFoundException, SQLException {
@@ -631,6 +671,7 @@ public class ImportDB {
 		String tablesList = "";
 		String dumpStructName = "";
 		String dumpLightName = "";
+		String dumpBigName = "";
 		Integer lightBigTableLimit = 0;
 		
 		if (args.length == 0) {
@@ -646,6 +687,7 @@ public class ImportDB {
 			tablesList = System.getProperty("tablesList", TABLES_TENANT_E4O_O2_PROD_CRM);
 			dumpStructName = System.getProperty("dumpStructName", DUMP_STRUCT_NAME);
 			dumpLightName = System.getProperty("dumpLightName", DUMP_LIGHT_NAME);
+			dumpBigName = System.getProperty("dumpLightName", DUMP_BIG_NAME);
 			
 			lightBigTableLimit = Integer.parseInt(System.getProperty("dumpLightName", LIGHT_BIG_TABLE_LIMIT));
 		}
@@ -699,7 +741,7 @@ public class ImportDB {
 				token_event
 				voucher_codes
 			 */
-			for (String table : lightOrBigTablesList("e4o_o2_prod_tenant_crm", false, 10000)) {
+			for (String table : lightOrBigTablesList(tablesList, false, lightBigTableLimit)) {
 				System.out.println(table);
 			}
 			
@@ -726,6 +768,11 @@ public class ImportDB {
 			
 		} else if (task.equals("dumpLight")) {
 			dumpLight(lightOrBigTablesList(tablesList, true, lightBigTableLimit), ds, dumpLightName);
+			
+		} else if (task.equals("dumpBig")) {
+			String[] msisdnList = {"49199999993", "49199999994"}; // TODO
+			dumpBig(lightOrBigTablesList(tablesList, false, lightBigTableLimit), msisdnList, ds, dumpBigName);
+			
 		}
 	}
 }
