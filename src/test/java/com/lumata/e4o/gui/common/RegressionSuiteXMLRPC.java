@@ -250,7 +250,7 @@ public class RegressionSuiteXMLRPC extends RegressionSuiteXmlrpcCore {
 									channel( ChannelType.SMS, msisdn, Boolean.TRUE )	
 							),
 							null,							
-							null,
+							xmlrpcParams,
 							null
 					)
 				),
