@@ -473,10 +473,6 @@ public class ImportDB {
 			
 			String whereColumn = "msisdn";
 			
-			if (table.equals("TODO")) {
-				// TODO...
-			}
-			
 			// dump("a", fileName, '''mysqldump -h%(host)s -u%(user)s -p%(pass)s -P %(port)s --lock-tables=false --no-create-info "--where=user_prizeId in (%(user_prize_ids)s)" %(db)s user_prize_detail''' % DBINFO)		
 			/*execFile(String.format(
 					"mysqldump -h%s -u%s -p%s -P%s --lock-tables=false --no-create-info \"--where=%s in (%s)\" %s %s",
@@ -771,8 +767,13 @@ public class ImportDB {
 			
 		} else if (task.equals("dumpBig")) {
 			String[] msisdnList = {"49199999993", "49199999994"}; // TODO
-			dumpBig(lightOrBigTablesList(tablesList, false, lightBigTableLimit), msisdnList, ds, dumpBigName);
 			
+			// we have to split the bit tables for each "inConditionList" (MSISDN or subscription_id or other)
+			for (String table : lightOrBigTablesList(tablesList, false, lightBigTableLimit)) {
+				System.out.println(table);
+			}
+			
+			//dumpBig(null/*TODO*/, msisdnList, ds, dumpBigName);
 		}
 	}
 }
