@@ -769,6 +769,8 @@ public class ImportDB {
 			String[] msisdnList = {"49199999993", "49199999994"}; // TODO
 			
 			// we have to split the big tables for each "inConditionList" (MSISDN or subscription_id or other)
+			// using this query:
+			//     select count(*) from columns where table_schema = 'tenant' and table_name = 'bdr_events' and column_name = 'msisdn';
 			for (String table : lightOrBigTablesList(tablesList, false, lightBigTableLimit)) {
 				System.out.println(table);
 			}
