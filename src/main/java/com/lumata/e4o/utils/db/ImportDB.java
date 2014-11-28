@@ -650,6 +650,28 @@ public class ImportDB {
 		return count;
 	}
 	
+	private static boolean checkMsisdnColumn(DataSource ds, String tableName) throws ClassNotFoundException, SQLException {
+		boolean contanisMsisdn = false;
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection c = DriverManager.getConnection(
+				String.format("jdbc:mysql://%s:%s/information_schema", ds.getHostAddress(), ds.getHostPort()),
+					ds.getUser(), Security.decrypt(ds.getPassword()));
+		
+		Statement stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery(
+				String.format("select count(*) from columns where table_schema = '%s' and table_name = '%s' and column_name = 'msisdn'", ds.getHostName(), tableName));
+		
+		while(rs.next()) {
+			contanisMsisdn = rs.getInt(1) == 0 ? false : true;
+		}
+		
+		rs.close();
+		stmt.close();
+		
+		return contanisMsisdn;
+	}
+	
 	// ---------------------------------------------------------------------
 	// MAIN
 	// ---------------------------------------------------------------------
@@ -772,7 +794,8 @@ public class ImportDB {
 			// using this query:
 			//     select count(*) from columns where table_schema = 'tenant' and table_name = 'bdr_events' and column_name = 'msisdn';
 			for (String table : lightOrBigTablesList(tablesList, false, lightBigTableLimit)) {
-				System.out.println(table);
+				System.out.println(
+						String.format("%s: %s", table, checkMsisdnColumn(ds, table)));
 			}
 			
 			//dumpBig(null/*TODO*/, msisdnList, ds, dumpBigName);
