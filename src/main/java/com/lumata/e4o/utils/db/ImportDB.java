@@ -768,7 +768,7 @@ public class ImportDB {
 		} else if (task.equals("dumpBig")) {
 			String[] msisdnList = {"49199999993", "49199999994"}; // TODO
 			
-			// we have to split the bit tables for each "inConditionList" (MSISDN or subscription_id or other)
+			// we have to split the big tables for each "inConditionList" (MSISDN or subscription_id or other)
 			for (String table : lightOrBigTablesList(tablesList, false, lightBigTableLimit)) {
 				System.out.println(table);
 			}
