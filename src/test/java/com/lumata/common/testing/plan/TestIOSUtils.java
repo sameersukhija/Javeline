@@ -393,7 +393,7 @@ public class TestIOSUtils {
 	}
 	
 	/** The file exist */
-	@Test()
+	@Test(dependsOnMethods = {"createPath_01"})
 	public void loadFileAsInputStream_01() throws IOFileException {		
 		Assert.assertNotNull( IOFileUtils.loadFileAsInputStream( "sample.properties" ));
 	}
