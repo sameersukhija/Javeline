@@ -1,6 +1,6 @@
 package com.lumata.e4o.gui.catalogmanager;
 
-import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,6 +20,7 @@ import com.lumata.common.testing.json.ErrorModificableElement;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
 import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.common.testing.utils.TempFileHandling;
 import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
@@ -151,10 +152,18 @@ public class OffersForm extends CatalogueManagerForm {
 		// file upload
 		if ( offerCfg.getVoucher().equals(VoucherType.oneTimeUse) ) {
 			
-			File voucherFile = offerCfg.getVoucherFile();
+//			File voucherFile = offerCfg.getVoucherFile();
 			
 			WebElement fileUpload = selenium.getWrappedDriver().findElement(By.xpath("//form[contains(@action,'voucherImport')]//input[@name='uploadFormElement']"));
-			fileUpload.sendKeys(voucherFile.getAbsolutePath());
+//			fileUpload.sendKeys(voucherFile.getAbsolutePath());
+			
+			try {
+				TempFileHandling.uploadFile( 	fileUpload,
+												offerCfg.getVoucherFile().toPath());
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				throw new FormException(e1.getMessage());
+			}
 
 			// manage errors
 			VoucherImporterHandler handler = new VoucherImporterHandler( 	selenium.getWrappedDriver(), 

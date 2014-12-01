@@ -19,6 +19,7 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.system.Browser;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
+import com.lumata.common.testing.utils.TempFileHandling;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.security.Authorization;
 
@@ -49,6 +50,12 @@ public abstract class ParentUITestCase {
 	 */
 	private static final String DEFAULT_GRID_CONF__ = "http://no.selenium.grid:5555/wd/hub";
 	
+	/**
+	 * Default valued for shared folder
+	 */
+	private static final String DEFAULT_LOC_SHARED__ = "/no/remote/application";
+	private static final String DEFAULT_REM_SHARED__ = "/no/remote/application";
+	
 	protected final Integer TIMEOUT = 60000;
 	protected final Integer ATTEMPT_TIMEOUT = 50;
 	
@@ -72,13 +79,15 @@ public abstract class ParentUITestCase {
 	
 	/* 	Initialize Environment */
 	@BeforeSuite
-	@Parameters({"browser", "environment", "loadingType", "resourceStartPath", "gui_server", "seleniumGrid"})
+	@Parameters({"browser", "environment", "loadingType", "resourceStartPath", "gui_server", "seleniumGrid", "locTempFolder", "remTempFolder"})
 	public void setUp( 	@Optional("FIREFOX") String browser, 
 						@Optional("E4O_VM_NE") String environment, 
 						@Optional(DEFAULT_LOADING_TYPE__) String loadingType,
 						@Optional(DEFAULT_RESOURCE_START_PATH__) String resourceStartPath,
 						@Optional("actrule") String gui_server,
-						@Optional(DEFAULT_GRID_CONF__) String seleniumGrid
+						@Optional(DEFAULT_GRID_CONF__) String seleniumGrid,
+						@Optional(DEFAULT_LOC_SHARED__) String localSharedFolder,
+						@Optional(DEFAULT_REM_SHARED__) String remoteSharedFolder
 					) throws JSONSException, IOFileException, NetworkEnvironmentException {		
 		
 		currentResourceStartPath = resourceStartPath;
@@ -101,12 +110,26 @@ public abstract class ParentUITestCase {
 		browserSession = browser;
 		
 		gridAddress = seleniumGrid;
-		
+
 		/** Create Selenium WebDriver instance */
 		gui = env.getServer( gui_server );
 		
 		seleniumWebDriver = initSeleniumDriver( gui.getBrowser( browserSession ), gui.getLink(), gridAddress);
 
+		// local folder for temporary file creation
+		if ( !localSharedFolder.equals(DEFAULT_LOC_SHARED__) ) {
+			TempFileHandling.setCreationPath(localSharedFolder);
+			
+			Reporter.log( "Resource file -> " + envFile, PRINT2STDOUT__);		
+		}
+		
+		// remote folder for temporary file uploading
+		if ( !remoteSharedFolder.equals(DEFAULT_REM_SHARED__) ) {
+			TempFileHandling.setUploadingPath(remoteSharedFolder);
+			
+			Reporter.log( "Resource file -> " + envFile, PRINT2STDOUT__);		
+		}
+		
 		auth = new Authorization(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 	}	
 

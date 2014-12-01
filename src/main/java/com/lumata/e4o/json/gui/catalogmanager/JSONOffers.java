@@ -2,11 +2,9 @@ package com.lumata.e4o.json.gui.catalogmanager;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
+
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +18,8 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.JsonConfigurationElement;
 import com.lumata.common.testing.json.JsonConfigurationFile;
+import com.lumata.common.testing.utils.TempFileHandling;
+import com.lumata.common.testing.utils.TempFileHandling.TempFileExtension;
 
 public class JSONOffers extends JsonConfigurationFile {
 
@@ -176,15 +176,12 @@ public class JSONOffers extends JsonConfigurationFile {
 		File resp = null;
 		
 		try {
-			Path temp = Files.createTempFile("tempVoucherCodeFile", ".csv");
 			List<String> lines = new ArrayList<String>();
 			
 			for (Object single : voucherList) 
 				lines.add(single.toString());
-				
-		    Files.write(temp, lines, Charset.defaultCharset(), StandardOpenOption.WRITE);		
-			
-			resp = temp.toFile();	
+
+			resp = TempFileHandling.createTempTestFile( lines, "tempVoucherCodeFile", TempFileExtension.CSV);
 		}
 		catch ( IOException e ) {
 			
