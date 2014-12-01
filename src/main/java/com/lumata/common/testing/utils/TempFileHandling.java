@@ -193,14 +193,16 @@ public class TempFileHandling {
 	 */
 	public static void uploadFile( WebElement element, Path file2Upload) throws IOException {
 		
-		Path file2UploadParent = file2Upload.getParent();
-		
 		String toBeUploaded = null;
 		
 		Path remotePath = null;
 		
 		try {
-			remotePath = Paths.get(uploadingPath);
+			if ( uploadingPath != null ) {
+				remotePath = Paths.get(uploadingPath);
+				
+				logger_.debug("Provided remote uploading path");
+			}
 		} catch ( InvalidPathException ex ) {
 			// nothing
 		}
@@ -209,10 +211,12 @@ public class TempFileHandling {
 		// the file to be uploaded use the uploadingPath as containing folder
 		if ( remotePath != null ) {
 			
-			if ( !file2UploadParent.equals(remotePath) )
+			if ( !file2Upload.getParent().equals(remotePath) ) {
 				toBeUploaded = uploadingPath + file2Upload.getFileName().toString();
+				
+				logger_.info("Uploaded file in remote.");
+			}
 		}
-			
 		else
 			toBeUploaded = file2Upload.toFile().getAbsolutePath();
 			

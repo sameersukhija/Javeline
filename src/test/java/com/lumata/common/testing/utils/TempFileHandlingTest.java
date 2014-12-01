@@ -70,13 +70,13 @@ public class TempFileHandlingTest {
 		Assert.assertTrue( !t1.equals(t2), "The two files must be in different folders!");
 	}
 	
-	@Test(enabled = false)
+	@Test(dependsOnMethods = { "testCross" }, enabled = false)
 	public void testCreationAndUpload() throws IOException {
 		
 		//String creationPath = System.getProperty("user.dir");
 		
-		TempFileHandling.setCreationPath("/home/vincenzo/Documents/shared/");
-		TempFileHandling.setUploadingPath("Z:\\" + File.separator);
+//		TempFileHandling.setCreationPath("/home/vincenzo/Documents/shared/");
+//		TempFileHandling.setUploadingPath("Z:\\" + File.separator);
 		
 		List<String> dataTest = Arrays.asList("Bello", "Bongo", "Bango");
 		
