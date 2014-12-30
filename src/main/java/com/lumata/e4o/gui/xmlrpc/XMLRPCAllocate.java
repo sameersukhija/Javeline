@@ -62,7 +62,16 @@ public class XMLRPCAllocate extends BaseXMLRPC<XMLRPCAllocate> {
 		Content content = new Content();
 		for (ContentFieldList contentTag : ContentFieldList.values()) {
 			Node contentElement = item.getElementsByTagName(contentTag.name()).item(0);
-			setValue(contentElement, content);
+			try {
+				setValue(contentElement, content);
+			} catch ( NullPointerException e ) {
+				// could be a product type
+				String type = item.getElementsByTagName(ContentFieldList.type.name()).item(0).getTextContent();
+				
+				// when "Offer Content" contains a type "product-type" some fields are missing so NullPointerException can be skipped
+				if ( !type.equals("product-type") )
+					throw e;
+			}
 		}
 		return content;
 	}
@@ -110,7 +119,7 @@ public class XMLRPCAllocate extends BaseXMLRPC<XMLRPCAllocate> {
 	}
 
 	private enum ContentFieldList {
-		id, name, description, image_url, term_of_condition, type
+		id, name, type, description, image_url, term_of_condition
 	}
 	
 	public class Price {
