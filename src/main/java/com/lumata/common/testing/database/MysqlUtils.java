@@ -251,7 +251,7 @@ public class MysqlUtils {
 		
 		whereCond.setLength( whereCond.length() - 2 );
 				
-		String query = "SHOW COLUMNS FROM " + table + " WHERE " + MysqlColumn.Fields.TYPE + " IN ( " + whereCond + " );";
+		String query = "SHOW COLUMNS FROM " + table + " WHERE " + MysqlColumn.Fields.COLUMN_TYPE + " IN ( " + whereCond + " );";
 		
 		try {
 		
