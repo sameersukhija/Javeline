@@ -14,8 +14,9 @@ import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.database.MysqlKeys;
 import com.lumata.common.testing.database.MysqlUtils;
 import com.lumata.common.testing.exceptions.EnvironmentException;
-import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.io.IOFileUtils;
+
 
 public class TestMysqlUtils {
 	
