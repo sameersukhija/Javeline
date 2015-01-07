@@ -259,7 +259,7 @@ public class MysqlUtils {
 		
 			while( rs.next() ) { 
 					
-				columns.add( rs.getString( MysqlColumn.Fields.FIELD.name() ) );
+				columns.add( rs.getString( MysqlColumn.Fields.COLUMN_NAME.name() ) );
 				
 			}
 			

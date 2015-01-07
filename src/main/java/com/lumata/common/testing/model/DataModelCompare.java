@@ -399,9 +399,9 @@ public class DataModelCompare {
 
                                     for( int k = 0; k < all_marked_fields.length(); k++ ) {
 
-                                        if( !all_marked_fields.getJSONObject( k ).isNull(  MysqlColumn.Fields.FIELD.toString().toLowerCase() ) ) {
+                                        if( !all_marked_fields.getJSONObject( k ).isNull(  MysqlColumn.Fields.COLUMN_NAME.toString().toLowerCase() ) ) {
 
-                                            if( tableLeftField.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ).equals( all_marked_fields.getJSONObject( k ).getString(  MysqlColumn.Fields.FIELD.toString().toLowerCase() ) ) ) {
+                                            if( tableLeftField.getString( MysqlColumn.Fields.COLUMN_NAME.toString().toLowerCase() ).equals( all_marked_fields.getJSONObject( k ).getString(  MysqlColumn.Fields.COLUMN_NAME.toString().toLowerCase() ) ) ) {
                                                 fieldAlreadyChecked = true;
                                                 break;
                                             }
@@ -421,12 +421,12 @@ public class DataModelCompare {
                                     // Get single field of the Right Table
                                     JSONObject tableRightField = tableRightAllFields.getJSONObject( j );
 
-                                    if( tableLeftField.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ).equals( tableRightField.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ) ) ) {
+                                    if( tableLeftField.getString( MysqlColumn.Fields.COLUMN_NAME.toString().toLowerCase() ).equals( tableRightField.getString( MysqlColumn.Fields.COLUMN_NAME.toString().toLowerCase() ) ) ) {
 
                                         JSONObject tableLeftFieldDiff = new JSONObject();
                                         JSONObject tableRightFieldDiff = new JSONObject();
 
-                                        commonFields.put( tableLeftField.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ) );
+                                        commonFields.put( tableLeftField.getString( MysqlColumn.Fields.COLUMN_NAME.toString().toLowerCase() ) );
 
                                         // The field is present both in the Left and in the Right Tables, but there are some difference
                                         if( DataModelCompare.compareTableFields( tableLeftField, tableRightField, tableLeftFieldDiff, tableRightFieldDiff ) ) {
@@ -518,7 +518,7 @@ public class DataModelCompare {
 
             try {
 
-                final String FIELD = MysqlColumn.Fields.FIELD.toString().toLowerCase();
+                final String FIELD = MysqlColumn.Fields.COLUMN_NAME.toString().toLowerCase();
 
                 tableLeftFieldDiff.put( FIELD, tableLeftField.getString( FIELD ) != null ? tableLeftField.getString( FIELD ) : JSONObject.NULL );
                 tableRightFieldDiff.put( FIELD, tableRightField.getString( FIELD ) != null ? tableRightField.getString( FIELD ) : JSONObject.NULL );
@@ -580,9 +580,9 @@ public class DataModelCompare {
                                         // Get single field of the Right Table
                                         JSONObject tableRightField = tableRightAllFields.getJSONObject( i );
 
-                                        if( tableLeftField.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ).equals( tableRightField.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ) ) ) {
+                                        if( tableLeftField.getString( MysqlColumn.Fields.COLUMN_NAME.toString().toLowerCase() ).equals( tableRightField.getString( MysqlColumn.Fields.COLUMN_NAME.toString().toLowerCase() ) ) ) {
 
-                                            header.put( tableLeftField.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ) );
+                                            header.put( tableLeftField.getString( MysqlColumn.Fields.COLUMN_NAME.toString().toLowerCase() ) );
 
                                         }
 

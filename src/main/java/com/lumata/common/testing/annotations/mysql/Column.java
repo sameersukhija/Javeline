@@ -22,6 +22,7 @@ public @interface Column {
 	String defaultValue() default "";
 	String extra() default "";
 	int length() default 0;
+	String comment() default "";
 	String getMethod() default "";
 	String setMethod() default "";
 	

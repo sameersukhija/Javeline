@@ -243,7 +243,7 @@ public class NetworkEnvironment {
 		   			String serviceTypeName = serviceServers.next();
 		   			
 		   			Service service = new Service( envCfg.getJSONObject(SERVICES_LABEL__).getJSONObject( serviceType ).getJSONObject( serviceTypeName ), serviceType ) ;
-		   		
+		   			
 		   			this.services.put( Service.Type.valueOf( serviceType ).name() + "#" + serviceTypeName, service );
 		   			
 			   	}		

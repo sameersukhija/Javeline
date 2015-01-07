@@ -306,6 +306,14 @@ public class Filter {
 		
 	}
 	
+	//TODO
+	public static Enum<?> as( Object expr ) {
+		
+		
+		return null;
+		
+	}
+	
 	public static Row row( final Object... values ) {
 		
 		return new Row(values);

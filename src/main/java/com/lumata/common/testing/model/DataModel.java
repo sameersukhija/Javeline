@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import com.lumata.common.testing.validating.Format;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,20 +38,7 @@ public class DataModel {
 		public String getValue() { return this.name().toLowerCase(); }
 		
 	}
-	
-	public enum FieldAttributes { 
 		
-		FIELD, 
-		DEFAULT, 
-		EXTRA, 
-		TYPE, 
-		KEY, 
-		NULL;
-		
-		public String getValue() { return this.name().toLowerCase(); }
-		
-	};
-			
 	public DataModel( String datamodel, IOFileUtils.IOLoadingType loadingType ) throws DataModelException  {
 		
 		if(  datamodel != null ) { this.name = datamodel; }
@@ -113,7 +101,7 @@ public class DataModel {
 		this.model = new JSONObject();
 				
 		try {
-			System.out.println( dataSource );
+			
 			Mysql mysql = new Mysql( dataSource );
 			
 			ResultSet rs_tables = mysql.execQuery( "SHOW TABLES;" );
@@ -136,7 +124,7 @@ public class DataModel {
 				
 				}
 				
-				String query = "DESC " + table + ";";
+				String query = "SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA ='" + dataSource.getString( "hostName" ) + "' AND TABLE_NAME ='" + table + "';";
 				
 				ResultSet rs_fields = mysql.execQuery( query );
 				
@@ -146,8 +134,15 @@ public class DataModel {
 					
 				}
 				
+				this.model.getJSONObject( table ).put( "keys", new JSONArray() );
+				
 			}
-			
+			try {
+				Thread.sleep( 5000 );
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch( SQLException e ) {
 			
 			logger.error(e.getMessage(), e);
@@ -246,7 +241,7 @@ public class DataModel {
 								
 								JSONObject tableRightFields = tableRight.getJSONArray( "fields").getJSONObject( j );
 								
-								if( tableLeftFields.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ).equals( tableRightFields.getString( MysqlColumn.Fields.FIELD.toString().toLowerCase() ) ) ) {
+								if( tableLeftFields.getString( MysqlColumn.Fields.COLUMN_NAME.toString().toLowerCase() ).equals( tableRightFields.getString( MysqlColumn.Fields.COLUMN_NAME.toString().toLowerCase() ) ) ) {
 									
 									JSONObject tableLeftFieldDiff = new JSONObject();
 									JSONObject tableRightFieldDiff = new JSONObject();
@@ -323,7 +318,7 @@ public class DataModel {
 			
 			try {
 				
-				final String FIELD = MysqlColumn.Fields.FIELD.toString().toLowerCase();
+				final String FIELD = MysqlColumn.Fields.COLUMN_NAME.toString().toLowerCase();
 				
 				tableLeftFieldDiff.put( FIELD, tableLeftField.getString( FIELD ));
 				tableRightFieldDiff.put( FIELD, tableRightField.getString( FIELD ));

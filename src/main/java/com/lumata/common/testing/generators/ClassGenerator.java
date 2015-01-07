@@ -92,6 +92,7 @@ public class ClassGenerator {
 		defaultValue,
 		extra,
 		length,
+		comment,
 		getMethod,
 		setMethod
 		
@@ -112,7 +113,7 @@ public class ClassGenerator {
 		packageClass = package_path;
 		
 		// Store Data Model
-		//IOFileUtils.saveResource( schema.toString(), "output/data_model", "datamodel.json" );
+		IOFileUtils.saveResource( schema.toString(), "output/data_model", "datamodel.json" );
 		
 		logger.info( "Get File Path" );
 		
@@ -144,10 +145,10 @@ public class ClassGenerator {
 	        	boolean addImportDate = true;
 	        	boolean addImportTimestamp = true;
 	        	
-	        	logger.info( "Get Table Name" );
-	        	
 	        	String tableName = (String)table_names.next();
 	        	
+	        	logger.info( "Get Table Name ( " + tableName + " )" );
+	        		        		        	
 	        	JSONObject table = schema.getJSONObject( tableName );
 	        	
 	        	JSONArray fields = table.getJSONArray( DataModel.TableAttributes.FIELDS.getValue() );
@@ -292,7 +293,7 @@ public class ClassGenerator {
 			logger.error( e.getMessage(), e );
 			
 		}         
-		
+
 	}
 	
 	public String replaceTypes( String type ) {
@@ -400,6 +401,7 @@ public class ClassGenerator {
 							.append("\t\t\t").append( AnnotationColumn.defaultValue.name() ).append( " = \"" ).append( mysqlColumn.getDefaultValue() ).append("\",\n")
 							.append("\t\t\t").append( AnnotationColumn.extra.name() ).append( " = \"" ).append( mysqlColumn.getExtra() ).append("\",\n")
 							.append("\t\t\t").append( AnnotationColumn.length.name() ).append( " = " ).append( mysqlColumn.getLength() ).append(",\n")
+							.append("\t\t\t").append( AnnotationColumn.comment.name() ).append( " = \"" ).append( mysqlColumn.getComment() ).append("\",\n")
 							.append("\t\t\t").append( AnnotationColumn.getMethod.name() ).append( " = \"" ).append( mysqlColumn.getGetMethod() ).append("\",\n")
 							.append("\t\t\t").append( AnnotationColumn.setMethod.name() ).append( " = \"" ).append( mysqlColumn.getSetMethod() ).append("\"\n\t)\n");
 		

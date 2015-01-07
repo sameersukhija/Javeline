@@ -28,18 +28,59 @@ public class MysqlColumn {
 	private int length;
 	private int decimal;
 	private boolean unsigned;
+	private String comment;
 	private String get_method;
 	private String set_method;
 	
+	public enum COLUMNS {
+		
+		TABLE_CATALOG,
+		TABLE_SCHEMA,
+		TABLE_NAME,
+		COLUMN_NAME,
+		ORDINAL_POSITION,
+		COLUMN_DEFAULT,
+		IS_NULLABLE,
+		DATA_TYPE,
+		CHARACTER_MAXIMUM_LENGTH,
+		CHARACTER_OCTET_LENGTH,
+		NUMERIC_PRECISION,
+		NUMERIC_SCALE,
+		DATETIME_PRECISION,
+		CHARACTER_SET_NAME,
+		COLLATION_NAME,
+		COLUMN_TYPE,
+		COLUMN_KEY,
+		EXTRA,
+		PRIVILEGES,
+		COLUMN_COMMENT; 
+
+		public String getValue() { return this.name().toLowerCase(); }
+		
+	};
+	
 	public enum Fields { 
 		
-		FIELD, 
-		TYPE, 
-		NULL, 
-		KEY, 
-		DEFAULT, 
+		TABLE_SCHEMA,
+		TABLE_NAME,
+		COLUMN_NAME, 
+		DATA_TYPE, 
+		IS_NULLABLE, 
+		COLUMN_DEFAULT,
+		ORDINAL_POSITION,
+		CHARACTER_MAXIMUM_LENGTH,
+		CHARACTER_OCTET_LENGTH,
+		NUMERIC_PRECISION,
+		NUMERIC_SCALE,
+		DATETIME_PRECISION,
+		CHARACTER_SET_NAME,
+		COLLATION_NAME,
+		COLUMN_TYPE,
+		COLUMN_KEY,
+		PRIVILEGES,
+		COLUMN_COMMENT,
 		EXTRA;
-	
+
 		public String getValue() {
 		
 			return this.name().toLowerCase();			
@@ -495,6 +536,12 @@ public class MysqlColumn {
 		
 	}
 	
+	public String getComment() {
+		
+		return this.comment;
+		
+	}
+	
 	public String getGetMethod() {
 		
 		return this.get_method;
@@ -510,14 +557,15 @@ public class MysqlColumn {
 	public void set( String table, JSONObject column ) {
 		
 		this.setTable( table );
-		this.setField( ( column.isNull( MysqlColumn.Fields.FIELD.getValue() ) ? null : column.getString( MysqlColumn.Fields.FIELD.getValue() ) ) );
-		this.setType( ( column.isNull( MysqlColumn.Fields.TYPE.getValue() ) ? null : column.getString( MysqlColumn.Fields.TYPE.getValue() ) ) );		
+		this.setField( ( column.isNull( MysqlColumn.Fields.COLUMN_NAME.getValue() ) ? null : column.getString( MysqlColumn.Fields.COLUMN_NAME.getValue() ) ) );
+		this.setType( ( column.isNull( MysqlColumn.Fields.COLUMN_TYPE.getValue() ) ? null : column.getString( MysqlColumn.Fields.COLUMN_TYPE.getValue() ) ) );		
 		this.generateTypeValues( this.getType() );
-		this.setNull( ( column.getString( MysqlColumn.Fields.NULL.getValue() ).toUpperCase() == "YES" ? true : false  ) );
-		this.setKey( ( column.isNull( MysqlColumn.Fields.KEY.getValue() ) ? null : column.getString( MysqlColumn.Fields.KEY.getValue() ) ) );
-		this.setDefaultValue( ( column.isNull( MysqlColumn.Fields.DEFAULT.getValue() ) ? null : column.getString( MysqlColumn.Fields.DEFAULT.getValue() ) ) );
+		this.setNull( ( column.getString( MysqlColumn.Fields.IS_NULLABLE.getValue() ).toUpperCase() == "YES" ? true : false  ) );
+		this.setKey( ( column.isNull( MysqlColumn.Fields.COLUMN_KEY.getValue() ) ? null : column.getString( MysqlColumn.Fields.COLUMN_KEY.getValue() ) ) );
+		this.setDefaultValue( ( column.isNull( MysqlColumn.Fields.COLUMN_DEFAULT.getValue() ) ? null : column.getString( MysqlColumn.Fields.COLUMN_DEFAULT.getValue() ) ) );
 		this.setExtra( ( column.isNull( MysqlColumn.Fields.EXTRA.getValue() ) ? null : column.getString( MysqlColumn.Fields.EXTRA.getValue() ) ) );
-
+		this.setComment( ( column.isNull( MysqlColumn.Fields.COLUMN_COMMENT.getValue() ) ? "" : column.getString( MysqlColumn.Fields.COLUMN_COMMENT.getValue() ) ) );
+		
 	}
 	
 	public void setTable( String table ) {
@@ -616,6 +664,12 @@ public class MysqlColumn {
 		
 	}
 
+	public void setComment( String comment ) {
+		
+		this.comment = comment;
+		
+	}
+	
 	public void setGetMethod( String get_method ) {
 		
 		this.get_method = get_method;
