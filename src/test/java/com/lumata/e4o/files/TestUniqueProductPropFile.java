@@ -58,66 +58,24 @@ public class TestUniqueProductPropFile {
 	public void compareFiles() throws IOFileException, IOException {
 	
 		checkFilesDifferences( "product.prop", "prod.prop" );
-		checkFilesDifferences( "product.prop", "preprod.prop" );
-		checkFilesDifferences( "product.prop", "test.prop" );
-		checkFilesDifferences( "product.prop", "devel.prop" );
 		checkFilesDifferences( "prod.prop", "product.prop" );
+		
+		System.out.println( "###########################################" );
+		
+		checkFilesDifferences( "product.prop", "preprod.prop" );
 		checkFilesDifferences( "preprod.prop", "product.prop" );
+		
+		System.out.println( "###########################################" );
+		
+		checkFilesDifferences( "product.prop", "test.prop" );
 		checkFilesDifferences( "test.prop", "product.prop"  );
+		
+		System.out.println( "###########################################" );
+		
+		checkFilesDifferences( "product.prop", "devel.prop" );
 		checkFilesDifferences( "devel.prop", "product.prop" );
 		
-//		Pattern pattern = Pattern.compile( "^([0-9a-zA-Z_.-]+)[=].+$" );
-//				
-//		ArrayList<String> productFile = confFiles.get( "product.prop" );
-//		ArrayList<String> prodFile = confFiles.get( "prod.prop" );
-//		
-//		
-//		for( String productLine : productFile ) {
-//			
-//			Matcher matcherProductKey = pattern.matcher( productLine );
-//			
-//			while( matcherProductKey.find() ) {
-//				
-//				String productKey = matcherProductKey.group( 1 );
-//				
-//				boolean found = false;
-//				boolean difference = false;
-//				
-//				for( String prodLine : prodFile ) {
-//					
-//					Matcher matcherProdKey = pattern.matcher( prodLine );
-//					
-//					while( matcherProdKey.find() ) {
-//						
-//						String prodKey = matcherProdKey.group( 1 );
-//						
-//						if( prodKey.equals( productKey ) ) {
-//							
-//							found = true;
-//							
-//							difference = !prodLine.equals( productLine );
-//							
-//						}
-//						
-//					}
-//					
-//				}				
-//				
-//				if( !found ) { 
-//					
-//					System.out.println( "MISSING: " + productKey );
-//				
-//				}
-//				
-//				if( difference ) { 
-//					
-//					System.out.println( "DIFFERENCE: " + productKey );
-//				
-//				}
-//				
-//			}
-//			
-//		} 
+		System.out.println( "###########################################" );
 		
 	}
 	
@@ -128,48 +86,127 @@ public class TestUniqueProductPropFile {
 		System.out.println( "### ORIGIN ( " + originFileName + " ) - " + "DEST ( " + destFileName + " ) ###" );
 		
 		ArrayList<String> originFile = confFiles.get( originFileName );
-		ArrayList<String> destFile = confFiles.get( "prod.prop" );
-				
+		ArrayList<String> destFile = confFiles.get( destFileName );
+		
+		int countOriginLine = 0;
+		
 		for( String originLine : originFile ) {
+		
+			countOriginLine++;			
 			
-			Matcher matcherOriginKey = pattern.matcher( originLine );
-			
-			while( matcherOriginKey.find() ) {
+			if( originLine.length() > 0 ) {
+
+				int countDestLine = 0;			
 				
-				String originKey = matcherOriginKey.group( 1 );
+				int countDestDiffLine = countDestLine;
+				
+				String destDiffLine = null;
 				
 				boolean found = false;
+				
 				boolean difference = false;
 				
-				for( String destLine : destFile ) {
-					
-					Matcher matcherDestKey = pattern.matcher( destLine );
-					
-					while( matcherDestKey.find() ) {
-						
-						String destKey = matcherDestKey.group( 1 );
-						
-						if( destKey.equals( originKey ) ) {
+				boolean validation = false;
 							
-							found = true;
-							
-							difference = !destLine.equals( originLine );
-							
-						}
-						
-					}
-					
-				}				
+				Matcher matcherOriginKey = pattern.matcher( originLine );
 				
-				if( !found ) { 
+				String originKey = null;
+				
+				while( matcherOriginKey.find() ) {
 					
-					System.out.println( "MISSING: " + originKey );
+					originKey = matcherOriginKey.group( 1 );
 				
 				}
 				
-				if( difference ) { 
+				if( null != originKey ) {
+										
+					for( String destLine : destFile ) {
+						
+						countDestLine++;
+						
+						Matcher matcherDestKey = pattern.matcher( destLine );
+						
+						String destKey = null;
+						
+						while( matcherDestKey.find() ) {
+							
+							destKey = matcherDestKey.group( 1 );
+							
+						}
+						
+						if( null != destKey ) {
+							
+							if( destKey.equals( originKey ) ) {
+							
+								found = true;
+								
+								difference = !( destLine.equals( originLine ) );
+								
+								if( difference ) { 
+									countDestDiffLine = countDestLine; 
+									destDiffLine = destLine;
+								} 
+								
+								validation = ( found && !difference );
+																
+							}
+																			
+						}
+						
+						if( validation ) { break; }
+						
+					}				
+									
+				}
+							
+				if( !validation ) { 
 					
-					System.out.println( "DIFFERENCE: " + originKey );
+					if( !found ) { System.out.println( "MISSING: " + originKey ); } 
+					else { 
+						System.out.println( "DIFFERENCE ( " + countOriginLine + " - " + countDestDiffLine + " ): " + originKey );						
+						System.out.println( originLine );
+						System.out.println( destDiffLine );
+					} 
+				
+				}
+								
+			}
+		
+		}
+		
+		System.out.println( "---------------------------------------------" );
+		
+		
+	}
+	
+	@Test( enabled = testEnabled, priority = 2 )
+	public void getUniqCommands() throws IOFileException, IOException {
+		
+		Pattern pattern = Pattern.compile( ".*([|]uniq[|]).*" );
+		
+		ArrayList<String> originFile = confFiles.get( "product.prop" );
+		
+		int countOriginLine = 0;
+		
+		for( String line : originFile ) {
+		
+			countOriginLine++;			
+			
+			if( line.length() > 0 ) {
+							
+				Matcher matcherProductKey = pattern.matcher( line );
+				
+				String productKey = null;
+				
+				while( matcherProductKey.find() ) {
+					
+					productKey = matcherProductKey.group( 0 );
+				
+				}
+				
+				if( null != productKey ) {
+					
+					System.out.println( productKey );
 				
 				}
 				
@@ -177,9 +214,11 @@ public class TestUniqueProductPropFile {
 			
 		}
 		
-		System.out.println( "---------------------------------------------" );
-		
-		
 	}
+	
+	
+	
+	// 
+
 	
 }

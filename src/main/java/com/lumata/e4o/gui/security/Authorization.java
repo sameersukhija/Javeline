@@ -22,7 +22,7 @@ public class Authorization extends Form {
 	public Authorization( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
 		super( selenium, timeout, interval );
-		
+
 	}
 	
 	public static Authorization getInstance( SeleniumWebDriver selenium, long timeout, long interval ) {

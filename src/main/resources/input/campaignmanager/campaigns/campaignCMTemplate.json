@@ -4,32 +4,45 @@
 			"name": "campaignCMTemplate",
 			"description": "campaignCMTemplate",
 			"definition": {
-				"executionMode": "Model",
+				"executionMode": "Notification",
+				"campaignModel": "CMTemplate",
 				"campaignType": "No type",
 				"byPassMediaType": true
 			},
 			"scheduling": {
-				"typeOfRecurrence": "Single",
+				"typeOfRecurrence": "Multiple",
 				"singleRecurrence": {
 					"executionStart": "2015-05-01",
 					"executionEndType": "Absolute",
-					"executionEndValue": "2015-06-02",
+					"executionEndValue": "2015-05-31",
 					"provisioningStart": "2015-05-01",
-					"provisioningEnd": "2015-05-31",
+					"provisioningEnd": "2015-05-27",
 					"daysBetweenProvisioningAndExecutionStartDates": "2"
 				},
 				"multipleRecurrence": {
-					"recurrencePattern": "Weekly",
+					"recurrencePattern": "Monthly",
 					"recurrencePatternWeekly": {
 						"recurEveryWeek": "2",
 						"recurEveryDay": [ "M", "Th" ] 
+					},
+					"recurrencePatternMonthly": {
+						"daySettingType": "GeneralDay",
+						"simpleDay": {
+							"recurEveryDay": "28",
+							"recurEveryMonth": "2"
+						},
+						"generalDay": {
+							"recurEveryOrdinalDay": "Second",
+							"recurEveryDay": "Friday",
+							"recurEveryMonth": "6"
+						}						 
 					},
 					"provisionigDuration": "2",
 					"daysBetweenProvisioningAndExecutionStartDate": "2",
 					"executionDuration": "5",
 					"startDate": "2014-05-04",
-					"rangeOfRecurrenceType": "No end Date",
-					"rangeOfRecurrenceValue": ""
+					"rangeOfRecurrenceType": "EndDate",
+					"rangeOfRecurrenceValue": "2014-05-05"
 				}
 			},
 			"dialogue": {

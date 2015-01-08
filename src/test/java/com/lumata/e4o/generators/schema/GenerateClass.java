@@ -45,7 +45,7 @@ public class GenerateClass {
 		
 		logger.info( Log.PUTTING.createMessage( "createDAO" , "Create DAO Classes" ) );
 				
-		tenant = "qa";
+		//tenant = "qa";
 		
 		generatorDAO.createDAO( env, tenant, "com.lumata.e4o.schema.tenant" );
 				

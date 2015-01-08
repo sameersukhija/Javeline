@@ -16,7 +16,7 @@ public class GWTCalendarForm extends Form {
 	private final String CALENDAR_FORM_MONTH_YEAR_XPATH_ = CALENDAR_FORM_XPATH_ + "//td[@class='datePickerMonth']";
 	private final String CALENDAR_FORM_DAY_XPATH_ = CALENDAR_FORM_XPATH_ + "//td[contains(@class, 'datePickerDayIsValue')]";
 	
-	private final String CALENDAR_FORM_DAY_SELECTION_XPATH_ = CALENDAR_FORM_XPATH_ + "//td[contains(@class,'datePickerDay') and text() = '${day}' ]";
+	private final String CALENDAR_FORM_DAY_SELECTION_XPATH_ = CALENDAR_FORM_XPATH_ + "//div[contains(@class, 'datePickerDay') and text() = '${day}' and @tabindex = '0' ]";
 	
 	private final String CALENDAR_FORM_PULL_LEFT_XPATH_ = CALENDAR_FORM_XPATH_ + "//div[contains(@class, 'datePickerPreviousButton')]";
 	private final String CALENDAR_FORM_PULL_RIGHT_XPATH_ = CALENDAR_FORM_XPATH_ + "//div[contains(@class, 'datePickerNextButton')]";

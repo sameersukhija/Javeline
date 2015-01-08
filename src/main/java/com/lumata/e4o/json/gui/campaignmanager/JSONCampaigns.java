@@ -37,7 +37,11 @@ public class JSONCampaigns extends JsonElement {
 	public String executionMode() {
 		return this.getString( "definition.executionMode" );
 	}
-	
+
+	public String campaignModel() {
+		return this.getString( "definition.campaignModel" );
+	}
+
 	public String campaignType() {
 		return this.getString( "definition.campaignType" );
 	}
@@ -93,6 +97,30 @@ public class JSONCampaigns extends JsonElement {
 		return this.getListOfString( "scheduling.multipleRecurrence.recurrencePatternWeekly.recurEveryDay" );
 	}
 	
+	public String schedulingMultipleRecurrencePatternMonthlyRecurDayType() {
+		return this.getString( "scheduling.multipleRecurrence.recurrencePatternMonthly.daySettingType" );
+	}
+	
+	public String schedulingMultipleRecurrencePatternMonthlyRecurSimpleDayEveryDay() {
+		return this.getString( "scheduling.multipleRecurrence.recurrencePatternMonthly.simpleDay.recurEveryDay" );
+	}
+
+	public String schedulingMultipleRecurrencePatternMonthlyRecurSimpleDayEveryMonth() {
+		return this.getString( "scheduling.multipleRecurrence.recurrencePatternMonthly.simpleDay.recurEveryMonth" );
+	}
+
+	public String schedulingMultipleRecurrencePatternMonthlyRecurGeneralDayEveryOrdinalDay() {
+		return this.getString( "scheduling.multipleRecurrence.recurrencePatternMonthly.generalDay.recurEveryOrdinalDay" );
+	}
+
+	public String schedulingMultipleRecurrencePatternMonthlyRecurGeneralDayEveryDay() {
+		return this.getString( "scheduling.multipleRecurrence.recurrencePatternMonthly.generalDay.recurEveryDay" );
+	}
+
+	public String schedulingMultipleRecurrencePatternMonthlyRecurGeneralDayEveryMonth() {
+		return this.getString( "scheduling.multipleRecurrence.recurrencePatternMonthly.generalDay.recurEveryMonth" );
+	}
+
 	public String schedulingMultipleProvisioningDuration() {
 		return this.getString( "scheduling.multipleRecurrence.provisionigDuration" );
 	}

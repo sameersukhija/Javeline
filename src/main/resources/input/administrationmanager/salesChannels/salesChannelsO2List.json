@@ -1,0 +1,436 @@
+{
+	"salesChannels": [
+			{
+				"enabled": true,
+				"id": 1,
+				"name":"Campaign manager",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 2,
+				"name":"Churn_Tier1",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 3,
+				"name":"Churn_Tier2",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 4,
+				"name":"Churn_Tier3",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 5,
+				"name":"Data_Tier1",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 6,
+				"name":"Data_Tier2",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 7,
+				"name":"Data_Tier3",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 8,
+				"name":"Lottery_Tier1",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 9,
+				"name":"Lottery_Tier2",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 10,
+				"name":"Lottery_Tier3",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 11,
+				"name":"Physical_Tier1",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 12,
+				"name":"Physical_Tier2",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 13,
+				"name":"Physical_Tier3",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 14,
+				"name":"Premium_Tier1",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 15,
+				"name":"Premium_Tier2",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 16,
+				"name":"Premium_Tier3",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 17,
+				"name":"Premium_Tier4",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 18,
+				"name":"Premium_Tier5",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 19,
+				"name":"SMS_Tier1",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 20,
+				"name":"SMS_Tier2",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 21,
+				"name":"SMS_Tier3",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 22,
+				"name":"Smartphone",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 23,
+				"name":"Voice_Tier1",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 24,
+				"name":"Voice_Tier2",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 25,
+				"name":"Voice_Tier3",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 26,
+				"name":"imm",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 27,
+				"name":"Voucher_Tier1",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 28,
+				"name":"Voucher_Tier2",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 29,
+				"name":"Voucher_Tier3",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 30,
+				"name":"QA Sales Channel",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 32,
+				"name":"QA Performance",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 33,
+				"name":"Nursery",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 34,
+				"name":"QA-Voucher",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 35,
+				"name":"QA-Network",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 36,
+				"name":"QA-Physical",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 37,
+				"name":"QA Token",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 38,
+				"name":"Bronze_Voice_Tier2",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 39,
+				"name":"Bronze_SMS_Tier2",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 40,
+				"name":"Bronze_Data_Tier2",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 41,
+				"name":"Nursery_Gold_Voice_Tier1",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 42,
+				"name":"Nursery_Gold_Sms_Tier1",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 43,
+				"name":"Nursery_Gold_Data_Tier1",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 44,
+				"name":"Nursery_Silver_Voice_Tier2",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 45,
+				"name":"Nursery_Silver_Sms_Tier2",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 46,
+				"name":"Nursery_Silver_Data_Tier2",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 47,
+				"name":"Nursery_bronze",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 48,
+				"name":"QA_Network",
+				"active":true,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 56,
+				"name":"Lottery",
+				"active":false,
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				}
+			}
+	]
+}

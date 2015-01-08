@@ -2,6 +2,138 @@
 	"campaignModels": [
 		{
 			"enabled": true,
+			"name": "CMAllRulesA",
+			"description": "CMAllRulesA",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.RuleA", "value": null, "option":null, "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMAllRulesB",
+			"description": "CMAllRulesB",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.RuleB", "value": null, "option":null, "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMAllRulesC",
+			"description": "CMAllRulesC",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.RuleC", "value": null, "option":null, "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMAllRulesAB",
+			"description": "CMAllRulesAB",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.RuleAB", "value": null, "option":null, "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMAllRulesBC",
+			"description": "CMAllRulesBC",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.RuleBC", "value": null, "option":null, "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMAllRulesAC",
+			"description": "CMAllRulesAC",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.RuleAC", "value": null, "option":null, "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},{
+			"enabled": true,
 			"name": "CMAllRulesABC",
 			"description": "CMAllRulesABC",
 			"campaignType": "",
@@ -14,12 +146,6 @@
 					"eventType":"Revenue", 
 					"criteria": null, 
 					"actions": [
-						{ "name": "Rulesets.RuleA", "value": null, "option":null, "time": null, "delete": false },
-						{ "name": "Rulesets.RuleB", "value": null, "option":null, "time": null, "delete": false },
-						{ "name": "Rulesets.RuleC", "value": null, "option":null, "time": null, "delete": false },
-						{ "name": "Rulesets.RuleAB", "value": null, "option":null, "time": null, "delete": false },
-						{ "name": "Rulesets.RuleBC", "value": null, "option":null, "time": null, "delete": false },
-						{ "name": "Rulesets.RuleAC", "value": null, "option":null, "time": null, "delete": false },
 						{ "name": "Rulesets.RuleABC", "value": null, "option":null, "time": null, "delete": false }							
 					],
 					"beneficiary": true,

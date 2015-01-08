@@ -1,0 +1,80 @@
+{
+	"tokenTypes": [
+					{
+				"enabled": true,
+				"id": 2,
+				"name": "O2",
+				"description":"generic O2 token code",
+				"imageUrl":"",
+				"format":"[ACDEFGHJKMNPQRTWXY34679]{5}",
+				"validityType":"Relative",
+				"validityUnit":"days",
+				"validityValue":"28",
+				"usageUnlimited": true,
+				"usage":"-1",
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				},
+				"options": {
+					"TOKEN_TYPE_AUTOINCREMENT": true	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 3,
+				"name": "bronze",
+				"description":"bronze token description",
+				"imageUrl":"",
+				"format":"[ACDEFGHJKMNPQRTWXY34679]{5}",
+				"validityType":"Relative",
+				"validityUnit":"days",
+				"validityValue":"28",
+				"usageUnlimited": true,
+				"usage":"-1",
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				},
+				"options": {
+					"TOKEN_TYPE_AUTOINCREMENT": true	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 4,
+				"name": "silver",
+				"description":"silver token description",
+				"imageUrl":"",
+				"format":"[ACDEFGHJKMNPQRTWXY34679]{5}",
+				"validityType":"Relative",
+				"validityUnit":"days",
+				"validityValue":"28",
+				"usageUnlimited": true,
+				"usage":"-1",
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				},
+				"options": {
+					"TOKEN_TYPE_AUTOINCREMENT": true	
+				}
+			}
+			,{
+				"enabled": true,
+				"id": 5,
+				"name": "gold",
+				"description":"gold token description",
+				"imageUrl":"",
+				"format":"[ACDEFGHJKMNPQRTWXY34679]{5}",
+				"validityType":"Relative",
+				"validityUnit":"days",
+				"validityValue":"28",
+				"usageUnlimited": true,
+				"usage":"-1",
+				"errorActions": {
+					"ELEMENT_ALREADY_EXISTS": "ABORT"	
+				},
+				"options": {
+					"TOKEN_TYPE_AUTOINCREMENT": true	
+				}
+			}
+	]
+}

@@ -87,7 +87,8 @@ public class GenerateCDRLifeCycle {
 		cdrLCP.setNewImeiStrategyIncrement( 300000000000000L, Integer.valueOf( RandomStringUtils.randomNumeric( 9 ) ) );
 		cdrLCP.setNewImsiStrategyIncrement( 300000000000000L, Integer.valueOf( RandomStringUtils.randomNumeric( 9 ) ) );
 		cdrLCP.setNewSubscriptionDateStrategyFixed( date );
-		
+		cdrLCP.setNewProfileStrategyFixed( "prepaid" );
+		cdrLCP.setNewRatePlanStrategyFixed( "FUN" );
 		cdrLCP.setNewStatusStrategyFixed( CDR.SUBSTATUS.ACTIVE );
 		cdrLCP.setNewTongueStrategyFixed( "ENG" );
 		cdrLCP.setNewInTagStrategyFixed( "QAIN" );
@@ -101,9 +102,9 @@ public class GenerateCDRLifeCycle {
 				
 		cdrLCP.print();
 		
-		cdrLCP.save();
+		//cdrLCP.save();
 		
-		cdrLCP.send( sshService, "/nfsdata/files/cdr/deposit/LIFECYCLE_CDR/", sshUser );
+		//cdrLCP.send( sshService, "/nfsdata/files/cdr/deposit/LIFECYCLE_CDR/", sshUser );
 		
 		System.out.println( "File name: " + cdrLCP.getFileName() );
 		

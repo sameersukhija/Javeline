@@ -1,0 +1,4659 @@
+{
+	"rules": [
+				{
+			"enabled": true,
+			"id": 2,
+			"name":"GoldArpuHSmartYDataY",
+			"description":"GoldArpuHSmartYDataY",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 3,
+			"name":"GoldArpuHSmartYDataN",
+			"description":"GoldArpuHSmartYDataN",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 4,
+			"name":"GoldArpuHSmartNDataY",
+			"description":"GoldArpuHSmartNDataY",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 5,
+			"name":"GoldArpuHSmartNDataN",
+			"description":"GoldArpuHSmartNDataN",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 6,
+			"name":"GoldArpuMSmartYDataY",
+			"description":"GoldArpuMSmartYDataY",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 7,
+			"name":"GoldArpuMSmartYDataN",
+			"description":"GoldArpuMSmartYDataN",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 8,
+			"name":"GoldArpuMSmartNDataY",
+			"description":"GoldArpuMSmartNDataY",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 9,
+			"name":"GoldArpuMSmartNDataN",
+			"description":"GoldArpuMSmartNDataN",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 10,
+			"name":"GoldArpuLSmartYDataY",
+			"description":"GoldArpuLSmartYDataY",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier2",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 11,
+			"name":"GoldArpuLSmartYDataN",
+			"description":"GoldArpuLSmartYDataN",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier2",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 12,
+			"name":"GoldArpuLSmartNDataY",
+			"description":"GoldArpuLSmartNDataY",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier2",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 13,
+			"name":"GoldArpuLSmartNDataN",
+			"description":"GoldArpuLSmartNDataN",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 14,
+			"name":"SilArpuHSmartYDataY",
+			"description":"SilArpuHSmartYDataY",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 15,
+			"name":"SilArpuHSmartYDataN",
+			"description":"SilArpuHSmartYDataN",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 16,
+			"name":"SilArpuHSmartNDataY",
+			"description":"SilArpuHSmartNDataY",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 17,
+			"name":"SilArpuHSmartNDataN",
+			"description":"SilArpuHSmartNDataN",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 18,
+			"name":"SilArpuMSmartNDataN",
+			"description":"SilArpuMSmartNDataN",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 19,
+			"name":"SilArpuMSmartYDataY",
+			"description":"SilArpuMSmartYDataY",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier2",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 20,
+			"name":"SilArpuMSmartYDataN",
+			"description":"SilArpuMSmartYDataN",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier2",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 21,
+			"name":"SilArpuMSmartNDataY",
+			"description":"SilArpuMSmartNDataY",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier2",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 22,
+			"name":"SilArpuLSmartYDataY",
+			"description":"SilArpuLSmartYDataY",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier3",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 23,
+			"name":"SilArpuLSmartYDataN",
+			"description":"SilArpuLSmartYDataN",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier3",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 24,
+			"name":"SilArpuLSmartNDataY",
+			"description":"SilArpuLSmartNDataY",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier3",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 26,
+			"name":"SilArpuLSmartNDataN",
+			"description":"SilArpuLSmartNDataN",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Physical_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 27,
+			"name":"BronArpuHSmartYDataY",
+			"description":"BronArpuHSmartYDataY",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 28,
+			"name":"BronArpuHSmartYDataN",
+			"description":"BronArpuHSmartYDataN",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 29,
+			"name":"BronArpuHSmartNDataY",
+			"description":"BronArpuHSmartNDataY",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 30,
+			"name":"BronArpuHSmartNDataN",
+			"description":"BronArpuHSmartNDataN",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 31,
+			"name":"BronArpuMSmartYDataY",
+			"description":"BronArpuMSmartYDataY",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 32,
+			"name":"BronArpuMSmartYDataN",
+			"description":"BronArpuMSmartYDataN",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 33,
+			"name":"BronArpuMSmartNDataY",
+			"description":"BronArpuMSmartNDataY",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 34,
+			"name":"BronArpuMSmartNDataN",
+			"description":"BronArpuMSmartNDataN",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 35,
+			"name":"BronArpuLSmartYDataY",
+			"description":"BronArpuLSmartYDataY",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Data_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 36,
+			"name":"BronArpuLSmartYDataN",
+			"description":"BronArpuLSmartYDataN",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Data_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 37,
+			"name":"BronArpuLSmartNDataY",
+			"description":"BronArpuLSmartNDataY",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Data_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 38,
+			"name":"BronArpuLSmartNDataN",
+			"description":"BronArpuLSmartNDataN",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Physical_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voucher_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 39,
+			"name":"GoldNursSmartY",
+			"description":"GoldNursSmartY",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Premium_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Nursery_Gold_Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Nursery_Gold_Sms_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Nursery_Gold_Data_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 40,
+			"name":"GoldNursSmartN",
+			"description":"GoldNursSmartN",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Premium_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Nursery_Gold_Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Nursery_Gold_Sms_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 41,
+			"name":"SilberNursSmartY",
+			"description":"SilberNursSmartY",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Premium_Tier2",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Nursery_Silver_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Nursery_Silver_Sms_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Nursery_Silver_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 42,
+			"name":"SilberNursSmartN",
+			"description":"SilberNursSmartN",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Premium_Tier2",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Nursery_Silver_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Nursery_Silver_Sms_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 43,
+			"name":"BronzeNursSmartY",
+			"description":"BronzeNursSmartY",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Premium_Tier3",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Nursery_bronze",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 44,
+			"name":"BronzeNursSmartN",
+			"description":"BronzeNursSmartN",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Premium_Tier3",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Nursery_bronze",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 45,
+			"name":"GoldGWTSmartYDataY",
+			"description":"GoldGWTSmartYDataY",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 46,
+			"name":"GoldGWTSmartYDataN",
+			"description":"GoldGWTSmartYDataN",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 47,
+			"name":"GoldGWTSmartNDataY",
+			"description":"GoldGWTSmartNDataY",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 48,
+			"name":"GoldGWTSmartNDatN",
+			"description":"GoldGWTSmartNDatN",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 49,
+			"name":"SilberGWTSmartYDataY",
+			"description":"SilberGWTSmartYDataY",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 50,
+			"name":"SilberGWTSmartYDataN",
+			"description":"SilberGWTSmartYDataN",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 51,
+			"name":"SilberGWTSmartNDataY",
+			"description":"SilberGWTSmartNDataY",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 52,
+			"name":"SilberGWTSmartNDataN",
+			"description":"SilberGWTSmartNDataN",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 53,
+			"name":"BronzeGWTSmartYDataY",
+			"description":"BronzeGWTSmartYDataY",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Physical_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 54,
+			"name":"BronzeGWTSmartYDataN",
+			"description":"BronzeGWTSmartYDataN",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Physical_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 55,
+			"name":"BronzeGWTSmartNDataY",
+			"description":"BronzeGWTSmartNDataY",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Physical_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 56,
+			"name":"BronzeGWTSmartNDataN",
+			"description":"BronzeGWTSmartNDataN",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Physical_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Smartphone",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 57,
+			"name":"GoldChurn",
+			"description":"GoldChurn",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Churn_Tier1",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Data_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 58,
+			"name":"SilberChurn",
+			"description":"SilberChurn",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Churn_Tier2",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Physical_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 59,
+			"name":"BronzeChurn",
+			"description":"BronzeChurn",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Churn_Tier3",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 60,
+			"name":"GoldNRArHSmartYDataY",
+			"description":"GoldNRArHSmartYDataY",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 61,
+			"name":"GoldNRArHSmartYDataN",
+			"description":"GoldNRArHSmartYDataN",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 62,
+			"name":"GoldNRArHSmartNDataY",
+			"description":"GoldNRArHSmartNDataY",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 63,
+			"name":"GoldNRArHSmartNDataN",
+			"description":"GoldNRArHSmartNDataN",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 64,
+			"name":"GoldNRArMSmartYDataY",
+			"description":"GoldNRArMSmartYDataY",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 65,
+			"name":"GoldNRArMSmartYDataN",
+			"description":"GoldNRArMSmartYDataN",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 66,
+			"name":"GoldNRArMSmartNDataY",
+			"description":"GoldNRArMSmartNDataY",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 67,
+			"name":"GoldNRArMSmartNDataN",
+			"description":"GoldNRArMSmartNDataN",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 68,
+			"name":"GoldNRArLSmartYDataY",
+			"description":"GoldNRArLSmartYDataY",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 69,
+			"name":"GoldNRArLSmartYDataN",
+			"description":"GoldNRArLSmartYDataN",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 70,
+			"name":"GoldNRArLSmartNDataY",
+			"description":"GoldNRArLSmartNDataY",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 71,
+			"name":"GoldNRArLSmartNDataN",
+			"description":"GoldNRArLSmartNDataN",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 72,
+			"name":"SilbNRArHSmartYDataY",
+			"description":"SilbNRArHSmartYDataY",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 73,
+			"name":"SilbNRArHSmartYDataN",
+			"description":"SilbNRArHSmartYDataN",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 74,
+			"name":"SilbNRArHSmartNDataY",
+			"description":"SilbNRArHSmartNDataY",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 75,
+			"name":"SilbNRArHSmartNDataN",
+			"description":"SilbNRArHSmartNDataN",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Premium_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier1",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 76,
+			"name":"SilbNRArMSmartYDataY",
+			"description":"SilbNRArMSmartYDataY",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 77,
+			"name":"SilbNRArMSmartYDataN",
+			"description":"SilbNRArMSmartYDataN",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 78,
+			"name":"SilbNRArMSmartNDataY",
+			"description":"SilbNRArMSmartNDataY",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 79,
+			"name":"SilbNRArMSmartNDataN",
+			"description":"SilbNRArMSmartNDataN",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 80,
+			"name":"SilbNRArLSmartYDataY",
+			"description":"SilbNRArLSmartYDataY",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 81,
+			"name":"SilbNRArLSmartYDataN",
+			"description":"SilbNRArLSmartYDataN",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 82,
+			"name":"SilbNRArLSmartNDataY",
+			"description":"SilbNRArLSmartNDataY",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Data_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 83,
+			"name":"SilbNRArLSmartNDataN",
+			"description":"SilbNRArLSmartNDataN",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 84,
+			"name":"BronNRArHSmartYDataY",
+			"description":"BronNRArHSmartYDataY",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 85,
+			"name":"BronNRArHSmartYDataN",
+			"description":"BronNRArHSmartYDataN",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 86,
+			"name":"BronNRArHSmartNDataY",
+			"description":"BronNRArHSmartNDataY",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 87,
+			"name":"BronNRArHSmartNDataN",
+			"description":"BronNRArHSmartNDataN",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 88,
+			"name":"BronNRArMSmartYDataY",
+			"description":"BronNRArMSmartYDataY",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 89,
+			"name":"BronNRArMSmartYDataN",
+			"description":"BronNRArMSmartYDataN",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 90,
+			"name":"BronNRArMSmartNDataY",
+			"description":"BronNRArMSmartNDataY",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Data_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 91,
+			"name":"BronNRArMSmartNDataN",
+			"description":"BronNRArMSmartNDataN",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Premium_Tier4",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_Voice_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Bronze_SMS_Tier2",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 92,
+			"name":"BronNRArLSmartYDataY",
+			"description":"BronNRArLSmartYDataY",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Data_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 93,
+			"name":"BronNRArLSmartYDataN",
+			"description":"BronNRArLSmartYDataN",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Data_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 94,
+			"name":"BronNRArLSmartNDataY",
+			"description":"BronNRArLSmartNDataY",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Data_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 95,
+			"name":"BronNRArLSmartNDataN",
+			"description":"BronNRArLSmartNDataN",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"Premium_Tier5",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"SMS_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+				,{
+					"name":"Voice_Tier3",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": false,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 96,
+			"name":"QA Bronze",
+			"description":"QA Bronze description",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"QA Sales Channel",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 97,
+			"name":"QA Silver",
+			"description":"QA Silver description",
+			"tokenType":"silver",
+			"channels":[ 
+				{
+					"name":"QA Sales Channel",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 2
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 98,
+			"name":"QA Gold",
+			"description":"QA Gold description",
+			"tokenType":"gold",
+			"channels":[ 
+				{
+					"name":"QA Sales Channel",
+					"mandatory":true,
+					"unlimited": false,
+					"maxOffer" : 3
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 99,
+			"name":"QA Performance",
+			"description":"QA Performance",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"QA Performance",
+					"mandatory":false,
+					"unlimited": false,
+					"maxOffer" : 1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 100,
+			"name":"QA-Network",
+			"description":"QA-Network",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"QA-Network",
+					"mandatory":false,
+					"unlimited": true,
+					"maxOffer" : -1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 101,
+			"name":"QA-Physical",
+			"description":"QA-Physical",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"QA-Physical",
+					"mandatory":false,
+					"unlimited": true,
+					"maxOffer" : -1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 102,
+			"name":"QA-Voucher",
+			"description":"QA-Voucher",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"QA-Voucher",
+					"mandatory":false,
+					"unlimited": true,
+					"maxOffer" : -1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+		,{
+			"enabled": true,
+			"id": 103,
+			"name":"QA Token",
+			"description":"QA Token",
+			"tokenType":"bronze",
+			"channels":[ 
+				{
+					"name":"QA Token",
+					"mandatory":false,
+					"unlimited": true,
+					"maxOffer" : -1
+				}
+			],
+			"optimizationAlgorithmId": 1,
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"unlimitedOffers": false,
+			"maximumNumberOfOffers": 100,
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}			
+	]
+}

@@ -1,0 +1,8 @@
+{
+	"configurator": [
+		{ "section": "salesChannels", "folder": "input/administrationmanager/salesChannels", "file": "salesChannelsList-ABC" },
+		{ "section": "tokens", "folder": "input/catalogmanager/tokenTypes", "file": "tokenTypeOptimizationRuleList-ABC" },
+		{ "section": "rules", "folder": "input/catalogmanager/rules", "file": "ruleOptimizationRuleList-ABC" },
+		{ "section": "campaignModels", "folder": "input/campaignmanager/campaignModels", "file": "campaignModelOptimizationRuleList-ABC" }		
+	]
+}

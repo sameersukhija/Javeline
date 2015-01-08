@@ -82,7 +82,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		} else /** Absolute */ {
 			
 			Calendar date = Calendar.getInstance();
-			
+			System.out.println( PlaceHolderDate.getInstance( tokenTypeCfg.getValidityValue() ) );
 			try {
 				
 				if( PlaceHolderDate.getInstance( tokenTypeCfg.getValidityValue() ).isPlaceHolderDate() ) {

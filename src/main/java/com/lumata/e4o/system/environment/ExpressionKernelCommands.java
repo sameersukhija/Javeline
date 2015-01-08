@@ -56,7 +56,8 @@ public class ExpressionKernelCommands extends KernelCommands {
 		ExpiredData,
 		AggregateData,
 		ProvisionCampaigns,
-		SubscriberDelayedRemoval;			
+		SubscriberDelayedRemoval,
+		ExpiredVoucher;			
 	}
 	
 	/** expression scripts list */
