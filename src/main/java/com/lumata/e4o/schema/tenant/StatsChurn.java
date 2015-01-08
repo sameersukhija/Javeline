@@ -30,6 +30,7 @@ public class StatsChurn {
 			defaultValue = "null",
 			extra = "",
 			length = 19,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -48,6 +49,7 @@ public class StatsChurn {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)
@@ -66,6 +68,7 @@ public class StatsChurn {
 			defaultValue = "null",
 			extra = "",
 			length = 6,
+			comment = "",
 			getMethod = "getQuestion",
 			setMethod = "setQuestion"
 	)
@@ -84,6 +87,7 @@ public class StatsChurn {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -102,6 +106,7 @@ public class StatsChurn {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getState",
 			setMethod = "setState"
 	)
@@ -120,6 +125,7 @@ public class StatsChurn {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProba",
 			setMethod = "setProba"
 	)
@@ -138,6 +144,7 @@ public class StatsChurn {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getRank",
 			setMethod = "setRank"
 	)

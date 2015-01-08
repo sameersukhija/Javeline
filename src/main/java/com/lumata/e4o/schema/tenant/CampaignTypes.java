@@ -27,6 +27,7 @@ public class CampaignTypes {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 6,
+			comment = "",
 			getMethod = "getTypeId",
 			setMethod = "setTypeId"
 	)
@@ -45,6 +46,7 @@ public class CampaignTypes {
 			defaultValue = "null",
 			extra = "",
 			length = 45,
+			comment = "",
 			getMethod = "getTypeName",
 			setMethod = "setTypeName"
 	)
@@ -63,6 +65,7 @@ public class CampaignTypes {
 			defaultValue = "null",
 			extra = "",
 			length = 6,
+			comment = "",
 			getMethod = "getMaxOccurence",
 			setMethod = "setMaxOccurence"
 	)
@@ -81,6 +84,7 @@ public class CampaignTypes {
 			defaultValue = "null",
 			extra = "",
 			length = 6,
+			comment = "",
 			getMethod = "getWaitingPeriod",
 			setMethod = "setWaitingPeriod"
 	)
@@ -99,6 +103,7 @@ public class CampaignTypes {
 			defaultValue = "null",
 			extra = "",
 			length = 6,
+			comment = "",
 			getMethod = "getMaxSimultaneous",
 			setMethod = "setMaxSimultaneous"
 	)
@@ -117,6 +122,7 @@ public class CampaignTypes {
 			defaultValue = "1",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getChurnImpact",
 			setMethod = "setChurnImpact"
 	)
@@ -135,6 +141,7 @@ public class CampaignTypes {
 			defaultValue = "1",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getFullStats",
 			setMethod = "setFullStats"
 	)

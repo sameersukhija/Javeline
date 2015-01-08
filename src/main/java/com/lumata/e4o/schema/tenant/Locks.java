@@ -30,6 +30,7 @@ public class Locks {
 			defaultValue = "null",
 			extra = "",
 			length = 54,
+			comment = "",
 			getMethod = "getLockId",
 			setMethod = "setLockId"
 	)
@@ -48,6 +49,7 @@ public class Locks {
 			defaultValue = "null",
 			extra = "",
 			length = 256,
+			comment = "",
 			getMethod = "getLockerId",
 			setMethod = "setLockerId"
 	)
@@ -66,6 +68,7 @@ public class Locks {
 			defaultValue = "null",
 			extra = "",
 			length = 30,
+			comment = "",
 			getMethod = "getProcessId",
 			setMethod = "setProcessId"
 	)
@@ -84,6 +87,7 @@ public class Locks {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)

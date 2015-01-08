@@ -27,6 +27,7 @@ public class CampaignExpectedKpi {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getCampaignId",
 			setMethod = "setCampaignId"
 	)
@@ -45,6 +46,7 @@ public class CampaignExpectedKpi {
 			defaultValue = "null",
 			extra = "",
 			length = 45,
+			comment = "",
 			getMethod = "getKpiName",
 			setMethod = "setKpiName"
 	)
@@ -63,6 +65,7 @@ public class CampaignExpectedKpi {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getKpiValue",
 			setMethod = "setKpiValue"
 	)

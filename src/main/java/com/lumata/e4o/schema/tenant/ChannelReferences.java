@@ -27,6 +27,7 @@ public class ChannelReferences {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getChannelId",
 			setMethod = "setChannelId"
 	)
@@ -45,6 +46,7 @@ public class ChannelReferences {
 			defaultValue = "agency",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getRefType",
 			setMethod = "setRefType"
 	)
@@ -63,6 +65,7 @@ public class ChannelReferences {
 			defaultValue = "0",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getRefId",
 			setMethod = "setRefId"
 	)
@@ -81,6 +84,7 @@ public class ChannelReferences {
 			defaultValue = "0",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getRights",
 			setMethod = "setRights"
 	)

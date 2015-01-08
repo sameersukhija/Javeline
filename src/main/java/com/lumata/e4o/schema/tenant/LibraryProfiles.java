@@ -27,6 +27,7 @@ public class LibraryProfiles {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -45,6 +46,7 @@ public class LibraryProfiles {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getProfile",
 			setMethod = "setProfile"
 	)

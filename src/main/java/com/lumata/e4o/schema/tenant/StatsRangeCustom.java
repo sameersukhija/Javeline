@@ -30,6 +30,7 @@ public class StatsRangeCustom {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -48,6 +49,7 @@ public class StatsRangeCustom {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)
@@ -66,6 +68,7 @@ public class StatsRangeCustom {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getVarName",
 			setMethod = "setVarName"
 	)
@@ -84,6 +87,7 @@ public class StatsRangeCustom {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -102,6 +106,7 @@ public class StatsRangeCustom {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getRangeId",
 			setMethod = "setRangeId"
 	)

@@ -30,6 +30,7 @@ public class StatsSubsAccountOld {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -48,6 +49,7 @@ public class StatsSubsAccountOld {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtyInvoice",
 			setMethod = "setQtyInvoice"
 	)
@@ -66,6 +68,7 @@ public class StatsSubsAccountOld {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountInvoice",
 			setMethod = "setAmountInvoice"
 	)
@@ -84,6 +87,7 @@ public class StatsSubsAccountOld {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtyPayment",
 			setMethod = "setQtyPayment"
 	)
@@ -102,6 +106,7 @@ public class StatsSubsAccountOld {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountPayment",
 			setMethod = "setAmountPayment"
 	)
@@ -120,6 +125,7 @@ public class StatsSubsAccountOld {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtyRatePlanIdChange",
 			setMethod = "setQtyRatePlanIdChange"
 	)
@@ -138,6 +144,7 @@ public class StatsSubsAccountOld {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getLastRatePlanIdChangeDate",
 			setMethod = "setLastRatePlanIdChangeDate"
 	)
@@ -156,6 +163,7 @@ public class StatsSubsAccountOld {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtyStatusIdChange",
 			setMethod = "setQtyStatusIdChange"
 	)
@@ -174,6 +182,7 @@ public class StatsSubsAccountOld {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getLastStatusIdChangeDate",
 			setMethod = "setLastStatusIdChangeDate"
 	)
@@ -192,6 +201,7 @@ public class StatsSubsAccountOld {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getLastInvoiceDate",
 			setMethod = "setLastInvoiceDate"
 	)
@@ -210,6 +220,7 @@ public class StatsSubsAccountOld {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)

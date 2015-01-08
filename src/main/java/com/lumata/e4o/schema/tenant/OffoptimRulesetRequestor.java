@@ -27,6 +27,7 @@ public class OffoptimRulesetRequestor {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getRulesetId",
 			setMethod = "setRulesetId"
 	)
@@ -45,6 +46,7 @@ public class OffoptimRulesetRequestor {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getRequestorId",
 			setMethod = "setRequestorId"
 	)

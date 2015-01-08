@@ -30,6 +30,7 @@ public class Conf {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getName",
 			setMethod = "setName"
 	)
@@ -48,6 +49,7 @@ public class Conf {
 			defaultValue = "0",
 			extra = "",
 			length = 1,
+			comment = "",
 			getMethod = "getPosition",
 			setMethod = "setPosition"
 	)
@@ -66,6 +68,7 @@ public class Conf {
 			defaultValue = "null",
 			extra = "",
 			length = 30,
+			comment = "",
 			getMethod = "getSection",
 			setMethod = "setSection"
 	)
@@ -84,6 +87,7 @@ public class Conf {
 			defaultValue = "null",
 			extra = "",
 			length = 30,
+			comment = "",
 			getMethod = "getProcessId",
 			setMethod = "setProcessId"
 	)
@@ -102,6 +106,7 @@ public class Conf {
 			defaultValue = "Internal",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getAuthGroup",
 			setMethod = "setAuthGroup"
 	)
@@ -120,6 +125,7 @@ public class Conf {
 			defaultValue = "null",
 			extra = "",
 			length = 512,
+			comment = "",
 			getMethod = "getCurrent",
 			setMethod = "setCurrent"
 	)
@@ -138,6 +144,7 @@ public class Conf {
 			defaultValue = "null",
 			extra = "",
 			length = 512,
+			comment = "",
 			getMethod = "getPrevious",
 			setMethod = "setPrevious"
 	)
@@ -156,6 +163,7 @@ public class Conf {
 			defaultValue = "RO",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getDynStatic",
 			setMethod = "setDynStatic"
 	)
@@ -174,6 +182,7 @@ public class Conf {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getTime",
 			setMethod = "setTime"
 	)
@@ -192,6 +201,7 @@ public class Conf {
 			defaultValue = "Value",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getType",
 			setMethod = "setType"
 	)
@@ -210,6 +220,7 @@ public class Conf {
 			defaultValue = "null",
 			extra = "",
 			length = 512,
+			comment = "",
 			getMethod = "getDescription",
 			setMethod = "setDescription"
 	)

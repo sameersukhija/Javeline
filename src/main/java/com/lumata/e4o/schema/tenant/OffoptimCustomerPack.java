@@ -12,7 +12,7 @@ import com.lumata.common.testing.annotations.mysql.Column;
 @Table( "offoptim_customer_pack" )
 public class OffoptimCustomerPack { 
 
-	public enum Fields { customer_offer_pack_id, token_code, customer_id }
+	public enum Fields { customer_offer_pack_id, token_code, customer_id, purchase_id }
 
 	@Column(
 			table = "offoptim_customer_pack",
@@ -27,6 +27,7 @@ public class OffoptimCustomerPack {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 10,
+			comment = "",
 			getMethod = "getCustomerOfferPackId",
 			setMethod = "setCustomerOfferPackId"
 	)
@@ -45,6 +46,7 @@ public class OffoptimCustomerPack {
 			defaultValue = "null",
 			extra = "",
 			length = 60,
+			comment = "",
 			getMethod = "getTokenCode",
 			setMethod = "setTokenCode"
 	)
@@ -63,10 +65,30 @@ public class OffoptimCustomerPack {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getCustomerId",
 			setMethod = "setCustomerId"
 	)
 	private Long customer_id;
+
+	@Column(
+			table = "offoptim_customer_pack",
+			field = "purchase_id",
+			type = "bigint(20)",
+			mysqlType = "bigint",
+			javaType = "Long",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 20,
+			comment = "",
+			getMethod = "getPurchaseId",
+			setMethod = "setPurchaseId"
+	)
+	private Long purchase_id;
 
 
 	public OffoptimCustomerPack() {} 
@@ -76,6 +98,7 @@ public class OffoptimCustomerPack {
 		this.customer_offer_pack_id = rs.getInt( OffoptimCustomerPack.Fields.customer_offer_pack_id.name() );
 		this.token_code = rs.getString( OffoptimCustomerPack.Fields.token_code.name() );
 		this.customer_id = rs.getLong( OffoptimCustomerPack.Fields.customer_id.name() );
+		this.purchase_id = rs.getLong( OffoptimCustomerPack.Fields.purchase_id.name() );
 
 	}
 
@@ -84,6 +107,7 @@ public class OffoptimCustomerPack {
 		this.customer_offer_pack_id = (int)jo.getInt( OffoptimCustomerPack.Fields.customer_offer_pack_id.name() );
 		this.token_code = jo.getString( OffoptimCustomerPack.Fields.token_code.name() );
 		this.customer_id = (long)jo.getLong( OffoptimCustomerPack.Fields.customer_id.name() );
+		this.purchase_id = (long)jo.getLong( OffoptimCustomerPack.Fields.purchase_id.name() );
 
 	}
 
@@ -123,6 +147,18 @@ public class OffoptimCustomerPack {
 
 	}
 
+	public Long getPurchaseId() {
+
+		return this.purchase_id;
+
+	}
+
+	public void setPurchaseId( Long purchase_id ) {
+
+		this.purchase_id = purchase_id;
+
+	}
+
 	public Fields[] getEntityFields() {
 
 		return OffoptimCustomerPack.Fields.values();
@@ -136,7 +172,8 @@ public class OffoptimCustomerPack {
 		str.append( "{ " )
 			.append( "\"customer_offer_pack_id\": \"" ).append( this.getCustomerOfferPackId() ).append( "\", " )
 			.append( "\"token_code\": \"" ).append( this.getTokenCode() ).append( "\", " )
-			.append( "\"customer_id\": \"" ).append( this.getCustomerId() ).append( "\"" )
+			.append( "\"customer_id\": \"" ).append( this.getCustomerId() ).append( "\", " )
+			.append( "\"purchase_id\": \"" ).append( this.getPurchaseId() ).append( "\"" )
 			.append( " }" );
 
 		return str.toString();

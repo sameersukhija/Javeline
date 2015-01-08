@@ -27,6 +27,7 @@ public class CatalogOfferPricePrices {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getOfferPriceId",
 			setMethod = "setOfferPriceId"
 	)
@@ -45,6 +46,7 @@ public class CatalogOfferPricePrices {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getCurrencyId",
 			setMethod = "setCurrencyId"
 	)
@@ -63,6 +65,7 @@ public class CatalogOfferPricePrices {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getAmount",
 			setMethod = "setAmount"
 	)

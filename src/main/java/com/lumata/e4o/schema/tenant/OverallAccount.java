@@ -30,6 +30,7 @@ public class OverallAccount {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)
@@ -48,6 +49,7 @@ public class OverallAccount {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getPeriod",
 			setMethod = "setPeriod"
 	)
@@ -66,6 +68,7 @@ public class OverallAccount {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -84,6 +87,7 @@ public class OverallAccount {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getRatePlanId",
 			setMethod = "setRatePlanId"
 	)
@@ -102,6 +106,7 @@ public class OverallAccount {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getStatusId",
 			setMethod = "setStatusId"
 	)
@@ -120,6 +125,7 @@ public class OverallAccount {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getNetworkId",
 			setMethod = "setNetworkId"
 	)
@@ -138,6 +144,7 @@ public class OverallAccount {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getArpuId",
 			setMethod = "setArpuId"
 	)
@@ -156,6 +163,7 @@ public class OverallAccount {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getSeniorityId",
 			setMethod = "setSeniorityId"
 	)
@@ -174,6 +182,7 @@ public class OverallAccount {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getUcg",
 			setMethod = "setUcg"
 	)
@@ -192,6 +201,7 @@ public class OverallAccount {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSumInvoice",
 			setMethod = "setSumInvoice"
 	)
@@ -210,6 +220,7 @@ public class OverallAccount {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSumAmountInvoice",
 			setMethod = "setSumAmountInvoice"
 	)
@@ -228,6 +239,7 @@ public class OverallAccount {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSumPayment",
 			setMethod = "setSumPayment"
 	)
@@ -246,6 +258,7 @@ public class OverallAccount {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSumAmountPayment",
 			setMethod = "setSumAmountPayment"
 	)
@@ -264,6 +277,7 @@ public class OverallAccount {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyMsisdn",
 			setMethod = "setQtyMsisdn"
 	)

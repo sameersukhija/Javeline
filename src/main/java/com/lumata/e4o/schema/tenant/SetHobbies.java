@@ -27,6 +27,7 @@ public class SetHobbies {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getHobbies",
 			setMethod = "setHobbies"
 	)
@@ -45,6 +46,7 @@ public class SetHobbies {
 			defaultValue = "null",
 			extra = "",
 			length = 100,
+			comment = "",
 			getMethod = "getHobbiesName",
 			setMethod = "setHobbiesName"
 	)

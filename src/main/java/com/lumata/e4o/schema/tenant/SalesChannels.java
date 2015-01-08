@@ -27,6 +27,7 @@ public class SalesChannels {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 5,
+			comment = "",
 			getMethod = "getChannelId",
 			setMethod = "setChannelId"
 	)
@@ -45,6 +46,7 @@ public class SalesChannels {
 			defaultValue = "",
 			extra = "",
 			length = 45,
+			comment = "",
 			getMethod = "getChannelName",
 			setMethod = "setChannelName"
 	)
@@ -63,6 +65,7 @@ public class SalesChannels {
 			defaultValue = "true",
 			extra = "",
 			length = 2,
+			comment = "",
 			getMethod = "getActive",
 			setMethod = "setActive"
 	)

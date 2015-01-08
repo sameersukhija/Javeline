@@ -30,6 +30,7 @@ public class OffoptimOfferHistory {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getOfferId",
 			setMethod = "setOfferId"
 	)
@@ -48,6 +49,7 @@ public class OffoptimOfferHistory {
 			defaultValue = "1",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getTodayConsumed",
 			setMethod = "setTodayConsumed"
 	)
@@ -66,6 +68,7 @@ public class OffoptimOfferHistory {
 			defaultValue = "0",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getYesterdayConsumed",
 			setMethod = "setYesterdayConsumed"
 	)
@@ -84,6 +87,7 @@ public class OffoptimOfferHistory {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getLastModifiedDate",
 			setMethod = "setLastModifiedDate"
 	)

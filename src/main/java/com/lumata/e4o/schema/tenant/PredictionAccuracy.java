@@ -30,6 +30,7 @@ public class PredictionAccuracy {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getQuestionId",
 			setMethod = "setQuestionId"
 	)
@@ -48,6 +49,7 @@ public class PredictionAccuracy {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)
@@ -66,6 +68,7 @@ public class PredictionAccuracy {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -84,6 +87,7 @@ public class PredictionAccuracy {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getStatusId",
 			setMethod = "setStatusId"
 	)
@@ -102,6 +106,7 @@ public class PredictionAccuracy {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getNetworkId",
 			setMethod = "setNetworkId"
 	)
@@ -120,6 +125,7 @@ public class PredictionAccuracy {
 			defaultValue = "0",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getArpuId",
 			setMethod = "setArpuId"
 	)
@@ -138,6 +144,7 @@ public class PredictionAccuracy {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getRank",
 			setMethod = "setRank"
 	)
@@ -156,6 +163,7 @@ public class PredictionAccuracy {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getCampaignBeneficiary",
 			setMethod = "setCampaignBeneficiary"
 	)
@@ -174,6 +182,7 @@ public class PredictionAccuracy {
 			defaultValue = "0",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getUcg",
 			setMethod = "setUcg"
 	)
@@ -192,6 +201,7 @@ public class PredictionAccuracy {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyPredicted",
 			setMethod = "setQtyPredicted"
 	)
@@ -210,6 +220,7 @@ public class PredictionAccuracy {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyTp",
 			setMethod = "setQtyTp"
 	)

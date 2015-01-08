@@ -30,6 +30,7 @@ public class BonusesAll {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)
@@ -48,6 +49,7 @@ public class BonusesAll {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getPeriod",
 			setMethod = "setPeriod"
 	)
@@ -66,6 +68,7 @@ public class BonusesAll {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -84,6 +87,7 @@ public class BonusesAll {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getRatePlanId",
 			setMethod = "setRatePlanId"
 	)
@@ -102,6 +106,7 @@ public class BonusesAll {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getStatusId",
 			setMethod = "setStatusId"
 	)
@@ -120,6 +125,7 @@ public class BonusesAll {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNetworkId",
 			setMethod = "setNetworkId"
 	)
@@ -138,6 +144,7 @@ public class BonusesAll {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getArpuId",
 			setMethod = "setArpuId"
 	)
@@ -156,6 +163,7 @@ public class BonusesAll {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getSeniorityId",
 			setMethod = "setSeniorityId"
 	)
@@ -174,6 +182,7 @@ public class BonusesAll {
 			defaultValue = "0",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getBonusId",
 			setMethod = "setBonusId"
 	)
@@ -192,6 +201,7 @@ public class BonusesAll {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyMsisdn",
 			setMethod = "setQtyMsisdn"
 	)
@@ -210,6 +220,7 @@ public class BonusesAll {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSumQtyEarned",
 			setMethod = "setSumQtyEarned"
 	)
@@ -228,6 +239,7 @@ public class BonusesAll {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSumQtyUsed",
 			setMethod = "setSumQtyUsed"
 	)
@@ -246,6 +258,7 @@ public class BonusesAll {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSumQtyExpired",
 			setMethod = "setSumQtyExpired"
 	)

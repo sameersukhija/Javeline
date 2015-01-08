@@ -27,6 +27,7 @@ public class OffoptimRuleset {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 10,
+			comment = "",
 			getMethod = "getRulesetId",
 			setMethod = "setRulesetId"
 	)
@@ -45,6 +46,7 @@ public class OffoptimRuleset {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getName",
 			setMethod = "setName"
 	)
@@ -63,6 +65,7 @@ public class OffoptimRuleset {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getDescription",
 			setMethod = "setDescription"
 	)
@@ -81,6 +84,7 @@ public class OffoptimRuleset {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getAlgorithmId",
 			setMethod = "setAlgorithmId"
 	)
@@ -99,6 +103,7 @@ public class OffoptimRuleset {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getTokenTypeId",
 			setMethod = "setTokenTypeId"
 	)
@@ -117,6 +122,7 @@ public class OffoptimRuleset {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getTokenResendNotification",
 			setMethod = "setTokenResendNotification"
 	)
@@ -135,6 +141,7 @@ public class OffoptimRuleset {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getOffersToReturn",
 			setMethod = "setOffersToReturn"
 	)
@@ -153,6 +160,7 @@ public class OffoptimRuleset {
 			defaultValue = "0",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getKeepOffersConsistent",
 			setMethod = "setKeepOffersConsistent"
 	)
@@ -171,6 +179,7 @@ public class OffoptimRuleset {
 			defaultValue = "0",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAllowRedeemedOffers",
 			setMethod = "setAllowRedeemedOffers"
 	)
@@ -189,6 +198,7 @@ public class OffoptimRuleset {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getAllocationTimeValidityAmount",
 			setMethod = "setAllocationTimeValidityAmount"
 	)
@@ -207,6 +217,7 @@ public class OffoptimRuleset {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAllocationTimeValidityUnit",
 			setMethod = "setAllocationTimeValidityUnit"
 	)

@@ -31,6 +31,7 @@ public class BonusBalance {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -49,6 +50,7 @@ public class BonusBalance {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getBonusId",
 			setMethod = "setBonusId"
 	)
@@ -67,6 +69,7 @@ public class BonusBalance {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyBalance",
 			setMethod = "setQtyBalance"
 	)
@@ -85,6 +88,7 @@ public class BonusBalance {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyBalanceIn",
 			setMethod = "setQtyBalanceIn"
 	)
@@ -103,6 +107,7 @@ public class BonusBalance {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getStartDate",
 			setMethod = "setStartDate"
 	)
@@ -121,6 +126,7 @@ public class BonusBalance {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getEndDate",
 			setMethod = "setEndDate"
 	)
@@ -139,6 +145,7 @@ public class BonusBalance {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getValidityType",
 			setMethod = "setValidityType"
 	)
@@ -157,6 +164,7 @@ public class BonusBalance {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)

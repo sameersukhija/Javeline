@@ -30,6 +30,7 @@ public class Campaigns {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 3,
+			comment = "",
 			getMethod = "getCampaignId",
 			setMethod = "setCampaignId"
 	)
@@ -48,6 +49,7 @@ public class Campaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 55,
+			comment = "",
 			getMethod = "getCampaignName",
 			setMethod = "setCampaignName"
 	)
@@ -66,6 +68,7 @@ public class Campaigns {
 			defaultValue = "BTL",
 			extra = "",
 			length = 2,
+			comment = "",
 			getMethod = "getTargetingType",
 			setMethod = "setTargetingType"
 	)
@@ -84,6 +87,7 @@ public class Campaigns {
 			defaultValue = "SAVED",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getState",
 			setMethod = "setState"
 	)
@@ -102,6 +106,7 @@ public class Campaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getStartDate",
 			setMethod = "setStartDate"
 	)
@@ -120,6 +125,7 @@ public class Campaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getEndDate",
 			setMethod = "setEndDate"
 	)
@@ -138,6 +144,7 @@ public class Campaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getProvStartDate",
 			setMethod = "setProvStartDate"
 	)
@@ -156,6 +163,7 @@ public class Campaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getProvEndDate",
 			setMethod = "setProvEndDate"
 	)
@@ -174,6 +182,7 @@ public class Campaigns {
 			defaultValue = "0",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getMinDaysProvExec",
 			setMethod = "setMinDaysProvExec"
 	)
@@ -192,6 +201,7 @@ public class Campaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 16,
+			comment = "",
 			getMethod = "getChannelsIdList",
 			setMethod = "setChannelsIdList"
 	)
@@ -210,6 +220,7 @@ public class Campaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 2,
+			comment = "Number of days to notify subs in advance",
 			getMethod = "getNotifDays",
 			setMethod = "setNotifDays"
 	)
@@ -228,6 +239,7 @@ public class Campaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getNotifTime",
 			setMethod = "setNotifTime"
 	)
@@ -246,6 +258,7 @@ public class Campaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 55,
+			comment = "",
 			getMethod = "getModelName",
 			setMethod = "setModelName"
 	)
@@ -264,6 +277,7 @@ public class Campaigns {
 			defaultValue = "0",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getTypeId",
 			setMethod = "setTypeId"
 	)
@@ -282,6 +296,7 @@ public class Campaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 1,
+			comment = "",
 			getMethod = "getHourlyStatsDone",
 			setMethod = "setHourlyStatsDone"
 	)
@@ -300,6 +315,7 @@ public class Campaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 1,
+			comment = "",
 			getMethod = "getArchiveStatsDone",
 			setMethod = "setArchiveStatsDone"
 	)
@@ -318,6 +334,7 @@ public class Campaigns {
 			defaultValue = "",
 			extra = "",
 			length = 45,
+			comment = "",
 			getMethod = "getShortCode",
 			setMethod = "setShortCode"
 	)
@@ -336,6 +353,7 @@ public class Campaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getCampaignMasterId",
 			setMethod = "setCampaignMasterId"
 	)
@@ -354,6 +372,7 @@ public class Campaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getVariation",
 			setMethod = "setVariation"
 	)
@@ -372,6 +391,7 @@ public class Campaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getOccurence",
 			setMethod = "setOccurence"
 	)

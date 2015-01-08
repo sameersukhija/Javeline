@@ -27,6 +27,7 @@ public class FilesMeta {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 10,
+			comment = "",
 			getMethod = "getId",
 			setMethod = "setId"
 	)
@@ -45,6 +46,7 @@ public class FilesMeta {
 			defaultValue = "null",
 			extra = "",
 			length = 50,
+			comment = "",
 			getMethod = "getName",
 			setMethod = "setName"
 	)
@@ -63,6 +65,7 @@ public class FilesMeta {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getPath",
 			setMethod = "setPath"
 	)
@@ -81,6 +84,7 @@ public class FilesMeta {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getUpdatetime",
 			setMethod = "setUpdatetime"
 	)

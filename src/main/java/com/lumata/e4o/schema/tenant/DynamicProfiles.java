@@ -27,6 +27,7 @@ public class DynamicProfiles {
 			defaultValue = "null",
 			extra = "",
 			length = 25,
+			comment = "",
 			getMethod = "getVariableName",
 			setMethod = "setVariableName"
 	)
@@ -45,6 +46,7 @@ public class DynamicProfiles {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getVariableType",
 			setMethod = "setVariableType"
 	)
@@ -63,6 +65,7 @@ public class DynamicProfiles {
 			defaultValue = "null",
 			extra = "",
 			length = 45,
+			comment = "",
 			getMethod = "getScope",
 			setMethod = "setScope"
 	)

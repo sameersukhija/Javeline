@@ -27,6 +27,7 @@ public class TokenLabel {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 3,
+			comment = "it represents the identifier of the label (e.g., Bronze, Silver, Gold) of the token type",
 			getMethod = "getTokenLabelId",
 			setMethod = "setTokenLabelId"
 	)
@@ -45,6 +46,7 @@ public class TokenLabel {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "it represents the human readable label",
 			getMethod = "getLabel",
 			setMethod = "setLabel"
 	)

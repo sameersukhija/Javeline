@@ -30,6 +30,7 @@ public class OffoptimCustomerPackReleased {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getReleasedCustomerOfferPackId",
 			setMethod = "setReleasedCustomerOfferPackId"
 	)
@@ -48,6 +49,7 @@ public class OffoptimCustomerPackReleased {
 			defaultValue = "null",
 			extra = "",
 			length = 60,
+			comment = "",
 			getMethod = "getTokenCode",
 			setMethod = "setTokenCode"
 	)
@@ -66,6 +68,7 @@ public class OffoptimCustomerPackReleased {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getCustomerId",
 			setMethod = "setCustomerId"
 	)
@@ -84,6 +87,7 @@ public class OffoptimCustomerPackReleased {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getDiscardDate",
 			setMethod = "setDiscardDate"
 	)

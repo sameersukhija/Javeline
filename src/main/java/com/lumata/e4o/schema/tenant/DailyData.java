@@ -31,6 +31,7 @@ public class DailyData {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getQtySession",
 			setMethod = "setQtySession"
 	)
@@ -49,6 +50,7 @@ public class DailyData {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getVolumeUpload",
 			setMethod = "setVolumeUpload"
 	)
@@ -67,6 +69,7 @@ public class DailyData {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getVolumeDownload",
 			setMethod = "setVolumeDownload"
 	)
@@ -85,6 +88,7 @@ public class DailyData {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getAmountData",
 			setMethod = "setAmountData"
 	)
@@ -103,6 +107,7 @@ public class DailyData {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -121,6 +126,7 @@ public class DailyData {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)
@@ -139,6 +145,7 @@ public class DailyData {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)

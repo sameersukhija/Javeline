@@ -27,6 +27,7 @@ public class NotifRewardEvents {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getNotifId",
 			setMethod = "setNotifId"
 	)
@@ -45,6 +46,7 @@ public class NotifRewardEvents {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getEventId",
 			setMethod = "setEventId"
 	)

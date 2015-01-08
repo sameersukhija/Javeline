@@ -31,6 +31,7 @@ public class DailyPostpaid {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -49,6 +50,7 @@ public class DailyPostpaid {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getAmountUsage",
 			setMethod = "setAmountUsage"
 	)
@@ -67,6 +69,7 @@ public class DailyPostpaid {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getDelayAtPayment",
 			setMethod = "setDelayAtPayment"
 	)
@@ -85,6 +88,7 @@ public class DailyPostpaid {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getQtyRatePlanIdChange",
 			setMethod = "setQtyRatePlanIdChange"
 	)
@@ -103,6 +107,7 @@ public class DailyPostpaid {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getQtyStatusIdChange",
 			setMethod = "setQtyStatusIdChange"
 	)
@@ -121,6 +126,7 @@ public class DailyPostpaid {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)
@@ -139,6 +145,7 @@ public class DailyPostpaid {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)

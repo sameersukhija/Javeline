@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "offer_stock" )
 public class OfferStock { 
 
-	public enum Fields { offer_id, channel_id, initial_stock, available, purchased, refused, update_time }
+	public enum Fields { offer_id, channel_id, initial_stock, available, purchased, refused, expired, update_time }
 
 	@Column(
 			table = "offer_stock",
@@ -30,6 +30,7 @@ public class OfferStock {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getOfferId",
 			setMethod = "setOfferId"
 	)
@@ -48,6 +49,7 @@ public class OfferStock {
 			defaultValue = "0",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getChannelId",
 			setMethod = "setChannelId"
 	)
@@ -66,6 +68,7 @@ public class OfferStock {
 			defaultValue = "0",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getInitialStock",
 			setMethod = "setInitialStock"
 	)
@@ -84,6 +87,7 @@ public class OfferStock {
 			defaultValue = "0",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getAvailable",
 			setMethod = "setAvailable"
 	)
@@ -102,6 +106,7 @@ public class OfferStock {
 			defaultValue = "0",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getPurchased",
 			setMethod = "setPurchased"
 	)
@@ -120,10 +125,30 @@ public class OfferStock {
 			defaultValue = "0",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getRefused",
 			setMethod = "setRefused"
 	)
 	private Long refused;
+
+	@Column(
+			table = "offer_stock",
+			field = "expired",
+			type = "bigint(20) unsigned",
+			mysqlType = "bigint",
+			javaType = "Long",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "0",
+			extra = "",
+			length = 20,
+			comment = "",
+			getMethod = "getExpired",
+			setMethod = "setExpired"
+	)
+	private Long expired;
 
 	@Column(
 			table = "offer_stock",
@@ -138,6 +163,7 @@ public class OfferStock {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)
@@ -154,6 +180,7 @@ public class OfferStock {
 		this.available = rs.getLong( OfferStock.Fields.available.name() );
 		this.purchased = rs.getLong( OfferStock.Fields.purchased.name() );
 		this.refused = rs.getLong( OfferStock.Fields.refused.name() );
+		this.expired = rs.getLong( OfferStock.Fields.expired.name() );
 		this.update_time = rs.getTimestamp( OfferStock.Fields.update_time.name() );
 
 	}
@@ -166,6 +193,7 @@ public class OfferStock {
 		this.available = (long)jo.getLong( OfferStock.Fields.available.name() );
 		this.purchased = (long)jo.getLong( OfferStock.Fields.purchased.name() );
 		this.refused = (long)jo.getLong( OfferStock.Fields.refused.name() );
+		this.expired = (long)jo.getLong( OfferStock.Fields.expired.name() );
 		this.update_time = new Timestamp( Format.getMysqlDateTime( jo.getString( OfferStock.Fields.update_time.name() ) ).getTime() );
 
 	}
@@ -242,6 +270,18 @@ public class OfferStock {
 
 	}
 
+	public Long getExpired() {
+
+		return this.expired;
+
+	}
+
+	public void setExpired( Long expired ) {
+
+		this.expired = expired;
+
+	}
+
 	public Timestamp getUpdateTime() {
 
 		return this.update_time;
@@ -271,6 +311,7 @@ public class OfferStock {
 			.append( "\"available\": \"" ).append( this.getAvailable() ).append( "\", " )
 			.append( "\"purchased\": \"" ).append( this.getPurchased() ).append( "\", " )
 			.append( "\"refused\": \"" ).append( this.getRefused() ).append( "\", " )
+			.append( "\"expired\": \"" ).append( this.getExpired() ).append( "\", " )
 			.append( "\"update_time\": \"" ).append( this.getUpdateTime() ).append( "\"" )
 			.append( " }" );
 

@@ -30,6 +30,7 @@ public class CampaignRewards {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -48,6 +49,7 @@ public class CampaignRewards {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getCampaignId",
 			setMethod = "setCampaignId"
 	)
@@ -66,6 +68,7 @@ public class CampaignRewards {
 			defaultValue = "0",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getModuleId",
 			setMethod = "setModuleId"
 	)
@@ -84,6 +87,7 @@ public class CampaignRewards {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getRewardId",
 			setMethod = "setRewardId"
 	)
@@ -102,6 +106,7 @@ public class CampaignRewards {
 			defaultValue = "0",
 			extra = "",
 			length = 3,
+			comment = "0=msisdn himself - 255:sponsor himself - other:sponsor of the msisdn",
 			getMethod = "getRelationTypeId",
 			setMethod = "setRelationTypeId"
 	)
@@ -120,6 +125,7 @@ public class CampaignRewards {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyReward",
 			setMethod = "setQtyReward"
 	)
@@ -138,6 +144,7 @@ public class CampaignRewards {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyRewardIn",
 			setMethod = "setQtyRewardIn"
 	)
@@ -156,6 +163,7 @@ public class CampaignRewards {
 			defaultValue = "0",
 			extra = "",
 			length = 1,
+			comment = "",
 			getMethod = "getControl",
 			setMethod = "setControl"
 	)
@@ -174,6 +182,7 @@ public class CampaignRewards {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)

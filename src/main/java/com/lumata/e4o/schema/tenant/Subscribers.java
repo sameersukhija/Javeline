@@ -31,6 +31,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -49,6 +50,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getImei",
 			setMethod = "setImei"
 	)
@@ -67,6 +69,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getImsi",
 			setMethod = "setImsi"
 	)
@@ -85,6 +88,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getSubscriptionDate",
 			setMethod = "setSubscriptionDate"
 	)
@@ -103,6 +107,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -121,6 +126,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getRatePlanId",
 			setMethod = "setRatePlanId"
 	)
@@ -139,6 +145,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getStatusId",
 			setMethod = "setStatusId"
 	)
@@ -157,6 +164,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 16,
+			comment = "",
 			getMethod = "getServiceIdList",
 			setMethod = "setServiceIdList"
 	)
@@ -175,6 +183,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 64,
+			comment = "",
 			getMethod = "getChannelIdList",
 			setMethod = "setChannelIdList"
 	)
@@ -193,6 +202,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getNetworkId",
 			setMethod = "setNetworkId"
 	)
@@ -211,6 +221,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 30,
+			comment = "",
 			getMethod = "getTongue",
 			setMethod = "setTongue"
 	)
@@ -229,6 +240,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getUcg",
 			setMethod = "setUcg"
 	)
@@ -247,6 +259,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getUcgStartDate",
 			setMethod = "setUcgStartDate"
 	)
@@ -265,6 +278,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 1,
+			comment = "",
 			getMethod = "getInTag",
 			setMethod = "setInTag"
 	)
@@ -283,6 +297,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 64,
+			comment = "",
 			getMethod = "getHobbies",
 			setMethod = "setHobbies"
 	)
@@ -301,6 +316,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 256,
+			comment = "",
 			getMethod = "getOptions",
 			setMethod = "setOptions"
 	)
@@ -319,6 +335,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getGender",
 			setMethod = "setGender"
 	)
@@ -337,6 +354,7 @@ public class Subscribers {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSalary",
 			setMethod = "setSalary"
 	)
@@ -355,6 +373,7 @@ public class Subscribers {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)
@@ -380,7 +399,7 @@ public class Subscribers {
 		this.ucg_start_date = rs.getDate( Subscribers.Fields.ucg_start_date.name() );
 		this.in_tag = rs.getString( Subscribers.Fields.in_tag.name() );
 		this.hobbies = rs.getString( Subscribers.Fields.hobbies.name() );
-//		this.options = rs.getString( Subscribers.Fields.options.name() );
+		this.options = rs.getString( Subscribers.Fields.options.name() );
 		this.gender = rs.getString( Subscribers.Fields.gender.name() );
 		this.salary = rs.getFloat( Subscribers.Fields.salary.name() );
 		this.update_time = rs.getTimestamp( Subscribers.Fields.update_time.name() );

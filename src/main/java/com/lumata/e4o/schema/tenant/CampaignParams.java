@@ -27,6 +27,7 @@ public class CampaignParams {
 			defaultValue = "null",
 			extra = "",
 			length = 6,
+			comment = "",
 			getMethod = "getCampaignId",
 			setMethod = "setCampaignId"
 	)
@@ -45,6 +46,7 @@ public class CampaignParams {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getParams",
 			setMethod = "setParams"
 	)

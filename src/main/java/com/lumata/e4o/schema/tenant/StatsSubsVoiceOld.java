@@ -30,6 +30,7 @@ public class StatsSubsVoiceOld {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtyCall",
 			setMethod = "setQtyCall"
 	)
@@ -48,6 +49,7 @@ public class StatsSubsVoiceOld {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtyCallOriginating",
 			setMethod = "setQtyCallOriginating"
 	)
@@ -66,6 +68,7 @@ public class StatsSubsVoiceOld {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtyCallTerminating",
 			setMethod = "setQtyCallTerminating"
 	)
@@ -84,6 +87,7 @@ public class StatsSubsVoiceOld {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountCall",
 			setMethod = "setAmountCall"
 	)
@@ -102,6 +106,7 @@ public class StatsSubsVoiceOld {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getDurationCall",
 			setMethod = "setDurationCall"
 	)
@@ -120,6 +125,7 @@ public class StatsSubsVoiceOld {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtyMessage",
 			setMethod = "setQtyMessage"
 	)
@@ -138,6 +144,7 @@ public class StatsSubsVoiceOld {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountMessage",
 			setMethod = "setAmountMessage"
 	)
@@ -156,6 +163,7 @@ public class StatsSubsVoiceOld {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtySms",
 			setMethod = "setQtySms"
 	)
@@ -174,6 +182,7 @@ public class StatsSubsVoiceOld {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtyVas",
 			setMethod = "setQtyVas"
 	)
@@ -192,6 +201,7 @@ public class StatsSubsVoiceOld {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getLastCallDate",
 			setMethod = "setLastCallDate"
 	)
@@ -210,6 +220,7 @@ public class StatsSubsVoiceOld {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getLastMessageDate",
 			setMethod = "setLastMessageDate"
 	)
@@ -228,6 +239,7 @@ public class StatsSubsVoiceOld {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -246,6 +258,7 @@ public class StatsSubsVoiceOld {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)

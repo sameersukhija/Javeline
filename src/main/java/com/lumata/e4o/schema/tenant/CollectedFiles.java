@@ -30,6 +30,7 @@ public class CollectedFiles {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getName",
 			setMethod = "setName"
 	)
@@ -48,6 +49,7 @@ public class CollectedFiles {
 			defaultValue = "FILE",
 			extra = "",
 			length = 2,
+			comment = "",
 			getMethod = "getType",
 			setMethod = "setType"
 	)
@@ -66,6 +68,7 @@ public class CollectedFiles {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getHandler",
 			setMethod = "setHandler"
 	)
@@ -84,6 +87,7 @@ public class CollectedFiles {
 			defaultValue = "null",
 			extra = "",
 			length = 50,
+			comment = "",
 			getMethod = "getScope",
 			setMethod = "setScope"
 	)
@@ -102,6 +106,7 @@ public class CollectedFiles {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getAssignerId",
 			setMethod = "setAssignerId"
 	)
@@ -120,6 +125,7 @@ public class CollectedFiles {
 			defaultValue = "null",
 			extra = "",
 			length = 50,
+			comment = "",
 			getMethod = "getAssignerName",
 			setMethod = "setAssignerName"
 	)
@@ -138,6 +144,7 @@ public class CollectedFiles {
 			defaultValue = "0",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getCurrentPos",
 			setMethod = "setCurrentPos"
 	)
@@ -156,6 +163,7 @@ public class CollectedFiles {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateDate",
 			setMethod = "setUpdateDate"
 	)
@@ -174,6 +182,7 @@ public class CollectedFiles {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getCollectedDate",
 			setMethod = "setCollectedDate"
 	)
@@ -192,6 +201,7 @@ public class CollectedFiles {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAssignedDate",
 			setMethod = "setAssignedDate"
 	)

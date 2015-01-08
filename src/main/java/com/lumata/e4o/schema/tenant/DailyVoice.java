@@ -31,6 +31,7 @@ public class DailyVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getQtyCall",
 			setMethod = "setQtyCall"
 	)
@@ -49,6 +50,7 @@ public class DailyVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getQtyCallOriginating",
 			setMethod = "setQtyCallOriginating"
 	)
@@ -67,6 +69,7 @@ public class DailyVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getQtyCallTerminating",
 			setMethod = "setQtyCallTerminating"
 	)
@@ -85,6 +88,7 @@ public class DailyVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getAmountCall",
 			setMethod = "setAmountCall"
 	)
@@ -103,6 +107,7 @@ public class DailyVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getDurationCall",
 			setMethod = "setDurationCall"
 	)
@@ -121,6 +126,7 @@ public class DailyVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getQtyMessage",
 			setMethod = "setQtyMessage"
 	)
@@ -139,6 +145,7 @@ public class DailyVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getAmountMessage",
 			setMethod = "setAmountMessage"
 	)
@@ -157,6 +164,7 @@ public class DailyVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getQtySms",
 			setMethod = "setQtySms"
 	)
@@ -175,6 +183,7 @@ public class DailyVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getQtyVas",
 			setMethod = "setQtyVas"
 	)
@@ -193,6 +202,7 @@ public class DailyVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -211,6 +221,7 @@ public class DailyVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)
@@ -229,6 +240,7 @@ public class DailyVoice {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)

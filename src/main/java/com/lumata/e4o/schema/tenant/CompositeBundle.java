@@ -27,6 +27,7 @@ public class CompositeBundle {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getBundle",
 			setMethod = "setBundle"
 	)
@@ -45,6 +46,7 @@ public class CompositeBundle {
 			defaultValue = "null",
 			extra = "",
 			length = 30,
+			comment = "",
 			getMethod = "getBundleName",
 			setMethod = "setBundleName"
 	)

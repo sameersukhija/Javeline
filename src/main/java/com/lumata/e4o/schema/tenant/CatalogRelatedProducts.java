@@ -27,6 +27,7 @@ public class CatalogRelatedProducts {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getProductId",
 			setMethod = "setProductId"
 	)
@@ -45,6 +46,7 @@ public class CatalogRelatedProducts {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getRelatedProductId",
 			setMethod = "setRelatedProductId"
 	)

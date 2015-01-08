@@ -30,6 +30,7 @@ public class SubscribersAll {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)
@@ -48,6 +49,7 @@ public class SubscribersAll {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getPeriod",
 			setMethod = "setPeriod"
 	)
@@ -66,6 +68,7 @@ public class SubscribersAll {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -84,6 +87,7 @@ public class SubscribersAll {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getRatePlanId",
 			setMethod = "setRatePlanId"
 	)
@@ -102,6 +106,7 @@ public class SubscribersAll {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getStatusId",
 			setMethod = "setStatusId"
 	)
@@ -120,6 +125,7 @@ public class SubscribersAll {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getNetworkId",
 			setMethod = "setNetworkId"
 	)
@@ -138,6 +144,7 @@ public class SubscribersAll {
 			defaultValue = "null",
 			extra = "",
 			length = 15,
+			comment = "",
 			getMethod = "getInTag",
 			setMethod = "setInTag"
 	)
@@ -156,6 +163,7 @@ public class SubscribersAll {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyMsisdn",
 			setMethod = "setQtyMsisdn"
 	)

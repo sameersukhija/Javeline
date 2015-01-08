@@ -27,6 +27,7 @@ public class CampaignInfos {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getCampaignId",
 			setMethod = "setCampaignId"
 	)
@@ -45,6 +46,7 @@ public class CampaignInfos {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getKeyInfos",
 			setMethod = "setKeyInfos"
 	)
@@ -63,6 +65,7 @@ public class CampaignInfos {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getValueInfos",
 			setMethod = "setValueInfos"
 	)

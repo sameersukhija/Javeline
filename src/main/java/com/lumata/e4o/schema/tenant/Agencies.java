@@ -27,6 +27,7 @@ public class Agencies {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 3,
+			comment = "",
 			getMethod = "getId",
 			setMethod = "setId"
 	)
@@ -45,6 +46,7 @@ public class Agencies {
 			defaultValue = "null",
 			extra = "",
 			length = 100,
+			comment = "",
 			getMethod = "getName",
 			setMethod = "setName"
 	)
@@ -63,6 +65,7 @@ public class Agencies {
 			defaultValue = "null",
 			extra = "",
 			length = 250,
+			comment = "",
 			getMethod = "getAddress",
 			setMethod = "setAddress"
 	)
@@ -81,6 +84,7 @@ public class Agencies {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getPhone",
 			setMethod = "setPhone"
 	)

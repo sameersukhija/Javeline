@@ -27,6 +27,7 @@ public class SubsNotif {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -45,6 +46,7 @@ public class SubsNotif {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getChannelId",
 			setMethod = "setChannelId"
 	)
@@ -63,6 +65,7 @@ public class SubsNotif {
 			defaultValue = "null",
 			extra = "",
 			length = 100,
+			comment = "",
 			getMethod = "getAddress",
 			setMethod = "setAddress"
 	)

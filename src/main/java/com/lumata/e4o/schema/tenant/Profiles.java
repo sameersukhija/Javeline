@@ -27,6 +27,7 @@ public class Profiles {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 3,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -45,6 +46,7 @@ public class Profiles {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getProfile",
 			setMethod = "setProfile"
 	)
@@ -63,6 +65,7 @@ public class Profiles {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getDefaultStatusId",
 			setMethod = "setDefaultStatusId"
 	)
@@ -81,6 +84,7 @@ public class Profiles {
 			defaultValue = "null",
 			extra = "",
 			length = 2,
+			comment = "",
 			getMethod = "getStatusProvMode",
 			setMethod = "setStatusProvMode"
 	)

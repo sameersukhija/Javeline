@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @Table( "catalog_offers" )
 public class CatalogOffers { 
 
-	public enum Fields { offer_id, external_id, offer_name, description, voucher_type, voucher_unlimited_code, redemption_notification, start_date, end_date, offer_status, eligibility_criteria, notification, offer_rank, subs_preferences_id_list, update_time, url_image, agreement, subscriber_limit }
+	public enum Fields { offer_id, external_id, offer_name, description, voucher_type, voucher_unlimited_code, redemption_notification, start_date, end_date, offer_status, eligibility_criteria, notification, offer_rank, subs_preferences_id_list, update_time, url_image, agreement, subscriber_limit, resend_notification }
 
 	@Column(
 			table = "catalog_offers",
@@ -31,6 +31,7 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 5,
+			comment = "",
 			getMethod = "getOfferId",
 			setMethod = "setOfferId"
 	)
@@ -49,6 +50,7 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 45,
+			comment = "",
 			getMethod = "getExternalId",
 			setMethod = "setExternalId"
 	)
@@ -67,6 +69,7 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 64,
+			comment = "",
 			getMethod = "getOfferName",
 			setMethod = "setOfferName"
 	)
@@ -85,6 +88,7 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getDescription",
 			setMethod = "setDescription"
 	)
@@ -103,6 +107,7 @@ public class CatalogOffers {
 			defaultValue = "none",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getVoucherType",
 			setMethod = "setVoucherType"
 	)
@@ -121,6 +126,7 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 512,
+			comment = "",
 			getMethod = "getVoucherUnlimitedCode",
 			setMethod = "setVoucherUnlimitedCode"
 	)
@@ -139,6 +145,7 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getRedemptionNotification",
 			setMethod = "setRedemptionNotification"
 	)
@@ -157,6 +164,7 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getStartDate",
 			setMethod = "setStartDate"
 	)
@@ -175,6 +183,7 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getEndDate",
 			setMethod = "setEndDate"
 	)
@@ -193,6 +202,7 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getOfferStatus",
 			setMethod = "setOfferStatus"
 	)
@@ -211,6 +221,7 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getEligibilityCriteria",
 			setMethod = "setEligibilityCriteria"
 	)
@@ -229,6 +240,7 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getNotification",
 			setMethod = "setNotification"
 	)
@@ -247,6 +259,7 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getOfferRank",
 			setMethod = "setOfferRank"
 	)
@@ -265,6 +278,7 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 64,
+			comment = "",
 			getMethod = "getSubsPreferencesIdList",
 			setMethod = "setSubsPreferencesIdList"
 	)
@@ -283,6 +297,7 @@ public class CatalogOffers {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)
@@ -301,6 +316,7 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getUrlImage",
 			setMethod = "setUrlImage"
 	)
@@ -319,6 +335,7 @@ public class CatalogOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAgreement",
 			setMethod = "setAgreement"
 	)
@@ -337,10 +354,30 @@ public class CatalogOffers {
 			defaultValue = "-1",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getSubscriberLimit",
 			setMethod = "setSubscriberLimit"
 	)
 	private Short subscriber_limit;
+
+	@Column(
+			table = "catalog_offers",
+			field = "resend_notification",
+			type = "blob",
+			mysqlType = "blob",
+			javaType = "String",
+			categoryType = "String",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 0,
+			comment = "",
+			getMethod = "getResendNotification",
+			setMethod = "setResendNotification"
+	)
+	private String resend_notification;
 
 
 	public CatalogOffers() {} 
@@ -365,6 +402,7 @@ public class CatalogOffers {
 		this.url_image = rs.getString( CatalogOffers.Fields.url_image.name() );
 		this.agreement = rs.getString( CatalogOffers.Fields.agreement.name() );
 		this.subscriber_limit = rs.getShort( CatalogOffers.Fields.subscriber_limit.name() );
+		this.resend_notification = rs.getString( CatalogOffers.Fields.resend_notification.name() );
 
 	}
 
@@ -388,6 +426,7 @@ public class CatalogOffers {
 		this.url_image = jo.getString( CatalogOffers.Fields.url_image.name() );
 		this.agreement = jo.getString( CatalogOffers.Fields.agreement.name() );
 		this.subscriber_limit = (short)jo.getInt( CatalogOffers.Fields.subscriber_limit.name() );
+		this.resend_notification = jo.getString( CatalogOffers.Fields.resend_notification.name() );
 
 	}
 
@@ -607,6 +646,18 @@ public class CatalogOffers {
 
 	}
 
+	public String getResendNotification() {
+
+		return this.resend_notification;
+
+	}
+
+	public void setResendNotification( String resend_notification ) {
+
+		this.resend_notification = resend_notification;
+
+	}
+
 	public Fields[] getEntityFields() {
 
 		return CatalogOffers.Fields.values();
@@ -635,7 +686,8 @@ public class CatalogOffers {
 			.append( "\"update_time\": \"" ).append( this.getUpdateTime() ).append( "\", " )
 			.append( "\"url_image\": \"" ).append( this.getUrlImage() ).append( "\", " )
 			.append( "\"agreement\": \"" ).append( this.getAgreement() ).append( "\", " )
-			.append( "\"subscriber_limit\": \"" ).append( this.getSubscriberLimit() ).append( "\"" )
+			.append( "\"subscriber_limit\": \"" ).append( this.getSubscriberLimit() ).append( "\", " )
+			.append( "\"resend_notification\": \"" ).append( this.getResendNotification() ).append( "\"" )
 			.append( " }" );
 
 		return str.toString();

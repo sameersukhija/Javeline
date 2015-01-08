@@ -30,6 +30,7 @@ public class LoyaltyBadges {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 3,
+			comment = "",
 			getMethod = "getBadgeId",
 			setMethod = "setBadgeId"
 	)
@@ -48,6 +49,7 @@ public class LoyaltyBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getVersionName",
 			setMethod = "setVersionName"
 	)
@@ -66,6 +68,7 @@ public class LoyaltyBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getProgramId",
 			setMethod = "setProgramId"
 	)
@@ -84,6 +87,7 @@ public class LoyaltyBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 64,
+			comment = "",
 			getMethod = "getBadgeName",
 			setMethod = "setBadgeName"
 	)
@@ -102,6 +106,7 @@ public class LoyaltyBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 512,
+			comment = "",
 			getMethod = "getBadgeDescription",
 			setMethod = "setBadgeDescription"
 	)
@@ -120,6 +125,7 @@ public class LoyaltyBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getBadgeTypeId",
 			setMethod = "setBadgeTypeId"
 	)
@@ -138,6 +144,7 @@ public class LoyaltyBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getBadgeStartDate",
 			setMethod = "setBadgeStartDate"
 	)
@@ -156,6 +163,7 @@ public class LoyaltyBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getBadgeEndDate",
 			setMethod = "setBadgeEndDate"
 	)
@@ -174,6 +182,7 @@ public class LoyaltyBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getBadgeNotAwardedUrl",
 			setMethod = "setBadgeNotAwardedUrl"
 	)
@@ -192,6 +201,7 @@ public class LoyaltyBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getBadgeAwardedUrl",
 			setMethod = "setBadgeAwardedUrl"
 	)
@@ -210,6 +220,7 @@ public class LoyaltyBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getBadgeRedeemedUrl",
 			setMethod = "setBadgeRedeemedUrl"
 	)
@@ -228,6 +239,7 @@ public class LoyaltyBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getBadgeValidityDurationDays",
 			setMethod = "setBadgeValidityDurationDays"
 	)
@@ -246,6 +258,7 @@ public class LoyaltyBadges {
 			defaultValue = "SAVED",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getBadgeStatus",
 			setMethod = "setBadgeStatus"
 	)

@@ -27,6 +27,7 @@ public class Suppliers {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 5,
+			comment = "",
 			getMethod = "getSupplierId",
 			setMethod = "setSupplierId"
 	)
@@ -45,6 +46,7 @@ public class Suppliers {
 			defaultValue = "null",
 			extra = "",
 			length = 45,
+			comment = "",
 			getMethod = "getName",
 			setMethod = "setName"
 	)
@@ -63,6 +65,7 @@ public class Suppliers {
 			defaultValue = "null",
 			extra = "",
 			length = 70,
+			comment = "",
 			getMethod = "getEmail",
 			setMethod = "setEmail"
 	)
@@ -81,6 +84,7 @@ public class Suppliers {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getPhone",
 			setMethod = "setPhone"
 	)
@@ -99,6 +103,7 @@ public class Suppliers {
 			defaultValue = "null",
 			extra = "",
 			length = 70,
+			comment = "",
 			getMethod = "getWebsite",
 			setMethod = "setWebsite"
 	)

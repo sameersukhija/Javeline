@@ -31,6 +31,7 @@ public class Stats {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getStatsDate",
 			setMethod = "setStatsDate"
 	)
@@ -49,6 +50,7 @@ public class Stats {
 			defaultValue = "null",
 			extra = "",
 			length = 30,
+			comment = "",
 			getMethod = "getType",
 			setMethod = "setType"
 	)
@@ -67,6 +69,7 @@ public class Stats {
 			defaultValue = "null",
 			extra = "",
 			length = 30,
+			comment = "",
 			getMethod = "getName",
 			setMethod = "setName"
 	)
@@ -85,6 +88,7 @@ public class Stats {
 			defaultValue = "null",
 			extra = "",
 			length = 30,
+			comment = "",
 			getMethod = "getProcessId",
 			setMethod = "setProcessId"
 	)
@@ -103,6 +107,7 @@ public class Stats {
 			defaultValue = "null",
 			extra = "",
 			length = 30,
+			comment = "",
 			getMethod = "getStatus",
 			setMethod = "setStatus"
 	)
@@ -121,6 +126,7 @@ public class Stats {
 			defaultValue = "0",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getValue",
 			setMethod = "setValue"
 	)
@@ -139,6 +145,7 @@ public class Stats {
 			defaultValue = "0",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getMinute",
 			setMethod = "setMinute"
 	)
@@ -157,6 +164,7 @@ public class Stats {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)

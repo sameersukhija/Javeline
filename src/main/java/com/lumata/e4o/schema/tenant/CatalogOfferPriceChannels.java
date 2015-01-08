@@ -27,6 +27,7 @@ public class CatalogOfferPriceChannels {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getOfferPriceId",
 			setMethod = "setOfferPriceId"
 	)
@@ -45,6 +46,7 @@ public class CatalogOfferPriceChannels {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getChannelId",
 			setMethod = "setChannelId"
 	)

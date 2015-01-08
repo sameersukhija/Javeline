@@ -27,6 +27,7 @@ public class Billables {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 3,
+			comment = "",
 			getMethod = "getBillableId",
 			setMethod = "setBillableId"
 	)
@@ -45,6 +46,7 @@ public class Billables {
 			defaultValue = "null",
 			extra = "",
 			length = 30,
+			comment = "",
 			getMethod = "getBillableName",
 			setMethod = "setBillableName"
 	)
@@ -63,6 +65,7 @@ public class Billables {
 			defaultValue = "null",
 			extra = "",
 			length = 15,
+			comment = "List of IN commodities for PCM",
 			getMethod = "getCommodityType",
 			setMethod = "setCommodityType"
 	)
@@ -81,6 +84,7 @@ public class Billables {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getBonusId",
 			setMethod = "setBonusId"
 	)

@@ -30,6 +30,7 @@ public class StatsOffer {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -48,6 +49,7 @@ public class StatsOffer {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getOfferId",
 			setMethod = "setOfferId"
 	)
@@ -66,6 +68,7 @@ public class StatsOffer {
 			defaultValue = "0",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getQtyAllocated",
 			setMethod = "setQtyAllocated"
 	)
@@ -84,6 +87,7 @@ public class StatsOffer {
 			defaultValue = "0",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getQtyPurchased",
 			setMethod = "setQtyPurchased"
 	)
@@ -102,6 +106,7 @@ public class StatsOffer {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getQtyRemaining",
 			setMethod = "setQtyRemaining"
 	)
@@ -120,6 +125,7 @@ public class StatsOffer {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)

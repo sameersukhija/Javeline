@@ -30,6 +30,7 @@ public class LogicalLock {
 			defaultValue = "null",
 			extra = "",
 			length = 100,
+			comment = "",
 			getMethod = "getLockId",
 			setMethod = "setLockId"
 	)
@@ -48,6 +49,7 @@ public class LogicalLock {
 			defaultValue = "null",
 			extra = "",
 			length = 100,
+			comment = "",
 			getMethod = "getLockerId",
 			setMethod = "setLockerId"
 	)
@@ -66,6 +68,7 @@ public class LogicalLock {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getCreationTime",
 			setMethod = "setCreationTime"
 	)

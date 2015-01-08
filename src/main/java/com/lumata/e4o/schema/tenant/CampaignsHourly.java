@@ -30,6 +30,7 @@ public class CampaignsHourly {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDateTime",
 			setMethod = "setAggDateTime"
 	)
@@ -48,6 +49,7 @@ public class CampaignsHourly {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getCampaignId",
 			setMethod = "setCampaignId"
 	)
@@ -66,6 +68,7 @@ public class CampaignsHourly {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getSubsStatus",
 			setMethod = "setSubsStatus"
 	)
@@ -84,6 +87,7 @@ public class CampaignsHourly {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyMsisdn",
 			setMethod = "setQtyMsisdn"
 	)
@@ -102,6 +106,7 @@ public class CampaignsHourly {
 			defaultValue = "0",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getModuleId",
 			setMethod = "setModuleId"
 	)
@@ -120,6 +125,7 @@ public class CampaignsHourly {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getRewardId",
 			setMethod = "setRewardId"
 	)
@@ -138,6 +144,7 @@ public class CampaignsHourly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getQtyReward",
 			setMethod = "setQtyReward"
 	)
@@ -156,6 +163,7 @@ public class CampaignsHourly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getQtyRewardSponsor",
 			setMethod = "setQtyRewardSponsor"
 	)
@@ -174,6 +182,7 @@ public class CampaignsHourly {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtySubsReward",
 			setMethod = "setQtySubsReward"
 	)

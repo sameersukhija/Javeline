@@ -27,6 +27,7 @@ public class CatalogOfferPrice {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 5,
+			comment = "",
 			getMethod = "getOfferPriceId",
 			setMethod = "setOfferPriceId"
 	)
@@ -45,6 +46,7 @@ public class CatalogOfferPrice {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getOfferId",
 			setMethod = "setOfferId"
 	)
@@ -63,6 +65,7 @@ public class CatalogOfferPrice {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getCriteria",
 			setMethod = "setCriteria"
 	)

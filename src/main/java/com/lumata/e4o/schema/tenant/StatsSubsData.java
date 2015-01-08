@@ -30,6 +30,7 @@ public class StatsSubsData {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtySession",
 			setMethod = "setQtySession"
 	)
@@ -48,6 +49,7 @@ public class StatsSubsData {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getVolumeUpload",
 			setMethod = "setVolumeUpload"
 	)
@@ -66,6 +68,7 @@ public class StatsSubsData {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getVolumeDownload",
 			setMethod = "setVolumeDownload"
 	)
@@ -84,6 +87,7 @@ public class StatsSubsData {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountData",
 			setMethod = "setAmountData"
 	)
@@ -102,6 +106,7 @@ public class StatsSubsData {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getLastSessionDate",
 			setMethod = "setLastSessionDate"
 	)
@@ -120,6 +125,7 @@ public class StatsSubsData {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -138,6 +144,7 @@ public class StatsSubsData {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)

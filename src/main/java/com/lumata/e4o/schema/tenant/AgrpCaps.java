@@ -30,6 +30,7 @@ public class AgrpCaps {
 			defaultValue = "null",
 			extra = "",
 			length = 56,
+			comment = "",
 			getMethod = "getCap",
 			setMethod = "setCap"
 	)
@@ -48,6 +49,7 @@ public class AgrpCaps {
 			defaultValue = "null",
 			extra = "",
 			length = 56,
+			comment = "",
 			getMethod = "getTransactionId",
 			setMethod = "setTransactionId"
 	)
@@ -66,6 +68,7 @@ public class AgrpCaps {
 			defaultValue = "null",
 			extra = "",
 			length = 50,
+			comment = "",
 			getMethod = "getTaskName",
 			setMethod = "setTaskName"
 	)
@@ -84,6 +87,7 @@ public class AgrpCaps {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getCreationTime",
 			setMethod = "setCreationTime"
 	)
@@ -102,6 +106,7 @@ public class AgrpCaps {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getCompletionDate",
 			setMethod = "setCompletionDate"
 	)

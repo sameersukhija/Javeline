@@ -30,6 +30,7 @@ public class StatsBonus {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -48,6 +49,7 @@ public class StatsBonus {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)
@@ -66,6 +68,7 @@ public class StatsBonus {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getBonusId",
 			setMethod = "setBonusId"
 	)
@@ -84,6 +87,7 @@ public class StatsBonus {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyEarned",
 			setMethod = "setQtyEarned"
 	)
@@ -102,6 +106,7 @@ public class StatsBonus {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyUsed",
 			setMethod = "setQtyUsed"
 	)
@@ -120,6 +125,7 @@ public class StatsBonus {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyExpired",
 			setMethod = "setQtyExpired"
 	)

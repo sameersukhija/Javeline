@@ -30,6 +30,7 @@ public class FilesDataBackup {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getId",
 			setMethod = "setId"
 	)
@@ -48,6 +49,7 @@ public class FilesDataBackup {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getBackuptime",
 			setMethod = "setBackuptime"
 	)
@@ -66,6 +68,7 @@ public class FilesDataBackup {
 			defaultValue = "null",
 			extra = "",
 			length = 256,
+			comment = "",
 			getMethod = "getUser",
 			setMethod = "setUser"
 	)
@@ -84,6 +87,7 @@ public class FilesDataBackup {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getContent",
 			setMethod = "setContent"
 	)

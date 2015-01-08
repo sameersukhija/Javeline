@@ -27,6 +27,7 @@ public class LoyaltySubsTest {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProgramId",
 			setMethod = "setProgramId"
 	)
@@ -45,6 +46,7 @@ public class LoyaltySubsTest {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)

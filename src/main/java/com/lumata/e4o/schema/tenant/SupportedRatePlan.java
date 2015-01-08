@@ -27,6 +27,7 @@ public class SupportedRatePlan {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 3,
+			comment = "",
 			getMethod = "getRatePlanId",
 			setMethod = "setRatePlanId"
 	)
@@ -45,6 +46,7 @@ public class SupportedRatePlan {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -63,6 +65,7 @@ public class SupportedRatePlan {
 			defaultValue = "null",
 			extra = "",
 			length = 50,
+			comment = "",
 			getMethod = "getRatePlan",
 			setMethod = "setRatePlan"
 	)

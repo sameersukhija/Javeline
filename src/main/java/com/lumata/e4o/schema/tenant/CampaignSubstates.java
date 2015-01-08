@@ -27,6 +27,7 @@ public class CampaignSubstates {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 3,
+			comment = "",
 			getMethod = "getSubstateId",
 			setMethod = "setSubstateId"
 	)
@@ -45,6 +46,7 @@ public class CampaignSubstates {
 			defaultValue = "null",
 			extra = "",
 			length = 55,
+			comment = "",
 			getMethod = "getSubstateName",
 			setMethod = "setSubstateName"
 	)
@@ -63,6 +65,7 @@ public class CampaignSubstates {
 			defaultValue = "null",
 			extra = "",
 			length = 250,
+			comment = "",
 			getMethod = "getDescription",
 			setMethod = "setDescription"
 	)

@@ -30,6 +30,7 @@ public class CampaignNotif {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -48,6 +49,7 @@ public class CampaignNotif {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getCampaignId",
 			setMethod = "setCampaignId"
 	)
@@ -66,6 +68,7 @@ public class CampaignNotif {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getChannelId",
 			setMethod = "setChannelId"
 	)
@@ -84,6 +87,7 @@ public class CampaignNotif {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMessageId",
 			setMethod = "setMessageId"
 	)
@@ -102,6 +106,7 @@ public class CampaignNotif {
 			defaultValue = "NOT_SENT",
 			extra = "",
 			length = 6,
+			comment = "",
 			getMethod = "getMessageState",
 			setMethod = "setMessageState"
 	)
@@ -120,6 +125,7 @@ public class CampaignNotif {
 			defaultValue = "1",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getChannelState",
 			setMethod = "setChannelState"
 	)
@@ -138,6 +144,7 @@ public class CampaignNotif {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)

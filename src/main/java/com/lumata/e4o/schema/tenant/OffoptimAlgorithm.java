@@ -27,6 +27,7 @@ public class OffoptimAlgorithm {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 10,
+			comment = "",
 			getMethod = "getAlgorithmId",
 			setMethod = "setAlgorithmId"
 	)
@@ -45,6 +46,7 @@ public class OffoptimAlgorithm {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getName",
 			setMethod = "setName"
 	)
@@ -63,6 +65,7 @@ public class OffoptimAlgorithm {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getDescription",
 			setMethod = "setDescription"
 	)
@@ -81,6 +84,7 @@ public class OffoptimAlgorithm {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getClassPath",
 			setMethod = "setClassPath"
 	)

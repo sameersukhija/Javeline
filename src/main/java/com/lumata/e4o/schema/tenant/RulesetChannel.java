@@ -27,6 +27,7 @@ public class RulesetChannel {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "it represents the identifier of the ruleset",
 			getMethod = "getRulesetId",
 			setMethod = "setRulesetId"
 	)
@@ -45,6 +46,7 @@ public class RulesetChannel {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "it represents the identifier of the channel",
 			getMethod = "getChannelId",
 			setMethod = "setChannelId"
 	)
@@ -63,6 +65,7 @@ public class RulesetChannel {
 			defaultValue = "0",
 			extra = "",
 			length = 1,
+			comment = "it represents if channel is mandatory or not",
 			getMethod = "getMandatory",
 			setMethod = "setMandatory"
 	)
@@ -81,6 +84,7 @@ public class RulesetChannel {
 			defaultValue = "-1",
 			extra = "",
 			length = 3,
+			comment = "it represents the maximum number of offer fir this channel",
 			getMethod = "getMaxOffer",
 			setMethod = "setMaxOffer"
 	)

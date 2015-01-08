@@ -27,6 +27,7 @@ public class LibraryBonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getAccountTypeId",
 			setMethod = "setAccountTypeId"
 	)
@@ -45,6 +46,7 @@ public class LibraryBonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 50,
+			comment = "",
 			getMethod = "getAccountType",
 			setMethod = "setAccountType"
 	)

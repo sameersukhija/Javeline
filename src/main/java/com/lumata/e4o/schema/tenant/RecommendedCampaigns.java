@@ -30,6 +30,7 @@ public class RecommendedCampaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -48,6 +49,7 @@ public class RecommendedCampaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)
@@ -66,6 +68,7 @@ public class RecommendedCampaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -84,6 +87,7 @@ public class RecommendedCampaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getStatusId",
 			setMethod = "setStatusId"
 	)
@@ -102,6 +106,7 @@ public class RecommendedCampaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNetworkId",
 			setMethod = "setNetworkId"
 	)
@@ -120,6 +125,7 @@ public class RecommendedCampaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getArpuId",
 			setMethod = "setArpuId"
 	)
@@ -138,6 +144,7 @@ public class RecommendedCampaigns {
 			defaultValue = "null",
 			extra = "",
 			length = 50,
+			comment = "",
 			getMethod = "getModelName",
 			setMethod = "setModelName"
 	)

@@ -30,6 +30,7 @@ public class DistributedJobs {
 			defaultValue = "null",
 			extra = "",
 			length = 200,
+			comment = "",
 			getMethod = "getName",
 			setMethod = "setName"
 	)
@@ -48,6 +49,7 @@ public class DistributedJobs {
 			defaultValue = "null",
 			extra = "",
 			length = 256,
+			comment = "",
 			getMethod = "getHandler",
 			setMethod = "setHandler"
 	)
@@ -66,6 +68,7 @@ public class DistributedJobs {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getAssignerId",
 			setMethod = "setAssignerId"
 	)
@@ -84,6 +87,7 @@ public class DistributedJobs {
 			defaultValue = "null",
 			extra = "",
 			length = 50,
+			comment = "",
 			getMethod = "getAssignerName",
 			setMethod = "setAssignerName"
 	)
@@ -102,6 +106,7 @@ public class DistributedJobs {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getPiece",
 			setMethod = "setPiece"
 	)
@@ -120,6 +125,7 @@ public class DistributedJobs {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getPieces",
 			setMethod = "setPieces"
 	)
@@ -138,6 +144,7 @@ public class DistributedJobs {
 			defaultValue = "null",
 			extra = "",
 			length = 256,
+			comment = "",
 			getMethod = "getPart",
 			setMethod = "setPart"
 	)
@@ -156,6 +163,7 @@ public class DistributedJobs {
 			defaultValue = "0",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getCurrentPos",
 			setMethod = "setCurrentPos"
 	)
@@ -174,6 +182,7 @@ public class DistributedJobs {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getStatus",
 			setMethod = "setStatus"
 	)
@@ -192,6 +201,7 @@ public class DistributedJobs {
 			defaultValue = "null",
 			extra = "",
 			length = 256,
+			comment = "",
 			getMethod = "getMessage",
 			setMethod = "setMessage"
 	)
@@ -210,6 +220,7 @@ public class DistributedJobs {
 			defaultValue = "0",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getAttempts",
 			setMethod = "setAttempts"
 	)
@@ -228,6 +239,7 @@ public class DistributedJobs {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getCreationDate",
 			setMethod = "setCreationDate"
 	)
@@ -246,6 +258,7 @@ public class DistributedJobs {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAssignedDate",
 			setMethod = "setAssignedDate"
 	)
@@ -264,6 +277,7 @@ public class DistributedJobs {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateDate",
 			setMethod = "setUpdateDate"
 	)

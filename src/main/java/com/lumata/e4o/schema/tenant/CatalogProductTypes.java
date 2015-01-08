@@ -27,6 +27,7 @@ public class CatalogProductTypes {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 5,
+			comment = "",
 			getMethod = "getProductTypeId",
 			setMethod = "setProductTypeId"
 	)
@@ -45,6 +46,7 @@ public class CatalogProductTypes {
 			defaultValue = "null",
 			extra = "",
 			length = 45,
+			comment = "",
 			getMethod = "getTypeName",
 			setMethod = "setTypeName"
 	)
@@ -63,6 +65,7 @@ public class CatalogProductTypes {
 			defaultValue = "null",
 			extra = "",
 			length = 512,
+			comment = "",
 			getMethod = "getDescription",
 			setMethod = "setDescription"
 	)

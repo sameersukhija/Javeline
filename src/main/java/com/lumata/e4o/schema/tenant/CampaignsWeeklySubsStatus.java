@@ -27,6 +27,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getCampaignId",
 			setMethod = "setCampaignId"
 	)
@@ -45,6 +46,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getWeekId",
 			setMethod = "setWeekId"
 	)
@@ -63,6 +65,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -81,6 +84,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getStatusId",
 			setMethod = "setStatusId"
 	)
@@ -99,6 +103,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNetworkId",
 			setMethod = "setNetworkId"
 	)
@@ -117,6 +122,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getArpuId",
 			setMethod = "setArpuId"
 	)
@@ -135,6 +141,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "0",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSeniorityId",
 			setMethod = "setSeniorityId"
 	)
@@ -153,6 +160,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 32,
+			comment = "",
 			getMethod = "getQtyControl",
 			setMethod = "setQtyControl"
 	)
@@ -171,6 +179,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 32,
+			comment = "",
 			getMethod = "getQtyControlBenef",
 			setMethod = "setQtyControlBenef"
 	)
@@ -189,6 +198,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 32,
+			comment = "",
 			getMethod = "getQtyProvisioned",
 			setMethod = "setQtyProvisioned"
 	)
@@ -207,6 +217,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 32,
+			comment = "",
 			getMethod = "getQtyNotified",
 			setMethod = "setQtyNotified"
 	)
@@ -225,6 +236,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 32,
+			comment = "",
 			getMethod = "getQtyBeneficiary",
 			setMethod = "setQtyBeneficiary"
 	)
@@ -243,6 +255,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 32,
+			comment = "",
 			getMethod = "getQtyNotTargeted",
 			setMethod = "setQtyNotTargeted"
 	)
@@ -261,6 +274,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getControlAmountUsage",
 			setMethod = "setControlAmountUsage"
 	)
@@ -279,6 +293,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProvisionedAmountUsage",
 			setMethod = "setProvisionedAmountUsage"
 	)
@@ -297,6 +312,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotifiedAmountUsage",
 			setMethod = "setNotifiedAmountUsage"
 	)
@@ -315,6 +331,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBeneficiaryAmountUsage",
 			setMethod = "setBeneficiaryAmountUsage"
 	)
@@ -333,6 +350,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotTargetedAmountUsage",
 			setMethod = "setNotTargetedAmountUsage"
 	)
@@ -351,6 +369,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getControlQtyMsisdnWithAmountUsage",
 			setMethod = "setControlQtyMsisdnWithAmountUsage"
 	)
@@ -369,6 +388,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProvisionedQtyMsisdnWithAmountUsage",
 			setMethod = "setProvisionedQtyMsisdnWithAmountUsage"
 	)
@@ -387,6 +407,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotifiedQtyMsisdnWithAmountUsage",
 			setMethod = "setNotifiedQtyMsisdnWithAmountUsage"
 	)
@@ -405,6 +426,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBeneficiaryQtyMsisdnWithAmountUsage",
 			setMethod = "setBeneficiaryQtyMsisdnWithAmountUsage"
 	)
@@ -423,6 +445,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotTargetedQtyMsisdnWithAmountUsage",
 			setMethod = "setNotTargetedQtyMsisdnWithAmountUsage"
 	)
@@ -441,6 +464,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getControlAmountRecharge",
 			setMethod = "setControlAmountRecharge"
 	)
@@ -459,6 +483,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProvisionedAmountRecharge",
 			setMethod = "setProvisionedAmountRecharge"
 	)
@@ -477,6 +502,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotifiedAmountRecharge",
 			setMethod = "setNotifiedAmountRecharge"
 	)
@@ -495,6 +521,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBeneficiaryAmountRecharge",
 			setMethod = "setBeneficiaryAmountRecharge"
 	)
@@ -513,6 +540,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotTargetedAmountRecharge",
 			setMethod = "setNotTargetedAmountRecharge"
 	)
@@ -531,6 +559,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getControlQtyMsisdnWithAmountRecharge",
 			setMethod = "setControlQtyMsisdnWithAmountRecharge"
 	)
@@ -549,6 +578,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProvisionedQtyMsisdnWithAmountRecharge",
 			setMethod = "setProvisionedQtyMsisdnWithAmountRecharge"
 	)
@@ -567,6 +597,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotifiedQtyMsisdnWithAmountRecharge",
 			setMethod = "setNotifiedQtyMsisdnWithAmountRecharge"
 	)
@@ -585,6 +616,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBeneficiaryQtyMsisdnWithAmountRecharge",
 			setMethod = "setBeneficiaryQtyMsisdnWithAmountRecharge"
 	)
@@ -603,6 +635,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotTargetedQtyMsisdnWithAmountRecharge",
 			setMethod = "setNotTargetedQtyMsisdnWithAmountRecharge"
 	)
@@ -621,6 +654,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getControlAmountInvoice",
 			setMethod = "setControlAmountInvoice"
 	)
@@ -639,6 +673,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProvisionedAmountInvoice",
 			setMethod = "setProvisionedAmountInvoice"
 	)
@@ -657,6 +692,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotifiedAmountInvoice",
 			setMethod = "setNotifiedAmountInvoice"
 	)
@@ -675,6 +711,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBeneficiaryAmountInvoice",
 			setMethod = "setBeneficiaryAmountInvoice"
 	)
@@ -693,6 +730,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotTargetedAmountInvoice",
 			setMethod = "setNotTargetedAmountInvoice"
 	)
@@ -711,6 +749,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getControlQtyMsisdnWithAmountInvoice",
 			setMethod = "setControlQtyMsisdnWithAmountInvoice"
 	)
@@ -729,6 +768,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProvisionedQtyMsisdnWithAmountInvoice",
 			setMethod = "setProvisionedQtyMsisdnWithAmountInvoice"
 	)
@@ -747,6 +787,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotifiedQtyMsisdnWithAmountInvoice",
 			setMethod = "setNotifiedQtyMsisdnWithAmountInvoice"
 	)
@@ -765,6 +806,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBeneficiaryQtyMsisdnWithAmountInvoice",
 			setMethod = "setBeneficiaryQtyMsisdnWithAmountInvoice"
 	)
@@ -783,6 +825,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotTargetedQtyMsisdnWithAmountInvoice",
 			setMethod = "setNotTargetedQtyMsisdnWithAmountInvoice"
 	)
@@ -801,6 +844,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getControlAmountPayment",
 			setMethod = "setControlAmountPayment"
 	)
@@ -819,6 +863,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProvisionedAmountPayment",
 			setMethod = "setProvisionedAmountPayment"
 	)
@@ -837,6 +882,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotifiedAmountPayment",
 			setMethod = "setNotifiedAmountPayment"
 	)
@@ -855,6 +901,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBeneficiaryAmountPayment",
 			setMethod = "setBeneficiaryAmountPayment"
 	)
@@ -873,6 +920,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotTargetedAmountPayment",
 			setMethod = "setNotTargetedAmountPayment"
 	)
@@ -891,6 +939,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getControlQtyMsisdnWithAmountPayment",
 			setMethod = "setControlQtyMsisdnWithAmountPayment"
 	)
@@ -909,6 +958,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProvisionedQtyMsisdnWithAmountPayment",
 			setMethod = "setProvisionedQtyMsisdnWithAmountPayment"
 	)
@@ -927,6 +977,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotifiedQtyMsisdnWithAmountPayment",
 			setMethod = "setNotifiedQtyMsisdnWithAmountPayment"
 	)
@@ -945,6 +996,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBeneficiaryQtyMsisdnWithAmountPayment",
 			setMethod = "setBeneficiaryQtyMsisdnWithAmountPayment"
 	)
@@ -963,6 +1015,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotTargetedQtyMsisdnWithAmountPayment",
 			setMethod = "setNotTargetedQtyMsisdnWithAmountPayment"
 	)
@@ -981,6 +1034,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getControlAmountCall",
 			setMethod = "setControlAmountCall"
 	)
@@ -999,6 +1053,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProvisionedAmountCall",
 			setMethod = "setProvisionedAmountCall"
 	)
@@ -1017,6 +1072,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotifiedAmountCall",
 			setMethod = "setNotifiedAmountCall"
 	)
@@ -1035,6 +1091,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBeneficiaryAmountCall",
 			setMethod = "setBeneficiaryAmountCall"
 	)
@@ -1053,6 +1110,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotTargetedAmountCall",
 			setMethod = "setNotTargetedAmountCall"
 	)
@@ -1071,6 +1129,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getControlQtyMsisdnWithAmountCall",
 			setMethod = "setControlQtyMsisdnWithAmountCall"
 	)
@@ -1089,6 +1148,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProvisionedQtyMsisdnWithAmountCall",
 			setMethod = "setProvisionedQtyMsisdnWithAmountCall"
 	)
@@ -1107,6 +1167,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotifiedQtyMsisdnWithAmountCall",
 			setMethod = "setNotifiedQtyMsisdnWithAmountCall"
 	)
@@ -1125,6 +1186,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBeneficiaryQtyMsisdnWithAmountCall",
 			setMethod = "setBeneficiaryQtyMsisdnWithAmountCall"
 	)
@@ -1143,6 +1205,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotTargetedQtyMsisdnWithAmountCall",
 			setMethod = "setNotTargetedQtyMsisdnWithAmountCall"
 	)
@@ -1161,6 +1224,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getControlAmountMessage",
 			setMethod = "setControlAmountMessage"
 	)
@@ -1179,6 +1243,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProvisionedAmountMessage",
 			setMethod = "setProvisionedAmountMessage"
 	)
@@ -1197,6 +1262,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotifiedAmountMessage",
 			setMethod = "setNotifiedAmountMessage"
 	)
@@ -1215,6 +1281,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBeneficiaryAmountMessage",
 			setMethod = "setBeneficiaryAmountMessage"
 	)
@@ -1233,6 +1300,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotTargetedAmountMessage",
 			setMethod = "setNotTargetedAmountMessage"
 	)
@@ -1251,6 +1319,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getControlQtyMsisdnWithAmountMessage",
 			setMethod = "setControlQtyMsisdnWithAmountMessage"
 	)
@@ -1269,6 +1338,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProvisionedQtyMsisdnWithAmountMessage",
 			setMethod = "setProvisionedQtyMsisdnWithAmountMessage"
 	)
@@ -1287,6 +1357,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotifiedQtyMsisdnWithAmountMessage",
 			setMethod = "setNotifiedQtyMsisdnWithAmountMessage"
 	)
@@ -1305,6 +1376,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBeneficiaryQtyMsisdnWithAmountMessage",
 			setMethod = "setBeneficiaryQtyMsisdnWithAmountMessage"
 	)
@@ -1323,6 +1395,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotTargetedQtyMsisdnWithAmountMessage",
 			setMethod = "setNotTargetedQtyMsisdnWithAmountMessage"
 	)
@@ -1341,6 +1414,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getControlAmountData",
 			setMethod = "setControlAmountData"
 	)
@@ -1359,6 +1433,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProvisionedAmountData",
 			setMethod = "setProvisionedAmountData"
 	)
@@ -1377,6 +1452,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotifiedAmountData",
 			setMethod = "setNotifiedAmountData"
 	)
@@ -1395,6 +1471,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBeneficiaryAmountData",
 			setMethod = "setBeneficiaryAmountData"
 	)
@@ -1413,6 +1490,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotTargetedAmountData",
 			setMethod = "setNotTargetedAmountData"
 	)
@@ -1431,6 +1509,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getControlQtyMsisdnWithAmountData",
 			setMethod = "setControlQtyMsisdnWithAmountData"
 	)
@@ -1449,6 +1528,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProvisionedQtyMsisdnWithAmountData",
 			setMethod = "setProvisionedQtyMsisdnWithAmountData"
 	)
@@ -1467,6 +1547,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotifiedQtyMsisdnWithAmountData",
 			setMethod = "setNotifiedQtyMsisdnWithAmountData"
 	)
@@ -1485,6 +1566,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBeneficiaryQtyMsisdnWithAmountData",
 			setMethod = "setBeneficiaryQtyMsisdnWithAmountData"
 	)
@@ -1503,6 +1585,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotTargetedQtyMsisdnWithAmountData",
 			setMethod = "setNotTargetedQtyMsisdnWithAmountData"
 	)
@@ -1521,6 +1604,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getControlProba",
 			setMethod = "setControlProba"
 	)
@@ -1539,6 +1623,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProvisionedProba",
 			setMethod = "setProvisionedProba"
 	)
@@ -1557,6 +1642,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotifiedProba",
 			setMethod = "setNotifiedProba"
 	)
@@ -1575,6 +1661,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBeneficiaryProba",
 			setMethod = "setBeneficiaryProba"
 	)
@@ -1593,6 +1680,7 @@ public class CampaignsWeeklySubsStatus {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNotTargetedProba",
 			setMethod = "setNotTargetedProba"
 	)

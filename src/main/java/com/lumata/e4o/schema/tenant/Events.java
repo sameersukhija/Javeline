@@ -30,6 +30,7 @@ public class Events {
 			defaultValue = "null",
 			extra = "",
 			length = 32,
+			comment = "",
 			getMethod = "getFormat",
 			setMethod = "setFormat"
 	)
@@ -48,6 +49,7 @@ public class Events {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -66,6 +68,7 @@ public class Events {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getEventDate",
 			setMethod = "setEventDate"
 	)
@@ -84,6 +87,7 @@ public class Events {
 			defaultValue = "null",
 			extra = "",
 			length = 40,
+			comment = "",
 			getMethod = "getTransactionId",
 			setMethod = "setTransactionId"
 	)
@@ -102,6 +106,7 @@ public class Events {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getEventData",
 			setMethod = "setEventData"
 	)

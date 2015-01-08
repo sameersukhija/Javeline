@@ -27,6 +27,7 @@ public class BonusCampaignLimits {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getBonusId",
 			setMethod = "setBonusId"
 	)
@@ -45,6 +46,7 @@ public class BonusCampaignLimits {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getCampaignId",
 			setMethod = "setCampaignId"
 	)
@@ -63,6 +65,7 @@ public class BonusCampaignLimits {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getMaxBonusPerSubs",
 			setMethod = "setMaxBonusPerSubs"
 	)
@@ -81,6 +84,7 @@ public class BonusCampaignLimits {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getMaxBonus",
 			setMethod = "setMaxBonus"
 	)
@@ -99,6 +103,7 @@ public class BonusCampaignLimits {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getMaxQtySubsBeneficiary",
 			setMethod = "setMaxQtySubsBeneficiary"
 	)
@@ -117,6 +122,7 @@ public class BonusCampaignLimits {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getMaxQtyOccurenceBeneficiary",
 			setMethod = "setMaxQtyOccurenceBeneficiary"
 	)

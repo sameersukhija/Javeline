@@ -27,6 +27,7 @@ public class Services {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 4,
+			comment = "",
 			getMethod = "getServiceId",
 			setMethod = "setServiceId"
 	)
@@ -45,6 +46,7 @@ public class Services {
 			defaultValue = "null",
 			extra = "",
 			length = 45,
+			comment = "",
 			getMethod = "getService",
 			setMethod = "setService"
 	)

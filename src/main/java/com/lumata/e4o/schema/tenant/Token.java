@@ -30,6 +30,7 @@ public class Token {
 			defaultValue = "null",
 			extra = "",
 			length = 60,
+			comment = "it stores the value of the token",
 			getMethod = "getTokenCode",
 			setMethod = "setTokenCode"
 	)
@@ -48,6 +49,7 @@ public class Token {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "it represents the MSISDN associated to this token",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -66,6 +68,7 @@ public class Token {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "it represents the identifier of the label (e.g., Bronze, Silver, Gold) of the token type",
 			getMethod = "getTokenLabelId",
 			setMethod = "setTokenLabelId"
 	)
@@ -84,6 +87,7 @@ public class Token {
 			defaultValue = "0",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getTokenNotificationResent",
 			setMethod = "setTokenNotificationResent"
 	)
@@ -102,6 +106,7 @@ public class Token {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "it stores a reference to the RuleSet used to configure the token",
 			getMethod = "getRulesetId",
 			setMethod = "setRulesetId"
 	)
@@ -120,6 +125,7 @@ public class Token {
 			defaultValue = "null",
 			extra = "",
 			length = 40,
+			comment = "",
 			getMethod = "getEventId",
 			setMethod = "setEventId"
 	)
@@ -138,6 +144,7 @@ public class Token {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "it stores the date and time of the token creation",
 			getMethod = "getEventDate",
 			setMethod = "setEventDate"
 	)
@@ -156,6 +163,7 @@ public class Token {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "it stores when the token will expire",
 			getMethod = "getExpirationDate",
 			setMethod = "setExpirationDate"
 	)
@@ -174,6 +182,7 @@ public class Token {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "it stores when the token has been consumed",
 			getMethod = "getConsumedDate",
 			setMethod = "setConsumedDate"
 	)
@@ -192,6 +201,7 @@ public class Token {
 			defaultValue = "0",
 			extra = "",
 			length = 3,
+			comment = "it stores how many time a token has been used until now",
 			getMethod = "getQtyCurrentRedeems",
 			setMethod = "setQtyCurrentRedeems"
 	)
@@ -210,6 +220,7 @@ public class Token {
 			defaultValue = "1",
 			extra = "",
 			length = 4,
+			comment = "it stores the max number of play available for the token",
 			getMethod = "getQtyMaxRedeems",
 			setMethod = "setQtyMaxRedeems"
 	)
@@ -228,6 +239,7 @@ public class Token {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "it stores the last use timeTime",
 			getMethod = "getLastRedeemDate",
 			setMethod = "setLastRedeemDate"
 	)
@@ -246,6 +258,7 @@ public class Token {
 			defaultValue = "0",
 			extra = "",
 			length = 11,
+			comment = "it stores the duration timeout in millisecond that will be used to consider multiple requests to use a token a single",
 			getMethod = "getSingleUseRedeemDurationTimeout",
 			setMethod = "setSingleUseRedeemDurationTimeout"
 	)
@@ -264,6 +277,7 @@ public class Token {
 			defaultValue = "0",
 			extra = "",
 			length = 3,
+			comment = "it represents the number of incidents happened",
 			getMethod = "getQtyIncident",
 			setMethod = "setQtyIncident"
 	)
@@ -282,6 +296,7 @@ public class Token {
 			defaultValue = "0",
 			extra = "",
 			length = 3,
+			comment = "it represents the number of times a token has been used in last singleUseRedeemDurationTimeout time range",
 			getMethod = "getQtyUse",
 			setMethod = "setQtyUse"
 	)
@@ -300,6 +315,7 @@ public class Token {
 			defaultValue = "0",
 			extra = "",
 			length = 4,
+			comment = "it represents if this token has some offers associated",
 			getMethod = "getHasOffersAssociated",
 			setMethod = "setHasOffersAssociated"
 	)
@@ -318,6 +334,7 @@ public class Token {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "it represents a human readable description of the token",
 			getMethod = "getDescription",
 			setMethod = "setDescription"
 	)
@@ -336,6 +353,7 @@ public class Token {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "it represents the url image associated to the token type",
 			getMethod = "getImageUrl",
 			setMethod = "setImageUrl"
 	)
@@ -354,6 +372,7 @@ public class Token {
 			defaultValue = "null",
 			extra = "",
 			length = 256,
+			comment = "it represents the reason because the token has been consumed",
 			getMethod = "getConsumedNotes",
 			setMethod = "setConsumedNotes"
 	)
@@ -372,6 +391,7 @@ public class Token {
 			defaultValue = "0",
 			extra = "",
 			length = 1,
+			comment = "",
 			getMethod = "getWarning",
 			setMethod = "setWarning"
 	)
@@ -390,6 +410,7 @@ public class Token {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "it stores a reference to the requestor identifier",
 			getMethod = "getModuleId",
 			setMethod = "setModuleId"
 	)
@@ -408,6 +429,7 @@ public class Token {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "it represents the argument related to the requestor represented as a string",
 			getMethod = "getFeatureId",
 			setMethod = "setFeatureId"
 	)
@@ -426,6 +448,7 @@ public class Token {
 			defaultValue = "null",
 			extra = "",
 			length = 60,
+			comment = "",
 			getMethod = "getEventType",
 			setMethod = "setEventType"
 	)

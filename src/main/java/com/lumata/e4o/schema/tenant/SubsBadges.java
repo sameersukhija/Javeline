@@ -30,6 +30,7 @@ public class SubsBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -48,6 +49,7 @@ public class SubsBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProgramId",
 			setMethod = "setProgramId"
 	)
@@ -66,6 +68,7 @@ public class SubsBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getBadgeId",
 			setMethod = "setBadgeId"
 	)
@@ -84,6 +87,7 @@ public class SubsBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAwardDate",
 			setMethod = "setAwardDate"
 	)
@@ -102,6 +106,7 @@ public class SubsBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getRedeemEndDate",
 			setMethod = "setRedeemEndDate"
 	)
@@ -120,6 +125,7 @@ public class SubsBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getRedeemDate",
 			setMethod = "setRedeemDate"
 	)
@@ -138,6 +144,7 @@ public class SubsBadges {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getSubsStatus",
 			setMethod = "setSubsStatus"
 	)

@@ -27,6 +27,7 @@ public class SubsRelations {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -45,6 +46,7 @@ public class SubsRelations {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getSponsor",
 			setMethod = "setSponsor"
 	)
@@ -63,6 +65,7 @@ public class SubsRelations {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getRelationTypeId",
 			setMethod = "setRelationTypeId"
 	)

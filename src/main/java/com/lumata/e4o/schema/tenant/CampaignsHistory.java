@@ -30,6 +30,7 @@ public class CampaignsHistory {
 			defaultValue = "0",
 			extra = "",
 			length = 6,
+			comment = "",
 			getMethod = "getCampaignId",
 			setMethod = "setCampaignId"
 	)
@@ -48,6 +49,7 @@ public class CampaignsHistory {
 			defaultValue = "null",
 			extra = "",
 			length = 55,
+			comment = "",
 			getMethod = "getCampaignName",
 			setMethod = "setCampaignName"
 	)
@@ -66,6 +68,7 @@ public class CampaignsHistory {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getStartDate",
 			setMethod = "setStartDate"
 	)
@@ -84,6 +87,7 @@ public class CampaignsHistory {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getTypeId",
 			setMethod = "setTypeId"
 	)
@@ -102,6 +106,7 @@ public class CampaignsHistory {
 			defaultValue = "null",
 			extra = "",
 			length = 45,
+			comment = "",
 			getMethod = "getModelName",
 			setMethod = "setModelName"
 	)
@@ -120,6 +125,7 @@ public class CampaignsHistory {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getDuration",
 			setMethod = "setDuration"
 	)
@@ -138,6 +144,7 @@ public class CampaignsHistory {
 			defaultValue = "null",
 			extra = "",
 			length = 16,
+			comment = "",
 			getMethod = "getChannelsIdList",
 			setMethod = "setChannelsIdList"
 	)
@@ -156,6 +163,7 @@ public class CampaignsHistory {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getCampaignMasterId",
 			setMethod = "setCampaignMasterId"
 	)

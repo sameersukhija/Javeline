@@ -27,6 +27,7 @@ public class LibraryStatuses {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getStatusId",
 			setMethod = "setStatusId"
 	)
@@ -45,6 +46,7 @@ public class LibraryStatuses {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -63,6 +65,7 @@ public class LibraryStatuses {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getStatus",
 			setMethod = "setStatus"
 	)

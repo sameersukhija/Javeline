@@ -31,6 +31,7 @@ public class StatsCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -49,6 +50,7 @@ public class StatsCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getCampaignId",
 			setMethod = "setCampaignId"
 	)
@@ -67,6 +69,7 @@ public class StatsCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getStartDate",
 			setMethod = "setStartDate"
 	)
@@ -85,6 +88,7 @@ public class StatsCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getEndDate",
 			setMethod = "setEndDate"
 	)
@@ -103,6 +107,7 @@ public class StatsCampaign {
 			defaultValue = "PROVISIONED",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getSubsStatus",
 			setMethod = "setSubsStatus"
 	)
@@ -121,6 +126,7 @@ public class StatsCampaign {
 			defaultValue = "0",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getSubstateId",
 			setMethod = "setSubstateId"
 	)
@@ -139,6 +145,7 @@ public class StatsCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getCsDone",
 			setMethod = "setCsDone"
 	)
@@ -157,6 +164,7 @@ public class StatsCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountUsage",
 			setMethod = "setAmountUsage"
 	)
@@ -175,6 +183,7 @@ public class StatsCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountRecharge",
 			setMethod = "setAmountRecharge"
 	)
@@ -193,6 +202,7 @@ public class StatsCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountInvoice",
 			setMethod = "setAmountInvoice"
 	)
@@ -211,6 +221,7 @@ public class StatsCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountPayment",
 			setMethod = "setAmountPayment"
 	)
@@ -229,6 +240,7 @@ public class StatsCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountCall",
 			setMethod = "setAmountCall"
 	)
@@ -247,6 +259,7 @@ public class StatsCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountMessage",
 			setMethod = "setAmountMessage"
 	)
@@ -265,6 +278,7 @@ public class StatsCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountData",
 			setMethod = "setAmountData"
 	)
@@ -283,6 +297,7 @@ public class StatsCampaign {
 			defaultValue = "",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getParams",
 			setMethod = "setParams"
 	)
@@ -301,6 +316,7 @@ public class StatsCampaign {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)

@@ -27,6 +27,7 @@ public class CatalogRelatedOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getOfferId",
 			setMethod = "setOfferId"
 	)
@@ -45,6 +46,7 @@ public class CatalogRelatedOffers {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getRelatedOfferId",
 			setMethod = "setRelatedOfferId"
 	)

@@ -27,6 +27,7 @@ public class Networks {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getNetworkId",
 			setMethod = "setNetworkId"
 	)
@@ -45,6 +46,7 @@ public class Networks {
 			defaultValue = "null",
 			extra = "",
 			length = 45,
+			comment = "",
 			getMethod = "getNetwork",
 			setMethod = "setNetwork"
 	)

@@ -31,6 +31,7 @@ public class RewardEvents {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 20,
+			comment = "",
 			getMethod = "getEventId",
 			setMethod = "setEventId"
 	)
@@ -49,6 +50,7 @@ public class RewardEvents {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -67,6 +69,7 @@ public class RewardEvents {
 			defaultValue = "CREDIT",
 			extra = "",
 			length = 7,
+			comment = "",
 			getMethod = "getEventType",
 			setMethod = "setEventType"
 	)
@@ -85,6 +88,7 @@ public class RewardEvents {
 			defaultValue = "0",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getAttempts",
 			setMethod = "setAttempts"
 	)
@@ -103,6 +107,7 @@ public class RewardEvents {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getModuleId",
 			setMethod = "setModuleId"
 	)
@@ -121,6 +126,7 @@ public class RewardEvents {
 			defaultValue = "null",
 			extra = "",
 			length = 55,
+			comment = "",
 			getMethod = "getFeature",
 			setMethod = "setFeature"
 	)
@@ -139,6 +145,7 @@ public class RewardEvents {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getNotifId",
 			setMethod = "setNotifId"
 	)
@@ -157,6 +164,7 @@ public class RewardEvents {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getRewardId",
 			setMethod = "setRewardId"
 	)
@@ -175,6 +183,7 @@ public class RewardEvents {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyReward",
 			setMethod = "setQtyReward"
 	)
@@ -193,6 +202,7 @@ public class RewardEvents {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getStartDate",
 			setMethod = "setStartDate"
 	)
@@ -211,6 +221,7 @@ public class RewardEvents {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getEndDate",
 			setMethod = "setEndDate"
 	)
@@ -229,6 +240,7 @@ public class RewardEvents {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getDuration",
 			setMethod = "setDuration"
 	)
@@ -247,6 +259,7 @@ public class RewardEvents {
 			defaultValue = "null",
 			extra = "",
 			length = 6,
+			comment = "",
 			getMethod = "getPeriod",
 			setMethod = "setPeriod"
 	)
@@ -265,6 +278,7 @@ public class RewardEvents {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getSourceMsisdn",
 			setMethod = "setSourceMsisdn"
 	)
@@ -283,6 +297,7 @@ public class RewardEvents {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getRelationTypeId",
 			setMethod = "setRelationTypeId"
 	)
@@ -301,6 +316,7 @@ public class RewardEvents {
 			defaultValue = "null",
 			extra = "",
 			length = 40,
+			comment = "",
 			getMethod = "getRequestId",
 			setMethod = "setRequestId"
 	)
@@ -319,6 +335,7 @@ public class RewardEvents {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)

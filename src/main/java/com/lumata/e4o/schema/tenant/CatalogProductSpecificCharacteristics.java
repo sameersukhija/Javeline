@@ -27,6 +27,7 @@ public class CatalogProductSpecificCharacteristics {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getProductId",
 			setMethod = "setProductId"
 	)
@@ -45,6 +46,7 @@ public class CatalogProductSpecificCharacteristics {
 			defaultValue = "null",
 			extra = "",
 			length = 45,
+			comment = "",
 			getMethod = "getCharacteristicName",
 			setMethod = "setCharacteristicName"
 	)
@@ -63,6 +65,7 @@ public class CatalogProductSpecificCharacteristics {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getCharacteristicDetails",
 			setMethod = "setCharacteristicDetails"
 	)

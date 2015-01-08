@@ -30,6 +30,7 @@ public class VoucherCodes {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getOfferId",
 			setMethod = "setOfferId"
 	)
@@ -48,6 +49,7 @@ public class VoucherCodes {
 			defaultValue = "null",
 			extra = "",
 			length = 512,
+			comment = "",
 			getMethod = "getCode",
 			setMethod = "setCode"
 	)
@@ -66,6 +68,7 @@ public class VoucherCodes {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getExpiryDate",
 			setMethod = "setExpiryDate"
 	)
@@ -84,6 +87,7 @@ public class VoucherCodes {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getPurchaseId",
 			setMethod = "setPurchaseId"
 	)
@@ -102,6 +106,7 @@ public class VoucherCodes {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getRedeemedDate",
 			setMethod = "setRedeemedDate"
 	)
@@ -120,6 +125,7 @@ public class VoucherCodes {
 			defaultValue = "null",
 			extra = "",
 			length = 50,
+			comment = "",
 			getMethod = "getLocationId",
 			setMethod = "setLocationId"
 	)
@@ -138,6 +144,7 @@ public class VoucherCodes {
 			defaultValue = "",
 			extra = "",
 			length = 50,
+			comment = "",
 			getMethod = "getPartnerId",
 			setMethod = "setPartnerId"
 	)
@@ -156,6 +163,7 @@ public class VoucherCodes {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getFormat",
 			setMethod = "setFormat"
 	)
@@ -174,6 +182,7 @@ public class VoucherCodes {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 11,
+			comment = "",
 			getMethod = "getVoucherId",
 			setMethod = "setVoucherId"
 	)
@@ -192,6 +201,7 @@ public class VoucherCodes {
 			defaultValue = "null",
 			extra = "",
 			length = 30,
+			comment = "",
 			getMethod = "getType",
 			setMethod = "setType"
 	)

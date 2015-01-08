@@ -30,6 +30,7 @@ public class CatalogProducts {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 5,
+			comment = "",
 			getMethod = "getProductId",
 			setMethod = "setProductId"
 	)
@@ -48,6 +49,7 @@ public class CatalogProducts {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getExternalId",
 			setMethod = "setExternalId"
 	)
@@ -66,6 +68,7 @@ public class CatalogProducts {
 			defaultValue = "null",
 			extra = "",
 			length = 45,
+			comment = "",
 			getMethod = "getProductName",
 			setMethod = "setProductName"
 	)
@@ -84,6 +87,7 @@ public class CatalogProducts {
 			defaultValue = "null",
 			extra = "",
 			length = 512,
+			comment = "",
 			getMethod = "getDescription",
 			setMethod = "setDescription"
 	)
@@ -102,6 +106,7 @@ public class CatalogProducts {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getStartDate",
 			setMethod = "setStartDate"
 	)
@@ -120,6 +125,7 @@ public class CatalogProducts {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getEndDate",
 			setMethod = "setEndDate"
 	)
@@ -138,6 +144,7 @@ public class CatalogProducts {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getRecommendedPrice",
 			setMethod = "setRecommendedPrice"
 	)
@@ -156,6 +163,7 @@ public class CatalogProducts {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getSupplierId",
 			setMethod = "setSupplierId"
 	)
@@ -174,6 +182,7 @@ public class CatalogProducts {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getUnitaryCost",
 			setMethod = "setUnitaryCost"
 	)
@@ -192,6 +201,7 @@ public class CatalogProducts {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getUrlImage",
 			setMethod = "setUrlImage"
 	)
@@ -210,6 +220,7 @@ public class CatalogProducts {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAgreement",
 			setMethod = "setAgreement"
 	)

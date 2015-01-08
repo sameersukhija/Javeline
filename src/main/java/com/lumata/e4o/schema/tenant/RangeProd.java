@@ -27,6 +27,7 @@ public class RangeProd {
 			defaultValue = "null",
 			extra = "",
 			length = 45,
+			comment = "",
 			getMethod = "getVarName",
 			setMethod = "setVarName"
 	)
@@ -45,6 +46,7 @@ public class RangeProd {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -63,6 +65,7 @@ public class RangeProd {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getRangeId",
 			setMethod = "setRangeId"
 	)
@@ -81,6 +84,7 @@ public class RangeProd {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getRangeName",
 			setMethod = "setRangeName"
 	)
@@ -99,6 +103,7 @@ public class RangeProd {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getFromval",
 			setMethod = "setFromval"
 	)
@@ -117,6 +122,7 @@ public class RangeProd {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getToval",
 			setMethod = "setToval"
 	)

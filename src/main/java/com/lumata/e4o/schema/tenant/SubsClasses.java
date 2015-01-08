@@ -30,6 +30,7 @@ public class SubsClasses {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -48,6 +49,7 @@ public class SubsClasses {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProjectId",
 			setMethod = "setProjectId"
 	)
@@ -66,6 +68,7 @@ public class SubsClasses {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getClassId",
 			setMethod = "setClassId"
 	)
@@ -84,6 +87,7 @@ public class SubsClasses {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getProjectEnrolmentDate",
 			setMethod = "setProjectEnrolmentDate"
 	)
@@ -102,6 +106,7 @@ public class SubsClasses {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getClassUpdateDate",
 			setMethod = "setClassUpdateDate"
 	)

@@ -31,6 +31,7 @@ public class EventFiles {
 			defaultValue = "null",
 			extra = "",
 			length = 25,
+			comment = "",
 			getMethod = "getEventName",
 			setMethod = "setEventName"
 	)
@@ -49,6 +50,7 @@ public class EventFiles {
 			defaultValue = "null",
 			extra = "",
 			length = 250,
+			comment = "",
 			getMethod = "getFileName",
 			setMethod = "setFileName"
 	)
@@ -64,9 +66,10 @@ public class EventFiles {
 			isNull = false,
 			isAutoincrement = false,
 			key = "",
-			defaultValue = "CURRENT_TIMESTAMP",
-			extra = "on update CURRENT_TIMESTAMP",
+			defaultValue = "null",
+			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getFileTime",
 			setMethod = "setFileTime"
 	)
@@ -85,6 +88,7 @@ public class EventFiles {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getCheckTime",
 			setMethod = "setCheckTime"
 	)

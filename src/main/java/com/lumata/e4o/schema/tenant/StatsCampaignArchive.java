@@ -30,6 +30,7 @@ public class StatsCampaignArchive {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -48,6 +49,7 @@ public class StatsCampaignArchive {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getCampaignId",
 			setMethod = "setCampaignId"
 	)
@@ -66,6 +68,7 @@ public class StatsCampaignArchive {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getStartDate",
 			setMethod = "setStartDate"
 	)
@@ -84,6 +87,7 @@ public class StatsCampaignArchive {
 			defaultValue = "0000-00-00",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getEndDate",
 			setMethod = "setEndDate"
 	)
@@ -102,6 +106,7 @@ public class StatsCampaignArchive {
 			defaultValue = "PROVISIONED",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getSubsStatus",
 			setMethod = "setSubsStatus"
 	)
@@ -120,6 +125,7 @@ public class StatsCampaignArchive {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getArpuId",
 			setMethod = "setArpuId"
 	)
@@ -138,6 +144,7 @@ public class StatsCampaignArchive {
 			defaultValue = "0",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSeniorityId",
 			setMethod = "setSeniorityId"
 	)
@@ -156,6 +163,7 @@ public class StatsCampaignArchive {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -174,6 +182,7 @@ public class StatsCampaignArchive {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getStatusId",
 			setMethod = "setStatusId"
 	)
@@ -192,6 +201,7 @@ public class StatsCampaignArchive {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getNetworkId",
 			setMethod = "setNetworkId"
 	)
@@ -210,6 +220,7 @@ public class StatsCampaignArchive {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getAmountUsage",
 			setMethod = "setAmountUsage"
 	)
@@ -228,6 +239,7 @@ public class StatsCampaignArchive {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getAmountRecharge",
 			setMethod = "setAmountRecharge"
 	)
@@ -246,6 +258,7 @@ public class StatsCampaignArchive {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getAmountInvoice",
 			setMethod = "setAmountInvoice"
 	)
@@ -264,6 +277,7 @@ public class StatsCampaignArchive {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getAmountPayment",
 			setMethod = "setAmountPayment"
 	)
@@ -282,6 +296,7 @@ public class StatsCampaignArchive {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getAmountCall",
 			setMethod = "setAmountCall"
 	)
@@ -300,6 +315,7 @@ public class StatsCampaignArchive {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getAmountMessage",
 			setMethod = "setAmountMessage"
 	)
@@ -318,6 +334,7 @@ public class StatsCampaignArchive {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getAmountData",
 			setMethod = "setAmountData"
 	)

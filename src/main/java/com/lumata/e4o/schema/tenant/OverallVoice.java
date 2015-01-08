@@ -30,6 +30,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)
@@ -48,6 +49,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getPeriod",
 			setMethod = "setPeriod"
 	)
@@ -66,6 +68,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -84,6 +87,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getRatePlanId",
 			setMethod = "setRatePlanId"
 	)
@@ -102,6 +106,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getStatusId",
 			setMethod = "setStatusId"
 	)
@@ -120,6 +125,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getNetworkId",
 			setMethod = "setNetworkId"
 	)
@@ -138,6 +144,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getArpuId",
 			setMethod = "setArpuId"
 	)
@@ -156,6 +163,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getSeniorityId",
 			setMethod = "setSeniorityId"
 	)
@@ -174,6 +182,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getUcg",
 			setMethod = "setUcg"
 	)
@@ -192,6 +201,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSumCallOriginating",
 			setMethod = "setSumCallOriginating"
 	)
@@ -210,6 +220,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSumCallTerminating",
 			setMethod = "setSumCallTerminating"
 	)
@@ -228,6 +239,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSumAmountCall",
 			setMethod = "setSumAmountCall"
 	)
@@ -246,6 +258,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSumDurationCall",
 			setMethod = "setSumDurationCall"
 	)
@@ -264,6 +277,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSumAmountMessage",
 			setMethod = "setSumAmountMessage"
 	)
@@ -282,6 +296,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSumSms",
 			setMethod = "setSumSms"
 	)
@@ -300,6 +315,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSumVas",
 			setMethod = "setSumVas"
 	)
@@ -318,6 +334,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyMsisdn",
 			setMethod = "setQtyMsisdn"
 	)
@@ -336,6 +353,7 @@ public class OverallVoice {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyMsisdnWithActivity",
 			setMethod = "setQtyMsisdnWithActivity"
 	)

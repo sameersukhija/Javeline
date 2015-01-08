@@ -27,6 +27,7 @@ public class GuiUsers {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 3,
+			comment = "",
 			getMethod = "getId",
 			setMethod = "setId"
 	)
@@ -45,6 +46,7 @@ public class GuiUsers {
 			defaultValue = "null",
 			extra = "",
 			length = 100,
+			comment = "",
 			getMethod = "getName",
 			setMethod = "setName"
 	)
@@ -63,6 +65,7 @@ public class GuiUsers {
 			defaultValue = "null",
 			extra = "",
 			length = 100,
+			comment = "",
 			getMethod = "getPassword",
 			setMethod = "setPassword"
 	)
@@ -81,6 +84,7 @@ public class GuiUsers {
 			defaultValue = "null",
 			extra = "",
 			length = 100,
+			comment = "",
 			getMethod = "getEmail",
 			setMethod = "setEmail"
 	)
@@ -99,6 +103,7 @@ public class GuiUsers {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getAgencyId",
 			setMethod = "setAgencyId"
 	)

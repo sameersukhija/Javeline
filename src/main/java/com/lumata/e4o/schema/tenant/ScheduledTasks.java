@@ -27,6 +27,7 @@ public class ScheduledTasks {
 			defaultValue = "null",
 			extra = "",
 			length = 50,
+			comment = "",
 			getMethod = "getName",
 			setMethod = "setName"
 	)
@@ -45,6 +46,7 @@ public class ScheduledTasks {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getStartDate",
 			setMethod = "setStartDate"
 	)
@@ -63,6 +65,7 @@ public class ScheduledTasks {
 			defaultValue = "null",
 			extra = "",
 			length = 19,
+			comment = "",
 			getMethod = "getStopDate",
 			setMethod = "setStopDate"
 	)
@@ -81,6 +84,7 @@ public class ScheduledTasks {
 			defaultValue = "null",
 			extra = "",
 			length = 15,
+			comment = "",
 			getMethod = "getWorkerId",
 			setMethod = "setWorkerId"
 	)
@@ -99,6 +103,7 @@ public class ScheduledTasks {
 			defaultValue = "",
 			extra = "",
 			length = 100,
+			comment = "",
 			getMethod = "getPendingWorkerId",
 			setMethod = "setPendingWorkerId"
 	)

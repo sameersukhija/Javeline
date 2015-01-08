@@ -30,6 +30,7 @@ public class StatsPurchase {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 20,
+			comment = "",
 			getMethod = "getPurchaseId",
 			setMethod = "setPurchaseId"
 	)
@@ -48,6 +49,7 @@ public class StatsPurchase {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -66,6 +68,7 @@ public class StatsPurchase {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDateTime",
 			setMethod = "setAggDateTime"
 	)
@@ -84,6 +87,7 @@ public class StatsPurchase {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getOfferId",
 			setMethod = "setOfferId"
 	)
@@ -102,6 +106,7 @@ public class StatsPurchase {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQuantity",
 			setMethod = "setQuantity"
 	)
@@ -120,6 +125,7 @@ public class StatsPurchase {
 			defaultValue = "null",
 			extra = "",
 			length = 6,
+			comment = "",
 			getMethod = "getChannelId",
 			setMethod = "setChannelId"
 	)
@@ -138,6 +144,7 @@ public class StatsPurchase {
 			defaultValue = "null",
 			extra = "",
 			length = 100,
+			comment = "",
 			getMethod = "getPriceOffer",
 			setMethod = "setPriceOffer"
 	)
@@ -152,10 +159,11 @@ public class StatsPurchase {
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
-			key = "",
+			key = "MUL",
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getModuleId",
 			setMethod = "setModuleId"
 	)
@@ -164,20 +172,21 @@ public class StatsPurchase {
 	@Column(
 			table = "stats_purchase",
 			field = "feature",
-			type = "varchar(55)",
-			mysqlType = "varchar",
-			javaType = "String",
-			categoryType = "String",
+			type = "int(10) unsigned",
+			mysqlType = "int",
+			javaType = "Integer",
+			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
 			key = "",
-			defaultValue = "null",
+			defaultValue = "0",
 			extra = "",
-			length = 55,
+			length = 10,
+			comment = "",
 			getMethod = "getFeature",
 			setMethod = "setFeature"
 	)
-	private String feature;
+	private Integer feature;
 
 
 	public StatsPurchase() {} 
@@ -192,7 +201,7 @@ public class StatsPurchase {
 		this.channel_id = rs.getShort( StatsPurchase.Fields.channel_id.name() );
 		this.price_offer = rs.getString( StatsPurchase.Fields.price_offer.name() );
 		this.module_id = rs.getByte( StatsPurchase.Fields.module_id.name() );
-		this.feature = rs.getString( StatsPurchase.Fields.feature.name() );
+		this.feature = rs.getInt( StatsPurchase.Fields.feature.name() );
 
 	}
 
@@ -206,7 +215,7 @@ public class StatsPurchase {
 		this.channel_id = (short)jo.getInt( StatsPurchase.Fields.channel_id.name() );
 		this.price_offer = jo.getString( StatsPurchase.Fields.price_offer.name() );
 		this.module_id = (byte)jo.getInt( StatsPurchase.Fields.module_id.name() );
-		this.feature = jo.getString( StatsPurchase.Fields.feature.name() );
+		this.feature = (int)jo.getInt( StatsPurchase.Fields.feature.name() );
 
 	}
 
@@ -306,13 +315,13 @@ public class StatsPurchase {
 
 	}
 
-	public String getFeature() {
+	public Integer getFeature() {
 
 		return this.feature;
 
 	}
 
-	public void setFeature( String feature ) {
+	public void setFeature( Integer feature ) {
 
 		this.feature = feature;
 

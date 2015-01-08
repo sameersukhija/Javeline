@@ -27,6 +27,7 @@ public class SetOptions {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getOptions",
 			setMethod = "setOptions"
 	)
@@ -45,6 +46,7 @@ public class SetOptions {
 			defaultValue = "null",
 			extra = "",
 			length = 100,
+			comment = "",
 			getMethod = "getOptionsName",
 			setMethod = "setOptionsName"
 	)

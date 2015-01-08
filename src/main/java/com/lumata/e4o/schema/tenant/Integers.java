@@ -27,6 +27,7 @@ public class Integers {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNumber",
 			setMethod = "setNumber"
 	)

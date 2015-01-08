@@ -30,6 +30,7 @@ public class DelayedBonus {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMessageId",
 			setMethod = "setMessageId"
 	)
@@ -48,6 +49,7 @@ public class DelayedBonus {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getMessage",
 			setMethod = "setMessage"
 	)
@@ -66,6 +68,7 @@ public class DelayedBonus {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getQueueParameters",
 			setMethod = "setQueueParameters"
 	)
@@ -81,9 +84,10 @@ public class DelayedBonus {
 			isNull = false,
 			isAutoincrement = false,
 			key = "",
-			defaultValue = "CURRENT_TIMESTAMP",
-			extra = "on update CURRENT_TIMESTAMP",
+			defaultValue = "null",
+			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getBonusCreationDate",
 			setMethod = "setBonusCreationDate"
 	)
@@ -99,9 +103,10 @@ public class DelayedBonus {
 			isNull = false,
 			isAutoincrement = false,
 			key = "",
-			defaultValue = "0000-00-00 00:00:00",
+			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getMaxExpirationTimestamp",
 			setMethod = "setMaxExpirationTimestamp"
 	)

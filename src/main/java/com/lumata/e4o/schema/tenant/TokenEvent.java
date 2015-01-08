@@ -31,6 +31,7 @@ public class TokenEvent {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 20,
+			comment = "it represents the primary key associated with the event",
 			getMethod = "getTokenEventId",
 			setMethod = "setTokenEventId"
 	)
@@ -49,6 +50,7 @@ public class TokenEvent {
 			defaultValue = "null",
 			extra = "",
 			length = 60,
+			comment = "it represents the value of the token",
 			getMethod = "getTokenCode",
 			setMethod = "setTokenCode"
 	)
@@ -67,6 +69,7 @@ public class TokenEvent {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "it represents the MSISDN associated to this token",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -85,6 +88,7 @@ public class TokenEvent {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "it stores the date and time of the event related to the token",
 			getMethod = "getEventDate",
 			setMethod = "setEventDate"
 	)
@@ -103,6 +107,7 @@ public class TokenEvent {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "it stores the type of the event",
 			getMethod = "getType",
 			setMethod = "setType"
 	)
@@ -121,6 +126,7 @@ public class TokenEvent {
 			defaultValue = "0",
 			extra = "",
 			length = 1,
+			comment = "it represents the fact that the event has been executed correctly",
 			getMethod = "getSuccess",
 			setMethod = "setSuccess"
 	)
@@ -139,6 +145,7 @@ public class TokenEvent {
 			defaultValue = "0",
 			extra = "",
 			length = 1,
+			comment = "it represents the fact that the event was not allowed in the current token status",
 			getMethod = "getWarning",
 			setMethod = "setWarning"
 	)
@@ -157,6 +164,7 @@ public class TokenEvent {
 			defaultValue = "null",
 			extra = "",
 			length = 1,
+			comment = "it represents the fact that in case the event is an 'ALLOCATE' it has been executed automatically by the system",
 			getMethod = "getAllocateIsAuto",
 			setMethod = "setAllocateIsAuto"
 	)
@@ -175,6 +183,7 @@ public class TokenEvent {
 			defaultValue = "null",
 			extra = "",
 			length = 250,
+			comment = "it stores the channel the user used to make an 'ACCEPT'. It will be NULL in case the type is not 'ACCEPT'",
 			getMethod = "getUserAcceptChannel",
 			setMethod = "setUserAcceptChannel"
 	)
@@ -193,6 +202,7 @@ public class TokenEvent {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "it stores extra information in JSON format if needed",
 			getMethod = "getExtra",
 			setMethod = "setExtra"
 	)
@@ -211,6 +221,7 @@ public class TokenEvent {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)

@@ -30,6 +30,7 @@ public class ConfUpdateLog {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 10,
+			comment = "",
 			getMethod = "getRrdKey",
 			setMethod = "setRrdKey"
 	)
@@ -48,6 +49,7 @@ public class ConfUpdateLog {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getTime",
 			setMethod = "setTime"
 	)
@@ -66,6 +68,7 @@ public class ConfUpdateLog {
 			defaultValue = "null",
 			extra = "",
 			length = 50,
+			comment = "",
 			getMethod = "getUser",
 			setMethod = "setUser"
 	)
@@ -84,6 +87,7 @@ public class ConfUpdateLog {
 			defaultValue = "null",
 			extra = "",
 			length = 1024,
+			comment = "",
 			getMethod = "getCommand",
 			setMethod = "setCommand"
 	)

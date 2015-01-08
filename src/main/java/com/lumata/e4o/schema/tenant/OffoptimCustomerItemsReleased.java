@@ -30,6 +30,7 @@ public class OffoptimCustomerItemsReleased {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getReleasedCustomerOfferPackId",
 			setMethod = "setReleasedCustomerOfferPackId"
 	)
@@ -48,6 +49,7 @@ public class OffoptimCustomerItemsReleased {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getOfferId",
 			setMethod = "setOfferId"
 	)
@@ -66,6 +68,7 @@ public class OffoptimCustomerItemsReleased {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getChannelId",
 			setMethod = "setChannelId"
 	)
@@ -84,6 +87,7 @@ public class OffoptimCustomerItemsReleased {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getReleasedDate",
 			setMethod = "setReleasedDate"
 	)

@@ -27,6 +27,7 @@ public class Bonuses {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 3,
+			comment = "",
 			getMethod = "getBonusId",
 			setMethod = "setBonusId"
 	)
@@ -45,6 +46,7 @@ public class Bonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 30,
+			comment = "",
 			getMethod = "getBonusName",
 			setMethod = "setBonusName"
 	)
@@ -63,6 +65,7 @@ public class Bonuses {
 			defaultValue = "none",
 			extra = "",
 			length = 15,
+			comment = "",
 			getMethod = "getUnit",
 			setMethod = "setUnit"
 	)
@@ -81,6 +84,7 @@ public class Bonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "Indicates the supported operations for a commodity",
 			getMethod = "getOperations",
 			setMethod = "setOperations"
 	)
@@ -99,6 +103,7 @@ public class Bonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 1,
+			comment = "Bonus eligible to IN credit",
 			getMethod = "getInCredit",
 			setMethod = "setInCredit"
 	)
@@ -117,6 +122,7 @@ public class Bonuses {
 			defaultValue = "false",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getHandleOptOut",
 			setMethod = "setHandleOptOut"
 	)
@@ -135,6 +141,7 @@ public class Bonuses {
 			defaultValue = "false",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getInFeedbackRequired",
 			setMethod = "setInFeedbackRequired"
 	)
@@ -153,6 +160,7 @@ public class Bonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getCommodityType",
 			setMethod = "setCommodityType"
 	)
@@ -171,6 +179,7 @@ public class Bonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 25,
+			comment = "",
 			getMethod = "getAccountType",
 			setMethod = "setAccountType"
 	)
@@ -189,6 +198,7 @@ public class Bonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getAccountTypeId",
 			setMethod = "setAccountTypeId"
 	)
@@ -207,6 +217,7 @@ public class Bonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 9,
+			comment = "",
 			getMethod = "getMaxValue",
 			setMethod = "setMaxValue"
 	)
@@ -225,6 +236,7 @@ public class Bonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getDefaultValidityType",
 			setMethod = "setDefaultValidityType"
 	)
@@ -243,6 +255,7 @@ public class Bonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getDefaultPeriodType",
 			setMethod = "setDefaultPeriodType"
 	)
@@ -261,6 +274,7 @@ public class Bonuses {
 			defaultValue = "1",
 			extra = "",
 			length = 6,
+			comment = "",
 			getMethod = "getDefaultQtyPeriod",
 			setMethod = "setDefaultQtyPeriod"
 	)
@@ -279,6 +293,7 @@ public class Bonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getDefaultFixedValidityFrom",
 			setMethod = "setDefaultFixedValidityFrom"
 	)
@@ -297,6 +312,7 @@ public class Bonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getUnitaryCost",
 			setMethod = "setUnitaryCost"
 	)
@@ -315,6 +331,7 @@ public class Bonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getRecommendedPrice",
 			setMethod = "setRecommendedPrice"
 	)
@@ -333,6 +350,7 @@ public class Bonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getExpiryNotifDays",
 			setMethod = "setExpiryNotifDays"
 	)
@@ -351,6 +369,7 @@ public class Bonuses {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getExpiryNotif",
 			setMethod = "setExpiryNotif"
 	)

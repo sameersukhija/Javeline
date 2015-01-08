@@ -30,6 +30,7 @@ public class EventFormats {
 			defaultValue = "null",
 			extra = "",
 			length = 32,
+			comment = "",
 			getMethod = "getId",
 			setMethod = "setId"
 	)
@@ -48,6 +49,7 @@ public class EventFormats {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getCreationDate",
 			setMethod = "setCreationDate"
 	)
@@ -66,6 +68,7 @@ public class EventFormats {
 			defaultValue = "null",
 			extra = "",
 			length = 512,
+			comment = "",
 			getMethod = "getFormat",
 			setMethod = "setFormat"
 	)

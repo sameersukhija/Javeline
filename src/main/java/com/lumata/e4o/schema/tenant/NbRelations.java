@@ -27,6 +27,7 @@ public class NbRelations {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getRelationTypeId",
 			setMethod = "setRelationTypeId"
 	)
@@ -45,6 +46,7 @@ public class NbRelations {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -63,6 +65,7 @@ public class NbRelations {
 			defaultValue = "0",
 			extra = "",
 			length = 21,
+			comment = "",
 			getMethod = "getNbSubs",
 			setMethod = "setNbSubs"
 	)

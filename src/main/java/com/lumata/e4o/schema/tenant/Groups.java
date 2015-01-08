@@ -27,6 +27,7 @@ public class Groups {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 3,
+			comment = "",
 			getMethod = "getId",
 			setMethod = "setId"
 	)
@@ -45,6 +46,7 @@ public class Groups {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getName",
 			setMethod = "setName"
 	)
@@ -63,6 +65,7 @@ public class Groups {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getProperties",
 			setMethod = "setProperties"
 	)
@@ -81,6 +84,7 @@ public class Groups {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getInactivityTimeout",
 			setMethod = "setInactivityTimeout"
 	)

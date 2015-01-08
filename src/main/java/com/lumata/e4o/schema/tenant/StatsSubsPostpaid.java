@@ -30,6 +30,7 @@ public class StatsSubsPostpaid {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -48,6 +49,7 @@ public class StatsSubsPostpaid {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountUsage",
 			setMethod = "setAmountUsage"
 	)
@@ -66,6 +68,7 @@ public class StatsSubsPostpaid {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getDelayAtPayment",
 			setMethod = "setDelayAtPayment"
 	)
@@ -84,6 +87,7 @@ public class StatsSubsPostpaid {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtyRatePlanIdChange",
 			setMethod = "setQtyRatePlanIdChange"
 	)
@@ -102,6 +106,7 @@ public class StatsSubsPostpaid {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getLastRatePlanIdChangeDate",
 			setMethod = "setLastRatePlanIdChangeDate"
 	)
@@ -120,6 +125,7 @@ public class StatsSubsPostpaid {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtyStatusIdChange",
 			setMethod = "setQtyStatusIdChange"
 	)
@@ -138,6 +144,7 @@ public class StatsSubsPostpaid {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getLastStatusIdChangeDate",
 			setMethod = "setLastStatusIdChangeDate"
 	)
@@ -156,6 +163,7 @@ public class StatsSubsPostpaid {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)

@@ -27,6 +27,7 @@ public class RelationTypes {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 3,
+			comment = "",
 			getMethod = "getTypeId",
 			setMethod = "setTypeId"
 	)
@@ -45,6 +46,7 @@ public class RelationTypes {
 			defaultValue = "null",
 			extra = "",
 			length = 45,
+			comment = "",
 			getMethod = "getRelationType",
 			setMethod = "setRelationType"
 	)

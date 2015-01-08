@@ -27,6 +27,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getCampaignId",
 			setMethod = "setCampaignId"
 	)
@@ -45,6 +46,7 @@ public class CampaignsWeekly {
 			defaultValue = "PROVISIONED",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getSubsStatus",
 			setMethod = "setSubsStatus"
 	)
@@ -63,6 +65,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getWeekId",
 			setMethod = "setWeekId"
 	)
@@ -81,6 +84,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -99,6 +103,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getStatusId",
 			setMethod = "setStatusId"
 	)
@@ -117,6 +122,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getNetworkId",
 			setMethod = "setNetworkId"
 	)
@@ -135,6 +141,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getArpuId",
 			setMethod = "setArpuId"
 	)
@@ -153,6 +160,7 @@ public class CampaignsWeekly {
 			defaultValue = "0",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getSeniorityId",
 			setMethod = "setSeniorityId"
 	)
@@ -171,6 +179,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyMsisdn",
 			setMethod = "setQtyMsisdn"
 	)
@@ -189,6 +198,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountUsage",
 			setMethod = "setAmountUsage"
 	)
@@ -207,6 +217,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getQtyMsisdnWithAmountUsage",
 			setMethod = "setQtyMsisdnWithAmountUsage"
 	)
@@ -225,6 +236,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountRecharge",
 			setMethod = "setAmountRecharge"
 	)
@@ -243,6 +255,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getQtyMsisdnWithAmountRecharge",
 			setMethod = "setQtyMsisdnWithAmountRecharge"
 	)
@@ -261,6 +274,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountInvoice",
 			setMethod = "setAmountInvoice"
 	)
@@ -279,6 +293,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getQtyMsisdnWithAmountInvoice",
 			setMethod = "setQtyMsisdnWithAmountInvoice"
 	)
@@ -297,6 +312,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountPayment",
 			setMethod = "setAmountPayment"
 	)
@@ -315,6 +331,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getQtyMsisdnWithAmountPayment",
 			setMethod = "setQtyMsisdnWithAmountPayment"
 	)
@@ -333,6 +350,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountCall",
 			setMethod = "setAmountCall"
 	)
@@ -351,6 +369,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getQtyMsisdnWithAmountCall",
 			setMethod = "setQtyMsisdnWithAmountCall"
 	)
@@ -369,6 +388,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountMessage",
 			setMethod = "setAmountMessage"
 	)
@@ -387,6 +407,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getQtyMsisdnWithAmountMessage",
 			setMethod = "setQtyMsisdnWithAmountMessage"
 	)
@@ -405,6 +426,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountData",
 			setMethod = "setAmountData"
 	)
@@ -423,6 +445,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getQtyMsisdnWithAmountData",
 			setMethod = "setQtyMsisdnWithAmountData"
 	)
@@ -441,6 +464,7 @@ public class CampaignsWeekly {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProba",
 			setMethod = "setProba"
 	)

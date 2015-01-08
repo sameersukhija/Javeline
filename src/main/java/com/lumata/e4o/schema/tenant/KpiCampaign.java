@@ -30,6 +30,7 @@ public class KpiCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -48,6 +49,7 @@ public class KpiCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getCampaignId",
 			setMethod = "setCampaignId"
 	)
@@ -66,6 +68,7 @@ public class KpiCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getStartDate",
 			setMethod = "setStartDate"
 	)
@@ -84,6 +87,7 @@ public class KpiCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getEndDate",
 			setMethod = "setEndDate"
 	)
@@ -102,6 +106,7 @@ public class KpiCampaign {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getSubsStatus",
 			setMethod = "setSubsStatus"
 	)
@@ -120,6 +125,7 @@ public class KpiCampaign {
 			defaultValue = "0",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getSubstateId",
 			setMethod = "setSubstateId"
 	)

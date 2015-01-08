@@ -31,6 +31,7 @@ public class DailyBundle {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -49,6 +50,7 @@ public class DailyBundle {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getBundle",
 			setMethod = "setBundle"
 	)
@@ -67,6 +69,7 @@ public class DailyBundle {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getBundleBalance",
 			setMethod = "setBundleBalance"
 	)
@@ -85,6 +88,7 @@ public class DailyBundle {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getQtyBundlePurchased",
 			setMethod = "setQtyBundlePurchased"
 	)
@@ -103,6 +107,7 @@ public class DailyBundle {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)
@@ -121,6 +126,7 @@ public class DailyBundle {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)

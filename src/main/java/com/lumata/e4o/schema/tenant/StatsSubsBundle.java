@@ -30,6 +30,7 @@ public class StatsSubsBundle {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -48,6 +49,7 @@ public class StatsSubsBundle {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getBundle",
 			setMethod = "setBundle"
 	)
@@ -66,6 +68,7 @@ public class StatsSubsBundle {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getBundleBalance",
 			setMethod = "setBundleBalance"
 	)
@@ -84,6 +87,7 @@ public class StatsSubsBundle {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtyBundlePurchased",
 			setMethod = "setQtyBundlePurchased"
 	)
@@ -102,6 +106,7 @@ public class StatsSubsBundle {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)

@@ -27,6 +27,7 @@ public class LoyaltyClasses {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 3,
+			comment = "",
 			getMethod = "getClassId",
 			setMethod = "setClassId"
 	)
@@ -45,6 +46,7 @@ public class LoyaltyClasses {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getProjectId",
 			setMethod = "setProjectId"
 	)
@@ -63,6 +65,7 @@ public class LoyaltyClasses {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getProjectName",
 			setMethod = "setProjectName"
 	)
@@ -81,6 +84,7 @@ public class LoyaltyClasses {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getClassName",
 			setMethod = "setClassName"
 	)
@@ -99,6 +103,7 @@ public class LoyaltyClasses {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getClassRank",
 			setMethod = "setClassRank"
 	)

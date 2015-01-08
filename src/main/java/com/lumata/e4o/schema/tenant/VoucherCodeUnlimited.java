@@ -30,6 +30,7 @@ public class VoucherCodeUnlimited {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getOfferId",
 			setMethod = "setOfferId"
 	)
@@ -48,6 +49,7 @@ public class VoucherCodeUnlimited {
 			defaultValue = "null",
 			extra = "",
 			length = 512,
+			comment = "",
 			getMethod = "getCode",
 			setMethod = "setCode"
 	)
@@ -66,6 +68,7 @@ public class VoucherCodeUnlimited {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getExpiryDate",
 			setMethod = "setExpiryDate"
 	)
@@ -84,6 +87,7 @@ public class VoucherCodeUnlimited {
 			defaultValue = "",
 			extra = "",
 			length = 50,
+			comment = "",
 			getMethod = "getPartnerId",
 			setMethod = "setPartnerId"
 	)
@@ -102,6 +106,7 @@ public class VoucherCodeUnlimited {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getFormat",
 			setMethod = "setFormat"
 	)

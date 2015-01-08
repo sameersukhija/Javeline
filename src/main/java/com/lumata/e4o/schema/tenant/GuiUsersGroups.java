@@ -27,6 +27,7 @@ public class GuiUsersGroups {
 			defaultValue = "0",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getGuiUsersId",
 			setMethod = "setGuiUsersId"
 	)
@@ -45,6 +46,7 @@ public class GuiUsersGroups {
 			defaultValue = "0",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getGroupId",
 			setMethod = "setGroupId"
 	)
@@ -63,6 +65,7 @@ public class GuiUsersGroups {
 			defaultValue = "0",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getRights",
 			setMethod = "setRights"
 	)

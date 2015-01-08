@@ -30,6 +30,7 @@ public class CollectedFilesStats {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getHandler",
 			setMethod = "setHandler"
 	)
@@ -48,6 +49,7 @@ public class CollectedFilesStats {
 			defaultValue = "null",
 			extra = "",
 			length = 50,
+			comment = "",
 			getMethod = "getScope",
 			setMethod = "setScope"
 	)
@@ -66,6 +68,7 @@ public class CollectedFilesStats {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "",
 			getMethod = "getName",
 			setMethod = "setName"
 	)
@@ -84,6 +87,7 @@ public class CollectedFilesStats {
 			defaultValue = "FILE",
 			extra = "",
 			length = 2,
+			comment = "",
 			getMethod = "getType",
 			setMethod = "setType"
 	)
@@ -102,6 +106,7 @@ public class CollectedFilesStats {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getProcessedDate",
 			setMethod = "setProcessedDate"
 	)

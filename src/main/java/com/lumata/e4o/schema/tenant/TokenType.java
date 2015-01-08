@@ -30,6 +30,7 @@ public class TokenType {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 11,
+			comment = "it stores the key of the token type",
 			getMethod = "getTokenTypeId",
 			setMethod = "setTokenTypeId"
 	)
@@ -48,6 +49,7 @@ public class TokenType {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "it stores a the unique name of the token type",
 			getMethod = "getTokenTypeName",
 			setMethod = "setTokenTypeName"
 	)
@@ -66,6 +68,7 @@ public class TokenType {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "it represents the identifier of the label (e.g., Bronze, Silver, Gold) of the token type",
 			getMethod = "getTokenLabelId",
 			setMethod = "setTokenLabelId"
 	)
@@ -84,6 +87,7 @@ public class TokenType {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "it stores the duration timeout before the token expires",
 			getMethod = "getExpirationDuration",
 			setMethod = "setExpirationDuration"
 	)
@@ -102,6 +106,7 @@ public class TokenType {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "it stores the expiration_duration unit",
 			getMethod = "getExpirationDurationUnit",
 			setMethod = "setExpirationDurationUnit"
 	)
@@ -120,6 +125,7 @@ public class TokenType {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "it stores expiration_date",
 			getMethod = "getExpirationDate",
 			setMethod = "setExpirationDate"
 	)
@@ -138,6 +144,7 @@ public class TokenType {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "it stores the max number of play available for the token",
 			getMethod = "getQtyMaxRedeems",
 			setMethod = "setQtyMaxRedeems"
 	)
@@ -156,6 +163,7 @@ public class TokenType {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "it stores the duration timeout in millisecond that will be used to consider multiple requests to use a token a single",
 			getMethod = "getSingleUseRedeemDurationTimeout",
 			setMethod = "setSingleUseRedeemDurationTimeout"
 	)
@@ -174,6 +182,7 @@ public class TokenType {
 			defaultValue = "null",
 			extra = "",
 			length = 60,
+			comment = "it stores the token format used to generate new tokens",
 			getMethod = "getTokenFormat",
 			setMethod = "setTokenFormat"
 	)
@@ -192,6 +201,7 @@ public class TokenType {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "it stores a human readable description of the token type",
 			getMethod = "getDescription",
 			setMethod = "setDescription"
 	)
@@ -210,6 +220,7 @@ public class TokenType {
 			defaultValue = "null",
 			extra = "",
 			length = 255,
+			comment = "it represents the url image associated to the token type",
 			getMethod = "getImageUrl",
 			setMethod = "setImageUrl"
 	)

@@ -30,6 +30,7 @@ public class Devices {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getTac",
 			setMethod = "setTac"
 	)
@@ -48,6 +49,7 @@ public class Devices {
 			defaultValue = "null",
 			extra = "",
 			length = 100,
+			comment = "",
 			getMethod = "getBrand",
 			setMethod = "setBrand"
 	)
@@ -66,6 +68,7 @@ public class Devices {
 			defaultValue = "null",
 			extra = "",
 			length = 250,
+			comment = "",
 			getMethod = "getModel",
 			setMethod = "setModel"
 	)
@@ -84,6 +87,7 @@ public class Devices {
 			defaultValue = "null",
 			extra = "",
 			length = 7,
+			comment = "",
 			getMethod = "getOS",
 			setMethod = "setOS"
 	)
@@ -102,6 +106,7 @@ public class Devices {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getBearers",
 			setMethod = "setBearers"
 	)
@@ -120,6 +125,7 @@ public class Devices {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getGPS",
 			setMethod = "setGPS"
 	)
@@ -138,6 +144,7 @@ public class Devices {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getCamera",
 			setMethod = "setCamera"
 	)
@@ -156,6 +163,7 @@ public class Devices {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getVideo",
 			setMethod = "setVideo"
 	)
@@ -174,6 +182,7 @@ public class Devices {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getType",
 			setMethod = "setType"
 	)
@@ -192,6 +201,7 @@ public class Devices {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getScreenSize",
 			setMethod = "setScreenSize"
 	)
@@ -210,6 +220,7 @@ public class Devices {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getLaunchDate",
 			setMethod = "setLaunchDate"
 	)
@@ -228,6 +239,7 @@ public class Devices {
 			defaultValue = "null",
 			extra = "",
 			length = 6,
+			comment = "",
 			getMethod = "getPrice",
 			setMethod = "setPrice"
 	)

@@ -27,6 +27,7 @@ public class LoyaltyPrograms {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 3,
+			comment = "",
 			getMethod = "getProgramId",
 			setMethod = "setProgramId"
 	)
@@ -45,6 +46,7 @@ public class LoyaltyPrograms {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getProgramName",
 			setMethod = "setProgramName"
 	)
@@ -63,6 +65,7 @@ public class LoyaltyPrograms {
 			defaultValue = "null",
 			extra = "",
 			length = 2,
+			comment = "",
 			getMethod = "getProgramType",
 			setMethod = "setProgramType"
 	)
@@ -81,6 +84,7 @@ public class LoyaltyPrograms {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getVersionProd",
 			setMethod = "setVersionProd"
 	)
@@ -99,6 +103,7 @@ public class LoyaltyPrograms {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getVersionTest",
 			setMethod = "setVersionTest"
 	)

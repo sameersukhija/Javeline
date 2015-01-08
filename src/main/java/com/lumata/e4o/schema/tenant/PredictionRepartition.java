@@ -30,6 +30,7 @@ public class PredictionRepartition {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getQuestionId",
 			setMethod = "setQuestionId"
 	)
@@ -48,6 +49,7 @@ public class PredictionRepartition {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)
@@ -66,6 +68,7 @@ public class PredictionRepartition {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getProfileId",
 			setMethod = "setProfileId"
 	)
@@ -84,6 +87,7 @@ public class PredictionRepartition {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProba",
 			setMethod = "setProba"
 	)
@@ -102,6 +106,7 @@ public class PredictionRepartition {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQtyPredicted",
 			setMethod = "setQtyPredicted"
 	)

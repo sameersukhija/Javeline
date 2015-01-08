@@ -27,6 +27,7 @@ public class CatalogOfferContent {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getOfferId",
 			setMethod = "setOfferId"
 	)
@@ -45,6 +46,7 @@ public class CatalogOfferContent {
 			defaultValue = "null",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getContentType",
 			setMethod = "setContentType"
 	)
@@ -63,6 +65,7 @@ public class CatalogOfferContent {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 5,
+			comment = "",
 			getMethod = "getContentId",
 			setMethod = "setContentId"
 	)
@@ -81,6 +84,7 @@ public class CatalogOfferContent {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getQuantity",
 			setMethod = "setQuantity"
 	)

@@ -27,6 +27,7 @@ public class FilesData {
 			defaultValue = "null",
 			extra = "",
 			length = 10,
+			comment = "",
 			getMethod = "getId",
 			setMethod = "setId"
 	)
@@ -45,6 +46,7 @@ public class FilesData {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getContent",
 			setMethod = "setContent"
 	)

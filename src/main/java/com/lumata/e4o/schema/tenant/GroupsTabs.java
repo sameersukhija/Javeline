@@ -27,6 +27,7 @@ public class GroupsTabs {
 			defaultValue = "0",
 			extra = "",
 			length = 1,
+			comment = "",
 			getMethod = "getTabId",
 			setMethod = "setTabId"
 	)
@@ -45,6 +46,7 @@ public class GroupsTabs {
 			defaultValue = "0",
 			extra = "",
 			length = 3,
+			comment = "",
 			getMethod = "getGroupId",
 			setMethod = "setGroupId"
 	)

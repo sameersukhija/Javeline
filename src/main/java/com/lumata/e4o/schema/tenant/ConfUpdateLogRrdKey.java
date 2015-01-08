@@ -27,6 +27,7 @@ public class ConfUpdateLogRrdKey {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 20,
+			comment = "",
 			getMethod = "getRrdKey",
 			setMethod = "setRrdKey"
 	)

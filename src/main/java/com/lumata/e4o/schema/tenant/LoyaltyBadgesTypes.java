@@ -27,6 +27,7 @@ public class LoyaltyBadgesTypes {
 			defaultValue = "null",
 			extra = "auto_increment",
 			length = 3,
+			comment = "",
 			getMethod = "getBadgeTypeId",
 			setMethod = "setBadgeTypeId"
 	)
@@ -45,6 +46,7 @@ public class LoyaltyBadgesTypes {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getProgramId",
 			setMethod = "setProgramId"
 	)
@@ -63,6 +65,7 @@ public class LoyaltyBadgesTypes {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getBadgeTypeName",
 			setMethod = "setBadgeTypeName"
 	)

@@ -30,6 +30,7 @@ public class StatsSubsPrepaidOld {
 			defaultValue = "null",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getMsisdn",
 			setMethod = "setMsisdn"
 	)
@@ -48,6 +49,7 @@ public class StatsSubsPrepaidOld {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountUsage",
 			setMethod = "setAmountUsage"
 	)
@@ -66,6 +68,7 @@ public class StatsSubsPrepaidOld {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getBalanceMainAccount",
 			setMethod = "setBalanceMainAccount"
 	)
@@ -84,6 +87,7 @@ public class StatsSubsPrepaidOld {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtyRecharge",
 			setMethod = "setQtyRecharge"
 	)
@@ -102,6 +106,7 @@ public class StatsSubsPrepaidOld {
 			defaultValue = "null",
 			extra = "",
 			length = 4,
+			comment = "",
 			getMethod = "getAmountRecharge",
 			setMethod = "setAmountRecharge"
 	)
@@ -120,6 +125,7 @@ public class StatsSubsPrepaidOld {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getValidityDate",
 			setMethod = "setValidityDate"
 	)
@@ -138,6 +144,7 @@ public class StatsSubsPrepaidOld {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getDeactivationDate",
 			setMethod = "setDeactivationDate"
 	)
@@ -156,6 +163,7 @@ public class StatsSubsPrepaidOld {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtyRatePlanIdChange",
 			setMethod = "setQtyRatePlanIdChange"
 	)
@@ -174,6 +182,7 @@ public class StatsSubsPrepaidOld {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getLastRatePlanIdChangeDate",
 			setMethod = "setLastRatePlanIdChangeDate"
 	)
@@ -192,6 +201,7 @@ public class StatsSubsPrepaidOld {
 			defaultValue = "null",
 			extra = "",
 			length = 8,
+			comment = "",
 			getMethod = "getQtyStatusIdChange",
 			setMethod = "setQtyStatusIdChange"
 	)
@@ -210,6 +220,7 @@ public class StatsSubsPrepaidOld {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getLastStatusIdChangeDate",
 			setMethod = "setLastStatusIdChangeDate"
 	)
@@ -228,6 +239,7 @@ public class StatsSubsPrepaidOld {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getLastRechargeDate",
 			setMethod = "setLastRechargeDate"
 	)
@@ -246,6 +258,7 @@ public class StatsSubsPrepaidOld {
 			defaultValue = "null",
 			extra = "",
 			length = 11,
+			comment = "",
 			getMethod = "getValidityDaysAtRecharge",
 			setMethod = "setValidityDaysAtRecharge"
 	)
@@ -264,6 +277,7 @@ public class StatsSubsPrepaidOld {
 			defaultValue = "null",
 			extra = "",
 			length = 0,
+			comment = "",
 			getMethod = "getAggDate",
 			setMethod = "setAggDate"
 	)

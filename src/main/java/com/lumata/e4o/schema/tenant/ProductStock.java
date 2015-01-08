@@ -30,6 +30,7 @@ public class ProductStock {
 			defaultValue = "null",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getProductId",
 			setMethod = "setProductId"
 	)
@@ -48,6 +49,7 @@ public class ProductStock {
 			defaultValue = "0",
 			extra = "",
 			length = 5,
+			comment = "",
 			getMethod = "getChannelId",
 			setMethod = "setChannelId"
 	)
@@ -66,6 +68,7 @@ public class ProductStock {
 			defaultValue = "0",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getInitialStock",
 			setMethod = "setInitialStock"
 	)
@@ -84,6 +87,7 @@ public class ProductStock {
 			defaultValue = "0",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getAvailable",
 			setMethod = "setAvailable"
 	)
@@ -102,6 +106,7 @@ public class ProductStock {
 			defaultValue = "0",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getPurchased",
 			setMethod = "setPurchased"
 	)
@@ -120,6 +125,7 @@ public class ProductStock {
 			defaultValue = "0",
 			extra = "",
 			length = 20,
+			comment = "",
 			getMethod = "getRefused",
 			setMethod = "setRefused"
 	)
@@ -138,6 +144,7 @@ public class ProductStock {
 			defaultValue = "CURRENT_TIMESTAMP",
 			extra = "on update CURRENT_TIMESTAMP",
 			length = 0,
+			comment = "",
 			getMethod = "getUpdateTime",
 			setMethod = "setUpdateTime"
 	)
