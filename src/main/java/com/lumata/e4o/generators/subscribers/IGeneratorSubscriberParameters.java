@@ -60,4 +60,6 @@ public interface IGeneratorSubscriberParameters {
 	
 	public void xmlrpcRecharge( final Long qtyRecharges, XMLRPCParameter... parameterList ) throws GeneratorException;
 	
+	public void xmlrpcPurchaseOffer( final String offerName, final String channelName ) throws GeneratorException;
+		
 }

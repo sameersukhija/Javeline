@@ -71,7 +71,7 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 	SubscriberAction actionType;
 	
 	private enum SubscriberAction {
-		insertSubscriber, insertHobbies, insertOptions, recharge, tokenAllocation, tokenAccepting, tokenRefusing
+		insertSubscriber, insertHobbies, insertOptions, recharge, tokenAllocation, tokenAccepting, tokenRefusing, purchaseOffer
 	}
 	
 	
@@ -724,4 +724,50 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 						
 	}
 
+	public void xmlrpcPurchaseOffer( final String offerName, final String channelName ) throws GeneratorException {
+		
+		actionType = SubscriberAction.purchaseOffer;
+
+		configureParameters();
+		
+		Server server = (Server)parameters.getParameterValue( GeneratorParameterType.server );
+		
+		User user = (User)parameters.getParameterValue( GeneratorParameterType.user );
+		
+		for( int rp = 1; rp <= repeat; rp++ ) {
+		
+			try {
+				
+				String msisdn = fieldMsisdn.getMsisdn();
+											
+				XMLRPCRequest.catalogmanager_purchase().call( 	
+						server, 
+						xmlrpcBody(
+							authentication( user ),
+							string( msisdn ),
+							string( offerName ),
+							string( channelName ),
+							arrayProductPrices( 
+								/* price() */	
+							),
+							arraySelectedProducts( 
+								/* product() */	
+							),
+							string(1)
+						),
+						xmlrpcOptions( 
+							sleep( 100L )
+						)
+				);								
+						
+			} catch (Exception e) {
+				
+				logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+				
+			}
+			
+		}
+						
+	}
+	
 }
