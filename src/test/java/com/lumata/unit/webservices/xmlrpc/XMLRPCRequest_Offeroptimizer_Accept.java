@@ -40,9 +40,9 @@ public class XMLRPCRequest_Offeroptimizer_Accept {
 	@Test(enabled=true, priority = 1 )
 	public void callXMLRPCCRequest() throws Exception {
 		
-		final String msisdn = "3399900002";
-		final String token_code = "gl-0e2bb";
-		final Object[] offer_id = new Integer[]{ 1000 };		
+		final String msisdn = "3399900001";
+		final String token_code = "gl-befeb";
+		final Object[] offer_id = new Integer[]{ 1002 };		
 		final String userAcceptChannel = "web";
 		
 		XMLRPCRequest.offeroptimizer_accept().call( 	

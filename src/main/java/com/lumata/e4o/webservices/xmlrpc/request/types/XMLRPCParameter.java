@@ -3,7 +3,7 @@ package com.lumata.e4o.webservices.xmlrpc.request.types;
 public class XMLRPCParameter {
 
 	public enum ParameterType {
-		recharge, event_storage_policy, event_date, event_time,amount_recharge, balance_main_account;
+		recharge, event_storage_policy, event_date, event_time,amount_recharge, balance_main_account, ussd_code;
 	}
 	
 	private StringBuilder parameter;

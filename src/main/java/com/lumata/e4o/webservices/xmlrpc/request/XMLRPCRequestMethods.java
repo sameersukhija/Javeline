@@ -13,7 +13,7 @@ public class XMLRPCRequestMethods {
 
 	public enum EventType {
 		
-		ussd, revenue
+		USSD, revenue
 		
 	}
 	
