@@ -2,15 +2,14 @@ package com.lumata.e4o.json.gui.administrationmanager;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.JsonConfigurationFile;
+import com.lumata.common.testing.utils.TempFileHandling;
+import com.lumata.common.testing.utils.TempFileHandling.TempFileExtension;
 
 public class JSONNotifications extends JsonConfigurationFile {
 
@@ -76,11 +75,7 @@ public class JSONNotifications extends JsonConfigurationFile {
 		File resp = null;
 		
 		try {
-			Path temp = Files.createTempFile(getTemplateName(), ".html");
-			
-		    Files.write(temp, getMailTemplate(), Charset.defaultCharset(), StandardOpenOption.WRITE);		
-			
-			resp = temp.toFile();	
+			resp = TempFileHandling.createTempTestFile( getMailTemplate(), getTemplateName(), TempFileExtension.HTML);
 		}
 		catch ( IOException e ) {
 			

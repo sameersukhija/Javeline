@@ -1,6 +1,6 @@
 package com.lumata.e4o.gui.administrationmanager;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +17,7 @@ import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.ErrorModificableElement;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.common.testing.utils.TempFileHandling;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
 import com.lumata.e4o.json.gui.administrationmanager.JSONNotifications;
@@ -114,10 +115,21 @@ public class NotificationsForm extends AdministrationForm {
 			//td[contains(text(),'Object')]//ancestor::tr[1]//input			
 			sendKeysByXPath("//td[contains(text(),'Object')]//ancestor::tr[1]//input", notificationsCfg.getMailObject());
 			
-			File templateFile = notificationsCfg.getMailNotificationFile();
+			WebElement uploadElement = selenium.getWrappedDriver().findElement(By.xpath("//form[contains(@action,'dialogImport')]//input[@name='uploadFormElement']"));
+//			uploadElement.clear();
 			
-			WebElement fileUpload = selenium.getWrappedDriver().findElement(By.xpath("//form[contains(@action,'dialogImport')]//input[@name='uploadFormElement']"));
-			fileUpload.sendKeys(templateFile.getAbsolutePath());
+//			File templateFile = notificationsCfg.getMailNotificationFile();
+			
+			try {
+				TempFileHandling.uploadFile( 	uploadElement,
+												notificationsCfg.getMailNotificationFile().toPath());
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				throw new FormException(e1.getMessage());
+			}
+			
+//			WebElement fileUpload = selenium.getWrappedDriver().findElement(By.xpath("//form[contains(@action,'dialogImport')]//input[@name='uploadFormElement']"));
+//			fileUpload.sendKeys(templateFile.getAbsolutePath());
 
 			// manage errors
 			MailNotificationImporterHandler handler = new MailNotificationImporterHandler( 	selenium.getWrappedDriver(), 

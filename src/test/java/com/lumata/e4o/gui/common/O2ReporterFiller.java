@@ -168,7 +168,7 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_allocate_"+code+".xml" ),
 						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_allocate_"+code+".xml" )	
 					)
-			).getResponse().getEntity().toString()).parse();
+			).getResponse().getEntity()).parse();
 			
 			List<Offer> offers = offerPack.getOfferList();
 			
@@ -375,7 +375,7 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 					storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_getTokensList.xml" ),
 					storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_getTokensList.xml" )	
 				)
-			).getResponse().getEntity().toString()).parse();
+			).getResponse().getEntity()).parse();
 
 		List<Token> tokens = tokenList.getTokenList();
 		
@@ -429,7 +429,7 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 						storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_allocate_"+code+".xml" ),
 						storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_allocate_"+code+".xml" )	
 					)
-			).getResponse().getEntity().toString()).parse();
+			).getResponse().getEntity()).parse();
 			
 			/**
 			 * Technical debt

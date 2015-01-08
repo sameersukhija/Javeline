@@ -6,6 +6,11 @@
     Browser to be used 
   -->
   <parameter name="browser" value="firefox"/>
+<!--   
+  <parameter name="seleniumGrid"      value="http://selenium.grid:5555/wd/hub"/>  
+  <parameter name="locTempFolder"     value="/home/vincenzo/Documents/shared/"/>
+  <parameter name="remTempFolder"     value="Z:\\"/>
+-->
 
   <!-- 
     Start path where locate configuration files 
