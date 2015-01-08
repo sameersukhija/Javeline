@@ -6,8 +6,6 @@ import static com.lumata.common.testing.orm.Filter.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -18,7 +16,6 @@ import com.lumata.common.testing.database.MysqlUtils;
 import com.lumata.common.testing.exceptions.DataBaseException;
 import com.lumata.e4o.schema.tenant.SetHobbies;
 import com.lumata.e4o.system.cdr.CDR;
-import com.lumata.e4o.system.cdr.CDR.HOBBIES;
 
 public class DAOSetHobbies extends DAO {
 

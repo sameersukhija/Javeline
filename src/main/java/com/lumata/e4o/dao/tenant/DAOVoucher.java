@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.log.Log;
 import com.lumata.e4o.schema.tenant.CatalogOffers;
+import com.lumata.e4o.schema.tenant.OfferStock;
 import com.lumata.e4o.schema.tenant.OffoptimCustomerItems;
 import com.lumata.e4o.schema.tenant.OffoptimCustomerPack;
 import com.lumata.e4o.schema.tenant.StatsPurchase;
@@ -181,17 +182,176 @@ public class DAOVoucher extends DAO {
 		
 	}
 	
-	/*
-	 * select msisdn, count(code) from stats_purchase sp join voucher_codes vc on sp.purchase_id = vc.purchase_id and sp.offer_id = 3 and ( vc.expiryDate is null || vc.expiryDate >= NOW() ) and vc.redeemed_date is null group by msisdn;
-
-	 */
+	public Integer getValidVouchers( Short offer_id, Integer hoursInterval ) throws SQLException {
+		
+//		String query = select( 
+//							sum( "case when expiryDate > date_add( now(), INTERVAL " + hoursInterval + " HOUR ) and purchase_id is null then 1 else 0 end" ) 
+//						).
+//						from( new VoucherCodes() ).
+//						build();
+		
+		Integer validVouchers = null;
+		
+		String query = "select sum( case when expiryDate > date_add( now(), INTERVAL " + hoursInterval + " HOUR ) and purchase_id is null then 1 else 0 end) as valid from voucher_codes where offer_id = " + offer_id + ";";
+		
+		ResultSet rs = this.getMysql().execQuery( query );
+		
+		while( rs.next() ) {
+			
+			validVouchers = rs.getInt( "valid" );
+			
+		}
+		
+		return validVouchers;
+		
+	}
 	
-
+	public String getVoucherStatusTable( short offer_id, Integer validVouchers, ArrayList<OfferStock> offerStock ) throws SQLException {
+		
+		StringBuilder voucherStatusTable = new StringBuilder();
+				
+		Long remainingStock = 0L;
+		
+		StringBuilder offerStockTable = new StringBuilder();
+		
+		for( OfferStock os : offerStock ) {
+			
+			Long remainingStockSingleChannel = os.getInitialStock() - os.getPurchased() - os.getExpired();
+			
+			remainingStock = remainingStock + remainingStockSingleChannel;
+			
+			offerStockTable.
+				append( "channel_id (" ).append( os.getChannelId() ).append( ") - " ). 
+				append( "remaining (" ).append( remainingStockSingleChannel ).append( ") - " ).
+				append( "initial_stock (" ).append( os.getInitialStock() ).append( ") - " ).
+				append( "available (" ).append( os.getAvailable() ).append( ") - " ).
+				append( "purchased (" ).append( os.getPurchased() ).append( ") - " ).
+				append( "refused (" ).append( os.getRefused() ).append( ") - " ).
+				append( "expired (" ).append( os.getExpired() ).append( ")\n" );
+						
+		}
+			
+		Long stockReduction = remainingStock - validVouchers;
+		
+		Long unreservedStockReduction = Math.min( offerStock.get( 0 ).getAvailable(), stockReduction );
+		
+		voucherStatusTable.
+			append( "offer_id (" ).append( offer_id ).append( ")\n" ).
+			append( "validVouchers (" ).append( validVouchers ).append( ")\n" ).
+			append( "remainingStock (" ).append( remainingStock ).append( ")\n" ).
+			append( "stockReduction (" ).append( stockReduction ).append( ")\n" ).
+			append( "unreservedStockReduction (" ).append( unreservedStockReduction ).append( ")\n" ).
+			append( offerStockTable );
+		
+		return voucherStatusTable.toString();
+				
+	}
 	
-	
-	
-	
-	
+	public ArrayList<OfferStock> calculateReduction( Integer validVouchers, ArrayList<OfferStock> offerStock ) {
+		
+		/* US EFOGC-2876
+		 * step 1 ( init )
+		 * remainingStock = available - allocated = initial_stock - purchased - expired
+		 * validVouchers = ( calculated from the voucher_codes table )
+		 * stockReduction = remainingStock - validVouchers
+		 * 
+		 * step 2 ( reduce from global stock )
+		 * unreservedStockReduction = MIN( stockReduction, available( channel 0 ) )
+		 * available( channel 0 ) = available( channel 0 ) - unreservedStockReduction 
+		 * expired( channel 0 ) = available( channel 0 ) + unreservedStockReduction
+		 * stockReduction = stockReduction - unreservedStockReduction
+		 * 
+		 * step 3 ( reduce from channels )
+		 * reservedStockReduction = MIN (stockReduction - available(all channels))
+		 * proportional decrease per channel with
+		 * available (channel i) = available (channel i) - reservedStockReduction * coef
+		 * expired (channel i) = expired (channel i) + reservedStockReduction * coef
+		 * stockReduction = stockReduction - reservedStockReduction
+		 * 
+		 * step 4 - deallocate offers (if stockReduction > 0) 
+		 * as you say, search for the oldest offer allocated, and mark them as EXPIRED (need to verify the exact process)
+		 * report the quantity deallocated in expired column (so that we can run the task again safely with right calculation of remaining stock)
+		 * 
+		 *  
+		 */
+		
+		ArrayList<OfferStock> newOfferStock = new ArrayList<OfferStock>();
+		
+		/* step 1 */
+		Long remainingStock = 0L;
+		
+		for( OfferStock os : offerStock ) {
+						
+			OfferStock newOs = new OfferStock();
+			
+			newOs.setChannelId( os.getChannelId() );
+			newOs.setInitialStock( os.getInitialStock() );
+			newOs.setAvailable( os.getAvailable() );
+			newOs.setPurchased( os.getPurchased() );
+			newOs.setRefused( os.getRefused() );
+			newOs.setExpired( os.getExpired() );
+			
+			Long remainingStockSingleChannel = os.getInitialStock() - os.getPurchased() - os.getExpired();
+			
+			remainingStock = remainingStock + remainingStockSingleChannel;
+			
+			newOfferStock.add( newOs );
+						
+		}
+		
+		Long stockReduction = remainingStock - validVouchers;
+		
+		/* step 2 */
+		if( stockReduction > 0 ) {
+		
+			Long unreservedStockReduction = Math.min( newOfferStock.get( 0 ).getAvailable(), stockReduction );
+			
+			newOfferStock.get( 0 ).setAvailable( newOfferStock.get( 0 ).getAvailable() - unreservedStockReduction );
+			
+			newOfferStock.get( 0 ).setExpired( newOfferStock.get( 0 ).getExpired() + unreservedStockReduction );
+			
+			stockReduction = stockReduction - unreservedStockReduction;
+			
+			/* step 3 */ 
+			if( stockReduction > 0 ) {
+				
+				//ArrayList<Integer> remainingByChannel = new ArrayList<Integer>(); 
+				
+				Long availableAllChannels = 0L;
+									
+				for( int stockIndex = 1; stockIndex < newOfferStock.size(); stockIndex++ ) {
+					
+					availableAllChannels = availableAllChannels + newOfferStock.get( stockIndex ).getAvailable();
+					
+				}
+				
+				Long reservedStockReduction = Math.min( stockReduction, availableAllChannels );
+								
+				for( int stockIndex = 1; stockIndex < newOfferStock.size(); stockIndex++ ) {
+									
+					double coeff = ( (double)newOfferStock.get( stockIndex ).getAvailable() / availableAllChannels );
+					
+					newOfferStock.get( stockIndex ).setAvailable( newOfferStock.get( stockIndex ).getAvailable() - (long)Math.round( reservedStockReduction  * coeff ) );
+					
+					newOfferStock.get( stockIndex ).setExpired( newOfferStock.get( stockIndex ).getExpired() + (long)Math.round( reservedStockReduction  * coeff ) );
+					
+				}
+				
+				stockReduction = stockReduction - reservedStockReduction;
+						
+				if( stockReduction > 0 ) {
+					
+					Long offerToDeallocate = stockReduction; 
+					
+				}
+				
+			}
+		
+		}
+		
+		return newOfferStock;
+		
+	}
 	
 	
 	
