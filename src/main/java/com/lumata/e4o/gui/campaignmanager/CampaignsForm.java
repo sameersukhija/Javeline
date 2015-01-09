@@ -59,6 +59,48 @@ public class CampaignsForm extends CampaignManagerForm {
 		SimpleDay, GeneralDay
 	}
 	
+	private enum TargetingMode {
+		Restricted, Opened
+	}
+		
+	private enum TargetingRestrictedMode {
+		
+		Criteria("Criteris"), 
+		ImportSubscribers("Import subscribers"), 
+		CriteriaIntersectionImport("Criteria Intersection Import"),
+		CriteriaUnionImport("Criteria Union Import"),
+		ManualTargeting("Manual Targeting");
+		
+		String value;
+		
+		TargetingRestrictedMode( String value ) {
+			this.value = value;
+		}
+		
+		public String value() {
+			return value;
+		}
+
+	}
+	
+	private enum TargetingSampleType {
+		
+		NoSample("No sample"), 
+		ControlSample("Control sample"), 
+		TestSample("Test sample");
+		
+		String value;
+		
+		TargetingSampleType( String value ) {
+			this.value = value;
+		}
+		
+		public String value() {
+			return value;
+		}
+		
+	}
+	
 	public enum CMErrorAction {
 
 		MODEL_ALREADY_EXISTS;
@@ -133,9 +175,9 @@ public class CampaignsForm extends CampaignManagerForm {
 	public CampaignsForm configureCampaign() throws FormException, JSONException {
 		
 		//configureCampaignDefinition();
-		configureCampaignScheduling();
-		//configureCampaignDialogue().
-		//configureCampaignTarget().
+		//configureCampaignScheduling();
+		//configureCampaignDialogue();
+		configureCampaignTarget();
 		//configureCampaignLimits().
 		//configureCampaignActivation();
 
@@ -333,29 +375,27 @@ public class CampaignsForm extends CampaignManagerForm {
 			
 		}
 		
-		
-		
-		
-		
-		
-		
-		/*
-		 * //table[@class='gwt-DatePicker']
-		 * //table[@class='gwt-DatePicker']//div[@class='datePickerPreviousButton datePickerPreviousButton-up']
-		 * //table[@class='gwt-DatePicker']//div[@class='datePickerNextButton datePickerNextButton-up']
-		 * 
-		 * 
-		 * 
-		 * 
-		 */
-		
 		return this;
 		
 	}
 	
 	public CampaignsForm configureCampaignDialogue() throws FormException, JSONException {
 		
+		String campaignDialogueShortCodeXPath = "//select[@id='gwt-debug-Campaign Dialogue Shortcode']";
+		String campaignDialogueEmailAddressXPath = "//select[@id='gwt-debug-Campaign Dialogue Email Address']";
+		String campaignDialogueDayOfNotificationXPath = "//input[@id='gwt-debug-Campaign Dialogue Days of Notification']";
+		String campaignDialogueApplyCampaignToNotifiedOnlyXPath = "//input[@id='gwt-debug-Campaign Dialogue Notified Only-input']";
+		String campaignDialogueNotificationTimeXPath = "//select[@id='gwt-debug-Campaign Dialogue Notif Time']";
+		
 		clickXPath( getWizardTabXPath( WizardTab.Dialogue ) );
+		
+		if( null != campaignCfg.dialogueChannelShortCode() ) { selectByXPathAndVisibleText( campaignDialogueShortCodeXPath, campaignCfg.dialogueChannelShortCode() ); }
+		if( null != campaignCfg.dialogueEmailAddress() ) { selectByXPathAndVisibleText( campaignDialogueEmailAddressXPath, campaignCfg.dialogueEmailAddress() ); }
+		if( null != campaignCfg.dialogueNotificationDaysOfNotificationBeforeExecution() ) { typeByXPath( campaignDialogueDayOfNotificationXPath, campaignCfg.dialogueNotificationDaysOfNotificationBeforeExecution() ); }
+		if( null != campaignCfg.dialogueNotificationMessages() ) {}
+		if( campaignCfg.dialogueNotificationApplyCampaignToNotifiedOnly() ) { clickXPath( campaignDialogueApplyCampaignToNotifiedOnlyXPath ); }
+		if( null != campaignCfg.dialogueNotificationTime() ) { selectByXPathAndVisibleText( campaignDialogueNotificationTimeXPath, campaignCfg.dialogueNotificationTime() ); }
+		
 		
 		return this;
 		
@@ -363,7 +403,37 @@ public class CampaignsForm extends CampaignManagerForm {
 	
 	public CampaignsForm configureCampaignTarget() throws FormException, JSONException {
 		
+		String campaignTargetTargetingModeXPath = "//td[@class='headers' and contains(text(), 'Targeting Mode' )]/parent::tr//select";
+		
+		String campaignTargetRestrictedModeXPath = "//*[@id='gwt-debug-Campaign Eligibility Select Mode']";
+		
+		String campaignTargetConfigureASimpleXPath = "//select[@id='gwt-debug-Campaign Configure Sample']";		
+		
+		
+		
+		
+		
 		clickXPath( getWizardTabXPath( WizardTab.Target ) );
+		
+		selectByXPathAndVisibleText( campaignTargetTargetingModeXPath, TargetingMode.valueOf( campaignCfg.campaignTargetTargetingMode() ).name() );
+		
+		switch( TargetingMode.valueOf( campaignCfg.campaignTargetTargetingMode() ) ) {
+		
+			case Restricted: {
+				
+				selectByXPathAndVisibleText( campaignTargetRestrictedModeXPath, TargetingRestrictedMode.valueOf( campaignCfg.campaignTargetRestrictedMode() ).name() );
+				
+				
+				break;
+			}
+			case Opened: {
+				
+				break;
+			}
+
+		}
+ 		
+		
 		
 		return this;
 		

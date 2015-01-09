@@ -150,33 +150,41 @@ public class JSONCampaigns extends JsonElement {
 		return ( null != this.getBoolean( "dialogue" ) ? true : false  );
 	}
 	
-	public String channelShortCode() {
+	public String dialogueChannelShortCode() {
 		return this.getString( "dialogue.channel.shortCode" );
 	}
 		
-	public String channelEmailAddress() {
+	public String dialogueEmailAddress() {
 		return this.getString( "dialogue.channel.emailAddress" );
 	}
 	
-	public String notificationDaysOfNotificationBeforeExecution() {
+	public String dialogueNotificationDaysOfNotificationBeforeExecution() {
 		return this.getString( "dialogue.notification.daysOfNotificationBeforeExecution" );
 	}
 	
-	public String notificationMessages() {
+	public String dialogueNotificationMessages() {
 		return this.getString( "dialogue.notification.messages" );
 	}
 	
-	public Boolean notificationApplyCampaignToNotifiedOnly() {
+	public Boolean dialogueNotificationApplyCampaignToNotifiedOnly() {
 		return this.getBoolean( "dialogue.notification.applyCampaignToNotifiedOnly" );
 	}
 	
-	public String notificationTime() {
+	public String dialogueNotificationTime() {
 		return this.getString( "dialogue.notification.time" );
 	}
 	
 	/** TARGET section */
 	public Boolean hasTargetSettings() {
 		return isNotNull( "target" );
+	}
+	
+	public String campaignTargetTargetingMode() {
+		return this.getString( "target.targetingMode" );
+	}
+	
+	public String campaignTargetRestrictedMode() {
+		return this.getString( "target.targetingRestricted.mode" );
 	}
 	
 	/** LIMIT section */

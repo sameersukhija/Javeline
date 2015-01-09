@@ -47,8 +47,8 @@
 			},
 			"dialogue": {
 				"channel": {
-					"shortCode": "111",
-					"emailAddress": "info@lumatagroup.com"				
+					"shortCode": null,
+					"emailAddress": null				
 				},
 				"notification": {
 					"daysOfNotificationBeforeExecution": "5",
@@ -58,14 +58,18 @@
 				}
 			},
 			"target": {
-				"targetingMode": "Opened",
+				"targetingMode": "Restricted",
 				"targetingOpened": {
 					"subscriberProfileRestrictions": null,
 					"subscriberRestrictions": null				
 				},
 				"targetingRestricted": {
 					"mode": "Criteria",
-					"modeCriteria": null				
+					"modeCriteria": null,
+					"downloadEligibleSubscribers": false,
+					"sampleType": "",
+					"sampleValue": "",
+					"sampleValueType": ""														
 				}
 			},	
 			"limit": null,
