@@ -70,17 +70,17 @@ public class TestJSONCampaigns {
 		 /** DIALOGUE */
 		 Assert.assertTrue( campaigns.get( 0 ).hasDialogueSettings() );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).channelShortCode(), "111" );
+		 Assert.assertEquals( campaigns.get( 0 ).dialogueChannelShortCode(), "111" );
 		
-		 Assert.assertEquals( campaigns.get( 0 ).channelEmailAddress(), "info@lumatagroup.com" );
+		 Assert.assertEquals( campaigns.get( 0 ).dialogueEmailAddress(), "info@lumatagroup.com" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).notificationDaysOfNotificationBeforeExecution(), "5" );
+		 Assert.assertEquals( campaigns.get( 0 ).dialogueNotificationDaysOfNotificationBeforeExecution(), "5" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).notificationMessages(), null );
+		 Assert.assertEquals( campaigns.get( 0 ).dialogueNotificationMessages(), null );
 		 
-		 Assert.assertTrue( campaigns.get( 0 ).notificationApplyCampaignToNotifiedOnly() );
+		 Assert.assertTrue( campaigns.get( 0 ).dialogueNotificationApplyCampaignToNotifiedOnly() );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).notificationTime(), "10:00" );
+		 Assert.assertEquals( campaigns.get( 0 ).dialogueNotificationTime(), "10:00" );
 	
 		 /** TARGET */
 		 Assert.assertTrue( campaigns.get( 0 ).hasTargetSettings() );
