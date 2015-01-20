@@ -71,7 +71,9 @@ public class RulesForm extends OfferOptimisationForm {
 		configureRuleChannels().
 		selectByNameAndVisibleText( "algorithm", ruleCfg.getOptimizationAlgorithm() ).
 		sendKeysByName( "usage", ruleCfg.getMaximumNumberOfOffers() );
-				
+		
+		selectByNameAndVisibleText( "redeemExpiredOfferBehavior", ruleCfg.getExpiredOfferBehaviour() );
+		
 		if( ruleCfg.getKeepOffersConsistentAcrossMultipleRedraws() ) { clickId( "keepOffersConsistent-yes" ); }
 		else { clickId( "keepOffersConsistent-no" ); }
 		

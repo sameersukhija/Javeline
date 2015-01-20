@@ -50,6 +50,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -105,6 +106,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -166,6 +168,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -221,6 +224,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -276,6 +280,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -331,6 +336,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -392,6 +398,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -447,6 +454,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -502,6 +510,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -557,6 +566,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -612,6 +622,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -661,6 +672,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -716,6 +728,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -771,6 +784,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -832,6 +846,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -887,6 +902,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -942,6 +958,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -997,6 +1014,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1052,6 +1070,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1113,6 +1132,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1168,6 +1188,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1223,6 +1244,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1278,6 +1300,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1327,6 +1350,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1382,6 +1406,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1437,6 +1462,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1498,6 +1524,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1553,6 +1580,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1608,6 +1636,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1663,6 +1692,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1724,6 +1754,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1779,6 +1810,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1834,6 +1866,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1889,6 +1922,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1944,6 +1978,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -1993,6 +2028,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2036,6 +2072,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2073,6 +2110,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2116,6 +2154,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2153,6 +2192,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2184,6 +2224,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2215,6 +2256,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2264,6 +2306,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2313,6 +2356,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2368,6 +2412,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2417,6 +2462,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2466,6 +2512,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2515,6 +2562,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2570,6 +2618,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2619,6 +2668,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2668,6 +2718,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2717,6 +2768,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2772,6 +2824,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2821,6 +2874,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2876,6 +2930,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2931,6 +2986,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2956,6 +3012,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -2999,6 +3056,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3042,6 +3100,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3085,6 +3144,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3122,6 +3182,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3165,6 +3226,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3208,6 +3270,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3251,6 +3314,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3288,6 +3352,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3331,6 +3396,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3374,6 +3440,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3417,6 +3484,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3454,6 +3522,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3497,6 +3566,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3540,6 +3610,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3583,6 +3654,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3620,6 +3692,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3663,6 +3736,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3706,6 +3780,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3749,6 +3824,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3786,6 +3862,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3829,6 +3906,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3872,6 +3950,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3915,6 +3994,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3952,6 +4032,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -3995,6 +4076,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4038,6 +4120,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4081,6 +4164,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4118,6 +4202,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4161,6 +4246,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4204,6 +4290,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4247,6 +4334,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4284,6 +4372,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4327,6 +4416,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4370,6 +4460,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4413,6 +4504,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4450,6 +4542,7 @@
 			"includePreviouslyAcceptedOffers": false,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4475,6 +4568,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4500,6 +4594,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4525,6 +4620,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4550,6 +4646,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4575,6 +4672,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4600,6 +4698,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4625,6 +4724,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -4650,6 +4750,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"unlimitedOffers": false,
 			"maximumNumberOfOffers": 100,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 

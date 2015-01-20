@@ -16,6 +16,7 @@
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
 			"maximumNumberOfOffers": 6,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -37,6 +38,7 @@
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
 			"maximumNumberOfOffers": 6,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -58,6 +60,7 @@
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
 			"maximumNumberOfOffers": 6,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -79,6 +82,7 @@
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
 			"maximumNumberOfOffers": 6,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -100,6 +104,7 @@
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
 			"maximumNumberOfOffers": 6,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 

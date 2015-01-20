@@ -111,6 +111,10 @@ public class JSONRules extends JsonConfig {
 		return String.valueOf( currentRule.getIntegerFromPath( "maximumNumberOfOffers" ) );		
 	}
 	
+	public String getExpiredOfferBehaviour() {
+		return currentRule.getStringFromPath( "expiredOfferBehaviour" );		
+	}
+	
 	public JSONObject getErrorActions() throws JSONException {
 		return currentRule.getJSONObjectFromPath( "errorActions" );
 	}

@@ -2,70 +2,72 @@
 	"rules": [
 		{
 			"enabled": true,
-			"name":"RuleA",
-			"description":"RuleA",
-			"tokenType":"TokenA",
+			"name":"Rule Not Consistent",
+			"description":"EFOGC-3202",
+			"tokenType":"Token",
 			"channels":[ {
 				"name":"Ch A",
-				"mandatory":false,
+				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				} ],
 			"optimizationAlgorithm":"Random Assigment",
-			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"keepOffersConsistentAcrossMultipleRedraws": false,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": true,
-			"maximumNumberOfOffers": 10,
+			"maximumNumberOfOffers": 7,
 			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
 			"enabled": true,
-			"name":"RuleB",
-			"description":"RuleB",
-			"tokenType":"TokenB",
+			"name":"Rule Consistent",
+			"description":"EFOGC-3202",
+			"tokenType":"Token",
 			"channels":[ {
-				"name":"Ch B",
-				"mandatory":false,
+				"name":"Ch A",
+				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": true,
-			"maximumNumberOfOffers": 10,
+			"maximumNumberOfOffers": 7,
 			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		},{
 			"enabled": true,
-			"name":"RuleC",
-			"description":"RuleC",
-			"tokenType":"TokenC",
+			"name":"Rule Regression",
+			"description":"EFOGC-3202",
+			"tokenType":"Token",
 			"channels":[ {
 				"name":"Ch A",
-				"mandatory":false,
+				"mandatory": true,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				},{
 				"name":"Ch B",
-				"mandatory":false,
+				"mandatory": false,
+				"unlimited": false,
+				"maxOffer" : 2
+				},{
+				"name":"Ch C",
+				"mandatory": false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
-			"allowDuplicateOffers": true,
-			"maximumNumberOfOffers": 10,
+			"maximumNumberOfOffers": 5,
 			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
 			}
 		}

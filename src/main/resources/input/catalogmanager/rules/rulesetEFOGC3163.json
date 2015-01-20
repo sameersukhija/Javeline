@@ -2,8 +2,8 @@
 	"rules": [
 		{
 			"enabled": true,
-			"name":"Rule A",
-			"description":"EFOGC-2667",
+			"name":"Rule New Offer",
+			"description":"EFOGC-3163",
 			"tokenType":"Token",
 			"channels":[ {
 				"name":"Ch A",
@@ -16,7 +16,7 @@
 			"keepOffersConsistentAcrossMultipleRedraws": true,
 			"includePreviouslyAcceptedOffers": true,
 			"maximumNumberOfOffers": 10,
-			"expiredOfferBehaviour" : "Bypass offer validity date",
+			"expiredOfferBehaviour" : "Pick up new offer",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -24,11 +24,11 @@
 		},
 		{
 			"enabled": true,
-			"name":"Rule B",
-			"description":"EFOGC-2667",
+			"name":"Rule Bypass Date",
+			"description":"EFOGC-3163",
 			"tokenType":"Token",
 			"channels":[ {
-				"name":"Ch B",
+				"name":"Ch A",
 				"mandatory": false,
 				"unlimited": true,
 				"maxOffer" : 0
