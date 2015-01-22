@@ -15,15 +15,15 @@ import com.lumata.e4o.schema.tenant.CatalogOffers;
 import com.lumata.e4o.dao.tenant.DAOCatalogOffers;
 
 
-public class RunGenerateSubscriberXMLRPCPurchase {
+public class RunGenerateSubscriberRecharge {
 
 	//private static final Logger logger = LoggerFactory.getLogger( RunGenerateSubscriberXMLRPCPurchase.class );
 		
-	ArrayList<GenerateXMLRPCPurchaseThread> threads;
+	ArrayList<GenerateSubscriberRechargeThread> threads;
 	
 	final int N_THREADS = 5;
 	final int THREAD_SLEEP = 0;
-	final int EXECUTION_TIME = 10000;
+	final int EXECUTION_TIME = 30000;
 	
 	NetworkEnvironment env;	
 	Server guiServer;
@@ -31,9 +31,9 @@ public class RunGenerateSubscriberXMLRPCPurchase {
 	Mysql mysql;
 	
 	
-	RunGenerateSubscriberXMLRPCPurchase() throws NetworkEnvironmentException {
+	RunGenerateSubscriberRecharge() throws NetworkEnvironmentException {
 				
-		threads = new ArrayList<GenerateXMLRPCPurchaseThread>();
+		threads = new ArrayList<GenerateSubscriberRechargeThread>();
 		
 		env = new NetworkEnvironment( "input/environments", "e4o_qa2_ne", IOFileUtils.IOLoadingType.RESOURCE );
 		
@@ -61,7 +61,7 @@ public class RunGenerateSubscriberXMLRPCPurchase {
 					
 			for( int i = 0; i < N_THREADS; i++ ) {
 			    			
-				GenerateXMLRPCPurchaseThread t = new GenerateXMLRPCPurchaseThread( ( i + 1 ), Thread.MAX_PRIORITY, THREAD_SLEEP, guiServer, superman, subscribers.get( i ).getMsisdn(), catalogOffersList.get( 0 ).getOfferName(), "Ch A" );
+				GenerateSubscriberRechargeThread t = new GenerateSubscriberRechargeThread( ( i + 1 ), Thread.MAX_PRIORITY, THREAD_SLEEP, guiServer, superman, subscribers.get( i ).getMsisdn() );
 				t.startThread();
 				    			    
 				threads.add( t );
@@ -118,15 +118,15 @@ public class RunGenerateSubscriberXMLRPCPurchase {
 	
 	public static void main(String args[]) throws NetworkEnvironmentException {
 		
-		RunGenerateSubscriberXMLRPCPurchase generateSubscriberPurchase = new RunGenerateSubscriberXMLRPCPurchase();
+		RunGenerateSubscriberRecharge generateSubscriberRecharge = new RunGenerateSubscriberRecharge();
 		
-		generateSubscriberPurchase.initializeThreads();
+		generateSubscriberRecharge.initializeThreads();
 		
-		generateSubscriberPurchase.waitExecution();
+		generateSubscriberRecharge.waitExecution();
 		
-		generateSubscriberPurchase.stopThreads();
+		generateSubscriberRecharge.stopThreads();
 		
-		generateSubscriberPurchase.printResult();
+		generateSubscriberRecharge.printResult();
 		
 	}
 	
