@@ -57,7 +57,7 @@ public class GenerateSubscribersAllTokenAllocation {
 	@Test( enabled = GENERATE_FIXED_SUBSCRIBER )
 	public void allocateAllTokensWithFixedSubscriber() throws GeneratorException, NumberFormatException, FieldException {
 		
-		final Long FIXED_MSISDN = 3399900001L;
+		final Long FIXED_MSISDN = 3399900003L;
 								
 		Generator.subscribers()
 					.environment( env )

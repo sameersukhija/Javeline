@@ -8,18 +8,17 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-
 import com.lumata.e4o.schema.tenant.Subscribers;
+import com.lumata.e4o.schema.tenant.Token;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
-import com.lumata.e4o.schema.tenant.CatalogOffers;
-import com.lumata.e4o.dao.tenant.DAOCatalogOffers;
+import com.lumata.e4o.dao.tenant.DAOToken;
 
 
-public class RunGenerateSubscriberXMLRPCPurchase {
+public class RunGenerateSubscriberXMLRPCAllocate {
 
 	//private static final Logger logger = LoggerFactory.getLogger( RunGenerateSubscriberXMLRPCPurchase.class );
 		
-	ArrayList<GenerateXMLRPCPurchaseThread> threads;
+	ArrayList<GenerateXMLRPCAllocateThread> threads;
 	
 	final int N_THREADS = 5;
 	final int THREAD_SLEEP = 0;
@@ -31,9 +30,9 @@ public class RunGenerateSubscriberXMLRPCPurchase {
 	Mysql mysql;
 	
 	
-	RunGenerateSubscriberXMLRPCPurchase() throws NetworkEnvironmentException {
+	RunGenerateSubscriberXMLRPCAllocate() throws NetworkEnvironmentException {
 				
-		threads = new ArrayList<GenerateXMLRPCPurchaseThread>();
+		threads = new ArrayList<GenerateXMLRPCAllocateThread>();
 		
 		env = new NetworkEnvironment( "input/environments", "e4o_qa3_ne", IOFileUtils.IOLoadingType.RESOURCE );
 		
@@ -49,12 +48,8 @@ public class RunGenerateSubscriberXMLRPCPurchase {
 		
 		ArrayList<Subscribers> subscribers = DAOSubscribers.getInstance( mysql ).getSubscriberList();
 		
-		ArrayList<CatalogOffers> catalogOffersList = DAOCatalogOffers.getInstance( mysql ).getAllOneTimeCatalogOffers();
-		
 		if( null != subscribers &&
-			null != catalogOffersList &&	
-			subscribers.size() > 0 &&
-			catalogOffersList.size() > 0
+			subscribers.size() > 0
 		) {
 		
 			Thread.currentThread().setPriority(Thread.MAX_PRIORITY);	
@@ -62,10 +57,10 @@ public class RunGenerateSubscriberXMLRPCPurchase {
 			for( int i = 0; i < N_THREADS; i++ ) {
 			    
 				Long msisdn = subscribers.get( i ).getMsisdn();
-				String offerName = catalogOffersList.get( 0 ).getOfferName();
-				String channelName = "Ch A";
 				
-				GenerateXMLRPCPurchaseThread t = new GenerateXMLRPCPurchaseThread( ( i + 1 ), Thread.MAX_PRIORITY, THREAD_SLEEP, guiServer, superman, msisdn, offerName, channelName );
+				ArrayList<Token> tokens = DAOToken.getInstance( mysql ).getAvailableActiveTokens( msisdn );
+				
+				GenerateXMLRPCAllocateThread t = new GenerateXMLRPCAllocateThread( ( i + 1 ), Thread.MAX_PRIORITY, THREAD_SLEEP, guiServer, superman, msisdn, tokens );
 				t.startThread();
 				    			    
 				threads.add( t );
@@ -122,7 +117,7 @@ public class RunGenerateSubscriberXMLRPCPurchase {
 	
 	public static void main(String args[]) throws NetworkEnvironmentException {
 		
-		RunGenerateSubscriberXMLRPCPurchase generateSubscriberPurchase = new RunGenerateSubscriberXMLRPCPurchase();
+		RunGenerateSubscriberXMLRPCAllocate generateSubscriberPurchase = new RunGenerateSubscriberXMLRPCAllocate();
 		
 		generateSubscriberPurchase.initializeThreads();
 		

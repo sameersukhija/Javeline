@@ -1,6 +1,9 @@
 package com.lumata.e4o.system.performance;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
@@ -8,10 +11,11 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
 import com.lumata.e4o.schema.tenant.CatalogOffers;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType;
 import com.lumata.e4o.dao.tenant.DAOCatalogOffers;
 
 
@@ -23,7 +27,7 @@ public class RunGenerateSubscriberRecharge {
 	
 	final int N_THREADS = 5;
 	final int THREAD_SLEEP = 0;
-	final int EXECUTION_TIME = 30000;
+	final int EXECUTION_TIME = 120000;
 	
 	NetworkEnvironment env;	
 	Server guiServer;
@@ -35,7 +39,7 @@ public class RunGenerateSubscriberRecharge {
 				
 		threads = new ArrayList<GenerateSubscriberRechargeThread>();
 		
-		env = new NetworkEnvironment( "input/environments", "e4o_qa2_ne", IOFileUtils.IOLoadingType.RESOURCE );
+		env = new NetworkEnvironment( "input/environments", "e4o_qa3_ne", IOFileUtils.IOLoadingType.RESOURCE );
 		
 		guiServer = env.getServer( "actrule" );
 		
@@ -50,7 +54,7 @@ public class RunGenerateSubscriberRecharge {
 		ArrayList<Subscribers> subscribers = DAOSubscribers.getInstance( mysql ).getSubscriberList();
 		
 		ArrayList<CatalogOffers> catalogOffersList = DAOCatalogOffers.getInstance( mysql ).getAllOneTimeCatalogOffers();
-		
+			
 		if( null != subscribers &&
 			null != catalogOffersList &&	
 			subscribers.size() > 0 &&
