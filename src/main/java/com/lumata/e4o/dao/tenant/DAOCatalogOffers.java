@@ -6,9 +6,10 @@ import static com.lumata.common.testing.orm.Filter.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.e4o.schema.tenant.CatalogOffers;
@@ -16,7 +17,7 @@ import com.lumata.e4o.schema.tenant.CatalogOffers;
 
 public class DAOCatalogOffers extends DAO {
 
-	private static final Logger logger = LoggerFactory.getLogger( DAOCatalogOffers.class );
+	//private static final Logger logger = LoggerFactory.getLogger( DAOCatalogOffers.class );
 	
 	SimpleDateFormat sdf;
 	
@@ -27,6 +28,32 @@ public class DAOCatalogOffers extends DAO {
 	
 	public static DAOCatalogOffers getInstance( Mysql mysql ) {
 		return new DAOCatalogOffers( mysql );
+	}
+	
+	private ArrayList<CatalogOffers> getCatalogOffersList( String query ) {
+		
+		ArrayList<CatalogOffers> catalogOfferList = new ArrayList<CatalogOffers>();
+		
+		ResultSet rs = this.getMysql().execQuery( query );
+		
+		try {
+			
+			while( rs.next() ) {
+				
+				CatalogOffers catalogOffer = new CatalogOffers( rs );
+		
+				catalogOfferList.add( catalogOffer );				
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		
+		}
+		
+		return catalogOfferList;
+		
 	}
 	
 	private CatalogOffers getCatalogOffers( String query ) {
@@ -63,6 +90,43 @@ public class DAOCatalogOffers extends DAO {
 		return getCatalogOffers( query );	
 		
 	}
+	
+	public ArrayList<CatalogOffers> getAllCatalogOffers() {
+		
+		String query = select().
+						from( new CatalogOffers() ).
+						build(); 
+		
+		return getCatalogOffersList( query );	
+		
+	}
+	
+	public ArrayList<CatalogOffers> getAllOneTimeCatalogOffers() {
+		
+		String query = select().
+						from( new CatalogOffers() ).
+						where( op( CatalogOffers.Fields.voucher_type ).eq( "oneTimeUse" ) ).
+						build(); 
+		
+		return getCatalogOffersList( query );	
+		
+	}
+	
+	public CatalogOffers getOneTimeCatalogOffersByName( String offerName ) {
+		
+		String query = select().
+						from( new CatalogOffers() ).
+						where( 
+							op( CatalogOffers.Fields.voucher_type ).eq( "oneTimeUse" ),
+							and( op( CatalogOffers.Fields.offer_name ).eq( offerName ) )							
+						).
+						build(); 
+		
+		return getCatalogOffers( query );	
+		
+	}
+	
+	
 
 	
 	

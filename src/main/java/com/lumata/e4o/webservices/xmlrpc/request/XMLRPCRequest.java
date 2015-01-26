@@ -529,7 +529,7 @@ public class XMLRPCRequest {
 
 						case "Long": {
 							
-							actual = xmlPath.getLong( validator.getPath() );
+							actual = String.valueOf( xmlPath.getLong( validator.getPath() ) );
 							
 							expected = Format.toNumeric( expected );
 							
@@ -537,7 +537,7 @@ public class XMLRPCRequest {
 						}
 						case "Integer": {
 							
-							actual = xmlPath.getInt( validator.getPath() );
+							actual = String.valueOf( xmlPath.getInt( validator.getPath() ) );
 							
 							expected = Format.toNumeric( expected );
 							
