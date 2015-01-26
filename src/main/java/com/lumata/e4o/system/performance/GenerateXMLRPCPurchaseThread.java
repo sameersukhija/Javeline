@@ -39,6 +39,12 @@ public class GenerateXMLRPCPurchaseThread implements Runnable {
 			
 	}
 	
+	public int getThreadId() {
+		
+		return this.threadId;
+		
+	}
+	
 	public int getRequestsCount() {
 		
 		return this.requests;

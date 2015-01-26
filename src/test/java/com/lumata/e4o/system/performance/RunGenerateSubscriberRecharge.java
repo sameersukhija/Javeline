@@ -1,9 +1,6 @@
 package com.lumata.e4o.system.performance;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
@@ -14,8 +11,6 @@ import com.lumata.common.testing.system.User;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
 import com.lumata.e4o.schema.tenant.CatalogOffers;
-import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter;
-import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType;
 import com.lumata.e4o.dao.tenant.DAOCatalogOffers;
 
 

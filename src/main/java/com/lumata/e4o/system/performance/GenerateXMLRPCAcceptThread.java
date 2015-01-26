@@ -47,6 +47,12 @@ public class GenerateXMLRPCAcceptThread implements Runnable {
 			
 	}
 	
+	public int getThreadId() {
+		
+		return this.threadId;
+		
+	}
+	
 	public int getRequestsCount() {
 		
 		return this.requests;

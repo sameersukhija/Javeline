@@ -1,9 +1,17 @@
 package com.lumata.e4o.system.performance;
 
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.xmlrpcBody;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.xmlrpcOptions;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.sleep;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.authentication;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.custoEvent;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.EventType.revenue;
+
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-import com.lumata.e4o.exceptions.GeneratorException;
-import com.lumata.e4o.generators.common.Generator;
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType;
 
 
 public class GenerateSubscriberRechargeThread implements Runnable {
@@ -35,6 +43,12 @@ public class GenerateSubscriberRechargeThread implements Runnable {
 			
 	}
 	
+	public int getThreadId() {
+		
+		return this.threadId;
+		
+	}
+	
 	public int getRequestsCount() {
 		
 		return this.requests;
@@ -60,15 +74,23 @@ public class GenerateSubscriberRechargeThread implements Runnable {
 			    }
 			    Thread.yield();
 								
-			    Generator.subscribers()
-					.server( guiServer )
-					.user( superman )
-					.msisdnFixed( msisdn )
-					.xmlrpcRecharge( 1L );
-				    				
+				XMLRPCRequest.eventmanager_generateCustomEvent().call( 	
+						guiServer, 
+						xmlrpcBody(
+							authentication( superman ),
+							custoEvent( Long.valueOf( msisdn ), 
+										revenue,
+										XMLRPCParameter.parameter( ParameterType.recharge, true )
+							)
+						),
+						xmlrpcOptions( 
+							sleep( 100L )
+						)
+				);	
+				
 				++requests;
 				
-			} catch ( InterruptedException | GeneratorException e ) {
+			} catch ( Exception e ) {
 				this.fails++;
 			} 
 			
