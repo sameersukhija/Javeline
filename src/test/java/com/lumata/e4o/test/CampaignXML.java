@@ -2,6 +2,7 @@ package com.lumata.e4o.test;
 
 import java.sql.ResultSet;
 
+
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
@@ -11,7 +12,6 @@ import org.testng.annotations.Test;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.generators.container.FilesMeta;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
@@ -19,6 +19,7 @@ import com.lumata.common.testing.system.User;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
 import com.lumata.e4o.dao.tenant.DAOToken;
 import com.lumata.e4o.schema.tenant.FilesData;
+import com.lumata.e4o.schema.tenant.FilesMeta;
 
 import static com.lumata.common.testing.orm.Query.*;
 import static com.lumata.common.testing.orm.Filter.*;
