@@ -15,11 +15,11 @@ import com.lumata.e4o.json.common.JsonConfig;
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
  * 
  */
-public class JSONEvent extends JsonConfig {
+public class JSONEvent_ extends JsonConfig {
 
-	private static final  Logger logger = LoggerFactory.getLogger( JSONEvent.class );
+	private static final  Logger logger = LoggerFactory.getLogger( JSONEvent_.class );
 	
-	public JSONEvent( JSONObject eventCfg ) {
+	public JSONEvent_( JSONObject eventCfg ) {
 		
 		super( eventCfg );
 			

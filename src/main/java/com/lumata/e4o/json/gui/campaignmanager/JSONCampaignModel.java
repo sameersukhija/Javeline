@@ -42,9 +42,9 @@ public class JSONCampaignModel extends JsonConfig {
 		return currentCampaignModel.getStringFromPath( "description" );
 	}
 	
-	public Map<String, JSONEvent> getEvents() throws JSONException { 		
+	public Map<String, JSONEvent_> getEvents() throws JSONException { 		
     	
-		Map<String, JSONEvent> events = new LinkedHashMap<String, JSONEvent>();
+		Map<String, JSONEvent_> events = new LinkedHashMap<String, JSONEvent_>();
 		
 		JSONArray jsonEvents = currentCampaignModel.getJSONArrayFromPath( "events" );
 		
@@ -52,7 +52,7 @@ public class JSONCampaignModel extends JsonConfig {
 			
 			String eventName = "event" + j;
 			
-			events.put( eventName, new JSONEvent( jsonEvents.getJSONObject( j ) ) );
+			events.put( eventName, new JSONEvent_( jsonEvents.getJSONObject( j ) ) );
 			
 		}
 		
@@ -60,13 +60,13 @@ public class JSONCampaignModel extends JsonConfig {
 	
 	}
 
-	public JSONEvent getEventByIndex( Integer eventIndex ) throws JSONException {
+	public JSONEvent_ getEventByIndex( Integer eventIndex ) throws JSONException {
 		
-		return new JSONEvent( currentCampaignModel.getJSONArrayFromPath( "events" ).getJSONObject( eventIndex ) );
+		return new JSONEvent_( currentCampaignModel.getJSONArrayFromPath( "events" ).getJSONObject( eventIndex ) );
 		
 	}
 	
-	public JSONEvent getEventByName( String eventName ) throws JSONException {
+	public JSONEvent_ getEventByName( String eventName ) throws JSONException {
 		
 		return getEvents().get( eventName );
 		

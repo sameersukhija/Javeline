@@ -3,6 +3,8 @@ package com.lumata.e4o.gui.campaignmanager;
 import java.util.Calendar;
 
 import org.json.JSONException;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoAlertPresentException;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
@@ -65,7 +67,7 @@ public class CampaignsForm extends CampaignManagerForm {
 		
 	private enum TargetingRestrictedMode {
 		
-		Criteria("Criteris"), 
+		Criteria("Criteria"), 
 		ImportSubscribers("Import subscribers"), 
 		CriteriaIntersectionImport("Criteria Intersection Import"),
 		CriteriaUnionImport("Criteria Union Import"),
@@ -101,6 +103,12 @@ public class CampaignsForm extends CampaignManagerForm {
 		
 	}
 	
+	public enum ActivationAction {
+
+		Previous, Cancel, Save, Activate;
+
+	};
+	
 	public enum CMErrorAction {
 
 		MODEL_ALREADY_EXISTS;
@@ -131,20 +139,18 @@ public class CampaignsForm extends CampaignManagerForm {
 
 	public CampaignsForm addCampaigns() throws FormException, JSONException {
 		
-		for( int campaignIndex = 0; campaignIndex < campaignCfg.size(); campaignIndex++ ) {
+		Integer campaignsQty = campaignCfg.size();
+		
+		for( int campaignIndex = 0; campaignIndex < campaignsQty; campaignIndex++ ) {
 			
 			campaignCfg.cursor( campaignIndex );
 			
 			if( campaignCfg.isEnabled() ) {
 			
 				clickId( "gwt-debug-Add Campaign" ).
-				configureCampaign()
-				/*.
-				configureCampaignModel().
-				saveCampaignModel();
-				*/;
-			}
-					
+				configureCampaign();
+				
+			}					
 			
 		}
 		
@@ -174,12 +180,12 @@ public class CampaignsForm extends CampaignManagerForm {
 */	
 	public CampaignsForm configureCampaign() throws FormException, JSONException {
 		
-		//configureCampaignDefinition();
-		//configureCampaignScheduling();
-		//configureCampaignDialogue();
+		configureCampaignDefinition().
+		configureCampaignScheduling().
+		configureCampaignDialogue().
 		configureCampaignTarget();
-		//configureCampaignLimits().
-		//configureCampaignActivation();
+		configureCampaignLimits().
+		configureCampaignActivation();
 
 		return this;
 
@@ -405,14 +411,16 @@ public class CampaignsForm extends CampaignManagerForm {
 		
 		String campaignTargetTargetingModeXPath = "//td[@class='headers' and contains(text(), 'Targeting Mode' )]/parent::tr//select";
 		
-		String campaignTargetRestrictedModeXPath = "//*[@id='gwt-debug-Campaign Eligibility Select Mode']";
-		
+		String campaignTargetRestrictedModeXPath = "//select[@id='gwt-debug-Campaign Eligibility Select Mode']";
 		String campaignTargetConfigureASimpleXPath = "//select[@id='gwt-debug-Campaign Configure Sample']";		
 		
+		String campaignTargetOpenedModeRuleTableXPath = "//table[contains(@class,'tableList rulesTable')]";
+		String campaignTargetOpenedModeRuleTableEventTypeXPath = campaignTargetOpenedModeRuleTableXPath + "//td[@class='column_eventType']";
+		String campaignTargetOpenedModeRuleTableEventTypeAddXPath = campaignTargetOpenedModeRuleTableEventTypeXPath + "//button[@title='Add']";
 		
 		
 		
-		
+				
 		clickXPath( getWizardTabXPath( WizardTab.Target ) );
 		
 		selectByXPathAndVisibleText( campaignTargetTargetingModeXPath, TargetingMode.valueOf( campaignCfg.campaignTargetTargetingMode() ).name() );
@@ -421,20 +429,80 @@ public class CampaignsForm extends CampaignManagerForm {
 		
 			case Restricted: {
 				
-				selectByXPathAndVisibleText( campaignTargetRestrictedModeXPath, TargetingRestrictedMode.valueOf( campaignCfg.campaignTargetRestrictedMode() ).name() );
+				selectByXPathAndVisibleText( campaignTargetRestrictedModeXPath, TargetingRestrictedMode.valueOf( campaignCfg.campaignTargetRestrictedMode() ).value() );
 				
+				selectByXPathAndVisibleText( campaignTargetConfigureASimpleXPath, TargetingSampleType.valueOf( campaignCfg.campaignTargetConfigureASimple() ).value() );
 				
+				switch( TargetingSampleType.valueOf( campaignCfg.campaignTargetConfigureASimple() ) ) {
+				
+					case NoSample: {												
+						break;
+					}
+					case ControlSample: {
+						
+						break;
+					} 
+					case TestSample: {
+						
+						break;
+					}
+				}
+								
 				break;
 			}
 			case Opened: {
+				
+				System.out.println(  "opened" );
+				
+				//selectByXPathAndVisibleText( campaignTargetRestrictedModeXPath, TargetingRestrictedMode.valueOf( campaignCfg.campaignTargetRestrictedMode() ).value() );
+				
+				//table[contains(@class,'tableList rulesTable')]
+				
+				//table[contains(@class,'tableList rulesTable')]//td[@class='column_eventType']
+				
+				//table[contains(@class,'tableList rulesTable')]//td[@class='column_eventType']//button[@title='Add']
+				
+				
+				//-----
+				//table[contains(@class,'tableList rulesTable')]//tr[contains(@class,'contentRow')][1]//td[@class='column_eventType']
+				
+				//table[contains(@class,'tableList rulesTable')]//tr[contains(@class,'contentRow')][1]//td[@class='column_criteria']
+				
+				//table[contains(@class,'tableList rulesTable')]//tr[contains(@class,'contentRow')][1]//td[@class='column_criteria']//div[@class='criterionContainer']
+				
+				//table[contains(@class,'tableList rulesTable')]//tr[contains(@class,'contentRow')][1]//td[@class='column_criteria']//div[@class='criterionContainer']//button[@id='gwt-debug-BtnCampaignModelCreationECAdd']
+				
+				
+				
+				
+				
+				
+				//-----
+				
+				
+				// //td[@class='column_eventType']//input
+				//td[@class='column_criteria']//button[@id='gwt-debug-BtnCampaignModelCreationECAdd']
+				
+				
+				//*[@id='gwt-debug-ListCampaignModelCreationECType']
+				//gwt-debug-ListCampaignModelCreationECOperator
+				
+				// gwt-debug-TextCampaignModelCreationECValue
+				
+				// gwt-debug-BtnCampaignModelCreationECParenthesis
+				
+				//*[@id='gwt-debug-BtnCampaignModelCreationECDelete']
+				
+				// //*[@id='isc_2L']
+				
+				// /*[@id='gwt-debug-ListCampaignModelCreationECUnit']
+				
 				
 				break;
 			}
 
 		}
- 		
-		
-		
+ 				
 		return this;
 		
 	}
@@ -449,8 +517,28 @@ public class CampaignsForm extends CampaignManagerForm {
 
 	public CampaignsForm configureCampaignActivation() throws FormException, JSONException {
 		
+		String campaignActivationBtnXPath = "//button[@id='gwt-debug-Campaign Edition {action}']";
+
+		
 		clickXPath( getWizardTabXPath( WizardTab.Activation ) );
 		
+		clickXPath( campaignActivationBtnXPath.replace( "{action}" , ActivationAction.valueOf( campaignCfg.campaignActivationAction() ).name()) );
+			
+		try {
+			
+			Alert confirmLogout = selenium.selectAlert();
+			
+			while( null != confirmLogout ) {
+			
+				confirmLogout.accept(); 
+				
+				confirmLogout = selenium.selectAlert();
+				
+			}
+		
+		} catch (NoAlertPresentException e) {}
+		
+				
 		return this;
 		
 	}

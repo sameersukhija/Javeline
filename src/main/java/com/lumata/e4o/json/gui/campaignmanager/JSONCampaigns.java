@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.element.JsonElement;
+import com.lumata.e4o.json.gui.common.JSONEvents;
 
 public class JSONCampaigns extends JsonElement {
 
@@ -187,6 +188,19 @@ public class JSONCampaigns extends JsonElement {
 		return this.getString( "target.targetingRestricted.mode" );
 	}
 	
+	public String campaignTargetConfigureASimple() {
+		return this.getString( "target.targetingRestricted.sampleType" );
+	}
+	
+	public String campaignTargetOpenedMode() {
+		return this.getString( "target.targetingRestricted.mode" );
+	}
+
+	public JSONEvents campaignTargetOpenedSubscriberRestrictionsEvents() throws JSONSException {
+		return new JSONEvents( this.getJSONObject( "target.targetingOpened.subscriberRestrictions" ) );
+		
+	}
+
 	/** LIMIT section */
 	public Boolean hasLimitSettings() {
 		return isNotNull( "limit" );
@@ -196,5 +210,9 @@ public class JSONCampaigns extends JsonElement {
 	public Boolean hasActivationSettings() {
 		return isNotNull( "activation" );
 	}
+	
+	public String campaignActivationAction() {
+		return this.getString( "activation.action" );
+	} 
 	
 }

@@ -22,7 +22,7 @@ import com.lumata.e4o.gui.common.NotificationForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONAction;
 import com.lumata.e4o.json.gui.campaignmanager.JSONActionTime;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
-import com.lumata.e4o.json.gui.campaignmanager.JSONEvent;
+import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
 import com.lumata.e4o.json.gui.campaignmanager.JSONNotification;
 
 public class CampaignModelForm extends CampaignManagerForm {
@@ -232,7 +232,7 @@ public class CampaignModelForm extends CampaignManagerForm {
 
 	public CampaignModelForm addEvents() throws JSONException, FormException {
 		
-		Map<String, JSONEvent> events = campaignModelCfg.getEvents();
+		Map<String, JSONEvent_> events = campaignModelCfg.getEvents();
 		
 		int eventRow = 1;
 		
@@ -257,7 +257,7 @@ public class CampaignModelForm extends CampaignManagerForm {
 		
 	}
 	
-	public CampaignModelForm configureEvent( JSONEvent event, Integer eventRow ) throws JSONException, FormException {
+	public CampaignModelForm configureEvent( JSONEvent_ event, Integer eventRow ) throws JSONException, FormException {
 		
 		String eventXPath ="//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[" + eventRow + "]//*[@id='gwt-debug-ListCampaignModelCreationETType']";
 		
@@ -271,7 +271,7 @@ public class CampaignModelForm extends CampaignManagerForm {
 		
 	}
 	
-	public CampaignModelForm configureCriteria( JSONEvent event ) throws JSONException, FormException {
+	public CampaignModelForm configureCriteria( JSONEvent_ event ) throws JSONException, FormException {
 
 		event.getCriteria();
 		
@@ -279,7 +279,7 @@ public class CampaignModelForm extends CampaignManagerForm {
 		
 	}
 	
-	public CampaignModelForm addActions( JSONEvent event, Integer eventRow ) throws JSONException, FormException {
+	public CampaignModelForm addActions( JSONEvent_ event, Integer eventRow ) throws JSONException, FormException {
 
 		Map<String, JSONAction> actions = event.getActions();
 		
@@ -451,7 +451,7 @@ public class CampaignModelForm extends CampaignManagerForm {
 		
 	}
 	
-	public CampaignModelForm addNotifications( JSONEvent event, Integer eventRow ) throws FormException, JSONException {
+	public CampaignModelForm addNotifications( JSONEvent_ event, Integer eventRow ) throws FormException, JSONException {
 				
 		if( event.hasNotification() ) {
 		
