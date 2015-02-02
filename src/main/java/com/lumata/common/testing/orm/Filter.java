@@ -307,10 +307,11 @@ public class Filter {
 	}
 	
 	//TODO
-	public static Enum<?> as( Object expr ) {
+	public static Enum<?> as( Object expr, String alias ) {
 		
+		MysqlSelectFuncType.DISTINCT.setValueType( MysqlSelectFuncType.ValueTypes.Single_Field );
 		
-		return null;
+		return MysqlSelectFuncType.DISTINCT.setValue( alias );	
 		
 	}
 	

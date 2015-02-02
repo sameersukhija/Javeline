@@ -64,7 +64,7 @@ public abstract class JsonElement {
 	public void cursor( Integer currentIndex ) {
 		
 		this.currentIndex = currentIndex;
-	
+		
 		jsonPath.setRoot( this.jsonRoot + "[" + this.currentIndex + "]" );
 		
 	} 
@@ -85,9 +85,16 @@ public abstract class JsonElement {
 		return jsonPath.getString( path );
 	}
 
+	protected JSONObject getJSONObject( String path ) {				
+		return new JSONObject( jsonPath.get( path ) );
+	}
+	
+	protected List<JsonElement> getJsonElements( String path ) {				
+		return jsonPath.getList( path );		
+	}
+	
 	protected List<String> getListOfString( String path ) {				
 		return jsonPath.getList( path );
 	}
-
 	
 }

@@ -1,5 +1,6 @@
 package com.lumata.common.testing.database;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -10,6 +11,7 @@ import java.util.Calendar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lumata.common.testing.annotations.mysql.Table;
 import com.lumata.common.testing.exceptions.DataBaseException;
 
 /**
@@ -356,6 +358,50 @@ public class MysqlUtils {
 		
 	}
 	
+	public static void dump( Mysql mysql, final String fileName, final ArrayList<Object> tables ) {
+		
+		StringBuilder mysqldumpCmd = new StringBuilder();
+		
+		mysqldumpCmd.append( "mysqldump " ).
+					append( "-h" ).append( mysql.getHost() ).append( " " ).
+					append( "-u" ).append( mysql.getUser() ).append( " " ).
+					append( "-p" ).append( mysql.getPassword() ).append( " " ).
+					append( mysql.getName() ).append( " " );
+		
+		for( Object table : tables ) {
+			
+			Table tableName = (Table)table.getClass().getAnnotation( Table.class );
+			
+			mysqldumpCmd.append( tableName.value() ).append( " " );
+			
+		}
+		
+		mysqldumpCmd.append( "-r" ).append( "output/mysqldump/" ).append( fileName );
+		
+		System.out.println( mysqldumpCmd );
+		
+		try {
+			
+			Process runtimeProcess = Runtime.getRuntime().exec( mysqldumpCmd.toString() );
+			
+			int processComplete = runtimeProcess.waitFor();
+			
+			if( processComplete == 0 ){
 	
+				logger.info( "Backup taken successfully" );
+	
+			} else {
+	
+				throw new DataBaseException( "Could not take mysql backup" );
+	
+			}
+			
+		} catch( IOException | InterruptedException | DataBaseException e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+	}
 	
 }

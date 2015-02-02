@@ -60,7 +60,8 @@ public class Statement {
 		CONCAT,
 		DISTINCT,
 		DATE_ADD,
-		DATE_SUB;
+		DATE_SUB,
+		AS;
 		
 		public enum ValueTypes { Single_Field, Single_Value, Multiple_Values, Enum }
 		
