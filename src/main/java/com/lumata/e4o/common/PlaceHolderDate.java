@@ -8,11 +8,7 @@ public class PlaceHolderDate {
 
 	private final String PLACE_HOLDER_REGEX_ = "@(current|[0-9]{4}-[0-9]{2}-[0-9]{2})|([+-]{1}[0-9]+)(YEAR|Year|year|MONTH|Month|month|DAY|Day|day)+";
 	private final Pattern PLACE_HOLDER_PATTERN_ = Pattern.compile( PLACE_HOLDER_REGEX_ ); 
-	private Matcher placeHolderDateMatcher;
-	
-	
-	
-	
+	private Matcher placeHolderDateMatcher;		
 	private Calendar date;
 	private StringBuilder placeHolderDate;
 	

@@ -57,6 +57,24 @@ import com.lumata.e4o.schema.tenant.RecommendedCampaigns;
 import com.lumata.e4o.schema.tenant.StatsCampaign;
 import com.lumata.e4o.schema.tenant.StatsCampaignArchive;
 import com.lumata.e4o.schema.tenant.StatsOffer;
+import com.lumata.e4o.schema.tenant.StatsSubs;
+import com.lumata.e4o.schema.tenant.StatsSubsAccount;
+import com.lumata.e4o.schema.tenant.StatsSubsAccountOld;
+import com.lumata.e4o.schema.tenant.StatsSubsBundle;
+import com.lumata.e4o.schema.tenant.StatsSubsData;
+import com.lumata.e4o.schema.tenant.StatsSubsDataOld;
+import com.lumata.e4o.schema.tenant.StatsSubsPostpaid;
+import com.lumata.e4o.schema.tenant.StatsSubsPostpaidOld;
+import com.lumata.e4o.schema.tenant.StatsSubsPrepaid;
+import com.lumata.e4o.schema.tenant.StatsSubsPrepaidOld;
+import com.lumata.e4o.schema.tenant.StatsSubsVoice;
+import com.lumata.e4o.schema.tenant.StatsSubsVoiceOld;
+import com.lumata.e4o.schema.tenant.SubsBadges;
+import com.lumata.e4o.schema.tenant.SubsClasses;
+import com.lumata.e4o.schema.tenant.SubsData;
+import com.lumata.e4o.schema.tenant.SubsNotif;
+import com.lumata.e4o.schema.tenant.SubsRelations;
+import com.lumata.e4o.schema.tenant.SubsVoice;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.schema.tenant.SubscribersAll;
 
@@ -74,7 +92,9 @@ public class MysqlDump {
 		CampaignManager,
 		CatalogManager,
 		OfferOptmizer,
-		Subscribers;
+		Subscribers,
+		Subs,
+		Stats;
 		
 	}
 	
@@ -120,7 +140,15 @@ public class MysqlDump {
 					break;
 				}
 				case Subscribers: {
-					tables.addAll( getOfferOptimizerTables() );					
+					tables.addAll( getSubscribersTables() );					
+					break;
+				}
+				case Subs: {
+					tables.addAll( getSubsTables() );					
+					break;
+				}
+				case Stats: {
+					tables.addAll( getStatsTables() );					
 					break;
 				}
 				default: break;
@@ -206,15 +234,46 @@ public class MysqlDump {
 		
 		tables.add( new Subscribers() );
 		tables.add( new SubscribersAll() );	
-		tables.add( new OffoptimCustomerItemsReleased() );
-		tables.add( new OffoptimCustomerPack() );
-		tables.add( new OffoptimCustomerPackReleased() );
-		tables.add( new OffoptimOfferHistory() );
-		tables.add( new OffoptimRuleset() );
-		tables.add( new OffoptimRulesetRequestor() );
 		
 		return tables;
 		
 	}
 
+	private ArrayList<Object> getSubsTables() {
+		
+		ArrayList<Object> tables = new ArrayList<Object>();
+		
+		tables.add( new SubsBadges() );
+		tables.add( new SubsClasses() );	
+		tables.add( new SubsBadges() );
+		tables.add( new SubsData() );	
+		tables.add( new SubsNotif() );
+		tables.add( new SubsRelations() );	
+		tables.add( new SubsVoice() );	
+				
+		return tables;
+		
+	}
+	
+	private ArrayList<Object> getStatsTables() {
+		
+		ArrayList<Object> tables = new ArrayList<Object>();
+		
+		tables.add( new StatsSubs() );
+		tables.add( new StatsSubsAccount() );	
+		tables.add( new StatsSubsAccountOld() );
+		tables.add( new StatsSubsBundle() );	
+		tables.add( new StatsSubsData() );
+		tables.add( new StatsSubsDataOld() );	
+		tables.add( new StatsSubsPostpaid() );	
+		tables.add( new StatsSubsPostpaidOld() );
+		tables.add( new StatsSubsPrepaid() );
+		tables.add( new StatsSubsPrepaidOld() );
+		tables.add( new StatsSubsVoice() );
+		tables.add( new StatsSubsVoiceOld() );
+				
+		return tables;
+		
+	}
+	
 }
