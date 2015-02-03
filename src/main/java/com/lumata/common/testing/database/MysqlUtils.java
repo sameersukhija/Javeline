@@ -1,6 +1,7 @@
 package com.lumata.common.testing.database;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -358,12 +359,23 @@ public class MysqlUtils {
 		
 	}
 	
-	public static void dump( Mysql mysql, final String fileName, final ArrayList<Object> tables ) {
+	public static void clone( Mysql mysqlOrigin, Mysql mysqlDestination, final String bckFile, final ArrayList<Object> tables ) {
+		
+		if( MysqlUtils.dump( mysqlOrigin, bckFile, tables ) ) {
+		
+			MysqlUtils.restore( mysqlDestination, bckFile );
+		
+		}
+		
+	}
+	
+	public static Boolean dump( Mysql mysql, final String bckFile, final ArrayList<Object> tables ) {
 		
 		StringBuilder mysqldumpCmd = new StringBuilder();
 		
 		mysqldumpCmd.append( "mysqldump " ).
 					append( "-h" ).append( mysql.getHost() ).append( " " ).
+					append( "-P" ).append( mysql.getPort() ).append( " " ).
 					append( "-u" ).append( mysql.getUser() ).append( " " ).
 					append( "-p" ).append( mysql.getPassword() ).append( " " ).
 					append( mysql.getName() ).append( " " );
@@ -376,31 +388,90 @@ public class MysqlUtils {
 			
 		}
 		
-		mysqldumpCmd.append( "-r" ).append( "output/mysqldump/" ).append( fileName );
+		mysqldumpCmd.append( "-r" ).append( System.getProperty( "user.dir" ) ).append( "/output/mysqldump/" ).append( bckFile );
 		
-		System.out.println( mysqldumpCmd );
+		return MysqlUtils.exec( mysqldumpCmd.toString() );
+		
+	}
+	
+	public static Boolean restore( Mysql mysql, final String fileName ) {
+		
+		mysql.execUpdate( "SET GLOBAL max_allowed_packet=1073741824;" );
+		
+		StringBuilder mysqlCmd = new StringBuilder();
+		
+		mysqlCmd.append( "mysql " ).
+					append( "-h" ).append( mysql.getHost() ).append( " " ).
+					append( "-P" ).append( mysql.getPort() ).append( " " ).
+					append( "-u" ).append( mysql.getUser() ).append( " " ).
+					append( "-p" ).append( mysql.getPassword() ).append( " " ).
+					append( mysql.getName() ).append( " " );
+		
+		mysqlCmd.append( "< " ).append( System.getProperty( "user.dir" ) ).append( "/output/mysqldump/" ).append( fileName );
+		
+		String[] mysqlRestoreCommand = new String[]{ "/bin/sh", "-c", mysqlCmd.toString() };
+		
+		return MysqlUtils.exec( mysqlRestoreCommand );
+		
+	}
+	
+	public static Boolean exec( String mysqlCommand ) {
 		
 		try {
 			
-			Process runtimeProcess = Runtime.getRuntime().exec( mysqldumpCmd.toString() );
+			Process runtimeProcess = Runtime.getRuntime().exec( mysqlCommand );
 			
 			int processComplete = runtimeProcess.waitFor();
 			
 			if( processComplete == 0 ){
 	
-				logger.info( "Backup taken successfully" );
+				logger.info( "Mysql command execution successfully" );
 	
+				return true;
+				
 			} else {
 	
-				throw new DataBaseException( "Could not take mysql backup" );
-	
+				throw new DataBaseException( "Could not execute mysql command ( " + mysqlCommand + " )" );
+				
 			}
 			
 		} catch( IOException | InterruptedException | DataBaseException e ) {
-			
+					
 			logger.error( e.getMessage(), e );
 			
 		}
+		
+		return false;
+		
+	}
+	
+	public static Boolean exec( String[] mysqlCommand ) {
+		
+		try {
+			
+			Process runtimeProcess = Runtime.getRuntime().exec( mysqlCommand );
+			
+			int processComplete = runtimeProcess.waitFor();
+			
+			if( processComplete == 0 ){
+	
+				logger.info( "Mysql command execution successfully" );
+	
+				return true;
+				
+			} else {
+	
+				throw new DataBaseException( "Could not execute mysql command ( " + mysqlCommand.toString() + " )" );
+				
+			}
+			
+		} catch( IOException | InterruptedException | DataBaseException e ) {
+					
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+		return false;
 		
 	}
 	
