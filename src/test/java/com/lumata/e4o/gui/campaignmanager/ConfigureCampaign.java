@@ -65,16 +65,13 @@ public class ConfigureCampaign {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}
 	
-	@Parameters({"tenant"})
+	@Parameters({"campaignFile"})
 	@Test(enabled=true, priority = 1 )
-	public void loadCampaigns() throws CampaignException, JSONSException, FormException, JSONException {
+	public void loadCampaigns(@Optional("campaignCMTemplate") String campaignFile) throws CampaignException, JSONSException, FormException, JSONException {
 		
-		String campaign = "campaignCMTemplate";
-		
-		CampaignsForm campaignForm = new CampaignsForm( seleniumWebDriver, new JSONCampaigns( "input/campaignmanager/campaigns", campaign ), TIMEOUT, ATTEMPT_TIMEOUT );
+		CampaignsForm campaignForm = new CampaignsForm( seleniumWebDriver, new JSONCampaigns( "input/campaignmanager/campaigns", campaignFile ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
 		Assert.assertTrue( campaignForm.open().addCampaigns().navigate() );
-				
 	}
 	
 	@AfterClass
