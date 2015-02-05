@@ -1,5 +1,7 @@
 package com.lumata.e4o.gui.campaignmanager;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.json.JSONException;
@@ -7,6 +9,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.GWTCalendarForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaigns;
@@ -252,6 +255,32 @@ public class CampaignsForm extends CampaignManagerForm {
 		
 	}
 	
+	/**
+	 * From datestring contained into JSON identify if :
+	 * <li> plain date string
+	 * <li> placeholder
+	 * 
+	 * and convert it into final written data
+	 * 
+	 * @param StringDateField
+	 * @return
+	 * @throws FormException 
+	 */
+	private Calendar resolveDateField(String StringDateField) throws FormException {
+		
+		Calendar date = Calendar.getInstance();
+		if( PlaceHolderDate.getInstance( StringDateField ).isPlaceHolderDate() )
+			date = PlaceHolderDate.getInstance( StringDateField ).parse();						
+		else 		
+			try {
+				date.setTime( new SimpleDateFormat("yyyy-MM-dd").parse( StringDateField ) );
+			} catch (ParseException e) {
+				throw new FormException("Error during SingleExecutionStart parsing " + StringDateField);
+			}
+				
+		return date;
+	}
+	
 	public CampaignsForm configureCampaignSingleScheduling() throws FormException, JSONException {
 		
 		String campaignSchedulingSingleExecutionStartXPath = "//td[@class='headers' and text()='Execution Start']/parent::tr//input";
@@ -260,8 +289,8 @@ public class CampaignsForm extends CampaignManagerForm {
 		String campaignSchedulingSingleProvisioningStartXPath = "//td[@class='headers' and text()='Provisioning Start']/parent::tr//input";
 		String campaignSchedulingSingleProvisioningEndXPath = "//td[@class='headers' and text()='Provisioning End']/parent::tr//input";
 		String campaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates = "//td[@class='headers' and text()='Days between provisioning and execution start dates']/parent::tr//input";
-				
-		configureGWTCalendarByXPath( campaignSchedulingSingleExecutionStartXPath, getDate( campaignCfg.schedulingSingleExecutionStart() ) ).
+		
+		configureGWTCalendarByXPath( campaignSchedulingSingleExecutionStartXPath, resolveDateField( campaignCfg.schedulingSingleExecutionStart() ) ).
 		selectByXPathAndVisibleText( campaignSchedulingSingleExecutionEndTypeXPath, campaignCfg.schedulingSingleExecutionEndType() );
 				
 		switch( SchedulingExecutionEndType.valueOf( campaignCfg.schedulingSingleExecutionEndType() ) ) {
@@ -271,13 +300,13 @@ public class CampaignsForm extends CampaignManagerForm {
 				break;
 			}
 			case Absolute: {
-				configureGWTCalendarByXPath( campaignSchedulingSingleExecutionEndValueXPath, getDate( campaignCfg.schedulingSingleExecutionEndValue() ) );
+				configureGWTCalendarByXPath( campaignSchedulingSingleExecutionEndValueXPath, resolveDateField( campaignCfg.schedulingSingleExecutionEndValue() ) );
 				break;
 			}
 		}
 
-		configureGWTCalendarByXPath( campaignSchedulingSingleProvisioningEndXPath, getDate( campaignCfg.schedulingSingleProvisioningEnd() ) ).
-		configureGWTCalendarByXPath( campaignSchedulingSingleProvisioningStartXPath, getDate( campaignCfg.schedulingSingleProvisioningStart() ) ).
+		configureGWTCalendarByXPath( campaignSchedulingSingleProvisioningEndXPath, resolveDateField( campaignCfg.schedulingSingleProvisioningEnd() ) ).
+		configureGWTCalendarByXPath( campaignSchedulingSingleProvisioningStartXPath, resolveDateField( campaignCfg.schedulingSingleProvisioningStart() ) ).
 		typeByXPath( campaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates, campaignCfg.schedulingSingleDaysBetweenProvisioningAndStartDates() );
 		
 		return this;
@@ -356,7 +385,7 @@ public class CampaignsForm extends CampaignManagerForm {
 		
 		}
 		
-		configureGWTCalendarByXPath( campaignSchedulingMultipleStartDateXPath, getDate( campaignCfg.schedulingMultipleStartDate() ) ).
+		configureGWTCalendarByXPath( campaignSchedulingMultipleStartDateXPath, resolveDateField( campaignCfg.schedulingMultipleStartDate() ) ).
 		selectByXPathAndVisibleText( campaignSchedulingMultipleRangeOfRecurrenceTypeXPath, SchedulingMultipleRangeOfRecurrence.valueOf( campaignCfg.schedulingMultipleRangeOfRecurrenceType() ).value() );
 		
 		switch( SchedulingMultipleRangeOfRecurrence.valueOf( campaignCfg.schedulingMultipleRangeOfRecurrenceType() ) ) {
@@ -374,7 +403,7 @@ public class CampaignsForm extends CampaignManagerForm {
 			}
 			case EndDate: {
 				
-				configureGWTCalendarByXPath( campaignSchedulingMultipleRangeOfRecurrenceValueXPath, getDate( campaignCfg.schedulingMultipleRangeOfRecurrenceValue() ) );
+				configureGWTCalendarByXPath( campaignSchedulingMultipleRangeOfRecurrenceValueXPath, resolveDateField( campaignCfg.schedulingMultipleRangeOfRecurrenceValue() ) );
 								
 				break;
 			}
