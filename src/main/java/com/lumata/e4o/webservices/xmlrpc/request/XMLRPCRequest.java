@@ -521,7 +521,7 @@ public class XMLRPCRequest {
 				
 				Object actual = null;
 				
-				String expected = validator.getMatcher().toString();
+				String expected = String.valueOf( validator.getMatcher().toString() );
 				
 				try {
 					
@@ -545,12 +545,12 @@ public class XMLRPCRequest {
 						}
 						case "String": {
 							
-							actual = xmlPath.getString( validator.getPath() );	
+							actual = '"' + xmlPath.getString( validator.getPath() ) + '"';	
 							
 							break;
 						}
 						default: {
-							actual = xmlPath.get( validator.getPath()  );
+							actual = xmlPath.get( validator.getPath() );
 						}
 					
 					}
@@ -560,7 +560,7 @@ public class XMLRPCRequest {
 					throw new AssertionError( "the validator " + validator.getTag() + " is not valid for the current response " );
 					
 				}
-								
+				
 				validation = expected.equals( actual );
 								
 				String errorMessage = ASSERTION_ERROR_.

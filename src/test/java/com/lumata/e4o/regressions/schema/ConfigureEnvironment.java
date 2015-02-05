@@ -1,4 +1,4 @@
-package com.lumata.e4o.regressions;
+package com.lumata.e4o.regressions.schema;
 
 import java.io.IOException;
 
@@ -33,8 +33,6 @@ public class ConfigureEnvironment {
 	@Parameters({"environment", "nfsdataServer", "user", "tenant"})
 	@BeforeClass
 	public void init( @Optional("E4O_VM") String environment, @Optional("collector") String nfsdataServer, @Optional("superman") String user, @Optional("tenant") String tenant ) throws NetworkEnvironmentException {		
-		
-		environment = "E4O_QA3_NE";
 		
 		/** Create environment configuration */
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
