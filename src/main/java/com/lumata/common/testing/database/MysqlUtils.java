@@ -1,7 +1,6 @@
 package com.lumata.common.testing.database;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -370,6 +369,8 @@ public class MysqlUtils {
 	}
 	
 	public static Boolean dump( Mysql mysql, final String bckFile, final ArrayList<Object> tables ) {
+		
+		mysql.execUpdate( "SET GLOBAL max_allowed_packet=1073741824;" );
 		
 		StringBuilder mysqldumpCmd = new StringBuilder();
 		
