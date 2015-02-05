@@ -11,8 +11,14 @@ import java.util.ArrayList;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
+
+
+
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.e4o.schema.tenant.CatalogOffers;
+import com.lumata.e4o.schema.tenant.OffoptimCustomerItems;
+import com.lumata.e4o.schema.tenant.OffoptimCustomerPack;
+import com.lumata.e4o.schema.tenant.Token;
 
 
 public class DAOCatalogOffers extends DAO {
@@ -20,6 +26,14 @@ public class DAOCatalogOffers extends DAO {
 	//private static final Logger logger = LoggerFactory.getLogger( DAOCatalogOffers.class );
 	
 	SimpleDateFormat sdf;
+	
+	private enum OfferType {
+		
+		none,
+		oneTimeUse,
+		unlimitedUse;
+		
+	}
 	
 	public DAOCatalogOffers( Mysql mysql ) {
 		super( mysql );
@@ -101,249 +115,86 @@ public class DAOCatalogOffers extends DAO {
 		
 	}
 	
-	public ArrayList<CatalogOffers> getAllOneTimeCatalogOffers() {
+	public ArrayList<CatalogOffers> getAllCatalogOffersByType( OfferType offerType ) {
 		
 		String query = select().
 						from( new CatalogOffers() ).
-						where( op( CatalogOffers.Fields.voucher_type ).eq( "oneTimeUse" ) ).
+						where( op( CatalogOffers.Fields.voucher_type ).eq( offerType.name() ) ).
 						build(); 
 		
 		return getCatalogOffersList( query );	
 		
 	}
 	
-	public CatalogOffers getOneTimeCatalogOffersByName( String offerName ) {
+	public CatalogOffers getCatalogOffersByTypeAndName( OfferType offerType, String offerName ) {
 		
 		String query = select().
 						from( new CatalogOffers() ).
 						where( 
-							op( CatalogOffers.Fields.voucher_type ).eq( "oneTimeUse" ),
-							and( op( CatalogOffers.Fields.offer_name ).eq( offerName ) )							
+								op( CatalogOffers.Fields.voucher_type ).eq( offerType.name() ),
+								and( op( CatalogOffers.Fields.offer_name ).eq( offerName ) ) 
 						).
 						build(); 
 		
 		return getCatalogOffers( query );	
 		
 	}
-	
-	
 
+	public ArrayList<CatalogOffers> getAllSimpleCatalogOffers() {
+		
+		return getAllCatalogOffersByType( OfferType.none );	
+		
+	}
 	
-	
-	
-//	private ArrayList<OfferStock> getOfferStock( String query ) {
-//		
-//		ResultSet rs = this.getMysql().execQuery( query );
-//		
-//		ArrayList<OfferStock> offerStock = new ArrayList<OfferStock>();
-//		
-//		try {
-//			
-//			while( rs.next() ) {
-//				
-//				OfferStock offStock = new OfferStock( rs );
-//	
-//				offerStock.add( offStock );
-//				
-//			}
-//			
-//		} catch (SQLException e) {
-//			
-//			e.printStackTrace();
-//		
-//		}
-//		
-//		return offerStock;
-//		
-//	}
-	
-//	public ArrayList<OfferStock> getOfferStockByOffer( Short offer_id ) {
-//		
-//		String query = select().
-//						from( new OfferStock() ).
-//						where( 
-//								op( OfferStock.Fields.offer_id ).eq( offer_id ) 
-//						).
-//						build();
-//		
-//		return getOfferStock( query );		
-//		
-//	}
-	
-	
-	
-	
-//	public Boolean isVoucher( String voucherCode ) {
-//		
-//		VoucherCodes vouchercode = new VoucherCodes();
-//		
-//		vouchercode.setCode( voucherCode );
-//		
-//		String query = select().from( vouchercode ).where( op( VoucherCodes.Fields.code ).eq() ).build();
-//		
-//		ResultSet rs = this.getMysql().execQuery( query );
-//	
-//		boolean found = false;
-//		
-//		try {
-//			
-//			while( rs.next() ) {
-//				
-//				found = true;
-//				
-//			}
-//			
-//		} catch (SQLException e) {
-//			
-//			e.printStackTrace();
-//		
-//		}
-//		
-//		return found;
-//		
-//	}
-//
-//	private VoucherCodes getVoucher( String query ) {
-//		
-//		ResultSet rs = this.getMysql().execQuery( query );
-//	
-//		VoucherCodes voucherCode = null;
-//		
-//		try {
-//			
-//			while( rs.next() ) {
-//				
-//				voucherCode = new VoucherCodes( rs );
-//			
-//				break;
-//				
-//			}
-//			
-//		} catch (SQLException e) {
-//			
-//			e.printStackTrace();
-//		
-//		}
-//		
-//		return voucherCode;
-//		
-//	}
-//	
-//	public VoucherCodes getAvailableVoucher() {
-//		
-//		String query = select().from( new VoucherCodes() ).orderBy( VoucherCodes.Fields.code ).limit( 1 ).build();
-//		
-//		return getVoucher( query );
-//		
-//	}
-//		
-//	private ArrayList<VoucherCodes> getVoucherList( String query ) {
-//		
-//		ResultSet rs = this.getMysql().execQuery( query );
-//		
-//		ArrayList<VoucherCodes> voucherCodeList = new ArrayList<VoucherCodes>();
-//		
-//		try {
-//			
-//			while( rs.next() ) {
-//				
-//				VoucherCodes token = new VoucherCodes( rs );
-//
-//				voucherCodeList.add( token );
-//				
-//			}
-//			
-//		} catch (SQLException e) {
-//			
-//			e.printStackTrace();
-//		
-//		}
-//		
-//		return voucherCodeList;
-//		
-//	}
-//	
-//	public ArrayList<VoucherCodes> getPurchasedVoucher() {
-//		
-//		String query = select().
-//						from( new VoucherCodes() ).
-//						join( new StatsPurchase() ).
-//						on( 
-//							op( VoucherCodes.Fields.purchase_id ).
-//							eq( StatsPurchase.Fields.purchase_id ) 
-//						).
-//						where( op( VoucherCodes.Fields.redeemed_date ).is( NULL ) ).
-//						orderBy( VoucherCodes.Fields.code ).
-//						build();
-//		
-//		return getVoucherList( query );
-//		
-//	}
-//	
-//	public ArrayList<VoucherCodes> getPurchasedVoucherOnDate( Calendar date ) {
-//		
-//		SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
-//		
-//		String query = select().
-//						from( new VoucherCodes() ).
-//						join( new StatsPurchase() ).
-//						on( 
-//							op( VoucherCodes.Fields.purchase_id ).
-//							eq( StatsPurchase.Fields.purchase_id ) 
-//						).
-//						where(
-//							op( StatsPurchase.Fields.agg_date_time ).like( sdf.format( date.getTime() ) ),
-//							and( op( VoucherCodes.Fields.redeemed_date ).is( NULL ) )
-//						).
-//						orderBy( VoucherCodes.Fields.code ).
-//						build();
-//		
-//		return getVoucherList( query );
-//		
-//	}
-//	
-//	public ArrayList<VoucherCodes> getRedeemedVoucherOnDate( Calendar date) {
-//		
-//		SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd" );
-//		
-//		String query = select().
-//						from( new VoucherCodes() ).
-//						where(
-//							op( VoucherCodes.Fields.redeemed_date ).like( sdf.format( date.getTime() ) )
-//						).
-//						orderBy( VoucherCodes.Fields.code ).
-//						build();
-//		
-//		return getVoucherList( query );
-//		
-//	}
-//	
-//	public Integer getValidVouchers( Short offer_id, Integer hoursInterval ) throws SQLException {
-//		
-////		String query = select( 
-////							sum( "case when expiryDate > date_add( now(), INTERVAL " + hoursInterval + " HOUR ) and purchase_id is null then 1 else 0 end" ) 
-////						).
-////						from( new VoucherCodes() ).
-////						build();
-//		
-//		Integer validVouchers = null;
-//		
-//		String query = "select sum( case when expiryDate > date_add( now(), INTERVAL " + hoursInterval + " HOUR ) and purchase_id is null then 1 else 0 end) as valid from voucher_codes where offer_id = " + offer_id;
-//		
-//		System.out.println( query );
-//		
-//		ResultSet rs = this.getMysql().execQuery( query );
-//		
-//		while( rs.next() ) {
-//			
-//			validVouchers = rs.getInt( "valid" );
-//			
-//		}
-//		
-//		return validVouchers;
-//		
-//	}
-	
+	public ArrayList<CatalogOffers> getAllOneTimeUseCatalogOffers() {
+		
+		return getAllCatalogOffersByType( OfferType.oneTimeUse );	
+		
+	}
 
+	public ArrayList<CatalogOffers> getAllUnlimitedUseCatalogOffers() {
+		
+		return getAllCatalogOffersByType( OfferType.unlimitedUse );	
+		
+	}
+	
+	public CatalogOffers getSimpleCatalogOffersByName( String offerName ) {
+		
+		return getCatalogOffersByTypeAndName( OfferType.none, offerName );	
+		
+	}
+	
+	public CatalogOffers getOneTimeCatalogOffersByName( String offerName ) {
+		
+		return getCatalogOffersByTypeAndName( OfferType.oneTimeUse, offerName );	
+		
+	}
+
+	public CatalogOffers getUnlimitedCatalogOffersByName( String offerName ) {
+		
+		return getCatalogOffersByTypeAndName( OfferType.unlimitedUse, offerName );	
+		
+	}
+	
+	public ArrayList<CatalogOffers> getAllCatalogOffersByToken( Token token ) {
+		
+		String query = select().
+						from( new CatalogOffers() ).
+						join( new OffoptimCustomerItems() ).
+						on(
+							op( OffoptimCustomerItems.Fields.offer_id  ).
+							eq( CatalogOffers.Fields.offer_id ) 
+						).						
+						join( new OffoptimCustomerPack() ).
+						on( 
+							op( OffoptimCustomerPack.Fields.customer_offer_pack_id ).
+							eq( OffoptimCustomerItems.Fields.customer_offer_pack_id ) 
+						).
+						where( op( OffoptimCustomerPack.Fields.token_code ).eq( token.getTokenCode() ) ).
+						build(); 
+		
+		return getCatalogOffersList( query );	
+		
+	}
 	
 }

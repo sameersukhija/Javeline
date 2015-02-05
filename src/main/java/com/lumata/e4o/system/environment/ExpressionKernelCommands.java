@@ -7,32 +7,33 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
+import com.lumata.common.testing.network.RestClient;
 import com.lumata.common.testing.network.SFTPClient;
 import com.lumata.common.testing.network.SSHExecClient;
-import com.lumata.common.testing.system.Environment;
 import com.lumata.common.testing.system.KernelCommands;
+import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.Service;
-import com.lumata.common.testing.system.User;
+
 
 public class ExpressionKernelCommands extends KernelCommands {
 
 	private static final Logger logger = LoggerFactory.getLogger( ExpressionKernelCommands.class );
 	
+	Server server;
 	Service service;
 	String user;
 	
 	/** process statuses */
 	private enum ProcessStatus {
 		started,
-		stopped;			
+		stopped,
+		unknown;			
 	}
 	
 	/** process commands */
@@ -154,13 +155,27 @@ public class ExpressionKernelCommands extends KernelCommands {
 		this.service = service;
 		this.user = user;
 	}
+	
+	public ExpressionKernelCommands( Server server, Service service, String user ) {
+		this.server = server;
+		this.service = service;
+		this.user = user;
+	}
 
+	public Server getServer() {
+		return this.server;
+	}
+	
 	public Service getService() {
 		return this.service;
 	}
 
 	public String getUser() {
 		return this.user;
+	}
+	
+	public void setServer( Server server ) {
+		this.server = server;
 	}
 	
 	public void setService( Service service ) {
@@ -466,20 +481,20 @@ public class ExpressionKernelCommands extends KernelCommands {
 		
 		ArrayList<String> result = this.execCommand( ExpressionScript.expression.getSSHCommand( ProcessCommand.status ) );
 		
-		Pattern patter_started = Pattern.compile( "expression-server[ 0-9a-zA-Z()]+running" );
-		Pattern patter_stopped = Pattern.compile( "expression-server[ 0-9a-zA-Z()]+stopped" );
+		Pattern patter_started = Pattern.compile( "actrule is running" );
+		Pattern patter_stopped = Pattern.compile( "actrule is stopped" );
 		
 		for( int i = 0; i < result.size(); i++ ) {
 			
-			Matcher matcher_started = patter_started.matcher( result.get( i ) );
+			Matcher matcher_started = patter_started.matcher( result.get( i ).toLowerCase() );
 			if( matcher_started.find() ) { return ProcessStatus.started; }
 			
-			Matcher matcher_stopped = patter_stopped.matcher( result.get( i ) );
+			Matcher matcher_stopped = patter_stopped.matcher( result.get( i ).toLowerCase() );
 			if( matcher_stopped.find() ) { return ProcessStatus.stopped; }
 			
 		}
 		
-		return null;
+		return ProcessStatus.unknown;
 		
 	}
 
@@ -489,6 +504,19 @@ public class ExpressionKernelCommands extends KernelCommands {
 		if( this.expressionStatus().equals( ProcessStatus.stopped ) ) {
 		
 			this.execCommand( ExpressionScript.expression.getSSHCommand( ProcessCommand.start ) );
+			
+			long timeout = 120000;
+			
+			long sleep = 0;
+			
+			while( !guiStatus( server ).equals( 200 ) ) {
+				
+				try { Thread.sleep( 1000 ); } catch (InterruptedException e) {}
+				
+				sleep = sleep + 1000;
+				
+				if( sleep > timeout ) { break; }
+			}
 			
 			return this.expressionStatus().equals( ProcessStatus.started );
 		}		
@@ -583,6 +611,19 @@ public class ExpressionKernelCommands extends KernelCommands {
 		}
 				
 		return TaskStatus.UNDEFINED;
+		
+	}
+	
+	public Integer guiStatus( Server guiServer ) {
+		
+		RestClient restClient = new RestClient( guiServer.getLink() );
+		
+		try {
+			return restClient.get().getStatus();
+		} catch (Exception e) {
+			// Server error
+			return 503;
+		}
 		
 	}
 	

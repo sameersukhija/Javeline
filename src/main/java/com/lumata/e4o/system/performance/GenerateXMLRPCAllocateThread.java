@@ -75,7 +75,7 @@ public class GenerateXMLRPCAllocateThread implements Runnable {
 			        Thread.sleep( this.sleep );			        
 			    }
 			    Thread.yield();
-			
+			    
 			    if( requests < tokens.size() ) {
 					
 			    	XMLRPCRequest.offeroptimizer_allocate().call( 	

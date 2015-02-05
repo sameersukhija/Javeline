@@ -49,7 +49,7 @@ public class RunGenerateSubscriberXMLRPCPurchase {
 		
 		ArrayList<Subscribers> subscribers = DAOSubscribers.getInstance( mysql ).getSubscriberList();
 		
-		ArrayList<CatalogOffers> catalogOffersList = DAOCatalogOffers.getInstance( mysql ).getAllOneTimeCatalogOffers();
+		ArrayList<CatalogOffers> catalogOffersList = DAOCatalogOffers.getInstance( mysql ).getAllOneTimeUseCatalogOffers();
 		
 		if( null != subscribers &&
 			null != catalogOffersList &&	

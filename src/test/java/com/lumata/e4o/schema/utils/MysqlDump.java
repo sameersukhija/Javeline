@@ -43,7 +43,14 @@ import com.lumata.e4o.schema.tenant.CatalogProductTypes;
 import com.lumata.e4o.schema.tenant.CatalogProducts;
 import com.lumata.e4o.schema.tenant.CatalogRelatedOffers;
 import com.lumata.e4o.schema.tenant.CatalogRelatedProducts;
+import com.lumata.e4o.schema.tenant.FilesData;
+import com.lumata.e4o.schema.tenant.FilesMeta;
 import com.lumata.e4o.schema.tenant.KpiCampaign;
+import com.lumata.e4o.schema.tenant.LoyaltyBadges;
+import com.lumata.e4o.schema.tenant.LoyaltyBadgesTypes;
+import com.lumata.e4o.schema.tenant.LoyaltyClasses;
+import com.lumata.e4o.schema.tenant.LoyaltyPrograms;
+import com.lumata.e4o.schema.tenant.LoyaltySubsTest;
 import com.lumata.e4o.schema.tenant.OfferStock;
 import com.lumata.e4o.schema.tenant.OffoptimAlgorithm;
 import com.lumata.e4o.schema.tenant.OffoptimCustomerItems;
@@ -54,9 +61,13 @@ import com.lumata.e4o.schema.tenant.OffoptimOfferHistory;
 import com.lumata.e4o.schema.tenant.OffoptimRuleset;
 import com.lumata.e4o.schema.tenant.OffoptimRulesetRequestor;
 import com.lumata.e4o.schema.tenant.RecommendedCampaigns;
+import com.lumata.e4o.schema.tenant.SalesChannels;
+import com.lumata.e4o.schema.tenant.SetHobbies;
+import com.lumata.e4o.schema.tenant.SetOptions;
 import com.lumata.e4o.schema.tenant.StatsCampaign;
 import com.lumata.e4o.schema.tenant.StatsCampaignArchive;
 import com.lumata.e4o.schema.tenant.StatsOffer;
+import com.lumata.e4o.schema.tenant.StatsPurchase;
 import com.lumata.e4o.schema.tenant.StatsSubs;
 import com.lumata.e4o.schema.tenant.StatsSubsAccount;
 import com.lumata.e4o.schema.tenant.StatsSubsAccountOld;
@@ -77,6 +88,12 @@ import com.lumata.e4o.schema.tenant.SubsRelations;
 import com.lumata.e4o.schema.tenant.SubsVoice;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.schema.tenant.SubscribersAll;
+import com.lumata.e4o.schema.tenant.Token;
+import com.lumata.e4o.schema.tenant.TokenEvent;
+import com.lumata.e4o.schema.tenant.TokenLabel;
+import com.lumata.e4o.schema.tenant.TokenType;
+import com.lumata.e4o.schema.tenant.VoucherCodeUnlimited;
+import com.lumata.e4o.schema.tenant.VoucherCodes;
 
 
 public class MysqlDump {
@@ -91,6 +108,8 @@ public class MysqlDump {
 		
 		CampaignManager,
 		CatalogManager,
+		LoyaltyManager,
+		Files,
 		OfferOptmizer,
 		Subscribers,
 		Subs,
@@ -115,7 +134,20 @@ public class MysqlDump {
 	@Test( enabled = true )
 	public void mysqldump() throws IOFileException, FieldException, IOException, InterruptedException {
 		
-		MysqlUtils.dump( mysql, "backup_regression.sql", getTables( E4OManagers.CatalogManager, E4OManagers.OfferOptmizer ) );
+		MysqlUtils.dump( 
+				mysql, 
+				"backup_regression.sql", 
+				getTables( 
+						E4OManagers.CampaignManager,
+						E4OManagers.CatalogManager, 
+						E4OManagers.LoyaltyManager,
+						E4OManagers.Files,
+						E4OManagers.OfferOptmizer,
+						E4OManagers.Subscribers,
+						E4OManagers.Subs,
+						E4OManagers.Stats						
+				) 
+		);
 			
 	}
 	
@@ -133,6 +165,14 @@ public class MysqlDump {
 				}
 				case CatalogManager: {
 					tables.addAll( getCatalogManagerTables() );					
+					break;
+				}
+				case LoyaltyManager: {
+					tables.addAll( getLoyaltyManagerTables() );					
+					break;
+				}
+				case Files: {
+					tables.addAll( getFilesTables() );					
 					break;
 				}
 				case OfferOptmizer: {
@@ -191,7 +231,8 @@ public class MysqlDump {
 	private ArrayList<Object> getCatalogManagerTables() {
 		
 		ArrayList<Object> tables = new ArrayList<Object>();
-		
+				
+		tables.add( new SalesChannels() );
 		tables.add( new CatalogOfferContent() );
 		tables.add( new CatalogOfferPrice() );	
 		tables.add( new CatalogOfferPriceChannels() );
@@ -206,6 +247,38 @@ public class MysqlDump {
 		tables.add( new CatalogRelatedProducts() );
 		tables.add( new OfferStock() );
 		tables.add( new StatsOffer() );
+		tables.add( new Token() );
+		tables.add( new TokenEvent() );
+		tables.add( new TokenLabel() );
+		tables.add( new TokenType() );
+		tables.add( new StatsPurchase() );
+		tables.add( new VoucherCodeUnlimited() );
+		tables.add( new VoucherCodes() );
+		
+		return tables;
+		
+	}
+	
+	private ArrayList<Object> getLoyaltyManagerTables() {
+	
+		ArrayList<Object> tables = new ArrayList<Object>();
+		
+		tables.add( new LoyaltyBadges() );
+		tables.add( new LoyaltyBadgesTypes() );	
+		tables.add( new LoyaltyClasses() );
+		tables.add( new LoyaltyPrograms() );
+		tables.add( new LoyaltySubsTest() );
+		
+		return tables;
+		
+	}
+	
+	private ArrayList<Object> getFilesTables() {
+		
+		ArrayList<Object> tables = new ArrayList<Object>();
+		
+		tables.add( new FilesMeta() );
+		tables.add( new FilesData() );	
 		
 		return tables;
 		
@@ -233,8 +306,10 @@ public class MysqlDump {
 		ArrayList<Object> tables = new ArrayList<Object>();
 		
 		tables.add( new Subscribers() );
-		tables.add( new SubscribersAll() );	
-		
+		tables.add( new SubscribersAll() );
+		tables.add( new SetOptions() );
+		tables.add( new SetHobbies() );
+				
 		return tables;
 		
 	}
@@ -245,7 +320,6 @@ public class MysqlDump {
 		
 		tables.add( new SubsBadges() );
 		tables.add( new SubsClasses() );	
-		tables.add( new SubsBadges() );
 		tables.add( new SubsData() );	
 		tables.add( new SubsNotif() );
 		tables.add( new SubsRelations() );	

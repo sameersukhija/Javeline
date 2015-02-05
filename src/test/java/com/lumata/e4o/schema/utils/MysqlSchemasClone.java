@@ -1,12 +1,9 @@
 package com.lumata.e4o.schema.utils;
 
-import java.lang.reflect.Constructor;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,11 +20,10 @@ import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.e4o.schema.tenant.Agencies;
 import com.lumata.e4o.schema.tenant.CampaignTypes;
 import com.lumata.e4o.schema.tenant.Campaigns;
 import com.lumata.e4o.schema.tenant.CatalogOffers;
-import com.lumata.e4o.schema.tenant.Subscribers;
+
 
 public class MysqlSchemasClone {
 	
@@ -51,9 +47,9 @@ public class MysqlSchemasClone {
 		
 		logger.debug( Log.LOADING.createMessage( "init" , "environment" ) );
 
-		env_orig = "E4O_O2_STG_NE";
+		//env_orig = "E4O_O2_STG_NE";
 		
-		//env_orig = "E4O_QA2_NE";
+		env_orig = "E4O_QA2_NE";
 		
 		env_dest = "E4O_QA3_NE";
 		

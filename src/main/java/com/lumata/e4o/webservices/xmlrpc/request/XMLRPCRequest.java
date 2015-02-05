@@ -560,9 +560,9 @@ public class XMLRPCRequest {
 					throw new AssertionError( "the validator " + validator.getTag() + " is not valid for the current response " );
 					
 				}
-				
-				validation = validator.getMatcher().matches( actual );
-				
+								
+				validation = expected.equals( actual );
+								
 				String errorMessage = ASSERTION_ERROR_.
 						replace( "${tag}" , validator.getTag().trim() ).
 						replace( "${expected}", expected ).

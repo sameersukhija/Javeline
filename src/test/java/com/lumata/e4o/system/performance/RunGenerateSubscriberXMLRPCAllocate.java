@@ -20,7 +20,8 @@ public class RunGenerateSubscriberXMLRPCAllocate {
 		
 	ArrayList<GenerateXMLRPCAllocateThread> threads;
 	
-	final int N_THREADS = 5;
+	final int START_MSISDN = 0;
+	final int N_THREADS = 10;
 	final int THREAD_SLEEP = 0;
 	final int EXECUTION_TIME = 120000;
 	
@@ -54,7 +55,7 @@ public class RunGenerateSubscriberXMLRPCAllocate {
 		
 			Thread.currentThread().setPriority(Thread.MAX_PRIORITY);	
 					
-			for( int i = 0; i < N_THREADS; i++ ) {
+			for( int i = START_MSISDN; i < START_MSISDN + N_THREADS; i++ ) {
 			    
 				Long msisdn = subscribers.get( i ).getMsisdn();
 				
@@ -75,7 +76,7 @@ public class RunGenerateSubscriberXMLRPCAllocate {
 		
 		try {
 			
-			Thread.sleep( EXECUTION_TIME );
+			if( threads.size() > 0 ) { Thread.sleep( EXECUTION_TIME ); }
 		
 		} catch (Exception e){}
 		
@@ -85,7 +86,7 @@ public class RunGenerateSubscriberXMLRPCAllocate {
 		
 		for( int i = 0; i < N_THREADS; i++ ) {
 			
-			threads.get( i ).stopThread();
+			if( null != threads.get( i ) ) { threads.get( i ).stopThread(); }
 			
 		}	
 		
@@ -99,16 +100,19 @@ public class RunGenerateSubscriberXMLRPCAllocate {
 		
 		for( int i = 0; i < N_THREADS; i++ ) {
 			
-			total = total + threads.get( i ).getRequestsCount();
-			
-			result.append( "Thread ( " )
-					.append( i )
-					.append( " ) -> requests: " )
-					.append( threads.get( i ).getRequestsCount() )
-					.append( " - fails: " )
-					.append( threads.get( i ).getFailsCount() )
-					.append( "\n" );
-			
+			if( null != threads.get( i ) ) {
+				
+				total = total + threads.get( i ).getRequestsCount();
+				
+				result.append( "Thread ( " )
+						.append( i )
+						.append( " ) -> requests: " )
+						.append( threads.get( i ).getRequestsCount() )
+						.append( " - fails: " )
+						.append( threads.get( i ).getFailsCount() )
+						.append( "\n" );
+				
+			}
 		}
 		
 		System.out.println( "\nTotal: " + total + "\n" + result.toString() );

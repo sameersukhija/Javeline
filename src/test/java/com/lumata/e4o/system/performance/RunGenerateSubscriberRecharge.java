@@ -10,8 +10,6 @@ import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
-import com.lumata.e4o.schema.tenant.CatalogOffers;
-import com.lumata.e4o.dao.tenant.DAOCatalogOffers;
 
 
 public class RunGenerateSubscriberRecharge {
@@ -20,7 +18,8 @@ public class RunGenerateSubscriberRecharge {
 		
 	ArrayList<GenerateSubscriberRechargeThread> threads;
 	
-	final int N_THREADS = 5;
+	final int START_MSISDN = 0;
+	final int N_THREADS = 10;
 	final int THREAD_SLEEP = 0;
 	final int EXECUTION_TIME = 120000;
 	
@@ -47,18 +46,14 @@ public class RunGenerateSubscriberRecharge {
 	private void initializeThreads() {
 		
 		ArrayList<Subscribers> subscribers = DAOSubscribers.getInstance( mysql ).getSubscriberList();
-		
-		ArrayList<CatalogOffers> catalogOffersList = DAOCatalogOffers.getInstance( mysql ).getAllOneTimeCatalogOffers();
-			
+				
 		if( null != subscribers &&
-			null != catalogOffersList &&	
-			subscribers.size() > 0 &&
-			catalogOffersList.size() > 0
+			subscribers.size() > 0			
 		) {
-		
+			
 			Thread.currentThread().setPriority(Thread.MAX_PRIORITY);	
 					
-			for( int i = 0; i < N_THREADS; i++ ) {
+			for( int i = START_MSISDN; i < START_MSISDN + N_THREADS; i++ ) {
 			    			
 				GenerateSubscriberRechargeThread t = new GenerateSubscriberRechargeThread( ( i + 1 ), Thread.MAX_PRIORITY, THREAD_SLEEP, guiServer, superman, subscribers.get( i ).getMsisdn() );
 				t.startThread();
@@ -75,7 +70,7 @@ public class RunGenerateSubscriberRecharge {
 		
 		try {
 			
-			Thread.sleep( EXECUTION_TIME );
+			if( threads.size() > 0 ) { Thread.sleep( EXECUTION_TIME ); }
 		
 		} catch (Exception e){}
 		
@@ -85,9 +80,13 @@ public class RunGenerateSubscriberRecharge {
 		
 		for( int i = 0; i < N_THREADS; i++ ) {
 			
-			threads.get( i ).stopThread();
+			if( null != threads.get( i ) ) {
+				
+				threads.get( i ).stopThread();
 			
-		}	
+			}
+			
+		}		
 		
 	}
 		
@@ -99,20 +98,24 @@ public class RunGenerateSubscriberRecharge {
 		
 		for( int i = 0; i < N_THREADS; i++ ) {
 			
-			total = total + threads.get( i ).getRequestsCount();
+			if( null != threads.get( i ) ) {
 			
-			result.append( "Thread ( " )
-					.append( i )
-					.append( " ) -> requests: " )
-					.append( threads.get( i ).getRequestsCount() )
-					.append( " - fails: " )
-					.append( threads.get( i ).getFailsCount() )
-					.append( "\n" );
-			
+				total = total + threads.get( i ).getRequestsCount();
+				
+				result.append( "Thread ( " )
+						.append( i )
+						.append( " ) -> requests: " )
+						.append( threads.get( i ).getRequestsCount() )
+						.append( " - fails: " )
+						.append( threads.get( i ).getFailsCount() )
+						.append( "\n" );
+				
+			}
+		
 		}
 		
 		System.out.println( "\nTotal: " + total + "\n" + result.toString() );
-		
+			
 	}
 	
 	public static void main(String args[]) throws NetworkEnvironmentException {
