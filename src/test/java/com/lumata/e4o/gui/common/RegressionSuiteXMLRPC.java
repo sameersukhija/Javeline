@@ -21,8 +21,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Map.Entry;
@@ -973,6 +975,27 @@ public class RegressionSuiteXMLRPC extends RegressionSuiteXmlrpcCore {
 		Assert.assertTrue( !existSubscriber(msisdn) , "Subscriber " + msisdn + " is STILL present into DB application after XMLRPC detele!");
 
 		Reporter.log( "The subscriber "+ msisdn +" was deleted.", PRINT2STDOUT__);
+	}
+	
+	@Test
+	@Parameters("msisdnList")
+	public void deleteSubscriberList(@Optional("393492135010") String msisdnList) throws XMLRPCParserException {
+
+		Reporter.log( "Delete via XMLRPC a list of msisdn -> " + msisdnList, PRINT2STDOUT__);
+		
+		List<String> list = Arrays.asList(msisdnList.split(";"));  
+		
+		for (String msisdn : list) {
+			Reporter.log( "Delete via XMLRPC an existing msisdn -> " + msisdn, PRINT2STDOUT__);
+			
+			Assert.assertTrue( existSubscriber(msisdn) , "Subscriber " + msisdn + " is NOT present into DB application!");
+
+			deleteViaXmlrpc(msisdn);
+			
+			Assert.assertTrue( !existSubscriber(msisdn) , "Subscriber " + msisdn + " is STILL present into DB application after XMLRPC detele!");
+
+			Reporter.log( "The subscriber "+ msisdn +" was deleted.", PRINT2STDOUT__);
+		}
 	}
 
 	/**
