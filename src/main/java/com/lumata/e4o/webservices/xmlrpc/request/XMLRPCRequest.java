@@ -308,6 +308,10 @@ public class XMLRPCRequest {
 			}
 			
 			logger.info( Log.GETTING.createMessage( "Response: " + response.getResponse().getEntity().toString() ) );
+
+			if( storeRequest ) { storeRequestFile(); }
+			
+			if( storeResponse ) { storeResponseFile(); }
 			
 			validate();
 				
@@ -326,11 +330,7 @@ public class XMLRPCRequest {
 			System.out.println( "AVERAGE: " + average );
 			
 		}
-		
-		if( storeRequest ) { storeRequestFile(); }
-		
-		if( storeResponse ) { storeResponseFile(); }
-		
+	
 		return response;
 		
 	};
