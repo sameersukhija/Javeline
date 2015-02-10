@@ -282,10 +282,10 @@ public class ActiveMQ {
 			Message message = messageList.get( m );
 					
 			ObjectMessage objMessage = (ObjectMessage) message;
-			
-			if( objMessage.getObject() instanceof SmsNotification ) {
+					
+			if( objMessage.getObject() instanceof DialogManagerMessage ) {
 				
-				SmsNotification sms = (SmsNotification) objMessage.getObject();
+				DialogManagerMessage sms = (DialogManagerMessage) objMessage.getObject();
 				
 				String mtTable = getMtTableName( message );			
 				
@@ -301,20 +301,23 @@ public class ActiveMQ {
 						.append( "SELECT " )
 						.append( codeId )
 						.append( ", NOW(), NOW(), DATE_ADD( NOW(), INTERVAL 2 HOUR ), 'user', 'e4O', '10.120.8.31', '+" )
-						.append( sms.getRecipient() )
+						.append( sms.getAllNotifLogs().get( "identifier" ) )
 						.append( "', '" )
-						.append( sms.getSenderName() )
+						.append( sms.getSender().getSender() )
 						.append( "', '" )
-						.append( sms.getTextMessage() )
+						.append( sms.getMessageContent() )
 						.append( "', 'E4O', '', '', 0, UUID(), '', 'SMS', 'MAP2_LMBLOX', '1', '', 'TransID=608c3d87&notificationId=" )
-						.append( sms.getUniqueNotificationId() ) 
+						.append( sms.getIdentifier().getMessageId() ) 
 						.append( "', NOW() FROM DUAL WHERE NOT EXISTS ( SELECT notes FROM " )
 						.append( mtTable )
 						.append( " WHERE notes = 'TransID=608c3d87&notificationId=" )
-						.append( sms.getUniqueNotificationId() )
-						.append( "' ) LIMIT 1;" );
+						.append( sms.getIdentifier().getMessageId() )
+						.append( "' ) LIMIT 1;" 
+				);
 											
-						mysql.execUpdate( query.toString() );
+				System.out.println( query );
+				
+				mysql.execUpdate( query.toString() );
 					
 			}
 			
