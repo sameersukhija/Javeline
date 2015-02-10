@@ -38,7 +38,7 @@ public class SMSInsertMTFeedback {
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-			
+		
 		activeMQ = new ActiveMQ( env.getActiveMQService( activeMQService ) );				
 	
 	}
@@ -60,7 +60,7 @@ public class SMSInsertMTFeedback {
 		
 		if( messageList != null || messageList.size() > 0 ) {
 			
-			activeMQ.addMTFeedback( env.getDataSource( "jmailer_it" ), messageList );
+			activeMQ.addMTFeedback( env.getDataSource( "jmailer" ), messageList );
 						
 		}
 		
