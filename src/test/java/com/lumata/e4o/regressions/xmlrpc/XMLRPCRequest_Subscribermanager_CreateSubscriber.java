@@ -1,4 +1,4 @@
-package com.lumata.e4o.testplan.functional.webservices.xmlrpc;
+package com.lumata.e4o.regressions.xmlrpc;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,6 +49,7 @@ import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
 import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.*;
+
 
 public class XMLRPCRequest_Subscribermanager_CreateSubscriber {
 	

@@ -1,4 +1,4 @@
-package com.lumata.e4o.testplan.functional.webservices.xmlrpc;
+package com.lumata.e4o.regressions.xmlrpc;
 
 import static org.hamcrest.Matchers.*;
 
