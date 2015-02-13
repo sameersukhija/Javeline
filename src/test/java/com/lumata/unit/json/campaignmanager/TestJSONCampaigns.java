@@ -7,13 +7,14 @@ import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaigns;
+import com.lumata.e4o.json.gui.common.JSONEvents;
 
 public class TestJSONCampaigns {
 	 
 	@Test
 	public void testJSONCampaigns() throws JSONSException {
 		 
-		 JSONCampaigns campaigns = new JSONCampaigns( "input/campaignmanager/campaigns", "campaignCMTemplate" );
+		 JSONCampaigns campaigns = new JSONCampaigns( "input/campaignmanager/campaigns", "testCampaignCMTemplate" );
 		 
 		 Assert.assertTrue( campaigns.size() > 0 );
 		 
@@ -36,20 +37,20 @@ public class TestJSONCampaigns {
 		 Assert.assertEquals( campaigns.get( 0 ).schedulingTypeOfRecurrence(), "Multiple" );
 		 
 		 /** SCHEDULING SINGLE */
-		 Assert.assertEquals( campaigns.get( 0 ).schedulingSingleExecutionStart(), "2014-05-01" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingSingleExecutionStart(), "2015-05-01" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).schedulingSingleExecutionEndType(), "Relative" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingSingleExecutionEndType(), "Absolute" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).schedulingSingleExecutionEndValue(), "1" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingSingleExecutionEndValue(), "2015-05-31" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).schedulingSingleProvisioningStart(), "2014-05-01" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingSingleProvisioningStart(), "2015-05-01" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).schedulingSingleProvisioningEnd(), "2014-05-01" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingSingleProvisioningEnd(), "2015-05-27" );
 		 
 		 Assert.assertEquals( campaigns.get( 0 ).schedulingSingleDaysBetweenProvisioningAndStartDates(), "2" );
 		 
 		 /** SCHEDULING MULTIPLE */
-		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleRecurrencePattern(), "Weekly" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleRecurrencePattern(), "Monthly" );
 		 
 		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleRecurrencePatternWeeklyRecurEveryWeek(), "2" );
 		 
@@ -63,9 +64,9 @@ public class TestJSONCampaigns {
 		 
 		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleStartDate(), "2014-05-04" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleRangeOfRecurrenceType(), "No end Date" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleRangeOfRecurrenceType(), "EndDate" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleRangeOfRecurrenceValue(), "" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleRangeOfRecurrenceValue(), "2014-05-05" );
 		 
 		 /** DIALOGUE */
 		 Assert.assertTrue( campaigns.get( 0 ).hasDialogueSettings() );
@@ -85,11 +86,17 @@ public class TestJSONCampaigns {
 		 /** TARGET */
 		 Assert.assertTrue( campaigns.get( 0 ).hasTargetSettings() );
 		 
+		 JSONEvents events = campaigns.get( 0 ).campaignTargetOpenedSubscriberRestrictionsEvents();
+		 
+		 System.out.println( events.get( 0 ).eventType() );
+		 
+		 //System.out.println( events );
+		 	 
 		 /** LIMIT */
 		 Assert.assertFalse( campaigns.get( 0 ).hasLimitSettings() );
 		 		 
 		 /** ACTIVATION */
-		 Assert.assertFalse( campaigns.get( 0 ).hasActivationSettings() );
+		 Assert.assertTrue( campaigns.get( 0 ).hasActivationSettings() );
 		 
 	 }
  

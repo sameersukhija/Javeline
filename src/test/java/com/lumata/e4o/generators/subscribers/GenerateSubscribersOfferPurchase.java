@@ -63,7 +63,7 @@ public class GenerateSubscribersOfferPurchase {
 	@Test( enabled = GENERATE_FIXED_SUBSCRIBER )
 	public void generateFixedSubscriber() throws GeneratorException {
 		
-		short offerId = 1004;
+		short offerId = 2;
 		
 		ArrayList<OfferStock> offerStock = DAOOfferStock.getInstance( mysql ).getOfferStockByOffer( offerId );
 		

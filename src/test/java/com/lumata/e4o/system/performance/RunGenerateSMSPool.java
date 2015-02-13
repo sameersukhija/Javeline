@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
-import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.e4o.notification.dialogmanager.DialogManagerConnection;
 import com.lumata.e4o.system.performance.GenerateSMSThreadPool;
 
 public class RunGenerateSMSPool {
 
-	private static final Logger logger = LoggerFactory.getLogger( RunGenerateSMSPool.class );
+//	private static final Logger logger = LoggerFactory.getLogger( RunGenerateSMSPool.class );
 		
 	ArrayList<GenerateSMSThreadPool> smsThreadPool;
 	
@@ -98,7 +97,7 @@ public class RunGenerateSMSPool {
 		
 	}
 		
-	public static void main(String args[]) throws EnvironmentException, IOFileException {
+	public static void main(String args[]) throws IOFileException {
 		
 		RunGenerateSMSPool generateSMS = new RunGenerateSMSPool();
 		

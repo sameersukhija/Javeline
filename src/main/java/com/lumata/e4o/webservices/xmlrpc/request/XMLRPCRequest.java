@@ -308,6 +308,10 @@ public class XMLRPCRequest {
 			}
 			
 			logger.info( Log.GETTING.createMessage( "Response: " + response.getResponse().getEntity().toString() ) );
+
+			if( storeRequest ) { storeRequestFile(); }
+			
+			if( storeResponse ) { storeResponseFile(); }
 			
 			validate();
 				
@@ -326,11 +330,7 @@ public class XMLRPCRequest {
 			System.out.println( "AVERAGE: " + average );
 			
 		}
-		
-		if( storeRequest ) { storeRequestFile(); }
-		
-		if( storeResponse ) { storeResponseFile(); }
-		
+	
 		return response;
 		
 	};
@@ -521,7 +521,7 @@ public class XMLRPCRequest {
 				
 				Object actual = null;
 				
-				String expected = validator.getMatcher().toString();
+				String expected = String.valueOf( validator.getMatcher().toString() );
 				
 				try {
 					
@@ -529,7 +529,7 @@ public class XMLRPCRequest {
 
 						case "Long": {
 							
-							actual = xmlPath.getLong( validator.getPath() );
+							actual = String.valueOf( xmlPath.getLong( validator.getPath() ) );
 							
 							expected = Format.toNumeric( expected );
 							
@@ -537,7 +537,7 @@ public class XMLRPCRequest {
 						}
 						case "Integer": {
 							
-							actual = xmlPath.getInt( validator.getPath() );
+							actual = String.valueOf( xmlPath.getInt( validator.getPath() ) );
 							
 							expected = Format.toNumeric( expected );
 							
@@ -545,12 +545,12 @@ public class XMLRPCRequest {
 						}
 						case "String": {
 							
-							actual = xmlPath.getString( validator.getPath() );	
+							actual = '"' + xmlPath.getString( validator.getPath() ) + '"';	
 							
 							break;
 						}
 						default: {
-							actual = xmlPath.get( validator.getPath()  );
+							actual = xmlPath.get( validator.getPath() );
 						}
 					
 					}
@@ -561,8 +561,8 @@ public class XMLRPCRequest {
 					
 				}
 				
-				validation = validator.getMatcher().matches( actual );
-				
+				validation = expected.equals( actual );
+								
 				String errorMessage = ASSERTION_ERROR_.
 						replace( "${tag}" , validator.getTag().trim() ).
 						replace( "${expected}", expected ).

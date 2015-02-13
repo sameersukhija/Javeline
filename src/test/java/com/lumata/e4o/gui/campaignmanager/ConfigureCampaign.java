@@ -13,7 +13,6 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.log.Log;
@@ -23,7 +22,6 @@ import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.e4o.exceptions.CampaignException;
-import com.lumata.e4o.exceptions.CommoditiesException;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaigns;
@@ -42,7 +40,7 @@ public class ConfigureCampaign {
 	/* 	Initialize Environment */
 	@Parameters({"browser", "environment", "gui_server", "tenant", "user"})
 	@BeforeClass
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment, @Optional("actrule") String gui_server, @Optional("qa") String tenant, @Optional("superman") String user ) throws CommoditiesException, JSONSException, IOFileException, NetworkEnvironmentException, FormException {		
+	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_VM_NE") String environment, @Optional("actrule") String gui_server, @Optional("tenant") String tenant, @Optional("superman") String user ) throws NetworkEnvironmentException, FormException   {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
@@ -67,18 +65,13 @@ public class ConfigureCampaign {
 		seleniumWebDriver.setTestName( method.getName() ); 	
 	}
 	
-	@Parameters({"tenant"})
+	@Parameters({"campaignFile"})
 	@Test(enabled=true, priority = 1 )
-	public void loadCampaigns() throws CampaignException, JSONSException, FormException, JSONException {
+	public void loadCampaigns(@Optional("campaignCMTemplate") String campaignFile) throws CampaignException, JSONSException, FormException, JSONException {
 		
-		CampaignsForm campaignForm = new CampaignsForm( seleniumWebDriver, new JSONCampaigns( "input/campaignmanager/campaigns", "campaignCMTemplate" ), TIMEOUT, ATTEMPT_TIMEOUT );
+		CampaignsForm campaignForm = new CampaignsForm( seleniumWebDriver, new JSONCampaigns( "input/campaignmanager/campaigns", campaignFile ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		campaignForm.open().addCampaigns();
-		
-		
-		//Assert.assertTrue( CampaignCreationForm.open(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT) );		
-		//Assert.assertTrue( CampaignCreationForm.create(seleniumWebDriver, new CampaignCfg( "input/campaigns", "campaign_cm_bonus", IOLoadingType.RESOURCE ), TIMEOUT, ATTEMPT_TIMEOUT) );
-				
+		Assert.assertTrue( campaignForm.open().addCampaigns().navigate() );
 	}
 	
 	@AfterClass

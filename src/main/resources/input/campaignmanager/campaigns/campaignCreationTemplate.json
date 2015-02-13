@@ -1,0 +1,149 @@
+{
+	"campaigns": [
+		{
+			"enabled": true,
+			"name": "Campaign Notification",
+			"description": "EFOGC-3317",
+			"definition": {
+				"executionMode": "Notification",
+				"campaignModel": "CMTemplate",
+				"campaignType": "No type",
+				"byPassMediaType": true
+			},
+			"scheduling": {
+				"typeOfRecurrence": "Multiple",
+				"singleRecurrence": {
+					"executionStart": "2015-05-01",
+					"executionEndType": "Absolute",
+					"executionEndValue": "2015-05-31",
+					"provisioningStart": "2015-05-01",
+					"provisioningEnd": "2015-05-27",
+					"daysBetweenProvisioningAndExecutionStartDates": "2"
+				},
+				"multipleRecurrence": {
+					"recurrencePattern": "Monthly",
+					"recurrencePatternWeekly": {
+						"recurEveryWeek": "2",
+						"recurEveryDay": [ "M", "Th" ] 
+					},
+					"recurrencePatternMonthly": {
+						"daySettingType": "GeneralDay",
+						"simpleDay": {
+							"recurEveryDay": "28",
+							"recurEveryMonth": "2"
+						},
+						"generalDay": {
+							"recurEveryOrdinalDay": "Second",
+							"recurEveryDay": "Friday",
+							"recurEveryMonth": "6"
+						}						 
+					},
+					"provisionigDuration": "2",
+					"daysBetweenProvisioningAndExecutionStartDate": "2",
+					"executionDuration": "5",
+					"startDate": "2015-05-04",
+					"rangeOfRecurrenceType": "EndDate",
+					"rangeOfRecurrenceValue": "@2015-05-05+2month"
+				}
+			},
+			"dialogue": {
+				"channel": {
+					"shortCode": null,
+					"emailAddress": null				
+				},
+				"notification": {
+					"daysOfNotificationBeforeExecution": "5",
+					"messages": null,
+					"applyCampaignToNotifiedOnly": true,	
+					"time": "10:00"			
+				}
+			},
+			"target": {
+				"targetingMode": "Restricted",
+				"targetingOpened": {
+					"subscriberProfileRestrictions": null,
+					"subscriberRestrictions": [
+						{
+							"eventType": ""						
+						}
+					]				
+				},
+				"targetingRestricted": {
+					"mode": "Criteria",
+					"modeCriteria": null,
+					"downloadEligibleSubscribers": false,
+					"sampleType": "NoSample",
+					"sampleValue": "",
+					"sampleValueType": ""														
+				}
+			},	
+			"limit": null,
+			"activation": {
+				"action": "Save"
+			},		
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "Campaign Model",
+			"description": "EFOGC-3166",
+			"definition": {
+				"executionMode": "Model",
+				"campaignModel": "CM-One",
+				"campaignType": "No type",
+				"byPassMediaType": true
+			},
+			"scheduling": {
+				"typeOfRecurrence": "Single",
+				"singleRecurrence": {
+					"executionStart": "@current",
+					"executionEndType": "Absolute",
+					"executionEndValue": "@current+2month",
+					"provisioningStart": "@current",
+					"provisioningEnd": "@current+14day",
+					"daysBetweenProvisioningAndExecutionStartDates": "0"
+				},
+				"multipleRecurrence": null
+			},
+			"dialogue": {
+				"channel": {
+					"shortCode": null,
+					"emailAddress": null
+				},
+				"notification": {
+					"daysOfNotificationBeforeExecution": "0",
+					"messages": null,
+					"applyCampaignToNotifiedOnly": false,
+					"time": "10:00"			
+				}
+			},
+			"target": {
+				"targetingMode": "Restricted",
+				"targetingOpened": {
+					"subscriberProfileRestrictions": null,
+					"subscriberRestrictions": [
+						{
+							"eventType": ""
+						}
+					]				
+				},
+				"targetingRestricted": {
+					"mode": "Criteria",
+					"modeCriteria": null,
+					"downloadEligibleSubscribers": false,
+					"sampleType": "NoSample",
+					"sampleValue": "",
+					"sampleValueType": ""
+				}
+			},	
+			"limit": null,
+			"activation": {
+				"action": "Save"
+			},
+			"delete": false
+		}
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+}

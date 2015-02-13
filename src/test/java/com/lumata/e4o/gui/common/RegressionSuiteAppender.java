@@ -8,15 +8,18 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.e4o.exceptions.CampaignException;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.administrationmanager.SalesChannelsForm;
 import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
+import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
 import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.SuppliersForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.gui.common.ParentUITestCase;
 import com.lumata.e4o.json.gui.administrationmanager.JSONSalesChannels;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCampaigns;
 import com.lumata.e4o.json.gui.catalogmanager.JSONRules;
 import com.lumata.e4o.json.gui.catalogmanager.JSONSuppliers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
@@ -122,4 +125,21 @@ public class RegressionSuiteAppender extends ParentUITestCase {
 		);		
 				
     }
+	
+	@Parameters({"campaignFile"})
+	@Test( priority = 5 )
+	public void configureCampaign(@Optional("campaignCreationTemplate") String campaignFile) throws CampaignException, JSONSException, FormException, JSONException {
+
+		resourcePath = "input/campaignmanager/campaigns";
+		fileName = campaignFile;
+		
+		Reporter.log( "Configure Campaign with reosurce file : ", PRINT2STDOUT__);
+		Reporter.log( "Resource path -> " + resourcePath, PRINT2STDOUT__);
+		Reporter.log( "Resource file -> " + fileName, PRINT2STDOUT__);		
+		
+		CampaignsForm campaignForm = new CampaignsForm( seleniumWebDriver, new JSONCampaigns( resourcePath, fileName ), TIMEOUT, ATTEMPT_TIMEOUT );
+		
+		Assert.assertTrue( campaignForm.open().addCampaigns().navigate() );
+	}
+	
 }

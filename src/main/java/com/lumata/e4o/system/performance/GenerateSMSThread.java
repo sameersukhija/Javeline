@@ -7,8 +7,8 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.ObjectMessage;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import com.lumata.e4o.notification.dialogmanager.DialogManagerConnection;
 import com.lumata.e4o.notification.dialogmanager.DialogManagerMessageUtils;
@@ -16,7 +16,7 @@ import com.lumatagroup.expression.e4o.commons.jms.message.DialogManagerMessage;
 
 public class GenerateSMSThread implements Runnable {
 
-	private static final Logger logger = LoggerFactory.getLogger( GenerateSMSThread.class );
+	//private static final Logger logger = LoggerFactory.getLogger( GenerateSMSThread.class );
 	
 	private Thread t;
 	private volatile boolean running = true;
@@ -51,6 +51,18 @@ public class GenerateSMSThread implements Runnable {
 	public int getFailsCount() {
 		
 		return this.fails;
+		
+	}
+	
+	public long getLeftInterval() {
+		
+		return this.interval_left;
+		
+	}
+
+	public long getRightInterval() {
+		
+		return this.interval_right;
 		
 	}
 	

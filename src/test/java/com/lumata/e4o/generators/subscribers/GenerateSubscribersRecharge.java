@@ -58,7 +58,7 @@ public class GenerateSubscribersRecharge {
 	public void generateFixedSubscriber() throws GeneratorException {
 		
 		final Long FIXED_MSISDN = 3399900001L;
-		final Long RECHARGE_TO_GENERATE = 1000L;
+		final Long RECHARGE_TO_GENERATE = 100L;
 						
 		Generator.subscribers()
 					.server( guiServer )

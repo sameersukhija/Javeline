@@ -2,6 +2,7 @@ package com.lumata.e4o.webservices.xmlrpc.response;
 
 import static org.hamcrest.Matchers.*;
 
+import com.lumata.e4o.webservices.response.types.XMLRPCResponseCampaigns;
 import com.lumata.e4o.webservices.response.types.XMLRPCResponseFault;
 import com.lumata.e4o.webservices.response.types.XMLRPCResponseOfferPack;
 
@@ -34,6 +35,12 @@ public class XMLRPCResponseValidatorMethods {
 	public static XMLRPCResponseOfferPack offerPack() {
 		
 		return new XMLRPCResponseOfferPack();
+		
+	}
+	
+	public static XMLRPCResponseCampaigns campaigns() {
+		
+		return new XMLRPCResponseCampaigns();
 		
 	}
 	

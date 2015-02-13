@@ -2,8 +2,9 @@ package com.lumata.e4o.test;
 
 import java.sql.ResultSet;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -18,13 +19,14 @@ import com.lumata.common.testing.system.User;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
 import com.lumata.e4o.dao.tenant.DAOToken;
 import com.lumata.e4o.schema.tenant.FilesData;
+import com.lumata.e4o.schema.tenant.FilesMeta;
 
 import static com.lumata.common.testing.orm.Query.*;
 import static com.lumata.common.testing.orm.Filter.*;
 
 public class CampaignXML {
 	
-	private static final Logger logger = LoggerFactory.getLogger( CampaignXML.class );
+//	private static final Logger logger = LoggerFactory.getLogger( CampaignXML.class );
 	
 	public enum ExtendedParameters {
 		tongue, gender, salary, imei, imsi, hobbies 
@@ -59,8 +61,8 @@ public class CampaignXML {
 			
 	}
 
-	@Test( enabled=true, priority = 1 )
-	public void getCampaignXML() throws Exception {
+	@Test( enabled=false, priority = 1 )
+	public void getBasicCampaignXML() throws Exception {
 		
 		FilesData fd = new FilesData();
 		fd.setId( 9 );
@@ -77,7 +79,43 @@ public class CampaignXML {
 			
 		} 
 		
-		IOFileUtils.saveResource( xml, "campaignmanager", "campaign.xml" );
+		IOFileUtils.saveResource( xml, "campaignmanager", "campaigns.xml" );
+
+	}
+	
+	@Test( enabled=true, priority = 1 )
+	public void getCampaignXML() throws Exception {
+		
+		FilesMeta fm = new FilesMeta();
+		fm.setName( "285.xml" );
+		
+		String query = select().from( fm ).where( op( FilesMeta.Fields.name  ).eq() ).build();
+		
+		ResultSet rs = mysql.execQuery( query );
+		
+		FilesData fd = new FilesData();
+		
+		while( rs.next() ) {
+						
+			FilesMeta fmRow = new FilesMeta( rs );
+			
+			fd.setId( fmRow.getId() );
+			
+		} 
+		
+		query = select().from( fd ).where( op( FilesData.Fields.id  ).eq() ).build();
+		
+		rs = mysql.execQuery( query );
+		
+		String xml = new String();
+		
+		while( rs.next() ) {
+			
+			xml = rs.getString( FilesData.Fields.content.name() );
+			
+		} 
+		
+		IOFileUtils.saveResource( xml, "campaignmanager", "campaigns_285.xml" );
 
 	}
 

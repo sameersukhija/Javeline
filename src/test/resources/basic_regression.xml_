@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Basic Regression Suite" verbose="1" parallel="false" time-out="40000">
+<suite name="Basic Regression Suite" verbose="1" parallel="false" time-out="80000">
 
   <!-- 
     Browser to be used 
@@ -26,9 +26,9 @@
     ##### 
   -->
   <!-- <parameter name="environment"         value="e4o_vm_report_ne"/> -->
-  <parameter name="environment"         value="e4o_qa_ne"/>
+  <parameter name="environment"         value="e4o_qa2_ne"/>
   <parameter name="gui_server"          value="actrule"/>
-  <parameter name="tenant"              value="qa"/>
+  <parameter name="tenant"              value="tenant"/>
   <!-- <parameter name="tenant"              value="tenantMaster"/> -->
   <parameter name="user"                value="superman"/>
 
@@ -48,7 +48,7 @@
   <parameter name="notificationsFile"   value="notificationsEFOGC2667"/>
   <parameter name="productTypesFile"    value="productTypesTemplate"/>
   <parameter name="loyaltyCreationFile" value="loyaltyCreationTemplate"/>
-  <parameter name="offersFile"          value="offersVoucher2753"/>
+  <parameter name="offersFile"          value="offersVoucher3339"/>
   <parameter name="tokenTypeList"       value="tokenTypes2667"/>
   <parameter name="ruleListFile"        value="rulesetEFOGC2667"/>
   <parameter name="campaignModelList"   value="campaignModelEFOGC2667"/>

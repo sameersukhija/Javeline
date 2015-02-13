@@ -61,19 +61,25 @@
 				"targetingMode": "Restricted",
 				"targetingOpened": {
 					"subscriberProfileRestrictions": null,
-					"subscriberRestrictions": null				
+					"subscriberRestrictions": [
+						{
+							"eventType": ""						
+						}
+					]				
 				},
 				"targetingRestricted": {
 					"mode": "Criteria",
 					"modeCriteria": null,
 					"downloadEligibleSubscribers": false,
-					"sampleType": "",
+					"sampleType": "NoSample",
 					"sampleValue": "",
 					"sampleValueType": ""														
 				}
 			},	
 			"limit": null,
-			"activation": null,		
+			"activation": {
+				"action": "Activate"
+			},		
 			"delete": false
 		}		
 	],

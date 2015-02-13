@@ -63,6 +63,17 @@ public class DAOSalesChannels extends DAO {
 		return getSalesChannel( query );	
 		
 	}
+	
+	public SalesChannels getSalesChannelByName( String channelName ) {
+		
+		String query = select().
+						from( new SalesChannels() ).
+						where( op( SalesChannels.Fields.channel_name ).eq( channelName ) ).
+						build(); 
+		
+		return getSalesChannel( query );	
+		
+	}
 
 	
 	

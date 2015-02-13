@@ -1,0 +1,474 @@
+{
+	"offers": [
+		{
+			"enabled": true,
+			"name": "Voucher Swordfish",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-3339",
+				"labels" : null,
+				"voucher": "oneTimeUse",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : {
+				"voucherListFile": null,
+				"voucherList": null,
+				"generateVoucher" : {
+					"prefix" : "Swordfish_",
+					"randLength" : 4,
+					"numbers" : 10000
+					},
+				"unlimitedVoucherCode": null,
+				"format": "plainText",
+				"partner": "Mobistar",
+				"expiryDate": "@current+3month",
+				"expiryTime": null
+			},
+			"offer" : null,
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				}
+			],
+			"notification" : null,
+			"availability" : {
+				"stock" : null,
+				"reservations" : null,
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "Voucher Monkfish",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-3339",
+				"labels" : null,
+				"voucher": "oneTimeUse",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : {
+				"voucherListFile": null,
+				"voucherList": null,
+				"generateVoucher" : {
+					"prefix" : "Monkfish_",
+					"randLength" : 4,
+					"numbers" : 10000
+					},
+				"unlimitedVoucherCode": null,
+				"format": "plainText",
+				"partner": "Mobistar",
+				"expiryDate": "@current+3month",
+				"expiryTime": null
+			},
+			"offer" : null,
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				}
+			],
+			"notification" : null,
+			"availability" : {
+				"stock" : null,
+				"reservations" : null,
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "Voucher Solefish",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-3339",
+				"labels" : null,
+				"voucher": "oneTimeUse",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : {
+				"voucherListFile": null,
+				"voucherList": null,
+				"generateVoucher" : {
+					"prefix" : "Solefish_",
+					"randLength" : 4,
+					"numbers" : 10000
+					},
+				"unlimitedVoucherCode": null,
+				"format": "plainText",
+				"partner": "Mobistar",
+				"expiryDate": "@current+3month",
+				"expiryTime": null
+			},
+			"offer" : null,
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				}
+			],
+			"notification" : null,
+			"availability" : {
+				"stock" : null,
+				"reservations" : null,
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "Voucher Sturgeonfish",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-3339",
+				"labels" : null,
+				"voucher": "oneTimeUse",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : {
+				"voucherListFile": null,
+				"voucherList": null,
+				"generateVoucher" : {
+					"prefix" : "Sturgeonfish_",
+					"randLength" : 4,
+					"numbers" : 10000
+					},
+				"unlimitedVoucherCode": null,
+				"format": "plainText",
+				"partner": "Mobistar",
+				"expiryDate": "@current+3month",
+				"expiryTime": null
+			},
+			"offer" : null,
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				}
+			],
+			"notification" : null,
+			"availability" : {
+				"stock" : null,
+				"reservations" : null,
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "Voucher Eelfish",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-3339",
+				"labels" : null,
+				"voucher": "oneTimeUse",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : {
+				"voucherListFile": null,
+				"voucherList": null,
+				"generateVoucher" : {
+					"prefix" : "Eelfish_",
+					"randLength" : 4,
+					"numbers" : 10000
+					},
+				"unlimitedVoucherCode": null,
+				"format": "plainText",
+				"partner": "Mobistar",
+				"expiryDate": "@current+3month",
+				"expiryTime": null
+			},
+			"offer" : null,
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				}
+			],
+			"notification" : null,
+			"availability" : {
+				"stock" : null,
+				"reservations" : null,
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "Voucher Wide-eyed",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-3339",
+				"labels" : null,
+				"voucher": "oneTimeUse",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : {
+				"voucherListFile": null,
+				"voucherList": null,
+				"generateVoucher" : {
+					"prefix" : "Wide-eyed_",
+					"randLength" : 4,
+					"numbers" : 10000
+					},
+				"unlimitedVoucherCode": null,
+				"format": "plainText",
+				"partner": "Mobistar",
+				"expiryDate": "@current+3month",
+				"expiryTime": null
+			},
+			"offer" : null,
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				}
+			],
+			"notification" : null,
+			"availability" : {
+				"stock" : null,
+				"reservations" : null,
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "Voucher CommonDentexFish",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-3339",
+				"labels" : null,
+				"voucher": "oneTimeUse",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : {
+				"voucherListFile": null,
+				"voucherList": null,
+				"generateVoucher" : {
+					"prefix" : "CommonDentexFish_",
+					"randLength" : 4,
+					"numbers" : 10000
+					},
+				"unlimitedVoucherCode": null,
+				"format": "plainText",
+				"partner": "Mobistar",
+				"expiryDate": "@current+3month",
+				"expiryTime": null
+			},
+			"offer" : null,
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				}
+			],
+			"notification" : null,
+			"availability" : {
+				"stock" : null,
+				"reservations" : null,
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "Voucher SeabassFish",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-3339",
+				"labels" : null,
+				"voucher": "oneTimeUse",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : {
+				"voucherListFile": null,
+				"voucherList": null,
+				"generateVoucher" : {
+					"prefix" : "SeabassFish_",
+					"randLength" : 4,
+					"numbers" : 10000
+					},
+				"unlimitedVoucherCode": null,
+				"format": "plainText",
+				"partner": "Mobistar",
+				"expiryDate": "@current+3month",
+				"expiryTime": null
+			},
+			"offer" : null,
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				}
+			],
+			"notification" : null,
+			"availability" : {
+				"stock" : null,
+				"reservations" : null,
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "Voucher SharpsnoutFish",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-3339",
+				"labels" : null,
+				"voucher": "oneTimeUse",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : {
+				"voucherListFile": null,
+				"voucherList": null,
+				"generateVoucher" : {
+					"prefix" : "SharpsnoutFish_",
+					"randLength" : 4,
+					"numbers" : 10000
+					},
+				"unlimitedVoucherCode": null,
+				"format": "plainText",
+				"partner": "Mobistar",
+				"expiryDate": "@current+3month",
+				"expiryTime": null
+			},
+			"offer" : null,
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				}
+			],
+			"notification" : null,
+			"availability" : {
+				"stock" : null,
+				"reservations" : null,
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "Voucher AnchovyFish",
+			"definition" : {
+				"externalId" : null,
+				"description": "EFOGC-3339",
+				"labels" : null,
+				"voucher": "oneTimeUse",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : {
+				"voucherListFile": null,
+				"voucherList": null,
+				"generateVoucher" : {
+					"prefix" : "AnchovyFish_",
+					"randLength" : 4,
+					"numbers" : 10000
+					},
+				"unlimitedVoucherCode": null,
+				"format": "plainText",
+				"partner": "Mobistar",
+				"expiryDate": "@current+3month",
+				"expiryTime": null
+			},
+			"offer" : null,
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				}
+			],
+			"notification" : null,
+			"availability" : {
+				"stock" : null,
+				"reservations" : null,
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		}
+	],
+}

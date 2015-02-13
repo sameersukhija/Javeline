@@ -24,7 +24,7 @@ public abstract class XMLRPCResponseObject {
 	} 
 	
 	protected String builPath( String tag ) {
-		return root + relativeRoot + tag;
+		return this.root + this.relativeRoot + tag;
 	}
 
 }

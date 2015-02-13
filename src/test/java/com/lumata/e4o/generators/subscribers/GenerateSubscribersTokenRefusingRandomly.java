@@ -89,8 +89,10 @@ public class GenerateSubscribersTokenRefusingRandomly {
 	@Test( enabled = GENERATE_INCREMENTAL_SUBSCRIBERS )
 	public void refuseTokensRamdolyWithIncrementalSubscribers() throws GeneratorException, NumberFormatException, FieldException {
 		
-		final Long STARTED_MSISDN = 3399900001L;
+		final Long STARTED_MSISDN = 3399900003L;
 		final Integer INCREMENT = 1;
+		final Integer MIN_EVENTS = 200;
+		final Integer MAX_EVENTS = 500;
 		final Integer REPEAT = 50;
 		
 		Generator.subscribers()
@@ -99,6 +101,8 @@ public class GenerateSubscribersTokenRefusingRandomly {
 					.server( guiServer )
 					.user( superman )
 					.msisdnIncremental( STARTED_MSISDN, INCREMENT )
+					.minRandomEvents( MIN_EVENTS )
+					.maxRandomEvents( MAX_EVENTS )
 					.repeat( REPEAT )
 					.xmlrpcRandomTokenRefusing();
 		

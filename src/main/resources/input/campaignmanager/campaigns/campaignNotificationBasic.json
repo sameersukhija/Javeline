@@ -1,0 +1,163 @@
+{
+	"campaigns": [{
+			"enabled": true,
+			"name": "Campaign Simple Notification 1",
+			"description": "Campaign Simple Notification 1",
+			"definition": {
+				"executionMode": "Notification",
+				"campaignModel": "",
+				"campaignType": "No type",
+				"byPassMediaType": true
+			},
+			"scheduling": {
+				"typeOfRecurrence": "Single",
+				"singleRecurrence": {
+					"executionStart": "2015-05-01",
+					"executionEndType": "Absolute",
+					"executionEndValue": "2015-05-01",
+					"provisioningStart": "2015-05-01",
+					"provisioningEnd": "2015-05-01",
+					"daysBetweenProvisioningAndExecutionStartDates": "0"
+				},
+				"multipleRecurrence": {
+					"recurrencePattern": "Monthly",
+					"recurrencePatternWeekly": {
+						"recurEveryWeek": "2",
+						"recurEveryDay": [ "M", "Th" ] 
+					},
+					"recurrencePatternMonthly": {
+						"daySettingType": "GeneralDay",
+						"simpleDay": {
+							"recurEveryDay": "28",
+							"recurEveryMonth": "2"
+						},
+						"generalDay": {
+							"recurEveryOrdinalDay": "Second",
+							"recurEveryDay": "Friday",
+							"recurEveryMonth": "6"
+						}						 
+					},
+					"provisionigDuration": "2",
+					"daysBetweenProvisioningAndExecutionStartDate": "2",
+					"executionDuration": "5",
+					"startDate": "2014-05-04",
+					"rangeOfRecurrenceType": "EndDate",
+					"rangeOfRecurrenceValue": "2014-05-05"
+				}
+			},
+			"dialogue": {
+				"channel": {
+					"shortCode": null,
+					"emailAddress": null				
+				},
+				"notification": {
+					"daysOfNotificationBeforeExecution": "5",
+					"messages": null,
+					"applyCampaignToNotifiedOnly": true,	
+					"time": "10:00"			
+				}
+			},
+			"target": {
+				"targetingMode": "Restricted",
+				"targetingOpened": {
+					"subscriberProfileRestrictions": null,
+					"subscriberRestrictions": null				
+				},
+				"targetingRestricted": {
+					"mode": "Criteria",
+					"modeCriteria": null,
+					"downloadEligibleSubscribers": false,
+					"sampleType": "NoSample",
+					"sampleValue": "",
+					"sampleValueType": ""														
+				}
+			},	
+			"limit": null,
+			"activation": {
+				"action": "Activate"
+			},		
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "Campaign Simple Notification 2",
+			"description": "Campaign Simple Notification 2",
+			"definition": {
+				"executionMode": "Notification",
+				"campaignModel": "",
+				"campaignType": "No type",
+				"byPassMediaType": true
+			},
+			"scheduling": {
+				"typeOfRecurrence": "Single",
+				"singleRecurrence": {
+					"executionStart": "2015-05-01",
+					"executionEndType": "Absolute",
+					"executionEndValue": "2015-05-01",
+					"provisioningStart": "2015-05-01",
+					"provisioningEnd": "2015-05-01",
+					"daysBetweenProvisioningAndExecutionStartDates": "0"
+				},
+				"multipleRecurrence": {
+					"recurrencePattern": "Monthly",
+					"recurrencePatternWeekly": {
+						"recurEveryWeek": "2",
+						"recurEveryDay": [ "M", "Th" ] 
+					},
+					"recurrencePatternMonthly": {
+						"daySettingType": "GeneralDay",
+						"simpleDay": {
+							"recurEveryDay": "28",
+							"recurEveryMonth": "2"
+						},
+						"generalDay": {
+							"recurEveryOrdinalDay": "Second",
+							"recurEveryDay": "Friday",
+							"recurEveryMonth": "6"
+						}						 
+					},
+					"provisionigDuration": "2",
+					"daysBetweenProvisioningAndExecutionStartDate": "2",
+					"executionDuration": "5",
+					"startDate": "2014-05-04",
+					"rangeOfRecurrenceType": "EndDate",
+					"rangeOfRecurrenceValue": "2014-05-05"
+				}
+			},
+			"dialogue": {
+				"channel": {
+					"shortCode": null,
+					"emailAddress": null				
+				},
+				"notification": {
+					"daysOfNotificationBeforeExecution": "5",
+					"messages": null,
+					"applyCampaignToNotifiedOnly": true,	
+					"time": "10:00"			
+				}
+			},
+			"target": {
+				"targetingMode": "Restricted",
+				"targetingOpened": {
+					"subscriberProfileRestrictions": null,
+					"subscriberRestrictions": null				
+				},
+				"targetingRestricted": {
+					"mode": "Criteria",
+					"modeCriteria": null,
+					"downloadEligibleSubscribers": false,
+					"sampleType": "NoSample",
+					"sampleValue": "",
+					"sampleValueType": ""														
+				}
+			},	
+			"limit": null,
+			"activation": {
+				"action": "Activate"
+			},		
+			"delete": false
+		}		
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+}
