@@ -2,7 +2,7 @@
 	"offers": [
 		{
 			"enabled": true,
-			"name": "VoucherTwo Swordfish",
+			"name": "Voucher Swordfish",
 			"definition" : {
 				"externalId" : null,
 				"description": "EFOGC-3339",
@@ -49,7 +49,7 @@
 		},
 		{
 			"enabled": true,
-			"name": "VoucherTwo Monkfish",
+			"name": "Voucher Monkfish",
 			"definition" : {
 				"externalId" : null,
 				"description": "EFOGC-3339",
@@ -96,7 +96,7 @@
 		},
 		{
 			"enabled": true,
-			"name": "VoucherTwo Solefish",
+			"name": "Voucher Solefish",
 			"definition" : {
 				"externalId" : null,
 				"description": "EFOGC-3339",
@@ -143,7 +143,7 @@
 		},
 		{
 			"enabled": true,
-			"name": "VoucherTwo Sturgeonfish",
+			"name": "Voucher Sturgeonfish",
 			"definition" : {
 				"externalId" : null,
 				"description": "EFOGC-3339",
@@ -190,7 +190,7 @@
 		},
 		{
 			"enabled": true,
-			"name": "VoucherTwo Eelfish",
+			"name": "Voucher Eelfish",
 			"definition" : {
 				"externalId" : null,
 				"description": "EFOGC-3339",
@@ -237,7 +237,7 @@
 		},
 		{
 			"enabled": true,
-			"name": "VoucherTwo Wide-eyed",
+			"name": "Voucher Wide-eyed",
 			"definition" : {
 				"externalId" : null,
 				"description": "EFOGC-3339",
@@ -284,7 +284,7 @@
 		},
 		{
 			"enabled": true,
-			"name": "VoucherTwo CommonDentexFish",
+			"name": "Voucher CommonDentexFish",
 			"definition" : {
 				"externalId" : null,
 				"description": "EFOGC-3339",
@@ -331,7 +331,7 @@
 		},
 		{
 			"enabled": true,
-			"name": "VoucherTwo SeabassFish",
+			"name": "Voucher SeabassFish",
 			"definition" : {
 				"externalId" : null,
 				"description": "EFOGC-3339",
@@ -378,7 +378,7 @@
 		},
 		{
 			"enabled": true,
-			"name": "VoucherTwo SharpsnoutFish",
+			"name": "Voucher SharpsnoutFish",
 			"definition" : {
 				"externalId" : null,
 				"description": "EFOGC-3339",
@@ -425,7 +425,7 @@
 		},
 		{
 			"enabled": true,
-			"name": "VoucherTwo AnchovyFish",
+			"name": "Voucher AnchovyFish",
 			"definition" : {
 				"externalId" : null,
 				"description": "EFOGC-3339",
