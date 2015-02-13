@@ -43,6 +43,7 @@ public class RegressionSuite {
 		
 		final String PROJECT = "E4O";
 		final String RELEASE = "2.4.1.14.4";
+		final String CUSTOMER = "QA";		
 		
 		TestListenerAdapter tla = new TestListenerAdapter();
 		TestNG testng = new TestNG();
@@ -58,7 +59,7 @@ public class RegressionSuite {
 		addTestsResult( tla, testSuite, tla.getSkippedTests() );
 		addTestsResult( tla, testSuite, tla.getPassedTests() );
 		
-		createReport( PROJECT, RELEASE, testSuite, tla );
+		createReport( PROJECT, RELEASE, CUSTOMER, testSuite, tla );
 		
 	}
 	
@@ -104,7 +105,7 @@ public class RegressionSuite {
 			if( null != test.getThrowable() ) {
 								
 				StackTraceElement[] stel = test.getThrowable().getStackTrace();
-			    for (int i=0; i < stel.length; i++) { stacktrace.append( stel[i].toString() + "\n" ); }
+			    for (int i=0; i < stel.length; i++) { stacktrace.append( stel[i].toString() + "</br>" ); }
 			    			    
 			}
 			
@@ -125,7 +126,7 @@ public class RegressionSuite {
 		
 	}
 	
-	private void createReport( String project, String release, List<TestCase> testSuite, TestListenerAdapter tla ) {
+	private void createReport( String project, String release, String customer, List<TestCase> testSuite, TestListenerAdapter tla ) {
 			
 		Configuration cfg = new Configuration();
 		try {
@@ -149,7 +150,18 @@ public class RegressionSuite {
 			template.process( data, out );
 			out.flush();
 		   	*/
-	        Writer file = new FileWriter( new File( System.getProperty( "user.dir" ) + "/output/testing/regression.html" ) );
+	        Writer file = new FileWriter( 
+	        					new File( 	System.getProperty( "user.dir" ) + 
+	        								"/output/testing/" + 
+	        								project.toLowerCase() + 
+	        								"_" +
+	        								customer.toLowerCase() + 
+	        								"_" +
+	        								release.toLowerCase() + 
+	        								"_" +        							
+	        								"regression_report.html" ) 
+	        );
+	        
 	        template.process(data, file);
 	        file.flush();
 	        file.close();
