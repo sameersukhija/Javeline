@@ -1,4 +1,4 @@
-package com.lumata.e4o.testplan.functional.webservices.xmlrpc;
+package com.lumata.e4o.regressions.xmlrpc;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1858,6 +1858,8 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 							)
 		
 		);
+		
+		
 		
 	}
 

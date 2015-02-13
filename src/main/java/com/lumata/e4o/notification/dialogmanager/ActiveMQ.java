@@ -282,7 +282,7 @@ public class ActiveMQ {
 			Message message = messageList.get( m );
 					
 			ObjectMessage objMessage = (ObjectMessage) message;
-			
+					
 			if( objMessage.getObject() instanceof SmsNotification ) {
 				
 				SmsNotification sms = (SmsNotification) objMessage.getObject();
@@ -312,9 +312,12 @@ public class ActiveMQ {
 						.append( mtTable )
 						.append( " WHERE notes = 'TransID=608c3d87&notificationId=" )
 						.append( sms.getUniqueNotificationId() )
-						.append( "' ) LIMIT 1;" );
+						.append( "' ) LIMIT 1;" 
+				);
 											
-						mysql.execUpdate( query.toString() );
+				System.out.println( query );
+				
+				mysql.execUpdate( query.toString() );
 					
 			}
 			
