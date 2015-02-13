@@ -24,6 +24,7 @@
 			.test-failure {
 				background-color: red;
 				color: white;
+				cursor: pointer;
 			}
 			.test-skip {
 				background-color: gray;
@@ -35,33 +36,18 @@
 			.font-center {
 				text-align:center;
 			}
-			.hover {
-			    position:relative;
-			    top:50px;			    			    			    
-			}
-			.tooltip {
-			  	top:-10px;			  				  	
-			  	background-color:black;
-			  	color:white;
-			  	border-radius:5px;
-			  	opacity:0;
-			  	position:absolute;
-			  	-webkit-transition: opacity 0.5s;
-			  	-moz-transition:  opacity 0.5s;
-			  	-ms-transition: opacity 0.5s;
-			  	-o-transition:  opacity 0.5s;
-			  	transition:  opacity 0.5s;			  				  	
-			}
-			.hover:hover .tooltip {
-				opacity:1;
-				left:-500px;
-				z-index: 1000;
-			}  
 		</style>
+		<script>
+			function changeText( id ) {
+				var result_style = document.getElementById( id ).style;
+				if( result_style.display == 'none' ) { result_style.display = 'table-row'; }
+				else { result_style.display = 'none'; }
+			}
+		</script>  
 	</head>
 
 	<body>
-		<table style="margin:auto;" class="font">
+		<table style="margin:auto; width:80%;" class="font">
 			<thead>
 			 	<tr>
 			    	<th colspan="6" style="font-size: 20px;">${project} - Regression Suite ( ${release} )</th>				     
@@ -75,9 +61,9 @@
 			  	<tr>
 			  		<th colspan="2">Class Name</th>
 			     	<th>Method Name</th>
-			     	<th>Start Date</th>
-			     	<th>Execution Time</th>
-			     	<th>Status</th>
+			     	<th style="width:180px;">Start Date</th>
+			     	<th style="width:120px;">Execution Time</th>
+			     	<th style="width:80px;">Status</th>
 			  	</tr>
 			</thead>
 			<tbody>
@@ -88,8 +74,11 @@
 						<td>${testCase.testMethodName}</td>
 						<td>${testCase.testStartDate}</td>
 						<td>${testCase.testExecutionTime} ms</td>
-						<td class="hover <#if testCase.testStatus == 'SUCCESS'>test-success<#elseif testCase.testStatus == 'FAILURE'>test-failure<#else>test-skip</#if>">${testCase.testStatus}<span class="tooltip">${testCase.testStackTrace}</span></td>
+						<td <#if testCase.testStatus == 'FAILURE'>onclick="changeText('failure_${testCase_index + 1}')" </#if>class="<#if testCase.testStatus == 'SUCCESS'>test-success<#elseif testCase.testStatus == 'FAILURE'>test-failure<#else>test-skip</#if>">${testCase.testStatus}</td>
 					</tr>
+					<tr id="failure_${testCase_index + 1}" style="display: none;">
+			  			<td colspan="6" style="font-size: 12px;">${testCase.testStackTrace}</td>				     
+			  		</tr>
 				</#list>
 			</tbody>
 			<tbody>
