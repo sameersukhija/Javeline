@@ -306,7 +306,8 @@ public class OffersForm extends CatalogueManagerForm {
 		if ( description != null && description.length() != 0 ) {
 			
 	 		//td[contains(text(),'Offer Description')]//ancestor::tr[1]//button
-			clickXPath("//td[contains(text(),'Offer Description')]//ancestor::tr[1]//button");
+			// TO BE FIXED BY INDIA TEAM
+			clickXPath("//td[contains(text(),'Description')]//ancestor::tr[1]//button");
 			
 			sendKeysByXPath( "//textarea", description);
 			
