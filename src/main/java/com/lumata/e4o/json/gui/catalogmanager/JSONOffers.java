@@ -2,22 +2,25 @@ package com.lumata.e4o.json.gui.catalogmanager;
 
 import java.io.File;
 import java.io.IOException;
-
+import java.math.BigInteger;
 import java.nio.file.Paths;
-
+import java.security.SecureRandom;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.JsonConfigurationElement;
 import com.lumata.common.testing.json.JsonConfigurationFile;
+import com.lumata.common.testing.json.JsonOptionalElement;
 import com.lumata.common.testing.utils.TempFileHandling;
 import com.lumata.common.testing.utils.TempFileHandling.TempFileExtension;
 
@@ -119,6 +122,76 @@ public class JSONOffers extends JsonConfigurationFile {
 	 * voucher  
 	 */
 	
+	public class JSONVoucherElement extends JsonOptionalElement {
+		
+		public JSONVoucherElement(Map<String, Object> newObject) {
+			
+				super(newObject);
+		}
+
+		/**
+		 * 
+		 * @return
+		 */
+		public String getVoucherListFile() {
+			
+			return getStringFromPath("voucherListFile");
+		}
+		
+		/**
+		 * 
+		 * @return
+		 * @throws JSONSException 
+		 */
+		public List<Object> getVoucherList() throws JSONSException {
+			
+			List<Object> resp = null;
+			
+			try {
+				resp = getJsonListFromPath("voucherList");
+			} catch ( Exception e ) {
+				
+			}
+			
+			return resp;
+		}
+		
+		/**
+		 * 
+		 * @return
+		 * @throws JSONSException 
+		 */
+		public Map<String,Object> getGenerateVoucher() throws JSONSException {
+			
+			Map<String,Object> resp = null;
+			
+			try {
+				resp = getJsonMapFromPath("generateVoucher");
+			} catch ( Exception e ) {
+				
+			}
+			
+			return resp;
+		}	
+		
+		@Override
+		public Map<String, Object> getDefaultValueMap() {
+			
+			Map<String,Object> h = new HashMap<String, Object>();
+			
+		    h.put("voucherListFile",null);
+		    h.put("voucherList",null);
+		    h.put("generateVoucher",null);
+		    h.put("unlimitedVoucherCode",null);
+		    h.put("format", "plainText");
+		    h.put("partner", "Lumata");
+		    h.put("expiryDate", "@current+3month");
+		    h.put("expiryTime", null);		    
+		    
+			return h;
+		}
+	}
+	
 	/**
 	 * This method checks into voucher section ad return a <b>File</b> object that contains
 	 * the voucher codes to be assigned.
@@ -133,19 +206,76 @@ public class JSONOffers extends JsonConfigurationFile {
 	 */
 	public File getVoucherFile() throws JSONSException {
 		
-		File resp = null;
+		JSONVoucherElement localVoucher = new JSONVoucherElement(getCurrentElement().getJsonMapFromPath("voucher"));
 		
-		List<Object> voucherList = getCurrentElement().getJsonListFromPath("voucher.voucherList");
-		String voucherListFile = getCurrentElement().getStringFromPath("voucher.voucherListFile");
+		File resp = null;
+
+		List<Object> voucherList = localVoucher.getVoucherList();
+		String voucherListFile = localVoucher.getVoucherListFile();
+		Map<String,Object> generateVoucherConf = localVoucher.getGenerateVoucher();
+		
+//		List<Object> voucherList = getCurrentElement().getJsonListFromPath("voucher.voucherList");
+//		String voucherListFile = getCurrentElement().getStringFromPath("voucher.voucherListFile");
+//		Map<String,Object> generateVoucherConf = getCurrentElement().getJsonMapFromPath("voucher.generateVoucher");
 		
 		if ( voucherList != null && voucherList.size() != 0 )
 			resp = generateVoucherFileFromList(voucherList);
 		else if ( voucherListFile != null && voucherListFile.length() != 0 )
 			resp = fetchExistingVoucherFile(voucherListFile);
+		else if ( generateVoucherConf != null && generateVoucherConf.size() != 0 )
+			resp = generateVoucherFileFromCustom(generateVoucherConf);
 		
 		return resp;
 	}
 	
+	/**
+	 * Generate a voucher file from custom "generateVoucher" section :
+	 * 
+	 * <li> prefix is the prefix string common for each voucher code
+	 * <li> randLength is optional and describe a random string to add to all voucher
+	 * <li> numbers is the number of required voucher
+	 * 
+	 * @param generateVoucherConf
+	 * @return
+	 * @throws JSONSException
+	 */
+	private File generateVoucherFileFromCustom( Map<String, Object> generateVoucherConf) throws JSONSException {
+		
+		File resp = null;
+		
+		String prefix = (String) generateVoucherConf.get("prefix");
+		Integer rand = 0;
+		
+		try {
+			rand = generateVoucherConf.get("randLength") != null ? Integer.parseInt(generateVoucherConf.get("randLength").toString()) : 0;
+		}
+		catch ( NullPointerException | NumberFormatException e ) {
+			// nothing to do
+		}
+		
+		Integer numb = Integer.parseInt(generateVoucherConf.get("numbers").toString());
+		
+		if (rand > 0) {
+			SecureRandom random = new SecureRandom();
+			prefix += new BigInteger(130, random).toString(16).substring(0,rand) + "_";
+		}
+		
+		try {
+			List<String> lines = new ArrayList<String>(numb);
+			
+			for (Integer i = 0; i < numb; i++) 
+				lines.add( prefix + StringUtils.leftPad( i.toString(), 5, '0')); 
+			
+			resp = TempFileHandling.createTempTestFile( lines, "tempVoucherCodeFile", TempFileExtension.CSV);
+		}
+		catch ( IOException e ) {
+			
+			throw new JSONSException("Error during voucher file creation : " + e.getMessage());
+		}
+		
+		return resp;
+	}
+
 	/**
 	 * This method fetches into local file system the voucher files
 	 * 
