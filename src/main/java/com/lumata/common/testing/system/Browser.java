@@ -19,7 +19,7 @@ public class Browser {
 
 	private static final  Logger logger = LoggerFactory.getLogger( Browser.class );
 	
-	public enum Type { chrome, ie, firefox, opera, safari } 
+	public enum Type { chrome, ie, firefox, opera, safari, phantom, htmlunit } 
 	
 	private JSONObject browserCfg;
 	private Enum<Type> type;

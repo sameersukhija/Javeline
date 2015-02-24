@@ -17,6 +17,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+//import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
@@ -49,7 +51,9 @@ public class SeleniumWebDriver {
         FIREFOX,
         IE,
         OPERA,
-        SAFARI;			
+        SAFARI,
+        PHANTOM,
+        HTMLUNIT;			
 	}
 	
 	/**
@@ -334,6 +338,17 @@ public class SeleniumWebDriver {
 			case IE: { resp = new InternetExplorerDriver(); break; }
 			case OPERA: { resp = new OperaDriver(); break; }
 			case SAFARI: { resp = new SafariDriver(); break; }
+			case PHANTOM: { 
+			
+				// 
+				File phantomDriverRelativePath = new File( "/home/adipasquale/Downloads/phantomjs-2.0.0/bin/phantomjs" );
+				
+				System.setProperty("phantomjs.binary.path", phantomDriverRelativePath.getPath() );				
+				
+				resp = new PhantomJSDriver(); break; 
+				
+			}
+			case HTMLUNIT: { resp = new HtmlUnitDriver(true); break; }
 			default: { resp = new HtmlUnitDriver(true); break; }
 		}
 
