@@ -48,7 +48,7 @@ public class Authorization extends Form {
 		doubleSession(true);
 		
 		Boolean clickedDialog = closeLicenseDialog();
-		
+		try { Thread.sleep( 3000 ); } catch (Exception e ) {}
 		// if a click occurred for license warning :
 		// element "gwt-debug-FormHomeInfo" is already disappeared
 		if ( !clickedDialog)

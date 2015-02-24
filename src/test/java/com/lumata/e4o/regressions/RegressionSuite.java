@@ -49,6 +49,7 @@ public class RegressionSuite {
 		TestNG testng = new TestNG();
 		testng.setPreserveOrder( true );
 		testng.setGroupByInstances( true );
+		testng.setRandomizeSuites( false );
 		testng.setTestClasses( suite() );
 		testng.addListener(tla);		
 		testng.run();

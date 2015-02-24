@@ -9,7 +9,7 @@
 				"name":"Ch A",
 				"mandatory":false,
 				"unlimited": true,
-				"maxOffer" : 0,
+				"maxOffer" : 0
 				} ],
 			"optimizationAlgorithm":"Random Assigment",
 			"keepOffersConsistentAcrossMultipleRedraws": true,
