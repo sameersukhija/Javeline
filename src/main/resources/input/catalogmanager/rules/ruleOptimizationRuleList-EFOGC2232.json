@@ -16,6 +16,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"unlimitedOffers": true,
 			"maximumNumberOfOffers": 10,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -36,6 +37,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"unlimitedOffers": true,
 			"maximumNumberOfOffers": 10,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -56,6 +58,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"unlimitedOffers": true,
 			"maximumNumberOfOffers": 10,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -76,6 +79,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"unlimitedOffers": true,
 			"maximumNumberOfOffers": 10,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -96,6 +100,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"unlimitedOffers": true,
 			"maximumNumberOfOffers": 10,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -116,6 +121,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"unlimitedOffers": true,
 			"maximumNumberOfOffers": 10,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 
@@ -136,6 +142,7 @@
 			"includePreviouslyAcceptedOffers": true,
 			"unlimitedOffers": true,
 			"maximumNumberOfOffers": 10,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
 			"errorActions" : {
 				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
 				"GENERAL_ERROR" : "RETURN_ERROR" 

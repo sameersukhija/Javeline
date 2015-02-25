@@ -74,12 +74,12 @@ public class GenerateCDRVoucherRedemption {
 		FieldDateIncrement increment = new FieldDateIncrement();
 		increment.setDayIncrement( 1 );
 	
-		cdrVR.setMsisdnStrategyFixed( 393669393643L );
-		cdrVR.setVoucherCodeStrategyFixed( "3OgEhWUi" );
+		cdrVR.setMsisdnStrategyFixed( 3669393643L );
+		cdrVR.setVoucherCodeStrategyFixed( "z8B1bDg3" );
 		cdrVR.setDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		cdrVR.setDateStrategyFixed( date );
 		cdrVR.setLocationStrategyFixed( "Milan" );
-		cdrVR.setPartnerStrategyFixed( "0" );
+		cdrVR.setPartnerStrategyFixed( "1" );
 				
 		cdrVR.addLines( 1 );
 				
