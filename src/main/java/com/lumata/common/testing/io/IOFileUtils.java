@@ -1,6 +1,10 @@
 package com.lumata.common.testing.io;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.simple.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -958,6 +963,188 @@ public final class IOFileUtils {
         }
     	
     }	
+	
+	public static void listFiles( File dir, ArrayList<File> filesList, Boolean skipHidden ) {
+		
+		File[] files = dir.listFiles();
+		
+		try { 
+		
+			for( File file : files ) {
+				
+				if( !( skipHidden && file.isHidden() ) ) {
+				
+					if( file.isDirectory() ) {
+						
+						filesList.add( file );
+						
+						listFiles( file, filesList, skipHidden );
+					
+					} else {
+						
+						filesList.add( file );
+					
+					}
+				
+				}
+				
+			}
+		
+		} catch( Exception e ) {
+			
+			logger.error( e.getMessage(), e );
+			
+		}
+		
+	}
+	
+	public static ArrayList<File> removeExclusionsFromFilesList( ArrayList<File> filesList, ArrayList<File> exclusions ) {
+		
+		ArrayList<File> newFilesList = new ArrayList<File>();
+		
+		if( null != exclusions ) {
+				
+			for( File file : filesList ) {
+				
+				boolean exclude = false;
+				
+				for( File fileToExclude : exclusions ) {
+								
+					if( file.getAbsoluteFile().toString().contains( fileToExclude.getAbsolutePath().toString() ) ) {
+						
+						exclude = true;
+												
+					}				
+					
+				}
+				
+				if( !exclude ) {
+					
+					newFilesList.add( file );
+					
+				};
+							
+			}
+		
+		}
+		
+		return newFilesList;
+		
+	}
+	
+	public static JSONObject filesDiff( File leftDir, File rightDir, Boolean checkContent, ArrayList<File> exclusions ) {
+		
+		JSONObject jsonContentDiff = new JSONObject();
+		JSONObject jsonLeftDir = new JSONObject();
+		JSONObject jsonRightDir = new JSONObject();
+		JSONArray jsonMissingFiles = new JSONArray();
+		JSONArray jsonDifferences = new JSONArray();
+		
+		jsonLeftDir.put( "path", leftDir.getAbsolutePath() );
+		jsonLeftDir.put( "missingFiles", jsonMissingFiles );
+		
+		jsonRightDir.put( "path", rightDir.getAbsolutePath() );
+		jsonRightDir.put( "missingFiles", jsonMissingFiles );
+		
+		jsonContentDiff.put( "leftDir", jsonLeftDir );
+		jsonContentDiff.put( "rightDir", jsonRightDir );
+		jsonContentDiff.put( "differences", jsonDifferences );
+				
+		
+		ArrayList<File> leftFilesList = new ArrayList<File>();
+		ArrayList<File> rightFilesList = new ArrayList<File>();
+				
+		listFiles( leftDir,leftFilesList, true );
+		listFiles( rightDir, rightFilesList, true );
+		
+		leftFilesList = removeExclusionsFromFilesList( leftFilesList, exclusions );
+		rightFilesList = removeExclusionsFromFilesList( rightFilesList, exclusions );
+				
+		for( File leftFile : leftFilesList ) {
+			
+			boolean isPresent = false;
+			
+			for( File rightFile: rightFilesList ) {
+				
+				if( leftFile.getName().equals( rightFile.getName() ) ) {
+					
+					isPresent = true;
+					
+					try {
+						
+						if( !leftFile.isDirectory() && !FileUtils.contentEquals( leftFile, rightFile ) ) {
+							
+							jsonContentDiff.getJSONArray( "differences" ).put( leftFile.getAbsolutePath().replace( leftDir.getAbsolutePath(), "" ) );
+							
+						}
+						
+					} catch (IOException e) {
+						
+						logger.error( e.getMessage(), e );
+												
+					}
+					
+					rightFilesList.remove( rightFile );
+					
+					break;
+					
+				}
+					
+			}
+			
+			if( !isPresent ) { 
+				
+				try {
+					
+					jsonContentDiff.getJSONObject( "rightDir" ).getJSONArray( "missingFiles" ).put( leftFile.getAbsolutePath().replace( leftDir.getAbsolutePath(), "" ) );
+				
+				} catch (JSONException e) {
+					
+					logger.error( e.getMessage(), e );
+					
+				}
+				
+			}
+			
+		}
+		
+		for( File rightFile : rightFilesList ) {
+			
+			boolean isPresent = false;
+			
+			for( File leftFile: leftFilesList ) {
+				
+				if( rightFile.getName().equals( leftFile.getName() ) ) {
+					
+					isPresent = true;
+					
+					leftFilesList.remove( leftFile );
+					
+					break;
+					
+				}
+					
+			}
+			
+			if( !isPresent ) { 
+				
+				try {
+					
+					jsonContentDiff.getJSONObject( "leftDir" ).getJSONArray( "missingFiles" ).put( rightFile.getAbsolutePath().replace( rightDir.getAbsolutePath(), "" ) );
+				
+				} catch (JSONException e) {
+					
+					logger.error( e.getMessage(), e );
+					
+				}
+				
+			}
+			
+		}
+		
+		return jsonContentDiff;
+		
+	}
 	
 	/*
 		

@@ -147,12 +147,14 @@ public final class Format {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static boolean isEnum( String value, String type, boolean allowBlank ) {
 		
 		if( value.isEmpty() ) { return allowBlank; }
 		
 		try {
 			
+			@SuppressWarnings({ "rawtypes" })
 			Class<Enum> E = (Class<Enum>)Class.forName(type);
 			
 			Enum.valueOf( E, value );
@@ -248,7 +250,7 @@ public final class Format {
 			number = value.replaceAll("[^\\d.]", "");
 		
 		}
-		
+				
 		return number;  
 		
 	}
