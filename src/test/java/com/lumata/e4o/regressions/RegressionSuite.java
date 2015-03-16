@@ -131,9 +131,7 @@ public class RegressionSuite {
 				String.valueOf( ( test.getEndMillis() - test.getStartMillis() ) ),
 				stacktrace.toString()
 			);
-			
-
-			
+						
 			testSuite.add( testCase );			
 			
 		}

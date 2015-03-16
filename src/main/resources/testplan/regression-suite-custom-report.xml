@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Regression Suite" verbose="1" parallel="false" time-out="80000">
+<suite name="Regression_Suite" verbose="1" parallel="none" group-by-instances="true" preserve-order="true" randomize-suites = "false" time-out="80000">
 
   <parameter name="browser" value="firefox"/>
   <parameter name="environment" value="e4o_qa2_ne"/>
@@ -8,17 +8,20 @@
   <parameter name="tenant" value="tenant"/>
   <parameter name="user" value="superman"/>
   
-  <test name="Regression suite for E4O">
-
-    <classes>
-
-      <class name="com.lumata.e4o.regressions.RegressionSuite">
-        <!-- methods>
-          <include name="configureDMNotifications"/>
-        </methods -->
-      </class>
-
-    </classes>
-
+  <listeners>
+    <listener class-name="com.lumata.e4o.common.TestNGReportListener"/>
+  </listeners>
+  
+  <test name="Regression GUI using Selenium">
+	<packages>
+		<package name="com.lumata.e4o.regressions.gui.*" />
+	</packages>    
   </test>
+  
+  <test name="Regression XMLRPC" parallel="none" group-by-instances="true" preserve-order="true">
+	<packages>
+		<package name="com.lumata.e4o.regressions.xmlrpc.*" />
+	</packages>    
+  </test>
+
 </suite>
