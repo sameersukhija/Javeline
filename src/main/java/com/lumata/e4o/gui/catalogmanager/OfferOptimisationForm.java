@@ -1,7 +1,7 @@
 package com.lumata.e4o.gui.catalogmanager;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
@@ -9,7 +9,7 @@ import com.lumata.e4o.gui.common.AngularFrame;
 
 public class OfferOptimisationForm extends CatalogueManagerForm {
 
-	private static final Logger logger = LoggerFactory.getLogger(OfferOptimisationForm.class);
+	//private static final Logger logger = LoggerFactory.getLogger(OfferOptimisationForm.class);
 	
 	public enum OfferOptimisationSection { 
 		

@@ -202,6 +202,22 @@ public abstract class Form {
 		return this;
 		
 	}
+
+	public Form searchByName( String name ) throws FormException {
+		
+		search( SeleniumUtils.SearchBy.NAME, name, timeout, interval );
+		
+		return this;
+		
+	}
+	
+	public Form searchByName( String name, long timeout, long interval ) throws FormException {
+		
+		search( SeleniumUtils.SearchBy.NAME, name, timeout, interval );
+		
+		return this;
+		
+	}
 	
 	public Form searchByXPath( String xpath ) throws FormException {
 		
@@ -275,9 +291,9 @@ public abstract class Form {
 		
 	}
 	
-	public List<WebElement> searchListByXPath( String rootTag, String tag ) throws FormException {
+	public List<WebElement> searchListByXPath( String rootXPath, String xpath ) throws FormException {
 		
-		return searchList( SeleniumUtils.SearchBy.XPATH, SeleniumUtils.SearchBy.XPATH, rootTag, tag );
+		return searchList( SeleniumUtils.SearchBy.XPATH, SeleniumUtils.SearchBy.XPATH, rootXPath, xpath );
 		
 	}
 	
@@ -875,5 +891,14 @@ public abstract class Form {
 		}
 		
 		return pressed;
-	}	
+	}
+	
+	public Form goToHome() throws FormException {
+	
+		clickId( "gwt-debug-BarCaptionHomeCampaign" );
+		
+		return this;
+		
+	}
+	
 }

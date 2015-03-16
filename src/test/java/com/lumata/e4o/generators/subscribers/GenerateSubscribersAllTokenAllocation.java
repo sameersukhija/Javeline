@@ -29,8 +29,9 @@ public class GenerateSubscribersAllTokenAllocation {
 	final boolean GENERATE_FIXED_SUBSCRIBER = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE = false;
-	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = true;
+	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = false;
 	final boolean GENERATE_RANDOM_SUBSCRIBERS = false;
+	final boolean GENERATE_RANDOM_SUBSCRIBER_RANDOM_RECHARGE = true;
 	
 	NetworkEnvironment env;	
 	Server guiServer;
@@ -136,6 +137,28 @@ public class GenerateSubscribersAllTokenAllocation {
 					.minRandomEvents( MIN_EVENTS )
 					.maxRandomEvents( MAX_EVENTS )
 					.xmlrpcAllTokenAllocation();
+					
+	}
+	
+	@Test( enabled = GENERATE_RANDOM_SUBSCRIBER_RANDOM_RECHARGE )
+	public void allocateAllTokensWithRandomSubscriberRandomRecharge() throws GeneratorException, NumberFormatException, FieldException {
+		
+		final Long LEFT_MSISDN = 3399900001L;
+		final Long RIGHT_MSISDN = 3399900023L;
+		final Integer REPEAT = 15;
+		final Integer MIN_EVENTS = 20;
+		final Integer MAX_EVENTS = 50;
+				
+		Generator.subscribers()
+					.environment( env )
+					.mysql( mysql )
+					.server( guiServer )
+					.user( superman )
+					.msisdnRandom( LEFT_MSISDN, RIGHT_MSISDN )
+					.minRandomEvents( MIN_EVENTS )
+					.maxRandomEvents( MAX_EVENTS )
+					.repeat( REPEAT )
+					.xmlrpcRandomTokenAllocation();
 					
 	}
 	

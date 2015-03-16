@@ -47,7 +47,11 @@ public interface IGeneratorSubscriberParameters {
 	public void xmlrpcAllTokenAllocation() throws GeneratorException, NumberFormatException, FieldException;
 	
 	public void xmlrpcAllTokenAllocation( Calendar event_date ) throws GeneratorException, NumberFormatException, FieldException;
+
+	public void xmlrpcRandomTokenAllocation() throws GeneratorException, NumberFormatException, FieldException;
 	
+	public void xmlrpcRandomTokenAllocation( Calendar event_date ) throws GeneratorException, NumberFormatException, FieldException;
+		
 	public void xmlrpcRandomTokenAccepting() throws GeneratorException, NumberFormatException, FieldException;
 	
 	//public void xmlrpcRandomTokenAccepting( Calendar event_date ) throws GeneratorException, NumberFormatException, FieldException;

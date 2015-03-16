@@ -17,15 +17,16 @@ import org.joda.time.Period;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 import org.testng.TestNG;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.lumata.e4o.regression.gui.TestTokenTypeForm;
 //import com.lumata.e4o.regressions.schema.ConfigureEnvironment;
 import com.lumata.e4o.regressions.xmlrpc.*;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-
 
 public class RegressionSuite {
 
@@ -64,14 +65,26 @@ public class RegressionSuite {
 		
 	}
 	
+	@DataProvider(name = "init")
+	public static Object[][] createData() {
+	    return new Object[][] {
+	    		{ "001", "browser", "firefox" },
+	    		{ "002", "environment", "e4o_qa2_ne" },
+	    		{ "003", "gui_server", "actrule" },
+	    		{ "004", "tenant", "tenant" },
+	    		{ "005", "user", "superman" }
+	    };
+	}
+  
 	private Class<?>[] suite() {
 		
 		return new Class[] { 
 			//ConfigureEnvironment.class,
-			XMLRPCRequest_CatalogManager_Purchase.class,		
-			XMLRPCRequest_Subscribermanager_CreateSubscriber.class,
-			XMLRPCRequest_Subscribermanager_UpdateSubscriber.class,
-			XMLRPCRequest_Subscribermanager_DeleteSubscriber.class			
+			//XMLRPCRequest_CatalogManager_Purchase.class,		
+			//XMLRPCRequest_Subscribermanager_CreateSubscriber.class,
+			//XMLRPCRequest_Subscribermanager_UpdateSubscriber.class,
+			//XMLRPCRequest_Subscribermanager_DeleteSubscriber.class
+			TestTokenTypeForm.class
 		};		
 		
 	}

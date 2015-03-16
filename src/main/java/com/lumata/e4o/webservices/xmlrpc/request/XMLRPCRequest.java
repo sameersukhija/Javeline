@@ -1,5 +1,6 @@
 package com.lumata.e4o.webservices.xmlrpc.request;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
@@ -514,10 +515,10 @@ public class XMLRPCRequest {
 			XmlPath xmlPath = new XmlPath( response.getResponse().getEntity().toString() );
 			
 			xmlPath.setRoot("methodResponse");
-			
-			boolean validation = true;
-					
+							
 			for( XMLRPCResponseValidator validator : validators ) {
+				
+				boolean validation = false;
 				
 				Object actual = null;
 				
@@ -529,17 +530,25 @@ public class XMLRPCRequest {
 
 						case "Long": {
 							
-							actual = String.valueOf( xmlPath.getLong( validator.getPath() ) );
+							actual = xmlPath.getLong( validator.getPath() );
 							
-							expected = Format.toNumeric( expected );
+							validation = actual.equals( Long.valueOf( Format.toNumeric( expected ) ) );							
 							
 							break;
 						}
 						case "Integer": {
 							
-							actual = String.valueOf( xmlPath.getInt( validator.getPath() ) );
+							actual = Integer.valueOf( xmlPath.getString( validator.getPath() ) );
 							
-							expected = Format.toNumeric( expected );
+							validation = actual.equals( Integer.valueOf( Format.toNumeric( expected ) ) );
+							
+							break;
+						}
+						case "Short": {
+							
+							actual = Short.valueOf( xmlPath.getString( validator.getPath() ) );
+							
+							validation = actual.equals( Short.valueOf( Format.toNumeric( expected ) ) );
 							
 							break;
 						}
@@ -547,8 +556,22 @@ public class XMLRPCRequest {
 							
 							actual = '"' + xmlPath.getString( validator.getPath() ) + '"';	
 							
+							validation = actual.equals( expected );
+							
 							break;
 						}
+						case "Date": {
+							
+							String value = xmlPath.getString( validator.getPath() );
+							
+							if( value.isEmpty() ) { actual = "null"; } 
+							else { actual = Date.valueOf( value ); }
+															
+							validation = actual.equals( expected );	
+							
+							break;
+						}
+						
 						default: {
 							actual = xmlPath.get( validator.getPath() );
 						}
@@ -560,12 +583,13 @@ public class XMLRPCRequest {
 					throw new AssertionError( "the validator " + validator.getTag() + " is not valid for the current response " );
 					
 				}
-				
-				validation = expected.equals( actual );
-								
+				//System.out.println( actual.getClass().getSimpleName() );
+				//System.out.println( expected.getClass().getSimpleName() );
+				//validation = expected.equals( actual );
+							
 				String errorMessage = ASSERTION_ERROR_.
 						replace( "${tag}" , validator.getTag().trim() ).
-						replace( "${expected}", expected ).
+						replace( "${expected}", expected.toString() ).
 						replace( "${actual}", String.valueOf( actual ) );
 
 				try {

@@ -516,6 +516,72 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		
 	}
 	
+	public void xmlrpcRandomTokenAllocation() throws GeneratorException, NumberFormatException, FieldException {
+		
+		xmlrpcRandomTokenAllocation( null );
+		
+	}
+	
+	public void xmlrpcRandomTokenAllocation( Calendar event_date ) throws GeneratorException, NumberFormatException, FieldException {
+		
+		actionType = SubscriberAction.tokenAllocation;
+		
+		configureParameters();
+		
+		Server server = (Server)parameters.getParameterValue( GeneratorParameterType.server );
+		
+		User user = (User)parameters.getParameterValue( GeneratorParameterType.user );
+		
+		Mysql mysql = (Mysql)parameters.getParameterValue( GeneratorParameterType.mysql );
+		
+		for( int rp = 1; rp <= repeat; rp++ ) {
+		
+			Long msisdn = Long.valueOf( fieldMsisdn.getMsisdn() );
+			
+			ArrayList<Token> tokens;
+			
+			if( null == event_date ) { tokens = DAOToken.getInstance( mysql ).getAvailableActiveTokens( msisdn ); }
+			else { tokens = DAOToken.getInstance( mysql ).getAvailableActiveTokensByEventDate( msisdn, event_date ); }
+			
+			int randomQtyTokenToAllocate = minRandomEvents + (int)( Math.random() * ( maxRandomEvents - minRandomEvents ) ); 
+			
+			int maxTokenToAllocate = Math.min( ( tokens.size() - 1 ), randomQtyTokenToAllocate );
+			
+			int tokensToAllocate = ( (int)( 1 + Math.random() * maxTokenToAllocate ) );
+					
+			for ( int tta = 0; tta < tokensToAllocate; tta++ ) {
+				
+				try {
+					
+					XMLRPCRequest.offeroptimizer_allocate().call( 	
+						server, 
+						xmlrpcBody(
+							authentication( user ),
+							string( msisdn ),
+							string( tokens.get( tta ).getTokenCode() )
+						),
+						xmlrpcOptions(
+							storeRequestAsResource( "xmlrpc/request/", "request.xml" ),
+							storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
+						)
+					);
+					
+				} catch (XMLRPCException e) {
+					
+					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+				
+				} catch (Exception e) {
+					
+					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+				
+				}
+				
+			}
+		
+		}
+		
+	}
+	
 	public void xmlrpcRandomTokenAccepting() throws GeneratorException, NumberFormatException, FieldException {
 		
 		actionType = SubscriberAction.tokenAccepting;

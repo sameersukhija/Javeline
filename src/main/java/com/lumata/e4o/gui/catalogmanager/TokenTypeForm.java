@@ -3,13 +3,14 @@ package com.lumata.e4o.gui.catalogmanager;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.openqa.selenium.WebElement;
 
+import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.AngularCalendarForm;
@@ -19,6 +20,75 @@ public class TokenTypeForm extends OfferOptimisationForm {
 
 	private JSONTokenType tokenTypeCfg;
 	
+	public enum TokenFormat {
+		
+		br("br-[0123456789abcdef]{5}"),
+		sl("sl-[0123456789abcdef]{5}"),
+		gl("bl-[0123456789abcdef]{5}"),
+		imm5("[ACDEFGHJKMNPQRTWXY34679]{5}"),
+		imm6("[ACDEFGHJKMNPQRTWXY34679]{6}"),
+		imm7("[ACDEFGHJKMNPQRTWXY34679]{7}");
+		
+		private String value;
+		
+		TokenFormat( String value ) {
+			
+			this.value = value;
+			
+		}
+		
+		public String value() {
+			
+			return this.value;
+			
+		}
+		
+	}
+	
+	public enum TokenValidityType {
+		
+		Relative("Relative"),
+		Absolute("Absolute");
+		
+		private String value;
+		
+		TokenValidityType( String value ) {
+			
+			this.value = value;
+			
+		}
+		
+		public String value() {
+			
+			return this.value;
+			
+		}
+		
+	}
+	
+	public enum TokenValidityUnit {
+		
+		seconds("seconds"),
+		minutes("minutes"),
+		hour("hour"),
+		days("days");
+		
+		private String value;
+		
+		TokenValidityUnit( String value ) {
+			
+			this.value = value;
+			
+		}
+		
+		public String value() {
+			
+			return this.value;
+			
+		}
+		
+	}
+	
     public enum ElementErrorActionType {
 
         RETURN_ERROR,
@@ -26,6 +96,12 @@ public class TokenTypeForm extends OfferOptimisationForm {
         ADD_TIMESTAMP_TO_FIELD;
 
     }; 
+	
+	public TokenTypeForm( SeleniumWebDriver selenium, long timeout, long interval ) {
+		
+		super(selenium, timeout, interval);
+			
+	}
 	
 	public TokenTypeForm( SeleniumWebDriver selenium, JSONTokenType tokenTypeCfg, long timeout, long interval ) {
 		
@@ -53,10 +129,9 @@ public class TokenTypeForm extends OfferOptimisationForm {
 			
 			if( tokenTypeCfg.getEnabled() ) {
 			
-				clickLink( "Add" ).
+				addBtn().
 				configureTokenType().
-				saveTokenType().
-				manageErrorAction( tokenTypeCfg.getErrorActions().getString( "ELEMENT_ALREADY_EXISTS" ) );
+				saveBtn();
 				
 			}
 					
@@ -68,21 +143,21 @@ public class TokenTypeForm extends OfferOptimisationForm {
 	
 	public TokenTypeForm configureTokenType() throws FormException {
 		
-		sendKeysByName( "name", tokenTypeCfg.getName() ).
-		sendKeysByXPath( "//textarea[@ng-model='tokenType.description']", tokenTypeCfg.getDescription() ).
-		sendKeysByXPath( "//input[@ng-model='tokenType.imageUrl']", tokenTypeCfg.getImageUrl() ).
-		selectByNameAndVisibleText( "format", tokenTypeCfg.getFormat() ).		
-		selectByXPathAndVisibleText( "//select[@name='schedulingType']", tokenTypeCfg.getValidityType() );
-				
+		setName( tokenTypeCfg.getName() ).
+		setDescription( tokenTypeCfg.getDescription() ).
+		setImgUrl( tokenTypeCfg.getImageUrl() ).
+		setFormat( tokenTypeCfg.getFormat() ).
+		setValidityType( tokenTypeCfg.getValidityType() );
+						
 		if( tokenTypeCfg.getValidityType().equals( "Relative" ) ) {
 			
-			sendKeysByName( "validity.value", tokenTypeCfg.getValidityValue() ).
-			selectByNameAndVisibleText( "validity.unit", tokenTypeCfg.getValidityUnit() );
-			
+			setValidityValue( tokenTypeCfg.getValidityValue() ).
+			setValidityUnit( tokenTypeCfg.getValidityUnit() );
+						
 		} else /** Absolute */ {
 			
 			Calendar date = Calendar.getInstance();
-			System.out.println( PlaceHolderDate.getInstance( tokenTypeCfg.getValidityValue() ) );
+			
 			try {
 				
 				if( PlaceHolderDate.getInstance( tokenTypeCfg.getValidityValue() ).isPlaceHolderDate() ) {
@@ -123,6 +198,121 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 	}
 	
+	public List<WebElement> getTokenTypeList() throws FormException {
+		
+		List<WebElement> tokenTypeList = super.searchListByXPath( "//div[@class='e4ol-list']", "//div[@class='e4ol-list']//div[contains(@class,'e4ol-list__cell e4ol-list__cell--text')]" );
+		
+		return tokenTypeList;
+		
+	}
+	
+	public Boolean isTokenTypeInList( String tokenTypeName ) throws FormException {
+		
+		List<WebElement> tokenTypeList = getTokenTypeList();
+		
+		for( WebElement tokenTypeEl : tokenTypeList ) {
+			
+			if( tokenTypeEl.getText().trim().equals( tokenTypeName ) ) {
+				
+				return true;
+				
+			}
+			
+		}
+		
+		return false;
+		
+	}  
+	
+	public TokenTypeForm addBtn() throws FormException {
+		
+		super.clickLink( "Add" );
+		
+		return this;
+		
+	}
+	
+	public TokenTypeForm setName( String name ) throws FormException {
+		
+		super.sendKeysByName( "name", name );
+		
+		return this;
+		
+	}
+	
+	public TokenTypeForm setDescription( String description ) throws FormException {
+		
+		super.sendKeysByXPath( "//textarea[@ng-model='tokenType.description']", description );
+		
+		return this;
+		
+	}
+	
+	public TokenTypeForm setImgUrl( String imgUrl ) throws FormException {
+		
+		super.sendKeysByXPath( "//input[@ng-model='tokenType.imageUrl']", imgUrl );
+		
+		return this;
+		
+	}
+	
+	public TokenTypeForm setFormat( String format ) throws FormException {
+		
+		super.selectByNameAndVisibleText( "format", format );
+		
+		return this;
+		
+	}
+	
+	public TokenTypeForm setValidityType( String validityType ) throws FormException {
+		
+		super.selectByXPathAndVisibleText( "//select[@name='schedulingType']", validityType );
+		
+		return this;
+		
+	}
+	
+	public TokenTypeForm setValidityValue( String validityValue ) throws FormException {
+		
+		super.sendKeysByName( "validity.value", validityValue );
+		
+		return this;
+		
+	}
+	
+	public TokenTypeForm setValidityUnit( String validityUnit ) throws FormException {
+		
+		super.selectByNameAndVisibleText( "validity.unit", validityUnit );
+		
+		return this;
+		
+	}
+	
+	public TokenTypeForm setUnlimitedRedraw( Boolean unlimitedRedraw ) throws FormException {
+		
+		if( unlimitedRedraw == true ) {
+			
+			super.clickId( "usageUnlimited-1" ); 
+		
+		} else {
+			
+			super.clickId( "usageUnlimited-0" );
+			
+		}
+		
+		return this;
+		
+	}
+	
+	public TokenTypeForm setNumberOfRedraw( String numberOfRedraw ) throws FormException {
+		
+		super.clearByName( "usage" );
+		super.sendKeysByName( "usage", numberOfRedraw );
+		
+		return this;
+		
+	}
+	
 	public TokenTypeForm setAbsoluteDate( String name, Calendar date ) throws FormException {
 		
 		AngularCalendarForm.
@@ -134,62 +324,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 	}
 	
-	public TokenTypeForm manageErrorAction( String errorAction ) throws FormException {
-		
-		closeAngularFrame();
-		
-		try {
-		
-			searchByXPath( "//div[@class='gwt-DialogBox errorDialog']", 2000, 50 );
-		
-		} catch( FormException fe ) {
-			
-			// no error to manage
-			
-		}
-			
-		if( status ) {
-		
-			clickXPath( "//div[@class='gwt-DialogBox errorDialog']//button" ).
-			openAngularFrame();
-			
-			switch( ElementErrorActionType.valueOf( errorAction ) ) {
-			
-				case RETURN_ERROR: {  
-					
-					throw new FormException( "Error in the form navigation" );
-									
-				}
-				case ABORT: {  
-										
-					cancelTokenType();				
-					
-					break; 				
-				}
-				case ADD_TIMESTAMP_TO_FIELD: {  
-					
-					String name_with_timestamp = tokenTypeCfg.getName() + "_" + String.valueOf( TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) );
-					
-					tokenTypeCfg.setName( name_with_timestamp );					
-					
-					clearByName( "name" ).
-					sendKeysByName( "name", tokenTypeCfg.getName() ).
-					saveTokenType();					
-					
-					break; 				
-				}
-			
-			}
-		
-		} else { openAngularFrame(); }
-		
-		status = true;
-		
-		return this;
-		
-	}
-	
-	public TokenTypeForm saveTokenType() throws FormException {
+	public TokenTypeForm saveBtn() throws FormException {
 		
 		super.clickName( "btn-add" );
 		
@@ -197,7 +332,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 	}
 	
-	public TokenTypeForm cancelTokenType() throws FormException {
+	public TokenTypeForm cancelBtn() throws FormException {
 		
 		super.clickXPath( "//a[@label='actrule-button-cancel']" );
 		
@@ -205,118 +340,42 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 	}
 	
-	@Override
-	public TokenTypeForm clickName( String name ) throws FormException {
+	private Boolean isFieldValid( WebElement el ) {
 		
-		super.clickName( name );
+		return !el.getAttribute( "is-server-valid" ).equals( "serverValidationErrors" );
 		
-		return this;
+	}
+		
+	public Boolean formIsValid() throws FormException {
+		
+		WebElement name = super.search( SeleniumUtils.SearchBy.NAME, "name" );
+		WebElement format = super.search( SeleniumUtils.SearchBy.NAME, "format" );
+		WebElement validityValue = super.search( SeleniumUtils.SearchBy.NAME, "validity.value" );
+		WebElement validityUnit = super.search( SeleniumUtils.SearchBy.NAME, "validity.unit" );
+		WebElement numberOfRedraws = super.search( SeleniumUtils.SearchBy.NAME, "usage" );
+		
+		return ( 	
+			isFieldValid( name ) && 
+			isFieldValid( format ) && 
+			isFieldValid( validityValue ) && 
+			isFieldValid( validityUnit ) &&
+			isFieldValid( numberOfRedraws ) 
+		);
+		
+	}
+	
+	public Boolean formIsNotValid() throws FormException {
+		
+		return !formIsValid();
 		
 	}
 	
 	@Override
-	public TokenTypeForm clickXPath( String xpath ) throws FormException {
+	public TokenTypeForm goToHome() throws FormException {
 		
-		super.clickXPath( xpath );
+		close();
 		
-		return this;
-		
-	}
-		
-	@Override
-	public TokenTypeForm clickLink( String link ) throws FormException {
-		
-		super.clickLink( link );
-		
-		return this;
-		
-	}
-	
-	@Override
-	public TokenTypeForm sendKeysByName( String name, String text ) throws FormException {
-		
-		super.sendKeysByName( name, text );
-		
-		return this;
-	
-	}
-	
-	@Override
-	public TokenTypeForm sendKeysByXPath( String xpath, String text ) throws FormException {
-		
-		super.sendKeysByXPath( xpath, text );
-		
-		return this;
-	
-	}
-	
-	@Override
-	public TokenTypeForm sendKeysByLink( String link, String text ) throws FormException {
-		
-		super.sendKeysByLink( link, text );
-		
-		return this;
-	
-	}
-	
-	@Override
-	public TokenTypeForm selectByName( String name, String label ) throws FormException {
-		
-		super.selectByName( name, label );
-		
-		return this;
-		
-	}
-	
-	@Override
-	public TokenTypeForm clearByName( String xpath ) throws FormException {
-		
-		super.clearByName( xpath );
-		
-		return this;
-		
-	}
-	
-	@Override
-	public TokenTypeForm typeByName( String name, String text ) throws FormException {
-		
-		super.typeByName( name, text );
-		
-		return this;
-	
-	}
-	
-	@Override
-	public TokenTypeForm selectByXPathAndVisibleText( String xpath, String text ) throws FormException {
-		
-		super.selectByVisibleText( SearchBy.XPATH, xpath, text );	
-		
-		return this;
-		
-	}
-	
-	@Override
-	public TokenTypeForm selectByNameAndVisibleText( String name, String text ) throws FormException {
-		
-		super.selectByNameAndVisibleText( name, text );	
-		
-		return this;
-		
-	}
-	
-	@Override
-	public TokenTypeForm openAngularFrame() throws FormException {
-		
-		super.openAngularFrame();	
-		
-		return this;
-		
-	}
-	
-	@Override
-	public TokenTypeForm closeAngularFrame() throws FormException {
-		
-		super.closeAngularFrame();	
+		super.goToHome();
 		
 		return this;
 		

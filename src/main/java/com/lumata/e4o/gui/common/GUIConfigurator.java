@@ -5,7 +5,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.JSONUtils;
@@ -16,11 +15,13 @@ import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.administrationmanager.SalesChannelsForm;
 import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
+import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
 import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.e4o.json.gui.administrationmanager.JSONSalesChannels;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCampaigns;
 import com.lumata.e4o.json.gui.catalogmanager.JSONRules;
 import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
 
@@ -81,7 +82,8 @@ public class GUIConfigurator {
 				switch( GUISection.valueOf( guiConfig.getString( JSONKey.section.name() ) ) ) {
 				
 					case campaigns: {
-						System.out.println( guiConfig.getString( JSONKey.file.name() ) );
+						CampaignsForm campaignForm = new CampaignsForm( seleniumWebDriver, new JSONCampaigns( guiConfig.getString( JSONKey.folder.name() ), guiConfig.getString( JSONKey.file.name() ) ), timeout, attempt_timeout );
+						success = campaignForm.open().addCampaigns().navigate();
 						break;
 					}
 					case campaignModels: {

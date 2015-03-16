@@ -33,103 +33,103 @@ public class XMLRPCResponseOffer extends XMLRPCResponseObject {
 		super( relativeRoot + ".offer" );
 	}
 	
-	public XMLRPCResponseValidator id( Matcher<String> matcher ) {
+	public XMLRPCResponseValidator id( Matcher<Short> matcher ) {
 		
-		return new XMLRPCResponseValidator( builPath( ID_TAG_ ), matcher, Integer.class, "offer id" );		
+		return new XMLRPCResponseValidator( builPath( ID_TAG_ ), matcher, Short.class, "offer id" );		
 		
 	}
 
-	public XMLRPCResponseValidator name( Matcher<Integer> matcher ) {
+	public XMLRPCResponseValidator name( Matcher<String> matcher ) {
 		
 		return new XMLRPCResponseValidator( builPath( NAME_TAG_ ), matcher, String.class, "offer name" );		
 		
 	}
 	
-	public XMLRPCResponseValidator description( Matcher<Integer> matcher ) {
+	public XMLRPCResponseValidator description( Matcher<String> matcher ) {
 		
 		return new XMLRPCResponseValidator( builPath( DESCRIPTION_TAG_ ), matcher, String.class, "offer description" );		
 		
 	}
 	
-	public XMLRPCResponseValidator imageUrl( Matcher<Integer> matcher ) {
+	public XMLRPCResponseValidator imageUrl( Matcher<String> matcher ) {
 		
 		return new XMLRPCResponseValidator( builPath( IMAGE_URL_TAG_ ), matcher, String.class, "offer image url" );		
 		
 	}
 
-	public XMLRPCResponseValidator termOfCondition( Matcher<Integer> matcher ) {
+	public XMLRPCResponseValidator termOfCondition( Matcher<String> matcher ) {
 		
 		return new XMLRPCResponseValidator( builPath( TERM_OF_CONDITION_TAG_ ), matcher, String.class, "offer term of condition" );		
 		
 	}
 	
-	public XMLRPCResponseValidator status( Matcher<Integer> matcher ) {
+	public XMLRPCResponseValidator status( Matcher<String> matcher ) {
 		
 		return new XMLRPCResponseValidator( builPath( STATUS_TAG_ ), matcher, String.class, "offer status" );		
 		
 	}
 	
-	public XMLRPCResponseValidator allocatedDate( Matcher<Integer> matcher ) {
+	public XMLRPCResponseValidator allocatedDate( Matcher<Date> matcher ) {
 		
 		return new XMLRPCResponseValidator( builPath( ALLOCATED_DATE_TAG_ ), matcher, Date.class, "offer allocated date" );		
 		
 	}
 	
-	public XMLRPCResponseValidator releasedDate( Matcher<Integer> matcher ) {
+	public XMLRPCResponseValidator releasedDate( Matcher<Date> matcher ) {
 		
 		return new XMLRPCResponseValidator( builPath( RELEASED_DATE_TAG_ ), matcher, Date.class, "offer released date" );		
 		
 	}
 	
-	public XMLRPCResponseValidator acceptedDate( Matcher<Integer> matcher ) {
+	public XMLRPCResponseValidator acceptedDate( Matcher<Date> matcher ) {
 		
 		return new XMLRPCResponseValidator( builPath( ACCEPTED_DATE_TAG_ ), matcher, Date.class, "offer accepted date" );		
 		
 	}
 	
-	public XMLRPCResponseValidator refusedDate( Matcher<Integer> matcher ) {
+	public XMLRPCResponseValidator refusedDate( Matcher<Date> matcher ) {
 		
 		return new XMLRPCResponseValidator( builPath( REFUSED_DATE_TAG_ ), matcher, Date.class, "offer refused date" );		
 		
 	}
 
-	public XMLRPCResponseValidator deliveredDate( Matcher<Integer> matcher ) {
+	public XMLRPCResponseValidator deliveredDate( Matcher<Date> matcher ) {
 		
 		return new XMLRPCResponseValidator( builPath( DELIVERED_DATE_TAG_ ), matcher, Date.class, "offer delivered date" );		
 		
 	}
 
-	public XMLRPCResponseValidator isVoucher( Matcher<Integer> matcher ) {
+	public XMLRPCResponseValidator isVoucher( Matcher<Boolean> matcher ) {
 		
 		return new XMLRPCResponseValidator( builPath( IS_VOUCHER_TAG_ ), matcher, Boolean.class, "offer is voucher" );		
 		
 	}
 
-	public XMLRPCResponseVoucher voucher( Matcher<Integer> matcher ) {
+	public XMLRPCResponseVoucher voucher( Matcher<String> matcher ) {
 		
 		return new XMLRPCResponseVoucher( relativeRoot );		
 		
 	}
 	
-	public XMLRPCResponseValidator startDate( Matcher<Integer> matcher ) {
+	public XMLRPCResponseValidator startDate( Matcher<Date> matcher ) {
 		
 		return new XMLRPCResponseValidator( builPath( START_DATE_TAG_ ), matcher, Date.class, "offer start date" );		
 		
 	}
 
-	public XMLRPCResponseValidator endDate( Matcher<Integer> matcher ) {
+	public XMLRPCResponseValidator endDate( Matcher<Date> matcher ) {
 		
 		return new XMLRPCResponseValidator( builPath( END_DATE_TAG_ ), matcher, Date.class, "offer end date" );		
 		
 	}
 	
-	public XMLRPCResponseValidator category( Matcher<Integer> matcher ) {
+	public XMLRPCResponseValidator category( Matcher<String> matcher ) {
 		
 		return new XMLRPCResponseValidator( builPath( CATEGORY_TAG_ ), matcher, String.class, "offer category" );		
 		
 	}
 	
-	public XMLRPCResponsePrice price( Matcher<Integer> matcher ) {
+	public XMLRPCResponsePrice price( Matcher<String> matcher ) {
 		
 		return new XMLRPCResponsePrice( relativeRoot );		
 		
@@ -137,11 +137,11 @@ public class XMLRPCResponseOffer extends XMLRPCResponseObject {
 	
 	public XMLRPCResponseValidator reservedQuantity( Matcher<Integer> matcher ) {
 		
-		return new XMLRPCResponseValidator( builPath( RESERVED_QUANTITY_TAG_ ), matcher, String.class, "offer reserved quantity" );		
+		return new XMLRPCResponseValidator( builPath( RESERVED_QUANTITY_TAG_ ), matcher, Integer.class, "offer reserved quantity" );		
 		
 	}
 	
-	public XMLRPCResponseValidator contents( Matcher<Integer> matcher ) {
+	public XMLRPCResponseValidator contents( Matcher<Date> matcher ) {
 		
 		return new XMLRPCResponseValidator( builPath( CONTENTS_TAG_ ), matcher, String.class, "offer contents" );		
 		

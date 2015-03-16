@@ -28,10 +28,10 @@ public class GenerateSubscribersRecharge {
 
 	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersRecharge.class );
 	
-	final boolean GENERATE_FIXED_SUBSCRIBER = true;
+	final boolean GENERATE_FIXED_SUBSCRIBER = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE = false;
-	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE_AND_SUBSCRIBERS = false;
+	final boolean GENERATE_INCREMENTAL_SUBSCRIBER_RANDOM_RECHARGE_AND_SUBSCRIBERS = true;
 	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = false;
 	final boolean GENERATE_RANDOM_SUBSCRIBERS = false;
 	
@@ -58,7 +58,7 @@ public class GenerateSubscribersRecharge {
 	public void generateFixedSubscriber() throws GeneratorException {
 		
 		final Long FIXED_MSISDN = 3399900001L;
-		final Long RECHARGE_TO_GENERATE = 100L;
+		final Long RECHARGE_TO_GENERATE = 20L;
 						
 		Generator.subscribers()
 					.server( guiServer )
@@ -142,10 +142,10 @@ public class GenerateSubscribersRecharge {
 					
 	}
 	
-	@Test( enabled = GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE_AND_SUBSCRIBERS )
+	@Test( enabled = GENERATE_INCREMENTAL_SUBSCRIBER_RANDOM_RECHARGE_AND_SUBSCRIBERS )
 	public void generateFixedSubscriberRandomRechargeAndSubscribers() throws GeneratorException {
 		
-		final Long STARTED_MSISDN = 3399900002L;
+		final Long STARTED_MSISDN = 3399900001L;
 		final Integer INCREMENT = 1;
 		final Integer REPEAT = 49;
 		final Integer MIN_EVENTS = 20;

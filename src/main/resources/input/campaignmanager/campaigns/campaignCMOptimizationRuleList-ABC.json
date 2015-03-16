@@ -1,0 +1,499 @@
+{
+	"campaigns": [{
+			"enabled": true,
+			"name": "CMAllRulesA",
+			"description": "CMAllRulesA",
+			"definition": {
+				"executionMode": "Model",
+				"campaignModel": "CMAllRulesA",
+				"campaignType": "No type",
+				"byPassMediaType": true
+			},
+			"scheduling": {
+				"typeOfRecurrence": "Single",
+				"singleRecurrence": {
+					"executionStart": "@current",
+					"executionEndType": "Relative",
+					"executionEndValue": "300",
+					"provisioningStart": "@current",
+					"provisioningEnd": "@current+301day",
+					"daysBetweenProvisioningAndExecutionStartDates": "0"
+				},
+				"multipleRecurrence": {
+					"recurrencePattern": "Monthly",
+					"recurrencePatternWeekly": {
+						"recurEveryWeek": "2",
+						"recurEveryDay": [ "M", "Th" ] 
+					},
+					"recurrencePatternMonthly": {
+						"daySettingType": "GeneralDay",
+						"simpleDay": {
+							"recurEveryDay": "28",
+							"recurEveryMonth": "2"
+						},
+						"generalDay": {
+							"recurEveryOrdinalDay": "Second",
+							"recurEveryDay": "Friday",
+							"recurEveryMonth": "6"
+						}						 
+					},
+					"provisionigDuration": "2",
+					"daysBetweenProvisioningAndExecutionStartDate": "2",
+					"executionDuration": "5",
+					"startDate": "2014-05-04",
+					"rangeOfRecurrenceType": "EndDate",
+					"rangeOfRecurrenceValue": "2014-05-05"
+				}
+			},
+			"dialogue": {
+				"channel": {
+					"shortCode": null,
+					"emailAddress": null				
+				},
+				"notification": {
+					"daysOfNotificationBeforeExecution": "5",
+					"messages": null,
+					"applyCampaignToNotifiedOnly": true,	
+					"time": "10:00"			
+				}
+			},
+			"target": {
+				"targetingMode": "Restricted",
+				"targetingOpened": {
+					"subscriberProfileRestrictions": null,
+					"subscriberRestrictions": [
+						{
+							"eventType": ""						
+						}
+					]				
+				},
+				"targetingRestricted": {
+					"mode": "Criteria",
+					"modeCriteria": null,
+					"downloadEligibleSubscribers": false,
+					"sampleType": "NoSample",
+					"sampleValue": "",
+					"sampleValueType": ""														
+				}
+			},	
+			"limit": null,
+			"activation": {
+				"action": "Activate"
+			},		
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMAllRulesB",
+			"description": "CMAllRulesB",
+			"definition": {
+				"executionMode": "Model",
+				"campaignModel": "CMAllRulesB",
+				"campaignType": "No type",
+				"byPassMediaType": true
+			},
+			"scheduling": {
+				"typeOfRecurrence": "Single",
+				"singleRecurrence": {
+					"executionStart": "@current",
+					"executionEndType": "Relative",
+					"executionEndValue": "300",
+					"provisioningStart": "@current",
+					"provisioningEnd": "@current+301day",
+					"daysBetweenProvisioningAndExecutionStartDates": "0"
+				},
+				"multipleRecurrence": {
+					"recurrencePattern": "Monthly",
+					"recurrencePatternWeekly": {
+						"recurEveryWeek": "2",
+						"recurEveryDay": [ "M", "Th" ] 
+					},
+					"recurrencePatternMonthly": {
+						"daySettingType": "GeneralDay",
+						"simpleDay": {
+							"recurEveryDay": "28",
+							"recurEveryMonth": "2"
+						},
+						"generalDay": {
+							"recurEveryOrdinalDay": "Second",
+							"recurEveryDay": "Friday",
+							"recurEveryMonth": "6"
+						}						 
+					},
+					"provisionigDuration": "2",
+					"daysBetweenProvisioningAndExecutionStartDate": "2",
+					"executionDuration": "5",
+					"startDate": "2014-05-04",
+					"rangeOfRecurrenceType": "EndDate",
+					"rangeOfRecurrenceValue": "2014-05-05"
+				}
+			},
+			"dialogue": {
+				"channel": {
+					"shortCode": null,
+					"emailAddress": null				
+				},
+				"notification": {
+					"daysOfNotificationBeforeExecution": "5",
+					"messages": null,
+					"applyCampaignToNotifiedOnly": true,	
+					"time": "10:00"			
+				}
+			},
+			"target": {
+				"targetingMode": "Restricted",
+				"targetingOpened": {
+					"subscriberProfileRestrictions": null,
+					"subscriberRestrictions": [
+						{
+							"eventType": ""						
+						}
+					]				
+				},
+				"targetingRestricted": {
+					"mode": "Criteria",
+					"modeCriteria": null,
+					"downloadEligibleSubscribers": false,
+					"sampleType": "NoSample",
+					"sampleValue": "",
+					"sampleValueType": ""														
+				}
+			},	
+			"limit": null,
+			"activation": {
+				"action": "Activate"
+			},		
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMAllRulesC",
+			"description": "CMAllRulesC",
+			"definition": {
+				"executionMode": "Model",
+				"campaignModel": "CMAllRulesC",
+				"campaignType": "No type",
+				"byPassMediaType": true
+			},
+			"scheduling": {
+				"typeOfRecurrence": "Single",
+				"singleRecurrence": {
+					"executionStart": "@current",
+					"executionEndType": "Relative",
+					"executionEndValue": "300",
+					"provisioningStart": "@current",
+					"provisioningEnd": "@current+301day",
+					"daysBetweenProvisioningAndExecutionStartDates": "0"
+				},
+				"multipleRecurrence": {
+					"recurrencePattern": "Monthly",
+					"recurrencePatternWeekly": {
+						"recurEveryWeek": "2",
+						"recurEveryDay": [ "M", "Th" ] 
+					},
+					"recurrencePatternMonthly": {
+						"daySettingType": "GeneralDay",
+						"simpleDay": {
+							"recurEveryDay": "28",
+							"recurEveryMonth": "2"
+						},
+						"generalDay": {
+							"recurEveryOrdinalDay": "Second",
+							"recurEveryDay": "Friday",
+							"recurEveryMonth": "6"
+						}						 
+					},
+					"provisionigDuration": "2",
+					"daysBetweenProvisioningAndExecutionStartDate": "2",
+					"executionDuration": "5",
+					"startDate": "2014-05-04",
+					"rangeOfRecurrenceType": "EndDate",
+					"rangeOfRecurrenceValue": "2014-05-05"
+				}
+			},
+			"dialogue": {
+				"channel": {
+					"shortCode": null,
+					"emailAddress": null				
+				},
+				"notification": {
+					"daysOfNotificationBeforeExecution": "5",
+					"messages": null,
+					"applyCampaignToNotifiedOnly": true,	
+					"time": "10:00"			
+				}
+			},
+			"target": {
+				"targetingMode": "Restricted",
+				"targetingOpened": {
+					"subscriberProfileRestrictions": null,
+					"subscriberRestrictions": [
+						{
+							"eventType": ""						
+						}
+					]				
+				},
+				"targetingRestricted": {
+					"mode": "Criteria",
+					"modeCriteria": null,
+					"downloadEligibleSubscribers": false,
+					"sampleType": "NoSample",
+					"sampleValue": "",
+					"sampleValueType": ""														
+				}
+			},	
+			"limit": null,
+			"activation": {
+				"action": "Activate"
+			},		
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMAllRulesAB",
+			"description": "CMAllRulesAB",
+			"definition": {
+				"executionMode": "Model",
+				"campaignModel": "CMAllRulesAB",
+				"campaignType": "No type",
+				"byPassMediaType": true
+			},
+			"scheduling": {
+				"typeOfRecurrence": "Single",
+				"singleRecurrence": {
+					"executionStart": "@current",
+					"executionEndType": "Relative",
+					"executionEndValue": "300",
+					"provisioningStart": "@current",
+					"provisioningEnd": "@current+301day",
+					"daysBetweenProvisioningAndExecutionStartDates": "0"
+				},
+				"multipleRecurrence": {
+					"recurrencePattern": "Monthly",
+					"recurrencePatternWeekly": {
+						"recurEveryWeek": "2",
+						"recurEveryDay": [ "M", "Th" ] 
+					},
+					"recurrencePatternMonthly": {
+						"daySettingType": "GeneralDay",
+						"simpleDay": {
+							"recurEveryDay": "28",
+							"recurEveryMonth": "2"
+						},
+						"generalDay": {
+							"recurEveryOrdinalDay": "Second",
+							"recurEveryDay": "Friday",
+							"recurEveryMonth": "6"
+						}						 
+					},
+					"provisionigDuration": "2",
+					"daysBetweenProvisioningAndExecutionStartDate": "2",
+					"executionDuration": "5",
+					"startDate": "2014-05-04",
+					"rangeOfRecurrenceType": "EndDate",
+					"rangeOfRecurrenceValue": "2014-05-05"
+				}
+			},
+			"dialogue": {
+				"channel": {
+					"shortCode": null,
+					"emailAddress": null				
+				},
+				"notification": {
+					"daysOfNotificationBeforeExecution": "5",
+					"messages": null,
+					"applyCampaignToNotifiedOnly": true,	
+					"time": "10:00"			
+				}
+			},
+			"target": {
+				"targetingMode": "Restricted",
+				"targetingOpened": {
+					"subscriberProfileRestrictions": null,
+					"subscriberRestrictions": [
+						{
+							"eventType": ""						
+						}
+					]				
+				},
+				"targetingRestricted": {
+					"mode": "Criteria",
+					"modeCriteria": null,
+					"downloadEligibleSubscribers": false,
+					"sampleType": "NoSample",
+					"sampleValue": "",
+					"sampleValueType": ""														
+				}
+			},	
+			"limit": null,
+			"activation": {
+				"action": "Activate"
+			},		
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMAllRulesAC",
+			"description": "CMAllRulesAC",
+			"definition": {
+				"executionMode": "Model",
+				"campaignModel": "CMAllRulesAC",
+				"campaignType": "No type",
+				"byPassMediaType": true
+			},
+			"scheduling": {
+				"typeOfRecurrence": "Single",
+				"singleRecurrence": {
+					"executionStart": "@current",
+					"executionEndType": "Relative",
+					"executionEndValue": "300",
+					"provisioningStart": "@current",
+					"provisioningEnd": "@current+301day",
+					"daysBetweenProvisioningAndExecutionStartDates": "0"
+				},
+				"multipleRecurrence": {
+					"recurrencePattern": "Monthly",
+					"recurrencePatternWeekly": {
+						"recurEveryWeek": "2",
+						"recurEveryDay": [ "M", "Th" ] 
+					},
+					"recurrencePatternMonthly": {
+						"daySettingType": "GeneralDay",
+						"simpleDay": {
+							"recurEveryDay": "28",
+							"recurEveryMonth": "2"
+						},
+						"generalDay": {
+							"recurEveryOrdinalDay": "Second",
+							"recurEveryDay": "Friday",
+							"recurEveryMonth": "6"
+						}						 
+					},
+					"provisionigDuration": "2",
+					"daysBetweenProvisioningAndExecutionStartDate": "2",
+					"executionDuration": "5",
+					"startDate": "2014-05-04",
+					"rangeOfRecurrenceType": "EndDate",
+					"rangeOfRecurrenceValue": "2014-05-05"
+				}
+			},
+			"dialogue": {
+				"channel": {
+					"shortCode": null,
+					"emailAddress": null				
+				},
+				"notification": {
+					"daysOfNotificationBeforeExecution": "5",
+					"messages": null,
+					"applyCampaignToNotifiedOnly": true,	
+					"time": "10:00"			
+				}
+			},
+			"target": {
+				"targetingMode": "Restricted",
+				"targetingOpened": {
+					"subscriberProfileRestrictions": null,
+					"subscriberRestrictions": [
+						{
+							"eventType": ""						
+						}
+					]				
+				},
+				"targetingRestricted": {
+					"mode": "Criteria",
+					"modeCriteria": null,
+					"downloadEligibleSubscribers": false,
+					"sampleType": "NoSample",
+					"sampleValue": "",
+					"sampleValueType": ""														
+				}
+			},	
+			"limit": null,
+			"activation": {
+				"action": "Activate"
+			},		
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMAllRulesABC",
+			"description": "CMAllRulesABC",
+			"definition": {
+				"executionMode": "Model",
+				"campaignModel": "CMAllRulesABC",
+				"campaignType": "No type",
+				"byPassMediaType": true
+			},
+			"scheduling": {
+				"typeOfRecurrence": "Single",
+				"singleRecurrence": {
+					"executionStart": "@current",
+					"executionEndType": "Relative",
+					"executionEndValue": "300",
+					"provisioningStart": "@current",
+					"provisioningEnd": "@current+301day",
+					"daysBetweenProvisioningAndExecutionStartDates": "0"
+				},
+				"multipleRecurrence": {
+					"recurrencePattern": "Monthly",
+					"recurrencePatternWeekly": {
+						"recurEveryWeek": "2",
+						"recurEveryDay": [ "M", "Th" ] 
+					},
+					"recurrencePatternMonthly": {
+						"daySettingType": "GeneralDay",
+						"simpleDay": {
+							"recurEveryDay": "28",
+							"recurEveryMonth": "2"
+						},
+						"generalDay": {
+							"recurEveryOrdinalDay": "Second",
+							"recurEveryDay": "Friday",
+							"recurEveryMonth": "6"
+						}						 
+					},
+					"provisionigDuration": "2",
+					"daysBetweenProvisioningAndExecutionStartDate": "2",
+					"executionDuration": "5",
+					"startDate": "2014-05-04",
+					"rangeOfRecurrenceType": "EndDate",
+					"rangeOfRecurrenceValue": "2014-05-05"
+				}
+			},
+			"dialogue": {
+				"channel": {
+					"shortCode": null,
+					"emailAddress": null				
+				},
+				"notification": {
+					"daysOfNotificationBeforeExecution": "5",
+					"messages": null,
+					"applyCampaignToNotifiedOnly": true,	
+					"time": "10:00"			
+				}
+			},
+			"target": {
+				"targetingMode": "Restricted",
+				"targetingOpened": {
+					"subscriberProfileRestrictions": null,
+					"subscriberRestrictions": [
+						{
+							"eventType": ""						
+						}
+					]				
+				},
+				"targetingRestricted": {
+					"mode": "Criteria",
+					"modeCriteria": null,
+					"downloadEligibleSubscribers": false,
+					"sampleType": "NoSample",
+					"sampleValue": "",
+					"sampleValueType": ""														
+				}
+			},	
+			"limit": null,
+			"activation": {
+				"action": "Activate"
+			},		
+			"delete": false
+		}							
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+}

@@ -91,9 +91,9 @@ public class GenerateSubscribersTokenAcceptingRandomly {
 		
 		final Long STARTED_MSISDN = 3399900001L;
 		final Integer INCREMENT = 1;
-		final Integer MIN_EVENTS = 200;
-		final Integer MAX_EVENTS = 500;
-		final Integer REPEAT = 1;
+		final Integer MIN_EVENTS = 20;
+		final Integer MAX_EVENTS = 50;
+		final Integer REPEAT = 23;
 		
 		Generator.subscribers()
 					.environment( env )
