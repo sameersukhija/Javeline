@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite
+  SYSTEM 'http://testng.org/testng-1.0.dtd'>
+<suite name="O2 Custom Reporter Suite" parallel="false" verbose="1">
+
+  <!-- 
+    Start path where locate configuration files 
+  -->
+  <parameter name="resourceStartPath"   value="input"/>
+  <parameter name="loadingType"         value="RESOURCE"/>
+
+  <!-- 
+    ##### 
+    ##### 
+    ##### Configuration environment file and its main correlated parameters
+    ##### 
+    ##### 
+  -->
+  <!-- <parameter name="environment"         value="e4o_vm_report_ne"/> -->
+  <parameter name="environment"         value="e4o_qa_ne"/>
+  <parameter name="gui_server"          value="actrule"/>
+  <parameter name="tenant"              value="qa"/>
+  <!-- <parameter name="tenant"              value="tenantMaster"/> -->
+  <parameter name="user"                value="superman"/>
+
+  <!-- 
+    ##### 
+    ##### Subscriber under test
+    ##### 
+  -->
+  <parameter name="msisdn"              value="393492135576"/>
+
+  <!-- 
+    ##### 
+    ##### Number of tokens to be generated
+    ##### 
+  -->
+  <parameter name="tokens2BeGenerated"  value="5"/>
+
+  <!-- 
+    ##### 
+    ##### List of offer_id separated with ";" the purchased offer is chosen randomically
+    ##### 
+  -->
+  <parameter name="offerIds"            value="1000"/>
+
+
+  <!-- 
+    >>>>>>> 
+    >>>>>>> Test Section 
+    >>>>>>> 
+  -->
+
+  <test name="Start tokens status">
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>
+          <include name="getTokensList"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <test name="Core XMLRPC - Generate Tokens">
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>
+          <include name="generateTokens"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <!-- 
+    >>>>>>> Accept the allocate token with a random offer from input bucket
+  -->
+  <test name="Core XMLRPC - Allocate/Purchase Tokens" enabled="true">
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>    
+          <include name="getTokensList"/>
+          <include name="allocatePurchaseToken"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <!-- 
+    >>>>>>> Allocate token
+  -->
+  <test name="Core XMLRPC - Allocate Tokens" enabled="false">
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>    
+          <include name="getTokensList"/>
+          <include name="allocateToken"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <!-- 
+    >>>>>>> Accept the allocate token with a random offer from input bucket
+  -->
+  <test name="Core XMLRPC - Accept Tokens" enabled="false">
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>      
+          <include name="getTokensList"/>
+          <include name="acceptToken"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <!-- 
+    >>>>>>> Refuse all allocated token in observation time
+  -->
+  <test name="Core XMLRPC - Refuse Just Allocated Tokens" enabled="false">
+    <parameter name="wideTime" value="false"/>
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>      
+          <include name="getTokensList"/>
+          <include name="refuseTokens"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <test name="End tokens status">
+    <classes>
+      <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
+        <methods>
+          <include name="getTokensList"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

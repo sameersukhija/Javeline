@@ -455,7 +455,26 @@ public class ImportDB {
 				ds.getHostName(),
 				convertArrayToString(tablesList, " ")), filename);
 	}
-	
+
+	/**
+	 * This method is used to dump the schema only
+	 * 
+	 * @param tablesList
+	 * @throws IOException 
+	 */
+	public static void dumpAll(DataSource ds, String filename) throws IOException {
+
+		deleteOldFileIfExists(filename);
+		
+		execFile(String.format(
+				"mysqldump -h%s -u%s -p%s -P%s --lock-tables=false %s",
+				ds.getHostAddress(),
+				ds.getUser(),
+				Security.decrypt(ds.getPassword()),
+				ds.getHostPort(),
+				ds.getHostName()), filename);
+	}
+
 	/**
 	 * This method is used to dump the data only, some records using the where condition (user tables)
 	 * 
@@ -799,6 +818,11 @@ public class ImportDB {
 			}
 			
 			//dumpBig(null/*TODO*/, msisdnList, ds, dumpBigName);
+		} else if (task.equals("dumpAll")) {
+			
+			String fileName = System.getProperty( "dumpFileName", "dumpAll.sql");
+			
+			dumpAll(ds, fileName);
 		}
 	}
 }
