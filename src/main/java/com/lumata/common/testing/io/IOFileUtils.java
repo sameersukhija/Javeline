@@ -25,6 +25,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -512,6 +514,55 @@ public final class IOFileUtils {
 			
 		return fl;
 		
+	}
+	
+	public static List<String> loadFileAsList( String file ) throws IOFileException  {
+		
+		List<String> lines = new LinkedList<String>();
+
+        String line = "";
+        
+        try {
+                
+        	BufferedReader in = loadFileAsBufferedReader( file );
+                
+        	while ( null != ( line = in.readLine() ) ) { lines.add(line); }
+        
+        } catch (IOException e) {
+        
+        	logger.error( e.getMessage(), e );
+        
+        }
+        
+        logger.debug( "The file has been loaded as list ( " + IOFileUtils.buildPath( file ) + " )" );
+		
+        return lines;
+		
+        
+	}
+	
+	public static List<String> loadFileAsList( String folder, String file ) throws IOFileException  {
+		
+		List<String> lines = new LinkedList<String>();
+
+        String line = "";
+        
+        try {
+                
+        	BufferedReader in = loadFileAsBufferedReader( folder, file );
+                
+        	while ( null != ( line = in.readLine() ) ) { lines.add(line); }
+        
+        } catch (IOException e) {
+        
+        	logger.error( e.getMessage(), e );
+        
+        }
+        
+        logger.debug( "The file has been loaded as list ( " + IOFileUtils.buildPath( folder, file ) + " )" );
+		
+        return lines;		
+        
 	}
 	
 	public static File buildFile( String path ) throws IOFileException {
@@ -1032,33 +1083,36 @@ public final class IOFileUtils {
 		
 	}
 	
-	public static JSONObject filesDiff( File leftDir, File rightDir, Boolean checkContent, ArrayList<File> exclusions ) {
+	public static JSONObject foldersDiff( File leftDir, File rightDir, Boolean checkContent, ArrayList<File> exclusions ) {
 		
 		JSONObject jsonContentDiff = new JSONObject();
 		JSONObject jsonLeftDir = new JSONObject();
 		JSONObject jsonRightDir = new JSONObject();
 		JSONArray jsonMissingFiles = new JSONArray();
-		JSONArray jsonDifferences = new JSONArray();
+		JSONArray jsonChangedFiles = new JSONArray();
 		
 		jsonLeftDir.put( "path", leftDir.getAbsolutePath() );
 		jsonLeftDir.put( "missingFiles", jsonMissingFiles );
+		jsonLeftDir.put( "changedFiles", jsonChangedFiles );
 		
 		jsonRightDir.put( "path", rightDir.getAbsolutePath() );
 		jsonRightDir.put( "missingFiles", jsonMissingFiles );
-		
+		jsonRightDir.put( "changedFiles", jsonChangedFiles );
+				
 		jsonContentDiff.put( "leftDir", jsonLeftDir );
 		jsonContentDiff.put( "rightDir", jsonRightDir );
-		jsonContentDiff.put( "differences", jsonDifferences );
 				
-		
 		ArrayList<File> leftFilesList = new ArrayList<File>();
 		ArrayList<File> rightFilesList = new ArrayList<File>();
-				
+		
 		listFiles( leftDir,leftFilesList, true );
 		listFiles( rightDir, rightFilesList, true );
 		
 		leftFilesList = removeExclusionsFromFilesList( leftFilesList, exclusions );
 		rightFilesList = removeExclusionsFromFilesList( rightFilesList, exclusions );
+		
+		Collections.sort(leftFilesList);
+		Collections.sort(rightFilesList);
 				
 		for( File leftFile : leftFilesList ) {
 			
@@ -1074,8 +1128,9 @@ public final class IOFileUtils {
 						
 						if( !leftFile.isDirectory() && !FileUtils.contentEquals( leftFile, rightFile ) ) {
 							
-							jsonContentDiff.getJSONArray( "differences" ).put( leftFile.getAbsolutePath().replace( leftDir.getAbsolutePath(), "" ) );
-							
+							jsonContentDiff.getJSONObject( "leftDir" ).getJSONArray( "changedFiles" ).put( leftFile.getAbsolutePath().replace( leftDir.getAbsolutePath(), "" ) );
+							jsonContentDiff.getJSONObject( "rightDir" ).getJSONArray( "changedFiles" ).put( rightFile.getAbsolutePath().replace( rightDir.getAbsolutePath(), "" ) );
+					
 						}
 						
 					} catch (IOException e) {

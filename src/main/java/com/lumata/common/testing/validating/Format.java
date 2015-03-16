@@ -224,6 +224,12 @@ public final class Format {
 		
 	}
 	
+	public static String addTimestamp( String name ) {
+		
+		return name + getSystemTimestamp();
+		
+	}
+	
 	public static boolean isNumeric( String value ) {
 		
 		try {  
