@@ -20,7 +20,7 @@ import org.testng.TestNG;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.lumata.e4o.regression.gui.TestTokenTypeForm;
+import com.lumata.e4o.regressions.gui.TestTokenTypeForm;
 //import com.lumata.e4o.regressions.schema.ConfigureEnvironment;
 import com.lumata.e4o.regressions.xmlrpc.*;
 

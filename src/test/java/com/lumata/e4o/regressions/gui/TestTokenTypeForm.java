@@ -1,4 +1,4 @@
-package com.lumata.e4o.regression.gui;
+package com.lumata.e4o.regressions.gui;
 
 import java.lang.reflect.Method;
 
