@@ -11,7 +11,13 @@
   <listeners>
     <listener class-name="com.lumata.e4o.common.TestNGReportListener"/>
   </listeners>
-  
+
+  <test name="Initialize Database">
+	<classes>
+		<class name="com.lumata.e4o.regressions.schema.ConfigureEnvironment" />
+	</classes>    
+  </test>
+    
   <test name="Regression GUI using Selenium">
 	<packages>
 		<package name="com.lumata.e4o.regressions.gui.*" />

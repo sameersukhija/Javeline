@@ -163,6 +163,7 @@ public class XMLRPCRequest_Subscribermanager_CreateSubscriber {
 					
 	}
 	
+	@SuppressWarnings("unused")
 	private Long getNotExitingMsisdn( Long startValue, Long endValue, Integer attempts ) {
 		
 		Long msisdn = null;
@@ -241,6 +242,7 @@ public class XMLRPCRequest_Subscribermanager_CreateSubscriber {
 		
 	}
 	
+	@SuppressWarnings("unused")
 	private Integer getColumnLenght( Class<?> obj, Enum<?> column ) {
 		
 		try {
