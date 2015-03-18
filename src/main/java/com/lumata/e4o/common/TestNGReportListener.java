@@ -70,6 +70,10 @@ public class TestNGReportListener implements IReporter  {
 								
 				ITestContext tc = sr.getTestContext();
 				
+//				System.out.println( "###############" );
+//				System.out.println( tc.getName() );
+//				System.out.println( "###############" );
+								
 				try {
 										
 					addTestsResult( testSuite, new ArrayList<ITestResult>( tc.getPassedTests().getAllResults() ) );
