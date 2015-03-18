@@ -141,7 +141,7 @@ public class TestTokenTypeForm {
 		
 		/** save form with all fields empty **/
 		Assert.assertTrue( tokenTypeForm.
-							open().
+							//open().
 							addBtn().
 							saveBtn().
 							formIsNotValid() 
