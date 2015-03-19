@@ -1,0 +1,94 @@
+<NotifConfiguration>
+	<defaults>
+		<default>
+			<!-- filters -->
+			<channel_name>SMS</channel_name>
+			<!-- properties -->
+			<!-- encoding_charset -->
+			<!-- queue -->
+			<!-- bypass_time_window -->
+			<bypass_time_window>
+				<start_time>08:00</start_time>
+				<end_time>23:59</end_time>
+				<restart_time>08:00</restart_time>
+				</bypass_time_window>
+			<!-- retry -->
+			<priority>8</priority>
+			<!--<formatters><formatter>com.act750.notif.format.NotifTagFormatter</formatter></formatters>-->
+			<source>DreamTeam</source>
+			<expiration_period>2</expiration_period>
+			<max_expiration_delay>60</max_expiration_delay>
+			<queue>
+				<module_id>module_id</module_id>
+				<feature_id/>
+			</queue>
+		</default>
+		<default>
+			<!-- filters -->
+			<channel_name>MAIL</channel_name>
+			<!-- properties -->
+			<!-- encoding_charset -->
+			<!-- queue -->
+			<!-- bypass_time_window -->
+			<bypass_time_window>
+				<start_time>08:00</start_time>
+				<end_time>23:59</end_time>
+				<restart_time>08:00</restart_time>
+				</bypass_time_window>
+			<!-- retry -->
+			<priority>8</priority>
+			<!--<formatters><formatter>com.act750.notif.format.NotifTagFormatter</formatter></formatters>-->
+			<source>DreamTeam</source>
+			<expiration_period>2</expiration_period>
+			<max_expiration_delay>12</max_expiration_delay>
+			<queue>
+				<module_id>module_id</module_id>
+				<feature_id/>
+			</queue>
+		</default>
+	</defaults>
+	<rules>
+		<rule>
+			<!-- filters -->
+			<channel_name>SMS</channel_name>
+			<module_name>CampaignProvisioning</module_name>
+			<!-- bypass_time_window -->
+			<bypass_time_window>
+				<start_time>08:00</start_time>
+				<end_time>20:00</end_time>
+				<restart_time>08:00</restart_time>
+				</bypass_time_window>
+			<priority>4</priority>
+			<queue>
+				<module_id>module_id</module_id>
+				<feature_id>feature_id</feature_id>
+			</queue>
+		</rule>
+		<rule>
+			<!-- filters -->
+			<channel_name>MAIL</channel_name>
+			<module_name>CampaignProvisioning</module_name>
+			<!-- bypass_time_window -->
+			<bypass_time_window>
+				<start_time>08:00</start_time>
+				<end_time>20:00</end_time>
+				<restart_time>08:00</restart_time>
+				</bypass_time_window>
+				<priority>4</priority>
+			<queue>
+				<module_id>module_id</module_id>
+				<feature_id>feature_id</feature_id>
+			</queue>
+		</rule>
+		<rule>
+			<channel_name>SMS</channel_name>
+			<module_name>Solution</module_name>
+			<bypass_destination_lookup>true</bypass_destination_lookup>		
+			<priority>10</priority> <!-- low priority-->
+			<queue>
+				<module_id>module_id</module_id>
+				<feature_id>feature_id</feature_id>
+			</queue>
+		</rule>
+	</rules>
+</NotifConfiguration>
