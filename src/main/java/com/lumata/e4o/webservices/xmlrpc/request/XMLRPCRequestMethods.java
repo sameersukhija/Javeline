@@ -2,6 +2,7 @@ package com.lumata.e4o.webservices.xmlrpc.request;
 
 import com.lumata.common.testing.system.Security;
 import com.lumata.common.testing.system.User;
+import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCOfferCriteriaItem;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCPrice;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCProduct;
@@ -312,5 +313,30 @@ public class XMLRPCRequestMethods {
 		return params;
 		
 	}
+	
+	public static XMLRPCRequestMethods offerParameters( String msisdn, XMLRPCOfferCriteriaItem... offerCriterionItems ) {
 		
+		StringBuilder offerParametersPOSTBody = new StringBuilder();
+		
+		StringBuilder offerCriterionItemsBody = new StringBuilder();
+		
+		if( null != offerCriterionItems ) {
+			
+			for( XMLRPCOfferCriteriaItem offerCriterionItem : offerCriterionItems ) {
+				
+				offerCriterionItemsBody.append( offerCriterionItem.getOfferCriteriaItem() );
+				
+			}		
+			
+		}
+		
+		offerParametersPOSTBody.append("<param><value><offerParameters>");
+		if( null != msisdn ) { offerParametersPOSTBody.append("<msisdn>").append( msisdn ).append("</msisdn>"); }
+		if( null != offerCriterionItems ) { offerParametersPOSTBody.append("<offerCriteria>").append( offerCriterionItemsBody ).append("</offerCriteria>"); }
+		offerParametersPOSTBody.append("</offerParameters></value></param>");
+		
+		return new XMLRPCRequestMethods( offerParametersPOSTBody );
+		
+	}
+	
 }

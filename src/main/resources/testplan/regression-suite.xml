@@ -12,7 +12,7 @@
 
     <classes>
 
-      <class name="com.lumata.e4o.regression.gui.TestTokenTypeForm">
+      <class name="com.lumata.e4o.regressions.gui.TestTokenTypeForm">
         <!-- methods>
           <include name="configureDMNotifications"/>
         </methods -->

@@ -129,7 +129,7 @@ public class TestTokenTypeForm {
 				isTokenTypeInList( TOKEN_TYPE_NAME )				 
 		);
 		
-		tokenTypeForm.goToHome();
+		//tokenTypeForm.goToHome();
 	
 	}
 	
@@ -137,10 +137,11 @@ public class TestTokenTypeForm {
 	public void checkMandatoryFields2() throws FormException, JSONException, JSONSException {
 		
 		final String TOKEN_TYPE_NAME = Format.addTimestamp( "TType_" );
+	
 		
 		/** save form with all fields empty **/
 		Assert.assertTrue( tokenTypeForm.
-							open().
+							//open().
 							addBtn().
 							saveBtn().
 							formIsNotValid() 

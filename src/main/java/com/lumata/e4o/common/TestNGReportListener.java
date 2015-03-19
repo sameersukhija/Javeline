@@ -33,6 +33,8 @@ public class TestNGReportListener implements IReporter  {
 
 	private static final Logger logger = LoggerFactory.getLogger( TestNGReportListener.class );
 	
+	private final String OUTPUT_REPORT_DIR = System.getProperty( "user.dir" ) + "/output/reports/testsuite/";
+	
 	private String testSuiteStartDate;
 	private String testSuiteEndDate;
 	private String testSuiteExecutionTime;
@@ -68,8 +70,12 @@ public class TestNGReportListener implements IReporter  {
 								
 				ITestContext tc = sr.getTestContext();
 				
+//				System.out.println( "###############" );
+//				System.out.println( tc.getName() );
+//				System.out.println( "###############" );
+								
 				try {
-					
+										
 					addTestsResult( testSuite, new ArrayList<ITestResult>( tc.getPassedTests().getAllResults() ) );
 					addTestsResult( testSuite, new ArrayList<ITestResult>( tc.getSkippedTests().getAllResults() ) );
 					addTestsResult( testSuite, new ArrayList<ITestResult>( tc.getFailedTests().getAllResults() ) );
@@ -183,15 +189,20 @@ public class TestNGReportListener implements IReporter  {
 	
 	private String getReportFileName( String project, String release, String customer, String testSuiteName ) {
 		
-		return System.getProperty( "user.dir" ) + 
-				"/output/testing/" + 
-				project.toLowerCase() + 
+		File outputReportDir = new File( OUTPUT_REPORT_DIR );
+		
+		outputReportDir.mkdirs();
+		
+		File outputReportFile = new File( outputReportDir, project.toLowerCase() + 
 				"_" +
 				customer.toLowerCase() + 
 				"_" +
 				release.toLowerCase() + 
 				"_" +        							
-				"regression_report_" + testSuiteName + ".html";
+				"regression_report_" + testSuiteName + ".html"				
+		);
+		
+		return outputReportFile.getAbsolutePath();
 		
 	}
 	
