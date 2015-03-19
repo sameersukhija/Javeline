@@ -11,7 +11,9 @@ import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.RequestorT
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -114,7 +116,12 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	@Test
 	public void getTokensList(@Optional("393492135019") String msisdn) throws Exception {
 
-		refreshTokenStatus( msisdn, false, true);
+		TokenFiltering current = new TokenFiltering();
+		current.endTime = null; // Technical debt!
+		current.wantedStatus = TokenStatus.values();
+		current.requestor = RequestorType.CAMPAIGN;
+		
+		refreshTokenStatus( msisdn, current, true);
 		
 		Reporter.log( "###############", PRINT2STDOUT__);
 		Reporter.log( "##### The subscriber "+ msisdn +" has : ");
@@ -258,7 +265,11 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 			Reporter.log( "###############", PRINT2STDOUT__);	
 		}
 		
-		refreshTokenStatus( msisdn, wideTime, false);
+		TokenFiltering all = new TokenFiltering();
+		all.wideTime = wideTime;
+		all.wantedStatus = new TokenStatus[]{TokenStatus.ACTIVE, TokenStatus.ALLOCATED};
+		
+		refreshTokenStatus( msisdn, all, false);
 		
 		Reporter.log( "###############", PRINT2STDOUT__);		
 		Reporter.log( "##### The subscriber "+ msisdn +" has " + currentAllocatedTokens.size() + " allocted tokens.", PRINT2STDOUT__);
@@ -308,14 +319,42 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	}
 	
 	/**
+	 * This class maps all the filtering condition to be used with getTokensList XMLRPC call
+	 */
+	private class TokenFiltering {
+		
+		/**
+		 * Start time if empty string means all generated token in time
+		 */
+		public Boolean wideTime = false;
+		
+		/**
+		 * End time if empty means all generated token until now
+		 */
+		public Date endTime = null;
+		
+		/**
+		 * This array describes the wanted token status
+		 */
+		public TokenStatus[] wantedStatus = null;
+		
+		/**
+		 * This object describes which requestor type is wanted to lookup.
+		 * If null means all the generated tokens
+		 */
+		public RequestorType requestor = null;
+	}
+	
+	
+	/**
 	 * 
 	 * @param msisdn
+	 * @param filtering
 	 * @param print
 	 * 
 	 * @throws Exception 
 	 */
-	
-	private void refreshTokenStatus(String msisdn, Boolean wideTime, Boolean print) throws Exception {
+	private void refreshTokenStatus(String msisdn, TokenFiltering filtering, Boolean print) throws Exception {
 		
 		currentActiveTokens = new ArrayList<String>();
 		currentAllocatedTokens = new ArrayList<String>();
@@ -325,21 +364,31 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
 		String past = sdf.format(startOfTime4Request) + "+0000";
+		String now = "";
 		
 		Reporter.log( "###############", print);
 		Reporter.log( "##### Request current token list for subscriber "+ msisdn , print);
-		 
-		if ( wideTime ) {
-			
-			Reporter.log( "##### All existing tokens" , print);
-			
+		Reporter.log( "##### Time interval : " , print);
+
+		if (filtering.wideTime)
 			past = "";
-		}
-		else {
-			Reporter.log( "##### Time interval : " , print);
-			Reporter.log( "##### Starting -> " + past , print);
-			Reporter.log( "##### Ending -> Right now" , print);
-		}
+		
+		Reporter.log( "##### Starting -> " + ( filtering.wideTime ? "All generated token." : past), print);
+
+		if (filtering.endTime != null)
+			now = sdf.format(filtering.endTime) + "+0000";
+		
+		Reporter.log( "##### Ending -> " + ( filtering.endTime == null ? "Right now." : now), print); 
+		
+		if ( filtering.wantedStatus == null )
+			filtering.wantedStatus = TokenStatus.values();
+		
+		Reporter.log( "##### Requested token status -> " + Arrays.toString(filtering.wantedStatus), print);
+		
+		if ( filtering.requestor == null )
+			filtering.requestor = RequestorType.EMPTY;
+		
+		Reporter.log( "##### Requested requestor type -> " + ( filtering.requestor.equals("") ? "All" : filtering.requestor ), print);
 		
 		Reporter.log( "###############", print);
 
@@ -358,9 +407,9 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 					authentication( user ),
 					string( msisdn ),
 					string(past),
-					string(""),
-					arrayString( (Object[])TokenStatus.values() ),
-					string(RequestorType.CAMPAIGN)
+					string(now),
+					arrayString( (Object[])filtering.wantedStatus ),
+					string(filtering.requestor)
 				),
 				xmlrpcOptions(
 					sleep( XMLRPC_CALL_DELAY ),

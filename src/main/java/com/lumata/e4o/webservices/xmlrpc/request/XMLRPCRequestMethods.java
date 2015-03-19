@@ -41,7 +41,8 @@ public class XMLRPCRequestMethods {
 		
 		CAMPAIGN("campaign"),
 		LOYALTY("loyalty"),
-		BADGES("badges");
+		BADGES("badges"),
+		EMPTY("");
 		
 		private String value = null;
 		private RequestorType(String in) { value = in; }
