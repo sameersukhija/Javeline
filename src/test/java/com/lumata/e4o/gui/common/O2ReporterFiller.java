@@ -1,16 +1,13 @@
 package com.lumata.e4o.gui.common;
 
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.xmlrpcBody;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.xmlrpcOptions;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.sleep;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeRequestAsResource;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeResponseAsResource;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.arrayInt;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.authentication;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.custoEvent;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.string;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.parameter;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType.*;
+
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.TokenStatus;
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.RequestorType;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,6 +51,11 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	private static List<String> currentConsumedTokens = null;
 	
 	/**
+	 * Expired tokens list
+	 */
+	private static List<String> currentExpiredTokens = null;
+	
+	/**
 	 * Default value tracks that user does not provide an external group offer ids
 	 */
 	private final static String NO_EXT_OFFER_LIST__ = "no offer list";
@@ -66,16 +68,16 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	/**
 	 * Surrounded token status
 	 */
-	enum TokenStatus {
-		
-		ACTIVE("active"),
-		ALLOCATED("offers_allocated"),
-		CONSUMED("consumed");
-		
-		private String value = null;
-		private TokenStatus(String in) { value = in; }
-		public String toString() { return value; }
-	};
+//	enum TokenStatus {
+//		
+//		ACTIVE("active"),
+//		ALLOCATED("offers_allocated"),
+//		CONSUMED("consumed");
+//		
+//		private String value = null;
+//		private TokenStatus(String in) { value = in; }
+//		public String toString() { return value; }
+//	};
 	
 	/**
 	 * 
@@ -133,6 +135,7 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 		Reporter.log( "##### " + currentActiveTokens.size() + " active tokens.", PRINT2STDOUT__);
 		Reporter.log( "##### " + currentAllocatedTokens.size() + " allocated tokens.", PRINT2STDOUT__);
 		Reporter.log( "##### " + currentConsumedTokens.size() + " consumed tokens.", PRINT2STDOUT__);
+		Reporter.log( "##### " + currentExpiredTokens.size() + " expired tokens.", PRINT2STDOUT__);
 		Reporter.log( "###############", PRINT2STDOUT__);
 	}
 	
@@ -331,6 +334,7 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 		currentActiveTokens = new ArrayList<String>();
 		currentAllocatedTokens = new ArrayList<String>();
 		currentConsumedTokens = new ArrayList<String>();
+		currentExpiredTokens = new ArrayList<String>();
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
@@ -368,7 +372,9 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 					authentication( user ),
 					string( msisdn ),
 					string(past),
-					string("")
+					string(""),
+					arrayString( (Object[])TokenStatus.values() ),
+					string(RequestorType.CAMPAIGN)
 				),
 				xmlrpcOptions(
 					sleep( XMLRPC_CALL_DELAY ),
@@ -394,6 +400,8 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 				currentAllocatedTokens.add(code);
 			else if ( status.equals(TokenStatus.CONSUMED.toString()) )
 				currentConsumedTokens.add(code);
+			else if ( status.equals(TokenStatus.EXPIRED.toString()) )
+				currentExpiredTokens.add(code);
 		}
 	}
 	

@@ -18,6 +18,36 @@ public class XMLRPCRequestMethods {
 		
 	}
 	
+	/**
+	 * offeroptimizer.getTokensList method needs to know the applicable filter on token status
+	 */
+	public enum TokenStatus {
+		
+		ACTIVE("active"),
+		ALLOCATED("offers_allocated"),
+		CONSUMED("consumed"),
+		EXPIRED("expired");
+		
+		private String value = null;
+		private TokenStatus(String in) { value = in; }
+		public String toString() { return value; }
+	};
+	
+	
+	/**
+	 * offeroptimizer.getTokensList method needs to know the applicable filter on requestor type
+	 */
+	public enum RequestorType {
+		
+		CAMPAIGN("campaign"),
+		LOYALTY("loyalty"),
+		BADGES("badges");
+		
+		private String value = null;
+		private RequestorType(String in) { value = in; }
+		public String toString() { return value; }
+	}
+	
 	StringBuilder value;
 	
 	XMLRPCRequestMethods( StringBuilder param ) { 
@@ -142,23 +172,29 @@ public class XMLRPCRequestMethods {
 				
 	}
 	
-	private static XMLRPCRequestMethods array( String type, Object... values ) {
+	public static XMLRPCRequestMethods arrayString( Object... values ) {
 		
+		return XMLRPCRequestMethods.array( "string", values );
+				
+	}
+	
+	private static XMLRPCRequestMethods array( String type, Object... values ) {
+	
 		StringBuilder valuesPOSTBody = new StringBuilder();
 		
-		valuesPOSTBody.append( "<param><value><array><data>");
+		valuesPOSTBody.append( "<param><value><array>");
 		
 		if( null != values ) { 
 			
 			for( int v = 0; v < values.length; v++ ) { 
 				
-				valuesPOSTBody.append( "<value><" ).append( type ).append( ">" ).append( values[ v ] ).append( "</" ).append( type ).append( "></value>" ); 
+				valuesPOSTBody.append( "<data><value><" ).append( type ).append( ">" ).append( values[ v ] ).append( "</" ).append( type ).append( "></value></data>" ); 
 			
 			}
 			
 		}
 		
-		valuesPOSTBody.append("</data></array></value></param>" );
+		valuesPOSTBody.append("</array></value></param>" );
 		
 		return new XMLRPCRequestMethods( valuesPOSTBody );
 		
