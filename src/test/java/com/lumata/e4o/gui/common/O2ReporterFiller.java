@@ -66,20 +66,6 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	private static Map<String,StringBuilder> token2Allocation = null;
 	
 	/**
-	 * Surrounded token status
-	 */
-//	enum TokenStatus {
-//		
-//		ACTIVE("active"),
-//		ALLOCATED("offers_allocated"),
-//		CONSUMED("consumed");
-//		
-//		private String value = null;
-//		private TokenStatus(String in) { value = in; }
-//		public String toString() { return value; }
-//	};
-	
-	/**
 	 * 
 	 * @param msisdn
 	 * @param tokens2BeGenerated
@@ -338,7 +324,7 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
-		String past = sdf.format(startOfTime4Suite) + "+0000";
+		String past = sdf.format(startOfTime4Request) + "+0000";
 		
 		Reporter.log( "###############", print);
 		Reporter.log( "##### Request current token list for subscriber "+ msisdn , print);

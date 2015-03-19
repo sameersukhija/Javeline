@@ -28,7 +28,7 @@
     ##### Subscriber under test
     ##### 
   -->
-  <parameter name="msisdn"              value="393492135576"/>
+  <parameter name="msisdn"              value="393492135774"/>
 
   <!-- 
     ##### 
@@ -42,8 +42,14 @@
     ##### List of offer_id separated with ";" the purchased offer is chosen randomically
     ##### 
   -->
-  <parameter name="offerIds"            value="1000"/>
+  <!-- <parameter name="offerIds"            value="1000"/> -->
 
+  <!-- 
+    ##### 
+    ##### Number of minutes before NOW to use as start time into XMLRPC Request
+    ##### 
+  -->
+  <parameter name="wherePlaceZero"            value="2"/>
 
   <!-- 
     >>>>>>> 
@@ -74,7 +80,7 @@
   <!-- 
     >>>>>>> Accept the allocate token with a random offer from input bucket
   -->
-  <test name="Core XMLRPC - Allocate/Purchase Tokens" enabled="true">
+  <test name="Core XMLRPC - Allocate/Purchase Tokens" enabled="false">
     <classes>
       <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
         <methods>    

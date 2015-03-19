@@ -31,9 +31,9 @@ public class RegressionSuiteXmlrpcCore {
 	protected static String xmlrpcLogFolder = null;
 	
 	/**
-	 * This object describe the origin of time for current test execution
+	 * This object will be used to generate an unique log folder
 	 */
-	protected static Date startOfTime4Suite = null;
+	private static Date start4LogFolder = null;
 	
 	/**
 	 * It describes the execution time for single test for log purpose
@@ -73,10 +73,16 @@ public class RegressionSuiteXmlrpcCore {
 	protected static final Boolean PRINT2STDOUT__ = Boolean.TRUE;
 
 	/**
+	 * This object describe the origin of time for current test execution
+	 * This object will be used to define start time into request (see @wherePlaceT0 )
+	 */
+	protected static Date startOfTime4Request = null;
+	
+	/**
 	 * This delta in minutes is applied to suite start time of observation
 	 * (start time for xmlrpc query) = (suite start time) - wherePlaceT0
 	 */
-	protected static Integer wherePlaceT0 = 2;
+	protected static Integer wherePlaceT0 = null;
 	
 	/**
 	 * 
@@ -87,13 +93,14 @@ public class RegressionSuiteXmlrpcCore {
 	 * @param user_name
 	 * @throws NetworkEnvironmentException
 	 */
-	@Parameters({ "browser", "environment", "tenant", "gui_server", "user_name" })
+	@Parameters({ "browser", "environment", "tenant", "gui_server", "user_name", "wherePlaceZero" })
 	@BeforeSuite
 	public void init(	@Optional("FIREFOX") String browser,
 						@Optional("E4O_QA") String environment,
 						@Optional("qa") String tenant, 
 						@Optional("actrule") String gui_server,
-						@Optional("superman") String user_name	) throws NetworkEnvironmentException {
+						@Optional("superman") String user_name,
+						@Optional("2") String wherePlaceZero) throws NetworkEnvironmentException {
 		
 		envPath = "input/environments";
 		envFile = environment;
@@ -109,26 +116,47 @@ public class RegressionSuiteXmlrpcCore {
 		mysql = new Mysql(env.getDataSource(tenant));
 
 		gui = env.getServer(gui_server);
-		user = gui.getUser(user_name);		
+		user = gui.getUser(user_name);	
+		
+		try {
+			wherePlaceT0 = Integer.parseInt(wherePlaceZero);
+		} catch ( NumberFormatException r ) {
+			// bin value
+		}
 	}
 	
-	@BeforeMethod
-	protected void testSetup() {
+	@BeforeSuite
+	protected void testSetupSuite() {
 
 		/**
 		 * Common suite section
 		 */
 		
-		if ( startOfTime4Suite == null )
-			startOfTime4Suite = new Date(Calendar.getInstance().getTimeInMillis() - wherePlaceT0 * 60_000);
+		if ( startOfTime4Request == null ) {
+			startOfTime4Request = new Date(Calendar.getInstance().getTimeInMillis() - wherePlaceT0 * 60_000);
 		
-		if ( xmlrpcLogFolder == null ) {
-			xmlrpcLogFolder = baseXmlrpcLogFolder + File.separator + "execution_" + new SimpleDateFormat("yyyy_MM_dd_HH_mm").format(startOfTime4Suite) + File.separator;
-			
 			Reporter.log( "###############", PRINT2STDOUT__);
-			Reporter.log( "##### XMLRPC response message are stored into folder "+ "execution_" + new SimpleDateFormat("yyyy_MM_dd_HH_mm").format(startOfTime4Suite), PRINT2STDOUT__);
+			Reporter.log( "##### XMLRPC request start time is " + new SimpleDateFormat("yyyy-MM-dd @ HH:mm").format(startOfTime4Request), PRINT2STDOUT__);
 			Reporter.log( "###############", PRINT2STDOUT__);
 		}
+		
+		if ( xmlrpcLogFolder == null ) {
+			
+			start4LogFolder = new Date(Calendar.getInstance().getTimeInMillis());
+			
+			String executionFolder = "execution_" + new SimpleDateFormat("yyyy_MM_dd_HH_mm").format(start4LogFolder);
+			
+			xmlrpcLogFolder = baseXmlrpcLogFolder + File.separator + executionFolder + File.separator;
+			
+			Reporter.log( "###############", PRINT2STDOUT__);
+			Reporter.log( "##### XMLRPC response message are stored into folder "+ executionFolder, PRINT2STDOUT__);
+			Reporter.log( "###############", PRINT2STDOUT__);
+		}
+
+	}	
+	
+	@BeforeMethod
+	protected void testSetup() {
 
 		/**
 		 * Specific test method section
@@ -136,6 +164,6 @@ public class RegressionSuiteXmlrpcCore {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 		testTime = sdf.format(new Date());
-	}	
+	}
 	
 }
