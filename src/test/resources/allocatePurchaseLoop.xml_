@@ -30,12 +30,28 @@
   -->
   <parameter name="msisdn"              value="393492135774"/>
 
+
+  <!-- 
+    ##### 
+    ##### This section describes the filtering parameter for "getTokensList" request
+    ##### 
+    ##### wherePlaceZero -> Number of minutes before NOW to use as start time into XMLRPC Request
+    ##### tokenStatus -> It is the allowed token status into response : active;offers_allocated;consumed;expired
+    ##### requestorType -> Requestor type is the module that generates token : campaign, loyalty, badges
+    ##### 
+    ##### All these parameter are NOT mandatory and can be associated @ each one below test
+    ##### 
+  -->
+  <parameter name="wherePlaceZero"      value="2"/>
+  <parameter name="tokenStatus"         value="active;offers_allocated;consumed;expired"/>
+  <parameter name="requestorType"       value="campaign"/> 
+
   <!-- 
     ##### 
     ##### Number of tokens to be generated
     ##### 
   -->
-  <parameter name="tokens2BeGenerated"  value="5"/>
+  <parameter name="tokens2BeGenerated"  value="0"/>
 
   <!-- 
     ##### 
@@ -43,13 +59,6 @@
     ##### 
   -->
   <!-- <parameter name="offerIds"            value="1000"/> -->
-
-  <!-- 
-    ##### 
-    ##### Number of minutes before NOW to use as start time into XMLRPC Request
-    ##### 
-  -->
-  <parameter name="wherePlaceZero"            value="2"/>
 
   <!-- 
     >>>>>>> 

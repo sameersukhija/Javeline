@@ -23,14 +23,7 @@ public class XMLRPCRequestMethods {
 	 */
 	public enum TokenStatus {
 		
-		ACTIVE("active"),
-		ALLOCATED("offers_allocated"),
-		CONSUMED("consumed"),
-		EXPIRED("expired");
-		
-		private String value = null;
-		private TokenStatus(String in) { value = in; }
-		public String toString() { return value; }
+		active, offers_allocated, consumed, expired
 	};
 	
 	
@@ -39,14 +32,7 @@ public class XMLRPCRequestMethods {
 	 */
 	public enum RequestorType {
 		
-		CAMPAIGN("campaign"),
-		LOYALTY("loyalty"),
-		BADGES("badges"),
-		EMPTY("");
-		
-		private String value = null;
-		private RequestorType(String in) { value = in; }
-		public String toString() { return value; }
+		campaign, loyalty, badges
 	}
 	
 	StringBuilder value;

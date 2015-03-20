@@ -75,15 +75,16 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	 */
 	
 	@Test
-	@Parameters({ "msisdn", "tokens2BeGenerated"})
-	public void generateTokens(@Optional("393492135019") String msisdn, @Optional("10") Integer tokens2BeGenerated) throws Exception {
+	@Parameters({ "msisdn", "event2BeGenerated"})
+	public void generateTokens(	@Optional("393492135019") String msisdn, 
+								@Optional("10") Integer event2BeGenerated) throws Exception {
 		
-		Reporter.log( "Generate "+tokens2BeGenerated+" tokens for subscriber "+ msisdn , PRINT2STDOUT__);
+		Reporter.log( "Generate "+event2BeGenerated+" events for subscriber "+ msisdn , PRINT2STDOUT__);
 
 		final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		Calendar today = Calendar.getInstance(); 
 		
-		for( int i = 0; i < tokens2BeGenerated; i++ ) {
+		for( int i = 0; i < event2BeGenerated; i++ ) {
 
 			XMLRPCRequest.eventmanager_generateCustomEvent().call( 	
 					gui, 
@@ -107,19 +108,34 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	}	
 
 	/**
+	 * All token status constant
+	 */
+	private static final String ALL_TOKEN_STATUS = "active;offers_allocated;consumed;expired";
+	
+	/**
 	 * 
 	 * @param msisdn
 	 * @throws Exception
 	 */
 
-	@Parameters("msisdn")
+	@Parameters({"msisdn", "tokenStatus", "requestorType"})
 	@Test
-	public void getTokensList(@Optional("393492135019") String msisdn) throws Exception {
-
+	public void getTokensList(	@Optional("393492135019") String msisdn,
+								@Optional(ALL_TOKEN_STATUS) String tokenStatus,
+								@Optional("campaign") String requestorType) throws Exception {
+		
 		TokenFiltering current = new TokenFiltering();
 		current.endTime = null; // Technical debt!
-		current.wantedStatus = TokenStatus.values();
-		current.requestor = RequestorType.CAMPAIGN;
+		if (tokenStatus.equals(ALL_TOKEN_STATUS) || ( tokenStatus == null ) )
+			current.wantedStatus = TokenStatus.values();
+		else {
+			String[] ans = tokenStatus.split(";");
+			current.wantedStatus = new TokenStatus[ans.length];
+			for (int i = 0; i < ans.length; i++) 
+				current.wantedStatus[i] = TokenStatus.valueOf(ans[i]);
+		}
+		if ( requestorType != null && requestorType != "" )
+			current.requestor = RequestorType.valueOf(requestorType);
 		
 		refreshTokenStatus( msisdn, current, true);
 		
@@ -267,7 +283,7 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 		
 		TokenFiltering all = new TokenFiltering();
 		all.wideTime = wideTime;
-		all.wantedStatus = new TokenStatus[]{TokenStatus.ACTIVE, TokenStatus.ALLOCATED};
+		all.wantedStatus = new TokenStatus[]{TokenStatus.active, TokenStatus.offers_allocated};
 		
 		refreshTokenStatus( msisdn, all, false);
 		
@@ -385,10 +401,7 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 		
 		Reporter.log( "##### Requested token status -> " + Arrays.toString(filtering.wantedStatus), print);
 		
-		if ( filtering.requestor == null )
-			filtering.requestor = RequestorType.EMPTY;
-		
-		Reporter.log( "##### Requested requestor type -> " + ( filtering.requestor.equals("") ? "All" : filtering.requestor ), print);
+		Reporter.log( "##### Requested requestor type -> " + ( filtering.requestor == null ? "All" : filtering.requestor ), print);
 		
 		Reporter.log( "###############", print);
 
@@ -429,13 +442,13 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 			
 			printable.append("(").append(code).append(",").append(status).append(")\t");
 			
-			if ( status.equals(TokenStatus.ACTIVE.toString()) )
+			if ( status.equals(TokenStatus.active.toString()) )
 				currentActiveTokens.add(code);
-			else if ( status.equals(TokenStatus.ALLOCATED.toString()) )
+			else if ( status.equals(TokenStatus.offers_allocated.toString()) )
 				currentAllocatedTokens.add(code);
-			else if ( status.equals(TokenStatus.CONSUMED.toString()) )
+			else if ( status.equals(TokenStatus.consumed.toString()) )
 				currentConsumedTokens.add(code);
-			else if ( status.equals(TokenStatus.EXPIRED.toString()) )
+			else if ( status.equals(TokenStatus.expired.toString()) )
 				currentExpiredTokens.add(code);
 		}
 	}
