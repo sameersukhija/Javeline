@@ -70,7 +70,7 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	/**
 	 * 
 	 * @param msisdn
-	 * @param tokens2BeGenerated
+	 * @param event2BeGenerated
 	 * @throws Exception 
 	 */
 	

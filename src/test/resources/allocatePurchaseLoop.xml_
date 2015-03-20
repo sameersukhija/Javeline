@@ -51,7 +51,7 @@
     ##### Number of tokens to be generated
     ##### 
   -->
-  <parameter name="tokens2BeGenerated"  value="0"/>
+  <parameter name="event2BeGenerated"  value="0"/>
 
   <!-- 
     ##### 
