@@ -125,15 +125,21 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 								@Optional("campaign") String requestorType) throws Exception {
 		
 		TokenFiltering current = new TokenFiltering();
+		
 		current.endTime = null; // Technical debt!
+		
+		// no value means alla condition
 		if (tokenStatus.equals(ALL_TOKEN_STATUS) || ( tokenStatus == null ) )
 			current.wantedStatus = TokenStatus.values();
-		else {
+		else if ( tokenStatus.equals("") ) // this is a special condition meand array empty into XMLRPC
+			current.wantedStatus = new TokenStatus[]{};
+		else { // normal filtering
 			String[] ans = tokenStatus.split(";");
 			current.wantedStatus = new TokenStatus[ans.length];
 			for (int i = 0; i < ans.length; i++) 
 				current.wantedStatus[i] = TokenStatus.valueOf(ans[i]);
 		}
+		
 		if ( requestorType != null && requestorType != "" )
 			current.requestor = RequestorType.valueOf(requestorType);
 		
