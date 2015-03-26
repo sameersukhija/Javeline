@@ -1,0 +1,48 @@
+{
+	"rules": [
+		{
+			"enabled": true,
+			"name":"Rule Token",
+			"description":"EFOGC-3166",
+			"tokenType":"Token",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				}
+			],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"expiredOfferBehaviour" : "Pick up new offer",
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		},
+		{
+			"enabled": true,
+			"name":"Rule SecondToken",
+			"description":"EFOGC-3166",
+			"tokenType":"SecondToken",
+			"channels":[ {
+				"name":"Ch A",
+				"mandatory": false,
+				"unlimited": true,
+				"maxOffer" : 0
+				}
+			],
+			"optimizationAlgorithm":"Random Assigment",
+			"keepOffersConsistentAcrossMultipleRedraws": true,
+			"includePreviouslyAcceptedOffers": true,
+			"maximumNumberOfOffers": 10,
+			"expiredOfferBehaviour" : "Bypass offer validity date",
+			"errorActions" : {
+				"ELEMENT_ALREADY_EXISTS" : "ABORT_CANCEL",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			}
+		}
+	]
+}

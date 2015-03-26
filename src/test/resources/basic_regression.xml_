@@ -26,7 +26,7 @@
     ##### 
   -->
   <!-- <parameter name="environment"         value="e4o_vm_report_ne"/> -->
-  <parameter name="environment"         value="e4o_qa2_ne"/>
+  <parameter name="environment"         value="e4o_qa3_ne"/>
   <parameter name="gui_server"          value="actrule"/>
   <parameter name="tenant"              value="tenant"/>
   <!-- <parameter name="tenant"              value="tenantMaster"/> -->
@@ -48,10 +48,11 @@
   <parameter name="notificationsFile"   value="notificationsEFOGC2667"/>
   <parameter name="productTypesFile"    value="productTypesTemplate"/>
   <parameter name="loyaltyCreationFile" value="loyaltyCreationTemplate"/>
-  <parameter name="offersFile"          value="offersVoucher3339"/>
-  <parameter name="tokenTypeList"       value="tokenTypes2667"/>
-  <parameter name="ruleListFile"        value="rulesetEFOGC2667"/>
-  <parameter name="campaignModelList"   value="campaignModelEFOGC2667"/>
+  <parameter name="offersFile"          value="offersEFOGC3339"/>
+  <parameter name="tokenTypeList" value="tokenTypes3166"/>
+  <parameter name="ruleListFile" value="rulesetEFOGC3166"/>
+  <parameter name="campaignModelList" value="campaignModelEFOGC3166"/>
+  <parameter name="campaignFile" value="campaignCreationEFOGC3166"/>
 
   <!-- 
     ##### 
@@ -71,6 +72,8 @@
     After test the configuration is removed ( where applicable )
   -->
   <parameter name="cleanup" value="FALSE"/>
+
+  <parameter name="notifXMLFile" value="notif_EFOGC_2672.xml"/>
 
   <!-- 
     >>>>>>> 

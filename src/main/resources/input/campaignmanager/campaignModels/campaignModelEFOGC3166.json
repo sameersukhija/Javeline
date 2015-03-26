@@ -1,0 +1,54 @@
+{
+	"campaignModels": [
+		{
+			"enabled": true,
+			"name": "CM-Token",
+			"description": "EFOGC-3166",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.Rule Token", "value": null, "option":null, "time": null, "delete": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "CM-SecondToken",
+			"description": "EFOGC-3166",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.Rule SecondToken", "value": null, "option":null, "time": null, "delete": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		}
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"
+	}
+	
+}

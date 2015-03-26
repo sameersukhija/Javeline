@@ -1,0 +1,40 @@
+{
+	"tokenTypes": [
+		{
+			"enabled": true,
+			"name":"Token",
+			"description":"EFOGC-3166",
+			"imageUrl": null,
+			"format":"gl-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"2",
+			"validityUnit":"days",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true
+			}
+		},
+		{
+			"enabled": true,
+			"name":"SecondToken",
+			"description":"EFOGC-3166",
+			"imageUrl": null,
+			"format":"[ACDEFGHJKMNPQRTWXY34679]{7}",
+			"validityType":"Relative",
+			"validityValue":"2",
+			"validityUnit":"days",
+			"usageUnlimited": true,
+			"usage":"10",
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"
+			},
+			"options": {
+				"TOKEN_TYPE_AUTOINCREMENT": true
+			}
+		}
+	]
+}
