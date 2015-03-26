@@ -52,9 +52,9 @@ public class ProductTypesForm extends CatalogueManagerForm {
 	/**
 	 * 
 	 */
-	public ProductTypesForm open() throws FormException {
+	public ProductTypesForm openForm() throws FormException {
 		
-		super.open().clickId( "gwt-debug-actrule-catalog-productTypes" );
+		super.openForm().clickId( "gwt-debug-actrule-catalog-productTypes" );
 		
 		return this;
 	}

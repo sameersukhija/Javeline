@@ -34,9 +34,10 @@ public class OfferOptimisationForm extends CatalogueManagerForm {
 	
 	public OfferOptimisationForm open( OfferOptimisationSection offerOptimisationSection ) throws FormException {
 		
-		super.open();
+		super.openForm();
 		
 		clickId( "gwt-debug-actrule-catalog-offerOptimisation" ).		
+		
 		openAngularFrame();
 		
 		try { Thread.sleep( 3000 );  } catch( Exception e) {}
@@ -50,7 +51,7 @@ public class OfferOptimisationForm extends CatalogueManagerForm {
 	public OfferOptimisationForm close() throws FormException {
 		
 		closeAngularFrame();
-		
+			
 		return this;
 		
 	}

@@ -44,7 +44,7 @@ public class ConfigureOffers extends ParentUITestCase {
 
 		Reporter.log("Open \"Offer Form\" UI.", PRINT2STDOUT__);
 
-		offersForm.open();
+		offersForm.openForm();
 
 		Reporter.log("Apply setup on UI.", PRINT2STDOUT__);
 

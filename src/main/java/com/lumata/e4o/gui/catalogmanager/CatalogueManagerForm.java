@@ -12,7 +12,7 @@ public class CatalogueManagerForm extends Form {
 		
 	}
 
-	protected Form open() throws FormException {
+	protected Form openForm() throws FormException {
 		
 		return clickId( "gwt-debug-BarCaptionHomeCatalog" );
 		

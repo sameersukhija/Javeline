@@ -167,7 +167,7 @@ public abstract class Form {
 	
 	}
 		
-	private WebElement search( SeleniumUtils.SearchBy by, String tag, Long timeout, Long interval ) throws FormException {
+	public WebElement search( SeleniumUtils.SearchBy by, String tag, Long timeout, Long interval ) throws FormException {
 		
 		logger.info( Log.CHECKING.createMessage( selenium.getTestName(), "for " + by.name().toLowerCase() + " = " + tag ) );
 		
@@ -303,20 +303,95 @@ public abstract class Form {
 		
 	}
 
-	private String getText( SeleniumUtils.SearchBy by, String xpath ) throws FormException {
+	public WebElement getParentElement( WebElement el ) throws FormException {
+	    
+		WebElement parentEl = null;
+	    
+		if( null != el ) {
+	        
+			parentEl =  el.findElement( By.xpath( ".." ) );
+					
+		}
 		
-		lastWebElement =  search( by, xpath );
+	    return parentEl;          
+	}
+	
+	private String getValue( SeleniumUtils.SearchBy by, String tag ) throws FormException {
+		
+		lastWebElement =  search( by, tag );
+		
+		return lastWebElement.getAttribute("value");
+	}
+	
+	private String getValue( SeleniumUtils.SearchBy by, String tag, Long timeout, Long interval ) throws FormException {
+		
+		lastWebElement =  search( by, tag, timeout, interval );
+		
+		return lastWebElement.getAttribute("value");
+	}
+	
+	public String getValueById( String id ) throws FormException {
+		
+		return getValue( SeleniumUtils.SearchBy.ID, id );
+		
+	}
+	
+	public String getValueById( String id, Long timeout, Long interval ) throws FormException {
+		
+		return getValue( SeleniumUtils.SearchBy.ID, id, timeout, interval );
+		
+	}
+	
+	public String getValueByName( String name ) throws FormException {
+		
+		return getValue( SeleniumUtils.SearchBy.NAME, name );
+		
+	}
+	
+	public String getValueByName( String name, Long timeout, Long interval ) throws FormException {
+		
+		return getValue( SeleniumUtils.SearchBy.NAME, name, timeout, interval );
+		
+	}
+	
+	public String getValueByXPath( String xpath ) throws FormException {
+		
+		return getValue( SeleniumUtils.SearchBy.XPATH, xpath );
+		
+	}
+	
+	public String getValueByXPath( String xpath, Long timeout, Long interval ) throws FormException {
+		
+		return getValue( SeleniumUtils.SearchBy.XPATH, xpath, timeout, interval );
+		
+	}
+	
+	private String getText( SeleniumUtils.SearchBy by, String tag ) throws FormException {
+		
+		lastWebElement =  search( by, tag );
 		
 		return lastWebElement.getText();
 	}
 	
-	private String getText( SeleniumUtils.SearchBy by, String xpath, Long timeout, Long interval ) throws FormException {
+	private String getText( SeleniumUtils.SearchBy by, String tag, Long timeout, Long interval ) throws FormException {
 		
-		lastWebElement =  search( by, xpath, timeout, interval );
+		lastWebElement =  search( by, tag, timeout, interval );
 		
 		return lastWebElement.getText();
 	}
 
+	public String getTextByName( String name ) throws FormException {
+		
+		return getText( SeleniumUtils.SearchBy.NAME, name );
+		
+	}
+	
+	public String getTextByName( String name, Long timeout, Long interval ) throws FormException {
+		
+		return getText( SeleniumUtils.SearchBy.NAME, name, timeout, interval );
+		
+	}
+	
 	public String getTextByXPath( String xpath ) throws FormException {
 		
 		return getText( SeleniumUtils.SearchBy.XPATH, xpath );
@@ -896,6 +971,14 @@ public abstract class Form {
 	public Form goToHome() throws FormException {
 	
 		clickId( "gwt-debug-BarCaptionHomeCampaign" );
+		
+		return this;
+		
+	}
+	
+	public Form sleep( Long sleep ) {
+		
+		try { Thread.sleep( sleep ); } catch ( InterruptedException e ) {}
 		
 		return this;
 		

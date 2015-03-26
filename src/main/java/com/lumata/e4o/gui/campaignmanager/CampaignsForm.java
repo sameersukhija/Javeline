@@ -12,9 +12,11 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.GWTCalendarForm;
+import com.lumata.e4o.gui.common.IForm;
+import com.lumata.e4o.gui.common.IFormCreation;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaigns;
 
-public class CampaignsForm extends CampaignManagerForm {
+public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCreation {
 
 	private JSONCampaigns campaignCfg;
 	
@@ -22,15 +24,15 @@ public class CampaignsForm extends CampaignManagerForm {
 		Definition, Scheduling, Dialogue, Target, Limits, Activation
 	}
 	
-	private enum ExecutionMode {
+	public enum ExecutionMode {
 		Model, Notification, Rule
 	}
 
-	private enum SchedulingType {
+	public enum SchedulingType {
 		Single, Multiple
 	}
 	
-	private enum SchedulingExecutionEndType {
+	public enum SchedulingExecutionEndType {
 		Relative, Absolute
 	}
 	
@@ -124,6 +126,12 @@ public class CampaignsForm extends CampaignManagerForm {
 
 	};
 
+	public CampaignsForm( SeleniumWebDriver selenium, long timeout, long interval ) {
+		
+		super(selenium, timeout, interval);
+				
+	}
+	
 	public CampaignsForm( SeleniumWebDriver selenium, JSONCampaigns campaignCfg, long timeout, long interval ) {
 		
 		super(selenium, timeout, interval);
@@ -132,9 +140,41 @@ public class CampaignsForm extends CampaignManagerForm {
 		
 	}
 	
-	public CampaignsForm open() throws FormException {
+	public CampaignsForm openForm() throws FormException {
 		
 		super.open().clickId( "gwt-debug-InputCMCampaignCreation" );
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm closeForm() throws FormException {
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm addBtn() throws FormException {
+		
+		clickId( "gwt-debug-Add Campaign" );
+		
+		return this;
+		
+	}
+
+	public CampaignsForm saveBtn() throws FormException {
+		
+		return this;
+		
+	}
+
+	public CampaignsForm cancelBtn() throws FormException {
+		
+		return this;
+		
+	}
+
+	public CampaignsForm refreshBtn() throws FormException {
 		
 		return this;
 		
@@ -150,7 +190,7 @@ public class CampaignsForm extends CampaignManagerForm {
 			
 			if( campaignCfg.isEnabled() ) {
 			
-				clickId( "gwt-debug-Add Campaign" ).
+				addBtn().
 				configureCampaign();
 				
 			}					
@@ -195,23 +235,45 @@ public class CampaignsForm extends CampaignManagerForm {
 	}
 
 	public CampaignsForm configureCampaignDefinition() throws FormException, JSONException {
+							
+		openTabDefinition().
+		setCampaignExecutionMode( ExecutionMode.valueOf( campaignCfg.executionMode() ) ).
+		setCampaignName( campaignCfg.name() ).
+		setCampaignDescription( campaignCfg.description() ).
+		setCampaignModel( campaignCfg.campaignModel() ).	
+		setCampaignType( campaignCfg.campaignType() ).		
+		setByPassMediaType( campaignCfg.byPassMediaType() );
+						
+		return this;
 		
-		String executionModeXPath = "//span[contains(@id, 'gwt-debug-Campaign " + ExecutionMode.valueOf( campaignCfg.executionMode() ) + "' )]/input";
+	}
+	
+	public CampaignsForm openTabDefinition() throws FormException {
+		
+		clickXPath( getWizardTabXPath( WizardTab.Definition ) );
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignExecutionMode( ExecutionMode campaignExecutionMode ) throws FormException {
+		
+		String executionModeXPath = "//span[contains(@id, 'gwt-debug-Campaign " + campaignExecutionMode + "' )]/input";
+		
+		clickXPath( executionModeXPath );
+			
+		return this;
+		
+	}
+
+	public CampaignsForm setCampaignModel( String campaignModel ) throws FormException {
+	
 		String campaignModeValueXPath = "//select[@id='gwt-debug-Campaign Model Select in Campaign']";
-		String campaignTypeXPath = "//td[@class='headers' and text()='Campaign Type']/parent::tr//select";
-		String byPassMediaTypeXPath = "//td[@class='headers' and text()='Bypass Meta Type']/parent::tr//input";
-		String campaignNameXPath = "//input[@id='gwt-debug-Campaign Name']";
-		String campaignDescriptionXPath = "//textarea[@id='gwt-debug-Campaign Description']";
-				
-		clickXPath( getWizardTabXPath( WizardTab.Definition ) ).
-		clickXPath( executionModeXPath ).
-		typeByXPath( campaignNameXPath, campaignCfg.name() ).
-		typeByXPath( campaignDescriptionXPath, campaignCfg.description() );
 		
 		switch( ExecutionMode.valueOf( campaignCfg.executionMode() ) ) {
 		
 			case Model : {
-				selectByXPathAndVisibleText( campaignModeValueXPath, campaignCfg.campaignModel() );
+				selectByXPathAndVisibleText( campaignModeValueXPath, campaignModel );
 				break;
 			}
 			case Notification : {
@@ -221,23 +283,57 @@ public class CampaignsForm extends CampaignManagerForm {
 				break;
 			}
 			default: break;
-		
+			
 		}
 		
-		if( null != campaignCfg.campaignType() ) { selectByXPathAndVisibleText( campaignTypeXPath, campaignCfg.campaignType() ); }
+		return this;
 		
-		if( campaignCfg.byPassMediaType() ) { clickXPath( byPassMediaTypeXPath ); }
+	}
+	
+	public CampaignsForm setCampaignName( String campaignName ) throws FormException {
+	
+		String campaignNameXPath = "//input[@id='gwt-debug-Campaign Name']";
+		
+		typeByXPath( campaignNameXPath, campaignName );
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignDescription( String campaignDescription ) throws FormException {
+		
+		String campaignDescriptionXPath = "//textarea[@id='gwt-debug-Campaign Description']";
+		
+		typeByXPath( campaignDescriptionXPath, campaignDescription );
 		
 		return this;
 		
 	}
 
+	public CampaignsForm setCampaignType( String campaignType ) throws FormException {
+		
+		String campaignTypeXPath = "//td[@class='headers' and text()='Campaign Type']/parent::tr//select";
+		
+		if( null != campaignTypeXPath ) { selectByXPathAndVisibleText( campaignTypeXPath, campaignTypeXPath ); }
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setByPassMediaType( Boolean campaignByPassMediaType ) throws FormException {
+		
+		String byPassMediaTypeXPath = "//td[@class='headers' and text()='Bypass Meta Type']/parent::tr//input";
+		
+		if( campaignByPassMediaType ) { clickXPath( byPassMediaTypeXPath ); }
+		
+		return this;
+		
+	}
+	
 	public CampaignsForm configureCampaignScheduling() throws FormException, JSONException {
-		
-		String campaignSchedulingTypeOfRecurrenceXPath = "//td[@class='headers' and contains( text(), 'Type of Recurrence' )]/parent::tr//select";
-		
-		clickXPath( getWizardTabXPath( WizardTab.Scheduling ) ).
-		selectByXPathAndVisibleText( campaignSchedulingTypeOfRecurrenceXPath, campaignCfg.schedulingTypeOfRecurrence() );
+				
+		openTabScheduling().
+		setCampaignSchedulingTypeOfRecurrenceXPath( SchedulingType.valueOf( campaignCfg.schedulingTypeOfRecurrence() ) );
 		
 		switch( SchedulingType.valueOf( campaignCfg.schedulingTypeOfRecurrence() ) ) {
 		
@@ -283,35 +379,103 @@ public class CampaignsForm extends CampaignManagerForm {
 	
 	public CampaignsForm configureCampaignSingleScheduling() throws FormException, JSONException {
 		
-		String campaignSchedulingSingleExecutionStartXPath = "//td[@class='headers' and text()='Execution Start']/parent::tr//input";
-		String campaignSchedulingSingleExecutionEndTypeXPath = "//td[@class='headers' and text()='Execution End']/parent::tr//select";
-		String campaignSchedulingSingleExecutionEndValueXPath = "//td[@class='headers' and text()='Execution End']/parent::tr//input";
-		String campaignSchedulingSingleProvisioningStartXPath = "//td[@class='headers' and text()='Provisioning Start']/parent::tr//input";
-		String campaignSchedulingSingleProvisioningEndXPath = "//td[@class='headers' and text()='Provisioning End']/parent::tr//input";
-		String campaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates = "//td[@class='headers' and text()='Days between provisioning and execution start dates']/parent::tr//input";
-		
-		configureGWTCalendarByXPath( campaignSchedulingSingleExecutionStartXPath, resolveDateField( campaignCfg.schedulingSingleExecutionStart() ) ).
-		selectByXPathAndVisibleText( campaignSchedulingSingleExecutionEndTypeXPath, campaignCfg.schedulingSingleExecutionEndType() );
-				
-		switch( SchedulingExecutionEndType.valueOf( campaignCfg.schedulingSingleExecutionEndType() ) ) {
-		
-			case Relative: {
-				typeByXPath( campaignSchedulingSingleExecutionEndValueXPath, campaignCfg.schedulingSingleExecutionEndValue() );				
-				break;
-			}
-			case Absolute: {
-				configureGWTCalendarByXPath( campaignSchedulingSingleExecutionEndValueXPath, resolveDateField( campaignCfg.schedulingSingleExecutionEndValue() ) );
-				break;
-			}
-		}
-
-		configureGWTCalendarByXPath( campaignSchedulingSingleProvisioningEndXPath, resolveDateField( campaignCfg.schedulingSingleProvisioningEnd() ) ).
-		configureGWTCalendarByXPath( campaignSchedulingSingleProvisioningStartXPath, resolveDateField( campaignCfg.schedulingSingleProvisioningStart() ) ).
-		typeByXPath( campaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates, campaignCfg.schedulingSingleDaysBetweenProvisioningAndStartDates() );
+		setCampaignSingleSchedulingExecutionStart( campaignCfg.schedulingSingleExecutionStart() ).
+		setCampaignSingleSchedulingExecutionEndType( SchedulingExecutionEndType.valueOf( campaignCfg.schedulingSingleExecutionEndType() ), campaignCfg.schedulingSingleExecutionEndValue() ).		
+		setCampaignSingleSchedulingProvisioningEndDate( campaignCfg.schedulingSingleProvisioningEnd() ).
+		setCampaignSingleSchedulingProvisioningStartDate( campaignCfg.schedulingSingleProvisioningStart() ).
+		setCampaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates( campaignCfg.schedulingSingleDaysBetweenProvisioningAndStartDates() );		
 		
 		return this;
 		
 	}
+	
+	public CampaignsForm openTabScheduling() throws FormException {
+		
+		clickXPath( getWizardTabXPath( WizardTab.Scheduling ) );
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSchedulingTypeOfRecurrenceXPath( SchedulingType schedulingType ) throws FormException {
+		
+		String campaignSchedulingTypeOfRecurrenceXPath = "//td[@class='headers' and contains( text(), 'Type of Recurrence' )]/parent::tr//select";
+		
+		selectByXPathAndVisibleText( campaignSchedulingTypeOfRecurrenceXPath, schedulingType.name() );
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSingleSchedulingExecutionStart( String executionStartDate ) throws FormException {
+		
+		String campaignSchedulingSingleExecutionStartXPath = "//td[@class='headers' and text()='Execution Start']/parent::tr//input";
+		
+		configureGWTCalendarByXPath( campaignSchedulingSingleExecutionStartXPath, resolveDateField( executionStartDate ) );
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSingleSchedulingExecutionEndType( SchedulingExecutionEndType executionEndType, String executionEndDate ) throws FormException {
+		
+		String campaignSchedulingSingleExecutionEndTypeXPath = "//td[@class='headers' and text()='Execution End']/parent::tr//select";
+		String campaignSchedulingSingleExecutionEndValueXPath = "//td[@class='headers' and text()='Execution End']/parent::tr//input";
+		
+		selectByXPathAndVisibleText( campaignSchedulingSingleExecutionEndTypeXPath, executionEndType.name() );
+				
+		switch( executionEndType ) {
+		
+			case Relative: {
+				typeByXPath( campaignSchedulingSingleExecutionEndValueXPath, executionEndDate );				
+				break;
+			}
+			case Absolute: {
+				configureGWTCalendarByXPath( campaignSchedulingSingleExecutionEndValueXPath, resolveDateField( executionEndDate ) );
+				break;
+			}
+		}
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSingleSchedulingProvisioningStartDate( String provisioningStartDate ) throws FormException {
+		
+		String campaignSchedulingSingleProvisioningStartXPath = "//td[@class='headers' and text()='Provisioning Start']/parent::tr//input";
+		
+		configureGWTCalendarByXPath( campaignSchedulingSingleProvisioningStartXPath, resolveDateField( provisioningStartDate ) );
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSingleSchedulingProvisioningEndDate( String provisioningEndDate ) throws FormException {
+		
+		String campaignSchedulingSingleProvisioningEndXPath = "//td[@class='headers' and text()='Provisioning End']/parent::tr//input";
+		
+		configureGWTCalendarByXPath( campaignSchedulingSingleProvisioningEndXPath, resolveDateField( provisioningEndDate ) );
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates( String daysBetweenProvisioningAndExecutionStartDates ) throws FormException {
+		
+		String campaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates = "//td[@class='headers' and text()='Days between provisioning and execution start dates']/parent::tr//input";
+		
+		typeByXPath( campaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates, daysBetweenProvisioningAndExecutionStartDates );
+				
+		return this;
+		
+	}
+	
+	
+	
+	
+	
+	
+	// --------------
 	
 	public CampaignsForm configureCampaignMultipleScheduling() throws FormException, JSONException {
 		
@@ -414,6 +578,19 @@ public class CampaignsForm extends CampaignManagerForm {
 		
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// ---------------------------------------------------------------
+	
 	public CampaignsForm configureCampaignDialogue() throws FormException, JSONException {
 		
 		String campaignDialogueShortCodeXPath = "//select[@id='gwt-debug-Campaign Dialogue Shortcode']";
@@ -446,10 +623,7 @@ public class CampaignsForm extends CampaignManagerForm {
 		String campaignTargetOpenedModeRuleTableXPath = "//table[contains(@class,'tableList rulesTable')]";
 		String campaignTargetOpenedModeRuleTableEventTypeXPath = campaignTargetOpenedModeRuleTableXPath + "//td[@class='column_eventType']";
 		String campaignTargetOpenedModeRuleTableEventTypeAddXPath = campaignTargetOpenedModeRuleTableEventTypeXPath + "//button[@title='Add']";
-		
-		
-		
-				
+					
 		clickXPath( getWizardTabXPath( WizardTab.Target ) );
 		
 		selectByXPathAndVisibleText( campaignTargetTargetingModeXPath, TargetingMode.valueOf( campaignCfg.campaignTargetTargetingMode() ).name() );

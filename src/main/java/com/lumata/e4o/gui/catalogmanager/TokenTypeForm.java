@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.openqa.selenium.WebElement;
 
 import com.lumata.common.testing.selenium.SeleniumUtils;
+import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
@@ -111,7 +112,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 	}	
 	
-	public TokenTypeForm open() throws FormException {
+	public TokenTypeForm openForm() throws FormException {
 		
 		super.open( OfferOptimisationSection.TOKEN_TYPE );
 		
@@ -180,8 +181,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 			
 			
 		}
-		
-		
+				
 		if( tokenTypeCfg.getUsageUnlimited() == true ) {
 			
 			clickId( "usageUnlimited-1" ); 
@@ -197,11 +197,11 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		return this;
 		
 	}
-	
+
 	public List<WebElement> getTokenTypeList() throws FormException {
 		
-		List<WebElement> tokenTypeList = super.searchListByXPath( "//div[@class='e4ol-list']", "//div[@class='e4ol-list']//div[contains(@class,'e4ol-list__cell e4ol-list__cell--text')]" );
-		
+		List<WebElement> tokenTypeList = super.searchListByXPath( "//div[@class='e4ol-list']", "//div[@class='e4ol-list']//div[contains(@class,'e4ol-list__row ng-scope')]//div[contains(@class, 'e4ol-list__cell e4ol-list__cell--text ng-binding')]" );
+
 		return tokenTypeList;
 		
 	}
@@ -209,7 +209,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 	public Boolean isTokenTypeInList( String tokenTypeName ) throws FormException {
 		
 		List<WebElement> tokenTypeList = getTokenTypeList();
-		
+				
 		for( WebElement tokenTypeEl : tokenTypeList ) {
 			
 			if( tokenTypeEl.getText().trim().equals( tokenTypeName ) ) {
@@ -222,7 +222,48 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 		return false;
 		
-	}  
+	} 
+
+	public String getTokenTypeNameByIndex( Integer tokenTypeIndex ) throws FormException {
+		
+		WebElement tokenType = getTokenTypeInListByIndex( tokenTypeIndex );
+						
+		return ( null != tokenType ? tokenType.getText() : "" );
+		
+	} 
+
+	
+	public WebElement getTokenTypeInListByIndex( Integer tokenTypeIndex ) throws FormException {
+		
+		List<WebElement> tokenTypeList = getTokenTypeList();
+		
+		if( tokenTypeList.size() > tokenTypeIndex ) {
+		
+			return tokenTypeList.get( tokenTypeIndex );
+			
+		}
+				
+		return null;
+		
+	} 
+	
+	public WebElement getTokenTypeInListByName( String tokenTypeName ) throws FormException {
+		
+		List<WebElement> tokenTypeList = getTokenTypeList();
+		
+		for( WebElement tokenTypeEl : tokenTypeList ) {
+			
+			if( tokenTypeEl.getText().trim().equals( tokenTypeName ) ) {
+				
+				return tokenTypeEl;
+				
+			}
+			
+		}
+		
+		return null;
+		
+	} 
 	
 	public TokenTypeForm addBtn() throws FormException {
 		
@@ -232,6 +273,34 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 	}
 	
+	public TokenTypeForm editByName( String tokenTypeName ) throws FormException {
+		
+		List<WebElement> tokenTypeList = getTokenTypeList();
+		
+		for( int el = 0; el < tokenTypeList.size(); el++ ) {
+						
+			if( tokenTypeList.get( el ).getText().trim().equals( tokenTypeName ) ) {
+
+				WebElement editBtn = super.search( SearchBy.XPATH , "//div[@class='e4ol-list']/div[" + ( el + 2 ) + "]//a[@class='gwt-Button']" );
+				
+				if( null != editBtn ) {
+					
+					editBtn.click();
+					
+					/** wait for loading data **/
+					super.sleep( 2000L );
+					
+				}
+				
+			}
+			
+		}
+			
+		return this;
+		
+	}
+	
+	
 	public TokenTypeForm setName( String name ) throws FormException {
 		
 		super.sendKeysByName( "name", name );
@@ -240,11 +309,24 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 	}
 	
+	public String getName() throws FormException {
+		
+		return super.getValueByName( "name" );
+		
+	}
+
+	
 	public TokenTypeForm setDescription( String description ) throws FormException {
 		
 		super.sendKeysByXPath( "//textarea[@ng-model='tokenType.description']", description );
 		
 		return this;
+		
+	}
+	
+	public String getDescription() throws FormException {
+		
+		return super.getValueByXPath( "//textarea[@ng-model='tokenType.description']" );
 		
 	}
 	
@@ -256,11 +338,23 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 	}
 	
+	public String getImgUrl() throws FormException {
+		
+		return super.getValueByXPath( "//input[@ng-model='tokenType.imageUrl']" );
+		
+	}
+	
 	public TokenTypeForm setFormat( String format ) throws FormException {
 		
 		super.selectByNameAndVisibleText( "format", format );
 		
 		return this;
+		
+	}
+	
+	public String getFormat() throws FormException {
+		
+		return TokenFormat.values()[ Integer.valueOf( super.getValueByName( "format" ) ) ].value();
 		
 	}
 	
@@ -272,6 +366,12 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 	}
 	
+	public String getValidityType() throws FormException {
+		
+		return ( super.getValueByXPath( "//select[@name='schedulingType']" ).equals( "DAYS" ) ? TokenValidityType.Relative.name() : TokenValidityType.Absolute.name() );
+		
+	}
+	
 	public TokenTypeForm setValidityValue( String validityValue ) throws FormException {
 		
 		super.sendKeysByName( "validity.value", validityValue );
@@ -280,11 +380,23 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 	}
 	
+	public String getValidityValue() throws FormException {
+		
+		return super.getValueByName( "validity.value" );
+		
+	}
+	
 	public TokenTypeForm setValidityUnit( String validityUnit ) throws FormException {
 		
 		super.selectByNameAndVisibleText( "validity.unit", validityUnit );
 		
 		return this;
+		
+	}
+	
+	public String getValidityUnit() throws FormException {
+
+		return TokenValidityUnit.values()[ Integer.valueOf( super.getValueByName( "validity.unit" ) )].name();
 		
 	}
 	
@@ -304,12 +416,24 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 	}
 	
+	public Boolean getUnlimitedRedraw() throws FormException {
+		
+		return Boolean.valueOf( super.getValueById( "usageUnlimited-1" ) );
+		
+	}
+	
 	public TokenTypeForm setNumberOfRedraw( String numberOfRedraw ) throws FormException {
 		
 		super.clearByName( "usage" );
 		super.sendKeysByName( "usage", numberOfRedraw );
 		
 		return this;
+		
+	}
+	
+	public String getNumberOfRedraw() throws FormException {
+		
+		return super.getValueByName( "usage" );
 		
 	}
 	
@@ -367,6 +491,36 @@ public class TokenTypeForm extends OfferOptimisationForm {
 	public Boolean formIsNotValid() throws FormException {
 		
 		return !formIsValid();
+		
+	}
+	
+	public Boolean isTokenTypeDuplicated() throws FormException {
+		
+		closeAngularFrame();
+		
+		try { Thread.sleep( 1000 );  } catch( Exception e) {}
+		
+		Boolean isTokenDuplicated = false;
+		
+		final String DIALOG_XPATH = "//div[@class='gwt-DialogBox errorDialog']";
+		final String DIALOG_ERROR_MESSAGE_XPATH = DIALOG_XPATH + "//div[contains(text(), 'This value already exists')]"; 
+		final String DIALOG_BTN_XPATH = DIALOG_XPATH + "//button[@title='OK']"; 
+				
+		WebElement errorMessage = super.search( SeleniumUtils.SearchBy.XPATH, DIALOG_ERROR_MESSAGE_XPATH, 1000L, 200L );
+		
+		if( null != errorMessage ) { 
+			
+			isTokenDuplicated = true;
+			
+			super.clickXPath( DIALOG_BTN_XPATH ); 
+			
+		}
+				
+		openAngularFrame();
+		
+		try { Thread.sleep( 1000 );  } catch( Exception e) {}
+				
+		return isTokenDuplicated;
 		
 	}
 	

@@ -98,7 +98,7 @@ public class ConfigureCampaignToGiveTokens {
 		
 		TokenTypeForm tokenTypeForm = new TokenTypeForm( seleniumWebDriver, new JSONTokenType( "input/catalogmanager/tokenTypes", tokenTypeList ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Assert.assertTrue( tokenTypeForm.open().addTokenTypes().close().navigate() );
+		Assert.assertTrue( tokenTypeForm.openForm().addTokenTypes().close().navigate() );
 		
 	}
 	
@@ -108,7 +108,7 @@ public class ConfigureCampaignToGiveTokens {
 		
 		RulesForm rulesForm = new RulesForm( seleniumWebDriver, new JSONRules( "input/catalogmanager/rules", ruleList ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Assert.assertTrue( rulesForm.open().addRules().close().navigate() );
+		Assert.assertTrue( rulesForm.openForm().addRules().close().navigate() );
 		
 	}
 

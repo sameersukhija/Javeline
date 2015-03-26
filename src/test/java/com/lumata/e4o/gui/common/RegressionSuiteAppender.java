@@ -55,7 +55,7 @@ public class RegressionSuiteAppender extends ParentUITestCase {
 		
 		SuppliersForm suppliersForm = new SuppliersForm( seleniumWebDriver, new JSONSuppliers( resourcePath, fileName), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Assert.assertTrue( suppliersForm.open().addSuppliers().navigate() );
+		Assert.assertTrue( suppliersForm.openForm().addSuppliers().navigate() );
 	}
 	
 	@Parameters({"salesChannelsList"})
@@ -87,7 +87,7 @@ public class RegressionSuiteAppender extends ParentUITestCase {
 		
 		TokenTypeForm tokenTypeForm = new TokenTypeForm( seleniumWebDriver, new JSONTokenType( resourcePath, fileName), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Assert.assertTrue( tokenTypeForm.open().addTokenTypes().close().navigate() );
+		Assert.assertTrue( tokenTypeForm.openForm().addTokenTypes().close().navigate() );
 	}
 	
 	@Parameters({"ruleListFile"})
@@ -103,7 +103,7 @@ public class RegressionSuiteAppender extends ParentUITestCase {
 		
 		RulesForm rulesForm = new RulesForm( seleniumWebDriver, new JSONRules( resourcePath, fileName), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Assert.assertTrue( rulesForm.open().addRules().close().navigate() );
+		Assert.assertTrue( rulesForm.openForm().addRules().close().navigate() );
 	}
 
 	@Parameters({"campaignModelList"})
@@ -139,7 +139,7 @@ public class RegressionSuiteAppender extends ParentUITestCase {
 		
 		CampaignsForm campaignForm = new CampaignsForm( seleniumWebDriver, new JSONCampaigns( resourcePath, fileName ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Assert.assertTrue( campaignForm.open().addCampaigns().navigate() );
+		Assert.assertTrue( campaignForm.openForm().addCampaigns().navigate() );
 	}
 	
 }

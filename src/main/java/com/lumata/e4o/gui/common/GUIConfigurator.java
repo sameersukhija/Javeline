@@ -83,7 +83,7 @@ public class GUIConfigurator {
 				
 					case campaigns: {
 						CampaignsForm campaignForm = new CampaignsForm( seleniumWebDriver, new JSONCampaigns( guiConfig.getString( JSONKey.folder.name() ), guiConfig.getString( JSONKey.file.name() ) ), timeout, attempt_timeout );
-						success = campaignForm.open().addCampaigns().navigate();
+						success = campaignForm.openForm().addCampaigns().navigate();
 						break;
 					}
 					case campaignModels: {
@@ -101,12 +101,12 @@ public class GUIConfigurator {
 					}
 					case rules: {
 						RulesForm rulesForm = new RulesForm( seleniumWebDriver, new JSONRules( guiConfig.getString( JSONKey.folder.name() ), guiConfig.getString( JSONKey.file.name() ) ), timeout, attempt_timeout );
-						success = rulesForm.open().addRules().close().navigate();
+						success = rulesForm.openForm().addRules().close().navigate();
 						break;
 					}
 					case tokens: {
 						TokenTypeForm tokenTypeForm = new TokenTypeForm( seleniumWebDriver, new JSONTokenType( guiConfig.getString( JSONKey.folder.name() ), guiConfig.getString( JSONKey.file.name() ) ), timeout, attempt_timeout );
-						success = tokenTypeForm.open().addTokenTypes().close().navigate();
+						success = tokenTypeForm.openForm().addTokenTypes().close().navigate();
 						break;
 					}
 					case salesChannels: {

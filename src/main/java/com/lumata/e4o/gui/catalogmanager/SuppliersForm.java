@@ -29,9 +29,9 @@ public class SuppliersForm extends CatalogueManagerForm {
 		
 	}	
 	
-	public SuppliersForm open() throws FormException {
+	public SuppliersForm openForm() throws FormException {
 		
-		super.open().clickId( "gwt-debug-actrule-catalog-supplier" );
+		super.openForm().clickId( "gwt-debug-actrule-catalog-supplier" );
 		
 		return this;
 		

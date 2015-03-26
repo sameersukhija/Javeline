@@ -67,7 +67,7 @@ public class ConfigureSuppliers {
 		
 		SuppliersForm suppliersForm = new SuppliersForm( seleniumWebDriver, new JSONSuppliers( "input/catalogmanager/suppliers", supplierList ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Assert.assertTrue( suppliersForm.open().addSuppliers().navigate() );
+		Assert.assertTrue( suppliersForm.openForm().addSuppliers().navigate() );
 		
 	}
 	

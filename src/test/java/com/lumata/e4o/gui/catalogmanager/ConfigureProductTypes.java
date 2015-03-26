@@ -48,7 +48,7 @@ public class ConfigureProductTypes extends ParentUITestCase {
 
 		Reporter.log("Open \"Product Types Form\" UI.", PRINT2STDOUT__);
 
-		productTypesForm.open();
+		productTypesForm.openForm();
 
 		Reporter.log("Apply setup on UI.", PRINT2STDOUT__);
 
@@ -87,7 +87,7 @@ public class ConfigureProductTypes extends ParentUITestCase {
 				
 				String[] productTypes2BeDelete = names.toArray(new String[0]);
 				
-				Assert.assertTrue( 	productTypesForm.open().deleteProductTypes(productTypes2BeDelete),
+				Assert.assertTrue( 	productTypesForm.openForm().deleteProductTypes(productTypes2BeDelete),
 						"Error during \"Product Types\" cleanup!");
 			}
 			else

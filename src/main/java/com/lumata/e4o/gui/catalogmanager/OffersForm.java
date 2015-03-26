@@ -54,9 +54,9 @@ public class OffersForm extends CatalogueManagerForm {
 	/**
 	 * 
 	 */
-	public OffersForm open() throws FormException {
+	public OffersForm openForm() throws FormException {
 		
-		super.open().clickId( "gwt-debug-actrule-catalog-offers" );
+		super.openForm().clickId( "gwt-debug-actrule-catalog-offers" );
 		
 		return this;
 		

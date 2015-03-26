@@ -72,6 +72,25 @@ public enum ConfigurationTypes {
 		
 	},
 	
+	/* Sprint 31 - US: EFOGC-3411, EFOGC-3413 */
+	IN_SCALABILITY {
+		
+		public ArrayList<Configuration> getCfg( Map<String, Object> options ) {
+			
+			ArrayList<Configuration> cfgList = new ArrayList<Configuration>();
+						
+			Configuration cfg;
+			
+			cfg = new Configuration( new ArrayList<String>(Arrays.asList("IN_by_actrule", "0", "system", "NULL", "Internal", "true", "NULL", "RO", "NULL", "Value", "")) );
+			
+			cfgList.add( cfg );	
+			
+			return cfgList;
+			
+		}
+		
+	},
+	
 	/* Sprint 5 - US: EFOGC-861 */
 	STANDARD_RETRY {
 		

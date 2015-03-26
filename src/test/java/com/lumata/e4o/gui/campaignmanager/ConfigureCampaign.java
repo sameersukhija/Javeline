@@ -71,7 +71,7 @@ public class ConfigureCampaign {
 		
 		CampaignsForm campaignForm = new CampaignsForm( seleniumWebDriver, new JSONCampaigns( "input/campaignmanager/campaigns", campaignFile ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Assert.assertTrue( campaignForm.open().addCampaigns().navigate() );
+		Assert.assertTrue( campaignForm.openForm().addCampaigns().navigate() );
 	}
 	
 	@AfterClass

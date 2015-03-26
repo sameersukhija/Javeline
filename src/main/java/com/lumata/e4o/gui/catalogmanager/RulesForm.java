@@ -31,7 +31,7 @@ public class RulesForm extends OfferOptimisationForm {
 		
 	}	
 	
-	public RulesForm open() throws FormException {
+	public RulesForm openForm() throws FormException {
 		
 		super.open( OfferOptimisationSection.RULES );
 		
