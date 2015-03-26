@@ -1,20 +1,19 @@
 package com.lumata.e4o.gui.common;
 
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.xmlrpcBody;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.xmlrpcOptions;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.sleep;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeRequestAsResource;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.storeResponseAsResource;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.arrayInt;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.authentication;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.custoEvent;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.string;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
+import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.parameter;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType.*;
 
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.TokenStatus;
+import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.RequestorType;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +53,11 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	private static List<String> currentConsumedTokens = null;
 	
 	/**
+	 * Expired tokens list
+	 */
+	private static List<String> currentExpiredTokens = null;
+	
+	/**
 	 * Default value tracks that user does not provide an external group offer ids
 	 */
 	private final static String NO_EXT_OFFER_LIST__ = "no offer list";
@@ -64,36 +68,23 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	private static Map<String,StringBuilder> token2Allocation = null;
 	
 	/**
-	 * Surrounded token status
-	 */
-	enum TokenStatus {
-		
-		ACTIVE("active"),
-		ALLOCATED("offers_allocated"),
-		CONSUMED("consumed");
-		
-		private String value = null;
-		private TokenStatus(String in) { value = in; }
-		public String toString() { return value; }
-	};
-	
-	/**
 	 * 
 	 * @param msisdn
-	 * @param tokens2BeGenerated
+	 * @param event2BeGenerated
 	 * @throws Exception 
 	 */
 	
 	@Test
-	@Parameters({ "msisdn", "tokens2BeGenerated"})
-	public void generateTokens(@Optional("393492135019") String msisdn, @Optional("10") Integer tokens2BeGenerated) throws Exception {
+	@Parameters({ "msisdn", "event2BeGenerated"})
+	public void generateTokens(	@Optional("393492135019") String msisdn, 
+								@Optional("10") Integer event2BeGenerated) throws Exception {
 		
-		Reporter.log( "Generate "+tokens2BeGenerated+" tokens for subscriber "+ msisdn , PRINT2STDOUT__);
+		Reporter.log( "Generate "+event2BeGenerated+" events for subscriber "+ msisdn , PRINT2STDOUT__);
 
 		final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		Calendar today = Calendar.getInstance(); 
 		
-		for( int i = 0; i < tokens2BeGenerated; i++ ) {
+		for( int i = 0; i < event2BeGenerated; i++ ) {
 
 			XMLRPCRequest.eventmanager_generateCustomEvent().call( 	
 					gui, 
@@ -117,22 +108,49 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	}	
 
 	/**
+	 * All token status constant
+	 */
+	private static final String ALL_TOKEN_STATUS = "active;offers_allocated;consumed;expired";
+	
+	/**
 	 * 
 	 * @param msisdn
 	 * @throws Exception
 	 */
 
-	@Parameters("msisdn")
+	@Parameters({"msisdn", "tokenStatus", "requestorType"})
 	@Test
-	public void getTokensList(@Optional("393492135019") String msisdn) throws Exception {
-
-		refreshTokenStatus( msisdn, false, true);
+	public void getTokensList(	@Optional("393492135019") String msisdn,
+								@Optional(ALL_TOKEN_STATUS) String tokenStatus,
+								@Optional("campaign") String requestorType) throws Exception {
+		
+		TokenFiltering current = new TokenFiltering();
+		
+		current.endTime = null; // Technical debt!
+		
+		// no value means alla condition
+		if (tokenStatus.equals(ALL_TOKEN_STATUS) || ( tokenStatus == null ) )
+			current.wantedStatus = TokenStatus.values();
+		else if ( tokenStatus.equals("") ) // this is a special condition meand array empty into XMLRPC
+			current.wantedStatus = new TokenStatus[]{};
+		else { // normal filtering
+			String[] ans = tokenStatus.split(";");
+			current.wantedStatus = new TokenStatus[ans.length];
+			for (int i = 0; i < ans.length; i++) 
+				current.wantedStatus[i] = TokenStatus.valueOf(ans[i]);
+		}
+		
+		if ( requestorType != null && requestorType != "" )
+			current.requestor = RequestorType.valueOf(requestorType);
+		
+		refreshTokenStatus( msisdn, current, true);
 		
 		Reporter.log( "###############", PRINT2STDOUT__);
 		Reporter.log( "##### The subscriber "+ msisdn +" has : ");
 		Reporter.log( "##### " + currentActiveTokens.size() + " active tokens.", PRINT2STDOUT__);
 		Reporter.log( "##### " + currentAllocatedTokens.size() + " allocated tokens.", PRINT2STDOUT__);
 		Reporter.log( "##### " + currentConsumedTokens.size() + " consumed tokens.", PRINT2STDOUT__);
+		Reporter.log( "##### " + currentExpiredTokens.size() + " expired tokens.", PRINT2STDOUT__);
 		Reporter.log( "###############", PRINT2STDOUT__);
 	}
 	
@@ -269,7 +287,11 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 			Reporter.log( "###############", PRINT2STDOUT__);	
 		}
 		
-		refreshTokenStatus( msisdn, wideTime, false);
+		TokenFiltering all = new TokenFiltering();
+		all.wideTime = wideTime;
+		all.wantedStatus = new TokenStatus[]{TokenStatus.active, TokenStatus.offers_allocated};
+		
+		refreshTokenStatus( msisdn, all, false);
 		
 		Reporter.log( "###############", PRINT2STDOUT__);		
 		Reporter.log( "##### The subscriber "+ msisdn +" has " + currentAllocatedTokens.size() + " allocted tokens.", PRINT2STDOUT__);
@@ -319,37 +341,73 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 	}
 	
 	/**
+	 * This class maps all the filtering condition to be used with getTokensList XMLRPC call
+	 */
+	private class TokenFiltering {
+		
+		/**
+		 * Start time if empty string means all generated token in time
+		 */
+		public Boolean wideTime = false;
+		
+		/**
+		 * End time if empty means all generated token until now
+		 */
+		public Date endTime = null;
+		
+		/**
+		 * This array describes the wanted token status
+		 */
+		public TokenStatus[] wantedStatus = null;
+		
+		/**
+		 * This object describes which requestor type is wanted to lookup.
+		 * If null means all the generated tokens
+		 */
+		public RequestorType requestor = null;
+	}
+	
+	
+	/**
 	 * 
 	 * @param msisdn
+	 * @param filtering
 	 * @param print
 	 * 
 	 * @throws Exception 
 	 */
-	
-	private void refreshTokenStatus(String msisdn, Boolean wideTime, Boolean print) throws Exception {
+	private void refreshTokenStatus(String msisdn, TokenFiltering filtering, Boolean print) throws Exception {
 		
 		currentActiveTokens = new ArrayList<String>();
 		currentAllocatedTokens = new ArrayList<String>();
 		currentConsumedTokens = new ArrayList<String>();
+		currentExpiredTokens = new ArrayList<String>();
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
-		String past = sdf.format(startOfTime4Suite) + "+0000";
+		String past = sdf.format(startOfTime4Request) + "+0000";
+		String now = "";
 		
 		Reporter.log( "###############", print);
 		Reporter.log( "##### Request current token list for subscriber "+ msisdn , print);
-		 
-		if ( wideTime ) {
-			
-			Reporter.log( "##### All existing tokens" , print);
-			
+		Reporter.log( "##### Time interval : " , print);
+
+		if (filtering.wideTime)
 			past = "";
-		}
-		else {
-			Reporter.log( "##### Time interval : " , print);
-			Reporter.log( "##### Starting -> " + past , print);
-			Reporter.log( "##### Ending -> Right now" , print);
-		}
+		
+		Reporter.log( "##### Starting -> " + ( filtering.wideTime ? "All generated token." : past), print);
+
+		if (filtering.endTime != null)
+			now = sdf.format(filtering.endTime) + "+0000";
+		
+		Reporter.log( "##### Ending -> " + ( filtering.endTime == null ? "Right now." : now), print); 
+		
+		if ( filtering.wantedStatus == null )
+			filtering.wantedStatus = TokenStatus.values();
+		
+		Reporter.log( "##### Requested token status -> " + Arrays.toString(filtering.wantedStatus), print);
+		
+		Reporter.log( "##### Requested requestor type -> " + ( filtering.requestor == null ? "All" : filtering.requestor ), print);
 		
 		Reporter.log( "###############", print);
 
@@ -368,7 +426,9 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 					authentication( user ),
 					string( msisdn ),
 					string(past),
-					string("")
+					string(now),
+					arrayString( (Object[])filtering.wantedStatus ),
+					string(filtering.requestor)
 				),
 				xmlrpcOptions(
 					sleep( XMLRPC_CALL_DELAY ),
@@ -388,12 +448,14 @@ public class O2ReporterFiller extends RegressionSuiteXmlrpcCore {
 			
 			printable.append("(").append(code).append(",").append(status).append(")\t");
 			
-			if ( status.equals(TokenStatus.ACTIVE.toString()) )
+			if ( status.equals(TokenStatus.active.toString()) )
 				currentActiveTokens.add(code);
-			else if ( status.equals(TokenStatus.ALLOCATED.toString()) )
+			else if ( status.equals(TokenStatus.offers_allocated.toString()) )
 				currentAllocatedTokens.add(code);
-			else if ( status.equals(TokenStatus.CONSUMED.toString()) )
+			else if ( status.equals(TokenStatus.consumed.toString()) )
 				currentConsumedTokens.add(code);
+			else if ( status.equals(TokenStatus.expired.toString()) )
+				currentExpiredTokens.add(code);
 		}
 	}
 	
