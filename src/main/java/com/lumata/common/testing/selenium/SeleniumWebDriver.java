@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Browser;
+import com.lumata.common.testing.system.OperatingSystem;
 import com.opera.core.systems.OperaDriver;
 
 /**
@@ -207,7 +208,14 @@ public class SeleniumWebDriver {
 		
 			case CHROME: { 
 				
+				/** by default the Linux driver will be load **/ 
 				File chromeDriverRelativePath = new File( "/src/main/resources/browser/chrome/chromedriver" );
+				
+				if( OperatingSystem.isWindows() ) {
+					
+					chromeDriverRelativePath = new File( "/src/main/resources/browser/chrome/chromedriver.exe" );
+					
+				} 				
 				
 				System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + chromeDriverRelativePath.getPath() );
 				
