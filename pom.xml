@@ -19,7 +19,7 @@
   		<!-- 		
 			Insert here Selenium version 
 		-->
-	  	<selenium.version>2.44.0</selenium.version>
+	  	<selenium.version>2.45.0</selenium.version>
 	  	<phantomjsdriver.version>1.2.0</phantomjsdriver.version>
 		<!-- 		
 			Insert here "lumata-common-testng" version 
