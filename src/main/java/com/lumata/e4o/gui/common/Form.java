@@ -18,6 +18,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,13 +37,15 @@ public abstract class Form {
 	protected long interval;
 	protected boolean status;
 	protected WebElement lastWebElement;
+	protected WebDriverWait wait;	
 	
 	public Form(SeleniumWebDriver selenium, long timeout, long interval) {
 		
 		this.selenium = selenium;
 		this.timeout = timeout;
 		this.interval = interval;
-	
+		this.wait = new WebDriverWait(this.selenium.getWrappedDriver(), this.timeout );
+		
 	}
 	
 	public Calendar getDate( String dateStr ) {
@@ -451,7 +454,7 @@ public abstract class Form {
 	private Form click( SeleniumUtils.SearchBy by, String tag ) throws FormException {
 		
 		lastWebElement =  search( by, tag );
-		lastWebElement.click();
+		lastWebElement.click();		
 				
 		return this;
 		
