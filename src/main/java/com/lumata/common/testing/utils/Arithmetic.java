@@ -1,7 +1,6 @@
 package com.lumata.common.testing.utils;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -20,6 +19,7 @@ public class Arithmetic {
 		Long average = 0L;
 		String a = "";		
 		Integer startFromSample = Math.max( startValue, 1 );
+		
 		System.out.println( "startFromSample: " + startFromSample );
 		System.out.println( "endValue: " + endValue );
 		System.out.println( "samplesSize: " + samples.size() );
@@ -42,7 +42,7 @@ public class Arithmetic {
 	
 	public static Long random( Long startValue, Long endValue ) {
 		
-		return (long)( Math.random() * ( startValue - endValue ) + endValue ); 
+		return ( startValue + (long)( Math.random() * ( endValue - startValue ) ) ); 
 		
 	}
 	
