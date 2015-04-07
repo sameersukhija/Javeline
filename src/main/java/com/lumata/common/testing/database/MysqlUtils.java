@@ -28,6 +28,73 @@ public class MysqlUtils {
 		this.mysql = mysql;
 	}
 	
+	public static Boolean isMasterAndSlaveAligned( Mysql mysqlMaster, Mysql mysqlSlave ) {
+		
+		MysqlMasterStatus mysqlMasterStatus = new MysqlMasterStatus( mysqlMaster );
+		
+		MysqlSlaveStatus mysqlSlaveStatus = new MysqlSlaveStatus( mysqlSlave );
+	
+		return 	( 
+					mysqlMasterStatus.getFile().equals( mysqlSlaveStatus.getMasterLogFile() ) && 
+					mysqlSlaveStatus.getLastError().isEmpty() && 
+					mysqlSlaveStatus.getLastErrno().equals( 0 )				
+				);
+		
+	}
+	
+	public static void skipSlaveError( Mysql mysqlSlave ) {
+		
+		MysqlSlaveStatus mysqlSlaveStatus = new MysqlSlaveStatus( mysqlSlave );
+
+		Boolean hasError = ( !mysqlSlaveStatus.getLastError().isEmpty() && !mysqlSlaveStatus.getLastErrno().equals( 0 ) );
+		
+		if( hasError ) {
+			
+			stopSlave( mysqlSlave );
+			
+			String query = "SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1;";
+			
+			mysqlSlave.execUpdate( query );
+			
+			startSlave( mysqlSlave );
+			
+		}
+		
+	}	
+	
+	public static Boolean startSlave( Mysql mysqlSlave ) {
+		
+		String query = "START SLAVE;";
+		
+		mysqlSlave.execQuery( query );
+		
+		return isSlaveRunning( mysqlSlave );
+		
+	}
+	
+	public static Boolean stopSlave( Mysql mysqlSlave ) {
+		
+		String query = "STOP SLAVE;";
+		
+		mysqlSlave.execQuery( query );
+		
+		return !isSlaveRunning( mysqlSlave );
+		
+	}
+	
+	public static Boolean isSlaveRunning( Mysql mysqlSlave ) throws DataBaseException {
+		
+		MysqlSlaveStatus mysqlSlaveStatus = new MysqlSlaveStatus( mysqlSlave );
+		
+		return ( 
+					mysqlSlaveStatus.getSlaveIORunning() && 
+					mysqlSlaveStatus.getSlaveSQLRunning() && 
+					!mysqlSlaveStatus.getLastIOErrno() && 
+					!mysqlSlaveStatus.getLastSQLErrno() 
+		);
+		
+	}
+	
 	public Boolean startSlave() {
 		
 		String query = "START SLAVE;";
