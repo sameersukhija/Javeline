@@ -11,7 +11,7 @@
   <groupId>com.lumata.expression</groupId>
   <artifactId>e4osystemtest</artifactId>
   <!--  version>1.0.0</version -->
-  <version>2.4.1.18.0-regression-SNAPSHOT</version>
+  <version>2.4.1.18.0-regression-EFOGC-3576-CampaignForm-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>e4osystemtest</name>
 
