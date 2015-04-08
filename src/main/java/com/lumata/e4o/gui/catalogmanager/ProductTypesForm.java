@@ -243,7 +243,7 @@ public class ProductTypesForm extends CatalogueManagerForm {
 			String rootPath = "//table[contains(@class, \"page-ProductTypePageView\")]";
 			String subPath = "//tr[contains(@class,\"contentRow cycle\")]//td[@class=\"column_description\"][1]";
 		
-			List<WebElement> ptLabels = getListByXPath(rootPath, rootPath + subPath);
+			List<WebElement> ptLabels = searchListByXPath(rootPath, rootPath + subPath);
 			
 			for (WebElement webElement : ptLabels)
 				productTypesLabel.add(webElement.getText());

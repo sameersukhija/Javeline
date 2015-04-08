@@ -19,11 +19,11 @@ public class NotificationForm extends Form {
 	private final String notificationEditDialogFormHeaderXPath = "//div[@class='gwt-DialogBox']//div[@class='Caption'  and text()='Edit']";
 	private final String notificationEditDialogFormXPath = notificationEditDialogFormHeaderXPath + "/ancestor::tbody";
 	
-	public enum NotificationType { 
+	public enum NotificationChannel { 
 		SMS, MAIL		
 	}
 	
-	public enum NotificationTongueType { 
+	public enum NotificationTongue { 
 		
 		English("ENG"),
 		French("FRA"),
@@ -31,11 +31,17 @@ public class NotificationForm extends Form {
 		
 		private String value;
 		
-		NotificationTongueType( String value ) {
+		NotificationTongue( String value ) {
 			this.value = value;
 		}
 		
 		public String value() { return this.value; }
+		
+	}
+	
+	public NotificationForm( SeleniumWebDriver selenium, long timeout, long interval ) {
+		
+		super(selenium, timeout, interval);
 		
 	}
 	
@@ -59,194 +65,299 @@ public class NotificationForm extends Form {
 		
 	}
 
-	public NotificationForm configureNotifications() throws FormException {
+//	public NotificationForm configureNotifications() throws FormException {
+//		
+//		for( String notificationName : jsonNotificationList.keySet() ) {
+//			
+//			configureNotification( jsonNotificationList.get( notificationName ) ).
+//			saveBtn();
+//			
+//		}
+//			
+//		return this;
+//		
+//	}
+
+//	public NotificationForm configureNotification( JSONNotification jsonNotification ) throws FormException {
+//		
+//		/** example: English SMS row xpath */  
+//		String notificationTypeRowXPath = notificationDialogFormXPath + "//table[@class='tableList']//div[@id='gwt-debug-TextCampaignModelCreationEN" + NotificationTongue.valueOf( jsonNotification.getTongue() ).value() + "Channel' and text() = '" + NotificationChannel.valueOf( jsonNotification.getType().toUpperCase() ) + "']//ancestor::tr[contains(@class, 'contentRow')]";
+//				
+//		if( jsonNotification.getText().length() > 0 ) {
+//			
+//			NotificationTongue.valueOf( jsonNotification.getTongue() );
+//			
+//			String notificationTypeRowEditButtonXPath = notificationTypeRowXPath + "//button[@id='gwt-debug-BtnCampaignModelCreationEN" +  NotificationTongue.valueOf( jsonNotification.getTongue() ).value() + "Edit']";
+//			
+//			clickXPath( notificationTypeRowEditButtonXPath );
+//			
+//			switch( NotificationChannel.valueOf( jsonNotification.getType().toUpperCase() ) ) {
+//			
+//				case SMS: { 
+//					editSMSNotification( jsonNotification );
+//					break; 
+//				}
+//				case MAIL: { 
+//					
+//					break;					
+//				}
+//				
+//			}
+//		
+//			saveNotificationEditing();
+//			
+//		}
+//				
+//		return this;
+//		
+//	}
+	
+	public NotificationForm saveBtn() throws FormException {
 		
-		for( String notificationName : jsonNotificationList.keySet() ) {
-			
-			configureNotification( jsonNotificationList.get( notificationName ) ).
-			saveNotifications();
-			
-		}
-			
+		String saveBtnXPath = notificationDialogFormXPath + "//button[@id='gwt-debug-BtnCampaignModelCreationENOk']";
+		
+		clickXPath( saveBtnXPath );			
+		
 		return this;
 		
 	}
 
-	public NotificationForm configureNotification( JSONNotification jsonNotification ) throws FormException {
+	public NotificationForm cancelBtn() throws FormException {
 		
-		/** example: English SMS row xpath */  
-		String notificationTypeRowXPath = notificationDialogFormXPath + "//table[@class='tableList']//div[@id='gwt-debug-TextCampaignModelCreationEN" + NotificationTongueType.valueOf( jsonNotification.getTongue() ).value() + "Channel' and text() = '" + NotificationType.valueOf( jsonNotification.getType().toUpperCase() ) + "']//ancestor::tr[contains(@class, 'contentRow')]";
-				
-		if( jsonNotification.getText().length() > 0 ) {
-			
-			NotificationTongueType.valueOf( jsonNotification.getTongue() );
-			
-			String notificationTypeRowEditButtonXPath = notificationTypeRowXPath + "//button[@id='gwt-debug-BtnCampaignModelCreationEN" +  NotificationTongueType.valueOf( jsonNotification.getTongue() ).value() + "Edit']";
-			
-			clickXPath( notificationTypeRowEditButtonXPath );
-			
-			switch( NotificationType.valueOf( jsonNotification.getType().toUpperCase() ) ) {
-			
-				case SMS: { 
-					editSMSNotification( jsonNotification );
-					break; 
-				}
-				case MAIL: { 
-					
-					break;					
-				}
-				
-			}
+		String cancelBtnXPath = notificationDialogFormXPath + "//button[@id='gwt-debug-BtnCampaignModelCreationENCancel']";
 		
-			saveNotificationEditing();
-			
-		}
-				
+		clickXPath( cancelBtnXPath );			
+		
 		return this;
 		
 	}
 	
-	public NotificationForm saveNotifications() throws FormException {
+	public NotificationForm editBtn( NotificationTongue tongue, NotificationChannel channel ) throws FormException {
 		
-		String notificationSaveXPath = notificationDialogFormXPath + "//button[@id='gwt-debug-BtnCampaignModelCreationENOk']";
+		return editBtn( tongue.value(), channel.name() );
 		
-		clickXPath( notificationSaveXPath );			
+	}
+	
+	public NotificationForm editBtn( String tongue, String channel ) throws FormException {
+		
+		String editBtnXPath = "//div[@id='gwt-debug-TextCampaignModelCreationEN" + tongue + "Channel' and text()='" + channel + "']/parent::td/parent::tr//button[@id='gwt-debug-BtnCampaignModelCreationEN" + tongue + "Edit']";
+		
+		clickXPath( editBtnXPath );			
 		
 		return this;
 		
 	}
 
-	public NotificationForm cancelNotifications() throws FormException {
+	public NotificationForm deleteBtn( NotificationTongue tongue, NotificationChannel channel ) throws FormException {
 		
-		String notificationCancelXPath = notificationEditDialogFormXPath + "//button[@id='gwt-debug-BtnCampaignModelCreationENCancel']";
+		return deleteBtn( tongue.value(), channel.name() );
 		
-		clickXPath( notificationCancelXPath );			
+	}
+	
+	public NotificationForm deleteBtn( String tongue, String channel ) throws FormException {
+		
+		String deleteBtnXPath = "//div[@id='gwt-debug-TextCampaignModelCreationEN" + tongue + "Channel' and text()='" + channel + "']/parent::td/parent::tr//button[@id='gwt-debug-BtnCampaignModelCreationEN" + tongue + "Delete']";
+		
+		clickXPath( deleteBtnXPath );			
 		
 		return this;
 		
 	}
 	
-	public NotificationForm editSMSNotification( JSONNotification jsonNotification ) throws FormException {
+	public NotificationForm importBtn( NotificationTongue tongue, NotificationChannel channel ) throws FormException {
 		
-		String notificationTextXPath = notificationEditDialogFormXPath + "//table[@class='tableList Form']//textarea[@id='gwt-debug-TextCampaignModelCreationENEValue']";
-		
-		typeByXPath( notificationTextXPath, jsonNotification.getText() );
-		
-		return this;
+		return importBtn( tongue.value(), channel.name() );
 		
 	}
 	
-	public NotificationForm editMAILNotification( JSONNotification jsonNotification ) {
+	public NotificationForm importBtn( String tongue, String channel ) throws FormException {
 		
+		String importBtnXPath = "//div[@id='gwt-debug-TextCampaignModelCreationEN" + tongue + "Channel' and text()='" + channel + "']/parent::td/parent::tr//button[@id='gwt-debug-BtnCampaignModelCreationEN" + tongue + "Import']";
 		
+		clickXPath( importBtnXPath );			
 		
-		return this;
-		
-	}
-	
-	public NotificationForm saveNotificationEditing() throws FormException {
-		
-		String notificationSaveEditingXPath = notificationEditDialogFormXPath + "//button[@id='gwt-debug-BtnCampaignModelCreationENESave']";
-		
-		clickXPath( notificationSaveEditingXPath );
-		
-		return this;
-		
-	}
-	
-	public NotificationForm saveTemplateNotificationEditing() throws FormException {
-		
-		String notificationSavetemplateEditingXPath = notificationEditDialogFormXPath + "//button[@id='gwt-debug-BtnCampaignModelCreationENESaveTemplate']";
-		
-		clickXPath( notificationSavetemplateEditingXPath );
-		
-		return this;
-		
-	}
-	
-	public NotificationForm cancelNotificationEditing() throws FormException {
-		
-		String notificationCancelEditingXPath = notificationEditDialogFormXPath + "//button[@id='gwt-debug-BtnCampaignModelCreationENECancel']";
-		
-		clickXPath( notificationCancelEditingXPath );
-		
-		return this;
-		
-	}
-	
-	public NotificationForm configureNotifications( Integer eventRow ) throws FormException {
-		
-		// //div[@class='gwt-DialogBox']//table[@class='Caption']//div[text()='Notification']/ancestor::tbody//div[@class='dialogMiddleCenterInner dialogContent']
-		// gwt-debug-BtnCampaignModelCreationENCancel
-		// gwt-debug-BtnCampaignModelCreationENOk
-				
-		// gwt-debug-BtnCampaignModelCreationENENGEdit
-		// gwt-debug-BtnCampaignModelCreationENENGDelete
-		// gwt-debug-BtnCampaignModelCreationENENGImport
-
 		return this;
 		
 	}
 
-	@Override
-	public NotificationForm clickId( String id ) throws FormException {
+	public NotificationForm saveEdititingBtn() throws FormException {
 		
-		super.clickId( id );
+		String saveEditingBtnId = "gwt-debug-BtnCampaignModelCreationENESave";
+		
+		clickId( saveEditingBtnId );			
+		
+		return this;
+		
+	}
+
+	public NotificationForm saveTemplateEditingBtn() throws FormException {
+		
+		String saveTemplateEditingBtnId = "gwt-debug-BtnCampaignModelCreationENESaveTemplate";
+		
+		clickId( saveTemplateEditingBtnId );			
 		
 		return this;
 		
 	}
 	
-	@Override
-	public NotificationForm clickXPath( String xpath ) throws FormException {
+	public NotificationForm cancelEditingBtn() throws FormException {
 		
-		super.clickXPath( xpath );
+		String cancelEditNotificationId = "gwt-debug-BtnCampaignModelCreationENECancel";
 		
-		return this;
-		
-	}
-	
-	@Override
-	public NotificationForm sendKeysById( String id, String text ) throws FormException {
-		
-		super.sendKeysById( id, text );
+		clickId( cancelEditNotificationId );			
 		
 		return this;
 		
 	}
 	
-	@Override
-	public NotificationForm selectByXPathAndVisibleText( String xpath, String text ) throws FormException {
+	public NotificationForm setMessage( String message ) throws FormException {
 		
-		super.selectByXPathAndVisibleText( xpath, text );
+		String textXPath = "//textarea[@id='gwt-debug-TextCampaignModelCreationENEValue']";
 		
-		return this;
-		
-	}
-	
-	@Override
-	public NotificationForm typeByXPath( String xpath, String text ) throws FormException {
-		
-		super.typeByXPath( xpath, text );
+		typeByXPath( textXPath, message );
 		
 		return this;
 		
 	}
 	
-	@Override
-	public NotificationForm selectDropDownListItem( String itemPath ) throws FormException {
-		
-		super.selectDropDownListItem( itemPath );
-		
-		return this;		
-		
-	}
 	
-	@Override
-	public Boolean isCheckedByXPath( String xpath ) throws FormException {
-		
-		return super.isCheckedByXPath( xpath );
-		
-	}
+	
+	//  //div[@class='gwt-DialogBox']//td[contains(text(), 'Template Name')]/parent::tr//input
+	// //div[@id='gwt-debug-TextCampaignModelCreationENELenght']
+	// //textarea[@id='gwt-debug-TextCampaignModelCreationENEValue']
+	
+	/*
+	 * 	//div[@id='gwt-debug-TextCampaignModelCreationENENGChannel' and text()='SMS']/parent::td/parent::tr//div[@id='gwt-debug-TextCampaignModelCreationENENGPreview']
+		//div[@id='gwt-debug-TextCampaignModelCreationENENGChannel' and text()='SMS']/parent::td/parent::tr//button[@id='gwt-debug-BtnCampaignModelCreationENENGDelete']
+		//div[@id='gwt-debug-TextCampaignModelCreationENENGChannel' and text()='SMS']/parent::td/parent::tr//button[@id='gwt-debug-BtnCampaignModelCreationENENGImport']
+		//div[@id='gwt-debug-TextCampaignModelCreationENENGChannel' and text()='SMS']/parent::td/parent::tr//button[@id='gwt-debug-BtnCampaignModelCreationENENGEdit']	
+	 */
+	
+	
+	
+	
+	
+//	public NotificationForm editSMSNotification( JSONNotification jsonNotification ) throws FormException {
+//		
+//		String notificationTextXPath = notificationEditDialogFormXPath + "//table[@class='tableList Form']//textarea[@id='gwt-debug-TextCampaignModelCreationENEValue']";
+//		
+//		typeByXPath( notificationTextXPath, jsonNotification.getText() );
+//		
+//		return this;
+//		
+//	}
+//	
+//	public NotificationForm editMAILNotification( JSONNotification jsonNotification ) {
+//		
+//		
+//		
+//		return this;
+//		
+//	}
+//	
+//	public NotificationForm saveNotificationEditing() throws FormException {
+//		
+//		String notificationSaveEditingXPath = notificationEditDialogFormXPath + "//button[@id='gwt-debug-BtnCampaignModelCreationENESave']";
+//		
+//		clickXPath( notificationSaveEditingXPath );
+//		
+//		return this;
+//		
+//	}
+//	
+//	public NotificationForm saveTemplateNotificationEditing() throws FormException {
+//		
+//		String notificationSavetemplateEditingXPath = notificationEditDialogFormXPath + "//button[@id='gwt-debug-BtnCampaignModelCreationENESaveTemplate']";
+//		
+//		clickXPath( notificationSavetemplateEditingXPath );
+//		
+//		return this;
+//		
+//	}
+//	
+//	public NotificationForm cancelNotificationEditing() throws FormException {
+//		
+//		String notificationCancelEditingXPath = notificationEditDialogFormXPath + "//button[@id='gwt-debug-BtnCampaignModelCreationENECancel']";
+//		
+//		clickXPath( notificationCancelEditingXPath );
+//		
+//		return this;
+//		
+//	}
+//	
+//	public NotificationForm configureNotifications( Integer eventRow ) throws FormException {
+//		
+//		// //div[@class='gwt-DialogBox']//table[@class='Caption']//div[text()='Notification']/ancestor::tbody//div[@class='dialogMiddleCenterInner dialogContent']
+//		// gwt-debug-BtnCampaignModelCreationENCancel
+//		// gwt-debug-BtnCampaignModelCreationENOk
+//				
+//		// gwt-debug-BtnCampaignModelCreationENENGEdit
+//		// gwt-debug-BtnCampaignModelCreationENENGDelete
+//		// gwt-debug-BtnCampaignModelCreationENENGImport
+//
+//		return this;
+//		
+//	}
+//
+//	@Override
+//	public NotificationForm clickId( String id ) throws FormException {
+//		
+//		super.clickId( id );
+//		
+//		return this;
+//		
+//	}
+//	
+//	@Override
+//	public NotificationForm clickXPath( String xpath ) throws FormException {
+//		
+//		super.clickXPath( xpath );
+//		
+//		return this;
+//		
+//	}
+//	
+//	@Override
+//	public NotificationForm sendKeysById( String id, String text ) throws FormException {
+//		
+//		super.sendKeysById( id, text );
+//		
+//		return this;
+//		
+//	}
+//	
+//	@Override
+//	public NotificationForm selectByXPathAndVisibleText( String xpath, String text ) throws FormException {
+//		
+//		super.selectByXPathAndVisibleText( xpath, text );
+//		
+//		return this;
+//		
+//	}
+//	
+//	@Override
+//	public NotificationForm typeByXPath( String xpath, String text ) throws FormException {
+//		
+//		super.typeByXPath( xpath, text );
+//		
+//		return this;
+//		
+//	}
+//	
+//	@Override
+//	public NotificationForm selectDropDownListItem( String itemPath ) throws FormException {
+//		
+//		super.selectDropDownListItem( itemPath );
+//		
+//		return this;		
+//		
+//	}
+//	
+//	@Override
+//	public Boolean isCheckedByXPath( String xpath ) throws FormException {
+//		
+//		return super.isCheckedByXPath( xpath );
+//		
+//	}
 
 }

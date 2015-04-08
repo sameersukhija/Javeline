@@ -130,7 +130,7 @@ public class JSONCampaigns extends JsonElement {
 		return this.getString( "scheduling.multipleRecurrence.daysBetweenProvisioningAndExecutionStartDate" );
 	}
 	
-	public String schedulingMultipleExecutionDuration() {
+	public String schedulingMultipleExecutionPeriod() {
 		return this.getString( "scheduling.multipleRecurrence.executionDuration" );
 	}
 	

@@ -60,7 +60,7 @@ public class TestJSONCampaigns {
 		 
 		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleDaysBetweenProvisioningAndExecutionStartDate(), "2" );
 		 
-		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleExecutionDuration(), "5" );
+		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleExecutionPeriod(), "5" );
 		 
 		 Assert.assertEquals( campaigns.get( 0 ).schedulingMultipleStartDate(), "2014-05-04" );
 		 

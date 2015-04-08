@@ -137,6 +137,8 @@ public class GWTCalendarForm extends Form {
 	
 	private GWTCalendarForm buildCurrDate() throws FormException {
 		
+		currDate.set( Calendar.DATE, 1 );
+		
 		String[] currentMonthYear = getTextByXPath( CALENDAR_FORM_MONTH_YEAR_XPATH_ ).split( " " );
 		
 		try {
@@ -146,22 +148,18 @@ public class GWTCalendarForm extends Form {
 				currDate.set( Calendar.YEAR, Integer.valueOf( currentMonthYear[ 0 ] ) );
 				
 				currDate.set( Calendar.MONTH, Month.valueOf( currentMonthYear[ 1 ] ).month() );
-								
+							
 			} else {
 								
 				throw new FormException( "no valid month and year" );
 				
 			}
-						
+					
 			try {
 				
 				currDate.set( Calendar.DATE, Integer.valueOf( getTextByXPath( CALENDAR_FORM_DAY_XPATH_, 1000L, 100L ) ) );
 								
-			} catch( FormException fe ) {
-				
-				currDate.set( Calendar.DATE, Calendar.getInstance().get( Calendar.DATE ) );
-				
-			}
+			} catch( FormException fe ) {}
 						
 		} catch ( NumberFormatException ne ) {
 			

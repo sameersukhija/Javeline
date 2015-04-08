@@ -41,7 +41,7 @@ public class Conf {
 			field = "position",
 			type = "tinyint(1) unsigned",
 			mysqlType = "tinyint",
-			javaType = "Boolean",
+			javaType = "Integer",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -53,7 +53,7 @@ public class Conf {
 			getMethod = "getPosition",
 			setMethod = "setPosition"
 	)
-	private Boolean position;
+	private Integer position;
 
 	@Column(
 			table = "conf",
@@ -232,7 +232,7 @@ public class Conf {
 	public Conf( ResultSet rs ) throws SQLException {
 
 		this.name = rs.getString( Conf.Fields.name.name() );
-		this.position = rs.getBoolean( Conf.Fields.position.name() );
+		this.position = rs.getInt( Conf.Fields.position.name() );
 		this.section = rs.getString( Conf.Fields.section.name() );
 		this.process_id = rs.getString( Conf.Fields.process_id.name() );
 		this.auth_group = rs.getString( Conf.Fields.auth_group.name() );
@@ -248,7 +248,7 @@ public class Conf {
 	public Conf( JSONObject jo ) throws JSONException, ParseException {
 
 		this.name = jo.getString( Conf.Fields.name.name() );
-		this.position = jo.getBoolean( Conf.Fields.position.name() );
+		this.position = jo.getInt( Conf.Fields.position.name() );
 		this.section = jo.getString( Conf.Fields.section.name() );
 		this.process_id = jo.getString( Conf.Fields.process_id.name() );
 		this.auth_group = jo.getString( Conf.Fields.auth_group.name() );
@@ -273,13 +273,13 @@ public class Conf {
 
 	}
 
-	public Boolean getPosition() {
+	public Integer getPosition() {
 
 		return this.position;
 
 	}
 
-	public void setPosition( Boolean position ) {
+	public void setPosition( Integer position ) {
 
 		this.position = position;
 
