@@ -28,14 +28,42 @@ public class MysqlUtils {
 		this.mysql = mysql;
 	}
 	
-	public static Boolean isMasterAndSlaveAligned( Mysql mysqlMaster, Mysql mysqlSlave ) {
+	public static Boolean isMasterAndSlaveAligned( Mysql mysqlLeft, Mysql mysqlRight ) {
 		
-		MysqlMasterStatus mysqlMasterStatus = new MysqlMasterStatus( mysqlMaster );
+		MysqlMasterStatus mysqlMasterStatus = new MysqlMasterStatus( mysqlLeft );
 		
-		MysqlSlaveStatus mysqlSlaveStatus = new MysqlSlaveStatus( mysqlSlave );
-	
+		MysqlSlaveStatus mysqlSlaveStatus = new MysqlSlaveStatus( mysqlRight );
+		
+		logger.info( "MASTER ( " + mysqlLeft.getHost() + ":" + mysqlLeft.getPort() + " )" );
+		logger.info( "SLAVE ( " + mysqlRight.getHost() + ":" + mysqlRight.getPort() + " )" );
+		
+		if( !mysqlMasterStatus.getFile().equals( mysqlSlaveStatus.getMasterLogFile() ) ) {
+			
+			logger.warn( "The MASTER and the SLAVE are not aligned File ( " + mysqlMasterStatus.getFile() + " ) is not equal to MasterLogFile ( " + mysqlMasterStatus.getFile().equals( mysqlSlaveStatus.getMasterLogFile() ) + " )" );
+			
+		}
+		
+		if( !mysqlMasterStatus.getPosition().equals( mysqlSlaveStatus.getReadMasterLogPos() ) ) {
+			
+			logger.warn( "The MASTER and the SLAVE are not aligned Position ( " + mysqlMasterStatus.getFile() + " ) is not equal to ReadMasterLogPos ( " + mysqlMasterStatus.getPosition().equals( mysqlSlaveStatus.getReadMasterLogPos() ) + " )" );
+			
+		}
+
+		if( !mysqlSlaveStatus.getLastError().isEmpty() ) {
+			
+			logger.warn( "The MASTER and the SLAVE are not aligned LastError is not empty ( " + mysqlSlaveStatus.getLastError() + " )" );
+			
+		}
+		
+		if( !mysqlSlaveStatus.getLastErrno().equals( 0 ) ) {
+			
+			logger.warn( "The MASTER and the SLAVE are not aligned LastErrno != 0 ( " + mysqlSlaveStatus.getLastErrno() + " )" );
+			
+		}
+		
 		return 	( 
 					mysqlMasterStatus.getFile().equals( mysqlSlaveStatus.getMasterLogFile() ) && 
+					mysqlMasterStatus.getPosition().equals( mysqlSlaveStatus.getReadMasterLogPos() ) &&
 					mysqlSlaveStatus.getLastError().isEmpty() && 
 					mysqlSlaveStatus.getLastErrno().equals( 0 )				
 				);
@@ -44,24 +72,38 @@ public class MysqlUtils {
 	
 	public static void skipSlaveError( Mysql mysqlSlave ) {
 		
-		MysqlSlaveStatus mysqlSlaveStatus = new MysqlSlaveStatus( mysqlSlave );
+		skipSlaveError( mysqlSlave, 1 );
+		
+	}	
+
+	public static void skipSlaveError( Mysql mysql, Integer skipCounter ) {
+		
+		MysqlSlaveStatus mysqlSlaveStatus = new MysqlSlaveStatus( mysql );
 
 		Boolean hasError = ( !mysqlSlaveStatus.getLastError().isEmpty() && !mysqlSlaveStatus.getLastErrno().equals( 0 ) );
 		
-		if( hasError ) {
+		while( hasError ) {
 			
-			stopSlave( mysqlSlave );
+			stopSlave( mysql );
 			
-			String query = "SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1;";
+			String query = "SET GLOBAL SQL_SLAVE_SKIP_COUNTER = " + skipCounter + ";";
 			
-			mysqlSlave.execUpdate( query );
+			mysql.execUpdate( query );
 			
-			startSlave( mysqlSlave );
+			startSlave( mysql );
+						
+			hasError = ( !mysqlSlaveStatus.getLastError().isEmpty() && !mysqlSlaveStatus.getLastErrno().equals( 0 ) );
 			
+			if( hasError ) {
+				
+				logger.info( "SLAVE has error ( [ " + mysqlSlaveStatus.getLastErrno() + " ] { " + mysqlSlaveStatus.getLastError() + " } )" );
+			
+			}
+						
 		}
-		
+				
 	}	
-	
+
 	public static Boolean startSlave( Mysql mysqlSlave ) {
 		
 		String query = "START SLAVE;";
