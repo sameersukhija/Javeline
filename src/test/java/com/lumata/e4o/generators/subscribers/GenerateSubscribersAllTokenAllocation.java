@@ -144,7 +144,7 @@ public class GenerateSubscribersAllTokenAllocation {
 	public void allocateAllTokensWithRandomSubscriberRandomRecharge() throws GeneratorException, NumberFormatException, FieldException {
 		
 		final Long LEFT_MSISDN = 3399900001L;
-		final Long RIGHT_MSISDN = 3399900023L;
+		final Long RIGHT_MSISDN = 3399900041L;
 		final Integer REPEAT = 15;
 		final Integer MIN_EVENTS = 20;
 		final Integer MAX_EVENTS = 50;

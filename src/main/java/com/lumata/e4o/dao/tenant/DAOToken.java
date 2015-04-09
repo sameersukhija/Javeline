@@ -127,9 +127,9 @@ public class DAOToken extends DAO {
 		
 	}
 	
-	private void setTokens( String query ) {
+	private Integer setTokens( String query ) {
 		
-		this.getMysql().execUpdate( query );
+		return this.getMysql().execUpdate( query );
 		
 	}
 	
@@ -159,9 +159,41 @@ public class DAOToken extends DAO {
 		
 	}
 	
+	public Integer setTokenExpired( Token token, Calendar eventDate, Calendar expirationDate ) {
+		
+		token.setEventDate( eventDate.getTime() );
+		
+		token.setExpirationDate( expirationDate.getTime() );
+				
+		String query = update( token ).
+						set( 
+							op( Token.Fields.event_date ).eq(), 
+							op( Token.Fields.expiration_date ).eq() 
+						).
+						where( 
+							op( Token.Fields.token_code ).eq( token.getTokenCode() ) 
+						).
+						build();
+		
+		System.out.println( query );
+		
+		return 0;
+		
+	}
+	
 	@SuppressWarnings("all")
 	public ArrayList<Token> convert(ArrayList<Object> a) {
 	   return (ArrayList) a;
+	}
+	
+	public ArrayList<Token> getAllTokens() {
+		
+		String query = select().from( new Token() ).build();
+		
+		logger.debug( Log.CREATING.createMessage( query ) );
+		
+		return getTokenList( query );
+		
 	}
 	
 	public ArrayList<Token> getAvailableTokens( Long msisdn ) {

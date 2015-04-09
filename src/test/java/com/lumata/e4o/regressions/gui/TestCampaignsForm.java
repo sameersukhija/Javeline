@@ -179,8 +179,9 @@ public class TestCampaignsForm {
 			saveDialogueNotificationEditing().
 			saveDialogueNotification().
 			setCampaignDialogueApplyCampaignToNotifiedOnly().
-			setCampaignDialogueNotificationTime( "00:00" )
-			;
+			setCampaignDialogueNotificationTime( "00:00" );
+		
+		
 
 	}
 	
