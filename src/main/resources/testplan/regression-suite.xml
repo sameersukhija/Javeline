@@ -3,7 +3,7 @@
 <suite name="Regression Suite" verbose="1" parallel="false" time-out="80000">
 
   <parameter name="browser" value="firefox"/>
-  <parameter name="environment" value="e4o_qa3_ne"/>
+  <parameter name="environment" value="e4o_qa7_noida_ne"/>
   <parameter name="gui_server" value="actrule"/>
   <parameter name="tenant" value="tenant"/>
   <parameter name="user" value="superman"/>
