@@ -10,6 +10,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
@@ -18,18 +19,17 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
-//import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.Browser;
 import com.lumata.common.testing.system.OperatingSystem;
 import com.opera.core.systems.OperaDriver;
+import com.thoughtworks.selenium.SeleniumException;
 
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
@@ -47,6 +47,66 @@ public class SeleniumWebDriver {
 	 */
 	private String driverBaseUrl = "";
 	
+	/**
+	 * The URL of the remote selenium hub.
+	 */
+	private URL driverHubUrl = null;
+		
+	/**
+	 * The DesiredCapabilities configuration
+	 */
+	private DesiredCapabilities capability = null;		
+		
+	/**
+	 * Instance of local <b>WebDriver</b>
+	 */
+	private WebDriver instance = null;
+	
+	/**
+	 * Current driver type
+	 */
+	private SeleniumDriverType driverType = null;
+	
+	/**
+	 * The key of the json object configurator.
+	 */	
+	private enum SeleniumJsonkey {
+		
+		type("type"),
+		local("local"),
+		remote("remote"),
+		selenium_hub("selenium_hub"),
+		capability("capability"),
+		platform("platform"),
+		browserName("browserName"),
+		version("version");
+		
+		private String key;
+		
+		SeleniumJsonkey( String key ) {
+			
+			this.key = key;
+			
+		}
+		
+		public String key() {
+			
+			return this.key;
+			
+		}
+		
+	}
+	
+	/**
+	 * The key of the capability json object configurator.
+	 */	
+	private enum SeleniumDriverType {
+		
+		local,
+		remote
+		
+	}
+	
 	public static enum BrowserType {
 		CHROME,
         FIREFOX,
@@ -58,11 +118,6 @@ public class SeleniumWebDriver {
 	}
 	
 	/**
-	 * Instance of local <b>WebDriver</b>
-	 */
-	private WebDriver instance = null;
-	
-	/**
 	 * It returns the wrapped <b>WebDriver</b>
 	 * 
 	 * @return a <b>WebDriver</b> object 
@@ -71,6 +126,12 @@ public class SeleniumWebDriver {
 		
 		return instance;
 	}
+	
+	/**
+	 * Default SeleniumWebDriver instance
+	 * 
+	 */
+	public SeleniumWebDriver () {}
 
 	/**
 	 * New SeleniumWebDriver instance
@@ -82,11 +143,8 @@ public class SeleniumWebDriver {
 		
 		instance = getLocalWebDriver( browser );
 
-		driverBaseUrl = baseUrl;
-
-		logger.debug("Save the driver base URL : " + driverBaseUrl);
+		openBrowser( baseUrl );
 		
-		adjustWindows(baseUrl);
 	}
 	
 	/**
@@ -98,7 +156,32 @@ public class SeleniumWebDriver {
 	 */
 	public SeleniumWebDriver ( Browser browser, String baseUrl, String baseHubAddress ) {
 		
-		this(BrowserType.valueOf(browser.getType().toString().toUpperCase()), baseUrl, baseHubAddress);
+		this(Browser.Type.valueOf(browser.getType().toString().toUpperCase()), baseUrl, baseHubAddress);
+	}
+	
+	/**
+	 * This method reproduces the "WebDriverBackedSelenium" object behavior.
+	 * 
+	 * It will append relative path to base URL provided during construction. 
+	 * 
+	 * @param relativePath
+	 */
+	public SeleniumWebDriver openBrowser( String baseUrl ) {
+		
+		driverBaseUrl = baseUrl;
+
+		logger.debug("Save the driver base URL : " + driverBaseUrl);
+		
+		logger.debug("Get base Url");
+		
+		instance.get(baseUrl);
+		
+		logger.debug("Windows Maximize");
+		
+		instance.manage().window().maximize();
+		
+		return this;
+				
 	}
 	
 	/**
@@ -122,39 +205,91 @@ public class SeleniumWebDriver {
 	}
 	
 	/**
-	 * Close the <b>WebDriver</b> object
+	 * Select alert windows
 	 */
 	public Alert selectAlert() {
 		
 		return instance.switchTo().alert();
 		
 	}
-	
-	/**
-	 * 
-	 * @param browser
-	 * @param browserProfile
-	 * @param baseUrl
-	 * 
-	 * @deprecated use SeleniumWebDriver ( Browser browser, String baseUrl )
-	 */
-	public SeleniumWebDriver ( String browser, JSONObject browserProfile, String baseUrl ) {
-		
-		instance = getLocalWebDriver( browser, browserProfile );
-		
-		instance.get(baseUrl);	
-	}
 
-	public SeleniumWebDriver ( BrowserType baseBrowser, String baseUrl, String baseHubAddress ) {
+	public SeleniumWebDriver ( Browser.Type baseBrowser, String baseUrl, String baseHubAddress ) {
 		
 		instance = getRemoteWebDriver( baseBrowser, baseHubAddress );
 
-		driverBaseUrl = baseUrl;
-
-		logger.debug("Save the driver base URL : " + driverBaseUrl);
+		openBrowser( baseUrl );
 		
-		adjustWindows(baseUrl);
 	}	
+	
+	public static SeleniumWebDriver getInstance( JSONObject configuration ) throws SeleniumException {
+		
+		SeleniumWebDriver seleniumWebDriver = new SeleniumWebDriver();
+		
+		if( null == configuration || configuration.length() == 0 ) {  
+			
+			throw new SeleniumException( "The configuration is null or empty" );
+			
+		}
+		
+		try {
+		
+			if( configuration.has( SeleniumJsonkey.type.key() ) ) {
+				
+				switch(  SeleniumJsonkey.valueOf( configuration.getString( SeleniumJsonkey.type.key() ).toLowerCase() ) ) {
+				
+					case local: {
+						
+						seleniumWebDriver.setDriverType( SeleniumDriverType.local );
+						
+						JSONObject localConfiguration = configuration.getJSONObject( SeleniumJsonkey.local.key() );
+						
+						Browser.Type browserType = Browser.Type.valueOf( localConfiguration.getString( SeleniumJsonkey.browserName.key() ).toLowerCase() );
+						
+						seleniumWebDriver.instance = seleniumWebDriver.getLocalWebDriver( new Browser( localConfiguration.getJSONObject( browserType.name() ), browserType ) );
+												
+						break;
+						
+					}
+					case remote: {
+						
+						seleniumWebDriver.setDriverType( SeleniumDriverType.remote );
+						
+						if( configuration.has( SeleniumJsonkey.selenium_hub.name() ) ) { seleniumWebDriver.setHub( configuration.getString( SeleniumJsonkey.selenium_hub.name() ) ); }	
+						
+						if( configuration.has( SeleniumJsonkey.capability.name() ) ) { 
+							
+							seleniumWebDriver.setCapability( seleniumWebDriver.getCapability( configuration.getJSONObject( SeleniumJsonkey.capability.name() ) ) ); 
+							
+						} else {
+							
+							seleniumWebDriver.setCapability( null );
+							
+						}						
+						
+						seleniumWebDriver.instance = seleniumWebDriver.getRemoteWebDriver();
+						
+						break;
+						
+					}
+					default: { break; }
+				
+				}
+				
+			} else {
+				
+				throw new SeleniumException( "It cannot select for selenium driver type in the configuration. Accepted value are: 'local' or 'remote'." );
+				
+			}
+			
+		} catch( Exception e ) {
+			
+			throw new SeleniumException( e.getMessage(), e );
+			
+		}
+		
+		return seleniumWebDriver;
+		
+	}
 	
 	/**
 	 * reload page using set url
@@ -176,22 +311,6 @@ public class SeleniumWebDriver {
 		instance.get( url );
 		
 	}
-	
-	/**
-	 * Fist steps to adjust windows
-	 * 
-	 * @param baseUrl is the startup URL to get
-	 */
-	private void adjustWindows(String baseUrl) {
-		
-		logger.debug("Windows Maximize");
-		
-		instance.manage().window().maximize();
-		
-		logger.debug("Get base Url");
-		
-		instance.get(baseUrl);
-	}
 
 	/**
 	 * This method returns "Webdriver" object according passed "Browser" object 
@@ -200,13 +319,13 @@ public class SeleniumWebDriver {
 	 * 
 	 * @return an instance of WebDriver object
 	 */
-	private static WebDriver getLocalWebDriver( Browser browser ) {
+	private WebDriver getLocalWebDriver( Browser browser ) {
 	
 		WebDriver resp = null;
 		
-		switch( BrowserType.valueOf( browser.getType().toString().toUpperCase() ) ) {
+		switch( Browser.Type.valueOf( browser.getType().toString().toLowerCase() ) ) {
 		
-			case CHROME: { 
+			case chrome: { 
 				
 				/** by default the Linux driver will be load **/ 
 				File chromeDriverRelativePath = new File( "/src/main/resources/browser/chrome/chromedriver" );
@@ -224,7 +343,7 @@ public class SeleniumWebDriver {
 				break; 
 			
 			}
-			case FIREFOX: { 
+			case firefox: { 
 
 				FirefoxProfile profile = null;
 				FirefoxBinary binary = null;
@@ -343,12 +462,11 @@ public class SeleniumWebDriver {
 				break;
 		
 			}
-			case IE: { resp = new InternetExplorerDriver(); break; }
-			case OPERA: { resp = new OperaDriver(); break; }
-			case SAFARI: { resp = new SafariDriver(); break; }
-			case PHANTOM: { 
+			case ie: { resp = new InternetExplorerDriver(); break; }
+			case opera: { resp = new OperaDriver(); break; }
+			case safari: { resp = new SafariDriver(); break; }
+			case phantom: { 
 			
-				// 
 				File phantomDriverRelativePath = new File( "/home/adipasquale/Downloads/phantomjs-2.0.0/bin/phantomjs" );
 				
 				System.setProperty("phantomjs.binary.path", phantomDriverRelativePath.getPath() );				
@@ -356,140 +474,38 @@ public class SeleniumWebDriver {
 				resp = new PhantomJSDriver(); break; 
 				
 			}
-			case HTMLUNIT: { resp = new HtmlUnitDriver(true); break; }
+			case htmlunit: { resp = new HtmlUnitDriver(true); break; }
 			default: { resp = new HtmlUnitDriver(true); break; }
 		}
 
 		return resp;
 	}
 	
-	/**
-	 * This method returns "Webdriver" object according passed "Browser" object and browserProfile string
-	 * 
-	 * @param browser
-	 * @param browserProfile
-	 * 
-	 * @return an instance of WebDriver object
-	 * 
-	 * @deprecated use getLocalWebDriver( Browser browser )
-	 */
-	private static WebDriver getLocalWebDriver( String browser, JSONObject browserProfile ) {
+	private WebDriver getRemoteWebDriver() {
 		
-		WebDriver resp = null;
+		return new RemoteWebDriver( driverHubUrl, capability );
 		
-		switch( BrowserType.valueOf( browser.toUpperCase() ) ) {
-		
-			case CHROME: { 
-				System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/main/resources/browser/chrome/chromedriver");
-				resp = new ChromeDriver(); 
-				break; 
-			}
-			case FIREFOX: { 
-					
-				FirefoxProfile profile = null;
-				
-				try {				
-					
-					if( browserProfile != null ) {
-						
-						JSONObject browserProfileInfo = browserProfile.getJSONObject("profile");
-
-						if( !browserProfileInfo.isNull("file") ) { 
-							
-							JSONObject browserProfileFileInfo = browserProfileInfo.getJSONObject("file");
-							
-							StringBuilder path = new StringBuilder();
-									
-							if( IOFileUtils.IOLoadingType.valueOf( browserProfileFileInfo.getString("loadingType").toUpperCase() ).equals( IOFileUtils.IOLoadingType.RESOURCE ) ) {
-								
-								path.append( System.getProperty( "user.dir" ) ).append( "/src/main/resources/" );
-								
-							}
-							
-							path.append( IOFileUtils.buildPath( browserProfileFileInfo.getString("loadingType"), browserProfileFileInfo.getString("fileName") ) );
-							
-							profile = new FirefoxProfile( new File( path.toString() ) ); 
-							
-							logger.debug( Log.LOADING.createMessage( "Firefox profile ( " + path.toString() + " )" ) );
-						
-						}
-					
-						if( !browserProfileInfo.isNull("options") ) {
-							
-							JSONObject profileOpts = browserProfileInfo.getJSONObject("options");
-							
-							@SuppressWarnings("unchecked")
-							Iterator<String> keys = profileOpts.keys();
-							while( keys.hasNext() ) {
-						        
-								try {
-									
-									String key = keys.next().toString();
-   	
-						        	profile.setPreference( key, profileOpts.getString(key) );
-						        	
-						        	logger.debug( Log.LOADING.createMessage( "Firefox profile option ( " + key + " )" ) );
-						        	
-						        } catch (JSONException e) {
-						            
-						        	logger.error( e.getMessage(), e );
-						        	
-						        }
-								
-						    }
-						    
-						}
-						
-					}
-					
-				} catch( Exception e ) {
-					
-					logger.error( e.getMessage(), e );
-					
-				}
-
-				if ( profile != null )
-					resp = new FirefoxDriver(profile);
-				else
-					resp = new FirefoxDriver();
-				
-				break;
-			}
-			case IE: { resp = new InternetExplorerDriver(); break; }
-			case OPERA: { resp = new OperaDriver(); break; }
-			case SAFARI: { resp = new SafariDriver(); break; }
-			default: { resp = new HtmlUnitDriver(true); break; }
-		}
-
-		return resp;
 	}
 	
-	private static WebDriver getRemoteWebDriver( BrowserType browserType, String baseHubAddress ) {
+	@SuppressWarnings("deprecation")
+	private WebDriver getRemoteWebDriver( Browser.Type browserType, String baseHubAddress ) {
 		
-		URL remoteHubAddress = null;
-		
-		try {
-			
-			remoteHubAddress = new URL(baseHubAddress);
-		
-		} catch( MalformedURLException e ) {
-			
-			logger.error( e.getMessage(), e );
-			
-		}
+		setHub( baseHubAddress );
 		
 		switch( browserType ) {
 		
-			case CHROME: { return new RemoteWebDriver(remoteHubAddress, DesiredCapabilities.chrome()); }
-			case FIREFOX: { return new RemoteWebDriver(remoteHubAddress, DesiredCapabilities.firefox()); }
-			case IE: { return new RemoteWebDriver(remoteHubAddress, DesiredCapabilities.internetExplorer()); }
-			case OPERA: { return new RemoteWebDriver(remoteHubAddress, DesiredCapabilities.opera()); }
-			case SAFARI: { return new RemoteWebDriver(remoteHubAddress, DesiredCapabilities.safari()); }
-			default: return new RemoteWebDriver(remoteHubAddress, DesiredCapabilities.htmlUnit());
+			case chrome: { capability = DesiredCapabilities.chrome(); }
+			case firefox: { capability =  DesiredCapabilities.firefox(); }
+			case ie: { capability =  DesiredCapabilities.internetExplorer(); }
+			case opera: { capability =  DesiredCapabilities.opera(); }
+			case safari: { capability =  DesiredCapabilities.safari(); }
+			default: capability =  DesiredCapabilities.htmlUnit();
 			
 		}
 		
-	}	
+		return new RemoteWebDriver( driverHubUrl, capability );
+		
+	}
 	
 	public Object getCacheValue( Object key ) {
 		return cache.get(key);		
@@ -506,5 +522,120 @@ public class SeleniumWebDriver {
 	public void setTestName( String testName ) {
 		this.testName = testName;		
 	}
+	
+	public SeleniumDriverType getDriverType() {
+		return this.driverType;		
+	}
+	
+	public void setDriverType( SeleniumDriverType driverType ) {
+		this.driverType = driverType;		
+	}
+	
+	public void setHub( String url ) throws SeleniumException {
+		
+		try {
+			
+			this.driverHubUrl = new URL( url );
+		
+		} catch (MalformedURLException e) {
+		
+			throw new SeleniumException( e.getMessage(), e );
+			
+		}
+		
+	}
+	
+	public URL getHub() {
+		
+		return this.driverHubUrl;
+		
+	}	
+	public void setHub( URL url ) {
+		
+		this.driverHubUrl = url;
+		
+	}
+
+	public DesiredCapabilities getCapability() {
+		
+		return this.capability;
+		
+	} 
+	
+	@SuppressWarnings("deprecation")
+	public DesiredCapabilities getCapability( JSONObject seleniumCapability ) throws SeleniumException {
+		
+		DesiredCapabilities capability = new DesiredCapabilities();
+		
+		if( null != seleniumCapability ) {
+		
+			try {
+				
+				switch( Browser.Type.valueOf( seleniumCapability.getString( SeleniumJsonkey.browserName.key() ).toLowerCase() ) ) {
+				
+					case chrome: { capability = DesiredCapabilities.chrome(); }
+					case firefox: { capability =  DesiredCapabilities.firefox(); }
+					case ie: { capability =  DesiredCapabilities.internetExplorer(); }
+					case opera: { capability =  DesiredCapabilities.opera(); }
+					case safari: { capability =  DesiredCapabilities.safari(); }
+					case htmlunit: { capability =  DesiredCapabilities.safari(); }
+					default: capability = new DesiredCapabilities();
+					
+				}
+				
+				for( @SuppressWarnings("unchecked")Iterator<String> iterator = seleniumCapability.keySet().iterator(); iterator.hasNext();) {
+				    
+					String key = iterator.next();
+			
+					switch( SeleniumJsonkey.valueOf( key ) ) {
+									
+						case platform: {
+							
+							/*
+							 * {WINDOWS|XP|VISTA|MAC|LINUX|UNIX|ANDROID}
+							 */
+							
+							capability.setPlatform( Platform.valueOf( seleniumCapability.getString( key ) ) ); 
+							
+							break;
+							
+						}
+						case browserName: {
+							
+							/*
+							 * {android|chrome|firefox|htmlunit|internet explorer|iPhone|iPad|opera|safari}
+							 */
+							
+							capability.setBrowserName( seleniumCapability.getString( key ) );
+							
+						}
+						default: {
+							
+							capability.setCapability( SeleniumJsonkey.valueOf( key ).name(), seleniumCapability.get( key ) );
+													
+						}
+					
+					
+					}
+											    
+				}
+								
+			} catch( Exception e ) {
+				
+				throw new SeleniumException( e.getMessage(), e );
+				
+			}
+			
+		}
+		
+		return capability;
+		
+	}
+		
+	public void setCapability( DesiredCapabilities capability ) {
+		
+		this.capability = capability;
+		
+	} 
 	
 }
