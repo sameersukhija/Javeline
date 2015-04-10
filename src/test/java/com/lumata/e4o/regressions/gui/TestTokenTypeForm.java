@@ -3,6 +3,7 @@ package com.lumata.e4o.regressions.gui;
 import java.lang.reflect.Method;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -44,35 +45,35 @@ public class TestTokenTypeForm {
 	private TokenTypeForm tokenTypeForm;
 			
 	/* 	Initialize Environment */
-	@Parameters({"browser", "environment", "gui_server", "tenant", "user", "selenium_hub"})
+	@Parameters({"e4oEnv", "seleniumDriver"})
 	@BeforeClass
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment, @Optional("actrule") String gui_server, @Optional("tenant") String tenant, @Optional("superman") String user, @Optional("") String selenium_hub ) throws NetworkEnvironmentException, FormException {		
+	public void init( @Optional( "" ) String e4oEnv, @Optional("") String seleniumDriver ) throws NetworkEnvironmentException, FormException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
+		JSONObject jsonE4OEnv = new JSONObject( e4oEnv );
+		
+		JSONObject jsonSeleniumDriver = new JSONObject( seleniumDriver );
+		
 		/** Create environment configuration */
-		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		env = new NetworkEnvironment( "input/environments", jsonE4OEnv.getString( "environment" ), IOFileUtils.IOLoadingType.RESOURCE );
 		
 		/** Create mysql connection */
-		mysql = new Mysql( env.getDataSource( tenant ) );
+		mysql = new Mysql( env.getDataSource( jsonE4OEnv.getString( "schemaMaster" ) ) );
 		
 		/** Create Selenium WebDriver instance */
-		Server gui = env.getServer( gui_server );
+		Server gui = env.getServer( jsonE4OEnv.getString( "guiServer" ) );
 		
-		if( null == selenium_hub || selenium_hub.isEmpty() ) {
+		if( null != seleniumDriver ) {
 				
-			seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
+			seleniumWebDriver = SeleniumWebDriver.getInstance( jsonSeleniumDriver ).openBrowser( gui.getLink() );
 			
-		} else {
-			
-			seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink(), "http://ci.lumata.int/wd/hub" );
-						
 		}
-		
+			
 		if( null != seleniumWebDriver ) { seleniumWebDriver.setTestName( "init" ); }
 		
 		/** Login */
-		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).login( gui.getUser( user ) ).navigate() );
+		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).login( gui.getUser( jsonE4OEnv.getString( "user" ) ) ).navigate() );
 		
 		/** Token Type Form **/
 		tokenTypeForm = new TokenTypeForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );

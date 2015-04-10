@@ -24,7 +24,7 @@
 		<!-- 		
 			Insert here "lumata-common-testng" version 
 		-->	  	
-	  	<lumata.common.version>1.0.3-SNAPSHOT</lumata.common.version>
+	  	<lumata.common.version>1.0.4-SNAPSHOT</lumata.common.version>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <java.opt>1.7</java.opt>
 		<resteasy.version>2.3.6.Final</resteasy.version>
