@@ -254,15 +254,27 @@ public class SeleniumWebDriver {
 						
 						seleniumWebDriver.setDriverType( SeleniumDriverType.remote );
 						
-						if( configuration.has( SeleniumJsonkey.selenium_hub.name() ) ) { seleniumWebDriver.setHub( configuration.getString( SeleniumJsonkey.selenium_hub.name() ) ); }	
+						JSONObject remoteConfiguration = configuration.getJSONObject( SeleniumJsonkey.remote.key() );
 						
-						if( configuration.has( SeleniumJsonkey.capability.name() ) ) { 
+						if( remoteConfiguration.has( SeleniumJsonkey.selenium_hub.name() ) ) { 
 							
-							seleniumWebDriver.setCapability( seleniumWebDriver.getCapability( configuration.getJSONObject( SeleniumJsonkey.capability.name() ) ) ); 
+							seleniumWebDriver.setHub( remoteConfiguration.getString( SeleniumJsonkey.selenium_hub.key() ) ); 
+							
+							logger.info( "set selenium hub ( " + seleniumWebDriver.getHub().toExternalForm() + " )" );
+							
+						}	
+						
+						if( remoteConfiguration.has( SeleniumJsonkey.capability.name() ) ) { 
+														
+							seleniumWebDriver.setCapability( seleniumWebDriver.getCapability( remoteConfiguration.getJSONObject( SeleniumJsonkey.capability.key() ) ) ); 
+							
+							logger.info( "loaded selenium capability ( " + seleniumWebDriver.getCapability() + " )" );
 							
 						} else {
 							
-							seleniumWebDriver.setCapability( null );
+							seleniumWebDriver.setCapability( new DesiredCapabilities() );
+							
+							logger.info( "loaded default selenium capability ( " + seleniumWebDriver.getCapability() + " )" );
 							
 						}						
 						
@@ -494,12 +506,12 @@ public class SeleniumWebDriver {
 		
 		switch( browserType ) {
 		
-			case chrome: { capability = DesiredCapabilities.chrome(); }
-			case firefox: { capability =  DesiredCapabilities.firefox(); }
-			case ie: { capability =  DesiredCapabilities.internetExplorer(); }
-			case opera: { capability =  DesiredCapabilities.opera(); }
-			case safari: { capability =  DesiredCapabilities.safari(); }
-			default: capability =  DesiredCapabilities.htmlUnit();
+			case chrome: { capability = DesiredCapabilities.chrome(); break; }
+			case firefox: { capability =  DesiredCapabilities.firefox(); break; }
+			case ie: { capability =  DesiredCapabilities.internetExplorer(); break; }
+			case opera: { capability =  DesiredCapabilities.opera(); break; }
+			case safari: { capability =  DesiredCapabilities.safari(); break; }
+			default: { capability =  DesiredCapabilities.htmlUnit();  break; }
 			
 		}
 		
@@ -573,13 +585,13 @@ public class SeleniumWebDriver {
 				
 				switch( Browser.Type.valueOf( seleniumCapability.getString( SeleniumJsonkey.browserName.key() ).toLowerCase() ) ) {
 				
-					case chrome: { capability = DesiredCapabilities.chrome(); }
-					case firefox: { capability =  DesiredCapabilities.firefox(); }
-					case ie: { capability =  DesiredCapabilities.internetExplorer(); }
-					case opera: { capability =  DesiredCapabilities.opera(); }
-					case safari: { capability =  DesiredCapabilities.safari(); }
-					case htmlunit: { capability =  DesiredCapabilities.safari(); }
-					default: capability = new DesiredCapabilities();
+					case chrome: { capability = DesiredCapabilities.chrome(); break;}
+					case firefox: { capability =  DesiredCapabilities.firefox(); break; }
+					case ie: { capability =  DesiredCapabilities.internetExplorer(); break; }
+					case opera: { capability =  DesiredCapabilities.opera(); break; }
+					case safari: { capability =  DesiredCapabilities.safari(); break; }
+					case htmlunit: { capability =  DesiredCapabilities.safari(); break; }
+					default: { capability = new DesiredCapabilities(); }
 					
 				}
 				
@@ -595,7 +607,7 @@ public class SeleniumWebDriver {
 							 * {WINDOWS|XP|VISTA|MAC|LINUX|UNIX|ANDROID}
 							 */
 							
-							capability.setPlatform( Platform.valueOf( seleniumCapability.getString( key ) ) ); 
+							capability.setPlatform( Platform.valueOf( seleniumCapability.getString( key ).toUpperCase() ) ); 
 							
 							break;
 							
