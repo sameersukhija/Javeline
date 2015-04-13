@@ -156,7 +156,7 @@ public class SeleniumWebDriver {
 	 */
 	public SeleniumWebDriver ( Browser browser, String baseUrl, String baseHubAddress ) {
 		
-		this(Browser.Type.valueOf(browser.getType().toString().toUpperCase()), baseUrl, baseHubAddress);
+		this(Browser.Type.valueOf(browser.getType().name().toLowerCase()), baseUrl, baseHubAddress);
 	}
 	
 	/**
