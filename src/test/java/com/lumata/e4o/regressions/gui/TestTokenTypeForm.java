@@ -19,6 +19,7 @@ import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.common.testing.system.Browser;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.validating.Format;
@@ -47,7 +48,7 @@ public class TestTokenTypeForm {
 	/* 	Initialize Environment */
 	@Parameters({"e4oEnv", "seleniumDriver"})
 	@BeforeClass
-	public void init( @Optional( "" ) String e4oEnv, @Optional("") String seleniumDriver ) throws NetworkEnvironmentException, FormException {		
+	public void init( @Optional() String e4oEnv, @Optional() String seleniumDriver ) throws NetworkEnvironmentException, FormException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
@@ -64,13 +65,11 @@ public class TestTokenTypeForm {
 		/** Create Selenium WebDriver instance */
 		Server gui = env.getServer( jsonE4OEnv.getString( "guiServer" ) );
 		
-		if( null != seleniumDriver ) {
-				
-			seleniumWebDriver = SeleniumWebDriver.getInstance( jsonSeleniumDriver ).openBrowser( gui.getLink() );
+		Assert.assertNotNull( seleniumDriver );
+		
+		seleniumWebDriver = SeleniumWebDriver.getInstance( jsonSeleniumDriver ).openBrowser( gui.getLink() );
 			
-		}
-			
-		if( null != seleniumWebDriver ) { seleniumWebDriver.setTestName( "init" ); }
+		seleniumWebDriver.setTestName( "init" );
 		
 		/** Login */
 		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).login( gui.getUser( jsonE4OEnv.getString( "user" ) ) ).navigate() );
