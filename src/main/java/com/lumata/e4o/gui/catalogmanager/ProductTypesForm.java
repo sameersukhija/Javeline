@@ -9,16 +9,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.json.ErrorModificableElement;
-import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
+import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.CharacteristicType;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristicElement;
@@ -36,6 +37,12 @@ public class ProductTypesForm extends CatalogueManagerForm {
 	 */
 	private JSONProductTypes productTypesCfg;
 	
+	/* constructor for initializing without product type json configuration*/ 
+	public ProductTypesForm(SeleniumWebDriver selenium,long timeout, long interval) {
+		
+		super(selenium, timeout, interval);
+		
+	}
 	/**
 	 * 
 	 * @param selenium
@@ -65,58 +72,148 @@ public class ProductTypesForm extends CatalogueManagerForm {
 	 * @throws FormException
 	 * @throws JSONSException
 	 */
-	public ProductTypesForm addProductTypes() throws FormException, JSONSException {
+//	public ProductTypesForm addProductTypes(String name,String description) throws FormException, JSONSException {
+//	
+//		
+//				configureProductType(name, description);
+//		
+//		return this;
+//	}	
 	
-		int numbProdType = productTypesCfg.getList().size();
-		
-		for (int index = 0; index < numbProdType; index++) {
-			
-			JsonCurrentElement current = productTypesCfg.getCurrentElementById(index);
-			
-			if ( current.getEnabled() ) {
-				
-				configureProductType( 	productTypesCfg.getName(), 
-										productTypesCfg.getDescription(),
-										productTypesCfg.getCharacteristicsList()).
-				saveProductType();
-			}
-		}
-		
+	public ProductTypesForm addProductTypeButton() throws FormException
+	{
+		super.clickXPath("//button[@name='btn-add' and @title='Add Product Type']");
 		return this;
-	}	
+	}
 	
+	public ProductTypesForm setProductTypeName(String name) throws FormException
+	{
+		super.sendKeysByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']", name);
+		return this;
+	}
+	public String getProductTypeName() throws FormException
+	{
+		return super.getValueByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']");
+	}
+	public ProductTypesForm setProductTypeDescription(String description) throws FormException
+	{
+		super.sendKeysByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-descriptionTextBox']", description);
+		return this;
+	}
+	public String getProductTypeDescription() throws FormException
+	{
+		return super.getValueByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-descriptionTextBox']");
+	}
+	public ProductTypesForm addCharacteristicButton() throws FormException
+	{
+		super.clickXPath("//div[text()='Create product type']//ancestor::div[2]//button[@title='Add']");
+		return this;
+	}
+	public ProductTypesForm setCharacteristicName(String ch_name) throws FormException
+	{
+		super.sendKeysByXPath("//td[contains(text(),'Characteristic Name')]//ancestor::tr[1]//input", ch_name);
+		return this;
+	}
+	public String getCharacteristicName() throws FormException
+	{
+		return super.getValueByXPath("//td[contains(text(),'Characteristic Name')]//ancestor::tr[1]//input");
+	}
+	public ProductTypesForm setCharacteristicType(String ch_type) throws FormException
+	{
+		super.selectByXPathAndVisibleText("//td[contains(text(),'Type')]//ancestor::tr[1]//select", ch_type);
+		return this;
+	}
+	public String getCharacteristicType() throws FormException
+	{
+		return super.getValueByXPath("//td[contains(text(),'Type')]//ancestor::tr[1]//select");
+	}
+	public ProductTypesForm addCharacteristicValueButton() throws FormException
+	{
+		super.clickXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::div[2]//button[@title='Add']");
+		return this;
+	}
+	public ProductTypesForm setListCharacteristicValues(List<String> values,List<String> defaultValue) throws FormException
+	{
+		List<WebElement> inputElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='text']"));
+		
+		// checkboxes
+		List<WebElement> checkElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='checkbox']"));
+		
+		// fill
+		for (int index = 0; index < values.size(); index++) { 
+			
+			WebElement input = inputElements.get(index);
+			String value = values.get(index);
+			
+			input.sendKeys(value);
+			
+			if ( defaultValue != null && defaultValue.contains(values.get(index)) ) 
+				checkElements.get(index).click();
+		}
+		return this;
+	}
+	public ProductTypesForm setChoiceCharacteristicValues(List<String> values,String defaultValue) throws FormException
+	{
+		// element to be filled
+					List<WebElement> inputElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='text']"));
+					
+					// ratio
+					List<WebElement> radioElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='radio']"));
+					
+					// fill
+					for (int index = 0; index < values.size(); index++) { 
+						
+						WebElement input = inputElements.get(index);
+						String value = values.get(index);
+						
+						input.sendKeys(value);
+						
+						if ( defaultValue != null && defaultValue.equals(values.get(index)) ) 
+							radioElements.get(index).click();
+					}
+		return this;
+	}
+	public ProductTypesForm setTextCharTypeValue(String value) throws FormException
+	{
+		super.sendKeysByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-defaultValueTextBox']", value);
+		return this;
+	}
+	public String getTextCharTypeValue() throws FormException
+	{
+		return super.getValueByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-defaultValueTextBox']");
+	}
+	public ProductTypesForm setUnitTypeName(String unitName) throws FormException
+	{
+		super.sendKeysByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-unitTextBox']", unitName);
+		return this;
+	}
+	public String getUnitTypeName() throws FormException
+	{
+		return super.getValueByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-unitTextBox']");
+	}
+	public ProductTypesForm setUnitTypeValue(String unitValue) throws FormException
+	{
+		super.sendKeysByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-defaultValueTextBox']", unitValue);
+		return this;
+	}
+	public String getUnitTypeValue() throws FormException
+	{
+		return super.getValueByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-defaultValueTextBox']");
+	}
 	/**
 	 * 
 	 * @return
 	 * @throws FormException
 	 * @throws JSONSException
 	 */
-	public ProductTypesForm configureProductType(String name, String description, List<JsonCharacteristicElement> chList) throws FormException, JSONSException {
+	public ProductTypesForm configureProductType(String name, String description) throws FormException, JSONSException {
 		
-		clickXPath("//button[@name='btn-add' and @title='Add Product Type']");
+		addProductTypeButton();
+		setProductTypeName(name);
 		
-		sendKeysByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']", name);
 		
 		if ( description != null && description.length() != 0 )
-			sendKeysByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-descriptionTextBox']", description);
-		
-		for (JsonCharacteristicElement chElem : chList) {
-			
-			if ( chElem.getEnabled() ) {
-				
-				// add a new ch
-				clickXPath("//div[text()='Create product type']//ancestor::div[2]//button[@title='Add']");
-				
-				fillCharacteristicElement(chElem);
-				
-				
-				CharacteristicsSaveHandler handler = new CharacteristicsSaveHandler( 	selenium.getWrappedDriver(), 
-																						chElem);
-				handler.saveAction();
-			}
-			
-		}
-		
+			setProductTypeDescription(description);
 		return this;
 	}
 	
@@ -126,12 +223,12 @@ public class ProductTypesForm extends CatalogueManagerForm {
 	 * @throws FormException 
 	 * @throws JSONSException 
 	 */
-	private void fillCharacteristicElement(JsonCharacteristicElement chElem) throws FormException, JSONSException {
+	public void fillCharacteristicElement(String chname,JsonCharacteristicElement chElem) throws FormException, JSONSException {
 
 		CharacteristicType type = chElem.getType();
 		
-		sendKeysByXPath("//td[contains(text(),'Characteristic Name')]//ancestor::tr[1]//input", chElem.getName());
-		selectByXPathAndVisibleText("//td[contains(text(),'Type')]//ancestor::tr[1]//select", type.toString());
+		setCharacteristicName(chname);
+		setCharacteristicType(type.toString());
 
 		if ( type.equals(CharacteristicType.List) ) {
 			
@@ -139,25 +236,10 @@ public class ProductTypesForm extends CatalogueManagerForm {
 			List<String> values = chElem.getList().getValue();
 			
 			for (int index = 0; index < values.size(); index++) 
-				clickXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::div[2]//button[@title='Add']");
-			
+				addCharacteristicValueButton();
+				setListCharacteristicValues(values,defaultValue);
 			// element to be filled
-			List<WebElement> inputElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='text']"));
 			
-			// checkboxes
-			List<WebElement> checkElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='checkbox']"));
-			
-			// fill
-			for (int index = 0; index < values.size(); index++) { 
-				
-				WebElement input = inputElements.get(index);
-				String value = values.get(index);
-				
-				input.sendKeys(value);
-				
-				if ( defaultValue != null && defaultValue.contains(values.get(index)) ) 
-					checkElements.get(index).click();
-			}
 		}
 		else if ( type.equals(CharacteristicType.Choice) ) {
 			
@@ -165,31 +247,15 @@ public class ProductTypesForm extends CatalogueManagerForm {
 			List<String> values = chElem.getChoice().getValue();
 			
 			for (int index = 0; index < values.size(); index++) 
-				clickXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::div[2]//button[@title='Add']");
+				addCharacteristicValueButton();
+			setChoiceCharacteristicValues(values,defaultValue);
 			
-			// element to be filled
-			List<WebElement> inputElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='text']"));
-			
-			// ratio
-			List<WebElement> checkElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='radio']"));
-			
-			// fill
-			for (int index = 0; index < values.size(); index++) { 
-				
-				WebElement input = inputElements.get(index);
-				String value = values.get(index);
-				
-				input.sendKeys(value);
-				
-				if ( defaultValue != null && defaultValue.equals(values.get(index)) ) 
-					checkElements.get(index).click();
-			}
 		}
 		else if ( type.equals(CharacteristicType.Text) ) {
 			
 			String textValue = chElem.getText();
 			if ( textValue != null && textValue.length() != 0 )
-				sendKeysByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-defaultValueTextBox']", textValue);
+				setTextCharTypeValue(textValue);
 		}
 		else if ( type.equals(CharacteristicType.Unit) ) {
 
@@ -197,24 +263,18 @@ public class ProductTypesForm extends CatalogueManagerForm {
 			String unitName = unit.getUnit();
 			String unitValue = unit.getValue();
 			
-			sendKeysByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-unitTextBox']", unitName);	
-			
+			setUnitTypeName(unitName);			
 			if ( unitValue != null && unitValue.length() != 0 )
-				sendKeysByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-defaultValueTextBox']", unitValue);		
+				setUnitTypeValue(unitValue);	
 		} 
 	}
 
-	/**
-	 * 
-	 * @return
-	 * @throws FormException
-	 * @throws JSONSException 
-	 */
-	public ProductTypesForm saveProductType() throws FormException, JSONSException {
-		
-		ProductTypesSaveHandler handler = new ProductTypesSaveHandler( 	selenium.getWrappedDriver(), 
-																		productTypesCfg.getCurrentElement());
-		handler.saveAction();
+	public ProductTypesForm saveCharacteristic() throws FormException{
+		super.clickName( "btn-ok" );
+		return this;
+	}
+	public ProductTypesForm saveProductType() throws FormException {
+		super.clickName( "btn-save" );
 		
 		return this;
 	}
@@ -240,10 +300,8 @@ public class ProductTypesForm extends CatalogueManagerForm {
 			
 			productTypesLabel = new ArrayList<String>();
 			
-			String rootPath = "//table[contains(@class, \"page-ProductTypePageView\")]";
-			String subPath = "//tr[contains(@class,\"contentRow cycle\")]//td[@class=\"column_description\"][1]";
 		
-			List<WebElement> ptLabels = getListByXPath(rootPath, rootPath + subPath);
+			List<WebElement> ptLabels = getProductTypeList();
 			
 			for (WebElement webElement : ptLabels)
 				productTypesLabel.add(webElement.getText());
@@ -276,257 +334,166 @@ public class ProductTypesForm extends CatalogueManagerForm {
 		return resp;
 	}
 	
-	/**
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
-	private class ProductTypesSaveHandler extends FormSaveConfigurationHandler {
-
-		protected ProductTypesSaveHandler(	WebDriver inDriver,
-											JsonCurrentElement inCurrentElement) {
-			
-			super(inDriver, inCurrentElement);
-		}
-
-		@Override
-		protected Boolean containsErrorElement() {
-
-			Integer numbers = null;
-			Boolean resp = Boolean.TRUE;
+public List<WebElement> getProductTypeList() throws FormException {
 	
-			// error condition
-			//*[contains(@class,'errorBackground')]
-			
-			List<WebElement> elements = getWebDriver().findElements(By.xpath("//*[contains(@class,'errorBackground')]"));
-	
-			if ( elements == null )
-				numbers = 0;
-			else
-				numbers = elements.size();
-			
-			if ( numbers != 0 )
-				resp = true;
-			else
-				resp = false;
-			
-			return resp;
-		}
+	String rootPath = "//table[contains(@class, 'page-ProductTypePageView')]";
+	String subPath = "//tr[contains(@class, 'contentRow cycle')]//td[@class='column_description']";
 
-		/**
-		 * 
-		 */
-		private WebElement saveElement = null;
+	List<WebElement> productTypeList = getListByXPath(rootPath, rootPath + subPath);
+	return productTypeList;
 		
-		@Override
-		protected WebElement getSaveWebElement() {
-
-			if ( saveElement == null )
-				saveElement = getWebDriver().findElement(By.xpath("//div[text()='Create product type']//ancestor::div[2]//button[@title='Save']")); 
+	}
+public Boolean isProductTypeInList( String productTypeName ) throws FormException {
+	
+	List<WebElement> productTypeList = getProductTypeList();
 			
-			return saveElement;
-		}
-
-		@Override
-		protected ElementErrorConditionType defineErrorCondition() {
-
-			ElementErrorConditionType condition = null;
+	for( WebElement productTypeEl : productTypeList ) {
+		
+		if( productTypeEl.getText().trim().equals(productTypeName)) {
 			
-			WebElement dialogBox = getWebDriver().findElement(By.xpath("//div[@class='gwt-DialogBox']"));
+			return true;
 			
-			// error condition
-			//div[text()='Bonus name already used']			
-			List<WebElement> element = dialogBox.findElements(By.xpath("//div[text()='Cannot add product type, name is already used.']"));
-								
-			if ( element.size() != 0 )
-				condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
-			else
-				condition = ElementErrorConditionType.GENERAL_ERROR;
-
-			return condition;
-		}
-
-		@Override
-		protected Boolean cancelAction() {
-
-			Boolean resp = Boolean.FALSE;
-
-			try {
-
-				getWebDriver().findElement(By.xpath("//div[text()='Create product type']//ancestor::div[2]//button[@title='Cancel']")).click();
-					
-				resp = Boolean.TRUE;
-			}
-			catch ( NoSuchElementException e ) {
-			
-				e.printStackTrace();
-				
-				resp = Boolean.FALSE;
-			}
-			
-			return resp;
-		}
-
-		@Override
-		protected Boolean addTimestampAction() {
-
-			Boolean resp = Boolean.FALSE;
-			
-			try {
-				
-				WebElement nameElem = getWebDriver().findElement(By.xpath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']"));
-				nameElem.click();
-				nameElem.clear();
-				
-				String name = getCurrentElement().getStringFromPath("name");
-				name += TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-				getCurrentElement().modifyStringFromPath("name", name);
-				
-				nameElem.sendKeys(getCurrentElement().getStringFromPath("name"));
-				
-				saveAction();
-				
-				resp = Boolean.TRUE;
-				
-			} catch ( NoSuchElementException | FormException | JSONSException e ) {
-				
-				e.printStackTrace();
-				
-				resp = Boolean.FALSE;
-			}
-			
-			return resp;
 		}
 		
 	}
 	
-	/**
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
-	private class CharacteristicsSaveHandler extends FormSaveConfigurationHandler {
-
-		protected CharacteristicsSaveHandler(	WebDriver inDriver,
-												ErrorModificableElement inCurrentElement) {
-			
-			super(inDriver, inCurrentElement);
-		}
-
-		@Override
-		protected Boolean containsErrorElement() {
-
-			Integer numbers = null;
-			Boolean resp = Boolean.TRUE;
+	return false;
 	
-			// error condition
-			//*[contains(@class,'errorBackground')]
-			
-			List<WebElement> elements = getWebDriver().findElements(By.xpath("//*[contains(@class,'errorBackground')]"));
+} 
+public WebElement getProductTypeInListByName( String productTypeName ) throws FormException {
 	
-			if ( elements == null )
-				numbers = 0;
-			else
-				numbers = elements.size();
-			
-			if ( numbers != 0 )
-				resp = true;
-			else
-				resp = false;
-			
-			return resp;
-		}
-
-		/**
-		 * 
-		 */
-		private WebElement saveElement = null;
+	List<WebElement> productTypeList = getProductTypeList();
+	
+	for( WebElement productTypeEl : productTypeList ) {
+		System.out.println("The text from the webelement is:" +productTypeEl.getText());
 		
-		@Override
-		protected WebElement getSaveWebElement() {
-
-			if ( saveElement == null )
-				saveElement = getWebDriver().findElement(By.xpath("//div[text()='Adding a new characteritic type']//ancestor::div[2]//button[@title='OK']")); 
+		if( productTypeEl.getText().trim().equals(productTypeName)) {
 			
-			return saveElement;
-		}
-
-		@Override
-		protected ElementErrorConditionType defineErrorCondition() {
-
-			ElementErrorConditionType condition = null;
+			return productTypeEl;
 			
-			WebElement dialogBox = getWebDriver().findElement(By.xpath("//div[@class='gwt-DialogBox']"));
-			
-			// error condition
-			//div[text()='Bonus name already used']			
-			List<WebElement> element = dialogBox.findElements(By.xpath("//div[contains(text(),'Cannot add characteristic, name ')]"));
-								
-			if ( element.size() != 0 )
-				condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
-			else
-				condition = ElementErrorConditionType.GENERAL_ERROR;
-
-			return condition;
-		}
-
-		@Override
-		protected Boolean cancelAction() {
-
-			Boolean resp = Boolean.FALSE;
-
-			try {
-
-				getWebDriver().findElement(By.xpath("//div[text()='Adding a new characteritic type']//ancestor::div[2]//button[@title='Cancel']")).click();
-					
-				resp = Boolean.TRUE;
-			}
-			catch ( NoSuchElementException e ) {
-			
-				e.printStackTrace();
-				
-				resp = Boolean.FALSE;
-			}
-			
-			return resp;
-		}
-
-		@Override
-		protected Boolean addTimestampAction() {
-			
-			Boolean resp = Boolean.FALSE;
-			
-			try {
-
-				WebElement nameElem = getWebDriver().findElement(By.xpath("//td[contains(text(),'Characteristic Name')]//ancestor::tr[1]//input"));
-				nameElem.click();
-				nameElem.clear();
-				
-				String name = getCurrentElement().getStringFromPath("name");
-				name += TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-				getCurrentElement().modifyStringFromPath("name", name);
-				
-				nameElem.sendKeys(getCurrentElement().getStringFromPath("name"));
-				
-				saveAction();
-				
-				resp = Boolean.TRUE;
-				
-			} catch ( NoSuchElementException | FormException | JSONSException e ) {
-				
-				e.printStackTrace();
-				
-				resp = Boolean.FALSE;
-			}
-			
-			return resp;
 		}
 		
 	}
+	
+	return null;
+	
+}
+public ProductTypesForm editProductTypeByName( String productTypeName ) throws FormException {
+	
+	List<WebElement> productTypeList = getProductTypeList();
+	
+	for( int el = 0; el < productTypeList.size(); el++ ) {
+					
+		if( productTypeList.get( el ).getText().trim().equals( productTypeName ) ) {
+
+			WebElement editBtn = super.search( SearchBy.XPATH , "//div[text()='"+productTypeName+"']//ancestor::tr[1]//*[@name='btn-edit']");
+			
+			if( null != editBtn ) {
+				
+				editBtn.click();
+				WebDriverWait wait= new WebDriverWait(selenium.getWrappedDriver(), 15);
+				wait.until(ExpectedConditions.elementToBeClickable(super.search( SearchBy.XPATH,"//div[@text()=\"Edit product type\"")));
+
+			}
+			
+		}
+		
+	}
+		
+	return this;
+	
+}
+public List<WebElement> getcharListForProductType(String productTypeName) throws FormException {
+	
+	editProductTypeByName(productTypeName);
+	String rootPath = "//table[contains(@class, 'tableList')]";
+	String subPath = "//tr[contains(@class,\"contentRow cycle\")]//td[@class=\"column_description\"][1]";
+
+	List<WebElement>charList = getListByXPath(rootPath, rootPath + subPath);
+	return charList;
+		
+	}
+public ProductTypesForm editcharacteristicByName(String productTypeName, String charName ) throws FormException {
+	
+	List<WebElement> charList = getcharListForProductType(productTypeName);
+	
+	for( int el = 0; el < charList.size(); el++ ) {
+					
+		if( charList.get( el ).getText().trim().equals( charName ) ) {
+
+			WebElement editBtn = super.search( SearchBy.XPATH , "//div[text()='"+charName+"']//ancestor::tr[1]//*[@name='btn-edit']");
+			
+			if( null != editBtn ) {
+				
+				editBtn.click();
+				WebDriverWait wait= new WebDriverWait(selenium.getWrappedDriver(), 15);
+				wait.until(ExpectedConditions.elementToBeClickable(super.search( SearchBy.XPATH,"//div[@text()=\"Edit product type\"")));
+
+			}
+			
+		}
+		
+	}
+		
+	return this;
+	
+}
+public ProductTypesForm characteristicCancelButton() throws FormException
+{
+	super.clickXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::div[@class='gwt-DialogBox']//button[@name='btn-cancel']");
+	return this;
+}
+public ProductTypesForm productTypeCancelButton() throws FormException
+{
+	super.clickXPath("//button[@name='btn-cancel' and @title='Cancel']");
+	return this;
+}
+public Boolean isProductTypeDuplicated() throws FormException {
+	
+	
+	Boolean isProductTypeDuplicated = false;
+	
+	final String DIALOG_XPATH = "//div[@class='gwt-PopupPanel']";
+	final String DIALOG_ERROR_MESSAGE_XPATH = DIALOG_XPATH + "//div[contains(text(), 'Cannot add product type, name is already used.')]"; 
+			
+	WebElement errorMessage = super.search( SeleniumUtils.SearchBy.XPATH, DIALOG_ERROR_MESSAGE_XPATH, 1000L, 200L );
+	
+	if( null != errorMessage ) { 
+		
+		isProductTypeDuplicated = true;
+		
+		clickXPath( DIALOG_ERROR_MESSAGE_XPATH );
+		productTypeCancelButton();
+		
+	}
+			
+	
+			
+	return isProductTypeDuplicated;
+	
+}
+public Boolean isCharTypeDuplicated() throws FormException {
+	
+	
+	Boolean isCharTypeDuplicated = false;
+	
+	final String DIALOG_XPATH = "//div[@class='gwt-PopupPanel']";
+	final String DIALOG_ERROR_MESSAGE_XPATH = DIALOG_XPATH + "//div[contains(text(), 'Cannot add characteristic, name {0} is already used.')]"; 
+			
+	WebElement errorMessage = super.search( SeleniumUtils.SearchBy.XPATH, DIALOG_ERROR_MESSAGE_XPATH, 1000L, 200L );
+	
+	if( null != errorMessage ) { 
+		
+		isCharTypeDuplicated = true;
+		
+		clickXPath( DIALOG_ERROR_MESSAGE_XPATH );
+		characteristicCancelButton();
+		
+	}
+			
+	
+			
+	return isCharTypeDuplicated;
+	
+}
 }
