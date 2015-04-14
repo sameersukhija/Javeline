@@ -70,7 +70,7 @@ public class SeleniumWebDriver {
 	/**
 	 * The key of the json object configurator.
 	 */	
-	private enum SeleniumJsonkey {
+	public enum SeleniumJsonkey {
 		
 		type("type"),
 		local("local"),
@@ -100,21 +100,11 @@ public class SeleniumWebDriver {
 	/**
 	 * The key of the capability json object configurator.
 	 */	
-	private enum SeleniumDriverType {
+	public enum SeleniumDriverType {
 		
 		local,
 		remote
 		
-	}
-	
-	public static enum BrowserType {
-		CHROME,
-        FIREFOX,
-        IE,
-        OPERA,
-        SAFARI,
-        PHANTOM,
-        HTMLUNIT;			
 	}
 	
 	/**

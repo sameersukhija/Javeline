@@ -260,7 +260,7 @@ public class Mysql {
 		} catch (SQLException e) {
 
 			logger.error( e.getMessage(), e );
-			
+						
 			/**
 			 * Error during close connection -> throw DataBaseException
 			 */
