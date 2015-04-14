@@ -9,7 +9,7 @@
   		browserName -> {android|chrome|firefox|htmlunit|internet explorer|iPhone|iPad|opera|safari}
   		version -> the version of the used browser
   -->
-  <parameter name="seleniumDriver" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://192.168.56.152:4444/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/>  
+  <parameter name="seleniumDriver" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/>  
   
   <test name="Regression suite for E4O">
 
