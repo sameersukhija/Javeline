@@ -14,10 +14,10 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.database.Mysql;
-import com.lumata.common.testing.exceptions.EnvironmentException;
+import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.e4o.json.system.configuration.ConfigurationTypes;
 import com.lumata.e4o.system.configuration.ConfigurationDAO;
 
@@ -25,18 +25,18 @@ public class TestINPlugin {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TestINPlugin.class);
 	
-	Environment env;
+	NetworkEnvironment env;
 	Mysql mysqlGlobal;
 	Mysql mysqlTenant;
 	
 	/* 	Initialize Environment */
 	@Parameters({"environment", "tenant"})
 	@BeforeSuite
-	public void init( @Optional("E4O_VM") String environment, @Optional("tenant") String tenant ) throws EnvironmentException {		
+	public void init( @Optional("E4O_VM") String environment, @Optional("tenant") String tenant ) throws NetworkEnvironmentException {		
 		
 		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
 		
-		env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
 		mysqlGlobal = new Mysql( env.getDataSource( "global" ) );
 		

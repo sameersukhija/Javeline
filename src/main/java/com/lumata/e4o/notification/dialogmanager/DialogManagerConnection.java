@@ -20,7 +20,7 @@ import org.apache.activemq.ScheduledMessage;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumatagroup.expression.commons.campaign.notification.domain.SmsNotification;
 
 public class DialogManagerConnection {
@@ -247,7 +247,7 @@ public class DialogManagerConnection {
 	
 	public static void main(String[] args) throws Exception {
 		
-		Environment env = new Environment("input/environments", "e4o_qa", IOFileUtils.IOLoadingType.RESOURCE);
+		NetworkEnvironment env = new NetworkEnvironment("input/environments", "e4o_qa", IOFileUtils.IOLoadingType.RESOURCE);
 		Mysql mysql = new Mysql(env.getDataSource("jmailer_it"));
 		
 		/* Test

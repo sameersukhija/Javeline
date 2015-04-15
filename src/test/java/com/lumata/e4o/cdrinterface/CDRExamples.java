@@ -4,10 +4,10 @@ import java.util.Calendar;
 
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
+import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.schema.tenant.Profiles;
 import com.lumata.e4o.system.cdr.CDR;
@@ -527,16 +527,16 @@ public class CDRExamples {
 	
 	
 	@Test( enabled = false )
-	public void csv_schema() throws FieldException, EnvironmentException {
+	public void csv_schema() throws FieldException, NetworkEnvironmentException {
 		
 		System.out.println( "-----------------------------" );
 		System.out.println( "csv_schema" );
 		
-		Environment env = new Environment( "input/environments", "E4O_QA", IOFileUtils.IOLoadingType.RESOURCE );
+		NetworkEnvironment env = new NetworkEnvironment( "input/environments", "E4O_QA", IOFileUtils.IOLoadingType.RESOURCE );
 		
 		FieldSchemaTable csv_table = new FieldSchemaTable( new Profiles(), Profiles.Fields.profile );
 		
-		csv_table.setSchemaTableValues( env.getDataSource( "qa" ) );
+		csv_table.setSchemaTableValues( env.getDataSource( "qa" ).getJSON() );
 		
 		System.out.println( "Fixed Strategy" );
 		csv_table.setSchemaTableStrategyFixed( 0 );
