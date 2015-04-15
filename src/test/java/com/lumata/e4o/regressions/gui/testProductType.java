@@ -89,17 +89,18 @@ private static final Logger logger = LoggerFactory.getLogger( TestTokenTypeForm.
 					}
 				}
 				productTypesForm.saveProductType();
-				WebElement createdProduct=productTypesForm.getProductTypeInListByName(productTypeName);
-				if(null!=createdProduct)
+				status=productTypesForm.isProductTypeInList(productTypeName);
+				if(status==true)
 				{
-					status=true;
 					Assert.assertTrue(status);
 					Reporter.log("Product Created Succesfully!");
 				}
 				else
+				{
 					//Assert.assertTrue(status,"The creation of Product Failed!");
 					Assert.fail("The product creation Failed!");
 					Reporter.log("Creation of Product Failed!");
+				}
 			}
 	
 		}

@@ -1,9 +1,11 @@
 package com.lumata.e4o.gui.catalogmanager;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.openqa.selenium.WebElement;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
@@ -20,6 +22,12 @@ public class SuppliersForm extends CatalogueManagerForm {
         ADD_TIMESTAMP_TO_FIELD;
 
     }; 
+public SuppliersForm( SeleniumWebDriver selenium, long timeout, long interval ) {
+		
+		super(selenium, timeout, interval);
+		
+		
+	}	
     
 	public SuppliersForm( SeleniumWebDriver selenium, JSONSuppliers supplierCfg, long timeout, long interval ) {
 		
@@ -37,35 +45,54 @@ public class SuppliersForm extends CatalogueManagerForm {
 		
 	}
 	
-	public SuppliersForm addSuppliers() throws FormException, JSONException {
-		
-		JSONArray suppliers = supplierCfg.getList();
-		
-		for( int supplierIndex = 0; supplierIndex < suppliers.length(); supplierIndex++ ) {
-			
-			supplierCfg.setSupplierById( supplierIndex );
-			
-			if( supplierCfg.getEnabled() ) {
-				
-				clickXPath( "//button[@name='btn-add' and @title='Add supplier']" ).
-				configureSupplier();
-				saveSupplier().
-				manageErrorAction( supplierCfg.getErrorActions().getString( "ELEMENT_ALREADY_EXISTS" ) );
-				
-			}
-					
-		}
-		
+	public SuppliersForm addButton() throws FormException{
+		super.clickXPath( "//button[@name='btn-add' and @title='Add supplier']" );
 		return this;
-		
 	}
-	
-	public SuppliersForm configureSupplier() throws FormException, JSONException {
-		
-		sendKeysById( "gwt-debug-TextBox-SupplierPageView-nameTextBox", supplierCfg.getName() ).
-		sendKeysById( "gwt-debug-TextBox-SupplierPageView-emailTextBox", supplierCfg.getEmail() ).
-		sendKeysById( "gwt-debug-TextBox-SupplierPageView-phoneTextBox", supplierCfg.getPhone() ).
-		sendKeysById( "gwt-debug-TextBox-SupplierPageView-websiteTextBox", supplierCfg.getWebsite() );		
+	public SuppliersForm setSupplierName(String name) throws FormException{
+		this.sendKeysById( "gwt-debug-TextBox-SupplierPageView-nameTextBox", name);
+		return this;
+	}
+	public SuppliersForm setSupplierEmail(String email) throws FormException{
+		this.sendKeysById( "gwt-debug-TextBox-SupplierPageView-emailTextBox", email);
+		return this;
+	}
+	public SuppliersForm setSupplierPhone(String phone) throws FormException{
+		this.sendKeysById( "gwt-debug-TextBox-SupplierPageView-phoneTextBox", phone);
+		return this;
+	}
+	public SuppliersForm setSupplierWebSite(String website) throws FormException{
+		this.sendKeysById( "gwt-debug-TextBox-SupplierPageView-websiteTextBox", website);
+		return this;
+	}
+	public String getSupplierName() throws FormException{
+		return this.getValueById("gwt-debug-TextBox-SupplierPageView-nameTextBox");
+	}
+	public String getSupplierEmail() throws FormException{
+		return this.getValueById("gwt-debug-TextBox-SupplierPageView-emailTextBox");
+	}
+	public String getSupplierPhone(String phone) throws FormException{
+		return this.getValueById("gwt-debug-TextBox-SupplierPageView-phoneTextBox");
+	}
+	public String getSupplierWebSite() throws FormException{
+		return this.getValueById("gwt-debug-TextBox-SupplierPageView-websiteTextBox");
+	}
+	/*Clicks on add button and enters the data in all the textboxes*/
+	public SuppliersForm configureSupplier(String name, String email, String phone, String website) throws FormException, JSONException {
+		addButton();
+		setSupplierName(name);
+		if (null!=email)
+		{
+			setSupplierEmail(email);
+		}
+		if (null!=phone)
+		{
+			setSupplierPhone(phone);
+		}
+		if (null!=website)
+		{
+			setSupplierWebSite(website);
+		}
 		
 		return this;
 		
@@ -105,7 +132,7 @@ public class SuppliersForm extends CatalogueManagerForm {
 					supplierCfg.setName( name_with_timestamp );					
 					
 					clearByName( "name" ).
-					sendKeysByName( "name", supplierCfg.getName() ).
+					sendKeysByName( "name", supplierCfg.getName() );
 					saveSupplier();					
 					
 					break; 				
@@ -136,113 +163,32 @@ public class SuppliersForm extends CatalogueManagerForm {
 		return this;
 		
 	}
-	
-	@Override
-	public SuppliersForm execJavascript( String command ) {
-		
-		super.execJavascript( command );
-		
-		return this;
-		
-	}
-	
-	@Override
-	public SuppliersForm clickName( String name ) throws FormException {
-		
-		super.clickName( name );
-		
-		return this;
+	//Gets the list of all the existing internal and external suppiers
+	public List<WebElement> getSupplierList() throws FormException{
+		String rootPath = "//div[text()='Supplier list']//ancestor::table[@class='tableList']";
+		String subPath = "//tr[contains(@class, 'contentRow cycle')]//td[@class='column_description']";
+
+		List<WebElement> supplierList = getListByXPath(rootPath, rootPath + subPath);
+		return supplierList;
 		
 	}
-	
-	@Override
-	public SuppliersForm clickXPath( String xpath ) throws FormException {
+	//verifies if the supplier created exists in the list of suppliers
+	public Boolean isSupplierInList( String supplierName ) throws FormException {
 		
-		super.clickXPath( xpath );
+		List<WebElement> supplierList = getSupplierList();
+				
+		for( WebElement supplierEl : supplierList ) {
+			
+			if( supplierEl.getText().trim().equals(supplierName)) {
+				
+				return true;
+				
+			}
+			
+		}
 		
-		return this;
+		return false;
 		
-	}
-	
-	@Override
-	public SuppliersForm clickLink( String link ) throws FormException {
-		
-		super.clickLink( link );
-		
-		return this;
-		
-	}
-	
-	@Override
-	public SuppliersForm sendKeysByName( String name, String text ) throws FormException {
-		
-		super.sendKeysByName( name, text );
-		
-		return this;
-	
-	}
-	
-	@Override
-	public SuppliersForm sendKeysByXPath( String xpath, String text ) throws FormException {
-		
-		super.sendKeysByXPath( xpath, text );
-		
-		return this;
-	
-	}
-	
-	@Override
-	public SuppliersForm sendKeysByLink( String link, String text ) throws FormException {
-		
-		super.sendKeysByLink( link, text );
-		
-		return this;
-	
-	}
-	
-	@Override
-	public SuppliersForm selectByName( String name, String label ) throws FormException {
-		
-		super.selectByName( name, label );
-		
-		return this;
-		
-	}
-	
-	@Override
-	public SuppliersForm clearByName( String xpath ) throws FormException {
-		
-		super.clearByName( xpath );
-		
-		return this;
-		
-	}
-	
-	@Override
-	public SuppliersForm typeByName( String name, String text ) throws FormException {
-		
-		super.typeByName( name, text );
-		
-		return this;
-	
-	}
-	
-	@Override
-	public SuppliersForm multiselectByXPathAndVisibleText( String xpath, JSONArray list ) throws FormException {
-		
-		super.multiselectByXPathAndVisibleText( xpath, list );	
-		
-		return this;
-		
-	}
-	
-	@Override
-	public SuppliersForm selectByNameAndVisibleText( String name, String text ) throws FormException {
-		
-		super.selectByNameAndVisibleText( name, text );	
-		
-		return this;
-		
-	}
+	} 
 	
 }
