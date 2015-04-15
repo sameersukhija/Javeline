@@ -216,15 +216,15 @@ public class TestFormat {
 	
 	@Test()
 	public void isEnum_1() {		
-		String value = "FIREFOX";
-		String format = "com.lumata.common.testing.selenium.SeleniumWebDriver$BrowserType";
+		String value = "firefox";
+		String format = "com.lumata.common.testing.system.Browser$Type";
 		Assert.assertEquals( Format.isEnum( value, format, false ), true );
 	}
 	
 	@Test()
 	public void isEnum_2() {		
 		String value = "WRONG_FIREFOX";
-		String format = "com.lumata.common.testing.selenium.SeleniumWebDriver$BrowserType";
+		String format = "com.lumata.common.testing.system.Browser$Type";
 		Assert.assertEquals( Format.isEnum( value, format, false ), false );
 	}
 	
@@ -232,7 +232,7 @@ public class TestFormat {
 	@Test()
 	public void isEnum_3() {		
 		String value = "";
-		String format = "com.lumata.common.testing.selenium.SeleniumWebDriver$BrowserType";
+		String format = "com.lumata.common.testing.system.Browser$Type";
 		Assert.assertEquals( Format.isEnum( value, format, false ), false );
 	}
 	
@@ -240,13 +240,13 @@ public class TestFormat {
 	@Test( expectedExceptions = NullPointerException.class )
 	public void isEnum_4() {		
 		String value = null;
-		String format = "com.lumata.common.testing.selenium.SeleniumWebDriver$BrowserType";
+		String format = "com.lumata.common.testing.system.Browser$Type";
 		Assert.assertEquals( Format.isEnum( value, format, false ), false );
 	}
 	
 	public void isNumeric_1() {		
 		String value = null;
-		String format = "com.lumata.common.testing.selenium.SeleniumWebDriver$BrowserType";
+		String format = "com.lumata.common.testing.system.Browser$Type";
 		Assert.assertEquals( Format.isEnum( value, format, false ), false );
 	}
 	

@@ -11,8 +11,6 @@ import com.lumata.common.testing.io.JSONUtils;
 
 public class TestMalformedJSONObject {
 
-	private static final  Logger logger = LoggerFactory.getLogger( TestMalformedJSONObject.class );
-	
 	@Test
 	public void loadMalformedJSONObject() throws JSONSException, IOFileException {
 		

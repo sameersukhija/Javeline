@@ -1,26 +1,22 @@
 package com.lumata.common.testing.plan;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.database.Mysql;
-import com.lumata.common.testing.exceptions.EnvironmentException;
+import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.system.NetworkEnvironment;
 
 public class TestMysql {
 	
-	private static final  Logger logger = LoggerFactory.getLogger( TestMysql.class );
-					
 	@Parameters({"browser", "environment"})
 	@Test( enabled=false )
-	public void mysql_select( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws EnvironmentException {		
+	public void mysql_select( @Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment ) throws NetworkEnvironmentException {		
 		
-		Environment env = new Environment( "lumata-common-testing/examples/", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		NetworkEnvironment env = new NetworkEnvironment( "lumata-common-testing/examples/", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
 		Assert.assertNotNull( env );
 		
@@ -34,9 +30,9 @@ public class TestMysql {
 	
 	@Parameters({"browser", "environment"})
 	@Test( enabled=false )
-	public void mysql_insert( @Optional("FIREFOX") String browser, @Optional("E4O_QA") String environment ) throws EnvironmentException {		
+	public void mysql_insert( @Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment ) throws NetworkEnvironmentException {		
 		
-		Environment env = new Environment( "lumata-common-testing/examples/", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		NetworkEnvironment env = new NetworkEnvironment( "lumata-common-testing/examples/", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
 		Assert.assertNotNull( env );
 		

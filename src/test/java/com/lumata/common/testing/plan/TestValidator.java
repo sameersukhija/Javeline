@@ -224,10 +224,10 @@ public class TestValidator {
 	public void getValidation_13() {		
 		try {
 			JSONArray validator = new JSONArray();
-			JSONObject validate = new JSONObject("{ \"validationType\": \"ENUM\", \"validationParam\": \"\", \"validationFormat\": \"com.lumata.common.testing.selenium.SeleniumWebDriver$BrowserType\", \"validationFilter\": \"\", \"validationOp\": \"\", \"validationAllowBlank\": false, \"validationExpected\": true }");
+			JSONObject validate = new JSONObject("{ \"validationType\": \"ENUM\", \"validationParam\": \"\", \"validationFormat\": \"com.lumata.common.testing.system.Browser$Type\", \"validationFilter\": \"\", \"validationOp\": \"\", \"validationAllowBlank\": false, \"validationExpected\": true }");
 			validator.put(validate);			
 			Validator val = new Validator( validator );
-			Assert.assertTrue( val.validation("FIREFOX", new Object()) );
+			Assert.assertTrue( val.validation("firefox", new Object()) );
 		} catch( JSONException je ) {
 			logger.error(je.getMessage());
 		}
