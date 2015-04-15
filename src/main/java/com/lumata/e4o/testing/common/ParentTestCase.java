@@ -268,9 +268,9 @@ public abstract class ParentTestCase {
 				
 				jsonNetworkEnvironmentParams = new JSONObject( this.networkEnvironmentParams );
 				
-				Reporter.log( Log.LOADING.createMessage( "initNetworkEnvironment" , "custom network environment configuration ( " + jsonNetworkEnvironmentParams.getString( "environment" ) + " )" ), LOG_TO_STD_OUT );
+				Reporter.log( Log.LOADING.createMessage( "initNetworkEnvironment" , "custom network environment configuration ( " + jsonNetworkEnvironmentParams.getString( "envFile" ) + " )" ), LOG_TO_STD_OUT );
 								
-				env = new NetworkEnvironment( DEFAULT_RESOURCE_FOLDER_ENVIRONMENTS, jsonNetworkEnvironmentParams.getString( "environment" ), IOFileUtils.IOLoadingType.FILE );
+				env = new NetworkEnvironment( DEFAULT_RESOURCE_FOLDER_ENVIRONMENTS, jsonNetworkEnvironmentParams.getString( "envFile" ), IOFileUtils.IOLoadingType.FILE );
 			
 			}
 	

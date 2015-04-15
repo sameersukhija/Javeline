@@ -23,8 +23,6 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 @TCMysqlMaster
 public class TestTokenTypeForm extends ParentTestCase {
 
-//	private static final Logger logger = LoggerFactory.getLogger( TestTokenTypeForm.class );
-	
 	private TokenTypeForm tokenTypeForm;
 	
 	@BeforeMethod
