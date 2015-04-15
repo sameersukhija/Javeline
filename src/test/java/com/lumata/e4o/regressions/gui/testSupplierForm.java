@@ -17,13 +17,12 @@ import org.testng.annotations.Test;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.catalogmanager.ConfigureSuppliers;
 import com.lumata.e4o.gui.catalogmanager.SuppliersForm;
 import com.lumata.e4o.gui.common.ParentUITestCase;
 import com.lumata.e4o.json.gui.catalogmanager.JSONSuppliers;
 
 public class testSupplierForm extends ParentUITestCase{
-private static final Logger logger = LoggerFactory.getLogger( ConfigureSuppliers.class );
+private static final Logger logger = LoggerFactory.getLogger( testSupplierForm.class );
 	
 	private int TIMEOUT = 60000;
 	private int ATTEMPT_TIMEOUT = 200;
