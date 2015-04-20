@@ -149,6 +149,8 @@ public final class IOFileUtils {
 			
 			in = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 			
+			logger.debug( "Loading the resource as input stream ( " + path + " )" );
+						
 			if ( in == null ) {
 				
 				path = IOFileUtils.buildResourcePath( folder, resource );
