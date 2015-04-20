@@ -50,7 +50,7 @@ public SuppliersForm( SeleniumWebDriver selenium, long timeout, long interval ) 
 		return this;
 	}
 	public SuppliersForm setSupplierName(String name) throws FormException{
-		this.sendKeysById( "gwt-debug-TextBox-SupplierPageView-nameTextBox", name);
+		this.sendKeysByXPath(".//*[@id='gwt-debug-TextBox-SupplierPageView-nameTextBox']", name);
 		return this;
 	}
 	public SuppliersForm setSupplierEmail(String email) throws FormException{
