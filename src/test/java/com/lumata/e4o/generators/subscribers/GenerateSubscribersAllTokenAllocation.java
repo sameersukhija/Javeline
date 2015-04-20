@@ -2,30 +2,18 @@ package com.lumata.e4o.generators.subscribers;
 
 import java.util.Calendar;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.database.Mysql;
-import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.common.testing.system.Server;
-import com.lumata.common.testing.system.User;
 import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.exceptions.GeneratorException;
 import com.lumata.e4o.generators.common.Generator;
+import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCMysqlMaster;
 
 
-public class GenerateSubscribersAllTokenAllocation {
+@TCMysqlMaster
+public class GenerateSubscribersAllTokenAllocation extends ParentTestCase {
 
-	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersAllTokenAllocation.class );
-	
 	final boolean GENERATE_FIXED_SUBSCRIBER = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE = false;
@@ -33,28 +21,6 @@ public class GenerateSubscribersAllTokenAllocation {
 	final boolean GENERATE_RANDOM_SUBSCRIBERS = false;
 	final boolean GENERATE_RANDOM_SUBSCRIBER_RANDOM_RECHARGE = true;
 	
-	NetworkEnvironment env;	
-	Server guiServer;
-	User superman;
-	Mysql mysql;
-	
-	/* 	Initialize Environment */
-	@Parameters({"environment", "tenant"})
-	@BeforeSuite
-	public void init( @Optional("E4O_VM") String environment, @Optional("tenant") String tenant ) throws NetworkEnvironmentException {		
-		
-		logger.debug( Log.LOADING.createMessage( "init" , "environment" ) );
-		
-		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-			
-		guiServer = env.getServer( "actrule" );
-		
-		superman = guiServer.getUser( "superman" );
-		
-		mysql = new Mysql( env.getDataSource( tenant ) );
-		
-	}
-
 	@Test( enabled = GENERATE_FIXED_SUBSCRIBER )
 	public void allocateAllTokensWithFixedSubscriber() throws GeneratorException, NumberFormatException, FieldException {
 		
@@ -62,9 +28,9 @@ public class GenerateSubscribersAllTokenAllocation {
 								
 		Generator.subscribers()
 					.environment( env )
-					.mysql( mysql )
+					.mysql( mysqlMaster )
 					.server( guiServer )
-					.user( superman )
+					.user( user )
 					.msisdnFixed( FIXED_MSISDN )
 					.xmlrpcAllTokenAllocation();
 					
@@ -79,9 +45,9 @@ public class GenerateSubscribersAllTokenAllocation {
 			
 			Generator.subscribers()
 						.environment( env )
-						.mysql( mysql )
+						.mysql( mysqlMaster )
 						.server( guiServer )
-						.user( superman )
+						.user( user )
 						.msisdnFixed( msisdn )
 						.xmlrpcAllTokenAllocation();
 			
@@ -112,9 +78,9 @@ public class GenerateSubscribersAllTokenAllocation {
 			
 		Generator.subscribers()
 					.environment( env )
-					.mysql( mysql )
+					.mysql( mysqlMaster )
 					.server( guiServer )
-					.user( superman )
+					.user( user )
 					.msisdnIncremental( STARTED_MSISDN, INCREMENT )
 					.repeat( REPEAT )
 					.xmlrpcAllTokenAllocation();
@@ -130,9 +96,9 @@ public class GenerateSubscribersAllTokenAllocation {
 				
 		Generator.subscribers()
 					.environment( env )
-					.mysql( mysql )
+					.mysql( mysqlMaster )
 					.server( guiServer )
-					.user( superman )
+					.user( user )
 					.msisdnFixed( FIXED_MSISDN )
 					.minRandomEvents( MIN_EVENTS )
 					.maxRandomEvents( MAX_EVENTS )
@@ -151,22 +117,15 @@ public class GenerateSubscribersAllTokenAllocation {
 				
 		Generator.subscribers()
 					.environment( env )
-					.mysql( mysql )
+					.mysql( mysqlMaster )
 					.server( guiServer )
-					.user( superman )
+					.user( user )
 					.msisdnRandom( LEFT_MSISDN, RIGHT_MSISDN )
 					.minRandomEvents( MIN_EVENTS )
 					.maxRandomEvents( MAX_EVENTS )
 					.repeat( REPEAT )
 					.xmlrpcRandomTokenAllocation();
 					
-	}
-	
-	@AfterSuite
-	public void end() {
-		
-		mysql.close();
-		
 	}
 	
 }

@@ -1,6 +1,7 @@
 package com.lumata.e4o.testing.common;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 
 import org.json.JSONObject;
 import org.testng.Assert;
@@ -10,6 +11,7 @@ import org.testng.TestNGException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
@@ -141,7 +143,18 @@ public abstract class ParentTestCase {
 	 * 	( local or remote )  	 
 	 */
 	protected SeleniumDriverType seleniumDriverType;
+	
+	/**
+	 * 	Current gui server  	 
+	 */
+	protected Server guiServer;
 
+	/**
+	 * 	Current gui user  	 
+	 */
+	protected User user;
+
+	
 	/**
 	 * 	Enable the test case to use mysql global	 
 	 */
@@ -184,7 +197,7 @@ public abstract class ParentTestCase {
 	@BeforeClass
 	public void init(
 		@Optional("") String networkEnvironmentParams, 
-		@Optional("") String seleniumWebDriverParams			
+		@Optional("") String seleniumWebDriverParams
 	) {
 		
 		configure();
@@ -273,11 +286,62 @@ public abstract class ParentTestCase {
 				env = new NetworkEnvironment( DEFAULT_RESOURCE_FOLDER_ENVIRONMENTS, jsonNetworkEnvironmentParams.getString( "envFile" ), IOFileUtils.IOLoadingType.FILE );
 			
 			}
+			
+			initGUIServer();
+			
+			initGUIUser();
 	
 		} catch( Exception e ) {
 			
 			throw new TestNGException( e.getMessage(), e );
 			
+		}
+		
+	}
+	
+	private void initGUIServer() {
+		
+		if( 
+			null == jsonNetworkEnvironmentParams || 
+			jsonNetworkEnvironmentParams.length() == 0 ||
+			!jsonNetworkEnvironmentParams.has( "guiServer" ) || 
+			jsonNetworkEnvironmentParams.getString( "guiServer" ).isEmpty()													
+		) {
+			
+			Reporter.log( Log.LOADING.createMessage( "initSeleniumWebDriver" , "default gui server ( " + DEFAULT_GUI_SERVER + " )" ), LOG_TO_STD_OUT );
+			
+			guiServer = env.getServer( DEFAULT_GUI_SERVER );
+			
+						
+		} else {
+			
+			Reporter.log( Log.LOADING.createMessage( "initSeleniumWebDriver" , "default gui server ( " + jsonNetworkEnvironmentParams.getString( "guiServer" ) + " )" ), LOG_TO_STD_OUT );
+				
+			guiServer = env.getServer( jsonNetworkEnvironmentParams.getString( "guiServer" ) );	
+				
+		}
+		
+	}
+	
+	private void initGUIUser() {
+		
+		if( 
+			null == jsonNetworkEnvironmentParams || 
+			jsonNetworkEnvironmentParams.length() == 0 ||
+			!jsonNetworkEnvironmentParams.has( "guiUser" ) || 
+			jsonNetworkEnvironmentParams.getString( "guiUser" ).isEmpty()			
+		) {
+			
+			Reporter.log( Log.LOADING.createMessage( "initSeleniumWebDriver" , "default gui user ( " + DEFAULT_GUI_USER + " )" ), LOG_TO_STD_OUT );
+			
+			user = guiServer.getUser( DEFAULT_GUI_USER );
+						
+		} else {
+			
+			Reporter.log( Log.LOADING.createMessage( "initSeleniumWebDriver" , "default gui server ( " + jsonNetworkEnvironmentParams.getString( "guiUser" ) + " )" ), LOG_TO_STD_OUT );
+				
+			user = guiServer.getUser( jsonNetworkEnvironmentParams.getString( "guiUser" ) );	
+
 		}
 		
 	}
@@ -339,53 +403,7 @@ public abstract class ParentTestCase {
 		try {
 			
 			if( null != seleniumDriverType ) {
-				
-				Server guiServer;
-				
-				User user;
-				
-				if( null == jsonNetworkEnvironmentParams || jsonNetworkEnvironmentParams.length() == 0 ) {
-					
-					Reporter.log( Log.LOADING.createMessage( "initSeleniumWebDriver" , "default gui server ( " + DEFAULT_GUI_SERVER + " )" ), LOG_TO_STD_OUT );
-					
-					guiServer = env.getServer( DEFAULT_GUI_SERVER );
-					
-					Reporter.log( Log.LOADING.createMessage( "initSeleniumWebDriver" , "default gui user ( " + DEFAULT_GUI_USER + " )" ), LOG_TO_STD_OUT );
-					
-					user = guiServer.getUser( DEFAULT_GUI_USER );
 								
-				} else {
-					
-					if( !jsonNetworkEnvironmentParams.has( "guiServer" ) || jsonNetworkEnvironmentParams.getString( "guiServer" ).isEmpty() ) {
-						
-						Reporter.log( Log.LOADING.createMessage( "initSeleniumWebDriver" , "default gui server ( " + DEFAULT_GUI_SERVER + " )" ), LOG_TO_STD_OUT );
-						
-						guiServer = env.getServer( DEFAULT_GUI_SERVER );						
-												
-					} else {
-						
-						Reporter.log( Log.LOADING.createMessage( "initSeleniumWebDriver" , "default gui server ( " + jsonNetworkEnvironmentParams.getString( "guiServer" ) + " )" ), LOG_TO_STD_OUT );
-						
-						guiServer = env.getServer( jsonNetworkEnvironmentParams.getString( "guiServer" ) );	
-						
-					}
-					
-					if( !jsonNetworkEnvironmentParams.has( "guiUser" ) || jsonNetworkEnvironmentParams.getString( "guiUser" ).isEmpty() ) {
-						
-						Reporter.log( Log.LOADING.createMessage( "initSeleniumWebDriver" , "default gui user ( " + DEFAULT_GUI_USER + " )" ), LOG_TO_STD_OUT );
-						
-						user = guiServer.getUser( DEFAULT_GUI_USER );						
-												
-					} else {
-						
-						Reporter.log( Log.LOADING.createMessage( "initSeleniumWebDriver" , "default gui server ( " + jsonNetworkEnvironmentParams.getString( "guiUser" ) + " )" ), LOG_TO_STD_OUT );
-						
-						user = guiServer.getUser( jsonNetworkEnvironmentParams.getString( "guiUser" ) );	
-						
-					}					
-					
-				}
-				
 				if( seleniumWebDriverParams.isEmpty() ) {
 					
 					Reporter.log( Log.LOADING.createMessage( "initSeleniumWebDriver" , "default selenium web driver configuration ( local )" ), LOG_TO_STD_OUT );
@@ -406,6 +424,8 @@ public abstract class ParentTestCase {
 				
 				Assert.assertNotNull( seleniumWebDriver );
 				
+				seleniumWebDriver.setTestName( "login" );
+				
 				/** Login */
 				Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).login( user ).navigate() );
 				
@@ -419,19 +439,34 @@ public abstract class ParentTestCase {
 		
 	}
 	
+	@BeforeMethod
+	protected void startSession(Method method) throws Exception {
+		
+		if( null != seleniumDriverType ) {
+		
+			seleniumWebDriver.setTestName( method.getName() );
+			
+		}
+		 	
+	}
+	
 	@AfterMethod
 	protected void tearDown( ITestResult result ) throws TestNGException {
 		
 	    if( result.getStatus() == ITestResult.FAILURE ) {
 	        
-	    	Reporter.log( "Class " + result.getClass().getSimpleName() + " method " + result.getName() + " has failed!", LOG_TO_STD_OUT);
+	    	if( null != seleniumDriverType ) {
+		    	
+	    		Reporter.log( "Class " + result.getClass().getSimpleName() + " method " + result.getName() + " has failed!", LOG_TO_STD_OUT);
+		    	
+		    	Reporter.log( "Recover UI interface with restart browser.", LOG_TO_STD_OUT);
+		    	
+		    	seleniumWebDriver.close();
+		    	
+		    	initSeleniumWebDriver( seleniumWebDriverParams );
+				
+	    	}
 	    	
-	    	Reporter.log( "Recover UI interface with restart browser.", LOG_TO_STD_OUT);
-	    	
-	    	seleniumWebDriver.close();
-	    	
-	    	initSeleniumWebDriver( seleniumWebDriverParams );
-			
 	    }
 	    
 	}
