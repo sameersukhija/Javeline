@@ -97,7 +97,7 @@ public class CustomerCareLightForm extends Form {
 		String tokensListXPath = "//div[@ng-show='tokens != undefined']";
 		String tokensListContentXPath = "//div[@ng-class=\"{'e4ol-list__row--highlight': token.id == offerToken.id}\"]";
 		
-		List<WebElement> we = getListByXPath( tokensListXPath, tokensListContentXPath );
+		List<WebElement> we = searchListByXPath( tokensListXPath, tokensListContentXPath );
 		
 		for( int w = 0; w < we.size(); w++ ) {
 			

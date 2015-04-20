@@ -1,19 +1,19 @@
 {
   "servers": {
     "actrule": {
-      "hostName": "md1-sa014-e4o02",
-      "hostAddress": "10.120.38.27",
+      "hostName": "e4olocalvm",
+      "hostAddress": "192.168.56.151",
       "users": {
         "root": {
           "username": "root",
-          "password": "cmdISnJjdQ=="
+          "password": "bXZ2aw=="
         },
         "superman": {
           "username": "superman",
           "password": "bGppYm1NSUhJMmB3"
         }
       },
-      "link": "http://10.120.38.27:7070/",
+      "link": "http://192.168.56.151:7070/",
       "browsers": {
         "SAFARI": {
           
@@ -39,22 +39,16 @@
         },
         "IE": {
           
-        },
-        "PHANTOM": {
-          
-        },
-        "HTMLUNIT": {
-          
         }
       }
     },
     "collector": {
-      "hostName": "md1-sa014-e4o02",
-      "hostAddress": "10.120.38.27",
+      "hostName": "e4olocalvm",
+      "hostAddress": "192.168.56.151",
       "users": {
         "root": {
           "username": "root",
-          "password": "cmdISnJjdQ=="
+          "password": "bXZ2aw=="
         }
       },
       "link": "",
@@ -66,8 +60,8 @@
   "dataSources": {
     "global": {
       "hostName": "global",
-      "hostAddress": "10.120.42.12",
-      "hostPort": "3303",
+      "hostAddress": "192.168.56.151",
+      "hostPort": "3306",
       "maxActive": 100,
       "maxIdle": 30,
       "maxWait": 10000,
@@ -76,8 +70,8 @@
     },
     "tenantMaster": {
       "hostName": "tenant",
-      "hostAddress": "10.120.42.12",
-      "hostPort": "3303",
+      "hostAddress": "192.168.56.151",
+      "hostPort": "3306",
       "maxActive": 100,
       "maxIdle": 30,      
       "maxWait": 10000,
@@ -85,75 +79,61 @@
       "password": "bHhsa2Jy"
     },
     "dm": {
-      "hostName": "dialog_manager",
-      "hostAddress": "10.120.42.11",
-      "hostPort": "3309",
+      "hostName": "dm",
+      "hostAddress": "192.168.56.151",
+      "hostPort": "3306",
       "maxActive": 100,
       "maxIdle": 30,
       "maxWait": 10000,
-      "user": "tech_product",
-      "password": "cmdISnJjdQ=="
+      "user": "dialog_manager",
+      "password": "aXJnSEpyY3U="
     },
     "jmailer": {
       "hostName": "jmailer_it",
-      "hostAddress": "10.120.42.11",
-      "hostPort": "3309",
+      "hostAddress": "192.168.56.151",
+      "hostPort": "3306",
       "maxActive": 100,
       "maxIdle": 30,
       "maxWait": 10000,
-      "user": "tech_product",
+      "user": "dialog_manager",
       "password": "cmdISnJjdQ=="
     }
   },
   "services": {
     "ssh": {
       "actrule": {
-        "hostName": "md1-sa014-e4o02",
-        "hostAddress": "10.120.38.27",
+        "hostName": "e4olocalvm",
+        "hostAddress": "192.168.56.151",
         "hostPort": "22",
         "users": {
           "root": {
             "username": "root",
-            "password": "cmdISnJjdQ==",
+            "password": "bXZ2aw==",
             "privateKey": "/opt/lumata/e4o_test"
           }
         }
       },
       "collector": {
-        "hostName": "md1-sa014-e4o02",
-        "hostAddress": "10.120.38.27",
+        "hostName": "e4olocalvm",
+        "hostAddress": "192.168.56.151",
         "hostPort": "22",
         "users": {
           "root": {
             "username": "root",
-            "password": "cmdISnJjdQ==",
+            "password": "bXZ2aw==",
             "privateKey": "/opt/lumata/e4o_test"
           }
         }
       }
     },
-    "jmx": {
-      "actrule": {
-        "hostName": "md1-sa014-e4o02",
-        "hostAddress": "127.0.0.1",
-        "hostPort": "23500",
-        "users": null
-      },
-      "collector": {
-        "hostName": "md1-sa014-e4o02",
-        "hostAddress": "127.0.0.1",
-        "hostPort": "23500",
-        "users": null    
-      }
-    },
-	"activemq": {
+	 "activemq": {
 	 	"dm": {
-	      "hostName": "md1-sa014-e4o02",
-	      "hostAddress": "10.120.38.27",
+	      "hostName": "e4olocalvm",
+	      "hostAddress": "192.168.56.151",
 	        "hostPort": "61616",
 	        "users": {}	        
 	     }	 
-	 }    
+	 }
   },
   "options": {
     "multiTenant": true

@@ -3,31 +3,18 @@ package com.lumata.e4o.generators.subscribers;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.common.testing.system.Server;
-import com.lumata.common.testing.system.User;
 import com.lumata.e4o.exceptions.GeneratorException;
 import com.lumata.e4o.generators.common.Generator;
+import com.lumata.e4o.testing.common.ParentTestCase;
 
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType.*;
 
 
-public class GenerateSubscribersRecharge {
+public class GenerateSubscribersRecharge extends ParentTestCase {
 
-	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersRecharge.class );
-	
 	final boolean GENERATE_FIXED_SUBSCRIBER = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE = false;
@@ -35,25 +22,6 @@ public class GenerateSubscribersRecharge {
 	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = false;
 	final boolean GENERATE_RANDOM_SUBSCRIBERS = false;
 	
-	NetworkEnvironment env;	
-	Server guiServer;
-	User superman;
-	
-	/* 	Initialize Environment */
-	@Parameters({"environment"})
-	@BeforeSuite
-	public void init( @Optional("E4O_VM") String environment ) throws NetworkEnvironmentException {		
-		
-		logger.debug( Log.LOADING.createMessage( "init" , "environment" ) );
-		
-		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-			
-		guiServer = env.getServer( "actrule" );
-		
-		superman = guiServer.getUser( "superman" );
-		
-	}
-
 	@Test( enabled = GENERATE_FIXED_SUBSCRIBER )
 	public void generateFixedSubscriber() throws GeneratorException {
 		
@@ -62,7 +30,7 @@ public class GenerateSubscribersRecharge {
 						
 		Generator.subscribers()
 					.server( guiServer )
-					.user( superman )
+					.user( user )
 					.msisdnFixed( FIXED_MSISDN )
 					.xmlrpcRecharge( RECHARGE_TO_GENERATE );
 					
@@ -78,7 +46,7 @@ public class GenerateSubscribersRecharge {
 				
 		Generator.subscribers()
 					.server( guiServer )
-					.user( superman )
+					.user( user )
 					.msisdnFixed( FIXED_MSISDN )
 					.xmlrpcRecharge( RECHARGE_TO_GENERATE, parameter( recharge, true ), parameter( event_date, sdf.format( today.getTime() ) ) );
 					
@@ -96,7 +64,7 @@ public class GenerateSubscribersRecharge {
 			
 			Generator.subscribers()
 						.server( guiServer )
-						.user( superman )
+						.user( user )
 						.msisdnFixed( msisdn )
 						.xmlrpcRecharge( RECHARGE_TO_GENERATE, parameter( recharge, true ), parameter( event_date, sdf.format( today.getTime() ) ) );
 						
@@ -116,7 +84,7 @@ public class GenerateSubscribersRecharge {
 		
 		Generator.subscribers()
 					.server( guiServer )
-					.user( superman )
+					.user( user )
 					.msisdnIncremental( STARTED_MSISDN, INCREMENT )
 					.subscriberHasSMSChannel( HAS_SMS_CHANNEL )
 					.subscriberHasMAILChannel( HAS_MAIL_CHANNEL )
@@ -134,7 +102,7 @@ public class GenerateSubscribersRecharge {
 				
 		Generator.subscribers()
 					.server( guiServer )
-					.user( superman )
+					.user( user )
 					.msisdnFixed( FIXED_MSISDN )
 					.minRandomEvents( MIN_EVENTS )
 					.maxRandomEvents( MAX_EVENTS )
@@ -147,13 +115,13 @@ public class GenerateSubscribersRecharge {
 		
 		final Long STARTED_MSISDN = 3399900001L;
 		final Integer INCREMENT = 1;
-		final Integer REPEAT = 49;
+		final Integer REPEAT = 100;
 		final Integer MIN_EVENTS = 20;
 		final Integer MAX_EVENTS = 50;
 				
 		Generator.subscribers()
 					.server( guiServer )
-					.user( superman )
+					.user( user )
 					.msisdnIncremental( STARTED_MSISDN, INCREMENT )
 					.minRandomEvents( MIN_EVENTS )
 					.maxRandomEvents( MAX_EVENTS )
@@ -161,8 +129,5 @@ public class GenerateSubscribersRecharge {
 					.xmlrpcRecharge();
 					
 	}
-	
-	@AfterSuite
-	public void end() {}
 	
 }

@@ -3,22 +3,29 @@ package com.lumata.e4o.gui.campaignmanager;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import org.json.JSONException;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.GWTCalendarForm;
 import com.lumata.e4o.gui.common.IForm;
 import com.lumata.e4o.gui.common.IFormCreation;
+import com.lumata.e4o.gui.common.INotificationForm;
+import com.lumata.e4o.gui.common.NotificationForm;
+import com.lumata.e4o.gui.common.NotificationForm.NotificationChannel;
+import com.lumata.e4o.gui.common.NotificationForm.NotificationTongue;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaigns;
 
-public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCreation {
+public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCreation, INotificationForm {
 
 	private JSONCampaigns campaignCfg;
+	private NotificationForm notificationForm;
 	
 	private enum WizardTab {
 		Definition, Scheduling, Dialogue, Target, Limits, Activation
@@ -40,7 +47,7 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCr
 		Weekly, Monthly
 	}
 	
-	private enum SchedulingMultipleRecurrencePatternWeekly {
+	public enum SchedulingMultipleRecurrencePatternWeekly {
 		M, T, W, Th, F, Sa, Su
 	}
 	
@@ -64,6 +71,14 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCr
 	
 	private enum SchedulingMultipleMonthlyDaySetting {
 		SimpleDay, GeneralDay
+	}
+	
+	public enum SchedulingMultipleMonthlyGeneralDayOrdinalDayOfWeek {
+		First, Second, Third, Fourth, Last
+	}
+	
+	public enum SchedulingMultipleMonthlyGeneralDayOfWeek {
+		Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
 	}
 	
 	private enum TargetingMode {
@@ -236,7 +251,7 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCr
 
 	public CampaignsForm configureCampaignDefinition() throws FormException, JSONException {
 							
-		openTabDefinition().
+		openDefinitionTab().
 		setCampaignExecutionMode( ExecutionMode.valueOf( campaignCfg.executionMode() ) ).
 		setCampaignName( campaignCfg.name() ).
 		setCampaignDescription( campaignCfg.description() ).
@@ -248,7 +263,7 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCr
 		
 	}
 	
-	public CampaignsForm openTabDefinition() throws FormException {
+	public CampaignsForm openDefinitionTab() throws FormException {
 		
 		clickXPath( getWizardTabXPath( WizardTab.Definition ) );
 		
@@ -332,7 +347,7 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCr
 	
 	public CampaignsForm configureCampaignScheduling() throws FormException, JSONException {
 				
-		openTabScheduling().
+		openSchedulingTab().
 		setCampaignSchedulingTypeOfRecurrenceXPath( SchedulingType.valueOf( campaignCfg.schedulingTypeOfRecurrence() ) );
 		
 		switch( SchedulingType.valueOf( campaignCfg.schedulingTypeOfRecurrence() ) ) {
@@ -389,7 +404,7 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCr
 		
 	}
 	
-	public CampaignsForm openTabScheduling() throws FormException {
+	public CampaignsForm openSchedulingTab() throws FormException {
 		
 		clickXPath( getWizardTabXPath( WizardTab.Scheduling ) );
 		
@@ -407,6 +422,38 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCr
 		
 	}
 	
+	public CampaignsForm setCampaignSingleSchedulingType() throws FormException {
+		
+		setCampaignSchedulingTypeOfRecurrenceXPath( SchedulingType.Single );
+		  		 
+		return this;
+		
+	}
+
+	public CampaignsForm setCampaignMultipleSchedulingType() throws FormException {
+		
+		setCampaignSchedulingTypeOfRecurrenceXPath( SchedulingType.Multiple );
+		  		 
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSingleSchedulingExecutionStart( Calendar executionStartDate ) throws FormException {
+		
+		try {
+			
+			setCampaignSingleSchedulingExecutionStart( Format.getMysqlDateTime( executionStartDate ) );
+		
+		} catch (ParseException e) {
+			
+			throw new FormException( e.getMessage(), e );
+			
+		}
+		
+		return this;
+		
+	}
+	
 	public CampaignsForm setCampaignSingleSchedulingExecutionStart( String executionStartDate ) throws FormException {
 		
 		String campaignSchedulingSingleExecutionStartXPath = "//td[@class='headers' and text()='Execution Start']/parent::tr//input";
@@ -419,23 +466,84 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCr
 	
 	public CampaignsForm setCampaignSingleSchedulingExecutionEndType( SchedulingExecutionEndType executionEndType, String executionEndDate ) throws FormException {
 		
-		String campaignSchedulingSingleExecutionEndTypeXPath = "//td[@class='headers' and text()='Execution End']/parent::tr//select";
-		String campaignSchedulingSingleExecutionEndValueXPath = "//td[@class='headers' and text()='Execution End']/parent::tr//input";
-		
-		selectByXPathAndVisibleText( campaignSchedulingSingleExecutionEndTypeXPath, executionEndType.name() );
-				
 		switch( executionEndType ) {
 		
 			case Relative: {
-				typeByXPath( campaignSchedulingSingleExecutionEndValueXPath, executionEndDate );				
+				setCampaignSingleSchedulingExecutionEndRelative( executionEndDate );				
 				break;
 			}
 			case Absolute: {
-				configureGWTCalendarByXPath( campaignSchedulingSingleExecutionEndValueXPath, resolveDateField( executionEndDate ) );
+				setCampaignSingleSchedulingExecutionEndAbsolute( executionEndDate );
 				break;
 			}
 		}
 		
+		return this;
+		
+	}
+
+	public CampaignsForm setCampaignSingleSchedulingExecutionEndRelative( Integer executionEndDate ) throws FormException {
+		
+		setCampaignSingleSchedulingExecutionEndRelative( String.valueOf( executionEndDate ) );				
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSingleSchedulingExecutionEndRelative( String executionEndDate ) throws FormException {
+		
+		String campaignSchedulingSingleExecutionEndTypeXPath = "//td[@class='headers' and text()='Execution End']/parent::tr//select";
+		String campaignSchedulingSingleExecutionEndValueXPath = "//td[@class='headers' and text()='Execution End']/parent::tr//input";
+		
+		selectByXPathAndVisibleText( campaignSchedulingSingleExecutionEndTypeXPath, CampaignsForm.SchedulingExecutionEndType.Relative.name() );
+				
+		typeByXPath( campaignSchedulingSingleExecutionEndValueXPath, executionEndDate );				
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSingleSchedulingExecutionEndAbsolute( Calendar executionEndDate ) throws FormException {
+		
+		try {
+			
+			setCampaignSingleSchedulingExecutionEndAbsolute( Format.getMysqlDateTime( executionEndDate ) );
+		
+		} catch (ParseException e) {
+			
+			throw new FormException( e.getMessage(), e );
+			
+		}
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSingleSchedulingExecutionEndAbsolute( String executionEndDate ) throws FormException {
+		
+		String campaignSchedulingSingleExecutionEndTypeXPath = "//td[@class='headers' and text()='Execution End']/parent::tr//select";
+		String campaignSchedulingSingleExecutionEndValueXPath = "//td[@class='headers' and text()='Execution End']/parent::tr//input";
+		
+		selectByXPathAndVisibleText( campaignSchedulingSingleExecutionEndTypeXPath, CampaignsForm.SchedulingExecutionEndType.Absolute.name() );
+				
+		configureGWTCalendarByXPath( campaignSchedulingSingleExecutionEndValueXPath, resolveDateField( executionEndDate ) );				
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSingleSchedulingProvisioningStartDate( Calendar provisioningStartDate ) throws FormException {
+		
+		try {
+			
+			setCampaignSingleSchedulingProvisioningStartDate( Format.getMysqlDateTime( provisioningStartDate ) );
+		
+		} catch (ParseException e) {
+			
+			throw new FormException( e.getMessage(), e );
+			
+		}
+				
 		return this;
 		
 	}
@@ -445,6 +553,22 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCr
 		String campaignSchedulingSingleProvisioningStartXPath = "//td[@class='headers' and text()='Provisioning Start']/parent::tr//input";
 		
 		configureGWTCalendarByXPath( campaignSchedulingSingleProvisioningStartXPath, resolveDateField( provisioningStartDate ) );
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSingleSchedulingProvisioningEndDate( Calendar provisioningEndDate ) throws FormException {
+		
+		try {
+			
+			setCampaignSingleSchedulingProvisioningEndDate( Format.getMysqlDateTime( provisioningEndDate ) );
+		
+		} catch (ParseException e) {
+			
+			throw new FormException( e.getMessage(), e );
+			
+		}
 				
 		return this;
 		
@@ -460,6 +584,14 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCr
 		
 	}
 	
+	public CampaignsForm setCampaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates( Integer daysBetweenProvisioningAndExecutionStartDates ) throws FormException {
+		
+		setCampaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates( String.valueOf( daysBetweenProvisioningAndExecutionStartDates ) );
+		
+		return this;
+		
+	}
+	
 	public CampaignsForm setCampaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates( String daysBetweenProvisioningAndExecutionStartDates ) throws FormException {
 		
 		String campaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates = "//td[@class='headers' and text()='Days between provisioning and execution start dates']/parent::tr//input";
@@ -470,75 +602,45 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCr
 		
 	}
 	
-	
-	
-	
-	
-	
-	// --------------
-	
 	public CampaignsForm configureCampaignMultipleScheduling() throws FormException, JSONException {
+				
+		setCampaignSchedulingMultipleRecurrencePattern( campaignCfg.schedulingMultipleRecurrencePattern() ).		
+		setCampaignSchedulingMultipleDaysBetweenProvisioningStartDateAndExecutionStartDate( campaignCfg.schedulingMultipleDaysBetweenProvisioningAndExecutionStartDate() );
 		
-		String campaignSchedulingMultipleRecurrencePatternXPath = "//td[@class='headers' and contains( text(), 'Recurrence pattern' )]/parent::tr//select";
-		String campaignSchedulingMultipleRecurrencePatternTypeXPath = "//td[@class='headers' and contains( text(), 'Recurrence pattern' )]/parent::tr/parent::tbody//table[@class='recurrenceWidget']//div[text()='Recur every']/parent::td/parent::tr//input";
-		String campaignSchedulingMultipleRecurrencePatternValueXPath = "//td[@class='headers' and contains( text(), 'Recurrence pattern' )]/parent::tr/parent::tbody//table[@class='recurrenceWidget']//label[starts-with(text(), '${dayOfWeek}')]/parent::span/input";
-		String campaignSchedulingMultipleProvisioningDurationXPath = "//td[@class='headers' and contains( text(), 'Provisioning Duration' )]/parent::tr//input";
-		String campaignSchedulingMultipleDaysBetweenProvisioningStartDateAndExecutionStartDateXPath = "//td[@class='headers' and contains( text(), 'Days between provisioning start date and execution start date' )]/parent::tr//input";
-		String campaignSchedulingMultipleExecutionDurationXPath = "//td[@class='headers' and contains( text(), 'Execution Period' )]/parent::tr//input";
-		String campaignSchedulingMultipleStartDateXPath = "//td[@class='headers' and contains( text(), 'Start Date' )]/parent::tr//input";
-		String campaignSchedulingMultipleRangeOfRecurrenceTypeXPath = "//td[@class='headers' and contains( text(), 'Range of recurrence' )]/parent::tr//select";
-		String campaignSchedulingMultipleRangeOfRecurrenceValueXPath = "//td[@class='headers' and contains( text(), 'Range of recurrence' )]/parent::tr//parent::tbody/tr[3]//input";
-		String campaignSchedulingMultipleMonthlyRecurrencePatternSettingsXPath = "//td[@class='headers' and contains( text(), 'Recurrence pattern' )]/parent::tr/parent::tbody//table[@class='recurrenceWidget']";
-		String campaignSchedulingMultipleMonthlyRecurrencePatternSettingsSimpleDayXPath = campaignSchedulingMultipleMonthlyRecurrencePatternSettingsXPath + "/tbody/tr[1]//tr";
-		String campaignSchedulingMultipleMonthlyRecurrencePatternSettingsGeneralDayXPath = campaignSchedulingMultipleMonthlyRecurrencePatternSettingsXPath + "/tbody/tr[2]//tr";
-		String campaignSchedulingMultipleMonthlyRecurrencePatternSettingsSimpleDaySelectXPath = campaignSchedulingMultipleMonthlyRecurrencePatternSettingsSimpleDayXPath + "/td[1]//input";
-		String campaignSchedulingMultipleMonthlyRecurrencePatternSettingsSimpleDayEverDayXPath = campaignSchedulingMultipleMonthlyRecurrencePatternSettingsSimpleDayXPath + "/td[3]//input";
-		String campaignSchedulingMultipleMonthlyRecurrencePatternSettingsSimpleDayEverMonthXPath = campaignSchedulingMultipleMonthlyRecurrencePatternSettingsSimpleDayXPath + "/td[5]//input";
-		String campaignSchedulingMultipleMonthlyRecurrencePatternSettingsGeneralDaySelectXPath = campaignSchedulingMultipleMonthlyRecurrencePatternSettingsGeneralDayXPath + "/td[1]//input";
-		String campaignSchedulingMultipleMonthlyRecurrencePatternSettingsGeneralDayEverDayOrdinalXPath = campaignSchedulingMultipleMonthlyRecurrencePatternSettingsGeneralDayXPath + "/td[3]//select";
-		String campaignSchedulingMultipleMonthlyRecurrencePatternSettingsGeneralDayEverDayXPath = campaignSchedulingMultipleMonthlyRecurrencePatternSettingsGeneralDayXPath + "/td[4]//select";
-		String campaignSchedulingMultipleMonthlyRecurrencePatternSettingsGeneralDayEverMonthXPath = campaignSchedulingMultipleMonthlyRecurrencePatternSettingsGeneralDayXPath + "/td[6]//input";
-		
-		selectByXPathAndVisibleText( campaignSchedulingMultipleRecurrencePatternXPath, campaignCfg.schedulingMultipleRecurrencePattern() ).
-		typeByXPath( campaignSchedulingMultipleDaysBetweenProvisioningStartDateAndExecutionStartDateXPath, campaignCfg.schedulingMultipleDaysBetweenProvisioningAndExecutionStartDate() ).
-		typeByXPath( campaignSchedulingMultipleExecutionDurationXPath, campaignCfg.schedulingMultipleExecutionDuration() );
+		/** to check relative and absolute **/
+		setCampaignSchedulingMultipleExecutionPeriod( campaignCfg.schedulingMultipleExecutionPeriod() );
 		
 		switch( SchedulingMultipleRecurrencePattern.valueOf( campaignCfg.schedulingMultipleRecurrencePattern() ) ) {
 		
 			case Weekly: {
 				
-				typeByXPath( campaignSchedulingMultipleRecurrencePatternTypeXPath, campaignCfg.schedulingMultipleRecurrencePatternWeeklyRecurEveryWeek() ).
-				typeByXPath( campaignSchedulingMultipleProvisioningDurationXPath, campaignCfg.schedulingMultipleRecurrencePatternWeeklyRecurEveryWeek() );
+				setCampaignSchedulingMultipleRecurrencePatternOccurrence( campaignCfg.schedulingMultipleRecurrencePatternWeeklyRecurEveryWeek() ).
+				setCampaignSchedulingMultipleProvisioningDuration( campaignCfg.schedulingMultipleProvisioningDuration() ).
+				setCampaignSchedulingMultipleRecurrencePatternDaysOfWeek( campaignCfg.schedulingMultipleRecurrencePatternWeeklyRecurEveryDay()  );
 				
-				for( String day : campaignCfg.schedulingMultipleRecurrencePatternWeeklyRecurEveryDay() ) {
-					
-					String recurEveryDaysXPath = campaignSchedulingMultipleRecurrencePatternValueXPath.replace( "${dayOfWeek}" , SchedulingMultipleRecurrencePatternWeekly.valueOf( day ).name() );
-					
-					clickXPath( recurEveryDaysXPath ); 
-					
-				}
-								
 				break;
 			}
 			case Monthly: {
+				
+				setCampaignSchedulingMultipleRecurrencePatternMonthly();
 				
 				switch( SchedulingMultipleMonthlyDaySetting.valueOf( campaignCfg.schedulingMultipleRecurrencePatternMonthlyRecurDayType() ) ) {
 				
 					case SimpleDay: {
 					
-						clickXPath( campaignSchedulingMultipleMonthlyRecurrencePatternSettingsSimpleDaySelectXPath ).
-						typeByXPath( campaignSchedulingMultipleMonthlyRecurrencePatternSettingsSimpleDayEverDayXPath, campaignCfg.schedulingMultipleRecurrencePatternMonthlyRecurSimpleDayEveryDay() ).
-						typeByXPath( campaignSchedulingMultipleMonthlyRecurrencePatternSettingsSimpleDayEverMonthXPath, campaignCfg.schedulingMultipleRecurrencePatternMonthlyRecurSimpleDayEveryMonth() );
+						setCampaignSchedulingMultipleMonthlyRecurrencePatternDayType( SchedulingMultipleMonthlyDaySetting.SimpleDay.ordinal() ).						
+						setCampaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayEverDay( campaignCfg.schedulingMultipleRecurrencePatternMonthlyRecurSimpleDayEveryDay() ).
+						setCampaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayEverMonth( campaignCfg.schedulingMultipleRecurrencePatternMonthlyRecurSimpleDayEveryMonth() );
 												
 						break;
 					}
 					case GeneralDay: {
 					
-						clickXPath( campaignSchedulingMultipleMonthlyRecurrencePatternSettingsGeneralDaySelectXPath ).
-						selectByXPathAndVisibleText( campaignSchedulingMultipleMonthlyRecurrencePatternSettingsGeneralDayEverDayOrdinalXPath, campaignCfg.schedulingMultipleRecurrencePatternMonthlyRecurGeneralDayEveryOrdinalDay() ).
-						selectByXPathAndVisibleText( campaignSchedulingMultipleMonthlyRecurrencePatternSettingsGeneralDayEverDayXPath, campaignCfg.schedulingMultipleRecurrencePatternMonthlyRecurGeneralDayEveryDay() ).
-						typeByXPath( campaignSchedulingMultipleMonthlyRecurrencePatternSettingsGeneralDayEverMonthXPath, campaignCfg.schedulingMultipleRecurrencePatternMonthlyRecurGeneralDayEveryMonth() );
-												
+						setCampaignSchedulingMultipleMonthlyRecurrencePatternDayType( SchedulingMultipleMonthlyDaySetting.GeneralDay.ordinal() );
+						setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOrdinalDayOfWeek( campaignCfg.schedulingMultipleRecurrencePatternMonthlyRecurGeneralDayEveryOrdinalDay() ).
+						setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOfWeek( campaignCfg.schedulingMultipleRecurrencePatternMonthlyRecurGeneralDayEveryDay() ).
+						setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayEverMonth( campaignCfg.schedulingMultipleRecurrencePatternMonthlyRecurGeneralDayEveryMonth() );
+						
 						break;
 					}
 				
@@ -549,8 +651,8 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCr
 		
 		}
 		
-		configureGWTCalendarByXPath( campaignSchedulingMultipleStartDateXPath, resolveDateField( campaignCfg.schedulingMultipleStartDate() ) ).
-		selectByXPathAndVisibleText( campaignSchedulingMultipleRangeOfRecurrenceTypeXPath, SchedulingMultipleRangeOfRecurrence.valueOf( campaignCfg.schedulingMultipleRangeOfRecurrenceType() ).value() );
+		setCampaignSchedulingMultipleStartDate( campaignCfg.schedulingMultipleStartDate() ).
+		setCampaignSchedulingMultipleRangeOfRecurrenceType( SchedulingMultipleRangeOfRecurrence.valueOf( campaignCfg.schedulingMultipleRangeOfRecurrenceType() ).value() );
 		
 		switch( SchedulingMultipleRangeOfRecurrence.valueOf( campaignCfg.schedulingMultipleRangeOfRecurrenceType() ) ) {
 		
@@ -561,13 +663,13 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCr
 			}
 			case EndAfterNOccurences: {
 				
-				typeByXPath( campaignSchedulingMultipleRangeOfRecurrenceValueXPath, campaignCfg.schedulingMultipleRangeOfRecurrenceValue() );		
+				setCampaignSchedulingMultipleRangeOfRecurrenceValueEndAfterNOccurences( campaignCfg.schedulingMultipleRangeOfRecurrenceValue() );		
 								
 				break;
 			}
 			case EndDate: {
 				
-				configureGWTCalendarByXPath( campaignSchedulingMultipleRangeOfRecurrenceValueXPath, resolveDateField( campaignCfg.schedulingMultipleRangeOfRecurrenceValue() ) );
+				setCampaignSchedulingMultipleRangeOfRecurrenceValueEndDate( campaignCfg.schedulingMultipleRangeOfRecurrenceValue() );
 								
 				break;
 			}
@@ -578,40 +680,615 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCr
 		
 	}
 	
+	public CampaignsForm setCampaignSchedulingMultipleRecurrencePattern( String recurrencePattern ) throws FormException {
+		
+		String campaignSchedulingMultipleRecurrencePatternXPath = "//td[@class='headers' and contains( text(), 'Recurrence pattern' )]/parent::tr//select";
+		
+		selectByXPathAndVisibleText( campaignSchedulingMultipleRecurrencePatternXPath, SchedulingMultipleRecurrencePattern.valueOf( recurrencePattern ).name() );
+				
+		return this;
+		
+	}
 	
+	public CampaignsForm setCampaignSchedulingMultipleRecurrencePatternWeekly() throws FormException {
+		
+		setCampaignSchedulingMultipleRecurrencePattern( SchedulingMultipleRecurrencePattern.Weekly.name() );
+				
+		return this;
+		
+	}
 	
+	public CampaignsForm setCampaignSchedulingMultipleRecurrencePatternMonthly() throws FormException {
+		
+		setCampaignSchedulingMultipleRecurrencePattern( SchedulingMultipleRecurrencePattern.Monthly.name() );
+				
+		return this;
+		
+	}
+
+	public CampaignsForm setCampaignSchedulingMultipleRecurrencePatternOccurrence( Integer recurrencePatternOccurrence ) throws FormException {
+		
+		setCampaignSchedulingMultipleRecurrencePatternOccurrence( String.valueOf( recurrencePatternOccurrence ) );
+				
+		return this;
+		
+	}
 	
+	public CampaignsForm setCampaignSchedulingMultipleRecurrencePatternOccurrence( String recurrencePatternOccurrence ) throws FormException {
+		
+		String campaignSchedulingMultipleRecurrencePatternOccurrenceXPath = "//td[@class='headers' and contains( text(), 'Recurrence pattern' )]/parent::tr/parent::tbody//table[@class='recurrenceWidget']//div[text()='Recur every']/parent::td/parent::tr//input";
+		
+		typeByXPath( campaignSchedulingMultipleRecurrencePatternOccurrenceXPath, recurrencePatternOccurrence );
+				
+		return this;
+		
+	}
 	
+	public CampaignsForm setCampaignSchedulingMultipleRecurrencePatternDaysOfWeek( SchedulingMultipleRecurrencePatternWeekly... daysOfWeek ) throws FormException {
+		
+		cleanAllCampaignSchedulingMultipleRecurrencePatternDayOfWeek();
+		
+		for( SchedulingMultipleRecurrencePatternWeekly dayOfWeek : daysOfWeek ) {
+			
+			setCampaignSchedulingMultipleRecurrencePatternDayOfWeek( dayOfWeek.name() );
+			
+		}
+				
+		return this;
+		
+	}
 	
+	public CampaignsForm setCampaignSchedulingMultipleRecurrencePatternDaysOfWeek( List<String> daysOfWeek ) throws FormException {
+		
+		cleanAllCampaignSchedulingMultipleRecurrencePatternDayOfWeek();
+		
+		for( String dayOfWeek : daysOfWeek ) {
+			
+			setCampaignSchedulingMultipleRecurrencePatternDayOfWeek( dayOfWeek );
+			
+		}
+		
+		return this;
+		
+	}
 	
+	public CampaignsForm setCampaignSchedulingMultipleRecurrencePatternDayOfWeek( SchedulingMultipleRecurrencePatternWeekly dayOfWeek ) throws FormException {
+		
+		setCampaignSchedulingMultipleRecurrencePatternDayOfWeek( dayOfWeek.name() );
+		
+		return this;
+		
+	}
 	
+	public CampaignsForm setCampaignSchedulingMultipleRecurrencePatternDayOfWeek( String dayOfWeek ) throws FormException {
+		
+		String campaignSchedulingMultipleRecurrencePatternDaysOfWeekXPath = "//td[@class='headers' and contains( text(), 'Recurrence pattern' )]/parent::tr/parent::tbody//table[@class='recurrenceWidget']//label[starts-with(text(), '" + dayOfWeek + "')]/parent::span/input";
 	
+		if( !isCheckedByXPath( campaignSchedulingMultipleRecurrencePatternDaysOfWeekXPath ) ) {
+			
+			clickXPath( campaignSchedulingMultipleRecurrencePatternDaysOfWeekXPath ); 
+			
+		}
+		
+		return this;
+		
+	}
 	
+	public CampaignsForm cleanAllCampaignSchedulingMultipleRecurrencePatternDayOfWeek() throws FormException {
+		
+		for( SchedulingMultipleRecurrencePatternWeekly dayOfWeek : SchedulingMultipleRecurrencePatternWeekly.values() ) {
+			
+			cleanCampaignSchedulingMultipleRecurrencePatternDayOfWeek( dayOfWeek.name() );
+			
+		}
+				
+		return this;
+		
+	}
 	
+	public CampaignsForm cleanCampaignSchedulingMultipleRecurrencePatternDayOfWeek( SchedulingMultipleRecurrencePatternWeekly dayOfWeek ) throws FormException {
+		
+		cleanCampaignSchedulingMultipleRecurrencePatternDayOfWeek( dayOfWeek.name() );
+		
+		return this;
+		
+	}
 	
-	// ---------------------------------------------------------------
+	public CampaignsForm cleanCampaignSchedulingMultipleRecurrencePatternDayOfWeek( String dayOfWeek ) throws FormException {
+		
+		String campaignSchedulingMultipleRecurrencePatternDaysOfWeekXPath = "//td[@class='headers' and contains( text(), 'Recurrence pattern' )]/parent::tr/parent::tbody//table[@class='recurrenceWidget']//label[starts-with(text(), '" + dayOfWeek + "')]/parent::span/input";
 	
+		if( isCheckedByXPath( campaignSchedulingMultipleRecurrencePatternDaysOfWeekXPath ) ) {
+			
+			clickXPath( campaignSchedulingMultipleRecurrencePatternDaysOfWeekXPath ); 
+			
+		}
+		
+		return this;
+		
+	}
+		
+	public CampaignsForm setCampaignSchedulingMultipleMonthlyRecurrencePatternDayType( Integer option ) throws FormException {
+		
+		String campaignSchedulingMultipleMonthlyRecurrencePatternDayName = "myRadioGroupMonth";	
+		
+		selectRadioGroupByName( campaignSchedulingMultipleMonthlyRecurrencePatternDayName, option );
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSchedulingMultipleMonthlyRecurrencePatternSimpleDay() throws FormException {
+		
+		return setCampaignSchedulingMultipleMonthlyRecurrencePatternDayType( SchedulingMultipleMonthlyDaySetting.SimpleDay.ordinal() );
+		
+	}	
+	
+	public CampaignsForm setCampaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayEverDay( Integer value ) throws FormException {
+		
+		setCampaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayEverDay( String.valueOf( value ) );
+				
+		return this;
+		
+	}	
+	
+	public CampaignsForm setCampaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayEverDay( String value ) throws FormException {
+		
+		String campaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayValueXPath = ".//table[@class='recurrenceWidget']/tbody/tr[1]//tr/td[3]//input";
+		
+		typeByXPath( campaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayValueXPath, value );
+				
+		return this;
+		
+	}	
+	
+	public CampaignsForm setCampaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayEverMonth( Integer value ) throws FormException {
+		
+		setCampaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayEverMonth( String.valueOf( value ) );
+				
+		return this;
+		
+	}	
+	
+	public CampaignsForm setCampaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayEverMonth( String value ) throws FormException {
+		
+		String campaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayEverMonthXPath = ".//table[@class='recurrenceWidget']/tbody/tr[1]//tr/td[5]//input";
+		
+		typeByXPath( campaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayEverMonthXPath, value );
+				
+		return this;
+		
+	}	
+		
+	public CampaignsForm setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDay() throws FormException {
+		
+		return setCampaignSchedulingMultipleMonthlyRecurrencePatternDayType( SchedulingMultipleMonthlyDaySetting.GeneralDay.ordinal() );
+		
+	}	
+	
+	public CampaignsForm setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOrdinalDayOfWeek( SchedulingMultipleMonthlyGeneralDayOrdinalDayOfWeek ordinalDayOfWeek ) throws FormException {
+		
+		setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOrdinalDayOfWeek( ordinalDayOfWeek.name() );
+				
+		return this;
+		
+	}	
+	
+	public CampaignsForm setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOrdinalDayOfWeek( String value ) throws FormException {
+		
+		String campaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOrdinalDayOfWeek = ".//table[@class='recurrenceWidget']/tbody/tr[2]//tr/td[3]//select";
+		
+		selectByXPathAndVisibleText( campaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOrdinalDayOfWeek, value );
+						
+		return this;
+		
+	}	
+	
+	public CampaignsForm setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOfWeek( SchedulingMultipleMonthlyGeneralDayOfWeek dayOfWeek ) throws FormException {
+		
+		setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOfWeek( dayOfWeek.name() );
+				
+		return this;
+		
+	}	
+	
+	public CampaignsForm setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOfWeek( String value ) throws FormException {
+		
+		String campaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOfWeek = ".//table[@class='recurrenceWidget']/tbody/tr[2]//tr/td[4]//select";
+		
+		selectByXPathAndVisibleText( campaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOfWeek, value );
+						
+		return this;
+		
+	}	
+	
+	public CampaignsForm setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayEverMonth( Integer value ) throws FormException {
+		
+		setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayEverMonth( String.valueOf( value ) );
+				
+		return this;
+		
+	}	
+	
+	public CampaignsForm setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayEverMonth( String value ) throws FormException {
+		
+		String campaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayEverMonthXPath = ".//table[@class='recurrenceWidget']/tbody/tr[2]//tr/td[6]//input";
+		
+		typeByXPath( campaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayEverMonthXPath, value );
+				
+		return this;
+		
+	}	
+	
+	public CampaignsForm setCampaignSchedulingMultipleProvisioningDuration( Integer provisioningDuration ) throws FormException {
+		
+		setCampaignSchedulingMultipleProvisioningDuration( String.valueOf( provisioningDuration ) );
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSchedulingMultipleProvisioningDuration( String provisioningDuration ) throws FormException {
+		
+		String campaignSchedulingMultipleProvisioningDurationXPath = "//td[@class='headers' and contains( text(), 'Provisioning Duration' )]/parent::tr//input";
+		
+		typeByXPath( campaignSchedulingMultipleProvisioningDurationXPath, provisioningDuration );
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSchedulingMultipleDaysBetweenProvisioningStartDateAndExecutionStartDate( Integer daysBetweenProvisioningStartDateAndExecutionStartDate ) throws FormException {
+		
+		setCampaignSchedulingMultipleDaysBetweenProvisioningStartDateAndExecutionStartDate( String.valueOf( daysBetweenProvisioningStartDateAndExecutionStartDate ) );
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSchedulingMultipleDaysBetweenProvisioningStartDateAndExecutionStartDate( String daysBetweenProvisioningStartDateAndExecutionStartDate ) throws FormException {
+		
+		String campaignSchedulingMultipleDaysBetweenProvisioningStartDateAndExecutionStartDateXPath = "//td[@class='headers' and contains( text(), 'Days between provisioning start date and execution start date' )]/parent::tr//input";
+		
+		typeByXPath( campaignSchedulingMultipleDaysBetweenProvisioningStartDateAndExecutionStartDateXPath, daysBetweenProvisioningStartDateAndExecutionStartDate );
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSchedulingMultipleExecutionPeriod( Integer executionPeriod ) throws FormException {
+		
+		setCampaignSchedulingMultipleExecutionPeriod( String.valueOf( executionPeriod ) );
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSchedulingMultipleExecutionPeriod( String executionPeriod ) throws FormException {
+		
+		String campaignSchedulingMultipleExecutionPeriodXPath = "//td[@class='headers' and contains( text(), 'Execution Period' )]/parent::tr//input";
+		
+		typeByXPath( campaignSchedulingMultipleExecutionPeriodXPath, executionPeriod );
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSchedulingMultipleStartDate( Calendar startDate ) throws FormException {
+		
+		try {
+			
+			setCampaignSchedulingMultipleStartDate( Format.getMysqlDateTime( startDate ) );
+		
+		} catch (ParseException e) {
+			
+			throw new FormException( e.getMessage(), e );
+			
+		}
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSchedulingMultipleStartDate( String startDate ) throws FormException {
+		
+		String campaignSchedulingMultipleStartDateXPath = "//td[@class='headers' and contains( text(), 'Start Date' )]/parent::tr//input";
+		
+		configureGWTCalendarByXPath( campaignSchedulingMultipleStartDateXPath, resolveDateField( startDate ) );
+				
+		return this;
+		
+	}
+		
+	public CampaignsForm setCampaignSchedulingMultipleRangeOfRecurrenceType( SchedulingMultipleRangeOfRecurrence rangeOfRecurrenceType ) throws FormException {
+		
+		setCampaignSchedulingMultipleRangeOfRecurrenceType( rangeOfRecurrenceType.value() );		
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSchedulingMultipleRangeOfRecurrenceType( String rangeOfRecurrenceType ) throws FormException {
+		
+		String campaignSchedulingMultipleRangeOfRecurrenceTypeXPath = "//td[@class='headers' and contains( text(), 'Range of recurrence' )]/parent::tr//select";
+		
+		selectByXPathAndVisibleText( campaignSchedulingMultipleRangeOfRecurrenceTypeXPath, rangeOfRecurrenceType );		
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSchedulingMultipleRangeOfRecurrenceNoEndDate() throws FormException {
+		
+		setCampaignSchedulingMultipleRangeOfRecurrenceType( SchedulingMultipleRangeOfRecurrence.NoEndDate.value() );
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSchedulingMultipleRangeOfRecurrenceValueEndAfterNOccurences( Integer rangeOfRecurrenceValue ) throws FormException {
+		
+		setCampaignSchedulingMultipleRangeOfRecurrenceValueEndAfterNOccurences( String.valueOf( rangeOfRecurrenceValue ) );		
+				
+		return this;
+		
+	}	
+	
+	public CampaignsForm setCampaignSchedulingMultipleRangeOfRecurrenceValueEndAfterNOccurences( String rangeOfRecurrenceValue ) throws FormException {
+				
+		String campaignSchedulingMultipleRangeOfRecurrenceValueXPath = "//td[@class='headers' and contains( text(), 'Range of recurrence' )]/parent::tr//parent::tbody/tr[3]//input";
+		
+		setCampaignSchedulingMultipleRangeOfRecurrenceType( SchedulingMultipleRangeOfRecurrence.EndAfterNOccurences.value() );
+		
+		typeByXPath( campaignSchedulingMultipleRangeOfRecurrenceValueXPath, rangeOfRecurrenceValue );		
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSchedulingMultipleRangeOfRecurrenceValueEndDate( Calendar rangeOfRecurrenceValue ) throws FormException {
+		
+		try {
+			
+			setCampaignSchedulingMultipleRangeOfRecurrenceValueEndDate( Format.getMysqlDateTime( rangeOfRecurrenceValue ) );
+		
+		} catch (ParseException e) {
+			
+			throw new FormException( e.getMessage(), e );
+			
+		}
+				
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignSchedulingMultipleRangeOfRecurrenceValueEndDate( String rangeOfRecurrenceValue ) throws FormException {
+		
+		String campaignSchedulingMultipleStartDateXPath = "//td[@class='headers' and contains( text(), 'Start Date' )]/parent::tr/parent::tbody/tr[3]//input";
+		
+		setCampaignSchedulingMultipleRangeOfRecurrenceType( SchedulingMultipleRangeOfRecurrence.EndDate.value() );
+		
+		configureGWTCalendarByXPath( campaignSchedulingMultipleStartDateXPath, resolveDateField( rangeOfRecurrenceValue ) );
+				
+		return this;
+		
+	}
+		
 	public CampaignsForm configureCampaignDialogue() throws FormException, JSONException {
+				
+		openDialogTab();
 		
-		String campaignDialogueShortCodeXPath = "//select[@id='gwt-debug-Campaign Dialogue Shortcode']";
-		String campaignDialogueEmailAddressXPath = "//select[@id='gwt-debug-Campaign Dialogue Email Address']";
-		String campaignDialogueDayOfNotificationXPath = "//input[@id='gwt-debug-Campaign Dialogue Days of Notification']";
-		String campaignDialogueApplyCampaignToNotifiedOnlyXPath = "//input[@id='gwt-debug-Campaign Dialogue Notified Only-input']";
-		String campaignDialogueNotificationTimeXPath = "//select[@id='gwt-debug-Campaign Dialogue Notif Time']";
-		
-		clickXPath( getWizardTabXPath( WizardTab.Dialogue ) );
-		
-		if( null != campaignCfg.dialogueChannelShortCode() ) { selectByXPathAndVisibleText( campaignDialogueShortCodeXPath, campaignCfg.dialogueChannelShortCode() ); }
-		if( null != campaignCfg.dialogueEmailAddress() ) { selectByXPathAndVisibleText( campaignDialogueEmailAddressXPath, campaignCfg.dialogueEmailAddress() ); }
-		if( null != campaignCfg.dialogueNotificationDaysOfNotificationBeforeExecution() ) { typeByXPath( campaignDialogueDayOfNotificationXPath, campaignCfg.dialogueNotificationDaysOfNotificationBeforeExecution() ); }
+		if( null != campaignCfg.dialogueChannelShortCode() ) { setCampaignDialogueShortCode( campaignCfg.dialogueChannelShortCode() ); }
+		if( null != campaignCfg.dialogueEmailAddress() ) { setCampaignDialogueEmailAddress( campaignCfg.dialogueEmailAddress() ); }
+		if( null != campaignCfg.dialogueNotificationDaysOfNotificationBeforeExecution() ) { setDialogueNotificationDaysOfNotificationBeforeExecution( campaignCfg.dialogueNotificationDaysOfNotificationBeforeExecution() ); }
 		if( null != campaignCfg.dialogueNotificationMessages() ) {}
-		if( campaignCfg.dialogueNotificationApplyCampaignToNotifiedOnly() ) { clickXPath( campaignDialogueApplyCampaignToNotifiedOnlyXPath ); }
-		if( null != campaignCfg.dialogueNotificationTime() ) { selectByXPathAndVisibleText( campaignDialogueNotificationTimeXPath, campaignCfg.dialogueNotificationTime() ); }
+		if( campaignCfg.dialogueNotificationApplyCampaignToNotifiedOnly() ) { setCampaignDialogueApplyCampaignToNotifiedOnly(); }
+		if( null != campaignCfg.dialogueNotificationTime() ) { setCampaignDialogueNotificationTime( campaignCfg.dialogueNotificationTime() ); }
 		
 		
 		return this;
 		
 	}
+	
+	public CampaignsForm openDialogTab() throws FormException {
+		
+		clickXPath( getWizardTabXPath( WizardTab.Dialogue ) );
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignDialogueShortCode( String shortCode ) throws FormException {
+		
+		String campaignDialogueShortCodeXPath = "//select[@id='gwt-debug-Campaign Dialogue Shortcode']";
+		
+		selectByXPathAndVisibleText( campaignDialogueShortCodeXPath, shortCode );
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm setCampaignDialogueEmailAddress( String emailAddress ) throws FormException {
+		
+		String campaignDialogueEmailAddressXPath = "//select[@id='gwt-debug-Campaign Dialogue Email Address']";
+		
+		selectByXPathAndVisibleText( campaignDialogueEmailAddressXPath, emailAddress );
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm setDialogueNotificationDaysOfNotificationBeforeExecution( Integer daysOfNotificationBeforeExecution ) throws FormException {
+				
+		return setDialogueNotificationDaysOfNotificationBeforeExecution( String.valueOf( daysOfNotificationBeforeExecution ) );
+		
+	}
+	
+	public CampaignsForm setDialogueNotificationDaysOfNotificationBeforeExecution( String daysOfNotificationBeforeExecution ) throws FormException {
+		
+		String campaignDialogueDayOfNotificationXPath = "//input[@id='gwt-debug-Campaign Dialogue Days of Notification']";
+		
+		typeByXPath( campaignDialogueDayOfNotificationXPath, daysOfNotificationBeforeExecution );
+		
+		return this;
+		
+	}
+	
+	/** Notification Dialog **/
+	public CampaignsForm openDialogueNotification() throws FormException {
+		
+		this.notificationForm = new NotificationForm( this.selenium, this.timeout, this.interval ); 
+		
+		String campaignDialogueNotificationXPath = "//button[@id='gwt-debug-Campaign Dialogue Notification pop up']";
+		
+		clickXPath( campaignDialogueNotificationXPath );
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm saveDialogueNotification() throws FormException {
+		
+		this.notificationForm.saveBtn();
+	
+		return this;
+		
+	}
+	
+	public CampaignsForm cancelDialogueNotification() throws FormException {
+		
+		this.notificationForm.cancelBtn();
+	
+		return this;
+		
+	}
+	
+	public CampaignsForm editDialogueNotification( NotificationTongue tongue, NotificationChannel channel ) throws FormException {
+		
+		this.notificationForm.editBtn( tongue.value(), channel.name() );
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm editDialogueNotification( String tongue, String channel ) throws FormException {
+		
+		this.notificationForm.editBtn( tongue, channel );	
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm deleteDialogueNotification( NotificationTongue tongue, NotificationChannel channel ) throws FormException {
+		
+		this.notificationForm.deleteBtn( tongue.value(), channel.name() );
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm deleteDialogueNotification( String tongue, String channel ) throws FormException {
+		
+		this.notificationForm.deleteBtn( tongue, channel );	
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm importDialogueNotification( NotificationTongue tongue, NotificationChannel channel ) throws FormException {
+		
+		this.notificationForm.importBtn( tongue.value(), channel.name() );
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm importDialogueNotification( String tongue, String channel ) throws FormException {
+		
+		this.notificationForm.importBtn( tongue, channel );	
+		
+		return this;
+		
+	}
+	
+	public CampaignsForm saveDialogueNotificationEditing() throws FormException {
+		
+		this.notificationForm.saveEdititingBtn();
+	
+		return this;
+		
+	}
+
+	public CampaignsForm saveTemplateDialogueNotificationEditing() throws FormException {
+		
+		this.notificationForm.saveTemplateEditingBtn();
+	
+		return this;
+		
+	}
+
+	public CampaignsForm cancelDialogueNotificationEditing() throws FormException {
+		
+		this.notificationForm.cancelEditingBtn();
+	
+		return this;
+		
+	}
+	
+	public CampaignsForm setDialogueNotificationMessage( String message ) throws FormException {
+		
+		this.notificationForm.setMessage( message );
+		
+		return this;
+		
+	}
+	
+	
+	
+	
+	public CampaignsForm setCampaignDialogueApplyCampaignToNotifiedOnly() throws FormException {
+		
+		String campaignDialogueApplyCampaignToNotifiedOnlyXPath = "//input[@id='gwt-debug-Campaign Dialogue Notified Only-input']";
+		
+		if( !isCheckedByXPath( campaignDialogueApplyCampaignToNotifiedOnlyXPath ) ) {
+			
+			clickXPath( campaignDialogueApplyCampaignToNotifiedOnlyXPath ); 
+			
+		}
+		
+		return this;	
+		
+	}
+	
+	public CampaignsForm cleanCampaignDialogueApplyCampaignToNotifiedOnly() throws FormException {
+		
+		String campaignDialogueApplyCampaignToNotifiedOnlyXPath = "//input[@id='gwt-debug-Campaign Dialogue Notified Only-input']";
+		
+		if( isCheckedByXPath( campaignDialogueApplyCampaignToNotifiedOnlyXPath ) ) {
+			
+			clickXPath( campaignDialogueApplyCampaignToNotifiedOnlyXPath ); 
+			
+		}
+		
+		return this;	
+		
+	}
+	
+	
+	public CampaignsForm setCampaignDialogueNotificationTime( String time ) throws FormException {
+		
+		String campaignDialogueNotificationTimeXPath = "//select[@id='gwt-debug-Campaign Dialogue Notif Time']";
+		
+		selectByXPathAndVisibleText( campaignDialogueNotificationTimeXPath, time );
+		
+		return this;
+		
+	}
+	
+	
+	// ---------------------------------------------------------------
+	
+	
 	
 	public CampaignsForm configureCampaignTarget() throws FormException, JSONException {
 		
@@ -1003,66 +1680,7 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormCr
 	}
 */	
 	
-	@Override
-	public CampaignsForm clickId( String id ) throws FormException {
-		
-		super.clickId( id );
-		
-		return this;
-		
-	}
-	
-	@Override
-	public CampaignsForm clickXPath( String xpath ) throws FormException {
-		
-		super.clickXPath( xpath );
-		
-		return this;
-		
-	}
-/*	
-	@Override
-	public CampaignForm sendKeysById( String id, String text ) throws FormException {
-		
-		super.sendKeysById( id, text );
-		
-		return this;
-		
-	}
-*/	
-	@Override
-	public CampaignsForm selectByXPathAndVisibleText( String xpath, String text ) throws FormException {
-		
-		super.selectByXPathAndVisibleText( xpath, text );
-		
-		return this;
-		
-	}
 
-	@Override
-	public CampaignsForm typeByXPath( String xpath, String text ) throws FormException {
-		
-		super.typeByXPath( xpath, text );
-		
-		return this;
-		
-	}
-/*	
-	@Override
-	public CampaignForm selectDropDownListItem( String itemPath ) throws FormException {
-		
-		super.selectDropDownListItem( itemPath );
-		
-		return this;		
-		
-	}
-	
-	@Override
-	public Boolean isCheckedByXPath( String xpath ) throws FormException {
-		
-		return super.isCheckedByXPath( xpath );
-		
-	}
 
 	
 	

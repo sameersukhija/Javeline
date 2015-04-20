@@ -1,57 +1,22 @@
 package com.lumata.e4o.generators.subscribers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.database.Mysql;
-import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.common.testing.system.Server;
-import com.lumata.common.testing.system.User;
 import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.exceptions.GeneratorException;
 import com.lumata.e4o.generators.common.Generator;
+import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCMysqlMaster;
 
+@TCMysqlMaster
+public class GenerateSubscribersTokenRefusingRandomly extends ParentTestCase {
 
-public class GenerateSubscribersTokenRefusingRandomly {
-
-	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersTokenRefusingRandomly.class );
-	
 	final boolean GENERATE_FIXED_SUBSCRIBER = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE = false;
 	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = true;
 	final boolean GENERATE_RANDOM_SUBSCRIBERS = false;
 	
-	NetworkEnvironment env;	
-	Server guiServer;
-	User superman;
-	Mysql mysql;
-	
-	/* 	Initialize Environment */
-	@Parameters({"environment", "tenant"})
-	@BeforeSuite
-	public void init( @Optional("E4O_VM") String environment, @Optional("tenant") String tenant ) throws NetworkEnvironmentException {		
-		
-		logger.debug( Log.LOADING.createMessage( "init" , "environment" ) );
-		
-		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-			
-		guiServer = env.getServer( "actrule" );
-		
-		superman = guiServer.getUser( "superman" );
-		
-		mysql = new Mysql( env.getDataSource( tenant ) );
-		
-	}
-
 //	@Test( enabled = GENERATE_FIXED_SUBSCRIBER )
 //	public void allocateAllTokensWithFixedSubscriber() throws GeneratorException, NumberFormatException, FieldException {
 //		
@@ -97,9 +62,9 @@ public class GenerateSubscribersTokenRefusingRandomly {
 		
 		Generator.subscribers()
 					.environment( env )
-					.mysql( mysql )
+					.mysql( mysqlMaster )
 					.server( guiServer )
-					.user( superman )
+					.user( user )
 					.msisdnIncremental( STARTED_MSISDN, INCREMENT )
 					.minRandomEvents( MIN_EVENTS )
 					.maxRandomEvents( MAX_EVENTS )
@@ -126,12 +91,5 @@ public class GenerateSubscribersTokenRefusingRandomly {
 //					.xmlrpcAllTokenAllocation();
 //					
 //	}
-	
-	@AfterSuite
-	public void end() {
-		
-		mysql.close();
-		
-	}
 	
 }

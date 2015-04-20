@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.database.Mysql;
 import static com.lumata.common.testing.orm.Query.select;
 import static com.lumata.common.testing.orm.Filter.*;
-import com.lumata.common.testing.system.Environment;
 
 /*
 	CREATE TABLE `conf` (

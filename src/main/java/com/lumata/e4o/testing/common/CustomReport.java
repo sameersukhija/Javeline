@@ -1,24 +1,24 @@
-package com.lumata.e4o.common;
+package com.lumata.e4o.testing.common;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
+//import java.io.IOException;
+//import java.io.PrintWriter;
+//import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 import org.testng.ISuite;
 import org.testng.xml.XmlSuite;
 
 public class CustomReport extends TestNGReportListener { 
 
-		private static final SimpleDateFormat dateFormatter = new SimpleDateFormat(" MMM d 'at' hh:mm a");
-
-        private String reportFileName = "Test Report";
-        private PrintWriter m_out;
-        private int m_row;
-        private Integer m_testIndex;
-        private int m_methodIndex;
-        private Scanner scanner;
+//		private static final SimpleDateFormat dateFormatter = new SimpleDateFormat(" MMM d 'at' hh:mm a");
+//
+//        private String reportFileName = "Test Report";
+//        private PrintWriter m_out;
+//        private int m_row;
+//        private Integer m_testIndex;
+//        private int m_methodIndex;
+//        private Scanner scanner;
 
         @Override
         public void generateReport( List<XmlSuite> xml, List<ISuite> suites, String outdir ) {

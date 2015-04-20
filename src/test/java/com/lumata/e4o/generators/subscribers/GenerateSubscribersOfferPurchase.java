@@ -2,21 +2,9 @@ package com.lumata.e4o.generators.subscribers;
 
 import java.util.ArrayList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.database.Mysql;
-import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.common.testing.system.Server;
-import com.lumata.common.testing.system.User;
 import com.lumata.e4o.dao.tenant.DAOCatalogOffers;
 import com.lumata.e4o.dao.tenant.DAOOfferStock;
 import com.lumata.e4o.dao.tenant.DAOSalesChannels;
@@ -25,12 +13,12 @@ import com.lumata.e4o.generators.common.Generator;
 import com.lumata.e4o.schema.tenant.CatalogOffers;
 import com.lumata.e4o.schema.tenant.OfferStock;
 import com.lumata.e4o.schema.tenant.SalesChannels;
+import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCMysqlMaster;
 
+@TCMysqlMaster
+public class GenerateSubscribersOfferPurchase extends ParentTestCase {
 
-public class GenerateSubscribersOfferPurchase {
-
-	private static final Logger logger = LoggerFactory.getLogger( GenerateSubscribersOfferPurchase.class );
-	
 	final boolean GENERATE_FIXED_SUBSCRIBER = true;
 	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE = false;
@@ -38,40 +26,18 @@ public class GenerateSubscribersOfferPurchase {
 	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = false;
 	final boolean GENERATE_RANDOM_SUBSCRIBERS = false;
 	
-	NetworkEnvironment env;	
-	Server guiServer;
-	User superman;
-	Mysql mysql;
-	
-	/* 	Initialize Environment */
-	@Parameters({"environment"})
-	@BeforeSuite
-	public void init( @Optional("E4O_VM") String environment ) throws NetworkEnvironmentException {		
-		
-		logger.debug( Log.LOADING.createMessage( "init" , "environment" ) );
-		
-		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-			
-		guiServer = env.getServer( "actrule" );
-		
-		superman = guiServer.getUser( "superman" );
-		
-		mysql = new Mysql( env.getDataSource( "tenant" ) );
-		
-	}
-
 	@Test( enabled = GENERATE_FIXED_SUBSCRIBER )
 	public void generateFixedSubscriber() throws GeneratorException {
 		
 		short offerId = 2;
 		
-		ArrayList<OfferStock> offerStock = DAOOfferStock.getInstance( mysql ).getOfferStockByOffer( offerId );
+		ArrayList<OfferStock> offerStock = DAOOfferStock.getInstance( mysqlMaster ).getOfferStockByOffer( offerId );
 		
 		if( offerStock.size() >= 2 ) {
 			
-			SalesChannels salesChannel = DAOSalesChannels.getInstance( mysql ).getSalesChannelById( offerStock.get( 1 ).getChannelId() );
+			SalesChannels salesChannel = DAOSalesChannels.getInstance( mysqlMaster ).getSalesChannelById( offerStock.get( 1 ).getChannelId() );
 			
-			CatalogOffers offer = DAOCatalogOffers.getInstance( mysql ).getCatalogOffersById( offerStock.get( 0 ).getOfferId() );
+			CatalogOffers offer = DAOCatalogOffers.getInstance( mysqlMaster ).getCatalogOffersById( offerStock.get( 0 ).getOfferId() );
 			
 			final Long FIXED_MSISDN = 3399900001L;
 			
@@ -79,7 +45,7 @@ public class GenerateSubscribersOfferPurchase {
 			
 				Generator.subscribers()
 							.server( guiServer )
-							.user( superman )
+							.user( user )
 							.msisdnFixed( FIXED_MSISDN )
 							.xmlrpcPurchaseOffer( offer.getOfferName(), salesChannel.getChannelName() );
 			

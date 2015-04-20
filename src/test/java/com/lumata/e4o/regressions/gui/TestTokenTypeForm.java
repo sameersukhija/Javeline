@@ -3,80 +3,39 @@ package com.lumata.e4o.regressions.gui;
 import java.lang.reflect.Method;
 
 import org.json.JSONException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.e4o.dao.tenant.DAOTokenType;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
-import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.e4o.schema.tenant.TokenType;
+import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCMysqlMaster;
+import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
-public class TestTokenTypeForm {
 
-	private static final Logger logger = LoggerFactory.getLogger( TestTokenTypeForm.class );
-	
-	private int TIMEOUT = 60000;
-	private int ATTEMPT_TIMEOUT = 200;
-	
-	private final boolean testEnabled = true;
-	
-	private SeleniumWebDriver seleniumWebDriver;
-	private NetworkEnvironment env;
-	private Mysql mysql;
-	
+@TCSeleniumWebDriver
+@TCMysqlMaster
+public class TestTokenTypeForm extends ParentTestCase {
+
 	private TokenTypeForm tokenTypeForm;
-			
-	/* 	Initialize Environment */
-	@Parameters({"browser", "environment", "gui_server", "tenant", "user"})
-	@BeforeClass
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_VM") String environment, @Optional("actrule") String gui_server, @Optional("tenant") String tenant, @Optional("superman") String user ) throws NetworkEnvironmentException, FormException {		
-		
-		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
-		
-		/** Create environment configuration */
-		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-		
-		/** Create mysql connection */
-		mysql = new Mysql( env.getDataSource( tenant ) );
-		
-		/** Create Selenium WebDriver instance */
-		Server gui = env.getServer( gui_server );
-		seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
-		
-		seleniumWebDriver.setTestName( "init" ); 
-		
-		/** Login */
-		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).login( gui.getUser( user ) ).navigate() );
-		
+	
+	@BeforeMethod
+	public void initTokenTypeForm( Method method ) throws NetworkEnvironmentException, FormException {		
+	
 		/** Token Type Form **/
 		tokenTypeForm = new TokenTypeForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
+		seleniumWebDriver.setTestName( method.getName() );
+		
 	}
 	
-	/* 	Initialize TestCase Name */
-	@BeforeMethod
-	protected void startSession(Method method) throws Exception {
-		seleniumWebDriver.setTestName( method.getName() ); 	
-	}
-	
-	@Test( enabled=testEnabled, priority = 1 )
+	@Test( enabled=TEST_ENABLED, priority = 1 )
 	public void checkMandatoryFields1() throws FormException, JSONException, JSONSException {
 		
 		final String TOKEN_TYPE_NAME = Format.addTimestamp( "TType_" );
@@ -140,7 +99,7 @@ public class TestTokenTypeForm {
 		tokenTypeForm.editByName( TOKEN_TYPE_NAME );
 
 		/** get stored token type **/
-		TokenType tokenType = DAOTokenType.getInstance( mysql ).getTokenTypeByName( TOKEN_TYPE_NAME );
+		TokenType tokenType = DAOTokenType.getInstance( mysqlMaster ).getTokenTypeByName( TOKEN_TYPE_NAME );
 	
 		Assert.assertEquals( tokenTypeForm.getName(), tokenType.getTokenTypeName() );
 		Assert.assertEquals( tokenTypeForm.getDescription(), tokenType.getDescription() );
@@ -157,7 +116,7 @@ public class TestTokenTypeForm {
 	
 	}
 	
-	@Test( enabled=testEnabled, priority = 2 )
+	@Test( enabled=TEST_ENABLED, priority = 2 )
 	public void checkMandatoryFields2() throws FormException, JSONException, JSONSException {
 		
 		final String TOKEN_TYPE_NAME = Format.addTimestamp( "TType_" );
@@ -244,7 +203,7 @@ public class TestTokenTypeForm {
 		tokenTypeForm.editByName( TOKEN_TYPE_NAME );
 
 		/** get stored token type **/
-		TokenType tokenType = DAOTokenType.getInstance( mysql ).getTokenTypeByName( TOKEN_TYPE_NAME );
+		TokenType tokenType = DAOTokenType.getInstance( mysqlMaster ).getTokenTypeByName( TOKEN_TYPE_NAME );
 	
 		Assert.assertEquals( tokenTypeForm.getName(), tokenType.getTokenTypeName() );
 		Assert.assertEquals( tokenTypeForm.getDescription(), tokenType.getDescription() );
@@ -261,7 +220,7 @@ public class TestTokenTypeForm {
 	
 	}
 	
-	@Test( enabled=testEnabled, priority = 3 )
+	@Test( enabled=TEST_ENABLED, priority = 3 )
 	public void checkDuplicatedTokenType() throws FormException, JSONException, JSONSException {
 			
 		String TOKEN_TYPE_NAME = tokenTypeForm.openForm().getTokenTypeNameByIndex( 0 );		
@@ -287,12 +246,5 @@ public class TestTokenTypeForm {
 		tokenTypeForm.cancelBtn().goToHome();
 	
 	}
-	
-	@AfterClass
-	public void end() throws FormException {
-		
-		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).quit().navigate() );
-		
-	}
-		
+
 }

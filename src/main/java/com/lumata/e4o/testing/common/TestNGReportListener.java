@@ -1,4 +1,4 @@
-package com.lumata.e4o.common;
+package com.lumata.e4o.testing.common;
 
 import java.io.File;
 import java.io.FileWriter;

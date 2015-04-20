@@ -345,12 +345,30 @@ public abstract class Form {
 		
 	}
 	
-	public List<WebElement> getListByXPath( String rootXPath, String xpath ) throws FormException {
+	public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws FormException {
 		
-		return searchList( SeleniumUtils.SearchBy.XPATH, SeleniumUtils.SearchBy.XPATH, rootXPath, xpath );
+		List<WebElement> radioGroup = searchList( by, tag );
+		
+		if( option >= 0 && option < radioGroup.size() ) {
+            
+			radioGroup.get( option ).click();
+        
+		} else {
+            
+			throw new FormException( "option " + option + " not found" );
+        
+		}
+		
+		return this;
 		
 	}
 
+	public Form selectRadioGroupByName( String name, Integer option ) throws FormException {
+	
+		return selectRadioGroup( SearchBy.NAME, name, option );
+		
+	}
+	
 	public WebElement getParentElement( WebElement el ) throws FormException {
 	    
 		WebElement parentEl = null;

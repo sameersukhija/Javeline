@@ -13,7 +13,7 @@ import org.json.JSONObject;
 
 import com.lumata.common.testing.exceptions.OfficeException;
 import com.lumata.common.testing.io.IOFileUtils.IOLoadingType;
-import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.testing.office.Excel;
 
@@ -29,8 +29,8 @@ public enum ConfigurationTypes {
 			try {
 				
 				String tenant_name = (String)options.get( "tenant" );
-				Environment env = (Environment)options.get( "environment" );
-				JSONObject dataSource = env.getDataSource( tenant_name );
+				NetworkEnvironment env = (NetworkEnvironment)options.get( "environment" );
+				JSONObject dataSource = env.getDataSource( tenant_name ).getJSON();
 				
 				Configuration cfg;
 				
