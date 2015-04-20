@@ -1,13 +1,16 @@
 package com.lumata.e4o.regressions.gui;
 
+import java.lang.reflect.Method;
 import java.util.Calendar;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONException;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
@@ -25,6 +28,16 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 public class TestCampaignsForm extends ParentTestCase {
 
 	private CampaignsForm campaignsForm;
+	
+	@BeforeMethod
+	public void initCampaignsForm( Method method ) throws NetworkEnvironmentException, FormException {		
+	
+		/** Token Type Form **/
+		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
+		
+		seleniumWebDriver.setTestName( method.getName() );
+		
+	}
 			
 	@Test( enabled=TEST_ENABLED, priority = 1 )
 	public void checkMandatoryFields1() throws FormException, JSONException, JSONSException {
