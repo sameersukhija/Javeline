@@ -300,7 +300,7 @@ public ProductsForm configureAvailability(String stock,String startDate, String 
 	return this;
 }
 public List<WebElement> getProductList() throws FormException{
-	String rootPath = "//table[contains(@class,'page-ProductPageView']//table[@class='tableList']";
+	String rootPath = "//table[contains(@class,'page-ProductPageView')]//table[contains(@class,'tableList')]";
 	String subPath = "//tr[contains(@class, 'contentRow cycle')]//td[@class='column_description']";
 
 	List<WebElement> productList = getListByXPath(rootPath, rootPath + subPath);
