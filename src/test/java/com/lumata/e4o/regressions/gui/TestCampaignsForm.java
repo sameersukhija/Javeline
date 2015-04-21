@@ -22,8 +22,13 @@ import static com.lumata.e4o.gui.campaignmanager.CampaignsForm.SchedulingMultipl
 import static com.lumata.e4o.gui.campaignmanager.CampaignsForm.SchedulingMultipleRecurrencePatternWeekly.*;
 
 import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCOwner;
+import com.lumata.e4o.testing.common.TCOwners;
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
+@TCOwners(
+	@TCOwner( name="Arcangelo Di Pasquale", email="arcangelo.dipasquale@lumatagroup.com" )
+)
 @TCSeleniumWebDriver
 public class TestCampaignsForm extends ParentTestCase {
 
