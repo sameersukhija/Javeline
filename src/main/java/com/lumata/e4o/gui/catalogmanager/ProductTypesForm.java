@@ -91,6 +91,7 @@ public class ProductTypesForm extends CatalogueManagerForm {
 		super.sendKeysBycssSelector("input#gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox", name);
 		return this;
 	}
+	
 	public String getProductTypeName() throws FormException
 	{
 		return super.getValueByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']");

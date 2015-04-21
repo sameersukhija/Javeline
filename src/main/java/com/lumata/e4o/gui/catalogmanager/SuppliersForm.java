@@ -77,6 +77,7 @@ public SuppliersForm( SeleniumWebDriver selenium, long timeout, long interval ) 
 	public String getSupplierWebSite() throws FormException{
 		return this.getValueById("gwt-debug-TextBox-SupplierPageView-websiteTextBox");
 	}
+	
 	/*Clicks on add button and enters the data in all the textboxes*/
 	public SuppliersForm configureSupplier(String name, String email, String phone, String website) throws FormException, JSONException {
 		addButton();

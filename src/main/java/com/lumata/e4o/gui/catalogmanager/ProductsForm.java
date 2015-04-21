@@ -307,6 +307,7 @@ public List<WebElement> getProductList() throws FormException{
 	return productList;
 	
 }
+
 public Boolean isProductInList( String productName ) throws FormException {
 	
 	List<WebElement> productList = getProductList();
