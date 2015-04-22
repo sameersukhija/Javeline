@@ -2,66 +2,54 @@ package com.lumata.e4o.regressions.gui;
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
-import org.json.JSONException;
-import org.junit.internal.runners.statements.Fail;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.Reporter;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import org.openqa.selenium.WebElement;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.catalogmanager.ProductTypesForm;
-import com.lumata.e4o.gui.common.ParentUITestCase;
-import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristicElement;
-
-public class TestProductTypeForm extends ParentUITestCase{
-	
-	private int TIMEOUT = 60000;
-	private int ATTEMPT_TIMEOUT = 200;
-	
-	private final boolean testEnabled = true;
-	
-//	private SeleniumWebDriver seleniumWebDriver;
+import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCOwner;
+import com.lumata.e4o.testing.common.TCOwners;
+import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
+@TCOwners(
+		@TCOwner( name="Parvinder Bhogra", email="parvinder.bhogra@lumatagroup.com" )
+	)
+@TCSeleniumWebDriver
+public class TestProductTypeForm extends ParentTestCase{
 	
 	private ProductTypesForm productTypesForm;
 	private JSONProductTypes setupProductTypes = null;
-//	@BeforeMethod
-//	protected void startSession(Method method) throws Exception {
-//		seleniumWebDriver.setTestName(method.getName());
-//	}
-	@Test(enabled=testEnabled)
+	@BeforeMethod
+	public void initProductTypeForm( Method method ) throws NetworkEnvironmentException, FormException {		
+	
+		seleniumWebDriver.setTestName( method.getName() );
+		
+	}
+	@Test(enabled=TEST_ENABLED)
 	@Parameters({"jsonFilePath","jsonFileName"})
 	public void testProductTypeCreation(@Optional String jsonFilePath, @Optional String jsonFileName) throws JSONSException,FormException
 	{
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Boolean status=false;
-		Reporter.log("Creation of \"Product Types Form\".", PRINT2STDOUT__);
+		Reporter.log("Creation of \"Product Types Form\".", LOG_TO_STD_OUT);
 
-		String resourcePath = currentResourceStartPath + jsonFilePath;
+		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath;
 		String resourceFile = jsonFileName;
 
 		Reporter.log("\"Product Types\" is filled with reosurce file : ",
-				PRINT2STDOUT__);
-		Reporter.log("Resource path -> " + resourcePath, PRINT2STDOUT__);
-		Reporter.log("Resource file -> " + resourceFile, PRINT2STDOUT__);
+				LOG_TO_STD_OUT);
+		Reporter.log("Resource path -> " + resourcePath, LOG_TO_STD_OUT);
+		Reporter.log("Resource file -> " + resourceFile, LOG_TO_STD_OUT);
 		
 		setupProductTypes = new JSONProductTypes(resourcePath, resourceFile);
 

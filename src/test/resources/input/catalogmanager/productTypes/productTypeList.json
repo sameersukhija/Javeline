@@ -7,35 +7,28 @@
 			"characteristics": [
 				{
 					"enabled": true,
-					"characteristicName": "ChA",
+					"name": "ChA",
 					"type": "List",
-					"typeList": [
+					"list":
 						{
-							"value": "",
-							"default": true
-						}
-					],
-					"typeChoice": [
-						{
-							"value": "",
-							"checked": true
-						}
-					],
-					"typeText": {
-						"defaultValue": ""
-					},
-					"typeUnit": {
-						"defaultValue": "",
-						"unit": ""
-					},
-					"errorActions": {
-						"ELEMENT_ALREADY_EXISTS": "ABORT"	
-					}
-				}
-			],
-			"errorActions": {
-				"ELEMENT_ALREADY_EXISTS": "ABORT"	
-			}
-		}
-	]
-}
+							"value":[ "on","to"],
+							"default": null
+						},
+					      "choice": null,
+          			"text": null,
+          			"unit": null
+          			},
+					{
+          			"enabled": true,
+          			"name": "text1",
+          			"type": "Text",
+          			"list": null,
+          			"choice": null,
+          			"text":"Super",
+					"unit": null
+        	}
+       	
+       ]
+      }
+     ]
+    }

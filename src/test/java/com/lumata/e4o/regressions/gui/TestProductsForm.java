@@ -28,14 +28,15 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes;
 import com.lumata.e4o.json.gui.catalogmanager.JSONSuppliers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristicElement;
 import com.lumata.e4o.testing.common.ParentTestCase;
-
-public class TestProductsForm extends ParentUITestCase{
+import com.lumata.e4o.testing.common.TCOwner;
+import com.lumata.e4o.testing.common.TCOwners;
+import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
+@TCOwners(
+		@TCOwner( name="Parvinder Bhogra", email="parvinder.bhogra@lumatagroup.com" )
+	)
+@TCSeleniumWebDriver
+public class TestProductsForm extends ParentTestCase{
 	private static final Logger logger = LoggerFactory.getLogger( TestProductsForm.class );
-	private int TIMEOUT = 60000;
-	private int ATTEMPT_TIMEOUT = 200;
-	
-	private final boolean testEnabled = true;
-	
 	private JSONSuppliers setupSupplier=null;
 	private String supplierName=null;
 	private String productTypeName=null;
@@ -50,18 +51,18 @@ public class TestProductsForm extends ParentUITestCase{
 	}
 	
 	@Parameters({"supplier_jsonFilePath","supplier_jsonFileName","productType_jsonFilePath","productType_jsonFileName"})
-	@Test( enabled=testEnabled, priority = 1 )
+	@Test( enabled=TEST_ENABLED, priority = 1 )
 	public void testEndtoEndProductCreation( @Optional("/catalogmanager/suppliers") String supplier_jsonFilePath, @Optional("supplierList") String supplier_jsonFileName,@Optional("/catalogmanager/productTypes") String productType_jsonFilePath, @Optional("newProductType") String productType_jsonFileName) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		Reporter.log("Creation of \"Supplier Form\".", PRINT2STDOUT__);
-		String resourcePath = currentResourceStartPath + supplier_jsonFilePath;
+		Reporter.log("Creation of \"Supplier Form\".", LOG_TO_STD_OUT);
+		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + supplier_jsonFilePath;
 		String resourceFile = supplier_jsonFileName;
 
 		Reporter.log("\"Supplier\" is filled with reosurce file : ",
-				PRINT2STDOUT__);
-		Reporter.log("Resource path -> " + resourcePath, PRINT2STDOUT__);
-		Reporter.log("Resource file -> " + resourceFile, PRINT2STDOUT__);
+				LOG_TO_STD_OUT);
+		Reporter.log("Resource path -> " + resourcePath, LOG_TO_STD_OUT);
+		Reporter.log("Resource file -> " + resourceFile, LOG_TO_STD_OUT);
 		setupSupplier=new JSONSuppliers(resourcePath, resourceFile);
 		SuppliersForm suppliersForm = new SuppliersForm( seleniumWebDriver,setupSupplier, TIMEOUT, ATTEMPT_TIMEOUT );
 		
@@ -86,22 +87,22 @@ public class TestProductsForm extends ParentUITestCase{
 				}
 				else{
 					Assert.fail("The Supplier creation Failed!");
-					Reporter.log("Creation of Supplier Failed!",PRINT2STDOUT__);
+					Reporter.log("Creation of Supplier Failed!",LOG_TO_STD_OUT);
 				}
 			}
 		}
 		if(supplier_created==true)
 		{
 		Boolean pd_type_status=false;
-		Reporter.log("Creation of \"Product Types Form\".", PRINT2STDOUT__);
+		Reporter.log("Creation of \"Product Types Form\".", LOG_TO_STD_OUT);
 
-		String Pdt_resourcePath = currentResourceStartPath + productType_jsonFilePath;
+		String Pdt_resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + productType_jsonFilePath;
 		String Pdt_resourceFile = productType_jsonFileName;
 
 		Reporter.log("\"Product Types\" is filled with reosurce file : ",
-				PRINT2STDOUT__);
-		Reporter.log("Resource path -> " + Pdt_resourcePath, PRINT2STDOUT__);
-		Reporter.log("Resource file -> " + Pdt_resourceFile, PRINT2STDOUT__);
+				LOG_TO_STD_OUT);
+		Reporter.log("Resource path -> " + Pdt_resourcePath, LOG_TO_STD_OUT);
+		Reporter.log("Resource file -> " + Pdt_resourceFile, LOG_TO_STD_OUT);
 		
 		setupProductTypes = new JSONProductTypes(Pdt_resourcePath, Pdt_resourceFile);
 
@@ -136,7 +137,7 @@ public class TestProductsForm extends ParentUITestCase{
 				}
 				else{
 					Assert.fail("The Product Type creation Failed!");
-					Reporter.log("Creation of Product Failed!",PRINT2STDOUT__);
+					Reporter.log("Creation of Product Failed!",LOG_TO_STD_OUT);
 				}
 			}
 	}
@@ -157,7 +158,7 @@ public class TestProductsForm extends ParentUITestCase{
 			}
 			else{
 				Assert.fail("The Product creation Failed!");
-				Reporter.log("Creation of Product Failed!",PRINT2STDOUT__);
+				Reporter.log("Creation of Product Failed!",LOG_TO_STD_OUT);
 			}
 		}
 		
