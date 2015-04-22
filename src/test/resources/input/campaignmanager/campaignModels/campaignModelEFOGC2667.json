@@ -1,0 +1,77 @@
+{
+	"campaignModels": [
+		{
+			"enabled": true,
+			"name": "CM-One",
+			"description": "EFOGC-2667",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.Rule A", "value": null, "option":null, "time": null, "delete": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},
+		{
+			"enabled": false,
+			"name": "CM-Two",
+			"description": "EFOGC-2667",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.Rule A", "value": null, "option":null, "time": null, "delete": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "CM-Three",
+			"description": "EFOGC-2667",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.Rule B", "value": null, "option":null, "time": null, "delete": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		}
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"
+	}
+	
+}

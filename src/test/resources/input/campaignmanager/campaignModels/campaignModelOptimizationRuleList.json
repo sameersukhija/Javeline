@@ -1,0 +1,40 @@
+{
+	"campaignModels": [
+		{
+			"enabled": true,
+			"name": "CMAllRules",
+			"description": "CMAllRules",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"elementAlreadyExists": "ABORT"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.RuleA", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.RuleB", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.RuleC", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.RuleAB", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.RuleBC", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.RuleABC", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.Rule100sec", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.Rule100min", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.Rule100hours", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.Rule1day", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.Rule10days", "value": null, "option":null, "time": null, "delete": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		}
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+}

@@ -1,0 +1,41 @@
+{
+	"productTypes": [
+		{
+			"enabled": true,
+			"name":"ProductA",
+			"description":"ProductA",
+			"characteristics": [
+				{
+					"enabled": true,
+					"characteristicName": "ChA",
+					"type": "List",
+					"typeList": [
+						{
+							"value": "",
+							"default": true
+						}
+					],
+					"typeChoice": [
+						{
+							"value": "",
+							"checked": true
+						}
+					],
+					"typeText": {
+						"defaultValue": ""
+					},
+					"typeUnit": {
+						"defaultValue": "",
+						"unit": ""
+					},
+					"errorActions": {
+						"ELEMENT_ALREADY_EXISTS": "ABORT"	
+					}
+				}
+			],
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		}
+	]
+}
