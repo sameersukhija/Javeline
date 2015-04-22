@@ -11,7 +11,7 @@
   <groupId>com.lumata.expression</groupId>
   <artifactId>e4osystemtest</artifactId>
   <!--  version>1.0.0</version -->
-  <version>1.0.3-SNAPSHOT</version>
+  <version>1.0.4-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>e4osystemtest</name>
 
