@@ -15,12 +15,16 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Function;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
@@ -36,6 +40,7 @@ public abstract class Form {
 	protected long interval;
 	protected boolean status;
 	protected WebElement lastWebElement;
+	protected WebDriverWait wait;
 	
 	public Form(SeleniumWebDriver selenium, long timeout, long interval) {
 		
@@ -89,6 +94,48 @@ public abstract class Form {
 		
 	}
 
+	public void waitForPageLoad() {
+
+		wait.until( new Function<WebDriver, Boolean>() {
+			
+			public Boolean apply( WebDriver driver ) {
+	            
+				return String
+		                .valueOf(((JavascriptExecutor) driver).executeScript("return document.readyState"))
+		                .equals("complete");
+	        
+			}
+	    
+		});
+	
+	}
+	
+	public Form maximize() {
+		
+		this.selenium.getWrappedDriver().manage().window().maximize();
+		
+		waitForPageLoad();
+		
+		return this;
+		
+	}
+	
+	public Form waitVisibleElement( By by ) {
+		
+		wait.until( ExpectedConditions.visibilityOfElementLocated( by ) );
+		
+		return this;
+		
+	}
+	
+	public Form waitVisibleElementById( String id ) {
+		
+		waitVisibleElement( By.id( id ) );
+		
+		return this;
+		
+	}
+	
 	public void click(String forName, String xpath) throws FormException {
 		
 		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName + ", xpath: " + xpath));
@@ -150,7 +197,14 @@ public abstract class Form {
 		return we.getText();
 	
 	}
-	
+	public Form clickBycssSelector(String string) throws FormException {
+        return click( SeleniumUtils.SearchBy.CSS, string );
+	}
+	public Form sendKeysBycssSelector( String css, String text ) throws FormException {
+        
+        return sendKeys( SeleniumUtils.SearchBy.CSS, css, text ); 
+ 
+	}
 	public boolean isTrueKey(Map<String, String> map, String key) {
 		return map.containsKey(key) && map.get(key).equalsIgnoreCase("true");
 	}
@@ -297,12 +351,30 @@ public abstract class Form {
 		
 	}
 	
-	public List<WebElement> getListByXPath( String rootXPath, String xpath ) throws FormException {
+	public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws FormException {
 		
-		return searchList( SeleniumUtils.SearchBy.XPATH, SeleniumUtils.SearchBy.XPATH, rootXPath, xpath );
+		List<WebElement> radioGroup = searchList( by, tag );
+		
+		if( option >= 0 && option < radioGroup.size() ) {
+            
+			radioGroup.get( option ).click();
+        
+		} else {
+            
+			throw new FormException( "option " + option + " not found" );
+        
+		}
+		
+		return this;
 		
 	}
 
+	public Form selectRadioGroupByName( String name, Integer option ) throws FormException {
+	
+		return selectRadioGroup( SearchBy.NAME, name, option );
+		
+	}
+	
 	public WebElement getParentElement( WebElement el ) throws FormException {
 	    
 		WebElement parentEl = null;
@@ -783,6 +855,11 @@ public abstract class Form {
 	public Boolean isCheckedByXPath( String xpath ) throws FormException {
 		
 		return isChecked( SeleniumUtils.SearchBy.XPATH, xpath );
+		
+	}
+	public List<WebElement> getListByXPath( String rootXPath, String xpath ) throws FormException {
+		
+		return searchList( SeleniumUtils.SearchBy.XPATH, SeleniumUtils.SearchBy.XPATH, rootXPath, xpath );
 		
 	}
 	
