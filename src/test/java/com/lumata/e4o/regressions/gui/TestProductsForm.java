@@ -27,10 +27,10 @@ import com.lumata.e4o.gui.common.ParentUITestCase;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes;
 import com.lumata.e4o.json.gui.catalogmanager.JSONSuppliers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristicElement;
+import com.lumata.e4o.testing.common.ParentTestCase;
 
-public class testProductsForm extends ParentUITestCase{
-private static final Logger logger = LoggerFactory.getLogger( testProductsForm.class );
-	
+public class TestProductsForm extends ParentUITestCase{
+	private static final Logger logger = LoggerFactory.getLogger( TestProductsForm.class );
 	private int TIMEOUT = 60000;
 	private int ATTEMPT_TIMEOUT = 200;
 	

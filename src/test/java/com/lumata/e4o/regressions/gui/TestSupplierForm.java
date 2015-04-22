@@ -19,8 +19,6 @@ import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.catalogmanager.SuppliersForm;
-import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
-import com.lumata.e4o.gui.common.ParentUITestCase;
 import com.lumata.e4o.json.gui.catalogmanager.JSONSuppliers;
 import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.e4o.testing.common.TCOwner;
@@ -30,8 +28,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		@TCOwner( name="Parvinder Bhogra", email="parvinder.bhogra@lumatagroup.com" )
 	)
 @TCSeleniumWebDriver
-public class testSupplierForm extends ParentTestCase{
-private static final Logger logger = LoggerFactory.getLogger( testSupplierForm.class );
+public class TestSupplierForm extends ParentTestCase{
 	
 	
 	private JSONSuppliers setupSupplier=null;
