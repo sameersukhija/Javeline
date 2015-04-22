@@ -28,22 +28,37 @@
     ##### Subscriber under test
     ##### 
   -->
-  <parameter name="msisdn"              value="393492135576"/>
+  <parameter name="msisdn"              value="393492135774"/>
+
+
+  <!-- 
+    ##### 
+    ##### This section describes the filtering parameter for "getTokensList" request
+    ##### 
+    ##### wherePlaceZero -> Number of minutes before NOW to use as start time into XMLRPC Request
+    ##### tokenStatus -> It is the allowed token status into response : active;offers_allocated;consumed;expired
+    ##### requestorType -> Requestor type is the module that generates token : campaign, loyalty, badges
+    ##### 
+    ##### All these parameter are NOT mandatory and can be associated @ each one below test
+    ##### 
+  -->
+  <parameter name="wherePlaceZero"      value="2"/>
+  <parameter name="tokenStatus"         value="active;offers_allocated;consumed;expired"/>
+  <parameter name="requestorType"       value="campaign"/> 
 
   <!-- 
     ##### 
     ##### Number of tokens to be generated
     ##### 
   -->
-  <parameter name="tokens2BeGenerated"  value="5"/>
+  <parameter name="event2BeGenerated"  value="0"/>
 
   <!-- 
     ##### 
     ##### List of offer_id separated with ";" the purchased offer is chosen randomically
     ##### 
   -->
-  <parameter name="offerIds"            value="1000"/>
-
+  <!-- <parameter name="offerIds"            value="1000"/> -->
 
   <!-- 
     >>>>>>> 
@@ -74,7 +89,7 @@
   <!-- 
     >>>>>>> Accept the allocate token with a random offer from input bucket
   -->
-  <test name="Core XMLRPC - Allocate/Purchase Tokens" enabled="true">
+  <test name="Core XMLRPC - Allocate/Purchase Tokens" enabled="false">
     <classes>
       <class name="com.lumata.e4o.gui.common.O2ReporterFiller">
         <methods>    

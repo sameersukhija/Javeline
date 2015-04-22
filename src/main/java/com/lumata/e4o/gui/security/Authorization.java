@@ -38,7 +38,9 @@ public class Authorization extends Form {
 	}
 	
 	public Authorization login( String user, String password ) throws FormException {
-		
+			
+		maximize().		
+		waitVisibleElementById( "gwt-debug-FormLogin" ).
 		clickId( "gwt-debug-InputLoginUsername" ).
 		sendKeysById( "gwt-debug-InputLoginUsername", user ).
 		sendKeysById( "gwt-debug-InputLoginPassword", password ).
@@ -51,8 +53,7 @@ public class Authorization extends Form {
 		
 		// if a click occurred for license warning :
 		// element "gwt-debug-FormHomeInfo" is already disappeared
-		if ( !clickedDialog)
-			clickId( "gwt-debug-FormHomeInfo" );
+		if ( !clickedDialog) { clickId( "gwt-debug-FormHomeInfo" ); }
 		
 		return this;
 
@@ -73,11 +74,19 @@ public class Authorization extends Form {
 			
 			confirmForceLogin = selenium.selectAlert();
 		    	
-			if ( confirmForceLogin != null )
-				if ( forceLogin ) 
-					confirmForceLogin.accept(); 
-				else
-					throw new FormException(getClass().getSimpleName() + " finds a \"double session\" and CANNOT force login!");
+			if ( confirmForceLogin != null ) {
+				
+				if ( forceLogin ) { 
+					
+					confirmForceLogin.accept();
+				
+				} else {
+					
+					throw new FormException( getClass().getSimpleName() + " finds a \"double session\" and CANNOT force login!");
+				
+				}
+				
+			}
 			
 		} catch (NoAlertPresentException e) {
 			// nothing to do

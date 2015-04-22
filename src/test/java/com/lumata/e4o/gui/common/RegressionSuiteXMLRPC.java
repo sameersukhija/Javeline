@@ -660,7 +660,11 @@ public class RegressionSuiteXMLRPC extends RegressionSuiteXmlrpcCore {
 			
 			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
 			
-			deleteViaXmlrpc(msisdn);
+			try {
+				deleteViaXmlrpc(msisdn);
+			} catch (Exception e) {
+				throw new XMLRPCParserException(e.getMessage());
+			}
 		}
 
 		waitState();
@@ -797,8 +801,12 @@ public class RegressionSuiteXMLRPC extends RegressionSuiteXmlrpcCore {
 		if ( existSubscriber(msisdn)) {
 			
 			Reporter.log( "Requested MSISDN ("+msisdn+") already exist -> delete it before test.", PRINT2STDOUT__);
-			
-			deleteViaXmlrpc(msisdn);
+
+			try {
+				deleteViaXmlrpc(msisdn);
+			} catch (Exception e) {
+				throw new XMLRPCParserException(e.getMessage());
+			}
 		}
 		
 		relation.setSponsor(related_msisdn);
@@ -970,7 +978,11 @@ public class RegressionSuiteXMLRPC extends RegressionSuiteXmlrpcCore {
 		
 		Assert.assertTrue( existSubscriber(msisdn) , "Subscriber " + msisdn + " is NOT present into DB application!");
 
-		deleteViaXmlrpc(msisdn);
+		try {
+			deleteViaXmlrpc(msisdn);
+		} catch (Exception e) {
+			throw new XMLRPCParserException(e.getMessage());
+		}
 		
 		Assert.assertTrue( !existSubscriber(msisdn) , "Subscriber " + msisdn + " is STILL present into DB application after XMLRPC detele!");
 
@@ -990,7 +1002,11 @@ public class RegressionSuiteXMLRPC extends RegressionSuiteXmlrpcCore {
 			
 			Assert.assertTrue( existSubscriber(msisdn) , "Subscriber " + msisdn + " is NOT present into DB application!");
 
-			deleteViaXmlrpc(msisdn);
+			try {
+				deleteViaXmlrpc(msisdn);
+			} catch (Exception e) {
+				throw new XMLRPCParserException(e.getMessage());
+			}
 			
 			Assert.assertTrue( !existSubscriber(msisdn) , "Subscriber " + msisdn + " is STILL present into DB application after XMLRPC detele!");
 
@@ -1002,10 +1018,10 @@ public class RegressionSuiteXMLRPC extends RegressionSuiteXmlrpcCore {
 	 * Execute a delete request via XMLRPC of requested msisdn
 	 * 
 	 * @param msisdn
-	 * 
-	 * @throws XMLRPCParserException 
+	 * @throws Exception 
+	 * @throws XMLRPCException 
 	 */
-	private void deleteViaXmlrpc(String msisdn) throws XMLRPCParserException {
+	private void deleteViaXmlrpc(String msisdn) throws Exception {
 		
 		waitState();
 
@@ -1015,15 +1031,22 @@ public class RegressionSuiteXMLRPC extends RegressionSuiteXmlrpcCore {
 		ArrayList<String> params = new ArrayList<String>();
 		params.add(HTTPXMLRPCForm.getAuthenticationParam(user.getUsername(),user.getPassword()));
 		params.add(HTTPXMLRPCForm.getSubscriber(subscriberParams));
-
-		ClientResponse<String> response = HTTPXMLRPCForm.CallTypes.subscribermanager_deleteSubscriber.call(gui.getLink() + "xmlrpc/", params);
-
-		responseParser = new XMLRPCResultParser(response.getEntity().toString());
-
-		XMLRPCResultSuccess resultSuccess = getSuccess(responseParser);
-
-		Assert.assertNotNull(resultSuccess);
-		Assert.assertEquals(resultSuccess.getBoolean(), "0");
+		
+		XMLRPCRequest.subscribermanager_deleteSubscriber().call(gui, 
+				xmlrpcBody(
+						authentication(user),
+						subscriber( 
+								msisdn
+						)
+					),
+					xmlrpcValidator(
+							success()
+					),
+					xmlrpcOptions(
+							sleep( XMLRPC_CALL_DELAY ),
+							storeRequestAsResource( xmlrpcLogFolder, "request_"+testTime+"_deleteSubscriber.xml" ),
+							storeResponseAsResource( xmlrpcLogFolder, "response_"+testTime+"_deleteSubscriber.xml" )	
+					));
 	}
 
 	/**

@@ -8,11 +8,11 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.exceptions.EnvironmentException;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.system.Environment;
+import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.e4o.exceptions.CDRException;
 import com.lumata.e4o.system.cdr.CDR;
 
@@ -23,9 +23,9 @@ public class TestTasksMigration {
 	
 	@Parameters({"environment", "tenant"})
 	@Test( enabled = true )
-	public void create_cdr( @Optional("E4O_VM") String environment,  @Optional("tenant") String tenant ) throws IOFileException, ClassNotFoundException, JSONSException, EnvironmentException, CDRException {
+	public void create_cdr( @Optional("E4O_VM") String environment,  @Optional("tenant") String tenant ) throws IOFileException, ClassNotFoundException, JSONSException, NetworkEnvironmentException, CDRException {
 
-		Environment env = new Environment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		NetworkEnvironment env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 			
 		Calendar minDate = Calendar.getInstance();
 		Calendar maxDate = Calendar.getInstance();

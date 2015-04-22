@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.Form;
 import com.lumata.e4o.gui.common.NotificationForm;
@@ -471,7 +470,7 @@ public class CampaignModelForm extends CampaignManagerForm {
 		
 		NotificationForm notificationDialog = new NotificationForm( selenium, notifications, timeout, interval );
 		
-		notificationDialog.configureNotifications();
+		//notificationDialog.configureNotifications();
 
 		return this;
 		
@@ -661,7 +660,7 @@ public class CampaignModelForm extends CampaignManagerForm {
 			String rootPath = "//table[@id=\"gwt-debug-ListCampaignModel\"]";
 			String subPath = "//tr[contains(@class,\"contentRow cycle\")]//td[@class=\"column_description\"]";
 		
-			List<WebElement> cmLabels = getListByXPath(rootPath, rootPath + subPath);
+			List<WebElement> cmLabels = searchListByXPath(rootPath, rootPath + subPath);
 			
 			for (WebElement webElement : cmLabels)
 				cmLabel2Delete.add(webElement.getText());

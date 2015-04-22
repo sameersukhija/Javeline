@@ -41,13 +41,14 @@ public abstract class Form {
 	protected boolean status;
 	protected WebElement lastWebElement;
 	protected WebDriverWait wait;
-	
+		
 	public Form(SeleniumWebDriver selenium, long timeout, long interval) {
 		
 		this.selenium = selenium;
 		this.timeout = timeout;
 		this.interval = interval;
-	
+		this.wait = new WebDriverWait(this.selenium.getWrappedDriver(), this.timeout );
+		
 	}
 	
 	public Calendar getDate( String dateStr ) {
@@ -523,7 +524,7 @@ public abstract class Form {
 	private Form click( SeleniumUtils.SearchBy by, String tag ) throws FormException {
 		
 		lastWebElement =  search( by, tag );
-		lastWebElement.click();
+		lastWebElement.click();		
 				
 		return this;
 		

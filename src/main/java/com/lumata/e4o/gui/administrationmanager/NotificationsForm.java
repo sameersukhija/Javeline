@@ -199,7 +199,7 @@ public class NotificationsForm extends AdministrationForm {
 			String rootPath = "//table[contains(@class, 'page-NotificationsPageView')]";
 			String subPath = "//table[contains(@class, 'page-NotificationsPageView')]//tr[contains(@class, 'contentRow')]";
 		
-			List<WebElement> cmLabels = getListByXPath(rootPath, rootPath + subPath);
+			List<WebElement> cmLabels = searchListByXPath(rootPath, rootPath + subPath);
 			
 			for (WebElement webElement : cmLabels)
 				notificationsLabel.add(webElement.getText());

@@ -162,7 +162,7 @@ public class CommoditiesForm extends AdministrationForm {
 			String rootPath = "//table[contains(@class, \"page-BonusPageView\")]";
 			String subPath = "//tr[contains(@class,\"contentRow cycle\")]//td[@class=\"column_description\"][1]";
 		
-			List<WebElement> cmLabels = getListByXPath(rootPath, rootPath + subPath);
+			List<WebElement> cmLabels = searchListByXPath(rootPath, rootPath + subPath);
 			
 			for (WebElement webElement : cmLabels)
 				commoditiesLabel.add(webElement.getText());
