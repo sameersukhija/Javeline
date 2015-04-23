@@ -15,12 +15,7 @@ import com.lumata.common.testing.network.Mail;
 import com.lumata.common.testing.network.MailClient;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.testing.common.TCOwner;
-import com.lumata.e4o.testing.common.TCOwners;
 
-@TCOwners(
-	@TCOwner( name="Arcangelo Di Pasquale", email="arcangelo.dipasquale@lumatagroup.com" )
-)
 @Mail(
 	protocol = "smtp",
 	fromRecipient = "qa.e4o.all@lumatagroup.com",
@@ -37,7 +32,7 @@ public class TestJenkins {
 	SeleniumWebDriver seleniumWebDriver;
 	
 	@Parameters("seleniumWebDriverParams")
-	@Test( enabled=false, priority = 1 )
+	@Test( enabled=true, priority = 1 )
 	public void checkSeleniumWebDriverFromJenkins( @Optional("") String seleniumWebDriverParams ) throws FormException, JSONException, JSONSException {
 		
 		JSONObject jo = new JSONObject( seleniumWebDriverParams );
@@ -50,20 +45,16 @@ public class TestJenkins {
 		
 	}
 
-	@Test( enabled=true, priority = 2 )
+	@Test( enabled=false, priority = 2 )
 	public void checkMailSendingFromJenkins() throws FormException, JSONException, JSONSException {
 		
 		try {
 			
 			Mail mail = this.getClass().getAnnotation( Mail.class );
 			
-			MailClient.getInstance( mail ).send( "subject" , "test mail sending from jenkins" );
+			MailClient.getInstance( mail ).send( "subject: test mail sending from jenkins" , "test mail sending from jenkins" );
 			
-		} catch( MessagingException e ) {
-			
-			System.out.println( e.getMessage() );
-			
-		}
+		} catch( MessagingException e ) {}
 
 	}
 		
