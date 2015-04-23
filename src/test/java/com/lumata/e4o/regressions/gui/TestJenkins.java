@@ -22,16 +22,16 @@ import com.lumata.e4o.testing.common.TCOwners;
 	@TCOwner( name="Arcangelo Di Pasquale", email="arcangelo.dipasquale@lumatagroup.com" )
 )
 @Mail(
-		protocol = "smtp",
-		fromRecipient = "qa.e4o.all@lumatagroup.com",
-		toRecipients = { "arcangelo.dipasquale@lumatagroup.com" },
-		host = "internal.mailservices.lumata.int",
-		port = 25,
-		starttlsEnabled = false,
-		authorizationRequired = false,
-		user = "",
-		password = ""
-	)
+	protocol = "smtp",
+	fromRecipient = "qa.e4o.all@lumatagroup.com",
+	toRecipients = { "arcangelo.dipasquale@lumatagroup.com", "mauro.ripamonti@lumatagroup.com" },
+	host = "internal.mailservices.lumata.int",
+	port = 25,
+	starttlsEnabled = false,
+	authorizationRequired = false,
+	user = "",
+	password = ""
+)
 public class TestJenkins {
 
 	SeleniumWebDriver seleniumWebDriver;
