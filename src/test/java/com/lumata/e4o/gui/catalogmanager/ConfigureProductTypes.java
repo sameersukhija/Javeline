@@ -52,7 +52,7 @@ public class ConfigureProductTypes extends ParentUITestCase {
 
 		Reporter.log("Apply setup on UI.", PRINT2STDOUT__);
 
-		productTypesForm.addProductTypes();
+		//productTypesForm.addProductTypes();
 
 		Reporter.log("Check general status of form", PRINT2STDOUT__);
 
