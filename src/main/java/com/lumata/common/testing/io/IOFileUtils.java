@@ -155,10 +155,11 @@ public final class IOFileUtils {
 				
 				path = IOFileUtils.buildResourcePath( folder, resource );
 				
-				if ( new File(path).exists() )
+				if ( new File(path).exists() ) {
 					in = new FileInputStream(path);
-				else
+				} else {
 					in = Thread.currentThread().getContextClassLoader().getResourceAsStream( path );
+				}
 				
 				if( in == null ) { throw new IOFileException( "You cannot load a not existing resource ( null )" ); } 
 			}

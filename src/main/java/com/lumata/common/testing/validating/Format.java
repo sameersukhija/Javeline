@@ -208,11 +208,47 @@ public final class Format {
 		
 	}
 	
-	public static String getMysqlDateTime( Calendar date ) throws ParseException {
+	public static String getMysqlDateTime( Calendar datetime ) throws ParseException {
 		
 		DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
 			
-		return formatter.format( date.getTime() );
+		return formatter.format( datetime.getTime() );
+		
+	}
+	
+	public static Date getMysqlDate( String datetime ) throws ParseException {
+		
+		DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd" );
+		
+		Date date = formatter.parse( datetime );
+		
+		return date;
+		
+	}
+	
+	public static String getMysqlDate( Calendar datetime ) throws ParseException {
+		
+		DateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd" );
+			
+		return formatter.format( datetime.getTime() );
+		
+	}
+	
+	public static Date getMysqlTime( String datetime ) throws ParseException {
+		
+		DateFormat formatter = new SimpleDateFormat( "HH:mm:ss" );
+		
+		Date date = formatter.parse( datetime );
+		
+		return date;
+		
+	}
+	
+	public static String getMysqlTime( Calendar datetime ) throws ParseException {
+		
+		DateFormat formatter = new SimpleDateFormat( "HH:mm:ss" );
+			
+		return formatter.format( datetime.getTime() );
 		
 	}
 	
