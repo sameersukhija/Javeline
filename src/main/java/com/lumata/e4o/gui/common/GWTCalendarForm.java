@@ -69,6 +69,14 @@ public class GWTCalendarForm extends Form {
 		
 	}
 	
+	public GWTCalendarForm openById( String id ) throws FormException {
+		
+		clickId( id );
+		
+		return this;
+		
+	}
+	
 	public GWTCalendarForm openByName( String name ) throws FormException {
 		
 		clickName( name );

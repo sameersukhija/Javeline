@@ -6,8 +6,6 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.io.JSONUtils;
@@ -15,8 +13,6 @@ import com.lumata.common.testing.validating.Format;
 
 public class JsonConfig {
 
-	private static final Logger logger = LoggerFactory.getLogger( JsonConfig.class );
-	
 	protected JSONObject root;
 
 	public JsonConfig(String path, String jsonFile) throws JSONSException {

@@ -1,0 +1,30 @@
+{
+	"campaignModels": [
+		{
+			"enabled": true,
+			"name": "CMAllRuleAAutoAllocate",
+			"description": "CMAllRuleAAutoAllocate",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.RuleA", "value": null, "option":"Allocate offer immediately", "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		}
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+}

@@ -350,11 +350,11 @@ public abstract class ParentTestCase {
 		
 		try {
 			
-			mysqlGlobal = getMysqlInstance( mysqlGlobalName, "schemaGlobal", DEFAULT_SCHEMA_GLOBAL );
+			if( null != mysqlGlobalName && !mysqlGlobalName.isEmpty() ) { mysqlGlobal = getMysqlInstance( mysqlGlobalName, "schemaGlobal", DEFAULT_SCHEMA_GLOBAL ); }
 			
-			mysqlMaster = getMysqlInstance( mysqlMasterName, "schemaMaster", DEFAULT_SCHEMA_MASTER );
+			if( null != mysqlGlobalName && !mysqlGlobalName.isEmpty() ) { mysqlMaster = getMysqlInstance( mysqlMasterName, "schemaMaster", DEFAULT_SCHEMA_MASTER ); }
 			
-			mysqlReport = getMysqlInstance( mysqlReportName, "schemaReport", DEFAULT_SCHEMA_REPORT );			
+			if( null != mysqlGlobalName && !mysqlGlobalName.isEmpty() ) { mysqlReport = getMysqlInstance( mysqlReportName, "schemaReport", DEFAULT_SCHEMA_REPORT ); }			
 						
 		} catch( Exception e ) {
 			
