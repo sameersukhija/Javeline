@@ -1,16 +1,13 @@
 package com.lumata.e4o.regressions.gui;
-import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 import org.testng.Assert;
 import org.testng.Reporter;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.e4o.exceptions.FormException;
@@ -21,23 +18,19 @@ import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.e4o.testing.common.TCOwner;
 import com.lumata.e4o.testing.common.TCOwners;
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
+
 @TCOwners(
-		@TCOwner( name="Parvinder Bhogra", email="parvinder.bhogra@lumatagroup.com" )
-	)
+	@TCOwner( name="Parvinder Bhogra", email="parvinder.bhogra@lumatagroup.com" )
+)
 @TCSeleniumWebDriver
 public class TestProductTypeForm extends ParentTestCase{
 	
 	private ProductTypesForm productTypesForm;
 	private JSONProductTypes setupProductTypes = null;
-	@BeforeMethod
-	public void initProductTypeForm( Method method ) throws NetworkEnvironmentException, FormException {		
 	
-		seleniumWebDriver.setTestName( method.getName() );
-		
-	}
 	@Test(enabled=TEST_ENABLED)
 	@Parameters({"jsonFilePath","jsonFileName"})
-	public void testProductTypeCreation(@Optional String jsonFilePath, @Optional String jsonFileName) throws JSONSException,FormException
+	public void testProductTypeCreation(@Optional("input/catalogmanager/productTypes/") String jsonFilePath, @Optional("productTypeList") String jsonFileName) throws JSONSException,FormException
 	{
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Boolean status=false;
@@ -79,13 +72,13 @@ public class TestProductTypeForm extends ParentTestCase{
 				if(status==true)
 				{
 					Assert.assertTrue(status);
-					Reporter.log("Product Created Succesfully!");
+					Reporter.log("Product Types Created Succesfully!");
 				}
 				else
 				{
 					//Assert.assertTrue(status,"The creation of Product Failed!");
-					Assert.fail("The product creation Failed!");
-					Reporter.log("Creation of Product Failed!");
+					Assert.fail("The Product Types creation Failed!");
+					Reporter.log("Creation of Product Types Failed!");
 				}
 			}
 	

@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -29,6 +30,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
+import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
 
 public abstract class Form {
@@ -51,7 +53,29 @@ public abstract class Form {
 		
 	}
 	
-	public Calendar getDate( String dateStr ) {
+	public Form configureGWTCalendarById( String id, Calendar date ) throws FormException, JSONException {
+		
+		GWTCalendarForm.
+			create( selenium, timeout, interval ).
+			openById( id ).
+			setDate( date );
+		
+		return this;
+		
+	}
+	
+	public Form configureGWTCalendarByXPath( String xpath, Calendar date ) throws FormException, JSONException {
+		
+		GWTCalendarForm.
+			create( selenium, timeout, interval ).
+			openByXPath( xpath ).
+			setDate( date );
+		
+		return this;
+		
+	}
+	
+	public Calendar getDate( String dateStr ) throws FormException {
 		
 		Calendar date = Calendar.getInstance();
 		
@@ -59,14 +83,24 @@ public abstract class Form {
 	    
 		try {
 			
-			date.setTime( sdf.parse( dateStr ) );
+			if( PlaceHolderDate.getInstance( dateStr ).isPlaceHolderDate() ) {
+				
+				date = PlaceHolderDate.getInstance( dateStr ).parse();
+									
+			} else {
+								
+				date.setTime( sdf.parse( dateStr ) );
+		
+			}		
 		
 		} catch ( ParseException e ) {
 			
 			logger.error( e.getMessage(), e );
 			
+			throw new FormException( e.getMessage(), e );
+			
 		}
-		
+				
 		return date;
 		
 	}
@@ -708,9 +742,27 @@ public abstract class Form {
 	
 	}
 	
+	private Form sendKeys( SeleniumUtils.SearchBy by, String tag, Keys key ) throws FormException {
+		
+		lastWebElement = search( by, tag );
+		
+		lastWebElement.clear();
+		
+		lastWebElement.sendKeys( key );
+		
+		return this;
+	
+	}
+	
 	public Form sendKeysById( String id, String text ) throws FormException {
 		
 		return sendKeys( SeleniumUtils.SearchBy.ID, id, text ); 
+	
+	}
+	
+	public Form sendKeysById( String id, Keys key ) throws FormException {
+		
+		return sendKeys( SeleniumUtils.SearchBy.ID, id, key ); 
 	
 	}
 	

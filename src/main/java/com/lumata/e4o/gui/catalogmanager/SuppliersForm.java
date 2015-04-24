@@ -3,7 +3,6 @@ package com.lumata.e4o.gui.catalogmanager;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.openqa.selenium.WebElement;
 
@@ -22,7 +21,8 @@ public class SuppliersForm extends CatalogueManagerForm {
         ADD_TIMESTAMP_TO_FIELD;
 
     }; 
-public SuppliersForm( SeleniumWebDriver selenium, long timeout, long interval ) {
+
+    public SuppliersForm( SeleniumWebDriver selenium, long timeout, long interval ) {
 		
 		super(selenium, timeout, interval);
 		
@@ -33,7 +33,7 @@ public SuppliersForm( SeleniumWebDriver selenium, long timeout, long interval ) 
 		
 		super(selenium, timeout, interval);
 		
-		this.supplierCfg = supplierCfg;
+		setProductTypesCfg( supplierCfg );
 		
 	}	
 	
@@ -45,36 +45,44 @@ public SuppliersForm( SeleniumWebDriver selenium, long timeout, long interval ) 
 		
 	}
 	
-	public SuppliersForm addButton() throws FormException{
+	public SuppliersForm addButton() throws FormException {
 		super.clickXPath( "//button[@name='btn-add' and @title='Add supplier']" );
 		return this;
 	}
-	public SuppliersForm setSupplierName(String name) throws FormException{
+	
+	public SuppliersForm setSupplierName(String name) throws FormException {
 		this.sendKeysBycssSelector("input#gwt-debug-TextBox-SupplierPageView-nameTextBox", name);
 		return this;
 	}
-	public SuppliersForm setSupplierEmail(String email) throws FormException{
+	
+	public SuppliersForm setSupplierEmail(String email) throws FormException {
 		this.sendKeysById( "gwt-debug-TextBox-SupplierPageView-emailTextBox", email);
 		return this;
 	}
-	public SuppliersForm setSupplierPhone(String phone) throws FormException{
+	
+	public SuppliersForm setSupplierPhone(String phone) throws FormException {
 		this.sendKeysById( "gwt-debug-TextBox-SupplierPageView-phoneTextBox", phone);
 		return this;
 	}
-	public SuppliersForm setSupplierWebSite(String website) throws FormException{
+	
+	public SuppliersForm setSupplierWebSite(String website) throws FormException {
 		this.sendKeysById( "gwt-debug-TextBox-SupplierPageView-websiteTextBox", website);
 		return this;
 	}
-	public String getSupplierName() throws FormException{
+	
+	public String getSupplierName() throws FormException {
 		return this.getValueById("gwt-debug-TextBox-SupplierPageView-nameTextBox");
 	}
-	public String getSupplierEmail() throws FormException{
+	
+	public String getSupplierEmail() throws FormException {
 		return this.getValueById("gwt-debug-TextBox-SupplierPageView-emailTextBox");
 	}
-	public String getSupplierPhone(String phone) throws FormException{
+	
+	public String getSupplierPhone(String phone) throws FormException {
 		return this.getValueById("gwt-debug-TextBox-SupplierPageView-phoneTextBox");
 	}
-	public String getSupplierWebSite() throws FormException{
+	
+	public String getSupplierWebSite() throws FormException {
 		return this.getValueById("gwt-debug-TextBox-SupplierPageView-websiteTextBox");
 	}
 	
@@ -164,8 +172,9 @@ public SuppliersForm( SeleniumWebDriver selenium, long timeout, long interval ) 
 		return this;
 		
 	}
+	
 	//Gets the list of all the existing internal and external suppiers
-	public List<WebElement> getSupplierList() throws FormException{
+	public List<WebElement> getSupplierList() throws FormException {
 		String rootPath = "//div[text()='Supplier list']//ancestor::table[@class='tableList']";
 		String subPath = "//tr[contains(@class, 'contentRow cycle')]//td[@class='column_description']";
 
@@ -173,6 +182,7 @@ public SuppliersForm( SeleniumWebDriver selenium, long timeout, long interval ) 
 		return supplierList;
 		
 	}
+	
 	//verifies if the supplier created exists in the list of suppliers
 	public Boolean isSupplierInList( String supplierName ) throws FormException {
 		
@@ -191,5 +201,13 @@ public SuppliersForm( SeleniumWebDriver selenium, long timeout, long interval ) 
 		return false;
 		
 	} 
+	
+	public JSONSuppliers getProductTypesCfg() {
+		return this.supplierCfg;
+	}
+	
+	public void setProductTypesCfg( JSONSuppliers supplierCfg ) {
+		this.supplierCfg = supplierCfg;
+	}
 	
 }

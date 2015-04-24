@@ -1,21 +1,16 @@
 package com.lumata.e4o.regressions.gui;
 
-import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.Reporter;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.catalogmanager.SuppliersForm;
@@ -24,25 +19,18 @@ import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.e4o.testing.common.TCOwner;
 import com.lumata.e4o.testing.common.TCOwners;
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
+
 @TCOwners(
-		@TCOwner( name="Parvinder Bhogra", email="parvinder.bhogra@lumatagroup.com" )
-	)
+	@TCOwner( name="Parvinder Bhogra", email="parvinder.bhogra@lumatagroup.com" )
+)
 @TCSeleniumWebDriver
-public class TestSupplierForm extends ParentTestCase{
-	
+public class TestSupplierForm extends ParentTestCase {
 	
 	private JSONSuppliers setupSupplier=null;
-	/* 	Initialize TestCase Name */
-	@BeforeMethod
-	public void initSupplierForm( Method method ) throws NetworkEnvironmentException, FormException {		
-	
-		seleniumWebDriver.setTestName( method.getName() );
-		
-	}
 	
 	@Parameters({"sup_jsonFilePath","sup_jsonFileName"})
 	@Test( enabled=TEST_ENABLED, priority = 1 )
-	public void testSupplierCreation( @Optional("/input/catalogmanager/suppliers") String sup_jsonFilePath, @Optional("supplierList") String sup_jsonFileName) throws FormException, JSONException, JSONSException {
+	public void testSupplierCreation( @Optional("input/catalogmanager/suppliers") String sup_jsonFilePath, @Optional("supplierList") String sup_jsonFileName) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Supplier Form\".", LOG_TO_STD_OUT);
@@ -50,7 +38,7 @@ public class TestSupplierForm extends ParentTestCase{
 		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + sup_jsonFilePath;
 		String resourceFile = sup_jsonFileName;
 
-		Reporter.log("\"Product Types\" is filled with reosurce file : ",
+		Reporter.log("\"Supplier Form\" is filled with resource file : ",
 				LOG_TO_STD_OUT);
 		Reporter.log("Resource path -> " + resourcePath, LOG_TO_STD_OUT);
 		Reporter.log("Resource file -> " + resourceFile, LOG_TO_STD_OUT);
@@ -75,7 +63,7 @@ public class TestSupplierForm extends ParentTestCase{
 				}
 				else{
 					Assert.fail("The Supplier creation Failed!");
-					Reporter.log("Creation of Product Failed!",LOG_TO_STD_OUT);
+					Reporter.log("Creation of Supplier Failed!",LOG_TO_STD_OUT);
 				}
 			}
 		}

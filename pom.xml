@@ -495,7 +495,7 @@
 			        	<configuration>
 					        <suiteXmlFiles>
 					            <!-- suiteXmlFile>${suite}</suiteXmlFile -->
-					            <suiteXmlFile>./src/main/resources/testplan/regression-suite.xml</suiteXmlFile>
+					            <suiteXmlFile>./src/test/resources/testplan/regression-suite.xml</suiteXmlFile>
 					        </suiteXmlFiles>
 					        <parallel>false</parallel>
 			                <!--  properties>
@@ -549,7 +549,7 @@
 			        	<configuration>
 					        <suiteXmlFiles>
 					            <!-- suiteXmlFile>${suite}</suiteXmlFile -->
-					            <suiteXmlFile>./src/main/resources/testplan/regression-suite-custom-report.xml</suiteXmlFile>
+					            <suiteXmlFile>./src/test/resources/testplan/regression-suite-custom-report.xml</suiteXmlFile>
 					        </suiteXmlFiles>
 					        <parallel>false</parallel>
 			                <!--  properties>
@@ -603,7 +603,7 @@
 			        	<configuration>
 					        <suiteXmlFiles>
 					            <!-- suiteXmlFile>${suite}</suiteXmlFile -->
-					            <suiteXmlFile>./src/main/resources/testplan/regression-suite-custom-report-with-db-initialization.xml</suiteXmlFile>
+					            <suiteXmlFile>./src/test/resources/testplan/regression-suite-custom-report-with-db-initialization.xml</suiteXmlFile>
 					        </suiteXmlFiles>
 					        <parallel>false</parallel>
 			                <!--  properties>
