@@ -3,6 +3,7 @@ package com.lumata.e4o.testing.common;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +13,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+
+import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.Period;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.IReporter;
@@ -23,25 +28,56 @@ import org.testng.ITestResult;
 import org.testng.xml.XmlSuite;
 
 import com.lumata.common.testing.log.Log;
+import com.lumata.common.testing.network.Mail;
+import com.lumata.common.testing.network.MailClient;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-
+//configuration in case to use pod51015.outlook.com mail server
+//@Mail(
+//	protocol = "smtp",
+//	fromRecipient = "arcangelo.dipasquale@lumatagroup.com",
+//	toRecipients = { "arcangelo.dipasquale@lumatagroup.com" },
+//	host = "pod51015.outlook.com",
+//	port = 587,
+//	starttlsEnabled = true,
+//	authorizationRequired = true,
+//	user = "arcangelo.dipasquale@lumatagroup.com",
+//	password = ""
+//)
+@Mail(
+	protocol = "smtp",
+	fromRecipient = "qa.e4o.all@lumatagroup.com",
+	toRecipients = { "qa.e4o.all@lumatagroup.com" },
+	host = "internal.mailservices.lumata.int",
+	port = 25,
+	starttlsEnabled = false,
+	authorizationRequired = false,
+	user = "",
+	password = ""
+)
 public class TestNGReportListener implements IReporter  {
 
 	private static final Logger logger = LoggerFactory.getLogger( TestNGReportListener.class );
 	
+	private final String TEMPLATE_REPORT_FILE = "src/test/resources/templates/testing/testReportTpl.ftl";	
 	private final String OUTPUT_REPORT_DIR = System.getProperty( "user.dir" ) + "/output/reports/testsuite/";
 	
+	private final String PROJECT = "E4O";
+	private final String CUSTOMER = "QA";	
+	
+	private String release = "";
+	private String testEnvironment = "";
+	private String testPlatform = "Linux";
+	private String testBrowser = "Firefox";
 	private String testSuiteStartDate;
 	private String testSuiteEndDate;
 	private String testSuiteExecutionTime;
 	
-	final String PROJECT = "E4O";
-	final String RELEASE = "2.4.1.14.4";
-	final String CUSTOMER = "QA";	
+	
+	private Writer resultReport;
 	
 	private enum TestStatus {
 		SUCCESS, FAILURE, SKIP, STARTED		
@@ -52,11 +88,45 @@ public class TestNGReportListener implements IReporter  {
        
 		logger.info( Log.CREATING.createMessage( "TestNG report" ) );
 		
+//		XmlSuite xmlSuite = xmlSuites.get( 0 );
+//		
+//		Map<String,String> xmlSuiteParameters = xmlSuite.getAllParameters();
+		
 		for( ISuite suite : suites ) {
 			
 			Integer passed = 0;
 			Integer failed = 0;
 			Integer skipped = 0;
+			
+			release = suite.getParameter( "e4oReleaseParam" );
+			
+			JSONObject networkEnvironmentParams = new JSONObject( suite.getParameter( "networkEnvironmentParams" ) );
+			
+			if( null != networkEnvironmentParams && networkEnvironmentParams.has( "envFile" ) ) {
+			
+				testEnvironment = networkEnvironmentParams.getString( "envFile" );
+			
+			}
+			
+			JSONObject seleniumWebDriverParams = new JSONObject( suite.getParameter( "seleniumWebDriverParams" ) );
+			
+			if( null != seleniumWebDriverParams && seleniumWebDriverParams.has( "type" ) ) {
+			
+				if( seleniumWebDriverParams.getString( "type" ).equals( "local" ) ) {
+					
+					testPlatform = "LOCAL";
+					
+					testBrowser = seleniumWebDriverParams.getJSONObject( "local" ).getString( "browserName" );
+				
+				} else {
+					
+					testPlatform = seleniumWebDriverParams.getJSONObject( "remote" ).getJSONObject( "capability" ).getString( "platform" );;
+					
+					testBrowser = seleniumWebDriverParams.getJSONObject( "remote" ).getJSONObject( "capability" ).getString( "browserName" );				
+					
+				}
+			
+			}
 			
 			String suiteName = suite.getName();
 			
@@ -66,7 +136,7 @@ public class TestNGReportListener implements IReporter  {
 						
 			for ( ISuiteResult sr : suiteResults.values() ) {
 				
-				String reportFileName = getReportFileName( PROJECT, RELEASE, CUSTOMER, suiteName );
+				String reportFileName = getReportFileName( PROJECT, release, CUSTOMER, suiteName );
 								
 				ITestContext tc = sr.getTestContext();
 				
@@ -94,7 +164,9 @@ public class TestNGReportListener implements IReporter  {
 								
 			}
 	        		
-			createReport( PROJECT, RELEASE, CUSTOMER, suiteName, testSuite, passed, failed, skipped );
+			createReport( suiteName, testSuite, passed, failed, skipped );
+			
+			sendReport();
 			
 	       	//CustomReport cr = new CustomReport();
 			//cr.generateReport( xmlSuites, suites, outputDirectory );
@@ -138,7 +210,7 @@ public class TestNGReportListener implements IReporter  {
 			}
 			
 			TestCase testCase = new TestCase(
-				test.getTestClass().getName().replace( "com.lumata.e4o.regressions.", "" ),
+				test.getTestClass().getName().replace( "com.lumata.e4o.", "" ),
 				test.getName(),
 				TestStatus.values()[ ( test.getStatus() - 1 ) ].name(),
 				sdfms.format( startDate.getTime() ),
@@ -152,16 +224,19 @@ public class TestNGReportListener implements IReporter  {
 		
 	}
 	
-	private void createReport( String project, String release, String customer, String testSuiteName, List<TestCase> testSuite, Integer passed, Integer failed, Integer skipped  ) {
+	private void createReport( String testSuiteName, List<TestCase> testSuite, Integer passed, Integer failed, Integer skipped  ) {
 			
 		Configuration cfg = new Configuration();
 		try {
 		
-			Template template = cfg.getTemplate("src/main/resources/templates/testing/testReportTpl.ftl");
+			Template template = cfg.getTemplate( TEMPLATE_REPORT_FILE );
 		   
 			Map<String, Object> data = new HashMap<String, Object>();
-			data.put("project", project);
+			data.put("project", PROJECT);
 			data.put("release", release);
+			data.put("testEnvironment", testEnvironment);
+			data.put("testPlatform", WordUtils.capitalize( testPlatform.toLowerCase() ) );
+			data.put("testBrowser", WordUtils.capitalize( testBrowser.toLowerCase() ));
 			data.put("testSuite", testSuite);
 			data.put("testSuiteStartDate", testSuiteStartDate);
 			data.put("testSuiteEndDate", testSuiteEndDate);
@@ -170,14 +245,23 @@ public class TestNGReportListener implements IReporter  {
 			data.put("success", passed );
 			data.put("failure", failed );
 			data.put("skip", skipped );
+			
+			/**
+			 * generate report document
+			 */
+			resultReport = new StringWriter();
+			template.process(data, resultReport);
 						
+			/**
+			 * store report document
+			 */
 			Writer file = new FileWriter( 
-	        					new File( getReportFileName( PROJECT, RELEASE, CUSTOMER, testSuiteName ) ) 
+	        	new File( getReportFileName( PROJECT, release, CUSTOMER, testSuiteName ) ) 
 	        );
 	        
 	        template.process(data, file);
 	        file.flush();
-	        file.close();
+	        file.close();        
 		   	       
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -204,6 +288,22 @@ public class TestNGReportListener implements IReporter  {
 		
 		return outputReportFile.getAbsolutePath();
 		
+	}
+	
+	public void sendReport() {
+		
+		try {
+			
+			Mail mail = this.getClass().getAnnotation( Mail.class );
+			
+			if( null != mail ) { 
+				
+				MailClient.getInstance( mail ).send( "subject: test mail sending from jenkins" , resultReport.toString() ); 
+				
+			}
+			
+		} catch( MessagingException e ) {}
+
 	}
 	
 }

@@ -4,6 +4,7 @@ import javax.mail.MessagingException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.Optional;
@@ -41,11 +42,13 @@ import com.lumata.e4o.exceptions.FormException;
 )
 public class TestJenkins {
 
+	private final String SELENIUM_WEB_DRIVER_PARAMS = "{ 'type':'local', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'chrome' } } }";
+	
 	SeleniumWebDriver seleniumWebDriver;
 	
 	@Parameters("seleniumWebDriverParams")
-	@Test( enabled=true, priority = 1 )
-	public void checkSeleniumWebDriverFromJenkins( @Optional("") String seleniumWebDriverParams ) throws FormException, JSONException, JSONSException {
+	@Test( enabled=false, priority = 1 )
+	public void checkSeleniumWebDriverFromJenkins( @Optional( SELENIUM_WEB_DRIVER_PARAMS ) String seleniumWebDriverParams ) throws FormException, JSONException, JSONSException {
 		
 		JSONObject jo = new JSONObject( seleniumWebDriverParams );
 		
@@ -68,6 +71,13 @@ public class TestJenkins {
 			
 		} catch( MessagingException e ) {}
 
+	}
+	
+	@Test( enabled=true, priority = 3 )
+	public void generateResultReport() {
+		
+		Assert.assertTrue( true );
+		
 	}
 		
 	@AfterSuite

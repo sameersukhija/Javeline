@@ -9,7 +9,7 @@
   <parameter name="user" value="superman"/>
   
   <listeners>
-    <listener class-name="com.lumata.e4o.common.TestNGReportListener"/>
+    <listener class-name="com.lumata.e4o.testing.common.TestNGReportListener"/>
   </listeners>
   
   <test name="Regression GUI using Selenium">
