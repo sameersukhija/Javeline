@@ -16,6 +16,18 @@ import com.lumata.common.testing.network.MailClient;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
 
+// configuration in case to use pod51015.outlook.com mail server
+//@Mail(
+//	protocol = "smtp",
+//	fromRecipient = "qa-e4o.all@lumatagroup.com",
+//	toRecipients = { "arcangelo.dipasquale@lumatagroup.com" },
+//	host = "pod51015.outlook.com",
+//	port = 587,
+//	starttlsEnabled = true,
+//	authorizationRequired = true,
+//	user = "arcangelo.dipasquale@lumatagroup.com",
+//	password = ""
+//)
 @Mail(
 	protocol = "smtp",
 	fromRecipient = "qa.e4o.all@lumatagroup.com",
