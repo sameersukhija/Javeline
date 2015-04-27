@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class TestNGReportListener implements IReporter  {
 	
 	private final String TEMPLATE_REPORT_FILE = "src/test/resources/templates/testing/testReportTpl.ftl";	
 	private final String OUTPUT_REPORT_DIR = System.getProperty( "user.dir" ) + "/output/reports/testsuite/";
+	private final String FIXED_REPORT_FILE_NAME = "E4O_Regression_Suite_Report.html";
 	
 	private final String PROJECT = "E4O";
 	private final String CUSTOMER = "QA";	
@@ -166,7 +168,7 @@ public class TestNGReportListener implements IReporter  {
 	        		
 			createReport( suiteName, testSuite, passed, failed, skipped );
 			
-			sendReport();
+			sendReport( PROJECT, release, CUSTOMER, "Regression Suite" );
 			
 	       	//CustomReport cr = new CustomReport();
 			//cr.generateReport( xmlSuites, suites, outputDirectory );
@@ -253,7 +255,7 @@ public class TestNGReportListener implements IReporter  {
 			template.process(data, resultReport);
 						
 			/**
-			 * store report document
+			 * store email report document
 			 */
 			Writer file = new FileWriter( 
 	        	new File( getReportFileName( PROJECT, release, CUSTOMER, testSuiteName ) ) 
@@ -261,7 +263,18 @@ public class TestNGReportListener implements IReporter  {
 	        
 	        template.process(data, file);
 	        file.flush();
-	        file.close();        
+	        file.close();
+	        
+	        /**
+			 * store jenkins report document
+			 */
+			file = new FileWriter( 
+	        	new File( getFixedReportFileName() ) 
+	        );
+	        
+	        template.process(data, file);
+	        file.flush();
+	        file.close();	        
 		   	       
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -277,28 +290,49 @@ public class TestNGReportListener implements IReporter  {
 		
 		outputReportDir.mkdirs();
 		
-		File outputReportFile = new File( outputReportDir, project.toLowerCase() + 
+		String ts = new SimpleDateFormat("yyyyMMddHHmmss").format( new Timestamp( System.currentTimeMillis() ) );
+		
+		File outputReportFile = new File( outputReportDir, 
+				project + 
 				"_" +
-				customer.toLowerCase() + 
+				customer + 
 				"_" +
-				release.toLowerCase() + 
+				release + 
 				"_" +        							
-				"regression_report_" + testSuiteName + ".html"				
+				"Report_" + 
+				testSuiteName.replace( " ", "" ) + 
+				"_" + 
+				ts +
+				".html"				
 		);
 		
 		return outputReportFile.getAbsolutePath();
 		
 	}
 	
-	public void sendReport() {
+	private String getFixedReportFileName() {
+		
+		File outputReportDir = new File( OUTPUT_REPORT_DIR );
+		
+		outputReportDir.mkdirs();
+		
+		File outputReportFile = new File( outputReportDir, FIXED_REPORT_FILE_NAME );
+		
+		return outputReportFile.getAbsolutePath();
+		
+	}
+	
+	public void sendReport( String project, String release, String customer, String testSuiteName ) {
 		
 		try {
+			
+			String subject = testSuiteName + " " + project + " - " + customer + " ( " + release + " )";
 			
 			Mail mail = this.getClass().getAnnotation( Mail.class );
 			
 			if( null != mail ) { 
 				
-				MailClient.getInstance( mail ).send( "subject: test mail sending from jenkins" , resultReport.toString() ); 
+				MailClient.getInstance( mail ).send( subject , resultReport.toString() ); 
 				
 			}
 			
