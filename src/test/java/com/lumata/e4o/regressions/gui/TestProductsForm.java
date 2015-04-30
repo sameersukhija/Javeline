@@ -46,7 +46,7 @@ public class TestProductsForm extends ParentTestCase {
 	private Boolean pdtype_created=false;
 	
 	@Parameters({"supplier_jsonFilePath","supplier_jsonFileName","productType_jsonFilePath","productType_jsonFileName"})
-	@Test( enabled=TEST_ENABLED, priority = 1 )
+	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 1 )
 	public void testEndtoEndProductCreation( @Optional("input/catalogmanager/suppliers") String supplier_jsonFilePath, @Optional("supplierList") String supplier_jsonFileName,@Optional("input/catalogmanager/productTypes") String productType_jsonFilePath, @Optional("newProductType") String productType_jsonFileName) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);

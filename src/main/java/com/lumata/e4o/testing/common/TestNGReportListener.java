@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import org.testng.xml.XmlSuite;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.network.Mail;
 import com.lumata.common.testing.network.MailClient;
+import com.lumata.common.testing.network.RestClient;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -51,7 +53,8 @@ import freemarker.template.TemplateException;
 @Mail(
 	protocol = "smtp",
 	fromRecipient = "qa.e4o.all@lumatagroup.com",
-	toRecipients = { "qa.e4o.all@lumatagroup.com" },
+//	toRecipients = { "qa.e4o.all@lumatagroup.com" },
+	toRecipients = { "arcangelo.dipasquale@lumatagroup.com" },
 	host = "internal.mailservices.lumata.int",
 	port = 25,
 	starttlsEnabled = false,
@@ -68,7 +71,9 @@ public class TestNGReportListener implements IReporter  {
 	private final String FIXED_REPORT_FILE_NAME = "E4O_Regression_Suite_Report.html";
 	
 	private final String PROJECT = "E4O";
-	private final String CUSTOMER = "QA";	
+	private final String CUSTOMER = "QA";
+	
+	private final String JENKINS_JOB_URL = "http://ci.lumata.int/job/{jenkinsJobName}/{jenkinsBuildNumber}/api/json";
 	
 	private String release = "";
 	private String testEnvironment = "";
@@ -77,8 +82,17 @@ public class TestNGReportListener implements IReporter  {
 	private String testSuiteStartDate;
 	private String testSuiteEndDate;
 	private String testSuiteExecutionTime;
+	private Boolean testSuiteNotification = false;
 	
+	private String testJenkinsJobName = "";
+	private String testJenkinsBuildNumber = "";
+	private String testJenkinsBuildLink = "";
+	private String testJenkinsExecutionTime = "";
+	private Boolean testJenkinsExecution = false;
 	
+	private SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+	private SimpleDateFormat sdfms = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss.SSS" );
+
 	private Writer resultReport;
 	
 	private enum TestStatus {
@@ -135,10 +149,44 @@ public class TestNGReportListener implements IReporter  {
 			Map<String, ISuiteResult> suiteResults = suite.getResults();
 			
 			List<TestCase> testSuite = new ArrayList<TestCase>();
-						
+			
+			Date suiteStartDate = null;
+			
+			Date suiteEndDate = null;
+			
 			for ( ISuiteResult sr : suiteResults.values() ) {
 				
-				String reportFileName = getReportFileName( PROJECT, release, CUSTOMER, suiteName );
+				Date suiteCurrStartDate = sr.getTestContext().getStartDate();
+				
+				Date suiteCurrEndDate = sr.getTestContext().getEndDate();
+								
+				if( null == suiteStartDate ) { 
+					
+					suiteStartDate = suiteCurrStartDate;
+					
+				} else {
+					
+					if( suiteCurrStartDate.before( suiteStartDate ) ) {
+						
+						suiteStartDate = suiteCurrStartDate;
+						
+					}
+					
+				}
+				
+				if( null == suiteEndDate ) { 
+					
+					suiteEndDate = suiteCurrEndDate;
+					
+				} else {
+					
+					if( suiteCurrEndDate.after( suiteEndDate ) ) {
+						
+						suiteEndDate = suiteCurrEndDate;
+						
+					}
+					
+				}
 								
 				ITestContext tc = sr.getTestContext();
 				
@@ -161,16 +209,103 @@ public class TestNGReportListener implements IReporter  {
 					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
 					
 				}
-				
-				logger.info( Log.SAVED.createMessage( "TestNG suite report ( " + reportFileName + " )" ) );
-								
+											
 			}
-	        		
+	        			
+			if( null != suiteStartDate ) { 
+				
+				testSuiteStartDate = sdf.format( suiteStartDate );
+				
+			}
+			
+			if( null != suiteEndDate ) { 
+				
+				testSuiteEndDate = sdf.format( suiteEndDate );
+				
+			}
+			
+			if( null != testSuiteStartDate &&
+				!testSuiteStartDate.isEmpty() &&
+				null != testSuiteEndDate &&
+				!testSuiteEndDate.isEmpty()	
+			) {
+				
+				Period executionTime;
+				try {
+					
+					executionTime = new Period( sdf.parse( testSuiteStartDate ).getTime(), sdf.parse( testSuiteEndDate ).getTime() );
+
+					testSuiteExecutionTime = 	String.format( "%02d", executionTime.getHours() ) + ":" + 
+							String.format( "%02d", executionTime.getMinutes() ) + ":" + 
+							String.format( "%02d", executionTime.getSeconds() );
+
+				} catch (ParseException e) {
+					
+					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+				
+				}				
+				
+			}
+			
+			try {
+				
+				testJenkinsJobName = System.getProperty( "jenkinsJobName" );
+				
+				testJenkinsBuildNumber = System.getProperty( "jenkinsBuildNumber" );
+				
+				testJenkinsExecution = ( 
+					null != testJenkinsJobName && 
+					!testJenkinsJobName.isEmpty() && 
+					null != testJenkinsBuildNumber && 
+					!testJenkinsBuildNumber.isEmpty() ?											
+					true :
+					false 
+				);
+				
+
+				if( testJenkinsExecution ) {
+					
+					String jenkinsUrl = JENKINS_JOB_URL.replace( "{jenkinsJobName}" , testJenkinsJobName ).replace( "{jenkinsBuildNumber}" , testJenkinsBuildNumber ); 
+					
+					RestClient rc = new RestClient();
+					
+					try {
+						
+						JSONObject jenkinsInfo = new JSONObject( rc.get( jenkinsUrl ).getEntity() );
+						
+						Period jenkinsExecutionTime = new Period( jenkinsInfo.getLong( "duration" ) );
+
+						testJenkinsExecutionTime = String.format( "%02d", jenkinsExecutionTime.getHours() ) + ":" + 
+								String.format( "%02d", jenkinsExecutionTime.getMinutes() ) + ":" + 
+								String.format( "%02d", jenkinsExecutionTime.getSeconds() );
+
+						testJenkinsBuildLink = jenkinsInfo.getString( "url" );
+						
+						System.out.println( jenkinsInfo );
+						
+					} catch (Exception e) {
+					
+						logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+					
+					}
+					
+				}
+							
+			} catch ( Exception e ) {
+			
+				logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+				
+			}
+					
+			String reportFileName = getReportFileName( PROJECT, release, CUSTOMER, suiteName );
+			
 			createReport( suiteName, testSuite, passed, failed, skipped );
 			
-			sendReport( PROJECT, release, CUSTOMER, "Regression Suite" );
+			logger.info( Log.SAVED.createMessage( "TestNG suite report ( " + reportFileName + " )" ) );
 			
-	       	//CustomReport cr = new CustomReport();
+			sendReport( PROJECT, release, CUSTOMER, "Regression Suite" );
+				
+			//CustomReport cr = new CustomReport();
 			//cr.generateReport( xmlSuites, suites, outputDirectory );
 	      
 	    }
@@ -178,27 +313,9 @@ public class TestNGReportListener implements IReporter  {
 	}
 	
 	private void addTestsResult( List<TestCase> testSuite, List<ITestResult> testResultSuite ) throws ParseException {
-		
-		SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
-		SimpleDateFormat sdfms = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss.SSS" );
-		
+				
 		for( ITestResult test : testResultSuite ) {
-			
-			if( 
-				null == testSuiteStartDate || 
-				sdf.parse( testSuiteStartDate ).before( test.getTestContext().getStartDate() ) 
-			) { testSuiteStartDate = sdf.format( test.getTestContext().getStartDate() ); }
-			if( 
-				null == testSuiteEndDate || 
-				sdf.parse( testSuiteEndDate ).before( test.getTestContext().getEndDate() )
-			) { testSuiteEndDate = sdf.format( test.getTestContext().getEndDate() ); }
-			
-			Period executionTime = new Period( sdf.parse( testSuiteStartDate ).getTime(), sdf.parse( testSuiteEndDate ).getTime() );
-			
-			testSuiteExecutionTime = 	String.format( "%02d", executionTime.getHours() ) + ":" + 
-										String.format( "%02d", executionTime.getMinutes() ) + ":" + 
-										String.format( "%02d", executionTime.getSeconds() );
-			
+		
 			Calendar startDate = Calendar.getInstance();
 		    startDate.setTimeInMillis( test.getStartMillis() );
 
@@ -247,10 +364,17 @@ public class TestNGReportListener implements IReporter  {
 			data.put("success", passed );
 			data.put("failure", failed );
 			data.put("skip", skipped );
-			
+			data.put("testJenkinsExecution", testJenkinsExecution);
+			data.put("testJenkinsJobName", testJenkinsJobName);
+			data.put("testJenkinsBuildNumber", testJenkinsBuildNumber);
+			data.put("testJenkinsBuildLink", testJenkinsBuildLink);
+			data.put( "testJenkinsExecutionTime", testJenkinsExecutionTime );
+						
 			/**
 			 * generate report document
 			 */
+			testSuiteNotification = true;
+			data.put("testSuiteNotification", testSuiteNotification);
 			resultReport = new StringWriter();
 			template.process(data, resultReport);
 						
@@ -268,7 +392,9 @@ public class TestNGReportListener implements IReporter  {
 	        /**
 			 * store jenkins report document
 			 */
-			file = new FileWriter( 
+	        testSuiteNotification = false;
+	        data.put("testSuiteNotification", testSuiteNotification);
+	        file = new FileWriter( 
 	        	new File( getFixedReportFileName() ) 
 	        );
 	        

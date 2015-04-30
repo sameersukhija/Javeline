@@ -44,7 +44,7 @@ public class TestCampaignsForm extends ParentTestCase {
 		
 	}
 			
-	@Test( enabled=TEST_ENABLED, priority = 1 )
+	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 1 )
 	public void checkMandatoryFields1() throws FormException, JSONException, JSONSException {
 		
 		Calendar startDate = Calendar.getInstance();

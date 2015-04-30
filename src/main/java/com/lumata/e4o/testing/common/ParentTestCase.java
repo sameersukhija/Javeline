@@ -99,6 +99,11 @@ public abstract class ParentTestCase {
 	protected final String DEFAULT_BROWSER = "FIREFOX";
 	
 	/**
+	 * 	Default timeout before a testng test failure 
+	 */
+	protected final long TESTNG_TIMEOUT = 600000L;
+	
+	/**
 	 * 	Default timeout before a test failure 
 	 * 	in case the selenium web driver 
 	 * 	doesn't discover an element

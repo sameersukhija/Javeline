@@ -35,7 +35,7 @@ public class TestTokenTypeForm extends ParentTestCase {
 		
 	}
 	
-	@Test( enabled=TEST_ENABLED, priority = 1 )
+	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 1 )
 	public void checkMandatoryFields1() throws FormException, JSONException, JSONSException {
 		
 		final String TOKEN_TYPE_NAME = Format.addTimestamp( "TType_" );
@@ -116,7 +116,7 @@ public class TestTokenTypeForm extends ParentTestCase {
 	
 	}
 	
-	@Test( enabled=TEST_ENABLED, priority = 2 )
+	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 2 )
 	public void checkMandatoryFields2() throws FormException, JSONException, JSONSException {
 		
 		final String TOKEN_TYPE_NAME = Format.addTimestamp( "TType_" );
@@ -220,7 +220,7 @@ public class TestTokenTypeForm extends ParentTestCase {
 	
 	}
 	
-	@Test( enabled=TEST_ENABLED, priority = 3 )
+	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 3 )
 	public void checkDuplicatedTokenType() throws FormException, JSONException, JSONSException {
 			
 		String TOKEN_TYPE_NAME = tokenTypeForm.openForm().getTokenTypeNameByIndex( 0 );		

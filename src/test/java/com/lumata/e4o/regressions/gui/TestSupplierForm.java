@@ -29,7 +29,7 @@ public class TestSupplierForm extends ParentTestCase {
 	private JSONSuppliers setupSupplier=null;
 	
 	@Parameters({"sup_jsonFilePath","sup_jsonFileName"})
-	@Test( enabled=TEST_ENABLED, priority = 1 )
+	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 1 )
 	public void testSupplierCreation( @Optional("input/catalogmanager/suppliers") String sup_jsonFilePath, @Optional("supplierList") String sup_jsonFileName) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);

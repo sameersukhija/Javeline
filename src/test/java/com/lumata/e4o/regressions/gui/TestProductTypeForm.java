@@ -28,7 +28,7 @@ public class TestProductTypeForm extends ParentTestCase{
 	private ProductTypesForm productTypesForm;
 	private JSONProductTypes setupProductTypes = null;
 	
-	@Test(enabled=TEST_ENABLED)
+	@Test(enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT)
 	@Parameters({"jsonFilePath","jsonFileName"})
 	public void testProductTypeCreation(@Optional("input/catalogmanager/productTypes/") String jsonFilePath, @Optional("productTypeList") String jsonFileName) throws JSONSException,FormException
 	{

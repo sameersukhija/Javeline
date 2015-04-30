@@ -9,7 +9,7 @@
 			body {
 				background-color: black;
 			}
-			table, th, td, span {
+			table, th, tr, td, span {
    				border: 1px solid black;
 			}
 			table {
@@ -17,7 +17,7 @@
 				border-collapse: collapse;
 				border-spacing: 3px;				
 			}
-			th, td { 
+			th, tr, td { 
     			padding: 5px;
 			}			
 			.test-success {
@@ -58,6 +58,7 @@
 			</thead>
 			<thead>
 				<tr><th colspan="6">Environment ( ${testEnvironment} ) - Platform ( ${testPlatform} ) - Browser ( ${testBrowser} )</th></tr>
+			  	<#if (testJenkinsExecution)!false><tr><th colspan="6">Job ( ${testJenkinsJobName} ) - Build ( <a href="${testJenkinsBuildLink}">${testJenkinsBuildNumber}</a> ) - Job Execution Time ( ${testJenkinsExecutionTime} ) </th></tr></#if>			  	
 			  	<tr><th colspan="6">Start Date ( ${testSuiteStartDate} ) - End Date ( ${testSuiteEndDate} ) - Execution Time ( ${testSuiteExecutionTime} )</th></tr>
 			  	<tr><th colspan="6">Total ( ${total} ) - Success ( ${success} ) - Failure ( ${failure} ) - Skip ( ${skip} )</th></tr>
 			</thead>
@@ -78,7 +79,7 @@
 						<td>${testCase.testMethodName}</td>
 						<td>${testCase.testStartDate}</td>
 						<td>${testCase.testExecutionTime} ms</td>
-						<td <#if testCase.testStatus == 'FAILURE'>onclick="changeText('failure_${testCase_index + 1}')" </#if>class="<#if testCase.testStatus == 'SUCCESS'>test-success<#elseif testCase.testStatus == 'FAILURE'>test-failure<#else>test-skip</#if>">${testCase.testStatus}</td>
+						<td <#if testCase.testStatus == 'FAILURE' && !testCase.testSuiteNotification>onclick="changeText('failure_${testCase_index + 1}')" </#if>class="<#if testCase.testStatus == 'SUCCESS'>test-success<#elseif testCase.testStatus == 'FAILURE'>test-failure<#else>test-skip</#if>">${testCase.testStatus}</td>
 					</tr>
 					<tr id="failure_${testCase_index + 1}" style="display: none;">
 			  			<td colspan="6" style="font-size: 12px;">${testCase.testStackTrace}</td>				     
