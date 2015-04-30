@@ -338,7 +338,7 @@ public class TestNGReportListener implements IReporter  {
 			    for (int i=0; i < stel.length; i++) { stacktrace.append( stel[i].toString() + "</br>" ); }
 			    			    
 			}
-			
+			System.out.println( TestStatus.values()[ ( test.getStatus() - 1 ) ].name() );
 			TestCase testCase = new TestCase(
 				test.getTestClass().getName().replace( "com.lumata.e4o.", "" ),
 				test.getName(),
@@ -391,9 +391,11 @@ public class TestNGReportListener implements IReporter  {
 			template.process(data, resultReport);
 						
 			/**
-			 * store email report document
+			 * store email report document - with dynamic file name
 			 */
-			Writer file = new FileWriter( 
+			testSuiteNotification = false;
+	        data.put("testSuiteNotification", testSuiteNotification);
+	        Writer file = new FileWriter( 
 	        	new File( getReportFileName( PROJECT, release, CUSTOMER, testSuiteName ) ) 
 	        );
 	        
@@ -402,10 +404,8 @@ public class TestNGReportListener implements IReporter  {
 	        file.close();
 	        
 	        /**
-			 * store jenkins report document
+			 * store jenkins report document - with static file name to show in jenkins
 			 */
-	        testSuiteNotification = false;
-	        data.put("testSuiteNotification", testSuiteNotification);
 	        file = new FileWriter( 
 	        	new File( getFixedReportFileName() ) 
 	        );
@@ -464,7 +464,22 @@ public class TestNGReportListener implements IReporter  {
 		
 		try {
 			
-			String subject = testSuiteName + " " + project + " - " + customer + " ( " + release + " )";
+			String subject = 	testSuiteName + 
+								" " + project + 
+								" - " + 
+								customer + 
+								" ( " + 
+								release +								 
+								" )" +								
+								( 	null != testJenkinsBuildNumber && 
+									null != testSuiteStatus && 
+									!testSuiteStatus.isEmpty() ? 
+									" [ " +
+									( null != testJenkinsBuildNumber ? "build " + testJenkinsBuildNumber : "" ) +
+									( null != testSuiteStatus && !testSuiteStatus.isEmpty() ? ( null != testJenkinsBuildNumber ? " - " : "" ) + testSuiteStatus.toLowerCase() : "" ) +
+									" ] " : 
+									""
+								);
 			
 			Mail mail = this.getClass().getAnnotation( Mail.class );
 			

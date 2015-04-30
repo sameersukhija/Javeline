@@ -104,7 +104,7 @@
 						<td>${testCase.testMethodName}</td>
 						<td>${testCase.testStartDate}</td>
 						<td>${testCase.testExecutionTime} ms</td>
-						<td <#if testCase.testStatus == 'FAILURE' && !testCase.testSuiteNotification>onclick="changeText('failure_${testCase_index + 1}')" </#if>class="<#if testCase.testStatus == 'SUCCESS'>test-success<#elseif testCase.testStatus == 'FAILURE'>test-failure<#else>test-skip</#if>">${testCase.testStatus}</td>
+						<td <#if testCase.testStatus == 'FAILURE' && !testSuiteNotification>onclick="changeText('failure_${testCase_index + 1}')"</#if>class="<#if testCase.testStatus == 'SUCCESS'>test-success<#elseif testCase.testStatus == 'FAILURE'>test-failure<#else>test-skip</#if>">${testCase.testStatus}</td>
 					</tr>
 					<tr id="failure_${testCase_index + 1}" style="display: none;">
 			  			<td colspan="6" style="font-size: 12px;">${testCase.testStackTrace}</td>				     
