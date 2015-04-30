@@ -83,8 +83,8 @@
 			</thead>
 			<thead>
 				<tr><th colspan="6">Environment ( ${testEnvironment} ) - Platform ( ${testPlatform} ) - Browser ( ${testBrowser} )</th></tr>
-			  	<#if (testJenkinsExecution)!false><tr><th colspan="6">Job ( ${testJenkinsJobName} ) - Build ( <a href="${testJenkinsBuildLink}">${testJenkinsBuildNumber}</a> ) - Job Execution Time ( ${testJenkinsExecutionTime} ) </th></tr></#if>			  	
 			  	<tr><th colspan="6">Start Date ( ${testSuiteStartDate} ) - End Date ( ${testSuiteEndDate} ) - Execution Time ( ${testSuiteExecutionTime} )</th></tr>
+			  	<#if (testJenkinsExecution)!false><tr><th colspan="6">Job ( ${testJenkinsJobName} ) - Build ( <a href="${testJenkinsBuildLink}">${testJenkinsBuildNumber}</a> ) - Job Execution Time ( ${testJenkinsExecutionTime} ) </th></tr></#if>			  	
 			  	<tr><th colspan="6">Total ( ${total} ) - Success ( ${success} ) - Failure ( ${failure} ) - Skip ( ${skip} )</th></tr>
 			</thead>
 			<thead>
