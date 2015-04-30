@@ -53,8 +53,8 @@ import freemarker.template.TemplateException;
 @Mail(
 	protocol = "smtp",
 	fromRecipient = "qa.e4o.all@lumatagroup.com",
-//	toRecipients = { "qa.e4o.all@lumatagroup.com" },
-	toRecipients = { "arcangelo.dipasquale@lumatagroup.com" },
+	toRecipients = { "qa.e4o.all@lumatagroup.com" },
+//	toRecipients = { "arcangelo.dipasquale@lumatagroup.com" },
 	host = "internal.mailservices.lumata.int",
 	port = 25,
 	starttlsEnabled = false,
@@ -271,11 +271,9 @@ public class TestNGReportListener implements IReporter  {
 					
 					try {
 						
-						Thread.sleep( 2000 );
-						
 						JSONObject jenkinsInfo = new JSONObject( rc.get( jenkinsUrl ).getEntity() );
 						
-						Period jenkinsExecutionTime = new Period( jenkinsInfo.getLong( "duration" ) );
+						Period jenkinsExecutionTime = new Period( jenkinsInfo.getLong( "estimatedDuration" ) );
 
 						testJenkinsExecutionTime = String.format( "%02d", jenkinsExecutionTime.getHours() ) + ":" + 
 								String.format( "%02d", jenkinsExecutionTime.getMinutes() ) + ":" + 
