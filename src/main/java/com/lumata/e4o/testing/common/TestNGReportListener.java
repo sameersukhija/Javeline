@@ -271,6 +271,8 @@ public class TestNGReportListener implements IReporter  {
 					
 					try {
 						
+						Thread.sleep( 2000 );
+						
 						JSONObject jenkinsInfo = new JSONObject( rc.get( jenkinsUrl ).getEntity() );
 						
 						Period jenkinsExecutionTime = new Period( jenkinsInfo.getLong( "duration" ) );
