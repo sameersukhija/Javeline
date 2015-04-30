@@ -36,8 +36,33 @@
 			.font {
 				font-family: "Trebuchet MS", Helvetica, sans-serif;
 			}
+			.fs-18 {
+				font-size: 18px;
+			}
+			.fs-20 {
+				font-size: 20px;
+			}
 			.font-center {
 				text-align:center;
+			}
+			.status-label {
+				font-size: 18px; 
+				margin-left: 20px; 
+				padding: 3px 10px;
+				-webkit-border-radius: 5px;
+				-moz-border-radius: 5px;
+				border-radius: 5px;
+			}
+			.no-border {
+				border-style:none;
+			}
+			.status-unstable {
+				background-color: #FC7F26; 
+				color: white;
+			}
+			.status-stable {
+				background-color: green; 
+				color: white;
 			}
 		</style>
 		<script>
@@ -53,7 +78,7 @@
 		<table style="margin:auto; width:80%;" class="font">
 			<thead>
 			 	<tr>
-			    	<th colspan="6" style="font-size: 20px;">${project} - Regression Suite ( ${release} )</th>				     
+			    	<th colspan="6" class="fs-20"><span class="no-border">${project} - Regression Suite ( ${release} )</span><span class="fs-18 no-border status-label <#if testSuiteStatus == 'STABLE'>status-stable<#else>status-unstable</#if>">${testSuiteStatus}</span></th>				     
 			  	</tr>
 			</thead>
 			<thead>

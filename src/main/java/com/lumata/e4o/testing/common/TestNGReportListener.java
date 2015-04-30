@@ -83,6 +83,7 @@ public class TestNGReportListener implements IReporter  {
 	private String testSuiteEndDate;
 	private String testSuiteExecutionTime;
 	private Boolean testSuiteNotification = false;
+	private String testSuiteStatus = "";
 	
 	private String testJenkinsJobName = "";
 	private String testJenkinsBuildNumber = "";
@@ -296,7 +297,17 @@ public class TestNGReportListener implements IReporter  {
 				logger.error( Log.FAILED.createMessage( e.getMessage() ) );
 				
 			}
-					
+			
+			if( failed > 0 ) {
+				
+				testSuiteStatus = "UNSTABLE";
+				
+			} else {
+				
+				testSuiteStatus = "STABLE";
+				
+			}
+			
 			String reportFileName = getReportFileName( PROJECT, release, CUSTOMER, suiteName );
 			
 			createReport( suiteName, testSuite, passed, failed, skipped );
@@ -360,6 +371,7 @@ public class TestNGReportListener implements IReporter  {
 			data.put("testSuiteStartDate", testSuiteStartDate);
 			data.put("testSuiteEndDate", testSuiteEndDate);
 			data.put( "testSuiteExecutionTime", testSuiteExecutionTime );
+			data.put( "testSuiteStatus", testSuiteStatus );
 			data.put("total", ( passed + failed + skipped ) );
 			data.put("success", passed );
 			data.put("failure", failed );
