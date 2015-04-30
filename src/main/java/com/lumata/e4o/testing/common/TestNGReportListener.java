@@ -282,7 +282,7 @@ public class TestNGReportListener implements IReporter  {
 
 						testJenkinsBuildLink = jenkinsInfo.getString( "url" );
 						
-						System.out.println( jenkinsInfo );
+						//System.out.println( jenkinsInfo );
 						
 					} catch (Exception e) {
 					
