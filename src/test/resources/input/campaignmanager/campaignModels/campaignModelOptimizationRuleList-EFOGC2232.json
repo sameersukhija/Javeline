@@ -1,0 +1,190 @@
+{
+	"campaignModels": [
+		{
+			"enabled": true,
+			"name": "CMAllRules",
+			"description": "CMAllRules",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.Rule100sec", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.Rule100min", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.Rule100hours", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.Rule1day", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.Rule10days", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.RuleAbsoluteToday", "value": null, "option":null, "time": null, "delete": false },
+						{ "name": "Rulesets.RuleAbsoluteFuture", "value": null, "option":null, "time": null, "delete": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMRule100sec",
+			"description": "CMRule100sec",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.Rule100sec", "value": null, "option":null, "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMRule100min",
+			"description": "CMRule100min",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.Rule100min", "value": null, "option":null, "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMRule100hours",
+			"description": "CMRule100hours",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.Rule100hours", "value": null, "option":null, "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMRule1day",
+			"description": "CMRule1day",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.Rule1day", "value": null, "option":null, "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMRule10days",
+			"description": "CMRule10days",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.Rule10days", "value": null, "option":null, "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMRuleAbsoluteToday",
+			"description": "CMRuleAbsoluteToday",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.RuleAbsoluteToday", "value": null, "option":null, "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		},{
+			"enabled": true,
+			"name": "CMRuleAbsoluteFuture",
+			"description": "CMRuleAbsoluteFuture",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT_CANCEL"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.RuleAbsoluteFuture", "value": null, "option":null, "time": null, "delete": false }
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		}
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+}

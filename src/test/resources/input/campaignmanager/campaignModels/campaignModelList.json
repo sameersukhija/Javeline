@@ -1,0 +1,31 @@
+{
+	"campaignModels": [
+		{
+			"enabled": true,
+			"name": "CMAllEvents",
+			"description": "CMAllEvents",
+			"campaignType": "",
+			"useHierarchy": false,
+			"errorActions": {
+				"elementAlreadyExists": "ABORT"			
+			},
+			"events": [				
+				{	
+					"eventType":"Revenue", 
+					"criteria": null, 
+					"actions": [
+						{ "name": "Rulesets.RuleA", "value": null, "option":null, "time": null, "delete": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		}
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+	
+}

@@ -41,6 +41,12 @@ public class JSONCampaignModel extends JsonConfig {
 	public String getDescription() throws JSONException {
 		return currentCampaignModel.getStringFromPath( "description" );
 	}
+	public String getcampaignType() throws JSONException {
+		return currentCampaignModel.getStringFromPath( "campaignType" );
+	}
+	public Boolean getuseHierarchy() throws JSONException {
+		return currentCampaignModel.getBooleanFromPath( "useHierarchy" );
+	}
 	
 	public Map<String, JSONEvent_> getEvents() throws JSONException { 		
     	
