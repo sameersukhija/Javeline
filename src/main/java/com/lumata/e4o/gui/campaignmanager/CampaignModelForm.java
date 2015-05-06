@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import com.lumata.e4o.gui.common.NotificationForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONAction;
 import com.lumata.e4o.json.gui.campaignmanager.JSONActionTime;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCriteria;
 import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
 import com.lumata.e4o.json.gui.campaignmanager.JSONNotification;
 
@@ -47,6 +49,11 @@ public class CampaignModelForm extends CampaignManagerForm {
 		this.campaignModelCfg = campaignModelCfg;
 		
 	}
+public CampaignModelForm( SeleniumWebDriver selenium,long timeout, long interval ) {
+		
+		super(selenium, timeout, interval);
+
+	}
 	
 	public CampaignModelForm open() throws FormException {
 		
@@ -55,25 +62,57 @@ public class CampaignModelForm extends CampaignManagerForm {
 		return this;
 		
 	}
-
+	public CampaignModelForm campaignModelAddButton() throws FormException{
+		super.clickId("gwt-debug-BtnCampaignModelAdd");
+		return this;
+		
+	}
+	public CampaignModelForm setModelName(String name) throws FormException{
+		super.sendKeysById( "gwt-debug-InputCampaignModelCreationName", name);
+		return this;
+		
+	}
+	public String getModelName() throws FormException{
+		return super.getValueById("gwt-debug-InputCampaignModelCreationName");
+		
+	}
+	public CampaignModelForm setModelDescription(String description) throws FormException{
+		super.sendKeysById( "gwt-debug-InputCampaignModelCreationDescription", description);
+		return this;
+		
+	}
+	public String getModelDescription() throws FormException{
+		return super.getValueById("gwt-debug-InputCampaignModelCreationDescription");
+		
+	}
+	public CampaignModelForm setModelType(String type) throws FormException{
+		super.selectByIdAndVisibleText("gwt-debug-ListCampaignModelCreationType", type);
+		return this;
+		
+	}
+	public String getModelType() throws FormException{
+		return super.getValueById("gwt-debug-ListCampaignModelCreationType");
+		
+	}
+	public CampaignModelForm setUseHierarchy() throws FormException{
+		super.clickId("gwt-debug-CheckCampaignModelCreationUseHierarchy-input");
+		return this;
+	}
+	public CampaignModelForm configureEventType(String eventType) throws FormException{
+		super.selectByIdAndVisibleText("gwt-debug-ListCampaignModelCreationETType", eventType);
+		return this;
+	}
+	public CampaignModelForm addActionButton() throws FormException{
+		super.clickId("gwt-debug-BtnCampaignModelCreationEAAdd");
+		return this;
+	}
 	public CampaignModelForm addCampaignModels() throws FormException, JSONException {
 		
-		JSONArray campaignModels = campaignModelCfg.getList();
 		
-		for( int camapignModelIndex = 0; camapignModelIndex < campaignModels.length(); camapignModelIndex++ ) {
-			
-			campaignModelCfg.setCampaignModelById( camapignModelIndex );
-			
-			if( isActive() ) {
-			
-				clickId( "gwt-debug-BtnCampaignModelAdd" ).
-				configureCampaignModel().
-				saveCampaignModel().manageErrorAction( campaignModelCfg.getErrorActions().getString( "ELEMENT_ALREADY_EXISTS" ) );
+				//configureCampaignModel().
+				//saveCampaignModel().manageErrorAction( campaignModelCfg.getErrorActions().getString( "ELEMENT_ALREADY_EXISTS" ) );
 				
-			}
 					
-		}
-		
 		return this;
 		
 	}
@@ -123,12 +162,18 @@ public class CampaignModelForm extends CampaignManagerForm {
 		
 	}
 	
-	public CampaignModelForm configureCampaignModel() throws FormException, JSONException {
+	public CampaignModelForm configureCampaignModel(String name, String description,String type,Boolean check) throws FormException, JSONException {
 		
-		sendKeysById( "gwt-debug-InputCampaignModelCreationName", campaignModelCfg.getName() ).
-		sendKeysById( "gwt-debug-InputCampaignModelCreationDescription", campaignModelCfg.getDescription() ).
-		addEvents();
-		
+		setModelName(name);
+		if(null!=description)
+			setModelDescription(description);
+		if(null!=type)
+			setModelType(type);
+		if(check==true)
+			setUseHierarchy();
+		//addEvents(events);
+		//configureEventType(event);
+		//addActionButton();
 				
 		/*
 	
@@ -229,9 +274,9 @@ public class CampaignModelForm extends CampaignManagerForm {
 
 	}
 
-	public CampaignModelForm addEvents() throws JSONException, FormException {
+	public CampaignModelForm addEvents(Map<String, JSONEvent_> events) throws JSONException, FormException {
 		
-		Map<String, JSONEvent_> events = campaignModelCfg.getEvents();
+		//Map<String, JSONEvent_> events = campaignModelCfg.getEvents();
 		
 		int eventRow = 1;
 		
@@ -239,7 +284,7 @@ public class CampaignModelForm extends CampaignManagerForm {
 			
 			eventRow++;
 			
-			addEvent().
+			addEventButton().
 			configureEvent( events.get( eventName ), eventRow );
 						
 		}
@@ -248,7 +293,7 @@ public class CampaignModelForm extends CampaignManagerForm {
 		
 	}
 	
-	public CampaignModelForm addEvent() throws JSONException, FormException {
+	public CampaignModelForm addEventButton() throws JSONException, FormException {
 		
 		clickId( "gwt-debug-BtnCampaignModelCreationEventAdd" );
 			
@@ -262,6 +307,7 @@ public class CampaignModelForm extends CampaignManagerForm {
 		
 		clickXPath( eventXPath ).
 		selectDropDownListItem( event.getEventType() ).
+		addCriterae(event,eventRow).
 		addActions( event, eventRow ).
 		selectBeneficiary( event.getBeneficiary(), eventRow ).
 		addNotifications( event, eventRow );
@@ -297,13 +343,43 @@ public class CampaignModelForm extends CampaignManagerForm {
 		return this;
 		
 	}
+	public CampaignModelForm addCriterae( JSONEvent_ event, Integer eventRow ) throws JSONException, FormException {
+
+		Map<String, JSONCriteria> criteria = event.getCriteria();
+		
+		int criteriaRow = 0;
+		
+		for( String criteriaName : criteria.keySet() ) {
+					
+			addCriteria( eventRow );
+			
+			criteriaRow++;
+						
+			configureCriteria( criteria.get( criteriaName ), eventRow, criteriaRow );
+												
+		}
+		
+		return this;
+		
+	}
 	
 	public CampaignModelForm addAction( Integer eventRow ) throws FormException {
-		
 		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow' ) and position() = " + eventRow + " ]//td[@class='column_commodity']"; 
 		String actionXPathRowAAdd = eventXPathRow + "//*[@id='gwt-debug-BtnCampaignModelCreationEAAdd']";
 		
 		clickXPath( actionXPathRowAAdd );
+		
+		return this;
+		
+		
+	}
+public CampaignModelForm addCriteria( Integer eventRow ) throws FormException {
+		
+		
+		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow' ) and position() = " + eventRow + " ]//td[@class='column_criteria']"; 
+		String criteriaXPathRowAAdd = eventXPathRow + "//*[@id='gwt-debug-BtnCampaignModelCreationECAdd']";
+		
+		clickXPath( criteriaXPathRowAAdd );
 		
 		return this;
 		
@@ -356,6 +432,38 @@ public class CampaignModelForm extends CampaignManagerForm {
 			} else { selectByXPathAndVisibleText( actionXPathRowAUnit, action.getOption() ); }
 		
 		}
+				
+		return this;
+		
+	}
+	public CampaignModelForm configureCriteria( JSONCriteria criteria, Integer eventRow, Integer criteriaRow ) throws JSONException, FormException {
+		
+		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow' ) and position() = " + eventRow + " ]//td[@class='column_criteria']"; 
+		String criteriaXPathRow = eventXPathRow + "//div[@class='criterionContainer']//table[3]/tbody/tr[" + criteriaRow + "]";
+		
+		String criteriaXPathRowAValue = criteriaXPathRow + "//*[@id='gwt-debug-TextCampaignModelCreationECValue']";			
+		String criteriaXPathRowAType = criteriaXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationECType']";
+		String criteriaXPathRowAOperator = criteriaXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationECOperator']";			
+		//String actionXPathRowAAutoAllocation = criteriaXPathRow + "//*[contains(text(), '::AUTO_ALLOCATE::') ]/parent::select";
+		
+		/** configure action time */
+//		if( action.hasActionTime() ) {
+//			
+//			addActionTime( eventRow, actionRow ).
+//			configureActionTime( action.getActionTime() ).
+//			saveActionTime();				
+//							
+//		}
+		
+		/** configure action */
+		clickXPath( criteriaXPathRowAType ).
+		selectDropDownListItem( criteria.getType() );
+		
+		if( null != criteria.getValue() ) { typeByXPath( criteriaXPathRowAValue, criteria.getValue() ); }
+		
+		if( null != criteria.getOperator() ) { 
+			
+			selectByXPathAndVisibleText( criteriaXPathRowAOperator, criteria.getOperator() ); }
 				
 		return this;
 		

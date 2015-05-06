@@ -29,8 +29,21 @@ public class JSONEvent_ extends JsonConfig {
 		return getStringFromPath( "eventType");
 	}
 
-	public String getCriteria() {
-		return getStringFromPath( "criteria");
+	public Map<String, JSONCriteria> getCriteria() throws JSONException{
+		Map<String, JSONCriteria> criteria = new LinkedHashMap<String, JSONCriteria>();
+		
+		JSONArray jsonCriteria = getJSONArrayFromPath( "criteria" );
+		
+		for( int j = 0; j < jsonCriteria.length(); j++ ) {
+			
+			String criteriaName = "criteria" + j;
+			
+			criteria.put( criteriaName, new JSONCriteria( jsonCriteria.getJSONObject( j ) ) );
+			
+		}
+	
+		return criteria;  		
+	
 	}
 	
 	public Map<String, JSONAction> getActions() throws JSONException { 		

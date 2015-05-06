@@ -27,5 +27,4 @@
 	"errorActions": {
 		"MODEL_ALREADY_EXISTS": "ABORT"	
 	}
-	
 }
