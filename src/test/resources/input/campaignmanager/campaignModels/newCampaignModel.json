@@ -13,10 +13,10 @@
 				{	
 					"eventType":"Campaign start", 
 					"criteria":[
-					{ "type":"Subscriber.Msisdn","operator" : "=", "value" : "9910201121", "delete" : false} 
+					{ "type":"Subscriber.Msisdn","operator" : "=", "value" : "393886933857", "delete" : false} 
 					],
 					"actions": [
-						{ "name": "Rulesets.RuleA", "value": null, "option":"Allocate offer immediately", "time": null, "delete": false }							
+						{ "name": "Rulesets.Rule1", "value": null, "option":"Allocate offer immediately", "time": null, "delete": false }							
 					],
 					"beneficiary": true,
 					"notifications": null,

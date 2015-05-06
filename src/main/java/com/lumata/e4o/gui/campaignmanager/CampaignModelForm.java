@@ -304,13 +304,12 @@ public CampaignModelForm( SeleniumWebDriver selenium,long timeout, long interval
 	public CampaignModelForm configureEvent( JSONEvent_ event, Integer eventRow ) throws JSONException, FormException {
 		
 		String eventXPath ="//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[" + eventRow + "]//*[@id='gwt-debug-ListCampaignModelCreationETType']";
-		
 		clickXPath( eventXPath ).
 		selectDropDownListItem( event.getEventType() ).
-		addCriterae(event,eventRow).
-		addActions( event, eventRow ).
-		selectBeneficiary( event.getBeneficiary(), eventRow ).
-		addNotifications( event, eventRow );
+		addCriterae(event,eventRow);
+		addActions( event, eventRow );
+		//selectBeneficiary( event.getBeneficiary(), eventRow ).
+		//addNotifications( event, eventRow );
 		
 		return this;
 		
@@ -363,6 +362,18 @@ public CampaignModelForm( SeleniumWebDriver selenium,long timeout, long interval
 		
 	}
 	
+	public CampaignModelForm addCriteria( Integer eventRow ) throws FormException {
+		
+		
+		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow cycle2' ) and position() = " + eventRow + " ]//td[@class='column_criteria']"; 
+		String criteriaXPathRowAAdd = eventXPathRow + "//*[@id='gwt-debug-BtnCampaignModelCreationECAdd']";
+		
+		clickXPath( criteriaXPathRowAAdd );
+		
+		return this;
+		
+	}
+	
 	public CampaignModelForm addAction( Integer eventRow ) throws FormException {
 		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow' ) and position() = " + eventRow + " ]//td[@class='column_commodity']"; 
 		String actionXPathRowAAdd = eventXPathRow + "//*[@id='gwt-debug-BtnCampaignModelCreationEAAdd']";
@@ -373,18 +384,7 @@ public CampaignModelForm( SeleniumWebDriver selenium,long timeout, long interval
 		
 		
 	}
-public CampaignModelForm addCriteria( Integer eventRow ) throws FormException {
-		
-		
-		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow' ) and position() = " + eventRow + " ]//td[@class='column_criteria']"; 
-		String criteriaXPathRowAAdd = eventXPathRow + "//*[@id='gwt-debug-BtnCampaignModelCreationECAdd']";
-		
-		clickXPath( criteriaXPathRowAAdd );
-		
-		return this;
-		
-	}
-	
+
 	public CampaignModelForm deleteAction( Integer eventRow ) throws FormException {
 		
 		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow' ) and position() = " + eventRow + " ]//td[@class='column_commodity']"; 
@@ -438,13 +438,12 @@ public CampaignModelForm addCriteria( Integer eventRow ) throws FormException {
 	}
 	public CampaignModelForm configureCriteria( JSONCriteria criteria, Integer eventRow, Integer criteriaRow ) throws JSONException, FormException {
 		
-		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow' ) and position() = " + eventRow + " ]//td[@class='column_criteria']"; 
-		String criteriaXPathRow = eventXPathRow + "//div[@class='criterionContainer']//table[3]/tbody/tr[" + criteriaRow + "]";
-		
-		String criteriaXPathRowAValue = criteriaXPathRow + "//*[@id='gwt-debug-TextCampaignModelCreationECValue']";			
+		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow cycle2' ) and position() = " + eventRow + " ]//td[@class='column_criteria']"; 
+		String criteriaXPathRow = eventXPathRow + "//div[@class='criterionContainer']//table/tbody/tr["+ criteriaRow + "]";
+		String criteriaXPathRowAValue = criteriaXPathRow + "//*[@id='gwt-debug-TextCampaignModelCreationECValue']";
 		String criteriaXPathRowAType = criteriaXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationECType']";
-		String criteriaXPathRowAOperator = criteriaXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationECOperator']";			
-		//String actionXPathRowAAutoAllocation = criteriaXPathRow + "//*[contains(text(), '::AUTO_ALLOCATE::') ]/parent::select";
+		//String criteriaXPathRowAOperator = criteriaXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationECOperator']";			
+		String actionXPathRowAAutoAllocation = criteriaXPathRow + "//*[contains(text(), '::AUTO_ALLOCATE::') ]/parent::select";
 		
 		/** configure action time */
 //		if( action.hasActionTime() ) {
@@ -456,14 +455,15 @@ public CampaignModelForm addCriteria( Integer eventRow ) throws FormException {
 //		}
 		
 		/** configure action */
+		
 		clickXPath( criteriaXPathRowAType ).
 		selectDropDownListItem( criteria.getType() );
 		
 		if( null != criteria.getValue() ) { typeByXPath( criteriaXPathRowAValue, criteria.getValue() ); }
 		
-		if( null != criteria.getOperator() ) { 
+		//if( null != criteria.getOperator() ) { 
 			
-			selectByXPathAndVisibleText( criteriaXPathRowAOperator, criteria.getOperator() ); }
+			//selectByXPathAndVisibleText( criteriaXPathRowAValue, criteria.getOperator() ); }
 				
 		return this;
 		
@@ -743,7 +743,14 @@ public CampaignModelForm addCriteria( Integer eventRow ) throws FormException {
 		return super.isCheckedByXPath( xpath );
 		
 	}
-
+	public CampaignModelForm selectDropDownListItem( String itemPath, String text ) throws FormException {
+		
+		super.selectDropDownListItem( itemPath );
+		
+		return this;		
+		
+	}
+	
 	/**
 	 * This method delete a list of "Campaign Model" into running system.
 	 * If input var-args is empty or null, this method deletes each campaign model
