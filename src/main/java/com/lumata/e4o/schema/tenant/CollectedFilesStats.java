@@ -141,9 +141,11 @@ public class CollectedFilesStats {
 
 	}
 
-	public void setHandler( String handler ) {
+	public CollectedFilesStats setHandler( String handler ) {
 
 		this.handler = handler;
+
+		return this;
 
 	}
 
@@ -153,9 +155,11 @@ public class CollectedFilesStats {
 
 	}
 
-	public void setScope( String scope ) {
+	public CollectedFilesStats setScope( String scope ) {
 
 		this.scope = scope;
+
+		return this;
 
 	}
 
@@ -165,9 +169,11 @@ public class CollectedFilesStats {
 
 	}
 
-	public void setName( String name ) {
+	public CollectedFilesStats setName( String name ) {
 
 		this.name = name;
+
+		return this;
 
 	}
 
@@ -177,9 +183,11 @@ public class CollectedFilesStats {
 
 	}
 
-	public void setType( String type ) {
+	public CollectedFilesStats setType( String type ) {
 
 		this.type = type;
+
+		return this;
 
 	}
 
@@ -189,9 +197,11 @@ public class CollectedFilesStats {
 
 	}
 
-	public void setProcessedDate( Timestamp processed_date ) {
+	public CollectedFilesStats setProcessedDate( Timestamp processed_date ) {
 
 		this.processed_date = processed_date;
+
+		return this;
 
 	}
 

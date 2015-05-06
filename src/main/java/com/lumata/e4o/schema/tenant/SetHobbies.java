@@ -75,9 +75,11 @@ public class SetHobbies {
 
 	}
 
-	public void setHobbies( Long hobbies ) {
+	public SetHobbies setHobbies( Long hobbies ) {
 
 		this.hobbies = hobbies;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class SetHobbies {
 
 	}
 
-	public void setHobbiesName( String hobbies_name ) {
+	public SetHobbies setHobbiesName( String hobbies_name ) {
 
 		this.hobbies_name = hobbies_name;
+
+		return this;
 
 	}
 

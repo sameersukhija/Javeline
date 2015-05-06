@@ -96,9 +96,11 @@ public class LoyaltyBadgesTypes {
 
 	}
 
-	public void setBadgeTypeId( Byte badge_type_id ) {
+	public LoyaltyBadgesTypes setBadgeTypeId( Byte badge_type_id ) {
 
 		this.badge_type_id = badge_type_id;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class LoyaltyBadgesTypes {
 
 	}
 
-	public void setProgramId( Byte program_id ) {
+	public LoyaltyBadgesTypes setProgramId( Byte program_id ) {
 
 		this.program_id = program_id;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class LoyaltyBadgesTypes {
 
 	}
 
-	public void setBadgeTypeName( String badge_type_name ) {
+	public LoyaltyBadgesTypes setBadgeTypeName( String badge_type_name ) {
 
 		this.badge_type_name = badge_type_name;
+
+		return this;
 
 	}
 

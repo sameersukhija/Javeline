@@ -330,9 +330,11 @@ public class DistributedJobs {
 
 	}
 
-	public void setName( String name ) {
+	public DistributedJobs setName( String name ) {
 
 		this.name = name;
+
+		return this;
 
 	}
 
@@ -342,9 +344,11 @@ public class DistributedJobs {
 
 	}
 
-	public void setHandler( String handler ) {
+	public DistributedJobs setHandler( String handler ) {
 
 		this.handler = handler;
+
+		return this;
 
 	}
 
@@ -354,9 +358,11 @@ public class DistributedJobs {
 
 	}
 
-	public void setAssignerId( String assigner_id ) {
+	public DistributedJobs setAssignerId( String assigner_id ) {
 
 		this.assigner_id = assigner_id;
+
+		return this;
 
 	}
 
@@ -366,9 +372,11 @@ public class DistributedJobs {
 
 	}
 
-	public void setAssignerName( String assigner_name ) {
+	public DistributedJobs setAssignerName( String assigner_name ) {
 
 		this.assigner_name = assigner_name;
+
+		return this;
 
 	}
 
@@ -378,9 +386,11 @@ public class DistributedJobs {
 
 	}
 
-	public void setPiece( Integer piece ) {
+	public DistributedJobs setPiece( Integer piece ) {
 
 		this.piece = piece;
+
+		return this;
 
 	}
 
@@ -390,9 +400,11 @@ public class DistributedJobs {
 
 	}
 
-	public void setPieces( Integer pieces ) {
+	public DistributedJobs setPieces( Integer pieces ) {
 
 		this.pieces = pieces;
+
+		return this;
 
 	}
 
@@ -402,9 +414,11 @@ public class DistributedJobs {
 
 	}
 
-	public void setPart( String part ) {
+	public DistributedJobs setPart( String part ) {
 
 		this.part = part;
+
+		return this;
 
 	}
 
@@ -414,9 +428,11 @@ public class DistributedJobs {
 
 	}
 
-	public void setCurrentPos( Long current_pos ) {
+	public DistributedJobs setCurrentPos( Long current_pos ) {
 
 		this.current_pos = current_pos;
+
+		return this;
 
 	}
 
@@ -426,9 +442,11 @@ public class DistributedJobs {
 
 	}
 
-	public void setStatus( String status ) {
+	public DistributedJobs setStatus( String status ) {
 
 		this.status = status;
+
+		return this;
 
 	}
 
@@ -438,9 +456,11 @@ public class DistributedJobs {
 
 	}
 
-	public void setMessage( String message ) {
+	public DistributedJobs setMessage( String message ) {
 
 		this.message = message;
+
+		return this;
 
 	}
 
@@ -450,9 +470,11 @@ public class DistributedJobs {
 
 	}
 
-	public void setAttempts( Byte attempts ) {
+	public DistributedJobs setAttempts( Byte attempts ) {
 
 		this.attempts = attempts;
+
+		return this;
 
 	}
 
@@ -462,9 +484,11 @@ public class DistributedJobs {
 
 	}
 
-	public void setCreationDate( Timestamp creation_date ) {
+	public DistributedJobs setCreationDate( Timestamp creation_date ) {
 
 		this.creation_date = creation_date;
+
+		return this;
 
 	}
 
@@ -474,9 +498,11 @@ public class DistributedJobs {
 
 	}
 
-	public void setAssignedDate( Timestamp assigned_date ) {
+	public DistributedJobs setAssignedDate( Timestamp assigned_date ) {
 
 		this.assigned_date = assigned_date;
+
+		return this;
 
 	}
 
@@ -486,9 +512,11 @@ public class DistributedJobs {
 
 	}
 
-	public void setUpdateDate( Timestamp update_date ) {
+	public DistributedJobs setUpdateDate( Timestamp update_date ) {
 
 		this.update_date = update_date;
+
+		return this;
 
 	}
 

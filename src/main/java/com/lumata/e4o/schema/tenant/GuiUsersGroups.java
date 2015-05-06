@@ -96,9 +96,11 @@ public class GuiUsersGroups {
 
 	}
 
-	public void setGuiUsersId( Short gui_users_id ) {
+	public GuiUsersGroups setGuiUsersId( Short gui_users_id ) {
 
 		this.gui_users_id = gui_users_id;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class GuiUsersGroups {
 
 	}
 
-	public void setGroupId( Short group_id ) {
+	public GuiUsersGroups setGroupId( Short group_id ) {
 
 		this.group_id = group_id;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class GuiUsersGroups {
 
 	}
 
-	public void setRights( Short rights ) {
+	public GuiUsersGroups setRights( Short rights ) {
 
 		this.rights = rights;
+
+		return this;
 
 	}
 

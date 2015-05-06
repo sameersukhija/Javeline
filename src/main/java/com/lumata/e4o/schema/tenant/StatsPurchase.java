@@ -225,9 +225,11 @@ public class StatsPurchase {
 
 	}
 
-	public void setPurchaseId( Long purchase_id ) {
+	public StatsPurchase setPurchaseId( Long purchase_id ) {
 
 		this.purchase_id = purchase_id;
+
+		return this;
 
 	}
 
@@ -237,9 +239,11 @@ public class StatsPurchase {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public StatsPurchase setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -249,9 +253,11 @@ public class StatsPurchase {
 
 	}
 
-	public void setAggDateTime( Date agg_date_time ) {
+	public StatsPurchase setAggDateTime( Date agg_date_time ) {
 
 		this.agg_date_time = agg_date_time;
+
+		return this;
 
 	}
 
@@ -261,9 +267,11 @@ public class StatsPurchase {
 
 	}
 
-	public void setOfferId( Short offer_id ) {
+	public StatsPurchase setOfferId( Short offer_id ) {
 
 		this.offer_id = offer_id;
+
+		return this;
 
 	}
 
@@ -273,9 +281,11 @@ public class StatsPurchase {
 
 	}
 
-	public void setQuantity( Integer quantity ) {
+	public StatsPurchase setQuantity( Integer quantity ) {
 
 		this.quantity = quantity;
+
+		return this;
 
 	}
 
@@ -285,9 +295,11 @@ public class StatsPurchase {
 
 	}
 
-	public void setChannelId( Short channel_id ) {
+	public StatsPurchase setChannelId( Short channel_id ) {
 
 		this.channel_id = channel_id;
+
+		return this;
 
 	}
 
@@ -297,9 +309,11 @@ public class StatsPurchase {
 
 	}
 
-	public void setPriceOffer( String price_offer ) {
+	public StatsPurchase setPriceOffer( String price_offer ) {
 
 		this.price_offer = price_offer;
+
+		return this;
 
 	}
 
@@ -309,9 +323,11 @@ public class StatsPurchase {
 
 	}
 
-	public void setModuleId( Byte module_id ) {
+	public StatsPurchase setModuleId( Byte module_id ) {
 
 		this.module_id = module_id;
+
+		return this;
 
 	}
 
@@ -321,9 +337,11 @@ public class StatsPurchase {
 
 	}
 
-	public void setFeature( Integer feature ) {
+	public StatsPurchase setFeature( Integer feature ) {
 
 		this.feature = feature;
+
+		return this;
 
 	}
 

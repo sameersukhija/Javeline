@@ -96,9 +96,11 @@ public class CampaignSubstates {
 
 	}
 
-	public void setSubstateId( Byte substate_id ) {
+	public CampaignSubstates setSubstateId( Byte substate_id ) {
 
 		this.substate_id = substate_id;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class CampaignSubstates {
 
 	}
 
-	public void setSubstateName( String substate_name ) {
+	public CampaignSubstates setSubstateName( String substate_name ) {
 
 		this.substate_name = substate_name;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class CampaignSubstates {
 
 	}
 
-	public void setDescription( String description ) {
+	public CampaignSubstates setDescription( String description ) {
 
 		this.description = description;
+
+		return this;
 
 	}
 

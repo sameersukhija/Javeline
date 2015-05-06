@@ -162,9 +162,11 @@ public class StatsBonus {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public StatsBonus setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -174,9 +176,11 @@ public class StatsBonus {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public StatsBonus setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -186,9 +190,11 @@ public class StatsBonus {
 
 	}
 
-	public void setBonusId( Short bonus_id ) {
+	public StatsBonus setBonusId( Short bonus_id ) {
 
 		this.bonus_id = bonus_id;
+
+		return this;
 
 	}
 
@@ -198,9 +204,11 @@ public class StatsBonus {
 
 	}
 
-	public void setQtyEarned( Integer qty_earned ) {
+	public StatsBonus setQtyEarned( Integer qty_earned ) {
 
 		this.qty_earned = qty_earned;
+
+		return this;
 
 	}
 
@@ -210,9 +218,11 @@ public class StatsBonus {
 
 	}
 
-	public void setQtyUsed( Integer qty_used ) {
+	public StatsBonus setQtyUsed( Integer qty_used ) {
 
 		this.qty_used = qty_used;
+
+		return this;
 
 	}
 
@@ -222,9 +232,11 @@ public class StatsBonus {
 
 	}
 
-	public void setQtyExpired( Integer qty_expired ) {
+	public StatsBonus setQtyExpired( Integer qty_expired ) {
 
 		this.qty_expired = qty_expired;
+
+		return this;
 
 	}
 

@@ -288,9 +288,11 @@ public class PurchaseRepartition {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public PurchaseRepartition setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -300,9 +302,11 @@ public class PurchaseRepartition {
 
 	}
 
-	public void setPeriod( String period ) {
+	public PurchaseRepartition setPeriod( String period ) {
 
 		this.period = period;
+
+		return this;
 
 	}
 
@@ -312,9 +316,11 @@ public class PurchaseRepartition {
 
 	}
 
-	public void setOfferId( Short offer_id ) {
+	public PurchaseRepartition setOfferId( Short offer_id ) {
 
 		this.offer_id = offer_id;
+
+		return this;
 
 	}
 
@@ -324,9 +330,11 @@ public class PurchaseRepartition {
 
 	}
 
-	public void setChannelId( Short channel_id ) {
+	public PurchaseRepartition setChannelId( Short channel_id ) {
 
 		this.channel_id = channel_id;
+
+		return this;
 
 	}
 
@@ -336,9 +344,11 @@ public class PurchaseRepartition {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public PurchaseRepartition setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -348,9 +358,11 @@ public class PurchaseRepartition {
 
 	}
 
-	public void setRatePlanId( Byte rate_plan_id ) {
+	public PurchaseRepartition setRatePlanId( Byte rate_plan_id ) {
 
 		this.rate_plan_id = rate_plan_id;
+
+		return this;
 
 	}
 
@@ -360,9 +372,11 @@ public class PurchaseRepartition {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public PurchaseRepartition setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -372,9 +386,11 @@ public class PurchaseRepartition {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public PurchaseRepartition setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -384,9 +400,11 @@ public class PurchaseRepartition {
 
 	}
 
-	public void setArpuId( Byte arpu_id ) {
+	public PurchaseRepartition setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+		return this;
 
 	}
 
@@ -396,9 +414,11 @@ public class PurchaseRepartition {
 
 	}
 
-	public void setSeniorityId( Byte seniority_id ) {
+	public PurchaseRepartition setSeniorityId( Byte seniority_id ) {
 
 		this.seniority_id = seniority_id;
+
+		return this;
 
 	}
 
@@ -408,9 +428,11 @@ public class PurchaseRepartition {
 
 	}
 
-	public void setQtyMsisdn( Integer qty_msisdn ) {
+	public PurchaseRepartition setQtyMsisdn( Integer qty_msisdn ) {
 
 		this.qty_msisdn = qty_msisdn;
+
+		return this;
 
 	}
 
@@ -420,9 +442,11 @@ public class PurchaseRepartition {
 
 	}
 
-	public void setSumQtyPurchased( Integer sum_qty_purchased ) {
+	public PurchaseRepartition setSumQtyPurchased( Integer sum_qty_purchased ) {
 
 		this.sum_qty_purchased = sum_qty_purchased;
+
+		return this;
 
 	}
 

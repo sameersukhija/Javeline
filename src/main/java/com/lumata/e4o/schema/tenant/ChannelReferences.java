@@ -117,9 +117,11 @@ public class ChannelReferences {
 
 	}
 
-	public void setChannelId( Long channel_id ) {
+	public ChannelReferences setChannelId( Long channel_id ) {
 
 		this.channel_id = channel_id;
+
+		return this;
 
 	}
 
@@ -129,9 +131,11 @@ public class ChannelReferences {
 
 	}
 
-	public void setRefType( String ref_type ) {
+	public ChannelReferences setRefType( String ref_type ) {
 
 		this.ref_type = ref_type;
+
+		return this;
 
 	}
 
@@ -141,9 +145,11 @@ public class ChannelReferences {
 
 	}
 
-	public void setRefId( Short ref_id ) {
+	public ChannelReferences setRefId( Short ref_id ) {
 
 		this.ref_id = ref_id;
+
+		return this;
 
 	}
 
@@ -153,9 +159,11 @@ public class ChannelReferences {
 
 	}
 
-	public void setRights( Short rights ) {
+	public ChannelReferences setRights( Short rights ) {
 
 		this.rights = rights;
+
+		return this;
 
 	}
 

@@ -96,9 +96,11 @@ public class SubsRelations {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public SubsRelations setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class SubsRelations {
 
 	}
 
-	public void setSponsor( Long sponsor ) {
+	public SubsRelations setSponsor( Long sponsor ) {
 
 		this.sponsor = sponsor;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class SubsRelations {
 
 	}
 
-	public void setRelationTypeId( Byte relation_type_id ) {
+	public SubsRelations setRelationTypeId( Byte relation_type_id ) {
 
 		this.relation_type_id = relation_type_id;
+
+		return this;
 
 	}
 

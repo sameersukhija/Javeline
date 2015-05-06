@@ -75,9 +75,11 @@ public class TokenLabel {
 
 	}
 
-	public void setTokenLabelId( Byte token_label_id ) {
+	public TokenLabel setTokenLabelId( Byte token_label_id ) {
 
 		this.token_label_id = token_label_id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class TokenLabel {
 
 	}
 
-	public void setLabel( String label ) {
+	public TokenLabel setLabel( String label ) {
 
 		this.label = label;
+
+		return this;
 
 	}
 

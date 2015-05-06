@@ -184,9 +184,11 @@ public class RevenueEvents {
 
 	}
 
-	public void setFormat( String format ) {
+	public RevenueEvents setFormat( String format ) {
 
 		this.format = format;
+
+		return this;
 
 	}
 
@@ -196,9 +198,11 @@ public class RevenueEvents {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public RevenueEvents setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -208,9 +212,11 @@ public class RevenueEvents {
 
 	}
 
-	public void setEventDate( Date event_date ) {
+	public RevenueEvents setEventDate( Date event_date ) {
 
 		this.event_date = event_date;
+
+		return this;
 
 	}
 
@@ -220,9 +226,11 @@ public class RevenueEvents {
 
 	}
 
-	public void setTransactionId( String transaction_id ) {
+	public RevenueEvents setTransactionId( String transaction_id ) {
 
 		this.transaction_id = transaction_id;
+
+		return this;
 
 	}
 
@@ -232,9 +240,11 @@ public class RevenueEvents {
 
 	}
 
-	public void setEventData( String event_data ) {
+	public RevenueEvents setEventData( String event_data ) {
 
 		this.event_data = event_data;
+
+		return this;
 
 	}
 
@@ -244,9 +254,11 @@ public class RevenueEvents {
 
 	}
 
-	public void setId( Integer id ) {
+	public RevenueEvents setId( Integer id ) {
 
 		this.id = id;
+
+		return this;
 
 	}
 
@@ -256,9 +268,11 @@ public class RevenueEvents {
 
 	}
 
-	public void setInsertTime( Timestamp insert_time ) {
+	public RevenueEvents setInsertTime( Timestamp insert_time ) {
 
 		this.insert_time = insert_time;
+
+		return this;
 
 	}
 

@@ -75,9 +75,11 @@ public class CatalogOfferPriceChannels {
 
 	}
 
-	public void setOfferPriceId( Short offer_price_id ) {
+	public CatalogOfferPriceChannels setOfferPriceId( Short offer_price_id ) {
 
 		this.offer_price_id = offer_price_id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class CatalogOfferPriceChannels {
 
 	}
 
-	public void setChannelId( Short channel_id ) {
+	public CatalogOfferPriceChannels setChannelId( Short channel_id ) {
 
 		this.channel_id = channel_id;
+
+		return this;
 
 	}
 

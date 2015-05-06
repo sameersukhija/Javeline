@@ -120,9 +120,11 @@ public class OffoptimOfferHistory {
 
 	}
 
-	public void setOfferId( Integer offer_id ) {
+	public OffoptimOfferHistory setOfferId( Integer offer_id ) {
 
 		this.offer_id = offer_id;
+
+		return this;
 
 	}
 
@@ -132,9 +134,11 @@ public class OffoptimOfferHistory {
 
 	}
 
-	public void setTodayConsumed( Integer today_consumed ) {
+	public OffoptimOfferHistory setTodayConsumed( Integer today_consumed ) {
 
 		this.today_consumed = today_consumed;
+
+		return this;
 
 	}
 
@@ -144,9 +148,11 @@ public class OffoptimOfferHistory {
 
 	}
 
-	public void setYesterdayConsumed( Integer yesterday_consumed ) {
+	public OffoptimOfferHistory setYesterdayConsumed( Integer yesterday_consumed ) {
 
 		this.yesterday_consumed = yesterday_consumed;
+
+		return this;
 
 	}
 
@@ -156,9 +162,11 @@ public class OffoptimOfferHistory {
 
 	}
 
-	public void setLastModifiedDate( Date last_modified_date ) {
+	public OffoptimOfferHistory setLastModifiedDate( Date last_modified_date ) {
 
 		this.last_modified_date = last_modified_date;
+
+		return this;
 
 	}
 

@@ -117,9 +117,11 @@ public class Profiles {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public Profiles setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -129,9 +131,11 @@ public class Profiles {
 
 	}
 
-	public void setProfile( String profile ) {
+	public Profiles setProfile( String profile ) {
 
 		this.profile = profile;
+
+		return this;
 
 	}
 
@@ -141,9 +145,11 @@ public class Profiles {
 
 	}
 
-	public void setDefaultStatusId( Byte default_status_id ) {
+	public Profiles setDefaultStatusId( Byte default_status_id ) {
 
 		this.default_status_id = default_status_id;
+
+		return this;
 
 	}
 
@@ -153,9 +159,11 @@ public class Profiles {
 
 	}
 
-	public void setStatusProvMode( String status_prov_mode ) {
+	public Profiles setStatusProvMode( String status_prov_mode ) {
 
 		this.status_prov_mode = status_prov_mode;
+
+		return this;
 
 	}
 

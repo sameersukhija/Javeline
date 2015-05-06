@@ -6,6 +6,7 @@ import java.util.Calendar;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONException;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -20,6 +21,7 @@ import static com.lumata.e4o.gui.common.NotificationForm.NotificationTongue.*;
 import static com.lumata.e4o.gui.campaignmanager.CampaignsForm.SchedulingMultipleMonthlyGeneralDayOfWeek.*;
 import static com.lumata.e4o.gui.campaignmanager.CampaignsForm.SchedulingMultipleMonthlyGeneralDayOrdinalDayOfWeek.*;
 import static com.lumata.e4o.gui.campaignmanager.CampaignsForm.SchedulingMultipleRecurrencePatternWeekly.*;
+import static com.lumata.e4o.gui.campaignmanager.CampaignsForm.TargetingMode.*;
 
 import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.e4o.testing.common.TCOwner;
@@ -37,7 +39,7 @@ public class TestCampaignsForm extends ParentTestCase {
 	@BeforeMethod
 	public void initCampaignsForm( Method method ) throws NetworkEnvironmentException, FormException {		
 	
-		/** Token Type Form **/
+		/** Campaigns Form **/
 		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
 		seleniumWebDriver.setTestName( method.getName() );
@@ -45,7 +47,7 @@ public class TestCampaignsForm extends ParentTestCase {
 	}
 			
 	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 1 )
-	public void checkMandatoryFields1() throws FormException, JSONException, JSONSException {
+	public void campaignFormNavigation() throws FormException, JSONException, JSONSException {
 		
 		Calendar startDate = Calendar.getInstance();
 		startDate.add( Calendar.DATE, 10 );
@@ -120,7 +122,7 @@ public class TestCampaignsForm extends ParentTestCase {
 			setCampaignSchedulingMultipleRangeOfRecurrenceValueEndDate( endDate ).
 			/** configure dialog tab **/
 			openDialogTab().
-			setCampaignDialogueShortCode( "333" ). // suppose to have the value 333 in the channel_destination table
+			//setCampaignDialogueShortCode( "333" ). // suppose to have the value 333 in the channel_destination table
 			setCampaignDialogueEmailAddress( "" ).
 			setDialogueNotificationDaysOfNotificationBeforeExecution( 2 ).
 			openDialogueNotification().
@@ -137,8 +139,100 @@ public class TestCampaignsForm extends ParentTestCase {
 			saveDialogueNotificationEditing().
 			saveDialogueNotification().
 			setCampaignDialogueApplyCampaignToNotifiedOnly().
-			setCampaignDialogueNotificationTime( "00:00" );		
-
+			setCampaignDialogueNotificationTime( "00:00" ).
+			/** configure target tab **/
+			openTargetTab().
+			setCampaignTargetTargetingMode( Restricted ).
+			setCampaignTargetTargetingRestrictedModeCriteria().
+			setCampaignTargetTargetingRestrictedConfigureASampleNoSample().
+			setCampaignTargetTargetingRestrictedConfigureASampleControlSample().
+			setCampaignTargetTargetingRestrictedConfigureASampleTestSample().
+			setCampaignTargetTargetingRestrictedModeImportSubscribers().
+			setCampaignTargetTargetingRestrictedModeCriteriaIntersectionImport().
+			setCampaignTargetTargetingRestrictedModeCriteriaUnionImport().
+			setCampaignTargetTargetingRestrictedModeManualTargeting().
+			/** configure limits tab **/
+			openLimitsTab().			
+			/** configure activation tab **/
+			openActivationTab().
+			previousBtn().
+			previousBtn().
+			previousBtn().
+			previousBtn().
+			previousBtn().
+			nextBtn().
+			nextBtn().
+			nextBtn().
+			nextBtn().
+			nextBtn().
+			cancelBtn();	
+					
 	}
+	
+	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 2 )
+	public void createNotificationCampaignSimpleScheduling() throws FormException, JSONException, JSONSException {
+			
+		Calendar startDate = Calendar.getInstance();
+		
+		Calendar endDate = Calendar.getInstance();
+		
+		Calendar provEndDate = (Calendar)endDate.clone();
+				
+		//Integer daysDiff = Days.daysBetween( new DateTime( startDate.getTime() ), new DateTime( endDate.getTime() ) ).getDays(); 
+				
+		final String CAMPAIGN_NAME = Format.addTimestamp( "Campaign_" );
+		
+		/**
+		 * Campaign Notification
+		 * - simple scheduling
+		 * - absolute end date
+		 * - restricted no sample target
+		 */
+		campaignsForm.
+			openForm().
+			addBtn().		
+			/** configure definition tab **/
+			openDefinitionTab().
+			setCampaignExecutionModeNotification().
+			setCampaignName( CAMPAIGN_NAME ).
+			setCampaignDescription( CAMPAIGN_NAME + " description" ).
+			setByPassMediaType( false ).
+			/** configure single scheduling tab **/
+			openSchedulingTab().
+			setCampaignSingleSchedulingType().			
+			setCampaignSingleSchedulingExecutionStart( startDate ).
+			//setCampaignSingleSchedulingExecutionEndRelative( daysDiff ).
+			setCampaignSingleSchedulingExecutionEndAbsolute( endDate ).
+			setCampaignSingleSchedulingProvisioningEndDate( provEndDate ).
+			setCampaignSingleSchedulingProvisioningStartDate( startDate ).
+			//setCampaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates( 3 ).
+			/** configure dialog tab **/
+			openDialogTab().
+			//setCampaignDialogueShortCode( "333" ). // suppose to have the value 333 in the channel_destination table
+			setCampaignDialogueEmailAddress( "" ).
+			//setDialogueNotificationDaysOfNotificationBeforeExecution( 2 ).
+			openDialogueNotification().
+			editDialogueNotification( English, SMS ).
+			setDialogueNotificationMessage( "campaign notification message ( ###campaign_name### )" ).
+			saveDialogueNotificationEditing().
+			saveDialogueNotification().
+			//setCampaignDialogueApplyCampaignToNotifiedOnly().
+			//setCampaignDialogueNotificationTime( "00:00" ).
+			/** configure target tab **/
+			openTargetTab().
+			setCampaignTargetTargetingMode( Restricted ).
+			setCampaignTargetTargetingRestrictedModeCriteria().
+			setCampaignTargetTargetingRestrictedConfigureASampleNoSample().
+			/** configure activation tab **/
+			openActivationTab().
+			activateBtn().
+			confirmCampaignActivation();	
+					
+	}
+	
+	
+	
+	// 	Assert.assertEquals( CampaignsForm.CampaignErrorMessage.CampaignNameEmpty.message(), campaignsForm.getCampaignActivationError() );
+	
 		
 }

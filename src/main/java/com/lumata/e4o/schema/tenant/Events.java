@@ -141,9 +141,11 @@ public class Events {
 
 	}
 
-	public void setFormat( String format ) {
+	public Events setFormat( String format ) {
 
 		this.format = format;
+
+		return this;
 
 	}
 
@@ -153,9 +155,11 @@ public class Events {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public Events setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -165,9 +169,11 @@ public class Events {
 
 	}
 
-	public void setEventDate( Date event_date ) {
+	public Events setEventDate( Date event_date ) {
 
 		this.event_date = event_date;
+
+		return this;
 
 	}
 
@@ -177,9 +183,11 @@ public class Events {
 
 	}
 
-	public void setTransactionId( String transaction_id ) {
+	public Events setTransactionId( String transaction_id ) {
 
 		this.transaction_id = transaction_id;
+
+		return this;
 
 	}
 
@@ -189,9 +197,11 @@ public class Events {
 
 	}
 
-	public void setEventData( String event_data ) {
+	public Events setEventData( String event_data ) {
 
 		this.event_data = event_data;
+
+		return this;
 
 	}
 

@@ -393,9 +393,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public OverallPrepaid setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -405,9 +407,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setPeriod( String period ) {
+	public OverallPrepaid setPeriod( String period ) {
 
 		this.period = period;
+
+		return this;
 
 	}
 
@@ -417,9 +421,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public OverallPrepaid setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -429,9 +435,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setRatePlanId( Byte rate_plan_id ) {
+	public OverallPrepaid setRatePlanId( Byte rate_plan_id ) {
 
 		this.rate_plan_id = rate_plan_id;
+
+		return this;
 
 	}
 
@@ -441,9 +449,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public OverallPrepaid setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -453,9 +463,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public OverallPrepaid setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -465,9 +477,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setArpuId( Byte arpu_id ) {
+	public OverallPrepaid setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+		return this;
 
 	}
 
@@ -477,9 +491,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setSeniorityId( Byte seniority_id ) {
+	public OverallPrepaid setSeniorityId( Byte seniority_id ) {
 
 		this.seniority_id = seniority_id;
+
+		return this;
 
 	}
 
@@ -489,9 +505,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setUcg( Byte ucg ) {
+	public OverallPrepaid setUcg( Byte ucg ) {
 
 		this.ucg = ucg;
+
+		return this;
 
 	}
 
@@ -501,9 +519,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setSumAmountUsage( Float sum_amount_usage ) {
+	public OverallPrepaid setSumAmountUsage( Float sum_amount_usage ) {
 
 		this.sum_amount_usage = sum_amount_usage;
+
+		return this;
 
 	}
 
@@ -513,9 +533,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setSumRecharge( Float sum_recharge ) {
+	public OverallPrepaid setSumRecharge( Float sum_recharge ) {
 
 		this.sum_recharge = sum_recharge;
+
+		return this;
 
 	}
 
@@ -525,9 +547,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setSumAmountRecharge( Float sum_amount_recharge ) {
+	public OverallPrepaid setSumAmountRecharge( Float sum_amount_recharge ) {
 
 		this.sum_amount_recharge = sum_amount_recharge;
+
+		return this;
 
 	}
 
@@ -537,9 +561,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setSumDaysValidityDate( Float sum_days_validity_date ) {
+	public OverallPrepaid setSumDaysValidityDate( Float sum_days_validity_date ) {
 
 		this.sum_days_validity_date = sum_days_validity_date;
+
+		return this;
 
 	}
 
@@ -549,9 +575,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setSumDaysDeactivationDate( Float sum_days_deactivation_date ) {
+	public OverallPrepaid setSumDaysDeactivationDate( Float sum_days_deactivation_date ) {
 
 		this.sum_days_deactivation_date = sum_days_deactivation_date;
+
+		return this;
 
 	}
 
@@ -561,9 +589,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setQtyMsisdn( Integer qty_msisdn ) {
+	public OverallPrepaid setQtyMsisdn( Integer qty_msisdn ) {
 
 		this.qty_msisdn = qty_msisdn;
+
+		return this;
 
 	}
 
@@ -573,9 +603,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setQtyMsisdnWithActivity( Integer qty_msisdn_with_activity ) {
+	public OverallPrepaid setQtyMsisdnWithActivity( Integer qty_msisdn_with_activity ) {
 
 		this.qty_msisdn_with_activity = qty_msisdn_with_activity;
+
+		return this;
 
 	}
 
@@ -585,9 +617,11 @@ public class OverallPrepaid {
 
 	}
 
-	public void setQtyMsisdnWithRevenue( Integer qty_msisdn_with_revenue ) {
+	public OverallPrepaid setQtyMsisdnWithRevenue( Integer qty_msisdn_with_revenue ) {
 
 		this.qty_msisdn_with_revenue = qty_msisdn_with_revenue;
+
+		return this;
 
 	}
 

@@ -138,9 +138,11 @@ public class Suppliers {
 
 	}
 
-	public void setSupplierId( Short supplier_id ) {
+	public Suppliers setSupplierId( Short supplier_id ) {
 
 		this.supplier_id = supplier_id;
+
+		return this;
 
 	}
 
@@ -150,9 +152,11 @@ public class Suppliers {
 
 	}
 
-	public void setName( String name ) {
+	public Suppliers setName( String name ) {
 
 		this.name = name;
+
+		return this;
 
 	}
 
@@ -162,9 +166,11 @@ public class Suppliers {
 
 	}
 
-	public void setEmail( String email ) {
+	public Suppliers setEmail( String email ) {
 
 		this.email = email;
+
+		return this;
 
 	}
 
@@ -174,9 +180,11 @@ public class Suppliers {
 
 	}
 
-	public void setPhone( String phone ) {
+	public Suppliers setPhone( String phone ) {
 
 		this.phone = phone;
+
+		return this;
 
 	}
 
@@ -186,9 +194,11 @@ public class Suppliers {
 
 	}
 
-	public void setWebsite( String website ) {
+	public Suppliers setWebsite( String website ) {
 
 		this.website = website;
+
+		return this;
 
 	}
 

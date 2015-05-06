@@ -75,9 +75,11 @@ public class SetOptions {
 
 	}
 
-	public void setOptions( Long options ) {
+	public SetOptions setOptions( Long options ) {
 
 		this.options = options;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class SetOptions {
 
 	}
 
-	public void setOptionsName( String options_name ) {
+	public SetOptions setOptionsName( String options_name ) {
 
 		this.options_name = options_name;
+
+		return this;
 
 	}
 

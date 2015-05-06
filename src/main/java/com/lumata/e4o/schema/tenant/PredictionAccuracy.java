@@ -267,9 +267,11 @@ public class PredictionAccuracy {
 
 	}
 
-	public void setQuestionId( Byte question_id ) {
+	public PredictionAccuracy setQuestionId( Byte question_id ) {
 
 		this.question_id = question_id;
+
+		return this;
 
 	}
 
@@ -279,9 +281,11 @@ public class PredictionAccuracy {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public PredictionAccuracy setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -291,9 +295,11 @@ public class PredictionAccuracy {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public PredictionAccuracy setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -303,9 +309,11 @@ public class PredictionAccuracy {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public PredictionAccuracy setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -315,9 +323,11 @@ public class PredictionAccuracy {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public PredictionAccuracy setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -327,9 +337,11 @@ public class PredictionAccuracy {
 
 	}
 
-	public void setArpuId( Byte arpu_id ) {
+	public PredictionAccuracy setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+		return this;
 
 	}
 
@@ -339,9 +351,11 @@ public class PredictionAccuracy {
 
 	}
 
-	public void setRank( Byte rank ) {
+	public PredictionAccuracy setRank( Byte rank ) {
 
 		this.rank = rank;
+
+		return this;
 
 	}
 
@@ -351,9 +365,11 @@ public class PredictionAccuracy {
 
 	}
 
-	public void setCampaignBeneficiary( Byte campaign_beneficiary ) {
+	public PredictionAccuracy setCampaignBeneficiary( Byte campaign_beneficiary ) {
 
 		this.campaign_beneficiary = campaign_beneficiary;
+
+		return this;
 
 	}
 
@@ -363,9 +379,11 @@ public class PredictionAccuracy {
 
 	}
 
-	public void setUcg( Byte ucg ) {
+	public PredictionAccuracy setUcg( Byte ucg ) {
 
 		this.ucg = ucg;
+
+		return this;
 
 	}
 
@@ -375,9 +393,11 @@ public class PredictionAccuracy {
 
 	}
 
-	public void setQtyPredicted( Integer qty_predicted ) {
+	public PredictionAccuracy setQtyPredicted( Integer qty_predicted ) {
 
 		this.qty_predicted = qty_predicted;
+
+		return this;
 
 	}
 
@@ -387,9 +407,11 @@ public class PredictionAccuracy {
 
 	}
 
-	public void setQtyTp( Integer qty_tp ) {
+	public PredictionAccuracy setQtyTp( Integer qty_tp ) {
 
 		this.qty_tp = qty_tp;
+
+		return this;
 
 	}
 

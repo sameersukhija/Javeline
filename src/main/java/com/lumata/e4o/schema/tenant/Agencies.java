@@ -117,9 +117,11 @@ public class Agencies {
 
 	}
 
-	public void setId( Short id ) {
+	public Agencies setId( Short id ) {
 
 		this.id = id;
+
+		return this;
 
 	}
 
@@ -129,9 +131,11 @@ public class Agencies {
 
 	}
 
-	public void setName( String name ) {
+	public Agencies setName( String name ) {
 
 		this.name = name;
+
+		return this;
 
 	}
 
@@ -141,9 +145,11 @@ public class Agencies {
 
 	}
 
-	public void setAddress( String address ) {
+	public Agencies setAddress( String address ) {
 
 		this.address = address;
+
+		return this;
 
 	}
 
@@ -153,9 +159,11 @@ public class Agencies {
 
 	}
 
-	public void setPhone( String phone ) {
+	public Agencies setPhone( String phone ) {
 
 		this.phone = phone;
+
+		return this;
 
 	}
 

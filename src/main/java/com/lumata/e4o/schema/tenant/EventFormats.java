@@ -99,9 +99,11 @@ public class EventFormats {
 
 	}
 
-	public void setId( String id ) {
+	public EventFormats setId( String id ) {
 
 		this.id = id;
+
+		return this;
 
 	}
 
@@ -111,9 +113,11 @@ public class EventFormats {
 
 	}
 
-	public void setCreationDate( Date creation_date ) {
+	public EventFormats setCreationDate( Date creation_date ) {
 
 		this.creation_date = creation_date;
+
+		return this;
 
 	}
 
@@ -123,9 +127,11 @@ public class EventFormats {
 
 	}
 
-	public void setFormat( String format ) {
+	public EventFormats setFormat( String format ) {
 
 		this.format = format;
+
+		return this;
 
 	}
 

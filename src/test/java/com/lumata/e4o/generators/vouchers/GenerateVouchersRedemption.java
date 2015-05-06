@@ -100,7 +100,7 @@ public class GenerateVouchersRedemption {
 				cdrVR.setDateFormat( "yyyy-MM-dd HH:mm:ss" );
 				cdrVR.setDateStrategyFixed( redemptionDate );
 				cdrVR.setLocationStrategyFixed( "Milan" );
-				cdrVR.setPartnerStrategyFixed( voucherPurchasedByDate.get( v ).getPartnerId() );
+				//cdrVR.setPartnerStrategyFixed( voucherPurchasedByDate.get( v ).getPartnerId() );
 						
 				cdrVR.addLines( 1 );
 							

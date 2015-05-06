@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @Table( "subscribers" )
 public class Subscribers { 
 
-	public enum Fields { msisdn, imei, imsi, subscription_date, profile_id, rate_plan_id, status_id, service_id_list, channel_id_list, network_id, tongue, ucg, ucg_start_date, in_tag, hobbies, options, gender, salary, update_time }
+	public enum Fields { msisdn, imei, imsi, subscription_date, profile_id, rate_plan_id, status_id, service_id_list, channel_id_list, network_id, tongue, ucg, ucg_start_date, in_tag, hobbies, options, tariff_plan, gender, salary, update_time }
 
 	@Column(
 			table = "subscribers",
@@ -324,6 +324,25 @@ public class Subscribers {
 
 	@Column(
 			table = "subscribers",
+			field = "tariff_plan",
+			type = "smallint(5) unsigned",
+			mysqlType = "smallint",
+			javaType = "Short",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 5,
+			comment = "",
+			getMethod = "getTariffPlan",
+			setMethod = "setTariffPlan"
+	)
+	private Short tariff_plan;
+
+	@Column(
+			table = "subscribers",
 			field = "gender",
 			type = "enum('COMPANY','FEMALE','MALE','UNDEFINED')",
 			mysqlType = "enum",
@@ -400,6 +419,7 @@ public class Subscribers {
 		this.in_tag = rs.getString( Subscribers.Fields.in_tag.name() );
 		this.hobbies = rs.getString( Subscribers.Fields.hobbies.name() );
 		this.options = rs.getString( Subscribers.Fields.options.name() );
+		this.tariff_plan = rs.getShort( Subscribers.Fields.tariff_plan.name() );
 		this.gender = rs.getString( Subscribers.Fields.gender.name() );
 		this.salary = rs.getFloat( Subscribers.Fields.salary.name() );
 		this.update_time = rs.getTimestamp( Subscribers.Fields.update_time.name() );
@@ -424,6 +444,7 @@ public class Subscribers {
 		this.in_tag = jo.getString( Subscribers.Fields.in_tag.name() );
 		this.hobbies = jo.getString( Subscribers.Fields.hobbies.name() );
 		this.options = jo.getString( Subscribers.Fields.options.name() );
+		this.tariff_plan = (short)jo.getInt( Subscribers.Fields.tariff_plan.name() );
 		this.gender = jo.getString( Subscribers.Fields.gender.name() );
 		this.salary = (float)jo.getDouble( Subscribers.Fields.salary.name() );
 		this.update_time = new Timestamp( Format.getMysqlDateTime( jo.getString( Subscribers.Fields.update_time.name() ) ).getTime() );
@@ -436,9 +457,11 @@ public class Subscribers {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public Subscribers setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -448,9 +471,11 @@ public class Subscribers {
 
 	}
 
-	public void setImei( Long imei ) {
+	public Subscribers setImei( Long imei ) {
 
 		this.imei = imei;
+
+		return this;
 
 	}
 
@@ -460,9 +485,11 @@ public class Subscribers {
 
 	}
 
-	public void setImsi( Long imsi ) {
+	public Subscribers setImsi( Long imsi ) {
 
 		this.imsi = imsi;
+
+		return this;
 
 	}
 
@@ -472,9 +499,11 @@ public class Subscribers {
 
 	}
 
-	public void setSubscriptionDate( Date subscription_date ) {
+	public Subscribers setSubscriptionDate( Date subscription_date ) {
 
 		this.subscription_date = subscription_date;
+
+		return this;
 
 	}
 
@@ -484,9 +513,11 @@ public class Subscribers {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public Subscribers setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -496,9 +527,11 @@ public class Subscribers {
 
 	}
 
-	public void setRatePlanId( Byte rate_plan_id ) {
+	public Subscribers setRatePlanId( Byte rate_plan_id ) {
 
 		this.rate_plan_id = rate_plan_id;
+
+		return this;
 
 	}
 
@@ -508,9 +541,11 @@ public class Subscribers {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public Subscribers setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -520,9 +555,11 @@ public class Subscribers {
 
 	}
 
-	public void setServiceIdList( String service_id_list ) {
+	public Subscribers setServiceIdList( String service_id_list ) {
 
 		this.service_id_list = service_id_list;
+
+		return this;
 
 	}
 
@@ -532,9 +569,11 @@ public class Subscribers {
 
 	}
 
-	public void setChannelIdList( String channel_id_list ) {
+	public Subscribers setChannelIdList( String channel_id_list ) {
 
 		this.channel_id_list = channel_id_list;
+
+		return this;
 
 	}
 
@@ -544,9 +583,11 @@ public class Subscribers {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public Subscribers setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -556,9 +597,11 @@ public class Subscribers {
 
 	}
 
-	public void setTongue( String tongue ) {
+	public Subscribers setTongue( String tongue ) {
 
 		this.tongue = tongue;
+
+		return this;
 
 	}
 
@@ -568,9 +611,11 @@ public class Subscribers {
 
 	}
 
-	public void setUcg( Byte ucg ) {
+	public Subscribers setUcg( Byte ucg ) {
 
 		this.ucg = ucg;
+
+		return this;
 
 	}
 
@@ -580,9 +625,11 @@ public class Subscribers {
 
 	}
 
-	public void setUcgStartDate( Date ucg_start_date ) {
+	public Subscribers setUcgStartDate( Date ucg_start_date ) {
 
 		this.ucg_start_date = ucg_start_date;
+
+		return this;
 
 	}
 
@@ -592,9 +639,11 @@ public class Subscribers {
 
 	}
 
-	public void setInTag( String in_tag ) {
+	public Subscribers setInTag( String in_tag ) {
 
 		this.in_tag = in_tag;
+
+		return this;
 
 	}
 
@@ -604,9 +653,11 @@ public class Subscribers {
 
 	}
 
-	public void setHobbies( String hobbies ) {
+	public Subscribers setHobbies( String hobbies ) {
 
 		this.hobbies = hobbies;
+
+		return this;
 
 	}
 
@@ -616,9 +667,25 @@ public class Subscribers {
 
 	}
 
-	public void setOptions( String options ) {
+	public Subscribers setOptions( String options ) {
 
 		this.options = options;
+
+		return this;
+
+	}
+
+	public Short getTariffPlan() {
+
+		return this.tariff_plan;
+
+	}
+
+	public Subscribers setTariffPlan( Short tariff_plan ) {
+
+		this.tariff_plan = tariff_plan;
+
+		return this;
 
 	}
 
@@ -628,9 +695,11 @@ public class Subscribers {
 
 	}
 
-	public void setGender( String gender ) {
+	public Subscribers setGender( String gender ) {
 
 		this.gender = gender;
+
+		return this;
 
 	}
 
@@ -640,9 +709,11 @@ public class Subscribers {
 
 	}
 
-	public void setSalary( Float salary ) {
+	public Subscribers setSalary( Float salary ) {
 
 		this.salary = salary;
+
+		return this;
 
 	}
 
@@ -652,9 +723,11 @@ public class Subscribers {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public Subscribers setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 
@@ -685,6 +758,7 @@ public class Subscribers {
 			.append( "\"in_tag\": \"" ).append( this.getInTag() ).append( "\", " )
 			.append( "\"hobbies\": \"" ).append( this.getHobbies() ).append( "\", " )
 			.append( "\"options\": \"" ).append( this.getOptions() ).append( "\", " )
+			.append( "\"tariff_plan\": \"" ).append( this.getTariffPlan() ).append( "\", " )
 			.append( "\"gender\": \"" ).append( this.getGender() ).append( "\", " )
 			.append( "\"salary\": \"" ).append( this.getSalary() ).append( "\", " )
 			.append( "\"update_time\": \"" ).append( this.getUpdateTime() ).append( "\"" )

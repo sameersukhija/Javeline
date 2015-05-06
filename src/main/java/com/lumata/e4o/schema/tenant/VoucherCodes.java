@@ -134,21 +134,21 @@ public class VoucherCodes {
 	@Column(
 			table = "voucher_codes",
 			field = "partner_id",
-			type = "varchar(50)",
-			mysqlType = "varchar",
-			javaType = "String",
-			categoryType = "String",
+			type = "int(11)",
+			mysqlType = "int",
+			javaType = "Integer",
+			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
 			key = "",
-			defaultValue = "",
+			defaultValue = "null",
 			extra = "",
-			length = 50,
+			length = 11,
 			comment = "",
 			getMethod = "getPartnerId",
 			setMethod = "setPartnerId"
 	)
-	private String partner_id;
+	private Integer partner_id;
 
 	@Column(
 			table = "voucher_codes",
@@ -218,7 +218,7 @@ public class VoucherCodes {
 		this.purchase_id = rs.getLong( VoucherCodes.Fields.purchase_id.name() );
 		this.redeemed_date = rs.getDate( VoucherCodes.Fields.redeemed_date.name() );
 		this.location_id = rs.getString( VoucherCodes.Fields.location_id.name() );
-		this.partner_id = rs.getString( VoucherCodes.Fields.partner_id.name() );
+		this.partner_id = rs.getInt( VoucherCodes.Fields.partner_id.name() );
 		this.format = rs.getString( VoucherCodes.Fields.format.name() );
 		this.voucher_id = rs.getInt( VoucherCodes.Fields.voucher_id.name() );
 		this.type = rs.getString( VoucherCodes.Fields.type.name() );
@@ -233,7 +233,7 @@ public class VoucherCodes {
 		this.purchase_id = (long)jo.getLong( VoucherCodes.Fields.purchase_id.name() );
 		this.redeemed_date = Format.getMysqlDateTime( jo.getString( VoucherCodes.Fields.redeemed_date.name() ) );
 		this.location_id = jo.getString( VoucherCodes.Fields.location_id.name() );
-		this.partner_id = jo.getString( VoucherCodes.Fields.partner_id.name() );
+		this.partner_id = (int)jo.getInt( VoucherCodes.Fields.partner_id.name() );
 		this.format = jo.getString( VoucherCodes.Fields.format.name() );
 		this.voucher_id = (int)jo.getInt( VoucherCodes.Fields.voucher_id.name() );
 		this.type = jo.getString( VoucherCodes.Fields.type.name() );
@@ -246,9 +246,11 @@ public class VoucherCodes {
 
 	}
 
-	public void setOfferId( Short offer_id ) {
+	public VoucherCodes setOfferId( Short offer_id ) {
 
 		this.offer_id = offer_id;
+
+		return this;
 
 	}
 
@@ -258,9 +260,11 @@ public class VoucherCodes {
 
 	}
 
-	public void setCode( String code ) {
+	public VoucherCodes setCode( String code ) {
 
 		this.code = code;
+
+		return this;
 
 	}
 
@@ -270,9 +274,11 @@ public class VoucherCodes {
 
 	}
 
-	public void setExpiryDate( Date expiryDate ) {
+	public VoucherCodes setExpiryDate( Date expiryDate ) {
 
 		this.expiryDate = expiryDate;
+
+		return this;
 
 	}
 
@@ -282,9 +288,11 @@ public class VoucherCodes {
 
 	}
 
-	public void setPurchaseId( Long purchase_id ) {
+	public VoucherCodes setPurchaseId( Long purchase_id ) {
 
 		this.purchase_id = purchase_id;
+
+		return this;
 
 	}
 
@@ -294,9 +302,11 @@ public class VoucherCodes {
 
 	}
 
-	public void setRedeemedDate( Date redeemed_date ) {
+	public VoucherCodes setRedeemedDate( Date redeemed_date ) {
 
 		this.redeemed_date = redeemed_date;
+
+		return this;
 
 	}
 
@@ -306,21 +316,25 @@ public class VoucherCodes {
 
 	}
 
-	public void setLocationId( String location_id ) {
+	public VoucherCodes setLocationId( String location_id ) {
 
 		this.location_id = location_id;
 
+		return this;
+
 	}
 
-	public String getPartnerId() {
+	public Integer getPartnerId() {
 
 		return this.partner_id;
 
 	}
 
-	public void setPartnerId( String partner_id ) {
+	public VoucherCodes setPartnerId( Integer partner_id ) {
 
 		this.partner_id = partner_id;
+
+		return this;
 
 	}
 
@@ -330,9 +344,11 @@ public class VoucherCodes {
 
 	}
 
-	public void setFormat( String format ) {
+	public VoucherCodes setFormat( String format ) {
 
 		this.format = format;
+
+		return this;
 
 	}
 
@@ -342,9 +358,11 @@ public class VoucherCodes {
 
 	}
 
-	public void setVoucherId( Integer voucher_id ) {
+	public VoucherCodes setVoucherId( Integer voucher_id ) {
 
 		this.voucher_id = voucher_id;
+
+		return this;
 
 	}
 
@@ -354,9 +372,11 @@ public class VoucherCodes {
 
 	}
 
-	public void setType( String type ) {
+	public VoucherCodes setType( String type ) {
 
 		this.type = type;
+
+		return this;
 
 	}
 

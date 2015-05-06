@@ -96,9 +96,11 @@ public class CatalogProductTypes {
 
 	}
 
-	public void setProductTypeId( Short product_type_id ) {
+	public CatalogProductTypes setProductTypeId( Short product_type_id ) {
 
 		this.product_type_id = product_type_id;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class CatalogProductTypes {
 
 	}
 
-	public void setTypeName( String type_name ) {
+	public CatalogProductTypes setTypeName( String type_name ) {
 
 		this.type_name = type_name;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class CatalogProductTypes {
 
 	}
 
-	public void setDescription( String description ) {
+	public CatalogProductTypes setDescription( String description ) {
 
 		this.description = description;
+
+		return this;
 
 	}
 

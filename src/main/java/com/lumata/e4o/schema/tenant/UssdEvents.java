@@ -184,9 +184,11 @@ public class UssdEvents {
 
 	}
 
-	public void setFormat( String format ) {
+	public UssdEvents setFormat( String format ) {
 
 		this.format = format;
+
+		return this;
 
 	}
 
@@ -196,9 +198,11 @@ public class UssdEvents {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public UssdEvents setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -208,9 +212,11 @@ public class UssdEvents {
 
 	}
 
-	public void setEventDate( Date event_date ) {
+	public UssdEvents setEventDate( Date event_date ) {
 
 		this.event_date = event_date;
+
+		return this;
 
 	}
 
@@ -220,9 +226,11 @@ public class UssdEvents {
 
 	}
 
-	public void setTransactionId( String transaction_id ) {
+	public UssdEvents setTransactionId( String transaction_id ) {
 
 		this.transaction_id = transaction_id;
+
+		return this;
 
 	}
 
@@ -232,9 +240,11 @@ public class UssdEvents {
 
 	}
 
-	public void setEventData( String event_data ) {
+	public UssdEvents setEventData( String event_data ) {
 
 		this.event_data = event_data;
+
+		return this;
 
 	}
 
@@ -244,9 +254,11 @@ public class UssdEvents {
 
 	}
 
-	public void setId( Integer id ) {
+	public UssdEvents setId( Integer id ) {
 
 		this.id = id;
+
+		return this;
 
 	}
 
@@ -256,9 +268,11 @@ public class UssdEvents {
 
 	}
 
-	public void setInsertTime( Timestamp insert_time ) {
+	public UssdEvents setInsertTime( Timestamp insert_time ) {
 
 		this.insert_time = insert_time;
+
+		return this;
 
 	}
 

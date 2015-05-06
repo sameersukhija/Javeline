@@ -96,9 +96,11 @@ public class CatalogOfferPricePrices {
 
 	}
 
-	public void setOfferPriceId( Short offer_price_id ) {
+	public CatalogOfferPricePrices setOfferPriceId( Short offer_price_id ) {
 
 		this.offer_price_id = offer_price_id;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class CatalogOfferPricePrices {
 
 	}
 
-	public void setCurrencyId( Short currency_id ) {
+	public CatalogOfferPricePrices setCurrencyId( Short currency_id ) {
 
 		this.currency_id = currency_id;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class CatalogOfferPricePrices {
 
 	}
 
-	public void setAmount( Integer amount ) {
+	public CatalogOfferPricePrices setAmount( Integer amount ) {
 
 		this.amount = amount;
+
+		return this;
 
 	}
 

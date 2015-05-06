@@ -54,4 +54,11 @@
     </classes>	
   </test>
   
+  <test name="Campaign Creation Testcase">
+	<classes>
+      <class name="com.lumata.e4o.regressions.gui.TestCampaignsForm">
+      </class>
+    </classes>	
+  </test>
+  
 </suite>

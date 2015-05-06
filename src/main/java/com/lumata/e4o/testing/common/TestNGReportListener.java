@@ -38,7 +38,11 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-//configuration in case to use pod51015.outlook.com mail server
+/**
+ * configuration in case to use pod51015.outlook.com mail server
+ * @author adipasquale
+ *
+ */
 //@Mail(
 //	protocol = "smtp",
 //	fromRecipient = "arcangelo.dipasquale@lumatagroup.com",
@@ -50,6 +54,12 @@ import freemarker.template.TemplateException;
 //	user = "arcangelo.dipasquale@lumatagroup.com",
 //	password = ""
 //)
+
+/**
+ * configuration in case to use the internal mail server
+ * @author adipasquale
+ *
+ */
 @Mail(
 	protocol = "smtp",
 	fromRecipient = "qa.e4o.all@lumatagroup.com",

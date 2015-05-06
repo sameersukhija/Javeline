@@ -96,9 +96,11 @@ public class CatalogProductSpecificCharacteristics {
 
 	}
 
-	public void setProductId( Short product_id ) {
+	public CatalogProductSpecificCharacteristics setProductId( Short product_id ) {
 
 		this.product_id = product_id;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class CatalogProductSpecificCharacteristics {
 
 	}
 
-	public void setCharacteristicName( String characteristic_name ) {
+	public CatalogProductSpecificCharacteristics setCharacteristicName( String characteristic_name ) {
 
 		this.characteristic_name = characteristic_name;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class CatalogProductSpecificCharacteristics {
 
 	}
 
-	public void setCharacteristicDetails( String characteristic_details ) {
+	public CatalogProductSpecificCharacteristics setCharacteristicDetails( String characteristic_details ) {
 
 		this.characteristic_details = characteristic_details;
+
+		return this;
 
 	}
 

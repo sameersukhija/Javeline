@@ -96,9 +96,11 @@ public class SalesChannels {
 
 	}
 
-	public void setChannelId( Short channel_id ) {
+	public SalesChannels setChannelId( Short channel_id ) {
 
 		this.channel_id = channel_id;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class SalesChannels {
 
 	}
 
-	public void setChannelName( String channel_name ) {
+	public SalesChannels setChannelName( String channel_name ) {
 
 		this.channel_name = channel_name;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class SalesChannels {
 
 	}
 
-	public void setActive( String active ) {
+	public SalesChannels setActive( String active ) {
 
 		this.active = active;
+
+		return this;
 
 	}
 

@@ -330,9 +330,11 @@ public class OverallAccount {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public OverallAccount setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -342,9 +344,11 @@ public class OverallAccount {
 
 	}
 
-	public void setPeriod( String period ) {
+	public OverallAccount setPeriod( String period ) {
 
 		this.period = period;
+
+		return this;
 
 	}
 
@@ -354,9 +358,11 @@ public class OverallAccount {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public OverallAccount setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -366,9 +372,11 @@ public class OverallAccount {
 
 	}
 
-	public void setRatePlanId( Byte rate_plan_id ) {
+	public OverallAccount setRatePlanId( Byte rate_plan_id ) {
 
 		this.rate_plan_id = rate_plan_id;
+
+		return this;
 
 	}
 
@@ -378,9 +386,11 @@ public class OverallAccount {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public OverallAccount setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -390,9 +400,11 @@ public class OverallAccount {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public OverallAccount setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -402,9 +414,11 @@ public class OverallAccount {
 
 	}
 
-	public void setArpuId( Byte arpu_id ) {
+	public OverallAccount setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+		return this;
 
 	}
 
@@ -414,9 +428,11 @@ public class OverallAccount {
 
 	}
 
-	public void setSeniorityId( Byte seniority_id ) {
+	public OverallAccount setSeniorityId( Byte seniority_id ) {
 
 		this.seniority_id = seniority_id;
+
+		return this;
 
 	}
 
@@ -426,9 +442,11 @@ public class OverallAccount {
 
 	}
 
-	public void setUcg( Byte ucg ) {
+	public OverallAccount setUcg( Byte ucg ) {
 
 		this.ucg = ucg;
+
+		return this;
 
 	}
 
@@ -438,9 +456,11 @@ public class OverallAccount {
 
 	}
 
-	public void setSumInvoice( Float sum_invoice ) {
+	public OverallAccount setSumInvoice( Float sum_invoice ) {
 
 		this.sum_invoice = sum_invoice;
+
+		return this;
 
 	}
 
@@ -450,9 +470,11 @@ public class OverallAccount {
 
 	}
 
-	public void setSumAmountInvoice( Float sum_amount_invoice ) {
+	public OverallAccount setSumAmountInvoice( Float sum_amount_invoice ) {
 
 		this.sum_amount_invoice = sum_amount_invoice;
+
+		return this;
 
 	}
 
@@ -462,9 +484,11 @@ public class OverallAccount {
 
 	}
 
-	public void setSumPayment( Float sum_payment ) {
+	public OverallAccount setSumPayment( Float sum_payment ) {
 
 		this.sum_payment = sum_payment;
+
+		return this;
 
 	}
 
@@ -474,9 +498,11 @@ public class OverallAccount {
 
 	}
 
-	public void setSumAmountPayment( Float sum_amount_payment ) {
+	public OverallAccount setSumAmountPayment( Float sum_amount_payment ) {
 
 		this.sum_amount_payment = sum_amount_payment;
+
+		return this;
 
 	}
 
@@ -486,9 +512,11 @@ public class OverallAccount {
 
 	}
 
-	public void setQtyMsisdn( Integer qty_msisdn ) {
+	public OverallAccount setQtyMsisdn( Integer qty_msisdn ) {
 
 		this.qty_msisdn = qty_msisdn;
+
+		return this;
 
 	}
 

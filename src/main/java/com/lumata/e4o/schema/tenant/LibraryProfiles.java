@@ -75,9 +75,11 @@ public class LibraryProfiles {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public LibraryProfiles setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class LibraryProfiles {
 
 	}
 
-	public void setProfile( String profile ) {
+	public LibraryProfiles setProfile( String profile ) {
 
 		this.profile = profile;
+
+		return this;
 
 	}
 

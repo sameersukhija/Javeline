@@ -138,9 +138,11 @@ public class LoyaltyClasses {
 
 	}
 
-	public void setClassId( Byte class_id ) {
+	public LoyaltyClasses setClassId( Byte class_id ) {
 
 		this.class_id = class_id;
+
+		return this;
 
 	}
 
@@ -150,9 +152,11 @@ public class LoyaltyClasses {
 
 	}
 
-	public void setProjectId( Byte project_id ) {
+	public LoyaltyClasses setProjectId( Byte project_id ) {
 
 		this.project_id = project_id;
+
+		return this;
 
 	}
 
@@ -162,9 +166,11 @@ public class LoyaltyClasses {
 
 	}
 
-	public void setProjectName( String project_name ) {
+	public LoyaltyClasses setProjectName( String project_name ) {
 
 		this.project_name = project_name;
+
+		return this;
 
 	}
 
@@ -174,9 +180,11 @@ public class LoyaltyClasses {
 
 	}
 
-	public void setClassName( String class_name ) {
+	public LoyaltyClasses setClassName( String class_name ) {
 
 		this.class_name = class_name;
+
+		return this;
 
 	}
 
@@ -186,9 +194,11 @@ public class LoyaltyClasses {
 
 	}
 
-	public void setClassRank( Byte class_rank ) {
+	public LoyaltyClasses setClassRank( Byte class_rank ) {
 
 		this.class_rank = class_rank;
+
+		return this;
 
 	}
 

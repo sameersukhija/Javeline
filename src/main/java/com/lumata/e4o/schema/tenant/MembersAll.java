@@ -141,9 +141,11 @@ public class MembersAll {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public MembersAll setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -153,9 +155,11 @@ public class MembersAll {
 
 	}
 
-	public void setPeriod( String period ) {
+	public MembersAll setPeriod( String period ) {
 
 		this.period = period;
+
+		return this;
 
 	}
 
@@ -165,9 +169,11 @@ public class MembersAll {
 
 	}
 
-	public void setProjectId( Byte project_id ) {
+	public MembersAll setProjectId( Byte project_id ) {
 
 		this.project_id = project_id;
+
+		return this;
 
 	}
 
@@ -177,9 +183,11 @@ public class MembersAll {
 
 	}
 
-	public void setClassId( Byte class_id ) {
+	public MembersAll setClassId( Byte class_id ) {
 
 		this.class_id = class_id;
+
+		return this;
 
 	}
 
@@ -189,9 +197,11 @@ public class MembersAll {
 
 	}
 
-	public void setQtyMsisdn( Integer qty_msisdn ) {
+	public MembersAll setQtyMsisdn( Integer qty_msisdn ) {
 
 		this.qty_msisdn = qty_msisdn;
+
+		return this;
 
 	}
 

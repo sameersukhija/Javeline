@@ -141,9 +141,11 @@ public class SubsClasses {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public SubsClasses setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -153,9 +155,11 @@ public class SubsClasses {
 
 	}
 
-	public void setProjectId( Byte project_id ) {
+	public SubsClasses setProjectId( Byte project_id ) {
 
 		this.project_id = project_id;
+
+		return this;
 
 	}
 
@@ -165,9 +169,11 @@ public class SubsClasses {
 
 	}
 
-	public void setClassId( Byte class_id ) {
+	public SubsClasses setClassId( Byte class_id ) {
 
 		this.class_id = class_id;
+
+		return this;
 
 	}
 
@@ -177,9 +183,11 @@ public class SubsClasses {
 
 	}
 
-	public void setProjectEnrolmentDate( Date project_enrolment_date ) {
+	public SubsClasses setProjectEnrolmentDate( Date project_enrolment_date ) {
 
 		this.project_enrolment_date = project_enrolment_date;
+
+		return this;
 
 	}
 
@@ -189,9 +197,11 @@ public class SubsClasses {
 
 	}
 
-	public void setClassUpdateDate( Date class_update_date ) {
+	public SubsClasses setClassUpdateDate( Date class_update_date ) {
 
 		this.class_update_date = class_update_date;
+
+		return this;
 
 	}
 
