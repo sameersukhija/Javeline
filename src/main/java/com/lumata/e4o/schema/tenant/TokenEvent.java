@@ -268,9 +268,11 @@ public class TokenEvent {
 
 	}
 
-	public void setTokenEventId( Long token_event_id ) {
+	public TokenEvent setTokenEventId( Long token_event_id ) {
 
 		this.token_event_id = token_event_id;
+
+		return this;
 
 	}
 
@@ -280,9 +282,11 @@ public class TokenEvent {
 
 	}
 
-	public void setTokenCode( String token_code ) {
+	public TokenEvent setTokenCode( String token_code ) {
 
 		this.token_code = token_code;
+
+		return this;
 
 	}
 
@@ -292,9 +296,11 @@ public class TokenEvent {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public TokenEvent setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -304,9 +310,11 @@ public class TokenEvent {
 
 	}
 
-	public void setEventDate( Date event_date ) {
+	public TokenEvent setEventDate( Date event_date ) {
 
 		this.event_date = event_date;
+
+		return this;
 
 	}
 
@@ -316,9 +324,11 @@ public class TokenEvent {
 
 	}
 
-	public void setType( String type ) {
+	public TokenEvent setType( String type ) {
 
 		this.type = type;
+
+		return this;
 
 	}
 
@@ -328,9 +338,11 @@ public class TokenEvent {
 
 	}
 
-	public void setSuccess( Boolean success ) {
+	public TokenEvent setSuccess( Boolean success ) {
 
 		this.success = success;
+
+		return this;
 
 	}
 
@@ -340,9 +352,11 @@ public class TokenEvent {
 
 	}
 
-	public void setWarning( Boolean warning ) {
+	public TokenEvent setWarning( Boolean warning ) {
 
 		this.warning = warning;
+
+		return this;
 
 	}
 
@@ -352,9 +366,11 @@ public class TokenEvent {
 
 	}
 
-	public void setAllocateIsAuto( Boolean allocate_is_auto ) {
+	public TokenEvent setAllocateIsAuto( Boolean allocate_is_auto ) {
 
 		this.allocate_is_auto = allocate_is_auto;
+
+		return this;
 
 	}
 
@@ -364,9 +380,11 @@ public class TokenEvent {
 
 	}
 
-	public void setUserAcceptChannel( String user_accept_channel ) {
+	public TokenEvent setUserAcceptChannel( String user_accept_channel ) {
 
 		this.user_accept_channel = user_accept_channel;
+
+		return this;
 
 	}
 
@@ -376,9 +394,11 @@ public class TokenEvent {
 
 	}
 
-	public void setExtra( String extra ) {
+	public TokenEvent setExtra( String extra ) {
 
 		this.extra = extra;
+
+		return this;
 
 	}
 
@@ -388,9 +408,11 @@ public class TokenEvent {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public TokenEvent setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

@@ -75,9 +75,11 @@ public class Services {
 
 	}
 
-	public void setServiceId( Byte service_id ) {
+	public Services setServiceId( Byte service_id ) {
 
 		this.service_id = service_id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class Services {
 
 	}
 
-	public void setService( String service ) {
+	public Services setService( String service ) {
 
 		this.service = service;
+
+		return this;
 
 	}
 

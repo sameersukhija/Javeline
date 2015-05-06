@@ -141,9 +141,11 @@ public class DelayedBonus {
 
 	}
 
-	public void setMessageId( Long message_id ) {
+	public DelayedBonus setMessageId( Long message_id ) {
 
 		this.message_id = message_id;
+
+		return this;
 
 	}
 
@@ -153,9 +155,11 @@ public class DelayedBonus {
 
 	}
 
-	public void setMessage( String message ) {
+	public DelayedBonus setMessage( String message ) {
 
 		this.message = message;
+
+		return this;
 
 	}
 
@@ -165,9 +169,11 @@ public class DelayedBonus {
 
 	}
 
-	public void setQueueParameters( String queue_parameters ) {
+	public DelayedBonus setQueueParameters( String queue_parameters ) {
 
 		this.queue_parameters = queue_parameters;
+
+		return this;
 
 	}
 
@@ -177,9 +183,11 @@ public class DelayedBonus {
 
 	}
 
-	public void setBonusCreationDate( Timestamp bonus_creation_date ) {
+	public DelayedBonus setBonusCreationDate( Timestamp bonus_creation_date ) {
 
 		this.bonus_creation_date = bonus_creation_date;
+
+		return this;
 
 	}
 
@@ -189,9 +197,11 @@ public class DelayedBonus {
 
 	}
 
-	public void setMaxExpirationTimestamp( Timestamp max_expiration_timestamp ) {
+	public DelayedBonus setMaxExpirationTimestamp( Timestamp max_expiration_timestamp ) {
 
 		this.max_expiration_timestamp = max_expiration_timestamp;
+
+		return this;
 
 	}
 

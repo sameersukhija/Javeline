@@ -55,7 +55,7 @@ public class RegressionSuiteAppender extends ParentUITestCase {
 		
 		SuppliersForm suppliersForm = new SuppliersForm( seleniumWebDriver, new JSONSuppliers( resourcePath, fileName), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Assert.assertTrue( suppliersForm.openForm().addSuppliers().navigate() );
+		//Assert.assertTrue( suppliersForm.openForm().addSuppliers().navigate() );
 	}
 	
 	@Parameters({"salesChannelsList"})

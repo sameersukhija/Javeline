@@ -117,9 +117,11 @@ public class OffoptimAlgorithm {
 
 	}
 
-	public void setAlgorithmId( Integer algorithm_id ) {
+	public OffoptimAlgorithm setAlgorithmId( Integer algorithm_id ) {
 
 		this.algorithm_id = algorithm_id;
+
+		return this;
 
 	}
 
@@ -129,9 +131,11 @@ public class OffoptimAlgorithm {
 
 	}
 
-	public void setName( String name ) {
+	public OffoptimAlgorithm setName( String name ) {
 
 		this.name = name;
+
+		return this;
 
 	}
 
@@ -141,9 +145,11 @@ public class OffoptimAlgorithm {
 
 	}
 
-	public void setDescription( String description ) {
+	public OffoptimAlgorithm setDescription( String description ) {
 
 		this.description = description;
+
+		return this;
 
 	}
 
@@ -153,9 +159,11 @@ public class OffoptimAlgorithm {
 
 	}
 
-	public void setClassPath( String class_path ) {
+	public OffoptimAlgorithm setClassPath( String class_path ) {
 
 		this.class_path = class_path;
+
+		return this;
 
 	}
 

@@ -288,9 +288,11 @@ public class OverallPostpaid {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public OverallPostpaid setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -300,9 +302,11 @@ public class OverallPostpaid {
 
 	}
 
-	public void setPeriod( String period ) {
+	public OverallPostpaid setPeriod( String period ) {
 
 		this.period = period;
+
+		return this;
 
 	}
 
@@ -312,9 +316,11 @@ public class OverallPostpaid {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public OverallPostpaid setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -324,9 +330,11 @@ public class OverallPostpaid {
 
 	}
 
-	public void setRatePlanId( Byte rate_plan_id ) {
+	public OverallPostpaid setRatePlanId( Byte rate_plan_id ) {
 
 		this.rate_plan_id = rate_plan_id;
+
+		return this;
 
 	}
 
@@ -336,9 +344,11 @@ public class OverallPostpaid {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public OverallPostpaid setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -348,9 +358,11 @@ public class OverallPostpaid {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public OverallPostpaid setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -360,9 +372,11 @@ public class OverallPostpaid {
 
 	}
 
-	public void setArpuId( Byte arpu_id ) {
+	public OverallPostpaid setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+		return this;
 
 	}
 
@@ -372,9 +386,11 @@ public class OverallPostpaid {
 
 	}
 
-	public void setSeniorityId( Byte seniority_id ) {
+	public OverallPostpaid setSeniorityId( Byte seniority_id ) {
 
 		this.seniority_id = seniority_id;
+
+		return this;
 
 	}
 
@@ -384,9 +400,11 @@ public class OverallPostpaid {
 
 	}
 
-	public void setUcg( Byte ucg ) {
+	public OverallPostpaid setUcg( Byte ucg ) {
 
 		this.ucg = ucg;
+
+		return this;
 
 	}
 
@@ -396,9 +414,11 @@ public class OverallPostpaid {
 
 	}
 
-	public void setSumAmountUsage( Float sum_amount_usage ) {
+	public OverallPostpaid setSumAmountUsage( Float sum_amount_usage ) {
 
 		this.sum_amount_usage = sum_amount_usage;
+
+		return this;
 
 	}
 
@@ -408,9 +428,11 @@ public class OverallPostpaid {
 
 	}
 
-	public void setQtyMsisdn( Integer qty_msisdn ) {
+	public OverallPostpaid setQtyMsisdn( Integer qty_msisdn ) {
 
 		this.qty_msisdn = qty_msisdn;
+
+		return this;
 
 	}
 
@@ -420,9 +442,11 @@ public class OverallPostpaid {
 
 	}
 
-	public void setQtyMsisdnWithActivity( Integer qty_msisdn_with_activity ) {
+	public OverallPostpaid setQtyMsisdnWithActivity( Integer qty_msisdn_with_activity ) {
 
 		this.qty_msisdn_with_activity = qty_msisdn_with_activity;
+
+		return this;
 
 	}
 

@@ -394,9 +394,11 @@ public class RewardEvents {
 
 	}
 
-	public void setEventId( Long event_id ) {
+	public RewardEvents setEventId( Long event_id ) {
 
 		this.event_id = event_id;
+
+		return this;
 
 	}
 
@@ -406,9 +408,11 @@ public class RewardEvents {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public RewardEvents setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -418,9 +422,11 @@ public class RewardEvents {
 
 	}
 
-	public void setEventType( String event_type ) {
+	public RewardEvents setEventType( String event_type ) {
 
 		this.event_type = event_type;
+
+		return this;
 
 	}
 
@@ -430,9 +436,11 @@ public class RewardEvents {
 
 	}
 
-	public void setAttempts( Short attempts ) {
+	public RewardEvents setAttempts( Short attempts ) {
 
 		this.attempts = attempts;
+
+		return this;
 
 	}
 
@@ -442,9 +450,11 @@ public class RewardEvents {
 
 	}
 
-	public void setModuleId( Byte module_id ) {
+	public RewardEvents setModuleId( Byte module_id ) {
 
 		this.module_id = module_id;
+
+		return this;
 
 	}
 
@@ -454,9 +464,11 @@ public class RewardEvents {
 
 	}
 
-	public void setFeature( String feature ) {
+	public RewardEvents setFeature( String feature ) {
 
 		this.feature = feature;
+
+		return this;
 
 	}
 
@@ -466,9 +478,11 @@ public class RewardEvents {
 
 	}
 
-	public void setNotifId( Long notif_id ) {
+	public RewardEvents setNotifId( Long notif_id ) {
 
 		this.notif_id = notif_id;
+
+		return this;
 
 	}
 
@@ -478,9 +492,11 @@ public class RewardEvents {
 
 	}
 
-	public void setRewardId( Short reward_id ) {
+	public RewardEvents setRewardId( Short reward_id ) {
 
 		this.reward_id = reward_id;
+
+		return this;
 
 	}
 
@@ -490,9 +506,11 @@ public class RewardEvents {
 
 	}
 
-	public void setQtyReward( Integer qty_reward ) {
+	public RewardEvents setQtyReward( Integer qty_reward ) {
 
 		this.qty_reward = qty_reward;
+
+		return this;
 
 	}
 
@@ -502,9 +520,11 @@ public class RewardEvents {
 
 	}
 
-	public void setStartDate( Date start_date ) {
+	public RewardEvents setStartDate( Date start_date ) {
 
 		this.start_date = start_date;
+
+		return this;
 
 	}
 
@@ -514,9 +534,11 @@ public class RewardEvents {
 
 	}
 
-	public void setEndDate( Date end_date ) {
+	public RewardEvents setEndDate( Date end_date ) {
 
 		this.end_date = end_date;
+
+		return this;
 
 	}
 
@@ -526,9 +548,11 @@ public class RewardEvents {
 
 	}
 
-	public void setDuration( Short duration ) {
+	public RewardEvents setDuration( Short duration ) {
 
 		this.duration = duration;
+
+		return this;
 
 	}
 
@@ -538,9 +562,11 @@ public class RewardEvents {
 
 	}
 
-	public void setPeriod( String period ) {
+	public RewardEvents setPeriod( String period ) {
 
 		this.period = period;
+
+		return this;
 
 	}
 
@@ -550,9 +576,11 @@ public class RewardEvents {
 
 	}
 
-	public void setSourceMsisdn( Long source_msisdn ) {
+	public RewardEvents setSourceMsisdn( Long source_msisdn ) {
 
 		this.source_msisdn = source_msisdn;
+
+		return this;
 
 	}
 
@@ -562,9 +590,11 @@ public class RewardEvents {
 
 	}
 
-	public void setRelationTypeId( Byte relation_type_id ) {
+	public RewardEvents setRelationTypeId( Byte relation_type_id ) {
 
 		this.relation_type_id = relation_type_id;
+
+		return this;
 
 	}
 
@@ -574,9 +604,11 @@ public class RewardEvents {
 
 	}
 
-	public void setRequestId( String request_id ) {
+	public RewardEvents setRequestId( String request_id ) {
 
 		this.request_id = request_id;
+
+		return this;
 
 	}
 
@@ -586,9 +618,11 @@ public class RewardEvents {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public RewardEvents setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

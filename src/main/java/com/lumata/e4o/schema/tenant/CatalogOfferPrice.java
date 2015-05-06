@@ -96,9 +96,11 @@ public class CatalogOfferPrice {
 
 	}
 
-	public void setOfferPriceId( Short offer_price_id ) {
+	public CatalogOfferPrice setOfferPriceId( Short offer_price_id ) {
 
 		this.offer_price_id = offer_price_id;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class CatalogOfferPrice {
 
 	}
 
-	public void setOfferId( Short offer_id ) {
+	public CatalogOfferPrice setOfferId( Short offer_id ) {
 
 		this.offer_id = offer_id;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class CatalogOfferPrice {
 
 	}
 
-	public void setCriteria( String criteria ) {
+	public CatalogOfferPrice setCriteria( String criteria ) {
 
 		this.criteria = criteria;
+
+		return this;
 
 	}
 

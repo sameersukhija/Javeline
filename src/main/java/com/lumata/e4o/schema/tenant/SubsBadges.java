@@ -183,9 +183,11 @@ public class SubsBadges {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public SubsBadges setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -195,9 +197,11 @@ public class SubsBadges {
 
 	}
 
-	public void setProgramId( Byte program_id ) {
+	public SubsBadges setProgramId( Byte program_id ) {
 
 		this.program_id = program_id;
+
+		return this;
 
 	}
 
@@ -207,9 +211,11 @@ public class SubsBadges {
 
 	}
 
-	public void setBadgeId( Byte badge_id ) {
+	public SubsBadges setBadgeId( Byte badge_id ) {
 
 		this.badge_id = badge_id;
+
+		return this;
 
 	}
 
@@ -219,9 +225,11 @@ public class SubsBadges {
 
 	}
 
-	public void setAwardDate( Date award_date ) {
+	public SubsBadges setAwardDate( Date award_date ) {
 
 		this.award_date = award_date;
+
+		return this;
 
 	}
 
@@ -231,9 +239,11 @@ public class SubsBadges {
 
 	}
 
-	public void setRedeemEndDate( Date redeem_end_date ) {
+	public SubsBadges setRedeemEndDate( Date redeem_end_date ) {
 
 		this.redeem_end_date = redeem_end_date;
+
+		return this;
 
 	}
 
@@ -243,9 +253,11 @@ public class SubsBadges {
 
 	}
 
-	public void setRedeemDate( Date redeem_date ) {
+	public SubsBadges setRedeemDate( Date redeem_date ) {
 
 		this.redeem_date = redeem_date;
+
+		return this;
 
 	}
 
@@ -255,9 +267,11 @@ public class SubsBadges {
 
 	}
 
-	public void setSubsStatus( String subs_status ) {
+	public SubsBadges setSubsStatus( String subs_status ) {
 
 		this.subs_status = subs_status;
+
+		return this;
 
 	}
 

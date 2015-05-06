@@ -54,9 +54,11 @@ public class SubsData {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public SubsData setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 

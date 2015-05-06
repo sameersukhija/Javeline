@@ -54,9 +54,11 @@ public class ConfUpdateLogRrdKey {
 
 	}
 
-	public void setRrdKey( Long rrd_key ) {
+	public ConfUpdateLogRrdKey setRrdKey( Long rrd_key ) {
 
 		this.rrd_key = rrd_key;
+
+		return this;
 
 	}
 

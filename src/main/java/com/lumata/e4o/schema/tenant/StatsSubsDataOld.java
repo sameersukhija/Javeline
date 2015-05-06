@@ -183,9 +183,11 @@ public class StatsSubsDataOld {
 
 	}
 
-	public void setQtySession( Integer qty_session ) {
+	public StatsSubsDataOld setQtySession( Integer qty_session ) {
 
 		this.qty_session = qty_session;
+
+		return this;
 
 	}
 
@@ -195,9 +197,11 @@ public class StatsSubsDataOld {
 
 	}
 
-	public void setVolumeUpload( Float volume_upload ) {
+	public StatsSubsDataOld setVolumeUpload( Float volume_upload ) {
 
 		this.volume_upload = volume_upload;
+
+		return this;
 
 	}
 
@@ -207,9 +211,11 @@ public class StatsSubsDataOld {
 
 	}
 
-	public void setVolumeDownload( Float volume_download ) {
+	public StatsSubsDataOld setVolumeDownload( Float volume_download ) {
 
 		this.volume_download = volume_download;
+
+		return this;
 
 	}
 
@@ -219,9 +225,11 @@ public class StatsSubsDataOld {
 
 	}
 
-	public void setAmountData( Float amount_data ) {
+	public StatsSubsDataOld setAmountData( Float amount_data ) {
 
 		this.amount_data = amount_data;
+
+		return this;
 
 	}
 
@@ -231,9 +239,11 @@ public class StatsSubsDataOld {
 
 	}
 
-	public void setLastSessionDate( Date last_session_date ) {
+	public StatsSubsDataOld setLastSessionDate( Date last_session_date ) {
 
 		this.last_session_date = last_session_date;
+
+		return this;
 
 	}
 
@@ -243,9 +253,11 @@ public class StatsSubsDataOld {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public StatsSubsDataOld setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -255,9 +267,11 @@ public class StatsSubsDataOld {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public StatsSubsDataOld setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 

@@ -163,9 +163,11 @@ public class DailyBundle {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public DailyBundle setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -175,9 +177,11 @@ public class DailyBundle {
 
 	}
 
-	public void setBundle( Long bundle ) {
+	public DailyBundle setBundle( Long bundle ) {
 
 		this.bundle = bundle;
+
+		return this;
 
 	}
 
@@ -187,9 +191,11 @@ public class DailyBundle {
 
 	}
 
-	public void setBundleBalance( Integer bundle_balance ) {
+	public DailyBundle setBundleBalance( Integer bundle_balance ) {
 
 		this.bundle_balance = bundle_balance;
+
+		return this;
 
 	}
 
@@ -199,9 +205,11 @@ public class DailyBundle {
 
 	}
 
-	public void setQtyBundlePurchased( Short qty_bundle_purchased ) {
+	public DailyBundle setQtyBundlePurchased( Short qty_bundle_purchased ) {
 
 		this.qty_bundle_purchased = qty_bundle_purchased;
+
+		return this;
 
 	}
 
@@ -211,9 +219,11 @@ public class DailyBundle {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public DailyBundle setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -223,9 +233,11 @@ public class DailyBundle {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public DailyBundle setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

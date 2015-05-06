@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 	<head>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
 		<style  type="text/css">
 			body {
 				background-color: black;
 			}
-			table, th, td, span {
+			table, th, tr, td, span {
    				border: 1px solid black;
 			}
 			table {
@@ -14,7 +17,7 @@
 				border-collapse: collapse;
 				border-spacing: 3px;				
 			}
-			th, td { 
+			th, tr, td { 
     			padding: 5px;
 			}			
 			.test-success {
@@ -33,8 +36,33 @@
 			.font {
 				font-family: "Trebuchet MS", Helvetica, sans-serif;
 			}
+			.fs-18 {
+				font-size: 18px;
+			}
+			.fs-20 {
+				font-size: 20px;
+			}
 			.font-center {
 				text-align:center;
+			}
+			.status-label {
+				font-size: 18px; 
+				margin-left: 20px; 
+				padding: 3px 10px;
+				-webkit-border-radius: 5px;
+				-moz-border-radius: 5px;
+				border-radius: 5px;
+			}
+			.no-border {
+				border-style:none;
+			}
+			.status-unstable {
+				background-color: #FC7F26; 
+				color: white;
+			}
+			.status-stable {
+				background-color: green; 
+				color: white;
 			}
 		</style>
 		<script>
@@ -50,11 +78,13 @@
 		<table style="margin:auto; width:80%;" class="font">
 			<thead>
 			 	<tr>
-			    	<th colspan="6" style="font-size: 20px;">${project} - Regression Suite ( ${release} )</th>				     
+			    	<th colspan="6" class="fs-20"><span class="no-border">${project} - Regression Suite ( ${release} )</span><span class="fs-18 no-border status-label <#if testSuiteStatus == 'STABLE'>status-stable<#else>status-unstable</#if>">${testSuiteStatus}</span></th>				     
 			  	</tr>
 			</thead>
 			<thead>
-				<tr><th colspan="6">Start Date ( ${testSuiteStartDate} ) - End Date ( ${testSuiteEndDate} ) - Execution Time ( ${testSuiteExecutionTime} )</th></tr>
+				<tr><th colspan="6">Environment ( ${testEnvironment} ) - Platform ( ${testPlatform} ) - Browser ( ${testBrowser} )</th></tr>
+			  	<tr><th colspan="6">Start Date ( ${testSuiteStartDate} ) - End Date ( ${testSuiteEndDate} ) - Execution Time ( ${testSuiteExecutionTime} )</th></tr>
+			  	<#if (testJenkinsExecution)!false><tr><th colspan="6">Job ( ${testJenkinsJobName} ) - Build ( <a href="${testJenkinsBuildLink}">${testJenkinsBuildNumber}</a> ) - Job Execution Time ( ${testJenkinsExecutionTime} ) </th></tr></#if>			  	
 			  	<tr><th colspan="6">Total ( ${total} ) - Success ( ${success} ) - Failure ( ${failure} ) - Skip ( ${skip} )</th></tr>
 			</thead>
 			<thead>
@@ -74,7 +104,7 @@
 						<td>${testCase.testMethodName}</td>
 						<td>${testCase.testStartDate}</td>
 						<td>${testCase.testExecutionTime} ms</td>
-						<td <#if testCase.testStatus == 'FAILURE'>onclick="changeText('failure_${testCase_index + 1}')" </#if>class="<#if testCase.testStatus == 'SUCCESS'>test-success<#elseif testCase.testStatus == 'FAILURE'>test-failure<#else>test-skip</#if>">${testCase.testStatus}</td>
+						<td <#if testCase.testStatus == 'FAILURE' && !testSuiteNotification>onclick="changeText('failure_${testCase_index + 1}')"</#if>class="<#if testCase.testStatus == 'SUCCESS'>test-success<#elseif testCase.testStatus == 'FAILURE'>test-failure<#else>test-skip</#if>">${testCase.testStatus}</td>
 					</tr>
 					<tr id="failure_${testCase_index + 1}" style="display: none;">
 			  			<td colspan="6" style="font-size: 12px;">${testCase.testStackTrace}</td>				     

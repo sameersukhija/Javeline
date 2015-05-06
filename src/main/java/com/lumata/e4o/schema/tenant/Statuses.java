@@ -96,9 +96,11 @@ public class Statuses {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public Statuses setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class Statuses {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public Statuses setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class Statuses {
 
 	}
 
-	public void setStatus( String status ) {
+	public Statuses setStatus( String status ) {
 
 		this.status = status;
+
+		return this;
 
 	}
 

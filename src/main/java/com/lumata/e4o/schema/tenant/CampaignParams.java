@@ -75,9 +75,11 @@ public class CampaignParams {
 
 	}
 
-	public void setCampaignId( Short campaign_id ) {
+	public CampaignParams setCampaignId( Short campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class CampaignParams {
 
 	}
 
-	public void setParams( String params ) {
+	public CampaignParams setParams( String params ) {
 
 		this.params = params;
+
+		return this;
 
 	}
 

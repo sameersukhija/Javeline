@@ -1,0 +1,27 @@
+{
+	"productTypes": [{
+		"enabled": true,
+		"name":"ProductA",
+		"description":"ProductA",
+		"characteristics": [{
+			"enabled": true,
+			"name": "ChA",
+			"type": "List",
+			"list": {
+					"value":[ "on","to"],
+					"default": null
+			},
+			"choice": null,
+  			"text": null,
+  			"unit": null
+  		},{
+  			"enabled": true,
+  			"name": "text1",
+  			"type": "Text",
+  			"list": null,
+  			"choice": null,
+  			"text":"Super",
+			"unit": null
+    	}]
+	}]
+}

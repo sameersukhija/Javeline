@@ -75,9 +75,11 @@ public class CampaignMaster {
 
 	}
 
-	public void setCampaignId( Short campaign_id ) {
+	public CampaignMaster setCampaignId( Short campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class CampaignMaster {
 
 	}
 
-	public void setMasterType( String master_type ) {
+	public CampaignMaster setMasterType( String master_type ) {
 
 		this.master_type = master_type;
+
+		return this;
 
 	}
 

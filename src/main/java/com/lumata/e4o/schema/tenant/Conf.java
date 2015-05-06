@@ -267,9 +267,11 @@ public class Conf {
 
 	}
 
-	public void setName( String name ) {
+	public Conf setName( String name ) {
 
 		this.name = name;
+
+		return this;
 
 	}
 
@@ -279,9 +281,11 @@ public class Conf {
 
 	}
 
-	public void setPosition( Integer position ) {
+	public Conf setPosition( Integer position ) {
 
 		this.position = position;
+
+		return this;
 
 	}
 
@@ -291,9 +295,11 @@ public class Conf {
 
 	}
 
-	public void setSection( String section ) {
+	public Conf setSection( String section ) {
 
 		this.section = section;
+
+		return this;
 
 	}
 
@@ -303,9 +309,11 @@ public class Conf {
 
 	}
 
-	public void setProcessId( String process_id ) {
+	public Conf setProcessId( String process_id ) {
 
 		this.process_id = process_id;
+
+		return this;
 
 	}
 
@@ -315,9 +323,11 @@ public class Conf {
 
 	}
 
-	public void setAuthGroup( String auth_group ) {
+	public Conf setAuthGroup( String auth_group ) {
 
 		this.auth_group = auth_group;
+
+		return this;
 
 	}
 
@@ -327,9 +337,11 @@ public class Conf {
 
 	}
 
-	public void setCurrent( String current ) {
+	public Conf setCurrent( String current ) {
 
 		this.current = current;
+
+		return this;
 
 	}
 
@@ -339,9 +351,11 @@ public class Conf {
 
 	}
 
-	public void setPrevious( String previous ) {
+	public Conf setPrevious( String previous ) {
 
 		this.previous = previous;
+
+		return this;
 
 	}
 
@@ -351,9 +365,11 @@ public class Conf {
 
 	}
 
-	public void setDynStatic( String dyn_static ) {
+	public Conf setDynStatic( String dyn_static ) {
 
 		this.dyn_static = dyn_static;
+
+		return this;
 
 	}
 
@@ -363,9 +379,11 @@ public class Conf {
 
 	}
 
-	public void setTime( Date time ) {
+	public Conf setTime( Date time ) {
 
 		this.time = time;
+
+		return this;
 
 	}
 
@@ -375,9 +393,11 @@ public class Conf {
 
 	}
 
-	public void setType( String type ) {
+	public Conf setType( String type ) {
 
 		this.type = type;
+
+		return this;
 
 	}
 
@@ -387,9 +407,11 @@ public class Conf {
 
 	}
 
-	public void setDescription( String description ) {
+	public Conf setDescription( String description ) {
 
 		this.description = description;
+
+		return this;
 
 	}
 

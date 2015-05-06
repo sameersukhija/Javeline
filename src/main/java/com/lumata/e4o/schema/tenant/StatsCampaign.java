@@ -373,9 +373,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public StatsCampaign setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -385,9 +387,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setCampaignId( Short campaign_id ) {
+	public StatsCampaign setCampaignId( Short campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+		return this;
 
 	}
 
@@ -397,9 +401,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setStartDate( Date start_date ) {
+	public StatsCampaign setStartDate( Date start_date ) {
 
 		this.start_date = start_date;
+
+		return this;
 
 	}
 
@@ -409,9 +415,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setEndDate( Date end_date ) {
+	public StatsCampaign setEndDate( Date end_date ) {
 
 		this.end_date = end_date;
+
+		return this;
 
 	}
 
@@ -421,9 +429,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setSubsStatus( String subs_status ) {
+	public StatsCampaign setSubsStatus( String subs_status ) {
 
 		this.subs_status = subs_status;
+
+		return this;
 
 	}
 
@@ -433,9 +443,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setSubstateId( Byte substate_id ) {
+	public StatsCampaign setSubstateId( Byte substate_id ) {
 
 		this.substate_id = substate_id;
+
+		return this;
 
 	}
 
@@ -445,9 +457,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setCsDone( Byte cs_done ) {
+	public StatsCampaign setCsDone( Byte cs_done ) {
 
 		this.cs_done = cs_done;
+
+		return this;
 
 	}
 
@@ -457,9 +471,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setAmountUsage( Float amount_usage ) {
+	public StatsCampaign setAmountUsage( Float amount_usage ) {
 
 		this.amount_usage = amount_usage;
+
+		return this;
 
 	}
 
@@ -469,9 +485,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setAmountRecharge( Float amount_recharge ) {
+	public StatsCampaign setAmountRecharge( Float amount_recharge ) {
 
 		this.amount_recharge = amount_recharge;
+
+		return this;
 
 	}
 
@@ -481,9 +499,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setAmountInvoice( Float amount_invoice ) {
+	public StatsCampaign setAmountInvoice( Float amount_invoice ) {
 
 		this.amount_invoice = amount_invoice;
+
+		return this;
 
 	}
 
@@ -493,9 +513,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setAmountPayment( Float amount_payment ) {
+	public StatsCampaign setAmountPayment( Float amount_payment ) {
 
 		this.amount_payment = amount_payment;
+
+		return this;
 
 	}
 
@@ -505,9 +527,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setAmountCall( Float amount_call ) {
+	public StatsCampaign setAmountCall( Float amount_call ) {
 
 		this.amount_call = amount_call;
+
+		return this;
 
 	}
 
@@ -517,9 +541,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setAmountMessage( Float amount_message ) {
+	public StatsCampaign setAmountMessage( Float amount_message ) {
 
 		this.amount_message = amount_message;
+
+		return this;
 
 	}
 
@@ -529,9 +555,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setAmountData( Float amount_data ) {
+	public StatsCampaign setAmountData( Float amount_data ) {
 
 		this.amount_data = amount_data;
+
+		return this;
 
 	}
 
@@ -541,9 +569,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setParams( String params ) {
+	public StatsCampaign setParams( String params ) {
 
 		this.params = params;
+
+		return this;
 
 	}
 
@@ -553,9 +583,11 @@ public class StatsCampaign {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public StatsCampaign setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

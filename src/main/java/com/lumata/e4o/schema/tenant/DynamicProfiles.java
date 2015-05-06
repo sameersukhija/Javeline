@@ -96,9 +96,11 @@ public class DynamicProfiles {
 
 	}
 
-	public void setVariableName( String variable_name ) {
+	public DynamicProfiles setVariableName( String variable_name ) {
 
 		this.variable_name = variable_name;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class DynamicProfiles {
 
 	}
 
-	public void setVariableType( String variable_type ) {
+	public DynamicProfiles setVariableType( String variable_type ) {
 
 		this.variable_type = variable_type;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class DynamicProfiles {
 
 	}
 
-	public void setScope( String scope ) {
+	public DynamicProfiles setScope( String scope ) {
 
 		this.scope = scope;
+
+		return this;
 
 	}
 

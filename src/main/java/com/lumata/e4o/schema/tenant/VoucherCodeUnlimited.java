@@ -141,9 +141,11 @@ public class VoucherCodeUnlimited {
 
 	}
 
-	public void setOfferId( Short offer_id ) {
+	public VoucherCodeUnlimited setOfferId( Short offer_id ) {
 
 		this.offer_id = offer_id;
+
+		return this;
 
 	}
 
@@ -153,9 +155,11 @@ public class VoucherCodeUnlimited {
 
 	}
 
-	public void setCode( String code ) {
+	public VoucherCodeUnlimited setCode( String code ) {
 
 		this.code = code;
+
+		return this;
 
 	}
 
@@ -165,9 +169,11 @@ public class VoucherCodeUnlimited {
 
 	}
 
-	public void setExpiryDate( Date expiryDate ) {
+	public VoucherCodeUnlimited setExpiryDate( Date expiryDate ) {
 
 		this.expiryDate = expiryDate;
+
+		return this;
 
 	}
 
@@ -177,9 +183,11 @@ public class VoucherCodeUnlimited {
 
 	}
 
-	public void setPartnerId( String partner_id ) {
+	public VoucherCodeUnlimited setPartnerId( String partner_id ) {
 
 		this.partner_id = partner_id;
+
+		return this;
 
 	}
 
@@ -189,9 +197,11 @@ public class VoucherCodeUnlimited {
 
 	}
 
-	public void setFormat( String format ) {
+	public VoucherCodeUnlimited setFormat( String format ) {
 
 		this.format = format;
+
+		return this;
 
 	}
 

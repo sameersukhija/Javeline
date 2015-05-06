@@ -106,7 +106,7 @@ public class Authorization extends Form {
 	private Boolean closeLicenseDialog() throws FormException {
 		
 		Boolean closedLicenseDialog = null;
-		
+						
 		try {
 			
 			long timeout = getTimeout();
@@ -114,7 +114,7 @@ public class Authorization extends Form {
 			setTimeout( 1000 ).			
 			clickXPath( "//div[@class='gwt-DialogBox errorDialog']//button" ).
 			setTimeout( timeout );
-			
+						
 			closedLicenseDialog = Boolean.TRUE;
 			
 		} catch( NoSuchElementException | FormException e ) {
@@ -128,6 +128,8 @@ public class Authorization extends Form {
 				else // something happened
 					throw e;
 		}
+		
+		
 		
 		return closedLicenseDialog;
 	}

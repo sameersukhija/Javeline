@@ -96,9 +96,11 @@ public class CampaignInfos {
 
 	}
 
-	public void setCampaignId( Short campaign_id ) {
+	public CampaignInfos setCampaignId( Short campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class CampaignInfos {
 
 	}
 
-	public void setKeyInfos( String key_infos ) {
+	public CampaignInfos setKeyInfos( String key_infos ) {
 
 		this.key_infos = key_infos;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class CampaignInfos {
 
 	}
 
-	public void setValueInfos( String value_infos ) {
+	public CampaignInfos setValueInfos( String value_infos ) {
 
 		this.value_infos = value_infos;
+
+		return this;
 
 	}
 

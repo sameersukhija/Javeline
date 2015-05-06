@@ -75,9 +75,11 @@ public class NotifRewardEvents {
 
 	}
 
-	public void setNotifId( Long notif_id ) {
+	public NotifRewardEvents setNotifId( Long notif_id ) {
 
 		this.notif_id = notif_id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class NotifRewardEvents {
 
 	}
 
-	public void setEventId( Long event_id ) {
+	public NotifRewardEvents setEventId( Long event_id ) {
 
 		this.event_id = event_id;
+
+		return this;
 
 	}
 

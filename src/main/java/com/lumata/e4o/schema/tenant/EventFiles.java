@@ -121,9 +121,11 @@ public class EventFiles {
 
 	}
 
-	public void setEventName( String event_name ) {
+	public EventFiles setEventName( String event_name ) {
 
 		this.event_name = event_name;
+
+		return this;
 
 	}
 
@@ -133,9 +135,11 @@ public class EventFiles {
 
 	}
 
-	public void setFileName( String file_name ) {
+	public EventFiles setFileName( String file_name ) {
 
 		this.file_name = file_name;
+
+		return this;
 
 	}
 
@@ -145,9 +149,11 @@ public class EventFiles {
 
 	}
 
-	public void setFileTime( Timestamp file_time ) {
+	public EventFiles setFileTime( Timestamp file_time ) {
 
 		this.file_time = file_time;
+
+		return this;
 
 	}
 
@@ -157,9 +163,11 @@ public class EventFiles {
 
 	}
 
-	public void setCheckTime( Date check_time ) {
+	public EventFiles setCheckTime( Date check_time ) {
 
 		this.check_time = check_time;
+
+		return this;
 
 	}
 

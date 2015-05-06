@@ -1,0 +1,47 @@
+{
+  "productTypes": [
+    {
+      "enabled": true,
+      "name": "newProduct",
+      "description": "newProduct",
+      "delete": false,
+      "characteristics": [
+        {
+          "enabled": true,
+          "name": "list1",
+          "type": "List",
+          "list": {
+            "value": [
+              "one",
+              "two",
+              "three"
+            ],
+            "default": [
+              "two",
+              "three"
+            ]
+          },
+          "choice": null,
+          "text": null,
+          "unit": null
+        },
+        {
+          "enabled": true,
+          "name": "choice1",
+          "type": "Choice",
+          "list": null,
+          "choice": {
+            "value": [
+              "bim",
+              "bum",
+              "bam"
+            ],
+            "default": "bam"
+          },
+          "text": null,
+          "unit": null
+        }
+      ]
+    }
+  ]
+}

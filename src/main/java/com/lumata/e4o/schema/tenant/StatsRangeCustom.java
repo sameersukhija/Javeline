@@ -141,9 +141,11 @@ public class StatsRangeCustom {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public StatsRangeCustom setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -153,9 +155,11 @@ public class StatsRangeCustom {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public StatsRangeCustom setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -165,9 +169,11 @@ public class StatsRangeCustom {
 
 	}
 
-	public void setVarName( Byte var_name ) {
+	public StatsRangeCustom setVarName( Byte var_name ) {
 
 		this.var_name = var_name;
+
+		return this;
 
 	}
 
@@ -177,9 +183,11 @@ public class StatsRangeCustom {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public StatsRangeCustom setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -189,9 +197,11 @@ public class StatsRangeCustom {
 
 	}
 
-	public void setRangeId( Byte range_id ) {
+	public StatsRangeCustom setRangeId( Byte range_id ) {
 
 		this.range_id = range_id;
+
+		return this;
 
 	}
 

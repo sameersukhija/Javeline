@@ -99,6 +99,11 @@ public abstract class ParentTestCase {
 	protected final String DEFAULT_BROWSER = "FIREFOX";
 	
 	/**
+	 * 	Default timeout before a testng test failure 
+	 */
+	protected final long TESTNG_TIMEOUT = 600000L;
+	
+	/**
 	 * 	Default timeout before a test failure 
 	 * 	in case the selenium web driver 
 	 * 	doesn't discover an element
@@ -350,11 +355,11 @@ public abstract class ParentTestCase {
 		
 		try {
 			
-			mysqlGlobal = getMysqlInstance( mysqlGlobalName, "schemaGlobal", DEFAULT_SCHEMA_GLOBAL );
+			if( null != mysqlGlobalName && !mysqlGlobalName.isEmpty() ) { mysqlGlobal = getMysqlInstance( mysqlGlobalName, "schemaGlobal", DEFAULT_SCHEMA_GLOBAL ); }
 			
-			mysqlMaster = getMysqlInstance( mysqlMasterName, "schemaMaster", DEFAULT_SCHEMA_MASTER );
+			if( null != mysqlMasterName && !mysqlMasterName.isEmpty() ) { mysqlMaster = getMysqlInstance( mysqlMasterName, "schemaMaster", DEFAULT_SCHEMA_MASTER ); }
 			
-			mysqlReport = getMysqlInstance( mysqlReportName, "schemaReport", DEFAULT_SCHEMA_REPORT );			
+			if( null != mysqlReportName && !mysqlReportName.isEmpty() ) { mysqlReport = getMysqlInstance( mysqlReportName, "schemaReport", DEFAULT_SCHEMA_REPORT ); }			
 						
 		} catch( Exception e ) {
 			

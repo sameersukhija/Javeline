@@ -96,9 +96,11 @@ public class SubsNotif {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public SubsNotif setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class SubsNotif {
 
 	}
 
-	public void setChannelId( Byte channel_id ) {
+	public SubsNotif setChannelId( Byte channel_id ) {
 
 		this.channel_id = channel_id;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class SubsNotif {
 
 	}
 
-	public void setAddress( String address ) {
+	public SubsNotif setAddress( String address ) {
 
 		this.address = address;
+
+		return this;
 
 	}
 

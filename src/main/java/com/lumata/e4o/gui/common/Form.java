@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -29,6 +30,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
+import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
 
 public abstract class Form {
@@ -40,8 +42,8 @@ public abstract class Form {
 	protected long interval;
 	protected boolean status;
 	protected WebElement lastWebElement;
-	protected WebDriverWait wait;	
-	
+	protected WebDriverWait wait;
+		
 	public Form(SeleniumWebDriver selenium, long timeout, long interval) {
 		
 		this.selenium = selenium;
@@ -51,7 +53,29 @@ public abstract class Form {
 		
 	}
 	
-	public Calendar getDate( String dateStr ) {
+	public Form configureGWTCalendarById( String id, Calendar date ) throws FormException, JSONException {
+		
+		GWTCalendarForm.
+			create( selenium, timeout, interval ).
+			openById( id ).
+			setDate( date );
+		
+		return this;
+		
+	}
+	
+	public Form configureGWTCalendarByXPath( String xpath, Calendar date ) throws FormException, JSONException {
+		
+		GWTCalendarForm.
+			create( selenium, timeout, interval ).
+			openByXPath( xpath ).
+			setDate( date );
+		
+		return this;
+		
+	}
+	
+	public Calendar getDate( String dateStr ) throws FormException {
 		
 		Calendar date = Calendar.getInstance();
 		
@@ -59,14 +83,24 @@ public abstract class Form {
 	    
 		try {
 			
-			date.setTime( sdf.parse( dateStr ) );
+			if( PlaceHolderDate.getInstance( dateStr ).isPlaceHolderDate() ) {
+				
+				date = PlaceHolderDate.getInstance( dateStr ).parse();
+									
+			} else {
+								
+				date.setTime( sdf.parse( dateStr ) );
+		
+			}		
 		
 		} catch ( ParseException e ) {
 			
 			logger.error( e.getMessage(), e );
 			
+			throw new FormException( e.getMessage(), e );
+			
 		}
-		
+				
 		return date;
 		
 	}
@@ -198,7 +232,14 @@ public abstract class Form {
 		return we.getText();
 	
 	}
-	
+	public Form clickBycssSelector(String string) throws FormException {
+        return click( SeleniumUtils.SearchBy.CSS, string );
+	}
+	public Form sendKeysBycssSelector( String css, String text ) throws FormException {
+        
+        return sendKeys( SeleniumUtils.SearchBy.CSS, css, text ); 
+ 
+	}
 	public boolean isTrueKey(Map<String, String> map, String key) {
 		return map.containsKey(key) && map.get(key).equalsIgnoreCase("true");
 	}
@@ -243,6 +284,14 @@ public abstract class Form {
 		
 	}
 
+	public Form searchById( String id ) throws FormException {
+		
+		search( SeleniumUtils.SearchBy.ID, id );
+		
+		return this;
+		
+	}
+	
 	public Form searchById( String id, long timeout, long interval ) throws FormException {
 		
 		search( SeleniumUtils.SearchBy.ID, id, timeout, interval );
@@ -701,9 +750,27 @@ public abstract class Form {
 	
 	}
 	
+	private Form sendKeys( SeleniumUtils.SearchBy by, String tag, Keys key ) throws FormException {
+		
+		lastWebElement = search( by, tag );
+		
+		lastWebElement.clear();
+		
+		lastWebElement.sendKeys( key );
+		
+		return this;
+	
+	}
+	
 	public Form sendKeysById( String id, String text ) throws FormException {
 		
 		return sendKeys( SeleniumUtils.SearchBy.ID, id, text ); 
+	
+	}
+	
+	public Form sendKeysById( String id, Keys key ) throws FormException {
+		
+		return sendKeys( SeleniumUtils.SearchBy.ID, id, key ); 
 	
 	}
 	
@@ -849,6 +916,11 @@ public abstract class Form {
 	public Boolean isCheckedByXPath( String xpath ) throws FormException {
 		
 		return isChecked( SeleniumUtils.SearchBy.XPATH, xpath );
+		
+	}
+	public List<WebElement> getListByXPath( String rootXPath, String xpath ) throws FormException {
+		
+		return searchList( SeleniumUtils.SearchBy.XPATH, SeleniumUtils.SearchBy.XPATH, rootXPath, xpath );
 		
 	}
 	

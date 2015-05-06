@@ -141,9 +141,11 @@ public class StatsSubsBundle {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public StatsSubsBundle setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -153,9 +155,11 @@ public class StatsSubsBundle {
 
 	}
 
-	public void setBundle( Long bundle ) {
+	public StatsSubsBundle setBundle( Long bundle ) {
 
 		this.bundle = bundle;
+
+		return this;
 
 	}
 
@@ -165,9 +169,11 @@ public class StatsSubsBundle {
 
 	}
 
-	public void setBundleBalance( Integer bundle_balance ) {
+	public StatsSubsBundle setBundleBalance( Integer bundle_balance ) {
 
 		this.bundle_balance = bundle_balance;
+
+		return this;
 
 	}
 
@@ -177,9 +183,11 @@ public class StatsSubsBundle {
 
 	}
 
-	public void setQtyBundlePurchased( Integer qty_bundle_purchased ) {
+	public StatsSubsBundle setQtyBundlePurchased( Integer qty_bundle_purchased ) {
 
 		this.qty_bundle_purchased = qty_bundle_purchased;
+
+		return this;
 
 	}
 
@@ -189,9 +197,11 @@ public class StatsSubsBundle {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public StatsSubsBundle setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 

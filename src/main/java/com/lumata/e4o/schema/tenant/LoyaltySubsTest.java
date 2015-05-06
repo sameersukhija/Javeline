@@ -75,9 +75,11 @@ public class LoyaltySubsTest {
 
 	}
 
-	public void setProgramId( Byte program_id ) {
+	public LoyaltySubsTest setProgramId( Byte program_id ) {
 
 		this.program_id = program_id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class LoyaltySubsTest {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public LoyaltySubsTest setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 

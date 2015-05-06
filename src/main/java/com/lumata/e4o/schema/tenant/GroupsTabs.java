@@ -75,9 +75,11 @@ public class GroupsTabs {
 
 	}
 
-	public void setTabId( Boolean tab_id ) {
+	public GroupsTabs setTabId( Boolean tab_id ) {
 
 		this.tab_id = tab_id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class GroupsTabs {
 
 	}
 
-	public void setGroupId( Short group_id ) {
+	public GroupsTabs setGroupId( Short group_id ) {
 
 		this.group_id = group_id;
+
+		return this;
 
 	}
 

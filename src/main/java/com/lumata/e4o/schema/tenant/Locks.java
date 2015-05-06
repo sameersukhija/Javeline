@@ -120,9 +120,11 @@ public class Locks {
 
 	}
 
-	public void setLockId( String lock_id ) {
+	public Locks setLockId( String lock_id ) {
 
 		this.lock_id = lock_id;
+
+		return this;
 
 	}
 
@@ -132,9 +134,11 @@ public class Locks {
 
 	}
 
-	public void setLockerId( String locker_id ) {
+	public Locks setLockerId( String locker_id ) {
 
 		this.locker_id = locker_id;
+
+		return this;
 
 	}
 
@@ -144,9 +148,11 @@ public class Locks {
 
 	}
 
-	public void setProcessId( String process_id ) {
+	public Locks setProcessId( String process_id ) {
 
 		this.process_id = process_id;
+
+		return this;
 
 	}
 
@@ -156,9 +162,11 @@ public class Locks {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public Locks setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

@@ -3,8 +3,6 @@ package com.lumata.e4o.json.gui.catalogmanager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.e4o.json.common.JsonConfig;
@@ -14,8 +12,6 @@ import com.lumata.e4o.json.common.JsonConfig;
  * 
  */
 public class JSONSuppliers extends JsonConfig {
-
-	private static final Logger logger = LoggerFactory.getLogger(JSONSuppliers.class);
 
 	private JsonConfig currentSupplier;
 	

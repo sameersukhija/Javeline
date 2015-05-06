@@ -96,9 +96,11 @@ public class CampaignExpectedKpi {
 
 	}
 
-	public void setCampaignId( Short campaign_id ) {
+	public CampaignExpectedKpi setCampaignId( Short campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class CampaignExpectedKpi {
 
 	}
 
-	public void setKpiName( String kpi_name ) {
+	public CampaignExpectedKpi setKpiName( String kpi_name ) {
 
 		this.kpi_name = kpi_name;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class CampaignExpectedKpi {
 
 	}
 
-	public void setKpiValue( Float kpi_value ) {
+	public CampaignExpectedKpi setKpiValue( Float kpi_value ) {
 
 		this.kpi_value = kpi_value;
+
+		return this;
 
 	}
 

@@ -184,9 +184,11 @@ public class DailyData {
 
 	}
 
-	public void setQtySession( Short qty_session ) {
+	public DailyData setQtySession( Short qty_session ) {
 
 		this.qty_session = qty_session;
+
+		return this;
 
 	}
 
@@ -196,9 +198,11 @@ public class DailyData {
 
 	}
 
-	public void setVolumeUpload( Integer volume_upload ) {
+	public DailyData setVolumeUpload( Integer volume_upload ) {
 
 		this.volume_upload = volume_upload;
+
+		return this;
 
 	}
 
@@ -208,9 +212,11 @@ public class DailyData {
 
 	}
 
-	public void setVolumeDownload( Integer volume_download ) {
+	public DailyData setVolumeDownload( Integer volume_download ) {
 
 		this.volume_download = volume_download;
+
+		return this;
 
 	}
 
@@ -220,9 +226,11 @@ public class DailyData {
 
 	}
 
-	public void setAmountData( Integer amount_data ) {
+	public DailyData setAmountData( Integer amount_data ) {
 
 		this.amount_data = amount_data;
+
+		return this;
 
 	}
 
@@ -232,9 +240,11 @@ public class DailyData {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public DailyData setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -244,9 +254,11 @@ public class DailyData {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public DailyData setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -256,9 +268,11 @@ public class DailyData {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public DailyData setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

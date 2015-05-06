@@ -75,9 +75,11 @@ public class CatalogRelatedProducts {
 
 	}
 
-	public void setProductId( Short product_id ) {
+	public CatalogRelatedProducts setProductId( Short product_id ) {
 
 		this.product_id = product_id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class CatalogRelatedProducts {
 
 	}
 
-	public void setRelatedProductId( Short related_product_id ) {
+	public CatalogRelatedProducts setRelatedProductId( Short related_product_id ) {
 
 		this.related_product_id = related_product_id;
+
+		return this;
 
 	}
 

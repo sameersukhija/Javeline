@@ -117,9 +117,11 @@ public class CatalogOfferContent {
 
 	}
 
-	public void setOfferId( Short offer_id ) {
+	public CatalogOfferContent setOfferId( Short offer_id ) {
 
 		this.offer_id = offer_id;
+
+		return this;
 
 	}
 
@@ -129,9 +131,11 @@ public class CatalogOfferContent {
 
 	}
 
-	public void setContentType( String content_type ) {
+	public CatalogOfferContent setContentType( String content_type ) {
 
 		this.content_type = content_type;
+
+		return this;
 
 	}
 
@@ -141,9 +145,11 @@ public class CatalogOfferContent {
 
 	}
 
-	public void setContentId( Short content_id ) {
+	public CatalogOfferContent setContentId( Short content_id ) {
 
 		this.content_id = content_id;
+
+		return this;
 
 	}
 
@@ -153,9 +159,11 @@ public class CatalogOfferContent {
 
 	}
 
-	public void setQuantity( Integer quantity ) {
+	public CatalogOfferContent setQuantity( Integer quantity ) {
 
 		this.quantity = quantity;
+
+		return this;
 
 	}
 
