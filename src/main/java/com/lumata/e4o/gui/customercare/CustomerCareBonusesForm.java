@@ -11,7 +11,7 @@ public class CustomerCareBonusesForm  extends CustomerCareForm {
 		
 	}
 
-	protected CustomerCareBonusesForm open() throws FormException {
+	protected CustomerCareBonusesForm openBonusTab() throws FormException {
 		
 		clickId( "gwt-debug-BtnCCBarInfoBonuses" );
 		

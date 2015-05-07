@@ -11,7 +11,7 @@ public class CustomerCareServicesForm  extends CustomerCareForm {
 		
 	}
 
-	protected CustomerCareServicesForm open() throws FormException {
+	protected CustomerCareServicesForm openServicesTab() throws FormException {
 		
 		clickId( "gwt-debug-BtnCCBarInfoServices" );
 		

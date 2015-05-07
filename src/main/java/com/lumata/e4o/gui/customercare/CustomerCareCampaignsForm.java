@@ -11,7 +11,7 @@ public class CustomerCareCampaignsForm  extends CustomerCareForm {
 		
 	}
 
-	protected CustomerCareCampaignsForm open() throws FormException {
+	protected CustomerCareCampaignsForm openCampaignTab() throws FormException {
 		
 		clickId( "gwt-debug-BtnCCBarInfoCampaigns" );
 		

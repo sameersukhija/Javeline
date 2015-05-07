@@ -11,7 +11,7 @@ public class CustomerCareLoyaltyForm  extends CustomerCareForm {
 		
 	}
 
-	protected CustomerCareLoyaltyForm open() throws FormException {
+	protected CustomerCareLoyaltyForm openLoyaltyTab() throws FormException {
 		
 		clickId( "gwt-debug-BtnCCBarInfoLoyalty" );
 		
