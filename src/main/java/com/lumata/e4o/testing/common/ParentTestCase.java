@@ -457,14 +457,8 @@ public abstract class ParentTestCase {
 	
 	@AfterMethod
 	protected void tearDown( ITestResult result ) throws TestNGException {
-		
-		if( result.getStatus() == ITestResult.SUCCESS ) {
-			 
-			Reporter.log( "\n<pre style='color: white; font-size: 14px; text-align: center; border-radius: 5px; font-weight: bold; background-color: green; width: auto; height: 20px;'>SUCCESS ( " + result.getClass().getSimpleName() + "." + result.getName() + " )</pre>", LOG_TO_STD_OUT );
-			
-		}
-		
-	    if( result.getStatus() == ITestResult.FAILURE ) {
+
+		if( result.getStatus() == ITestResult.FAILURE ) {
 	        
 	    	if( null != seleniumDriverType ) {
 		    	
