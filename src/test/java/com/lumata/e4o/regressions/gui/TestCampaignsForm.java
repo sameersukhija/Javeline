@@ -37,12 +37,10 @@ public class TestCampaignsForm extends ParentTestCase {
 	private CampaignsForm campaignsForm;
 	
 	@BeforeClass
-	public void initCampaignsForm( Method method ) throws NetworkEnvironmentException, FormException {		
+	public void initCampaignsForm() throws NetworkEnvironmentException, FormException {		
 	
 		/** Campaigns Form **/
 		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
-		
-		seleniumWebDriver.setTestName( method.getName() );
 		
 	}
 			
