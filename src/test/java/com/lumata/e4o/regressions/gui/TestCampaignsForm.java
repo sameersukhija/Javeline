@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONException;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.JSONSException;
@@ -36,7 +36,7 @@ public class TestCampaignsForm extends ParentTestCase {
 
 	private CampaignsForm campaignsForm;
 	
-	@BeforeMethod
+	@BeforeClass
 	public void initCampaignsForm( Method method ) throws NetworkEnvironmentException, FormException {		
 	
 		/** Campaigns Form **/

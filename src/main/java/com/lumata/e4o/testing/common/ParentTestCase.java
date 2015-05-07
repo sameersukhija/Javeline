@@ -458,6 +458,12 @@ public abstract class ParentTestCase {
 	@AfterMethod
 	protected void tearDown( ITestResult result ) throws TestNGException {
 		
+		if( result.getStatus() == ITestResult.SUCCESS ) {
+			 
+			Reporter.log( "<pre style='background-color: green; width: 200px; height: 40px;'>SUCCESS</pre>", LOG_TO_STD_OUT );
+			
+		}
+		
 	    if( result.getStatus() == ITestResult.FAILURE ) {
 	        
 	    	if( null != seleniumDriverType ) {
