@@ -460,9 +460,7 @@ public abstract class ParentTestCase {
 		
 		if( result.getStatus() == ITestResult.SUCCESS ) {
 			 
-			Reporter.log( "<pre style='background-color: green; width: 200px; height: 40px;'>SUCCESS</pre>", LOG_TO_STD_OUT );
-			
-			Reporter.log( "<div style='color: white; font-size: 14px; text-align: center; border-radius: 5px; font-weight: bold; background-color: green; width: auto; height: 20px;'>SUCCESS ( " + result.getClass().getSimpleName() + "." + result.getName() + " )</div>" );
+			Reporter.log( "<div style='color: white; font-size: 14px; text-align: center; border-radius: 5px; font-weight: bold; background-color: green; width: auto; height: 20px;'>SUCCESS ( " + result.getClass().getSimpleName() + "." + result.getName() + " )</div>", LOG_TO_STD_OUT );
 			
 		}
 		
