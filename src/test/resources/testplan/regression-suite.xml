@@ -6,7 +6,7 @@
     <listener class-name="com.lumata.e4o.testing.common.TestNGReportListener"/>
   </listeners>
   
-  <parameter name="e4oReleaseParam" value="2.4.1.20.0" />
+  <parameter name="e4oReleaseParam" value="2.4.1.20.1" />
   
   <parameter name="networkEnvironmentParams" value="{ 'envFile':'e4o_qa2_ita', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule', 'guiUser':'superman' }"/>
   <!-- selenium_driver_type: local or remote -->  
