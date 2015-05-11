@@ -1,0 +1,13 @@
+{
+	"tokenTypes": [
+		{
+			"enabled": true,
+			"imageUrl":"http://i-neti.ru/sites/default/files/blogimages/test_icon.jpg",
+			"validityValue":"100",
+			"usageUnlimited": true,
+			"usage":"10"
+			
+		}
+		
+	]
+}
