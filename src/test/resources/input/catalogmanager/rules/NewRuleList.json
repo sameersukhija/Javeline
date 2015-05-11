@@ -2,7 +2,13 @@
 	"rules": [
 		{
 			"enabled": true,	
-				"channels":"Campaign manager",
+				"channels":[
+				{
+				"name":"Campaign manager",
+				"mandatory":true,
+				"unlimited": true
+				}
+				],
 			"maximumNumberOfOffers":10	
 		}
 	]

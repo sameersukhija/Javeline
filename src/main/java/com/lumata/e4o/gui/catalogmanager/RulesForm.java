@@ -132,8 +132,8 @@ public class RulesForm extends OfferOptimisationForm {
 	}
 
 	// Select Channel Type
-	public RulesForm setChannel(String text) throws FormException {
-		super.selectByXPathAndVisibleText("//select[@multiple]", text);
+	public RulesForm setChannel(JSONArray channelRules) throws FormException {
+		super.multiselectByXPathAndVisibleText( "//select[@multiple]", ruleCfg.getRuleChannelsAsArray());
 		return this;
 
 	}

@@ -1,7 +1,9 @@
 package com.lumata.e4o.regressions.gui;
 
 import java.util.concurrent.TimeUnit;
+
 import org.json.JSONArray;
+import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -10,16 +12,21 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.catalogmanager.RuleForm;
 import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
+import com.lumata.e4o.gui.catalogmanager.TokenTypeForm.TokenFormat;
 import com.lumata.e4o.gui.common.ParentUITestCase;
 import com.lumata.e4o.json.gui.catalogmanager.JSONRules;
 import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
+import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCOwner;
+import com.lumata.e4o.testing.common.TCOwners;
+import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
 /**
  * 
@@ -27,47 +34,46 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
  * Integration of Rule And Token Form Test
  *
  */
-public class TestTokenRuleForm extends ParentUITestCase {
+@TCOwners(
+		@TCOwner( name="Isha Vyas", email="isha.vyas@lumatagroup.com" )
+	)
+	@TCSeleniumWebDriver
+public class TestTokenRuleForm extends ParentTestCase{
 	private static final Logger logger = LoggerFactory
-			.getLogger(TestTokenTypeForm.class);
+			.getLogger(TestTokenRuleForm.class);
 
-	private int TIMEOUT = 60000;
-	private int ATTEMPT_TIMEOUT = 200;
-
-	private final boolean testEnabled = true;
 	private RulesForm rulesForm;
 	private TokenTypeForm tokenTypeForm;
 	private JSONTokenType jsonTokenType;
 	private JSONRules jsonRules;
 
-	@Test(enabled = testEnabled, priority = 1)
-	@Parameters({ "jsonFilePath", "jsonFileName", "jsonFilePath1",
-			"jsonFileName1" })
+	@Test(enabled = TEST_ENABLED, priority = 1)
+	@Parameters({ "jsonFilePath_token", "jsonFileName_token", "jsonFilePath_rule",
+			"jsonFileName_rule","networkEnvironmentParams","seleniumWebDriverParams" })
 	
 	
-	public void TokenRuleIntegration(@Optional String jsonFilePath,
-			@Optional String jsonFileName, @Optional String jsonFilePath1,
-			@Optional String jsonFileName1) throws FormException,
+	public void TokenRuleIntegration(@Optional String jsonFilePath_token,
+			@Optional String jsonFileName_token, @Optional String jsonFilePath_rule,
+			@Optional String jsonFileName_rule,@Optional String networkEnvironmentParams, @Optional String seleniumWebDriverParams ) throws FormException,
 			JSONSException {
-
-		Boolean status = false;
-		Reporter.log("Creation of \"Token Types Form\".", PRINT2STDOUT__);
-		String resourcePath = currentResourceStartPath + jsonFilePath;
-		String resourceFile = jsonFileName;
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		Reporter.log("Creation of \"Rule form integrated with Token Form\".", LOG_TO_STD_OUT);
+		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_token;
+		String resourceFile = jsonFileName_token;
 		jsonTokenType = new JSONTokenType(resourcePath, resourceFile);
 		Reporter.log("\"Token Types\" is filled with reosurce file : ",
-				PRINT2STDOUT__);
-		Reporter.log("Resource path -> " + resourcePath, PRINT2STDOUT__);
-		Reporter.log("Resource file -> " + resourceFile, PRINT2STDOUT__);
+				LOG_TO_STD_OUT);
+		Reporter.log("Resource path -> " + resourcePath, LOG_TO_STD_OUT);
+		Reporter.log("Resource file -> " + resourceFile, LOG_TO_STD_OUT);
 
-		Reporter.log("Creation of \"Rule Types Form\".", PRINT2STDOUT__);
-		String resourcePath1 = currentResourceStartPath + jsonFilePath1;
-		String resourceFile1 = jsonFileName1;
+		Reporter.log("Creation of \"Rule Types Form\".", LOG_TO_STD_OUT);
+		String resourcePath1 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_rule;
+		String resourceFile1 = jsonFileName_rule;
 		jsonRules = new JSONRules(resourcePath1, resourceFile1);
 		Reporter.log("\"Rule Types\" is filled with reosurce file : ",
-				PRINT2STDOUT__);
-		Reporter.log("Resource path -> " + resourcePath1, PRINT2STDOUT__);
-		Reporter.log("Resource file -> " + resourceFile1, PRINT2STDOUT__);
+				LOG_TO_STD_OUT);
+		Reporter.log("Resource path -> " + resourcePath1, LOG_TO_STD_OUT);
+		Reporter.log("Resource file -> " + resourceFile1, LOG_TO_STD_OUT);
 		
 		tokenTypeForm = new TokenTypeForm(seleniumWebDriver, jsonTokenType,
 				TIMEOUT, ATTEMPT_TIMEOUT);
@@ -81,8 +87,7 @@ public class TestTokenRuleForm extends ParentUITestCase {
 
 			jsonTokenType.setTokenTypeById(tokenTypeIndex);
 			tokenTypeForm.openForm();
-			seleniumWebDriver.getWrappedDriver().manage().timeouts()
-					.implicitlyWait(30, TimeUnit.SECONDS);
+			tokenTypeForm.waitVisibleElement(By.linkText("Add"));
 			tokenTypeForm.addBtn();
 			tokenTypeForm
 					.setName(TOKEN_TYPE_NAME)
@@ -112,19 +117,17 @@ public class TestTokenRuleForm extends ParentUITestCase {
 			rulesForm.setDescription(RULE_TYPE_NAME + " Description");
 			// Use token which created in this class
 			rulesForm.setTokenType(TOKEN_TYPE_NAME);
-			rulesForm.setChannel(jsonRules.getChannelName());
-			rulesForm.checkMandatoryBox();
+			rulesForm.setChannel(jsonRules.getRuleChannelsAsArray());
+			rulesForm.configureRuleChannels();
 			rulesForm
-					.setMaxNumberOfOffers(jsonRules.getMaximumNumberOfOffers());
-			rulesForm
-					.setAlgorithm(RuleForm.optimizationAlgorithm.RandomAssigment
+					.setAlgorithm(RulesForm.optimizationAlgorithm.RandomAssigment
 							.value());
 			rulesForm.clickKeepOfferConsistentNo();
 			rulesForm.clickPrevioslyAcceptedOfferNo();
 			rulesForm
 					.setMaxNumberOfOffers(jsonRules.getMaximumNumberOfOffers());
 			rulesForm
-					.setExpiredOfferBehaviour(RuleForm.expiredOfferBehaviour.Pickupnewoffer
+					.setExpiredOfferBehaviour(RulesForm.expiredOfferBehaviour.Pickupnewoffer
 							.value());
 			Assert.assertTrue(rulesForm.formIsValid());
 			rulesForm.saveRule();
