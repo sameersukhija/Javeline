@@ -8,19 +8,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.Reporter;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
-import com.lumata.e4o.gui.catalogmanager.TokenTypeForm.TokenFormat;
-import com.lumata.e4o.gui.common.ParentUITestCase;
 import com.lumata.e4o.json.gui.catalogmanager.JSONRules;
 import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
 import com.lumata.e4o.testing.common.ParentTestCase;
@@ -49,12 +45,12 @@ public class TestTokenRuleForm extends ParentTestCase{
 
 	@Test(enabled = TEST_ENABLED, priority = 1)
 	@Parameters({ "jsonFilePath_token", "jsonFileName_token", "jsonFilePath_rule",
-			"jsonFileName_rule","networkEnvironmentParams","seleniumWebDriverParams" })
+			"jsonFileName_rule" })
 	
 	
 	public void TokenRuleIntegration(@Optional String jsonFilePath_token,
 			@Optional String jsonFileName_token, @Optional String jsonFilePath_rule,
-			@Optional String jsonFileName_rule,@Optional String networkEnvironmentParams, @Optional String seleniumWebDriverParams ) throws FormException,
+			@Optional String jsonFileName_rule) throws FormException,
 			JSONSException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Rule form integrated with Token Form\".", LOG_TO_STD_OUT);
