@@ -1,0 +1,9 @@
+{
+	"rules": [
+		{
+			"enabled": true,	
+				"channels":"Campaign manager",
+			"maximumNumberOfOffers":10	
+		}
+	]
+}
