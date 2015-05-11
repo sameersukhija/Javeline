@@ -11,7 +11,7 @@ public class CustomerCarePurchasesForm  extends CustomerCareForm {
 		
 	}
 
-	protected CustomerCarePurchasesForm open() throws FormException {
+	protected CustomerCarePurchasesForm openPurchasesTab() throws FormException {
 		
 		clickId( "gwt-debug-BtnCCBarInfoPurchases" );
 		

@@ -1,6 +1,8 @@
 package com.lumata.e4o.gui.customercare;
 
 
+import org.openqa.selenium.WebElement;
+
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.Form;
@@ -26,20 +28,48 @@ public class CustomerCareForm  extends Form {
 		
 	}
 
-	protected CustomerCareForm open() throws FormException {
+	public CustomerCareForm open() throws FormException {
 		
 		clickId( "gwt-debug-BarCaptionHomeCustomerCare" );
 		
 		return this;
 		
 	}
-	
+	public CustomerCareForm setphoneNumberOption()throws FormException{
+		clickId( "gwt-debug-CheckCCPhoneNumber-input" );
+		return this;
+	}
+	public CustomerCareForm setIdentifierOption()throws FormException{
+		clickId( "gwt-debug-CheckCCIdentifier-input" );
+		return this;
+	}
+	public CustomerCareForm setPrefix(String prefix) throws FormException{
+		super.selectByIdAndVisibleText( "gwt-debug-ListCCPrefix", prefix );
+		return this;
+	}
+	public String getPrefix() throws FormException{
+		return super.getValueById("gwt-debug-ListCCPrefix");
+	}
+	public CustomerCareForm setSubscriberMsisdn(String msisdn) throws FormException{
+		super.sendKeysById( "gwt-debug-InputCCSubscriberID", msisdn );
+		return this;
+	}
+	public String getSubscriberMsisdn() throws FormException{
+		return super.getValueById("gwt-debug-InputCCSubscriberID");
+	}
+	public CustomerCareForm clickSearchButton() throws FormException{
+		super.clickId( "gwt-debug-BtnCCSearch" );
+		return this;
+	}
 	public CustomerCareForm searchMsisdnByPhoneNumber( String prefix, String msisdn ) throws FormException {
 		
-		clickId( "gwt-debug-CheckCCPhoneNumber-input" ).
-		selectByIdAndVisibleText( "gwt-debug-ListCCPrefix", prefix ).
-		sendKeysById( "gwt-debug-InputCCSubscriberID", msisdn ).
-		clickId( "gwt-debug-BtnCCSearch" );
+		setphoneNumberOption();
+		if(prefix !=null)
+		{
+			setPrefix(prefix);
+		}
+		setSubscriberMsisdn(msisdn).
+		clickSearchButton();
 				
 		return this;
 		
@@ -47,9 +77,9 @@ public class CustomerCareForm  extends Form {
 	
 	public CustomerCareForm searchMsisdnByIdentifier( String msisdn ) throws FormException {
 		
-		clickId( "gwt-debug-CheckCCIdentifier-input" ).
-		sendKeysById( "gwt-debug-InputCCSubscriberID", msisdn ).
-		clickId( "gwt-debug-BtnCCSearch" );
+		setIdentifierOption();
+		setSubscriberMsisdn(msisdn).
+		clickSearchButton();
 		
 		return this;
 		
@@ -78,6 +108,13 @@ public class CustomerCareForm  extends Form {
 		
 		return this;
 		
+	}
+public CustomerCareForm scrollToElement( WebElement element ) throws FormException {
+		String command="arguments[0].scrollIntoView();" +element;
+		super.execJavascript(command);
+		
+		return this;
+	
 	}
 	
 }

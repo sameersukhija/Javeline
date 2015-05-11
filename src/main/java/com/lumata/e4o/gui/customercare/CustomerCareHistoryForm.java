@@ -11,7 +11,7 @@ public class CustomerCareHistoryForm  extends CustomerCareForm {
 		
 	}
 
-	protected CustomerCareHistoryForm open() throws FormException {
+	protected CustomerCareHistoryForm openHistoryTab() throws FormException {
 		
 		clickId( "gwt-debug-BtnCCBarInfoHistory" );
 		

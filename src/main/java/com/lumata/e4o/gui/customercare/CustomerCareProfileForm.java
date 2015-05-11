@@ -11,7 +11,7 @@ public class CustomerCareProfileForm  extends CustomerCareForm {
 		
 	}
 
-	protected CustomerCareProfileForm open() throws FormException {
+	protected CustomerCareProfileForm openProfileTab() throws FormException {
 		
 		clickId( "gwt-debug-BtnCCBarInfoProfile" );
 		
