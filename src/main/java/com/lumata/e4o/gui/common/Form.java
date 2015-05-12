@@ -302,10 +302,7 @@ public abstract class Form {
 		
 	}
 	
-	public Form searchById(String id) throws FormException{
-		search(SeleniumUtils.SearchBy.ID,id);
-		return this;
-	}
+	
 
 	public Form searchByName( String name ) throws FormException {
 		
