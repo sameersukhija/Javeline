@@ -226,9 +226,11 @@ public class DailyBonus {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public DailyBonus setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -238,9 +240,11 @@ public class DailyBonus {
 
 	}
 
-	public void setEventDate( Date event_date ) {
+	public DailyBonus setEventDate( Date event_date ) {
 
 		this.event_date = event_date;
+
+		return this;
 
 	}
 
@@ -250,9 +254,11 @@ public class DailyBonus {
 
 	}
 
-	public void setBonusId( Short bonus_id ) {
+	public DailyBonus setBonusId( Short bonus_id ) {
 
 		this.bonus_id = bonus_id;
+
+		return this;
 
 	}
 
@@ -262,9 +268,11 @@ public class DailyBonus {
 
 	}
 
-	public void setQtyBonus( Integer qty_bonus ) {
+	public DailyBonus setQtyBonus( Integer qty_bonus ) {
 
 		this.qty_bonus = qty_bonus;
+
+		return this;
 
 	}
 
@@ -274,9 +282,11 @@ public class DailyBonus {
 
 	}
 
-	public void setStartDate( Date start_date ) {
+	public DailyBonus setStartDate( Date start_date ) {
 
 		this.start_date = start_date;
+
+		return this;
 
 	}
 
@@ -286,9 +296,11 @@ public class DailyBonus {
 
 	}
 
-	public void setEndDate( Date end_date ) {
+	public DailyBonus setEndDate( Date end_date ) {
 
 		this.end_date = end_date;
+
+		return this;
 
 	}
 
@@ -298,9 +310,11 @@ public class DailyBonus {
 
 	}
 
-	public void setValidityType( String validity_type ) {
+	public DailyBonus setValidityType( String validity_type ) {
 
 		this.validity_type = validity_type;
+
+		return this;
 
 	}
 
@@ -310,9 +324,11 @@ public class DailyBonus {
 
 	}
 
-	public void setEventType( String event_type ) {
+	public DailyBonus setEventType( String event_type ) {
 
 		this.event_type = event_type;
+
+		return this;
 
 	}
 
@@ -322,9 +338,11 @@ public class DailyBonus {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public DailyBonus setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

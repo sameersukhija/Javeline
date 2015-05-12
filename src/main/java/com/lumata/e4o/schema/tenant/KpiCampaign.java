@@ -162,9 +162,11 @@ public class KpiCampaign {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public KpiCampaign setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -174,9 +176,11 @@ public class KpiCampaign {
 
 	}
 
-	public void setCampaignId( Short campaign_id ) {
+	public KpiCampaign setCampaignId( Short campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+		return this;
 
 	}
 
@@ -186,9 +190,11 @@ public class KpiCampaign {
 
 	}
 
-	public void setStartDate( Date start_date ) {
+	public KpiCampaign setStartDate( Date start_date ) {
 
 		this.start_date = start_date;
+
+		return this;
 
 	}
 
@@ -198,9 +204,11 @@ public class KpiCampaign {
 
 	}
 
-	public void setEndDate( Date end_date ) {
+	public KpiCampaign setEndDate( Date end_date ) {
 
 		this.end_date = end_date;
+
+		return this;
 
 	}
 
@@ -210,9 +218,11 @@ public class KpiCampaign {
 
 	}
 
-	public void setSubsStatus( String subs_status ) {
+	public KpiCampaign setSubsStatus( String subs_status ) {
 
 		this.subs_status = subs_status;
+
+		return this;
 
 	}
 
@@ -222,9 +232,11 @@ public class KpiCampaign {
 
 	}
 
-	public void setSubstateId( Byte substate_id ) {
+	public KpiCampaign setSubstateId( Byte substate_id ) {
 
 		this.substate_id = substate_id;
+
+		return this;
 
 	}
 

@@ -96,9 +96,11 @@ public class SupportedRatePlan {
 
 	}
 
-	public void setRatePlanId( Byte rate_plan_id ) {
+	public SupportedRatePlan setRatePlanId( Byte rate_plan_id ) {
 
 		this.rate_plan_id = rate_plan_id;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class SupportedRatePlan {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public SupportedRatePlan setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class SupportedRatePlan {
 
 	}
 
-	public void setRatePlan( String rate_plan ) {
+	public SupportedRatePlan setRatePlan( String rate_plan ) {
 
 		this.rate_plan = rate_plan;
+
+		return this;
 
 	}
 

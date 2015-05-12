@@ -537,9 +537,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setCampaignId( Short campaign_id ) {
+	public CampaignsWeekly setCampaignId( Short campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+		return this;
 
 	}
 
@@ -549,9 +551,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setSubsStatus( String subs_status ) {
+	public CampaignsWeekly setSubsStatus( String subs_status ) {
 
 		this.subs_status = subs_status;
+
+		return this;
 
 	}
 
@@ -561,9 +565,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setWeekId( Byte week_id ) {
+	public CampaignsWeekly setWeekId( Byte week_id ) {
 
 		this.week_id = week_id;
+
+		return this;
 
 	}
 
@@ -573,9 +579,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public CampaignsWeekly setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -585,9 +593,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public CampaignsWeekly setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -597,9 +607,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public CampaignsWeekly setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -609,9 +621,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setArpuId( Byte arpu_id ) {
+	public CampaignsWeekly setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+		return this;
 
 	}
 
@@ -621,9 +635,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setSeniorityId( Byte seniority_id ) {
+	public CampaignsWeekly setSeniorityId( Byte seniority_id ) {
 
 		this.seniority_id = seniority_id;
+
+		return this;
 
 	}
 
@@ -633,9 +649,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setQtyMsisdn( Integer qty_msisdn ) {
+	public CampaignsWeekly setQtyMsisdn( Integer qty_msisdn ) {
 
 		this.qty_msisdn = qty_msisdn;
+
+		return this;
 
 	}
 
@@ -645,9 +663,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setAmountUsage( Float amount_usage ) {
+	public CampaignsWeekly setAmountUsage( Float amount_usage ) {
 
 		this.amount_usage = amount_usage;
+
+		return this;
 
 	}
 
@@ -657,9 +677,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setQtyMsisdnWithAmountUsage( Float qty_msisdn_with_amount_usage ) {
+	public CampaignsWeekly setQtyMsisdnWithAmountUsage( Float qty_msisdn_with_amount_usage ) {
 
 		this.qty_msisdn_with_amount_usage = qty_msisdn_with_amount_usage;
+
+		return this;
 
 	}
 
@@ -669,9 +691,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setAmountRecharge( Float amount_recharge ) {
+	public CampaignsWeekly setAmountRecharge( Float amount_recharge ) {
 
 		this.amount_recharge = amount_recharge;
+
+		return this;
 
 	}
 
@@ -681,9 +705,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setQtyMsisdnWithAmountRecharge( Float qty_msisdn_with_amount_recharge ) {
+	public CampaignsWeekly setQtyMsisdnWithAmountRecharge( Float qty_msisdn_with_amount_recharge ) {
 
 		this.qty_msisdn_with_amount_recharge = qty_msisdn_with_amount_recharge;
+
+		return this;
 
 	}
 
@@ -693,9 +719,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setAmountInvoice( Float amount_invoice ) {
+	public CampaignsWeekly setAmountInvoice( Float amount_invoice ) {
 
 		this.amount_invoice = amount_invoice;
+
+		return this;
 
 	}
 
@@ -705,9 +733,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setQtyMsisdnWithAmountInvoice( Float qty_msisdn_with_amount_invoice ) {
+	public CampaignsWeekly setQtyMsisdnWithAmountInvoice( Float qty_msisdn_with_amount_invoice ) {
 
 		this.qty_msisdn_with_amount_invoice = qty_msisdn_with_amount_invoice;
+
+		return this;
 
 	}
 
@@ -717,9 +747,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setAmountPayment( Float amount_payment ) {
+	public CampaignsWeekly setAmountPayment( Float amount_payment ) {
 
 		this.amount_payment = amount_payment;
+
+		return this;
 
 	}
 
@@ -729,9 +761,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setQtyMsisdnWithAmountPayment( Float qty_msisdn_with_amount_payment ) {
+	public CampaignsWeekly setQtyMsisdnWithAmountPayment( Float qty_msisdn_with_amount_payment ) {
 
 		this.qty_msisdn_with_amount_payment = qty_msisdn_with_amount_payment;
+
+		return this;
 
 	}
 
@@ -741,9 +775,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setAmountCall( Float amount_call ) {
+	public CampaignsWeekly setAmountCall( Float amount_call ) {
 
 		this.amount_call = amount_call;
+
+		return this;
 
 	}
 
@@ -753,9 +789,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setQtyMsisdnWithAmountCall( Float qty_msisdn_with_amount_call ) {
+	public CampaignsWeekly setQtyMsisdnWithAmountCall( Float qty_msisdn_with_amount_call ) {
 
 		this.qty_msisdn_with_amount_call = qty_msisdn_with_amount_call;
+
+		return this;
 
 	}
 
@@ -765,9 +803,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setAmountMessage( Float amount_message ) {
+	public CampaignsWeekly setAmountMessage( Float amount_message ) {
 
 		this.amount_message = amount_message;
+
+		return this;
 
 	}
 
@@ -777,9 +817,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setQtyMsisdnWithAmountMessage( Float qty_msisdn_with_amount_message ) {
+	public CampaignsWeekly setQtyMsisdnWithAmountMessage( Float qty_msisdn_with_amount_message ) {
 
 		this.qty_msisdn_with_amount_message = qty_msisdn_with_amount_message;
+
+		return this;
 
 	}
 
@@ -789,9 +831,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setAmountData( Float amount_data ) {
+	public CampaignsWeekly setAmountData( Float amount_data ) {
 
 		this.amount_data = amount_data;
+
+		return this;
 
 	}
 
@@ -801,9 +845,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setQtyMsisdnWithAmountData( Float qty_msisdn_with_amount_data ) {
+	public CampaignsWeekly setQtyMsisdnWithAmountData( Float qty_msisdn_with_amount_data ) {
 
 		this.qty_msisdn_with_amount_data = qty_msisdn_with_amount_data;
+
+		return this;
 
 	}
 
@@ -813,9 +859,11 @@ public class CampaignsWeekly {
 
 	}
 
-	public void setProba( Float proba ) {
+	public CampaignsWeekly setProba( Float proba ) {
 
 		this.proba = proba;
+
+		return this;
 
 	}
 

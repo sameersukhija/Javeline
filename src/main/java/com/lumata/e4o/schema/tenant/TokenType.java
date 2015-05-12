@@ -267,9 +267,11 @@ public class TokenType {
 
 	}
 
-	public void setTokenTypeId( Short token_type_id ) {
+	public TokenType setTokenTypeId( Short token_type_id ) {
 
 		this.token_type_id = token_type_id;
+
+		return this;
 
 	}
 
@@ -279,9 +281,11 @@ public class TokenType {
 
 	}
 
-	public void setTokenTypeName( String token_type_name ) {
+	public TokenType setTokenTypeName( String token_type_name ) {
 
 		this.token_type_name = token_type_name;
+
+		return this;
 
 	}
 
@@ -291,9 +295,11 @@ public class TokenType {
 
 	}
 
-	public void setTokenLabelId( Byte token_label_id ) {
+	public TokenType setTokenLabelId( Byte token_label_id ) {
 
 		this.token_label_id = token_label_id;
+
+		return this;
 
 	}
 
@@ -303,9 +309,11 @@ public class TokenType {
 
 	}
 
-	public void setExpirationDuration( Integer expiration_duration ) {
+	public TokenType setExpirationDuration( Integer expiration_duration ) {
 
 		this.expiration_duration = expiration_duration;
+
+		return this;
 
 	}
 
@@ -315,9 +323,11 @@ public class TokenType {
 
 	}
 
-	public void setExpirationDurationUnit( String expiration_duration_unit ) {
+	public TokenType setExpirationDurationUnit( String expiration_duration_unit ) {
 
 		this.expiration_duration_unit = expiration_duration_unit;
+
+		return this;
 
 	}
 
@@ -327,9 +337,11 @@ public class TokenType {
 
 	}
 
-	public void setExpirationDate( Date expiration_date ) {
+	public TokenType setExpirationDate( Date expiration_date ) {
 
 		this.expiration_date = expiration_date;
+
+		return this;
 
 	}
 
@@ -339,9 +351,11 @@ public class TokenType {
 
 	}
 
-	public void setQtyMaxRedeems( Byte qty_max_redeems ) {
+	public TokenType setQtyMaxRedeems( Byte qty_max_redeems ) {
 
 		this.qty_max_redeems = qty_max_redeems;
+
+		return this;
 
 	}
 
@@ -351,9 +365,11 @@ public class TokenType {
 
 	}
 
-	public void setSingleUseRedeemDurationTimeout( Integer single_use_redeem_duration_timeout ) {
+	public TokenType setSingleUseRedeemDurationTimeout( Integer single_use_redeem_duration_timeout ) {
 
 		this.single_use_redeem_duration_timeout = single_use_redeem_duration_timeout;
+
+		return this;
 
 	}
 
@@ -363,9 +379,11 @@ public class TokenType {
 
 	}
 
-	public void setTokenFormat( String token_format ) {
+	public TokenType setTokenFormat( String token_format ) {
 
 		this.token_format = token_format;
+
+		return this;
 
 	}
 
@@ -375,9 +393,11 @@ public class TokenType {
 
 	}
 
-	public void setDescription( String description ) {
+	public TokenType setDescription( String description ) {
 
 		this.description = description;
+
+		return this;
 
 	}
 
@@ -387,9 +407,11 @@ public class TokenType {
 
 	}
 
-	public void setImageUrl( String image_url ) {
+	public TokenType setImageUrl( String image_url ) {
 
 		this.image_url = image_url;
+
+		return this;
 
 	}
 

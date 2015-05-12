@@ -23,7 +23,7 @@ public class CampaignsWeeklySubsStatus {
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
-			key = "",
+			key = "PRI",
 			defaultValue = "null",
 			extra = "",
 			length = 3,
@@ -42,7 +42,7 @@ public class CampaignsWeeklySubsStatus {
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
-			key = "",
+			key = "PRI",
 			defaultValue = "null",
 			extra = "",
 			length = 4,
@@ -61,7 +61,7 @@ public class CampaignsWeeklySubsStatus {
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
-			key = "",
+			key = "PRI",
 			defaultValue = "null",
 			extra = "",
 			length = 4,
@@ -80,7 +80,7 @@ public class CampaignsWeeklySubsStatus {
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
-			key = "",
+			key = "PRI",
 			defaultValue = "null",
 			extra = "",
 			length = 4,
@@ -99,7 +99,7 @@ public class CampaignsWeeklySubsStatus {
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
-			key = "",
+			key = "PRI",
 			defaultValue = "null",
 			extra = "",
 			length = 4,
@@ -118,7 +118,7 @@ public class CampaignsWeeklySubsStatus {
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
-			key = "",
+			key = "PRI",
 			defaultValue = "null",
 			extra = "",
 			length = 4,
@@ -137,8 +137,8 @@ public class CampaignsWeeklySubsStatus {
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
-			key = "",
-			defaultValue = "0",
+			key = "PRI",
+			defaultValue = "null",
 			extra = "",
 			length = 4,
 			comment = "",
@@ -150,123 +150,123 @@ public class CampaignsWeeklySubsStatus {
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "qty_control",
-			type = "decimal(32,0)",
-			mysqlType = "decimal",
-			javaType = "Float",
+			type = "int(11)",
+			mysqlType = "int",
+			javaType = "Integer",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
 			key = "",
 			defaultValue = "null",
 			extra = "",
-			length = 32,
+			length = 11,
 			comment = "",
 			getMethod = "getQtyControl",
 			setMethod = "setQtyControl"
 	)
-	private Float qty_control;
+	private Integer qty_control;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "qty_control_benef",
-			type = "decimal(32,0)",
-			mysqlType = "decimal",
-			javaType = "Float",
+			type = "int(11)",
+			mysqlType = "int",
+			javaType = "Integer",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
 			key = "",
 			defaultValue = "null",
 			extra = "",
-			length = 32,
+			length = 11,
 			comment = "",
 			getMethod = "getQtyControlBenef",
 			setMethod = "setQtyControlBenef"
 	)
-	private Float qty_control_benef;
+	private Integer qty_control_benef;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "qty_provisioned",
-			type = "decimal(32,0)",
-			mysqlType = "decimal",
-			javaType = "Float",
+			type = "int(11)",
+			mysqlType = "int",
+			javaType = "Integer",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
 			key = "",
 			defaultValue = "null",
 			extra = "",
-			length = 32,
+			length = 11,
 			comment = "",
 			getMethod = "getQtyProvisioned",
 			setMethod = "setQtyProvisioned"
 	)
-	private Float qty_provisioned;
+	private Integer qty_provisioned;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "qty_notified",
-			type = "decimal(32,0)",
-			mysqlType = "decimal",
-			javaType = "Float",
+			type = "int(11)",
+			mysqlType = "int",
+			javaType = "Integer",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
 			key = "",
 			defaultValue = "null",
 			extra = "",
-			length = 32,
+			length = 11,
 			comment = "",
 			getMethod = "getQtyNotified",
 			setMethod = "setQtyNotified"
 	)
-	private Float qty_notified;
+	private Integer qty_notified;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "qty_beneficiary",
-			type = "decimal(32,0)",
-			mysqlType = "decimal",
-			javaType = "Float",
+			type = "int(11)",
+			mysqlType = "int",
+			javaType = "Integer",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
 			key = "",
 			defaultValue = "null",
 			extra = "",
-			length = 32,
+			length = 11,
 			comment = "",
 			getMethod = "getQtyBeneficiary",
 			setMethod = "setQtyBeneficiary"
 	)
-	private Float qty_beneficiary;
+	private Integer qty_beneficiary;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "qty_not_targeted",
-			type = "decimal(32,0)",
-			mysqlType = "decimal",
-			javaType = "Float",
+			type = "int(11)",
+			mysqlType = "int",
+			javaType = "Integer",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
 			key = "",
 			defaultValue = "null",
 			extra = "",
-			length = 32,
+			length = 11,
 			comment = "",
 			getMethod = "getQtyNotTargeted",
 			setMethod = "setQtyNotTargeted"
 	)
-	private Float qty_not_targeted;
+	private Integer qty_not_targeted;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "control_amount_usage",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -278,14 +278,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getControlAmountUsage",
 			setMethod = "setControlAmountUsage"
 	)
-	private Double control_amount_usage;
+	private Float control_amount_usage;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "provisioned_amount_usage",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -297,14 +297,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getProvisionedAmountUsage",
 			setMethod = "setProvisionedAmountUsage"
 	)
-	private Double provisioned_amount_usage;
+	private Float provisioned_amount_usage;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "notified_amount_usage",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -316,14 +316,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotifiedAmountUsage",
 			setMethod = "setNotifiedAmountUsage"
 	)
-	private Double notified_amount_usage;
+	private Float notified_amount_usage;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "beneficiary_amount_usage",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -335,14 +335,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getBeneficiaryAmountUsage",
 			setMethod = "setBeneficiaryAmountUsage"
 	)
-	private Double beneficiary_amount_usage;
+	private Float beneficiary_amount_usage;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "not_targeted_amount_usage",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -354,14 +354,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotTargetedAmountUsage",
 			setMethod = "setNotTargetedAmountUsage"
 	)
-	private Double not_targeted_amount_usage;
+	private Float not_targeted_amount_usage;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "control_qty_msisdn_with_amount_usage",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -373,14 +373,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getControlQtyMsisdnWithAmountUsage",
 			setMethod = "setControlQtyMsisdnWithAmountUsage"
 	)
-	private Double control_qty_msisdn_with_amount_usage;
+	private Float control_qty_msisdn_with_amount_usage;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "provisioned_qty_msisdn_with_amount_usage",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -392,14 +392,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getProvisionedQtyMsisdnWithAmountUsage",
 			setMethod = "setProvisionedQtyMsisdnWithAmountUsage"
 	)
-	private Double provisioned_qty_msisdn_with_amount_usage;
+	private Float provisioned_qty_msisdn_with_amount_usage;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "notified_qty_msisdn_with_amount_usage",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -411,14 +411,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotifiedQtyMsisdnWithAmountUsage",
 			setMethod = "setNotifiedQtyMsisdnWithAmountUsage"
 	)
-	private Double notified_qty_msisdn_with_amount_usage;
+	private Float notified_qty_msisdn_with_amount_usage;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "beneficiary_qty_msisdn_with_amount_usage",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -430,14 +430,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getBeneficiaryQtyMsisdnWithAmountUsage",
 			setMethod = "setBeneficiaryQtyMsisdnWithAmountUsage"
 	)
-	private Double beneficiary_qty_msisdn_with_amount_usage;
+	private Float beneficiary_qty_msisdn_with_amount_usage;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "not_targeted_qty_msisdn_with_amount_usage",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -449,14 +449,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotTargetedQtyMsisdnWithAmountUsage",
 			setMethod = "setNotTargetedQtyMsisdnWithAmountUsage"
 	)
-	private Double not_targeted_qty_msisdn_with_amount_usage;
+	private Float not_targeted_qty_msisdn_with_amount_usage;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "control_amount_recharge",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -468,14 +468,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getControlAmountRecharge",
 			setMethod = "setControlAmountRecharge"
 	)
-	private Double control_amount_recharge;
+	private Float control_amount_recharge;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "provisioned_amount_recharge",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -487,14 +487,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getProvisionedAmountRecharge",
 			setMethod = "setProvisionedAmountRecharge"
 	)
-	private Double provisioned_amount_recharge;
+	private Float provisioned_amount_recharge;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "notified_amount_recharge",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -506,14 +506,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotifiedAmountRecharge",
 			setMethod = "setNotifiedAmountRecharge"
 	)
-	private Double notified_amount_recharge;
+	private Float notified_amount_recharge;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "beneficiary_amount_recharge",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -525,14 +525,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getBeneficiaryAmountRecharge",
 			setMethod = "setBeneficiaryAmountRecharge"
 	)
-	private Double beneficiary_amount_recharge;
+	private Float beneficiary_amount_recharge;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "not_targeted_amount_recharge",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -544,14 +544,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotTargetedAmountRecharge",
 			setMethod = "setNotTargetedAmountRecharge"
 	)
-	private Double not_targeted_amount_recharge;
+	private Float not_targeted_amount_recharge;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "control_qty_msisdn_with_amount_recharge",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -563,14 +563,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getControlQtyMsisdnWithAmountRecharge",
 			setMethod = "setControlQtyMsisdnWithAmountRecharge"
 	)
-	private Double control_qty_msisdn_with_amount_recharge;
+	private Float control_qty_msisdn_with_amount_recharge;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "provisioned_qty_msisdn_with_amount_recharge",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -582,14 +582,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getProvisionedQtyMsisdnWithAmountRecharge",
 			setMethod = "setProvisionedQtyMsisdnWithAmountRecharge"
 	)
-	private Double provisioned_qty_msisdn_with_amount_recharge;
+	private Float provisioned_qty_msisdn_with_amount_recharge;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "notified_qty_msisdn_with_amount_recharge",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -601,14 +601,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotifiedQtyMsisdnWithAmountRecharge",
 			setMethod = "setNotifiedQtyMsisdnWithAmountRecharge"
 	)
-	private Double notified_qty_msisdn_with_amount_recharge;
+	private Float notified_qty_msisdn_with_amount_recharge;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "beneficiary_qty_msisdn_with_amount_recharge",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -620,14 +620,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getBeneficiaryQtyMsisdnWithAmountRecharge",
 			setMethod = "setBeneficiaryQtyMsisdnWithAmountRecharge"
 	)
-	private Double beneficiary_qty_msisdn_with_amount_recharge;
+	private Float beneficiary_qty_msisdn_with_amount_recharge;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "not_targeted_qty_msisdn_with_amount_recharge",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -639,14 +639,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotTargetedQtyMsisdnWithAmountRecharge",
 			setMethod = "setNotTargetedQtyMsisdnWithAmountRecharge"
 	)
-	private Double not_targeted_qty_msisdn_with_amount_recharge;
+	private Float not_targeted_qty_msisdn_with_amount_recharge;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "control_amount_invoice",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -658,14 +658,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getControlAmountInvoice",
 			setMethod = "setControlAmountInvoice"
 	)
-	private Double control_amount_invoice;
+	private Float control_amount_invoice;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "provisioned_amount_invoice",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -677,14 +677,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getProvisionedAmountInvoice",
 			setMethod = "setProvisionedAmountInvoice"
 	)
-	private Double provisioned_amount_invoice;
+	private Float provisioned_amount_invoice;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "notified_amount_invoice",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -696,14 +696,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotifiedAmountInvoice",
 			setMethod = "setNotifiedAmountInvoice"
 	)
-	private Double notified_amount_invoice;
+	private Float notified_amount_invoice;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "beneficiary_amount_invoice",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -715,14 +715,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getBeneficiaryAmountInvoice",
 			setMethod = "setBeneficiaryAmountInvoice"
 	)
-	private Double beneficiary_amount_invoice;
+	private Float beneficiary_amount_invoice;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "not_targeted_amount_invoice",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -734,14 +734,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotTargetedAmountInvoice",
 			setMethod = "setNotTargetedAmountInvoice"
 	)
-	private Double not_targeted_amount_invoice;
+	private Float not_targeted_amount_invoice;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "control_qty_msisdn_with_amount_invoice",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -753,14 +753,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getControlQtyMsisdnWithAmountInvoice",
 			setMethod = "setControlQtyMsisdnWithAmountInvoice"
 	)
-	private Double control_qty_msisdn_with_amount_invoice;
+	private Float control_qty_msisdn_with_amount_invoice;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "provisioned_qty_msisdn_with_amount_invoice",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -772,14 +772,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getProvisionedQtyMsisdnWithAmountInvoice",
 			setMethod = "setProvisionedQtyMsisdnWithAmountInvoice"
 	)
-	private Double provisioned_qty_msisdn_with_amount_invoice;
+	private Float provisioned_qty_msisdn_with_amount_invoice;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "notified_qty_msisdn_with_amount_invoice",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -791,14 +791,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotifiedQtyMsisdnWithAmountInvoice",
 			setMethod = "setNotifiedQtyMsisdnWithAmountInvoice"
 	)
-	private Double notified_qty_msisdn_with_amount_invoice;
+	private Float notified_qty_msisdn_with_amount_invoice;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "beneficiary_qty_msisdn_with_amount_invoice",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -810,14 +810,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getBeneficiaryQtyMsisdnWithAmountInvoice",
 			setMethod = "setBeneficiaryQtyMsisdnWithAmountInvoice"
 	)
-	private Double beneficiary_qty_msisdn_with_amount_invoice;
+	private Float beneficiary_qty_msisdn_with_amount_invoice;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "not_targeted_qty_msisdn_with_amount_invoice",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -829,14 +829,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotTargetedQtyMsisdnWithAmountInvoice",
 			setMethod = "setNotTargetedQtyMsisdnWithAmountInvoice"
 	)
-	private Double not_targeted_qty_msisdn_with_amount_invoice;
+	private Float not_targeted_qty_msisdn_with_amount_invoice;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "control_amount_payment",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -848,14 +848,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getControlAmountPayment",
 			setMethod = "setControlAmountPayment"
 	)
-	private Double control_amount_payment;
+	private Float control_amount_payment;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "provisioned_amount_payment",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -867,14 +867,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getProvisionedAmountPayment",
 			setMethod = "setProvisionedAmountPayment"
 	)
-	private Double provisioned_amount_payment;
+	private Float provisioned_amount_payment;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "notified_amount_payment",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -886,14 +886,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotifiedAmountPayment",
 			setMethod = "setNotifiedAmountPayment"
 	)
-	private Double notified_amount_payment;
+	private Float notified_amount_payment;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "beneficiary_amount_payment",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -905,14 +905,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getBeneficiaryAmountPayment",
 			setMethod = "setBeneficiaryAmountPayment"
 	)
-	private Double beneficiary_amount_payment;
+	private Float beneficiary_amount_payment;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "not_targeted_amount_payment",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -924,14 +924,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotTargetedAmountPayment",
 			setMethod = "setNotTargetedAmountPayment"
 	)
-	private Double not_targeted_amount_payment;
+	private Float not_targeted_amount_payment;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "control_qty_msisdn_with_amount_payment",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -943,14 +943,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getControlQtyMsisdnWithAmountPayment",
 			setMethod = "setControlQtyMsisdnWithAmountPayment"
 	)
-	private Double control_qty_msisdn_with_amount_payment;
+	private Float control_qty_msisdn_with_amount_payment;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "provisioned_qty_msisdn_with_amount_payment",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -962,14 +962,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getProvisionedQtyMsisdnWithAmountPayment",
 			setMethod = "setProvisionedQtyMsisdnWithAmountPayment"
 	)
-	private Double provisioned_qty_msisdn_with_amount_payment;
+	private Float provisioned_qty_msisdn_with_amount_payment;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "notified_qty_msisdn_with_amount_payment",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -981,14 +981,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotifiedQtyMsisdnWithAmountPayment",
 			setMethod = "setNotifiedQtyMsisdnWithAmountPayment"
 	)
-	private Double notified_qty_msisdn_with_amount_payment;
+	private Float notified_qty_msisdn_with_amount_payment;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "beneficiary_qty_msisdn_with_amount_payment",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1000,14 +1000,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getBeneficiaryQtyMsisdnWithAmountPayment",
 			setMethod = "setBeneficiaryQtyMsisdnWithAmountPayment"
 	)
-	private Double beneficiary_qty_msisdn_with_amount_payment;
+	private Float beneficiary_qty_msisdn_with_amount_payment;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "not_targeted_qty_msisdn_with_amount_payment",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1019,14 +1019,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotTargetedQtyMsisdnWithAmountPayment",
 			setMethod = "setNotTargetedQtyMsisdnWithAmountPayment"
 	)
-	private Double not_targeted_qty_msisdn_with_amount_payment;
+	private Float not_targeted_qty_msisdn_with_amount_payment;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "control_amount_call",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1038,14 +1038,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getControlAmountCall",
 			setMethod = "setControlAmountCall"
 	)
-	private Double control_amount_call;
+	private Float control_amount_call;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "provisioned_amount_call",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1057,14 +1057,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getProvisionedAmountCall",
 			setMethod = "setProvisionedAmountCall"
 	)
-	private Double provisioned_amount_call;
+	private Float provisioned_amount_call;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "notified_amount_call",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1076,14 +1076,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotifiedAmountCall",
 			setMethod = "setNotifiedAmountCall"
 	)
-	private Double notified_amount_call;
+	private Float notified_amount_call;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "beneficiary_amount_call",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1095,14 +1095,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getBeneficiaryAmountCall",
 			setMethod = "setBeneficiaryAmountCall"
 	)
-	private Double beneficiary_amount_call;
+	private Float beneficiary_amount_call;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "not_targeted_amount_call",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1114,14 +1114,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotTargetedAmountCall",
 			setMethod = "setNotTargetedAmountCall"
 	)
-	private Double not_targeted_amount_call;
+	private Float not_targeted_amount_call;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "control_qty_msisdn_with_amount_call",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1133,14 +1133,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getControlQtyMsisdnWithAmountCall",
 			setMethod = "setControlQtyMsisdnWithAmountCall"
 	)
-	private Double control_qty_msisdn_with_amount_call;
+	private Float control_qty_msisdn_with_amount_call;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "provisioned_qty_msisdn_with_amount_call",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1152,14 +1152,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getProvisionedQtyMsisdnWithAmountCall",
 			setMethod = "setProvisionedQtyMsisdnWithAmountCall"
 	)
-	private Double provisioned_qty_msisdn_with_amount_call;
+	private Float provisioned_qty_msisdn_with_amount_call;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "notified_qty_msisdn_with_amount_call",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1171,14 +1171,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotifiedQtyMsisdnWithAmountCall",
 			setMethod = "setNotifiedQtyMsisdnWithAmountCall"
 	)
-	private Double notified_qty_msisdn_with_amount_call;
+	private Float notified_qty_msisdn_with_amount_call;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "beneficiary_qty_msisdn_with_amount_call",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1190,14 +1190,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getBeneficiaryQtyMsisdnWithAmountCall",
 			setMethod = "setBeneficiaryQtyMsisdnWithAmountCall"
 	)
-	private Double beneficiary_qty_msisdn_with_amount_call;
+	private Float beneficiary_qty_msisdn_with_amount_call;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "not_targeted_qty_msisdn_with_amount_call",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1209,14 +1209,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotTargetedQtyMsisdnWithAmountCall",
 			setMethod = "setNotTargetedQtyMsisdnWithAmountCall"
 	)
-	private Double not_targeted_qty_msisdn_with_amount_call;
+	private Float not_targeted_qty_msisdn_with_amount_call;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "control_amount_message",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1228,14 +1228,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getControlAmountMessage",
 			setMethod = "setControlAmountMessage"
 	)
-	private Double control_amount_message;
+	private Float control_amount_message;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "provisioned_amount_message",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1247,14 +1247,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getProvisionedAmountMessage",
 			setMethod = "setProvisionedAmountMessage"
 	)
-	private Double provisioned_amount_message;
+	private Float provisioned_amount_message;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "notified_amount_message",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1266,14 +1266,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotifiedAmountMessage",
 			setMethod = "setNotifiedAmountMessage"
 	)
-	private Double notified_amount_message;
+	private Float notified_amount_message;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "beneficiary_amount_message",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1285,14 +1285,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getBeneficiaryAmountMessage",
 			setMethod = "setBeneficiaryAmountMessage"
 	)
-	private Double beneficiary_amount_message;
+	private Float beneficiary_amount_message;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "not_targeted_amount_message",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1304,14 +1304,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotTargetedAmountMessage",
 			setMethod = "setNotTargetedAmountMessage"
 	)
-	private Double not_targeted_amount_message;
+	private Float not_targeted_amount_message;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "control_qty_msisdn_with_amount_message",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1323,14 +1323,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getControlQtyMsisdnWithAmountMessage",
 			setMethod = "setControlQtyMsisdnWithAmountMessage"
 	)
-	private Double control_qty_msisdn_with_amount_message;
+	private Float control_qty_msisdn_with_amount_message;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "provisioned_qty_msisdn_with_amount_message",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1342,14 +1342,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getProvisionedQtyMsisdnWithAmountMessage",
 			setMethod = "setProvisionedQtyMsisdnWithAmountMessage"
 	)
-	private Double provisioned_qty_msisdn_with_amount_message;
+	private Float provisioned_qty_msisdn_with_amount_message;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "notified_qty_msisdn_with_amount_message",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1361,14 +1361,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotifiedQtyMsisdnWithAmountMessage",
 			setMethod = "setNotifiedQtyMsisdnWithAmountMessage"
 	)
-	private Double notified_qty_msisdn_with_amount_message;
+	private Float notified_qty_msisdn_with_amount_message;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "beneficiary_qty_msisdn_with_amount_message",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1380,14 +1380,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getBeneficiaryQtyMsisdnWithAmountMessage",
 			setMethod = "setBeneficiaryQtyMsisdnWithAmountMessage"
 	)
-	private Double beneficiary_qty_msisdn_with_amount_message;
+	private Float beneficiary_qty_msisdn_with_amount_message;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "not_targeted_qty_msisdn_with_amount_message",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1399,14 +1399,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotTargetedQtyMsisdnWithAmountMessage",
 			setMethod = "setNotTargetedQtyMsisdnWithAmountMessage"
 	)
-	private Double not_targeted_qty_msisdn_with_amount_message;
+	private Float not_targeted_qty_msisdn_with_amount_message;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "control_amount_data",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1418,14 +1418,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getControlAmountData",
 			setMethod = "setControlAmountData"
 	)
-	private Double control_amount_data;
+	private Float control_amount_data;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "provisioned_amount_data",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1437,14 +1437,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getProvisionedAmountData",
 			setMethod = "setProvisionedAmountData"
 	)
-	private Double provisioned_amount_data;
+	private Float provisioned_amount_data;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "notified_amount_data",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1456,14 +1456,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotifiedAmountData",
 			setMethod = "setNotifiedAmountData"
 	)
-	private Double notified_amount_data;
+	private Float notified_amount_data;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "beneficiary_amount_data",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1475,14 +1475,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getBeneficiaryAmountData",
 			setMethod = "setBeneficiaryAmountData"
 	)
-	private Double beneficiary_amount_data;
+	private Float beneficiary_amount_data;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "not_targeted_amount_data",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1494,14 +1494,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotTargetedAmountData",
 			setMethod = "setNotTargetedAmountData"
 	)
-	private Double not_targeted_amount_data;
+	private Float not_targeted_amount_data;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "control_qty_msisdn_with_amount_data",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1513,14 +1513,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getControlQtyMsisdnWithAmountData",
 			setMethod = "setControlQtyMsisdnWithAmountData"
 	)
-	private Double control_qty_msisdn_with_amount_data;
+	private Float control_qty_msisdn_with_amount_data;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "provisioned_qty_msisdn_with_amount_data",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1532,14 +1532,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getProvisionedQtyMsisdnWithAmountData",
 			setMethod = "setProvisionedQtyMsisdnWithAmountData"
 	)
-	private Double provisioned_qty_msisdn_with_amount_data;
+	private Float provisioned_qty_msisdn_with_amount_data;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "notified_qty_msisdn_with_amount_data",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1551,14 +1551,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotifiedQtyMsisdnWithAmountData",
 			setMethod = "setNotifiedQtyMsisdnWithAmountData"
 	)
-	private Double notified_qty_msisdn_with_amount_data;
+	private Float notified_qty_msisdn_with_amount_data;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "beneficiary_qty_msisdn_with_amount_data",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1570,14 +1570,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getBeneficiaryQtyMsisdnWithAmountData",
 			setMethod = "setBeneficiaryQtyMsisdnWithAmountData"
 	)
-	private Double beneficiary_qty_msisdn_with_amount_data;
+	private Float beneficiary_qty_msisdn_with_amount_data;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "not_targeted_qty_msisdn_with_amount_data",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1589,14 +1589,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotTargetedQtyMsisdnWithAmountData",
 			setMethod = "setNotTargetedQtyMsisdnWithAmountData"
 	)
-	private Double not_targeted_qty_msisdn_with_amount_data;
+	private Float not_targeted_qty_msisdn_with_amount_data;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "control_proba",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1608,14 +1608,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getControlProba",
 			setMethod = "setControlProba"
 	)
-	private Double control_proba;
+	private Float control_proba;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "provisioned_proba",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1627,14 +1627,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getProvisionedProba",
 			setMethod = "setProvisionedProba"
 	)
-	private Double provisioned_proba;
+	private Float provisioned_proba;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "notified_proba",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1646,14 +1646,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotifiedProba",
 			setMethod = "setNotifiedProba"
 	)
-	private Double notified_proba;
+	private Float notified_proba;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "beneficiary_proba",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1665,14 +1665,14 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getBeneficiaryProba",
 			setMethod = "setBeneficiaryProba"
 	)
-	private Double beneficiary_proba;
+	private Float beneficiary_proba;
 
 	@Column(
 			table = "campaigns_weekly_subs_status",
 			field = "not_targeted_proba",
-			type = "double",
-			mysqlType = "double",
-			javaType = "Double",
+			type = "float",
+			mysqlType = "float",
+			javaType = "Float",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
@@ -1684,7 +1684,7 @@ public class CampaignsWeeklySubsStatus {
 			getMethod = "getNotTargetedProba",
 			setMethod = "setNotTargetedProba"
 	)
-	private Double not_targeted_proba;
+	private Float not_targeted_proba;
 
 
 	public CampaignsWeeklySubsStatus() {} 
@@ -1698,87 +1698,87 @@ public class CampaignsWeeklySubsStatus {
 		this.network_id = rs.getByte( CampaignsWeeklySubsStatus.Fields.network_id.name() );
 		this.arpu_id = rs.getByte( CampaignsWeeklySubsStatus.Fields.arpu_id.name() );
 		this.seniority_id = rs.getByte( CampaignsWeeklySubsStatus.Fields.seniority_id.name() );
-		this.qty_control = rs.getFloat( CampaignsWeeklySubsStatus.Fields.qty_control.name() );
-		this.qty_control_benef = rs.getFloat( CampaignsWeeklySubsStatus.Fields.qty_control_benef.name() );
-		this.qty_provisioned = rs.getFloat( CampaignsWeeklySubsStatus.Fields.qty_provisioned.name() );
-		this.qty_notified = rs.getFloat( CampaignsWeeklySubsStatus.Fields.qty_notified.name() );
-		this.qty_beneficiary = rs.getFloat( CampaignsWeeklySubsStatus.Fields.qty_beneficiary.name() );
-		this.qty_not_targeted = rs.getFloat( CampaignsWeeklySubsStatus.Fields.qty_not_targeted.name() );
-		this.control_amount_usage = rs.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_usage.name() );
-		this.provisioned_amount_usage = rs.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_usage.name() );
-		this.notified_amount_usage = rs.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_usage.name() );
-		this.beneficiary_amount_usage = rs.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_usage.name() );
-		this.not_targeted_amount_usage = rs.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_usage.name() );
-		this.control_qty_msisdn_with_amount_usage = rs.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_usage.name() );
-		this.provisioned_qty_msisdn_with_amount_usage = rs.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_usage.name() );
-		this.notified_qty_msisdn_with_amount_usage = rs.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_usage.name() );
-		this.beneficiary_qty_msisdn_with_amount_usage = rs.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_usage.name() );
-		this.not_targeted_qty_msisdn_with_amount_usage = rs.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_usage.name() );
-		this.control_amount_recharge = rs.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_recharge.name() );
-		this.provisioned_amount_recharge = rs.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_recharge.name() );
-		this.notified_amount_recharge = rs.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_recharge.name() );
-		this.beneficiary_amount_recharge = rs.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_recharge.name() );
-		this.not_targeted_amount_recharge = rs.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_recharge.name() );
-		this.control_qty_msisdn_with_amount_recharge = rs.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_recharge.name() );
-		this.provisioned_qty_msisdn_with_amount_recharge = rs.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_recharge.name() );
-		this.notified_qty_msisdn_with_amount_recharge = rs.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_recharge.name() );
-		this.beneficiary_qty_msisdn_with_amount_recharge = rs.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_recharge.name() );
-		this.not_targeted_qty_msisdn_with_amount_recharge = rs.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_recharge.name() );
-		this.control_amount_invoice = rs.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_invoice.name() );
-		this.provisioned_amount_invoice = rs.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_invoice.name() );
-		this.notified_amount_invoice = rs.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_invoice.name() );
-		this.beneficiary_amount_invoice = rs.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_invoice.name() );
-		this.not_targeted_amount_invoice = rs.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_invoice.name() );
-		this.control_qty_msisdn_with_amount_invoice = rs.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_invoice.name() );
-		this.provisioned_qty_msisdn_with_amount_invoice = rs.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_invoice.name() );
-		this.notified_qty_msisdn_with_amount_invoice = rs.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_invoice.name() );
-		this.beneficiary_qty_msisdn_with_amount_invoice = rs.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_invoice.name() );
-		this.not_targeted_qty_msisdn_with_amount_invoice = rs.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_invoice.name() );
-		this.control_amount_payment = rs.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_payment.name() );
-		this.provisioned_amount_payment = rs.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_payment.name() );
-		this.notified_amount_payment = rs.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_payment.name() );
-		this.beneficiary_amount_payment = rs.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_payment.name() );
-		this.not_targeted_amount_payment = rs.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_payment.name() );
-		this.control_qty_msisdn_with_amount_payment = rs.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_payment.name() );
-		this.provisioned_qty_msisdn_with_amount_payment = rs.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_payment.name() );
-		this.notified_qty_msisdn_with_amount_payment = rs.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_payment.name() );
-		this.beneficiary_qty_msisdn_with_amount_payment = rs.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_payment.name() );
-		this.not_targeted_qty_msisdn_with_amount_payment = rs.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_payment.name() );
-		this.control_amount_call = rs.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_call.name() );
-		this.provisioned_amount_call = rs.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_call.name() );
-		this.notified_amount_call = rs.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_call.name() );
-		this.beneficiary_amount_call = rs.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_call.name() );
-		this.not_targeted_amount_call = rs.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_call.name() );
-		this.control_qty_msisdn_with_amount_call = rs.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_call.name() );
-		this.provisioned_qty_msisdn_with_amount_call = rs.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_call.name() );
-		this.notified_qty_msisdn_with_amount_call = rs.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_call.name() );
-		this.beneficiary_qty_msisdn_with_amount_call = rs.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_call.name() );
-		this.not_targeted_qty_msisdn_with_amount_call = rs.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_call.name() );
-		this.control_amount_message = rs.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_message.name() );
-		this.provisioned_amount_message = rs.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_message.name() );
-		this.notified_amount_message = rs.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_message.name() );
-		this.beneficiary_amount_message = rs.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_message.name() );
-		this.not_targeted_amount_message = rs.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_message.name() );
-		this.control_qty_msisdn_with_amount_message = rs.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_message.name() );
-		this.provisioned_qty_msisdn_with_amount_message = rs.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_message.name() );
-		this.notified_qty_msisdn_with_amount_message = rs.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_message.name() );
-		this.beneficiary_qty_msisdn_with_amount_message = rs.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_message.name() );
-		this.not_targeted_qty_msisdn_with_amount_message = rs.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_message.name() );
-		this.control_amount_data = rs.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_data.name() );
-		this.provisioned_amount_data = rs.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_data.name() );
-		this.notified_amount_data = rs.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_data.name() );
-		this.beneficiary_amount_data = rs.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_data.name() );
-		this.not_targeted_amount_data = rs.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_data.name() );
-		this.control_qty_msisdn_with_amount_data = rs.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_data.name() );
-		this.provisioned_qty_msisdn_with_amount_data = rs.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_data.name() );
-		this.notified_qty_msisdn_with_amount_data = rs.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_data.name() );
-		this.beneficiary_qty_msisdn_with_amount_data = rs.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_data.name() );
-		this.not_targeted_qty_msisdn_with_amount_data = rs.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_data.name() );
-		this.control_proba = rs.getDouble( CampaignsWeeklySubsStatus.Fields.control_proba.name() );
-		this.provisioned_proba = rs.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_proba.name() );
-		this.notified_proba = rs.getDouble( CampaignsWeeklySubsStatus.Fields.notified_proba.name() );
-		this.beneficiary_proba = rs.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_proba.name() );
-		this.not_targeted_proba = rs.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_proba.name() );
+		this.qty_control = rs.getInt( CampaignsWeeklySubsStatus.Fields.qty_control.name() );
+		this.qty_control_benef = rs.getInt( CampaignsWeeklySubsStatus.Fields.qty_control_benef.name() );
+		this.qty_provisioned = rs.getInt( CampaignsWeeklySubsStatus.Fields.qty_provisioned.name() );
+		this.qty_notified = rs.getInt( CampaignsWeeklySubsStatus.Fields.qty_notified.name() );
+		this.qty_beneficiary = rs.getInt( CampaignsWeeklySubsStatus.Fields.qty_beneficiary.name() );
+		this.qty_not_targeted = rs.getInt( CampaignsWeeklySubsStatus.Fields.qty_not_targeted.name() );
+		this.control_amount_usage = rs.getFloat( CampaignsWeeklySubsStatus.Fields.control_amount_usage.name() );
+		this.provisioned_amount_usage = rs.getFloat( CampaignsWeeklySubsStatus.Fields.provisioned_amount_usage.name() );
+		this.notified_amount_usage = rs.getFloat( CampaignsWeeklySubsStatus.Fields.notified_amount_usage.name() );
+		this.beneficiary_amount_usage = rs.getFloat( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_usage.name() );
+		this.not_targeted_amount_usage = rs.getFloat( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_usage.name() );
+		this.control_qty_msisdn_with_amount_usage = rs.getFloat( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_usage.name() );
+		this.provisioned_qty_msisdn_with_amount_usage = rs.getFloat( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_usage.name() );
+		this.notified_qty_msisdn_with_amount_usage = rs.getFloat( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_usage.name() );
+		this.beneficiary_qty_msisdn_with_amount_usage = rs.getFloat( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_usage.name() );
+		this.not_targeted_qty_msisdn_with_amount_usage = rs.getFloat( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_usage.name() );
+		this.control_amount_recharge = rs.getFloat( CampaignsWeeklySubsStatus.Fields.control_amount_recharge.name() );
+		this.provisioned_amount_recharge = rs.getFloat( CampaignsWeeklySubsStatus.Fields.provisioned_amount_recharge.name() );
+		this.notified_amount_recharge = rs.getFloat( CampaignsWeeklySubsStatus.Fields.notified_amount_recharge.name() );
+		this.beneficiary_amount_recharge = rs.getFloat( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_recharge.name() );
+		this.not_targeted_amount_recharge = rs.getFloat( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_recharge.name() );
+		this.control_qty_msisdn_with_amount_recharge = rs.getFloat( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_recharge.name() );
+		this.provisioned_qty_msisdn_with_amount_recharge = rs.getFloat( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_recharge.name() );
+		this.notified_qty_msisdn_with_amount_recharge = rs.getFloat( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_recharge.name() );
+		this.beneficiary_qty_msisdn_with_amount_recharge = rs.getFloat( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_recharge.name() );
+		this.not_targeted_qty_msisdn_with_amount_recharge = rs.getFloat( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_recharge.name() );
+		this.control_amount_invoice = rs.getFloat( CampaignsWeeklySubsStatus.Fields.control_amount_invoice.name() );
+		this.provisioned_amount_invoice = rs.getFloat( CampaignsWeeklySubsStatus.Fields.provisioned_amount_invoice.name() );
+		this.notified_amount_invoice = rs.getFloat( CampaignsWeeklySubsStatus.Fields.notified_amount_invoice.name() );
+		this.beneficiary_amount_invoice = rs.getFloat( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_invoice.name() );
+		this.not_targeted_amount_invoice = rs.getFloat( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_invoice.name() );
+		this.control_qty_msisdn_with_amount_invoice = rs.getFloat( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_invoice.name() );
+		this.provisioned_qty_msisdn_with_amount_invoice = rs.getFloat( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_invoice.name() );
+		this.notified_qty_msisdn_with_amount_invoice = rs.getFloat( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_invoice.name() );
+		this.beneficiary_qty_msisdn_with_amount_invoice = rs.getFloat( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_invoice.name() );
+		this.not_targeted_qty_msisdn_with_amount_invoice = rs.getFloat( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_invoice.name() );
+		this.control_amount_payment = rs.getFloat( CampaignsWeeklySubsStatus.Fields.control_amount_payment.name() );
+		this.provisioned_amount_payment = rs.getFloat( CampaignsWeeklySubsStatus.Fields.provisioned_amount_payment.name() );
+		this.notified_amount_payment = rs.getFloat( CampaignsWeeklySubsStatus.Fields.notified_amount_payment.name() );
+		this.beneficiary_amount_payment = rs.getFloat( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_payment.name() );
+		this.not_targeted_amount_payment = rs.getFloat( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_payment.name() );
+		this.control_qty_msisdn_with_amount_payment = rs.getFloat( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_payment.name() );
+		this.provisioned_qty_msisdn_with_amount_payment = rs.getFloat( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_payment.name() );
+		this.notified_qty_msisdn_with_amount_payment = rs.getFloat( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_payment.name() );
+		this.beneficiary_qty_msisdn_with_amount_payment = rs.getFloat( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_payment.name() );
+		this.not_targeted_qty_msisdn_with_amount_payment = rs.getFloat( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_payment.name() );
+		this.control_amount_call = rs.getFloat( CampaignsWeeklySubsStatus.Fields.control_amount_call.name() );
+		this.provisioned_amount_call = rs.getFloat( CampaignsWeeklySubsStatus.Fields.provisioned_amount_call.name() );
+		this.notified_amount_call = rs.getFloat( CampaignsWeeklySubsStatus.Fields.notified_amount_call.name() );
+		this.beneficiary_amount_call = rs.getFloat( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_call.name() );
+		this.not_targeted_amount_call = rs.getFloat( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_call.name() );
+		this.control_qty_msisdn_with_amount_call = rs.getFloat( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_call.name() );
+		this.provisioned_qty_msisdn_with_amount_call = rs.getFloat( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_call.name() );
+		this.notified_qty_msisdn_with_amount_call = rs.getFloat( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_call.name() );
+		this.beneficiary_qty_msisdn_with_amount_call = rs.getFloat( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_call.name() );
+		this.not_targeted_qty_msisdn_with_amount_call = rs.getFloat( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_call.name() );
+		this.control_amount_message = rs.getFloat( CampaignsWeeklySubsStatus.Fields.control_amount_message.name() );
+		this.provisioned_amount_message = rs.getFloat( CampaignsWeeklySubsStatus.Fields.provisioned_amount_message.name() );
+		this.notified_amount_message = rs.getFloat( CampaignsWeeklySubsStatus.Fields.notified_amount_message.name() );
+		this.beneficiary_amount_message = rs.getFloat( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_message.name() );
+		this.not_targeted_amount_message = rs.getFloat( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_message.name() );
+		this.control_qty_msisdn_with_amount_message = rs.getFloat( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_message.name() );
+		this.provisioned_qty_msisdn_with_amount_message = rs.getFloat( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_message.name() );
+		this.notified_qty_msisdn_with_amount_message = rs.getFloat( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_message.name() );
+		this.beneficiary_qty_msisdn_with_amount_message = rs.getFloat( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_message.name() );
+		this.not_targeted_qty_msisdn_with_amount_message = rs.getFloat( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_message.name() );
+		this.control_amount_data = rs.getFloat( CampaignsWeeklySubsStatus.Fields.control_amount_data.name() );
+		this.provisioned_amount_data = rs.getFloat( CampaignsWeeklySubsStatus.Fields.provisioned_amount_data.name() );
+		this.notified_amount_data = rs.getFloat( CampaignsWeeklySubsStatus.Fields.notified_amount_data.name() );
+		this.beneficiary_amount_data = rs.getFloat( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_data.name() );
+		this.not_targeted_amount_data = rs.getFloat( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_data.name() );
+		this.control_qty_msisdn_with_amount_data = rs.getFloat( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_data.name() );
+		this.provisioned_qty_msisdn_with_amount_data = rs.getFloat( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_data.name() );
+		this.notified_qty_msisdn_with_amount_data = rs.getFloat( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_data.name() );
+		this.beneficiary_qty_msisdn_with_amount_data = rs.getFloat( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_data.name() );
+		this.not_targeted_qty_msisdn_with_amount_data = rs.getFloat( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_data.name() );
+		this.control_proba = rs.getFloat( CampaignsWeeklySubsStatus.Fields.control_proba.name() );
+		this.provisioned_proba = rs.getFloat( CampaignsWeeklySubsStatus.Fields.provisioned_proba.name() );
+		this.notified_proba = rs.getFloat( CampaignsWeeklySubsStatus.Fields.notified_proba.name() );
+		this.beneficiary_proba = rs.getFloat( CampaignsWeeklySubsStatus.Fields.beneficiary_proba.name() );
+		this.not_targeted_proba = rs.getFloat( CampaignsWeeklySubsStatus.Fields.not_targeted_proba.name() );
 
 	}
 
@@ -1791,87 +1791,87 @@ public class CampaignsWeeklySubsStatus {
 		this.network_id = (byte)jo.getInt( CampaignsWeeklySubsStatus.Fields.network_id.name() );
 		this.arpu_id = (byte)jo.getInt( CampaignsWeeklySubsStatus.Fields.arpu_id.name() );
 		this.seniority_id = (byte)jo.getInt( CampaignsWeeklySubsStatus.Fields.seniority_id.name() );
-		this.qty_control = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.qty_control.name() );
-		this.qty_control_benef = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.qty_control_benef.name() );
-		this.qty_provisioned = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.qty_provisioned.name() );
-		this.qty_notified = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.qty_notified.name() );
-		this.qty_beneficiary = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.qty_beneficiary.name() );
-		this.qty_not_targeted = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.qty_not_targeted.name() );
-		this.control_amount_usage = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_usage.name() );
-		this.provisioned_amount_usage = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_usage.name() );
-		this.notified_amount_usage = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_usage.name() );
-		this.beneficiary_amount_usage = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_usage.name() );
-		this.not_targeted_amount_usage = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_usage.name() );
-		this.control_qty_msisdn_with_amount_usage = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_usage.name() );
-		this.provisioned_qty_msisdn_with_amount_usage = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_usage.name() );
-		this.notified_qty_msisdn_with_amount_usage = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_usage.name() );
-		this.beneficiary_qty_msisdn_with_amount_usage = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_usage.name() );
-		this.not_targeted_qty_msisdn_with_amount_usage = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_usage.name() );
-		this.control_amount_recharge = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_recharge.name() );
-		this.provisioned_amount_recharge = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_recharge.name() );
-		this.notified_amount_recharge = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_recharge.name() );
-		this.beneficiary_amount_recharge = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_recharge.name() );
-		this.not_targeted_amount_recharge = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_recharge.name() );
-		this.control_qty_msisdn_with_amount_recharge = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_recharge.name() );
-		this.provisioned_qty_msisdn_with_amount_recharge = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_recharge.name() );
-		this.notified_qty_msisdn_with_amount_recharge = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_recharge.name() );
-		this.beneficiary_qty_msisdn_with_amount_recharge = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_recharge.name() );
-		this.not_targeted_qty_msisdn_with_amount_recharge = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_recharge.name() );
-		this.control_amount_invoice = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_invoice.name() );
-		this.provisioned_amount_invoice = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_invoice.name() );
-		this.notified_amount_invoice = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_invoice.name() );
-		this.beneficiary_amount_invoice = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_invoice.name() );
-		this.not_targeted_amount_invoice = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_invoice.name() );
-		this.control_qty_msisdn_with_amount_invoice = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_invoice.name() );
-		this.provisioned_qty_msisdn_with_amount_invoice = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_invoice.name() );
-		this.notified_qty_msisdn_with_amount_invoice = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_invoice.name() );
-		this.beneficiary_qty_msisdn_with_amount_invoice = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_invoice.name() );
-		this.not_targeted_qty_msisdn_with_amount_invoice = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_invoice.name() );
-		this.control_amount_payment = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_payment.name() );
-		this.provisioned_amount_payment = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_payment.name() );
-		this.notified_amount_payment = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_payment.name() );
-		this.beneficiary_amount_payment = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_payment.name() );
-		this.not_targeted_amount_payment = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_payment.name() );
-		this.control_qty_msisdn_with_amount_payment = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_payment.name() );
-		this.provisioned_qty_msisdn_with_amount_payment = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_payment.name() );
-		this.notified_qty_msisdn_with_amount_payment = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_payment.name() );
-		this.beneficiary_qty_msisdn_with_amount_payment = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_payment.name() );
-		this.not_targeted_qty_msisdn_with_amount_payment = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_payment.name() );
-		this.control_amount_call = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_call.name() );
-		this.provisioned_amount_call = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_call.name() );
-		this.notified_amount_call = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_call.name() );
-		this.beneficiary_amount_call = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_call.name() );
-		this.not_targeted_amount_call = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_call.name() );
-		this.control_qty_msisdn_with_amount_call = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_call.name() );
-		this.provisioned_qty_msisdn_with_amount_call = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_call.name() );
-		this.notified_qty_msisdn_with_amount_call = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_call.name() );
-		this.beneficiary_qty_msisdn_with_amount_call = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_call.name() );
-		this.not_targeted_qty_msisdn_with_amount_call = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_call.name() );
-		this.control_amount_message = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_message.name() );
-		this.provisioned_amount_message = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_message.name() );
-		this.notified_amount_message = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_message.name() );
-		this.beneficiary_amount_message = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_message.name() );
-		this.not_targeted_amount_message = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_message.name() );
-		this.control_qty_msisdn_with_amount_message = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_message.name() );
-		this.provisioned_qty_msisdn_with_amount_message = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_message.name() );
-		this.notified_qty_msisdn_with_amount_message = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_message.name() );
-		this.beneficiary_qty_msisdn_with_amount_message = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_message.name() );
-		this.not_targeted_qty_msisdn_with_amount_message = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_message.name() );
-		this.control_amount_data = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_data.name() );
-		this.provisioned_amount_data = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_data.name() );
-		this.notified_amount_data = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_data.name() );
-		this.beneficiary_amount_data = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_data.name() );
-		this.not_targeted_amount_data = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_data.name() );
-		this.control_qty_msisdn_with_amount_data = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_data.name() );
-		this.provisioned_qty_msisdn_with_amount_data = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_data.name() );
-		this.notified_qty_msisdn_with_amount_data = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_data.name() );
-		this.beneficiary_qty_msisdn_with_amount_data = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_data.name() );
-		this.not_targeted_qty_msisdn_with_amount_data = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_data.name() );
-		this.control_proba = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_proba.name() );
-		this.provisioned_proba = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_proba.name() );
-		this.notified_proba = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_proba.name() );
-		this.beneficiary_proba = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_proba.name() );
-		this.not_targeted_proba = (double)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_proba.name() );
+		this.qty_control = (int)jo.getInt( CampaignsWeeklySubsStatus.Fields.qty_control.name() );
+		this.qty_control_benef = (int)jo.getInt( CampaignsWeeklySubsStatus.Fields.qty_control_benef.name() );
+		this.qty_provisioned = (int)jo.getInt( CampaignsWeeklySubsStatus.Fields.qty_provisioned.name() );
+		this.qty_notified = (int)jo.getInt( CampaignsWeeklySubsStatus.Fields.qty_notified.name() );
+		this.qty_beneficiary = (int)jo.getInt( CampaignsWeeklySubsStatus.Fields.qty_beneficiary.name() );
+		this.qty_not_targeted = (int)jo.getInt( CampaignsWeeklySubsStatus.Fields.qty_not_targeted.name() );
+		this.control_amount_usage = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_usage.name() );
+		this.provisioned_amount_usage = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_usage.name() );
+		this.notified_amount_usage = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_usage.name() );
+		this.beneficiary_amount_usage = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_usage.name() );
+		this.not_targeted_amount_usage = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_usage.name() );
+		this.control_qty_msisdn_with_amount_usage = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_usage.name() );
+		this.provisioned_qty_msisdn_with_amount_usage = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_usage.name() );
+		this.notified_qty_msisdn_with_amount_usage = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_usage.name() );
+		this.beneficiary_qty_msisdn_with_amount_usage = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_usage.name() );
+		this.not_targeted_qty_msisdn_with_amount_usage = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_usage.name() );
+		this.control_amount_recharge = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_recharge.name() );
+		this.provisioned_amount_recharge = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_recharge.name() );
+		this.notified_amount_recharge = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_recharge.name() );
+		this.beneficiary_amount_recharge = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_recharge.name() );
+		this.not_targeted_amount_recharge = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_recharge.name() );
+		this.control_qty_msisdn_with_amount_recharge = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_recharge.name() );
+		this.provisioned_qty_msisdn_with_amount_recharge = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_recharge.name() );
+		this.notified_qty_msisdn_with_amount_recharge = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_recharge.name() );
+		this.beneficiary_qty_msisdn_with_amount_recharge = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_recharge.name() );
+		this.not_targeted_qty_msisdn_with_amount_recharge = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_recharge.name() );
+		this.control_amount_invoice = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_invoice.name() );
+		this.provisioned_amount_invoice = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_invoice.name() );
+		this.notified_amount_invoice = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_invoice.name() );
+		this.beneficiary_amount_invoice = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_invoice.name() );
+		this.not_targeted_amount_invoice = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_invoice.name() );
+		this.control_qty_msisdn_with_amount_invoice = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_invoice.name() );
+		this.provisioned_qty_msisdn_with_amount_invoice = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_invoice.name() );
+		this.notified_qty_msisdn_with_amount_invoice = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_invoice.name() );
+		this.beneficiary_qty_msisdn_with_amount_invoice = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_invoice.name() );
+		this.not_targeted_qty_msisdn_with_amount_invoice = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_invoice.name() );
+		this.control_amount_payment = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_payment.name() );
+		this.provisioned_amount_payment = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_payment.name() );
+		this.notified_amount_payment = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_payment.name() );
+		this.beneficiary_amount_payment = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_payment.name() );
+		this.not_targeted_amount_payment = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_payment.name() );
+		this.control_qty_msisdn_with_amount_payment = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_payment.name() );
+		this.provisioned_qty_msisdn_with_amount_payment = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_payment.name() );
+		this.notified_qty_msisdn_with_amount_payment = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_payment.name() );
+		this.beneficiary_qty_msisdn_with_amount_payment = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_payment.name() );
+		this.not_targeted_qty_msisdn_with_amount_payment = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_payment.name() );
+		this.control_amount_call = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_call.name() );
+		this.provisioned_amount_call = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_call.name() );
+		this.notified_amount_call = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_call.name() );
+		this.beneficiary_amount_call = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_call.name() );
+		this.not_targeted_amount_call = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_call.name() );
+		this.control_qty_msisdn_with_amount_call = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_call.name() );
+		this.provisioned_qty_msisdn_with_amount_call = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_call.name() );
+		this.notified_qty_msisdn_with_amount_call = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_call.name() );
+		this.beneficiary_qty_msisdn_with_amount_call = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_call.name() );
+		this.not_targeted_qty_msisdn_with_amount_call = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_call.name() );
+		this.control_amount_message = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_message.name() );
+		this.provisioned_amount_message = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_message.name() );
+		this.notified_amount_message = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_message.name() );
+		this.beneficiary_amount_message = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_message.name() );
+		this.not_targeted_amount_message = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_message.name() );
+		this.control_qty_msisdn_with_amount_message = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_message.name() );
+		this.provisioned_qty_msisdn_with_amount_message = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_message.name() );
+		this.notified_qty_msisdn_with_amount_message = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_message.name() );
+		this.beneficiary_qty_msisdn_with_amount_message = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_message.name() );
+		this.not_targeted_qty_msisdn_with_amount_message = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_message.name() );
+		this.control_amount_data = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_amount_data.name() );
+		this.provisioned_amount_data = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_amount_data.name() );
+		this.notified_amount_data = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_amount_data.name() );
+		this.beneficiary_amount_data = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_amount_data.name() );
+		this.not_targeted_amount_data = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_amount_data.name() );
+		this.control_qty_msisdn_with_amount_data = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_qty_msisdn_with_amount_data.name() );
+		this.provisioned_qty_msisdn_with_amount_data = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_qty_msisdn_with_amount_data.name() );
+		this.notified_qty_msisdn_with_amount_data = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_qty_msisdn_with_amount_data.name() );
+		this.beneficiary_qty_msisdn_with_amount_data = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_qty_msisdn_with_amount_data.name() );
+		this.not_targeted_qty_msisdn_with_amount_data = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_qty_msisdn_with_amount_data.name() );
+		this.control_proba = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.control_proba.name() );
+		this.provisioned_proba = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.provisioned_proba.name() );
+		this.notified_proba = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.notified_proba.name() );
+		this.beneficiary_proba = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.beneficiary_proba.name() );
+		this.not_targeted_proba = (float)jo.getDouble( CampaignsWeeklySubsStatus.Fields.not_targeted_proba.name() );
 
 	}
 
@@ -1881,9 +1881,11 @@ public class CampaignsWeeklySubsStatus {
 
 	}
 
-	public void setCampaignId( Short campaign_id ) {
+	public CampaignsWeeklySubsStatus setCampaignId( Short campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+		return this;
 
 	}
 
@@ -1893,9 +1895,11 @@ public class CampaignsWeeklySubsStatus {
 
 	}
 
-	public void setWeekId( Byte week_id ) {
+	public CampaignsWeeklySubsStatus setWeekId( Byte week_id ) {
 
 		this.week_id = week_id;
+
+		return this;
 
 	}
 
@@ -1905,9 +1909,11 @@ public class CampaignsWeeklySubsStatus {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public CampaignsWeeklySubsStatus setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -1917,9 +1923,11 @@ public class CampaignsWeeklySubsStatus {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public CampaignsWeeklySubsStatus setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -1929,9 +1937,11 @@ public class CampaignsWeeklySubsStatus {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public CampaignsWeeklySubsStatus setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -1941,9 +1951,11 @@ public class CampaignsWeeklySubsStatus {
 
 	}
 
-	public void setArpuId( Byte arpu_id ) {
+	public CampaignsWeeklySubsStatus setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+		return this;
 
 	}
 
@@ -1953,981 +1965,1145 @@ public class CampaignsWeeklySubsStatus {
 
 	}
 
-	public void setSeniorityId( Byte seniority_id ) {
+	public CampaignsWeeklySubsStatus setSeniorityId( Byte seniority_id ) {
 
 		this.seniority_id = seniority_id;
 
+		return this;
+
 	}
 
-	public Float getQtyControl() {
+	public Integer getQtyControl() {
 
 		return this.qty_control;
 
 	}
 
-	public void setQtyControl( Float qty_control ) {
+	public CampaignsWeeklySubsStatus setQtyControl( Integer qty_control ) {
 
 		this.qty_control = qty_control;
 
+		return this;
+
 	}
 
-	public Float getQtyControlBenef() {
+	public Integer getQtyControlBenef() {
 
 		return this.qty_control_benef;
 
 	}
 
-	public void setQtyControlBenef( Float qty_control_benef ) {
+	public CampaignsWeeklySubsStatus setQtyControlBenef( Integer qty_control_benef ) {
 
 		this.qty_control_benef = qty_control_benef;
 
+		return this;
+
 	}
 
-	public Float getQtyProvisioned() {
+	public Integer getQtyProvisioned() {
 
 		return this.qty_provisioned;
 
 	}
 
-	public void setQtyProvisioned( Float qty_provisioned ) {
+	public CampaignsWeeklySubsStatus setQtyProvisioned( Integer qty_provisioned ) {
 
 		this.qty_provisioned = qty_provisioned;
 
+		return this;
+
 	}
 
-	public Float getQtyNotified() {
+	public Integer getQtyNotified() {
 
 		return this.qty_notified;
 
 	}
 
-	public void setQtyNotified( Float qty_notified ) {
+	public CampaignsWeeklySubsStatus setQtyNotified( Integer qty_notified ) {
 
 		this.qty_notified = qty_notified;
 
+		return this;
+
 	}
 
-	public Float getQtyBeneficiary() {
+	public Integer getQtyBeneficiary() {
 
 		return this.qty_beneficiary;
 
 	}
 
-	public void setQtyBeneficiary( Float qty_beneficiary ) {
+	public CampaignsWeeklySubsStatus setQtyBeneficiary( Integer qty_beneficiary ) {
 
 		this.qty_beneficiary = qty_beneficiary;
 
+		return this;
+
 	}
 
-	public Float getQtyNotTargeted() {
+	public Integer getQtyNotTargeted() {
 
 		return this.qty_not_targeted;
 
 	}
 
-	public void setQtyNotTargeted( Float qty_not_targeted ) {
+	public CampaignsWeeklySubsStatus setQtyNotTargeted( Integer qty_not_targeted ) {
 
 		this.qty_not_targeted = qty_not_targeted;
 
+		return this;
+
 	}
 
-	public Double getControlAmountUsage() {
+	public Float getControlAmountUsage() {
 
 		return this.control_amount_usage;
 
 	}
 
-	public void setControlAmountUsage( Double control_amount_usage ) {
+	public CampaignsWeeklySubsStatus setControlAmountUsage( Float control_amount_usage ) {
 
 		this.control_amount_usage = control_amount_usage;
 
+		return this;
+
 	}
 
-	public Double getProvisionedAmountUsage() {
+	public Float getProvisionedAmountUsage() {
 
 		return this.provisioned_amount_usage;
 
 	}
 
-	public void setProvisionedAmountUsage( Double provisioned_amount_usage ) {
+	public CampaignsWeeklySubsStatus setProvisionedAmountUsage( Float provisioned_amount_usage ) {
 
 		this.provisioned_amount_usage = provisioned_amount_usage;
 
+		return this;
+
 	}
 
-	public Double getNotifiedAmountUsage() {
+	public Float getNotifiedAmountUsage() {
 
 		return this.notified_amount_usage;
 
 	}
 
-	public void setNotifiedAmountUsage( Double notified_amount_usage ) {
+	public CampaignsWeeklySubsStatus setNotifiedAmountUsage( Float notified_amount_usage ) {
 
 		this.notified_amount_usage = notified_amount_usage;
 
+		return this;
+
 	}
 
-	public Double getBeneficiaryAmountUsage() {
+	public Float getBeneficiaryAmountUsage() {
 
 		return this.beneficiary_amount_usage;
 
 	}
 
-	public void setBeneficiaryAmountUsage( Double beneficiary_amount_usage ) {
+	public CampaignsWeeklySubsStatus setBeneficiaryAmountUsage( Float beneficiary_amount_usage ) {
 
 		this.beneficiary_amount_usage = beneficiary_amount_usage;
 
+		return this;
+
 	}
 
-	public Double getNotTargetedAmountUsage() {
+	public Float getNotTargetedAmountUsage() {
 
 		return this.not_targeted_amount_usage;
 
 	}
 
-	public void setNotTargetedAmountUsage( Double not_targeted_amount_usage ) {
+	public CampaignsWeeklySubsStatus setNotTargetedAmountUsage( Float not_targeted_amount_usage ) {
 
 		this.not_targeted_amount_usage = not_targeted_amount_usage;
 
+		return this;
+
 	}
 
-	public Double getControlQtyMsisdnWithAmountUsage() {
+	public Float getControlQtyMsisdnWithAmountUsage() {
 
 		return this.control_qty_msisdn_with_amount_usage;
 
 	}
 
-	public void setControlQtyMsisdnWithAmountUsage( Double control_qty_msisdn_with_amount_usage ) {
+	public CampaignsWeeklySubsStatus setControlQtyMsisdnWithAmountUsage( Float control_qty_msisdn_with_amount_usage ) {
 
 		this.control_qty_msisdn_with_amount_usage = control_qty_msisdn_with_amount_usage;
 
+		return this;
+
 	}
 
-	public Double getProvisionedQtyMsisdnWithAmountUsage() {
+	public Float getProvisionedQtyMsisdnWithAmountUsage() {
 
 		return this.provisioned_qty_msisdn_with_amount_usage;
 
 	}
 
-	public void setProvisionedQtyMsisdnWithAmountUsage( Double provisioned_qty_msisdn_with_amount_usage ) {
+	public CampaignsWeeklySubsStatus setProvisionedQtyMsisdnWithAmountUsage( Float provisioned_qty_msisdn_with_amount_usage ) {
 
 		this.provisioned_qty_msisdn_with_amount_usage = provisioned_qty_msisdn_with_amount_usage;
 
+		return this;
+
 	}
 
-	public Double getNotifiedQtyMsisdnWithAmountUsage() {
+	public Float getNotifiedQtyMsisdnWithAmountUsage() {
 
 		return this.notified_qty_msisdn_with_amount_usage;
 
 	}
 
-	public void setNotifiedQtyMsisdnWithAmountUsage( Double notified_qty_msisdn_with_amount_usage ) {
+	public CampaignsWeeklySubsStatus setNotifiedQtyMsisdnWithAmountUsage( Float notified_qty_msisdn_with_amount_usage ) {
 
 		this.notified_qty_msisdn_with_amount_usage = notified_qty_msisdn_with_amount_usage;
 
+		return this;
+
 	}
 
-	public Double getBeneficiaryQtyMsisdnWithAmountUsage() {
+	public Float getBeneficiaryQtyMsisdnWithAmountUsage() {
 
 		return this.beneficiary_qty_msisdn_with_amount_usage;
 
 	}
 
-	public void setBeneficiaryQtyMsisdnWithAmountUsage( Double beneficiary_qty_msisdn_with_amount_usage ) {
+	public CampaignsWeeklySubsStatus setBeneficiaryQtyMsisdnWithAmountUsage( Float beneficiary_qty_msisdn_with_amount_usage ) {
 
 		this.beneficiary_qty_msisdn_with_amount_usage = beneficiary_qty_msisdn_with_amount_usage;
 
+		return this;
+
 	}
 
-	public Double getNotTargetedQtyMsisdnWithAmountUsage() {
+	public Float getNotTargetedQtyMsisdnWithAmountUsage() {
 
 		return this.not_targeted_qty_msisdn_with_amount_usage;
 
 	}
 
-	public void setNotTargetedQtyMsisdnWithAmountUsage( Double not_targeted_qty_msisdn_with_amount_usage ) {
+	public CampaignsWeeklySubsStatus setNotTargetedQtyMsisdnWithAmountUsage( Float not_targeted_qty_msisdn_with_amount_usage ) {
 
 		this.not_targeted_qty_msisdn_with_amount_usage = not_targeted_qty_msisdn_with_amount_usage;
 
+		return this;
+
 	}
 
-	public Double getControlAmountRecharge() {
+	public Float getControlAmountRecharge() {
 
 		return this.control_amount_recharge;
 
 	}
 
-	public void setControlAmountRecharge( Double control_amount_recharge ) {
+	public CampaignsWeeklySubsStatus setControlAmountRecharge( Float control_amount_recharge ) {
 
 		this.control_amount_recharge = control_amount_recharge;
 
+		return this;
+
 	}
 
-	public Double getProvisionedAmountRecharge() {
+	public Float getProvisionedAmountRecharge() {
 
 		return this.provisioned_amount_recharge;
 
 	}
 
-	public void setProvisionedAmountRecharge( Double provisioned_amount_recharge ) {
+	public CampaignsWeeklySubsStatus setProvisionedAmountRecharge( Float provisioned_amount_recharge ) {
 
 		this.provisioned_amount_recharge = provisioned_amount_recharge;
 
+		return this;
+
 	}
 
-	public Double getNotifiedAmountRecharge() {
+	public Float getNotifiedAmountRecharge() {
 
 		return this.notified_amount_recharge;
 
 	}
 
-	public void setNotifiedAmountRecharge( Double notified_amount_recharge ) {
+	public CampaignsWeeklySubsStatus setNotifiedAmountRecharge( Float notified_amount_recharge ) {
 
 		this.notified_amount_recharge = notified_amount_recharge;
 
+		return this;
+
 	}
 
-	public Double getBeneficiaryAmountRecharge() {
+	public Float getBeneficiaryAmountRecharge() {
 
 		return this.beneficiary_amount_recharge;
 
 	}
 
-	public void setBeneficiaryAmountRecharge( Double beneficiary_amount_recharge ) {
+	public CampaignsWeeklySubsStatus setBeneficiaryAmountRecharge( Float beneficiary_amount_recharge ) {
 
 		this.beneficiary_amount_recharge = beneficiary_amount_recharge;
 
+		return this;
+
 	}
 
-	public Double getNotTargetedAmountRecharge() {
+	public Float getNotTargetedAmountRecharge() {
 
 		return this.not_targeted_amount_recharge;
 
 	}
 
-	public void setNotTargetedAmountRecharge( Double not_targeted_amount_recharge ) {
+	public CampaignsWeeklySubsStatus setNotTargetedAmountRecharge( Float not_targeted_amount_recharge ) {
 
 		this.not_targeted_amount_recharge = not_targeted_amount_recharge;
 
+		return this;
+
 	}
 
-	public Double getControlQtyMsisdnWithAmountRecharge() {
+	public Float getControlQtyMsisdnWithAmountRecharge() {
 
 		return this.control_qty_msisdn_with_amount_recharge;
 
 	}
 
-	public void setControlQtyMsisdnWithAmountRecharge( Double control_qty_msisdn_with_amount_recharge ) {
+	public CampaignsWeeklySubsStatus setControlQtyMsisdnWithAmountRecharge( Float control_qty_msisdn_with_amount_recharge ) {
 
 		this.control_qty_msisdn_with_amount_recharge = control_qty_msisdn_with_amount_recharge;
 
+		return this;
+
 	}
 
-	public Double getProvisionedQtyMsisdnWithAmountRecharge() {
+	public Float getProvisionedQtyMsisdnWithAmountRecharge() {
 
 		return this.provisioned_qty_msisdn_with_amount_recharge;
 
 	}
 
-	public void setProvisionedQtyMsisdnWithAmountRecharge( Double provisioned_qty_msisdn_with_amount_recharge ) {
+	public CampaignsWeeklySubsStatus setProvisionedQtyMsisdnWithAmountRecharge( Float provisioned_qty_msisdn_with_amount_recharge ) {
 
 		this.provisioned_qty_msisdn_with_amount_recharge = provisioned_qty_msisdn_with_amount_recharge;
 
+		return this;
+
 	}
 
-	public Double getNotifiedQtyMsisdnWithAmountRecharge() {
+	public Float getNotifiedQtyMsisdnWithAmountRecharge() {
 
 		return this.notified_qty_msisdn_with_amount_recharge;
 
 	}
 
-	public void setNotifiedQtyMsisdnWithAmountRecharge( Double notified_qty_msisdn_with_amount_recharge ) {
+	public CampaignsWeeklySubsStatus setNotifiedQtyMsisdnWithAmountRecharge( Float notified_qty_msisdn_with_amount_recharge ) {
 
 		this.notified_qty_msisdn_with_amount_recharge = notified_qty_msisdn_with_amount_recharge;
 
+		return this;
+
 	}
 
-	public Double getBeneficiaryQtyMsisdnWithAmountRecharge() {
+	public Float getBeneficiaryQtyMsisdnWithAmountRecharge() {
 
 		return this.beneficiary_qty_msisdn_with_amount_recharge;
 
 	}
 
-	public void setBeneficiaryQtyMsisdnWithAmountRecharge( Double beneficiary_qty_msisdn_with_amount_recharge ) {
+	public CampaignsWeeklySubsStatus setBeneficiaryQtyMsisdnWithAmountRecharge( Float beneficiary_qty_msisdn_with_amount_recharge ) {
 
 		this.beneficiary_qty_msisdn_with_amount_recharge = beneficiary_qty_msisdn_with_amount_recharge;
 
+		return this;
+
 	}
 
-	public Double getNotTargetedQtyMsisdnWithAmountRecharge() {
+	public Float getNotTargetedQtyMsisdnWithAmountRecharge() {
 
 		return this.not_targeted_qty_msisdn_with_amount_recharge;
 
 	}
 
-	public void setNotTargetedQtyMsisdnWithAmountRecharge( Double not_targeted_qty_msisdn_with_amount_recharge ) {
+	public CampaignsWeeklySubsStatus setNotTargetedQtyMsisdnWithAmountRecharge( Float not_targeted_qty_msisdn_with_amount_recharge ) {
 
 		this.not_targeted_qty_msisdn_with_amount_recharge = not_targeted_qty_msisdn_with_amount_recharge;
 
+		return this;
+
 	}
 
-	public Double getControlAmountInvoice() {
+	public Float getControlAmountInvoice() {
 
 		return this.control_amount_invoice;
 
 	}
 
-	public void setControlAmountInvoice( Double control_amount_invoice ) {
+	public CampaignsWeeklySubsStatus setControlAmountInvoice( Float control_amount_invoice ) {
 
 		this.control_amount_invoice = control_amount_invoice;
 
+		return this;
+
 	}
 
-	public Double getProvisionedAmountInvoice() {
+	public Float getProvisionedAmountInvoice() {
 
 		return this.provisioned_amount_invoice;
 
 	}
 
-	public void setProvisionedAmountInvoice( Double provisioned_amount_invoice ) {
+	public CampaignsWeeklySubsStatus setProvisionedAmountInvoice( Float provisioned_amount_invoice ) {
 
 		this.provisioned_amount_invoice = provisioned_amount_invoice;
 
+		return this;
+
 	}
 
-	public Double getNotifiedAmountInvoice() {
+	public Float getNotifiedAmountInvoice() {
 
 		return this.notified_amount_invoice;
 
 	}
 
-	public void setNotifiedAmountInvoice( Double notified_amount_invoice ) {
+	public CampaignsWeeklySubsStatus setNotifiedAmountInvoice( Float notified_amount_invoice ) {
 
 		this.notified_amount_invoice = notified_amount_invoice;
 
+		return this;
+
 	}
 
-	public Double getBeneficiaryAmountInvoice() {
+	public Float getBeneficiaryAmountInvoice() {
 
 		return this.beneficiary_amount_invoice;
 
 	}
 
-	public void setBeneficiaryAmountInvoice( Double beneficiary_amount_invoice ) {
+	public CampaignsWeeklySubsStatus setBeneficiaryAmountInvoice( Float beneficiary_amount_invoice ) {
 
 		this.beneficiary_amount_invoice = beneficiary_amount_invoice;
 
+		return this;
+
 	}
 
-	public Double getNotTargetedAmountInvoice() {
+	public Float getNotTargetedAmountInvoice() {
 
 		return this.not_targeted_amount_invoice;
 
 	}
 
-	public void setNotTargetedAmountInvoice( Double not_targeted_amount_invoice ) {
+	public CampaignsWeeklySubsStatus setNotTargetedAmountInvoice( Float not_targeted_amount_invoice ) {
 
 		this.not_targeted_amount_invoice = not_targeted_amount_invoice;
 
+		return this;
+
 	}
 
-	public Double getControlQtyMsisdnWithAmountInvoice() {
+	public Float getControlQtyMsisdnWithAmountInvoice() {
 
 		return this.control_qty_msisdn_with_amount_invoice;
 
 	}
 
-	public void setControlQtyMsisdnWithAmountInvoice( Double control_qty_msisdn_with_amount_invoice ) {
+	public CampaignsWeeklySubsStatus setControlQtyMsisdnWithAmountInvoice( Float control_qty_msisdn_with_amount_invoice ) {
 
 		this.control_qty_msisdn_with_amount_invoice = control_qty_msisdn_with_amount_invoice;
 
+		return this;
+
 	}
 
-	public Double getProvisionedQtyMsisdnWithAmountInvoice() {
+	public Float getProvisionedQtyMsisdnWithAmountInvoice() {
 
 		return this.provisioned_qty_msisdn_with_amount_invoice;
 
 	}
 
-	public void setProvisionedQtyMsisdnWithAmountInvoice( Double provisioned_qty_msisdn_with_amount_invoice ) {
+	public CampaignsWeeklySubsStatus setProvisionedQtyMsisdnWithAmountInvoice( Float provisioned_qty_msisdn_with_amount_invoice ) {
 
 		this.provisioned_qty_msisdn_with_amount_invoice = provisioned_qty_msisdn_with_amount_invoice;
 
+		return this;
+
 	}
 
-	public Double getNotifiedQtyMsisdnWithAmountInvoice() {
+	public Float getNotifiedQtyMsisdnWithAmountInvoice() {
 
 		return this.notified_qty_msisdn_with_amount_invoice;
 
 	}
 
-	public void setNotifiedQtyMsisdnWithAmountInvoice( Double notified_qty_msisdn_with_amount_invoice ) {
+	public CampaignsWeeklySubsStatus setNotifiedQtyMsisdnWithAmountInvoice( Float notified_qty_msisdn_with_amount_invoice ) {
 
 		this.notified_qty_msisdn_with_amount_invoice = notified_qty_msisdn_with_amount_invoice;
 
+		return this;
+
 	}
 
-	public Double getBeneficiaryQtyMsisdnWithAmountInvoice() {
+	public Float getBeneficiaryQtyMsisdnWithAmountInvoice() {
 
 		return this.beneficiary_qty_msisdn_with_amount_invoice;
 
 	}
 
-	public void setBeneficiaryQtyMsisdnWithAmountInvoice( Double beneficiary_qty_msisdn_with_amount_invoice ) {
+	public CampaignsWeeklySubsStatus setBeneficiaryQtyMsisdnWithAmountInvoice( Float beneficiary_qty_msisdn_with_amount_invoice ) {
 
 		this.beneficiary_qty_msisdn_with_amount_invoice = beneficiary_qty_msisdn_with_amount_invoice;
 
+		return this;
+
 	}
 
-	public Double getNotTargetedQtyMsisdnWithAmountInvoice() {
+	public Float getNotTargetedQtyMsisdnWithAmountInvoice() {
 
 		return this.not_targeted_qty_msisdn_with_amount_invoice;
 
 	}
 
-	public void setNotTargetedQtyMsisdnWithAmountInvoice( Double not_targeted_qty_msisdn_with_amount_invoice ) {
+	public CampaignsWeeklySubsStatus setNotTargetedQtyMsisdnWithAmountInvoice( Float not_targeted_qty_msisdn_with_amount_invoice ) {
 
 		this.not_targeted_qty_msisdn_with_amount_invoice = not_targeted_qty_msisdn_with_amount_invoice;
 
+		return this;
+
 	}
 
-	public Double getControlAmountPayment() {
+	public Float getControlAmountPayment() {
 
 		return this.control_amount_payment;
 
 	}
 
-	public void setControlAmountPayment( Double control_amount_payment ) {
+	public CampaignsWeeklySubsStatus setControlAmountPayment( Float control_amount_payment ) {
 
 		this.control_amount_payment = control_amount_payment;
 
+		return this;
+
 	}
 
-	public Double getProvisionedAmountPayment() {
+	public Float getProvisionedAmountPayment() {
 
 		return this.provisioned_amount_payment;
 
 	}
 
-	public void setProvisionedAmountPayment( Double provisioned_amount_payment ) {
+	public CampaignsWeeklySubsStatus setProvisionedAmountPayment( Float provisioned_amount_payment ) {
 
 		this.provisioned_amount_payment = provisioned_amount_payment;
 
+		return this;
+
 	}
 
-	public Double getNotifiedAmountPayment() {
+	public Float getNotifiedAmountPayment() {
 
 		return this.notified_amount_payment;
 
 	}
 
-	public void setNotifiedAmountPayment( Double notified_amount_payment ) {
+	public CampaignsWeeklySubsStatus setNotifiedAmountPayment( Float notified_amount_payment ) {
 
 		this.notified_amount_payment = notified_amount_payment;
 
+		return this;
+
 	}
 
-	public Double getBeneficiaryAmountPayment() {
+	public Float getBeneficiaryAmountPayment() {
 
 		return this.beneficiary_amount_payment;
 
 	}
 
-	public void setBeneficiaryAmountPayment( Double beneficiary_amount_payment ) {
+	public CampaignsWeeklySubsStatus setBeneficiaryAmountPayment( Float beneficiary_amount_payment ) {
 
 		this.beneficiary_amount_payment = beneficiary_amount_payment;
 
+		return this;
+
 	}
 
-	public Double getNotTargetedAmountPayment() {
+	public Float getNotTargetedAmountPayment() {
 
 		return this.not_targeted_amount_payment;
 
 	}
 
-	public void setNotTargetedAmountPayment( Double not_targeted_amount_payment ) {
+	public CampaignsWeeklySubsStatus setNotTargetedAmountPayment( Float not_targeted_amount_payment ) {
 
 		this.not_targeted_amount_payment = not_targeted_amount_payment;
 
+		return this;
+
 	}
 
-	public Double getControlQtyMsisdnWithAmountPayment() {
+	public Float getControlQtyMsisdnWithAmountPayment() {
 
 		return this.control_qty_msisdn_with_amount_payment;
 
 	}
 
-	public void setControlQtyMsisdnWithAmountPayment( Double control_qty_msisdn_with_amount_payment ) {
+	public CampaignsWeeklySubsStatus setControlQtyMsisdnWithAmountPayment( Float control_qty_msisdn_with_amount_payment ) {
 
 		this.control_qty_msisdn_with_amount_payment = control_qty_msisdn_with_amount_payment;
 
+		return this;
+
 	}
 
-	public Double getProvisionedQtyMsisdnWithAmountPayment() {
+	public Float getProvisionedQtyMsisdnWithAmountPayment() {
 
 		return this.provisioned_qty_msisdn_with_amount_payment;
 
 	}
 
-	public void setProvisionedQtyMsisdnWithAmountPayment( Double provisioned_qty_msisdn_with_amount_payment ) {
+	public CampaignsWeeklySubsStatus setProvisionedQtyMsisdnWithAmountPayment( Float provisioned_qty_msisdn_with_amount_payment ) {
 
 		this.provisioned_qty_msisdn_with_amount_payment = provisioned_qty_msisdn_with_amount_payment;
 
+		return this;
+
 	}
 
-	public Double getNotifiedQtyMsisdnWithAmountPayment() {
+	public Float getNotifiedQtyMsisdnWithAmountPayment() {
 
 		return this.notified_qty_msisdn_with_amount_payment;
 
 	}
 
-	public void setNotifiedQtyMsisdnWithAmountPayment( Double notified_qty_msisdn_with_amount_payment ) {
+	public CampaignsWeeklySubsStatus setNotifiedQtyMsisdnWithAmountPayment( Float notified_qty_msisdn_with_amount_payment ) {
 
 		this.notified_qty_msisdn_with_amount_payment = notified_qty_msisdn_with_amount_payment;
 
+		return this;
+
 	}
 
-	public Double getBeneficiaryQtyMsisdnWithAmountPayment() {
+	public Float getBeneficiaryQtyMsisdnWithAmountPayment() {
 
 		return this.beneficiary_qty_msisdn_with_amount_payment;
 
 	}
 
-	public void setBeneficiaryQtyMsisdnWithAmountPayment( Double beneficiary_qty_msisdn_with_amount_payment ) {
+	public CampaignsWeeklySubsStatus setBeneficiaryQtyMsisdnWithAmountPayment( Float beneficiary_qty_msisdn_with_amount_payment ) {
 
 		this.beneficiary_qty_msisdn_with_amount_payment = beneficiary_qty_msisdn_with_amount_payment;
 
+		return this;
+
 	}
 
-	public Double getNotTargetedQtyMsisdnWithAmountPayment() {
+	public Float getNotTargetedQtyMsisdnWithAmountPayment() {
 
 		return this.not_targeted_qty_msisdn_with_amount_payment;
 
 	}
 
-	public void setNotTargetedQtyMsisdnWithAmountPayment( Double not_targeted_qty_msisdn_with_amount_payment ) {
+	public CampaignsWeeklySubsStatus setNotTargetedQtyMsisdnWithAmountPayment( Float not_targeted_qty_msisdn_with_amount_payment ) {
 
 		this.not_targeted_qty_msisdn_with_amount_payment = not_targeted_qty_msisdn_with_amount_payment;
 
+		return this;
+
 	}
 
-	public Double getControlAmountCall() {
+	public Float getControlAmountCall() {
 
 		return this.control_amount_call;
 
 	}
 
-	public void setControlAmountCall( Double control_amount_call ) {
+	public CampaignsWeeklySubsStatus setControlAmountCall( Float control_amount_call ) {
 
 		this.control_amount_call = control_amount_call;
 
+		return this;
+
 	}
 
-	public Double getProvisionedAmountCall() {
+	public Float getProvisionedAmountCall() {
 
 		return this.provisioned_amount_call;
 
 	}
 
-	public void setProvisionedAmountCall( Double provisioned_amount_call ) {
+	public CampaignsWeeklySubsStatus setProvisionedAmountCall( Float provisioned_amount_call ) {
 
 		this.provisioned_amount_call = provisioned_amount_call;
 
+		return this;
+
 	}
 
-	public Double getNotifiedAmountCall() {
+	public Float getNotifiedAmountCall() {
 
 		return this.notified_amount_call;
 
 	}
 
-	public void setNotifiedAmountCall( Double notified_amount_call ) {
+	public CampaignsWeeklySubsStatus setNotifiedAmountCall( Float notified_amount_call ) {
 
 		this.notified_amount_call = notified_amount_call;
 
+		return this;
+
 	}
 
-	public Double getBeneficiaryAmountCall() {
+	public Float getBeneficiaryAmountCall() {
 
 		return this.beneficiary_amount_call;
 
 	}
 
-	public void setBeneficiaryAmountCall( Double beneficiary_amount_call ) {
+	public CampaignsWeeklySubsStatus setBeneficiaryAmountCall( Float beneficiary_amount_call ) {
 
 		this.beneficiary_amount_call = beneficiary_amount_call;
 
+		return this;
+
 	}
 
-	public Double getNotTargetedAmountCall() {
+	public Float getNotTargetedAmountCall() {
 
 		return this.not_targeted_amount_call;
 
 	}
 
-	public void setNotTargetedAmountCall( Double not_targeted_amount_call ) {
+	public CampaignsWeeklySubsStatus setNotTargetedAmountCall( Float not_targeted_amount_call ) {
 
 		this.not_targeted_amount_call = not_targeted_amount_call;
 
+		return this;
+
 	}
 
-	public Double getControlQtyMsisdnWithAmountCall() {
+	public Float getControlQtyMsisdnWithAmountCall() {
 
 		return this.control_qty_msisdn_with_amount_call;
 
 	}
 
-	public void setControlQtyMsisdnWithAmountCall( Double control_qty_msisdn_with_amount_call ) {
+	public CampaignsWeeklySubsStatus setControlQtyMsisdnWithAmountCall( Float control_qty_msisdn_with_amount_call ) {
 
 		this.control_qty_msisdn_with_amount_call = control_qty_msisdn_with_amount_call;
 
+		return this;
+
 	}
 
-	public Double getProvisionedQtyMsisdnWithAmountCall() {
+	public Float getProvisionedQtyMsisdnWithAmountCall() {
 
 		return this.provisioned_qty_msisdn_with_amount_call;
 
 	}
 
-	public void setProvisionedQtyMsisdnWithAmountCall( Double provisioned_qty_msisdn_with_amount_call ) {
+	public CampaignsWeeklySubsStatus setProvisionedQtyMsisdnWithAmountCall( Float provisioned_qty_msisdn_with_amount_call ) {
 
 		this.provisioned_qty_msisdn_with_amount_call = provisioned_qty_msisdn_with_amount_call;
 
+		return this;
+
 	}
 
-	public Double getNotifiedQtyMsisdnWithAmountCall() {
+	public Float getNotifiedQtyMsisdnWithAmountCall() {
 
 		return this.notified_qty_msisdn_with_amount_call;
 
 	}
 
-	public void setNotifiedQtyMsisdnWithAmountCall( Double notified_qty_msisdn_with_amount_call ) {
+	public CampaignsWeeklySubsStatus setNotifiedQtyMsisdnWithAmountCall( Float notified_qty_msisdn_with_amount_call ) {
 
 		this.notified_qty_msisdn_with_amount_call = notified_qty_msisdn_with_amount_call;
 
+		return this;
+
 	}
 
-	public Double getBeneficiaryQtyMsisdnWithAmountCall() {
+	public Float getBeneficiaryQtyMsisdnWithAmountCall() {
 
 		return this.beneficiary_qty_msisdn_with_amount_call;
 
 	}
 
-	public void setBeneficiaryQtyMsisdnWithAmountCall( Double beneficiary_qty_msisdn_with_amount_call ) {
+	public CampaignsWeeklySubsStatus setBeneficiaryQtyMsisdnWithAmountCall( Float beneficiary_qty_msisdn_with_amount_call ) {
 
 		this.beneficiary_qty_msisdn_with_amount_call = beneficiary_qty_msisdn_with_amount_call;
 
+		return this;
+
 	}
 
-	public Double getNotTargetedQtyMsisdnWithAmountCall() {
+	public Float getNotTargetedQtyMsisdnWithAmountCall() {
 
 		return this.not_targeted_qty_msisdn_with_amount_call;
 
 	}
 
-	public void setNotTargetedQtyMsisdnWithAmountCall( Double not_targeted_qty_msisdn_with_amount_call ) {
+	public CampaignsWeeklySubsStatus setNotTargetedQtyMsisdnWithAmountCall( Float not_targeted_qty_msisdn_with_amount_call ) {
 
 		this.not_targeted_qty_msisdn_with_amount_call = not_targeted_qty_msisdn_with_amount_call;
 
+		return this;
+
 	}
 
-	public Double getControlAmountMessage() {
+	public Float getControlAmountMessage() {
 
 		return this.control_amount_message;
 
 	}
 
-	public void setControlAmountMessage( Double control_amount_message ) {
+	public CampaignsWeeklySubsStatus setControlAmountMessage( Float control_amount_message ) {
 
 		this.control_amount_message = control_amount_message;
 
+		return this;
+
 	}
 
-	public Double getProvisionedAmountMessage() {
+	public Float getProvisionedAmountMessage() {
 
 		return this.provisioned_amount_message;
 
 	}
 
-	public void setProvisionedAmountMessage( Double provisioned_amount_message ) {
+	public CampaignsWeeklySubsStatus setProvisionedAmountMessage( Float provisioned_amount_message ) {
 
 		this.provisioned_amount_message = provisioned_amount_message;
 
+		return this;
+
 	}
 
-	public Double getNotifiedAmountMessage() {
+	public Float getNotifiedAmountMessage() {
 
 		return this.notified_amount_message;
 
 	}
 
-	public void setNotifiedAmountMessage( Double notified_amount_message ) {
+	public CampaignsWeeklySubsStatus setNotifiedAmountMessage( Float notified_amount_message ) {
 
 		this.notified_amount_message = notified_amount_message;
 
+		return this;
+
 	}
 
-	public Double getBeneficiaryAmountMessage() {
+	public Float getBeneficiaryAmountMessage() {
 
 		return this.beneficiary_amount_message;
 
 	}
 
-	public void setBeneficiaryAmountMessage( Double beneficiary_amount_message ) {
+	public CampaignsWeeklySubsStatus setBeneficiaryAmountMessage( Float beneficiary_amount_message ) {
 
 		this.beneficiary_amount_message = beneficiary_amount_message;
 
+		return this;
+
 	}
 
-	public Double getNotTargetedAmountMessage() {
+	public Float getNotTargetedAmountMessage() {
 
 		return this.not_targeted_amount_message;
 
 	}
 
-	public void setNotTargetedAmountMessage( Double not_targeted_amount_message ) {
+	public CampaignsWeeklySubsStatus setNotTargetedAmountMessage( Float not_targeted_amount_message ) {
 
 		this.not_targeted_amount_message = not_targeted_amount_message;
 
+		return this;
+
 	}
 
-	public Double getControlQtyMsisdnWithAmountMessage() {
+	public Float getControlQtyMsisdnWithAmountMessage() {
 
 		return this.control_qty_msisdn_with_amount_message;
 
 	}
 
-	public void setControlQtyMsisdnWithAmountMessage( Double control_qty_msisdn_with_amount_message ) {
+	public CampaignsWeeklySubsStatus setControlQtyMsisdnWithAmountMessage( Float control_qty_msisdn_with_amount_message ) {
 
 		this.control_qty_msisdn_with_amount_message = control_qty_msisdn_with_amount_message;
 
+		return this;
+
 	}
 
-	public Double getProvisionedQtyMsisdnWithAmountMessage() {
+	public Float getProvisionedQtyMsisdnWithAmountMessage() {
 
 		return this.provisioned_qty_msisdn_with_amount_message;
 
 	}
 
-	public void setProvisionedQtyMsisdnWithAmountMessage( Double provisioned_qty_msisdn_with_amount_message ) {
+	public CampaignsWeeklySubsStatus setProvisionedQtyMsisdnWithAmountMessage( Float provisioned_qty_msisdn_with_amount_message ) {
 
 		this.provisioned_qty_msisdn_with_amount_message = provisioned_qty_msisdn_with_amount_message;
 
+		return this;
+
 	}
 
-	public Double getNotifiedQtyMsisdnWithAmountMessage() {
+	public Float getNotifiedQtyMsisdnWithAmountMessage() {
 
 		return this.notified_qty_msisdn_with_amount_message;
 
 	}
 
-	public void setNotifiedQtyMsisdnWithAmountMessage( Double notified_qty_msisdn_with_amount_message ) {
+	public CampaignsWeeklySubsStatus setNotifiedQtyMsisdnWithAmountMessage( Float notified_qty_msisdn_with_amount_message ) {
 
 		this.notified_qty_msisdn_with_amount_message = notified_qty_msisdn_with_amount_message;
 
+		return this;
+
 	}
 
-	public Double getBeneficiaryQtyMsisdnWithAmountMessage() {
+	public Float getBeneficiaryQtyMsisdnWithAmountMessage() {
 
 		return this.beneficiary_qty_msisdn_with_amount_message;
 
 	}
 
-	public void setBeneficiaryQtyMsisdnWithAmountMessage( Double beneficiary_qty_msisdn_with_amount_message ) {
+	public CampaignsWeeklySubsStatus setBeneficiaryQtyMsisdnWithAmountMessage( Float beneficiary_qty_msisdn_with_amount_message ) {
 
 		this.beneficiary_qty_msisdn_with_amount_message = beneficiary_qty_msisdn_with_amount_message;
 
+		return this;
+
 	}
 
-	public Double getNotTargetedQtyMsisdnWithAmountMessage() {
+	public Float getNotTargetedQtyMsisdnWithAmountMessage() {
 
 		return this.not_targeted_qty_msisdn_with_amount_message;
 
 	}
 
-	public void setNotTargetedQtyMsisdnWithAmountMessage( Double not_targeted_qty_msisdn_with_amount_message ) {
+	public CampaignsWeeklySubsStatus setNotTargetedQtyMsisdnWithAmountMessage( Float not_targeted_qty_msisdn_with_amount_message ) {
 
 		this.not_targeted_qty_msisdn_with_amount_message = not_targeted_qty_msisdn_with_amount_message;
 
+		return this;
+
 	}
 
-	public Double getControlAmountData() {
+	public Float getControlAmountData() {
 
 		return this.control_amount_data;
 
 	}
 
-	public void setControlAmountData( Double control_amount_data ) {
+	public CampaignsWeeklySubsStatus setControlAmountData( Float control_amount_data ) {
 
 		this.control_amount_data = control_amount_data;
 
+		return this;
+
 	}
 
-	public Double getProvisionedAmountData() {
+	public Float getProvisionedAmountData() {
 
 		return this.provisioned_amount_data;
 
 	}
 
-	public void setProvisionedAmountData( Double provisioned_amount_data ) {
+	public CampaignsWeeklySubsStatus setProvisionedAmountData( Float provisioned_amount_data ) {
 
 		this.provisioned_amount_data = provisioned_amount_data;
 
+		return this;
+
 	}
 
-	public Double getNotifiedAmountData() {
+	public Float getNotifiedAmountData() {
 
 		return this.notified_amount_data;
 
 	}
 
-	public void setNotifiedAmountData( Double notified_amount_data ) {
+	public CampaignsWeeklySubsStatus setNotifiedAmountData( Float notified_amount_data ) {
 
 		this.notified_amount_data = notified_amount_data;
 
+		return this;
+
 	}
 
-	public Double getBeneficiaryAmountData() {
+	public Float getBeneficiaryAmountData() {
 
 		return this.beneficiary_amount_data;
 
 	}
 
-	public void setBeneficiaryAmountData( Double beneficiary_amount_data ) {
+	public CampaignsWeeklySubsStatus setBeneficiaryAmountData( Float beneficiary_amount_data ) {
 
 		this.beneficiary_amount_data = beneficiary_amount_data;
 
+		return this;
+
 	}
 
-	public Double getNotTargetedAmountData() {
+	public Float getNotTargetedAmountData() {
 
 		return this.not_targeted_amount_data;
 
 	}
 
-	public void setNotTargetedAmountData( Double not_targeted_amount_data ) {
+	public CampaignsWeeklySubsStatus setNotTargetedAmountData( Float not_targeted_amount_data ) {
 
 		this.not_targeted_amount_data = not_targeted_amount_data;
 
+		return this;
+
 	}
 
-	public Double getControlQtyMsisdnWithAmountData() {
+	public Float getControlQtyMsisdnWithAmountData() {
 
 		return this.control_qty_msisdn_with_amount_data;
 
 	}
 
-	public void setControlQtyMsisdnWithAmountData( Double control_qty_msisdn_with_amount_data ) {
+	public CampaignsWeeklySubsStatus setControlQtyMsisdnWithAmountData( Float control_qty_msisdn_with_amount_data ) {
 
 		this.control_qty_msisdn_with_amount_data = control_qty_msisdn_with_amount_data;
 
+		return this;
+
 	}
 
-	public Double getProvisionedQtyMsisdnWithAmountData() {
+	public Float getProvisionedQtyMsisdnWithAmountData() {
 
 		return this.provisioned_qty_msisdn_with_amount_data;
 
 	}
 
-	public void setProvisionedQtyMsisdnWithAmountData( Double provisioned_qty_msisdn_with_amount_data ) {
+	public CampaignsWeeklySubsStatus setProvisionedQtyMsisdnWithAmountData( Float provisioned_qty_msisdn_with_amount_data ) {
 
 		this.provisioned_qty_msisdn_with_amount_data = provisioned_qty_msisdn_with_amount_data;
 
+		return this;
+
 	}
 
-	public Double getNotifiedQtyMsisdnWithAmountData() {
+	public Float getNotifiedQtyMsisdnWithAmountData() {
 
 		return this.notified_qty_msisdn_with_amount_data;
 
 	}
 
-	public void setNotifiedQtyMsisdnWithAmountData( Double notified_qty_msisdn_with_amount_data ) {
+	public CampaignsWeeklySubsStatus setNotifiedQtyMsisdnWithAmountData( Float notified_qty_msisdn_with_amount_data ) {
 
 		this.notified_qty_msisdn_with_amount_data = notified_qty_msisdn_with_amount_data;
 
+		return this;
+
 	}
 
-	public Double getBeneficiaryQtyMsisdnWithAmountData() {
+	public Float getBeneficiaryQtyMsisdnWithAmountData() {
 
 		return this.beneficiary_qty_msisdn_with_amount_data;
 
 	}
 
-	public void setBeneficiaryQtyMsisdnWithAmountData( Double beneficiary_qty_msisdn_with_amount_data ) {
+	public CampaignsWeeklySubsStatus setBeneficiaryQtyMsisdnWithAmountData( Float beneficiary_qty_msisdn_with_amount_data ) {
 
 		this.beneficiary_qty_msisdn_with_amount_data = beneficiary_qty_msisdn_with_amount_data;
 
+		return this;
+
 	}
 
-	public Double getNotTargetedQtyMsisdnWithAmountData() {
+	public Float getNotTargetedQtyMsisdnWithAmountData() {
 
 		return this.not_targeted_qty_msisdn_with_amount_data;
 
 	}
 
-	public void setNotTargetedQtyMsisdnWithAmountData( Double not_targeted_qty_msisdn_with_amount_data ) {
+	public CampaignsWeeklySubsStatus setNotTargetedQtyMsisdnWithAmountData( Float not_targeted_qty_msisdn_with_amount_data ) {
 
 		this.not_targeted_qty_msisdn_with_amount_data = not_targeted_qty_msisdn_with_amount_data;
 
+		return this;
+
 	}
 
-	public Double getControlProba() {
+	public Float getControlProba() {
 
 		return this.control_proba;
 
 	}
 
-	public void setControlProba( Double control_proba ) {
+	public CampaignsWeeklySubsStatus setControlProba( Float control_proba ) {
 
 		this.control_proba = control_proba;
 
+		return this;
+
 	}
 
-	public Double getProvisionedProba() {
+	public Float getProvisionedProba() {
 
 		return this.provisioned_proba;
 
 	}
 
-	public void setProvisionedProba( Double provisioned_proba ) {
+	public CampaignsWeeklySubsStatus setProvisionedProba( Float provisioned_proba ) {
 
 		this.provisioned_proba = provisioned_proba;
 
+		return this;
+
 	}
 
-	public Double getNotifiedProba() {
+	public Float getNotifiedProba() {
 
 		return this.notified_proba;
 
 	}
 
-	public void setNotifiedProba( Double notified_proba ) {
+	public CampaignsWeeklySubsStatus setNotifiedProba( Float notified_proba ) {
 
 		this.notified_proba = notified_proba;
 
+		return this;
+
 	}
 
-	public Double getBeneficiaryProba() {
+	public Float getBeneficiaryProba() {
 
 		return this.beneficiary_proba;
 
 	}
 
-	public void setBeneficiaryProba( Double beneficiary_proba ) {
+	public CampaignsWeeklySubsStatus setBeneficiaryProba( Float beneficiary_proba ) {
 
 		this.beneficiary_proba = beneficiary_proba;
 
+		return this;
+
 	}
 
-	public Double getNotTargetedProba() {
+	public Float getNotTargetedProba() {
 
 		return this.not_targeted_proba;
 
 	}
 
-	public void setNotTargetedProba( Double not_targeted_proba ) {
+	public CampaignsWeeklySubsStatus setNotTargetedProba( Float not_targeted_proba ) {
 
 		this.not_targeted_proba = not_targeted_proba;
+
+		return this;
 
 	}
 

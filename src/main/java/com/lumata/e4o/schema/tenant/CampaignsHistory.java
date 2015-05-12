@@ -204,9 +204,11 @@ public class CampaignsHistory {
 
 	}
 
-	public void setCampaignId( Short campaign_id ) {
+	public CampaignsHistory setCampaignId( Short campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+		return this;
 
 	}
 
@@ -216,9 +218,11 @@ public class CampaignsHistory {
 
 	}
 
-	public void setCampaignName( String campaign_name ) {
+	public CampaignsHistory setCampaignName( String campaign_name ) {
 
 		this.campaign_name = campaign_name;
+
+		return this;
 
 	}
 
@@ -228,9 +232,11 @@ public class CampaignsHistory {
 
 	}
 
-	public void setStartDate( Date start_date ) {
+	public CampaignsHistory setStartDate( Date start_date ) {
 
 		this.start_date = start_date;
+
+		return this;
 
 	}
 
@@ -240,9 +246,11 @@ public class CampaignsHistory {
 
 	}
 
-	public void setTypeId( Short type_id ) {
+	public CampaignsHistory setTypeId( Short type_id ) {
 
 		this.type_id = type_id;
+
+		return this;
 
 	}
 
@@ -252,9 +260,11 @@ public class CampaignsHistory {
 
 	}
 
-	public void setModelName( String model_name ) {
+	public CampaignsHistory setModelName( String model_name ) {
 
 		this.model_name = model_name;
+
+		return this;
 
 	}
 
@@ -264,9 +274,11 @@ public class CampaignsHistory {
 
 	}
 
-	public void setDuration( Short duration ) {
+	public CampaignsHistory setDuration( Short duration ) {
 
 		this.duration = duration;
+
+		return this;
 
 	}
 
@@ -276,9 +288,11 @@ public class CampaignsHistory {
 
 	}
 
-	public void setChannelsIdList( String channels_id_list ) {
+	public CampaignsHistory setChannelsIdList( String channels_id_list ) {
 
 		this.channels_id_list = channels_id_list;
+
+		return this;
 
 	}
 
@@ -288,9 +302,11 @@ public class CampaignsHistory {
 
 	}
 
-	public void setCampaignMasterId( Short campaign_master_id ) {
+	public CampaignsHistory setCampaignMasterId( Short campaign_master_id ) {
 
 		this.campaign_master_id = campaign_master_id;
+
+		return this;
 
 	}
 

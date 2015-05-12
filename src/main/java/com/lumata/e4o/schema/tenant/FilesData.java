@@ -75,9 +75,11 @@ public class FilesData {
 
 	}
 
-	public void setId( Integer id ) {
+	public FilesData setId( Integer id ) {
 
 		this.id = id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class FilesData {
 
 	}
 
-	public void setContent( String content ) {
+	public FilesData setContent( String content ) {
 
 		this.content = content;
+
+		return this;
 
 	}
 

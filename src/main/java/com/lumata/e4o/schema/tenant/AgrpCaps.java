@@ -141,9 +141,11 @@ public class AgrpCaps {
 
 	}
 
-	public void setCap( String cap ) {
+	public AgrpCaps setCap( String cap ) {
 
 		this.cap = cap;
+
+		return this;
 
 	}
 
@@ -153,9 +155,11 @@ public class AgrpCaps {
 
 	}
 
-	public void setTransactionId( String transaction_id ) {
+	public AgrpCaps setTransactionId( String transaction_id ) {
 
 		this.transaction_id = transaction_id;
+
+		return this;
 
 	}
 
@@ -165,9 +169,11 @@ public class AgrpCaps {
 
 	}
 
-	public void setTaskName( String task_name ) {
+	public AgrpCaps setTaskName( String task_name ) {
 
 		this.task_name = task_name;
+
+		return this;
 
 	}
 
@@ -177,9 +183,11 @@ public class AgrpCaps {
 
 	}
 
-	public void setCreationTime( Timestamp creation_time ) {
+	public AgrpCaps setCreationTime( Timestamp creation_time ) {
 
 		this.creation_time = creation_time;
+
+		return this;
 
 	}
 
@@ -189,9 +197,11 @@ public class AgrpCaps {
 
 	}
 
-	public void setCompletionDate( Timestamp completion_date ) {
+	public AgrpCaps setCompletionDate( Timestamp completion_date ) {
 
 		this.completion_date = completion_date;
+
+		return this;
 
 	}
 

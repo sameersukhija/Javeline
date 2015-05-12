@@ -75,9 +75,11 @@ public class CatalogRelatedOffers {
 
 	}
 
-	public void setOfferId( Short offer_id ) {
+	public CatalogRelatedOffers setOfferId( Short offer_id ) {
 
 		this.offer_id = offer_id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class CatalogRelatedOffers {
 
 	}
 
-	public void setRelatedOfferId( Short related_offer_id ) {
+	public CatalogRelatedOffers setRelatedOfferId( Short related_offer_id ) {
 
 		this.related_offer_id = related_offer_id;
+
+		return this;
 
 	}
 

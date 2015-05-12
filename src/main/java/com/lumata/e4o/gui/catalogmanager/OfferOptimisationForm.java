@@ -3,6 +3,8 @@ package com.lumata.e4o.gui.catalogmanager;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
+import org.openqa.selenium.By;
+
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.AngularFrame;
@@ -43,7 +45,7 @@ public class OfferOptimisationForm extends CatalogueManagerForm {
 		openAngularFrame();
 		
 		try { Thread.sleep( 3000 );  } catch( Exception e) {}
-		
+		waitVisibleElement(By.linkText(offerOptimisationSection.value()));
 		clickLink( offerOptimisationSection.value() );
 					
 		return this;

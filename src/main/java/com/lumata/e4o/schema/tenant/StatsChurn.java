@@ -183,9 +183,11 @@ public class StatsChurn {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public StatsChurn setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -195,9 +197,11 @@ public class StatsChurn {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public StatsChurn setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -207,9 +211,11 @@ public class StatsChurn {
 
 	}
 
-	public void setQuestion( Short question ) {
+	public StatsChurn setQuestion( Short question ) {
 
 		this.question = question;
+
+		return this;
 
 	}
 
@@ -219,9 +225,11 @@ public class StatsChurn {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public StatsChurn setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -231,9 +239,11 @@ public class StatsChurn {
 
 	}
 
-	public void setState( Byte state ) {
+	public StatsChurn setState( Byte state ) {
 
 		this.state = state;
+
+		return this;
 
 	}
 
@@ -243,9 +253,11 @@ public class StatsChurn {
 
 	}
 
-	public void setProba( Byte proba ) {
+	public StatsChurn setProba( Byte proba ) {
 
 		this.proba = proba;
+
+		return this;
 
 	}
 
@@ -255,9 +267,11 @@ public class StatsChurn {
 
 	}
 
-	public void setRank( Byte rank ) {
+	public StatsChurn setRank( Byte rank ) {
 
 		this.rank = rank;
+
+		return this;
 
 	}
 

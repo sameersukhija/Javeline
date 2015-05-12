@@ -117,9 +117,11 @@ public class Billables {
 
 	}
 
-	public void setBillableId( Short billable_id ) {
+	public Billables setBillableId( Short billable_id ) {
 
 		this.billable_id = billable_id;
+
+		return this;
 
 	}
 
@@ -129,9 +131,11 @@ public class Billables {
 
 	}
 
-	public void setBillableName( String billable_name ) {
+	public Billables setBillableName( String billable_name ) {
 
 		this.billable_name = billable_name;
+
+		return this;
 
 	}
 
@@ -141,9 +145,11 @@ public class Billables {
 
 	}
 
-	public void setCommodityType( String commodity_type ) {
+	public Billables setCommodityType( String commodity_type ) {
 
 		this.commodity_type = commodity_type;
+
+		return this;
 
 	}
 
@@ -153,9 +159,11 @@ public class Billables {
 
 	}
 
-	public void setBonusId( Short bonus_id ) {
+	public Billables setBonusId( Short bonus_id ) {
 
 		this.bonus_id = bonus_id;
+
+		return this;
 
 	}
 

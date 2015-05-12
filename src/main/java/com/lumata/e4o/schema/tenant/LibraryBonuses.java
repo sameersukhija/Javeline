@@ -75,9 +75,11 @@ public class LibraryBonuses {
 
 	}
 
-	public void setAccountTypeId( Short account_type_id ) {
+	public LibraryBonuses setAccountTypeId( Short account_type_id ) {
 
 		this.account_type_id = account_type_id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class LibraryBonuses {
 
 	}
 
-	public void setAccountType( String account_type ) {
+	public LibraryBonuses setAccountType( String account_type ) {
 
 		this.account_type = account_type;
+
+		return this;
 
 	}
 

@@ -289,9 +289,11 @@ public class DailyVoice {
 
 	}
 
-	public void setQtyCall( Short qty_call ) {
+	public DailyVoice setQtyCall( Short qty_call ) {
 
 		this.qty_call = qty_call;
+
+		return this;
 
 	}
 
@@ -301,9 +303,11 @@ public class DailyVoice {
 
 	}
 
-	public void setQtyCallOriginating( Short qty_call_originating ) {
+	public DailyVoice setQtyCallOriginating( Short qty_call_originating ) {
 
 		this.qty_call_originating = qty_call_originating;
+
+		return this;
 
 	}
 
@@ -313,9 +317,11 @@ public class DailyVoice {
 
 	}
 
-	public void setQtyCallTerminating( Short qty_call_terminating ) {
+	public DailyVoice setQtyCallTerminating( Short qty_call_terminating ) {
 
 		this.qty_call_terminating = qty_call_terminating;
+
+		return this;
 
 	}
 
@@ -325,9 +331,11 @@ public class DailyVoice {
 
 	}
 
-	public void setAmountCall( Integer amount_call ) {
+	public DailyVoice setAmountCall( Integer amount_call ) {
 
 		this.amount_call = amount_call;
+
+		return this;
 
 	}
 
@@ -337,9 +345,11 @@ public class DailyVoice {
 
 	}
 
-	public void setDurationCall( Integer duration_call ) {
+	public DailyVoice setDurationCall( Integer duration_call ) {
 
 		this.duration_call = duration_call;
+
+		return this;
 
 	}
 
@@ -349,9 +359,11 @@ public class DailyVoice {
 
 	}
 
-	public void setQtyMessage( Short qty_message ) {
+	public DailyVoice setQtyMessage( Short qty_message ) {
 
 		this.qty_message = qty_message;
+
+		return this;
 
 	}
 
@@ -361,9 +373,11 @@ public class DailyVoice {
 
 	}
 
-	public void setAmountMessage( Integer amount_message ) {
+	public DailyVoice setAmountMessage( Integer amount_message ) {
 
 		this.amount_message = amount_message;
+
+		return this;
 
 	}
 
@@ -373,9 +387,11 @@ public class DailyVoice {
 
 	}
 
-	public void setQtySms( Short qty_sms ) {
+	public DailyVoice setQtySms( Short qty_sms ) {
 
 		this.qty_sms = qty_sms;
+
+		return this;
 
 	}
 
@@ -385,9 +401,11 @@ public class DailyVoice {
 
 	}
 
-	public void setQtyVas( Short qty_vas ) {
+	public DailyVoice setQtyVas( Short qty_vas ) {
 
 		this.qty_vas = qty_vas;
+
+		return this;
 
 	}
 
@@ -397,9 +415,11 @@ public class DailyVoice {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public DailyVoice setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -409,9 +429,11 @@ public class DailyVoice {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public DailyVoice setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -421,9 +443,11 @@ public class DailyVoice {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public DailyVoice setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

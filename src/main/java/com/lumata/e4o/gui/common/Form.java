@@ -286,6 +286,14 @@ public abstract class Form {
 	
 	
 
+	public Form searchById( String id ) throws FormException {
+		
+		search( SeleniumUtils.SearchBy.ID, id );
+		
+		return this;
+		
+	}
+	
 	public Form searchById( String id, long timeout, long interval ) throws FormException {
 		
 		search( SeleniumUtils.SearchBy.ID, id, timeout, interval );

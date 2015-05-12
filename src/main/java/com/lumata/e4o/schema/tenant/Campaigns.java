@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "campaigns" )
 public class Campaigns { 
 
-	public enum Fields { campaign_id, campaign_name, targeting_type, state, start_date, end_date, prov_start_date, prov_end_date, min_days_prov_exec, channels_id_list, notif_days, notif_time, model_name, type_id, hourly_stats_done, archive_stats_done, short_code, campaign_master_id, variation, occurence }
+	public enum Fields { campaign_id, campaign_name, targeting_type, state, start_date, end_date, prov_start_date, prov_end_date, min_days_prov_exec, channels_id_list, notif_days, notif_time, model_name, type_id, hourly_stats_done, archive_stats_done, short_code, campaign_master_id, variation, occurence, manual_prov_available }
 
 	@Column(
 			table = "campaigns",
@@ -397,6 +397,25 @@ public class Campaigns {
 	)
 	private Short occurence;
 
+	@Column(
+			table = "campaigns",
+			field = "manual_prov_available",
+			type = "tinyint(3) unsigned",
+			mysqlType = "tinyint",
+			javaType = "Byte",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "1",
+			extra = "",
+			length = 3,
+			comment = "",
+			getMethod = "getManualProvAvailable",
+			setMethod = "setManualProvAvailable"
+	)
+	private Byte manual_prov_available;
+
 
 	public Campaigns() {} 
 
@@ -422,6 +441,7 @@ public class Campaigns {
 		this.campaign_master_id = rs.getShort( Campaigns.Fields.campaign_master_id.name() );
 		this.variation = rs.getShort( Campaigns.Fields.variation.name() );
 		this.occurence = rs.getShort( Campaigns.Fields.occurence.name() );
+		this.manual_prov_available = rs.getByte( Campaigns.Fields.manual_prov_available.name() );
 
 	}
 
@@ -447,6 +467,7 @@ public class Campaigns {
 		this.campaign_master_id = (short)jo.getInt( Campaigns.Fields.campaign_master_id.name() );
 		this.variation = (short)jo.getInt( Campaigns.Fields.variation.name() );
 		this.occurence = (short)jo.getInt( Campaigns.Fields.occurence.name() );
+		this.manual_prov_available = (byte)jo.getInt( Campaigns.Fields.manual_prov_available.name() );
 
 	}
 
@@ -456,9 +477,11 @@ public class Campaigns {
 
 	}
 
-	public void setCampaignId( Short campaign_id ) {
+	public Campaigns setCampaignId( Short campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+		return this;
 
 	}
 
@@ -468,9 +491,11 @@ public class Campaigns {
 
 	}
 
-	public void setCampaignName( String campaign_name ) {
+	public Campaigns setCampaignName( String campaign_name ) {
 
 		this.campaign_name = campaign_name;
+
+		return this;
 
 	}
 
@@ -480,9 +505,11 @@ public class Campaigns {
 
 	}
 
-	public void setTargetingType( String targeting_type ) {
+	public Campaigns setTargetingType( String targeting_type ) {
 
 		this.targeting_type = targeting_type;
+
+		return this;
 
 	}
 
@@ -492,9 +519,11 @@ public class Campaigns {
 
 	}
 
-	public void setState( String state ) {
+	public Campaigns setState( String state ) {
 
 		this.state = state;
+
+		return this;
 
 	}
 
@@ -504,9 +533,11 @@ public class Campaigns {
 
 	}
 
-	public void setStartDate( Date start_date ) {
+	public Campaigns setStartDate( Date start_date ) {
 
 		this.start_date = start_date;
+
+		return this;
 
 	}
 
@@ -516,9 +547,11 @@ public class Campaigns {
 
 	}
 
-	public void setEndDate( Date end_date ) {
+	public Campaigns setEndDate( Date end_date ) {
 
 		this.end_date = end_date;
+
+		return this;
 
 	}
 
@@ -528,9 +561,11 @@ public class Campaigns {
 
 	}
 
-	public void setProvStartDate( Date prov_start_date ) {
+	public Campaigns setProvStartDate( Date prov_start_date ) {
 
 		this.prov_start_date = prov_start_date;
+
+		return this;
 
 	}
 
@@ -540,9 +575,11 @@ public class Campaigns {
 
 	}
 
-	public void setProvEndDate( Date prov_end_date ) {
+	public Campaigns setProvEndDate( Date prov_end_date ) {
 
 		this.prov_end_date = prov_end_date;
+
+		return this;
 
 	}
 
@@ -552,9 +589,11 @@ public class Campaigns {
 
 	}
 
-	public void setMinDaysProvExec( Byte min_days_prov_exec ) {
+	public Campaigns setMinDaysProvExec( Byte min_days_prov_exec ) {
 
 		this.min_days_prov_exec = min_days_prov_exec;
+
+		return this;
 
 	}
 
@@ -564,9 +603,11 @@ public class Campaigns {
 
 	}
 
-	public void setChannelsIdList( String channels_id_list ) {
+	public Campaigns setChannelsIdList( String channels_id_list ) {
 
 		this.channels_id_list = channels_id_list;
+
+		return this;
 
 	}
 
@@ -576,9 +617,11 @@ public class Campaigns {
 
 	}
 
-	public void setNotifDays( Byte notif_days ) {
+	public Campaigns setNotifDays( Byte notif_days ) {
 
 		this.notif_days = notif_days;
+
+		return this;
 
 	}
 
@@ -588,9 +631,11 @@ public class Campaigns {
 
 	}
 
-	public void setNotifTime( Date notif_time ) {
+	public Campaigns setNotifTime( Date notif_time ) {
 
 		this.notif_time = notif_time;
+
+		return this;
 
 	}
 
@@ -600,9 +645,11 @@ public class Campaigns {
 
 	}
 
-	public void setModelName( String model_name ) {
+	public Campaigns setModelName( String model_name ) {
 
 		this.model_name = model_name;
+
+		return this;
 
 	}
 
@@ -612,9 +659,11 @@ public class Campaigns {
 
 	}
 
-	public void setTypeId( Short type_id ) {
+	public Campaigns setTypeId( Short type_id ) {
 
 		this.type_id = type_id;
+
+		return this;
 
 	}
 
@@ -624,9 +673,11 @@ public class Campaigns {
 
 	}
 
-	public void setHourlyStatsDone( Boolean hourly_stats_done ) {
+	public Campaigns setHourlyStatsDone( Boolean hourly_stats_done ) {
 
 		this.hourly_stats_done = hourly_stats_done;
+
+		return this;
 
 	}
 
@@ -636,9 +687,11 @@ public class Campaigns {
 
 	}
 
-	public void setArchiveStatsDone( Boolean archive_stats_done ) {
+	public Campaigns setArchiveStatsDone( Boolean archive_stats_done ) {
 
 		this.archive_stats_done = archive_stats_done;
+
+		return this;
 
 	}
 
@@ -648,9 +701,11 @@ public class Campaigns {
 
 	}
 
-	public void setShortCode( String short_code ) {
+	public Campaigns setShortCode( String short_code ) {
 
 		this.short_code = short_code;
+
+		return this;
 
 	}
 
@@ -660,9 +715,11 @@ public class Campaigns {
 
 	}
 
-	public void setCampaignMasterId( Short campaign_master_id ) {
+	public Campaigns setCampaignMasterId( Short campaign_master_id ) {
 
 		this.campaign_master_id = campaign_master_id;
+
+		return this;
 
 	}
 
@@ -672,9 +729,11 @@ public class Campaigns {
 
 	}
 
-	public void setVariation( Short variation ) {
+	public Campaigns setVariation( Short variation ) {
 
 		this.variation = variation;
+
+		return this;
 
 	}
 
@@ -684,9 +743,25 @@ public class Campaigns {
 
 	}
 
-	public void setOccurence( Short occurence ) {
+	public Campaigns setOccurence( Short occurence ) {
 
 		this.occurence = occurence;
+
+		return this;
+
+	}
+
+	public Byte getManualProvAvailable() {
+
+		return this.manual_prov_available;
+
+	}
+
+	public Campaigns setManualProvAvailable( Byte manual_prov_available ) {
+
+		this.manual_prov_available = manual_prov_available;
+
+		return this;
 
 	}
 
@@ -720,7 +795,8 @@ public class Campaigns {
 			.append( "\"short_code\": \"" ).append( this.getShortCode() ).append( "\", " )
 			.append( "\"campaign_master_id\": \"" ).append( this.getCampaignMasterId() ).append( "\", " )
 			.append( "\"variation\": \"" ).append( this.getVariation() ).append( "\", " )
-			.append( "\"occurence\": \"" ).append( this.getOccurence() ).append( "\"" )
+			.append( "\"occurence\": \"" ).append( this.getOccurence() ).append( "\", " )
+			.append( "\"manual_prov_available\": \"" ).append( this.getManualProvAvailable() ).append( "\"" )
 			.append( " }" );
 
 		return str.toString();

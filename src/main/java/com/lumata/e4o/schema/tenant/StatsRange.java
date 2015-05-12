@@ -141,9 +141,11 @@ public class StatsRange {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public StatsRange setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -153,9 +155,11 @@ public class StatsRange {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public StatsRange setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -165,9 +169,11 @@ public class StatsRange {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public StatsRange setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -177,9 +183,11 @@ public class StatsRange {
 
 	}
 
-	public void setArpuId( Byte arpu_id ) {
+	public StatsRange setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+		return this;
 
 	}
 
@@ -189,9 +197,11 @@ public class StatsRange {
 
 	}
 
-	public void setSeniorityId( Byte seniority_id ) {
+	public StatsRange setSeniorityId( Byte seniority_id ) {
 
 		this.seniority_id = seniority_id;
+
+		return this;
 
 	}
 

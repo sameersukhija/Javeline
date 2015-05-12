@@ -99,9 +99,11 @@ public class LogicalLock {
 
 	}
 
-	public void setLockId( String lock_id ) {
+	public LogicalLock setLockId( String lock_id ) {
 
 		this.lock_id = lock_id;
+
+		return this;
 
 	}
 
@@ -111,9 +113,11 @@ public class LogicalLock {
 
 	}
 
-	public void setLockerId( String locker_id ) {
+	public LogicalLock setLockerId( String locker_id ) {
 
 		this.locker_id = locker_id;
+
+		return this;
 
 	}
 
@@ -123,9 +127,11 @@ public class LogicalLock {
 
 	}
 
-	public void setCreationTime( Date creation_time ) {
+	public LogicalLock setCreationTime( Date creation_time ) {
 
 		this.creation_time = creation_time;
+
+		return this;
 
 	}
 

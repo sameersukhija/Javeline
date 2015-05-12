@@ -393,9 +393,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public StatsCampaignArchive setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -405,9 +407,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setCampaignId( Short campaign_id ) {
+	public StatsCampaignArchive setCampaignId( Short campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+		return this;
 
 	}
 
@@ -417,9 +421,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setStartDate( Date start_date ) {
+	public StatsCampaignArchive setStartDate( Date start_date ) {
 
 		this.start_date = start_date;
+
+		return this;
 
 	}
 
@@ -429,9 +435,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setEndDate( Date end_date ) {
+	public StatsCampaignArchive setEndDate( Date end_date ) {
 
 		this.end_date = end_date;
+
+		return this;
 
 	}
 
@@ -441,9 +449,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setSubsStatus( String subs_status ) {
+	public StatsCampaignArchive setSubsStatus( String subs_status ) {
 
 		this.subs_status = subs_status;
+
+		return this;
 
 	}
 
@@ -453,9 +463,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setArpuId( Byte arpu_id ) {
+	public StatsCampaignArchive setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+		return this;
 
 	}
 
@@ -465,9 +477,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setSeniorityId( Byte seniority_id ) {
+	public StatsCampaignArchive setSeniorityId( Byte seniority_id ) {
 
 		this.seniority_id = seniority_id;
+
+		return this;
 
 	}
 
@@ -477,9 +491,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public StatsCampaignArchive setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -489,9 +505,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public StatsCampaignArchive setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -501,9 +519,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public StatsCampaignArchive setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -513,9 +533,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setAmountUsage( Integer amount_usage ) {
+	public StatsCampaignArchive setAmountUsage( Integer amount_usage ) {
 
 		this.amount_usage = amount_usage;
+
+		return this;
 
 	}
 
@@ -525,9 +547,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setAmountRecharge( Integer amount_recharge ) {
+	public StatsCampaignArchive setAmountRecharge( Integer amount_recharge ) {
 
 		this.amount_recharge = amount_recharge;
+
+		return this;
 
 	}
 
@@ -537,9 +561,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setAmountInvoice( Integer amount_invoice ) {
+	public StatsCampaignArchive setAmountInvoice( Integer amount_invoice ) {
 
 		this.amount_invoice = amount_invoice;
+
+		return this;
 
 	}
 
@@ -549,9 +575,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setAmountPayment( Integer amount_payment ) {
+	public StatsCampaignArchive setAmountPayment( Integer amount_payment ) {
 
 		this.amount_payment = amount_payment;
+
+		return this;
 
 	}
 
@@ -561,9 +589,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setAmountCall( Integer amount_call ) {
+	public StatsCampaignArchive setAmountCall( Integer amount_call ) {
 
 		this.amount_call = amount_call;
+
+		return this;
 
 	}
 
@@ -573,9 +603,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setAmountMessage( Integer amount_message ) {
+	public StatsCampaignArchive setAmountMessage( Integer amount_message ) {
 
 		this.amount_message = amount_message;
+
+		return this;
 
 	}
 
@@ -585,9 +617,11 @@ public class StatsCampaignArchive {
 
 	}
 
-	public void setAmountData( Integer amount_data ) {
+	public StatsCampaignArchive setAmountData( Integer amount_data ) {
 
 		this.amount_data = amount_data;
+
+		return this;
 
 	}
 

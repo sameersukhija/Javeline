@@ -205,9 +205,11 @@ public class DailySubs {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public DailySubs setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -217,9 +219,11 @@ public class DailySubs {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public DailySubs setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -229,9 +233,11 @@ public class DailySubs {
 
 	}
 
-	public void setRatePlanId( Byte rate_plan_id ) {
+	public DailySubs setRatePlanId( Byte rate_plan_id ) {
 
 		this.rate_plan_id = rate_plan_id;
+
+		return this;
 
 	}
 
@@ -241,9 +247,11 @@ public class DailySubs {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public DailySubs setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -253,9 +261,11 @@ public class DailySubs {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public DailySubs setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -265,9 +275,11 @@ public class DailySubs {
 
 	}
 
-	public void setUcg( Byte ucg ) {
+	public DailySubs setUcg( Byte ucg ) {
 
 		this.ucg = ucg;
+
+		return this;
 
 	}
 
@@ -277,9 +289,11 @@ public class DailySubs {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public DailySubs setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -289,9 +303,11 @@ public class DailySubs {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public DailySubs setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

@@ -1,5 +1,5 @@
 {
-  "servers": {
+"servers": {
     "actrule": {
       "hostName": "md1-sa038-e4o01",
       "hostAddress": "10.120.36.49",

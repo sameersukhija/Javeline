@@ -138,9 +138,11 @@ public class LoyaltyPrograms {
 
 	}
 
-	public void setProgramId( Byte program_id ) {
+	public LoyaltyPrograms setProgramId( Byte program_id ) {
 
 		this.program_id = program_id;
+
+		return this;
 
 	}
 
@@ -150,9 +152,11 @@ public class LoyaltyPrograms {
 
 	}
 
-	public void setProgramName( String program_name ) {
+	public LoyaltyPrograms setProgramName( String program_name ) {
 
 		this.program_name = program_name;
+
+		return this;
 
 	}
 
@@ -162,9 +166,11 @@ public class LoyaltyPrograms {
 
 	}
 
-	public void setProgramType( String program_type ) {
+	public LoyaltyPrograms setProgramType( String program_type ) {
 
 		this.program_type = program_type;
+
+		return this;
 
 	}
 
@@ -174,9 +180,11 @@ public class LoyaltyPrograms {
 
 	}
 
-	public void setVersionProd( String version_prod ) {
+	public LoyaltyPrograms setVersionProd( String version_prod ) {
 
 		this.version_prod = version_prod;
+
+		return this;
 
 	}
 
@@ -186,9 +194,11 @@ public class LoyaltyPrograms {
 
 	}
 
-	public void setVersionTest( String version_test ) {
+	public LoyaltyPrograms setVersionTest( String version_test ) {
 
 		this.version_test = version_test;
+
+		return this;
 
 	}
 

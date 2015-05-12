@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "token" )
 public class Token { 
 
-	public enum Fields { token_code, msisdn, token_label_id, token_notification_resent, ruleset_id, event_id, event_date, expiration_date, consumed_date, qty_current_redeems, qty_max_redeems, last_redeem_date, single_use_redeem_duration_timeout, qty_incident, qty_use, has_offers_associated, description, image_url, consumed_notes, warning, module_id, feature_id, event_type }
+	public enum Fields { token_code, msisdn, token_label_id, token_notification_resent, ruleset_id, event_id, event_date, expiration_date, consumed_date, qty_current_redeems, qty_max_redeems, last_redeem_date, single_use_redeem_duration_timeout, qty_incident, qty_use, has_offers_associated, description, image_url, consumed_notes, warning, module_id, feature_id, event_type, token_status }
 
 	@Column(
 			table = "token",
@@ -454,6 +454,25 @@ public class Token {
 	)
 	private String event_type;
 
+	@Column(
+			table = "token",
+			field = "token_status",
+			type = "enum('SAVED','EXPIRED')",
+			mysqlType = "enum",
+			javaType = "Enum",
+			categoryType = "Collection",
+			isNull = false,
+			isAutoincrement = false,
+			key = "MUL",
+			defaultValue = "SAVED",
+			extra = "",
+			length = 2,
+			comment = "",
+			getMethod = "getTokenStatus",
+			setMethod = "setTokenStatus"
+	)
+	private String token_status;
+
 
 	public Token() {} 
 
@@ -482,6 +501,7 @@ public class Token {
 		this.module_id = rs.getByte( Token.Fields.module_id.name() );
 		this.feature_id = rs.getString( Token.Fields.feature_id.name() );
 		this.event_type = rs.getString( Token.Fields.event_type.name() );
+		this.token_status = rs.getString( Token.Fields.token_status.name() );
 
 	}
 
@@ -510,6 +530,7 @@ public class Token {
 		this.module_id = (byte)jo.getInt( Token.Fields.module_id.name() );
 		this.feature_id = jo.getString( Token.Fields.feature_id.name() );
 		this.event_type = jo.getString( Token.Fields.event_type.name() );
+		this.token_status = jo.getString( Token.Fields.token_status.name() );
 
 	}
 
@@ -519,9 +540,11 @@ public class Token {
 
 	}
 
-	public void setTokenCode( String token_code ) {
+	public Token setTokenCode( String token_code ) {
 
 		this.token_code = token_code;
+
+		return this;
 
 	}
 
@@ -531,9 +554,11 @@ public class Token {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public Token setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -543,9 +568,11 @@ public class Token {
 
 	}
 
-	public void setTokenLabelId( Byte token_label_id ) {
+	public Token setTokenLabelId( Byte token_label_id ) {
 
 		this.token_label_id = token_label_id;
+
+		return this;
 
 	}
 
@@ -555,9 +582,11 @@ public class Token {
 
 	}
 
-	public void setTokenNotificationResent( Byte token_notification_resent ) {
+	public Token setTokenNotificationResent( Byte token_notification_resent ) {
 
 		this.token_notification_resent = token_notification_resent;
+
+		return this;
 
 	}
 
@@ -567,9 +596,11 @@ public class Token {
 
 	}
 
-	public void setRulesetId( Integer ruleset_id ) {
+	public Token setRulesetId( Integer ruleset_id ) {
 
 		this.ruleset_id = ruleset_id;
+
+		return this;
 
 	}
 
@@ -579,9 +610,11 @@ public class Token {
 
 	}
 
-	public void setEventId( String event_id ) {
+	public Token setEventId( String event_id ) {
 
 		this.event_id = event_id;
+
+		return this;
 
 	}
 
@@ -591,9 +624,11 @@ public class Token {
 
 	}
 
-	public void setEventDate( Date event_date ) {
+	public Token setEventDate( Date event_date ) {
 
 		this.event_date = event_date;
+
+		return this;
 
 	}
 
@@ -603,9 +638,11 @@ public class Token {
 
 	}
 
-	public void setExpirationDate( Date expiration_date ) {
+	public Token setExpirationDate( Date expiration_date ) {
 
 		this.expiration_date = expiration_date;
+
+		return this;
 
 	}
 
@@ -615,9 +652,11 @@ public class Token {
 
 	}
 
-	public void setConsumedDate( Date consumed_date ) {
+	public Token setConsumedDate( Date consumed_date ) {
 
 		this.consumed_date = consumed_date;
+
+		return this;
 
 	}
 
@@ -627,9 +666,11 @@ public class Token {
 
 	}
 
-	public void setQtyCurrentRedeems( Byte qty_current_redeems ) {
+	public Token setQtyCurrentRedeems( Byte qty_current_redeems ) {
 
 		this.qty_current_redeems = qty_current_redeems;
+
+		return this;
 
 	}
 
@@ -639,9 +680,11 @@ public class Token {
 
 	}
 
-	public void setQtyMaxRedeems( Byte qty_max_redeems ) {
+	public Token setQtyMaxRedeems( Byte qty_max_redeems ) {
 
 		this.qty_max_redeems = qty_max_redeems;
+
+		return this;
 
 	}
 
@@ -651,9 +694,11 @@ public class Token {
 
 	}
 
-	public void setLastRedeemDate( Date last_redeem_date ) {
+	public Token setLastRedeemDate( Date last_redeem_date ) {
 
 		this.last_redeem_date = last_redeem_date;
+
+		return this;
 
 	}
 
@@ -663,9 +708,11 @@ public class Token {
 
 	}
 
-	public void setSingleUseRedeemDurationTimeout( Integer single_use_redeem_duration_timeout ) {
+	public Token setSingleUseRedeemDurationTimeout( Integer single_use_redeem_duration_timeout ) {
 
 		this.single_use_redeem_duration_timeout = single_use_redeem_duration_timeout;
+
+		return this;
 
 	}
 
@@ -675,9 +722,11 @@ public class Token {
 
 	}
 
-	public void setQtyIncident( Byte qty_incident ) {
+	public Token setQtyIncident( Byte qty_incident ) {
 
 		this.qty_incident = qty_incident;
+
+		return this;
 
 	}
 
@@ -687,9 +736,11 @@ public class Token {
 
 	}
 
-	public void setQtyUse( Byte qty_use ) {
+	public Token setQtyUse( Byte qty_use ) {
 
 		this.qty_use = qty_use;
+
+		return this;
 
 	}
 
@@ -699,9 +750,11 @@ public class Token {
 
 	}
 
-	public void setHasOffersAssociated( Byte has_offers_associated ) {
+	public Token setHasOffersAssociated( Byte has_offers_associated ) {
 
 		this.has_offers_associated = has_offers_associated;
+
+		return this;
 
 	}
 
@@ -711,9 +764,11 @@ public class Token {
 
 	}
 
-	public void setDescription( String description ) {
+	public Token setDescription( String description ) {
 
 		this.description = description;
+
+		return this;
 
 	}
 
@@ -723,9 +778,11 @@ public class Token {
 
 	}
 
-	public void setImageUrl( String image_url ) {
+	public Token setImageUrl( String image_url ) {
 
 		this.image_url = image_url;
+
+		return this;
 
 	}
 
@@ -735,9 +792,11 @@ public class Token {
 
 	}
 
-	public void setConsumedNotes( String consumed_notes ) {
+	public Token setConsumedNotes( String consumed_notes ) {
 
 		this.consumed_notes = consumed_notes;
+
+		return this;
 
 	}
 
@@ -747,9 +806,11 @@ public class Token {
 
 	}
 
-	public void setWarning( Boolean warning ) {
+	public Token setWarning( Boolean warning ) {
 
 		this.warning = warning;
+
+		return this;
 
 	}
 
@@ -759,9 +820,11 @@ public class Token {
 
 	}
 
-	public void setModuleId( Byte module_id ) {
+	public Token setModuleId( Byte module_id ) {
 
 		this.module_id = module_id;
+
+		return this;
 
 	}
 
@@ -771,9 +834,11 @@ public class Token {
 
 	}
 
-	public void setFeatureId( String feature_id ) {
+	public Token setFeatureId( String feature_id ) {
 
 		this.feature_id = feature_id;
+
+		return this;
 
 	}
 
@@ -783,9 +848,25 @@ public class Token {
 
 	}
 
-	public void setEventType( String event_type ) {
+	public Token setEventType( String event_type ) {
 
 		this.event_type = event_type;
+
+		return this;
+
+	}
+
+	public String getTokenStatus() {
+
+		return this.token_status;
+
+	}
+
+	public Token setTokenStatus( String token_status ) {
+
+		this.token_status = token_status;
+
+		return this;
 
 	}
 
@@ -822,7 +903,8 @@ public class Token {
 			.append( "\"warning\": \"" ).append( this.getWarning() ).append( "\", " )
 			.append( "\"module_id\": \"" ).append( this.getModuleId() ).append( "\", " )
 			.append( "\"feature_id\": \"" ).append( this.getFeatureId() ).append( "\", " )
-			.append( "\"event_type\": \"" ).append( this.getEventType() ).append( "\"" )
+			.append( "\"event_type\": \"" ).append( this.getEventType() ).append( "\", " )
+			.append( "\"token_status\": \"" ).append( this.getTokenStatus() ).append( "\"" )
 			.append( " }" );
 
 		return str.toString();

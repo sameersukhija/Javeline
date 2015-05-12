@@ -268,9 +268,11 @@ public class DailyPrepaid {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public DailyPrepaid setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -280,9 +282,11 @@ public class DailyPrepaid {
 
 	}
 
-	public void setAmountUsage( Integer amount_usage ) {
+	public DailyPrepaid setAmountUsage( Integer amount_usage ) {
 
 		this.amount_usage = amount_usage;
+
+		return this;
 
 	}
 
@@ -292,9 +296,11 @@ public class DailyPrepaid {
 
 	}
 
-	public void setBalanceMainAccount( Integer balance_main_account ) {
+	public DailyPrepaid setBalanceMainAccount( Integer balance_main_account ) {
 
 		this.balance_main_account = balance_main_account;
+
+		return this;
 
 	}
 
@@ -304,9 +310,11 @@ public class DailyPrepaid {
 
 	}
 
-	public void setQtyRecharge( Short qty_recharge ) {
+	public DailyPrepaid setQtyRecharge( Short qty_recharge ) {
 
 		this.qty_recharge = qty_recharge;
+
+		return this;
 
 	}
 
@@ -316,9 +324,11 @@ public class DailyPrepaid {
 
 	}
 
-	public void setAmountRecharge( Integer amount_recharge ) {
+	public DailyPrepaid setAmountRecharge( Integer amount_recharge ) {
 
 		this.amount_recharge = amount_recharge;
+
+		return this;
 
 	}
 
@@ -328,9 +338,11 @@ public class DailyPrepaid {
 
 	}
 
-	public void setValidityDate( Date validity_date ) {
+	public DailyPrepaid setValidityDate( Date validity_date ) {
 
 		this.validity_date = validity_date;
+
+		return this;
 
 	}
 
@@ -340,9 +352,11 @@ public class DailyPrepaid {
 
 	}
 
-	public void setDeactivationDate( Date deactivation_date ) {
+	public DailyPrepaid setDeactivationDate( Date deactivation_date ) {
 
 		this.deactivation_date = deactivation_date;
+
+		return this;
 
 	}
 
@@ -352,9 +366,11 @@ public class DailyPrepaid {
 
 	}
 
-	public void setQtyRatePlanIdChange( Short qty_rate_plan_id_change ) {
+	public DailyPrepaid setQtyRatePlanIdChange( Short qty_rate_plan_id_change ) {
 
 		this.qty_rate_plan_id_change = qty_rate_plan_id_change;
+
+		return this;
 
 	}
 
@@ -364,9 +380,11 @@ public class DailyPrepaid {
 
 	}
 
-	public void setQtyStatusIdChange( Short qty_status_id_change ) {
+	public DailyPrepaid setQtyStatusIdChange( Short qty_status_id_change ) {
 
 		this.qty_status_id_change = qty_status_id_change;
+
+		return this;
 
 	}
 
@@ -376,9 +394,11 @@ public class DailyPrepaid {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public DailyPrepaid setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -388,9 +408,11 @@ public class DailyPrepaid {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public DailyPrepaid setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

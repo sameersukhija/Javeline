@@ -96,9 +96,11 @@ public class NbRelations {
 
 	}
 
-	public void setRelationTypeId( Byte relation_type_id ) {
+	public NbRelations setRelationTypeId( Byte relation_type_id ) {
 
 		this.relation_type_id = relation_type_id;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class NbRelations {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public NbRelations setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class NbRelations {
 
 	}
 
-	public void setNbSubs( Long nb_subs ) {
+	public NbRelations setNbSubs( Long nb_subs ) {
 
 		this.nb_subs = nb_subs;
+
+		return this;
 
 	}
 

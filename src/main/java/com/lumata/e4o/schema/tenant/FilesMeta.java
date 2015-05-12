@@ -117,9 +117,11 @@ public class FilesMeta {
 
 	}
 
-	public void setId( Integer id ) {
+	public FilesMeta setId( Integer id ) {
 
 		this.id = id;
+
+		return this;
 
 	}
 
@@ -129,9 +131,11 @@ public class FilesMeta {
 
 	}
 
-	public void setName( String name ) {
+	public FilesMeta setName( String name ) {
 
 		this.name = name;
+
+		return this;
 
 	}
 
@@ -141,9 +145,11 @@ public class FilesMeta {
 
 	}
 
-	public void setPath( String path ) {
+	public FilesMeta setPath( String path ) {
 
 		this.path = path;
+
+		return this;
 
 	}
 
@@ -153,9 +159,11 @@ public class FilesMeta {
 
 	}
 
-	public void setUpdatetime( Long updatetime ) {
+	public FilesMeta setUpdatetime( Long updatetime ) {
 
 		this.updatetime = updatetime;
+
+		return this;
 
 	}
 

@@ -226,9 +226,11 @@ public class DailyAccount {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public DailyAccount setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -238,9 +240,11 @@ public class DailyAccount {
 
 	}
 
-	public void setQtyInvoice( Short qty_invoice ) {
+	public DailyAccount setQtyInvoice( Short qty_invoice ) {
 
 		this.qty_invoice = qty_invoice;
+
+		return this;
 
 	}
 
@@ -250,9 +254,11 @@ public class DailyAccount {
 
 	}
 
-	public void setAmountInvoice( Integer amount_invoice ) {
+	public DailyAccount setAmountInvoice( Integer amount_invoice ) {
 
 		this.amount_invoice = amount_invoice;
+
+		return this;
 
 	}
 
@@ -262,9 +268,11 @@ public class DailyAccount {
 
 	}
 
-	public void setQtyPayment( Short qty_payment ) {
+	public DailyAccount setQtyPayment( Short qty_payment ) {
 
 		this.qty_payment = qty_payment;
+
+		return this;
 
 	}
 
@@ -274,9 +282,11 @@ public class DailyAccount {
 
 	}
 
-	public void setAmountPayment( Integer amount_payment ) {
+	public DailyAccount setAmountPayment( Integer amount_payment ) {
 
 		this.amount_payment = amount_payment;
+
+		return this;
 
 	}
 
@@ -286,9 +296,11 @@ public class DailyAccount {
 
 	}
 
-	public void setQtyRatePlanIdChange( Short qty_rate_plan_id_change ) {
+	public DailyAccount setQtyRatePlanIdChange( Short qty_rate_plan_id_change ) {
 
 		this.qty_rate_plan_id_change = qty_rate_plan_id_change;
+
+		return this;
 
 	}
 
@@ -298,9 +310,11 @@ public class DailyAccount {
 
 	}
 
-	public void setQtyStatusIdChange( Short qty_status_id_change ) {
+	public DailyAccount setQtyStatusIdChange( Short qty_status_id_change ) {
 
 		this.qty_status_id_change = qty_status_id_change;
+
+		return this;
 
 	}
 
@@ -310,9 +324,11 @@ public class DailyAccount {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public DailyAccount setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -322,9 +338,11 @@ public class DailyAccount {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public DailyAccount setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

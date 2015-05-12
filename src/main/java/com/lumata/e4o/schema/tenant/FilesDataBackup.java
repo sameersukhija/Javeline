@@ -120,9 +120,11 @@ public class FilesDataBackup {
 
 	}
 
-	public void setId( Integer id ) {
+	public FilesDataBackup setId( Integer id ) {
 
 		this.id = id;
+
+		return this;
 
 	}
 
@@ -132,9 +134,11 @@ public class FilesDataBackup {
 
 	}
 
-	public void setBackuptime( Date backuptime ) {
+	public FilesDataBackup setBackuptime( Date backuptime ) {
 
 		this.backuptime = backuptime;
+
+		return this;
 
 	}
 
@@ -144,9 +148,11 @@ public class FilesDataBackup {
 
 	}
 
-	public void setUser( String user ) {
+	public FilesDataBackup setUser( String user ) {
 
 		this.user = user;
+
+		return this;
 
 	}
 
@@ -156,9 +162,11 @@ public class FilesDataBackup {
 
 	}
 
-	public void setContent( String content ) {
+	public FilesDataBackup setContent( String content ) {
 
 		this.content = content;
+
+		return this;
 
 	}
 

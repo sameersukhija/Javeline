@@ -96,7 +96,7 @@ public class OffoptimCustomerItems {
 	@Column(
 			table = "offoptim_customer_items",
 			field = "offer_status",
-			type = "enum('allocated','accepted','not_accepted','purchased','not_purchased','refused','expired','expired_voucher')",
+			type = "enum('allocated','accepted','not_accepted','purchased','not_purchased','refused','expired','expired_voucher','not_purchase_voucher_expired','expired_token')",
 			mysqlType = "enum",
 			javaType = "Enum",
 			categoryType = "Collection",
@@ -105,7 +105,7 @@ public class OffoptimCustomerItems {
 			key = "",
 			defaultValue = "allocated",
 			extra = "",
-			length = 8,
+			length = 10,
 			comment = "",
 			getMethod = "getOfferStatus",
 			setMethod = "setOfferStatus"
@@ -204,9 +204,11 @@ public class OffoptimCustomerItems {
 
 	}
 
-	public void setCustomerOfferPackId( Integer customer_offer_pack_id ) {
+	public OffoptimCustomerItems setCustomerOfferPackId( Integer customer_offer_pack_id ) {
 
 		this.customer_offer_pack_id = customer_offer_pack_id;
+
+		return this;
 
 	}
 
@@ -216,9 +218,11 @@ public class OffoptimCustomerItems {
 
 	}
 
-	public void setOfferId( Short offer_id ) {
+	public OffoptimCustomerItems setOfferId( Short offer_id ) {
 
 		this.offer_id = offer_id;
+
+		return this;
 
 	}
 
@@ -228,9 +232,11 @@ public class OffoptimCustomerItems {
 
 	}
 
-	public void setChannelId( Byte channel_id ) {
+	public OffoptimCustomerItems setChannelId( Byte channel_id ) {
 
 		this.channel_id = channel_id;
+
+		return this;
 
 	}
 
@@ -240,9 +246,11 @@ public class OffoptimCustomerItems {
 
 	}
 
-	public void setAllocationDate( Date allocation_date ) {
+	public OffoptimCustomerItems setAllocationDate( Date allocation_date ) {
 
 		this.allocation_date = allocation_date;
+
+		return this;
 
 	}
 
@@ -252,9 +260,11 @@ public class OffoptimCustomerItems {
 
 	}
 
-	public void setOfferStatus( String offer_status ) {
+	public OffoptimCustomerItems setOfferStatus( String offer_status ) {
 
 		this.offer_status = offer_status;
+
+		return this;
 
 	}
 
@@ -264,9 +274,11 @@ public class OffoptimCustomerItems {
 
 	}
 
-	public void setAllocationOrder( Byte allocation_order ) {
+	public OffoptimCustomerItems setAllocationOrder( Byte allocation_order ) {
 
 		this.allocation_order = allocation_order;
+
+		return this;
 
 	}
 
@@ -276,9 +288,11 @@ public class OffoptimCustomerItems {
 
 	}
 
-	public void setDecisionDate( Date decision_date ) {
+	public OffoptimCustomerItems setDecisionDate( Date decision_date ) {
 
 		this.decision_date = decision_date;
+
+		return this;
 
 	}
 
@@ -288,9 +302,11 @@ public class OffoptimCustomerItems {
 
 	}
 
-	public void setHasVoucher( Boolean has_voucher ) {
+	public OffoptimCustomerItems setHasVoucher( Boolean has_voucher ) {
 
 		this.has_voucher = has_voucher;
+
+		return this;
 
 	}
 

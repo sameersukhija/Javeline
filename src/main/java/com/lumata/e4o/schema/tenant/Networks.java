@@ -75,9 +75,11 @@ public class Networks {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public Networks setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class Networks {
 
 	}
 
-	public void setNetwork( String network ) {
+	public Networks setNetwork( String network ) {
 
 		this.network = network;
+
+		return this;
 
 	}
 

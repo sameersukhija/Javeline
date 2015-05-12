@@ -184,9 +184,11 @@ public class BdrEvents {
 
 	}
 
-	public void setFormat( String format ) {
+	public BdrEvents setFormat( String format ) {
 
 		this.format = format;
+
+		return this;
 
 	}
 
@@ -196,9 +198,11 @@ public class BdrEvents {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public BdrEvents setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -208,9 +212,11 @@ public class BdrEvents {
 
 	}
 
-	public void setEventDate( Date event_date ) {
+	public BdrEvents setEventDate( Date event_date ) {
 
 		this.event_date = event_date;
+
+		return this;
 
 	}
 
@@ -220,9 +226,11 @@ public class BdrEvents {
 
 	}
 
-	public void setTransactionId( String transaction_id ) {
+	public BdrEvents setTransactionId( String transaction_id ) {
 
 		this.transaction_id = transaction_id;
+
+		return this;
 
 	}
 
@@ -232,9 +240,11 @@ public class BdrEvents {
 
 	}
 
-	public void setEventData( String event_data ) {
+	public BdrEvents setEventData( String event_data ) {
 
 		this.event_data = event_data;
+
+		return this;
 
 	}
 
@@ -244,9 +254,11 @@ public class BdrEvents {
 
 	}
 
-	public void setId( Integer id ) {
+	public BdrEvents setId( Integer id ) {
 
 		this.id = id;
+
+		return this;
 
 	}
 
@@ -256,9 +268,11 @@ public class BdrEvents {
 
 	}
 
-	public void setInsertTime( Timestamp insert_time ) {
+	public BdrEvents setInsertTime( Timestamp insert_time ) {
 
 		this.insert_time = insert_time;
+
+		return this;
 
 	}
 

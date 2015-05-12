@@ -246,9 +246,11 @@ public class CollectedFiles {
 
 	}
 
-	public void setName( String name ) {
+	public CollectedFiles setName( String name ) {
 
 		this.name = name;
+
+		return this;
 
 	}
 
@@ -258,9 +260,11 @@ public class CollectedFiles {
 
 	}
 
-	public void setType( String type ) {
+	public CollectedFiles setType( String type ) {
 
 		this.type = type;
+
+		return this;
 
 	}
 
@@ -270,9 +274,11 @@ public class CollectedFiles {
 
 	}
 
-	public void setHandler( String handler ) {
+	public CollectedFiles setHandler( String handler ) {
 
 		this.handler = handler;
+
+		return this;
 
 	}
 
@@ -282,9 +288,11 @@ public class CollectedFiles {
 
 	}
 
-	public void setScope( String scope ) {
+	public CollectedFiles setScope( String scope ) {
 
 		this.scope = scope;
+
+		return this;
 
 	}
 
@@ -294,9 +302,11 @@ public class CollectedFiles {
 
 	}
 
-	public void setAssignerId( String assigner_id ) {
+	public CollectedFiles setAssignerId( String assigner_id ) {
 
 		this.assigner_id = assigner_id;
+
+		return this;
 
 	}
 
@@ -306,9 +316,11 @@ public class CollectedFiles {
 
 	}
 
-	public void setAssignerName( String assigner_name ) {
+	public CollectedFiles setAssignerName( String assigner_name ) {
 
 		this.assigner_name = assigner_name;
+
+		return this;
 
 	}
 
@@ -318,9 +330,11 @@ public class CollectedFiles {
 
 	}
 
-	public void setCurrentPos( Long current_pos ) {
+	public CollectedFiles setCurrentPos( Long current_pos ) {
 
 		this.current_pos = current_pos;
+
+		return this;
 
 	}
 
@@ -330,9 +344,11 @@ public class CollectedFiles {
 
 	}
 
-	public void setUpdateDate( Timestamp update_date ) {
+	public CollectedFiles setUpdateDate( Timestamp update_date ) {
 
 		this.update_date = update_date;
+
+		return this;
 
 	}
 
@@ -342,9 +358,11 @@ public class CollectedFiles {
 
 	}
 
-	public void setCollectedDate( Timestamp collected_date ) {
+	public CollectedFiles setCollectedDate( Timestamp collected_date ) {
 
 		this.collected_date = collected_date;
+
+		return this;
 
 	}
 
@@ -354,9 +372,11 @@ public class CollectedFiles {
 
 	}
 
-	public void setAssignedDate( Timestamp assigned_date ) {
+	public CollectedFiles setAssignedDate( Timestamp assigned_date ) {
 
 		this.assigned_date = assigned_date;
+
+		return this;
 
 	}
 

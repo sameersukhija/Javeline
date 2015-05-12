@@ -138,9 +138,11 @@ public class GuiUsers {
 
 	}
 
-	public void setId( Short id ) {
+	public GuiUsers setId( Short id ) {
 
 		this.id = id;
+
+		return this;
 
 	}
 
@@ -150,9 +152,11 @@ public class GuiUsers {
 
 	}
 
-	public void setName( String name ) {
+	public GuiUsers setName( String name ) {
 
 		this.name = name;
+
+		return this;
 
 	}
 
@@ -162,9 +166,11 @@ public class GuiUsers {
 
 	}
 
-	public void setPassword( String password ) {
+	public GuiUsers setPassword( String password ) {
 
 		this.password = password;
+
+		return this;
 
 	}
 
@@ -174,9 +180,11 @@ public class GuiUsers {
 
 	}
 
-	public void setEmail( String email ) {
+	public GuiUsers setEmail( String email ) {
 
 		this.email = email;
+
+		return this;
 
 	}
 
@@ -186,9 +194,11 @@ public class GuiUsers {
 
 	}
 
-	public void setAgencyId( Short agency_id ) {
+	public GuiUsers setAgencyId( Short agency_id ) {
 
 		this.agency_id = agency_id;
+
+		return this;
 
 	}
 

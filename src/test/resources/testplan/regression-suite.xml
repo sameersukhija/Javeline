@@ -6,7 +6,7 @@
     <listener class-name="com.lumata.e4o.testing.common.TestNGReportListener"/>
   </listeners>
   
-  <parameter name="e4oReleaseParam" value="2.4.1.20.0" />
+  <parameter name="e4oReleaseParam" value="2.4.1.20.1" />
   
   <parameter name="networkEnvironmentParams" value="{ 'envFile':'e4o_qa2_ita', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule', 'guiUser':'superman' }"/>
   <!-- selenium_driver_type: local or remote -->  
@@ -17,15 +17,21 @@
   -->
   <!-- parameter name="seleniumWebDriverParams" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://192.168.56.152:4444/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/ -->  
   <parameter name="seleniumWebDriverParams" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/>  
-  <test name="CustomerCare Offer Rank  Validation">
+
+  
+   <test name="Token Type Validation">
     <classes>
-      <class name="com.lumata.e4o.regressions.gui.TestCustomerCareToken">        
+      <class name="com.lumata.e4o.regressions.gui.TestTokenTypeForm">        
       </class>
     </classes>	
   </test>
-  <test name="Token Type Validation">
+  <test name="Rule Validation">
+  <parameter name="jsonFilePath_token" value="input/catalogmanager/tokenTypes"/>
+  <parameter name="jsonFileName_token" value="NewTokenTypeList"/>
+  <parameter name="jsonFilePath_rule" value="input/catalogmanager/rules"/>
+  <parameter name="jsonFileName_rule" value="NewRuleList"/>
     <classes>
-      <class name="com.lumata.e4o.regressions.gui.TestTokenTypeForm">        
+      <class name="com.lumata.e4o.regressions.gui.TestTokenRuleForm">        
       </class>
     </classes>	
   </test>
@@ -58,14 +64,5 @@
       </class>
     </classes>	
   </test>
-  
-   <test name="CustomerCare Subscriber creation">
-    <classes>
-      <class name="com.lumata.e4o.regressions.gui.TestCustomerCareCreateSubscriberForm">        
-      </class>
-    </classes>	
-  </test>
-  
-  
   
 </suite>

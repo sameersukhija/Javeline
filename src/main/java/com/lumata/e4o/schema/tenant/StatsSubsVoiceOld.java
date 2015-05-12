@@ -309,9 +309,11 @@ public class StatsSubsVoiceOld {
 
 	}
 
-	public void setQtyCall( Integer qty_call ) {
+	public StatsSubsVoiceOld setQtyCall( Integer qty_call ) {
 
 		this.qty_call = qty_call;
+
+		return this;
 
 	}
 
@@ -321,9 +323,11 @@ public class StatsSubsVoiceOld {
 
 	}
 
-	public void setQtyCallOriginating( Integer qty_call_originating ) {
+	public StatsSubsVoiceOld setQtyCallOriginating( Integer qty_call_originating ) {
 
 		this.qty_call_originating = qty_call_originating;
+
+		return this;
 
 	}
 
@@ -333,9 +337,11 @@ public class StatsSubsVoiceOld {
 
 	}
 
-	public void setQtyCallTerminating( Integer qty_call_terminating ) {
+	public StatsSubsVoiceOld setQtyCallTerminating( Integer qty_call_terminating ) {
 
 		this.qty_call_terminating = qty_call_terminating;
+
+		return this;
 
 	}
 
@@ -345,9 +351,11 @@ public class StatsSubsVoiceOld {
 
 	}
 
-	public void setAmountCall( Float amount_call ) {
+	public StatsSubsVoiceOld setAmountCall( Float amount_call ) {
 
 		this.amount_call = amount_call;
+
+		return this;
 
 	}
 
@@ -357,9 +365,11 @@ public class StatsSubsVoiceOld {
 
 	}
 
-	public void setDurationCall( Float duration_call ) {
+	public StatsSubsVoiceOld setDurationCall( Float duration_call ) {
 
 		this.duration_call = duration_call;
+
+		return this;
 
 	}
 
@@ -369,9 +379,11 @@ public class StatsSubsVoiceOld {
 
 	}
 
-	public void setQtyMessage( Integer qty_message ) {
+	public StatsSubsVoiceOld setQtyMessage( Integer qty_message ) {
 
 		this.qty_message = qty_message;
+
+		return this;
 
 	}
 
@@ -381,9 +393,11 @@ public class StatsSubsVoiceOld {
 
 	}
 
-	public void setAmountMessage( Float amount_message ) {
+	public StatsSubsVoiceOld setAmountMessage( Float amount_message ) {
 
 		this.amount_message = amount_message;
+
+		return this;
 
 	}
 
@@ -393,9 +407,11 @@ public class StatsSubsVoiceOld {
 
 	}
 
-	public void setQtySms( Integer qty_sms ) {
+	public StatsSubsVoiceOld setQtySms( Integer qty_sms ) {
 
 		this.qty_sms = qty_sms;
+
+		return this;
 
 	}
 
@@ -405,9 +421,11 @@ public class StatsSubsVoiceOld {
 
 	}
 
-	public void setQtyVas( Integer qty_vas ) {
+	public StatsSubsVoiceOld setQtyVas( Integer qty_vas ) {
 
 		this.qty_vas = qty_vas;
+
+		return this;
 
 	}
 
@@ -417,9 +435,11 @@ public class StatsSubsVoiceOld {
 
 	}
 
-	public void setLastCallDate( Date last_call_date ) {
+	public StatsSubsVoiceOld setLastCallDate( Date last_call_date ) {
 
 		this.last_call_date = last_call_date;
+
+		return this;
 
 	}
 
@@ -429,9 +449,11 @@ public class StatsSubsVoiceOld {
 
 	}
 
-	public void setLastMessageDate( Date last_message_date ) {
+	public StatsSubsVoiceOld setLastMessageDate( Date last_message_date ) {
 
 		this.last_message_date = last_message_date;
+
+		return this;
 
 	}
 
@@ -441,9 +463,11 @@ public class StatsSubsVoiceOld {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public StatsSubsVoiceOld setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -453,9 +477,11 @@ public class StatsSubsVoiceOld {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public StatsSubsVoiceOld setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 

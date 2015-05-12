@@ -120,9 +120,11 @@ public class ConfUpdateLog {
 
 	}
 
-	public void setRrdKey( Integer rrd_key ) {
+	public ConfUpdateLog setRrdKey( Integer rrd_key ) {
 
 		this.rrd_key = rrd_key;
+
+		return this;
 
 	}
 
@@ -132,9 +134,11 @@ public class ConfUpdateLog {
 
 	}
 
-	public void setTime( Date time ) {
+	public ConfUpdateLog setTime( Date time ) {
 
 		this.time = time;
+
+		return this;
 
 	}
 
@@ -144,9 +148,11 @@ public class ConfUpdateLog {
 
 	}
 
-	public void setUser( String user ) {
+	public ConfUpdateLog setUser( String user ) {
 
 		this.user = user;
+
+		return this;
 
 	}
 
@@ -156,9 +162,11 @@ public class ConfUpdateLog {
 
 	}
 
-	public void setCommand( String command ) {
+	public ConfUpdateLog setCommand( String command ) {
 
 		this.command = command;
+
+		return this;
 
 	}
 

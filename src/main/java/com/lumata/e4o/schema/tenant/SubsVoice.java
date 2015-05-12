@@ -54,9 +54,11 @@ public class SubsVoice {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public SubsVoice setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 

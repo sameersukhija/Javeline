@@ -138,9 +138,11 @@ public class ScheduledTasks {
 
 	}
 
-	public void setName( String name ) {
+	public ScheduledTasks setName( String name ) {
 
 		this.name = name;
+
+		return this;
 
 	}
 
@@ -150,9 +152,11 @@ public class ScheduledTasks {
 
 	}
 
-	public void setStartDate( String start_date ) {
+	public ScheduledTasks setStartDate( String start_date ) {
 
 		this.start_date = start_date;
+
+		return this;
 
 	}
 
@@ -162,9 +166,11 @@ public class ScheduledTasks {
 
 	}
 
-	public void setStopDate( String stop_date ) {
+	public ScheduledTasks setStopDate( String stop_date ) {
 
 		this.stop_date = stop_date;
+
+		return this;
 
 	}
 
@@ -174,9 +180,11 @@ public class ScheduledTasks {
 
 	}
 
-	public void setWorkerId( String worker_id ) {
+	public ScheduledTasks setWorkerId( String worker_id ) {
 
 		this.worker_id = worker_id;
+
+		return this;
 
 	}
 
@@ -186,9 +194,11 @@ public class ScheduledTasks {
 
 	}
 
-	public void setPendingWorkerId( String pending_worker_id ) {
+	public ScheduledTasks setPendingWorkerId( String pending_worker_id ) {
 
 		this.pending_worker_id = pending_worker_id;
+
+		return this;
 
 	}
 

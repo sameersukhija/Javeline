@@ -183,9 +183,11 @@ public class RecommendedCampaigns {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public RecommendedCampaigns setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -195,9 +197,11 @@ public class RecommendedCampaigns {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public RecommendedCampaigns setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -207,9 +211,11 @@ public class RecommendedCampaigns {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public RecommendedCampaigns setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -219,9 +225,11 @@ public class RecommendedCampaigns {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public RecommendedCampaigns setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -231,9 +239,11 @@ public class RecommendedCampaigns {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public RecommendedCampaigns setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -243,9 +253,11 @@ public class RecommendedCampaigns {
 
 	}
 
-	public void setArpuId( Byte arpu_id ) {
+	public RecommendedCampaigns setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+		return this;
 
 	}
 
@@ -255,9 +267,11 @@ public class RecommendedCampaigns {
 
 	}
 
-	public void setModelName( String model_name ) {
+	public RecommendedCampaigns setModelName( String model_name ) {
 
 		this.model_name = model_name;
+
+		return this;
 
 	}
 
