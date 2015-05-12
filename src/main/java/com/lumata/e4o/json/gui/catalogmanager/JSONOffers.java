@@ -65,6 +65,24 @@ public class JSONOffers extends JsonConfigurationFile {
 	 * 
      * @return
      */
+	
+	public String getoffer_description() {
+		return getCurrentElement().getStringFromPath( "offer_description" );
+	}
+
+	public String getTC() {
+		return getCurrentElement().getStringFromPath( "TC" );
+	}
+	
+	public String getPriceChannel() {
+		return getCurrentElement().getStringFromPath( "PriceChannel" );
+	}
+	
+	public String getstock() {
+		return getCurrentElement().getStringFromPath( "stock" );
+	}
+	
+	
 	public Boolean getActivation() {
 		
 		Boolean resp = getCurrentElement().getBooleanFromPath( "activate" ); 

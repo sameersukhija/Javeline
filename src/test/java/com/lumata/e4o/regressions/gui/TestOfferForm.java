@@ -48,6 +48,7 @@ import com.lumata.e4o.gui.catalogmanager.ProductTypesForm;
 import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.common.testing.*;
 import com.lumata.e4o.gui.security.Authorization;
+import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristicElement;
 import com.lumata.e4o.schema.tenant.CatalogOffers;
@@ -78,7 +79,7 @@ public class TestOfferForm extends ParentTestCase{
 	
 	@Parameters({"jsonFilePath","jsonFileName","networkEnvironmentParams","seleniumWebDriverParams"})
 	@Test( enabled=TEST_ENABLED, priority = 1 )
-	public void testOfferForm( @Optional("/input/catalog/product_types") String jsonFilePath, @Optional("newProductType") String jsonFileName,@Optional String networkEnvironmentParams, @Optional String seleniumWebDriverParams ) throws FormException, JSONException, JSONSException {
+	public void testOfferForm( @Optional("/input/catalogmanager/productTypes") String jsonFilePath, @Optional("newProductType") String jsonFileName,@Optional String networkEnvironmentParams, @Optional String seleniumWebDriverParams ) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
@@ -97,6 +98,7 @@ public class TestOfferForm extends ParentTestCase{
 		OffersForm offerForm = new OffersForm( seleniumWebDriver,OfferForm, TIMEOUT, ATTEMPT_TIMEOUT );
 	    Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
 		JSONProductTypes setupProductTypes = new JSONProductTypes(resourcePath, resourceFile);
+		JSONOffers setupOffers = new JSONOffers(resourcePath, resourceFile);
 
 		ProductTypesForm productTypesForm = new ProductTypesForm(seleniumWebDriver,setupProductTypes,TIMEOUT, ATTEMPT_TIMEOUT);
 				
@@ -111,10 +113,10 @@ public class TestOfferForm extends ParentTestCase{
 			if ( current.getEnabled() ){
 			 	productTypes = Format.addTimestamp(setupProductTypes.getName() + "_");
 				productTypeName = productTypes;
-				offer_description=setupProductTypes.getoffer_description();
-				TC=setupProductTypes.getTC();
-				PriceChannel=setupProductTypes.getPriceChannel();
-				stock=	setupProductTypes.getstock();
+				offer_description=setupOffers.getoffer_description();
+				TC=setupOffers.getTC();
+				PriceChannel=setupOffers.getPriceChannel();
+				stock=	setupOffers.getstock();
 				//criteria=setupProductTypes.getcriteria();
 				Reporter.log("productTypes -> " + productTypes, LOG_TO_STD_OUT);
 			}
@@ -147,21 +149,6 @@ public class TestOfferForm extends ParentTestCase{
 		);
 	}	
 	
-		/** save form with all fields empty **/
-	/*	AssertJUnit.assertFalse( OfferForm.
-							openForm().
-							addOffer().
-							saveBtn().
-							formIsValid() 
-		);
-				
-		
-		*/
-		/** go to home form **/
-	//	OfferForm.cancelBtn().goToHome();
-	
-	//}
-		
 }
 
 
