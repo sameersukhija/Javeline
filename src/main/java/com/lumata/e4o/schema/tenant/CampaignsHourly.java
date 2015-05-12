@@ -225,9 +225,11 @@ public class CampaignsHourly {
 
 	}
 
-	public void setAggDateTime( Date agg_date_time ) {
+	public CampaignsHourly setAggDateTime( Date agg_date_time ) {
 
 		this.agg_date_time = agg_date_time;
+
+		return this;
 
 	}
 
@@ -237,9 +239,11 @@ public class CampaignsHourly {
 
 	}
 
-	public void setCampaignId( Short campaign_id ) {
+	public CampaignsHourly setCampaignId( Short campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+		return this;
 
 	}
 
@@ -249,9 +253,11 @@ public class CampaignsHourly {
 
 	}
 
-	public void setSubsStatus( String subs_status ) {
+	public CampaignsHourly setSubsStatus( String subs_status ) {
 
 		this.subs_status = subs_status;
+
+		return this;
 
 	}
 
@@ -261,9 +267,11 @@ public class CampaignsHourly {
 
 	}
 
-	public void setQtyMsisdn( Integer qty_msisdn ) {
+	public CampaignsHourly setQtyMsisdn( Integer qty_msisdn ) {
 
 		this.qty_msisdn = qty_msisdn;
+
+		return this;
 
 	}
 
@@ -273,9 +281,11 @@ public class CampaignsHourly {
 
 	}
 
-	public void setModuleId( Byte module_id ) {
+	public CampaignsHourly setModuleId( Byte module_id ) {
 
 		this.module_id = module_id;
+
+		return this;
 
 	}
 
@@ -285,9 +295,11 @@ public class CampaignsHourly {
 
 	}
 
-	public void setRewardId( Short reward_id ) {
+	public CampaignsHourly setRewardId( Short reward_id ) {
 
 		this.reward_id = reward_id;
+
+		return this;
 
 	}
 
@@ -297,9 +309,11 @@ public class CampaignsHourly {
 
 	}
 
-	public void setQtyReward( Float qty_reward ) {
+	public CampaignsHourly setQtyReward( Float qty_reward ) {
 
 		this.qty_reward = qty_reward;
+
+		return this;
 
 	}
 
@@ -309,9 +323,11 @@ public class CampaignsHourly {
 
 	}
 
-	public void setQtyRewardSponsor( Float qty_reward_sponsor ) {
+	public CampaignsHourly setQtyRewardSponsor( Float qty_reward_sponsor ) {
 
 		this.qty_reward_sponsor = qty_reward_sponsor;
+
+		return this;
 
 	}
 
@@ -321,9 +337,11 @@ public class CampaignsHourly {
 
 	}
 
-	public void setQtySubsReward( Integer qty_subs_reward ) {
+	public CampaignsHourly setQtySubsReward( Integer qty_subs_reward ) {
 
 		this.qty_subs_reward = qty_subs_reward;
+
+		return this;
 
 	}
 

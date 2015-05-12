@@ -162,9 +162,11 @@ public class StatsOffer {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public StatsOffer setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -174,9 +176,11 @@ public class StatsOffer {
 
 	}
 
-	public void setOfferId( Short offer_id ) {
+	public StatsOffer setOfferId( Short offer_id ) {
 
 		this.offer_id = offer_id;
+
+		return this;
 
 	}
 
@@ -186,9 +190,11 @@ public class StatsOffer {
 
 	}
 
-	public void setQtyAllocated( Short qty_allocated ) {
+	public StatsOffer setQtyAllocated( Short qty_allocated ) {
 
 		this.qty_allocated = qty_allocated;
+
+		return this;
 
 	}
 
@@ -198,9 +204,11 @@ public class StatsOffer {
 
 	}
 
-	public void setQtyPurchased( Short qty_purchased ) {
+	public StatsOffer setQtyPurchased( Short qty_purchased ) {
 
 		this.qty_purchased = qty_purchased;
+
+		return this;
 
 	}
 
@@ -210,9 +218,11 @@ public class StatsOffer {
 
 	}
 
-	public void setQtyRemaining( Short qty_remaining ) {
+	public StatsOffer setQtyRemaining( Short qty_remaining ) {
 
 		this.qty_remaining = qty_remaining;
+
+		return this;
 
 	}
 
@@ -222,9 +232,11 @@ public class StatsOffer {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public StatsOffer setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

@@ -117,9 +117,11 @@ public class OffoptimCustomerPack {
 
 	}
 
-	public void setCustomerOfferPackId( Integer customer_offer_pack_id ) {
+	public OffoptimCustomerPack setCustomerOfferPackId( Integer customer_offer_pack_id ) {
 
 		this.customer_offer_pack_id = customer_offer_pack_id;
+
+		return this;
 
 	}
 
@@ -129,9 +131,11 @@ public class OffoptimCustomerPack {
 
 	}
 
-	public void setTokenCode( String token_code ) {
+	public OffoptimCustomerPack setTokenCode( String token_code ) {
 
 		this.token_code = token_code;
+
+		return this;
 
 	}
 
@@ -141,9 +145,11 @@ public class OffoptimCustomerPack {
 
 	}
 
-	public void setCustomerId( Long customer_id ) {
+	public OffoptimCustomerPack setCustomerId( Long customer_id ) {
 
 		this.customer_id = customer_id;
+
+		return this;
 
 	}
 
@@ -153,9 +159,11 @@ public class OffoptimCustomerPack {
 
 	}
 
-	public void setPurchaseId( Long purchase_id ) {
+	public OffoptimCustomerPack setPurchaseId( Long purchase_id ) {
 
 		this.purchase_id = purchase_id;
+
+		return this;
 
 	}
 

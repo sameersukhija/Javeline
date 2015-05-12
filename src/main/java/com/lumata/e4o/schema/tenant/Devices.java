@@ -288,9 +288,11 @@ public class Devices {
 
 	}
 
-	public void setTac( String tac ) {
+	public Devices setTac( String tac ) {
 
 		this.tac = tac;
+
+		return this;
 
 	}
 
@@ -300,9 +302,11 @@ public class Devices {
 
 	}
 
-	public void setBrand( String brand ) {
+	public Devices setBrand( String brand ) {
 
 		this.brand = brand;
+
+		return this;
 
 	}
 
@@ -312,9 +316,11 @@ public class Devices {
 
 	}
 
-	public void setModel( String model ) {
+	public Devices setModel( String model ) {
 
 		this.model = model;
+
+		return this;
 
 	}
 
@@ -324,9 +330,11 @@ public class Devices {
 
 	}
 
-	public void setOS( String OS ) {
+	public Devices setOS( String OS ) {
 
 		this.OS = OS;
+
+		return this;
 
 	}
 
@@ -336,9 +344,11 @@ public class Devices {
 
 	}
 
-	public void setBearers( String bearers ) {
+	public Devices setBearers( String bearers ) {
 
 		this.bearers = bearers;
+
+		return this;
 
 	}
 
@@ -348,9 +358,11 @@ public class Devices {
 
 	}
 
-	public void setGPS( Byte GPS ) {
+	public Devices setGPS( Byte GPS ) {
 
 		this.GPS = GPS;
+
+		return this;
 
 	}
 
@@ -360,9 +372,11 @@ public class Devices {
 
 	}
 
-	public void setCamera( Byte camera ) {
+	public Devices setCamera( Byte camera ) {
 
 		this.camera = camera;
+
+		return this;
 
 	}
 
@@ -372,9 +386,11 @@ public class Devices {
 
 	}
 
-	public void setVideo( Byte video ) {
+	public Devices setVideo( Byte video ) {
 
 		this.video = video;
+
+		return this;
 
 	}
 
@@ -384,9 +400,11 @@ public class Devices {
 
 	}
 
-	public void setType( String type ) {
+	public Devices setType( String type ) {
 
 		this.type = type;
+
+		return this;
 
 	}
 
@@ -396,9 +414,11 @@ public class Devices {
 
 	}
 
-	public void setScreenSize( Integer screen_size ) {
+	public Devices setScreenSize( Integer screen_size ) {
 
 		this.screen_size = screen_size;
+
+		return this;
 
 	}
 
@@ -408,9 +428,11 @@ public class Devices {
 
 	}
 
-	public void setLaunchDate( Date launch_date ) {
+	public Devices setLaunchDate( Date launch_date ) {
 
 		this.launch_date = launch_date;
+
+		return this;
 
 	}
 
@@ -420,9 +442,11 @@ public class Devices {
 
 	}
 
-	public void setPrice( Short price ) {
+	public Devices setPrice( Short price ) {
 
 		this.price = price;
+
+		return this;
 
 	}
 

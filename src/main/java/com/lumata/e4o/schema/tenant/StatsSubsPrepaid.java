@@ -330,9 +330,11 @@ public class StatsSubsPrepaid {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public StatsSubsPrepaid setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -342,9 +344,11 @@ public class StatsSubsPrepaid {
 
 	}
 
-	public void setAmountUsage( Float amount_usage ) {
+	public StatsSubsPrepaid setAmountUsage( Float amount_usage ) {
 
 		this.amount_usage = amount_usage;
+
+		return this;
 
 	}
 
@@ -354,9 +358,11 @@ public class StatsSubsPrepaid {
 
 	}
 
-	public void setBalanceMainAccount( Integer balance_main_account ) {
+	public StatsSubsPrepaid setBalanceMainAccount( Integer balance_main_account ) {
 
 		this.balance_main_account = balance_main_account;
+
+		return this;
 
 	}
 
@@ -366,9 +372,11 @@ public class StatsSubsPrepaid {
 
 	}
 
-	public void setQtyRecharge( Integer qty_recharge ) {
+	public StatsSubsPrepaid setQtyRecharge( Integer qty_recharge ) {
 
 		this.qty_recharge = qty_recharge;
+
+		return this;
 
 	}
 
@@ -378,9 +386,11 @@ public class StatsSubsPrepaid {
 
 	}
 
-	public void setAmountRecharge( Float amount_recharge ) {
+	public StatsSubsPrepaid setAmountRecharge( Float amount_recharge ) {
 
 		this.amount_recharge = amount_recharge;
+
+		return this;
 
 	}
 
@@ -390,9 +400,11 @@ public class StatsSubsPrepaid {
 
 	}
 
-	public void setValidityDate( Date validity_date ) {
+	public StatsSubsPrepaid setValidityDate( Date validity_date ) {
 
 		this.validity_date = validity_date;
+
+		return this;
 
 	}
 
@@ -402,9 +414,11 @@ public class StatsSubsPrepaid {
 
 	}
 
-	public void setDeactivationDate( Date deactivation_date ) {
+	public StatsSubsPrepaid setDeactivationDate( Date deactivation_date ) {
 
 		this.deactivation_date = deactivation_date;
+
+		return this;
 
 	}
 
@@ -414,9 +428,11 @@ public class StatsSubsPrepaid {
 
 	}
 
-	public void setQtyRatePlanIdChange( Integer qty_rate_plan_id_change ) {
+	public StatsSubsPrepaid setQtyRatePlanIdChange( Integer qty_rate_plan_id_change ) {
 
 		this.qty_rate_plan_id_change = qty_rate_plan_id_change;
+
+		return this;
 
 	}
 
@@ -426,9 +442,11 @@ public class StatsSubsPrepaid {
 
 	}
 
-	public void setLastRatePlanIdChangeDate( Date last_rate_plan_id_change_date ) {
+	public StatsSubsPrepaid setLastRatePlanIdChangeDate( Date last_rate_plan_id_change_date ) {
 
 		this.last_rate_plan_id_change_date = last_rate_plan_id_change_date;
+
+		return this;
 
 	}
 
@@ -438,9 +456,11 @@ public class StatsSubsPrepaid {
 
 	}
 
-	public void setQtyStatusIdChange( Integer qty_status_id_change ) {
+	public StatsSubsPrepaid setQtyStatusIdChange( Integer qty_status_id_change ) {
 
 		this.qty_status_id_change = qty_status_id_change;
+
+		return this;
 
 	}
 
@@ -450,9 +470,11 @@ public class StatsSubsPrepaid {
 
 	}
 
-	public void setLastStatusIdChangeDate( Date last_status_id_change_date ) {
+	public StatsSubsPrepaid setLastStatusIdChangeDate( Date last_status_id_change_date ) {
 
 		this.last_status_id_change_date = last_status_id_change_date;
+
+		return this;
 
 	}
 
@@ -462,9 +484,11 @@ public class StatsSubsPrepaid {
 
 	}
 
-	public void setLastRechargeDate( Date last_recharge_date ) {
+	public StatsSubsPrepaid setLastRechargeDate( Date last_recharge_date ) {
 
 		this.last_recharge_date = last_recharge_date;
+
+		return this;
 
 	}
 
@@ -474,9 +498,11 @@ public class StatsSubsPrepaid {
 
 	}
 
-	public void setValidityDaysAtRecharge( Integer validity_days_at_recharge ) {
+	public StatsSubsPrepaid setValidityDaysAtRecharge( Integer validity_days_at_recharge ) {
 
 		this.validity_days_at_recharge = validity_days_at_recharge;
+
+		return this;
 
 	}
 
@@ -486,9 +512,11 @@ public class StatsSubsPrepaid {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public StatsSubsPrepaid setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 

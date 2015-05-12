@@ -184,9 +184,11 @@ public class DailyPostpaid {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public DailyPostpaid setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -196,9 +198,11 @@ public class DailyPostpaid {
 
 	}
 
-	public void setAmountUsage( Integer amount_usage ) {
+	public DailyPostpaid setAmountUsage( Integer amount_usage ) {
 
 		this.amount_usage = amount_usage;
+
+		return this;
 
 	}
 
@@ -208,9 +212,11 @@ public class DailyPostpaid {
 
 	}
 
-	public void setDelayAtPayment( Integer delay_at_payment ) {
+	public DailyPostpaid setDelayAtPayment( Integer delay_at_payment ) {
 
 		this.delay_at_payment = delay_at_payment;
+
+		return this;
 
 	}
 
@@ -220,9 +226,11 @@ public class DailyPostpaid {
 
 	}
 
-	public void setQtyRatePlanIdChange( Short qty_rate_plan_id_change ) {
+	public DailyPostpaid setQtyRatePlanIdChange( Short qty_rate_plan_id_change ) {
 
 		this.qty_rate_plan_id_change = qty_rate_plan_id_change;
+
+		return this;
 
 	}
 
@@ -232,9 +240,11 @@ public class DailyPostpaid {
 
 	}
 
-	public void setQtyStatusIdChange( Short qty_status_id_change ) {
+	public DailyPostpaid setQtyStatusIdChange( Short qty_status_id_change ) {
 
 		this.qty_status_id_change = qty_status_id_change;
+
+		return this;
 
 	}
 
@@ -244,9 +254,11 @@ public class DailyPostpaid {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public DailyPostpaid setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -256,9 +268,11 @@ public class DailyPostpaid {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public DailyPostpaid setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

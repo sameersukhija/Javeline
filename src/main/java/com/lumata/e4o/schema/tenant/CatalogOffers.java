@@ -436,9 +436,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setOfferId( Short offer_id ) {
+	public CatalogOffers setOfferId( Short offer_id ) {
 
 		this.offer_id = offer_id;
+
+		return this;
 
 	}
 
@@ -448,9 +450,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setExternalId( String external_id ) {
+	public CatalogOffers setExternalId( String external_id ) {
 
 		this.external_id = external_id;
+
+		return this;
 
 	}
 
@@ -460,9 +464,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setOfferName( String offer_name ) {
+	public CatalogOffers setOfferName( String offer_name ) {
 
 		this.offer_name = offer_name;
+
+		return this;
 
 	}
 
@@ -472,9 +478,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setDescription( String description ) {
+	public CatalogOffers setDescription( String description ) {
 
 		this.description = description;
+
+		return this;
 
 	}
 
@@ -484,9 +492,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setVoucherType( String voucher_type ) {
+	public CatalogOffers setVoucherType( String voucher_type ) {
 
 		this.voucher_type = voucher_type;
+
+		return this;
 
 	}
 
@@ -496,9 +506,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setVoucherUnlimitedCode( String voucher_unlimited_code ) {
+	public CatalogOffers setVoucherUnlimitedCode( String voucher_unlimited_code ) {
 
 		this.voucher_unlimited_code = voucher_unlimited_code;
+
+		return this;
 
 	}
 
@@ -508,9 +520,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setRedemptionNotification( String redemption_notification ) {
+	public CatalogOffers setRedemptionNotification( String redemption_notification ) {
 
 		this.redemption_notification = redemption_notification;
+
+		return this;
 
 	}
 
@@ -520,9 +534,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setStartDate( Date start_date ) {
+	public CatalogOffers setStartDate( Date start_date ) {
 
 		this.start_date = start_date;
+
+		return this;
 
 	}
 
@@ -532,9 +548,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setEndDate( Date end_date ) {
+	public CatalogOffers setEndDate( Date end_date ) {
 
 		this.end_date = end_date;
+
+		return this;
 
 	}
 
@@ -544,9 +562,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setOfferStatus( String offer_status ) {
+	public CatalogOffers setOfferStatus( String offer_status ) {
 
 		this.offer_status = offer_status;
+
+		return this;
 
 	}
 
@@ -556,9 +576,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setEligibilityCriteria( String eligibility_criteria ) {
+	public CatalogOffers setEligibilityCriteria( String eligibility_criteria ) {
 
 		this.eligibility_criteria = eligibility_criteria;
+
+		return this;
 
 	}
 
@@ -568,9 +590,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setNotification( String notification ) {
+	public CatalogOffers setNotification( String notification ) {
 
 		this.notification = notification;
+
+		return this;
 
 	}
 
@@ -580,9 +604,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setOfferRank( Byte offer_rank ) {
+	public CatalogOffers setOfferRank( Byte offer_rank ) {
 
 		this.offer_rank = offer_rank;
+
+		return this;
 
 	}
 
@@ -592,9 +618,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setSubsPreferencesIdList( String subs_preferences_id_list ) {
+	public CatalogOffers setSubsPreferencesIdList( String subs_preferences_id_list ) {
 
 		this.subs_preferences_id_list = subs_preferences_id_list;
+
+		return this;
 
 	}
 
@@ -604,9 +632,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public CatalogOffers setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 
@@ -616,9 +646,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setUrlImage( String url_image ) {
+	public CatalogOffers setUrlImage( String url_image ) {
 
 		this.url_image = url_image;
+
+		return this;
 
 	}
 
@@ -628,9 +660,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setAgreement( String agreement ) {
+	public CatalogOffers setAgreement( String agreement ) {
 
 		this.agreement = agreement;
+
+		return this;
 
 	}
 
@@ -640,9 +674,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setSubscriberLimit( Short subscriber_limit ) {
+	public CatalogOffers setSubscriberLimit( Short subscriber_limit ) {
 
 		this.subscriber_limit = subscriber_limit;
+
+		return this;
 
 	}
 
@@ -652,9 +688,11 @@ public class CatalogOffers {
 
 	}
 
-	public void setResendNotification( String resend_notification ) {
+	public CatalogOffers setResendNotification( String resend_notification ) {
 
 		this.resend_notification = resend_notification;
+
+		return this;
 
 	}
 

@@ -309,9 +309,11 @@ public class LoyaltyBadges {
 
 	}
 
-	public void setBadgeId( Byte badge_id ) {
+	public LoyaltyBadges setBadgeId( Byte badge_id ) {
 
 		this.badge_id = badge_id;
+
+		return this;
 
 	}
 
@@ -321,9 +323,11 @@ public class LoyaltyBadges {
 
 	}
 
-	public void setVersionName( String version_name ) {
+	public LoyaltyBadges setVersionName( String version_name ) {
 
 		this.version_name = version_name;
+
+		return this;
 
 	}
 
@@ -333,9 +337,11 @@ public class LoyaltyBadges {
 
 	}
 
-	public void setProgramId( Byte program_id ) {
+	public LoyaltyBadges setProgramId( Byte program_id ) {
 
 		this.program_id = program_id;
+
+		return this;
 
 	}
 
@@ -345,9 +351,11 @@ public class LoyaltyBadges {
 
 	}
 
-	public void setBadgeName( String badge_name ) {
+	public LoyaltyBadges setBadgeName( String badge_name ) {
 
 		this.badge_name = badge_name;
+
+		return this;
 
 	}
 
@@ -357,9 +365,11 @@ public class LoyaltyBadges {
 
 	}
 
-	public void setBadgeDescription( String badge_description ) {
+	public LoyaltyBadges setBadgeDescription( String badge_description ) {
 
 		this.badge_description = badge_description;
+
+		return this;
 
 	}
 
@@ -369,9 +379,11 @@ public class LoyaltyBadges {
 
 	}
 
-	public void setBadgeTypeId( Byte badge_type_id ) {
+	public LoyaltyBadges setBadgeTypeId( Byte badge_type_id ) {
 
 		this.badge_type_id = badge_type_id;
+
+		return this;
 
 	}
 
@@ -381,9 +393,11 @@ public class LoyaltyBadges {
 
 	}
 
-	public void setBadgeStartDate( Date badge_start_date ) {
+	public LoyaltyBadges setBadgeStartDate( Date badge_start_date ) {
 
 		this.badge_start_date = badge_start_date;
+
+		return this;
 
 	}
 
@@ -393,9 +407,11 @@ public class LoyaltyBadges {
 
 	}
 
-	public void setBadgeEndDate( Date badge_end_date ) {
+	public LoyaltyBadges setBadgeEndDate( Date badge_end_date ) {
 
 		this.badge_end_date = badge_end_date;
+
+		return this;
 
 	}
 
@@ -405,9 +421,11 @@ public class LoyaltyBadges {
 
 	}
 
-	public void setBadgeNotAwardedUrl( String badge_not_awarded_url ) {
+	public LoyaltyBadges setBadgeNotAwardedUrl( String badge_not_awarded_url ) {
 
 		this.badge_not_awarded_url = badge_not_awarded_url;
+
+		return this;
 
 	}
 
@@ -417,9 +435,11 @@ public class LoyaltyBadges {
 
 	}
 
-	public void setBadgeAwardedUrl( String badge_awarded_url ) {
+	public LoyaltyBadges setBadgeAwardedUrl( String badge_awarded_url ) {
 
 		this.badge_awarded_url = badge_awarded_url;
+
+		return this;
 
 	}
 
@@ -429,9 +449,11 @@ public class LoyaltyBadges {
 
 	}
 
-	public void setBadgeRedeemedUrl( String badge_redeemed_url ) {
+	public LoyaltyBadges setBadgeRedeemedUrl( String badge_redeemed_url ) {
 
 		this.badge_redeemed_url = badge_redeemed_url;
+
+		return this;
 
 	}
 
@@ -441,9 +463,11 @@ public class LoyaltyBadges {
 
 	}
 
-	public void setBadgeValidityDurationDays( Byte badge_validity_duration_days ) {
+	public LoyaltyBadges setBadgeValidityDurationDays( Byte badge_validity_duration_days ) {
 
 		this.badge_validity_duration_days = badge_validity_duration_days;
+
+		return this;
 
 	}
 
@@ -453,9 +477,11 @@ public class LoyaltyBadges {
 
 	}
 
-	public void setBadgeStatus( String badge_status ) {
+	public LoyaltyBadges setBadgeStatus( String badge_status ) {
 
 		this.badge_status = badge_status;
+
+		return this;
 
 	}
 

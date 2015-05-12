@@ -75,9 +75,11 @@ public class OffoptimRulesetRequestor {
 
 	}
 
-	public void setRulesetId( Integer ruleset_id ) {
+	public OffoptimRulesetRequestor setRulesetId( Integer ruleset_id ) {
 
 		this.ruleset_id = ruleset_id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class OffoptimRulesetRequestor {
 
 	}
 
-	public void setRequestorId( Integer requestor_id ) {
+	public OffoptimRulesetRequestor setRequestorId( Integer requestor_id ) {
 
 		this.requestor_id = requestor_id;
+
+		return this;
 
 	}
 

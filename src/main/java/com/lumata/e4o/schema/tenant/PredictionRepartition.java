@@ -141,9 +141,11 @@ public class PredictionRepartition {
 
 	}
 
-	public void setQuestionId( Byte question_id ) {
+	public PredictionRepartition setQuestionId( Byte question_id ) {
 
 		this.question_id = question_id;
+
+		return this;
 
 	}
 
@@ -153,9 +155,11 @@ public class PredictionRepartition {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public PredictionRepartition setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -165,9 +169,11 @@ public class PredictionRepartition {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public PredictionRepartition setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -177,9 +183,11 @@ public class PredictionRepartition {
 
 	}
 
-	public void setProba( Byte proba ) {
+	public PredictionRepartition setProba( Byte proba ) {
 
 		this.proba = proba;
+
+		return this;
 
 	}
 
@@ -189,9 +197,11 @@ public class PredictionRepartition {
 
 	}
 
-	public void setQtyPredicted( Integer qty_predicted ) {
+	public PredictionRepartition setQtyPredicted( Integer qty_predicted ) {
 
 		this.qty_predicted = qty_predicted;
+
+		return this;
 
 	}
 

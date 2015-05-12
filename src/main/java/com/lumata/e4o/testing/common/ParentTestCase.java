@@ -457,8 +457,8 @@ public abstract class ParentTestCase {
 	
 	@AfterMethod
 	protected void tearDown( ITestResult result ) throws TestNGException {
-		
-	    if( result.getStatus() == ITestResult.FAILURE ) {
+
+		if( result.getStatus() == ITestResult.FAILURE ) {
 	        
 	    	if( null != seleniumDriverType ) {
 		    	

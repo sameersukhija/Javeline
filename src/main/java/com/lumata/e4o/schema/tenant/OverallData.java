@@ -351,9 +351,11 @@ public class OverallData {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public OverallData setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -363,9 +365,11 @@ public class OverallData {
 
 	}
 
-	public void setPeriod( String period ) {
+	public OverallData setPeriod( String period ) {
 
 		this.period = period;
+
+		return this;
 
 	}
 
@@ -375,9 +379,11 @@ public class OverallData {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public OverallData setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -387,9 +393,11 @@ public class OverallData {
 
 	}
 
-	public void setRatePlanId( Byte rate_plan_id ) {
+	public OverallData setRatePlanId( Byte rate_plan_id ) {
 
 		this.rate_plan_id = rate_plan_id;
+
+		return this;
 
 	}
 
@@ -399,9 +407,11 @@ public class OverallData {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public OverallData setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -411,9 +421,11 @@ public class OverallData {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public OverallData setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -423,9 +435,11 @@ public class OverallData {
 
 	}
 
-	public void setArpuId( Byte arpu_id ) {
+	public OverallData setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+		return this;
 
 	}
 
@@ -435,9 +449,11 @@ public class OverallData {
 
 	}
 
-	public void setSeniorityId( Byte seniority_id ) {
+	public OverallData setSeniorityId( Byte seniority_id ) {
 
 		this.seniority_id = seniority_id;
+
+		return this;
 
 	}
 
@@ -447,9 +463,11 @@ public class OverallData {
 
 	}
 
-	public void setUcg( Byte ucg ) {
+	public OverallData setUcg( Byte ucg ) {
 
 		this.ucg = ucg;
+
+		return this;
 
 	}
 
@@ -459,9 +477,11 @@ public class OverallData {
 
 	}
 
-	public void setSumSession( Float sum_session ) {
+	public OverallData setSumSession( Float sum_session ) {
 
 		this.sum_session = sum_session;
+
+		return this;
 
 	}
 
@@ -471,9 +491,11 @@ public class OverallData {
 
 	}
 
-	public void setVolumeUpload( Float volume_upload ) {
+	public OverallData setVolumeUpload( Float volume_upload ) {
 
 		this.volume_upload = volume_upload;
+
+		return this;
 
 	}
 
@@ -483,9 +505,11 @@ public class OverallData {
 
 	}
 
-	public void setVolumeDownload( Float volume_download ) {
+	public OverallData setVolumeDownload( Float volume_download ) {
 
 		this.volume_download = volume_download;
+
+		return this;
 
 	}
 
@@ -495,9 +519,11 @@ public class OverallData {
 
 	}
 
-	public void setSumAmountData( Float sum_amount_data ) {
+	public OverallData setSumAmountData( Float sum_amount_data ) {
 
 		this.sum_amount_data = sum_amount_data;
+
+		return this;
 
 	}
 
@@ -507,9 +533,11 @@ public class OverallData {
 
 	}
 
-	public void setQtyMsisdn( Integer qty_msisdn ) {
+	public OverallData setQtyMsisdn( Integer qty_msisdn ) {
 
 		this.qty_msisdn = qty_msisdn;
+
+		return this;
 
 	}
 
@@ -519,9 +547,11 @@ public class OverallData {
 
 	}
 
-	public void setQtyMsisdnWithActivity( Integer qty_msisdn_with_activity ) {
+	public OverallData setQtyMsisdnWithActivity( Integer qty_msisdn_with_activity ) {
 
 		this.qty_msisdn_with_activity = qty_msisdn_with_activity;
+
+		return this;
 
 	}
 

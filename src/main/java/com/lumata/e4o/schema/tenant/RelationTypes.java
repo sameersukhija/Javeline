@@ -75,9 +75,11 @@ public class RelationTypes {
 
 	}
 
-	public void setTypeId( Byte type_id ) {
+	public RelationTypes setTypeId( Byte type_id ) {
 
 		this.type_id = type_id;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class RelationTypes {
 
 	}
 
-	public void setRelationType( String relation_type ) {
+	public RelationTypes setRelationType( String relation_type ) {
 
 		this.relation_type = relation_type;
+
+		return this;
 
 	}
 

@@ -76,7 +76,7 @@ public class TestJenkins {
 	@Test( enabled=true, priority = 3 )
 	public void generateResultReport() {
 		
-		Assert.assertTrue( true );
+		Assert.assertTrue( false );
 		
 	}
 		

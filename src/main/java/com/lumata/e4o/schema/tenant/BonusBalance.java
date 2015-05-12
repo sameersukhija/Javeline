@@ -205,9 +205,11 @@ public class BonusBalance {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public BonusBalance setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -217,9 +219,11 @@ public class BonusBalance {
 
 	}
 
-	public void setBonusId( Short bonus_id ) {
+	public BonusBalance setBonusId( Short bonus_id ) {
 
 		this.bonus_id = bonus_id;
+
+		return this;
 
 	}
 
@@ -229,9 +233,11 @@ public class BonusBalance {
 
 	}
 
-	public void setQtyBalance( Integer qty_balance ) {
+	public BonusBalance setQtyBalance( Integer qty_balance ) {
 
 		this.qty_balance = qty_balance;
+
+		return this;
 
 	}
 
@@ -241,9 +247,11 @@ public class BonusBalance {
 
 	}
 
-	public void setQtyBalanceIn( Integer qty_balance_in ) {
+	public BonusBalance setQtyBalanceIn( Integer qty_balance_in ) {
 
 		this.qty_balance_in = qty_balance_in;
+
+		return this;
 
 	}
 
@@ -253,9 +261,11 @@ public class BonusBalance {
 
 	}
 
-	public void setStartDate( Date start_date ) {
+	public BonusBalance setStartDate( Date start_date ) {
 
 		this.start_date = start_date;
+
+		return this;
 
 	}
 
@@ -265,9 +275,11 @@ public class BonusBalance {
 
 	}
 
-	public void setEndDate( Date end_date ) {
+	public BonusBalance setEndDate( Date end_date ) {
 
 		this.end_date = end_date;
+
+		return this;
 
 	}
 
@@ -277,9 +289,11 @@ public class BonusBalance {
 
 	}
 
-	public void setValidityType( String validity_type ) {
+	public BonusBalance setValidityType( String validity_type ) {
 
 		this.validity_type = validity_type;
+
+		return this;
 
 	}
 
@@ -289,9 +303,11 @@ public class BonusBalance {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public BonusBalance setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

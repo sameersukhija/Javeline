@@ -267,9 +267,11 @@ public class StatsSubsAccountOld {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public StatsSubsAccountOld setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -279,9 +281,11 @@ public class StatsSubsAccountOld {
 
 	}
 
-	public void setQtyInvoice( Integer qty_invoice ) {
+	public StatsSubsAccountOld setQtyInvoice( Integer qty_invoice ) {
 
 		this.qty_invoice = qty_invoice;
+
+		return this;
 
 	}
 
@@ -291,9 +295,11 @@ public class StatsSubsAccountOld {
 
 	}
 
-	public void setAmountInvoice( Float amount_invoice ) {
+	public StatsSubsAccountOld setAmountInvoice( Float amount_invoice ) {
 
 		this.amount_invoice = amount_invoice;
+
+		return this;
 
 	}
 
@@ -303,9 +309,11 @@ public class StatsSubsAccountOld {
 
 	}
 
-	public void setQtyPayment( Integer qty_payment ) {
+	public StatsSubsAccountOld setQtyPayment( Integer qty_payment ) {
 
 		this.qty_payment = qty_payment;
+
+		return this;
 
 	}
 
@@ -315,9 +323,11 @@ public class StatsSubsAccountOld {
 
 	}
 
-	public void setAmountPayment( Float amount_payment ) {
+	public StatsSubsAccountOld setAmountPayment( Float amount_payment ) {
 
 		this.amount_payment = amount_payment;
+
+		return this;
 
 	}
 
@@ -327,9 +337,11 @@ public class StatsSubsAccountOld {
 
 	}
 
-	public void setQtyRatePlanIdChange( Integer qty_rate_plan_id_change ) {
+	public StatsSubsAccountOld setQtyRatePlanIdChange( Integer qty_rate_plan_id_change ) {
 
 		this.qty_rate_plan_id_change = qty_rate_plan_id_change;
+
+		return this;
 
 	}
 
@@ -339,9 +351,11 @@ public class StatsSubsAccountOld {
 
 	}
 
-	public void setLastRatePlanIdChangeDate( Date last_rate_plan_id_change_date ) {
+	public StatsSubsAccountOld setLastRatePlanIdChangeDate( Date last_rate_plan_id_change_date ) {
 
 		this.last_rate_plan_id_change_date = last_rate_plan_id_change_date;
+
+		return this;
 
 	}
 
@@ -351,9 +365,11 @@ public class StatsSubsAccountOld {
 
 	}
 
-	public void setQtyStatusIdChange( Integer qty_status_id_change ) {
+	public StatsSubsAccountOld setQtyStatusIdChange( Integer qty_status_id_change ) {
 
 		this.qty_status_id_change = qty_status_id_change;
+
+		return this;
 
 	}
 
@@ -363,9 +379,11 @@ public class StatsSubsAccountOld {
 
 	}
 
-	public void setLastStatusIdChangeDate( Date last_status_id_change_date ) {
+	public StatsSubsAccountOld setLastStatusIdChangeDate( Date last_status_id_change_date ) {
 
 		this.last_status_id_change_date = last_status_id_change_date;
+
+		return this;
 
 	}
 
@@ -375,9 +393,11 @@ public class StatsSubsAccountOld {
 
 	}
 
-	public void setLastInvoiceDate( Date last_invoice_date ) {
+	public StatsSubsAccountOld setLastInvoiceDate( Date last_invoice_date ) {
 
 		this.last_invoice_date = last_invoice_date;
+
+		return this;
 
 	}
 
@@ -387,9 +407,11 @@ public class StatsSubsAccountOld {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public StatsSubsAccountOld setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 

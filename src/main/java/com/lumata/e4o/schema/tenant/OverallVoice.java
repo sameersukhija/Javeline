@@ -414,9 +414,11 @@ public class OverallVoice {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public OverallVoice setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -426,9 +428,11 @@ public class OverallVoice {
 
 	}
 
-	public void setPeriod( String period ) {
+	public OverallVoice setPeriod( String period ) {
 
 		this.period = period;
+
+		return this;
 
 	}
 
@@ -438,9 +442,11 @@ public class OverallVoice {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public OverallVoice setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -450,9 +456,11 @@ public class OverallVoice {
 
 	}
 
-	public void setRatePlanId( Byte rate_plan_id ) {
+	public OverallVoice setRatePlanId( Byte rate_plan_id ) {
 
 		this.rate_plan_id = rate_plan_id;
+
+		return this;
 
 	}
 
@@ -462,9 +470,11 @@ public class OverallVoice {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public OverallVoice setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -474,9 +484,11 @@ public class OverallVoice {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public OverallVoice setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -486,9 +498,11 @@ public class OverallVoice {
 
 	}
 
-	public void setArpuId( Byte arpu_id ) {
+	public OverallVoice setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+		return this;
 
 	}
 
@@ -498,9 +512,11 @@ public class OverallVoice {
 
 	}
 
-	public void setSeniorityId( Byte seniority_id ) {
+	public OverallVoice setSeniorityId( Byte seniority_id ) {
 
 		this.seniority_id = seniority_id;
+
+		return this;
 
 	}
 
@@ -510,9 +526,11 @@ public class OverallVoice {
 
 	}
 
-	public void setUcg( Byte ucg ) {
+	public OverallVoice setUcg( Byte ucg ) {
 
 		this.ucg = ucg;
+
+		return this;
 
 	}
 
@@ -522,9 +540,11 @@ public class OverallVoice {
 
 	}
 
-	public void setSumCallOriginating( Float sum_call_originating ) {
+	public OverallVoice setSumCallOriginating( Float sum_call_originating ) {
 
 		this.sum_call_originating = sum_call_originating;
+
+		return this;
 
 	}
 
@@ -534,9 +554,11 @@ public class OverallVoice {
 
 	}
 
-	public void setSumCallTerminating( Float sum_call_terminating ) {
+	public OverallVoice setSumCallTerminating( Float sum_call_terminating ) {
 
 		this.sum_call_terminating = sum_call_terminating;
+
+		return this;
 
 	}
 
@@ -546,9 +568,11 @@ public class OverallVoice {
 
 	}
 
-	public void setSumAmountCall( Float sum_amount_call ) {
+	public OverallVoice setSumAmountCall( Float sum_amount_call ) {
 
 		this.sum_amount_call = sum_amount_call;
+
+		return this;
 
 	}
 
@@ -558,9 +582,11 @@ public class OverallVoice {
 
 	}
 
-	public void setSumDurationCall( Float sum_duration_call ) {
+	public OverallVoice setSumDurationCall( Float sum_duration_call ) {
 
 		this.sum_duration_call = sum_duration_call;
+
+		return this;
 
 	}
 
@@ -570,9 +596,11 @@ public class OverallVoice {
 
 	}
 
-	public void setSumAmountMessage( Float sum_amount_message ) {
+	public OverallVoice setSumAmountMessage( Float sum_amount_message ) {
 
 		this.sum_amount_message = sum_amount_message;
+
+		return this;
 
 	}
 
@@ -582,9 +610,11 @@ public class OverallVoice {
 
 	}
 
-	public void setSumSms( Float sum_sms ) {
+	public OverallVoice setSumSms( Float sum_sms ) {
 
 		this.sum_sms = sum_sms;
+
+		return this;
 
 	}
 
@@ -594,9 +624,11 @@ public class OverallVoice {
 
 	}
 
-	public void setSumVas( Float sum_vas ) {
+	public OverallVoice setSumVas( Float sum_vas ) {
 
 		this.sum_vas = sum_vas;
+
+		return this;
 
 	}
 
@@ -606,9 +638,11 @@ public class OverallVoice {
 
 	}
 
-	public void setQtyMsisdn( Integer qty_msisdn ) {
+	public OverallVoice setQtyMsisdn( Integer qty_msisdn ) {
 
 		this.qty_msisdn = qty_msisdn;
+
+		return this;
 
 	}
 
@@ -618,9 +652,11 @@ public class OverallVoice {
 
 	}
 
-	public void setQtyMsisdnWithActivity( Integer qty_msisdn_with_activity ) {
+	public OverallVoice setQtyMsisdnWithActivity( Integer qty_msisdn_with_activity ) {
 
 		this.qty_msisdn_with_activity = qty_msisdn_with_activity;
+
+		return this;
 
 	}
 

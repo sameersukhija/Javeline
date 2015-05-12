@@ -204,9 +204,11 @@ public class StatsSubsPostpaid {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public StatsSubsPostpaid setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -216,9 +218,11 @@ public class StatsSubsPostpaid {
 
 	}
 
-	public void setAmountUsage( Float amount_usage ) {
+	public StatsSubsPostpaid setAmountUsage( Float amount_usage ) {
 
 		this.amount_usage = amount_usage;
+
+		return this;
 
 	}
 
@@ -228,9 +232,11 @@ public class StatsSubsPostpaid {
 
 	}
 
-	public void setDelayAtPayment( Float delay_at_payment ) {
+	public StatsSubsPostpaid setDelayAtPayment( Float delay_at_payment ) {
 
 		this.delay_at_payment = delay_at_payment;
+
+		return this;
 
 	}
 
@@ -240,9 +246,11 @@ public class StatsSubsPostpaid {
 
 	}
 
-	public void setQtyRatePlanIdChange( Integer qty_rate_plan_id_change ) {
+	public StatsSubsPostpaid setQtyRatePlanIdChange( Integer qty_rate_plan_id_change ) {
 
 		this.qty_rate_plan_id_change = qty_rate_plan_id_change;
+
+		return this;
 
 	}
 
@@ -252,9 +260,11 @@ public class StatsSubsPostpaid {
 
 	}
 
-	public void setLastRatePlanIdChangeDate( Date last_rate_plan_id_change_date ) {
+	public StatsSubsPostpaid setLastRatePlanIdChangeDate( Date last_rate_plan_id_change_date ) {
 
 		this.last_rate_plan_id_change_date = last_rate_plan_id_change_date;
+
+		return this;
 
 	}
 
@@ -264,9 +274,11 @@ public class StatsSubsPostpaid {
 
 	}
 
-	public void setQtyStatusIdChange( Integer qty_status_id_change ) {
+	public StatsSubsPostpaid setQtyStatusIdChange( Integer qty_status_id_change ) {
 
 		this.qty_status_id_change = qty_status_id_change;
+
+		return this;
 
 	}
 
@@ -276,9 +288,11 @@ public class StatsSubsPostpaid {
 
 	}
 
-	public void setLastStatusIdChangeDate( Date last_status_id_change_date ) {
+	public StatsSubsPostpaid setLastStatusIdChangeDate( Date last_status_id_change_date ) {
 
 		this.last_status_id_change_date = last_status_id_change_date;
+
+		return this;
 
 	}
 
@@ -288,9 +302,11 @@ public class StatsSubsPostpaid {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public StatsSubsPostpaid setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 

@@ -120,9 +120,11 @@ public class OffoptimCustomerItemsReleased {
 
 	}
 
-	public void setReleasedCustomerOfferPackId( Integer released_customer_offer_pack_id ) {
+	public OffoptimCustomerItemsReleased setReleasedCustomerOfferPackId( Integer released_customer_offer_pack_id ) {
 
 		this.released_customer_offer_pack_id = released_customer_offer_pack_id;
+
+		return this;
 
 	}
 
@@ -132,9 +134,11 @@ public class OffoptimCustomerItemsReleased {
 
 	}
 
-	public void setOfferId( Short offer_id ) {
+	public OffoptimCustomerItemsReleased setOfferId( Short offer_id ) {
 
 		this.offer_id = offer_id;
+
+		return this;
 
 	}
 
@@ -144,9 +148,11 @@ public class OffoptimCustomerItemsReleased {
 
 	}
 
-	public void setChannelId( Short channel_id ) {
+	public OffoptimCustomerItemsReleased setChannelId( Short channel_id ) {
 
 		this.channel_id = channel_id;
+
+		return this;
 
 	}
 
@@ -156,9 +162,11 @@ public class OffoptimCustomerItemsReleased {
 
 	}
 
-	public void setReleasedDate( Date released_date ) {
+	public OffoptimCustomerItemsReleased setReleasedDate( Date released_date ) {
 
 		this.released_date = released_date;
+
+		return this;
 
 	}
 

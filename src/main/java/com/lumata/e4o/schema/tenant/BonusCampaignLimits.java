@@ -159,9 +159,11 @@ public class BonusCampaignLimits {
 
 	}
 
-	public void setBonusId( Short bonus_id ) {
+	public BonusCampaignLimits setBonusId( Short bonus_id ) {
 
 		this.bonus_id = bonus_id;
+
+		return this;
 
 	}
 
@@ -171,9 +173,11 @@ public class BonusCampaignLimits {
 
 	}
 
-	public void setCampaignId( Integer campaign_id ) {
+	public BonusCampaignLimits setCampaignId( Integer campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+		return this;
 
 	}
 
@@ -183,9 +187,11 @@ public class BonusCampaignLimits {
 
 	}
 
-	public void setMaxBonusPerSubs( Integer max_bonus_per_subs ) {
+	public BonusCampaignLimits setMaxBonusPerSubs( Integer max_bonus_per_subs ) {
 
 		this.max_bonus_per_subs = max_bonus_per_subs;
+
+		return this;
 
 	}
 
@@ -195,9 +201,11 @@ public class BonusCampaignLimits {
 
 	}
 
-	public void setMaxBonus( Integer max_bonus ) {
+	public BonusCampaignLimits setMaxBonus( Integer max_bonus ) {
 
 		this.max_bonus = max_bonus;
+
+		return this;
 
 	}
 
@@ -207,9 +215,11 @@ public class BonusCampaignLimits {
 
 	}
 
-	public void setMaxQtySubsBeneficiary( Integer max_qty_subs_beneficiary ) {
+	public BonusCampaignLimits setMaxQtySubsBeneficiary( Integer max_qty_subs_beneficiary ) {
 
 		this.max_qty_subs_beneficiary = max_qty_subs_beneficiary;
+
+		return this;
 
 	}
 
@@ -219,9 +229,11 @@ public class BonusCampaignLimits {
 
 	}
 
-	public void setMaxQtyOccurenceBeneficiary( Integer max_qty_occurence_beneficiary ) {
+	public BonusCampaignLimits setMaxQtyOccurenceBeneficiary( Integer max_qty_occurence_beneficiary ) {
 
 		this.max_qty_occurence_beneficiary = max_qty_occurence_beneficiary;
+
+		return this;
 
 	}
 

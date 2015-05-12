@@ -38,12 +38,12 @@ public class GenerateCDRLifeCycle {
 	/* 	Initialize Environment */
 	@Parameters({"environment", "tenant", "gui_server", "user"})
 	@BeforeClass
-	public void init( @Optional("E4O_VM") String environment, @Optional("tenant") String tenant, @Optional("collector") String collectorServer, @Optional("superman") String user ) throws NetworkEnvironmentException {		
+	public void init( @Optional("E4O_VM_NE") String environment, @Optional("tenant") String tenant, @Optional("collector") String collectorServer, @Optional("superman") String user ) throws NetworkEnvironmentException {		
 		
 		/** Create environment configuration */
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 
-		mysql = new Mysql( env.getDataSource( tenant ) );
+		//mysql = new Mysql( env.getDataSource( tenant ) );
 		
 		sshService = env.getService( Service.Type.ssh, collectorServer );
 		

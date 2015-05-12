@@ -205,9 +205,11 @@ public class Stats {
 
 	}
 
-	public void setStatsDate( Date stats_date ) {
+	public Stats setStatsDate( Date stats_date ) {
 
 		this.stats_date = stats_date;
+
+		return this;
 
 	}
 
@@ -217,9 +219,11 @@ public class Stats {
 
 	}
 
-	public void setType( String type ) {
+	public Stats setType( String type ) {
 
 		this.type = type;
+
+		return this;
 
 	}
 
@@ -229,9 +233,11 @@ public class Stats {
 
 	}
 
-	public void setName( String name ) {
+	public Stats setName( String name ) {
 
 		this.name = name;
+
+		return this;
 
 	}
 
@@ -241,9 +247,11 @@ public class Stats {
 
 	}
 
-	public void setProcessId( String process_id ) {
+	public Stats setProcessId( String process_id ) {
 
 		this.process_id = process_id;
+
+		return this;
 
 	}
 
@@ -253,9 +261,11 @@ public class Stats {
 
 	}
 
-	public void setStatus( String status ) {
+	public Stats setStatus( String status ) {
 
 		this.status = status;
+
+		return this;
 
 	}
 
@@ -265,9 +275,11 @@ public class Stats {
 
 	}
 
-	public void setValue( Long value ) {
+	public Stats setValue( Long value ) {
 
 		this.value = value;
+
+		return this;
 
 	}
 
@@ -277,9 +289,11 @@ public class Stats {
 
 	}
 
-	public void setMinute( Integer minute ) {
+	public Stats setMinute( Integer minute ) {
 
 		this.minute = minute;
+
+		return this;
 
 	}
 
@@ -289,9 +303,11 @@ public class Stats {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public Stats setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

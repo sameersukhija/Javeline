@@ -159,9 +159,11 @@ public class RangeDev {
 
 	}
 
-	public void setVarName( String var_name ) {
+	public RangeDev setVarName( String var_name ) {
 
 		this.var_name = var_name;
+
+		return this;
 
 	}
 
@@ -171,9 +173,11 @@ public class RangeDev {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public RangeDev setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -183,9 +187,11 @@ public class RangeDev {
 
 	}
 
-	public void setRangeId( Byte range_id ) {
+	public RangeDev setRangeId( Byte range_id ) {
 
 		this.range_id = range_id;
+
+		return this;
 
 	}
 
@@ -195,9 +201,11 @@ public class RangeDev {
 
 	}
 
-	public void setRangeName( String range_name ) {
+	public RangeDev setRangeName( String range_name ) {
 
 		this.range_name = range_name;
+
+		return this;
 
 	}
 
@@ -207,9 +215,11 @@ public class RangeDev {
 
 	}
 
-	public void setFromval( Integer fromval ) {
+	public RangeDev setFromval( Integer fromval ) {
 
 		this.fromval = fromval;
+
+		return this;
 
 	}
 
@@ -219,9 +229,11 @@ public class RangeDev {
 
 	}
 
-	public void setToval( Integer toval ) {
+	public RangeDev setToval( Integer toval ) {
 
 		this.toval = toval;
+
+		return this;
 
 	}
 

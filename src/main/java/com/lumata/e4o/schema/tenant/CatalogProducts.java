@@ -267,9 +267,11 @@ public class CatalogProducts {
 
 	}
 
-	public void setProductId( Short product_id ) {
+	public CatalogProducts setProductId( Short product_id ) {
 
 		this.product_id = product_id;
+
+		return this;
 
 	}
 
@@ -279,9 +281,11 @@ public class CatalogProducts {
 
 	}
 
-	public void setExternalId( String external_id ) {
+	public CatalogProducts setExternalId( String external_id ) {
 
 		this.external_id = external_id;
+
+		return this;
 
 	}
 
@@ -291,9 +295,11 @@ public class CatalogProducts {
 
 	}
 
-	public void setProductName( String product_name ) {
+	public CatalogProducts setProductName( String product_name ) {
 
 		this.product_name = product_name;
+
+		return this;
 
 	}
 
@@ -303,9 +309,11 @@ public class CatalogProducts {
 
 	}
 
-	public void setDescription( String description ) {
+	public CatalogProducts setDescription( String description ) {
 
 		this.description = description;
+
+		return this;
 
 	}
 
@@ -315,9 +323,11 @@ public class CatalogProducts {
 
 	}
 
-	public void setStartDate( Date start_date ) {
+	public CatalogProducts setStartDate( Date start_date ) {
 
 		this.start_date = start_date;
+
+		return this;
 
 	}
 
@@ -327,9 +337,11 @@ public class CatalogProducts {
 
 	}
 
-	public void setEndDate( Date end_date ) {
+	public CatalogProducts setEndDate( Date end_date ) {
 
 		this.end_date = end_date;
+
+		return this;
 
 	}
 
@@ -339,9 +351,11 @@ public class CatalogProducts {
 
 	}
 
-	public void setRecommendedPrice( Float recommended_price ) {
+	public CatalogProducts setRecommendedPrice( Float recommended_price ) {
 
 		this.recommended_price = recommended_price;
+
+		return this;
 
 	}
 
@@ -351,9 +365,11 @@ public class CatalogProducts {
 
 	}
 
-	public void setSupplierId( Short supplier_id ) {
+	public CatalogProducts setSupplierId( Short supplier_id ) {
 
 		this.supplier_id = supplier_id;
+
+		return this;
 
 	}
 
@@ -363,9 +379,11 @@ public class CatalogProducts {
 
 	}
 
-	public void setUnitaryCost( Float unitary_cost ) {
+	public CatalogProducts setUnitaryCost( Float unitary_cost ) {
 
 		this.unitary_cost = unitary_cost;
+
+		return this;
 
 	}
 
@@ -375,9 +393,11 @@ public class CatalogProducts {
 
 	}
 
-	public void setUrlImage( String url_image ) {
+	public CatalogProducts setUrlImage( String url_image ) {
 
 		this.url_image = url_image;
+
+		return this;
 
 	}
 
@@ -387,9 +407,11 @@ public class CatalogProducts {
 
 	}
 
-	public void setAgreement( String agreement ) {
+	public CatalogProducts setAgreement( String agreement ) {
 
 		this.agreement = agreement;
+
+		return this;
 
 	}
 

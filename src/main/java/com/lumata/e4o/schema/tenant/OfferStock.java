@@ -7,15 +7,16 @@ import org.json.JSONObject;
 
 import com.lumata.common.testing.annotations.mysql.Table;
 import com.lumata.common.testing.annotations.mysql.Column;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.text.ParseException;
 import com.lumata.common.testing.validating.Format;
+import java.sql.Timestamp;
 
 
 @Table( "offer_stock" )
 public class OfferStock { 
 
-	public enum Fields { offer_id, channel_id, initial_stock, available, purchased, refused, expired, update_time }
+	public enum Fields { offer_id, channel_id, initial_stock, available, purchased, refused, expired, threshold, alert_raised, update_time }
 
 	@Column(
 			table = "offer_stock",
@@ -152,6 +153,44 @@ public class OfferStock {
 
 	@Column(
 			table = "offer_stock",
+			field = "threshold",
+			type = "bigint(20)",
+			mysqlType = "bigint",
+			javaType = "Long",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "-1",
+			extra = "",
+			length = 20,
+			comment = "",
+			getMethod = "getThreshold",
+			setMethod = "setThreshold"
+	)
+	private Long threshold;
+
+	@Column(
+			table = "offer_stock",
+			field = "alert_raised",
+			type = "datetime",
+			mysqlType = "datetime",
+			javaType = "Date",
+			categoryType = "Date",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 0,
+			comment = "",
+			getMethod = "getAlertRaised",
+			setMethod = "setAlertRaised"
+	)
+	private Date alert_raised;
+
+	@Column(
+			table = "offer_stock",
 			field = "update_time",
 			type = "timestamp",
 			mysqlType = "timestamp",
@@ -181,6 +220,8 @@ public class OfferStock {
 		this.purchased = rs.getLong( OfferStock.Fields.purchased.name() );
 		this.refused = rs.getLong( OfferStock.Fields.refused.name() );
 		this.expired = rs.getLong( OfferStock.Fields.expired.name() );
+		this.threshold = rs.getLong( OfferStock.Fields.threshold.name() );
+		this.alert_raised = rs.getDate( OfferStock.Fields.alert_raised.name() );
 		this.update_time = rs.getTimestamp( OfferStock.Fields.update_time.name() );
 
 	}
@@ -194,6 +235,8 @@ public class OfferStock {
 		this.purchased = (long)jo.getLong( OfferStock.Fields.purchased.name() );
 		this.refused = (long)jo.getLong( OfferStock.Fields.refused.name() );
 		this.expired = (long)jo.getLong( OfferStock.Fields.expired.name() );
+		this.threshold = (long)jo.getLong( OfferStock.Fields.threshold.name() );
+		this.alert_raised = Format.getMysqlDateTime( jo.getString( OfferStock.Fields.alert_raised.name() ) );
 		this.update_time = new Timestamp( Format.getMysqlDateTime( jo.getString( OfferStock.Fields.update_time.name() ) ).getTime() );
 
 	}
@@ -204,9 +247,11 @@ public class OfferStock {
 
 	}
 
-	public void setOfferId( Short offer_id ) {
+	public OfferStock setOfferId( Short offer_id ) {
 
 		this.offer_id = offer_id;
+
+		return this;
 
 	}
 
@@ -216,9 +261,11 @@ public class OfferStock {
 
 	}
 
-	public void setChannelId( Short channel_id ) {
+	public OfferStock setChannelId( Short channel_id ) {
 
 		this.channel_id = channel_id;
+
+		return this;
 
 	}
 
@@ -228,9 +275,11 @@ public class OfferStock {
 
 	}
 
-	public void setInitialStock( Long initial_stock ) {
+	public OfferStock setInitialStock( Long initial_stock ) {
 
 		this.initial_stock = initial_stock;
+
+		return this;
 
 	}
 
@@ -240,9 +289,11 @@ public class OfferStock {
 
 	}
 
-	public void setAvailable( Long available ) {
+	public OfferStock setAvailable( Long available ) {
 
 		this.available = available;
+
+		return this;
 
 	}
 
@@ -252,9 +303,11 @@ public class OfferStock {
 
 	}
 
-	public void setPurchased( Long purchased ) {
+	public OfferStock setPurchased( Long purchased ) {
 
 		this.purchased = purchased;
+
+		return this;
 
 	}
 
@@ -264,9 +317,11 @@ public class OfferStock {
 
 	}
 
-	public void setRefused( Long refused ) {
+	public OfferStock setRefused( Long refused ) {
 
 		this.refused = refused;
+
+		return this;
 
 	}
 
@@ -276,9 +331,39 @@ public class OfferStock {
 
 	}
 
-	public void setExpired( Long expired ) {
+	public OfferStock setExpired( Long expired ) {
 
 		this.expired = expired;
+
+		return this;
+
+	}
+
+	public Long getThreshold() {
+
+		return this.threshold;
+
+	}
+
+	public OfferStock setThreshold( Long threshold ) {
+
+		this.threshold = threshold;
+
+		return this;
+
+	}
+
+	public Date getAlertRaised() {
+
+		return this.alert_raised;
+
+	}
+
+	public OfferStock setAlertRaised( Date alert_raised ) {
+
+		this.alert_raised = alert_raised;
+
+		return this;
 
 	}
 
@@ -288,9 +373,11 @@ public class OfferStock {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public OfferStock setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 
@@ -312,6 +399,8 @@ public class OfferStock {
 			.append( "\"purchased\": \"" ).append( this.getPurchased() ).append( "\", " )
 			.append( "\"refused\": \"" ).append( this.getRefused() ).append( "\", " )
 			.append( "\"expired\": \"" ).append( this.getExpired() ).append( "\", " )
+			.append( "\"threshold\": \"" ).append( this.getThreshold() ).append( "\", " )
+			.append( "\"alert_raised\": \"" ).append( this.getAlertRaised() ).append( "\", " )
 			.append( "\"update_time\": \"" ).append( this.getUpdateTime() ).append( "\"" )
 			.append( " }" );
 

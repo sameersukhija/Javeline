@@ -184,9 +184,11 @@ public class OdrEvents {
 
 	}
 
-	public void setFormat( String format ) {
+	public OdrEvents setFormat( String format ) {
 
 		this.format = format;
+
+		return this;
 
 	}
 
@@ -196,9 +198,11 @@ public class OdrEvents {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public OdrEvents setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -208,9 +212,11 @@ public class OdrEvents {
 
 	}
 
-	public void setEventDate( Date event_date ) {
+	public OdrEvents setEventDate( Date event_date ) {
 
 		this.event_date = event_date;
+
+		return this;
 
 	}
 
@@ -220,9 +226,11 @@ public class OdrEvents {
 
 	}
 
-	public void setTransactionId( String transaction_id ) {
+	public OdrEvents setTransactionId( String transaction_id ) {
 
 		this.transaction_id = transaction_id;
+
+		return this;
 
 	}
 
@@ -232,9 +240,11 @@ public class OdrEvents {
 
 	}
 
-	public void setEventData( String event_data ) {
+	public OdrEvents setEventData( String event_data ) {
 
 		this.event_data = event_data;
+
+		return this;
 
 	}
 
@@ -244,9 +254,11 @@ public class OdrEvents {
 
 	}
 
-	public void setId( Integer id ) {
+	public OdrEvents setId( Integer id ) {
 
 		this.id = id;
+
+		return this;
 
 	}
 
@@ -256,9 +268,11 @@ public class OdrEvents {
 
 	}
 
-	public void setInsertTime( Timestamp insert_time ) {
+	public OdrEvents setInsertTime( Timestamp insert_time ) {
 
 		this.insert_time = insert_time;
+
+		return this;
 
 	}
 

@@ -117,9 +117,11 @@ public class Groups {
 
 	}
 
-	public void setId( Short id ) {
+	public Groups setId( Short id ) {
 
 		this.id = id;
+
+		return this;
 
 	}
 
@@ -129,9 +131,11 @@ public class Groups {
 
 	}
 
-	public void setName( String name ) {
+	public Groups setName( String name ) {
 
 		this.name = name;
+
+		return this;
 
 	}
 
@@ -141,9 +145,11 @@ public class Groups {
 
 	}
 
-	public void setProperties( String properties ) {
+	public Groups setProperties( String properties ) {
 
 		this.properties = properties;
+
+		return this;
 
 	}
 
@@ -153,9 +159,11 @@ public class Groups {
 
 	}
 
-	public void setInactivityTimeout( Integer inactivity_timeout ) {
+	public Groups setInactivityTimeout( Integer inactivity_timeout ) {
 
 		this.inactivity_timeout = inactivity_timeout;
+
+		return this;
 
 	}
 

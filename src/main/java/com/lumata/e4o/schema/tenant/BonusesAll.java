@@ -309,9 +309,11 @@ public class BonusesAll {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public BonusesAll setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -321,9 +323,11 @@ public class BonusesAll {
 
 	}
 
-	public void setPeriod( String period ) {
+	public BonusesAll setPeriod( String period ) {
 
 		this.period = period;
+
+		return this;
 
 	}
 
@@ -333,9 +337,11 @@ public class BonusesAll {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public BonusesAll setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -345,9 +351,11 @@ public class BonusesAll {
 
 	}
 
-	public void setRatePlanId( Byte rate_plan_id ) {
+	public BonusesAll setRatePlanId( Byte rate_plan_id ) {
 
 		this.rate_plan_id = rate_plan_id;
+
+		return this;
 
 	}
 
@@ -357,9 +365,11 @@ public class BonusesAll {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public BonusesAll setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -369,9 +379,11 @@ public class BonusesAll {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public BonusesAll setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -381,9 +393,11 @@ public class BonusesAll {
 
 	}
 
-	public void setArpuId( Byte arpu_id ) {
+	public BonusesAll setArpuId( Byte arpu_id ) {
 
 		this.arpu_id = arpu_id;
+
+		return this;
 
 	}
 
@@ -393,9 +407,11 @@ public class BonusesAll {
 
 	}
 
-	public void setSeniorityId( Byte seniority_id ) {
+	public BonusesAll setSeniorityId( Byte seniority_id ) {
 
 		this.seniority_id = seniority_id;
+
+		return this;
 
 	}
 
@@ -405,9 +421,11 @@ public class BonusesAll {
 
 	}
 
-	public void setBonusId( Short bonus_id ) {
+	public BonusesAll setBonusId( Short bonus_id ) {
 
 		this.bonus_id = bonus_id;
+
+		return this;
 
 	}
 
@@ -417,9 +435,11 @@ public class BonusesAll {
 
 	}
 
-	public void setQtyMsisdn( Integer qty_msisdn ) {
+	public BonusesAll setQtyMsisdn( Integer qty_msisdn ) {
 
 		this.qty_msisdn = qty_msisdn;
+
+		return this;
 
 	}
 
@@ -429,9 +449,11 @@ public class BonusesAll {
 
 	}
 
-	public void setSumQtyEarned( Float sum_qty_earned ) {
+	public BonusesAll setSumQtyEarned( Float sum_qty_earned ) {
 
 		this.sum_qty_earned = sum_qty_earned;
+
+		return this;
 
 	}
 
@@ -441,9 +463,11 @@ public class BonusesAll {
 
 	}
 
-	public void setSumQtyUsed( Float sum_qty_used ) {
+	public BonusesAll setSumQtyUsed( Float sum_qty_used ) {
 
 		this.sum_qty_used = sum_qty_used;
+
+		return this;
 
 	}
 
@@ -453,9 +477,11 @@ public class BonusesAll {
 
 	}
 
-	public void setSumQtyExpired( Float sum_qty_expired ) {
+	public BonusesAll setSumQtyExpired( Float sum_qty_expired ) {
 
 		this.sum_qty_expired = sum_qty_expired;
+
+		return this;
 
 	}
 

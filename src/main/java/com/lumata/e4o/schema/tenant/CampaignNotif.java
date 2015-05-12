@@ -183,9 +183,11 @@ public class CampaignNotif {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public CampaignNotif setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -195,9 +197,11 @@ public class CampaignNotif {
 
 	}
 
-	public void setCampaignId( Short campaign_id ) {
+	public CampaignNotif setCampaignId( Short campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+		return this;
 
 	}
 
@@ -207,9 +211,11 @@ public class CampaignNotif {
 
 	}
 
-	public void setChannelId( Byte channel_id ) {
+	public CampaignNotif setChannelId( Byte channel_id ) {
 
 		this.channel_id = channel_id;
+
+		return this;
 
 	}
 
@@ -219,9 +225,11 @@ public class CampaignNotif {
 
 	}
 
-	public void setMessageId( Long message_id ) {
+	public CampaignNotif setMessageId( Long message_id ) {
 
 		this.message_id = message_id;
+
+		return this;
 
 	}
 
@@ -231,9 +239,11 @@ public class CampaignNotif {
 
 	}
 
-	public void setMessageState( String message_state ) {
+	public CampaignNotif setMessageState( String message_state ) {
 
 		this.message_state = message_state;
+
+		return this;
 
 	}
 
@@ -243,9 +253,11 @@ public class CampaignNotif {
 
 	}
 
-	public void setChannelState( Short channel_state ) {
+	public CampaignNotif setChannelState( Short channel_state ) {
 
 		this.channel_state = channel_state;
+
+		return this;
 
 	}
 
@@ -255,9 +267,11 @@ public class CampaignNotif {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public CampaignNotif setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

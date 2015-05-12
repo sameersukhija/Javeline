@@ -54,9 +54,11 @@ public class Integers {
 
 	}
 
-	public void setNumber( Byte number ) {
+	public Integers setNumber( Byte number ) {
 
 		this.number = number;
+
+		return this;
 
 	}
 

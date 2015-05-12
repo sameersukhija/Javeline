@@ -180,9 +180,11 @@ public class CampaignTypes {
 
 	}
 
-	public void setTypeId( Short type_id ) {
+	public CampaignTypes setTypeId( Short type_id ) {
 
 		this.type_id = type_id;
+
+		return this;
 
 	}
 
@@ -192,9 +194,11 @@ public class CampaignTypes {
 
 	}
 
-	public void setTypeName( String type_name ) {
+	public CampaignTypes setTypeName( String type_name ) {
 
 		this.type_name = type_name;
+
+		return this;
 
 	}
 
@@ -204,9 +208,11 @@ public class CampaignTypes {
 
 	}
 
-	public void setMaxOccurence( Short max_occurence ) {
+	public CampaignTypes setMaxOccurence( Short max_occurence ) {
 
 		this.max_occurence = max_occurence;
+
+		return this;
 
 	}
 
@@ -216,9 +222,11 @@ public class CampaignTypes {
 
 	}
 
-	public void setWaitingPeriod( Short waiting_period ) {
+	public CampaignTypes setWaitingPeriod( Short waiting_period ) {
 
 		this.waiting_period = waiting_period;
+
+		return this;
 
 	}
 
@@ -228,9 +236,11 @@ public class CampaignTypes {
 
 	}
 
-	public void setMaxSimultaneous( Short max_simultaneous ) {
+	public CampaignTypes setMaxSimultaneous( Short max_simultaneous ) {
 
 		this.max_simultaneous = max_simultaneous;
+
+		return this;
 
 	}
 
@@ -240,9 +250,11 @@ public class CampaignTypes {
 
 	}
 
-	public void setChurnImpact( Byte churn_impact ) {
+	public CampaignTypes setChurnImpact( Byte churn_impact ) {
 
 		this.churn_impact = churn_impact;
+
+		return this;
 
 	}
 
@@ -252,9 +264,11 @@ public class CampaignTypes {
 
 	}
 
-	public void setFullStats( Byte full_stats ) {
+	public CampaignTypes setFullStats( Byte full_stats ) {
 
 		this.full_stats = full_stats;
+
+		return this;
 
 	}
 

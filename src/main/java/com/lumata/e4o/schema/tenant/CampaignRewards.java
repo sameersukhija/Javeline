@@ -225,9 +225,11 @@ public class CampaignRewards {
 
 	}
 
-	public void setMsisdn( Long msisdn ) {
+	public CampaignRewards setMsisdn( Long msisdn ) {
 
 		this.msisdn = msisdn;
+
+		return this;
 
 	}
 
@@ -237,9 +239,11 @@ public class CampaignRewards {
 
 	}
 
-	public void setCampaignId( Short campaign_id ) {
+	public CampaignRewards setCampaignId( Short campaign_id ) {
 
 		this.campaign_id = campaign_id;
+
+		return this;
 
 	}
 
@@ -249,9 +253,11 @@ public class CampaignRewards {
 
 	}
 
-	public void setModuleId( Byte module_id ) {
+	public CampaignRewards setModuleId( Byte module_id ) {
 
 		this.module_id = module_id;
+
+		return this;
 
 	}
 
@@ -261,9 +267,11 @@ public class CampaignRewards {
 
 	}
 
-	public void setRewardId( Short reward_id ) {
+	public CampaignRewards setRewardId( Short reward_id ) {
 
 		this.reward_id = reward_id;
+
+		return this;
 
 	}
 
@@ -273,9 +281,11 @@ public class CampaignRewards {
 
 	}
 
-	public void setRelationTypeId( Byte relation_type_id ) {
+	public CampaignRewards setRelationTypeId( Byte relation_type_id ) {
 
 		this.relation_type_id = relation_type_id;
+
+		return this;
 
 	}
 
@@ -285,9 +295,11 @@ public class CampaignRewards {
 
 	}
 
-	public void setQtyReward( Integer qty_reward ) {
+	public CampaignRewards setQtyReward( Integer qty_reward ) {
 
 		this.qty_reward = qty_reward;
+
+		return this;
 
 	}
 
@@ -297,9 +309,11 @@ public class CampaignRewards {
 
 	}
 
-	public void setQtyRewardIn( Integer qty_reward_in ) {
+	public CampaignRewards setQtyRewardIn( Integer qty_reward_in ) {
 
 		this.qty_reward_in = qty_reward_in;
+
+		return this;
 
 	}
 
@@ -309,9 +323,11 @@ public class CampaignRewards {
 
 	}
 
-	public void setControl( Boolean control ) {
+	public CampaignRewards setControl( Boolean control ) {
 
 		this.control = control;
+
+		return this;
 
 	}
 
@@ -321,9 +337,11 @@ public class CampaignRewards {
 
 	}
 
-	public void setUpdateTime( Timestamp update_time ) {
+	public CampaignRewards setUpdateTime( Timestamp update_time ) {
 
 		this.update_time = update_time;
+
+		return this;
 
 	}
 

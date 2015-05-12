@@ -96,9 +96,11 @@ public class LibraryStatuses {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public LibraryStatuses setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -108,9 +110,11 @@ public class LibraryStatuses {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public LibraryStatuses setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -120,9 +124,11 @@ public class LibraryStatuses {
 
 	}
 
-	public void setStatus( String status ) {
+	public LibraryStatuses setStatus( String status ) {
 
 		this.status = status;
+
+		return this;
 
 	}
 

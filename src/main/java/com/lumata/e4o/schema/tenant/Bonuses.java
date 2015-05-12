@@ -432,9 +432,11 @@ public class Bonuses {
 
 	}
 
-	public void setBonusId( Short bonus_id ) {
+	public Bonuses setBonusId( Short bonus_id ) {
 
 		this.bonus_id = bonus_id;
+
+		return this;
 
 	}
 
@@ -444,9 +446,11 @@ public class Bonuses {
 
 	}
 
-	public void setBonusName( String bonus_name ) {
+	public Bonuses setBonusName( String bonus_name ) {
 
 		this.bonus_name = bonus_name;
+
+		return this;
 
 	}
 
@@ -456,9 +460,11 @@ public class Bonuses {
 
 	}
 
-	public void setUnit( String unit ) {
+	public Bonuses setUnit( String unit ) {
 
 		this.unit = unit;
+
+		return this;
 
 	}
 
@@ -468,9 +474,11 @@ public class Bonuses {
 
 	}
 
-	public void setOperations( String operations ) {
+	public Bonuses setOperations( String operations ) {
 
 		this.operations = operations;
+
+		return this;
 
 	}
 
@@ -480,9 +488,11 @@ public class Bonuses {
 
 	}
 
-	public void setInCredit( Boolean in_credit ) {
+	public Bonuses setInCredit( Boolean in_credit ) {
 
 		this.in_credit = in_credit;
+
+		return this;
 
 	}
 
@@ -492,9 +502,11 @@ public class Bonuses {
 
 	}
 
-	public void setHandleOptOut( String handleOptOut ) {
+	public Bonuses setHandleOptOut( String handleOptOut ) {
 
 		this.handleOptOut = handleOptOut;
+
+		return this;
 
 	}
 
@@ -504,9 +516,11 @@ public class Bonuses {
 
 	}
 
-	public void setInFeedbackRequired( String inFeedbackRequired ) {
+	public Bonuses setInFeedbackRequired( String inFeedbackRequired ) {
 
 		this.inFeedbackRequired = inFeedbackRequired;
+
+		return this;
 
 	}
 
@@ -516,9 +530,11 @@ public class Bonuses {
 
 	}
 
-	public void setCommodityType( String commodity_type ) {
+	public Bonuses setCommodityType( String commodity_type ) {
 
 		this.commodity_type = commodity_type;
+
+		return this;
 
 	}
 
@@ -528,9 +544,11 @@ public class Bonuses {
 
 	}
 
-	public void setAccountType( String account_type ) {
+	public Bonuses setAccountType( String account_type ) {
 
 		this.account_type = account_type;
+
+		return this;
 
 	}
 
@@ -540,9 +558,11 @@ public class Bonuses {
 
 	}
 
-	public void setAccountTypeId( Short account_type_id ) {
+	public Bonuses setAccountTypeId( Short account_type_id ) {
 
 		this.account_type_id = account_type_id;
+
+		return this;
 
 	}
 
@@ -552,9 +572,11 @@ public class Bonuses {
 
 	}
 
-	public void setMaxValue( Integer max_value ) {
+	public Bonuses setMaxValue( Integer max_value ) {
 
 		this.max_value = max_value;
+
+		return this;
 
 	}
 
@@ -564,9 +586,11 @@ public class Bonuses {
 
 	}
 
-	public void setDefaultValidityType( String default_validity_type ) {
+	public Bonuses setDefaultValidityType( String default_validity_type ) {
 
 		this.default_validity_type = default_validity_type;
+
+		return this;
 
 	}
 
@@ -576,9 +600,11 @@ public class Bonuses {
 
 	}
 
-	public void setDefaultPeriodType( String default_period_type ) {
+	public Bonuses setDefaultPeriodType( String default_period_type ) {
 
 		this.default_period_type = default_period_type;
+
+		return this;
 
 	}
 
@@ -588,9 +614,11 @@ public class Bonuses {
 
 	}
 
-	public void setDefaultQtyPeriod( Short default_qty_period ) {
+	public Bonuses setDefaultQtyPeriod( Short default_qty_period ) {
 
 		this.default_qty_period = default_qty_period;
+
+		return this;
 
 	}
 
@@ -600,9 +628,11 @@ public class Bonuses {
 
 	}
 
-	public void setDefaultFixedValidityFrom( String default_fixed_validity_from ) {
+	public Bonuses setDefaultFixedValidityFrom( String default_fixed_validity_from ) {
 
 		this.default_fixed_validity_from = default_fixed_validity_from;
+
+		return this;
 
 	}
 
@@ -612,9 +642,11 @@ public class Bonuses {
 
 	}
 
-	public void setUnitaryCost( Float unitary_cost ) {
+	public Bonuses setUnitaryCost( Float unitary_cost ) {
 
 		this.unitary_cost = unitary_cost;
+
+		return this;
 
 	}
 
@@ -624,9 +656,11 @@ public class Bonuses {
 
 	}
 
-	public void setRecommendedPrice( Float recommended_price ) {
+	public Bonuses setRecommendedPrice( Float recommended_price ) {
 
 		this.recommended_price = recommended_price;
+
+		return this;
 
 	}
 
@@ -636,9 +670,11 @@ public class Bonuses {
 
 	}
 
-	public void setExpiryNotifDays( Short expiryNotifDays ) {
+	public Bonuses setExpiryNotifDays( Short expiryNotifDays ) {
 
 		this.expiryNotifDays = expiryNotifDays;
+
+		return this;
 
 	}
 
@@ -648,9 +684,11 @@ public class Bonuses {
 
 	}
 
-	public void setExpiryNotif( String expiryNotif ) {
+	public Bonuses setExpiryNotif( String expiryNotif ) {
 
 		this.expiryNotif = expiryNotif;
+
+		return this;
 
 	}
 

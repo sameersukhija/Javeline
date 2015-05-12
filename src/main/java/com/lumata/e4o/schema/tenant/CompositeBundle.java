@@ -75,9 +75,11 @@ public class CompositeBundle {
 
 	}
 
-	public void setBundle( Long bundle ) {
+	public CompositeBundle setBundle( Long bundle ) {
 
 		this.bundle = bundle;
+
+		return this;
 
 	}
 
@@ -87,9 +89,11 @@ public class CompositeBundle {
 
 	}
 
-	public void setBundleName( String bundle_name ) {
+	public CompositeBundle setBundleName( String bundle_name ) {
 
 		this.bundle_name = bundle_name;
+
+		return this;
 
 	}
 

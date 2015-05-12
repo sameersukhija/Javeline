@@ -204,9 +204,11 @@ public class SubscribersAll {
 
 	}
 
-	public void setAggDate( Date agg_date ) {
+	public SubscribersAll setAggDate( Date agg_date ) {
 
 		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -216,9 +218,11 @@ public class SubscribersAll {
 
 	}
 
-	public void setPeriod( String period ) {
+	public SubscribersAll setPeriod( String period ) {
 
 		this.period = period;
+
+		return this;
 
 	}
 
@@ -228,9 +232,11 @@ public class SubscribersAll {
 
 	}
 
-	public void setProfileId( Byte profile_id ) {
+	public SubscribersAll setProfileId( Byte profile_id ) {
 
 		this.profile_id = profile_id;
+
+		return this;
 
 	}
 
@@ -240,9 +246,11 @@ public class SubscribersAll {
 
 	}
 
-	public void setRatePlanId( Byte rate_plan_id ) {
+	public SubscribersAll setRatePlanId( Byte rate_plan_id ) {
 
 		this.rate_plan_id = rate_plan_id;
+
+		return this;
 
 	}
 
@@ -252,9 +260,11 @@ public class SubscribersAll {
 
 	}
 
-	public void setStatusId( Byte status_id ) {
+	public SubscribersAll setStatusId( Byte status_id ) {
 
 		this.status_id = status_id;
+
+		return this;
 
 	}
 
@@ -264,9 +274,11 @@ public class SubscribersAll {
 
 	}
 
-	public void setNetworkId( Byte network_id ) {
+	public SubscribersAll setNetworkId( Byte network_id ) {
 
 		this.network_id = network_id;
+
+		return this;
 
 	}
 
@@ -276,9 +288,11 @@ public class SubscribersAll {
 
 	}
 
-	public void setInTag( String in_tag ) {
+	public SubscribersAll setInTag( String in_tag ) {
 
 		this.in_tag = in_tag;
+
+		return this;
 
 	}
 
@@ -288,9 +302,11 @@ public class SubscribersAll {
 
 	}
 
-	public void setQtyMsisdn( Integer qty_msisdn ) {
+	public SubscribersAll setQtyMsisdn( Integer qty_msisdn ) {
 
 		this.qty_msisdn = qty_msisdn;
+
+		return this;
 
 	}
 

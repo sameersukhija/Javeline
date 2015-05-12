@@ -174,7 +174,7 @@ public class GenerateCDRVoucherRedemption {
 			cdrVR.setDateFormat( "yyyy-MM-dd HH:mm:ss" );
 			cdrVR.setDateStrategyFixed( date );
 			cdrVR.setLocationStrategyFixed( "Milan" );
-			cdrVR.setPartnerStrategyFixed( voucher.getPartnerId() );
+			//cdrVR.setPartnerStrategyFixed( voucher.getPartnerId() );
 		
 			cdrVR.addLines( 1 );
 			
