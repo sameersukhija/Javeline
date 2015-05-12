@@ -1,0 +1,52 @@
+{
+  "productTypes": [
+    {
+      "enabled": true,
+      "offer_name": "OFF",
+	  "offer_description":"offer given for free sms",
+	  "TC": "Terms and Conditions Apply",
+	  "PriceChannel":"Campaign Manager",
+	  "stock":"500",
+      "name": "newProduct",
+      "description": "newProduct",
+      "delete": false,
+      "characteristics": [
+        {
+          "enabled": true,
+          "name": "list1",
+          "type": "List",
+          "list": {
+            "value": [
+              "one",
+              "two",
+              "three"
+            ],
+            "default": [
+              "two",
+              "three"
+            ]
+          },
+          "choice": null,
+          "text": null,
+          "unit": null
+        },
+        {
+          "enabled": true,
+          "name": "choice1",
+          "type": "Choice",
+          "list": null,
+          "choice": {
+            "value": [
+              "bim",
+              "bum",
+              "bam"
+            ],
+            "default": "bam"
+          },
+          "text": null,
+          "unit": null
+        }
+      ]
+    }
+  ]
+}
