@@ -59,4 +59,13 @@
     </classes>	
   </test>
   
+   <test name="CustomerCare Subscriber creation">
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestCustomerCareCreateSubscriberForm">        
+      </class>
+    </classes>	
+  </test>
+  
+  
+  
 </suite>
