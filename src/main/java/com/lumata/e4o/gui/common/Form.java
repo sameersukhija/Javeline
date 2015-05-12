@@ -283,6 +283,8 @@ public abstract class Form {
 		return search( by, tag, null, null );
 		
 	}
+	
+	
 
 	public Form searchById( String id, long timeout, long interval ) throws FormException {
 		
@@ -290,6 +292,11 @@ public abstract class Form {
 		
 		return this;
 		
+	}
+	
+	public Form searchById(String id) throws FormException{
+		search(SeleniumUtils.SearchBy.ID,id);
+		return this;
 	}
 
 	public Form searchByName( String name ) throws FormException {

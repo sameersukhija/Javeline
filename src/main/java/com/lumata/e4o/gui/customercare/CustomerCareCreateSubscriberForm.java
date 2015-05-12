@@ -45,6 +45,50 @@ public CustomerCareCreateSubscriberForm open() throws FormException {
 		return this;
 	}
 	
+	//Select RatePlan
+	public CustomerCareCreateSubscriberForm selectRatePlan(String text) throws FormException
+	{
+		super.selectByIdAndVisibleText("gwt-debug-ListCCCreateRatePlan", text);
+		return this;
+	}
+	//Select Status
+	public CustomerCareCreateSubscriberForm selectStatus(String text) throws FormException
+	{
+		super.selectByIdAndVisibleText("gwt-debug-ListCCCreateStatus", text);
+		return this;
+	}
+	
+	//Select InTag
+	public CustomerCareCreateSubscriberForm selectInTag(String text) throws FormException
+	{
+		super.selectByIdAndVisibleText("gwt-debug-ListCCCreateInTag", text);
+		return this;
+	}
+	
+	//Enter IMSI
+	public CustomerCareCreateSubscriberForm enterImsi(String strImsi) throws FormException
+	{
+		
+		super.sendKeysById("gwt-debug-InputCCCreateIMSI",strImsi);
+		return this;
+	}
+	
+	//Enter IMEI
+	public CustomerCareCreateSubscriberForm enterImei(String strImei) throws FormException
+	{
+		super.sendKeysById("gwt-debug-InputCCCreateIMEI",strImei);
+		return this;
+	}
+	
+	//Click Cancel Button
+	public CustomerCareCreateSubscriberForm clickCustomerCareCancel() throws FormException
+	{
+		super.clickId("gwt-debug-BtnCCCreateCancel");
+		return this;
+	}
+	
+
+	
 	
 	
 	
