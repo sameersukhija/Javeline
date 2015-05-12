@@ -11,7 +11,7 @@ public class CustomerCareComplementsForm  extends CustomerCareForm {
 		
 	}
 
-	protected CustomerCareComplementsForm open() throws FormException {
+	protected CustomerCareComplementsForm openComplementsTab() throws FormException {
 		
 		clickId( "gwt-debug-BtnCCBarInfoComposites" );
 		
