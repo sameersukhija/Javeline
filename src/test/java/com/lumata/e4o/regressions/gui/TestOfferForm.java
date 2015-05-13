@@ -64,41 +64,41 @@ public class TestOfferForm extends ParentTestCase{
 	    Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
 		
 
-//		ProductTypesForm productTypesForm = new ProductTypesForm(seleniumWebDriver,setupProductTypes,TIMEOUT, ATTEMPT_TIMEOUT);
-//		productTypesForm.openForm();	
-//		int numbProdType = setupProductTypes.getList().size();
-//		Reporter.log("numProductType -> " + numbProdType, LOG_TO_STD_OUT);
-//
-//		for (int index = 0; index < numbProdType; index++) {
-//			JsonCurrentElement current = setupProductTypes.getCurrentElementById(index);
-//			if ( current.getEnabled() ){
-//				product_type_name=Format.addTimestamp(setupProductTypes.getName() + "_");
-//				productTypesForm.configureProductType(product_type_name,setupProductTypes.getDescription());
-//				for (JsonCharacteristicElement chElem : setupProductTypes.getCharacteristicsList()) {
-//			
-//					if ( chElem.getEnabled() ) {
-//				
-//						productTypesForm.addCharacteristicButton();
-//						productTypesForm.fillCharacteristicElement(Format.addTimestamp(chElem.getName()),chElem);
-//						productTypesForm.saveCharacteristic();
-//					}
-//				}
-//				productTypesForm.saveProductType();
-//				status=productTypesForm.isProductTypeInList(product_type_name);
-//				if(status==true)
-//				{
-//					Assert.assertTrue(status);
-//					Reporter.log("Product Types Created Succesfully!");
-//				}
-//				else
-//				{
-//					//Assert.assertTrue(status,"The creation of Product Failed!");
-//					Assert.fail("The Product Types creation Failed!");
-//					Reporter.log("Creation of Product Types Failed!");
-//				}
-//			}
-//	
-//		}
+		ProductTypesForm productTypesForm = new ProductTypesForm(seleniumWebDriver,setupProductTypes,TIMEOUT, ATTEMPT_TIMEOUT);
+		productTypesForm.openForm();	
+		int numbProdType = setupProductTypes.getList().size();
+		Reporter.log("numProductType -> " + numbProdType, LOG_TO_STD_OUT);
+
+		for (int index = 0; index < numbProdType; index++) {
+			JsonCurrentElement current = setupProductTypes.getCurrentElementById(index);
+			if ( current.getEnabled() ){
+				product_type_name=Format.addTimestamp(setupProductTypes.getName() + "_");
+				productTypesForm.configureProductType(product_type_name,setupProductTypes.getDescription());
+				for (JsonCharacteristicElement chElem : setupProductTypes.getCharacteristicsList()) {
+			
+					if ( chElem.getEnabled() ) {
+				
+						productTypesForm.addCharacteristicButton();
+						productTypesForm.fillCharacteristicElement(Format.addTimestamp(chElem.getName()),chElem);
+						productTypesForm.saveCharacteristic();
+					}
+				}
+				productTypesForm.saveProductType();
+				status=productTypesForm.isProductTypeInList(product_type_name);
+				if(status==true)
+				{
+					Assert.assertTrue(status);
+					Reporter.log("Product Types Created Succesfully!");
+				}
+				else
+				{
+					//Assert.assertTrue(status,"The creation of Product Failed!");
+					Assert.fail("The Product Types creation Failed!");
+					Reporter.log("Creation of Product Types Failed!");
+				}
+			}
+	
+		}
 		int numberOfOffer=setupOffer.getList().size();
 		for (int index = 0; index < numberOfOffer; index++) {
 			
@@ -116,7 +116,7 @@ public class TestOfferForm extends ParentTestCase{
 			    setDescription(setupOffer.getDescription()).
 				setTerms(setupOffer.getTermsAndConditions()).
 				clickOfferContentTab().
-				setProductType("newProduct_1429181898513"). 
+				setProductType("product_type_name"). 
 				clickPriceTab();
 			
 			List<JSONPricesElement> prices = setupOffer.getOffersPrices();
