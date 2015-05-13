@@ -274,7 +274,13 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 		return this;
 		
 	}
-
+	public Form searchById( String id ) throws FormException {
+		
+		search( SeleniumUtils.SearchBy.ID, id );
+		
+		return this;
+		
+	}
 	public Form searchByName( String name ) throws FormException {
 		
 		search( SeleniumUtils.SearchBy.NAME, name, timeout, interval );
