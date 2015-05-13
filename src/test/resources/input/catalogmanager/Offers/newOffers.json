@@ -1,52 +1,140 @@
 {
-  "productTypes": [
-    {
-      "enabled": true,
-      "offer_name": "OFF",
-	  "offer_description":"offer given for free sms",
-	  "TC": "Terms and Conditions Apply",
-	  "PriceChannel":"Campaign Manager",
-	  "stock":"500",
-      "name": "newProduct",
-      "description": "newProduct",
-      "delete": false,
-      "characteristics": [
-        {
-          "enabled": true,
-          "name": "list1",
-          "type": "List",
-          "list": {
-            "value": [
-              "one",
-              "two",
-              "three"
-            ],
-            "default": [
-              "two",
-              "three"
-            ]
-          },
-          "choice": null,
-          "text": null,
-          "unit": null
-        },
-        {
-          "enabled": true,
-          "name": "choice1",
-          "type": "Choice",
-          "list": null,
-          "choice": {
-            "value": [
-              "bim",
-              "bum",
-              "bam"
-            ],
-            "default": "bam"
-          },
-          "text": null,
-          "unit": null
-        }
-      ]
-    }
-  ]
+	"offers": [
+		{
+			"enabled": true,
+			"name": "OfferA",
+			"definition" : {
+				"externalId" : null,
+				"description": "Offer 1",
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : null,
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : "100",
+				"reservations" : null,
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"activate":true,
+			"delete": false
+		},	
+		{
+			"enabled": true,
+			"name": "OfferTestA",
+			"definition" : {
+				"externalId" : null,
+				"description": null,
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : [
+					
+					{
+						"type" : "ProductTypes",
+						"product" : null,
+						"productType" : "ProductTypeA",
+						"quantity" : null,
+						"offers" : null
+					}
+					
+				],
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : "100",
+				"reservations" : null,
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "OfferTestB",
+			"definition" : {
+				"externalId" : null,
+				"description": null,
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : [
+					
+					{
+						"type" : "ProductTypes",
+						"product" : null,
+						"productType" : "ProductTypeA",
+						"quantity" : null,
+						"offers" : null
+					}
+					
+				],
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : "50",
+				"reservations" : null,
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		}
+		]
+			
 }

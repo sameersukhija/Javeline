@@ -69,19 +69,19 @@ public class OffersForm extends CatalogueManagerForm {
 private OffersForm offersForm;
 private JSONOffers offerCfg;
 
-	private JsonConfigurationFile setupProductTypes;
 	
 	/* constructor for initializing without product type json configuration*/ 
-	//public OffersForm(SeleniumWebDriver selenium,long timeout, long interval) {
-		
-		//super(selenium, timeout, interval);
-		
-	
-	
-	public OffersForm( SeleniumWebDriver selenium, JSONProductTypes setupProductTypes2, long timeout, long interval ) {
+	public OffersForm(SeleniumWebDriver selenium,long timeout, long interval) {
 		
 		super(selenium, timeout, interval);
-
+	}
+		
+	
+	
+	public OffersForm( SeleniumWebDriver selenium, JSONOffers jsonoffer, long timeout, long interval ) {
+		
+		super(selenium, timeout, interval);
+		this.offerCfg=jsonoffer;
 		}
 	
 	/**
@@ -101,10 +101,14 @@ private JSONOffers offerCfg;
 	 * @throws FormException 
 	 * @throws JSONSException
 	 */
-	public OffersForm addOffer() throws FormException, JSONSException {
+	public OffersForm clickAddOffer() throws FormException, JSONSException {
 		
 		clickXPath( "//button[@name='btn-add' and @title='Add Offer']" );
 	
+		return this;
+	}
+	public OffersForm clickOfferContentTab() throws FormException{
+		super.clickLink("Offer Content");;
 		return this;
 	}
 	/**
@@ -380,29 +384,31 @@ private JSONOffers offerCfg;
 		
 	}
 
-	
-	public OffersForm Offer_Description(String offer_description) throws FormException {
-		
-		clickXPath("//td[contains(text(),'Description')]//ancestor::tr[1]//button");
-		
-		super.sendKeysBycssSelector( "textarea.gwt-TextArea", offer_description);
-		//sendKeysByXPath( "//textarea",offer_description);
-		
-		clickXPath("//textarea//ancestor::div[1]//button[@title='Save']");
-				
-		return this;
-		
-	}
+	/*Duplicatte as SetDescription method*/
+//	public OffersForm Offer_Description(String offer_description) throws FormException {
+//		
+//		clickXPath("//td[contains(text(),'Description')]//ancestor::tr[1]//button");
+//		
+//		super.sendKeysBycssSelector( "textarea.gwt-TextArea", offer_description);
+//		//sendKeysByXPath( "//textarea",offer_description);
+//		
+//		clickXPath("//textarea//ancestor::div[1]//button[@title='Save']");
+//				
+//		return this;
+//		
+//	}
 	
 	
 	
 	public OffersForm setTerms( String TC ) throws FormException {
-		
+		if (null != TC)
+		{
 		super.clickXPath("//td[contains(text(),'Terms')]//ancestor::tr[1]//button");
 		
 		super.sendKeysByXPath( "//textarea", TC);
 		
 		super.clickXPath("//textarea//ancestor::div[1]//button[@title='Save']");
+		}
 		
 		return this;
 		
@@ -416,18 +422,24 @@ private JSONOffers offerCfg;
 		
 	}
 	
+	public OffersForm clickPriceTab() throws FormException{
+		super.clickId("gwt-debug-Anchor-actrule-catalog-offer-prices");
+		return this;
+	}
+	public OffersForm clickAddPriceButton() throws FormException{
+		super.clickXPath("//div[contains(text(),'Create offer')]//ancestor::div[4]//button[@title='Add']");;
+		return this;
+	}
 	
 	public OffersForm setPriceChannel( String PriceChannel ) throws FormException {
-		
-		clickId("gwt-debug-Anchor-actrule-catalog-offer-prices");	
-		
-		clickBycssSelector("tr.cycle1.headers > td.column_description > button[name=\"btn-add\"]");
-		
-		clickXPath("//div[contains(text(),'Offer Prices')]//ancestor::table//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
-		
-		clickXPath("//div[text()='Add channel']//ancestor::table[1]//button[@title='OK']");
+			clickXPath("//div[contains(text(),'Offer Prices')]//ancestor::table//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
 
-		clickXPath("//button[@title='OK']");
+			selectById("gwt-debug-ListBox-PricesEditionPopUp-lChan", PriceChannel);
+						
+			clickXPath("//div[text()='Add channel']//ancestor::table[1]//button[@title='OK']");
+						
+					
+			clickXPath("//button[@title='OK']");
 
 		return this;
 			
@@ -439,10 +451,13 @@ private JSONOffers offerCfg;
 			
 			
 		}
-	
+		public OffersForm clickAvailabilityTab() throws FormException{
+			super.clickId("gwt-debug-Anchor-actrule-catalog-product-steps-stockValidity");
+			return this;
+		}
 		public OffersForm setStockAvailability( String stock ) throws FormException {
 			
-			super.clickId("gwt-debug-Anchor-actrule-catalog-product-steps-stockValidity");
+			
 			
 			super.clickXPath("//td[text()='Available Offers']//ancestor::tr[1]//button");
 				
@@ -470,10 +485,14 @@ private JSONOffers offerCfg;
 				
 			}
 	
-			
+			public OffersForm clickActivationTab() throws FormException
+			{
+				super.clickId("gwt-debug-Anchor-actrule-campaign-creationEdition-steps-activation");
+				return this;
+			}
 			public OffersForm ActivationBtn() throws FormException {
 				
-				    clickId("gwt-debug-Anchor-actrule-campaign-creationEdition-steps-activation");
+				    
 					clickXPath("//tr[3]/td/table/tbody/tr/td[5]/button");
 					//handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 				    
@@ -513,13 +532,14 @@ private JSONOffers offerCfg;
 
 
 	public OffersForm setDescription(String offer_description) throws FormException, JSONSException {
-		
+		if(null!=offer_description)
+		{
 		clickXPath("//td[contains(text(),'Description')]//ancestor::tr[1]//button");
 		//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		super.sendKeysBycssSelector("textarea.gwt-TextArea", offer_description);
 	
 		clickXPath("//textarea//ancestor::div[1]//button[@title='Save']");
-	
+		}
 	return this;
 }
 
@@ -559,8 +579,8 @@ private JSONOffers offerCfg;
 	
 		public List<WebElement> getOfferList()  throws FormException {
 		
-		String rootPath = "//table[contains(@class, 'tableList')]";
-		String subPath = "//tr[contains(@class, 'contentRow cycle2 activatedRow-cycle2')]//td[@class='column_description']";
+		String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
+		String subPath = "//tr[contains(@class, 'activatedRow-cycle')]//td[@class='column_description']";
 				//div[@class='gwt-Label showPopupLink']";
 		 
 		List<WebElement> offerList = getListByXPath(rootPath, rootPath + subPath);
@@ -612,7 +632,7 @@ private JSONOffers offerCfg;
 		//super.clickId("gwt-debug-ListBox-OfferContentPopUp-lbProd").selectByNameandVisibleText("newProduct1");
 		//super.sendKeysById("gwt-debug-TextBox-OfferContentPopUp-prodStock","10");
 		//super.clickName("btn-ok");
-		super.clickLink("Offer Content");
+		
 		
 		super.clickBycssSelector("table.verticalPanelInternalMargin > tbody > tr > td > table.tableList > tbody > tr.cycle2.headers > td.column_description > button[name='btn-add']");
 		super.selectByIdAndVisibleText("gwt-debug-ListBox-OfferContentPopUp-lbType", "Product Types");
@@ -620,154 +640,154 @@ private JSONOffers offerCfg;
 		super.clickName("btn-ok");
 		return this;
 	}
+	//These methodsfor product creation not required.
 	
-	
-	public OffersForm setProductTypeName(String name) throws FormException
-	{
-		super.sendKeysByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']");
-		return this;
-	}
-	
-	
-	public String getProductType(String name) throws FormException
-	{
-		return super.getValueByXPath("//td/table/tbody/tr/td/table/tbody/tr[5]/td[2]/select");
-	}
-	
-	public String getProductTypeName(String name) throws FormException
-	{
-		return super.getValueByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']");
-	}
-	
-	public OffersForm(SeleniumWebDriver selenium, OffersForm jsonOffers, long timeout, long interval) {
-		
-		super(selenium, timeout, interval);
-		
-		this.offersForm = jsonOffers;
-	}
-
-	public static void configureProductType(String productTypeName,
-			String description) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public OffersForm setProductTypeDescription(String description) throws FormException
-	{
-		super.sendKeysByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-descriptionTextBox']", description);
-		return this;
-	}
-	public String getProductTypeDescription() throws FormException
-	{
-		return super.getValueByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-descriptionTextBox']");
-	}
-	public OffersForm addCharacteristicButton() throws FormException
-	{
-		super.clickXPath("//div[text()='Create product type']//ancestor::div[2]//button[@title='Add']");
-		return this;
-	}
-	public OffersForm setCharacteristicName(String ch_name) throws FormException
-	{
-		super.sendKeysByXPath("//td[contains(text(),'Characteristic Name')]//ancestor::tr[1]//input", ch_name);
-		return this;
-	}
-	public String getCharacteristicName() throws FormException
-	{
-		return super.getValueByXPath("//td[contains(text(),'Characteristic Name')]//ancestor::tr[1]//input");
-	}
-	public OffersForm setCharacteristicType(String ch_type) throws FormException
-	{
-		super.selectByXPathAndVisibleText("//td[contains(text(),'Type')]//ancestor::tr[1]//select", ch_type);
-		return this;
-	}
-	public String getCharacteristicType() throws FormException
-	{
-		return super.getValueByXPath("//td[contains(text(),'Type')]//ancestor::tr[1]//select");
-	}
-	public OffersForm addCharacteristicValueButton() throws FormException
-	{
-		super.clickXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::div[2]//button[@title='Add']");
-		return this;
-	}
-	public OffersForm setListCharacteristicValues(List<String> values,List<String> defaultValue) throws FormException
-	{
-		List<WebElement> inputElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='text']"));
-		
-		// checkboxes
-		List<WebElement> checkElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='checkbox']"));
-		
-		// fill
-		for (int index = 0; index < values.size(); index++) { 
-			
-			WebElement input = inputElements.get(index);
-			String value = values.get(index);
-			
-			input.sendKeys(value);
-			
-			if ( defaultValue != null && defaultValue.contains(values.get(index)) ) 
-				checkElements.get(index).click();
-		}
-		return this;
-	}
-	public OffersForm setChoiceCharacteristicValues(List<String> values,String defaultValue) throws FormException
-	{
-		// element to be filled
-					List<WebElement> inputElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='text']"));
-					
-					// ratio
-					List<WebElement> radioElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='radio']"));
-					
-					// fill
-					for (int index = 0; index < values.size(); index++) { 
-						
-						WebElement input = inputElements.get(index);
-						String value = values.get(index);
-						
-						input.sendKeys(value);
-						
-						if ( defaultValue != null && defaultValue.equals(values.get(index)) ) 
-							radioElements.get(index).click();
-					}
-		return this;
-	}
-	public OffersForm setTextCharTypeValue(String value) throws FormException
-	{
-		super.sendKeysByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-defaultValueTextBox']", value);
-		return this;
-	}
-	public String getTextCharTypeValue() throws FormException
-	{
-		return super.getValueByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-defaultValueTextBox']");
-	}
-	public OffersForm setUnitTypeName(String unitName) throws FormException
-	{
-		super.sendKeysByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-unitTextBox']", unitName);
-		return this;
-	}
-	public String getUnitTypeName() throws FormException
-	{
-		return super.getValueByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-unitTextBox']");
-	}
-	public OffersForm setUnitTypeValue(String unitValue) throws FormException
-	{
-		super.sendKeysByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-defaultValueTextBox']", unitValue);
-		return this;
-	}
-	public String getUnitTypeValue() throws FormException
-	{
-		return super.getValueByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-defaultValueTextBox']");
-	}
-	
-	
-	public OffersForm saveCharacteristic() throws FormException{
-		super.clickName( "btn-ok" );
-		return this;
-	}
-	public OffersForm saveProductType() throws FormException {
-		super.clickName( "btn-save" );
-		
-		return this;
-	}
+//	public OffersForm setProductTypeName(String name) throws FormException
+//	{
+//		super.sendKeysByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']");
+//		return this;
+//	}
+//	
+//	
+//	public String getProductType(String name) throws FormException
+//	{
+//		return super.getValueByXPath("//td/table/tbody/tr/td/table/tbody/tr[5]/td[2]/select");
+//	}
+//	
+//	public String getProductTypeName(String name) throws FormException
+//	{
+//		return super.getValueByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']");
+//	}
+//	
+//	public OffersForm(SeleniumWebDriver selenium, OffersForm jsonOffers, long timeout, long interval) {
+//		
+//		super(selenium, timeout, interval);
+//		
+//		this.offersForm = jsonOffers;
+//	}
+//
+//	public static void configureProductType(String productTypeName,
+//			String description) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	public OffersForm setProductTypeDescription(String description) throws FormException
+//	{
+//		super.sendKeysByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-descriptionTextBox']", description);
+//		return this;
+//	}
+//	public String getProductTypeDescription() throws FormException
+//	{
+//		return super.getValueByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-descriptionTextBox']");
+//	}
+//	public OffersForm addCharacteristicButton() throws FormException
+//	{
+//		super.clickXPath("//div[text()='Create product type']//ancestor::div[2]//button[@title='Add']");
+//		return this;
+//	}
+//	public OffersForm setCharacteristicName(String ch_name) throws FormException
+//	{
+//		super.sendKeysByXPath("//td[contains(text(),'Characteristic Name')]//ancestor::tr[1]//input", ch_name);
+//		return this;
+//	}
+//	public String getCharacteristicName() throws FormException
+//	{
+//		return super.getValueByXPath("//td[contains(text(),'Characteristic Name')]//ancestor::tr[1]//input");
+//	}
+//	public OffersForm setCharacteristicType(String ch_type) throws FormException
+//	{
+//		super.selectByXPathAndVisibleText("//td[contains(text(),'Type')]//ancestor::tr[1]//select", ch_type);
+//		return this;
+//	}
+//	public String getCharacteristicType() throws FormException
+//	{
+//		return super.getValueByXPath("//td[contains(text(),'Type')]//ancestor::tr[1]//select");
+//	}
+//	public OffersForm addCharacteristicValueButton() throws FormException
+//	{
+//		super.clickXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::div[2]//button[@title='Add']");
+//		return this;
+//	}
+//	public OffersForm setListCharacteristicValues(List<String> values,List<String> defaultValue) throws FormException
+//	{
+//		List<WebElement> inputElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='text']"));
+//		
+//		// checkboxes
+//		List<WebElement> checkElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='checkbox']"));
+//		
+//		// fill
+//		for (int index = 0; index < values.size(); index++) { 
+//			
+//			WebElement input = inputElements.get(index);
+//			String value = values.get(index);
+//			
+//			input.sendKeys(value);
+//			
+//			if ( defaultValue != null && defaultValue.contains(values.get(index)) ) 
+//				checkElements.get(index).click();
+//		}
+//		return this;
+//	}
+//	public OffersForm setChoiceCharacteristicValues(List<String> values,String defaultValue) throws FormException
+//	{
+//		// element to be filled
+//					List<WebElement> inputElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='text']"));
+//					
+//					// ratio
+//					List<WebElement> radioElements = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Values')]//ancestor::table[1]//input[@type='radio']"));
+//					
+//					// fill
+//					for (int index = 0; index < values.size(); index++) { 
+//						
+//						WebElement input = inputElements.get(index);
+//						String value = values.get(index);
+//						
+//						input.sendKeys(value);
+//						
+//						if ( defaultValue != null && defaultValue.equals(values.get(index)) ) 
+//							radioElements.get(index).click();
+//					}
+//		return this;
+//	}
+//	public OffersForm setTextCharTypeValue(String value) throws FormException
+//	{
+//		super.sendKeysByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-defaultValueTextBox']", value);
+//		return this;
+//	}
+//	public String getTextCharTypeValue() throws FormException
+//	{
+//		return super.getValueByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-defaultValueTextBox']");
+//	}
+//	public OffersForm setUnitTypeName(String unitName) throws FormException
+//	{
+//		super.sendKeysByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-unitTextBox']", unitName);
+//		return this;
+//	}
+//	public String getUnitTypeName() throws FormException
+//	{
+//		return super.getValueByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-unitTextBox']");
+//	}
+//	public OffersForm setUnitTypeValue(String unitValue) throws FormException
+//	{
+//		super.sendKeysByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-defaultValueTextBox']", unitValue);
+//		return this;
+//	}
+//	public String getUnitTypeValue() throws FormException
+//	{
+//		return super.getValueByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-defaultValueTextBox']");
+//	}
+//	
+//	
+//	public OffersForm saveCharacteristic() throws FormException{
+//		super.clickName( "btn-ok" );
+//		return this;
+//	}
+//	public OffersForm saveProductType() throws FormException {
+//		super.clickName( "btn-save" );
+//		
+//		return this;
+//	}
 
 	//public OffersForm ProductType() {
 		
@@ -802,10 +822,13 @@ private JSONOffers offerCfg;
 		return !el.getAttribute( "is-server-valid" ).equals( "serverValidationErrors" );
 		
 	}
-
+	public OffersForm clickNotificationTab() throws FormException{
+		super.clickId("gwt-debug-Anchor-actrule-catalog-offer-offerNotification");
+		return this;
+	}
 	public OffersForm addNotitification() throws FormException {
 		
-		super.clickId("gwt-debug-Anchor-actrule-catalog-offer-offerNotification");
+		
 	    super.clickName("btn-notification");
 	    super.clickId("gwt-debug-BtnCampaignModelCreationENENGEdit");
 	    super.sendKeysById("gwt-debug-TextCampaignModelCreationENEValue", "test sms notification");

@@ -66,21 +66,21 @@ public class JSONOffers extends JsonConfigurationFile {
      * @return
      */
 	
-	public String getoffer_description() {
-		return getCurrentElement().getStringFromPath( "offer_description" );
-	}
-
-	public String getTC() {
-		return getCurrentElement().getStringFromPath( "TC" );
-	}
-	
-	public String getPriceChannel() {
-		return getCurrentElement().getStringFromPath( "PriceChannel" );
-	}
-	
-	public String getstock() {
-		return getCurrentElement().getStringFromPath( "stock" );
-	}
+//	public String getoffer_description() {
+//		return getCurrentElement().getStringFromPath( "offer_description" );
+//	}
+//
+//	public String getTC() {
+//		return getCurrentElement().getStringFromPath( "TC" );
+//	}
+//	
+//	public String getPriceChannel() {
+//		return getCurrentElement().getStringFromPath( "PriceChannel" );
+//	}
+//	
+//	public String getstock() {
+//		return getCurrentElement().getStringFromPath( "stock" );
+//	}
 	
 	
 	public Boolean getActivation() {
@@ -655,9 +655,9 @@ public class JSONOffers extends JsonConfigurationFile {
 	 * 
 	 * @return
 	 */
-	public Integer getStock() {
+	public String getStock() {
 		
-		return getCurrentElement().getIntegerFromPath("availability.stock");
+		return getCurrentElement().getStringFromPath("availability.stock");
 	}
 	
 	/**
