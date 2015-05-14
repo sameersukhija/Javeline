@@ -30,7 +30,6 @@ import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.utils.TempFileHandling;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.e4o.dao.tenant.DAOProductType;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.Form;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
