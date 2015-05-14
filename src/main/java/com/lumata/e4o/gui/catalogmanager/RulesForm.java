@@ -1,5 +1,6 @@
 package com.lumata.e4o.gui.catalogmanager;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -303,6 +304,32 @@ public class RulesForm extends OfferOptimisationForm {
 
 		return isTokenDuplicated;
 
+	}
+	
+public List<WebElement> getRuleList() throws FormException {
+		
+		List<WebElement> ruleList = super.getListByXPath("//div[contains(@class ,'e4ol-list')]","//div[contains(@class , 'e4ol-list__cell ng-binding')]");
+
+		return ruleList;
+		
+	}
+	
+	public Boolean isRuleNameInList( String strRuleName ) throws FormException {
+		
+		List<WebElement> ruleList = getRuleList();
+				
+		for( WebElement ruleNameEl : ruleList ) {
+			
+			if(ruleNameEl.getText().trim().equals( strRuleName ) ) {
+				
+				return true;
+				
+			}
+			
+		}
+		
+		return false;
+		
 	}
 
 	// old methods which will become obsolete later on. I kept it as its

@@ -77,12 +77,12 @@ public CustomerCareTokensForm close() throws FormException {
 		return this;
 		
 	}
-	public CustomerCareTokensForm loadOffersForTokenCode(String tokenCode) throws FormException{
+	public CustomerCareTokensForm loadOffersForCampaignName(String campaignName) throws FormException{
 		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 10);
 		
 		//clickId("tokens");
 		
-		String loadOfferElement="//div[contains(text(),'"+tokenCode+"')]//ancestor::div[1]//div[8]//a[@name='btn-loadOffers' and @title='Load offers']";
+		String loadOfferElement="//div[contains(text(),'"+campaignName+"')]//ancestor::div[1]//div[8]//a[@name='btn-loadOffers' and @title='Load offers']";
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loadOfferElement)));
 		clickXPath(loadOfferElement);
 		return this;

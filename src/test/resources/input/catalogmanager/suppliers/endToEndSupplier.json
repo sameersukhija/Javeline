@@ -1,0 +1,14 @@
+{
+	"suppliers": [
+		{
+			"enabled": true,
+			"name":"NewEToE",
+			"email":"info@newetoe.com",
+			"phone":"+3227459589",
+			"website":null,
+			"errorActions": {
+				"ELEMENT_ALREADY_EXISTS": "ABORT"	
+			}
+		}
+	]
+}

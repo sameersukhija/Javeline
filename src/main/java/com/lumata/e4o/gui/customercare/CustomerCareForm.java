@@ -1,6 +1,8 @@
 package com.lumata.e4o.gui.customercare;
 
 
+import org.omg.CORBA.TIMEOUT;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
@@ -61,9 +63,20 @@ public class CustomerCareForm  extends Form {
 		super.clickId( "gwt-debug-BtnCCSearch" );
 		return this;
 	}
+	public CustomerCareForm clickClearButton() throws FormException{
+		super.clickId( "gwt-debug-BtnCCClean" );
+		return this;
+	}
+	public Boolean subscriberPhoneNumberExists(String prefix, String msisdn) throws FormException
+	{
+		Boolean status=false;
+		searchMsisdnByPhoneNumber(prefix,msisdn);
+		status=this.searchById("gwt-debug-BtnCCInfoEdit").isDisplayed();
+		return status;
+	}
 	public CustomerCareForm searchMsisdnByPhoneNumber( String prefix, String msisdn ) throws FormException {
 		
-		setphoneNumberOption();
+		//setphoneNumberOption();
 		if(prefix !=null)
 		{
 			setPrefix(prefix);
@@ -80,7 +93,6 @@ public class CustomerCareForm  extends Form {
 		setIdentifierOption();
 		setSubscriberMsisdn(msisdn).
 		clickSearchButton();
-		
 		return this;
 		
 	}

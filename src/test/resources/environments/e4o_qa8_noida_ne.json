@@ -68,7 +68,7 @@
       "user": "actusr",
       "password": "YGRramxt"
     },
-    "tenant": {
+    "tenantMaster": {
       "hostName": "tenant",
       "hostAddress": "10.120.36.50",
       "hostPort": "3306",

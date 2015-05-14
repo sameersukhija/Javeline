@@ -36,7 +36,7 @@ public class TestCustomerCareToken extends ParentTestCase{
 		Reporter.log("Open Token Tab.", LOG_TO_STD_OUT);
 		ccTokenForm.openTokenTab();
 		Reporter.log("Load offers allocated for the token", LOG_TO_STD_OUT);
-		ccTokenForm.loadOffersForTokenCode("gl-8258f");
+		ccTokenForm.loadOffersForCampaignName("capaignstartmodel_20_2");
 		if(ccTokenForm.verifyRanksOfOffers())
 		{
 			Assert.assertTrue(true, "Ranks are sorted!");

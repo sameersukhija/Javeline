@@ -1,0 +1,33 @@
+{
+	"campaignModels": [
+		{
+			"enabled": true,
+			"name": "CampaignModelEtoE",
+			"description": "CampaignModelEtoE",
+			"campaignType": null,
+			"useHierarchy": false,
+			"errorActions": {
+				"elementAlreadyExists": "ABORT"			
+			},
+			"events": [				
+				{	
+					"eventType":"Campaign start", 
+					"criteria":[
+					{ "type":"Subscriber.Msisdn","operator" : "=", "value" : "9890234567", "delete" : false} 
+					],
+					"actions": [
+						{ "name": "Rulesets.RuleEndToEnd12", "value": null, "option":"Allocate offer immediately", "time": null, "delete": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		}
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+	
+}
