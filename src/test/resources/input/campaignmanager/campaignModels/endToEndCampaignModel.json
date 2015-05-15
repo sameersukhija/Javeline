@@ -16,7 +16,7 @@
 					{ "type":"Subscriber.Msisdn","operator" : "=", "value" : "9890234567", "delete" : false} 
 					],
 					"actions": [
-						{ "name": "Rulesets.RuleEndToEnd123", "value": null, "option":"Allocate offer immediately", "time": null, "delete": false }							
+						{ "name": "Rulesets.RuleEndToEnd1234", "value": null, "option":"Allocate offer immediately", "time": null, "delete": false }							
 					],
 					"beneficiary": true,
 					"notifications": null,
