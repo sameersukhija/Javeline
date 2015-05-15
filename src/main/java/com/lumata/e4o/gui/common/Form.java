@@ -871,9 +871,9 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 		
 	}
 	
-	public Form switchToFrame( SeleniumUtils.SearchBy by, String frame ) throws FormException {
+	public Form switchToFrame( SeleniumUtils.SearchBy by, String frame, Long timeout,Long attempt_timeout) throws FormException {
 		
-		lastWebElement = search( by, frame );
+		lastWebElement = search(by, frame, timeout, attempt_timeout);
 		
 		selenium.getWrappedDriver().switchTo().frame( lastWebElement );
 		
@@ -881,15 +881,15 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 		
 	}
 	
-	public Form switchToFrameByName( String frame ) throws FormException {
+	public Form switchToFrameByName( String frame,Long timeout,Long attempt_timeout) throws FormException {
 		
-		return switchToFrame( SeleniumUtils.SearchBy.NAME, frame );
+		return switchToFrame( SeleniumUtils.SearchBy.NAME, frame,timeout, attempt_timeout );
 		
 	}
 	
-	public Form switchToFrameByClassName( String frame ) throws FormException {
+	public Form switchToFrameByClassName( String frame ,Long timeout,Long attempt_timeout) throws FormException {
 		
-		return switchToFrame( SeleniumUtils.SearchBy.CLASS_NAME, frame );
+		return switchToFrame( SeleniumUtils.SearchBy.CLASS_NAME, frame,timeout,attempt_timeout);
 		
 	}
 

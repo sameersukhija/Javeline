@@ -34,7 +34,7 @@ public class TestCustomerCareToken extends ParentTestCase{
 		Reporter.log("Start search of subscriber", LOG_TO_STD_OUT);
 		ccTokenForm.searchMsisdnByPhoneNumber(null, "9910201121");
 		Reporter.log("Open Token Tab.", LOG_TO_STD_OUT);
-		ccTokenForm.openTokenTab();
+		ccTokenForm.openTokenTab(60000L,200L);
 		Reporter.log("Load offers allocated for the token", LOG_TO_STD_OUT);
 		ccTokenForm.loadOffersForCampaignName("capaignstartmodel_20_2");
 		if(ccTokenForm.verifyRanksOfOffers())

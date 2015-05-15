@@ -23,11 +23,11 @@ public class CustomerCareTokensForm  extends CustomerCareForm {
 		
 	}
 
-	public CustomerCareTokensForm openTokenTab() throws FormException {
+	public CustomerCareTokensForm openTokenTab(Long timeout,Long attempt_timeout) throws FormException {
 		
 		super.open().clickId( "gwt-debug-BtnCCBarInfoTokens" );
 		super.waitForPageLoad();
-		switchToFrameByClassName("GNAVB3LDA");
+		switchToFrameByClassName("GNAVB3LDA",timeout,attempt_timeout);
 		
 		return this;
 		
