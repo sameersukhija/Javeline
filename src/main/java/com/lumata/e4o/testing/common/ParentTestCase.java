@@ -1,8 +1,11 @@
 package com.lumata.e4o.testing.common;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
+import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -23,6 +26,7 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver.SeleniumDriverType;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
+import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.gui.security.Authorization;
 
 /**
@@ -56,8 +60,23 @@ public abstract class ParentTestCase {
 	/**
 	 * 	Default environment resource folder
 	 */
-	protected final String DEFAULT_RESOURCE_FOLDER_ENVIRONMENTS = DEFAULT_RESOURCE_FOLDER_ROOT + "/environments/";
-		
+	protected final String DEFAULT_RESOURCE_FOLDER_ENVIRONMENTS = DEFAULT_RESOURCE_FOLDER_ROOT + "environments/";
+
+	/**
+	 * 	Default output folder
+	 */
+	protected final String DEFAULT_OUTPUT_FOLDER = System.getProperty( "user.dir" ) + "/output/";
+
+	/**
+	 * 	Default output reports folder
+	 */
+	protected final String DEFAULT_OUTPUT_REPORTS_FOLDER = DEFAULT_OUTPUT_FOLDER + "reports/";
+
+	/**
+	 * 	Default output reports folder
+	 */
+	protected final String DEFAULT_OUTPUT_SCREENSHOT_FOLDER = DEFAULT_OUTPUT_REPORTS_FOLDER + "screenshots/";
+	
 	/**
 	 * 	Default selenium web driver 
 	 */
@@ -456,8 +475,8 @@ public abstract class ParentTestCase {
 	}
 	
 	@AfterMethod
-	protected void tearDown( ITestResult result ) throws TestNGException {
-
+	protected void tearDown( ITestResult result ) throws TestNGException, IOException {
+		
 		if( result.getStatus() == ITestResult.FAILURE ) {
 	        
 	    	if( null != seleniumDriverType ) {
@@ -465,6 +484,12 @@ public abstract class ParentTestCase {
 	    		Reporter.log( "Class " + result.getClass().getSimpleName() + " method " + result.getName() + " has failed!", LOG_TO_STD_OUT);
 		    	
 		    	Reporter.log( "Recover UI interface with restart browser.", LOG_TO_STD_OUT);
+		    	
+		    	File screenshot = seleniumWebDriver.getScreenshot();
+		    			    	
+		    	String screenshotFile = DEFAULT_OUTPUT_SCREENSHOT_FOLDER + "screenshot_" + seleniumWebDriver.getTestName() + "_" + Format.getSystemTimestamp() + ".png";
+		    	
+		    	FileUtils.copyFile( screenshot, new File( screenshotFile ));
 		    	
 		    	seleniumWebDriver.close();
 		    	

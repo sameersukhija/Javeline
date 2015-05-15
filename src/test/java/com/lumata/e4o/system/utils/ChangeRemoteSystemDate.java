@@ -24,6 +24,7 @@ public class ChangeRemoteSystemDate {
 	@Parameters({"environment", "gui_server", "user"})
 	@BeforeClass
 	public void init( @Optional("E4O_VM_NE") String environment, @Optional("actrule") String gui_server, @Optional("superman") String user ) throws NetworkEnvironmentException {		
+		environment = "E4O_QA3_NE";
 		
 		/** Create environment configuration */
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
@@ -42,13 +43,13 @@ public class ChangeRemoteSystemDate {
 		
 		Calendar date = Calendar.getInstance();
 		
-		date.set( Calendar.HOUR_OF_DAY, 18 );
+		date.set( Calendar.HOUR_OF_DAY, 10 );
 		date.set( Calendar.MINUTE, 00 );
 		date.set( Calendar.SECOND, 00 );
 		
-		final int YEAR_ = 2014;
-		final int MONTH_ = Calendar.AUGUST;
-		final int DAY_ = 02;
+		final int YEAR_ = 2015;
+		final int MONTH_ = Calendar.JUNE;
+		final int DAY_ = 13;
 		final int HOUR_ = date.get( Calendar.HOUR_OF_DAY );
 		final int MINUTE_ = date.get( Calendar.MINUTE );
 		final int SECOND_ = date.get( Calendar.SECOND );

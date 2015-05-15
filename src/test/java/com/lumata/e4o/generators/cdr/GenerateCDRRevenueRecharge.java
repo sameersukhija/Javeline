@@ -29,7 +29,7 @@ public class GenerateCDRRevenueRecharge {
 	@Parameters({"environment", "gui_server", "user"})
 	@BeforeClass
 	public void init( @Optional("E4O_VM_NE") String environment, @Optional("collector") String collectorServer, @Optional("superman") String user ) throws NetworkEnvironmentException {		
-		
+		environment = "E4O_QA3_NE";
 		/** Create environment configuration */
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 
@@ -63,7 +63,7 @@ public class GenerateCDRRevenueRecharge {
 		FieldDateIncrement increment = new FieldDateIncrement();
 		increment.setDayIncrement( 1 );
 		
-		cdrRevenue.setMsisdnStrategyFixed( 393669393643L );
+		cdrRevenue.setMsisdnStrategyFixed( 3399900001L );
 		cdrRevenue.setDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		cdrRevenue.setDateStrategyFixed( date );
 		cdrRevenue.setAmountStrategyRandom( 100L, 1000L );
@@ -71,7 +71,7 @@ public class GenerateCDRRevenueRecharge {
 		cdrRevenue.setValidityDateStrategyFixed( date );
 		cdrRevenue.setDeactivationDateStrategyFixed( date );
 		
-		cdrRevenue.addLines( 1 );
+		cdrRevenue.addLines( 2 );
 		
 		cdrRevenue.print();
 		
