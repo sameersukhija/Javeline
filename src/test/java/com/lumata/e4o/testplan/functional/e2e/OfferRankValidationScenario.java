@@ -225,7 +225,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		Reporter.log("Open Token Tab.", LOG_TO_STD_OUT);
 		ccTokenForm.openTokenTab();
 		Reporter.log("Load offers allocated for the token", LOG_TO_STD_OUT);
-		try { Thread.sleep( 3000 );  } catch( Exception e) {}
+		//try { Thread.sleep( 3000 );  } catch( Exception e) {}
 		ccTokenForm.loadOffersForCampaignName("Campaign_1431668126230");
 		if(ccTokenForm.verifyRanksOfOffers())
 		{
@@ -422,7 +422,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		RulesForm rulesForm = new RulesForm(seleniumWebDriver, getRuleJson(), TIMEOUT,
 				ATTEMPT_TIMEOUT);
 		//setRuleName(Format.addTimestamp("Rule_"));
-		setRuleName("RuleEndToEnd34");
+		setRuleName("RuleEndToEnd345");
 		JSONArray ruleTypes = getRuleJson().getList();
 		for (int ruleTypeIndex = 0; ruleTypeIndex < ruleTypes.length(); ruleTypeIndex++) {
 			getRuleJson().setRuleById(ruleTypeIndex);
@@ -447,7 +447,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 							.value());
 			Assert.assertTrue(rulesForm.formIsValid());
 			rulesForm.saveRule();
-			status=rulesForm.isRuleNameInList("RuleEndToEnd34");
+			status=rulesForm.isRuleNameInList("RuleEndToEnd345");
 			rulesForm.close();
 		}
 
