@@ -94,7 +94,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		"offer_jsonPath",
 		"offer_jsonFileName"
 		})
-	@Test( enabled=TEST_ENABLED, priority = 1 )
+	@Test( enabled=TEST_ENABLED, priority = 1 ,timeOut=2000000)
 	public void testEndtoEndScenario( @Optional("input/catalogmanager/suppliers") String supplier_jsonFilePath, 
 			@Optional("endToEndSupplier") String supplier_jsonFileName,
 			@Optional("input/catalogmanager/productTypes") String productType_jsonFilePath, 
@@ -422,7 +422,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		RulesForm rulesForm = new RulesForm(seleniumWebDriver, getRuleJson(), TIMEOUT,
 				ATTEMPT_TIMEOUT);
 		//setRuleName(Format.addTimestamp("Rule_"));
-		setRuleName("RuleEndToEnd402");
+		setRuleName("RuleEndToEnd403");
 		JSONArray ruleTypes = getRuleJson().getList();
 		for (int ruleTypeIndex = 0; ruleTypeIndex < ruleTypes.length(); ruleTypeIndex++) {
 			getRuleJson().setRuleById(ruleTypeIndex);
@@ -447,7 +447,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 							.value());
 			Assert.assertTrue(rulesForm.formIsValid());
 			rulesForm.saveRule();
-			status=rulesForm.isRuleNameInList("RuleEndToEnd402");
+			status=rulesForm.isRuleNameInList("RuleEndToEnd403");
 			rulesForm.close();
 		}
 
