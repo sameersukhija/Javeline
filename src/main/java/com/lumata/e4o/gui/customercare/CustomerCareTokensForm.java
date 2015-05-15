@@ -27,7 +27,7 @@ public class CustomerCareTokensForm  extends CustomerCareForm {
 		
 		super.open().clickId( "gwt-debug-BtnCCBarInfoTokens" );
 		super.waitForPageLoad();
-		openAngularFrame();
+		switchToFrameByClassName("GNAVB3LDA");
 		
 		return this;
 		
