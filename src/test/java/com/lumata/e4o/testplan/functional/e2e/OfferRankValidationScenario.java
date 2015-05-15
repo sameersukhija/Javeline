@@ -139,82 +139,82 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		}
 		
 		//create Supplier
-//		supplier_created=configureSupplier(supplier_jsonFilePath,supplier_jsonFileName);
-//		if(supplier_created==false)
-//		{
-//			Assert.fail("The Supplier creation Failed!");
-//			Reporter.log("Creation of Supplier Failed!",LOG_TO_STD_OUT);
-//			
-//			
-//		}
-//		else{
-//			Assert.assertTrue(supplier_created);
-//			logger.info("Created Supplier Succesfully:" + getSupplierName());
-//		}
-//		
-//		//create a product Type
-//		pdtype_created=configureProductType(productType_jsonFilePath, productType_jsonFileName);
-//		if(pdtype_created==true)
-//		{
-//			Assert.assertTrue(pdtype_created);
-//			logger.info("Created Product Type Succesfully:" + getProductTypeName());
-//						
-//		}
-//		else{
-//				Assert.fail("The Product Type creation Failed!");
-//				Reporter.log("Creation of Product Type Failed!",LOG_TO_STD_OUT);
-//			}
-//		
-//		//create offers to use the product type
-//		offer_created=configureOffers(offer_jsonPath, offer_jsonFileName);
-//		if(offer_created==true)
-//		{
-//			Assert.assertTrue(offer_created);
-//			logger.info("Created Offer Succesfully");
-//						
-//		}
-//		else{
-//				Assert.fail("The Offer creation Failed!");
-//				Reporter.log("Creation of Offer Failed!",LOG_TO_STD_OUT);
-//			}
-//		//create Token
-//		token_created=configureToken(tokenType_jsonPath, tokenType_jsonFileName);
-//		if(token_created==true)
-//		{
-//			Assert.assertTrue(token_created);
-//			logger.info("Created Token Type Succesfully:" + getTokenName());
-//						
-//		}
-//		else{
-//				Assert.fail("The Token Type creation Failed!");
-//				Reporter.log("Creation of Token Type Failed!",LOG_TO_STD_OUT);
-//			}
-//		//create a Rule to use the token created above
-//		rule_created=configureRule(rule_jsonPath, rule_jsonFileName);
-//		if(rule_created==true)
-//		{
-//			Assert.assertTrue(rule_created);
-//			logger.info("Created Rule Succesfully:" + getRuleName());
-//						
-//		}
-//		else{
-//				Assert.fail("The Token Type creation Failed!");
-//				Reporter.log("Creation of Token Type Failed!",LOG_TO_STD_OUT);
-//			}
-//		//create a campaign Model using the Rule created above
-//		campaignModel_created=createCampaignModel(campaignModel_jsonPath, campaignModel_jsonFileName);
-//		if(campaignModel_created==true)
-//		{
-//			Assert.assertTrue(campaignModel_created);
-//			logger.info("Created Campaign Model Succesfully:" + getCampaignModelName());
-//						
-//		}
-//		else{
-//				Assert.fail("The Campaign Model creation Failed!");
-//				Reporter.log("Creation of Campaign Model Failed!",LOG_TO_STD_OUT);
-//			}
-//		//create and activate the campaign using the above created sampaign Model
-//		createAndActivateCampaign();
+		supplier_created=configureSupplier(supplier_jsonFilePath,supplier_jsonFileName);
+		if(supplier_created==false)
+		{
+			Assert.fail("The Supplier creation Failed!");
+			Reporter.log("Creation of Supplier Failed!",LOG_TO_STD_OUT);
+			
+			
+		}
+		else{
+			Assert.assertTrue(supplier_created);
+			logger.info("Created Supplier Succesfully:" + getSupplierName());
+		}
+		
+		//create a product Type
+		pdtype_created=configureProductType(productType_jsonFilePath, productType_jsonFileName);
+		if(pdtype_created==true)
+		{
+			Assert.assertTrue(pdtype_created);
+			logger.info("Created Product Type Succesfully:" + getProductTypeName());
+						
+		}
+		else{
+				Assert.fail("The Product Type creation Failed!");
+				Reporter.log("Creation of Product Type Failed!",LOG_TO_STD_OUT);
+			}
+		
+		//create offers to use the product type
+		offer_created=configureOffers(offer_jsonPath, offer_jsonFileName);
+		if(offer_created==true)
+		{
+			Assert.assertTrue(offer_created);
+			logger.info("Created Offer Succesfully");
+						
+		}
+		else{
+				Assert.fail("The Offer creation Failed!");
+				Reporter.log("Creation of Offer Failed!",LOG_TO_STD_OUT);
+			}
+		//create Token
+		token_created=configureToken(tokenType_jsonPath, tokenType_jsonFileName);
+		if(token_created==true)
+		{
+			Assert.assertTrue(token_created);
+			logger.info("Created Token Type Succesfully:" + getTokenName());
+						
+		}
+		else{
+				Assert.fail("The Token Type creation Failed!");
+				Reporter.log("Creation of Token Type Failed!",LOG_TO_STD_OUT);
+			}
+		//create a Rule to use the token created above
+		rule_created=configureRule(rule_jsonPath, rule_jsonFileName);
+		if(rule_created==true)
+		{
+			Assert.assertTrue(rule_created);
+			logger.info("Created Rule Succesfully:" + getRuleName());
+						
+		}
+		else{
+				Assert.fail("The Token Type creation Failed!");
+				Reporter.log("Creation of Token Type Failed!",LOG_TO_STD_OUT);
+			}
+		//create a campaign Model using the Rule created above
+		campaignModel_created=createCampaignModel(campaignModel_jsonPath, campaignModel_jsonFileName);
+		if(campaignModel_created==true)
+		{
+			Assert.assertTrue(campaignModel_created);
+			logger.info("Created Campaign Model Succesfully:" + getCampaignModelName());
+						
+		}
+		else{
+				Assert.fail("The Campaign Model creation Failed!");
+				Reporter.log("Creation of Campaign Model Failed!",LOG_TO_STD_OUT);
+			}
+		//create and activate the campaign using the above created sampaign Model
+		createAndActivateCampaign();
 		
 		//validate the ranks of allocated offer in Customer Care
 		CustomerCareTokensForm ccTokenForm=new CustomerCareTokensForm(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
@@ -226,7 +226,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		ccTokenForm.openTokenTab(60000L,200L);
 		Reporter.log("Load offers allocated for the token", LOG_TO_STD_OUT);
 		try { Thread.sleep( 3000 );  } catch( Exception e) {}
-		ccTokenForm.loadOffersForCampaignName("Campaign_1431668126230");
+		ccTokenForm.loadOffersForCampaignName(getCampaignName());
 		if(ccTokenForm.verifyRanksOfOffers())
 		{
 			Assert.assertTrue(true, "Ranks are sorted!");
@@ -422,7 +422,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		RulesForm rulesForm = new RulesForm(seleniumWebDriver, getRuleJson(), TIMEOUT,
 				ATTEMPT_TIMEOUT);
 		//setRuleName(Format.addTimestamp("Rule_"));
-		setRuleName("RuleEndToEnd39");
+		setRuleName("RuleEndToEnd40");
 		JSONArray ruleTypes = getRuleJson().getList();
 		for (int ruleTypeIndex = 0; ruleTypeIndex < ruleTypes.length(); ruleTypeIndex++) {
 			getRuleJson().setRuleById(ruleTypeIndex);
@@ -447,7 +447,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 							.value());
 			Assert.assertTrue(rulesForm.formIsValid());
 			rulesForm.saveRule();
-			status=rulesForm.isRuleNameInList("RuleEndToEnd39");
+			status=rulesForm.isRuleNameInList("RuleEndToEnd40");
 			rulesForm.close();
 		}
 
