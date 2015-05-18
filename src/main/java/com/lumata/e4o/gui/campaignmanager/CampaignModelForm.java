@@ -804,7 +804,35 @@ public CampaignModelForm( SeleniumWebDriver selenium,long timeout, long interval
 		}
 
 		return resp;
-	}	
+	}
+	public List<WebElement> getCampaignModelList() throws FormException {
+
+		List<WebElement> campaignModelList = super.getListByXPath(
+				"//table[@id='gwt-debug-FormCampaignModel']",
+				"//div[contains(@class , 'gwt-Label showPopupLink')]");
+
+		return campaignModelList;
+
+	}
+
+	public Boolean isCampaignModelNameInList(String strCampaignModelName)
+			throws FormException {
+
+		List<WebElement> campaignModelList = getCampaignModelList();
+
+		for (WebElement campaignModelEl : campaignModelList) {
+
+			if (campaignModelEl.getText().trim().equals(strCampaignModelName)) {
+
+				return true;
+
+			}
+
+		}
+
+		return false;
+
+	}
 
 	/*
 	public static boolean create(SeleniumWebDriver selenium, CampaignModelCfg cm, long timeout, long interval) {

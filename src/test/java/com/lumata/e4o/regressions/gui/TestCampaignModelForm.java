@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
@@ -67,6 +68,17 @@ public class TestCampaignModelForm extends ParentTestCase{
 				Map<String, JSONEvent_> events = campaignModel.getEvents();
 				campaignModelForm.addEvents(events);
 				campaignModelForm.saveCampaignModel();
+				campaignModelForm.confirmCampaignModelSaving();
+				if(campaignModelForm.isCampaignModelNameInList(campModelName))
+				{
+					Assert.assertTrue(true, "Campaign Model created successfully");
+					Reporter.log("Campaign Model created successfully",LOG_TO_STD_OUT);
+				}
+				else
+				{
+					Assert.fail("campaign model didn't create successfully");
+					Reporter.log("Campaign Model didn't create successfully", LOG_TO_STD_OUT);
+				}
 				
 			}
 		}

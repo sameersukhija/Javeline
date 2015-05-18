@@ -5,8 +5,40 @@
   <listeners>
     <listener class-name="com.lumata.e4o.testing.common.TestNGReportListener"/>
   </listeners>
-  
-  <parameter name="e4oReleaseParam" value="2.4.1.20.1" />
+   <!--test name="Initialize Database">
+   <parameter name="environment" value="e4o_qa2_ita"/>
+	<parameter name="nfsdataServer" value="collector"/>
+	<parameter name="user" value="superman"/>
+	<parameter name="tenant" value="tenantMaster"/>
+	<classes>
+		<class name="com.lumata.e4o.regressions.schema.ConfigureEnvironment">
+		<methods>
+			<include name="init"/>
+		</methods>
+		</class>
+		</classes>
+	</test>
+	<test name="Run Expired Data">
+   <parameter name="environment" value="e4o_qa2_ita"/>
+	<parameter name="tenant" value="tenantMaster"/>
+	<classes>
+		<class name="com.lumata.e4o.regressions.schema.ConfigureEnvironment">
+		<methods>
+			<include name="exec_ExpiredData_task"/>
+		</methods>
+		</class>
+	</classes>
+	</test>
+	<test name="Restore MySQL">
+	<classes>
+		<class name="com.lumata.e4o.regressions.schema.ConfigureEnvironment">
+		<methods>
+			<include name="mysqlRestore"/>
+		</methods>
+		</class>
+	</classes>
+	</test-->
+	<parameter name="e4oReleaseParam" value="2.4.1.20.1" />
   
   <parameter name="networkEnvironmentParams" value="{ 'envFile':'e4o_qa2_ita', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule', 'guiUser':'superman' }"/>
   <!-- selenium_driver_type: local or remote -->  
@@ -35,7 +67,7 @@
       </class>
     </classes>	
   </test>
-   <!--test name="Token Type Validation">
+   <test name="Token Type Validation">
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestTokenTypeForm">        
       </class>
@@ -85,5 +117,13 @@
       <class name="com.lumata.e4o.regressions.gui.TestCampaignsForm">
       </class>
     </classes>	
-  </test-->
+  </test>
+  <!-- test name="Regression suite for E4O">
+	<parameter name="jsonFilePath" value="input/campaignmanager/campaignModels"/>
+	<parameter name="jsonFileName" value="newCampaignModel"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestCampaignModelForm">
+      </class>
+    </classes>
+  </test -->
 </suite>
