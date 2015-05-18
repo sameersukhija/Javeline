@@ -5,7 +5,7 @@
   <listeners>
     <listener class-name="com.lumata.e4o.testing.common.TestNGReportListener"/>
   </listeners>
-   <!--test name="Initialize Database">
+   <test name="Initialize Database">
    <parameter name="environment" value="e4o_qa2_ita"/>
 	<parameter name="nfsdataServer" value="collector"/>
 	<parameter name="user" value="superman"/>
@@ -29,7 +29,7 @@
 		</class>
 	</classes>
 	</test>
-	<test name="Restore MySQL">
+	<!--test name="Restore MySQL">
 	<classes>
 		<class name="com.lumata.e4o.regressions.schema.ConfigureEnvironment">
 		<methods>

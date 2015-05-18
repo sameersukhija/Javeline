@@ -21,7 +21,12 @@ import com.lumata.e4o.system.environment.ExpressionKernelCommands;
 
 
 public class ConfigureEnvironment {
+	protected final String DEFAULT_RESOURCE_FOLDER_ROOT = System.getProperty( "user.dir" ) + "/src/test/resources";
 	
+	/**
+	 * 	Default environment resource folder
+	 */
+	protected final String DEFAULT_RESOURCE_FOLDER_ENVIRONMENTS = DEFAULT_RESOURCE_FOLDER_ROOT + "/environments/";
 	ExpressionKernelCommands ekc;
 	NetworkEnvironment env;
 	Service sshService;
@@ -35,7 +40,7 @@ public class ConfigureEnvironment {
 	public void init( @Optional("E4O_VM") String environment, @Optional("collector") String nfsdataServer, @Optional("superman") String user, @Optional("tenant") String tenant ) throws NetworkEnvironmentException {		
 		
 		/** Create environment configuration */
-		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		env = new NetworkEnvironment( DEFAULT_RESOURCE_FOLDER_ENVIRONMENTS, environment, IOFileUtils.IOLoadingType.FILE);
 
 		mysql = new Mysql( env.getDataSource( tenant ) );
 		
@@ -47,7 +52,7 @@ public class ConfigureEnvironment {
 	@Test( enabled = true, priority = 1 )
 	public void exec_ExpiredData_task( @Optional("E4O_VM") String environment,  @Optional("tenant") String tenant ) throws NetworkEnvironmentException {
 
-		NetworkEnvironment env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		NetworkEnvironment env = new NetworkEnvironment( DEFAULT_RESOURCE_FOLDER_ENVIRONMENTS, environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
 		ExpressionKernelCommands ekc = new ExpressionKernelCommands( env.getSSHService( "actrule" ), "root" );
 		
