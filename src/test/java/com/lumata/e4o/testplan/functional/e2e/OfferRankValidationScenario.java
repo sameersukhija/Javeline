@@ -94,7 +94,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		"offer_jsonPath",
 		"offer_jsonFileName"
 		})
-	@Test( enabled=TEST_ENABLED, priority = 1 ,timeOut=2000000)
+	@Test( enabled=TEST_ENABLED, priority = 1 ,timeOut=700000)
 	public void testEndtoEndScenario( @Optional("input/catalogmanager/suppliers") String supplier_jsonFilePath, 
 			@Optional("endToEndSupplier") String supplier_jsonFileName,
 			@Optional("input/catalogmanager/productTypes") String productType_jsonFilePath, 
@@ -213,7 +213,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 				Assert.fail("The Campaign Model creation Failed!");
 				Reporter.log("Creation of Campaign Model Failed!",LOG_TO_STD_OUT);
 			}
-		//create and activate the campaign using the above created sampaign Model
+		//create and activate the campaign using the above created campaign Model
 		createAndActivateCampaign();
 		
 		//validate the ranks of allocated offer in Customer Care
@@ -226,7 +226,8 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		ccTokenForm.openTokenTab(60000L,200L);
 		Reporter.log("Load offers allocated for the token", LOG_TO_STD_OUT);
 		try { Thread.sleep( 3000 );  } catch( Exception e) {}
-		ccTokenForm.loadOffersForCampaignName("Campaign_1431672946536");
+		//setCampaignName("Campaign_1431927026447");
+		ccTokenForm.loadOffersForCampaignName(getCampaignName());
 		if(ccTokenForm.verifyRanksOfOffers())
 		{
 			Assert.assertTrue(true, "Ranks are sorted!");
@@ -422,7 +423,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		RulesForm rulesForm = new RulesForm(seleniumWebDriver, getRuleJson(), TIMEOUT,
 				ATTEMPT_TIMEOUT);
 		//setRuleName(Format.addTimestamp("Rule_"));
-		setRuleName("RuleEndToEnd403");
+		setRuleName("RuleEndToEnd401");
 		JSONArray ruleTypes = getRuleJson().getList();
 		for (int ruleTypeIndex = 0; ruleTypeIndex < ruleTypes.length(); ruleTypeIndex++) {
 			getRuleJson().setRuleById(ruleTypeIndex);
@@ -447,7 +448,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 							.value());
 			Assert.assertTrue(rulesForm.formIsValid());
 			rulesForm.saveRule();
-			status=rulesForm.isRuleNameInList("RuleEndToEnd403");
+			status=rulesForm.isRuleNameInList("RuleEndToEnd401");
 			rulesForm.close();
 		}
 

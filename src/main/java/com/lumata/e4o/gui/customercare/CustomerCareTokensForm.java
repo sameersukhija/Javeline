@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.catalogmanager.OfferOptimisationForm;
@@ -27,7 +28,7 @@ public class CustomerCareTokensForm  extends CustomerCareForm {
 		
 		super.open().clickId( "gwt-debug-BtnCCBarInfoTokens" );
 		super.waitForPageLoad();
-		switchToFrameByClassName("GNAVB3LDA",timeout,attempt_timeout);
+		switchToFrame(SeleniumUtils.SearchBy.XPATH, "//div[@class='angularIframe']//iframe[contains(@src,'angular/customerCare/index.html#/tokens')]", timeout, attempt_timeout);
 		
 		return this;
 		
