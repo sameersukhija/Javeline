@@ -1061,7 +1061,7 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 	 * 
 	 * The returns Boolean describe if popup was displayed and pressed.
 	 */
-	protected Boolean handleJavascriptAlertAcceptDismiss(Boolean accept) {
+	public Boolean handleJavascriptAlertAcceptDismiss(Boolean accept) {
 		
 		Alert popupAlert = null;
 		Boolean pressed = null;
