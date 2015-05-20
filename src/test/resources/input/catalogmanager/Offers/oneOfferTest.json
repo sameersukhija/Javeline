@@ -1,0 +1,43 @@
+{
+	"offers": [
+		{
+			"enabled": true,
+			"name": "OfferA",
+			"definition" : {
+				"externalId" : null,
+				"description": "Offer 1",
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : null,
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				}
+			],
+			"notification" : null,
+			"eligibility" : null,
+			"availability" : {
+				"stock" : "100",
+				"reservations" : null,
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"activate":true,
+			"delete": false
+		}
+	]
+}

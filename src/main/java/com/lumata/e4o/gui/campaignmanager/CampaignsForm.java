@@ -370,9 +370,9 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 	
 	public CampaignsForm setCampaignModel( String campaignModel ) throws FormException {
 	
-		String campaignModeValueXPath = "//select[@id='gwt-debug-Campaign Model Select in Campaign']";
+		//String campaignModeValueXPath = "//select[@id='gwt-debug-Campaign Model Select in Campaign']";
 		
-		selectByXPathAndVisibleText( campaignModeValueXPath, campaignModel );
+		selectByIdAndVisibleText("gwt-debug-Campaign Model Select in Campaign", campaignModel );
 		
 		return this;
 		

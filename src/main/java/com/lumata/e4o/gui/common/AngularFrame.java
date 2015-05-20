@@ -22,7 +22,7 @@ public class AngularFrame extends Form {
 	
 	public AngularFrame open() throws FormException {
 		
-		switchToFrameByName( "angularIframe" );
+		switchToFrameByName( "angularIframe",timeout,interval);
 		
 		return this;
 		

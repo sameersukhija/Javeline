@@ -150,7 +150,7 @@ public class JSONOffersTest {
 		Assert.assertEquals( element.getChannel(), "Ch C");
 		Assert.assertEquals( element.getQuantity().intValue(), 20);
 		
-		Assert.assertEquals( underTest.getStock().intValue(), 100);
+		Assert.assertEquals( underTest.getStock(), 100);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-mm-dd" );
 		

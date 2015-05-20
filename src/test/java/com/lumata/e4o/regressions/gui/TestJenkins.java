@@ -4,7 +4,6 @@ import javax.mail.MessagingException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.Optional;
@@ -57,7 +56,7 @@ public class TestJenkins {
 		seleniumWebDriver.openBrowser( "http://www.google.com" );
 		
 		seleniumWebDriver.getWrappedDriver().findElement( By.id( "lst-ib" ) ).sendKeys( "jenkins test" );
-		
+				
 	}
 
 	@Test( enabled=false, priority = 2 )
@@ -73,13 +72,6 @@ public class TestJenkins {
 
 	}
 	
-	@Test( enabled=true, priority = 3 )
-	public void generateResultReport() {
-		
-		Assert.assertTrue( false );
-		
-	}
-		
 	@AfterSuite
 	public void end() {
 				

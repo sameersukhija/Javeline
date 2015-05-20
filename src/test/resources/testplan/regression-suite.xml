@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Regression Suite" verbose="1" parallel="false" time-out="80000">
+<suite name="Regression Suite" verbose="1" parallel="false">
 
   <listeners>
     <listener class-name="com.lumata.e4o.testing.common.TestNGReportListener"/>
   </listeners>
-  
-  <parameter name="e4oReleaseParam" value="2.4.1.20.1" />
+	<test name="Run Expired Data">
+   <parameter name="environment" value="e4o_qa2_ita"/>
+	<parameter name="tenant" value="tenantMaster"/>
+	<classes>
+		<class name="com.lumata.e4o.scheduling.scheduledtasks.ExpiredDataTask">
+		<methods>
+			<include name="exec_ExpiredData_task"/>
+		</methods>
+		</class>
+	</classes>
+	</test>
+	
+	<parameter name="e4oReleaseParam" value="2.4.1.20.1" />
   
   <parameter name="networkEnvironmentParams" value="{ 'envFile':'e4o_qa2_ita', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule', 'guiUser':'superman' }"/>
   <!-- selenium_driver_type: local or remote -->  
@@ -17,8 +28,24 @@
   -->
   <!-- parameter name="seleniumWebDriverParams" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://192.168.56.152:4444/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/ -->  
   <parameter name="seleniumWebDriverParams" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/>  
-
-  
+  <test name="Rank Validation Scenario">
+  <parameter name="supplier_jsonFilePath" value="input/catalogmanager/suppliers"/>
+  <parameter name="supplier_jsonFileName" value="endToEndSupplier"/>
+  <parameter name="productType_jsonFilePath" value="input/catalogmanager/productTypes"/>
+  <parameter name="productType_jsonFileName" value="endToEndProductType"/>
+  <parameter name="tokenType_jsonPath" value="input/catalogmanager/tokenTypes"/>
+  <parameter name="tokenType_jsonFileName" value="NewTokenTypeList"/>
+  <parameter name="rule_jsonPath" value="input/catalogmanager/rules"/>
+  <parameter name="rule_jsonFileName" value="NewRuleList"/>
+  <parameter name="campaignModel_jsonPath" value="input/campaignmanager/campaignModels"/>
+  <parameter name="campaignModel_jsonFileName" value="endToEndCampaignModel"/>
+  <parameter name="offer_jsonPath" value="input/catalogmanager/Offers"/>
+  <parameter name="offer_jsonFileName" value="newOffers"/>
+    <classes>
+      <class name="com.lumata.e4o.testplan.functional.e2e.OfferRankValidationScenario">        
+      </class>
+    </classes>	
+  </test>
    <test name="Token Type Validation">
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestTokenTypeForm">        
@@ -64,5 +91,18 @@
       </class>
     </classes>	
   </test>
-  
+  <test name="Campaign Creation Testcase">
+	<classes>
+      <class name="com.lumata.e4o.regressions.gui.TestCampaignsForm">
+      </class>
+    </classes>	
+  </test>
+  <!-- test name="Regression suite for E4O">
+	<parameter name="jsonFilePath" value="input/campaignmanager/campaignModels"/>
+	<parameter name="jsonFileName" value="newCampaignModel"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestCampaignModelForm">
+      </class>
+    </classes>
+  </test -->
 </suite>

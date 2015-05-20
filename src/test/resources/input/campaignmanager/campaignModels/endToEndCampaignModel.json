@@ -2,8 +2,8 @@
 	"campaignModels": [
 		{
 			"enabled": true,
-			"name": "CampaignStartModel",
-			"description": "CampaignStartModel",
+			"name": "Model",
+			"description": "Model",
 			"campaignType": null,
 			"useHierarchy": false,
 			"errorActions": {
@@ -13,10 +13,10 @@
 				{	
 					"eventType":"Campaign start", 
 					"criteria":[
-					{ "type":"Subscriber.Msisdn","operator" : "=", "value" : "393886933857", "delete" : false} 
+					{ "type":"Subscriber.Msisdn","operator" : "=", "value" : "9890234567", "delete" : false} 
 					],
 					"actions": [
-						{ "name": "Rulesets.Rule1", "value": null, "option":"Allocate offer immediately", "time": null, "delete": false }							
+						{ "name": "Rulesets.RuleEndToEnd401", "value": null, "option":"Allocate offer immediately", "time": null, "delete": false }							
 					],
 					"beneficiary": true,
 					"notifications": null,

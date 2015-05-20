@@ -1,0 +1,56 @@
+{
+  "productTypes": [
+    {
+      "enabled": true,
+      "name": "endToEndProduct",
+      "description": "endToEndProduct",
+      "delete": false,
+      "characteristics": [
+        {
+          "enabled": true,
+          "name": "listE",
+          "type": "List",
+          "list": {
+            "value": [
+              "five",
+              "six",
+              "seven"
+            ],
+            "default": [
+              "five",
+              "six"
+            ]
+          },
+          "choice": null,
+          "text": null,
+          "unit": null
+        },
+        {
+          "enabled": true,
+          "name": "choiceE",
+          "type": "Choice",
+          "list": null,
+          "choice": {
+            "value": [
+              "box",
+              "club",
+              "bom"
+            ],
+            "default": "club"
+          },
+          "text": null,
+          "unit": null
+        },
+        {
+          "enabled": true,
+          "name": "textE",
+          "type": "Text",
+          "list": null,
+          "choice":null,
+          "text": "Hello World",
+          "unit": null
+        }
+      ]
+    }
+  ]
+}

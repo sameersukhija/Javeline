@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.catalogmanager.OfferOptimisationForm;
@@ -23,11 +24,11 @@ public class CustomerCareTokensForm  extends CustomerCareForm {
 		
 	}
 
-	public CustomerCareTokensForm openTokenTab() throws FormException {
+	public CustomerCareTokensForm openTokenTab(Long timeout,Long attempt_timeout) throws FormException {
 		
 		super.open().clickId( "gwt-debug-BtnCCBarInfoTokens" );
 		super.waitForPageLoad();
-		openAngularFrame();
+		switchToFrame(SeleniumUtils.SearchBy.XPATH, "//div[@class='angularIframe']//iframe[contains(@src,'angular/customerCare/index.html#/tokens')]", timeout, attempt_timeout);
 		
 		return this;
 		
@@ -77,13 +78,13 @@ public CustomerCareTokensForm close() throws FormException {
 		return this;
 		
 	}
-	public CustomerCareTokensForm loadOffersForTokenCode(String tokenCode) throws FormException{
-		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 10);
+	public CustomerCareTokensForm loadOffersForCampaignName(String campaignName) throws FormException{
+		//WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 10);
 		
 		//clickId("tokens");
 		
-		String loadOfferElement="//div[contains(text(),'"+tokenCode+"')]//ancestor::div[1]//div[8]//a[@name='btn-loadOffers' and @title='Load offers']";
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loadOfferElement)));
+		String loadOfferElement="//div[contains(text(),'"+campaignName+"')]//ancestor::div[1]//div[8]//a[@name='btn-loadOffers' and @title='Load offers']";
+		//wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loadOfferElement)));
 		clickXPath(loadOfferElement);
 		return this;
 	}

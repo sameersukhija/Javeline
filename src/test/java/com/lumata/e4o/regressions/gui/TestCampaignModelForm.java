@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
@@ -35,9 +36,9 @@ public class TestCampaignModelForm extends ParentTestCase{
 		seleniumWebDriver.setTestName( method.getName() );
 		
 	}
-	@Parameters({"jsonFilePath","jsonFileName","networkEnvironmentParams","seleniumWebDriverParams"})
+	@Parameters({"jsonFilePath","jsonFileName"})
 	@Test( enabled=TEST_ENABLED, priority = 1 )
-	public void testCampaignModelCreation( @Optional("/input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName,@Optional String networkEnvironmentParams, @Optional String seleniumWebDriverParams) throws FormException, JSONException, JSONSException {
+	public void testCampaignModelCreation( @Optional("/input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
@@ -67,6 +68,17 @@ public class TestCampaignModelForm extends ParentTestCase{
 				Map<String, JSONEvent_> events = campaignModel.getEvents();
 				campaignModelForm.addEvents(events);
 				campaignModelForm.saveCampaignModel();
+				campaignModelForm.confirmCampaignModelSaving();
+				if(campaignModelForm.isCampaignModelNameInList(campModelName))
+				{
+					Assert.assertTrue(true, "Campaign Model created successfully");
+					Reporter.log("Campaign Model created successfully",LOG_TO_STD_OUT);
+				}
+				else
+				{
+					Assert.fail("campaign model didn't create successfully");
+					Reporter.log("Campaign Model didn't create successfully", LOG_TO_STD_OUT);
+				}
 				
 			}
 		}

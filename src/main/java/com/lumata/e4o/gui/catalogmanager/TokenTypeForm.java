@@ -200,7 +200,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 
 	public List<WebElement> getTokenTypeList() throws FormException {
 		
-		List<WebElement> tokenTypeList = super.searchListByXPath( "//div[@class='e4ol-list']", "//div[@class='e4ol-list']//div[contains(@class,'e4ol-list__row ng-scope')]//div[contains(@class, 'e4ol-list__cell e4ol-list__cell--text ng-binding')]" );
+		List<WebElement> tokenTypeList = super.searchListByXPath( "//div[@class='e4ol-list']", "//div[contains(@class,'e4ol-list__row ng-scope')]//div[contains(@class, 'e4ol-list__cell e4ol-list__cell--text ng-binding')]" );
 
 		return tokenTypeList;
 		

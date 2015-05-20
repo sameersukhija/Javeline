@@ -1,5 +1,9 @@
 package com.lumata.e4o.gui.customercare;
 
+
+import org.omg.CORBA.TIMEOUT;
+import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebElement;
 
 import com.lumata.common.testing.selenium.SeleniumUtils;
@@ -62,11 +66,23 @@ public class CustomerCareForm extends Form {
 		return this;
 	}
 
-	public CustomerCareForm searchMsisdnByPhoneNumber(String prefix,
-			String msisdn) throws FormException {
+	public CustomerCareForm clickClearButton() throws FormException{
+		super.clickId( "gwt-debug-BtnCCClean" );
+		return this;
+	}
+	public Boolean subscriberPhoneNumberExists(String prefix, String msisdn) throws FormException
+	{
+		Boolean status=false;
+		searchMsisdnByPhoneNumber(prefix,msisdn);
+		status=this.searchById("gwt-debug-BtnCCInfoEdit").isDisplayed();
+		return status;
+	}
+	public CustomerCareForm searchMsisdnByPhoneNumber( String prefix, String msisdn ) throws FormException {
+		
+		//setphoneNumberOption();
+		if(prefix !=null)
+		{
 
-		setphoneNumberOption();
-		if (prefix != null) {
 			setPrefix(prefix);
 		}
 		setSubscriberMsisdn(msisdn).clickSearchButton();
@@ -79,7 +95,12 @@ public class CustomerCareForm extends Form {
 			throws FormException {
 
 		setIdentifierOption();
+
 		setSubscriberMsisdn(msisdn).clickSearchButton();
+
+
+		setSubscriberMsisdn(msisdn).
+		clickSearchButton();
 
 		return this;
 
@@ -121,16 +142,4 @@ public class CustomerCareForm extends Form {
 
 	}
 
-	public Boolean subscriberPhoneNumberExists(String prefix, String msisdn)
-			throws FormException {
-		Boolean status = false;
-		searchMsisdnByPhoneNumber(prefix, msisdn);
-		status = this.searchById("gwt-debug-BtnCCInfoEdit").isDisplayed();
-		return status;
-	}
-
-	public CustomerCareForm clickClearButton() throws FormException {
-		super.clickId("gwt-debug-BtnCCClean");
-		return this;
-	}
 }

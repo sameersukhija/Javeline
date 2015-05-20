@@ -39,8 +39,8 @@ public class ConfigureOffers extends ParentUITestCase {
 
 		setupOffers = new JSONOffers(resourcePath, resourceFile);
 
-		offersForm = new OffersForm(seleniumWebDriver,
-				setupOffers, TIMEOUT, ATTEMPT_TIMEOUT);
+		//offersForm = new OffersForm(seleniumWebDriver,
+				//setupOffers, TIMEOUT, ATTEMPT_TIMEOUT);
 
 		Reporter.log("Open \"Offer Form\" UI.", PRINT2STDOUT__);
 
@@ -48,7 +48,7 @@ public class ConfigureOffers extends ParentUITestCase {
 
 		Reporter.log("Apply setup on UI.", PRINT2STDOUT__);
 
-		offersForm.addOffers();
+		//offersForm.addOffers();
 
 		Reporter.log("Check general status of form", PRINT2STDOUT__);
 
