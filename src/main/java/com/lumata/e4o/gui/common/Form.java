@@ -266,6 +266,8 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 		return search( by, tag, null, null );
 		
 	}
+	
+	
 
 	public Form searchById( String id, long timeout, long interval ) throws FormException {
 		
@@ -281,6 +283,7 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 		return this;
 		
 	}
+
 	public Form searchByName( String name ) throws FormException {
 		
 		search( SeleniumUtils.SearchBy.NAME, name, timeout, interval );
