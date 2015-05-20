@@ -5,31 +5,17 @@
   <listeners>
     <listener class-name="com.lumata.e4o.testing.common.TestNGReportListener"/>
   </listeners>
-   <!--test name="Initialize Database">
-   
-   <parameter name="environment" value="e4o_qa2_ita"/>
-	<parameter name="nfsdataServer" value="collector"/>
-	<parameter name="user" value="superman"/>
-	<parameter name="tenant" value="tenantMaster"/>
-	<classes>
-		<class name="com.lumata.e4o.regressions.schema.ConfigureEnvironment">
-		<methods>
-			<include name="init"/>
-		</methods>
-		</class>
-		</classes>
-	</test>
 	<test name="Run Expired Data">
    <parameter name="environment" value="e4o_qa2_ita"/>
 	<parameter name="tenant" value="tenantMaster"/>
 	<classes>
-		<class name="com.lumata.e4o.regressions.schema.ConfigureEnvironment">
+		<class name="com.lumata.e4o.scheduling.scheduledtasks">
 		<methods>
 			<include name="exec_ExpiredData_task"/>
 		</methods>
 		</class>
 	</classes>
-	</test-->
+	</test>
 	<!--test name="Restore MySQL">
 	<classes>
 		<class name="com.lumata.e4o.regressions.schema.ConfigureEnvironment">
@@ -41,7 +27,7 @@
 	</test-->
 	<parameter name="e4oReleaseParam" value="2.4.1.20.1" />
   
-  <parameter name="networkEnvironmentParams" value="{ 'envFile':'e4o_qa2_ita', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule', 'guiUser':'superman' }"/>
+  <!--parameter name="networkEnvironmentParams" value="{ 'envFile':'e4o_qa2_ita', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule', 'guiUser':'superman' }"/-->
   <!-- selenium_driver_type: local or remote -->  
   <!-- 	selenium_capability
   		platform -> {WINDOWS|XP|VISTA|MAC|LINUX|UNIX|ANDROID} ( note: only WINDOWS and LINUX are available in our environments )
@@ -49,7 +35,7 @@
   		version -> the version of the used browser
   -->
   <!-- parameter name="seleniumWebDriverParams" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://192.168.56.152:4444/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/ -->  
-  <parameter name="seleniumWebDriverParams" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/>  
+  <!--parameter name="seleniumWebDriverParams" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/>  
   <test name="Rank Validation Scenario">
   <parameter name="supplier_jsonFilePath" value="input/catalogmanager/suppliers"/>
   <parameter name="supplier_jsonFileName" value="endToEndSupplier"/>
@@ -118,7 +104,7 @@
       <class name="com.lumata.e4o.regressions.gui.TestCampaignsForm">
       </class>
     </classes>	
-  </test>
+  </test-->
   <!-- test name="Regression suite for E4O">
 	<parameter name="jsonFilePath" value="input/campaignmanager/campaignModels"/>
 	<parameter name="jsonFileName" value="newCampaignModel"/>
