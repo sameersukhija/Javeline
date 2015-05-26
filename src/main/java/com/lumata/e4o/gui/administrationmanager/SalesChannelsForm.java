@@ -1,10 +1,14 @@
 package com.lumata.e4o.gui.administrationmanager;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
@@ -32,15 +36,25 @@ public class SalesChannelsForm extends AdministrationForm {
 		this.salesChannelsCfg = salesChannelsCfg;
 		
 	}
+	public SalesChannelsForm( SeleniumWebDriver selenium, long timeout, long interval ) {
+		
+		super( selenium, timeout, interval );
+		
+	}
 	
 	public SalesChannelsForm open() throws FormException {
 		
 		super.open().clickId( "gwt-debug-actrule-catalog-channel" );
+		super.waitForPageLoad();
 		
 		return this;
 		
 	}	
-	
+	public SalesChannelsForm clickAddButton() throws FormException
+	{
+		this.clickXPath( "//table[contains(@class,'page-ChannelPageView')]//button[@name='btn-add' and @title='Add channel']" );
+		return this;
+	}
 	public SalesChannelsForm addSalesChannels() throws FormException, JSONException {
 		
 		JSONArray salesChannels = salesChannelsCfg.getList();
@@ -51,8 +65,6 @@ public class SalesChannelsForm extends AdministrationForm {
 			
 			if( salesChannelsCfg.getEnabled() ) {
 				
-				clickXPath( "//table[contains(@class,'page-ChannelPageView')]//button[@name='btn-add' and @title='Add channel']" ).
-				configureSalesChannel().
 				saveSalesChannel().
 				manageErrorAction( salesChannelsCfg.getErrorActions().getString( "ELEMENT_ALREADY_EXISTS" ) );
 				
@@ -78,11 +90,16 @@ public class SalesChannelsForm extends AdministrationForm {
 		
 	}
 	
-	public SalesChannelsForm configureSalesChannel() throws FormException {
+	public SalesChannelsForm setSalesChannelName(String name) throws FormException {
 		
-		sendKeysById( "gwt-debug-TextBox-ChannelDialogBox-nameTextBox", salesChannelsCfg.getName() );
+		sendKeysById( "gwt-debug-TextBox-ChannelDialogBox-nameTextBox", name);
 		
 		return this;
+		
+	}
+public String getSalesChannelName() throws FormException {
+		
+		return this.getValueById("gwt-debug-TextBox-ChannelDialogBox-nameTextBox");
 		
 	}
 	
@@ -111,13 +128,37 @@ public class SalesChannelsForm extends AdministrationForm {
 		return this;
 		
 	}
+public SalesChannelsForm editSalesChannel( String salesChannel ) throws FormException {
+		
+		String tableListOfChannelXPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
+		String rowSalesChannelXPath = tableListOfChannelXPath + "//div[text()='" + salesChannel + "']//parent::td//parent::tr";
+		String btnEditSalesChannelXPath = rowSalesChannelXPath + "//button[@name='btn-edit']";
 
+		clickXPath( btnEditSalesChannelXPath );
+		
+		return this;
+		
+	}
+
+public SalesChannelsForm deleteSalesChannel( String salesChannel ) throws FormException {
+	
+	String tableListOfChannelXPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
+	String rowSalesChannelXPath = tableListOfChannelXPath + "//div[text()='" + salesChannel + "']//parent::td//parent::tr";
+	String btnEditSalesChannelXPath = rowSalesChannelXPath + "//button[@name='btn-delete']";
+
+	clickXPath( btnEditSalesChannelXPath );
+	confirmDialog();
+	return this;
+	
+}
 	public Boolean isSalesChannelActive( String salesChannel ) throws FormException {
 		
 		String tableListOfChannelXPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
 		String rowSalesChannelXPath = tableListOfChannelXPath + "//div[text()='" + salesChannel + "']//parent::td//parent::tr";
 		String btnActivateSalesChannelXPath = rowSalesChannelXPath + "//button[@name='btn-activate']";
-		
+		String btnDeActivate=rowSalesChannelXPath + "//button[@name='btn-deactivate']";
+		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 20);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(btnDeActivate)));
 		WebElement we = search( SeleniumUtils.SearchBy.XPATH, btnActivateSalesChannelXPath );
 		
 		if( we.getAttribute( "style" ).contains( "display: none;" ) ) { return true; }
@@ -125,7 +166,48 @@ public class SalesChannelsForm extends AdministrationForm {
 		return false;
 		
 	}
+public Boolean isSalesChannelDeactivated( String salesChannel ) throws FormException {
+		
+		String tableListOfChannelXPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
+		String rowSalesChannelXPath = tableListOfChannelXPath + "//div[text()='" + salesChannel + "']//parent::td//parent::tr";
+		String btnActivateSalesChannelXPath = rowSalesChannelXPath + "//button[@name='btn-deactivate']";
+		String btnActivate=rowSalesChannelXPath + "//button[@name='btn-activate']";
+		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 20);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(btnActivate)));
+		WebElement we = search( SeleniumUtils.SearchBy.XPATH, btnActivateSalesChannelXPath );
+		
+		if( we.getAttribute( "style" ).contains( "display: none;" ) ) { return true; }
+				
+		return false;
+		
+	}
+public List<WebElement> getSalesChannelList() throws FormException {
+	String rootPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
+	String subPath = "//tr[contains(@class, 'contentRow cycle')]//td[@class='column_description']";
+	WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 20);
+	wait.until(ExpectedConditions.elementToBeClickable(By.xpath(rootPath)));
+	List<WebElement> salesChannelList = getListByXPath(rootPath, rootPath + subPath);
+	return salesChannelList;
 	
+}
+	
+public Boolean isSalesChannelExisting( String salesChannel ) throws FormException {
+	
+	List<WebElement> salesChannelList = getSalesChannelList();
+	
+	for( WebElement salesChannelWe : salesChannelList ) {
+		
+		if( salesChannelWe.getText().trim().equals(salesChannel)) {
+			
+			return true;
+			
+		}
+		
+	}
+	
+	return false;
+	
+} 
 	public SalesChannelsForm manageErrorAction( String errorAction ) throws FormException {
 		
 		try {
