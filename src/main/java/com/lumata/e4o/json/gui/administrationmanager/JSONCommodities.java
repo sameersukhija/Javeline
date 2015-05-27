@@ -68,6 +68,11 @@ public class JSONCommodities extends JsonConfigurationFile {
 	 * @return
 	 * @throws JSONSException
 	 */
+	
+	public String getCurrencyType() throws JSONSException { 		
+		return getCurrentElement().getStringFromPath("name"); 		
+ 	}
+	
 	public String getUnit() throws JSONSException { 		
 		return getCurrentElement().getStringFromPath("unit"); 		
  	}

@@ -113,6 +113,40 @@ public class CommoditiesForm extends AdministrationForm {
 		return this;
 	}
 	
+	public CommoditiesForm addCommoditiesPaymentMean() throws FormException, JSONSException {
+		int numbCommodities = commoditiesCfg.getList().size();
+		
+		for( int commodityIndex = 0; commodityIndex < numbCommodities; commodityIndex++ ) {
+			
+			commoditiesCfg.setCurrentElementById(commodityIndex);
+			
+			/**
+			 * Only "enabled" commodities will be configured
+			 */
+			if ( commoditiesCfg.getCurrentElement().getEnabled() ) {
+		clickXPath( "//div[4]/table/tbody/tr/td/table/tbody/tr/td[3]/table/tbody/tr[2]/td[2]/div/div/div" );
+			
+		createCommodityPaymentMean();
+		saveCommodity();
+		
+			}
+		}
+		return this;
+		
+	}
+	
+	
+	
+	public CommoditiesForm createCommodityPaymentMean() throws FormException, JSONSException {
+		
+		clickXPath( "//div[4]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr/td/table/tbody/tr/td[2]/button");
+		//clickXPath("//table[@class=\"gwt-DecoratedTabPanel tab-CommoditiesPageView\"]//table[@class=\"buttonPanel\"]/tbody/tr//button[@title=\"Add\"]");
+		//typeByXPath("//table[@class='tableList Form']//input[@class='gwt-TextBox'])",commoditiesCfg.getCurrencyType());
+		typeByXPath( "//tr[4]/td[2]/input", commoditiesCfg.getCurrencyType());
+		
+		return this;
+	}
+	
 	/**
 	 * It saves just created commodity and handles post-saving results
 	 * 
@@ -150,6 +184,7 @@ public class CommoditiesForm extends AdministrationForm {
 	 */
 	public Boolean deleteCommodities(String... CommoditiesNames) throws FormException {
 
+		
 		List<String> commoditiesLabel = null;
 		Boolean resp = Boolean.FALSE;
 		
@@ -162,6 +197,7 @@ public class CommoditiesForm extends AdministrationForm {
 			String rootPath = "//table[contains(@class, \"page-BonusPageView\")]";
 			String subPath = "//tr[contains(@class,\"contentRow cycle\")]//td[@class=\"column_description\"][1]";
 		
+					
 			List<WebElement> cmLabels = searchListByXPath(rootPath, rootPath + subPath);
 			
 			for (WebElement webElement : cmLabels)
@@ -203,6 +239,56 @@ public class CommoditiesForm extends AdministrationForm {
 	 * 
 	 * 
 	 */
+	
+	
+	public Boolean deleteCommoditiesPaymentMean(String... CommoditiesNames) throws FormException {
+
+		List<String> commoditiesLabel = null;
+		Boolean resp = Boolean.FALSE;
+		
+		if ( CommoditiesNames != null && CommoditiesNames.length != 0 )
+			commoditiesLabel = Arrays.asList(CommoditiesNames);
+		else { // fetch every commodities present on UI
+			
+			commoditiesLabel = new ArrayList<String>();
+			
+			String rootPath = "//div[4]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr/td/table";
+			String subPath = "/tbody/tr/td[2]/button";
+		
+			List<WebElement> cmLabels = searchListByXPath(rootPath, rootPath + subPath);
+			clickXPath( "//div[4]/table/tbody/tr/td/table/tbody/tr/td[3]/table/tbody/tr[2]/td[2]/div/div/div" );
+			
+			for (WebElement webElement : cmLabels)
+				commoditiesLabel.add(webElement.getText());
+		}
+
+		logger.debug("Commodities element to be deleted : " + commoditiesLabel);
+		
+		try {
+			
+			for (String cnName : commoditiesLabel) {
+				
+				String singleRule = "//tr[3]/td/div/div/table/tbody/tr[5]/td[3]/table/tbody/tr/td[2]/button";
+
+				logger.debug("Try to delete \"Commodity\" with name + \""+cnName+"\".");
+				
+				clickXPath(singleRule);
+				
+				handleJavascriptAlertAcceptDismiss(true);
+			}
+			
+			resp = Boolean.TRUE;
+			
+		} catch ( FormException e ) {
+
+			logger.error("Error during delete \"Commodities \" : " + e.getMessage());
+			
+			resp = Boolean.FALSE;
+		}
+
+		return resp;
+	}
+	
 	private class CommoditiesSaveHandler extends FormSaveConfigurationHandler {
 
 		protected CommoditiesSaveHandler(	WebDriver inDriver,
@@ -321,6 +407,104 @@ public class CommoditiesForm extends AdministrationForm {
 		}
 		
 	}
+
+	public Boolean editCommodities(String... CommoditiesNames) throws FormException {
+		List<String> commoditiesLabel = null;
+		Boolean resp = Boolean.FALSE;
+		
+		if ( CommoditiesNames != null && CommoditiesNames.length != 0 )
+			commoditiesLabel = Arrays.asList(CommoditiesNames);
+		else { // fetch every commodities present on UI
+			
+			commoditiesLabel = new ArrayList<String>();
+			
+			String rootPath = "//table[contains(@class, \"page-BonusPageView\")]";
+			String subPath = "//tr[contains(@class,\"contentRow cycle\")]//td[@class=\"column_description\"][1]";
+			
+			
+			List<WebElement> cmLabels = searchListByXPath(rootPath, rootPath + subPath);
+			
+			for (WebElement webElement : cmLabels)
+				commoditiesLabel.add(webElement.getText());
+		}
+
+		logger.debug("Commodities element to be edited : " + commoditiesLabel);
+		
+		try {
+			
+			for (String cnName : commoditiesLabel) {
+				
+				String singleRule = "//div[text()='"+cnName+"']//ancestor::tr[1]//*[@name='btn-edit']";
+
+				logger.debug("Try to edit \"Commodity\" with name + \""+cnName+"\".");
+				
+				clickXPath(singleRule);
+				
+				handleJavascriptAlertAcceptDismiss(true);
+			}
+			
+			resp = Boolean.TRUE;
+			
+		} catch ( FormException e ) {
+
+			logger.error("Error during edit \"Commodities \" : " + e.getMessage());
+			
+			resp = Boolean.FALSE;
+		}
+
+		return resp;
+	}
+		
+
+
+
+public Boolean editCommoditiesPaymentMean(String... CommoditiesNames) throws FormException {
+	List<String> commoditiesLabel = null;
+	Boolean resp = Boolean.FALSE;
 	
+	if ( CommoditiesNames != null && CommoditiesNames.length != 0 )
+		commoditiesLabel = Arrays.asList(CommoditiesNames);
+	else { // fetch every commodities present on UI
+		
+		commoditiesLabel = new ArrayList<String>();
+		
+		String rootPath = "//div[4]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr/td/table";
+		String subPath = "/tbody/tr/td[2]/button";
+		clickXPath( "//div[4]/table/tbody/tr/td/table/tbody/tr/td[3]/table/tbody/tr[2]/td[2]/div/div/div" );
+		
+		List<WebElement> cmLabels = searchListByXPath(rootPath, rootPath + subPath);
+		
+		for (WebElement webElement : cmLabels)
+			commoditiesLabel.add(webElement.getText());
+	}
+
+	logger.debug("Commodities element to be edited : " + commoditiesLabel);
+	
+	try {
+		
+		for (String cnName : commoditiesLabel) {
+			
+			//String singleRule = "//div[text()='"+cnName+"']//ancestor::tr[1]//*[@name='btn-edit']";
+			clickXPath("//tr[3]/td/div/div/table/tbody/tr[5]/td[3]/table/tbody/tr/td/button");
+			String singleRule = "//tr[4]/td[2]/input";
+			
+			logger.debug("Try to edit \"Commodity\" with name + \""+cnName+"\".");
+			
+			typeByXPath(singleRule,"EuroT");
+			
+			handleJavascriptAlertAcceptDismiss(true);
+		}
+		
+		resp = Boolean.TRUE;
+		
+	} catch ( FormException e ) {
+
+		logger.error("Error during edit \"Commodities \" : " + e.getMessage());
+		
+		resp = Boolean.FALSE;
+	}
+
+	return resp;
+}
 	
 }
