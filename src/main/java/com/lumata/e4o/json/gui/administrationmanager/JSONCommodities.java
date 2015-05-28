@@ -45,6 +45,11 @@ public class JSONCommodities extends JsonConfigurationFile {
 		return getCurrentElement().getStringFromPath("name"); 		
 	}
 
+    
+    public String getCommodityAccountName() throws JSONSException { 		
+		return getCurrentElement().getStringFromPath("name"); 		
+	}
+
     /**
      * 
      * @return

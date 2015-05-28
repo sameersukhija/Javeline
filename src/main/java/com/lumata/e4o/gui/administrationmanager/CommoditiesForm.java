@@ -17,6 +17,8 @@ import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.catalogmanager.OffersForm;
+import com.lumata.e4o.gui.common.Form;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
 import com.lumata.e4o.json.gui.administrationmanager.JSONCommodities;
 
@@ -113,7 +115,7 @@ public class CommoditiesForm extends AdministrationForm {
 		return this;
 	}
 	
-	public CommoditiesForm addCommoditiesPaymentMean() throws FormException, JSONSException {
+	public CommoditiesForm clickCommoditiesPaymentMeanbutton() throws FormException, JSONSException {
 		int numbCommodities = commoditiesCfg.getList().size();
 		
 		for( int commodityIndex = 0; commodityIndex < numbCommodities; commodityIndex++ ) {
@@ -125,9 +127,6 @@ public class CommoditiesForm extends AdministrationForm {
 			 */
 			if ( commoditiesCfg.getCurrentElement().getEnabled() ) {
 		clickXPath( "//div[4]/table/tbody/tr/td/table/tbody/tr/td[3]/table/tbody/tr[2]/td[2]/div/div/div" );
-			
-		createCommodityPaymentMean();
-		saveCommodity();
 		
 			}
 		}
@@ -137,7 +136,7 @@ public class CommoditiesForm extends AdministrationForm {
 	
 	
 	
-	public CommoditiesForm createCommodityPaymentMean() throws FormException, JSONSException {
+	public CommoditiesForm setCommodityPaymentMean(String getCurrencyType) throws FormException, JSONSException {
 		
 		clickXPath( "//div[4]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr/td/table/tbody/tr/td[2]/button");
 		//clickXPath("//table[@class=\"gwt-DecoratedTabPanel tab-CommoditiesPageView\"]//table[@class=\"buttonPanel\"]/tbody/tr//button[@title=\"Add\"]");
@@ -147,6 +146,38 @@ public class CommoditiesForm extends AdministrationForm {
 		return this;
 	}
 	
+	
+	
+	public String getCommodityPaymentMean() throws FormException {
+		
+		return super.getValueByXPath("//tr[4]/td[2]/input");
+		
+	}
+
+	public CommoditiesForm setCommodityPaymentType(String getpaymentType) throws FormException, JSONSException {
+		
+		clickXPath("//div[4]/table/tbody/tr[2]/td/div/div[2]/table/tbody/tr/td/table/tbody/tr/td[2]/button");
+		if ( !"Internal".equals(commoditiesCfg.getType()) )
+		selectByXPath("//td[2]/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td[2]/select",selectByNameandVisibleText(commoditiesCfg.getType()));		
+		
+		return this;
+	}
+	
+	public String getCommodityPaymentType() throws FormException {
+		
+		return super.getValueByXPath("//td[2]/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td[2]/select");
+		
+	}
+	public CommoditiesForm setCommodityPaymentAccount(String getCommodityAccountName) throws FormException, JSONSException {
+		selectByXPath("html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[1]/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/select",selectByNameandVisibleText(commoditiesCfg.getCommodityAccountName()));
+		return this;
+	}
+
+	public String getCommodityPaymentAccount() throws FormException {
+		
+		return super.getValueByXPath("html/body/div[5]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[1]/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/select");
+		
+	}
 	/**
 	 * It saves just created commodity and handles post-saving results
 	 * 
@@ -160,7 +191,13 @@ public class CommoditiesForm extends AdministrationForm {
 		CommoditiesSaveHandler handler = new CommoditiesSaveHandler( 	selenium.getWrappedDriver(), 
 																		commoditiesCfg.getCurrentElement());		
 		handler.saveAction();
-
+		return this;	
+	}
+	
+	public CommoditiesForm saveCommodityPaymentMean() throws FormException, JSONSException {
+		
+		clickXPath("//div/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button");
+		handleJavascriptAlertAcceptDismiss(true);
 		return this;	
 	}
 	
