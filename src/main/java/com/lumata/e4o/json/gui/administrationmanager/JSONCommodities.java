@@ -78,6 +78,10 @@ public class JSONCommodities extends JsonConfigurationFile {
 		return getCurrentElement().getStringFromPath("name"); 		
  	}
 	
+	public String getEditCurrencyType() throws JSONSException { 		
+		return getCurrentElement().getStringFromPath("currency"); 		
+ 	}
+	
 	public String getUnit() throws JSONSException { 		
 		return getCurrentElement().getStringFromPath("unit"); 		
  	}

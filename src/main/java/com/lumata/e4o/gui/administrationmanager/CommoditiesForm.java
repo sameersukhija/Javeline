@@ -495,13 +495,13 @@ public class CommoditiesForm extends AdministrationForm {
 
 
 
-public Boolean editCommoditiesPaymentMean(String... CommoditiesNames) throws FormException {
-	List<String> commoditiesLabel = null;
-	Boolean resp = Boolean.FALSE;
+	public Boolean editCommoditiesPaymentMean(String... CommoditiesNames) throws FormException, JSONSException {
+		List<String> commoditiesLabel = null;
+		Boolean resp = Boolean.FALSE;
 	
-	if ( CommoditiesNames != null && CommoditiesNames.length != 0 )
+		if ( CommoditiesNames != null && CommoditiesNames.length != 0 )
 		commoditiesLabel = Arrays.asList(CommoditiesNames);
-	else { // fetch every commodities present on UI
+		else { // fetch every commodities present on UI
 		
 		commoditiesLabel = new ArrayList<String>();
 		
@@ -515,9 +515,9 @@ public Boolean editCommoditiesPaymentMean(String... CommoditiesNames) throws For
 			commoditiesLabel.add(webElement.getText());
 	}
 
-	logger.debug("Commodities element to be edited : " + commoditiesLabel);
+		logger.debug("Commodities element to be edited : " + commoditiesLabel);
 	
-	try {
+		try {
 		
 		for (String cnName : commoditiesLabel) {
 			
@@ -527,21 +527,65 @@ public Boolean editCommoditiesPaymentMean(String... CommoditiesNames) throws For
 			
 			logger.debug("Try to edit \"Commodity\" with name + \""+cnName+"\".");
 			
-			typeByXPath(singleRule,"EuroT");
+			typeByXPath(singleRule, commoditiesCfg.getCurrencyType());
 			
 			handleJavascriptAlertAcceptDismiss(true);
 		}
 		
 		resp = Boolean.TRUE;
 		
-	} catch ( FormException e ) {
+		} catch ( FormException e ) {
 
 		logger.error("Error during edit \"Commodities \" : " + e.getMessage());
 		
 		resp = Boolean.FALSE;
+		}
+
+		return resp;
+}
+	
+	public CommoditiesForm clickEditCommoditiesPaymentMeanbutton() throws FormException, JSONSException {
+		
+		
+		clickXPath("//tr[3]/td/div/div/table/tbody/tr[5]/td[3]/table/tbody/tr/td/button");
+			
+		return this;
+	}	
+	
+	
+	public CommoditiesForm setEditCommodityPaymentMean(String getEditCurrencyType) throws FormException, JSONSException {
+		
+		int numbCommodities = commoditiesCfg.getList().size();
+		
+		for( int commodityIndex = 0; commodityIndex < numbCommodities; commodityIndex++ ) {
+			
+			commoditiesCfg.setCurrentElementById(commodityIndex);
+			
+			/**
+			 * Only "enabled" commodities will be configured
+			 */
+			if ( commoditiesCfg.getCurrentElement().getEnabled() ) {
+		String singleRule = "//tr[4]/td[2]/input";
+		
+		typeByXPath(singleRule, commoditiesCfg.getEditCurrencyType());
+			}
+		}
+		return this;
+	}
+	
+	
+	
+	public String getEditCommodityPaymentMean() throws FormException {
+		
+		return super.getValueByXPath("//tr[4]/td[2]/input");
+		
 	}
 
-	return resp;
-}
+	public CommoditiesForm saveEditCommodityPaymentMean() throws FormException, JSONSException {
+	
+		handleJavascriptAlertAcceptDismiss(true);
+		
+		return this;
+	}
 	
 }

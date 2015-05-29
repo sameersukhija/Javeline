@@ -137,10 +137,14 @@ public class TestPaymentMeanForm extends ParentTestCase{
 			Reporter.log("Open \"Commodities Form\" UI.",LOG_TO_STD_OUT);
 
 			commoditiesForm.open();
-
+			
+			commoditiesForm.clickEditCommoditiesPaymentMeanbutton();
+						
+			commoditiesForm.setEditCommodityPaymentMean(resourceFile);
+			
 			Reporter.log("Apply setup on UI.", LOG_TO_STD_OUT);
 			
-			Assert.assertFalse(commoditiesForm.editCommoditiesPaymentMean(),
+			Assert.assertEquals(commoditiesForm.saveEditCommodityPaymentMean(),
 				"Status error during edit!");
 
 			Reporter.log("Check general status of form", LOG_TO_STD_OUT);
