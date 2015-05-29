@@ -45,7 +45,7 @@ import org.json.JSONException;
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
 @TCSeleniumWebDriver
-public class testUc07_01CreateNewCommodityPaymentMean extends ParentTestCase{
+public class TestPaymentMeanForm extends ParentTestCase{
 	/**
 	 * Commodities configuration file
 	 */
@@ -63,12 +63,11 @@ public class testUc07_01CreateNewCommodityPaymentMean extends ParentTestCase{
 		
 	}
 	
-	@Parameters({"commoditiesFile","networkEnvironmentParams","seleniumWebDriverParams"})
+	@Parameters({"commoditiesFile"})
 	
 	@Test( enabled=TEST_ENABLED, priority = 1 )
 	
-	public void configureCommoditiesTest(@Optional("commoditiesPaymentMean") String commoditiesFile,String networkEnvironmentParams,
-			String seleniumWebDriverParams) throws FormException, JSONException, JSONSException {
+	public void testUc07_01CreateNewCommodityPaymentMean(@Optional("commoditiesPaymentMean") String commoditiesFile) throws FormException, JSONException, JSONSException {
 
 		Reporter.log("Creation of \"Commodities Form\".", LOG_TO_STD_OUT);
 
@@ -93,8 +92,16 @@ public class testUc07_01CreateNewCommodityPaymentMean extends ParentTestCase{
 
 		Reporter.log("Apply setup on UI.", LOG_TO_STD_OUT);
 		
-		commoditiesForm.addCommoditiesPaymentMean();
-
+		commoditiesForm.clickCommoditiesPaymentMeanbutton();
+		
+		commoditiesForm.setCommodityPaymentType(resourceFile);
+		
+		commoditiesForm.setCommodityPaymentAccount(resourceFile);
+		
+		commoditiesForm.setCommodityPaymentMean(resourceFile);
+		
+		commoditiesForm.saveCommodityPaymentMean();
+		
 		Reporter.log("Check general status of form", LOG_TO_STD_OUT);
 
 		Assert.assertTrue(commoditiesForm.navigate(),
@@ -104,12 +111,11 @@ public class testUc07_01CreateNewCommodityPaymentMean extends ParentTestCase{
 
 		
 	
-		@Parameters({"commoditiesFile","networkEnvironmentParams","seleniumWebDriverParams"})
+		@Parameters({"commoditiesFile"})
 		
 		@Test( enabled=TEST_ENABLED, priority = 2 )
 		
-		public void EditCommoditiesTest(@Optional("commoditiesPaymentMean") String commoditiesFile,String networkEnvironmentParams,
-				String seleniumWebDriverParams) throws FormException, JSONException, JSONSException {
+		public void testUc07_02EditCommodityPaymentMean(@Optional("commoditiesPaymentMean") String commoditiesFile) throws FormException, JSONException, JSONSException {
 
 			Reporter.log("Creation of \"Commodities Form\".", LOG_TO_STD_OUT);
 
@@ -137,17 +143,14 @@ public class testUc07_01CreateNewCommodityPaymentMean extends ParentTestCase{
 			Assert.assertFalse(commoditiesForm.editCommoditiesPaymentMean(),
 				"Status error during edit!");
 
-			
-
 			Reporter.log("Check general status of form", LOG_TO_STD_OUT);
 		}
 			
 	
 	
-	@Parameters({"commoditiesFile","networkEnvironmentParams","seleniumWebDriverParams"})
+	@Parameters({"commoditiesFile"})
 	@Test( enabled=TEST_ENABLED, priority = 3 )
-	public void DeleteCommoditiesTest(@Optional("commoditiesPaymentMean") String commoditiesFile,String networkEnvironmentParams,
-			String seleniumWebDriverParams) throws FormException, JSONException, JSONSException {
+	public void testUc07_03DeleteCommodityPaymentMean(@Optional("commoditiesPaymentMean") String commoditiesFile) throws FormException, JSONException, JSONSException {
 
 		Reporter.log("Creation of \"Commodities Form\".", LOG_TO_STD_OUT);
 
