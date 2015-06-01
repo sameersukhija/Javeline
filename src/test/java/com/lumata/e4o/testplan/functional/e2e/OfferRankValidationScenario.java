@@ -198,7 +198,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 						
 		}
 		else{
-				Assert.fail("The Token Type creation Failed!");
+				Assert.fail("The Rule creation Failed!");
 				Reporter.log("Creation of Token Type Failed!",LOG_TO_STD_OUT);
 			}
 		//create a campaign Model using the Rule created above

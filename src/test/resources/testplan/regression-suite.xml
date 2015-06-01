@@ -36,7 +36,12 @@
       </class>
     </classes>	
   </test>
- 
+ <test name="Commodities Payment Mean TestCases">
+	<classes>
+      <class name="com.lumata.e4o.regressions.gui.TestPaymentMeanForm">
+      </class>
+    </classes>	
+  </test>
   <test name="Rank Validation Scenario">
   <parameter name="supplier_jsonFilePath" value="input/catalogmanager/suppliers"/>
   <parameter name="supplier_jsonFileName" value="endToEndSupplier"/>
@@ -55,7 +60,7 @@
       </class>
     </classes>	
   </test>
-   <test name="Token Type Validation">
+   <!--test name="Token Type Validation">
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestTokenTypeForm">        
       </class>
@@ -105,7 +110,7 @@
       <class name="com.lumata.e4o.regressions.gui.TestCampaignsForm">
       </class>
     </classes>	
-  </test>
+  </test-->
   <!-- test name="Regression suite for E4O">
 	<parameter name="jsonFilePath" value="input/campaignmanager/campaignModels"/>
 	<parameter name="jsonFileName" value="newCampaignModel"/>
