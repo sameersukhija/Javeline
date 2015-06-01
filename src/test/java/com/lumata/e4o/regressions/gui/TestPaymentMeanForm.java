@@ -21,6 +21,8 @@ import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
 import com.lumata.e4o.gui.catalogmanager.OffersForm;
 import com.lumata.e4o.gui.catalogmanager.ProductTypesForm;
 import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCOwner;
+import com.lumata.e4o.testing.common.TCOwners;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONPricesElement;
@@ -43,6 +45,9 @@ import com.lumata.e4o.json.gui.administrationmanager.JSONCommodities;
 import org.json.JSONException;
 
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
+@TCOwners(
+		@TCOwner( name="Sameer Sukhija", email="sameer.sukhija@lumatagroup.com" )
+)
 
 @TCSeleniumWebDriver
 public class TestPaymentMeanForm extends ParentTestCase{
@@ -68,7 +73,7 @@ public class TestPaymentMeanForm extends ParentTestCase{
 	@Test( enabled=TEST_ENABLED, priority = 1 )
 	
 	public void testUc07_01CreateNewCommodityPaymentMean(@Optional("commoditiesPaymentMean") String commoditiesFile) throws FormException, JSONException, JSONSException {
-
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Commodities Form\".", LOG_TO_STD_OUT);
 
 		//String currentResourceStartPath = null;
@@ -92,20 +97,33 @@ public class TestPaymentMeanForm extends ParentTestCase{
 
 		Reporter.log("Apply setup on UI.", LOG_TO_STD_OUT);
 		
-		commoditiesForm.clickCommoditiesPaymentMeanbutton();
+		commoditiesForm.clickPaymentMeanTab();
+		int numbCommodities = setupCommodities.getList().size();
 		
-		commoditiesForm.setCommodityPaymentType(resourceFile);
+		for( int commodityIndex = 0; commodityIndex < numbCommodities; commodityIndex++ ) {
+			
+			setupCommodities.setCurrentElementById(commodityIndex);
+			
+			/**
+			 * Only "enabled" commodities will be configured
+			 */
+			if ( setupCommodities.getCurrentElement().getEnabled() ) 
+			{
+				commoditiesForm.clickAddPaymentMeanButton();
+				commoditiesForm.setCommodityPaymentType(setupCommodities.getType());
 		
-		commoditiesForm.setCommodityPaymentAccount(resourceFile);
+				commoditiesForm.setCommodityPaymentAccount(setupCommodities.getAccount());
 		
-		commoditiesForm.setCommodityPaymentMean(resourceFile);
+				commoditiesForm.setCommodityPaymentMean(setupCommodities.getName());
 		
-		commoditiesForm.saveCommodityPaymentMean();
+				commoditiesForm.saveCommodityPaymentMean();
 		
-		Reporter.log("Check general status of form", LOG_TO_STD_OUT);
+				Reporter.log("Check general status of form", LOG_TO_STD_OUT);
 
-		Assert.assertTrue(commoditiesForm.navigate(),
+				Assert.assertTrue(commoditiesForm.navigate(),
 				"Status error during configuration!");
+			}
+		}
 	
 	}
 
@@ -116,7 +134,7 @@ public class TestPaymentMeanForm extends ParentTestCase{
 		@Test( enabled=TEST_ENABLED, priority = 2 )
 		
 		public void testUc07_02EditCommodityPaymentMean(@Optional("commoditiesPaymentMean") String commoditiesFile) throws FormException, JSONException, JSONSException {
-
+			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 			Reporter.log("Creation of \"Commodities Form\".", LOG_TO_STD_OUT);
 
 			//String currentResourceStartPath = null;
@@ -135,19 +153,31 @@ public class TestPaymentMeanForm extends ParentTestCase{
 					setupCommodities, TIMEOUT, ATTEMPT_TIMEOUT);
 
 			Reporter.log("Open \"Commodities Form\" UI.",LOG_TO_STD_OUT);
-
+			int numbCommodities = setupCommodities.getList().size();
 			commoditiesForm.open();
+			commoditiesForm.clickPaymentMeanTab();
+			for( int commodityIndex = 0; commodityIndex < numbCommodities; commodityIndex++ ) {
+				
+				setupCommodities.setCurrentElementById(commodityIndex);
+				
+				/**
+				 * Only "enabled" commodities will be configured
+				 */
+				if ( setupCommodities.getCurrentElement().getEnabled() ) 
+				{
 			
-			commoditiesForm.clickEditCommoditiesPaymentMeanbutton();
+					commoditiesForm.clickEditCommoditiesPaymentMeanbutton(setupCommodities.getName());
 						
-			commoditiesForm.setEditCommodityPaymentMean(resourceFile);
+					commoditiesForm.setEditCommodityPaymentMean(setupCommodities.getNewCurrency());
 			
-			Reporter.log("Apply setup on UI.", LOG_TO_STD_OUT);
+					Reporter.log("Apply setup on UI.", LOG_TO_STD_OUT);
 			
-			Assert.assertEquals(commoditiesForm.saveEditCommodityPaymentMean(),
+					Assert.assertEquals(commoditiesForm.saveEditCommodityPaymentMean(),
 				"Status error during edit!");
 
-			Reporter.log("Check general status of form", LOG_TO_STD_OUT);
+					Reporter.log("Check general status of form", LOG_TO_STD_OUT);
+				}
+			}
 		}
 			
 	
@@ -155,7 +185,7 @@ public class TestPaymentMeanForm extends ParentTestCase{
 	@Parameters({"commoditiesFile"})
 	@Test( enabled=TEST_ENABLED, priority = 3 )
 	public void testUc07_03DeleteCommodityPaymentMean(@Optional("commoditiesPaymentMean") String commoditiesFile) throws FormException, JSONException, JSONSException {
-
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Commodities Form\".", LOG_TO_STD_OUT);
 
 		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT+"input/administrationmanager/commodities/";
@@ -175,11 +205,21 @@ public class TestPaymentMeanForm extends ParentTestCase{
 		Reporter.log("Open \"Commodities Form\" UI.",LOG_TO_STD_OUT);
 
 		commoditiesForm.open();
-
+		commoditiesForm.clickPaymentMeanTab();
 		Reporter.log("Apply setup on UI.", LOG_TO_STD_OUT);
-		
-		
-		Assert.assertTrue(commoditiesForm.deleteCommoditiesPaymentMean(),"Status error during cleanup!");
+		int numbCommodities = setupCommodities.getList().size();
+		for( int commodityIndex = 0; commodityIndex < numbCommodities; commodityIndex++ ) {
+			
+			setupCommodities.setCurrentElementById(commodityIndex);
+			
+			/**
+			 * Only "enabled" commodities will be configured
+			 */
+			if ( setupCommodities.getCurrentElement().getDelete() ) 
+			{
+				Assert.assertTrue(commoditiesForm.deleteCommoditiesPaymentMean(setupCommodities.getName()),"Status error during cleanup!");
+			}
+		}
 
 		Reporter.log("Check general status of form", LOG_TO_STD_OUT);
 

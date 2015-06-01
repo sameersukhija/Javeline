@@ -44,12 +44,11 @@ public class JSONCommodities extends JsonConfigurationFile {
     public String getName() throws JSONSException { 		
 		return getCurrentElement().getStringFromPath("name"); 		
 	}
-
-    
-    public String getCommodityAccountName() throws JSONSException { 		
-		return getCurrentElement().getStringFromPath("name"); 		
+    public String getDelete() throws JSONSException { 		
+		return getCurrentElement().getStringFromPath("delete"); 		
 	}
 
+    
     /**
      * 
      * @return
@@ -74,11 +73,8 @@ public class JSONCommodities extends JsonConfigurationFile {
 	 * @throws JSONSException
 	 */
 	
-	public String getCurrencyType() throws JSONSException { 		
-		return getCurrentElement().getStringFromPath("name"); 		
- 	}
 	
-	public String getEditCurrencyType() throws JSONSException { 		
+	public String getNewCurrency() throws JSONSException { 		
 		return getCurrentElement().getStringFromPath("currency"); 		
  	}
 	
