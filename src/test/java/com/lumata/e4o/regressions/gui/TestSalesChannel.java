@@ -29,7 +29,7 @@ public class TestSalesChannel extends ParentTestCase{
 	
 	@Parameters({"channel_jsonFilePath","channel_jsonFileName"})
 	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 1 )
-	public void testSupplierCreation( @Optional("input/administrationmanager/salesChannels") String channel_jsonFilePath, @Optional("salesChannelsList") String channel_jsonFileName) throws FormException, JSONException, JSONSException {
+	public void testUc08_01CreatNewSalesChannel( @Optional("input/administrationmanager/salesChannels") String channel_jsonFilePath, @Optional("salesChannelsList") String channel_jsonFileName) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Sales Channel Form\".", LOG_TO_STD_OUT);
@@ -77,7 +77,7 @@ public class TestSalesChannel extends ParentTestCase{
 	}
 	
 	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 2 )
-	public void testDeactivateSalesChannel() throws FormException, JSONException, JSONSException {
+	public void testUc08_02DeactivateSalesChannel() throws FormException, JSONException, JSONSException {
 		
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 		Reporter.log("Deactivation of an existing Sales Channel", LOG_TO_STD_OUT);
@@ -95,7 +95,7 @@ public class TestSalesChannel extends ParentTestCase{
 				}
 	}
 	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 3 )
-	public void testEditSalesChannel() throws FormException, JSONException, JSONSException {
+	public void testUc08_03EditSalesChannel() throws FormException, JSONException, JSONSException {
 		
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Reporter.log("Editing an existing Sales Channel", LOG_TO_STD_OUT);
@@ -120,7 +120,7 @@ public class TestSalesChannel extends ParentTestCase{
 		}
 	}
 	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 4 )
-	public void testDeleteSalesChannel() throws FormException {
+	public void testUc08_04DeleteSalesChannel() throws FormException {
 		
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Reporter.log("Editing an existing Sales Channel", LOG_TO_STD_OUT);
