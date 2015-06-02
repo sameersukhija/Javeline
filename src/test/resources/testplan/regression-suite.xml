@@ -60,7 +60,7 @@
       </class>
     </classes>	
   </test>
-   <!--test name="Token Type Validation">
+   <test name="Token Type Validation">
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestTokenTypeForm">        
       </class>
@@ -110,13 +110,13 @@
       <class name="com.lumata.e4o.regressions.gui.TestCampaignsForm">
       </class>
     </classes>	
-  </test-->
-  <!-- test name="Regression suite for E4O">
+  </test>
+  <test name="Regression suite for E4O">
 	<parameter name="jsonFilePath" value="input/campaignmanager/campaignModels"/>
 	<parameter name="jsonFileName" value="newCampaignModel"/>
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestCampaignModelForm">
       </class>
     </classes>
-  </test -->
+  </test>
 </suite>
