@@ -307,7 +307,7 @@ public class RulesForm extends OfferOptimisationForm {
 	}
 	
 public List<WebElement> getRuleList() throws FormException {
-		
+		waitForPageLoad();
 		List<WebElement> ruleList = super.getListByXPath("//div[contains(@class ,'e4ol-list')]","//div[contains(@class , 'e4ol-list__cell ng-binding')]");
 
 		return ruleList;

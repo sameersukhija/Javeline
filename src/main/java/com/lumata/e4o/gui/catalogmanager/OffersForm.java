@@ -460,7 +460,7 @@ private JSONOffers offerCfg;
 			
 			super.clickXPath("//td[text()='Available Offers']//ancestor::tr[1]//button");
 				
-			super.clickXPath("//td[contains(text(),'Available Stock')]//ancestor::tr[1]//ancestor::table[3]//button[@title='Save']");
+			super.clickXPath("//td[contains(text(),'Available Stock')]//ancestor::tbody//tr[2]//button[@title='Save']");
 			
 			super.clickXPath("//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
 			
@@ -469,7 +469,7 @@ private JSONOffers offerCfg;
 			
 			super.sendKeysByXPath("//input[@id='gwt-debug-TextBox-VPOfferEdit-qtyTB']",stock);
 			
-			super.clickXPath("//div[text()='Reservation']//ancestor::table//button[@title='Save']");
+			super.clickXPath("//div[text()='Reservation']//ancestor::tbody//tr[2]//table[contains(@class,'buttonPanel')]//button[@title='Save']");
 			
 			return this;
 				
