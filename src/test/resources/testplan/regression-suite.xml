@@ -111,12 +111,12 @@
       </class>
     </classes>	
   </test>
-  <test name="Regression suite for E4O">
+  <!--test name="Regression suite for E4O">
 	<parameter name="jsonFilePath" value="input/campaignmanager/campaignModels"/>
 	<parameter name="jsonFileName" value="newCampaignModel"/>
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestCampaignModelForm">
       </class>
     </classes>
-  </test>
+  </test-->
 </suite>
