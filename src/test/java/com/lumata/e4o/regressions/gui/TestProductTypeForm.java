@@ -1,4 +1,6 @@
 package com.lumata.e4o.regressions.gui;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.testng.Assert;
@@ -27,10 +29,11 @@ public class TestProductTypeForm extends ParentTestCase{
 	
 	private ProductTypesForm productTypesForm;
 	private JSONProductTypes setupProductTypes = null;
+	private String productTypeName=null;
 	
-	@Test(enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT)
+	@Test(enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT,priority=1)
 	@Parameters({"jsonFilePath","jsonFileName"})
-	public void testProductTypeCreation(@Optional("input/catalogmanager/productTypes/") String jsonFilePath, @Optional("productTypeList") String jsonFileName) throws JSONSException,FormException
+	public void testUc26_01CreateNewProductType(@Optional("input/catalogmanager/productTypes/") String jsonFilePath, @Optional("productTypeList") String jsonFileName) throws JSONSException,FormException
 	{
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Boolean status=false;
@@ -56,14 +59,14 @@ public class TestProductTypeForm extends ParentTestCase{
 			JsonCurrentElement current = setupProductTypes.getCurrentElementById(index);
 			
 			if ( current.getEnabled() ){
-				String productTypeName=Format.addTimestamp(setupProductTypes.getName() + "_");
-				productTypesForm.configureProductType(productTypeName,setupProductTypes.getDescription());
+				setProductTypeName(setupProductTypes.getName());
+				productTypesForm.configureProductType(getProductTypeName(),setupProductTypes.getDescription());
 				for (JsonCharacteristicElement chElem : setupProductTypes.getCharacteristicsList()) {
 			
 					if ( chElem.getEnabled() ) {
 				
 						productTypesForm.addCharacteristicButton();
-						productTypesForm.fillCharacteristicElement(Format.addTimestamp(chElem.getName()),chElem);
+						productTypesForm.fillCharacteristicElement(chElem.getName(),chElem);
 						productTypesForm.saveCharacteristic();
 					}
 				}
@@ -84,6 +87,109 @@ public class TestProductTypeForm extends ParentTestCase{
 	
 		}
 		
+	}
+	
+	@Test(enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT,priority=2,dependsOnMethods = { "testUc26_01CreateNewProductType" })
+	public void testUc26_02EditProductType() throws JSONSException,FormException
+	{
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		Boolean status=false;
+		Reporter.log("Edit of \"Product Types Form\".", LOG_TO_STD_OUT);
+
+		productTypesForm= new ProductTypesForm(seleniumWebDriver,TIMEOUT, ATTEMPT_TIMEOUT);
+		productTypesForm.openForm();
+		productTypesForm.editProductTypeByName(getProductTypeName());
+		setProductTypeName("ProductAMod");
+		productTypesForm.editProductTypeName(getProductTypeName());
+		productTypesForm.editCharacteristicButton();
+		productTypesForm.setCharacteristicName("newText");
+		productTypesForm.setCharacteristicType("Text");
+		productTypesForm.setTextCharTypeValue("new");
+		productTypesForm.saveCharacteristic();
+		productTypesForm.saveProductType();
+			
+		productTypesForm.editProductTypeByName(getProductTypeName());
+		status=productTypesForm.verifyCharacteristicAdditionForProductType("newText");
+		if(status==true)
+		{
+			Assert.assertTrue(status);
+			Reporter.log("Product Types Edited Succesfully!");
+		}
+		else
+		{
+			Assert.fail("The Product Type modification Failed!");
+			Reporter.log("Modification of Product Types Failed!");
+		}
+		productTypesForm.productTypeCancelButton();
+	}
+	@Test(enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT,priority=3,dependsOnMethods = { "testUc26_01CreateNewProductType" })
+	public void testUc26_04EditProductType() throws JSONSException
+	{
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		Reporter.log("Edit of \"Product Types Form\".", LOG_TO_STD_OUT);
+
+		productTypesForm= new ProductTypesForm(seleniumWebDriver,TIMEOUT, ATTEMPT_TIMEOUT);
+		try{
+			productTypesForm.openForm();
+			productTypesForm.editProductTypeByName(getProductTypeName());
+			productTypesForm.deletecharacteristicByName(getProductTypeName(),"newText");
+			productTypesForm.saveProductType();
+		}catch(FormException e)
+		{
+			Assert.fail("Deletion of Product Type Characteristic failed!"+e.getMessage());
+			Reporter.log("Deletion of \"Characteistic\" failed.", LOG_TO_STD_OUT);
+		}
+	}
+	@Test(enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT,priority=4,dependsOnMethods = { "testUc26_01CreateNewProductType" })
+	public void testUc26_05EditProductType() throws JSONSException
+	{
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		Reporter.log("Edit of \"Product Types Form\".", LOG_TO_STD_OUT);
+
+		productTypesForm= new ProductTypesForm(seleniumWebDriver,TIMEOUT, ATTEMPT_TIMEOUT);
+		try{
+			productTypesForm.openForm();
+			productTypesForm.editProductTypeByName(getProductTypeName());
+			productTypesForm.editcharacteristicByName(getProductTypeName(),"list1");
+			List<String> chars=new ArrayList<String>();
+			chars.add("on");
+			chars.add("to");
+			chars.add("too");
+			productTypesForm.editCharacteristicValueButton().setListCharacteristicValues(chars,null).saveCharacteristic();
+			productTypesForm.saveProductType();
+		}catch(FormException e)
+		{
+			Assert.fail("Modification of Product Type Characteristic failed!"+e.getMessage());
+			Reporter.log("Modification of \"Characteistic\" failed.", LOG_TO_STD_OUT);
+		}
+	}
+	@Test(enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT,priority=5,dependsOnMethods = { "testUc26_01CreateNewProductType" })
+	public void testUc26_03DeleteProductType() throws JSONSException,FormException{
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		Boolean status=false;
+		Reporter.log("Delete\"Product Types\".", LOG_TO_STD_OUT);
+
+		productTypesForm= new ProductTypesForm(seleniumWebDriver,TIMEOUT, ATTEMPT_TIMEOUT);
+		
+		productTypesForm.openForm();
+		status=productTypesForm.deleteProductTypes(getProductTypeName());
+		if(status==true)
+		{
+			Assert.assertTrue(status);
+			Reporter.log("Product Types Deleted Succesfully!");
+		}
+		else
+		{
+			Assert.fail("The Product Types Deletion Failed!");
+			Reporter.log("Deletion of Product Types Failed!");
+		}
+	}
+	
+	public void setProductTypeName(String name) throws FormException{
+		this.productTypeName=name;
+	}
+	public String getProductTypeName() throws FormException{
+		return this.productTypeName;
 	}
 
 }
