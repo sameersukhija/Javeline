@@ -86,6 +86,10 @@ public class ProductTypesForm extends CatalogueManagerForm {
 		super.sendKeysByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']", name);
 		return this;
 	}
+	public ProductTypesForm editProductTypeName(String name) throws FormException {
+		super.sendKeysByXPath("//div[text()='Edit product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']", name);
+		return this;
+	}
 	
 	public String getProductTypeName() throws FormException {
 		return super.getValueByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']");
@@ -102,6 +106,10 @@ public class ProductTypesForm extends CatalogueManagerForm {
 	
 	public ProductTypesForm addCharacteristicButton() throws FormException {
 		super.clickXPath("//div[text()='Create product type']//ancestor::div[2]//button[@title='Add']");
+		return this;
+	}
+	public ProductTypesForm editCharacteristicButton() throws FormException {
+		super.clickXPath("//div[text()='Edit product type']//ancestor::div[2]//button[@title='Add']");
 		return this;
 	}
 	
@@ -125,6 +133,10 @@ public class ProductTypesForm extends CatalogueManagerForm {
 	
 	public ProductTypesForm addCharacteristicValueButton() throws FormException {
 		super.clickXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::div[2]//button[@title='Add']");
+		return this;
+	}
+	public ProductTypesForm editCharacteristicValueButton() throws FormException {
+		super.clickXPath("//div[contains(text(),'Editing a characteritic type')]//ancestor::div[2]//button[@title='Add']");
 		return this;
 	}
 	
@@ -197,6 +209,24 @@ public class ProductTypesForm extends CatalogueManagerForm {
 	public String getUnitTypeValue() throws FormException {
 		return super.getValueByXPath("//div[contains(text(),'Adding a new characteritic type')]//ancestor::table[1]//input[@id='gwt-debug-TextBox-CharacteristicDialogBox-defaultValueTextBox']");
 	}
+	
+public Boolean verifyCharacteristicAdditionForProductType(String charName) throws FormException
+{
+	Boolean status=false;
+	String rootXpath="//div[text()='Product Type Characteristics']//ancestor::tbody[1]";
+	String subPath="//tr[contains(@class,'contentRow cycle')]//td[contains(@class,'column_description')][1]";
+	List<WebElement> characteristics = getListByXPath(rootXpath, rootXpath + subPath);
+	for( WebElement charEl : characteristics ) {
+		System.out.println("The text from the webelement is:" +charEl.getText());
+		
+		if( charEl.getText().trim().equals(charName)) {
+			
+			status=true;
+			
+		}
+	}
+	return status;
+}
 	
 	/**
 	 * 
@@ -399,7 +429,7 @@ public class ProductTypesForm extends CatalogueManagerForm {
 					
 					editBtn.click();
 					WebDriverWait wait= new WebDriverWait(selenium.getWrappedDriver(), 15);
-					wait.until(ExpectedConditions.elementToBeClickable(super.search( SearchBy.XPATH,"//div[@text()=\"Edit product type\"")));
+					wait.until(ExpectedConditions.elementToBeClickable(super.search( SearchBy.XPATH,"//div[text()=\"Edit product type\"]")));
 	
 				}
 				
@@ -413,7 +443,7 @@ public class ProductTypesForm extends CatalogueManagerForm {
 	
 	public List<WebElement> getcharListForProductType(String productTypeName) throws FormException {
 		
-		editProductTypeByName(productTypeName);
+		//editProductTypeByName(productTypeName);
 		String rootPath = "//table[contains(@class, 'tableList')]";
 		String subPath = "//tr[contains(@class,\"contentRow cycle\")]//td[@class=\"column_description\"][1]";
 	
@@ -436,7 +466,31 @@ public class ProductTypesForm extends CatalogueManagerForm {
 					
 					editBtn.click();
 					WebDriverWait wait= new WebDriverWait(selenium.getWrappedDriver(), 15);
-					wait.until(ExpectedConditions.elementToBeClickable(super.search( SearchBy.XPATH,"//div[@text()=\"Edit product type\"")));
+					wait.until(ExpectedConditions.elementToBeClickable(super.search( SearchBy.XPATH,"//div[text()=\"Editing a characteritic type\"]")));
+	
+				}
+				
+			}
+			
+		}
+			
+		return this;
+		
+	}
+	
+public ProductTypesForm deletecharacteristicByName(String productTypeName, String charName ) throws FormException {
+		
+		List<WebElement> charList = getcharListForProductType(productTypeName);
+		
+		for( int el = 0; el < charList.size(); el++ ) {
+						
+			if( charList.get( el ).getText().trim().equals( charName ) ) {
+	
+				WebElement editBtn = super.search( SearchBy.XPATH , "//div[text()='"+charName+"']//ancestor::tr[1]//*[@name='btn-delete']");
+				
+				if( null != editBtn ) {
+					
+					editBtn.click();
 	
 				}
 				
