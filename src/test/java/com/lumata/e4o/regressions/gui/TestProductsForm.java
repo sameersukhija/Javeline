@@ -144,7 +144,7 @@ public class TestProductsForm extends ParentTestCase {
 			
 			ProductsForm pdForm=new ProductsForm(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 			pdForm.clickId( "gwt-debug-actrule-catalog-products" );
-			productName=Format.addTimestamp("new_Product_");
+			productName="new_Product_End_to_End";
 			List<String> pdType_list=new ArrayList<String>();
 			pdType_list.add(productTypeName);
 			Calendar startDate = Calendar.getInstance();
