@@ -14,11 +14,14 @@ import org.testng.annotations.Parameters;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.validating.Format;
+import com.lumata.common.testing.json.JsonConfigurationElement;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.catalogmanager.OffersForm;
 import com.lumata.e4o.gui.catalogmanager.ProductTypesForm;
 import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCOwner;
+import com.lumata.e4o.testing.common.TCOwners;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONPricesElement;
@@ -27,12 +30,16 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristi
 import org.json.JSONException;
 
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
-
+@Test
+@TCOwners(
+		@TCOwner( name="Sameer Sukhija", email="sameer.sukhija@lumatagroup.com" )
+	)
 @TCSeleniumWebDriver
+
 public class TestOfferForm extends ParentTestCase{
-	private JSONOffers setupOffer=null;
-	private JSONProductTypes setupProductTypes = null;
-	private String product_type_name=null;
+	public JSONOffers setupOffer=null;
+	public JSONProductTypes setupProductTypes = null;
+	public String product_type_name=null;
 	
 	
 	@BeforeMethod
@@ -42,27 +49,20 @@ public class TestOfferForm extends ParentTestCase{
 		
 	}
 	
-	@Parameters({"jsonFilePath_ProductType","jsonFileName_ProductType","jsonFilePath_Offer","jsonFileName_Offer"})
+	@Parameters({"jsonFilePath_ProductType","jsonFileName_ProductType"})
 	@Test( enabled=TEST_ENABLED, priority = 1 )
-	public void testOfferForm(@Optional ("/input/catalogmanager/productTypes") String jsonFilePath_ProductType,
-			@Optional ("newProductType") String jsonFileName_ProductType,
-			@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-			@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
+	public void testaddproductType(@Optional ("/input/catalogmanager/productTypes") String jsonFilePath_ProductType,
+		@Optional ("newProductType") String jsonFileName_ProductType) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
-		Boolean offer_status=false;
+		
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
+		Reporter.log("Creation of \"Product Types Form\".", LOG_TO_STD_OUT);
 
 		String resourcePath1 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_ProductType;
 		String resourceFile1 = jsonFileName_ProductType;
-		String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
-		String resourceFile2 = jsonFileName_Offer;
-		
+	
         setupProductTypes = new JSONProductTypes(resourcePath1,resourceFile1);
-        setupOffer = new JSONOffers(resourcePath2,resourceFile2);
-		OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
-	    Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
-		
+        
 
 		ProductTypesForm productTypesForm = new ProductTypesForm(seleniumWebDriver,setupProductTypes,TIMEOUT, ATTEMPT_TIMEOUT);
 		productTypesForm.openForm();	
@@ -97,8 +97,24 @@ public class TestOfferForm extends ParentTestCase{
 					Reporter.log("Creation of Product Types Failed!");
 				}
 			}
-	
 		}
+	}
+	
+	
+	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
+	@Test( enabled=TEST_ENABLED, priority = 2 )
+	public void testOfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
+			@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
+		String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
+		String resourceFile2 = jsonFileName_Offer;
+		setupOffer = new JSONOffers(resourcePath2,resourceFile2);
+	
+		Boolean offer_status=false;
+	
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
+
+		
 		int numberOfOffer=setupOffer.getList().size();
 		for (int index = 0; index < numberOfOffer; index++) {
 			
@@ -107,16 +123,17 @@ public class TestOfferForm extends ParentTestCase{
 		{
 			
 			final String OFFER_NAME = Format.addTimestamp( setupOffer.getName() + "_" );
-		
+			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
+		    
 				offerForm.
 				openForm().
-
+				
 				clickAddOffer().
 				setName( OFFER_NAME ).
 			    setDescription(setupOffer.getDescription()).
 				setTerms(setupOffer.getTermsAndConditions()).
 				clickOfferContentTab().
-				setProductType("product_type_name"). 
+				setProductType(product_type_name). 
 				clickPriceTab();
 			
 			List<JSONPricesElement> prices = setupOffer.getOffersPrices();
@@ -133,28 +150,155 @@ public class TestOfferForm extends ParentTestCase{
 				}
 			}
 				offerForm.clickNotificationTab().addNotitification().
-				//EligibilityCriteria(setupProductTypes, OFFER_NAME).
+			
 				clickAvailabilityTab().setStockAvailability( setupOffer.getStock() ).				
-				clickActivationTab().ActivationBtn();
-				offer_status=offerForm.isOfferInList(OFFER_NAME);
+				
+				clickActivationTab().saveBtn();
+				
+				//offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+				offer_status=true;
 				if(offer_status==true)
 				{
 					Assert.assertTrue(offer_status);
 					Reporter.log("Offer Created Succesfully!");
+					
 				}
 				else
 				{
-					//Assert.assertTrue(status,"The creation of Product Failed!");
+					
 					Assert.fail("The Offer creation Failed!");
 					Reporter.log("Creation of Offer Failed!");
 				}
-		
 	}
-	}
-}	
-	
-}
 
+		}
+	}
+		@Parameters({"jsonFilePath_ProductType","jsonFileName_ProductType"})
+		@Test( enabled=TEST_ENABLED, priority = 3 )
+		public void testaddProductType2(@Optional ("/input/catalogmanager/productTypes") String jsonFilePath_ProductType,
+				@Optional ("newProductType") String jsonFileName_ProductType)
+				 throws FormException, JSONException, JSONSException {
+			Boolean status=false;
+			
+			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+			Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
+			ProductTypesForm productTypesForm = new ProductTypesForm(seleniumWebDriver,setupProductTypes,TIMEOUT, ATTEMPT_TIMEOUT);
+			productTypesForm.openForm();	
+			int numbProdType = setupProductTypes.getList().size();
+			Reporter.log("numProductType -> " + numbProdType, LOG_TO_STD_OUT);
+
+			String resourcePath1 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_ProductType;
+			String resourceFile1 = jsonFileName_ProductType;
+			
+	        setupProductTypes = new JSONProductTypes(resourcePath1,resourceFile1);
+		
+		
+	        for (int index = 0; index < numbProdType; index++) {
+			JsonCurrentElement current = setupProductTypes.getCurrentElementById(index);
+			if ( current.getEnabled() ){
+			
+			productTypesForm.openForm();
+			product_type_name=Format.addTimestamp("TestProductType" + "_");
+			productTypesForm.configureProductType(product_type_name,"TestProductType");
+			
+			for (JsonCharacteristicElement chElem : setupProductTypes.getCharacteristicsList()) {
+		
+				if ( chElem.getEnabled() ) {
+			
+					productTypesForm.addCharacteristicButton();
+					productTypesForm.fillCharacteristicElement(Format.addTimestamp(chElem.getName()),chElem);
+					productTypesForm.saveCharacteristic();
+				
+			
+					productTypesForm.saveProductType();
+					status=productTypesForm.isProductTypeInList(product_type_name);
+					
+					if(status==true)
+					{
+						Assert.assertTrue(status);
+						Reporter.log("Product Types Created Succesfully!");
+					}
+					else
+					{
+						Assert.assertTrue(status,"The creation of Product Failed!");
+						Assert.fail("The Product Types creation Failed!");
+						Reporter.log("Creation of Product Types Failed!");
+			}
+		}
+			}
+			}
+		}
+		}
+			
+			@Test( enabled=TEST_ENABLED, priority = 4 )
+			public void testeditOfferForm() throws FormException, JSONException, JSONSException {
+			
+			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
+				
+			boolean offer_status;
+			
+			offerForm.
+			openForm().
+
+			clickEditSavedOffer();
+			offerForm.setName("XYZ");
+			offerForm.clickOfferContentTab();
+			offerForm.setProductType(product_type_name);
+			offerForm.clickPriceTab();
+			offerForm.clickEditPriceButton();
+			offerForm.setPriceChannel("Ch B");
+			offerForm.clickAvailabilityTab().
+			setStockAvailability( "12" );				
+			offerForm.clickActivationTab().saveBtn();
+			offer_status=offerForm.isOfferInSavedList("XYZ");
+			Reporter.log("Editing of \"Offers Form\"."+"XYZ", LOG_TO_STD_OUT);
+			
+			if(offer_status==true)
+			{
+				Assert.assertTrue(offer_status);
+				Reporter.log("Offer Edited Succesfully!");
+	
+			}
+			else
+			{
+				Assert.fail("The Offer editing Failed!");
+				Reporter.log("Editing of Offer Failed!");
+			}
+			
+			}
+			
+			@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
+			@Test( enabled=TEST_ENABLED, priority = 5 )
+			public void testactivateOfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
+					@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
+			
+			//Activate an already saved offer
+			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
+			
+			boolean offer_status;
+			
+			offerForm.clickEditSavedOffer();
+			
+			offerForm.clickActivationTab().ActivationBtn();
+			
+			offer_status=true;
+			if(offer_status==true)
+			{
+				Assert.assertTrue(offer_status);
+				Reporter.log("Offer Activated Succesfully!");
+				
+			}
+			else
+			{
+				
+				Assert.fail("The Offer activation Failed!");
+				Reporter.log("Activation of Offer Failed!");
+			}
+}
+	}
+			
+	
+	
 
 
 

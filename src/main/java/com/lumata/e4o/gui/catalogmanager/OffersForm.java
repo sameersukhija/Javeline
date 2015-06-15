@@ -106,8 +106,18 @@ private JSONOffers offerCfg;
 	
 		return this;
 	}
+	
+	public OffersForm clickEditSavedOffer() throws FormException, JSONSException {
+			
+		clickXPath("//table[@class='tableList']//tr[@class='contentRow cycle2 savedRow-cycle1']//button[@name='btn-edit' and @title='Edit']" );
+		
+		return this;
+		
+		
+	}
+	
 	public OffersForm clickOfferContentTab() throws FormException{
-		super.clickLink("Offer Content");;
+		super.clickLink("Offer Content");
 		return this;
 	}
 	/**
@@ -430,6 +440,10 @@ private JSONOffers offerCfg;
 		return this;
 	}
 	
+	public OffersForm clickEditPriceButton() throws FormException{
+		super.clickXPath("//div[contains(text(),'Edit offer')]//ancestor::div[4]//button[@title='Add']");;
+		return this;
+	}
 	public OffersForm setPriceChannel( String PriceChannel ) throws FormException {
 			clickXPath("//div[contains(text(),'Offer Prices')]//ancestor::table//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
 
@@ -454,9 +468,8 @@ private JSONOffers offerCfg;
 			super.clickId("gwt-debug-Anchor-actrule-catalog-product-steps-stockValidity");
 			return this;
 		}
+		
 		public OffersForm setStockAvailability( String stock ) throws FormException {
-			
-			
 			
 			super.clickXPath("//td[text()='Available Offers']//ancestor::tr[1]//button");
 				
@@ -576,7 +589,25 @@ private JSONOffers offerCfg;
 		return false;	
 	}
 	
-		public List<WebElement> getOfferList()  throws FormException {
+	
+	public Boolean isOfferInSavedList( String offerName ) throws FormException {
+		
+		List<WebElement> offerList = getSaveOfferList();
+		
+		for( WebElement offerListE1 : offerList ) {
+			
+			if( offerListE1.getText().trim().equals( offerName ) ) {
+					
+				return true;
+			
+			}	
+		}
+		
+		return false;	
+	}
+	
+	
+	public List<WebElement> getOfferList()  throws FormException {
 		
 		String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
 		String subPath = "//tr[contains(@class, 'activatedRow-cycle')]//td[@class='column_description']";
@@ -587,6 +618,17 @@ private JSONOffers offerCfg;
 		return offerList;
 		}
 		
+		public List<WebElement> getSaveOfferList()  throws FormException {
+			
+			String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
+			String subPath = "//tr[contains(@class, 'savedRow-cycle2')]//td[@class='column_description']";
+					//div[@class='gwt-Label showPopupLink']";
+			 
+			List<WebElement> offerList = getListByXPath(rootPath, rootPath + subPath);
+			System.out.println(offerList);
+			return offerList;
+			}
+			
 		public WebElement getOfferListByName( String OFFER_NAME) throws FormException {
 		
 
