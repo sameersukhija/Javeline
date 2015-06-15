@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.lumata.common.testing.selenium.SeleniumUtils;
@@ -199,7 +200,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 	}
 
 	public List<WebElement> getTokenTypeList() throws FormException {
-		
+		super.waitVisibleElement(By.xpath("//div[@class='e4ol-list']"));
 		List<WebElement> tokenTypeList = super.searchListByXPath( "//div[@class='e4ol-list']", "//div[contains(@class,'e4ol-list__row ng-scope')]//div[contains(@class, 'e4ol-list__cell e4ol-list__cell--text ng-binding')]" );
 
 		return tokenTypeList;
@@ -266,7 +267,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 	} 
 	
 	public TokenTypeForm addBtn() throws FormException {
-		
+		super.waitVisibleElement(By.linkText("Add"));
 		super.clickLink( "Add" );
 		
 		return this;
@@ -277,11 +278,12 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 		List<WebElement> tokenTypeList = getTokenTypeList();
 		
-		for( int el = 0; el < tokenTypeList.size(); el++ ) {
+		for( int el = 0; el <= tokenTypeList.size(); el++ ) {
+			System.out.println(tokenTypeList.get(el).getText());
 						
 			if( tokenTypeList.get( el ).getText().trim().equals( tokenTypeName ) ) {
 
-				WebElement editBtn = super.search( SearchBy.XPATH , "//div[@class='e4ol-list']/div[" + ( el + 2 ) + "]//a[@class='gwt-Button']" );
+				WebElement editBtn = super.search( SearchBy.XPATH , "//div[@class='e4ol-list']/div["+ (el+2) +"]/div[2]/a[@name='btn-edit']" );
 				
 				if( null != editBtn ) {
 					
@@ -289,14 +291,18 @@ public class TokenTypeForm extends OfferOptimisationForm {
 					
 					/** wait for loading data **/
 					super.sleep( 2000L );
+					break;
 					
 				}
 				
 			}
 			
 		}
-			
+		
 		return this;
+		
+			
+		
 		
 	}
 	
@@ -379,7 +385,31 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		return this;
 		
 	}
-	
+	public Calendar parsePlaceHolderDate(String date_string) throws ParseException,FormException
+	{
+		Calendar date = Calendar.getInstance();
+		
+		try {
+			
+			if( PlaceHolderDate.getInstance( date_string ).isPlaceHolderDate() ) {
+			
+				date = PlaceHolderDate.getInstance(date_string).parse();
+									
+			} else {
+								
+				date.setTime( new SimpleDateFormat("yyyy-MM-dd").parse( date_string ) );
+			
+			}
+			
+			
+				
+		} catch ( ParseException e ) {
+			
+			throw new FormException( e.getMessage(), e );
+			
+		}
+		return date;
+	}
 	public String getValidityValue() throws FormException {
 		
 		return super.getValueByName( "validity.value" );
@@ -534,5 +564,18 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		return this;
 		
 	}
+	
+	public Boolean isTokenNameFieldDisabled() throws FormException
+	{
+		Boolean status=false;
+		String isDisabled =super.search( SeleniumUtils.SearchBy.NAME, "name" ).getAttribute("disabled");
+		if(isDisabled.equals("true"))
+		{
+			status=true;
+		}
+		return status;
+		
+	}
+
 
 }
