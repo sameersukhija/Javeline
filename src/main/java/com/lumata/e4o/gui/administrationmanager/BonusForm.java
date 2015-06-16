@@ -62,6 +62,11 @@ public class BonusForm extends AdministrationForm {
 		super.selectById("gwt-debug-Bonus Account Type", strAccountType);
 		return this;
 	}
+	public BonusForm selectAccount(String strAccountType)
+			throws FormException {
+		super.selectById("gwt-debug-Bonus Account", strAccountType);
+		return this;
+	}
 
 	public BonusForm selectUnit(String strUnit) throws FormException {
 		super.selectById("gwt-debug-Bonus Unit", strUnit);

@@ -63,6 +63,13 @@ public class TestBonusForm extends ParentTestCase {
 			bonusForm.enterName(BONUS_NAME);
 			bonusForm.selectDefaultValidityType(jsonCommodity
 					.getDefaultValidityType());
+			if(jsonCommodity
+					.getDefaultValidityType().equals("Fixed"))
+			{
+				bonusForm.selectDefaultPeriodStart(jsonCommodity.getDefaultPeriodStart());
+				
+			}
+				
 			bonusForm.selectPeriodType(jsonCommodity.getDefaultPeriodType());
 			bonusForm.enterDefaultQuantityPeriod(jsonCommodity
 					.getDefaultQuantityPeriod());
@@ -74,6 +81,7 @@ public class TestBonusForm extends ParentTestCase {
 			{
 				bonusForm.selectType(jsonCommodity.getType());
 				bonusForm.enterName(BONUS_NAME);
+				bonusForm.selectAccount(jsonCommodity.getAccount());
 				bonusForm.selectAccountType(jsonCommodity.getAccountType());
 				bonusForm.selectDefaultValidityType(jsonCommodity
 						.getDefaultValidityType());

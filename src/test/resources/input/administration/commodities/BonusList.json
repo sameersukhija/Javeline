@@ -7,17 +7,26 @@
 			"defaultPeriodType": "Days",
 			"defaultQuantityPeriod": "5",
 			"unitaryCost": "10",
-			"listPrice": "10"
+			"listPrice": "10",
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+        }
 		},
 		{
-			"type": "External",	
+			"type": "External",
+			"account":"mainAccount",
 			"accountType": "OTHER",
 			"defaultValidityType": "Fixed",
 			"defaultPeriodStart": "BeginningOfCurrentPeriod",
 			"defaultPeriodType": "Weeks",
 			"defaultQuantityPeriod": "5",
 			"unitaryCost": "10",
-			"listPrice": "10"
+			"listPrice": "10",
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+        }
 		}
 	]
 }
