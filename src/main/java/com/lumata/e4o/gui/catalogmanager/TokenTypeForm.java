@@ -485,7 +485,13 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		return this;
 		
 	}
-	
+public TokenTypeForm editSaveBtn() throws FormException {
+		
+		super.clickName( "btn-edit" );
+		
+		return this;
+		
+	}
 	public TokenTypeForm cancelBtn() throws FormException {
 		
 		super.clickXPath( "//a[@label='actrule-button-cancel']" );

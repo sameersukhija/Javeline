@@ -23,6 +23,7 @@ import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.dao.tenant.DAOTokenType;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
+import com.lumata.e4o.gui.catalogmanager.TokenTypeForm.TokenFormat;
 import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
 import com.lumata.e4o.schema.tenant.TokenType;
 import com.lumata.e4o.testing.common.ParentTestCase;
@@ -39,7 +40,7 @@ public class TestTokenTypeForm extends ParentTestCase {
 
 	@Test(enabled = TEST_ENABLED, timeOut = TESTNG_TIMEOUT, priority = 1)
 	@Parameters({ "jsonFilePath_tokenType", "jsonFileName_tokenType"})
-	public void checkMandatoryFields1(@Optional String jsonFilePath_tokenType,
+	public void testUc23_01CreateNewTokenRelative(@Optional String jsonFilePath_tokenType,
 			@Optional String jsonFileName_tokenType) throws FormException,
 			JSONException, JSONSException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts()
@@ -160,7 +161,7 @@ public class TestTokenTypeForm extends ParentTestCase {
 	
 
 	@Test(enabled = TEST_ENABLED, timeOut = TESTNG_TIMEOUT, priority = 2)
-	public void checkMandatoryFields2() throws FormException, JSONException,
+	public void testUc23_01CreateNewTokenAbsolute() throws FormException, JSONException,
 			JSONSException,ParseException{
 	
 		JSONArray tokenTypes = jsonTokenType.getList();	
@@ -287,15 +288,13 @@ public class TestTokenTypeForm extends ParentTestCase {
 	}
 
 	@Test(enabled = TEST_ENABLED, timeOut = TESTNG_TIMEOUT, priority = 3)
-	public void checkDuplicatedTokenType() throws FormException, JSONException,
+	public void testUc23_04CreateNewTokenInvalid() throws FormException, JSONException,
 			JSONSException {
-		String TOKEN_TYPE_NAME = tokenTypeForm.openForm()
-				.getTokenTypeNameByIndex(0);
 
 		Assert.assertTrue(TOKEN_TYPE_NAME.length() > 0);
 
 		/** save form with duplicated token type **/
-		Assert.assertTrue(tokenTypeForm
+		Assert.assertTrue(tokenTypeForm.openForm()
 				.addBtn()
 				.setName(TOKEN_TYPE_NAME)
 				.setDescription(TOKEN_TYPE_NAME + " Description")
@@ -314,14 +313,12 @@ public class TestTokenTypeForm extends ParentTestCase {
 	
 
 	@Test(enabled = TEST_ENABLED, timeOut = TESTNG_TIMEOUT, priority = 4)
-	public void checkNameFieldIsDisableOnEdit() throws FormException, JSONException,
+	public void testUc23_02EditTokenNameDisabled() throws FormException, JSONException,
 			JSONSException {
-		String TOKEN_TYPE_NAME = tokenTypeForm.openForm()
-				.getTokenTypeNameByIndex(0);
 
 		Assert.assertTrue(TOKEN_TYPE_NAME.length() > 0);
 		
-		tokenTypeForm.editByName(TOKEN_TYPE_NAME);
+		tokenTypeForm.openForm().editByName(TOKEN_TYPE_NAME);
 		if(tokenTypeForm.isTokenNameFieldDisabled())
 		{
 			Assert.assertFalse(false, "Field name is disabled");
@@ -332,6 +329,44 @@ public class TestTokenTypeForm extends ParentTestCase {
 			Assert.fail("TokenNameField is not disabled");
 			Reporter.log("TokenNameField is not disabled", LOG_TO_STD_OUT);
 		}
+		tokenTypeForm.cancelBtn().goToHome();
+
+	}
+	@Test(enabled = TEST_ENABLED, timeOut = TESTNG_TIMEOUT, priority = 5)
+	public void testUc23_03EditToken() throws FormException, JSONException,
+			JSONSException {
+		Assert.assertTrue(TOKEN_TYPE_NAME.length() > 0);
+		
+		tokenTypeForm.openForm().editByName(TOKEN_TYPE_NAME);
+		tokenTypeForm.setDescription("newDescription");
+		tokenTypeForm.setFormat("[ACDEFGHJKMNPQRTWXY34679]{6}");
+		tokenTypeForm.setUnlimitedRedraw(false);
+		tokenTypeForm.editSaveBtn();
+		/** open token type in editing mode **/
+		tokenTypeForm.editByName(TOKEN_TYPE_NAME);
+
+		/** get stored token type **/
+		TokenType tokenType = DAOTokenType.getInstance(mysqlMaster)
+				.getTokenTypeByName(TOKEN_TYPE_NAME);
+
+		Assert.assertEquals(tokenTypeForm.getName(),
+				tokenType.getTokenTypeName());
+		Assert.assertEquals(tokenTypeForm.getDescription(),
+				tokenType.getDescription());
+		Assert.assertEquals(tokenTypeForm.getImgUrl(), tokenType.getImageUrl());
+		Assert.assertEquals(tokenTypeForm.getFormat(),
+				tokenType.getTokenFormat());
+		Assert.assertEquals(
+				tokenTypeForm.getValidityType(),
+				(null == tokenType.getExpirationDate() ? TokenTypeForm.TokenValidityType.Relative
+						.name() : TokenTypeForm.TokenValidityType.Absolute
+						.name()));
+		Assert.assertEquals(
+				tokenTypeForm.getUnlimitedRedraw(),
+				Boolean.valueOf((tokenType.getSingleUseRedeemDurationTimeout() == 0 ? true
+						: false)));
+
+		/** go to home form **/
 		tokenTypeForm.cancelBtn().goToHome();
 
 	}
