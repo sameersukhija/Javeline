@@ -260,6 +260,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		customerCareCreateSubscriberForm.clickCustomerCareCreateAdd();
 		customerCareCreateSubscriberForm.clickClearButton();
 		status=customerCareCreateSubscriberForm.subscriberPhoneNumberExists(null, "9890234567");
+		customerCareCreateSubscriberForm.clickClearButton();
 		//status=customerCareCreateSubscriberForm.searchById("gwt-debug-BtnCCInfoEdit").isDisplayed();
 		}catch (FormException e)
 		{
