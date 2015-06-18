@@ -7,17 +7,23 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
+import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.catalogmanager.OffersForm;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
 import com.lumata.e4o.json.gui.administrationmanager.JSONCommodities;
 
 public class BonusForm extends AdministrationForm {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(BonusForm.class);
 	private JSONCommodities commoditiesCfg;
 
 	/**
@@ -62,8 +68,8 @@ public class BonusForm extends AdministrationForm {
 		super.selectById("gwt-debug-Bonus Account Type", strAccountType);
 		return this;
 	}
-	public BonusForm selectAccount(String strAccountType)
-			throws FormException {
+
+	public BonusForm selectAccount(String strAccountType) throws FormException {
 		super.selectById("gwt-debug-Bonus Account", strAccountType);
 		return this;
 	}
@@ -79,14 +85,13 @@ public class BonusForm extends AdministrationForm {
 				strDefaultValidityType);
 		return this;
 	}
-	
+
 	public BonusForm selectDefaultPeriodStart(String strDefaultPeriodStart)
 			throws FormException {
 		super.selectById("gwt-debug-Bonus Default Period Start",
 				strDefaultPeriodStart);
 		return this;
 	}
-
 
 	public BonusForm selectPeriodType(String strDefaultPeriodType)
 			throws FormException {
@@ -112,161 +117,130 @@ public class BonusForm extends AdministrationForm {
 		super.typeById("gwt-debug-Bonus List Price", strListPrice);
 		return this;
 	}
-	
-	public BonusForm clickButtonLimit() throws FormException
-	{
-		super.clickName("btn-limit");
+
+	public BonusForm clickButtonLimit(String strBonusName) throws FormException {
+		super.clickXPath("//div[text()='"
+				+ strBonusName
+				+ "']//ancestor::tr[contains(@class,'contentRow cycle')]//td[6]//button[@name='btn-limit']");
 		return this;
 	}
-	
-	public BonusForm enterBalanclimitValue(String strValue) throws FormException
-	{
+
+	public Boolean isButtonLimitDisable(String strBonusName)
+			throws FormException {
+		Boolean status = false;
+		String isDisabled = super
+				.search(SeleniumUtils.SearchBy.XPATH,
+						"//div[text()='"
+								+ strBonusName
+								+ "']//ancestor::tr[contains(@class,'contentRow cycle')]//td[6]//button[@name='btn-limit']")
+				.getAttribute("disabled");
+		if (isDisabled.equals("true")) {
+			return true;
+		}
+		return status;
+
+	}
+
+	public BonusForm enterLimitValue(String strText) throws FormException {
+		super.typeByXPath("//input[contains(@class,'gwt-TextBox')", strText);
+		return this;
+	}
+
+	public BonusForm enterBalanclimitValue(String strValue)
+			throws FormException {
 		super.typeByXPath("//input[contains(@class,'gwt-TextBox')]", strValue);
 		return this;
 	}
-	
-	public BonusForm clickEdit() throws FormException
-	{
-		super.clickName("btn-edit");
+
+	public String getBalancelimitValue() throws FormException {
+		return super.getValueByXPath("//input[contains(@class,'gwt-TextBox')]");
+
+	}
+
+	public BonusForm clickEdit(String strBonusName) throws FormException {
+		super.clickXPath("//div[text()='"
+				+ strBonusName
+				+ "']//ancestor::tr[contains(@class,'contentRow cycle')]//td[6]//button[@name='btn-edit']");
 		return this;
 	}
-	
-	private class CommoditiesSaveHandler extends FormSaveConfigurationHandler {
 
-		protected CommoditiesSaveHandler(	WebDriver inDriver,
-											JsonCurrentElement inCurrentElement) {
-			
-			super(inDriver, inCurrentElement);
+	public Boolean clickDeleteButton(String strBonusName) throws FormException {
+		try {
+			super.clickXPath("//div[text()='"
+					+ strBonusName
+					+ "']//ancestor::tr[contains(@class,'contentRow cycle')]//td[6]//button[@name='btn-delete']");
+			handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+			return true;
+		} catch (FormException e) {
+			logger.error("Error during deleting bonus" + e.getMessage());
+			return false;
+
 		}
-
-		@Override
-		protected Boolean containsErrorElement() {
-
-			Integer numbers = null;
-			Boolean resp = Boolean.TRUE;
-	
-			// error condition
-			//*[contains(@class,'errorBackground')]
-			
-			List<WebElement> elements = getWebDriver().findElements(By.xpath("//*[contains(@class,'errorBackground')]"));
-	
-			if ( elements == null )
-				numbers = 0;
-			else
-				numbers = elements.size();
-			
-			if ( numbers != 0 )
-				resp = true;
-			else
-				resp = false;
-			
-			return resp;
-		}
-
-		/**
-		 * 
-		 */
-		private WebElement saveElement = null;
-		
-		@Override
-		protected WebElement getSaveWebElement() {
-
-			if ( saveElement == null )
-				saveElement = getWebDriver().findElement(By.xpath("//button[@title='Save']")); 
-			
-			return saveElement;
-		}
-
-		@Override
-		protected ElementErrorConditionType defineErrorCondition() {
-
-			ElementErrorConditionType condition = null;
-			
-			WebElement dialogBox = getWebDriver().findElement(By.xpath("//div[@class='gwt-DialogBox']"));
-			
-			// error condition
-			//div[text()='Bonus name already used']			
-			List<WebElement> element = dialogBox.findElements(By.xpath("//div[text()='Bonus name already used']"));
-								
-			if ( element.size() != 0 )
-				condition = ElementErrorConditionType.ELEMENT_AREADY_EXISTS;
-			else
-				condition = ElementErrorConditionType.GENERAL_ERROR;
-
-			return condition;
-		}
-
-		@Override
-		protected Boolean cancelAction() {
-
-			Boolean resp = Boolean.FALSE;
-
-			try {
-
-				getWebDriver().findElement(By.id("gwt-debug-Bonus Cancel")).click();
-					
-				resp = Boolean.TRUE;
-			}
-			catch ( NoSuchElementException e ) {
-			
-				e.printStackTrace();
-				
-				resp = Boolean.FALSE;
-			}
-			
-			return resp;
-		}
-
-		@Override
-		protected Boolean addTimestampAction() {
-			
-			Boolean resp = Boolean.FALSE;
-			
-			try {
-				
-				WebElement nameElem = getWebDriver().findElement(By.xpath("//input[@id='gwt-debug-Bonus Name']"));
-				nameElem.click();
-				nameElem.clear();
-				
-				String name = getCurrentElement().getStringFromPath("name");
-				name += TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-				getCurrentElement().modifyStringFromPath("name", name);
-				
-				nameElem.sendKeys(getCurrentElement().getStringFromPath("name"));
-				
-				saveAction();
-				
-				resp = Boolean.TRUE;
-				
-			} catch ( NoSuchElementException | JSONSException | FormException e ) {
-				
-				e.printStackTrace();
-				
-				resp = Boolean.FALSE;
-			}
-			
-			return resp;
-		}
-		
 	}
-	
 
-	/**
-	 * It saves just created commodity and handles post-saving results
-	 * 
-	 * @return
-	 * 
-	 * @throws FormException
-	 * @throws JSONSException 
-	 */
-	public BonusForm saveCommodity() throws FormException, JSONSException {
-		
-		CommoditiesSaveHandler handler = new CommoditiesSaveHandler( 	selenium.getWrappedDriver(), 
-																		commoditiesCfg.getCurrentElement());		
-		handler.saveAction();
-
-		return this;	
+	public BonusForm getBonusTypeInForm() throws FormException {
+		super.searchByXPath("//tr[contains(@class,'FlexListSubTitle')]");
+		return this;
 	}
-	
+
+	public List<WebElement> getBonusNameList() throws FormException {
+
+		List<WebElement> bonusList = super.getListByXPath(
+				"//tr[contains(@class,'contentRow cycle')]",
+				"//td[contains(@class,'column_description')][1]");
+
+		return bonusList;
+
+	}
+
+	public Boolean isBonusNameInList(String strBonusName) throws FormException {
+
+		List<WebElement> bonusList = getBonusNameList();
+
+		for (WebElement bonusNameE1 : bonusList) {
+
+			if (bonusNameE1.getText().trim().equals(strBonusName)) {
+
+				return true;
+
+			}
+
+		}
+
+		return false;
+
+	}
+
+	public Boolean isDefaultValidityInList(String strBonusName,
+			String strDefaultyValidity) throws FormException {
+		List<WebElement> bonusList = getBonusNameList();
+
+		for (WebElement bonusNameE1 : bonusList) {
+			if (bonusNameE1.getText().trim().equals(strBonusName)) {
+				if (super
+						.getTextByXPath(
+								"//div[text()='"
+										+ strBonusName
+										+ "']//ancestor::tr[contains(@class,'contentRow cycle')]//td[3]//div[contains(@class,'gwt-Label')]")
+						.equals(strDefaultyValidity))
+					return true;
+			}
+
+		}
+		return false;
+	}
+
+	public BonusForm clickCancel() throws FormException {
+		super.clickName("btn-cancel");
+		return this;
+	}
+
+	public BonusForm saveBtn() throws FormException {
+
+		super.clickName("btn-save");
+		handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+
+		return this;
+	}
 
 }

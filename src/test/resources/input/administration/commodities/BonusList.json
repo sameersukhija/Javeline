@@ -8,10 +8,7 @@
 			"defaultQuantityPeriod": "5",
 			"unitaryCost": "10",
 			"listPrice": "10",
-			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
-				"GENERAL_ERROR" : "RETURN_ERROR" 
-        }
+			
 		},
 		{
 			"type": "External",
@@ -23,10 +20,7 @@
 			"defaultQuantityPeriod": "5",
 			"unitaryCost": "10",
 			"listPrice": "10",
-			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
-				"GENERAL_ERROR" : "RETURN_ERROR" 
-        }
+			
 		}
 	]
 }
