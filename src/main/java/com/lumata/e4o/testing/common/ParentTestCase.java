@@ -33,8 +33,9 @@ import com.lumata.common.testing.system.User;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.e4o.notification.dialogmanager.ActiveMQ;
-import com.lumata.e4o.system.environment.ExpressionKernelCommands;
-import com.lumata.e4o.system.environment.ExpressionKernelCommandsList;
+// TODO
+//import com.lumata.e4o.system.environment.ExpressionKernelCommands;
+//import com.lumata.e4o.system.environment.ExpressionKernelCommandsList;
 
 /**
  * This is the parent class for all test cases in E4OSystemTest. It provides the follow facilities :
@@ -190,9 +191,9 @@ public abstract class ParentTestCase {
 	protected Mysql mysqlJMailerMaster;
 
 	/**
-	 * 	Allow to manage the expression kernel commands list 	 
+	 * 	Allow to manage the expression kernel commands list - TODO 	 
 	 */
-	protected ExpressionKernelCommandsList ekcl;
+	//protected ExpressionKernelCommandsList ekcl;
 	
 	/**
 	 * 	Allow to manage the activemq servers 	 
@@ -291,7 +292,8 @@ public abstract class ParentTestCase {
 		
 		initSeleniumWebDriver( seleniumWebDriverParams );
 		
-		initEKCL();
+//		TODO
+//		initEKCL();
 		
 		initActiveMQ();
 		
@@ -361,6 +363,7 @@ public abstract class ParentTestCase {
 					break;
 					
 				}
+				/* TODO
 				case TCEKCL: {
 					
 					Reporter.log( Log.ENABLING.createMessage( "configure" , "expression kernel command list" ), LOG_TO_STD_OUT );
@@ -369,7 +372,7 @@ public abstract class ParentTestCase {
 			
 					break;
 					
-				}
+				}*/
 				case TCActiveMQ: {
 					
 					Reporter.log( Log.LOADING.createMessage( "configure" , "activemq servers" ), LOG_TO_STD_OUT );
@@ -566,6 +569,7 @@ public abstract class ParentTestCase {
 		
 	}
 	
+	/* TODO
 	private void initEKCL() {
 		
 		if( null != ekcl ) {
@@ -580,7 +584,7 @@ public abstract class ParentTestCase {
 						
 		}
 		
-	}
+	}*/
 	
 	private void initActiveMQ() throws JMSException {
 		
