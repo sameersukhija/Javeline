@@ -1,7 +1,5 @@
 package com.lumata.e4o.notification.dialogmanager;
 
-import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +17,9 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.ScheduledMessage;
 
 import com.lumata.common.testing.database.Mysql;
-import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumatagroup.expression.commons.campaign.notification.domain.SmsNotification;
+import com.lumatagroup.dialogmanager.internal.commons.driver.PollingRequest;
 
+//TODO
 public class DialogManagerConnection {
 
 	public static final String BROKER_URL = "tcp://10.120.38.25:61616";
@@ -154,8 +151,8 @@ public class DialogManagerConnection {
 		System.out.println("-- END --");
 	}
 	
-	public static List<SmsNotification> readFromScheduled() throws Exception {
-		List<SmsNotification> smsList = new ArrayList<SmsNotification>();
+	public static List<PollingRequest> readFromScheduled() throws Exception {
+		List<PollingRequest> smsList = new ArrayList<PollingRequest>();
 		
 		// http://activemq.apache.org/hello-world.html
 		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(BROKER_URL);
@@ -197,58 +194,59 @@ public class DialogManagerConnection {
 			//System.out.println("UniqueNotificationId: " + message.getUniqueNotificationId());
 			
 			ObjectMessage objMessage = (ObjectMessage) scheduled;
-			SmsNotification dmMessageRead = (SmsNotification) objMessage.getObject();
+			PollingRequest dmMessageRead = (PollingRequest) objMessage.getObject();
 			smsList.add(dmMessageRead);
 		}
 		
 		return smsList;
 	}
 	
-	public static void insertIntoMt(Mysql mysql, SmsNotification sms) throws Exception {
+	// TODO
+	public static void insertIntoMt(Mysql mysql, PollingRequest sms) throws Exception {
 		
-		String mtDate = new SimpleDateFormat("yyyyMMdd").format(sms.getSendingDate());
-		
-		// ----------------------------------------------
-		// Check if table exist or create
-		// ----------------------------------------------
-		
-		ResultSet rs = mysql.execQuery("SELECT count(*) FROM mt" + mtDate);
-		
-		if (rs == null) {
-			mysql.execUpdate("CREATE TABLE `mt" + mtDate + "` (`code` int(11) NOT NULL,`date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,`acked` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',`delivered` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',`user` varchar(16) NOT NULL,`service` varchar(64) NOT NULL,`ip` varchar(15) NOT NULL,`phone` varchar(50) NOT NULL,`sender` varchar(20) NOT NULL,`message` varchar(255) NOT NULL,`promoter` varchar(32) NOT NULL,`id` varchar(80) NOT NULL,`id_obj` varchar(25) NOT NULL,`status` int(11) NOT NULL,`ack` varchar(50) NOT NULL,`error` varchar(255) NOT NULL,`type` varchar(4) NOT NULL,`tag` varchar(15) NOT NULL,`operator` varchar(16) NOT NULL,`rights` varchar(128) DEFAULT NULL,`notes` varchar(128) NOT NULL,`autotimestamp` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',PRIMARY KEY (`code`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-		}
-		
-		// ----------------------------------------------
-		// Manual increment 'code'
-		// ----------------------------------------------
-		
-		rs = mysql.execQuery("SELECT max(code) FROM mt" + mtDate);
-		Integer code = 0;
-		
-		while (rs.next()) {
-			code = rs.getInt(1);
-			
-			if (code == null) {
-				code = 1;
-			} else {
-				code = rs.getInt(1) + 1;
-			}
-		}
+//		String mtDate = new SimpleDateFormat("yyyyMMdd").format(sms.getSendingDate());
+//		
+//		// ----------------------------------------------
+//		// Check if table exist or create
+//		// ----------------------------------------------
+//		
+//		ResultSet rs = mysql.execQuery("SELECT count(*) FROM mt" + mtDate);
+//		
+//		if (rs == null) {
+//			mysql.execUpdate("CREATE TABLE `mt" + mtDate + "` (`code` int(11) NOT NULL,`date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,`acked` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',`delivered` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',`user` varchar(16) NOT NULL,`service` varchar(64) NOT NULL,`ip` varchar(15) NOT NULL,`phone` varchar(50) NOT NULL,`sender` varchar(20) NOT NULL,`message` varchar(255) NOT NULL,`promoter` varchar(32) NOT NULL,`id` varchar(80) NOT NULL,`id_obj` varchar(25) NOT NULL,`status` int(11) NOT NULL,`ack` varchar(50) NOT NULL,`error` varchar(255) NOT NULL,`type` varchar(4) NOT NULL,`tag` varchar(15) NOT NULL,`operator` varchar(16) NOT NULL,`rights` varchar(128) DEFAULT NULL,`notes` varchar(128) NOT NULL,`autotimestamp` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',PRIMARY KEY (`code`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+//		}
+//		
+//		// ----------------------------------------------
+//		// Manual increment 'code'
+//		// ----------------------------------------------
+//		
+//		rs = mysql.execQuery("SELECT max(code) FROM mt" + mtDate);
+//		Integer code = 0;
+//		
+//		while (rs.next()) {
+//			code = rs.getInt(1);
+//			
+//			if (code == null) {
+//				code = 1;
+//			} else {
+//				code = rs.getInt(1) + 1;
+//			}
+//		}
 		
 		// ----------------------------------------------
 		// Insert MT record
 		// ----------------------------------------------
+				
+//		String sql = "INSERT INTO `mt" + mtDate + "`(`code`,`date`,`acked`,`delivered`,`user`,`service`,`ip`,`phone`,`sender`,`message`,`promoter`,`id`,`id_obj`,`status`,`ack`,`error`,`type`,`tag`,`operator`,`rights`,`notes`,`autotimestamp`)"
+//				+ "VALUES ("+code+",NOW(),NOW(),DATE_ADD(NOW(), INTERVAL 2 HOUR),'user','e4O','10.120.8.31','+39"+sms.getRecipient()+"','"+sms.getSenderName()+"','"+sms.getTextMessage()+"','E4O','','',0,UUID(),'','SMS','MAP2_LMBLOX','1','','TransID=608c3d87&notificationId="+sms.getUniqueNotificationId()+"',now())";
 		
-		String sql = "INSERT INTO `mt" + mtDate + "`(`code`,`date`,`acked`,`delivered`,`user`,`service`,`ip`,`phone`,`sender`,`message`,`promoter`,`id`,`id_obj`,`status`,`ack`,`error`,`type`,`tag`,`operator`,`rights`,`notes`,`autotimestamp`)"
-				+ "VALUES ("+code+",NOW(),NOW(),DATE_ADD(NOW(), INTERVAL 2 HOUR),'user','e4O','10.120.8.31','+39"+sms.getRecipient()+"','"+sms.getSenderName()+"','"+sms.getTextMessage()+"','E4O','','',0,UUID(),'','SMS','MAP2_LMBLOX','1','','TransID=608c3d87&notificationId="+sms.getUniqueNotificationId()+"',now())";
-		
-		mysql.execUpdate(sql);
+//		mysql.execUpdate(sql);
 	}
 	
 	public static void main(String[] args) throws Exception {
 		
-		NetworkEnvironment env = new NetworkEnvironment("input/environments", "e4o_qa", IOFileUtils.IOLoadingType.RESOURCE);
-		Mysql mysql = new Mysql(env.getDataSource("jmailer_it"));
+//		NetworkEnvironment env = new NetworkEnvironment("input/environments", "e4o_qa", IOFileUtils.IOLoadingType.RESOURCE);
+//		Mysql mysql = new Mysql(env.getDataSource("jmailer_it"));
 		
 		/* Test
 		SmsNotification sms = new SmsNotification(null);
@@ -258,8 +256,8 @@ public class DialogManagerConnection {
 		sms.setTextMessage("message");
 		*/
 		
-		for (SmsNotification sms : readFromScheduled()) {
-			insertIntoMt(mysql, sms);
-		}
+//		for (PollingRequest sms : readFromScheduled()) {
+//			insertIntoMt(mysql, sms);
+//		}
 	}
 }

@@ -8,15 +8,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lumatagroup.expression.e4o.commons.jms.message.DialogManagerMessage;
-import com.lumatagroup.expression.e4o.commons.jms.message.ExternalIdentifier;
-import com.lumatagroup.expression.e4o.commons.jms.message.Identifier;
-import com.lumatagroup.expression.e4o.commons.jms.message.Time;
-import com.lumatagroup.expression.e4o.commons.jms.message.TimeWindow;
-import com.lumatagroup.expression.e4o.commons.jms.message.Variable;
-import com.lumatagroup.expression.e4o.commons.jms.message.sms.SMSReceiver;
-import com.lumatagroup.expression.e4o.commons.jms.message.sms.SMSSender;
+import com.lumatagroup.dialogmanager.commons.message.DialogManagerMessage;
+import com.lumatagroup.dialogmanager.commons.message.ExternalIdentifier;
+import com.lumatagroup.dialogmanager.commons.message.Identifier;
+import com.lumatagroup.dialogmanager.commons.message.MessageContent;
+import com.lumatagroup.dialogmanager.commons.message.Receiver;
+import com.lumatagroup.dialogmanager.commons.message.Sender;
+import com.lumatagroup.dialogmanager.commons.message.Time;
+import com.lumatagroup.dialogmanager.commons.message.TimeWindow;
+import com.lumatagroup.dialogmanager.commons.message.Variable;
+import com.lumatagroup.dialogmanager.commons.message.sms.SMSMessageContent;
+import com.lumatagroup.dialogmanager.commons.message.sms.SMSReceiver;
+import com.lumatagroup.dialogmanager.commons.message.sms.SMSSender;
 
+// TODO
 public final class DialogManagerMessageUtils {
 
     public static final String          SMS_RECEIVER              = "393409429107";
@@ -50,7 +55,7 @@ public final class DialogManagerMessageUtils {
 	public static final String          NOTIF_LOGS_TEXT           = "textMessage";
 	public static final String          NOTIF_LOGS_TENANT_ID      = String.valueOf(TENANT_ID);
 	public static final String          NOTIF_LOGS_ID_RECEIPT     = "";
-	public static final String          MESSAGE_TEXT              = "Text Message";
+	public static final MessageContent  MESSAGE_TEXT			  = new SMSMessageContent("sms text message");
 	public static List<TimeWindow>      timeWindowList      = new ArrayList<TimeWindow>();
 	public static Map<String, Variable> variables           = new HashMap<String, Variable>();
 	public static Map<String, String>   notifLogs           = new HashMap<String, String>();
@@ -67,12 +72,18 @@ public final class DialogManagerMessageUtils {
 		fillNotifLog();
 		fillTimeWindowList();
 		Identifier<Long, Long> identifier = getIdentifier(messageId, tenantId);
-		SMSReceiver receiver = new SMSReceiver(msisdn);
-		SMSSender sender = new SMSSender(SMS_SENDER);
+		Receiver receiver = new SMSReceiver(msisdn);
+		Sender sender = new SMSSender(SMS_SENDER);
 		Date maxExpirationTimeStamp = new SimpleDateFormat(DATE_FORMAT).parse("2015-11-07 23:00:00");
-		DialogManagerMessage dmMessage =
-				new DialogManagerMessage(identifier, receiver, sender, MESSAGE_TEXT,
-						maxExpirationTimeStamp, notifLogs, timeWindowList);
+		DialogManagerMessage dmMessage = new DialogManagerMessage(
+				identifier, 
+				receiver, 
+				sender, 
+				MESSAGE_TEXT,
+				maxExpirationTimeStamp, 
+				notifLogs, 
+				timeWindowList
+		);
 
 		//DMM META INFO
 		dmMessage.addMetainfo(DialogManagerMessage.META_INFO_CHANNEL_TYPE, NOTIF_LOGS_CATEGORY);
@@ -110,6 +121,7 @@ public final class DialogManagerMessageUtils {
 		timeWindowList.add(tw2);
 	}
 
+	@SuppressWarnings("unused")
 	private static void fillVariables() throws ParseException {
 		variables.clear();
 		Date maxExpirationTimeStamp = new SimpleDateFormat(DATE_FORMAT).parse("2013-12-31 23:59:59");

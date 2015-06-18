@@ -56,6 +56,7 @@ import com.lumata.e4o.schema.tenant.SubsNotif;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.system.environment.ExpressionKernelCommands;
 
+// TODO
 public class SMSSendingConfiguration {
 
 	private static final Logger logger = LoggerFactory.getLogger( SMSSendingConfiguration.class );
@@ -248,6 +249,7 @@ public class SMSSendingConfiguration {
 		
 	}
 	
+	@SuppressWarnings("serial")
 	@Test( dependsOnMethods = "provisionCampaignsTask", enabled = true )
 	public void generateSMS() {
 				
@@ -314,11 +316,12 @@ public class SMSSendingConfiguration {
 			
 		}
 		
-		if( messageList != null || messageList.size() > 0 ) {
-			
-			activeMQ.addMTFeedback( env.getDataSource( "jmailer_it" ), messageList );
-						
-		}
+		// TODO
+//		if( messageList != null || messageList.size() > 0 ) {
+//			
+//			activeMQ.addMTFeedback( env.getDataSource( "jmailer_it" ), messageList );
+//						
+//		}
 		
 	}
 		

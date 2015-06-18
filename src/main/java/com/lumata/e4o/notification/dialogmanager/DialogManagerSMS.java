@@ -9,17 +9,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.jms.Message;
+import com.lumatagroup.dialogmanager.commons.message.DialogManagerMessage;
+import com.lumatagroup.dialogmanager.commons.message.ExternalIdentifier;
+import com.lumatagroup.dialogmanager.commons.message.Identifier;
+import com.lumatagroup.dialogmanager.commons.message.MessageContent;
+import com.lumatagroup.dialogmanager.commons.message.Receiver;
+import com.lumatagroup.dialogmanager.commons.message.Sender;
+import com.lumatagroup.dialogmanager.commons.message.Time;
+import com.lumatagroup.dialogmanager.commons.message.TimeWindow;
+import com.lumatagroup.dialogmanager.commons.message.Variable;
+import com.lumatagroup.dialogmanager.commons.message.sms.SMSMessageContent;
+import com.lumatagroup.dialogmanager.commons.message.sms.SMSReceiver;
+import com.lumatagroup.dialogmanager.commons.message.sms.SMSSender;
 
-import com.lumatagroup.expression.e4o.commons.jms.message.DialogManagerMessage;
-import com.lumatagroup.expression.e4o.commons.jms.message.ExternalIdentifier;
-import com.lumatagroup.expression.e4o.commons.jms.message.Identifier;
-import com.lumatagroup.expression.e4o.commons.jms.message.Time;
-import com.lumatagroup.expression.e4o.commons.jms.message.TimeWindow;
-import com.lumatagroup.expression.e4o.commons.jms.message.Variable;
-import com.lumatagroup.expression.e4o.commons.jms.message.sms.SMSReceiver;
-import com.lumatagroup.expression.e4o.commons.jms.message.sms.SMSSender;
-
+// TODO
 public final class DialogManagerSMS {
 
     public static final String          SMS_RECEIVER              = "";
@@ -55,11 +58,13 @@ public final class DialogManagerSMS {
 	public static final String          NOTIF_LOGS_ID_RECEIPT     = "";
 	public static final String          MESSAGE_TEXT              = "Text Message";
 	
+	public static final MessageContent 	MESSAGE_CONTENT 		  = new SMSMessageContent( "Text Message" ); 
+ 	
 	private DialogManagerMessage dmMessage;
 	private Identifier<Long, Long> identifier;
 	private String msisdn;
-	private SMSReceiver receiver;
-	private SMSSender sender;
+	private Receiver receiver;
+	private Sender sender;
 	private List<TimeWindow>      timeWindowList      = new ArrayList<TimeWindow>();
 	private Map<String, Variable> variables           = new HashMap<String, Variable>();
 	private Map<String, String>   notifLogs           = new HashMap<String, String>();
@@ -68,11 +73,11 @@ public final class DialogManagerSMS {
 
 	public DialogManagerSMS( String msisdn, Long messageId, Long tenantId ) throws ParseException {
 		
-		this( msisdn, messageId, tenantId, MESSAGE_TEXT );
+		this( msisdn, messageId, tenantId, MESSAGE_CONTENT );
 
 	}
 	
-	public DialogManagerSMS( String msisdn, Long messageId, Long tenantId, String text ) throws ParseException {
+	public DialogManagerSMS( String msisdn, Long messageId, Long tenantId, MessageContent messageContent ) throws ParseException {
 			
 		init( msisdn, messageId, tenantId );
 		
@@ -80,12 +85,14 @@ public final class DialogManagerSMS {
 							identifier, 
 							receiver, 
 							sender, 
-							text,
+							messageContent,
 							maxExpirationTimeStamp, 
 							notifLogs, 
 							timeWindowList
 		);
 		
+
+    
 		dmMessage.setConsumerCurrentTimestamp( currentDate.getTime() );
 		
 		fillMetaInfo();
@@ -162,6 +169,7 @@ public final class DialogManagerSMS {
 	
 	}
 
+	@SuppressWarnings("unused")
 	private void fillVariables() throws ParseException {
 		variables.clear();
 		Date maxExpirationTimeStamp = new SimpleDateFormat(DATE_FORMAT).parse("2013-12-31 23:59:59");
