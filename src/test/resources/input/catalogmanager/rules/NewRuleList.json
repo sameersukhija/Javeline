@@ -6,10 +6,22 @@
 				{
 				"name":"Campaign manager",
 				"mandatory":true,
-				"unlimited": true
+				"unlimited": true,
+				"maxOffer" : 1
+				},
+				{
+				"name":"Ch A",
+				"mandatory":false,
+				"unlimited": true,
+				"maxOffer" : 0
 				}
 				],
-			"maximumNumberOfOffers":3	
+				"optimizationAlgorithm":"Random Assigment",
+				"keepOffersConsistentAcrossMultipleRedraws": true,
+				"includePreviouslyAcceptedOffers": true,
+				"unlimitedOffers": true,
+				"maximumNumberOfOffers": 3,
+				"expiredOfferBehaviour" : "Pick up new offer",
 		}
 	]
 }

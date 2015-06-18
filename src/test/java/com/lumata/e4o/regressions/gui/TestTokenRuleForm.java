@@ -14,12 +14,17 @@ import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.validating.Format;
+import com.lumata.e4o.dao.tenant.DAORuleSet;
+import com.lumata.e4o.dao.tenant.DAOTokenType;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.json.gui.catalogmanager.JSONRules;
 import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
+import com.lumata.e4o.schema.tenant.OffoptimRuleset;
+import com.lumata.e4o.schema.tenant.TokenType;
 import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCMysqlMaster;
 import com.lumata.e4o.testing.common.TCOwner;
 import com.lumata.e4o.testing.common.TCOwners;
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
@@ -31,6 +36,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
  */
 @TCOwners(@TCOwner(name = "Isha Vyas", email = "isha.vyas@lumatagroup.com"))
 @TCSeleniumWebDriver
+@TCMysqlMaster
 public class TestTokenRuleForm extends ParentTestCase {
 	private static final Logger logger = LoggerFactory
 			.getLogger(TestTokenRuleForm.class);
@@ -39,14 +45,17 @@ public class TestTokenRuleForm extends ParentTestCase {
 	private TokenTypeForm tokenTypeForm;
 	private JSONTokenType jsonTokenType;
 	private JSONRules jsonRules;
+	final String TOKEN_TYPE_NAME = Format.addTimestamp("TType_");
+	private String RULE_NAME;
 
 	@Test(enabled = TEST_ENABLED, priority = 1)
 	@Parameters({ "jsonFilePath_token", "jsonFileName_token",
-			"jsonFilePath_rule", "jsonFileName_rule" })
-	public void TokenRuleIntegration(@Optional String jsonFilePath_token,
+			"jsonFilePath_rule", "jsonFileName_rule"})
+	public void testUc24_01CreateNewRule(@Optional String jsonFilePath_token,
 			@Optional String jsonFileName_token,
 			@Optional String jsonFilePath_rule,
-			@Optional String jsonFileName_rule) throws FormException,
+			@Optional String jsonFileName_rule
+			) throws FormException,
 			JSONSException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts()
 				.implicitlyWait(30, TimeUnit.SECONDS);
@@ -75,7 +84,7 @@ public class TestTokenRuleForm extends ParentTestCase {
 				ATTEMPT_TIMEOUT);
 
 		// Create Token
-		final String TOKEN_TYPE_NAME = Format.addTimestamp("TType_");
+		
 		JSONArray tokenTypes = jsonTokenType.getList();
 		for (int tokenTypeIndex = 0; tokenTypeIndex < tokenTypes.length(); tokenTypeIndex++) {
 
@@ -110,32 +119,42 @@ public class TestTokenRuleForm extends ParentTestCase {
 		}
 
 		// Create Rule using Token Type created by Token Form
-		final String RULE_TYPE_NAME = Format.addTimestamp("Rule_");
+		RULE_NAME = Format.addTimestamp("Rule_");
 		JSONArray ruleTypes = jsonRules.getList();
 		for (int ruleTypeIndex = 0; ruleTypeIndex < ruleTypes.length(); ruleTypeIndex++) {
 			jsonRules.setRuleById(ruleTypeIndex);
 
 			rulesForm.openForm();
 			rulesForm.clickAddBtn();
-			rulesForm.setName(RULE_TYPE_NAME);
-			rulesForm.setDescription(RULE_TYPE_NAME + " Description");
+			rulesForm.setName(RULE_NAME);
+			rulesForm.setDescription(RULE_NAME + " Description");
 			// Use token which created in this class
 			rulesForm.setTokenType(TOKEN_TYPE_NAME);
 			rulesForm.setChannel(jsonRules.getRuleChannelsAsArray());
 			rulesForm.configureRuleChannels();
 			rulesForm
-					.setAlgorithm(RulesForm.optimizationAlgorithm.RandomAssigment
-							.value());
-			rulesForm.clickKeepOfferConsistentNo();
-			rulesForm.clickPrevioslyAcceptedOfferNo();
+					.setAlgorithm(jsonRules.getOptimizationAlgorithm());
+			if(jsonRules.getKeepOffersConsistentAcrossMultipleRedraws()==true)
+			{
+				rulesForm.clickKeepOfferConsistentYes();
+			}
+			else{
+				rulesForm.clickKeepOfferConsistentNo();
+			}
+			if(jsonRules.getIncludePreviouslyAcceptedOffers()==true)
+			{
+				rulesForm.clickPrevioslyAcceptedOfferYes();
+			}
+			else{
+				rulesForm.clickPrevioslyAcceptedOfferNo();
+			}
 			rulesForm
 					.setMaxNumberOfOffers(jsonRules.getMaximumNumberOfOffers());
 			rulesForm
-					.setExpiredOfferBehaviour(RulesForm.expiredOfferBehaviour.Pickupnewoffer
-							.value());
+					.setExpiredOfferBehaviour(jsonRules.getExpiredOfferBehaviour());
 			Assert.assertTrue(rulesForm.formIsValid());
 			rulesForm.saveRule();
-			if (rulesForm.isRuleNameInList(RULE_TYPE_NAME)) {
+			if (rulesForm.isRuleNameInList(RULE_NAME)) {
 				Assert.assertTrue(true, "Rule created successfully");
 				Reporter.log("Rule created successfully and exist in list",
 						LOG_TO_STD_OUT);
@@ -147,5 +166,67 @@ public class TestTokenRuleForm extends ParentTestCase {
 			rulesForm.goToHome();
 		}
 
+	}
+	
+	@Test(enabled = TEST_ENABLED, priority = 2)
+	public void testUc24_02EditRule() throws FormException{
+		seleniumWebDriver.getWrappedDriver().manage().timeouts()
+		.implicitlyWait(30, TimeUnit.SECONDS);
+		Reporter.log("Edit an existing offer",
+		LOG_TO_STD_OUT);
+		rulesForm = new RulesForm(seleniumWebDriver, TIMEOUT,
+				ATTEMPT_TIMEOUT);
+		rulesForm.openForm();
+		rulesForm.editRuleByName(RULE_NAME);
+		rulesForm.setDescription("edited description");
+		rulesForm.setAlgorithm("Best Offer");
+		rulesForm.clickKeepOfferConsistentNo();
+		rulesForm.clickPrevioslyAcceptedOfferNo();
+		rulesForm.setExpiredOfferBehaviour("Bypass offer validity date");
+		rulesForm.editSaveRule();
+		
+		rulesForm.editRuleByName(RULE_NAME);
+		OffoptimRuleset ruleSet = DAORuleSet.getInstance(mysqlMaster)
+				.getRuleSetByName(RULE_NAME);
+		Assert.assertEquals(rulesForm.getName(),
+				ruleSet.getName());
+		Assert.assertEquals(rulesForm.getDescription(),
+				ruleSet.getDescription());
+		Assert.assertTrue(2 == ruleSet.getAlgorithmId());
+		Assert.assertTrue(0 == ruleSet.getKeepOffersConsistent());
+		Assert.assertTrue(0 == ruleSet.getAllowRedeemedOffers());
+		Assert.assertTrue(ruleSet.getRedeemExpiredOfferBehavior().equals("bypass_offer_validity_date"));
+		
+		rulesForm.cancelRule();
+		rulesForm.goToHome();
+	}
+	@Test(enabled = TEST_ENABLED, priority = 3)
+	public void testUc24_03CopyRule() throws FormException{
+		seleniumWebDriver.getWrappedDriver().manage().timeouts()
+		.implicitlyWait(30, TimeUnit.SECONDS);
+		Reporter.log("Copy an existing offer",
+		LOG_TO_STD_OUT);
+		rulesForm = new RulesForm(seleniumWebDriver, TIMEOUT,
+				ATTEMPT_TIMEOUT);
+		rulesForm.openForm();
+		rulesForm.copyRuleByName(RULE_NAME);
+		String copied_rule_name=Format.addTimestamp("Rule_");
+		rulesForm.typeByName("name", copied_rule_name);
+		rulesForm.setDescription("copied rule");
+		rulesForm.saveRule();
+		
+		rulesForm.editRuleByName(copied_rule_name);
+		OffoptimRuleset ruleSet = DAORuleSet.getInstance(mysqlMaster)
+				.getRuleSetByName(copied_rule_name);
+		Assert.assertEquals(rulesForm.getName(),ruleSet.getName());
+		Assert.assertEquals(rulesForm.getDescription(),
+				ruleSet.getDescription());
+		Assert.assertTrue(2 == ruleSet.getAlgorithmId());
+		Assert.assertTrue(0 == ruleSet.getKeepOffersConsistent());
+		Assert.assertTrue(0 == ruleSet.getAllowRedeemedOffers());
+		Assert.assertTrue(ruleSet.getRedeemExpiredOfferBehavior().equals("bypass_offer_validity_date"));
+		
+		rulesForm.cancelRule();
+		rulesForm.goToHome();
 	}
 }
