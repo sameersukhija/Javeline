@@ -39,6 +39,7 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONPricesElement;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONReservationElement;
+import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.OfferContentType;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.VoucherType;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.CharacteristicType;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristicElement;
@@ -109,7 +110,7 @@ private JSONOffers offerCfg;
 	
 	public OffersForm clickEditSavedOffer() throws FormException, JSONSException {
 			
-		clickXPath("//table[@class='tableList']//tr[@class='contentRow cycle2 savedRow-cycle1']//button[@name='btn-edit' and @title='Edit']" );
+		clickXPath("//table[@class='tableList']//tr[@class='contentRow cycle1 savedRow-cycle2'][2]//button[@name='btn-edit' and @title='Edit']" );
 		
 		return this;
 		
@@ -380,10 +381,7 @@ private JSONOffers offerCfg;
 	}
 	
 	public OffersForm setName(String OFFER_NAME) throws FormException {
-		
-		//super.clickXPath("//tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr/td[2]/button");	
 		super.sendKeysByXPath("//input[@id='gwt-debug-TextBox-VPOfferEdit-offerNameTB']", OFFER_NAME );
-		//super.clickXPath("//div/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button" );
 		return this;
 	}
 
@@ -475,10 +473,9 @@ private JSONOffers offerCfg;
 				
 			super.clickXPath("//td[contains(text(),'Available Stock')]//ancestor::tr[1]//ancestor::table[3]//button[@title='Save']");
 			
-			super.clickXPath("//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
-			
+			super.clickXPath("//div[text()='Channel']//ancestor::table//button[@name='btn-add']");
+			//super.clickXPath("//tr[3]/td/table/tbody/tr[3]/td/button");
 			//super.sendKeysByXPath("//div[text()='Reservation']//ancestor::table//input", stock);
-			
 			
 			super.sendKeysByXPath("//input[@id='gwt-debug-TextBox-VPOfferEdit-qtyTB']",stock);
 			
@@ -502,24 +499,25 @@ private JSONOffers offerCfg;
 				super.clickId("gwt-debug-Anchor-actrule-campaign-creationEdition-steps-activation");
 				return this;
 			}
+			
 			public OffersForm ActivationBtn() throws FormException {
 				
 				    
-					clickXPath("//tr[3]/td/table/tbody/tr/td[5]/button");
-					//handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+			clickXPath("//table[@class='margin10px']/tbody/tr/td//table[@class='buttonPanel marginTop10px']/tbody/tr/td//button[@name='btn-activate']");
+					
 				    
-					try {
+			try {
 						
-						Alert confirmLogout = selenium.selectAlert();
+				Alert confirmLogout = selenium.selectAlert();
 						
-						while( null != confirmLogout ) {
+				while( null != confirmLogout ) {
 						
-							confirmLogout.accept(); 
+				confirmLogout.accept(); 
 							
-							confirmLogout = selenium.selectAlert();
+				confirmLogout = selenium.selectAlert();
 							
 							
-						}
+				}
 					
 						
 					
@@ -532,155 +530,178 @@ private JSONOffers offerCfg;
 				}
 			
 			public OffersForm editByName(String OFFER_NAME) {
-				  return this;
+			 return this;
 		
-	}
-
-	public OffersForm cancelBtn() {
-		// TODO Auto-generated method stub
-		return this;
-	}
-
-
-
-	public OffersForm setDescription(String offer_description) throws FormException, JSONSException {
-		if(null!=offer_description)
-		{
-		clickXPath("//td[contains(text(),'Description')]//ancestor::tr[1]//button");
-		//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		super.sendKeysBycssSelector("textarea.gwt-TextArea", offer_description);
-	
-		clickXPath("//textarea//ancestor::div[1]//button[@title='Save']");
-		}
-	return this;
-}
-
-	public String getDescription() throws FormException {
-		
-		return super.getValueByXPath( "//textarea");
-		
-}
-	public OffersForm setImgUrl(String imgUrl) throws FormException { 
-		
-		super.sendKeysByXPath("//td[contains(text(),'Image URL of offer')]//ancestor::tr[1]//button",imgUrl);
-		
-		return this;
-		
-	}
-	public String getImgUrl(String imgUrl ) throws FormException {
-		
-		return super.getValueByXPath( "//td[contains(text(),'Image URL of offer')]//ancestor::tr[1]//button");
-		
-	}
-
-	public Boolean isOfferInList( String offerName ) throws FormException {
-		
-		List<WebElement> offerList = getOfferList();
-		
-		for( WebElement offerListE1 : offerList ) {
-			
-			if( offerListE1.getText().trim().equals( offerName ) ) {
-					
-				return true;
-			
-			}	
-		}
-		
-		return false;	
-	}
-	
-	
-	public Boolean isOfferInSavedList( String offerName ) throws FormException {
-		
-		List<WebElement> offerList = getSaveOfferList();
-		
-		for( WebElement offerListE1 : offerList ) {
-			
-			if( offerListE1.getText().trim().equals( offerName ) ) {
-					
-				return true;
-			
-			}	
-		}
-		
-		return false;	
-	}
-	
-	
-	public List<WebElement> getOfferList()  throws FormException {
-		
-		String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
-		String subPath = "//tr[contains(@class, 'activatedRow-cycle')]//td[@class='column_description']";
-				//div[@class='gwt-Label showPopupLink']";
-		 
-		List<WebElement> offerList = getListByXPath(rootPath, rootPath + subPath);
-		System.out.println(offerList);
-		return offerList;
-		}
-		
-		public List<WebElement> getSaveOfferList()  throws FormException {
-			
-			String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
-			String subPath = "//tr[contains(@class, 'savedRow-cycle2')]//td[@class='column_description']";
-					//div[@class='gwt-Label showPopupLink']";
-			 
-			List<WebElement> offerList = getListByXPath(rootPath, rootPath + subPath);
-			System.out.println(offerList);
-			return offerList;
 			}
-			
-		public WebElement getOfferListByName( String OFFER_NAME) throws FormException {
-		
 
-		List<WebElement>OfferList = getOfferList();
-		System.out.println(OfferList);
-		for( WebElement offerListl : OfferList ) {
-			System.out.println("The text from the webelement is:" +offerListl.getText());
+			public OffersForm cancelBtn() {
+				// TODO Auto-generated method stub
+			return this;
+			}
+
+
+			public OffersForm setDescription(String offer_description) throws FormException, JSONSException {
+				if(null!=offer_description)
+				{
+					clickXPath("//td[contains(text(),'Description')]//ancestor::tr[1]//button");
+					super.sendKeysBycssSelector("textarea.gwt-TextArea", offer_description);
+	
+					clickXPath("//textarea//ancestor::div[1]//button[@title='Save']");
+				}
+				return this;
+				}
+
+				public String getDescription() throws FormException {
+		
+				return super.getValueByXPath( "//textarea");
+		
+				}
+	
+				public OffersForm setImgUrl(String imgUrl) throws FormException { 
+		
+				super.sendKeysByXPath("//td[contains(text(),'Image URL of offer')]//ancestor::tr[1]//button",imgUrl);
+		
+				return this;
+		
+				}
+	
+				public String getImgUrl(String imgUrl ) throws FormException {
+		
+					return super.getValueByXPath( "//td[contains(text(),'Image URL of offer')]//ancestor::tr[1]//button");
+		
+				}
+
+				public Boolean isOfferInList( String offerName ) throws FormException {
+		
+					List<WebElement> offerList = getOfferList();
+		
+					for( WebElement offerListE1 : offerList ) {
 			
-			if( offerListl.getText().trim().equals(OFFER_NAME)) {
+						if( offerListE1.getText().trim().equals( offerName ) ) {
+					
+							return true;
+			
+						}	
+					}
+		
+					return false;	
+				}
+	
+	
+				public Boolean isOfferInSavedList( String offerName ) throws FormException {
+		
+					List<WebElement> offerList = getSaveOfferList();
+		
+					for( WebElement offerListE1 : offerList ) {
+			
+						if( offerListE1.getText().trim().equals( offerName ) ) {
+					
+							return true;
+			
+						}	
+					}
+		
+					return false;	
+					}
+	
+	
+				public List<WebElement> getOfferList()  throws FormException {
+		
+					String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
+					String subPath = "//tr[contains(@class, 'activatedRow-cycle')]//td[@class='column_description']";
+		
+					List<WebElement> offerList = getListByXPath(rootPath, rootPath + subPath);
+					System.out.println(offerList);
+					return offerList;
+				}
+		
+				public List<WebElement> getSaveOfferList()  throws FormException {
+			
+					String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
+					String subPath = "//tr[contains(@class, 'savedRow-cycle2')]//td[@class='column_description']";
+					List<WebElement> offerList = getListByXPath(rootPath, rootPath + subPath);
+					System.out.println(offerList);
+					return offerList;
+				}
+			
 				
-				return offerListl;
+				public WebElement getOfferListByName( String OFFER_NAME) throws FormException {
+		
+					List<WebElement>OfferList = getOfferList();
+					System.out.println(OfferList);
+					for( WebElement offerListl : OfferList ) {
+						System.out.println("The text from the webelement is:" +offerListl.getText());
+			
+						if( offerListl.getText().trim().equals(OFFER_NAME)) {
+				
+							return offerListl;
 				
 		
-	}
+						}
 
-		}
-		return null;
+					}
+					return null;
 	
-	}
+				}
+		
+				public OffersForm addProductTypes(String productTypes) throws FormException {
+		
+					super.clickId("gwt-debug-actrule-catalog-productTypes");
+					super.clickXPath("//div[3]/div/div/table/tbody/tr/td/table/tbody/tr/td[2]/button");
+					super.sendKeysByXPath("//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']",productTypes);
+					super.clickXPath("//div/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button");
+					return this;
+				}
+	
+				public String getProductTypes() throws FormException
+				{
+					return super.getValueByXPath("//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']");
+				}
+
+	
+	
+				public OffersForm setProductType(String productTypes) throws FormException {
+		
+					super.clickBycssSelector("table.verticalPanelInternalMargin > tbody > tr > td > table.tableList > tbody > tr.cycle2.headers > td.column_description > button[name='btn-add']");
+					super.selectByIdAndVisibleText("gwt-debug-ListBox-OfferContentPopUp-lbType", "Product Types");
+					super.selectByXPathAndVisibleText("//table[@class='margin10px']/tbody/tr/td/table[@class='tableList Form']/tbody/tr[5][@class='cycle1']/td[2]/select", productTypes);
+					super.clickName("btn-ok");
+					return this;
+				}
+	
+		
+				public OffersForm setProductName(String productName) throws FormException {
+					super.clickBycssSelector("table.verticalPanelInternalMargin > tbody > tr > td > table.tableList > tbody > tr.cycle2.headers > td.column_description > button[name='btn-add']");
+					super.selectByIdAndVisibleText("gwt-debug-ListBox-OfferContentPopUp-lbType", "Products");
+					if ( null!=productName ){
+						super.selectByXPathAndVisibleText(".//*[@id='gwt-debug-ListBox-OfferContentPopUp-lbProd']", productName);
+					}
+					super.typeByXPath("//input[@id='gwt-debug-TextBox-OfferContentPopUp-prodStock']","12");
+					super.clickName("btn-ok");
+					return this;
+				}
+	
+				public String getProductName() throws FormException
+				{
+					return super.getValueByXPath(".//*[@id='gwt-debug-ListBox-OfferContentPopUp-lbProd']");
+				}
+
+				public OffersForm setOfferName(String offerName) throws FormException {
+					super.clickBycssSelector("table.verticalPanelInternalMargin > tbody > tr > td > table.tableList > tbody > tr.cycle2.headers > td.column_description > button[name='btn-add']");
+					super.selectByIdAndVisibleText("gwt-debug-ListBox-OfferContentPopUp-lbType", "Offers");
+					super.selectByXPathAndVisibleText("//table[@class='margin10px']/tbody/tr/td/table[@class='tableList Form']/tbody/tr[4][@class='cycle2']/td[2]/select", offerName);
 			
-
-
-	
-		public OffersForm addProductTypes(String productTypes) throws FormException {
-		super.clickId("gwt-debug-actrule-catalog-productTypes");
-		super.clickXPath("//div[3]/div/div/table/tbody/tr/td/table/tbody/tr/td[2]/button");
-		super.sendKeysByXPath("//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']",productTypes);
-		super.clickXPath("//div/table/tbody/tr[2]/td/table/tbody/tr/td[2]/button");
-		return this;
-	}
-	
-	public String getProductTypes() throws FormException
-	{
-		return super.getValueByXPath("//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-nameTextBox']");
-	}
-
-	
-	
-	public OffersForm setProductType(String productTypes) throws FormException {
-		//super.clickId("gwt-debug-Anchor-actrule-customerCare-catalog-offerContent");
-		//super.clickBycssSelector("table.verticalPanelInternalMargin > tbody > tr > td > table.tableList > tbody > tr.cycle2.headers > td.column_description > button[name=\"btn-add\"]");
-		//super.clickId("gwt-debug-ListBox-OfferContentPopUp-lbProd").selectByNameandVisibleText("newProduct1");
-		//super.sendKeysById("gwt-debug-TextBox-OfferContentPopUp-prodStock","10");
-		//super.clickName("btn-ok");
+					super.clickName("btn-ok");
+			
+					super.clickXPath("//td[@class='dialogMiddleCenter']//table[@class='buttonPanel']/tbody/tr/td/button[@name='btn-cancel']");
+					return this;
+				}
 		
-		
-		super.clickBycssSelector("table.verticalPanelInternalMargin > tbody > tr > td > table.tableList > tbody > tr.cycle2.headers > td.column_description > button[name='btn-add']");
-		super.selectByIdAndVisibleText("gwt-debug-ListBox-OfferContentPopUp-lbType", "Product Types");
-		super.selectByXPathAndVisibleText("//td/table/tbody/tr/td/table/tbody/tr[5]/td[2]/select", productTypes);
-		super.clickName("btn-ok");
-		return this;
-	}
+				public String getOfferName() throws FormException
+				{
+				return super.getValueByXPath(".//*[@id='gwt-debug-ListBox-OfferContentPopUp-lbProd']");
+				}
+
 	//These methodsfor product creation not required.
 	
 //	public OffersForm setProductTypeName(String name) throws FormException

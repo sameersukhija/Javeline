@@ -24,7 +24,9 @@ import com.lumata.e4o.testing.common.TCOwner;
 import com.lumata.e4o.testing.common.TCOwners;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes;
+import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONOfferContentElement;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONPricesElement;
+import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.OfferContentType;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristicElement;
 
 import org.json.JSONException;
@@ -36,11 +38,13 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	)
 @TCSeleniumWebDriver
 
-public class TestOfferForm extends ParentTestCase{
+	public class TestOfferForm extends ParentTestCase{
 	public JSONOffers setupOffer=null;
 	public JSONProductTypes setupProductTypes = null;
 	public String product_type_name=null;
-	
+	public String product_Name=null;
+	public String offerName=null;
+	public String Content_OFFERNAME=null; 
 	
 	@BeforeMethod
 	public void initOfferForm( Method method ) throws NetworkEnvironmentException, FormException {		
@@ -49,158 +53,103 @@ public class TestOfferForm extends ParentTestCase{
 		
 	}
 	
-	@Parameters({"jsonFilePath_ProductType","jsonFileName_ProductType"})
+	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","jsonFilePath_ProductType","jsonFileName_ProductType"})
 	@Test( enabled=TEST_ENABLED, priority = 1 )
-	public void testaddproductType(@Optional ("/input/catalogmanager/productTypes") String jsonFilePath_ProductType,
-		@Optional ("newProductType") String jsonFileName_ProductType) throws FormException, JSONException, JSONSException {
-		Boolean status=false;
-		
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		Reporter.log("Creation of \"Product Types Form\".", LOG_TO_STD_OUT);
+	public void testUc28_01addProduct_content_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
+			@Optional("newOffers") String jsonFileName_Offer,@Optional ("/input/catalogmanager/productTypes") String jsonFilePath_ProductType,
+			@Optional ("newProductType") String jsonFileName_ProductType) throws FormException, JSONException, JSONSException {
+	String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
+	String resourceFile2 = jsonFileName_Offer;
+	setupOffer = new JSONOffers(resourcePath2,resourceFile2);
 
-		String resourcePath1 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_ProductType;
-		String resourceFile1 = jsonFileName_ProductType;
+	Boolean offer_status=false;
+
+	seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
+
 	
-        setupProductTypes = new JSONProductTypes(resourcePath1,resourceFile1);
-        
-
-		ProductTypesForm productTypesForm = new ProductTypesForm(seleniumWebDriver,setupProductTypes,TIMEOUT, ATTEMPT_TIMEOUT);
-		productTypesForm.openForm();	
-		int numbProdType = setupProductTypes.getList().size();
-		Reporter.log("numProductType -> " + numbProdType, LOG_TO_STD_OUT);
-
-		for (int index = 0; index < numbProdType; index++) {
-			JsonCurrentElement current = setupProductTypes.getCurrentElementById(index);
-			if ( current.getEnabled() ){
-				product_type_name=Format.addTimestamp(setupProductTypes.getName() + "_");
-				productTypesForm.configureProductType(product_type_name,setupProductTypes.getDescription());
-				for (JsonCharacteristicElement chElem : setupProductTypes.getCharacteristicsList()) {
+	int numberOfOffer=setupOffer.getList().size();
+	for (int index = 1; index < numberOfOffer-1; index++) {
+		
+	JsonCurrentElement current =setupOffer.getCurrentElementById(index);
+	if(current.getEnabled()==true)
+	{
+		
+		final String OFFER_NAME = Format.addTimestamp( setupOffer.getName() + "_" );
+		Content_OFFERNAME = OFFER_NAME;
+		OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
+	    
+			offerForm.
+			openForm().
 			
-					if ( chElem.getEnabled() ) {
-				
-						productTypesForm.addCharacteristicButton();
-						productTypesForm.fillCharacteristicElement(Format.addTimestamp(chElem.getName()),chElem);
-						productTypesForm.saveCharacteristic();
-					}
-				}
-				productTypesForm.saveProductType();
-				status=productTypesForm.isProductTypeInList(product_type_name);
-				if(status==true)
-				{
-					Assert.assertTrue(status);
-					Reporter.log("Product Types Created Succesfully!");
-				}
-				else
-				{
-					//Assert.assertTrue(status,"The creation of Product Failed!");
-					Assert.fail("The Product Types creation Failed!");
-					Reporter.log("Creation of Product Types Failed!");
+			clickAddOffer().
+			setName( OFFER_NAME ).
+		    setDescription(setupOffer.getDescription()).
+			setTerms(setupOffer.getTermsAndConditions()).
+			clickOfferContentTab();
+			offerForm.setProductName(product_Name);
+			
+			offerForm.clickPriceTab();
+		
+		List<JSONPricesElement> prices = setupOffer.getOffersPrices();
+		
+		if ( prices != null && prices.size() != 0 ) {
+
+			for (JSONPricesElement price : prices) {
+			
+				offerForm.clickAddPriceButton();
+
+				for (String channel : price.getChannels()) {
+					offerForm.setPriceChannel(channel);
 				}
 			}
 		}
-	}
-	
-	
-	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
-	@Test( enabled=TEST_ENABLED, priority = 2 )
-	public void testOfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-			@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
-		String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
-		String resourceFile2 = jsonFileName_Offer;
-		setupOffer = new JSONOffers(resourcePath2,resourceFile2);
-	
-		Boolean offer_status=false;
-	
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
-
+			offerForm.clickNotificationTab().addNotitification().
 		
-		int numberOfOffer=setupOffer.getList().size();
-		for (int index = 0; index < numberOfOffer; index++) {
+			clickAvailabilityTab().setStockAvailability( setupOffer.getStock() ).				
 			
-		JsonCurrentElement current =setupOffer.getCurrentElementById(index);
-		if(current.getEnabled()==true)
-		{
+			clickActivationTab().saveBtn();
 			
-			final String OFFER_NAME = Format.addTimestamp( setupOffer.getName() + "_" );
-			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
-		    
-				offerForm.
-				openForm().
+			//offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+			offer_status=true;
+			if(offer_status==true)
+			{
+				Assert.assertTrue(offer_status);
+				Reporter.log("Offer Created Succesfully!");
 				
-				clickAddOffer().
-				setName( OFFER_NAME ).
-			    setDescription(setupOffer.getDescription()).
-				setTerms(setupOffer.getTermsAndConditions()).
-				clickOfferContentTab().
-				setProductType(product_type_name). 
-				clickPriceTab();
-			
-			List<JSONPricesElement> prices = setupOffer.getOffersPrices();
-			
-			if ( prices != null && prices.size() != 0 ) {
-
-				for (JSONPricesElement price : prices) {
-				
-					offerForm.clickAddPriceButton();
-
-					for (String channel : price.getChannels()) {
-						offerForm.setPriceChannel(channel);
-					}
-				}
 			}
-				offerForm.clickNotificationTab().addNotitification().
-			
-				clickAvailabilityTab().setStockAvailability( setupOffer.getStock() ).				
+			else
+			{
 				
-				clickActivationTab().saveBtn();
-				
-				//offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
-				offer_status=true;
-				if(offer_status==true)
-				{
-					Assert.assertTrue(offer_status);
-					Reporter.log("Offer Created Succesfully!");
-					
-				}
-				else
-				{
-					
-					Assert.fail("The Offer creation Failed!");
-					Reporter.log("Creation of Offer Failed!");
-				}
-	}
+				Assert.fail("The Offer creation Failed!");
+				Reporter.log("Creation of Offer Failed!");
+			}
+}
 
-		}
 	}
-		@Parameters({"jsonFilePath_ProductType","jsonFileName_ProductType"})
-		@Test( enabled=TEST_ENABLED, priority = 3 )
-		public void testaddProductType2(@Optional ("/input/catalogmanager/productTypes") String jsonFilePath_ProductType,
-				@Optional ("newProductType") String jsonFileName_ProductType)
-				 throws FormException, JSONException, JSONSException {
-			Boolean status=false;
-			
-			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-			Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
-			ProductTypesForm productTypesForm = new ProductTypesForm(seleniumWebDriver,setupProductTypes,TIMEOUT, ATTEMPT_TIMEOUT);
-			productTypesForm.openForm();	
-			int numbProdType = setupProductTypes.getList().size();
-			Reporter.log("numProductType -> " + numbProdType, LOG_TO_STD_OUT);
+	
+		
+	Boolean status=false;
+	
+	seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	Reporter.log("Creation of \"Product Types Form\".", LOG_TO_STD_OUT);
 
-			String resourcePath1 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_ProductType;
-			String resourceFile1 = jsonFileName_ProductType;
-			
-	        setupProductTypes = new JSONProductTypes(resourcePath1,resourceFile1);
-		
-		
-	        for (int index = 0; index < numbProdType; index++) {
-			JsonCurrentElement current = setupProductTypes.getCurrentElementById(index);
-			if ( current.getEnabled() ){
-			
-			productTypesForm.openForm();
-			product_type_name=Format.addTimestamp("TestProductType" + "_");
-			productTypesForm.configureProductType(product_type_name,"TestProductType");
-			
+	String resourcePath1 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_ProductType;
+	String resourceFile1 = jsonFileName_ProductType;
+
+    setupProductTypes = new JSONProductTypes(resourcePath1,resourceFile1);
+    
+
+	ProductTypesForm productTypesForm = new ProductTypesForm(seleniumWebDriver,setupProductTypes,TIMEOUT, ATTEMPT_TIMEOUT);
+	productTypesForm.openForm();	
+	int numbProdType = setupProductTypes.getList().size();
+	Reporter.log("numProductType -> " + numbProdType, LOG_TO_STD_OUT);
+
+	for (int index = 0; index < numbProdType; index++) {
+		JsonCurrentElement current = setupProductTypes.getCurrentElementById(index);
+		if ( current.getEnabled() ){
+			product_type_name=Format.addTimestamp(setupProductTypes.getName() + "_");
+			productTypesForm.configureProductType(product_type_name,setupProductTypes.getDescription());
 			for (JsonCharacteristicElement chElem : setupProductTypes.getCharacteristicsList()) {
 		
 				if ( chElem.getEnabled() ) {
@@ -208,30 +157,229 @@ public class TestOfferForm extends ParentTestCase{
 					productTypesForm.addCharacteristicButton();
 					productTypesForm.fillCharacteristicElement(Format.addTimestamp(chElem.getName()),chElem);
 					productTypesForm.saveCharacteristic();
+				}
+			}
+			productTypesForm.saveProductType();
+			status=productTypesForm.isProductTypeInList(product_type_name);
+			if(status==true)
+			{
+				Assert.assertTrue(status);
+				Reporter.log("Product Types Created Succesfully!");
+			}
+			else
+			{
+				//Assert.assertTrue(status,"The creation of Product Failed!");
+				Assert.fail("The Product Types creation Failed!");
+				Reporter.log("Creation of Product Types Failed!");
+			}
+		}
+	}
+	}
+	
+	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","jsonFilePath_ProductType","jsonFileName_ProductType"})
+	@Test( enabled=TEST_ENABLED, priority = 2 )
+	public void testUc28_02_addproducttype_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
+		@Optional("newOffers") String jsonFileName_Offer,@Optional ("/input/catalogmanager/productTypes") String jsonFilePath_ProductType,
+		@Optional ("newProductType") String jsonFileName_ProductType) throws FormException, JSONException, JSONSException {
+	String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
+	String resourceFile2 = jsonFileName_Offer;
+	setupOffer = new JSONOffers(resourcePath2,resourceFile2);
+
+	Boolean offer_status=false;
+
+	seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
+
+	
+	int numberOfOffer=setupOffer.getList().size();
+	for (int index = 0; index < numberOfOffer-2; index++) {
+		
+	JsonCurrentElement current =setupOffer.getCurrentElementById(index);
+	if(current.getEnabled()==true)
+	{
+		
+		final String OFFER_NAME = Format.addTimestamp( setupOffer.getName() + "_" );
+		OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
+	    
+			offerForm.
+			openForm().
+			
+			clickAddOffer().
+			setName( OFFER_NAME ).
+		    setDescription(setupOffer.getDescription()).
+			setTerms(setupOffer.getTermsAndConditions()).
+			clickOfferContentTab().
+			setProductType(product_type_name). 
+			clickPriceTab();
+		
+		List<JSONPricesElement> prices = setupOffer.getOffersPrices();
+		
+		if ( prices != null && prices.size() != 0 ) {
+
+			for (JSONPricesElement price : prices) {
+			
+				offerForm.clickAddPriceButton();
+
+				for (String channel : price.getChannels()) {
+					offerForm.setPriceChannel(channel);
+				}
+			}
+		}
+			offerForm.clickNotificationTab().addNotitification().
+		
+			clickAvailabilityTab().setStockAvailability( setupOffer.getStock() ).				
+			
+			clickActivationTab().saveBtn();
+			
+			//offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+			offer_status=true;
+			if(offer_status==true)
+			{
+				Assert.assertTrue(offer_status);
+				Reporter.log("Offer Created Succesfully!");
 				
+			}
+			else
+			{
+				
+				Assert.fail("The Offer creation Failed!");
+				Reporter.log("Creation of Offer Failed!");
+			}
+}
+
+		Boolean status=false;
+		
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
+		ProductTypesForm productTypesForm = new ProductTypesForm(seleniumWebDriver,setupProductTypes,TIMEOUT, ATTEMPT_TIMEOUT);
+		productTypesForm.openForm();	
+		int numbProdType = setupProductTypes.getList().size();
+		Reporter.log("numProductType -> " + numbProdType, LOG_TO_STD_OUT);
+
+		String resourcePath1 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_ProductType;
+		String resourceFile1 = jsonFileName_ProductType;
+		
+        setupProductTypes = new JSONProductTypes(resourcePath1,resourceFile1);
+	
+	
+        for (int index1 = 0; index1 < numbProdType; index1++) {
+		JsonCurrentElement current1 = setupProductTypes.getCurrentElementById(index1);
+		if ( current1.getEnabled() ){
+		
+		productTypesForm.openForm();
+		product_type_name=Format.addTimestamp("TestProductType" + "_");
+		productTypesForm.configureProductType(product_type_name,"TestProductType");
+		
+		for (JsonCharacteristicElement chElem : setupProductTypes.getCharacteristicsList()) {
+	
+			if ( chElem.getEnabled() ) {
+		
+				productTypesForm.addCharacteristicButton();
+				productTypesForm.fillCharacteristicElement(Format.addTimestamp(chElem.getName()),chElem);
+				productTypesForm.saveCharacteristic();
 			
-					productTypesForm.saveProductType();
-					status=productTypesForm.isProductTypeInList(product_type_name);
-					
-					if(status==true)
-					{
-						Assert.assertTrue(status);
-						Reporter.log("Product Types Created Succesfully!");
-					}
-					else
-					{
-						Assert.assertTrue(status,"The creation of Product Failed!");
-						Assert.fail("The Product Types creation Failed!");
-						Reporter.log("Creation of Product Types Failed!");
-			}
+		
+				productTypesForm.saveProductType();
+				status=productTypesForm.isProductTypeInList(product_type_name);
+				
+				if(status==true)
+				{
+					Assert.assertTrue(status);
+					Reporter.log("Product Types Created Succesfully!");
+				}
+				else
+				{
+					Assert.assertTrue(status,"The creation of Product Failed!");
+					Assert.fail("The Product Types creation Failed!");
+					Reporter.log("Creation of Product Types Failed!");
 		}
-			}
-			}
+	}
+		}		
 		}
-		}
+        }
+	}
+}
+
+	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","jsonFilePath_ProductType","jsonFileName_ProductType"})
+	@Test( enabled=TEST_ENABLED, priority = 3)
+	public void testUc07_03_addOffer_content_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
+			@Optional("newOffers") String jsonFileName_Offer,@Optional ("/input/catalogmanager/productTypes") String jsonFilePath_ProductType,
+			@Optional ("newProductType") String jsonFileName_ProductType) throws FormException, JSONException, JSONSException {
+	String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
+	String resourceFile2 = jsonFileName_Offer;
+	setupOffer = new JSONOffers(resourcePath2,resourceFile2);
+
+	Boolean offer_status=false;
+
+	seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
+
+	
+	int numberOfOffer=setupOffer.getList().size();
+	for (int index = 2; index < numberOfOffer; index++) {
+		
+	JsonCurrentElement current =setupOffer.getCurrentElementById(index);
+	if(current.getEnabled()==true)
+	{
+		
+		final String OFFER_NAME = Format.addTimestamp( setupOffer.getName() + "_" );
+		OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
+	    
+			offerForm.
+			openForm().
 			
+			clickAddOffer().
+			setName( OFFER_NAME ).
+		    setDescription(setupOffer.getDescription()).
+			setTerms(setupOffer.getTermsAndConditions()).
+			clickOfferContentTab();
+			
+			offerForm.setOfferName(Content_OFFERNAME);
+			
+			offerForm.clickPriceTab();
+		
+		List<JSONPricesElement> prices = setupOffer.getOffersPrices();
+		
+		if ( prices != null && prices.size() != 0 ) {
+
+			for (JSONPricesElement price : prices) {
+			
+				offerForm.clickAddPriceButton();
+
+				for (String channel : price.getChannels()) {
+					offerForm.setPriceChannel(channel);
+				}
+			}
+		}
+			offerForm.clickNotificationTab().addNotitification().
+		
+			clickAvailabilityTab().setStockAvailability( setupOffer.getStock() ).				
+			
+			clickActivationTab().saveBtn();
+			
+			//offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+			offer_status=true;
+			if(offer_status==true)
+			{
+				Assert.assertTrue(offer_status);
+				Reporter.log("Offer Created Succesfully!");
+				
+			}
+			else
+			{
+				
+				Assert.fail("The Offer creation Failed!");
+				Reporter.log("Creation of Offer Failed!");
+			}
+}
+
+	}
+}
+		
+	
+		
 			@Test( enabled=TEST_ENABLED, priority = 4 )
-			public void testeditOfferForm() throws FormException, JSONException, JSONSException {
+			public void testUc28_05_editOfferForm() throws FormException, JSONException, JSONSException {
 			
 			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
 				
@@ -269,7 +417,7 @@ public class TestOfferForm extends ParentTestCase{
 			
 			@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
 			@Test( enabled=TEST_ENABLED, priority = 5 )
-			public void testactivateOfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
+			public void testUc28_04_activate_saved_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
 					@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
 			
 			//Activate an already saved offer
