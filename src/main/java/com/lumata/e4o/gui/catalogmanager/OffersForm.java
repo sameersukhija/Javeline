@@ -461,8 +461,9 @@ private JSONOffers offerCfg;
 			super.clickXPath("//td[text()='Available Offers']//ancestor::tr[1]//button");
 				
 			super.clickXPath("//td[contains(text(),'Available Stock')]//ancestor::tbody//tr[2]//button[@title='Save']");
-			super.waitVisibleElement(By.xpath("//div[text()='Channel']//ancestor::table[1]//button[@title='Add']"));
-			super.clickXPath("//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
+			super.clickXPath("//tr[3]/td/table/tbody/tr[3]/td/button[@title='Add']");
+			//super.waitVisibleElement(By.xpath("//div[text()='Channel']//ancestor::table[1]//button[@title='Add']"));
+			//super.clickXPath("//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
 			
 			//super.sendKeysByXPath("//div[text()='Reservation']//ancestor::table//input", stock);
 			
