@@ -3,10 +3,10 @@
 		{
 			"enabled": true,
 			"name": "TokenA",
-			"imageUrl":"http://i-neti.ru/sites/default/files/blogimages/test_icon.jpg",
+			"imageUrl": null,
 			"format":"br-[0123456789abcdef]{5}",
 			"validityType":"Relative",
-			"validityValue":"100",
+			"validityValue":"20",
 			"validityUnit":"days",
 			"usageUnlimited": true,
 			"usage":"10"
@@ -16,7 +16,7 @@
 		{
 			"enabled": true,
 			"name": "TokenB",
-			"imageUrl":"http://i-neti.ru/sites/default/files/blogimages/test_icon.jpg",
+			"imageUrl":null,
 			"format":"[ACDEFGHJKMNPQRTWXY34679]{5}",
 			"validityType":"Absolute",
 			"validityValue":"@current+1year+1month",
