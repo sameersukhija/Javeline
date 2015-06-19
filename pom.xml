@@ -309,6 +309,12 @@
 			<artifactId>RemoteQueueSMS-Driver</artifactId>
 			<version>1.0.0.0-SNAPSHOT</version>
 			<type>jar</type>
+			<exclusions>
+				<exclusion>
+					<groupId>com.buongiorno</groupId>
+					<artifactId>shortURL</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!-- END DIALOG MANAGER DEPENDECIES -->
 		
