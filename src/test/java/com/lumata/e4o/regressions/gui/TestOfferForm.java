@@ -4,6 +4,10 @@ import org.testng.annotations.Test;
 import org.testng.Reporter;
 
 import java.lang.reflect.Method;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -19,10 +23,12 @@ import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.catalogmanager.OffersForm;
 import com.lumata.e4o.gui.catalogmanager.ProductTypesForm;
+import com.lumata.e4o.system.cdr.fields.VoucherCode;
 import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.e4o.testing.common.TCOwner;
 import com.lumata.e4o.testing.common.TCOwners;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
+import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.VoucherType;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONOfferContentElement;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONPricesElement;
@@ -39,12 +45,16 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 @TCSeleniumWebDriver
 
 	public class TestOfferForm extends ParentTestCase{
+	
 	public JSONOffers setupOffer=null;
 	public JSONProductTypes setupProductTypes = null;
 	public String product_type_name=null;
 	public String product_Name=null;
 	public String offerName=null;
 	public String Content_OFFERNAME=null; 
+	public String Voucher=null;
+	public String expiryDate=null;
+	private OffersForm setDescription; 
 	
 	@BeforeMethod
 	public void initOfferForm( Method method ) throws NetworkEnvironmentException, FormException {		
@@ -52,6 +62,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		seleniumWebDriver.setTestName( method.getName() );
 		
 	}
+	
 	
 	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","jsonFilePath_ProductType","jsonFileName_ProductType"})
 	@Test( enabled=TEST_ENABLED, priority = 1 )
@@ -69,7 +80,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
 	
 	int numberOfOffer=setupOffer.getList().size();
-	for (int index = 1; index < numberOfOffer-1; index++) {
+	for (int index = 1; index < numberOfOffer-2; index++) {
 		
 	JsonCurrentElement current =setupOffer.getCurrentElementById(index);
 	if(current.getEnabled()==true)
@@ -192,7 +203,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
 	
 	int numberOfOffer=setupOffer.getList().size();
-	for (int index = 0; index < numberOfOffer-2; index++) {
+	for (int index = 0; index < numberOfOffer-3; index++) {
 		
 	JsonCurrentElement current =setupOffer.getCurrentElementById(index);
 	if(current.getEnabled()==true)
@@ -302,7 +313,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
 	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","jsonFilePath_ProductType","jsonFileName_ProductType"})
 	@Test( enabled=TEST_ENABLED, priority = 3)
-	public void testUc07_03_addOffer_content_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
+	public void testUc28_2_addOffer_content_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
 			@Optional("newOffers") String jsonFileName_Offer,@Optional ("/input/catalogmanager/productTypes") String jsonFilePath_ProductType,
 			@Optional ("newProductType") String jsonFileName_ProductType) throws FormException, JSONException, JSONSException {
 	String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
@@ -316,7 +327,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
 	
 	int numberOfOffer=setupOffer.getList().size();
-	for (int index = 2; index < numberOfOffer; index++) {
+	for (int index = 2; index < numberOfOffer-1; index++) {
 		
 	JsonCurrentElement current =setupOffer.getCurrentElementById(index);
 	if(current.getEnabled()==true)
@@ -414,7 +425,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			}
 			
 			}
-			
+		
 			@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
 			@Test( enabled=TEST_ENABLED, priority = 5 )
 			public void testUc28_04_activate_saved_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
@@ -442,11 +453,111 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				Assert.fail("The Offer activation Failed!");
 				Reporter.log("Activation of Offer Failed!");
 			}
-}
+
 	}
+
+
+			@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","jsonFilePath_ProductType","jsonFileName_ProductType"})
+			@Test( enabled=TEST_ENABLED, priority = 6)
+			public void testUc28_06_addOffer_UnlimitedVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
+				@Optional("newOffers") String jsonFileName_Offer,@Optional ("/input/catalogmanager/productTypes") String jsonFilePath_ProductType,
+				@Optional ("newProductType") String jsonFileName_ProductType) throws FormException, JSONException, JSONSException {
+				String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
+				String resourceFile2 = jsonFileName_Offer;
+				setupOffer = new JSONOffers(resourcePath2,resourceFile2);
+
+		Boolean offer_status=false;
+
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
+
+
+		int numberOfOffer=setupOffer.getList().size();
+		for (int index = 3; index < numberOfOffer; index++) {
 			
+		JsonCurrentElement current =setupOffer.getCurrentElementById(index);
+		if(current.getEnabled()==true)
+		{
+			
+			final String OFFER_NAME = Format.addTimestamp( setupOffer.getName() + "_" );
+			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
+		    
+				
+				offerForm.
+				openForm().
+				
+				clickAddOffer();
+				offerForm.setName( OFFER_NAME );
+				setDescription = offerForm.setDescription(setupOffer.getDescription());
+				offerForm.setTerms(setupOffer.getTermsAndConditions());
+				
+				setupOffer.getVoucher();
+				
+				offerForm.setUnlimitedVoucher(VoucherType.Unlimited.toString());
+				
+				offerForm.clickVoucherDefinitionTab();
+				
+				offerForm.setUnlimitedVoucherCode("Abcds");
+				
+				offerForm.setExternalSupplier("Mobistar");
+				
+				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				   //get current date time with Date()
+				   Date date = new Date(ATTEMPT_TIMEOUT);
+				   System.out.println(dateFormat.format(date));
+				   Calendar cal = Calendar.getInstance();
+				   System.out.println(dateFormat.format(cal.getTime()));
+				   offerForm.setVoucherExpiryDate(dateFormat.format(cal.getTime()));
+				
+				offerForm.clickPriceTab();
+			
+			List<JSONPricesElement> prices = setupOffer.getOffersPrices();
+			
+			if ( prices != null && prices.size() != 0 ) {
+
+				for (JSONPricesElement price : prices) {
+					
+					
+
+					for (String channel : price.getChannels()) {
+						offerForm.clickAddPriceButton();
+						offerForm.setPriceChannel(channel);
+					}
+				}
+			}
+			
+			
+				offerForm.clickNotificationTab().addNotitification().
+			
+				clickAvailabilityTab().setStockAvailability( setupOffer.getStock() );				
+				
+				offerForm.setOfferstartdate(dateFormat.format(cal.getTime()));
+				
+				offerForm.setOfferenddate(dateFormat.format(cal.getTime()));
+				
+				offerForm.clickActivationTab().saveBtn();
+				
+				offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+				//offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+				offer_status=true;
+				if(offer_status==true)
+				{
+					Assert.assertTrue(offer_status);
+					Reporter.log("Offer Created Succesfully!");
+					
+				}
+				else
+				{
+					
+					Assert.fail("The Offer creation Failed!");
+					Reporter.log("Creation of Offer Failed!");
+				}
+		}
+
+		}
+			}
+
+}
+
+
 	
-	
-
-
-

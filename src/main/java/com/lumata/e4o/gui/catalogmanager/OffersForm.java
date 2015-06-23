@@ -429,6 +429,12 @@ private JSONOffers offerCfg;
 		
 	}
 	
+	
+	public OffersForm clickVoucherDefinitionTab() throws FormException{
+		super.clickId("gwt-debug-Anchor-actrule-customerCare-catalog-voucherDefinition");
+		return this;
+	}
+	
 	public OffersForm clickPriceTab() throws FormException{
 		super.clickId("gwt-debug-Anchor-actrule-catalog-offer-prices");
 		return this;
@@ -442,26 +448,29 @@ private JSONOffers offerCfg;
 		super.clickXPath("//div[contains(text(),'Edit offer')]//ancestor::div[4]//button[@title='Add']");;
 		return this;
 	}
-	public OffersForm setPriceChannel( String PriceChannel ) throws FormException {
-			clickXPath("//div[contains(text(),'Offer Prices')]//ancestor::table//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
+	
+	
+		public OffersForm setPriceChannel( String PriceChannel ) throws FormException {
+		
+		clickXPath("//div[contains(text(),'Offer Prices')]//ancestor::table//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
 
-			selectById("gwt-debug-ListBox-PricesEditionPopUp-lChan", PriceChannel);
+		selectById("gwt-debug-ListBox-PricesEditionPopUp-lChan", PriceChannel);
 						
-			clickXPath("//div[text()='Add channel']//ancestor::table[1]//button[@title='OK']");
-						
+		clickXPath("//div[text()='Add channel']//ancestor::table[1]//button[@title='OK']");
 					
-			clickXPath("//button[@title='OK']");
+		clickXPath("//button[@title='OK']");
 
 		return this;
 			
 		}
 		
+		
 		public String getPriceChannel() throws FormException {
 			
 		return super.getValueByXPath( "PriceChannel" );
-			
-			
-		}
+		}	
+		
+		
 		public OffersForm clickAvailabilityTab() throws FormException{
 			super.clickId("gwt-debug-Anchor-actrule-catalog-product-steps-stockValidity");
 			return this;
@@ -500,8 +509,8 @@ private JSONOffers offerCfg;
 				return this;
 			}
 			
+			
 			public OffersForm ActivationBtn() throws FormException {
-				
 				    
 			clickXPath("//table[@class='margin10px']/tbody/tr/td//table[@class='buttonPanel marginTop10px']/tbody/tr/td//button[@name='btn-activate']");
 					
@@ -551,12 +560,102 @@ private JSONOffers offerCfg;
 				return this;
 				}
 
+				
 				public String getDescription() throws FormException {
 		
 				return super.getValueByXPath( "//textarea");
 		
 				}
 	
+				public OffersForm setUnlimitedVoucher(String Voucher) throws FormException, JSONSException {
+					
+				super.clickId("gwt-debug-Anchor-actrule-customerCare-catalog-voucherDefinition");
+				super.selectByXPathAndVisibleText("//select[@id='gwt-debug-ListBox-VPOfferEdit-voucherLB']",Voucher);
+						
+				return this;
+				}
+
+				public String getUnlimitedVoucher() throws FormException {
+			
+				return super.getValueByXPath( "//select[@id='gwt-debug-ListBox-VPOfferEdit-voucherLB']");
+			
+				}
+
+				
+				public OffersForm setUnlimitedVoucherCode(String VoucherCode) throws FormException, JSONSException {
+					
+					super.sendKeysById("gwt-debug-TextArea-VPOfferEdit-unlimitedUseVoucherCodeTextArea",VoucherCode);
+							
+				return this;
+				}
+
+				
+				public String getUnlimitedVoucherCode() throws FormException {
+				
+					return super.getValueById( "gwt-debug-TextArea-VPOfferEdit-unlimitedUseVoucherCodeTextArea");
+				
+					}
+				
+				
+				
+				public OffersForm setExternalSupplier(String ES) throws FormException, JSONSException {
+					
+					super.selectByXPathAndVisibleText("//select[@id='gwt-debug-ListBox-VPOfferEdit-supplierListBox']",ES);
+							
+				return this;
+				}
+				
+				public String getExternalSupplier() throws FormException {
+					
+					return super.getValueByXPath( "//select[@id='gwt-debug-ListBox-VPOfferEdit-supplierListBox']");
+				
+				}
+
+
+				public OffersForm setVoucherExpiryDate(String date) throws FormException, JSONSException {
+					
+					super.typeByXPath("//table[@class='verticalPanelInternalMargin']/tbody/tr[4]//table[@class='tableList Form']/tbody/tr[@class='cycle1']/td/input[@class='gwt-DateBox']",date);
+									
+				return this;
+				}
+
+				
+				public String getVoucherExpiryDate() throws FormException {
+				
+				return super.getValueByXPath( "//table[@class='verticalPanelInternalMargin']/tbody/tr[4]//table[@class='tableList Form']/tbody/tr[@class='cycle1']/td/input[@class='gwt-DateBox']");
+				
+				}
+
+				public OffersForm setOfferstartdate(String date) throws FormException, JSONSException {
+					
+					super.typeById("gwt-debug-DatePicker-VPOfferEdit-startDateDB",date);
+									
+				return this;
+				}
+
+				
+				public String getOfferstartdate() throws FormException {
+				
+				return super.getValueById( "gwt-debug-DatePicker-VPOfferEdit-startDateDB");
+				
+				}
+
+						
+				public OffersForm setOfferenddate(String date) throws FormException, JSONSException {
+					
+					super.typeById("gwt-debug-DatePicker-VPOfferEdit-endDateDB",date);
+									
+				return this;
+				}
+
+				
+				public String getOfferenddate() throws FormException {
+				
+				return super.getValueById( "gwt-debug-DatePicker-VPOfferEdit-endDateDB");
+				
+				}
+
+							
 				public OffersForm setImgUrl(String imgUrl) throws FormException { 
 		
 				super.sendKeysByXPath("//td[contains(text(),'Image URL of offer')]//ancestor::tr[1]//button",imgUrl);
@@ -681,11 +780,13 @@ private JSONOffers offerCfg;
 					return this;
 				}
 	
+				
 				public String getProductName() throws FormException
 				{
 					return super.getValueByXPath(".//*[@id='gwt-debug-ListBox-OfferContentPopUp-lbProd']");
 				}
 
+				
 				public OffersForm setOfferName(String offerName) throws FormException {
 					super.clickBycssSelector("table.verticalPanelInternalMargin > tbody > tr > td > table.tableList > tbody > tr.cycle2.headers > td.column_description > button[name='btn-add']");
 					super.selectByIdAndVisibleText("gwt-debug-ListBox-OfferContentPopUp-lbType", "Offers");
@@ -694,9 +795,11 @@ private JSONOffers offerCfg;
 					super.clickName("btn-ok");
 			
 					super.clickXPath("//td[@class='dialogMiddleCenter']//table[@class='buttonPanel']/tbody/tr/td/button[@name='btn-cancel']");
+					
 					return this;
 				}
 		
+				
 				public String getOfferName() throws FormException
 				{
 				return super.getValueByXPath(".//*[@id='gwt-debug-ListBox-OfferContentPopUp-lbProd']");
