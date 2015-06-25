@@ -307,7 +307,7 @@ public class ActiveMQ {
 		
 	}
 	
-	public void addMTFeedback( Mysql mysql, List<Message> messageList ) throws JMSException, SQLException {
+	public void addMTFeedback( Mysql mysql, List<Message> messageList, Boolean generateFeedbackError ) throws JMSException, SQLException {
 				
 		for( int m = 0; m < messageList.size(); m++ ) {
 			
@@ -326,27 +326,64 @@ public class ActiveMQ {
 				if( !MysqlUtils.isTable( mtTable, mysql ) ) { createMtTable( mysql, mtTable ); }
 				
 				Integer codeId = ( MysqlUtils.getMaxID( mtTable, "code", mysql ) + 1 );
+				Integer status = 0; 
+				String error = "''";
+				
+				if( generateFeedbackError ) {
+					status = 1; 
+					error = "'NotDelivered'";						
+				}
 				
 				StringBuilder query = new StringBuilder();
 				
 				query.append( "INSERT INTO " )
 						.append( mtTable )
-						.append( " ( code, date, acked, delivered, user, service, ip, phone, sender, message, promoter, id, id_obj, status, ack, error, type, tag, operator, rights, notes, autotimestamp ) " )
+						.append( " ( " )
+						.append( "code, " )
+						.append( "date, " )
+						.append( "acked, " )
+						.append( "delivered, " )
+						.append( "user, " )
+						.append( "service, " )
+						.append( "ip, " )
+						.append( "phone, " )
+						.append( "sender, " )
+						.append( "message, " )
+						.append( "promoter, " )
+						.append( "id, " )
+						.append( "id_obj, " )
+						.append( "status, " )
+						.append( "ack, " )
+						.append( "error, " )
+						.append( "type, " )
+						.append( "tag, " )
+						.append( "operator, " )
+						.append( "rights, " )
+						.append( "notes, " )
+						.append( "autotimestamp ) " )
 						.append( "SELECT " )
-						.append( codeId )
-						.append( ", NOW(), NOW(), DATE_ADD( NOW(), INTERVAL 2 HOUR ), 'user', 'e4O', '10.120.8.31', '+" )
-						.append( sms.getSmsNotification().getRecipient() )
-						.append( "', '" )
-						.append( sms.getSmsNotification().getSenderName() )
-						.append( "', '" )
-						.append( sms.getSmsNotification().getTextMessage() )
-						.append( "', 'E4O', '', '', 0, UUID(), '', 'SMS', 'MAP2_LMBLOX', '1', '', 'TransID=608c3d87&notificationId=" )
-						.append( sms.getUniqueNotificationId() ) 
-						.append( "', NOW() FROM DUAL WHERE NOT EXISTS ( SELECT notes FROM " )
-						.append( mtTable )
-						.append( " WHERE notes = 'TransID=608c3d87&notificationId=" )
-						.append( sms.getSmsNotification().getUniqueNotificationId() )
-						.append( "' ) LIMIT 1;" 
+						.append( codeId ).append( ", ")
+						.append( "NOW(), " )
+						.append( "NOW(), " )
+						.append( "DATE_ADD( NOW(), INTERVAL 2 HOUR ), " )
+						.append( "'user', " )
+						.append( "'e4O', " )
+						.append( "'10.120.8.31', " )
+						.append( "'+" ).append( sms.getSmsNotification().getRecipient() ).append( "', " )
+						.append( "'").append( sms.getSmsNotification().getSenderName() ).append( "', " )
+						.append( "'").append( sms.getSmsNotification().getTextMessage() ).append( "', " )
+						.append( "'E4O', " )
+						.append( "'', " )
+						.append( "'', " )
+						.append( status ).append( ", " )
+						.append( "UUID(), " )
+						.append( error ).append( ", " )
+						.append( "'SMS', " )
+						.append( "'MAP2_LMBLOX', " )
+						.append( "'1', " )
+						.append( "'', " )
+						.append( "'TransID=608c3d87&notificationId=" ).append( sms.getUniqueNotificationId() ).append("', ") 
+						.append( "NOW() FROM DUAL WHERE NOT EXISTS ( SELECT notes FROM " ).append( mtTable ).append( " WHERE notes = 'TransID=608c3d87&notificationId=" ).append( sms.getSmsNotification().getUniqueNotificationId() ).append( "' ) LIMIT 1;" 
 				);
 				
 				System.out.println( query );
