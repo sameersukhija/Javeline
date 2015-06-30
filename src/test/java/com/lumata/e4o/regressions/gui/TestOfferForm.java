@@ -2,7 +2,7 @@ package com.lumata.e4o.regressions.gui;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.Reporter;
-
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.Date;
 import java.text.DateFormat;
@@ -52,9 +52,12 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	public String product_Name=null;
 	public String offerName=null;
 	public String Content_OFFERNAME=null; 
-	public String Voucher=null;
+	public String Voucher="One Time Use";
 	public String expiryDate=null;
-	private OffersForm setDescription; 
+	private OffersForm setDescription;
+	private OffersForm setUnlimitedVoucher;
+	private OffersForm oneTimeVoucher;
+	private OffersForm setOneTimeVoucher; 
 	
 	@BeforeMethod
 	public void initOfferForm( Method method ) throws NetworkEnvironmentException, FormException {		
@@ -62,7 +65,6 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		seleniumWebDriver.setTestName( method.getName() );
 		
 	}
-	
 	
 	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","jsonFilePath_ProductType","jsonFileName_ProductType"})
 	@Test( enabled=TEST_ENABLED, priority = 1 )
@@ -555,9 +557,127 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		}
 
 		}
+
+			}
+		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","jsonFilePath_ProductType","jsonFileName_ProductType"})
+		@Test( enabled=TEST_ENABLED, priority = 7)
+		public void testUc28_07_addOffer_OneTimeVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
+			@Optional("newOffers") String jsonFileName_Offer,@Optional ("/input/catalogmanager/productTypes") String jsonFilePath_ProductType,
+			@Optional ("newProductType") String jsonFileName_ProductType) throws FormException, JSONException, JSONSException, IOException {
+			String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
+			String resourceFile2 = jsonFileName_Offer;
+			setupOffer = new JSONOffers(resourcePath2,resourceFile2);
+
+			Boolean offer_status=false;
+
+	seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
+
+
+	int numberOfOffer=setupOffer.getList().size();
+	for (int index = 3; index < numberOfOffer; index++) {
+		
+	JsonCurrentElement current =setupOffer.getCurrentElementById(index);
+	if(current.getEnabled()==true)
+	{
+		
+		final String OFFER_NAME = Format.addTimestamp( setupOffer.getName() + "_" );
+		OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
+	    
+			
+			offerForm.
+			openForm().
+			
+			clickAddOffer();
+			offerForm.setName( OFFER_NAME );
+			setDescription = offerForm.setDescription(setupOffer.getDescription());
+			
+			offerForm.setTerms(setupOffer.getTermsAndConditions());
+			
+			offerForm.setOneTimeVoucher(Voucher);		
+			
+			offerForm.clickVoucherDefinitionTab();
+			
+			offerForm.setOneTimeBrowseFile("");
+			
+			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
+			
+			offerForm.setExternalSupplier("Mobistar");
+			
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			   //get current date time with Date()
+			   Date date = new Date(ATTEMPT_TIMEOUT);
+			   System.out.println(dateFormat.format(date));
+			   Calendar cal = Calendar.getInstance();
+			   System.out.println(dateFormat.format(cal.getTime()));
+			   
+			   offerForm.setVoucherExpiryDate(dateFormat.format(cal.getTime()));
+			   
+			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
+				
+			   offerForm.clickImportVoucherCodes();
+				
+			   offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+				
+			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				
+			   offerForm.AlertHandling();
+					   	
+			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				
+			   offerForm.clickPriceTab();
+		
+		List<JSONPricesElement> prices = setupOffer.getOffersPrices();
+		
+		if ( prices != null && prices.size() != 0 ) {
+
+			for (JSONPricesElement price : prices) {
+				
+				
+
+				for (String channel : price.getChannels()) {
+					offerForm.clickAddPriceButton();
+					offerForm.setPriceChannel(channel);
+				}
+			}
+		}
+		
+		
+			offerForm.clickNotificationTab().addNotitification();
+		
+			offerForm.clickAvailabilityTab();
+			
+			offerForm.setOfferstartdate(dateFormat.format(cal.getTime()));
+			
+			offerForm.setOfferenddate(dateFormat.format(cal.getTime()));
+			
+			offerForm.clickActivationTab().saveBtn();
+			
+			offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+			//offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+			offer_status=true;
+			if(offer_status==true)
+			{
+				Assert.assertTrue(offer_status);
+				Reporter.log("Offer Created Succesfully!");
+				
+			}
+			else
+			{
+				
+				Assert.fail("The Offer creation Failed!");
+				Reporter.log("Creation of Offer Failed!");
+			}
+	}
+
+	}
+		
+		}	
+
 			}
 
-}
+
 
 
 	

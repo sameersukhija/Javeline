@@ -47,7 +47,6 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonUnit;
 import com.lumata.e4o.json.gui.catalogmanager.OfferCfg;
 import com.lumata.e4o.schema.tenant.CatalogProductTypes;
 import com.lumata.e4o.gui.catalogmanager.ProductTypesForm;
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -59,15 +58,18 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-public class OffersForm extends CatalogueManagerForm {
+public class OffersForm<BrowseElement> extends CatalogueManagerForm {
 
 	private static final Logger logger = LoggerFactory.getLogger(OffersForm.class);
+
 	
 	/**
 	 * 
 	 */
 private OffersForm offersForm;
 private JSONOffers offerCfg;
+
+private Alert file_input;
 
 	
 	/* constructor for initializing without product type json configuration*/ 
@@ -597,7 +599,50 @@ private JSONOffers offerCfg;
 					}
 				
 				
+					public OffersForm setOneTimeVoucher(String voucher) throws FormException, JSONSException {
+					
+					super.clickId("gwt-debug-Anchor-actrule-customerCare-catalog-voucherDefinition");
+					super.selectByXPathAndVisibleText("//table[@class='tableList Form']/tbody/tr[5][@class='cycle1']/td/select",voucher);
+							
+					return this;
+					}
+
+					public String getOneTimeVoucher() throws FormException {
 				
+					return super.getValueByXPath( "//table[@class='tableList Form']/tbody/tr[5][@class='cycle1']/td/select");
+				
+					}
+				
+					
+					public OffersForm setOneTimeBrowseFile(String CSVFILE) throws FormException, JSONSException, IOException {
+												
+						super.clickXPath("//table[@class='verticalPanelInternalMargin']/tbody//table[@class='tableList Form']/tbody/tr[1][@class='cycle1']//table[@class='importPanel']/tbody/tr/td[1]//input[@name='uploadFormElement']");
+						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers/")+"/Auto_it_browsefile.exe/");
+						super.clickXPath("//td[text()='Import voucher list']//ancestor::td[1]//button");
+						
+					return this;
+					}
+
+					
+					
+					public OffersForm clickImportVoucherCodes() throws FormException, JSONSException {
+						
+						super.clickXPath("//table[@class='verticalPanelInternalMargin']/tbody//table[@class='tableList Form']/tbody/tr[1][@class='cycle1']//table[@class='importPanel']/tbody/tr/td[2]/button[@name='btn-importer']");
+						
+					return this;
+					}
+					
+					
+					
+					public OffersForm<BrowseElement> AlertHandling() throws FormException, IOException {
+						
+						
+						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers/")+"/AutoIt_VoucherAlertHandling.exe");
+						
+					return this;
+							
+					}
+					
 				public OffersForm setExternalSupplier(String ES) throws FormException, JSONSException {
 					
 					super.selectByXPathAndVisibleText("//select[@id='gwt-debug-ListBox-VPOfferEdit-supplierListBox']",ES);
@@ -964,6 +1009,7 @@ private JSONOffers offerCfg;
 
 
 	private Object criteriaXPathRow;
+	WebElement file_input2;
 	public OffersForm ProductType() throws FormException {
 	//CatalogProductTypes ProductType = DAOProductType.getInstance( mysql ).getCatalogProductTypes(getName());
 	return offersForm;
