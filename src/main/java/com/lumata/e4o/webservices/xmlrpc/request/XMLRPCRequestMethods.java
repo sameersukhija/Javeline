@@ -362,4 +362,32 @@ public class XMLRPCRequestMethods {
 		
 	}
 	
+public static XMLRPCRequestMethods getsubscriberByKey(  XMLRPCParameter params) {
+		
+		StringBuilder subscriberPOSTBody = new StringBuilder();
+		
+		StringBuilder paramsBody = new StringBuilder();
+		
+		//if( null != params ) {
+						
+			//for( int p = 0; p < params.length; p++ ) {
+				
+				paramsBody.append( params.getParameter() );
+				
+			//}
+		
+		//}		
+		
+		
+		subscriberPOSTBody.append("<param><value><subscriber>");
+		
+								if( null != params ) { subscriberPOSTBody.append("<params>").append( paramsBody ).append("</params>"); }
+								
+															
+		subscriberPOSTBody.append("</subscriber></value></param>");
+		
+		return new XMLRPCRequestMethods( subscriberPOSTBody );
+			
+	}
+	
 }
