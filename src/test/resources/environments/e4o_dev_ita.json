@@ -1,0 +1,158 @@
+{
+  "servers": {
+    "actrule1": {
+      "hostName": "md1-da016-e4o01",
+      "hostAddress": "10.120.44.44",
+      "users": {
+        "root": {
+          "username": "root",
+          "password": "cmdISnJjdQ=="
+        },
+        "superman": {
+          "username": "superman",
+          "password": "bGppYm1NSUhJMmB3"
+        }
+      },
+      "link": "http://10.120.44.44:7070/",
+      "browsers": {
+        "SAFARI": {},
+        "OPERA": {},
+        "FIREFOX": {
+          "profile": {
+            "file": {
+              "folderName": "input/browsers/profiles",
+              "fileName": "firefox.default",
+              "loadingType": "RESOURCE"
+            },
+            "options": {
+              "extensions.firebug.allPagesActivation": "on",
+              "extensions.firebug.defaultPanelName": "console",
+              "dom.forms.number": false
+            }
+          }
+        },
+        "CHROME": {},
+        "IE": {}
+      }
+    },
+    "collector1": {
+      "hostName": "md1-da012-e4o04",
+      "hostAddress": "10.120.44.40",
+      "users": {
+        "root": {
+          "username": "root",
+          "password": "cmdISnJjdQ=="
+        }
+      },
+      "link": "",
+      "browsers": {}
+    }
+  },
+  "dataSources": {
+    "global": {
+      "hostName": "global",
+      "hostAddress": "10.120.44.24",
+      "hostPort": "3310",
+      "maxActive": 100,
+      "maxIdle": 30,
+      "maxWait": 10000,
+      "user": "system",
+      "password": "bHhsa2Jy"
+    },
+    "tenantMaster": {
+      "hostName": "tenant",
+      "hostAddress": "10.120.44.24",
+      "hostPort": "3310",
+      "maxActive": 100,
+      "maxIdle": 30,
+      "maxWait": 10000,
+      "user": "system",
+      "password": "bHhsa2Jy"
+    },
+    "dmMaster": {
+      "hostName": "dialog_manager",
+      "hostAddress": "10.120.44.28",
+      "hostPort": "3310",
+      "maxActive": 100,
+      "maxIdle": 30,
+      "maxWait": 10000,
+      "user": "tech_product",
+      "password": "cmdISnJjdQ=="
+    },
+    "jmailerMaster": {
+      "hostName": "jmailer_it",
+      "hostAddress": "10.120.44.28",
+      "hostPort": "3310",
+      "maxActive": 100,
+      "maxIdle": 30,
+      "maxWait": 10000,
+      "user": "tech_product",
+      "password": "cmdISnJjdQ=="
+    }
+  },
+  "services": {
+    "ssh": {
+      "actrule1": {
+        "hostName": "md1-da016-e4o01",
+        "hostAddress": "10.120.44.44",
+        "hostPort": "22",
+        "users": {
+          "root": {
+            "username": "root",
+            "password": "cmdISnJjdQ==",
+            "privateKey": "/opt/lumata/e4o_test"
+          }
+        }
+      },
+      "collector1": {
+        "hostName": "md1-da012-e4o04",
+        "hostAddress": "10.120.44.40",
+        "hostPort": "22",
+        "users": {
+          "root": {
+            "username": "root",
+            "password": "cmdISnJjdQ==",
+            "privateKey": "/opt/lumata/e4o_test"
+          }
+        }
+      }
+    },
+    "jmx": {
+      "actrule1": {
+        "hostName": "md1-da012-e4o04",
+        "hostAddress": "127.0.0.1",
+        "hostPort": "23500",
+        "users": null
+      },
+      "collector1": {
+        "hostName": "md1-da012-e4o04",
+        "hostAddress": "127.0.0.1",
+        "hostPort": "23500",
+        "users": null
+      }
+    },
+    "activemq": {
+      "dm1": {
+        "hostName": "md1-da008-imm02",
+        "hostAddress": "10.120.44.26",
+        "hostPort": "61616",
+        "users": {}
+      },
+      "dm2": {
+        "hostName": "md1-da016-e4o01",
+        "hostAddress": "10.120.44.44",
+        "hostPort": "61616",
+        "users": {}
+      },
+      "dm3": {
+        "hostName": "md1-da012-e4o04",
+        "hostAddress": "10.120.44.40",
+        "hostPort": "61616",
+        "users": {}
+      }
+    }
+  },
+  "options": {
+    "multiTenant": true
+  }
+}

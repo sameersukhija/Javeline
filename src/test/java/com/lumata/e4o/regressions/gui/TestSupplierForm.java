@@ -30,7 +30,7 @@ public class TestSupplierForm extends ParentTestCase {
 	
 	@Parameters({"sup_jsonFilePath","sup_jsonFileName"})
 	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 1 )
-	public void testSupplierCreation( @Optional("input/catalogmanager/suppliers") String sup_jsonFilePath, @Optional("supplierList") String sup_jsonFileName,String networkEnvironmentParams,String seleniumWebDriverParams) throws FormException, JSONException, JSONSException {
+	public void testUc25_01CreateNewSupplier( @Optional("input/catalogmanager/suppliers") String sup_jsonFilePath, @Optional("supplierList") String sup_jsonFileName) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Supplier Form\".", LOG_TO_STD_OUT);
@@ -52,17 +52,17 @@ public class TestSupplierForm extends ParentTestCase {
 			
 			setupSupplier.setSupplierById( supplierIndex );
 			if( setupSupplier.getEnabled() ) {
-				String name=Format.addTimestamp(setupSupplier.getName() + "_");
-				suppliersForm.configureSupplier(name,setupSupplier.getEmail(),setupSupplier.getPhone(),setupSupplier.getWebsite());
+				//String name=Format.addTimestamp(setupSupplier.getName() + "_");
+				suppliersForm.configureSupplier(setupSupplier.getName(),setupSupplier.getEmail(),setupSupplier.getPhone(),setupSupplier.getWebsite());
 				suppliersForm.saveSupplier();
-				status=suppliersForm.isSupplierInList(name);
+				status=suppliersForm.isSupplierInList(setupSupplier.getName());
 				if(status==true)
 				{
 					Assert.assertTrue(status);
 					Reporter.log("Supplier Created Succesfully!",LOG_TO_STD_OUT);
 					if(supplierIndex == (suppliers.length()-1))
 					{
-						setSupplierName(name);
+						setSupplierName(setupSupplier.getName());
 					}
 				}
 				else{
@@ -74,7 +74,7 @@ public class TestSupplierForm extends ParentTestCase {
 		
 	}
 	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 2 )
-	public void testEditSupplier() throws FormException, JSONException, JSONSException {
+	public void testUc25_02EditSupplier() throws FormException, JSONException, JSONSException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Reporter.log("Edit of \"Supplier\".", LOG_TO_STD_OUT);
 		SuppliersForm suppliersForm = new SuppliersForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
@@ -94,7 +94,7 @@ public class TestSupplierForm extends ParentTestCase {
 		}
 	}
 	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 3 )
-	public void testDeleteSupplier() throws FormException, JSONException, JSONSException {
+	public void testUc25_03DeleteSupplier() throws FormException, JSONException, JSONSException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Reporter.log("Delete Supplier", LOG_TO_STD_OUT);
 		SuppliersForm suppliersForm = new SuppliersForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );

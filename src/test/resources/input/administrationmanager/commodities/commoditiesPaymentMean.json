@@ -1,0 +1,26 @@
+{
+  "commodities": [
+    {"enabled": true,
+     "type": "External",
+      "account": "mainAccount",
+      "name": "Euro",
+	  "currency": "EuroT",
+      "errorActions" : {
+        "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+        "GENERAL_ERROR" : "RETURN_ERROR" 
+        },
+      "delete" : true
+    },
+    {"enabled": true,
+     "type": "External",
+      "account": "mainAccount",
+      "name": "EuroN",
+	  "currency": "EuroNew",
+      "errorActions" : {
+        "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+        "GENERAL_ERROR" : "RETURN_ERROR" 
+        },
+      "delete" : false
+    }
+   ]
+}   

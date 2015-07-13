@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.lumata.e4o.notification.dialogmanager.DialogManagerConnection;
 import com.lumata.e4o.notification.dialogmanager.DialogManagerMessageUtils;
-import com.lumatagroup.expression.e4o.commons.jms.message.DialogManagerMessage;
+import com.lumatagroup.dialogmanager.commons.message.DialogManagerMessage;
 
 public class GenerateSMSThreadPool implements Runnable {
 

@@ -3,15 +3,20 @@
  */
 package com.lumata.e4o.gui.catalogmanager;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import org.json.JSONException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.validating.Format;
+import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
+import com.lumata.e4o.gui.common.GWTCalendarForm;
 
 /**
  * @author parvinder.bhogra@lumatagroup.com
@@ -166,7 +171,7 @@ public class ProductsForm extends CatalogueManagerForm {
 	}
 	
 	//add a product from an external supplier
-	public ProductsForm addExternalProduct(String supplierName, String productName, String description, String termsAndCondition,String ImageUrl, List<String> ProductType,String cost,String price,String stock,String startDate,String endDate) throws FormException {
+	public ProductsForm addExternalProduct(String supplierName, String productName, String description, String termsAndCondition,String ImageUrl, List<String> ProductType,String cost,String price,String stock,Calendar startDate,Calendar endDate) throws FormException {
 		configureDefinition(supplierName,productName,description,termsAndCondition,ImageUrl);
 		configureProductTypeCharacteristic(ProductType);
 		configureCostPrice(cost, price);
@@ -245,19 +250,19 @@ public class ProductsForm extends CatalogueManagerForm {
 		return this;
 	}
 	
-	public ProductsForm configureAvailability(String stock,String startDate, String endDate) throws FormException {
+	public ProductsForm configureAvailability(String stock,Calendar startDate, Calendar endDate) throws FormException {
 		
 		openAvailabilityTab();
 		
 		setAvailabilityStock( stock );
 	
-		if ( startDate != null && startDate.length() != 0 ) {
+		if ( startDate != null) {
 			
 			setProductAvailabilityStartDate( startDate );
 
 		}
 			
-		if ( endDate != null && endDate.length() != 0 ) {
+		if ( endDate != null) {
 		
 			setProductAvailabilityEndDate( endDate );
 				
@@ -288,13 +293,11 @@ public class ProductsForm extends CatalogueManagerForm {
 	// TO ADD the corresponding get method
 	public ProductsForm setProductAvailabilityStartDate( Calendar provisioningStartDate ) throws FormException {
 		
-		String productAvailabilityStartDateXPath = "gwt-debug-DatePicker-VPProductEdit-startDateDB";
+		String productAvailabilityStartDateXPath = ".//*[@id='gwt-debug-DatePicker-VPProductEdit-startDateDB']";
 		
 		try {
 			
-			sendKeysById( productAvailabilityStartDateXPath, Format.getMysqlDate( provisioningStartDate ) );
-			
-			lastWebElement.sendKeys( Keys.RETURN );
+			configureGWTCalendarByXPath( productAvailabilityStartDateXPath, resolveDateField(Format.getMysqlDate( provisioningStartDate )) );
 		
 		} catch (ParseException e) {
 			
@@ -302,6 +305,16 @@ public class ProductsForm extends CatalogueManagerForm {
 			
 		}
 				
+		return this;
+		
+	}
+	public ProductsForm configureGWTCalendarByXPath( String xpath, Calendar date ) throws FormException, JSONException {
+		
+		GWTCalendarForm.
+			create( selenium, timeout, interval ).
+			openByXPath( xpath ).
+			setDate( date );
+		
 		return this;
 		
 	}
@@ -318,12 +331,11 @@ public class ProductsForm extends CatalogueManagerForm {
 	// TO ADD the corresponding get method
 	public ProductsForm setProductAvailabilityEndDate( Calendar provisioningEndDate ) throws FormException {
 		
-		String productAvailabilityStartDateXPath = "gwt-debug-DatePicker-VPProductEdit-endDateDB";
+		String productAvailabilityEndDateXPath = ".//*[@id='gwt-debug-DatePicker-VPProductEdit-endDateDB']";
 		
 		try {
 			
-			sendKeysById( productAvailabilityStartDateXPath, Format.getMysqlDate( provisioningEndDate ) );
-			
+			configureGWTCalendarByXPath( productAvailabilityEndDateXPath, resolveDateField(Format.getMysqlDate( provisioningEndDate )) );
 			lastWebElement.sendKeys( Keys.RETURN );
 		
 		} catch (ParseException e) {
@@ -347,7 +359,7 @@ public class ProductsForm extends CatalogueManagerForm {
 	
 	public List<WebElement> getProductList() throws FormException {
 		
-		String rootPath = "//table[contains(@class,'page-ProductPageView')]//table[contains(@class,'tableList')]";
+		String rootPath = "//table[contains(@class,'page-ProductPageView')]//tr[3]//table[contains(@class,'tableList')]";
 	
 		String subPath = "//tr[contains(@class, 'contentRow cycle')]//td[@class='column_description']";
 	
@@ -374,7 +386,20 @@ public class ProductsForm extends CatalogueManagerForm {
 		return false;
 		
 	} 
-	
+private Calendar resolveDateField(String StringDateField) throws FormException {
+		
+		Calendar date = Calendar.getInstance();
+		if( PlaceHolderDate.getInstance( StringDateField ).isPlaceHolderDate() )
+			date = PlaceHolderDate.getInstance( StringDateField ).parse();						
+		else 		
+			try {
+				date.setTime( new SimpleDateFormat("yyyy-MM-dd").parse( StringDateField ) );
+			} catch (ParseException e) {
+				throw new FormException("Error during SingleExecutionStart parsing " + StringDateField);
+			}
+				
+		return date;
+	}
 	// TO DO - adding get and set json product configuration
 	
 }

@@ -13,7 +13,6 @@ import javax.jms.JMSException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
 import org.testng.annotations.Optional;
 
 import com.lumata.common.testing.database.Mysql;

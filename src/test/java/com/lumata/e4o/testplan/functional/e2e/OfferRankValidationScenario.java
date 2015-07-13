@@ -94,7 +94,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		"offer_jsonPath",
 		"offer_jsonFileName"
 		})
-	@Test( enabled=TEST_ENABLED, priority = 1 ,timeOut=700000)
+	@Test( enabled=TEST_ENABLED, priority = 1 ,timeOut=1500000)
 	public void testEndtoEndScenario( @Optional("input/catalogmanager/suppliers") String supplier_jsonFilePath, 
 			@Optional("endToEndSupplier") String supplier_jsonFileName,
 			@Optional("input/catalogmanager/productTypes") String productType_jsonFilePath, 
@@ -198,7 +198,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 						
 		}
 		else{
-				Assert.fail("The Token Type creation Failed!");
+				Assert.fail("The Rule creation Failed!");
 				Reporter.log("Creation of Token Type Failed!",LOG_TO_STD_OUT);
 			}
 		//create a campaign Model using the Rule created above
@@ -260,6 +260,8 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		customerCareCreateSubscriberForm.clickCustomerCareCreateAdd();
 		customerCareCreateSubscriberForm.clickClearButton();
 		status=customerCareCreateSubscriberForm.subscriberPhoneNumberExists(null, "9890234567");
+		customerCareCreateSubscriberForm.clickClearButton();
+		//status=customerCareCreateSubscriberForm.searchById("gwt-debug-BtnCCInfoEdit").isDisplayed();
 		}catch (FormException e)
 		{
 			Reporter.log("Exception occured while creating Subscriber!"+e.getMessage());

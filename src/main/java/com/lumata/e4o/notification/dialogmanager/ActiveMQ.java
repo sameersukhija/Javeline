@@ -1,6 +1,5 @@
 package com.lumata.e4o.notification.dialogmanager;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,7 +8,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.jms.Connection;
-import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -17,7 +15,6 @@ import javax.jms.MessageConsumer;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
-import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.ScheduledMessage;
@@ -26,8 +23,12 @@ import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.database.MysqlUtils;
 import com.lumata.common.testing.system.DataSource;
 import com.lumata.common.testing.system.Service;
-import com.lumatagroup.expression.commons.campaign.notification.domain.SmsNotification;
-import com.lumatagroup.expression.e4o.commons.jms.message.DialogManagerMessage;
+import com.lumatagroup.dialogmanager.internal.commons.driver.PollingRequest;
+import com.lumatagroup.dialogmanager.commons.message.DialogManagerMessage;
+import com.lumatagroup.dialogmanager.commons.message.MessageContent;
+import com.lumatagroup.dialogmanager.driver.RemoteQueuePollingNotificationInfo;
+
+
 
 public class ActiveMQ {
 
@@ -175,15 +176,15 @@ public class ActiveMQ {
 			
 	}
 	
-	public Message createMessage( String msisdn, Long messageId, Long tenantId, String text ) throws JMSException, ParseException {
+	public Message createMessage( String msisdn, Long messageId, Long tenantId, MessageContent messageContent ) throws JMSException, ParseException {
 		
-		return createMessage( msisdn, messageId, tenantId, text, 0 );
+		return createMessage( msisdn, messageId, tenantId, messageContent, 0 );
 		
 	}
 	
-	public Message createMessage( String msisdn, Long messageId, Long tenantId, String text, long scheduled_delay ) throws JMSException, ParseException {
+	public Message createMessage( String msisdn, Long messageId, Long tenantId, MessageContent messageContent, long scheduled_delay ) throws JMSException, ParseException {
 		
-		dms = new DialogManagerSMS( msisdn, messageId, tenantId, text );
+		dms = new DialogManagerSMS( msisdn, messageId, tenantId, messageContent );
 		
 		Message message = session.createObjectMessage( dms.getMessage() );
 		
@@ -227,32 +228,65 @@ public class ActiveMQ {
 		
 	}
 
+	/**
+	 * 
+	 * Create jmailer daily table using message date
+	 * 
+	 * @param message
+	 * @return mt table name
+	 * @throws JMSException
+	 */
 	public String getMtTableName( Message message ) throws JMSException {
 		
 		Calendar sendingDate = Calendar.getInstance();
 		
 		sendingDate.setTimeInMillis( message.getJMSTimestamp() );
 		
-		String mtDate;
+		return getMtTableName( sendingDate );
+	
+	}
+
+	/**
+	 * 
+	 * Create jmailer daily table using current date
+	 * 
+	 * @return mt table name
+	 * @throws JMSException
+	 */
+	public String getMtTableName() {
+		
+		return getMtTableName( Calendar.getInstance() );
+	
+	}
+
+	/**
+	 * 
+	 * Create jmailer daily table
+	 * 
+	 * @param date
+	 * @return mt table name
+	 * @throws JMSException
+	 */
+	public String getMtTableName( Calendar date ) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 				
-		mtDate = sdf.format( Calendar.getInstance().getTime() );
+		String mtDate = sdf.format( date.getTime() );
 		
 		return "mt" + mtDate;
 	
 	}
 	
-	public void createMtTable( Mysql mysql, String mtTableName ) throws JMSException {
+	public void createMtTable( Mysql mysql, String mtTableName ) {
 		
-		mysql.execUpdate("CREATE TABLE `" + mtTableName + "` (`code` int(11) NOT NULL,`date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,`acked` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',`delivered` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',`user` varchar(16) NOT NULL,`service` varchar(64) NOT NULL,`ip` varchar(15) NOT NULL,`phone` varchar(50) NOT NULL,`sender` varchar(20) NOT NULL,`message` varchar(255) NOT NULL,`promoter` varchar(32) NOT NULL,`id` varchar(80) NOT NULL,`id_obj` varchar(25) NOT NULL,`status` int(11) NOT NULL,`ack` varchar(50) NOT NULL,`error` varchar(255) NOT NULL,`type` varchar(4) NOT NULL,`tag` varchar(15) NOT NULL,`operator` varchar(16) NOT NULL,`rights` varchar(128) DEFAULT NULL,`notes` varchar(128) NOT NULL,`autotimestamp` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',PRIMARY KEY (`code`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+		mysql.execUpdate("CREATE TABLE IF NOT EXISTS `" + mtTableName + "` (`code` int(11) NOT NULL,`date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,`acked` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',`delivered` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',`user` varchar(16) NOT NULL,`service` varchar(64) NOT NULL,`ip` varchar(15) NOT NULL,`phone` varchar(50) NOT NULL,`sender` varchar(20) NOT NULL,`message` varchar(255) NOT NULL,`promoter` varchar(32) NOT NULL,`id` varchar(80) NOT NULL,`id_obj` varchar(25) NOT NULL,`status` int(11) NOT NULL,`ack` varchar(50) NOT NULL,`error` varchar(255) NOT NULL,`type` varchar(4) NOT NULL,`tag` varchar(15) NOT NULL,`operator` varchar(16) NOT NULL,`rights` varchar(128) DEFAULT NULL,`notes` varchar(128) NOT NULL,`autotimestamp` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',PRIMARY KEY (`code`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 				
 	}
 	
 	public List<Message> readScheduledMessages() throws JMSException {
 		
 		List<Message> messageList = new ArrayList<Message>();
-				
+		
 		setConsumer( DestinationType.TemporaryQueue, null );
 		
 		setProducer( DestinationType.Topic, ScheduledMessage.AMQ_SCHEDULER_MANAGEMENT_DESTINATION ); 
@@ -273,52 +307,89 @@ public class ActiveMQ {
 		
 	}
 	
-	public void addMTFeedback( DataSource jmailerDS, List<Message> messageList ) throws JMSException, SQLException {
-		
-		Mysql mysql = new Mysql( jmailerDS );
-		
+	public void addMTFeedback( Mysql mysql, List<Message> messageList, Boolean generateFeedbackError ) throws JMSException, SQLException {
+				
 		for( int m = 0; m < messageList.size(); m++ ) {
 			
 			Message message = messageList.get( m );
 					
 			ObjectMessage objMessage = (ObjectMessage) message;
-					
-			if( objMessage.getObject() instanceof SmsNotification ) {
-				
-				SmsNotification sms = (SmsNotification) objMessage.getObject();
-				
-				String mtTable = getMtTableName( message );			
+			
+			if( objMessage.getObject() instanceof PollingRequest ) {
+			
+				PollingRequest pr = (PollingRequest)objMessage.getObject();
+			
+				RemoteQueuePollingNotificationInfo sms = (RemoteQueuePollingNotificationInfo)pr.getRequest();
+			
+				String mtTable = getMtTableName( message );
 				
 				if( !MysqlUtils.isTable( mtTable, mysql ) ) { createMtTable( mysql, mtTable ); }
 				
 				Integer codeId = ( MysqlUtils.getMaxID( mtTable, "code", mysql ) + 1 );
+				Integer status = 0; 
+				String error = "''";
+				
+				if( generateFeedbackError ) {
+					status = 1; 
+					error = "'NotDelivered'";						
+				}
 				
 				StringBuilder query = new StringBuilder();
 				
 				query.append( "INSERT INTO " )
 						.append( mtTable )
-						.append( " ( code, date, acked, delivered, user, service, ip, phone, sender, message, promoter, id, id_obj, status, ack, error, type, tag, operator, rights, notes, autotimestamp ) " )
+						.append( " ( " )
+						.append( "code, " )
+						.append( "date, " )
+						.append( "acked, " )
+						.append( "delivered, " )
+						.append( "user, " )
+						.append( "service, " )
+						.append( "ip, " )
+						.append( "phone, " )
+						.append( "sender, " )
+						.append( "message, " )
+						.append( "promoter, " )
+						.append( "id, " )
+						.append( "id_obj, " )
+						.append( "status, " )
+						.append( "ack, " )
+						.append( "error, " )
+						.append( "type, " )
+						.append( "tag, " )
+						.append( "operator, " )
+						.append( "rights, " )
+						.append( "notes, " )
+						.append( "autotimestamp ) " )
 						.append( "SELECT " )
-						.append( codeId )
-						.append( ", NOW(), NOW(), DATE_ADD( NOW(), INTERVAL 2 HOUR ), 'user', 'e4O', '10.120.8.31', '+" )
-						.append( sms.getRecipient() )
-						.append( "', '" )
-						.append( sms.getSenderName() )
-						.append( "', '" )
-						.append( sms.getTextMessage() )
-						.append( "', 'E4O', '', '', 0, UUID(), '', 'SMS', 'MAP2_LMBLOX', '1', '', 'TransID=608c3d87&notificationId=" )
-						.append( sms.getUniqueNotificationId() ) 
-						.append( "', NOW() FROM DUAL WHERE NOT EXISTS ( SELECT notes FROM " )
-						.append( mtTable )
-						.append( " WHERE notes = 'TransID=608c3d87&notificationId=" )
-						.append( sms.getUniqueNotificationId() )
-						.append( "' ) LIMIT 1;" 
+						.append( codeId ).append( ", ")
+						.append( "NOW(), " )
+						.append( "NOW(), " )
+						.append( "DATE_ADD( NOW(), INTERVAL 2 HOUR ), " )
+						.append( "'user', " )
+						.append( "'e4O', " )
+						.append( "'10.120.8.31', " )
+						.append( "'+" ).append( sms.getSmsNotification().getRecipient() ).append( "', " )
+						.append( "'").append( sms.getSmsNotification().getSenderName() ).append( "', " )
+						.append( "'").append( sms.getSmsNotification().getTextMessage() ).append( "', " )
+						.append( "'E4O', " )
+						.append( "'', " )
+						.append( "'', " )
+						.append( status ).append( ", " )
+						.append( "UUID(), " )
+						.append( error ).append( ", " )
+						.append( "'SMS', " )
+						.append( "'MAP2_LMBLOX', " )
+						.append( "'1', " )
+						.append( "'', " )
+						.append( "'TransID=608c3d87&notificationId=" ).append( sms.getUniqueNotificationId() ).append("', ") 
+						.append( "NOW() FROM DUAL WHERE NOT EXISTS ( SELECT notes FROM " ).append( mtTable ).append( " WHERE notes = 'TransID=608c3d87&notificationId=" ).append( sms.getSmsNotification().getUniqueNotificationId() ).append( "' ) LIMIT 1;" 
 				);
-											
+				
 				System.out.println( query );
 				
 				mysql.execUpdate( query.toString() );
-					
+				
 			}
 			
 		}
@@ -371,19 +442,19 @@ public class ActiveMQ {
 	}
 
 	
-	/*	
-	
-			// http://git.lumata.int/projects/MRM/repos/expression-dialog/browse/dialog-manager/src/main/java/com/lumatagroup/expression/dialog/service/MessageQueueControllerImpl.java?at=refs%2Fheads%2Fdev
-			/*Message remove = session.createMessage();
-			remove.setStringProperty(ScheduledMessage.AMQ_SCHEDULER_ACTION, ScheduledMessage.AMQ_SCHEDULER_ACTION_REMOVE);
-			remove.setStringProperty(ScheduledMessage.AMQ_SCHEDULED_ID, scheduled.getStringProperty(ScheduledMessage.AMQ_SCHEDULED_ID));
-			producer.send(remove);
-			
-			//TextMessage message = (TextMessage) scheduled;
-			//System.out.println("Text: " + message.getText());
-			
-			//SmsNotification message = (SmsNotification) scheduled;
-			//System.out.println("UniqueNotificationId: " + message.getUniqueNotificationId());
+/*	
+
+		// http://git.lumata.int/projects/MRM/repos/expression-dialog/browse/dialog-manager/src/main/java/com/lumatagroup/expression/dialog/service/MessageQueueControllerImpl.java?at=refs%2Fheads%2Fdev
+		/*Message remove = session.createMessage();
+		remove.setStringProperty(ScheduledMessage.AMQ_SCHEDULER_ACTION, ScheduledMessage.AMQ_SCHEDULER_ACTION_REMOVE);
+		remove.setStringProperty(ScheduledMessage.AMQ_SCHEDULED_ID, scheduled.getStringProperty(ScheduledMessage.AMQ_SCHEDULED_ID));
+		producer.send(remove);
+		
+		//TextMessage message = (TextMessage) scheduled;
+		//System.out.println("Text: " + message.getText());
+		
+		//SmsNotification message = (SmsNotification) scheduled;
+		//System.out.println("UniqueNotificationId: " + message.getUniqueNotificationId());
 	
 */	
 	
@@ -438,65 +509,72 @@ public class ActiveMQ {
 		return smsList;
 	}
 */	
-	public static void insertIntoMt(Mysql mysql, SmsNotification sms) throws Exception {
-		
-		String mtDate = new SimpleDateFormat("yyyyMMdd").format(sms.getSendingDate());
-		
-		// ----------------------------------------------
-		// Check if table exist or create
-		// ----------------------------------------------
-		
-		ResultSet rs = mysql.execQuery("SELECT count(*) FROM mt" + mtDate);
-		
-		if (rs == null) {
-			mysql.execUpdate("CREATE TABLE `mt" + mtDate + "` (`code` int(11) NOT NULL,`date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,`acked` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',`delivered` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',`user` varchar(16) NOT NULL,`service` varchar(64) NOT NULL,`ip` varchar(15) NOT NULL,`phone` varchar(50) NOT NULL,`sender` varchar(20) NOT NULL,`message` varchar(255) NOT NULL,`promoter` varchar(32) NOT NULL,`id` varchar(80) NOT NULL,`id_obj` varchar(25) NOT NULL,`status` int(11) NOT NULL,`ack` varchar(50) NOT NULL,`error` varchar(255) NOT NULL,`type` varchar(4) NOT NULL,`tag` varchar(15) NOT NULL,`operator` varchar(16) NOT NULL,`rights` varchar(128) DEFAULT NULL,`notes` varchar(128) NOT NULL,`autotimestamp` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',PRIMARY KEY (`code`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-		}
-		
-		// ----------------------------------------------
-		// Manual increment 'code'
-		// ----------------------------------------------
-		
-		rs = mysql.execQuery("SELECT max(code) FROM mt" + mtDate);
-		Integer code = 0;
-		
-		while (rs.next()) {
-			code = rs.getInt(1);
-			
-			if (code == null) {
-				code = 1;
-			} else {
-				code = rs.getInt(1) + 1;
-			}
-		}
-		
-		// ----------------------------------------------
-		// Insert MT record
-		// ----------------------------------------------
-			
-		String sql = "INSERT INTO `mt" + mtDate + "`(`code`,`date`,`acked`,`delivered`,`user`,`service`,`ip`,`phone`,`sender`,`message`,`promoter`,`id`,`id_obj`,`status`,`ack`,`error`,`type`,`tag`,`operator`,`rights`,`notes`,`autotimestamp`)"
-				+ "VALUES ("+code+",NOW(),NOW(),DATE_ADD(NOW(), INTERVAL 2 HOUR),'user','e4O','10.120.8.31','+39"+sms.getRecipient()+"','"+sms.getSenderName()+"','"+sms.getTextMessage()+"','E4O','','',0,UUID(),'','SMS','MAP2_LMBLOX','1','','TransID=608c3d87&notificationId="+sms.getUniqueNotificationId()+"',now())";
-		
-		mysql.execUpdate(sql);
-	}
-	
 
-	/*
-	public static void main(String[] args) throws Exception {
-		
-		Environment env = new Environment("input/environments", "e4o_qa", IOFileUtils.IOLoadingType.RESOURCE);
-		Mysql mysql = new Mysql(env.getDataSource("jmailer_it"));
-		
-		/* Test
-		SmsNotification sms = new SmsNotification(null);
-		sms.setSendingDate(new Date());
-		sms.setRecipient("444555666");
-		sms.setSenderName("name");
-		sms.setTextMessage("message");
-		*/
-	/*	
-		for (SmsNotification sms : readFromScheduled()) {
-			insertIntoMt(mysql, sms);
-		}
-	}
-	*/
+	
+	// TODO
+//	public static void insertIntoMt( Mysql mysql, PollingRequest pr ) throws Exception {
+//		
+//		RemoteQueuePollingNotificationInfo sms = (RemoteQueuePollingNotificationInfo)pr.getRequest();
+//		
+//		String mtDate = new SimpleDateFormat("yyyyMMdd").format(sms.getSmsNotification().getSendingDate());
+//		
+//		// ----------------------------------------------
+//		// Check if table exist or create
+//		// ----------------------------------------------
+//		
+//		ResultSet rs = mysql.execQuery( "SELECT count(*) FROM mt" + mtDate );
+//		
+//		if (rs == null) {
+//			
+//			mysql.execUpdate("CREATE TABLE `mt" + mtDate + "` (`code` int(11) NOT NULL,`date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,`acked` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',`delivered` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',`user` varchar(16) NOT NULL,`service` varchar(64) NOT NULL,`ip` varchar(15) NOT NULL,`phone` varchar(50) NOT NULL,`sender` varchar(20) NOT NULL,`message` varchar(255) NOT NULL,`promoter` varchar(32) NOT NULL,`id` varchar(80) NOT NULL,`id_obj` varchar(25) NOT NULL,`status` int(11) NOT NULL,`ack` varchar(50) NOT NULL,`error` varchar(255) NOT NULL,`type` varchar(4) NOT NULL,`tag` varchar(15) NOT NULL,`operator` varchar(16) NOT NULL,`rights` varchar(128) DEFAULT NULL,`notes` varchar(128) NOT NULL,`autotimestamp` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',PRIMARY KEY (`code`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+//		
+//		}
+//		
+//		// ----------------------------------------------
+//		// Manual increment 'code'
+//		// ----------------------------------------------
+//		
+//		rs = mysql.execQuery("SELECT max(code) FROM mt" + mtDate);
+//		Integer code = 0;
+//		
+//		while (rs.next()) {
+//			code = rs.getInt(1);
+//			
+//			if (code == null) {
+//				code = 1;
+//			} else {
+//				code = rs.getInt(1) + 1;
+//			}
+//		}
+//		
+//		// ----------------------------------------------
+//		// Insert MT record
+//		// ----------------------------------------------
+//			
+//		String sql = "INSERT INTO `mt" + mtDate + "`(`code`,`date`,`acked`,`delivered`,`user`,`service`,`ip`,`phone`,`sender`,`message`,`promoter`,`id`,`id_obj`,`status`,`ack`,`error`,`type`,`tag`,`operator`,`rights`,`notes`,`autotimestamp`)"
+//				+ "VALUES ("+code+",NOW(),NOW(),DATE_ADD(NOW(), INTERVAL 2 HOUR),'user','e4O','10.120.8.31','+39"+sms.getRecipient()+"','"+sms.getSenderName()+"','"+sms.getTextMessage()+"','E4O','','',0,UUID(),'','SMS','MAP2_LMBLOX','1','','TransID=608c3d87&notificationId="+sms.getUniqueNotificationId()+"',now())";
+//		
+//		mysql.execUpdate(sql);
+//	}
+	
+//
+//	/*
+//	public static void main(String[] args) throws Exception {
+//		
+//		Environment env = new Environment("input/environments", "e4o_qa", IOFileUtils.IOLoadingType.RESOURCE);
+//		Mysql mysql = new Mysql(env.getDataSource("jmailer_it"));
+//		
+//		/* Test
+//		SmsNotification sms = new SmsNotification(null);
+//		sms.setSendingDate(new Date());
+//		sms.setRecipient("444555666");
+//		sms.setSenderName("name");
+//		sms.setTextMessage("message");
+//		*/
+//	/*	
+//		for (SmsNotification sms : readFromScheduled()) {
+//			insertIntoMt(mysql, sms);
+//		}
+//	}
+//	*/
 }

@@ -27,8 +27,16 @@
   		version -> the version of the used browser
   -->
   <!-- parameter name="seleniumWebDriverParams" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://192.168.56.152:4444/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/ -->  
-  <parameter name="seleniumWebDriverParams" value="{ 'type':'local', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/> 
-  <test name="Regression suite for E4O">
+   <parameter name="seleniumWebDriverParams" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/>  
+  <test name="Sales Channel Creation Testcase">
+	<parameter name="channel_jsonFilePath" value="input/administrationmanager/salesChannels"/>
+	<parameter name="channel_jsonFileName" value="salesChannelsList"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestSalesChannel">
+      </class>
+    </classes>	
+  </test>
+  <test name="Bonus Form Testcases">
 	<parameter name="jsonFilePath_Bonus" value="input/administration/commodities"/>
 	<parameter name="jsonFileName_Bonus" value="BonusList"/>
     <classes>
@@ -36,8 +44,13 @@
       </class>
     </classes>
   </test>
-  
-  <!--test name="Rank Validation Scenario">
+ <test name="Commodities Payment Mean TestCases">
+	<classes>
+      <class name="com.lumata.e4o.regressions.gui.TestPaymentMeanForm">
+      </class>
+    </classes>	
+  </test>
+  <test name="Rank Validation Scenario">
   <parameter name="supplier_jsonFilePath" value="input/catalogmanager/suppliers"/>
   <parameter name="supplier_jsonFileName" value="endToEndSupplier"/>
   <parameter name="productType_jsonFilePath" value="input/catalogmanager/productTypes"/>
@@ -56,6 +69,8 @@
     </classes>	
   </test>
    <test name="Token Type Validation">
+   <parameter name="jsonFilePath_tokenType" value="input/catalogmanager/tokenTypes"/>
+   <parameter name="jsonFileName_tokenType" value="TokenTypeFormList"/>
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestTokenTypeForm">        
       </class>
@@ -105,14 +120,13 @@
       <class name="com.lumata.e4o.regressions.gui.TestCampaignsForm">
       </class>
     </classes>	
-  </test-->
-  <!-- test name="Regression suite for E4O">
+  </test>
+  <!--test name="Regression suite for E4O">
 	<parameter name="jsonFilePath" value="input/campaignmanager/campaignModels"/>
 	<parameter name="jsonFileName" value="newCampaignModel"/>
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestCampaignModelForm">
       </class>
     </classes>
-  </test -->
-  
+  </test-->
 </suite>

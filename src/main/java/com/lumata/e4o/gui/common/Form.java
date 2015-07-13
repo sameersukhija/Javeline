@@ -566,6 +566,11 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 		return click( SeleniumUtils.SearchBy.XPATH, text );
 		
 	}
+	
+	public Form selectByXPath(String xpath, String String) throws FormException {
+		return click( SeleniumUtils.SearchBy.XPATH, String );
+		
+	}
 	public Form clickLink( String link ) throws FormException {
 		
 		return click( SeleniumUtils.SearchBy.LINK, link );
@@ -1111,6 +1116,12 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 	public Form selectByNameandVisibleText(String Name) {
 		return this;
 	}
+	
+	public Form selectByXPath(String xpath, Form selectByVisibleText) {
+		return this;
+			
+	    }
+
 	
 	public Form selectBycssSelector(String string) throws FormException {
 		return click( SeleniumUtils.SearchBy.CSS, string );
