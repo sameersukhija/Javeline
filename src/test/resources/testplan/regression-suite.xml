@@ -36,6 +36,14 @@
       </class>
     </classes>	
   </test>
+  <test name="Bonus Form Testcases">
+	<parameter name="jsonFilePath_Bonus" value="input/administration/commodities"/>
+	<parameter name="jsonFileName_Bonus" value="BonusList"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestBonusForm">
+      </class>
+    </classes>
+  </test>
  <test name="Commodities Payment Mean TestCases">
 	<classes>
       <class name="com.lumata.e4o.regressions.gui.TestPaymentMeanForm">
