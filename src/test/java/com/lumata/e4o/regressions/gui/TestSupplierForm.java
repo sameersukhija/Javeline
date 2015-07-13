@@ -52,17 +52,17 @@ public class TestSupplierForm extends ParentTestCase {
 			
 			setupSupplier.setSupplierById( supplierIndex );
 			if( setupSupplier.getEnabled() ) {
-				String name=Format.addTimestamp(setupSupplier.getName() + "_");
-				suppliersForm.configureSupplier(name,setupSupplier.getEmail(),setupSupplier.getPhone(),setupSupplier.getWebsite());
+				//String name=Format.addTimestamp(setupSupplier.getName() + "_");
+				suppliersForm.configureSupplier(setupSupplier.getName(),setupSupplier.getEmail(),setupSupplier.getPhone(),setupSupplier.getWebsite());
 				suppliersForm.saveSupplier();
-				status=suppliersForm.isSupplierInList(name);
+				status=suppliersForm.isSupplierInList(setupSupplier.getName());
 				if(status==true)
 				{
 					Assert.assertTrue(status);
 					Reporter.log("Supplier Created Succesfully!",LOG_TO_STD_OUT);
 					if(supplierIndex == (suppliers.length()-1))
 					{
-						setSupplierName(name);
+						setSupplierName(setupSupplier.getName());
 					}
 				}
 				else{
