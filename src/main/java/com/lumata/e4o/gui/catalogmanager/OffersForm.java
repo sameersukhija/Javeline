@@ -816,10 +816,7 @@ private Alert file_input;
 		
 				public OffersForm setProductName(String productName) throws FormException {
 					super.clickBycssSelector("table.verticalPanelInternalMargin > tbody > tr > td > table.tableList > tbody > tr.cycle2.headers > td.column_description > button[name='btn-add']");
-					super.selectByIdAndVisibleText("gwt-debug-ListBox-OfferContentPopUp-lbType", "Products");
-					if ( null!=productName ){
-						super.selectByXPathAndVisibleText(".//*[@id='gwt-debug-ListBox-OfferContentPopUp-lbProd']", productName);
-					}
+					super.selectByXPathAndVisibleText(".//*[@id='gwt-debug-ListBox-OfferContentPopUp-lbProd']", productName);
 					super.typeByXPath("//input[@id='gwt-debug-TextBox-OfferContentPopUp-prodStock']","12");
 					super.clickName("btn-ok");
 					return this;
