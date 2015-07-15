@@ -2,7 +2,7 @@
 	"campaignModels": [
 		{
 			"enabled": true,
-			"name": "CampaignStartModel",
+			"name": "CSM",
 			"description": "CampaignStartModel",
 			"campaignType": null,
 			"useHierarchy": false,
@@ -11,12 +11,13 @@
 			},
 			"events": [				
 				{	
-					"eventType":"Campaign start", 
+					"eventType":"Campaign start",
+					"eventType1":"Campaign start", 
 					"criteria":[
-					{ "type":"Subscriber.Msisdn","operator" : "=", "value" : "393886933857", "delete" : false} 
+					{ "type":"Subscriber.Msisdn","type1":"Subscriber.Msisdn",type2:"Subscriber.Msisdn","operator" : "=","operator1":"=","operator2":"<", "value" : "393886933857", "value1":"9650450905", "value2":"24562","delete" : false} 
 					],
 					"actions": [
-						{ "name": "Rulesets.Rule1", "value": null, "option":"Allocate offer immediately", "time": null, "delete": false }							
+						{ "name": "Rulesets.Rule_1","name1":"Rulesets.Rule_1","name2":"Rulesets.Rule_1", "option":"Allocate offer immediately","option1":"Allocate offer on request","option2":"Allocate offer immediately","delete": false }							
 					],
 					"beneficiary": true,
 					"notifications": null,

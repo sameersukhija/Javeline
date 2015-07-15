@@ -119,7 +119,7 @@ public class TestTokenRuleForm extends ParentTestCase {
 		}
 
 		// Create Rule using Token Type created by Token Form
-		RULE_NAME = Format.addTimestamp("Rule_");
+		RULE_NAME = ("Rule_1");
 		JSONArray ruleTypes = jsonRules.getList();
 		for (int ruleTypeIndex = 0; ruleTypeIndex < ruleTypes.length(); ruleTypeIndex++) {
 			jsonRules.setRuleById(ruleTypeIndex);
