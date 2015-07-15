@@ -78,16 +78,12 @@ public class DAOStatuses extends DAO {
 		
 	}
 	
-	public Statuses getStatusByProfileId( Byte profileId ) {
+	public Statuses getStatus( String query ) {
 		
-		Statuses status = new Statuses();
-		
-		status.setProfileId( profileId );
-		
-		String query = select().from( status ).where( op( Statuses.Fields.profile_id ).eq() ).build();
+		Statuses status = null;
 		
 		ResultSet rs = this.getMysql().execQuery( query );
-			
+		
 		try {
 			
 			while( rs.next() ) {
@@ -103,6 +99,34 @@ public class DAOStatuses extends DAO {
 		}
 		
 		return status;
+		
+	}	
+	
+	public Statuses getStatusByProfileId( Byte profileId ) {
+		
+		Statuses status = new Statuses();
+		
+		status.setProfileId( profileId );
+		
+		String query = select().from( status ).where( op( Statuses.Fields.profile_id ).eq() ).build();
+		
+		return getStatus( query );
+		
+	}
+	
+	public Statuses getStatusById( Integer statusId ) {
+		
+		String query = select().from( new Statuses() ).where( op( Statuses.Fields.status_id ).eq( statusId ) ).build();
+		
+		return getStatus( query );
+		
+	}
+	
+	public Statuses getStatusByName( String statusName ) {
+		
+		String query = select().from( new Statuses() ).where( op( Statuses.Fields.status ).eq( statusName ) ).build();
+		
+		return getStatus( query );
 		
 	}
 	

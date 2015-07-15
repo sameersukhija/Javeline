@@ -234,6 +234,10 @@ public class XMLRPCRequest {
 		return new XMLRPCRequest( "subscribermanager.getSubscriber" );
 	}
 	
+	public static XMLRPCRequest subscribermanager_getSubscriberByKey() {
+		return new XMLRPCRequest( "subscribermanager.getSubscriberByKey" );
+	}
+	
 	public static XMLRPCRequest subscribermanager_getSubscriberChannels() {
 		return new XMLRPCRequest( "subscribermanager.getSubscriberChannels" );
 	}
