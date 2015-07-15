@@ -115,6 +115,16 @@
       </class>
     </classes>	
   </test>
+  <test name="Offer Form TestCases">
+	<parameter name="jsonFilePath_Offer" value="/input/catalogmanager/Offers"/>
+	<parameter name="jsonFileName_Offer" value="newOffers"/>
+	<parameter name="jsonFilePath_ProductType" value="/input/catalogmanager/productTypes"/>
+	<parameter name="jsonFileName_ProductType" value="newOffer_ProductType"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestOfferForm">
+      </class>
+    </classes>	
+  </test>
   <test name="Campaign Creation Testcase">
 	<classes>
       <class name="com.lumata.e4o.regressions.gui.TestCampaignsForm">
