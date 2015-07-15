@@ -1,8 +1,8 @@
 {
   "servers": {
     "actrule1": {
-      "hostName": "md1-sa029-e4o01",
-      "hostAddress": "10.120.38.36",
+      "hostName": "md1-sa034-e4o01",
+      "hostAddress": "10.120.38.40",
       "users": {
         "root": {
           "username": "root",
@@ -13,7 +13,7 @@
           "password": "bGppYm1NSUhJMmB3"
         }
       },
-      "link": "http://10.120.38.36:7070/",
+      "link": "http://10.120.38.40:7070/",
       "browsers": {
         "SAFARI": {
           
@@ -43,8 +43,8 @@
       }
     },
     "collector1": {
-      "hostName": "md1-sa029-e4o01",
-      "hostAddress": "10.120.38.36",
+      "hostName": "md1-sa034-e4o01",
+      "hostAddress": "10.120.38.40",
       "users": {
         "root": {
           "username": "root",
@@ -60,8 +60,8 @@
   "dataSources": {
     "global": {
       "hostName": "global",
-      "hostAddress": "10.120.38.36",
-      "hostPort": "3306",
+      "hostAddress": "10.120.38.40",
+      "hostPort": "3305",
       "maxActive": 100,
       "maxIdle": 30,
       "maxWait": 10000,
@@ -70,8 +70,8 @@
     },
     "tenant": {
       "hostName": "tenant",
-      "hostAddress": "10.120.38.36",
-      "hostPort": "3306",
+      "hostAddress": "10.120.38.40",
+      "hostPort": "3305",
       "maxActive": 100,
       "maxIdle": 30,      
       "maxWait": 10000,
@@ -80,8 +80,8 @@
     },
     "tenantMaster": {
       "hostName": "tenant",
-      "hostAddress": "10.120.38.36",
-      "hostPort": "3306",
+      "hostAddress": "10.120.38.40",
+      "hostPort": "3305",
       "maxActive": 100,
       "maxIdle": 30,      
       "maxWait": 10000,
@@ -90,7 +90,7 @@
     },
     "tenantReport": {
       "hostName": "tenant",
-      "hostAddress": "10.120.38.36",
+      "hostAddress": "10.120.38.40",
       "hostPort": "3301",
       "maxActive": 100,
       "maxIdle": 30,      
@@ -100,8 +100,8 @@
     },
     "dm": {
       "hostName": "dm",
-      "hostAddress": "10.120.38.36",
-      "hostPort": "3306",
+      "hostAddress": "10.120.38.40",
+      "hostPort": "3305",
       "maxActive": 100,
       "maxIdle": 30,
       "maxWait": 10000,
@@ -110,8 +110,8 @@
     },
     "jmailer": {
       "hostName": "jmailer_it",
-      "hostAddress": "10.120.38.36",
-      "hostPort": "3306",
+      "hostAddress": "10.120.38.40",
+      "hostPort": "3305",
       "maxActive": 100,
       "maxIdle": 30,
       "maxWait": 10000,
@@ -122,8 +122,8 @@
   "services": {
     "ssh": {
       "actrule": {
-	      "hostName": "md1-sa029-e4o01",
-	      "hostAddress": "10.120.38.36",
+	      "hostName": "md1-sa034-e4o01",
+	      "hostAddress": "10.120.38.40",
 	        "hostPort": "22",
 	        "users": {
 	          "root": {
@@ -134,8 +134,8 @@
 	        }
       },
       "collector": {
-	      "hostName": "md1-sa029-e4o01",
-	      "hostAddress": "10.120.38.36",
+	      "hostName": "md1-sa034-e4o01",
+	      "hostAddress": "10.120.38.40",
 	        "hostPort": "22",
 	        "users": {
 	          "root": {
@@ -146,8 +146,8 @@
 	        }
       },
       "nfsdata": {
-	      "hostName": "md1-sa029-e4o01",
-	      "hostAddress": "10.120.38.36",
+	      "hostName": "md1-sa034-e4o01",
+	      "hostAddress": "10.120.38.40",
 	        "hostPort": "22",
 	        "users": {
 	          "root": {
@@ -160,13 +160,13 @@
     },
 	"jmx": {
 	      "actrule": {
-	        "hostName": "md1-sa029-e4o01",
+	        "hostName": "md1-sa034-e4o01",
 	        "hostAddress": "127.0.0.1",
 	        "hostPort": "23500",
 	        "users": null
 	      },
 	      "collector": {
-	        "hostName": "md1-sa029-e4o01",
+	        "hostName": "md1-sa034-e4o01",
 	        "hostAddress": "127.0.0.1",
 	        "hostPort": "23500",
 	        "users": null    
@@ -174,8 +174,8 @@
 	 },
 	 "activemq": {
 	 	"dm": {
-	      "hostName": "md1-sa029-e4o01",
-	      "hostAddress": "10.120.38.36",
+	      "hostName": "md1-sa034-e4o01",
+	      "hostAddress": "10.120.38.40",
 	        "hostPort": "61616",
 	        "users": {}	        
 	     }	 

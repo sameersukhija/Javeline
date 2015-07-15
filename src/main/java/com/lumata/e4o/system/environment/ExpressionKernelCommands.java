@@ -1,5 +1,6 @@
 package com.lumata.e4o.system.environment;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -217,7 +218,7 @@ public class ExpressionKernelCommands extends KernelCommands {
 	}
 	
 	/** set datetime on remote server */
-	public Boolean setServerDatetime( Calendar date, Boolean remoteServicesRestart ) {
+	public Boolean setServerDatetime( Calendar date, Boolean putRemoteChangeDate ) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		
@@ -233,7 +234,7 @@ public class ExpressionKernelCommands extends KernelCommands {
 				
 				try {
 					
-					this.setRemoteDateFile( sdf.format( date.getTime() ) );
+					this.setRemoteDateFile( sdf.format( date.getTime() ), putRemoteChangeDate );
 				
 				} catch (IOFileException e) {
 					
@@ -255,6 +256,40 @@ public class ExpressionKernelCommands extends KernelCommands {
 		
 	}
 
+	public Boolean setServerFilePermissions( File file, String group, String user ) {
+		
+		ArrayList<String> result = this.execCommand( KernelCommands.getSetFilePermissions( file , group, user) );
+		
+		for( int i = 0; i < result.size(); i++ ) {
+			
+			System.out.println( result.get( i ) );
+			
+//			Matcher matcher_server_datetime = patter_server_datetime.matcher( result.get( i ) );
+//			
+//			if( matcher_server_datetime.find() ) { 
+//				
+//				try {
+//					
+//					this.setRemoteDateFile( sdf.format( date.getTime() ), putRemoteChangeDate );
+//				
+//				} catch (IOFileException e) {
+//					
+//					logger.error( e.getMessage(), e );
+//					
+//				}
+//				
+//				logger.info( Log.PUTTING.createMessage( "the datetime " + sdf.format( date.getTime() ) + " has been set correctly in the remote server" ) );
+//				
+//				return true; 
+//			
+//			}
+								
+		}
+		
+		return true;
+		
+	}
+	
 	/** exec remote command */
 	private ArrayList<String> execCommand( String command ) {
 		
@@ -264,7 +299,7 @@ public class ExpressionKernelCommands extends KernelCommands {
 		
 	}
 	
-	private void setRemoteDateFile( String remoteDate ) throws IOFileException {
+	private void setRemoteDateFile( String remoteDate, Boolean putRemoteChangeDate ) throws IOFileException {
 		
 		StringBuilder remoteDateFile = new StringBuilder();
 		
@@ -284,7 +319,7 @@ public class ExpressionKernelCommands extends KernelCommands {
 			
 			String local_path = System.getProperty( "user.dir" ) + "/output/system/";
 			
-            sftp.copyFile( local_path, "changeDate.sh", "/opt/scripts/" , "changeDate.sh", SFTPClient.CopyType.LOCAL_TO_REMOTE );
+            if( putRemoteChangeDate ) { sftp.copyFile( local_path, "changeDate.sh", "/opt/scripts/" , "changeDate.sh", SFTPClient.CopyType.LOCAL_TO_REMOTE ); }
             		
 		}
 		

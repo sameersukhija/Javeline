@@ -24,7 +24,7 @@ import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidator
 
 public class XMLRPCRequest_Subscribermanager_DeleteSubscriber {
 	
-	final boolean TEST_ENABLED = true;
+	final boolean TEST_ENABLED = false;
 	
 	NetworkEnvironment env;
 	Server actruleServer;

@@ -41,20 +41,40 @@ public class ChangeRemoteSystemDate {
 	@Test(enabled=true, priority = 1 )
 	public void changeRemoteSystemDateViaSSH() throws Exception {
 		
+		Boolean now = true;
+		
 		Calendar date = Calendar.getInstance();
 		
-		date.set( Calendar.HOUR_OF_DAY, 10 );
-		date.set( Calendar.MINUTE, 00 );
-		date.set( Calendar.SECOND, 00 );
+		int YEAR;
+		int MONTH;
+		int DAY;
+		int HOUR;
+		int MINUTE;
+		int SECOND;
 		
-		final int YEAR_ = 2015;
-		final int MONTH_ = Calendar.JUNE;
-		final int DAY_ = 13;
-		final int HOUR_ = date.get( Calendar.HOUR_OF_DAY );
-		final int MINUTE_ = date.get( Calendar.MINUTE );
-		final int SECOND_ = date.get( Calendar.SECOND );
+		if( now ) {
+			
+			YEAR = date.get( Calendar.YEAR );
+			MONTH = date.get( Calendar.MONTH );
+			DAY = date.get( Calendar.DAY_OF_MONTH );
+			HOUR = date.get( Calendar.HOUR_OF_DAY );
+			MINUTE = date.get( Calendar.MINUTE );
+			SECOND = date.get( Calendar.SECOND );
+								
+		} else {
+		
+			YEAR = 2015;
+			MONTH = Calendar.JULY;
+			DAY = 01;
+			HOUR = 10;
+			MINUTE = 00;
+			SECOND = 00;
+			
+		}
 				
-		date.set( YEAR_, MONTH_, DAY_, HOUR_, MINUTE_, SECOND_ );
+		date.set( YEAR, MONTH, DAY, HOUR, MINUTE, SECOND );
+		
+		date.add( Calendar.DAY_OF_MONTH, 40 );
 				
 		ekcServer.setServerDatetime( date, true );
 		

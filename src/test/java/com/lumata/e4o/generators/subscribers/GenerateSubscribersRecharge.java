@@ -116,7 +116,7 @@ public class GenerateSubscribersRecharge extends ParentTestCase {
 		final Long STARTED_MSISDN = 3399900001L;
 		final Integer INCREMENT = 1;
 		final Integer REPEAT = 100;
-		final Integer MIN_EVENTS = 20;
+		final Integer MIN_EVENTS = 10;
 		final Integer MAX_EVENTS = 50;
 				
 		Generator.subscribers()

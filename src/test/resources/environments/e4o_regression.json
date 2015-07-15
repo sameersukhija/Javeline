@@ -1,8 +1,8 @@
 {
   "servers": {
     "actrule1": {
-      "hostName": "GO1-E4O-APP01",
-      "hostAddress": "172.17.5.34",
+      "hostName": "md1-sa044-act01",
+      "hostAddress": "10.120.36.59",
       "users": {
         "root": {
           "username": "root",
@@ -13,7 +13,7 @@
           "password": "bGppYm1NSUhJMmB3"
         }
       },
-      "link": "http://172.17.5.34:7070/",
+      "link": "http://10.120.36.59:7070/",
       "browsers": {
         "SAFARI": {
           
@@ -43,8 +43,8 @@
       }
     },
     "actrule2": {
-      "hostName": "GO1-E4O-APP02",
-      "hostAddress": "172.17.5.35",
+      "hostName": "md1-sa044-act02",
+      "hostAddress": "10.120.36.60",
       "users": {
         "root": {
           "username": "root",
@@ -55,7 +55,7 @@
           "password": "bGppYm1NSUhJMmB3"
         }
       },
-      "link": "http://172.17.5.35:7070/",
+      "link": "http://10.120.36.60:7070/",
       "browsers": {
         "SAFARI": {
           
@@ -85,8 +85,8 @@
       }
     },
     "collector1": {
-      "hostName": "GO1-E4O-COL01",
-      "hostAddress": "172.17.5.36",
+      "hostName": "md1-sa045-col01",
+      "hostAddress": "10.120.36.61",
       "users": {
         "root": {
           "username": "root",
@@ -99,8 +99,8 @@
       }
     },
     "collector2": {
-      "hostName": "GO1-E4O-COL02",
-      "hostAddress": "172.17.5.42",
+      "hostName": "md1-sa045-col02",
+      "hostAddress": "10.120.36.62",
       "users": {
         "root": {
           "username": "root",
@@ -116,7 +116,7 @@
   "dataSources": {
     "global": {
       "hostName": "global",
-      "hostAddress": "172.17.5.40",
+      "hostAddress": "10.120.42.29",
       "hostPort": "3306",
       "maxActive": 100,
       "maxIdle": 30,
@@ -125,8 +125,8 @@
       "password": "YGRramxt"
     },
     "tenantMaster": {
-      "hostName": "extdeploy",
-      "hostAddress": "172.17.5.40",
+      "hostName": "tenant",
+      "hostAddress": "10.120.42.29",
       "hostPort": "3306",
       "maxActive": 100,
       "maxIdle": 30,      
@@ -136,7 +136,7 @@
     },
     "dm": {
       "hostName": "dialog_manager",
-      "hostAddress": "172.17.5.40",
+      "hostAddress": "10.120.42.29",
       "hostPort": "3306",
       "maxActive": 100,
       "maxIdle": 30,
@@ -148,8 +148,8 @@
   "services": {
     "ssh": {
       "actrule1": {
-      "hostName": "GO1-E4O-APP01",
-      "hostAddress": "172.17.5.34",
+      "hostName": "md1-sa044-act01",
+      "hostAddress": "10.120.36.59",
         "hostPort": "22",
         "users": {
           "root": {
@@ -160,8 +160,8 @@
         }
       },
       "actrule2": {
-	      "hostName": "GO1-E4O-APP02",
-	      "hostAddress": "172.17.5.35",
+	      "hostName": "md1-sa044-act02",
+	      "hostAddress": "10.120.36.60",
 	        "hostPort": "22",
 	        "users": {
 	          "root": {
@@ -172,8 +172,8 @@
 	        }
       },
       "collector1": {
-	      "hostName": "GO1-E4O-COL01",
-	      "hostAddress": "172.17.5.36",
+	      "hostName": "md1-sa045-col01",
+	      "hostAddress": "10.120.36.61",
 	        "hostPort": "22",
 	        "users": {
 	          "root": {
@@ -184,8 +184,8 @@
 	        }
 	   },
       "collector2": {
-	      "hostName": "GO1-E4O-COL02",
-	      "hostAddress": "172.17.5.42",
+	      "hostName": "md1-sa045-col02",
+	      "hostAddress": "10.120.36.62",
 	        "hostPort": "22",
 	        "users": {
 	          "root": {
@@ -196,44 +196,8 @@
 	        }
 	   },
       "nfsdata": {
-	      "hostName": "GO1-E4O-SVC01",
-	      "hostAddress": "172.17.5.45",
-	        "hostPort": "22",
-	        "users": {
-	          "root": {
-	            "username": "root",
-	            "password": "cmdISnJjdQ==",
-	            "privateKey": "/opt/lumata/e4o_test"
-	          }
-	        }
-	   },
-      "nfsdata1": {
-	      "hostName": "GO1-E4O-SVC01",
-	      "hostAddress": "172.17.5.37",
-	        "hostPort": "22",
-	        "users": {
-	          "root": {
-	            "username": "root",
-	            "password": "cmdISnJjdQ==",
-	            "privateKey": "/opt/lumata/e4o_test"
-	          }
-	        }
-	   },
-      "nfsdata2": {
-	      "hostName": "GO1-E4O-SVC02",
-	      "hostAddress": "172.17.5.41",
-	        "hostPort": "22",
-	        "users": {
-	          "root": {
-	            "username": "root",
-	            "password": "cmdISnJjdQ==",
-	            "privateKey": "/opt/lumata/e4o_test"
-	          }
-	        }
-	   },
-      "nfsdata3": {
-	      "hostName": "GO1-E4O-SVC01",
-	      "hostAddress": "172.17.5.45",
+	      "hostName": "md1-sa044-act01",
+	      "hostAddress": "10.120.36.59",
 	        "hostPort": "22",
 	        "users": {
 	          "root": {
@@ -244,8 +208,8 @@
 	        }
 	   },
       "db1": {
-	      "hostName": "GO1-E4O-DB01",
-	      "hostAddress": "172.17.5.38",
+	      "hostName": "md1-sd013-db01",
+	      "hostAddress": "10.120.42.29",
 	        "hostPort": "22",
 	        "users": {
 	          "root": {
@@ -256,20 +220,8 @@
 	        }
 	   },
       "db2": {
-	      "hostName": "GO1-E4O-DB02",
-	      "hostAddress": "172.17.5.39",
-	        "hostPort": "22",
-	        "users": {
-	          "root": {
-	            "username": "root",
-	            "password": "cmdISnJjdQ==",
-	            "privateKey": "/opt/lumata/e4o_test"
-	          }
-	        }
-	   },
-      "db3": {
-	      "hostName": "GO1-E4O-DB01",
-	      "hostAddress": "172.17.5.40",
+	      "hostName": "md1-sd013-db02",
+	      "hostAddress": "10.120.42.30",
 	        "hostPort": "22",
 	        "users": {
 	          "root": {
