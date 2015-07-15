@@ -66,11 +66,10 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		
 	}
 	
-	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","jsonFilePath_ProductType","jsonFileName_ProductType"})
+	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
 	@Test( enabled=TEST_ENABLED, priority = 1 )
 	public void testUc28_01addProduct_content_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-			@Optional("newOffers") String jsonFileName_Offer,@Optional ("/input/catalogmanager/Offers") String jsonFilePath_ProductType,
-			@Optional ("newOffer_ProductType") String jsonFileName_ProductType) throws FormException, JSONException, JSONSException {
+			@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
 	String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
 	String resourceFile2 = jsonFileName_Offer;
 	setupOffer = new JSONOffers(resourcePath2,resourceFile2);
@@ -126,8 +125,8 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			clickActivationTab().saveBtn();
 			
-			//offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
-			offer_status=true;
+			offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+			
 			if(offer_status==true)
 			{
 				Assert.assertTrue(offer_status);
@@ -149,7 +148,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","jsonFilePath_ProductType","jsonFileName_ProductType"})
 	@Test( enabled=TEST_ENABLED, priority = 2 )
 	public void testUc28_02_addproducttype_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-		@Optional("newOffers") String jsonFileName_Offer,@Optional ("/input/catalogmanager/Offers") String jsonFilePath_ProductType,
+		@Optional("newOffers") String jsonFileName_Offer,@Optional ("/input/catalogmanager/productTypes") String jsonFilePath_ProductType,
 		@Optional ("newOffer_ProductType") String jsonFileName_ProductType) throws FormException, JSONException, JSONSException {
 	
 		Boolean status=false;
@@ -251,8 +250,8 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			clickActivationTab().saveBtn();
 			
-			//offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
-			offer_status=true;
+			offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+			
 			if(offer_status==true)
 			{
 				Assert.assertTrue(offer_status);
@@ -269,61 +268,11 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	}
 	}
 	
-	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","jsonFilePath_ProductType","jsonFileName_ProductType"})
+	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
 	@Test( enabled=TEST_ENABLED, priority = 3)
 	public void testUc28_3_addOffer_content_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-			@Optional("newOffers") String jsonFileName_Offer,@Optional ("/input/catalogmanager/Offers") String jsonFilePath_ProductType,
-			@Optional ("newOffer_ProductType") String jsonFileName_ProductType) throws FormException, JSONException, JSONSException {
-	
-	//Createproducttype2(jsonFilePath_ProductType, jsonFileName_ProductType);	
-		Boolean status=false;
-		String resourcePath1 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_ProductType;
-		String resourceFile1 = jsonFileName_ProductType;
-		
-        setupProductTypes = new JSONProductTypes(resourcePath1,resourceFile1);
-	
-		//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		//Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
-		ProductTypesForm productTypesForm = new ProductTypesForm(seleniumWebDriver,setupProductTypes,TIMEOUT, ATTEMPT_TIMEOUT);
-		productTypesForm.openForm();	
-		int numbProdType = setupProductTypes.getList().size();
-		Reporter.log("numProductType -> " + numbProdType, LOG_TO_STD_OUT);
-	
-        for (int index1 = 0; index1 < numbProdType; index1++) {
-		JsonCurrentElement current1 = setupProductTypes.getCurrentElementById(index1);
-		if ( current1.getEnabled() ){
-		
-		productTypesForm.openForm();
-		product_type_name=Format.addTimestamp("TestProductType" + "_");
-		productTypesForm.configureProductType(product_type_name,"TestProductType");
-		
-		for (JsonCharacteristicElement chElem : setupProductTypes.getCharacteristicsList()) {
-	
-			if ( chElem.getEnabled() ) {
-		
-				productTypesForm.addCharacteristicButton();
-				productTypesForm.fillCharacteristicElement(Format.addTimestamp(chElem.getName()),chElem);
-				productTypesForm.saveCharacteristic();
-			
-		
-				productTypesForm.saveProductType();
-				//status=productTypesForm.isProductTypeInList(product_type_name);
-				status=true;
-				if(status==true)
-				{
-					Assert.assertTrue(status);
-					Reporter.log("Product Types Created Succesfully!");
-				}
-				else
-				{
-					Assert.assertTrue(status,"The creation of Product Failed!");
-					Assert.fail("The Product Types creation Failed!");
-					Reporter.log("Creation of Product Types Failed!");
-		}
-	}
-
-		}	
-		
+			@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
+				
 	String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
 	String resourceFile2 = jsonFileName_Offer;
 	setupOffer = new JSONOffers(resourcePath2,resourceFile2);
@@ -376,8 +325,8 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			clickActivationTab().saveBtn();
 			
-			//offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
-			offer_status=true;
+			offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+			
 			if(offer_status==true)
 			{
 				Assert.assertTrue(offer_status);
@@ -394,14 +343,60 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
 	}
 }
-        }	
-	}
+        	
+	
         
 	
+			@Parameters({"jsonFilePath_ProductType","jsonFileName_ProductType"})
 	
 			@Test( enabled=TEST_ENABLED, priority = 4 )
-			public void testUc28_04_editOfferForm() throws FormException, JSONException, JSONSException {
+			public void testUc28_04_editOfferForm(@Optional("/input/catalogmanager/productTypes") String jsonFilePath_ProductType,
+					@Optional ("newOffer_ProductType") String jsonFileName_ProductType) throws FormException, JSONException, JSONSException {
+				
+				Boolean status=false;
+				String resourcePath1 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_ProductType;
+				String resourceFile1 = jsonFileName_ProductType;
+				
+		        setupProductTypes = new JSONProductTypes(resourcePath1,resourceFile1);
+				ProductTypesForm productTypesForm = new ProductTypesForm(seleniumWebDriver,setupProductTypes,TIMEOUT, ATTEMPT_TIMEOUT);
+				productTypesForm.openForm();	
+				int numbProdType = setupProductTypes.getList().size();
+				Reporter.log("numProductType -> " + numbProdType, LOG_TO_STD_OUT);
 			
+		        for (int index1 = 0; index1 < numbProdType; index1++) {
+				JsonCurrentElement current1 = setupProductTypes.getCurrentElementById(index1);
+				if ( current1.getEnabled() ){
+				
+				productTypesForm.openForm();
+				product_type_name=Format.addTimestamp("TestProductType" + "_");
+				productTypesForm.configureProductType(product_type_name,"TestProductType");
+				
+				for (JsonCharacteristicElement chElem : setupProductTypes.getCharacteristicsList()) {
+			
+					if ( chElem.getEnabled() ) {
+				
+						productTypesForm.addCharacteristicButton();
+						productTypesForm.fillCharacteristicElement(Format.addTimestamp(chElem.getName()),chElem);
+						productTypesForm.saveCharacteristic();
+					
+				
+						productTypesForm.saveProductType();
+						status=productTypesForm.isProductTypeInList(product_type_name);
+						if(status==true)
+						{
+							Assert.assertTrue(status);
+							Reporter.log("Product Types Created Succesfully!");
+						}
+						else
+						{
+							Assert.assertTrue(status,"The creation of Product Failed!");
+							Assert.fail("The Product Types creation Failed!");
+							Reporter.log("Creation of Product Types Failed!");
+				}
+			}
+
+				}	
+	
 			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
 				
 			boolean offer_status;
@@ -435,7 +430,9 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			}
 			
 			}
-		
+		        }
+			}
+			
 			@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
 			@Test( enabled=TEST_ENABLED, priority = 5 )
 			public void testUc28_05_activate_saved_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
@@ -467,11 +464,10 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	}
 
 
-		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","jsonFilePath_ProductType","jsonFileName_ProductType"})
+		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
 		@Test( enabled=TEST_ENABLED, priority = 6)
 		public void testUc28_06_addOffer_UnlimitedVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-				@Optional("newOffers") String jsonFileName_Offer,@Optional ("/input/catalogmanager/Offers") String jsonFilePath_ProductType,
-				@Optional ("newOffer_ProductType") String jsonFileName_ProductType) throws FormException, JSONException, JSONSException {
+				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
 		
 		String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
 		String resourceFile2 = jsonFileName_Offer;
@@ -549,8 +545,9 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				offerForm.clickActivationTab().saveBtn();
 				
 				offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
-				//offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
-				offer_status=true;
+				
+				offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+				
 				if(offer_status==true)
 				{
 					Assert.assertTrue(offer_status);
@@ -569,11 +566,10 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
 			}
 	
-		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","jsonFilePath_ProductType","jsonFileName_ProductType"})
+		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
 		@Test( enabled=TEST_ENABLED, priority = 7 )
 		public void testUc28_07_addOffer_OneTimeVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-				@Optional("newOffers") String jsonFileName_Offer,@Optional ("/input/catalogmanager/Offers") String jsonFilePath_ProductType,
-				@Optional ("newOffer_ProductType") String jsonFileName_ProductType) throws FormException, JSONException, JSONSException, IOException {
+				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException, IOException {
 			String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
 			String resourceFile2 = jsonFileName_Offer;
 			setupOffer = new JSONOffers(resourcePath2,resourceFile2);
@@ -665,8 +661,9 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			offerForm.clickActivationTab().saveBtn();
 			
 			offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
-			//offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
-			offer_status=true;
+			
+			offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+			
 			if(offer_status==true)
 			{
 				Assert.assertTrue(offer_status);

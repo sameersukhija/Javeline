@@ -74,7 +74,7 @@
 				{
 					"prices" : null,
 					"conditions" : null,
-					"channels" : [ "Ch A" ]
+					"channels" : [ "Ch A", "Ch B" ]
 				}
 			],
 			"notification" : null,
@@ -85,7 +85,7 @@
 			}
 							],
 			"availability" : {
-				"stock" : "100",
+				"stock" : "50",
 				"reservations" : null,
 				"provisioningStart": "2014-05-01",
 				"provisioningEnd": "2014-05-01",
