@@ -143,7 +143,7 @@ public class TestProductsForm extends ParentTestCase {
 			
 			ProductsForm pdForm=new ProductsForm(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 			pdForm.clickId( "gwt-debug-actrule-catalog-products" );
-			productName=Format.addTimestamp("new_Product_");
+			productName="Products";
 			List<String> pdType_list=new ArrayList<String>();
 			pdType_list.add(productTypeName);
 			pdForm.addExternalProduct(supplierName, productName, "new Product", null, null, pdType_list,"20","15","100","@current+1month","@current+2month");
