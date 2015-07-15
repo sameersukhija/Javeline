@@ -107,11 +107,13 @@ public class JSONOffers extends JsonConfigurationFile {
 	 * 
      * @return
      */
-	public VoucherType getVoucher() {
+	public VoucherType  getVoucher() {
 		
 		String raw = getCurrentElement().getStringFromPath( "definition.voucher" ); 
 		
 		return VoucherType.valueOf(raw);
+		
+		//return getCurrentElement().getStringFromPath( "definition.voucher" );
 	}
 	
     /**
@@ -427,7 +429,7 @@ public class JSONOffers extends JsonConfigurationFile {
 		/**
 		 * Unlimited use voucher
 		 */
-		unlimitedUse;
+		Unlimited;
 	}	
 	
 	/**
