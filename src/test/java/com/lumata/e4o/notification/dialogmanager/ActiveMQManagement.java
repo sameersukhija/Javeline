@@ -2,10 +2,8 @@ package com.lumata.e4o.notification.dialogmanager;
 
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.List;
 
 import javax.jms.JMSException;
-import javax.jms.Message;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +18,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.e4o.notification.dialogmanager.ActiveMQ;
 
+// TODO
 public class ActiveMQManagement {
 
 	private static final Logger logger = LoggerFactory.getLogger( ActiveMQManagement.class );
@@ -43,18 +42,18 @@ public class ActiveMQManagement {
 	@Test( priority = 1, enabled = false )
 	public void writeScheduledMessage() throws JMSException, ParseException {
 		
-		Message message = activeMQ.createMessage( "393669393643", 2L, 1L, "new test for sms message" );
-		
-		activeMQ.writeScheduledMessage( env.getDataSource( "jmailer_it" ), message, "1.SMS.1" );
+//		Message message = activeMQ.createMessage( "393669393643", 2L, 1L, "new test for sms message" );
+//		
+//		activeMQ.writeScheduledMessage( env.getDataSource( "jmailer_it" ), message, "1.SMS.1" );
 				
 	}
 		
 	@Test( priority = 2, enabled = true )
 	public void insertMTFeedback() throws JMSException, ParseException, SQLException {
 		
-		List<Message> messageList = activeMQ.readScheduledMessages();
-	
-		activeMQ.addMTFeedback( env.getDataSource( "jmailer_it" ), messageList );
+//		List<Message> messageList = activeMQ.readScheduledMessages();
+//	
+//		activeMQ.addMTFeedback( env.getDataSource( "jmailer_it" ), messageList );
 				
 	}
 	

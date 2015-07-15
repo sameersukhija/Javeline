@@ -210,4 +210,14 @@ public class SuppliersForm extends CatalogueManagerForm {
 		this.supplierCfg = supplierCfg;
 	}
 	
+	public void editSupplier(String supplier_name) throws FormException{
+		String editButtonXpath="//div[contains(text(),'"+supplier_name+"')]//ancestor::tr[contains(@class,'contentRow cycle')]//td[5]//button[@name='btn-edit']";
+		clickXPath(editButtonXpath);
+	}
+	public void deleteSupplier(String supplier_name) throws FormException{
+		String deleteButtonXpath="//div[contains(text(),'"+supplier_name+"')]//ancestor::tr[contains(@class,'contentRow cycle')]//td[5]//button[@name='btn-delete']";
+		clickXPath(deleteButtonXpath);
+		handleJavascriptAlertAcceptDismiss(true);
+	}
+	
 }

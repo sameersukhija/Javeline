@@ -1,0 +1,29 @@
+{
+	"tokenTypes": [
+		{
+			"enabled": true,
+			"name": "TokenA",
+			"imageUrl": null,
+			"format":"br-[0123456789abcdef]{5}",
+			"validityType":"Relative",
+			"validityValue":"20",
+			"validityUnit":"days",
+			"usageUnlimited": true,
+			"usage":"10"
+			
+		},
+		
+		{
+			"enabled": true,
+			"name": "TokenB",
+			"imageUrl":null,
+			"format":"[ACDEFGHJKMNPQRTWXY34679]{5}",
+			"validityType":"Absolute",
+			"validityValue":"@current+1year+1month",
+			"validityUnit":"",
+			"usageUnlimited": true,
+			"usage":"10"
+			
+		}
+	]
+}

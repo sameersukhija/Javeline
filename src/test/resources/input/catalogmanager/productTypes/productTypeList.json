@@ -1,27 +1,116 @@
 {
-	"productTypes": [{
-		"enabled": true,
-		"name":"ProductA",
-		"description":"ProductA",
-		"characteristics": [{
-			"enabled": true,
-			"name": "ChA",
-			"type": "List",
-			"list": {
-					"value":[ "on","to"],
-					"default": null
-			},
-			"choice": null,
-  			"text": null,
-  			"unit": null
-  		},{
-  			"enabled": true,
-  			"name": "text1",
-  			"type": "Text",
-  			"list": null,
-  			"choice": null,
-  			"text":"Super",
-			"unit": null
-    	}]
-	}]
+  "productTypes": [
+    {
+      "enabled": true,
+      "name": "ProductA",
+      "description": "ProductA",
+      "characteristics": [
+        {
+          "enabled": true,
+          "name": "list1",
+          "type": "List",
+          "list": {
+            "value": [
+              "on",
+              "to"
+            ],
+            "default": ["to"]
+          },
+          "choice": null,
+          "text": null,
+          "unit": null
+        },
+        {
+          "enabled": true,
+          "name": "choice1",
+          "type": "Choice",
+          "list": null,
+          "choice": {
+            "value": [
+              "good",
+              "bad",
+              "ok"
+            ],
+            "default": "ok"
+          },
+          "text": null,
+          "unit": null
+        },
+        {
+          "enabled": true,
+          "name": "text1",
+          "type": "Text",
+          "list": null,
+          "choice": null,
+          "text": "Super",
+          "unit": null
+        },
+        {
+          "enabled": true,
+          "name": "unit1",
+          "type": "Unit",
+          "list": null,
+          "choice": null,
+          "text": null,
+          "unit": {
+            "Unit": "NewValue",
+            "Value": "Important"
+          }
+        },
+        {
+          "enabled": true,
+          "name": "list2",
+          "type": "List",
+          "list": {
+            "value": [
+              "on",
+              "off",
+              "gone"
+            ],
+            "default": null
+          },
+          "choice": null,
+          "text": null,
+          "unit": null
+        },
+        {
+          "enabled": true,
+          "name": "choice2",
+          "type": "Choice",
+          "list": null,
+          "choice": {
+            "value": [
+              "good",
+              "bad",
+              "ok"
+            ],
+            "default": null
+          },
+          "text": null,
+          "unit": null
+        },
+        {
+          "enabled": true,
+          "name": "text2",
+          "type": "Text",
+          "list": null,
+          "choice": null,
+          "text": null,
+          "unit": null
+        },
+        {
+          "enabled": true,
+          "name": "unit2",
+          "type": "Unit",
+          "list": null,
+          "choice": null,
+          "text": null,
+          "unit": {
+            "Unit": "NewValue",
+            "Value": null
+          }
+        }
+      ]
+    }
+  ]
 }

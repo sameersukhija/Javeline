@@ -7,60 +7,53 @@ import java.util.List;
 import javax.jms.JMSException;
 import javax.jms.Message;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.Reporter;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.e4o.notification.dialogmanager.ActiveMQ;
+import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCActiveMQ;
+import com.lumata.e4o.testing.common.TCMysqlJMailerMaster;
+import com.lumata.e4o.testing.common.TCOwner;
+import com.lumata.e4o.testing.common.TCOwners;
 
-public class SMSInsertMTFeedback {
 
-	private static final Logger logger = LoggerFactory.getLogger( SMSInsertMTFeedback.class );
+@TCOwners(@TCOwner(name = "Arcangelo Di Pasquale", email = "arcangelo.dipasquale@lumatagroup.com"))
+@TCMysqlJMailerMaster
+@TCActiveMQ( servers={"dm1"} )
+public class SMSInsertMTFeedback extends ParentTestCase {
 
-	private final long FEEDBACK_TIMEOUT = 300000;
-	private final long FEEDBACK_POLLING = 5000;
-	
-	private NetworkEnvironment env;
-	private ActiveMQ activeMQ;
-	
-	/* 	Initialize Environment */
-	@Parameters({"environment", "activeMQService" })
-	@BeforeSuite
-	public void init( @Optional("E4O_VM") String environment, @Optional("dm") String activeMQService ) throws NetworkEnvironmentException, JMSException  {		
-		
-		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
-		
-		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-		
-		activeMQ = new ActiveMQ( env.getActiveMQService( activeMQService ) );				
-	
-	}
+	private final long FEEDBACK_TIMEOUT = 600000;
+	private final long FEEDBACK_POLLING = 1000;
 
 	@Test( enabled = true )
 	public void insertMTFeedback() throws JMSException, ParseException, SQLException {
-		
+				
+		Reporter.log( Log.GETTING.createMessage( this.getClass().getSimpleName(), "sms feedback messages" ), LOG_TO_STD_OUT );
+				
 		long spentTime = 0;
 		
 		List<Message> messageList = null;
 		
-		while( messageList == null || messageList.size() <= 0 || spentTime <= FEEDBACK_TIMEOUT ) {
+		while( ( messageList == null || messageList.size() <= 0 ) && spentTime <= FEEDBACK_TIMEOUT ) {
 		
-			messageList = activeMQ.readScheduledMessages();
+			messageList = activemq.get("dm1").readScheduledMessages();
 			
 			spentTime = spentTime + FEEDBACK_POLLING;
 			
+			try { Thread.sleep( FEEDBACK_POLLING ); } catch( InterruptedException e ) {}
+			
+			//Reporter.log( Log.GETTING.createMessage( this.getClass().getSimpleName(), "feedback sms messages ( elapsed time: " + spentTime + " ms ) " ), LOG_TO_STD_OUT );
+			
 		}
 		
-		if( messageList != null || messageList.size() > 0 ) {
+		Reporter.log( Log.GETTING.createMessage( this.getClass().getSimpleName(), "insert sms feedback in the jmailer daily table" ), LOG_TO_STD_OUT );
+		
+		Boolean generateFeedbackError = true;
+		
+		if( messageList != null && messageList.size() > 0 ) {
 			
-			activeMQ.addMTFeedback( env.getDataSource( "jmailer" ), messageList );
+			activemq.get("dm1").addMTFeedback( mysqlJMailerMaster, messageList, generateFeedbackError );
 						
 		}
 		

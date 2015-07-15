@@ -1,6 +1,7 @@
 package com.lumata.e4o.regressions.gui;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -45,9 +46,9 @@ public class TestProductsForm extends ParentTestCase {
 	private Boolean supplier_created=false;
 	private Boolean pdtype_created=false;
 	
-	@Parameters({"supplier_jsonFilePath","supplier_jsonFileName","productType_jsonFilePath","productType_jsonFileName"})
-	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 1 )
-	public void testEndtoEndProductCreation( @Optional("input/catalogmanager/suppliers") String supplier_jsonFilePath, @Optional("supplierList") String supplier_jsonFileName,@Optional("input/catalogmanager/productTypes") String productType_jsonFilePath, @Optional("newProductType") String productType_jsonFileName) throws FormException, JSONException, JSONSException {
+	@Parameters({"supplier_jsonFilePath","supplier_jsonFileName","productType_jsonFilePath","productType_jsonFileName","networkEnvironmentParams","seleniumWebDriverParams"})
+	@Test( enabled=TEST_ENABLED, timeOut=800000L, priority = 1 )
+	public void testEndtoEndProductCreation( @Optional("input/catalogmanager/suppliers") String supplier_jsonFilePath, @Optional("supplierList") String supplier_jsonFileName,@Optional("input/catalogmanager/productTypes") String productType_jsonFilePath, @Optional("newProductType") String productType_jsonFileName,String networkEnvironmentParams,String seleniumWebDriverParams) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Supplier Form\".", LOG_TO_STD_OUT);
@@ -146,7 +147,11 @@ public class TestProductsForm extends ParentTestCase {
 			productName="Products";
 			List<String> pdType_list=new ArrayList<String>();
 			pdType_list.add(productTypeName);
-			pdForm.addExternalProduct(supplierName, productName, "new Product", null, null, pdType_list,"20","15","100","@current+1month","@current+2month");
+			Calendar startDate = Calendar.getInstance();
+			startDate.add( Calendar.DATE, 10 );
+			Calendar endDate = Calendar.getInstance();
+			endDate.add( Calendar.DATE, 20 );
+			pdForm.addExternalProduct(supplierName, productName, "new Product", null, null, pdType_list,"20","15","100",startDate,endDate);
 			Boolean stat=pdForm.isProductInList(productName);
 			if(stat==true)
 			{

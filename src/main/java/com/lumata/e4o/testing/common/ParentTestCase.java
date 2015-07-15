@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.jms.JMSException;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
@@ -28,6 +32,10 @@ import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.gui.security.Authorization;
+import com.lumata.e4o.notification.dialogmanager.ActiveMQ;
+// TODO
+//import com.lumata.e4o.system.environment.ExpressionKernelCommands;
+//import com.lumata.e4o.system.environment.ExpressionKernelCommandsList;
 
 /**
  * This is the parent class for all test cases in E4OSystemTest. It provides the follow facilities :
@@ -111,7 +119,17 @@ public abstract class ParentTestCase {
 	 * 	Default e4o report schema
 	 */
 	protected final String DEFAULT_SCHEMA_REPORT = "tenantReport";
-	
+
+	/**
+	 * 	Default e4o master dm schema
+	 */
+	protected final String DEFAULT_SCHEMA_DM_MASTER = "dmMaster";
+
+	/**
+	 * 	Default e4o master jmailer schema
+	 */
+	protected final String DEFAULT_SCHEMA_JMAILER_MASTER = "jmailerMaster";
+
 	/**
 	 * 	Default browser
 	 */
@@ -161,7 +179,27 @@ public abstract class ParentTestCase {
 	 * 	Allow to manage the Mysql Report instance 	 
 	 */
 	protected Mysql mysqlReport;
+
+	/**
+	 * 	Allow to manage the Mysql DM Master instance 	 
+	 */
+	protected Mysql mysqlDMMaster;
+
+	/**
+	 * 	Allow to manage the Mysql JMailer Master instance 	 
+	 */
+	protected Mysql mysqlJMailerMaster;
+
+	/**
+	 * 	Allow to manage the expression kernel commands list - TODO 	 
+	 */
+	//protected ExpressionKernelCommandsList ekcl;
 	
+	/**
+	 * 	Allow to manage the activemq servers 	 
+	 */
+	protected Map<String, ActiveMQ> activemq;
+		
 	/**
 	 * 	Enable the test case to use selenium web driver 
 	 * 	( local or remote )  	 
@@ -177,7 +215,6 @@ public abstract class ParentTestCase {
 	 * 	Current gui user  	 
 	 */
 	protected User user;
-
 	
 	/**
 	 * 	Enable the test case to use mysql global	 
@@ -194,6 +231,16 @@ public abstract class ParentTestCase {
 	 */
 	protected String mysqlReportName = "";
 
+	/**
+	 * 	Enable the test case to use mysql dm master	 
+	 */
+	protected String mysqlDMMasterName = "";
+
+	/**
+	 * 	Enable the test case to use mysql jmailer master	 
+	 */
+	protected String mysqlJMailerMasterName = "";
+	
 	/**
 	 * 	Contains the network environment parameters configured in the testng file 	 
 	 */
@@ -213,6 +260,19 @@ public abstract class ParentTestCase {
 	 * 	Contains the selenium web driver parameters configured in the testng file 	 
 	 */
 	private JSONObject jsonSeleniumWebDriverParams;
+	
+	private enum AnnotationType {
+		TCSeleniumWebDriver, 
+		TCMysqlGlobal,
+		TCMysqlMaster,
+		TCMysqlReport,		
+		TCMysqlDMMaster,
+		TCMysqlJMailerMaster,
+		TCEKCL,
+		TCActiveMQ,
+		TCOwners,
+		TCOwner
+	}
 
 	@Parameters({
 		"networkEnvironmentParams", 
@@ -222,7 +282,7 @@ public abstract class ParentTestCase {
 	public void init(
 		@Optional("") String networkEnvironmentParams, 
 		@Optional("") String seleniumWebDriverParams
-	) {
+	) throws JMSException {
 		
 		configure();
 		
@@ -231,6 +291,11 @@ public abstract class ParentTestCase {
 		initDatabases();
 		
 		initSeleniumWebDriver( seleniumWebDriverParams );
+		
+//		TODO
+//		initEKCL();
+		
+		initActiveMQ();
 		
 	}
 	
@@ -242,9 +307,9 @@ public abstract class ParentTestCase {
 		
 		for( Annotation annotation : annotations ) {
 			
-			switch( annotation.annotationType().getSimpleName() ) {
+			switch( AnnotationType.valueOf( annotation.annotationType().getSimpleName() ) ) {
 			
-				case "TCSeleniumWebDriver": {
+				case TCSeleniumWebDriver: {
 					
 					Reporter.log( Log.ENABLING.createMessage( "configure" , "selenium web driver" ), LOG_TO_STD_OUT );
 					
@@ -253,7 +318,7 @@ public abstract class ParentTestCase {
 					break;
 					
 				}
-				case "TCMysqlGlobal": {
+				case TCMysqlGlobal: {
 					
 					Reporter.log( Log.ENABLING.createMessage( "configure" , "mysql global" ), LOG_TO_STD_OUT );
 					
@@ -262,7 +327,7 @@ public abstract class ParentTestCase {
 					break;
 					
 				}
-				case "TCMysqlMaster": {
+				case TCMysqlMaster: {
 					
 					Reporter.log( Log.ENABLING.createMessage( "configure" , "mysql master" ), LOG_TO_STD_OUT );
 					
@@ -271,7 +336,7 @@ public abstract class ParentTestCase {
 					break;
 					
 				}
-				case "TCMysqlReport": {
+				case TCMysqlReport: {
 					
 					Reporter.log( Log.ENABLING.createMessage( "configure" , "mysql report" ), LOG_TO_STD_OUT );
 					
@@ -280,7 +345,44 @@ public abstract class ParentTestCase {
 					break;
 					
 				}
+				case TCMysqlDMMaster: {
+					
+					Reporter.log( Log.ENABLING.createMessage( "configure" , "mysql dm master" ), LOG_TO_STD_OUT );
+					
+					mysqlDMMasterName = DEFAULT_SCHEMA_DM_MASTER;
+					
+					break;
+					
+				}
+				case TCMysqlJMailerMaster: {
+					
+					Reporter.log( Log.ENABLING.createMessage( "configure" , "mysql jmailer master" ), LOG_TO_STD_OUT );
+					
+					mysqlJMailerMasterName = DEFAULT_SCHEMA_JMAILER_MASTER;
+					
+					break;
+					
+				}
+				/* TODO
+				case TCEKCL: {
+					
+					Reporter.log( Log.ENABLING.createMessage( "configure" , "expression kernel command list" ), LOG_TO_STD_OUT );
+					
+					ekcl = ExpressionKernelCommandsList.getInstance();
 			
+					break;
+					
+				}*/
+				case TCActiveMQ: {
+					
+					Reporter.log( Log.LOADING.createMessage( "configure" , "activemq servers" ), LOG_TO_STD_OUT );
+					
+					activemq = new HashMap<String, ActiveMQ>() ;
+					
+					break;
+					
+				}				
+				default: break;
 			}			
 			
 		}		
@@ -362,7 +464,7 @@ public abstract class ParentTestCase {
 						
 		} else {
 			
-			Reporter.log( Log.LOADING.createMessage( "initSeleniumWebDriver" , "default gui server ( " + jsonNetworkEnvironmentParams.getString( "guiUser" ) + " )" ), LOG_TO_STD_OUT );
+			Reporter.log( Log.LOADING.createMessage( "initSeleniumWebDriver" , "default gui user ( " + jsonNetworkEnvironmentParams.getString( "guiUser" ) + " )" ), LOG_TO_STD_OUT );
 				
 			user = guiServer.getUser( jsonNetworkEnvironmentParams.getString( "guiUser" ) );	
 
@@ -379,7 +481,11 @@ public abstract class ParentTestCase {
 			if( null != mysqlMasterName && !mysqlMasterName.isEmpty() ) { mysqlMaster = getMysqlInstance( mysqlMasterName, "schemaMaster", DEFAULT_SCHEMA_MASTER ); }
 			
 			if( null != mysqlReportName && !mysqlReportName.isEmpty() ) { mysqlReport = getMysqlInstance( mysqlReportName, "schemaReport", DEFAULT_SCHEMA_REPORT ); }			
-						
+
+			if( null != mysqlDMMasterName && !mysqlDMMasterName.isEmpty() ) { mysqlDMMaster = getMysqlInstance( mysqlDMMasterName, "schemaDMMaster", DEFAULT_SCHEMA_DM_MASTER ); }
+
+			if( null != mysqlJMailerMasterName && !mysqlJMailerMasterName.isEmpty() ) { mysqlJMailerMaster = getMysqlInstance( mysqlJMailerMasterName, "schemaJMailerMaster", DEFAULT_SCHEMA_JMAILER_MASTER ); }
+
 		} catch( Exception e ) {
 			
 			throw new TestNGException( e.getMessage(), e );
@@ -459,6 +565,39 @@ public abstract class ParentTestCase {
 			
 			throw new TestNGException( e.getMessage(), e );
 			
+		}
+		
+	}
+	
+	/* TODO
+	private void initEKCL() {
+		
+		if( null != ekcl ) {
+			
+			TCEKCL ekcList = this.getClass().getAnnotation( TCEKCL.class );
+			
+			for( TCEKC ekcEl : ekcList.value() ) {
+				
+				ekcl.put( ekcEl.ssh_server(), ekcEl.ssh_user(), new ExpressionKernelCommands( env.getServer( ekcEl.ssh_server() ), env.getSSHService( ekcEl.ssh_server() ), ekcEl.ssh_user() ) );
+				
+			}
+						
+		}
+		
+	}*/
+	
+	private void initActiveMQ() throws JMSException {
+		
+		if( null != activemq ) {
+			
+			TCActiveMQ activemqInfo = this.getClass().getAnnotation( TCActiveMQ.class );
+			
+			for( String activemqServerName : activemqInfo.servers() ) {
+				
+				activemq.put( activemqServerName, new ActiveMQ( env.getActiveMQService( activemqServerName ) ) );
+				
+			}
+						
 		}
 		
 	}

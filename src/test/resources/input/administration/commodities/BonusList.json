@@ -1,0 +1,26 @@
+{
+	"commodities": [
+		{
+			"type": "Internal",	
+			"unit": "Currency",
+			"defaultValidityType": "Variable",
+			"defaultPeriodType": "Days",
+			"defaultQuantityPeriod": "5",
+			"unitaryCost": "10",
+			"listPrice": "10",
+			
+		},
+		{
+			"type": "External",
+			"account":"mainAccount",
+			"accountType": "OTHER",
+			"defaultValidityType": "Fixed",
+			"defaultPeriodStart": "BeginningOfCurrentPeriod",
+			"defaultPeriodType": "Weeks",
+			"defaultQuantityPeriod": "5",
+			"unitaryCost": "10",
+			"listPrice": "10",
+			
+		}
+	]
+}

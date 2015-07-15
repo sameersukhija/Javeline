@@ -6,7 +6,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
@@ -122,7 +124,7 @@ public class RulesForm extends OfferOptimisationForm {
 	public String getDescription() throws FormException {
 
 		return super
-				.getValueByXPath("//textarea[@ng-model='tokenType.description']");
+				.getValueByXPath("//textarea[@ng-model='ruleset.description']");
 
 	}
 
@@ -144,6 +146,10 @@ public class RulesForm extends OfferOptimisationForm {
 		super.selectByNameAndVisibleText("algorithm", text);
 		return this;
 	}
+	public String getAlgorithm() throws FormException {
+		return super.getValueByName("algorithm");
+		
+	}
 
 	// Set MaxNumber of Offers
 	public RulesForm setMaxNumberOfOffers(String text) throws FormException {
@@ -156,11 +162,21 @@ public class RulesForm extends OfferOptimisationForm {
 		super.selectByNameAndVisibleText("redeemExpiredOfferBehavior", text);
 		return this;
 	}
+	public String getExpiredOfferBehaviour() throws FormException {
+		return super.getValueByName("redeemExpiredOfferBehavior");
+	}
 
 	// Click on save button of saveRule
 	public RulesForm saveRule() throws FormException {
 
 		super.clickXPath("//a[@name='btn-add']");
+
+		return this;
+
+	}
+	public RulesForm editSaveRule() throws FormException {
+
+		super.clickXPath("//a[@name='btn-edit']");
 
 		return this;
 
@@ -307,7 +323,8 @@ public class RulesForm extends OfferOptimisationForm {
 	}
 	
 public List<WebElement> getRuleList() throws FormException {
-		
+		//waitForPageLoad();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class ,'e4ol-list')]")));
 		List<WebElement> ruleList = super.getListByXPath("//div[contains(@class ,'e4ol-list')]","//div[contains(@class , 'e4ol-list__cell ng-binding')]");
 
 		return ruleList;
@@ -331,6 +348,41 @@ public List<WebElement> getRuleList() throws FormException {
 		return false;
 		
 	}
+public RulesForm editRuleByName( String strRuleName ) throws FormException {
+		
+		List<WebElement> ruleList = getRuleList();
+				
+		for( int i=0;i<ruleList.size();i++) {
+			
+			if(ruleList.get(i).getText().trim().equals( strRuleName ) ) {
+				
+				this.clickXPath("//div[contains(@class ,'e4ol-list')]//div[contains(@class , 'e4ol-list__row')]["+(i+2)+"]//a[@name='btn-edit']");
+				
+			}
+			
+		}
+		
+		return this;
+		
+	}
+public RulesForm copyRuleByName( String strRuleName ) throws FormException {
+	
+	List<WebElement> ruleList = getRuleList();
+			
+	for( int i=0;i<ruleList.size();i++) {
+		
+		if(ruleList.get(i).getText().trim().equals( strRuleName ) ) {
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class ,'e4ol-list')]//div[contains(@class , 'e4ol-list__row')]["+(i+2)+"]//a[@name='btn-copy']")));
+			this.clickXPath("//div[contains(@class ,'e4ol-list')]//div[contains(@class , 'e4ol-list__row')]["+(i+2)+"]//a[@name='btn-copy']");
+			break;
+			
+		}
+		
+	}
+	
+	return this;
+	
+}
 
 	// old methods which will become obsolete later on. I kept it as its
 	// impacting other test cases right now. To remove compilation issue I am

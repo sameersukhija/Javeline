@@ -1,11 +1,5 @@
 package com.lumata.e4o.notification.dialogmanager;
 
-import static com.lumata.common.testing.orm.Filter.op;
-import static com.lumata.common.testing.orm.Filter.and;
-import static com.lumata.common.testing.orm.Query.insert;
-import static com.lumata.common.testing.orm.Query.select;
-import static com.lumata.common.testing.orm.Query.update;
-
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 import com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.ParameterType;
 
@@ -16,69 +10,35 @@ import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.jms.JMSException;
-import javax.jms.Message;
 
-import org.jboss.resteasy.client.ClientResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.database.Mysql;
-import com.lumata.common.testing.database.MysqlUtils;
-import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
-import com.lumata.common.testing.system.Service;
 import com.lumata.common.testing.system.User;
-import com.lumata.e4o.exceptions.CDRException;
-import com.lumata.e4o.exceptions.XMLRPCParserException;
-import com.lumata.e4o.gui.xmlrpc.HTTPXMLRPCForm;
-import com.lumata.e4o.gui.xmlrpc.XMLRPCChannel;
-import com.lumata.e4o.gui.xmlrpc.XMLRPCResultParser;
-import com.lumata.e4o.gui.xmlrpc.XMLRPCResultSuccess;
-import com.lumata.e4o.gui.xmlrpc.XMLRPCSubscriber;
-import com.lumata.e4o.gui.xmlrpc.XMLRPCResultParser.ResultType;
-import com.lumata.e4o.notification.dialogmanager.ActiveMQ;
-import com.lumata.e4o.schema.dialogmanager.DmFeedback;
-import com.lumata.e4o.schema.tenant.FilesData;
-import com.lumata.e4o.schema.tenant.FilesMeta;
-import com.lumata.e4o.schema.tenant.SubsNotif;
-import com.lumata.e4o.schema.tenant.Subscribers;
-import com.lumata.e4o.system.environment.ExpressionKernelCommands;
 
 
-
+// TODO
 public class SMSSending {
 
 	private static final Logger logger = LoggerFactory.getLogger( SMSSending.class );
 	
-	private final long XMLRPC_CALL_DELAY = 100;
-	private final long FEEDBACK_TIMEOUT = 300000;
-	private final long FEEDBACK_POLLING = 5000;
+//	private final long XMLRPC_CALL_DELAY = 100;
+//	private final long FEEDBACK_TIMEOUT = 300000;
+//	private final long FEEDBACK_POLLING = 5000;
 	
 	private NetworkEnvironment env;
-	private ActiveMQ activeMQ;
-	private ExpressionKernelCommands ekcCollector;
+//	private ActiveMQ activeMQ;
+//	private ExpressionKernelCommands ekcCollector;
 	private Server actruleServer;
 	private User superman;
 	private final Long msisdn = 3399900001L;
@@ -92,7 +52,7 @@ public class SMSSending {
 		
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 		
-		ekcCollector = new ExpressionKernelCommands( env.getService( Service.Type.ssh , "collector" ), "root" );
+//		ekcCollector = new ExpressionKernelCommands( env.getService( Service.Type.ssh , "collector" ), "root" );
 		
 		actruleServer = env.getServer( "actrule" ); 
 		
