@@ -18,8 +18,10 @@ import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.cdr.CDR.DELETE;
 import com.lumata.e4o.system.cdr.types.CDRLifeCycleDelete;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
+import com.lumata.e4o.testing.common.ParentTestCase;
 
-public class GenerateCDRLifeCycleDelete {
+
+public class GenerateCDRLifeCycleDelete  {
 	
 	NetworkEnvironment env;
 	Service sshService;
@@ -30,7 +32,7 @@ public class GenerateCDRLifeCycleDelete {
 	@Parameters({"environment", "gui_server", "user"})
 	@BeforeClass
 	public void init( @Optional("E4O_VM") String environment, @Optional("collector") String collectorServer, @Optional("superman") String user ) throws NetworkEnvironmentException {		
-		
+		environment = "E4O_POC_NE";
 		/** Create environment configuration */
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
 
@@ -66,13 +68,13 @@ public class GenerateCDRLifeCycleDelete {
 		cdrLCP.setDateStrategyFixed( date );
 		cdrLCP.setDeleteStrategyFixed( DELETE.YES );
 				
-		cdrLCP.addLines( 20 );
+		cdrLCP.addLines( 10 );
 				
 		cdrLCP.print();
 		
 		cdrLCP.save();
 		
-		cdrLCP.send( sshService, "/nfsdata/files/cdr/deposit/LIFECYCLE_DELETE_CDR/", sshUser );
+		//cdrLCP.send( sshService, "/nfsdata/files/cdr/deposit/LIFECYCLE_DELETE_CDR/", sshUser );
 		
 		System.out.println( "File name: " + cdrLCP.getFileName() );
 		

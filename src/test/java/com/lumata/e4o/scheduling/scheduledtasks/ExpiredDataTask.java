@@ -26,7 +26,7 @@ protected final String DEFAULT_RESOURCE_FOLDER_ROOT = System.getProperty( "user.
 
 		NetworkEnvironment env = new NetworkEnvironment( DEFAULT_RESOURCE_FOLDER_ENVIRONMENTS, environment, IOFileUtils.IOLoadingType.FILE );
 		
-		ExpressionKernelCommands ekc = new ExpressionKernelCommands( env.getSSHService( "actrule" ), "root" );
+		ExpressionKernelCommands ekc = new ExpressionKernelCommands( env.getSSHService( "actrule1" ), "root" );
 		
 		ExpressionKernelCommands.TaskStatus taskStatus = ekc.execTask( 23500, 1, ExpressionKernelCommands.Task.ExpiredData );
 		

@@ -2,6 +2,7 @@
   "productTypes": [
     {
       "enabled": true,
+      "offer_name": "OFF",
       "name": "newProduct",
       "description": "newProduct",
       "delete": false,

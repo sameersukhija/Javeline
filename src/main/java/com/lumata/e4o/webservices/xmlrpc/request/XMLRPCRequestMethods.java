@@ -219,6 +219,10 @@ public class XMLRPCRequestMethods {
 		return subscriber( msisdn, null, null, null, null, null, null, null, null, null, null, null );
 	}
 	
+	public static XMLRPCRequestMethods subscriber( XMLRPCParameter[] params ) {
+		return subscriber( null, null, null, null, null, null, null, null, null, null, params, null );
+	}
+	
 	public static XMLRPCRequestMethods subscriber( String msisdn, String subscriptionDate, String profile, String subprofile, String ratePlan, String status, String inTag, String network, XMLRPCParameter[] params, String[] services ) {
 		return subscriber( msisdn, subscriptionDate, profile, subprofile, ratePlan, status, inTag, network, null, null, params,  services );
 	}
@@ -361,5 +365,27 @@ public class XMLRPCRequestMethods {
 		return new XMLRPCRequestMethods( offerParametersPOSTBody );
 		
 	}
+	
+//	public static XMLRPCRequestMethods getsubscriberByKey( XMLRPCParameter params ) {
+//		
+//		StringBuilder subscriberPOSTBody = new StringBuilder();
+//		
+//		StringBuilder paramsBody = new StringBuilder();
+//		
+//		paramsBody.append( params.getParameter() );
+//		
+//		subscriberPOSTBody.append("<param><value><subscriber>");
+//		
+//		if( null != params ) { 
+//			
+//			subscriberPOSTBody.append("<params>").append( paramsBody ).append("</params>"); 
+//			
+//		}								
+//															
+//		subscriberPOSTBody.append("</subscriber></value></param>");
+//		
+//		return new XMLRPCRequestMethods( subscriberPOSTBody );
+//			
+//	}
 	
 }

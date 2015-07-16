@@ -29,13 +29,15 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.selenium.SeleniumWebDriver.SeleniumDriverType;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
+import com.lumata.common.testing.system.Service;
 import com.lumata.common.testing.system.User;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.e4o.notification.dialogmanager.ActiveMQ;
-// TODO
-//import com.lumata.e4o.system.environment.ExpressionKernelCommands;
-//import com.lumata.e4o.system.environment.ExpressionKernelCommandsList;
+import com.lumata.e4o.system.environment.ExpressionKernelCommands;
+import com.lumata.e4o.system.environment.ExpressionKernelCommandsList;
+import com.lumata.e4o.system.environment.SSHService;
+import com.lumata.e4o.system.environment.SSHServicesList;
 
 /**
  * This is the parent class for all test cases in E4OSystemTest. It provides the follow facilities :
@@ -191,9 +193,14 @@ public abstract class ParentTestCase {
 	protected Mysql mysqlJMailerMaster;
 
 	/**
-	 * 	Allow to manage the expression kernel commands list - TODO 	 
+	 * 	Allow to manage the ssh connections
 	 */
-	//protected ExpressionKernelCommandsList ekcl;
+	protected SSHServicesList sshl;
+	
+	/**
+	 * 	Allow to manage the expression kernel commands list	 
+	 */
+	protected ExpressionKernelCommandsList ekcl;
 	
 	/**
 	 * 	Allow to manage the activemq servers 	 
@@ -268,6 +275,7 @@ public abstract class ParentTestCase {
 		TCMysqlReport,		
 		TCMysqlDMMaster,
 		TCMysqlJMailerMaster,
+		TCSSHServices,
 		TCEKCL,
 		TCActiveMQ,
 		TCOwners,
@@ -292,8 +300,9 @@ public abstract class ParentTestCase {
 		
 		initSeleniumWebDriver( seleniumWebDriverParams );
 		
-//		TODO
-//		initEKCL();
+		initSSH();
+		
+		initEKCL();
 		
 		initActiveMQ();
 		
@@ -363,7 +372,15 @@ public abstract class ParentTestCase {
 					break;
 					
 				}
-				/* TODO
+				case TCSSHServices: {
+					
+					Reporter.log( Log.ENABLING.createMessage( "configure" , "ssh services list" ), LOG_TO_STD_OUT );
+					
+					sshl = SSHServicesList.getInstance();
+			
+					break;
+					
+				}
 				case TCEKCL: {
 					
 					Reporter.log( Log.ENABLING.createMessage( "configure" , "expression kernel command list" ), LOG_TO_STD_OUT );
@@ -372,7 +389,7 @@ public abstract class ParentTestCase {
 			
 					break;
 					
-				}*/
+				}
 				case TCActiveMQ: {
 					
 					Reporter.log( Log.LOADING.createMessage( "configure" , "activemq servers" ), LOG_TO_STD_OUT );
@@ -569,7 +586,22 @@ public abstract class ParentTestCase {
 		
 	}
 	
-	/* TODO
+	private void initSSH() {
+		
+		if( null != sshl ) {
+			
+			TCSSHServices sshServicesList = this.getClass().getAnnotation( TCSSHServices.class );
+			
+			for( TCSSHService sshService : sshServicesList.value() ) {
+				
+				sshl.put( sshService.ssh_server(), sshService.ssh_user(), new SSHService( env.getService( Service.Type.ssh, sshService.ssh_server() ), sshService.ssh_user() ) );
+				
+			}
+						
+		}
+		
+	}
+	
 	private void initEKCL() {
 		
 		if( null != ekcl ) {
@@ -584,7 +616,7 @@ public abstract class ParentTestCase {
 						
 		}
 		
-	}*/
+	}
 	
 	private void initActiveMQ() throws JMSException {
 		

@@ -707,6 +707,18 @@ public class CDR {
 		
 	}
 	
+	public void chown( Service remote_host, String sftp_user, String remote_dir, String remote_file, Integer uid  ) {
+		
+		SFTPClient sftp = new SFTPClient( remote_host, sftp_user );
+		
+		if( sftp.isConnected() ) {
+			
+			sftp.changeFilePermission( remote_dir , remote_file, uid );
+            		
+		}
+		
+	}
+	
 	public void setOutputPath( String output_dir, String file_name ) {
 		
 		this.output_dir = output_dir;

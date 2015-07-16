@@ -28,21 +28,19 @@ public class DAOConf extends DAO {
 		return new DAOConf( mysql );
 	}
 
-	public ArrayList<Conf> getCurrentValueByName( ConfTag confTag ) {
-				
-		ArrayList<Conf> confValueList = new ArrayList<Conf>();
+	public ArrayList<Conf> getList( String query ) {
 		
-		String query = select().from( new Conf() ).where( op( Conf.Fields.name ).eq( confTag.name() ) ).orderBy( Conf.Fields.position ).build();
+		ArrayList<Conf> confTable = new ArrayList<Conf>();
 		
 		ResultSet rs = this.getMysql().execQuery( query );
-			
+		
 		try {
 			
 			while( rs.next() ) {
 				
 				Conf confRow = new Conf( rs );
 								
-				confValueList.add( confRow );
+				confTable.add( confRow );
 				
 			}
 			
@@ -52,7 +50,23 @@ public class DAOConf extends DAO {
 		
 		}
 		
-		return confValueList;
+		return confTable;
+		
+	}
+	
+	public ArrayList<Conf> getAll() {
+		
+		String query = select().from( new Conf() ).build();
+		
+		return getList( query );
+		
+	}
+	
+	public ArrayList<Conf> getCurrentValueByName( ConfTag confTag ) {
+				
+		String query = select().from( new Conf() ).where( op( Conf.Fields.name ).eq( confTag.name() ) ).orderBy( Conf.Fields.position ).build();
+		
+		return getList( query );
 		
 	}
 	

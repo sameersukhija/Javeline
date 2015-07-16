@@ -6,7 +6,7 @@
     <listener class-name="com.lumata.e4o.testing.common.TestNGReportListener"/>
   </listeners>
 	<test name="Run Expired Data">
-   <parameter name="environment" value="e4o_qa2_ita"/>
+   <parameter name="environment" value="e4o_regression"/>
 	<parameter name="tenant" value="tenantMaster"/>
 	<classes>
 		<class name="com.lumata.e4o.scheduling.scheduledtasks.ExpiredDataTask">
@@ -17,9 +17,9 @@
 	</classes>
 	</test>
 	
-	<parameter name="e4oReleaseParam" value="2.4.1.20.1" />
+	<parameter name="e4oReleaseParam" value="2.4.2.0.1" />
   
-  <parameter name="networkEnvironmentParams" value="{ 'envFile':'e4o_qa2_ita', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule', 'guiUser':'superman' }"/>
+  <parameter name="networkEnvironmentParams" value="{ 'envFile':'e4o_regression', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule1', 'guiUser':'superman' }"/>
   <!-- selenium_driver_type: local or remote -->  
   <!-- 	selenium_capability
   		platform -> {WINDOWS|XP|VISTA|MAC|LINUX|UNIX|ANDROID} ( note: only WINDOWS and LINUX are available in our environments )
@@ -35,6 +35,14 @@
       <class name="com.lumata.e4o.regressions.gui.TestSalesChannel">
       </class>
     </classes>	
+  </test>
+  <test name="Bonus Form Testcases">
+	<parameter name="jsonFilePath_Bonus" value="input/administration/commodities"/>
+	<parameter name="jsonFileName_Bonus" value="BonusList"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestBonusForm">
+      </class>
+    </classes>
   </test>
  <test name="Commodities Payment Mean TestCases">
 	<classes>
@@ -107,6 +115,16 @@
       </class>
     </classes>	
   </test>
+  <test name="Offer Form TestCases">
+	<parameter name="jsonFilePath_Offer" value="input/catalogmanager/Offers"/>
+	<parameter name="jsonFileName_Offer" value="newOffers"/>
+	<parameter name="jsonFilePath_ProductType" value="input/catalogmanager/productTypes"/>
+	<parameter name="jsonFileName_ProductType" value="newOffer_ProductType"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestOfferForm">
+      </class>
+    </classes>	
+  </test>
   <test name="Campaign Creation Testcase">
 	<classes>
       <class name="com.lumata.e4o.regressions.gui.TestCampaignsForm">
@@ -121,4 +139,12 @@
       </class>
     </classes>
   </test-->
+  
+  
+   <test name="xmlrpc">
+    <classes>
+      <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_GetSubsriberByKey">
+      </class>
+    </classes>	
+  </test>
 </suite>

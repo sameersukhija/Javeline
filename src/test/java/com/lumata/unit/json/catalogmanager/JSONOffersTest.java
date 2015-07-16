@@ -46,7 +46,7 @@ public class JSONOffersTest {
 		
 		Assert.assertEquals(underTest.getCurrentElement().getEnabled(), Boolean.FALSE);
 		Assert.assertEquals(underTest.getCurrentElement().getDelete(), Boolean.FALSE);
-		Assert.assertEquals(underTest.getName(), "Voucher oneTimeUse");
+		Assert.assertEquals(underTest.getName(), "Voucher One Time Use");
 		Assert.assertEquals(underTest.getDescription(), null);
 		Assert.assertEquals(underTest.getVoucher(), VoucherType.oneTimeUse);
 		Assert.assertEquals(underTest.getImageUrlOffer(), null);
