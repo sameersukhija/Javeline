@@ -137,7 +137,16 @@ public CampaignModelForm( SeleniumWebDriver selenium,long timeout, long interval
 		
 	}
 	
-	
+	public CampaignModelForm addCampaignModels() throws FormException, JSONException {
+		
+		
+		//configureCampaignModel().
+		//saveCampaignModel().manageErrorAction( campaignModelCfg.getErrorActions().getString( "ELEMENT_ALREADY_EXISTS" ) );
+		
+			
+return this;
+
+}
 	public CampaignModelForm saveEditedCampaignModel() throws FormException {
 		
 		clickXPath( "//button[@name='btn-save']" );
