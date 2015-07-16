@@ -492,7 +492,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 			campaignModelForm.addEvents(events);
 			campaignModelForm.saveCampaignModel();
 			//need a method to validate campaignmodel creation
-			campaignModelForm.confirmCampaignModelSaving();
+			campaignModelForm.confirmCampaignModelAlert(true);
 			status=campaignModelForm.isCampaignModelNameInList(getCampaignModelName());
 		}
 	}

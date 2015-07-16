@@ -128,28 +128,39 @@ public CampaignModelForm( SeleniumWebDriver selenium,long timeout, long interval
 		return this;
 		
 	}
-	
 	/**
 	* Click on campaign model save and accept if alert popup is displayed
 	*
 	* @throws FormException
 	*/
-	public CampaignModelForm confirmCampaignModelSaving() throws FormException {
+public Boolean confirmCampaignModelAlert(Boolean accept) throws FormException {
+		
+		Alert popupAlert = null;
+		Boolean pressed = null;
+		
 		
 		try {
-			
-			Alert confirmLogout = selenium.selectAlert();
-			
-			if ( confirmLogout != null ) { confirmLogout.accept(); }
 		
+			popupAlert = selenium.selectAlert();
+			String popupalertText = popupAlert.getText();
+			System.out.println(popupalertText);
+			if ( popupAlert != null ) { 
+				
+				if ( accept )
+					popupAlert.accept();
+				else 
+					popupAlert.dismiss();
+				
+				pressed = Boolean.TRUE; 
+			}
+			
 		} catch (NoAlertPresentException e) {
 			
-			status = true;
-		
+			// nothing to do
+			pressed = Boolean.TRUE;
 		}
 		
-		return this;
-	
+		return pressed;
 	}
 	
 	public CampaignModelForm cancelCampaignModel() throws FormException {

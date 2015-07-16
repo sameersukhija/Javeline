@@ -68,7 +68,7 @@ public class TestCampaignModelForm extends ParentTestCase{
 				Map<String, JSONEvent_> events = campaignModel.getEvents();
 				campaignModelForm.addEvents(events);
 				campaignModelForm.saveCampaignModel();
-				campaignModelForm.confirmCampaignModelSaving();
+				campaignModelForm.confirmCampaignModelAlert(true);
 				if(campaignModelForm.isCampaignModelNameInList(campModelName))
 				{
 					Assert.assertTrue(true, "Campaign Model created successfully");
