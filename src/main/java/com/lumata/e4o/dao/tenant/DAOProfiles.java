@@ -79,14 +79,12 @@ public class DAOProfiles extends DAO {
 		
 	}
 	
-	public Profiles getProfileById( Integer profile_id ) {
+	public Profiles getProfile( String query ) {
 		
 		Profiles profile = null;
 		
-		String query = select().from( new Profiles() ).where( op( Profiles.Fields.profile_id ).eq( profile_id ) ).build();
-		
 		ResultSet rs = this.getMysql().execQuery( query );
-			
+		
 		try {
 			
 			while( rs.next() ) {
@@ -103,6 +101,22 @@ public class DAOProfiles extends DAO {
 		}
 		
 		return profile;
+		
+	}
+	
+	public Profiles getProfileById( Integer profile_id ) {
+		
+		String query = select().from( new Profiles() ).where( op( Profiles.Fields.profile_id ).eq( profile_id ) ).build();
+		
+		return getProfile( query );
+		
+	}
+	
+	public Profiles getProfileByName( String profile_name ) {
+		
+		String query = select().from( new Profiles() ).where( op( Profiles.Fields.profile ).eq( profile_name ) ).build();
+		
+		return getProfile( query );
 		
 	}
 	

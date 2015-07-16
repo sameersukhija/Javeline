@@ -1,6 +1,6 @@
 {
   "servers": {
-    "actrule": {
+    "actrule1": {
       "hostName": "md1-sa014-e4o01",
       "hostAddress": "10.120.38.25",
       "users": {
@@ -42,7 +42,7 @@
         }
       }
     },
-    "collector": {
+    "collector1": {
       "hostName": "md1-sa014-e4o01",
       "hostAddress": "10.120.38.25",
       "users": {
@@ -101,7 +101,7 @@
   },
   "services": {
     "ssh": {
-      "actrule": {
+      "actrule1": {
       "hostName": "md1-sa014-e4o01",
       "hostAddress": "10.120.38.25",
         "hostPort": "22",
@@ -113,7 +113,7 @@
           }
         }
       },
-	   "collector": {
+	   "collector1": {
 	      "hostName": "md1-sa014-e4o01",
 	      "hostAddress": "10.120.38.25",
 	        "hostPort": "22",

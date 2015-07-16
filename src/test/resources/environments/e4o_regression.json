@@ -1,6 +1,6 @@
 {
   "servers": {
-    "actrule": {
+    "actrule1": {
       "hostName": "md1-sa044-act01",
       "hostAddress": "10.120.36.59",
       "users": {
@@ -84,9 +84,23 @@
         }
       }
     },
-    "collector": {
-      "hostName": "md1-sa044-act01",
-      "hostAddress": "10.120.36.59",
+    "collector1": {
+      "hostName": "md1-sa045-col01",
+      "hostAddress": "10.120.36.61",
+      "users": {
+        "root": {
+          "username": "root",
+          "password": "cmdISnJjdQ=="
+        }
+      },
+      "link": "",
+      "browsers": {
+        
+      }
+    },
+    "collector2": {
+      "hostName": "md1-sa045-col02",
+      "hostAddress": "10.120.36.62",
       "users": {
         "root": {
           "username": "root",
@@ -131,19 +145,9 @@
       "password": "aXJnSEpyY3U="
     }
   },
-  "jmailer": {
-      "hostName": "jmailer_it",
-      "hostAddress": "10.120.42.29",
-      "hostPort": "3309",
-      "maxActive": 100,
-      "maxIdle": 30,
-      "maxWait": 10000,
-      "user": "tech_product",
-      "password": "cmdISnJjdQ=="
-    },
   "services": {
     "ssh": {
-      "actrule": {
+      "actrule1": {
       "hostName": "md1-sa044-act01",
       "hostAddress": "10.120.36.59",
         "hostPort": "22",
@@ -167,7 +171,31 @@
 	          }
 	        }
       },
-      "collector": {
+      "collector1": {
+	      "hostName": "md1-sa045-col01",
+	      "hostAddress": "10.120.36.61",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
+	   },
+      "collector2": {
+	      "hostName": "md1-sa045-col02",
+	      "hostAddress": "10.120.36.62",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
+	   },
+      "nfsdata": {
 	      "hostName": "md1-sa044-act01",
 	      "hostAddress": "10.120.36.59",
 	        "hostPort": "22",
@@ -178,30 +206,32 @@
 	            "privateKey": "/opt/lumata/e4o_test"
 	          }
 	        }
+	   },
+      "db1": {
+	      "hostName": "md1-sd013-db01",
+	      "hostAddress": "10.120.42.29",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
+	   },
+      "db2": {
+	      "hostName": "md1-sd013-db02",
+	      "hostAddress": "10.120.42.30",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
 	   }
-      },
-   "jmx": {
-      "actrule": {
-        "hostName": "md1-sa044-act01",
-        "hostAddress": "10.120.36.59",
-        "hostPort": "23500",
-        "users": null
-      },
-      "collector": {
-        "hostName": "md1-sa044-act01",
-        "hostAddress": "10.120.36.59",
-        "hostPort": "23500",
-        "users": null    
-      }
-    },
-	"activemq": {
-	 	"dm": {
-	      "hostName": "md1-sa044-act01",
-	      "hostAddress": "10.120.36.59",
-	        "hostPort": "61616",
-	        "users": {}	        
-	     }	 
-	 }    
+    }
   },
   "options": {
     "multiTenant": true

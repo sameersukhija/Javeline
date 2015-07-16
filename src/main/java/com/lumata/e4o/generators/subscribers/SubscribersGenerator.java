@@ -483,6 +483,8 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 			if( null == event_date ) { tokens = DAOToken.getInstance( mysql ).getAvailableActiveTokens( msisdn ); }
 			else { tokens = DAOToken.getInstance( mysql ).getAvailableActiveTokensByEventDate( msisdn, event_date ); }
 			
+			int allocation_calls = 0;
+			
 			for ( Token token : tokens ) {
 				
 				try {
@@ -499,6 +501,10 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 							storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
 						)
 					);
+					
+					allocation_calls++;
+					
+					logger.info( Log.CREATING.createMessage( "allocation ( " + allocation_calls + " )" ) );
 					
 				} catch (XMLRPCException e) {
 					

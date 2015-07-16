@@ -76,4 +76,45 @@ public class DAOSupportedRatePlan extends DAO {
 		
 	}
 	
+	public SupportedRatePlan getSupportedRatePlan( String query ) {
+		
+		SupportedRatePlan supportedRatePlan = null;
+		
+		ResultSet rs = this.getMysql().execQuery( query );
+		
+		try {
+			
+			while( rs.next() ) {
+				
+				supportedRatePlan = new SupportedRatePlan( rs );
+								
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		
+		}
+		
+		return supportedRatePlan;
+		
+	}
+	
+	public SupportedRatePlan getSupportedRatePlanId( Integer supported_rate_plan_id ) {
+		
+		String query = select().from( new SupportedRatePlan() ).where( op( SupportedRatePlan.Fields.rate_plan_id ).eq( supported_rate_plan_id ) ).build();
+		
+		return getSupportedRatePlan( query );
+		
+	}
+	
+	public SupportedRatePlan getSupportedRatePlanName( String supported_rate_plan_name ) {
+		
+		String query = select().from( new SupportedRatePlan() ).where( op( SupportedRatePlan.Fields.rate_plan ).eq( supported_rate_plan_name ) ).build();
+		
+		return getSupportedRatePlan( query );
+		
+	}
+	
 }

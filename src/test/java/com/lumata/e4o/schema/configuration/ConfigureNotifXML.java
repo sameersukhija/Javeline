@@ -27,7 +27,7 @@ public class ConfigureNotifXML {
 	@Parameters({"environment"})
 	@BeforeSuite
 	public void init( @Optional("E4O_VM") String environment ) throws NetworkEnvironmentException {		
-		
+		environment = "E4O_QA2_NE";
 		logger.debug( Log.LOADING.createMessage( "init" , "environment" ) );
 		
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
