@@ -38,7 +38,7 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristi
 import org.json.JSONException;
 
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
-@Test
+
 @TCOwners(
 		@TCOwner( name="Sameer Sukhija", email="sameer.sukhija@lumatagroup.com" )
 	)
