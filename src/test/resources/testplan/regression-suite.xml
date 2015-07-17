@@ -139,8 +139,7 @@
       </class>
     </classes>
   </test-->
-  
-  
+    
    <test name="xmlrpc">
     <classes>
       <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_GetSubsriberByKey">
