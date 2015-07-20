@@ -48,7 +48,7 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 	private final Long IMSI_NO_EXISTING = 111111111111L;
 	
 	
-	@BeforeClass
+	@Test(enabled=TEST_ENABLED, priority = 1)
 	public void initEnv() throws ParseException, Exception {
 		
 		subscriber = DAOSubscribers.getInstance( mysqlMaster ).getSubscriber( MSISDN );
@@ -116,7 +116,7 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 	}
 		
 	/** The test fails because the rate_plan is an integer instead of a string */
-	@Test(enabled=TEST_ENABLED, priority = 1 )
+	@Test(enabled=TEST_ENABLED, priority = 2 )
 	public void testGetSubscriberByIMSI() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_getSubscriberByKey().call(
@@ -145,7 +145,7 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 						
 	}
 	
-	@Test( enabled=TEST_ENABLED , priority = 2 )
+	@Test( enabled=TEST_ENABLED , priority = 3 )
 	public void testMissingParameter() throws Exception{
 
 		XMLRPCRequest.subscribermanager_getSubscriberByKey().call(
@@ -169,7 +169,7 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 		
 	}
 	
-	@Test( enabled=TEST_ENABLED , priority = 3 )
+	@Test( enabled=TEST_ENABLED , priority = 4 )
 	public void testSubscriberNotFound() throws Exception {
 
 		XMLRPCRequest.subscribermanager_getSubscriberByKey().call(
