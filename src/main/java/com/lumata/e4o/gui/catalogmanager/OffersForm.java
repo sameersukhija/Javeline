@@ -454,7 +454,7 @@ private Alert file_input;
 	
 		public OffersForm setPriceChannel( String PriceChannel ) throws FormException {
 		
-		clickXPath("//div[contains(text(),'Offer Prices')]//ancestor::table//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
+		clickXPath("//div[contains(text(),'Prices')]//ancestor::table//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
 
 		selectById("gwt-debug-ListBox-PricesEditionPopUp-lChan", PriceChannel);
 						
