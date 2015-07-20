@@ -1091,7 +1091,7 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 		} catch (NoAlertPresentException e) {
 			
 			// nothing to do
-			pressed = Boolean.FALSE;
+			pressed = Boolean.TRUE;
 		}
 		
 		return pressed;
