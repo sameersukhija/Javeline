@@ -17,7 +17,6 @@ import static org.hamcrest.Matchers.equalTo;
 import java.text.ParseException;
 import java.util.Calendar;
 
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.validating.Format;

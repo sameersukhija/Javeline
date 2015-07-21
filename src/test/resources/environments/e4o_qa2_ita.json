@@ -130,7 +130,19 @@
             "privateKey": "/opt/lumata/e4o_test"
           }
         }
-      }
+      },
+      "nfsdata": {
+        "hostName": "md1-sa014-e4o02",
+        "hostAddress": "10.120.38.27",
+        "hostPort": "22",
+        "users": {
+          "root": {
+            "username": "root",
+            "password": "cmdISnJjdQ==",
+            "privateKey": "/opt/lumata/e4o_test"
+          }
+        }
+      }      
     },
     "jmx": {
       "actrule": {
