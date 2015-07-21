@@ -505,7 +505,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				
 				offerForm.clickVoucherDefinitionTab();
 				
-				offerForm.setUnlimitedVoucherCode("Aohsd");
+				offerForm.setUnlimitedVoucherCode("Armjy");
 				
 				offerForm.setExternalSupplier("Mobistar");
 				
@@ -543,15 +543,15 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				
 				offerForm.setOfferenddate(dateFormat.format(cal.getTime()));
 				
-				offerForm.clickActivationTab().saveBtn();
+				offerForm.clickActivationTab().saveBtn().closeAlertAndGetItsText();
 				
 				offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 				
 				offer_status=offerForm.isOfferInUnlimitedSavedList(OFFER_NAME);
 				
-				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
 				
-				offerForm.UnlimitedVoucherAlertHandling();
+				//offerForm.UnlimitedVoucherAlertHandling();
 				
 				if(offer_status==true)
 				{
@@ -668,7 +668,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			offerForm.setOfferenddate(dateFormat.format(cal.getTime()));
 			
-			offerForm.clickActivationTab().saveBtn();
+			offerForm.clickActivationTab().saveBtn().closeAlertAndGetItsText();
 			
 			offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 			

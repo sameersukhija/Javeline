@@ -916,6 +916,21 @@ private Alert file_input;
 				return super.getValueByXPath(".//*[@id='gwt-debug-ListBox-OfferContentPopUp-lbProd']");
 				}
 
+				public String closeAlertAndGetItsText() {
+				    boolean acceptNextAlert = true;
+					try {
+				      Alert alert = selenium.selectAlert();
+				      String alertText = alert.getText();
+				      if (acceptNextAlert) {
+				        alert.accept();
+				      } else {
+				        alert.dismiss();
+				      }
+				      return alertText;
+				    } finally {
+				      acceptNextAlert = true;
+				    }
+				  }
 	//These methodsfor product creation not required.
 	
 //	public OffersForm setProductTypeName(String name) throws FormException
