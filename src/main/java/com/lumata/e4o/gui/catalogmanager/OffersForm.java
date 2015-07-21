@@ -47,6 +47,7 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonUnit;
 import com.lumata.e4o.json.gui.catalogmanager.OfferCfg;
 import com.lumata.e4o.schema.tenant.CatalogProductTypes;
 import com.lumata.e4o.gui.catalogmanager.ProductTypesForm;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -454,7 +455,7 @@ private Alert file_input;
 	
 		public OffersForm setPriceChannel( String PriceChannel ) throws FormException {
 		
-		clickXPath("//div[contains(text(),'Prices')]//ancestor::table//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
+		clickXPath("//div[contains(text(),'Offer Prices')]//ancestor::table//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
 
 		selectById("gwt-debug-ListBox-PricesEditionPopUp-lChan", PriceChannel);
 						
@@ -482,18 +483,15 @@ private Alert file_input;
 			
 			super.clickXPath("//td[text()='Available Offers']//ancestor::tr[1]//button");
 				
-
-			super.clickXPath("//td[contains(text(),'Available Stock')]//ancestor::tbody//tr[2]//button[@title='Save']");
-			super.clickXPath("//div[text()='Channel']//ancestor::table//button[@name='btn-add']");
-			//super.clickXPath("//tr[3]/td/table/tbody/tr[3]/td/button[@title='Add']");
-			//super.waitVisibleElement(By.xpath("//div[text()='Channel']//ancestor::table[1]//button[@title='Add']"));
-			//super.clickXPath("//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
+			super.clickXPath("//td[contains(text(),'Available Stock')]//ancestor::tr[1]//ancestor::table[3]//button[@title='Save']");
 			
+			super.clickXPath("//div[text()='Channel']//ancestor::table//button[@name='btn-add']");
+			//super.clickXPath("//tr[3]/td/table/tbody/tr[3]/td/button");
 			//super.sendKeysByXPath("//div[text()='Reservation']//ancestor::table//input", stock);
 			
 			super.sendKeysByXPath("//input[@id='gwt-debug-TextBox-VPOfferEdit-qtyTB']",stock);
 			
-			super.clickXPath("//div[text()='Reservation']//ancestor::tbody//tr[2]//table[contains(@class,'buttonPanel')]//button[@title='Save']");
+			super.clickXPath("//div[text()='Reservation']//ancestor::table//button[@title='Save']");
 			
 			return this;
 				
@@ -620,9 +618,8 @@ private Alert file_input;
 					public OffersForm setOneTimeBrowseFile(String CSVFILE) throws FormException, JSONSException, IOException {
 												
 						super.clickXPath("//table[@class='verticalPanelInternalMargin']/tbody//table[@class='tableList Form']/tbody/tr[1][@class='cycle1']//table[@class='importPanel']/tbody/tr/td[1]//input[@name='uploadFormElement']");
-						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers/")+"/Auto_it_browsefile.exe/");
-						super.clickXPath("//td[text()='Import voucher list']//ancestor::td[1]//button");
-						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers/")+"/AutoIt_ImportVouchers.exe/");
+						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers")+"/Auto_it_browsefile.exe");
+						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers")+"/AutoIt_ImportVouchers.exe");
 						
 					return this;
 					}
@@ -641,13 +638,23 @@ private Alert file_input;
 					public OffersForm<BrowseElement> AlertHandling() throws FormException, IOException {
 						
 						
-						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers/")+"/AutoIt_VoucherAlertHandling.exe");
+						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers")+"/AutoIt_VoucherAlertHandling.exe");
 						
 					return this;
 							
 					}
 					
-				public OffersForm setExternalSupplier(String ES) throws FormException, JSONSException {
+				
+					public OffersForm<BrowseElement> UnlimitedVoucherAlertHandling() throws FormException, IOException {
+						
+						
+						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers")+"/AutoIt_UnlimitedVoucherAlertHandling.exe");
+						
+					return this;
+							
+					}
+		
+					public OffersForm setExternalSupplier(String ES) throws FormException, JSONSException {
 					
 					super.selectByXPathAndVisibleText("//select[@id='gwt-debug-ListBox-VPOfferEdit-supplierListBox']",ES);
 							
@@ -752,7 +759,45 @@ private Alert file_input;
 					return false;	
 					}
 	
+				
 	
+				public Boolean isOfferInUnlimitedSavedList( String offerName ) throws FormException {
+					
+					List<WebElement> offerList = getunlimitedvoucherSaveOfferList();
+		
+					for( WebElement offerListE1 : offerList ) {
+			
+						if( offerListE1.getText().trim().equals( offerName ) ) {
+					
+							return true;
+			
+						}	
+					}
+		
+					return false;	
+					}
+	
+				
+				public Boolean isOfferInOnetimeSavedList( String offerName ) throws FormException {
+					
+					List<WebElement> offerList = getonetimevoucherSaveOfferList();
+		
+					for( WebElement offerListE1 : offerList ) {
+			
+						if( offerListE1.getText().trim().equals( offerName ) ) {
+					
+							return true;
+			
+						}	
+					}
+		
+					return false;	
+					}
+	
+	
+				
+				
+				
 				public List<WebElement> getOfferList()  throws FormException {
 		
 					String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
@@ -772,6 +817,26 @@ private Alert file_input;
 					return offerList;
 				}
 			
+				
+				public List<WebElement> getunlimitedvoucherSaveOfferList()  throws FormException {
+					
+					String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
+					String subPath = "//tr[7]//td[@class='column_description']";
+					List<WebElement> offerList = getListByXPath(rootPath, rootPath + subPath);
+					System.out.println(offerList);
+					return offerList;
+				}
+			
+				public List<WebElement> getonetimevoucherSaveOfferList()  throws FormException {
+					
+					String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
+					String subPath = "//tr[8]//td[@class='column_description']";
+					List<WebElement> offerList = getListByXPath(rootPath, rootPath + subPath);
+					System.out.println(offerList);
+					return offerList;
+				}
+			
+				
 				
 				public WebElement getOfferListByName( String OFFER_NAME) throws FormException {
 		

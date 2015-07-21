@@ -468,7 +468,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
 		@Test( enabled=TEST_ENABLED, priority = 6 )
 		public void testUc28_06_addOffer_UnlimitedVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
+				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException, IOException {
 		
 		String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
 		String resourceFile2 = jsonFileName_Offer;
@@ -505,7 +505,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				
 				offerForm.clickVoucherDefinitionTab();
 				
-				offerForm.setUnlimitedVoucherCode("Adgth");
+				offerForm.setUnlimitedVoucherCode("Aohsd");
 				
 				offerForm.setExternalSupplier("Mobistar");
 				
@@ -547,14 +547,16 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				
 				offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 				
-				offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+				offer_status=offerForm.isOfferInUnlimitedSavedList(OFFER_NAME);
 				
-				offer_status=true;
+				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				
+				offerForm.UnlimitedVoucherAlertHandling();
 				
 				if(offer_status==true)
 				{
 					offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
-								
+						
 					Assert.assertTrue(offer_status);
 					Reporter.log("Offer Created Succesfully!");
 					
@@ -574,7 +576,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
 		@Test( enabled=TEST_ENABLED, priority = 7 )
 		public void testUc28_07_addOffer_OneTimeVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException, IOException, InterruptedException {
+				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException, IOException {
 			String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
 			String resourceFile2 = jsonFileName_Offer;
 			setupOffer = new JSONOffers(resourcePath2,resourceFile2);
@@ -601,6 +603,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			clickAddOffer();
 			offerForm.setName( OFFER_NAME );
+			
 			setDescription = offerForm.setDescription(setupOffer.getDescription());
 			
 			offerForm.setTerms(setupOffer.getTermsAndConditions());
@@ -611,12 +614,11 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			offerForm.setOneTimeBrowseFile("");
 			
-			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(15000, TimeUnit.SECONDS);
-					
+			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
 			
 			offerForm.setExternalSupplier("Mobistar");
 			
-				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			   //get current date time with Date()
 			   Date date = new Date(ATTEMPT_TIMEOUT);
 			   System.out.println(dateFormat.format(date));
@@ -625,7 +627,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			   
 			   offerForm.setVoucherExpiryDate(dateFormat.format(cal.getTime()));
 			   
-			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(10000, TimeUnit.SECONDS);
+			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
 				
 			   offerForm.clickImportVoucherCodes();
 				
@@ -634,12 +636,13 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				
 			   offerForm.AlertHandling();
-					   	
-			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
+			   
+			   offerForm.clickPriceTab();
+				
+			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
 				
 			   offerForm.clickPriceTab();
-		
-			   
+				
 			   
 		List<JSONPricesElement> prices = setupOffer.getOffersPrices();
 		
@@ -669,17 +672,14 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 			
-			offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+			offer_status=offerForm.isOfferInOnetimeSavedList(OFFER_NAME);
 			
 			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
-			
-			offer_status=true;
 			
 			offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 			
 			if(offer_status==true)
 			{
-				
 				Assert.assertTrue(offer_status);
 				Reporter.log("Offer Created Succesfully!");
 				
