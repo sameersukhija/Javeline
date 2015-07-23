@@ -1,6 +1,12 @@
 package com.lumata.e4o.gui.catalogmanager;
 import static org.testng.Assert.assertTrue;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -618,8 +624,8 @@ private Alert file_input;
 					public OffersForm setOneTimeBrowseFile(String CSVFILE) throws FormException, JSONSException, IOException {
 												
 						super.clickXPath("//table[@class='verticalPanelInternalMargin']/tbody//table[@class='tableList Form']/tbody/tr[1][@class='cycle1']//table[@class='importPanel']/tbody/tr/td[1]//input[@name='uploadFormElement']");
-						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers")+"/Auto_It_browsefile.bat");
-						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers")+"/AutoIt_ImportVouchers.exe");
+						//Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers")+"/Auto_it_browsefile.bat");
+						//Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers")+"/AutoIt_ImportVouchers.exe");
 						
 					return this;
 					}
@@ -931,7 +937,81 @@ private Alert file_input;
 				      acceptNextAlert = true;
 				    }
 				  }
-	//These methodsfor product creation not required.
+				
+				
+				public void TestFileupload() throws InterruptedException, AWTException {
+					{
+					StringSelection ss = new StringSelection(System.getProperty( "user.dir" )+ ("\\src\\test\\resources\\input\\catalogmanager\\Offers\\VoucherCodes.csv" )); 
+					
+					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss,null);
+					  
+					  // Calling key press event to press Enter Key from keyboard to place cursor in window textbox
+					  Robot r = new Robot();
+					  r.delay(75);
+					  r.keyPress(KeyEvent.VK_ENTER);
+					  //Releaseing the Enter Key
+					  r.keyRelease(KeyEvent.VK_ENTER);
+					  /*
+					   * Now we are going to trigger CTRL+V action so first we will press CTRL and then V and finally will
+					   * release these key.
+					   */
+					  r.keyPress(KeyEvent.VK_CONTROL);   
+					  r.keyPress(KeyEvent.VK_V);
+					  
+					  r.keyRelease(KeyEvent.VK_V);   
+					  r.keyRelease(KeyEvent.VK_CONTROL);
+					   
+					  // After pasting path now we are going to click on Open and that can be 
+					  //triggered by pressing enter key from Keyboard.
+					  //r.keyPress(KeyEvent.VK_ENTER);
+					  //Release open 
+					  r.mouseMove(1152,629);
+					  int mask1 = InputEvent.getMaskForButton(1);
+					  r.mousePress(mask1);
+					  r.delay(75);
+					  r.mouseRelease(mask1);
+
+					  //r.keyRelease(KeyEvent.VK_ENTER);
+					  
+					  //r.keyRelease(KeyEvent.VK_V);
+					  //r.mousePress(1);
+					 
+					  r.delay(5000);
+					  
+					  r.mouseMove(675,448);
+					  int mask2 = InputEvent.getMaskForButton(1);
+					  r.mousePress(mask2);
+					  r.delay(75);
+					  r.mouseRelease(mask2);
+
+					 
+					  r.delay(1000);
+					}
+
+					}
+
+
+				public void TestAlert() throws InterruptedException, AWTException {
+					{
+					  Robot r = new Robot();
+					  r.delay(75);
+					  r.keyPress(KeyEvent.VK_ENTER);
+					  //Releaseing the Enter Key
+					  r.keyRelease(KeyEvent.VK_ENTER);
+					  r.mouseMove(675,448);
+					  int mask1 = InputEvent.getMaskForButton(1);
+					  r.mousePress(mask1);
+					  r.delay(75);
+					  r.mouseRelease(mask1);
+
+					 
+					  r.delay(1000);
+					}
+
+					}
+
+
+				//These methodsfor product creation not required.
 	
 //	public OffersForm setProductTypeName(String name) throws FormException
 //	{
@@ -1128,6 +1208,9 @@ private Alert file_input;
 	    super.clickId("gwt-debug-BtnCampaignModelCreationENOk");
         return this;
 }
+
+
+
 	
 //		public OffersForm EligibilityCriteria(JSONProductTypes criteria, String eventXPathRow) throws JSONException, FormException {
 //		
