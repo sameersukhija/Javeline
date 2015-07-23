@@ -24,7 +24,12 @@
 				}
 			],
 			"notification" : null,
-			"eligibility" : null,
+			"criteria": [
+			{ 
+			
+		"type":"Subscriber.Msisdn","operator" : "=", "value" : "393886933857", "delete" : false 
+			}
+							],
 			"availability" : {
 				"stock" : "100",
 				"reservations" : null,
@@ -38,6 +43,172 @@
             },
 			"activate":true,
 			"delete": false
-		}
-	]
+		},	
+		{
+			"enabled": true,
+			"name": "OfferTestA",
+			"definition" : {
+				"externalId" : null,
+				"description": null,
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : [
+					
+					{
+						"type" : "ProductTypes",
+						"product" : null,
+						"productType" : "ProductTypeA",
+						"quantity" : null,
+						"offers" : null
+					}
+					
+				],
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Ch A", "Ch B"]
+				}
+			],
+			"notification" : null,
+"criteria": [
+			{ 
+			
+		"type":"Subscriber.Msisdn","operator" : "=", "value" : "393886933857", "delete" : false 
+			}
+							],
+			"availability" : {
+				"stock" : "50",
+				"reservations" : null,
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+		{
+			"enabled": true,
+			"name": "OfferTestB",
+			"definition" : {
+				"externalId" : null,
+				"description": null,
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : "Unlimited",
+			"offer" : {
+				"content" : [
+					
+					{
+						"type" : "ProductTypes",
+						"product" : "new_Product_End_to_End",
+						"productType" : "ProductTypeA",
+						"quantity" : null,
+						"offers" : null
+					}
+					
+				],
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				
+				}
+			],
+			"notification" : null,
+			"criteria": [
+			{ 
+			
+		"type":"Subscriber.Msisdn","operator" : "=", "value" : "393886933857", "delete" : false 
+			}
+							],
+
+			"availability" : {
+				"stock" : "50",
+				"reservations" : null,
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		},
+{
+			"enabled": true,
+			"name": "OfferTestC",
+			"definition" : {
+				"externalId" : null,
+				"description": null,
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : "Unlimited",
+			
+			"offer" : {
+				"content" : [
+					
+					{
+						"type" : "ProductTypes",
+						"product" : "new_Product_End_to_End",
+						"productType" : "ProductTypeA",
+						"quantity" : null,
+						"offers" : null
+					}
+					
+				],
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager","Ch A"]
+				            
+				}
+			],
+			"notification" : null,
+			"criteria": [
+			{ 
+			
+		"type":"Subscriber.Msisdn","operator" : "=", "value" : "393886933857", "delete" : false 
+			}
+							],
+
+			"availability" : {
+				"stock" : "50",
+				"reservations" : null,
+				"provisioningStart": "2014-05-01",
+				"provisioningEnd": "2014-05-01",
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+			"delete": false
+		}		
+				
+		
+			]
 }

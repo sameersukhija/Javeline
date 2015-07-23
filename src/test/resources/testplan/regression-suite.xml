@@ -115,16 +115,16 @@
       </class>
     </classes>	
   </test-->
-  <!-- test name="Offer Form TestCases">
+  <test name="Offer Form TestCases">
 	<parameter name="jsonFilePath_Offer" value="input/catalogmanager/Offers"/>
-	<parameter name="jsonFileName_Offer" value="newOffers"/>
+	<parameter name="jsonFileName_Offer" value="oneOfferTest"/>
 	<parameter name="jsonFilePath_ProductType" value="input/catalogmanager/productTypes"/>
 	<parameter name="jsonFileName_ProductType" value="newOffer_ProductType"/>
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestOfferForm">
       </class>
     </classes>	
-  </test -->
+  </test >
   <!--test name="Campaign Creation Testcase">
 	<classes>
       <class name="com.lumata.e4o.regressions.gui.TestCampaignsForm">
@@ -140,10 +140,10 @@
     </classes>
   </test-->
     
-   <test name="xmlrpc">
+   <!--test name="xmlrpc">
     <classes>
       <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_GetSubsriberByKey">
       </class>
     </classes>	
-  </test>
+  </test-->
 </suite>
