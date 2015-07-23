@@ -2,7 +2,7 @@
 	"offers": [
 		{
 			"enabled": true,
-			"name": "OfferA",
+			"name": "EtoEOffer1",
 			"definition" : {
 				"externalId" : null,
 				"description": "Offer 1",
@@ -46,7 +46,7 @@
 		},	
 		{
 			"enabled": true,
-			"name": "OfferTestA",
+			"name": "EtoEOffer2",
 			"definition" : {
 				"externalId" : null,
 				"description": null,
@@ -99,7 +99,7 @@
 		},
 		{
 			"enabled": true,
-			"name": "OfferTestB",
+			"name": "EtoEOffer3",
 			"definition" : {
 				"externalId" : null,
 				"description": null,
