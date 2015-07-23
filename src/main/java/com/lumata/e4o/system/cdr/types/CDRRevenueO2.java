@@ -16,6 +16,11 @@ public class CDRRevenueO2 extends CDR {
 		return this.FIELDS;
 	}
 
+	@RawData( position = 0 )
+	public String getRawData() throws FieldException  {
+		return this.rawData.getString();
+	}
+
 	public void setRawDataLength( final Integer length ) throws FieldException  {
 		if( this.rawData != null ) { this.rawData.setStringLength( length ); }
 	}
@@ -48,9 +53,9 @@ public class CDRRevenueO2 extends CDR {
 		if( this.rawData != null ) { this.rawData.cleanStringStrategyRandom(); }
 	}
 
-	@RawData( position = 0 )
-	public String getRawData() throws FieldException  {
-		return this.rawData.getString();
+	@RechargeAmount( position = 1 )
+	public String getRechargeAmount() throws FieldException  {
+		return this.recharge_amount.getLong();
 	}
 
 	public void setRechargeAmountStrategyFixed( final Long value ) throws FieldException  {
@@ -75,11 +80,6 @@ public class CDRRevenueO2 extends CDR {
 
 	public void cleanRechargeAmountStrategyRandom()  {
 		if( this.recharge_amount != null ) { this.recharge_amount.cleanLongStrategyRandom(); }
-	}
-
-	@RechargeAmount( position = 1 )
-	public String getRechargeAmount() throws FieldException  {
-		return this.recharge_amount.getLong();
 	}
 
 }
