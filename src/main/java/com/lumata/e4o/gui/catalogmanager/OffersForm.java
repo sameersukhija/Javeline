@@ -2,6 +2,7 @@ package com.lumata.e4o.gui.catalogmanager;
 import static org.testng.Assert.assertTrue;
 
 import java.awt.AWTException;
+import java.awt.GraphicsEnvironment;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
@@ -66,20 +67,12 @@ import org.testng.annotations.Parameters;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 public class OffersForm<BrowseElement> extends CatalogueManagerForm {
-
-	private static final Logger logger = LoggerFactory.getLogger(OffersForm.class);
-
-	
-	/**
-	 * 
-	 */
+private static final Logger logger = LoggerFactory.getLogger(OffersForm.class);
 private OffersForm offersForm;
 private JSONOffers offerCfg;
-
 private Alert file_input;
 
-	
-	/* constructor for initializing without product type json configuration*/ 
+/* constructor for initializing without product type json configuration*/ 
 	public OffersForm(SeleniumWebDriver selenium,long timeout, long interval) {
 		
 		super(selenium, timeout, interval);
@@ -624,8 +617,6 @@ private Alert file_input;
 					public OffersForm setOneTimeBrowseFile(String CSVFILE) throws FormException, JSONSException, IOException {
 												
 						super.clickXPath("//table[@class='verticalPanelInternalMargin']/tbody//table[@class='tableList Form']/tbody/tr[1][@class='cycle1']//table[@class='importPanel']/tbody/tr/td[1]//input[@name='uploadFormElement']");
-						//Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers")+"/Auto_it_browsefile.bat");
-						//Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers")+"/AutoIt_ImportVouchers.exe");
 						
 					return this;
 					}
@@ -639,16 +630,6 @@ private Alert file_input;
 					return this;
 					}
 					
-					
-					
-					public OffersForm<BrowseElement> AlertHandling() throws FormException, IOException {
-						
-						
-						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers")+"/AutoIt_VoucherAlertHandling.exe");
-						
-					return this;
-							
-					}
 					
 				
 					public OffersForm<BrowseElement> UnlimitedVoucherAlertHandling() throws FormException, IOException {
@@ -664,8 +645,8 @@ private Alert file_input;
 					
 					super.selectByXPathAndVisibleText("//select[@id='gwt-debug-ListBox-VPOfferEdit-supplierListBox']",ES);
 							
-				return this;
-				}
+					return this;
+					}
 				
 				public String getExternalSupplier() throws FormException {
 					
@@ -939,10 +920,13 @@ private Alert file_input;
 				  }
 				
 				
+				
 				public void TestFileupload() throws InterruptedException, AWTException {
 					{
-					StringSelection ss = new StringSelection(System.getProperty( "user.dir" )+ ("\\src\\test\\resources\\input\\catalogmanager\\Offers\\VoucherCodes.csv" )); 
 					
+					StringSelection ss = new StringSelection(System.getProperty( "user.dir" )+ ("\\src\\test\\resources\\input\\catalogmanager\\Offers\\VoucherCodes.csv" )); 
+					   
+					GraphicsEnvironment headlessMessage= GraphicsEnvironment.getLocalGraphicsEnvironment();
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss,null);
 					  
 					  // Calling key press event to press Enter Key from keyboard to place cursor in window textbox
@@ -960,35 +944,21 @@ private Alert file_input;
 					  
 					  r.keyRelease(KeyEvent.VK_V);   
 					  r.keyRelease(KeyEvent.VK_CONTROL);
-					   
-					  // After pasting path now we are going to click on Open and that can be 
-					  //triggered by pressing enter key from Keyboard.
-					  //r.keyPress(KeyEvent.VK_ENTER);
-					  //Release open 
 					  r.mouseMove(1152,629);
 					  int mask1 = InputEvent.getMaskForButton(1);
 					  r.mousePress(mask1);
 					  r.delay(75);
 					  r.mouseRelease(mask1);
-
-					  //r.keyRelease(KeyEvent.VK_ENTER);
-					  
-					  //r.keyRelease(KeyEvent.VK_V);
-					  //r.mousePress(1);
-					 
 					  r.delay(5000);
-					  
 					  r.mouseMove(675,448);
 					  int mask2 = InputEvent.getMaskForButton(1);
 					  r.mousePress(mask2);
 					  r.delay(75);
 					  r.mouseRelease(mask2);
-
-					 
 					  r.delay(1000);
 					}
-
 					}
+					
 
 
 				public void TestAlert() throws InterruptedException, AWTException {
@@ -1003,8 +973,6 @@ private Alert file_input;
 					  r.mousePress(mask1);
 					  r.delay(75);
 					  r.mouseRelease(mask1);
-
-					 
 					  r.delay(1000);
 					}
 
