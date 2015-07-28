@@ -1,8 +1,6 @@
 package com.lumata.e4o.gui.catalogmanager;
-import static org.testng.Assert.assertTrue;
 
 import java.awt.AWTException;
-import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
 import java.awt.Robot;
 import java.awt.Toolkit;
@@ -10,66 +8,33 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.mail.MessagingException;
 
-import org.json.JSONException;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.ErrorModificableElement;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
-import com.lumata.common.testing.json.JsonConfigurationFile;
-import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
-import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.utils.TempFileHandling;
-import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.common.Form;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
-import com.lumata.e4o.gui.common.FormSaveConfigurationHandler.SaveResult;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCriteria;
-import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
-import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONPricesElement;
-import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONReservationElement;
-import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.OfferContentType;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.VoucherType;
-import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.CharacteristicType;
-import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristicElement;
-import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonUnit;
-import com.lumata.e4o.json.gui.catalogmanager.OfferCfg;
-import com.lumata.e4o.schema.tenant.CatalogProductTypes;
-import com.lumata.e4o.gui.catalogmanager.ProductTypesForm;
-import com.lumata.e4o.regressions.gui.HeadlessException;
+import com.lumata.e4o.gui.catalogmanager.HeadlessException;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.Reporter;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 
-import com.lumata.common.testing.selenium.SeleniumWebDriver;
 public class OffersForm<BrowseElement> extends CatalogueManagerForm {
 private static final Logger logger = LoggerFactory.getLogger(OffersForm.class);
 private OffersForm offersForm;
@@ -951,17 +916,20 @@ private Alert file_input;
 					  
 					  r.keyRelease(KeyEvent.VK_V);   
 					  r.keyRelease(KeyEvent.VK_CONTROL);
-					  r.mouseMove(1152,629);
+					  r.mouseMove(952,629);
 					  int mask1 = InputEvent.getMaskForButton(1);
 					  r.mousePress(mask1);
-					  r.delay(75);
-					  r.mouseRelease(mask1);
-					  r.delay(5000);
-					  r.mouseMove(675,448);
+					  r.mouseMove(1152,629);
 					  int mask2 = InputEvent.getMaskForButton(1);
 					  r.mousePress(mask2);
 					  r.delay(75);
 					  r.mouseRelease(mask2);
+					  r.delay(5000);
+					  r.mouseMove(675,448);
+					  int mask3 = InputEvent.getMaskForButton(1);
+					  r.mousePress(mask3);
+					  r.delay(75);
+					  r.mouseRelease(mask3);
 					  r.delay(1000);
 					}
 					}
