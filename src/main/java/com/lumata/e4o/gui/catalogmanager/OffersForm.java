@@ -2,6 +2,7 @@ package com.lumata.e4o.gui.catalogmanager;
 import static org.testng.Assert.assertTrue;
 
 import java.awt.AWTException;
+import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
 import java.awt.Robot;
 import java.awt.Toolkit;
@@ -14,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import javax.mail.MessagingException;
 
 import org.json.JSONException;
 import org.openqa.selenium.Alert;
@@ -54,6 +57,7 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonUnit;
 import com.lumata.e4o.json.gui.catalogmanager.OfferCfg;
 import com.lumata.e4o.schema.tenant.CatalogProductTypes;
 import com.lumata.e4o.gui.catalogmanager.ProductTypesForm;
+import com.lumata.e4o.regressions.gui.HeadlessException;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -921,17 +925,20 @@ private Alert file_input;
 				
 				
 				
-				public void TestFileupload() throws InterruptedException, AWTException {
+				public void TestFileupload() throws InterruptedException, AWTException, FormException, MessagingException {
 					{
-					
 					StringSelection ss = new StringSelection(System.getProperty( "user.dir" )+ ("\\src\\test\\resources\\input\\catalogmanager\\Offers\\VoucherCodes.csv" )); 
-					   
-					GraphicsEnvironment headlessMessage= GraphicsEnvironment.getLocalGraphicsEnvironment();
+					try{
+					except=HeadlessException.class;
+					
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss,null);
-					  
-					  // Calling key press event to press Enter Key from keyboard to place cursor in window textbox
-					  Robot r = new Robot();
-					  r.delay(75);
+					}
+					catch(Exception ex){
+						final Exception ex1;
+					}
+					Robot r = new Robot();
+					
+					r.delay(75);
 					  r.keyPress(KeyEvent.VK_ENTER);
 					  //Releaseing the Enter Key
 					  r.keyRelease(KeyEvent.VK_ENTER);
@@ -958,11 +965,12 @@ private Alert file_input;
 					  r.delay(1000);
 					}
 					}
-					
 
-
+				
 				public void TestAlert() throws InterruptedException, AWTException {
 					{
+					  headlessMessage = GraphicsEnvironment.getLocalGraphicsEnvironment();
+						
 					  Robot r = new Robot();
 					  r.delay(75);
 					  r.keyPress(KeyEvent.VK_ENTER);
@@ -1139,6 +1147,8 @@ private Alert file_input;
 
 	private Object criteriaXPathRow;
 	WebElement file_input2;
+	private Class<HeadlessException> except;
+	private GraphicsEnvironment headlessMessage;
 	public OffersForm ProductType() throws FormException {
 	//CatalogProductTypes ProductType = DAOProductType.getInstance( mysql ).getCatalogProductTypes(getName());
 	return offersForm;

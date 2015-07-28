@@ -37,6 +37,8 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristi
 
 import java.awt.AWTException;
 
+import javax.mail.MessagingException;
+
 import org.json.JSONException;
 
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
@@ -69,7 +71,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	}
 	
 	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
-	@Test( enabled=TEST_ENABLED, priority = 1 )
+	@Test( enabled=TEST_ENABLED, priority = 7 )
 	public void testUc28_01addProduct_content_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
 			@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
 	String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
@@ -575,9 +577,9 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			}
 	
 		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
-		@Test( enabled=TEST_ENABLED, priority = 7 )
+		@Test( enabled=TEST_ENABLED, priority = 1 )
 		public void testUc28_07_addOffer_OneTimeVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException, IOException, InterruptedException, AWTException {
+				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException, IOException, InterruptedException, AWTException, MessagingException {
 			String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
 			String resourceFile2 = jsonFileName_Offer;
 			setupOffer = new JSONOffers(resourcePath2,resourceFile2);
@@ -613,9 +615,9 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			offerForm.clickVoucherDefinitionTab();
 			
-			offerForm.setOneTimeBrowseFile("").
+			offerForm.setOneTimeBrowseFile("");
 			
-			TestFileupload();
+			offerForm.TestFileupload();
 			
 			//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
 			
