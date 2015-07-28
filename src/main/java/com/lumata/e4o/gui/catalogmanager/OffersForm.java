@@ -894,7 +894,8 @@ private Alert file_input;
 					{
 					StringSelection ss = new StringSelection(System.getProperty( "user.dir" )+ ("\\src\\test\\resources\\input\\catalogmanager\\Offers\\VoucherCodes.csv" )); 
 					try{
-					except=HeadlessException.class;
+						System.setProperty("java.awt.headless", "true");
+						except=HeadlessException.class;
 					
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss,null);
 					}
@@ -916,7 +917,7 @@ private Alert file_input;
 					  
 					  r.keyRelease(KeyEvent.VK_V);   
 					  r.keyRelease(KeyEvent.VK_CONTROL);
-					  r.mouseMove(952,629);
+					  r.mouseMove(1156,505);
 					  int mask1 = InputEvent.getMaskForButton(1);
 					  r.mousePress(mask1);
 					  r.mouseMove(1152,629);
@@ -925,7 +926,9 @@ private Alert file_input;
 					  r.delay(75);
 					  r.mouseRelease(mask2);
 					  r.delay(5000);
+					  
 					  r.mouseMove(675,448);
+					  r.mouseMove(621,746);
 					  int mask3 = InputEvent.getMaskForButton(1);
 					  r.mousePress(mask3);
 					  r.delay(75);
