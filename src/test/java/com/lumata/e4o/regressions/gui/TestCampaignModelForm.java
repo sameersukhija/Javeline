@@ -53,12 +53,10 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		
 	}
 	
-	@Parameters({"jsonFilePath","jsonFileName","networkEnvironmentParams","seleniumWebDriverParams"})
+	@Parameters({"jsonFilePath","jsonFileName"})
 	
 	@Test( enabled=TEST_ENABLED, priority = 1 )
-	public void testUc33_01CampaignModelCreation( @Optional("input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName,
-			String networkEnvironmentParams,
-			String seleniumWebDriverParams) throws FormException, JSONException, JSONSException {
+	public void testUc33_01CampaignModelCreation( @Optional("input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);

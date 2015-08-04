@@ -127,22 +127,21 @@
 		</methods-->
       </class>
     </classes>	
-  </test >
-  <test name="Campaign Creation Testcase">
-	<classes>
-      <class name="com.lumata.e4o.regressions.gui.TestCampaignsForm">
-      </class>
-    </classes>	
   </test>
-  <!--test name="Regression suite for E4O">
+  <test name="Campaign Model Testcases">
 	<parameter name="jsonFilePath" value="input/campaignmanager/campaignModels"/>
 	<parameter name="jsonFileName" value="newCampaignModel"/>
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestCampaignModelForm">
       </class>
     </classes>
-  </test-->
-    
+  </test>
+  <test name="Campaign Creation Testcase">
+	<classes>
+      <class name="com.lumata.e4o.regressions.gui.TestCampaignsForm">
+      </class>
+    </classes>	
+  </test>
    <test name="xmlrpc">
     <classes>
       <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_GetSubsriberByKey">
