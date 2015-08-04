@@ -2,7 +2,7 @@
 	"campaignModels": [
 		{
 			"enabled": true,
-			"name": "CSM",
+			"name": "CMS_09",
 			"description": "CampaignStartModel",
 			"campaignType": null,
 			"useHierarchy": false,
@@ -17,7 +17,7 @@
 					{ "type":"Subscriber.Msisdn","type1":"Subscriber.Msisdn",type2:"Subscriber.Msisdn","operator" : "=","operator1":"=","operator2":"<", "value" : "393886933857", "value1":"9650450905", "value2":"24562","delete" : false} 
 					],
 					"actions": [
-						{ "name": "Rulesets.Rule_1","name1":"Rulesets.Rule_1","name2":"Rulesets.Rule_1", "option":"Allocate offer immediately","option1":"Allocate offer on request","option2":"Allocate offer immediately","delete": false }							
+						{ "name": "Accept Offer.Accept Offer 1","name1":"Accept Offer.Accept Offer 2","name2":"Accept Offer.Accept Offer 3", "option":"Allocate offer immediately","option1":"Allocate offer on request","option2":"Allocate offer immediately","delete": false }							
 					],
 					"beneficiary": true,
 					"notifications": null,
