@@ -89,9 +89,11 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				Map<String, JSONEvent_> events = campaignModel.getEvents();
 				campaignModelForm.addEvents(events);
 				campaignModelForm.saveCampaignModel();
+
 				campaignModelForm.confirmCampaignModelAlert(status);
 				status=campaignModelForm.isCampaignModelNameInList(campModelName);
 				if(status==true)
+
 				{
 
 					AssertJUnit.assertTrue("Campaign Model created successfully", true);

@@ -63,8 +63,8 @@ import freemarker.template.TemplateException;
 @Mail(
 	protocol = "smtp",
 	fromRecipient = "qa.e4o.all@lumatagroup.com",
-//	toRecipients = { "qa.e4o.all@lumatagroup.com" },
-	toRecipients = {"arcangelo.dipasquale@lumatagroup.com","parvinder.bhogra@lumatagroup.com"},
+	toRecipients = { "qa.e4o.all@lumatagroup.com" },
+	//toRecipients = {"arcangelo.dipasquale@lumatagroup.com","parvinder.bhogra@lumatagroup.com"},
 	host = "internal.mailservices.lumata.int",
 	port = 25,
 	starttlsEnabled = false,

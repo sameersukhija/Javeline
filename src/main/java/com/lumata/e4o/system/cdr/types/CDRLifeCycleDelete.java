@@ -56,6 +56,11 @@ public class CDRLifeCycleDelete extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
+	}
+
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
@@ -82,11 +87,6 @@ public class CDRLifeCycleDelete extends CDR {
 
 	public void cleanDateStrategyRandom()  {
 		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
-	}
-
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
 	}
 
 	@Delete( position = 2 )

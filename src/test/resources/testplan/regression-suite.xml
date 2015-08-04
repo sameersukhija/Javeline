@@ -17,7 +17,7 @@
 	</classes>
 	</test>
 	
-	<parameter name="e4oReleaseParam" value="2.4.2.0.1" />
+	<parameter name="e4oReleaseParam" value="2.4.2.0.2" />
   
   <parameter name="networkEnvironmentParams" value="{ 'envFile':'e4o_regression', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule1', 'guiUser':'superman' }"/>
   <!-- selenium_driver_type: local or remote -->  
@@ -117,14 +117,17 @@
   </test>
   <test name="Offer Form TestCases">
 	<parameter name="jsonFilePath_Offer" value="input/catalogmanager/Offers"/>
-	<parameter name="jsonFileName_Offer" value="newOffers"/>
+	<parameter name="jsonFileName_Offer" value="oneOfferTest"/>
 	<parameter name="jsonFilePath_ProductType" value="input/catalogmanager/productTypes"/>
 	<parameter name="jsonFileName_ProductType" value="newOffer_ProductType"/>
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestOfferForm">
+      <!--methods>
+			<include name="testUc28_07_addOffer_OneTimeVoucher_OfferForm"/>
+		</methods-->
       </class>
     </classes>	
-  </test>
+  </test >
   <test name="Campaign Creation Testcase">
 	<classes>
       <class name="com.lumata.e4o.regressions.gui.TestCampaignsForm">
@@ -139,8 +142,7 @@
       </class>
     </classes>
   </test-->
-  
-  
+    
    <test name="xmlrpc">
     <classes>
       <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_GetSubsriberByKey">

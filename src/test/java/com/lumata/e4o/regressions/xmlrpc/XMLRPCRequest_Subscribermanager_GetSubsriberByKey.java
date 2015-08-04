@@ -149,23 +149,23 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 	public void testMissingParameter() throws Exception{
 
 		XMLRPCRequest.subscribermanager_getSubscriberByKey().call(
-				guiServer, 
-				xmlrpcBody(
-					authentication( user ),				
-					subscriber( 
-						params(
-							param( ExtendedParameters.imsi, IMSI_NULL )	
-						)																
-					)
-				),
-				xmlrpcValidator(
-						fault().code( equalTo( 5 ) ),
-						fault().message( equalTo( "Missing mandatory param parameters" ) )
-				),
-				xmlrpcOptions(
-					sleep( 100L )	
+			guiServer, 
+			xmlrpcBody(
+				authentication( user ),				
+				subscriber( 
+					params(
+						param( ExtendedParameters.imsi, IMSI_NULL )	
+					)																
 				)
-			);
+			),
+			xmlrpcValidator(
+					fault().code( equalTo( 5 ) ),
+					fault().message( equalTo( "Missing mandatory param parameters" ) )
+			),
+			xmlrpcOptions(
+				sleep( 100L )	
+			)
+		);
 		
 	}
 	

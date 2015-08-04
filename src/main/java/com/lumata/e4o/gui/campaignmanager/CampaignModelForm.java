@@ -200,7 +200,9 @@ return this;
 	*
 	* @throws FormException
 	*/
+
 	public Boolean confirmCampaignModelAlert(Boolean accept) throws FormException {
+
 		
 		Alert popupAlert = null;
 		Boolean pressed = null;
