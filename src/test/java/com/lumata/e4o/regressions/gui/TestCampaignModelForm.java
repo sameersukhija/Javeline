@@ -58,7 +58,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	@Test( enabled=TEST_ENABLED, priority = 1 )
 	public void testUc33_01CampaignModelCreation( @Optional("input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
 
 		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath;
@@ -113,7 +113,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	@Test( enabled=TEST_ENABLED, priority = 2 )
 	public void testUc33_02CampaignModelMultipleEvents_Criteria_Action( @Optional("/input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
 
 		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath;
@@ -142,7 +142,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				
 				campaignModelForm.addEvents(events);
 				campaignModelForm.addEvents2(events);
-				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				
 				campaignModelForm.saveCampaignModel();
 				campaignModelForm.confirmCampaignModelAlert(status);
@@ -170,7 +170,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	@Test( enabled=TEST_ENABLED, priority = 3 )
 	public void testUc33_03EditCampaignModel( @Optional("/input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
 
 		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath;
@@ -198,7 +198,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				
 				campaignModelForm.EditEvents(events);
 				
-				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				
 				campaignModelForm.saveEditedCampaignModel();
 				campaignModelForm.confirmCampaignModelAlert(status);
@@ -224,17 +224,15 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	@Test( enabled=TEST_ENABLED, priority = 4 )
 	public void testUc33_04CampaignModelDelete() throws FormException {
 		Boolean status=false;
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
-		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,campaignModel, TIMEOUT, ATTEMPT_TIMEOUT );
+		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
 		campaignModelForm.open();
 	
-		if( campaignModel.getEnabled() ) {
-			
 				campaignModelForm.campaignModelDeleteButton("CSM_14").closeAlertAndGetItsText();
 				
-				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				
 				campaignModelForm.confirmCampaignModelAlert(status);
 				
@@ -254,29 +252,24 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				}
 				
 			}
-		}
 	
 	
 	@Test( enabled=TEST_ENABLED, priority = 5 )
 	public void testUc33_05CopyCampaignModel() throws FormException {
 		Boolean status=false;
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
 	
-		Reporter.log("\"Campaign Model \" is filled with resource file : ",
-				LOG_TO_STD_OUT);
-
-		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,campaignModel, TIMEOUT, ATTEMPT_TIMEOUT );
+		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
 		campaignModelForm.open();
 			
-			if( campaignModel.getEnabled() ) {
 			
 				campaignModelForm.campaignModelCopyButton(campModelName);
 				
 				campaignModelForm.CopyconfigureCriteria("25678");
 				
-				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				
 				campaignModelForm.saveEditedCampaignModel();
 				campaignModelForm.confirmCampaignModelAlert(status);
@@ -295,8 +288,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				}
 				
 			}
-		}
-	}
+}
 
 		
 
