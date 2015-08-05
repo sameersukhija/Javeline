@@ -1,0 +1,239 @@
+{
+  "servers": {
+    "actrule1": {
+      "hostName": "md1-sa044-act01",
+      "hostAddress": "10.120.36.59",
+      "users": {
+        "root": {
+          "username": "root",
+          "password": "cmdISnJjdQ=="
+        },
+        "superman": {
+          "username": "superman",
+          "password": "bGppYm1NSUhJMmB3"
+        }
+      },
+      "link": "http://10.120.36.59:7070/",
+      "browsers": {
+        "SAFARI": {
+          
+        },
+        "OPERA": {
+          
+        },
+        "FIREFOX": {
+          "profile": {
+            "file": {
+              "folderName": "input/browsers/profiles",
+              "fileName": "firefox.default",
+              "loadingType": "RESOURCE"
+            },
+            "options": {
+              "extensions.firebug.allPagesActivation": "on",
+              "extensions.firebug.defaultPanelName": "console"
+            }
+          }
+        },
+        "CHROME": {
+          
+        },
+        "IE": {
+          
+        }
+      }
+    },
+    "actrule2": {
+      "hostName": "md1-sa044-act02",
+      "hostAddress": "10.120.36.60",
+      "users": {
+        "root": {
+          "username": "root",
+          "password": "cmdISnJjdQ=="
+        },
+        "superman": {
+          "username": "superman",
+          "password": "bGppYm1NSUhJMmB3"
+        }
+      },
+      "link": "http://10.120.36.60:7070/",
+      "browsers": {
+        "SAFARI": {
+          
+        },
+        "OPERA": {
+          
+        },
+        "FIREFOX": {
+          "profile": {
+            "file": {
+              "folderName": "input/browsers/profiles",
+              "fileName": "firefox.default",
+              "loadingType": "RESOURCE"
+            },
+            "options": {
+              "extensions.firebug.allPagesActivation": "on",
+              "extensions.firebug.defaultPanelName": "console"
+            }
+          }
+        },
+        "CHROME": {
+          
+        },
+        "IE": {
+          
+        }
+      }
+    },
+    "collector1": {
+      "hostName": "md1-sa045-col01",
+      "hostAddress": "10.120.36.61",
+      "users": {
+        "root": {
+          "username": "root",
+          "password": "cmdISnJjdQ=="
+        }
+      },
+      "link": "",
+      "browsers": {
+        
+      }
+    },
+    "collector2": {
+      "hostName": "md1-sa045-col02",
+      "hostAddress": "10.120.36.62",
+      "users": {
+        "root": {
+          "username": "root",
+          "password": "cmdISnJjdQ=="
+        }
+      },
+      "link": "",
+      "browsers": {
+        
+      }
+    }
+  },
+  "dataSources": {
+    "global": {
+      "hostName": "global",
+      "hostAddress": "10.120.42.29",
+      "hostPort": "3306",
+      "maxActive": 100,
+      "maxIdle": 30,
+      "maxWait": 10000,
+      "user": "actusr",
+      "password": "YGRramxt"
+    },
+    "tenantMaster": {
+      "hostName": "tenant",
+      "hostAddress": "10.120.42.29",
+      "hostPort": "3306",
+      "maxActive": 100,
+      "maxIdle": 30,      
+      "maxWait": 10000,
+      "user": "actusr",
+      "password": "YGRramxt"
+    },
+    "dm": {
+      "hostName": "dialog_manager",
+      "hostAddress": "10.120.42.29",
+      "hostPort": "3306",
+      "maxActive": 100,
+      "maxIdle": 30,
+      "maxWait": 10000,
+      "user": "dialog_manager",
+      "password": "aXJnSEpyY3U="
+    }
+  },
+  "services": {
+    "ssh": {
+      "actrule1": {
+      "hostName": "md1-sa044-act01",
+      "hostAddress": "10.120.36.59",
+        "hostPort": "22",
+        "users": {
+          "root": {
+            "username": "root",
+            "password": "cmdISnJjdQ==",
+            "privateKey": "/opt/lumata/e4o_test"
+          }
+        }
+      },
+      "actrule2": {
+	      "hostName": "md1-sa044-act02",
+	      "hostAddress": "10.120.36.60",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
+      },
+      "collector1": {
+	      "hostName": "md1-sa045-col01",
+	      "hostAddress": "10.120.36.61",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
+	   },
+      "collector2": {
+	      "hostName": "md1-sa045-col02",
+	      "hostAddress": "10.120.36.62",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
+	   },
+      "nfsdata": {
+	      "hostName": "md1-sa044-act01",
+	      "hostAddress": "10.120.36.59",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
+	   },
+      "db1": {
+	      "hostName": "md1-sd013-db01",
+	      "hostAddress": "10.120.42.29",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
+	   },
+      "db2": {
+	      "hostName": "md1-sd013-db02",
+	      "hostAddress": "10.120.42.30",
+	        "hostPort": "22",
+	        "users": {
+	          "root": {
+	            "username": "root",
+	            "password": "cmdISnJjdQ==",
+	            "privateKey": "/opt/lumata/e4o_test"
+	          }
+	        }
+	   }
+    }
+  },
+  "options": {
+    "multiTenant": true
+  }
+}
