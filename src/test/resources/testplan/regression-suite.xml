@@ -136,7 +136,7 @@
       </class>
     </classes>
   </test>
-  <!--test name="Campaign Creation Testcase">
+  <test name="Campaign Creation Testcase">
 	<classes>
       <class name="com.lumata.e4o.regressions.gui.TestCampaignsForm">
       </class>
