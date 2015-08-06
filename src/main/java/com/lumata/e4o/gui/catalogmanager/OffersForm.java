@@ -894,7 +894,8 @@ private Alert file_input;
 					{
 					StringSelection ss = new StringSelection(System.getProperty( "user.dir" )+ ("\\src\\test\\resources\\input\\catalogmanager\\Offers\\VoucherCodes.csv" )); 
 					try{
-						System.setProperty("java.awt.headless", "false");
+						System.setProperty("java.export", "DISPLAY=:0");
+						System.setProperty("java.awt.headless", "true");
 						except=HeadlessException.class;
 					
 					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss,null);
