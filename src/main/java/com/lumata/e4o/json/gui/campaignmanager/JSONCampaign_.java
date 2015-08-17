@@ -1,5 +1,8 @@
 package com.lumata.e4o.json.gui.campaignmanager;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -25,6 +28,8 @@ public class JSONCampaign_ extends JsonConfig {
 		return (JSONArray)getJSONArrayFromPath( "campaigns" );
 				
 	}
+	
+	
 	
 	public Boolean getEnabled() throws JSONException {
 		return currentCampaign.getBooleanFromPath( "enabled" );
@@ -124,4 +129,47 @@ public class JSONCampaign_ extends JsonConfig {
 				
 	}
 	
+	
+	public Map<String, JSONCriteria> getCriteria() throws JSONException{
+		Map<String, JSONCriteria> criteria = new LinkedHashMap<String, JSONCriteria>();
+		
+		JSONArray jsonCriteria = getJSONArrayFromPath( "criteria" );
+		
+		for( int j = 0; j < jsonCriteria.length(); j++ ) {
+			
+			String criteriaName = "criteria" + j;
+			
+			criteria.put( criteriaName, new JSONCriteria( jsonCriteria.getJSONObject( j ) ) );
+			
+		}
+	
+		return criteria;  		
+	
+	}
+
+	public Boolean getuseHierarchy() throws JSONException {
+		return currentCampaign.getBooleanFromPath( "useHierarchy" );
+	}
+
+	public Map<String, JSONEvent_> getEvents() throws JSONException { 		
+    	
+		Map<String, JSONEvent_> events = new LinkedHashMap<String, JSONEvent_>();
+		
+		JSONArray jsonEvents = currentCampaign.getJSONArrayFromPath( "events" );
+		
+		for( int j = 0; j < jsonEvents.length(); j++ ) {
+			
+			String eventName = "event" + j;
+			
+			events.put( eventName, new JSONEvent_( jsonEvents.getJSONObject( j ) ) );
+			
+		}
+		
+		return events;  		
+	
+	}
+
+	
 }
+
+

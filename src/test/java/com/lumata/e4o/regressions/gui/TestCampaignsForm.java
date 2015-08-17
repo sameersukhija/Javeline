@@ -2,19 +2,32 @@ package com.lumata.e4o.regressions.gui;
 
 import java.lang.reflect.Method;
 import java.util.Calendar;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.testng.Assert;
+import org.testng.AssertJUnit;
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCampaign_;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCampaigns;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCriteria;
+import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
 
 import static com.lumata.e4o.gui.common.NotificationForm.NotificationChannel.*;
 import static com.lumata.e4o.gui.common.NotificationForm.NotificationTongue.*;
@@ -28,13 +41,15 @@ import com.lumata.e4o.testing.common.TCOwner;
 import com.lumata.e4o.testing.common.TCOwners;
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
+@Test
 @TCOwners(
-	@TCOwner( name="Arcangelo Di Pasquale", email="arcangelo.dipasquale@lumatagroup.com" )
+	@TCOwner( name="Sameer Sukhija", email="sameer.sukhija@lumatagroup.com" )
 )
 @TCSeleniumWebDriver
-public class TestCampaignsForm extends ParentTestCase {
+public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 
 	private CampaignsForm campaignsForm;
+	
 	
 	@BeforeClass
 	public void initCampaignsForm() throws NetworkEnvironmentException, FormException {		
@@ -43,142 +58,16 @@ public class TestCampaignsForm extends ParentTestCase {
 		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
 	}
-			
-	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 1 )
-	public void campaignFormNavigation() throws FormException, JSONException, JSONSException {
-		
-		Calendar startDate = Calendar.getInstance();
-		startDate.add( Calendar.DATE, 10 );
-		
-		Calendar endDate = Calendar.getInstance();
-		endDate.add( Calendar.DATE, 20 );
-		
-		Calendar provEndDate = (Calendar)endDate.clone();
-		provEndDate.add( Calendar.DATE, -3 );
-				
-		Integer daysDiff = Days.daysBetween( new DateTime( startDate.getTime() ), new DateTime( endDate.getTime() ) ).getDays(); 
-				
-		final String CAMPAIGN_NAME = Format.addTimestamp( "Campaign_" );
-				
-		campaignsForm.
-			openForm().
-			addBtn().		
-			/** configure definition tab **/
-			openDefinitionTab().
-			setCampaignExecutionMode( CampaignsForm.ExecutionMode.Notification ).
-			setCampaignName( CAMPAIGN_NAME ).
-			setCampaignDescription( CAMPAIGN_NAME + " description" ).
-			//setCampaignModel( campaignCfg.campaignModel() ).	
-			//setCampaignType( campaignCfg.campaignType() ).		
-			setByPassMediaType( false ).
-			/** configure single scheduling tab **/
-			openSchedulingTab().
-			setCampaignSingleSchedulingType().			
-			setCampaignSingleSchedulingExecutionStart( startDate ).
-			setCampaignSingleSchedulingExecutionEndRelative( daysDiff ).
-			setCampaignSingleSchedulingExecutionEndAbsolute( endDate ).
-			setCampaignSingleSchedulingProvisioningEndDate( provEndDate ).
-			setCampaignSingleSchedulingProvisioningStartDate( startDate ).
-			setCampaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates( 3 ).
-			/** configure multiple scheduling tab **/
-			openSchedulingTab().
-			setCampaignMultipleSchedulingType().
-			/** configure multiple scheduling tab - weekly **/
-			setCampaignSchedulingMultipleRecurrencePatternWeekly().
-			setCampaignSchedulingMultipleRecurrencePatternOccurrence( 1 ).
-			setCampaignSchedulingMultipleRecurrencePatternDaysOfWeek( M, F, Sa ).
-			setCampaignSchedulingMultipleRecurrencePatternDaysOfWeek( Th, F ).
-			/** configure multiple scheduling tab - monthly **/
-			setCampaignSchedulingMultipleRecurrencePatternMonthly().
-			/** configure multiple scheduling tab - monthly - simple day**/
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternSimpleDay().
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayEverDay( 3 ).
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayEverMonth( 4 ).
-			/** configure multiple scheduling tab - monthly - general day**/
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDay().
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOrdinalDayOfWeek( First ).
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOrdinalDayOfWeek( Second ).
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOrdinalDayOfWeek( Third ).
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOrdinalDayOfWeek( Fourth ).
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOrdinalDayOfWeek( Last ).
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOfWeek( Monday ).
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOfWeek( Tuesday ).
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOfWeek( Wednesday ).
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOfWeek( Thursday ).
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOfWeek( Friday ).
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOfWeek( Saturday ).
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOfWeek( Sunday ).
-			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayEverMonth( 3 ).
-			/** configure multiple scheduling tab - common parameters**/
-			setCampaignSchedulingMultipleProvisioningDuration( 1 ).
-			setCampaignSchedulingMultipleDaysBetweenProvisioningStartDateAndExecutionStartDate( 1 ).
-			setCampaignSchedulingMultipleExecutionPeriod( 1 ).
-			setCampaignSchedulingMultipleRecurrencePatternMonthly().
-			setCampaignSchedulingMultipleStartDate( startDate ).
-			setCampaignSchedulingMultipleRangeOfRecurrenceNoEndDate().
-			setCampaignSchedulingMultipleRangeOfRecurrenceValueEndAfterNOccurences( 1 ).
-			setCampaignSchedulingMultipleRangeOfRecurrenceValueEndDate( endDate ).
-			/** configure dialog tab **/
-			openDialogTab().
-			//setCampaignDialogueShortCode( "333" ). // suppose to have the value 333 in the channel_destination table
-			setCampaignDialogueEmailAddress( "" ).
-			setDialogueNotificationDaysOfNotificationBeforeExecution( 2 ).
-			openDialogueNotification().
-			cancelDialogueNotification().
-			openDialogueNotification().
-			editDialogueNotification( English, SMS ).
-			setDialogueNotificationMessage( "notification message" ).
-			cancelDialogueNotificationEditing().
-			editDialogueNotification( English, SMS ).
-			setDialogueNotificationMessage( "notification message" ).
-			saveDialogueNotificationEditing().
-			editDialogueNotification( English, SMS ).
-			setDialogueNotificationMessage( "modify notification message" ).
-			saveDialogueNotificationEditing().
-			saveDialogueNotification().
-			setCampaignDialogueApplyCampaignToNotifiedOnly().
-			setCampaignDialogueNotificationTime( "00:00" ).
-			/** configure target tab **/
-			openTargetTab().
-			setCampaignTargetTargetingMode( Restricted ).
-			setCampaignTargetTargetingRestrictedModeCriteria().
-			setCampaignTargetTargetingRestrictedConfigureASampleNoSample().
-			setCampaignTargetTargetingRestrictedConfigureASampleControlSample().
-			setCampaignTargetTargetingRestrictedConfigureASampleTestSample().
-			setCampaignTargetTargetingRestrictedModeImportSubscribers().
-			setCampaignTargetTargetingRestrictedModeCriteriaIntersectionImport().
-			setCampaignTargetTargetingRestrictedModeCriteriaUnionImport().
-			setCampaignTargetTargetingRestrictedModeManualTargeting().
-			/** configure limits tab **/
-			openLimitsTab().			
-			/** configure activation tab **/
-			openActivationTab().
-			previousBtn().
-			previousBtn().
-			previousBtn().
-			previousBtn().
-			previousBtn().
-			nextBtn().
-			nextBtn().
-			nextBtn().
-			nextBtn().
-			nextBtn().
-			cancelBtn();	
-					
-	}
 	
-	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 2 )
-	public void createNotificationCampaignSimpleScheduling() throws FormException, JSONException, JSONSException {
+	@Test( enabled=TEST_ENABLED, priority = 1 )
+	public void testUc34_01CreateCampaign_ExistingModel() throws FormException {
 			
 		Calendar startDate = Calendar.getInstance();
 		
 		Calendar endDate = Calendar.getInstance();
 		
 		Calendar provEndDate = (Calendar)endDate.clone();
-				
-		//Integer daysDiff = Days.daysBetween( new DateTime( startDate.getTime() ), new DateTime( endDate.getTime() ) ).getDays(); 
-				
-		final String CAMPAIGN_NAME = Format.addTimestamp( "Campaign_" );
+		
 		
 		/**
 		 * Campaign Notification
@@ -186,51 +75,369 @@ public class TestCampaignsForm extends ParentTestCase {
 		 * - absolute end date
 		 * - restricted no sample target
 		 */
+			campaignsForm.
+			openForm().
+			addBtn().		
+			/** configure definition tab **/
+			openDefinitionTab().
+			setCampaignModel("CMS_09").
+			setCampaignName( "CAMPAIGN_09" ).
+			setCampaignDescription( "CAMPAIGN_09" + " description" ).
+			setByPassMediaType( false );
+			/** configure single scheduling tab **/
+			campaignsForm.openSchedulingTab();
+			campaignsForm.setCampaignSingleSchedulingType();		
+			campaignsForm.setCampaignSingleSchedulingExecutionStart( startDate );
+			campaignsForm.setCampaignSingleSchedulingExecutionEndRelative( 101 );
+			
+			campaignsForm.setCampaignSingleSchedulingProvisioningStartDate( startDate );
+			
+			campaignsForm.setCampaignSingleSchedulingProvisioningEndDate( provEndDate );
+			/** configure dialog tab **/
+			campaignsForm.openDialogTab().
+			setCampaignDialogueEmailAddress( "" ).
+			openDialogueNotification().
+			editDialogueNotification( English, SMS ).
+			setDialogueNotificationMessage( "campaign notification message ( ###campaign_name### )" ).
+			saveDialogueNotificationEditing().
+			saveDialogueNotification();
+			/** configure activation tab **/
+			campaignsForm.openActivationTab().
+			activateBtn().
+			confirmCampaignActivation();	
+			
+			/** Verify activated Campaign exists or not **/
+			
+			Boolean campaign_status = campaignsForm.isCampaignInActivatedList("CAMPAIGN_09");
+			Reporter.log("Creation of \"Campaign Form\".", LOG_TO_STD_OUT);
+			
+			if(campaign_status==true)
+			{
+				Assert.assertTrue(campaign_status);
+				Reporter.log("Campaign created and activated Succesfully!");
+	
+			}
+			else
+			{
+				Assert.fail("The Campaign creation Failed!");
+				Reporter.log("Creation of Campaign Failed!");
+			}
+			
+			}
+        
+					
+	@Test( enabled=TEST_ENABLED, priority = 2 )
+	public void testUc34_02CreateCampaign_MulSch_ExistingModel() throws FormException{
+			
+		Calendar startDate = Calendar.getInstance();
+		
+		Calendar endDate = Calendar.getInstance();
+		
+		Calendar provEndDate = (Calendar)endDate.clone();
+		
+		/**
+		 * Campaign Notification
+		 * - simple scheduling
+		 * - absolute end date
+		 * - restricted no sample target
+		 */
+			campaignsForm.
+			openForm().
+			addBtn().		
+			/** configure definition tab **/
+			openDefinitionTab().
+			setCampaignModel("CMS_09").
+			setCampaignName( "CAMPAIGN_14" ).
+			setCampaignDescription( "CAMPAIGN_14" + " description" ).
+			setByPassMediaType( false );
+			/** configure single scheduling tab **/
+			/** configure multiple scheduling tab **/
+			campaignsForm.
+			openSchedulingTab().
+			setCampaignMultipleSchedulingType().
+			/** configure multiple scheduling tab - weekly **/
+			setCampaignSchedulingMultipleRecurrencePatternWeekly().
+			setCampaignSchedulingMultipleRecurrencePatternOccurrence( 1 ).
+			setCampaignSchedulingMultipleRecurrencePatternDaysOfWeek( Th, F ).
+			/** configure multiple scheduling tab - monthly **/
+			setCampaignSchedulingMultipleRecurrencePatternMonthly().
+			/** configure multiple scheduling tab - monthly - simple day**/
+			setCampaignSchedulingMultipleMonthlyRecurrencePatternSimpleDay().
+			setCampaignSchedulingMultipleMonthlyRecurrencePatternSimpleDayEverMonth( 4 ).
+			/** configure multiple scheduling tab - monthly - general day**/
+			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDay().
+			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOrdinalDayOfWeek( Last ).
+			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayOfWeek( Sunday ).
+			setCampaignSchedulingMultipleMonthlyRecurrencePatternGeneralDayEverMonth( 3 ).
+			/** configure multiple scheduling tab - common parameters**/
+			setCampaignSchedulingMultipleProvisioningDuration( 1 ).
+			setCampaignSchedulingMultipleDaysBetweenProvisioningStartDateAndExecutionStartDate( 1 ).
+			setCampaignSchedulingMultipleExecutionPeriodType("Absolute").
+			setCampaignSchedulingMultipleExecutionPeriod( 1 ).
+			
+			setCampaignSchedulingMultipleRecurrencePatternMonthly().
+			setCampaignSchedulingMultipleStartDate( startDate ).
+			setCampaignSchedulingMultipleRangeOfRecurrenceNoEndDate().
+			setCampaignSchedulingMultipleRangeOfRecurrenceValueEndAfterNOccurences( 1 ).
+			setCampaignSchedulingMultipleRangeOfRecurrenceValueEndDate( endDate ).
+			/** configure dialog tab **/
+			openDialogTab().
+			setCampaignDialogueEmailAddress( "" ).
+			setDialogueNotificationDaysOfNotificationBeforeExecution( 1 ).
+			openDialogueNotification().
+			editDialogueNotification( English, SMS ).
+			setDialogueNotificationMessage( "Test Campaign notification message" ).
+			saveDialogueNotificationEditing().
+			saveDialogueNotification().
+			setCampaignDialogueApplyCampaignToNotifiedOnly().
+			setCampaignDialogueNotificationTime( "00:00" );
+			/** configure activation tab **/
+			campaignsForm.openActivationTab().
+			activateBtn().
+			confirmCampaignActivation();	
+			
+			/** Verify activated Campaign exists or not **/
+			
+			Boolean campaign_status = campaignsForm.isCampaignInActivatedList("CAMPAIGN_14");
+			Reporter.log("Creation of \"Campaign Form\".", LOG_TO_STD_OUT);
+			
+			if(campaign_status==true)
+			{
+				Assert.assertTrue(campaign_status);
+				Reporter.log("Campaign created and activated Succesfully!");
+	
+			}
+			else
+			{
+				Assert.fail("The Campaign creation Failed!");
+				Reporter.log("Creation of Campaign Failed!");
+			}
+			
+			}
+        
+
+	
+	@Test( enabled=TEST_ENABLED, priority = 3 )
+	public void testUc34_03CampaignNotificationSimpleScheduling() throws FormException {
+		
+		Calendar startDate = Calendar.getInstance();
+		
+		Calendar endDate = Calendar.getInstance();
+		
+		Calendar provEndDate = (Calendar)endDate.clone();
+			
+		
+		/**
+		 * Campaign Notification
+		 * - simple scheduling
+		 * - absolute end date
+		 * - restricted no sample target
+		 */
+		
 		campaignsForm.
 			openForm().
 			addBtn().		
 			/** configure definition tab **/
 			openDefinitionTab().
 			setCampaignExecutionModeNotification().
-			setCampaignName( CAMPAIGN_NAME ).
-			setCampaignDescription( CAMPAIGN_NAME + " description" ).
+			
+			setCampaignName( "CAMPAIGN_15" ).
+			
+			setCampaignDescription( "CAMPAIGN_15" + " description" ).
 			setByPassMediaType( false ).
 			/** configure single scheduling tab **/
 			openSchedulingTab().
 			setCampaignSingleSchedulingType().			
 			setCampaignSingleSchedulingExecutionStart( startDate ).
-			//setCampaignSingleSchedulingExecutionEndRelative( daysDiff ).
 			setCampaignSingleSchedulingExecutionEndAbsolute( endDate ).
-			setCampaignSingleSchedulingProvisioningEndDate( provEndDate ).
 			setCampaignSingleSchedulingProvisioningStartDate( startDate ).
-			//setCampaignSchedulingSingleDaysBetweenProvisioningAndExecutionStartDates( 3 ).
+			setCampaignSingleSchedulingProvisioningEndDate( provEndDate ).
 			/** configure dialog tab **/
 			openDialogTab().
-			//setCampaignDialogueShortCode( "333" ). // suppose to have the value 333 in the channel_destination table
 			setCampaignDialogueEmailAddress( "" ).
-			//setDialogueNotificationDaysOfNotificationBeforeExecution( 2 ).
 			openDialogueNotification().
 			editDialogueNotification( English, SMS ).
 			setDialogueNotificationMessage( "campaign notification message ( ###campaign_name### )" ).
 			saveDialogueNotificationEditing().
 			saveDialogueNotification().
-			//setCampaignDialogueApplyCampaignToNotifiedOnly().
-			//setCampaignDialogueNotificationTime( "00:00" ).
 			/** configure target tab **/
 			openTargetTab().
 			setCampaignTargetTargetingMode( Restricted ).
-			setCampaignTargetTargetingRestrictedModeCriteria().
-			setCampaignTargetTargetingRestrictedConfigureASampleNoSample().
+			setCampaignTargetTargetingRestrictedModeCriteria();
+			campaignsForm.setCriteriaCampaign();
+			campaignsForm.configureCriteria("Subscriber.Msisdn","9650450905");
+	
+			campaignsForm.setCampaignTargetTargetingRestrictedConfigureASampleNoSample();
 			/** configure activation tab **/
-			openActivationTab().
+			campaignsForm.openActivationTab().
 			activateBtn().
 			confirmCampaignActivation();	
-					
-	}
-	
-	
-	
-	// 	Assert.assertEquals( CampaignsForm.CampaignErrorMessage.CampaignNameEmpty.message(), campaignsForm.getCampaignActivationError() );
-	
+		/** Verify activated Campaign exists or not **/
 		
+		Boolean campaign_status = campaignsForm.isCampaignInActivatedList("CAMPAIGN_15 (Notification)");
+		Reporter.log("Creation of \"Campaign Form\".", LOG_TO_STD_OUT);
+		
+		if(campaign_status==true)
+		{
+			Assert.assertTrue(campaign_status);
+			Reporter.log("Campaign created and activated Succesfully!");
+
+		}
+		else
+		{
+			Assert.fail("The Campaign creation Failed!");
+			Reporter.log("Creation of Campaign Failed!");
+		}
+		
+		}
+	
+    
+	
+	
+	@Test( enabled=TEST_ENABLED, priority = 4 )
+	public void testUc34_04_EditcampaignForm() throws FormException {
+		Boolean status=false;
+		campaignsForm.
+		openForm()
+		.campaignEditButton("CAMPAIGN_14").
+			
+		/** configure definition tab **/
+		openDefinitionTab().
+		setCampaignExecutionMode( CampaignsForm.ExecutionMode.Notification ).
+		
+		/** configure target tab **/
+		openTargetTab().
+		setCampaignTargetTargetingMode( Restricted ).
+		setCampaignTargetTargetingRestrictedModeCriteria();
+		campaignsForm.setCriteriaCampaign();
+		campaignsForm.configureCriteria("Subscriber.Msisdn","393886933857");
+
+		campaignsForm.setCampaignTargetTargetingRestrictedConfigureASampleNoSample().
+		openActivationTab();
+		campaignsForm.saveBtn().
+		confirmCampaignAlert(status);		
+		status = campaignsForm.isCampaignInActivatedList("CAMPAIGN_14 (Notification)");
+		Reporter.log("Creation of \"Campaign Form\".", LOG_TO_STD_OUT);
+		
+		if(status==true)
+		{
+			Assert.assertTrue(status);
+			Reporter.log("Campaign updated Succesfully!");
+
+		}
+		else
+		{
+			Assert.fail("The Campaign updation Failed!");
+			Reporter.log("Updation of Campaign Failed!");
+		}
+		
+		}
+	
+
+	@Test( enabled=TEST_ENABLED, priority = 5 )
+	public void testUc34_05_CopycampaignForm() throws FormException {
+		
+		Calendar startDate = Calendar.getInstance();
+		
+		Calendar endDate = Calendar.getInstance();
+		
+		Calendar provEndDate = (Calendar)endDate.clone();
+		
+		Boolean status=false;
+		campaignsForm.
+		openForm().
+		campaignCopyButton("CAMPAIGN_14 (Notification)").
+		
+		/** configure definition tab **/
+		setCampaignExecutionModeModel().
+		setCampaignModel("CMS_09").
+		
+		setCampaignName( "CAMPAIGN_18" ).
+		
+		setCampaignDescription( "CAMPAIGN_18" + " description" ).
+		setByPassMediaType( false );
+		/** configure single scheduling tab **/
+		campaignsForm.openSchedulingTab();
+		campaignsForm.setCampaignSingleSchedulingType();		
+		campaignsForm.setCampaignSingleSchedulingExecutionStart( startDate );
+		campaignsForm.setCampaignSingleSchedulingExecutionEndRelative( 101 );
+		
+		campaignsForm.setCampaignSingleSchedulingProvisioningStartDate( startDate );
+		
+		campaignsForm.setCampaignSingleSchedulingProvisioningEndDate( provEndDate );
+		/** configure dialog tab **/
+		campaignsForm.openDialogTab().
+		setCampaignDialogueEmailAddress( "" ).
+		openDialogueNotification().
+		editDialogueNotification( English, SMS ).
+		setDialogueNotificationMessage( "campaign notification message ( ###campaign_name### )" ).
+		saveDialogueNotificationEditing().
+		saveDialogueNotification();
+		/** configure activation tab **/
+		campaignsForm.openActivationTab().
+		activateBtn().
+		confirmCampaignActivation();	
+		
+		/** Verify activated Campaign exists or not **/
+		
+		Boolean campaign_status = campaignsForm.isCampaignInActivatedList("CAMPAIGN_18");
+		Reporter.log("Copy of \"Campaign Form\".", LOG_TO_STD_OUT);
+		
+		if(campaign_status==true)
+		{
+			Assert.assertTrue(campaign_status);
+			Reporter.log("Campaign copied and activated Succesfully!");
+
+		}
+		else
+		{
+			Assert.fail("Campaign copy Failed!");
+			Reporter.log("Copy of Campaign Failed!");
+		}
+		
+		}
+
+	@Test( enabled=TEST_ENABLED, priority = 6 )
+	public void testUc34_06_DeletecampaignForm() throws FormException {
+		Boolean status=false;
+		campaignsForm.
+		openForm()
+		/** Stopping an activated Campaign **/
+		
+		.campaignStopButton("CAMPAIGN_18").
+		closeAlertAndGetItsText();
+		campaignsForm.confirmCampaignAlert(status);
+		
+		/** Deleting a Suspended Campaign **/
+		
+		campaignsForm.
+		campaignDeleteButton("CAMPAIGN_18").	
+		
+		closeAlertAndGetItsText();
+		
+		campaignsForm.confirmCampaignAlert(status);
+		
+		status = campaignsForm.isCampaignNameInList("CAMPAIGN_18");
+		
+		Reporter.log("Deletion of \"Campaign Form\".", LOG_TO_STD_OUT);
+		
+		if(status!=true)
+		{
+			AssertJUnit.assertTrue("Campaign deleted successfully", true);
+			Reporter.log("Campaign deleted successfully",LOG_TO_STD_OUT);
+		   
+		}
+		else
+		{
+			Assert.fail("The Campaign deletion Failed!");
+			Reporter.log("Deletion of Campaign Failed!");
+		}
+		
+		}
+	
+
 }
+
+
+
+	
