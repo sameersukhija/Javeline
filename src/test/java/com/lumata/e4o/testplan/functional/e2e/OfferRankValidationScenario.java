@@ -405,7 +405,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		}
 		}catch(FormException e)
 		{
-			Reporter.log("Exception occured while creating Product Type!"+e.getMessage());
+			Reporter.log("Exception occured while creating Token!"+e.getMessage());
 		}
 		return status;
 	}
@@ -492,7 +492,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 			campaignModelForm.addEvents(events);
 			campaignModelForm.saveCampaignModel();
 			//need a method to validate campaignmodel creation
-			campaignModelForm.confirmCampaignModelSaving();
+			campaignModelForm.confirmCampaignModelAlert(true);
 			status=campaignModelForm.isCampaignModelNameInList(getCampaignModelName());
 		}
 	}

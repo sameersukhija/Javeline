@@ -1,7 +1,9 @@
 package com.lumata.e4o.generators.cdr;
 
+import java.lang.reflect.Method;
 import java.util.Calendar;
 
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -11,6 +13,7 @@ import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
+import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Service;
 import com.lumata.common.testing.system.User;
@@ -18,42 +21,25 @@ import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.cdr.types.CDRDialogSMS;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
+import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCSSHService;
+import com.lumata.e4o.testing.common.TCSSHServices;
 
-public class GenerateCDRDialogSms {
-	
-	NetworkEnvironment env;
-	Service sshService;
-	String sshUser = "root";
-	User superman;
-	Mysql mysql;
-			
-	/* 	Initialize Environment */
-	@Parameters({"environment", "nfsdataServer", "user", "tenant"})
-	@BeforeClass
-	public void init( @Optional("E4O_VM") String environment, @Optional("collector") String nfsdataServer, @Optional("superman") String user, @Optional("tenant") String tenant ) throws NetworkEnvironmentException {		
-		
-		/** Create environment configuration */
-		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-
-		sshService = env.getService( Service.Type.ssh, nfsdataServer );
-		
-		sshUser = "root";
-		
-		mysql = new Mysql( env.getDataSource( tenant ) );
-		
-	}
+@TCSSHServices(
+	@TCSSHService( ssh_server = "nfsdata", ssh_user = "root" )
+)
+public class GenerateCDRDialogSms extends ParentTestCase {
 	
 	@Test( enabled = true )
-	public void cdr_dialog_sms() throws IOFileException, FieldException {
+	public void cdr_dialog_sms( Method method ) throws IOFileException, FieldException {
 		
-		System.out.println( "-----------------------------" );
-		System.out.println( "cdr_lifecycle" );
-
 		CDRDialogSMS cdrDialogSms = new CDRDialogSMS();
 		
 		String currentTimestamp = Format.getSystemTimestamp();
 		
 		String fileName = "cdr_dialogsms_" + currentTimestamp + ".csv";
+		
+		Reporter.log( Log.CREATING.createMessage( method.getName(), fileName ), LOG_TO_STD_OUT );
 				
 		cdrDialogSms.setOutputPath( "/cdr/", fileName );
 		
@@ -62,36 +48,42 @@ public class GenerateCDRDialogSms {
 		FieldDateIncrement increment = new FieldDateIncrement();
 		increment.setDayIncrement( 1 );
 
-		cdrDialogSms.setMsisdnStrategyFixed( 3399900100L );
-		cdrDialogSms.setAddressStrategyFixed( 3399900100L );
+		cdrDialogSms.setMsisdnStrategyFixed( 3399900001L );
+		cdrDialogSms.setAddressStrategyFixed( 3399900001L );
 		cdrDialogSms.setDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		cdrDialogSms.setDateStrategyFixed( date );
 		cdrDialogSms.setShortCodeStrategyFixed( "5555" );
 		cdrDialogSms.setChannelNameStrategyFixed( "SMS" );
 		//cdrDialogSms.setTextStrategyIncrement( "ACCEPT ", 0, 1 );
-		cdrDialogSms.setTextStrategyFixed( "ACCEPT 3" );
+		cdrDialogSms.setTextStrategyFixed( "ACCEPT 1" );
 				
 		cdrDialogSms.addLines( 1 );
 		
-		cdrDialogSms.setMsisdnStrategyFixed( 3399900200L );
-		cdrDialogSms.setAddressStrategyFixed( 3399900200L );
+		cdrDialogSms.setMsisdnStrategyFixed( 3399900002L );
+		cdrDialogSms.setAddressStrategyFixed( 3399900002L );
 		cdrDialogSms.setDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		cdrDialogSms.setDateStrategyFixed( date );
 		cdrDialogSms.setShortCodeStrategyFixed( "5555" );
 		cdrDialogSms.setChannelNameStrategyFixed( "SMS" );
 		//cdrDialogSms.setTextStrategyIncrement( "ACCEPT ", 0, 1 );
-		cdrDialogSms.setTextStrategyFixed( "ACCEPT 3" );
+		cdrDialogSms.setTextStrategyFixed( "ACCEPT 1" );
 				
 		cdrDialogSms.addLines( 1 );
-		
-		cdrDialogSms.print();
 		
 		cdrDialogSms.save();
 		
-		cdrDialogSms.send( sshService, "/usr/local/actrule/data/dialog/tenant1/", sshUser );
+		//System.out.println( "File name: " + cdrDialogSms.getFileName() );
 		
-		System.out.println( "File name: " + cdrDialogSms.getFileName() );
+		final String REMOTE_FOLDER = "/usr/local/actrule/data/dialog/tenant1/";
 		
+		Reporter.log( Log.SAVED.createMessage( method.getName(), fileName + " in local server"), LOG_TO_STD_OUT );
+					
+		Reporter.log( Log.PUTTING.createMessage( method.getName(), fileName ), LOG_TO_STD_OUT );
+		
+		//cdrDialogSms.send( sshl.get( "nfsdata", "root" ).getService(), REMOTE_FOLDER, sshl.get( "nfsdata", "root" ).getUser() );
+		
+		cdrDialogSms.print();
+				
 	}
 
 }

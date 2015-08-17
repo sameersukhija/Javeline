@@ -109,6 +109,13 @@ public class CDRClassGenerator {
 				return fields;
 			}
 		},
+		FileInterpretor {	
+			public List<Class<? extends Annotation>> fields() {
+				List<Class<? extends Annotation>> fields = new ArrayList<Class<? extends Annotation>>();
+				fields.add( Text.class );
+				return fields;
+			}
+		},
 		RevenueRecharge {	
 			public List<Class<? extends Annotation>> fields() {
 				return Arrays.asList( Msisdn.class, Date.class, Amount.class, Balance.class, ValidityDate.class, DeactivationDate.class );

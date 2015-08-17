@@ -56,6 +56,11 @@ public class CDRCall extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
+	@Date( position = 1 )
+	public String getDate()  {
+		return this.date.getDate();
+	}
+
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
 	}
@@ -84,9 +89,9 @@ public class CDRCall extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
-	@Date( position = 1 )
-	public String getDate()  {
-		return this.date.getDate();
+	@Duration( position = 2 )
+	public String getDuration() throws FieldException  {
+		return this.duration.getLong();
 	}
 
 	public void setDurationStrategyFixed( final Long value ) throws FieldException  {
@@ -113,9 +118,9 @@ public class CDRCall extends CDR {
 		if( this.duration != null ) { this.duration.cleanLongStrategyRandom(); }
 	}
 
-	@Duration( position = 2 )
-	public String getDuration() throws FieldException  {
-		return this.duration.getLong();
+	@Amount( position = 3 )
+	public String getAmount() throws FieldException  {
+		return this.amount.getLong();
 	}
 
 	public void setAmountStrategyFixed( final Long value ) throws FieldException  {
@@ -142,9 +147,9 @@ public class CDRCall extends CDR {
 		if( this.amount != null ) { this.amount.cleanLongStrategyRandom(); }
 	}
 
-	@Amount( position = 3 )
-	public String getAmount() throws FieldException  {
-		return this.amount.getLong();
+	@Balance( position = 4 )
+	public String getBalance() throws FieldException  {
+		return this.balance.getLong();
 	}
 
 	public void setBalanceStrategyFixed( final Long value ) throws FieldException  {
@@ -169,11 +174,6 @@ public class CDRCall extends CDR {
 
 	public void cleanBalanceStrategyRandom()  {
 		if( this.balance != null ) { this.balance.cleanLongStrategyRandom(); }
-	}
-
-	@Balance( position = 4 )
-	public String getBalance() throws FieldException  {
-		return this.balance.getLong();
 	}
 
 	@Terminating( position = 5 )

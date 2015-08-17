@@ -1,78 +1,47 @@
 package com.lumata.e4o.gui.catalogmanager;
-import static org.testng.Assert.assertTrue;
 
+import java.awt.AWTException;
+import java.awt.GraphicsEnvironment;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.json.JSONException;
+import javax.mail.MessagingException;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.ErrorModificableElement;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
-import com.lumata.common.testing.json.JsonConfigurationFile;
-import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
-import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.utils.TempFileHandling;
-import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.common.Form;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
-import com.lumata.e4o.gui.common.FormSaveConfigurationHandler.SaveResult;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCriteria;
-import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
-import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONPricesElement;
-import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONReservationElement;
-import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.OfferContentType;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.VoucherType;
-import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.CharacteristicType;
-import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristicElement;
-import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonUnit;
-import com.lumata.e4o.json.gui.catalogmanager.OfferCfg;
-import com.lumata.e4o.schema.tenant.CatalogProductTypes;
-import com.lumata.e4o.gui.catalogmanager.ProductTypesForm;
-import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
+import com.lumata.e4o.gui.catalogmanager.HeadlessException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.Reporter;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 
-import com.lumata.common.testing.selenium.SeleniumWebDriver;
 public class OffersForm<BrowseElement> extends CatalogueManagerForm {
-
-	private static final Logger logger = LoggerFactory.getLogger(OffersForm.class);
-
-	
-	/**
-	 * 
-	 */
+private static final Logger logger = LoggerFactory.getLogger(OffersForm.class);
 private OffersForm offersForm;
 private JSONOffers offerCfg;
-
 private Alert file_input;
 
-	
-	/* constructor for initializing without product type json configuration*/ 
+/* constructor for initializing without product type json configuration*/ 
 	public OffersForm(SeleniumWebDriver selenium,long timeout, long interval) {
 		
 		super(selenium, timeout, interval);
@@ -482,18 +451,15 @@ private Alert file_input;
 			
 			super.clickXPath("//td[text()='Available Offers']//ancestor::tr[1]//button");
 				
-
-			super.clickXPath("//td[contains(text(),'Available Stock')]//ancestor::tbody//tr[2]//button[@title='Save']");
-			super.clickXPath("//div[text()='Channel']//ancestor::table//button[@name='btn-add']");
-			//super.clickXPath("//tr[3]/td/table/tbody/tr[3]/td/button[@title='Add']");
-			//super.waitVisibleElement(By.xpath("//div[text()='Channel']//ancestor::table[1]//button[@title='Add']"));
-			//super.clickXPath("//div[text()='Channel']//ancestor::table[1]//button[@title='Add']");
+			super.clickXPath("//td[contains(text(),'Available Stock')]//ancestor::tr[1]//ancestor::table[3]//button[@title='Save']");
 			
+			super.clickXPath("//div[text()='Channel']//ancestor::table//button[@name='btn-add']");
+			//super.clickXPath("//tr[3]/td/table/tbody/tr[3]/td/button");
 			//super.sendKeysByXPath("//div[text()='Reservation']//ancestor::table//input", stock);
 			
 			super.sendKeysByXPath("//input[@id='gwt-debug-TextBox-VPOfferEdit-qtyTB']",stock);
 			
-			super.clickXPath("//div[text()='Reservation']//ancestor::tbody//tr[2]//table[contains(@class,'buttonPanel')]//button[@title='Save']");
+			super.clickXPath("//div[text()='Reservation']//ancestor::table//button[@title='Save']");
 			
 			return this;
 				
@@ -619,10 +585,10 @@ private Alert file_input;
 					
 					public OffersForm setOneTimeBrowseFile(String CSVFILE) throws FormException, JSONSException, IOException {
 												
-						super.clickXPath("//table[@class='verticalPanelInternalMargin']/tbody//table[@class='tableList Form']/tbody/tr[1][@class='cycle1']//table[@class='importPanel']/tbody/tr/td[1]//input[@name='uploadFormElement']");
 						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers/")+"/Auto_it_browsefile.exe/");
 						super.clickXPath("//td[text()='Import voucher list']//ancestor::td[1]//button");
 						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers/")+"/AutoIt_ImportVouchers.exe/");
+
 						
 					return this;
 					}
@@ -637,22 +603,22 @@ private Alert file_input;
 					}
 					
 					
-					
-					public OffersForm<BrowseElement> AlertHandling() throws FormException, IOException {
+				
+					public OffersForm<BrowseElement> UnlimitedVoucherAlertHandling() throws FormException, IOException {
 						
 						
-						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers/")+"/AutoIt_VoucherAlertHandling.exe");
+						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers")+"/AutoIt_UnlimitedVoucherAlertHandling.exe");
 						
 					return this;
 							
 					}
-					
-				public OffersForm setExternalSupplier(String ES) throws FormException, JSONSException {
+		
+					public OffersForm setExternalSupplier(String ES) throws FormException, JSONSException {
 					
 					super.selectByXPathAndVisibleText("//select[@id='gwt-debug-ListBox-VPOfferEdit-supplierListBox']",ES);
 							
-				return this;
-				}
+					return this;
+					}
 				
 				public String getExternalSupplier() throws FormException {
 					
@@ -752,7 +718,45 @@ private Alert file_input;
 					return false;	
 					}
 	
+				
 	
+				public Boolean isOfferInUnlimitedSavedList( String offerName ) throws FormException {
+					
+					List<WebElement> offerList = getunlimitedvoucherSaveOfferList();
+		
+					for( WebElement offerListE1 : offerList ) {
+			
+						if( offerListE1.getText().trim().equals( offerName ) ) {
+					
+							return true;
+			
+						}	
+					}
+		
+					return false;	
+					}
+	
+				
+				public Boolean isOfferInOnetimeSavedList( String offerName ) throws FormException {
+					
+					List<WebElement> offerList = getonetimevoucherSaveOfferList();
+		
+					for( WebElement offerListE1 : offerList ) {
+			
+						if( offerListE1.getText().trim().equals( offerName ) ) {
+					
+							return true;
+			
+						}	
+					}
+		
+					return false;	
+					}
+	
+	
+				
+				
+				
 				public List<WebElement> getOfferList()  throws FormException {
 		
 					String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
@@ -772,6 +776,26 @@ private Alert file_input;
 					return offerList;
 				}
 			
+				
+				public List<WebElement> getunlimitedvoucherSaveOfferList()  throws FormException {
+					
+					String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
+					String subPath = "//tr[7]//td[@class='column_description']";
+					List<WebElement> offerList = getListByXPath(rootPath, rootPath + subPath);
+					System.out.println(offerList);
+					return offerList;
+				}
+			
+				public List<WebElement> getonetimevoucherSaveOfferList()  throws FormException {
+					
+					String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
+					String subPath = "//tr[8]//td[@class='column_description']";
+					List<WebElement> offerList = getListByXPath(rootPath, rootPath + subPath);
+					System.out.println(offerList);
+					return offerList;
+				}
+			
+				
 				
 				public WebElement getOfferListByName( String OFFER_NAME) throws FormException {
 		
@@ -851,7 +875,94 @@ private Alert file_input;
 				return super.getValueByXPath(".//*[@id='gwt-debug-ListBox-OfferContentPopUp-lbProd']");
 				}
 
-	//These methodsfor product creation not required.
+				public String closeAlertAndGetItsText() {
+				    boolean acceptNextAlert = true;
+					try {
+				      Alert alert = selenium.selectAlert();
+				      String alertText = alert.getText();
+				      if (acceptNextAlert) {
+				        alert.accept();
+				      } else {
+				        alert.dismiss();
+				      }
+				      return alertText;
+				    } finally {
+				      acceptNextAlert = true;
+				    }
+				  }
+				
+				
+				
+				public void TestFileupload() throws InterruptedException, AWTException, FormException, MessagingException {
+					{
+					StringSelection ss = new StringSelection(System.getProperty( "user.dir" )+ ("\\src\\test\\resources\\input\\catalogmanager\\Offers\\VoucherCodes.csv" )); 
+					try{
+						System.setProperty("java.export", "DISPLAY=:0");
+						System.setProperty("java.awt.headless", "true");
+						except=HeadlessException.class;
+					
+					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss,null);
+					}
+					catch(Exception ex){
+						final Exception ex1;
+					}
+					Robot r = new Robot();
+					
+					r.delay(75);
+					  r.keyPress(KeyEvent.VK_ENTER);
+					  //Releaseing the Enter Key
+					  r.keyRelease(KeyEvent.VK_ENTER);
+					  /*
+					   * Now we are going to trigger CTRL+V action so first we will press CTRL and then V and finally will
+					   * release these key.
+					   */
+					  r.keyPress(KeyEvent.VK_CONTROL);   
+					  r.keyPress(KeyEvent.VK_V);
+					  
+					  r.keyRelease(KeyEvent.VK_V);   
+					  r.keyRelease(KeyEvent.VK_CONTROL);
+					  r.mouseMove(1156,505);
+					  int mask1 = InputEvent.getMaskForButton(1);
+					  r.mousePress(mask1);
+					  r.mouseMove(1152,629);
+					  int mask2 = InputEvent.getMaskForButton(1);
+					  r.mousePress(mask2);
+					  r.delay(75);
+					  r.mouseRelease(mask2);
+					  r.delay(5000);
+					  
+					  r.mouseMove(675,448);
+					  r.mouseMove(621,746);
+					  int mask3 = InputEvent.getMaskForButton(1);
+					  r.mousePress(mask3);
+					  r.delay(75);
+					  r.mouseRelease(mask3);
+					  r.delay(1000);
+					}
+					}
+
+				
+				public void TestAlert() throws InterruptedException, AWTException {
+					{
+					  headlessMessage = GraphicsEnvironment.getLocalGraphicsEnvironment();
+						
+					  Robot r = new Robot();
+					  r.delay(75);
+					  r.keyPress(KeyEvent.VK_ENTER);
+					  //Releaseing the Enter Key
+					  r.keyRelease(KeyEvent.VK_ENTER);
+					  r.mouseMove(675,448);
+					  int mask1 = InputEvent.getMaskForButton(1);
+					  r.mousePress(mask1);
+					  r.delay(75);
+					  r.mouseRelease(mask1);
+					  r.delay(1000);
+					}
+
+					}
+
+
+				//These methodsfor product creation not required.
 	
 //	public OffersForm setProductTypeName(String name) throws FormException
 //	{
@@ -1011,6 +1122,8 @@ private Alert file_input;
 
 	private Object criteriaXPathRow;
 	WebElement file_input2;
+	private Class<HeadlessException> except;
+	private GraphicsEnvironment headlessMessage;
 	public OffersForm ProductType() throws FormException {
 	//CatalogProductTypes ProductType = DAOProductType.getInstance( mysql ).getCatalogProductTypes(getName());
 	return offersForm;
@@ -1048,6 +1161,9 @@ private Alert file_input;
 	    super.clickId("gwt-debug-BtnCampaignModelCreationENOk");
         return this;
 }
+
+
+
 	
 //		public OffersForm EligibilityCriteria(JSONProductTypes criteria, String eventXPathRow) throws JSONException, FormException {
 //		

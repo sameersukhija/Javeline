@@ -1,4 +1,5 @@
 package com.lumata.e4o.regressions.gui;
+import org.testng.AssertJUnit;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.Reporter;
@@ -19,12 +20,10 @@ import org.testng.annotations.Parameters;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.common.testing.json.JsonConfigurationElement;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.catalogmanager.OffersForm;
 import com.lumata.e4o.gui.catalogmanager.ProductTypesForm;
-import com.lumata.e4o.system.cdr.fields.VoucherCode;
 import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.e4o.testing.common.TCOwner;
 import com.lumata.e4o.testing.common.TCOwners;
@@ -35,6 +34,10 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONOfferContentElement
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONPricesElement;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.OfferContentType;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristicElement;
+
+import java.awt.AWTException;
+
+import javax.mail.MessagingException;
 
 import org.json.JSONException;
 
@@ -137,7 +140,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			else
 			{
 				
-				Assert.fail("The Offer creation Failed!");
+				AssertJUnit.fail("The Offer creation Failed!");
 				Reporter.log("Creation of Offer Failed!");
 			}
 }
@@ -192,7 +195,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				else
 				{
 					//Assert.assertTrue(status,"The creation of Product Failed!");
-					Assert.fail("The Product Types creation Failed!");
+					AssertJUnit.fail("The Product Types creation Failed!");
 					Reporter.log("Creation of Product Types Failed!");
 				}
 			}
@@ -262,7 +265,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			else
 			{
 				
-				Assert.fail("The Offer creation Failed!");
+				AssertJUnit.fail("The Offer creation Failed!");
 				Reporter.log("Creation of Offer Failed!");
 			}
 }
@@ -337,7 +340,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			else
 			{
 				
-				Assert.fail("The Offer creation Failed!");
+				AssertJUnit.fail("The Offer creation Failed!");
 				Reporter.log("Creation of Offer Failed!");
 			}
 }
@@ -391,7 +394,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 						else
 						{
 							Assert.assertTrue(status,"The creation of Product Failed!");
-							Assert.fail("The Product Types creation Failed!");
+							AssertJUnit.fail("The Product Types creation Failed!");
 							Reporter.log("Creation of Product Types Failed!");
 				}
 			}
@@ -420,13 +423,13 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			if(offer_status==true)
 			{
-				Assert.assertTrue(offer_status);
+				AssertJUnit.assertTrue(offer_status);
 				Reporter.log("Offer Edited Succesfully!");
 	
 			}
 			else
 			{
-				Assert.fail("The Offer editing Failed!");
+				AssertJUnit.fail("The Offer editing Failed!");
 				Reporter.log("Editing of Offer Failed!");
 			}
 			
@@ -451,14 +454,14 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			offer_status=true;
 			if(offer_status==true)
 			{
-				Assert.assertTrue(offer_status);
+				AssertJUnit.assertTrue(offer_status);
 				Reporter.log("Offer Activated Succesfully!");
 				
 			}
 			else
 			{
 				
-				Assert.fail("The Offer activation Failed!");
+				AssertJUnit.fail("The Offer activation Failed!");
 				Reporter.log("Activation of Offer Failed!");
 			}
 
@@ -468,7 +471,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
 		@Test( enabled=TEST_ENABLED, priority = 6 )
 		public void testUc28_06_addOffer_UnlimitedVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
+				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException, IOException {
 		
 		String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
 		String resourceFile2 = jsonFileName_Offer;
@@ -505,7 +508,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				
 				offerForm.clickVoucherDefinitionTab();
 				
-				offerForm.setUnlimitedVoucherCode("Adgth");
+				offerForm.setUnlimitedVoucherCode("Armjy");
 				
 				offerForm.setExternalSupplier("Mobistar");
 				
@@ -543,18 +546,20 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				
 				offerForm.setOfferenddate(dateFormat.format(cal.getTime()));
 				
-				offerForm.clickActivationTab().saveBtn();
+				offerForm.clickActivationTab().saveBtn().closeAlertAndGetItsText();
 				
 				offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 				
-				offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+				offer_status=offerForm.isOfferInUnlimitedSavedList(OFFER_NAME);
+				
+				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
+				
+				//offerForm.UnlimitedVoucherAlertHandling();
 				
 				offer_status=true;
 				
 				if(offer_status==true)
 				{
-					offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
-								
 					Assert.assertTrue(offer_status);
 					Reporter.log("Offer Created Succesfully!");
 					
@@ -562,19 +567,20 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				else
 				{
 					
-					Assert.fail("The Offer creation Failed!");
+					AssertJUnit.fail("The Offer creation Failed!");
 					Reporter.log("Creation of Offer Failed!");
 				}
 		}
 
 		}
 
-			}
+	}
 	
 		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
 		@Test( enabled=TEST_ENABLED, priority = 7 )
 		public void testUc28_07_addOffer_OneTimeVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException, IOException, InterruptedException {
+
+				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException, IOException, InterruptedException, AWTException, MessagingException {
 			String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
 			String resourceFile2 = jsonFileName_Offer;
 			setupOffer = new JSONOffers(resourcePath2,resourceFile2);
@@ -601,6 +607,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			clickAddOffer();
 			offerForm.setName( OFFER_NAME );
+			
 			setDescription = offerForm.setDescription(setupOffer.getDescription());
 			
 			offerForm.setTerms(setupOffer.getTermsAndConditions());
@@ -611,12 +618,15 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			offerForm.setOneTimeBrowseFile("");
 			
-			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(15000, TimeUnit.SECONDS);
-					
+
+			offerForm.TestFileupload();
 			
+			//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
+			
+
 			offerForm.setExternalSupplier("Mobistar");
 			
-				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			   //get current date time with Date()
 			   Date date = new Date(ATTEMPT_TIMEOUT);
 			   System.out.println(dateFormat.format(date));
@@ -633,13 +643,14 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				
 			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				
-			   offerForm.AlertHandling();
-					   	
-			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
+			   offerForm.TestAlert();
+			   
+			   offerForm.clickPriceTab();
+				
+			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
 				
 			   offerForm.clickPriceTab();
-		
-			   
+				
 			   
 		List<JSONPricesElement> prices = setupOffer.getOffersPrices();
 		
@@ -665,11 +676,15 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			offerForm.setOfferenddate(dateFormat.format(cal.getTime()));
 			
-			offerForm.clickActivationTab().saveBtn();
+			offerForm.clickActivationTab().saveBtn().closeAlertAndGetItsText();
 			
 			offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 			
-			offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+			offer_status=offerForm.isOfferInOnetimeSavedList(OFFER_NAME);
+			
+			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
+			
+			offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 			
 			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
 			
@@ -687,7 +702,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			else
 			{
 				
-				Assert.fail("The Offer creation Failed!");
+				AssertJUnit.fail("The Offer creation Failed!");
 				Reporter.log("Creation of Offer Failed!");
 			}
 	}
@@ -696,9 +711,9 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		
 		}	
 
-			}
+		
+					}
 
 
 
 
-	

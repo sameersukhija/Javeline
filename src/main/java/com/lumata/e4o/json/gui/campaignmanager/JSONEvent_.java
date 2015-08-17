@@ -28,7 +28,11 @@ public class JSONEvent_ extends JsonConfig {
 	public String getEventType() {
 		return getStringFromPath( "eventType");
 	}
+	public String getEventType1() {
+		return getStringFromPath( "eventType1");
+	}
 
+	
 	public Map<String, JSONCriteria> getCriteria() throws JSONException{
 		Map<String, JSONCriteria> criteria = new LinkedHashMap<String, JSONCriteria>();
 		

@@ -55,6 +55,11 @@ public class CDRDialogSMS extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
 	}
 
+	@Address( position = 1 )
+	public String getAddress() throws FieldException  {
+		return this.address.getLong();
+	}
+
 	public void setAddressStrategyFixed( final Long value ) throws FieldException  {
 		if( this.address != null ) { this.address.setLongStrategyFixed( value ); }
 	}
@@ -79,9 +84,9 @@ public class CDRDialogSMS extends CDR {
 		if( this.address != null ) { this.address.cleanLongStrategyRandom(); }
 	}
 
-	@Address( position = 1 )
-	public String getAddress() throws FieldException  {
-		return this.address.getLong();
+	@Date( position = 2 )
+	public String getDate()  {
+		return this.date.getDate();
 	}
 
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
@@ -112,9 +117,9 @@ public class CDRDialogSMS extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
-	@Date( position = 2 )
-	public String getDate()  {
-		return this.date.getDate();
+	@ShortCode( position = 3 )
+	public String getShortCode() throws FieldException  {
+		return this.short_code.getString();
 	}
 
 	public void setShortCodeLength( final Integer length ) throws FieldException  {
@@ -149,9 +154,9 @@ public class CDRDialogSMS extends CDR {
 		if( this.short_code != null ) { this.short_code.cleanStringStrategyRandom(); }
 	}
 
-	@ShortCode( position = 3 )
-	public String getShortCode() throws FieldException  {
-		return this.short_code.getString();
+	@ChannelName( position = 4 )
+	public String getChannelName() throws FieldException  {
+		return this.channel_name.getString();
 	}
 
 	public void setChannelNameLength( final Integer length ) throws FieldException  {
@@ -186,9 +191,9 @@ public class CDRDialogSMS extends CDR {
 		if( this.channel_name != null ) { this.channel_name.cleanStringStrategyRandom(); }
 	}
 
-	@ChannelName( position = 4 )
-	public String getChannelName() throws FieldException  {
-		return this.channel_name.getString();
+	@Text( position = 5 )
+	public String getText() throws FieldException  {
+		return this.text.getString();
 	}
 
 	public void setTextLength( final Integer length ) throws FieldException  {
@@ -221,11 +226,6 @@ public class CDRDialogSMS extends CDR {
 
 	public void cleanTextStrategyRandom()  {
 		if( this.text != null ) { this.text.cleanStringStrategyRandom(); }
-	}
-
-	@Text( position = 5 )
-	public String getText() throws FieldException  {
-		return this.text.getString();
 	}
 
 }

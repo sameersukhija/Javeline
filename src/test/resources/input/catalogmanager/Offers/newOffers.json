@@ -2,7 +2,7 @@
 	"offers": [
 		{
 			"enabled": true,
-			"name": "OfferA",
+			"name": "EtoEOffer1",
 			"definition" : {
 				"externalId" : null,
 				"description": "Offer 1",
@@ -46,7 +46,7 @@
 		},	
 		{
 			"enabled": true,
-			"name": "OfferTestA",
+			"name": "EtoEOffer2",
 			"definition" : {
 				"externalId" : null,
 				"description": null,
@@ -74,7 +74,7 @@
 				{
 					"prices" : null,
 					"conditions" : null,
-					"channels" : [ "Ch A", "Ch B" ]
+					"channels" : [ "Campaign manager"]
 				}
 			],
 			"notification" : null,
@@ -99,7 +99,7 @@
 		},
 		{
 			"enabled": true,
-			"name": "OfferTestB",
+			"name": "EtoEOffer3",
 			"definition" : {
 				"externalId" : null,
 				"description": null,
@@ -151,64 +151,6 @@
                     "GENERAL_ERROR" : "RETURN_ERROR" 
             },
 			"delete": false
-		},
-{
-			"enabled": true,
-			"name": "OfferTestC",
-			"definition" : {
-				"externalId" : null,
-				"description": null,
-				"labels" : null,
-				"voucher": "none",
-				"imageUrlOffer": null,
-				"termsAndConditions": null
-			},
-			"voucher" : "Unlimited",
-			
-			"offer" : {
-				"content" : [
-					
-					{
-						"type" : "ProductTypes",
-						"product" : "new_Product_End_to_End",
-						"productType" : "ProductTypeA",
-						"quantity" : null,
-						"offers" : null
-					}
-					
-				],
-				"relatedOffers" : null
-			},
-			"prices" : [
-				{
-					"prices" : null,
-					"conditions" : null,
-					"channels" : [ "Campaign manager", "Ch A"]
-				            
-				}
-			],
-			"notification" : null,
-			"criteria": [
-			{ 
-			
-		"type":"Subscriber.Msisdn","operator" : "=", "value" : "393886933857", "delete" : false 
-			}
-							],
-
-			"availability" : {
-				"stock" : "50",
-				"reservations" : null,
-				"provisioningStart": "2014-05-01",
-				"provisioningEnd": "2014-05-01",
-				"limitPerSubscribers" : null
-			},
-			"errorActions" : {
-                    "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
-                    "GENERAL_ERROR" : "RETURN_ERROR" 
-            },
-			"delete": false
-		}		
-				
-		
+		}
 			]
 }
