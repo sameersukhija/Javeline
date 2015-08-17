@@ -35,7 +35,7 @@ import com.lumata.e4o.gui.catalogmanager.HeadlessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OffersForm<BrowseElement> extends CatalogueManagerForm {
+public class OffersForm extends CatalogueManagerForm {
 private static final Logger logger = LoggerFactory.getLogger(OffersForm.class);
 private OffersForm offersForm;
 private JSONOffers offerCfg;
@@ -487,6 +487,7 @@ private Alert file_input;
 					
 				    
 			try {
+				
 						
 				Alert confirmLogout = selenium.selectAlert();
 						
@@ -584,11 +585,9 @@ private Alert file_input;
 				
 					
 					public OffersForm setOneTimeBrowseFile(String CSVFILE) throws FormException, JSONSException, IOException {
-												
-						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers/")+"/Auto_it_browsefile.exe/");
-						super.clickXPath("//td[text()='Import voucher list']//ancestor::td[1]//button");
-						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers/")+"/AutoIt_ImportVouchers.exe/");
-
+						System.out.println("The csv file path is" + CSVFILE);
+						WebElement el=selenium.getWrappedDriver().findElement(By.xpath("//table[@class='verticalPanelInternalMargin']/tbody//table[@class='tableList Form']/tbody/tr[1][@class='cycle1']//table[@class='importPanel']/tbody/tr/td[1]//input[@name='uploadFormElement']"));			
+						el.sendKeys(CSVFILE);
 						
 					return this;
 					}
@@ -604,17 +603,8 @@ private Alert file_input;
 					
 					
 				
-					public OffersForm<BrowseElement> UnlimitedVoucherAlertHandling() throws FormException, IOException {
-						
-						
-						Runtime.getRuntime().exec((System.getProperty( "user.dir" ) + "/src/test/resources/input/catalogmanager/Offers")+"/AutoIt_UnlimitedVoucherAlertHandling.exe");
-						
-					return this;
-							
-					}
-		
 					public OffersForm setExternalSupplier(String ES) throws FormException, JSONSException {
-					
+					 
 					super.selectByXPathAndVisibleText("//select[@id='gwt-debug-ListBox-VPOfferEdit-supplierListBox']",ES);
 							
 					return this;
@@ -701,101 +691,17 @@ private Alert file_input;
 					return false;	
 				}
 	
-	
-				public Boolean isOfferInSavedList( String offerName ) throws FormException {
-		
-					List<WebElement> offerList = getSaveOfferList();
-		
-					for( WebElement offerListE1 : offerList ) {
-			
-						if( offerListE1.getText().trim().equals( offerName ) ) {
-					
-							return true;
-			
-						}	
-					}
-		
-					return false;	
-					}
-	
-				
-	
-				public Boolean isOfferInUnlimitedSavedList( String offerName ) throws FormException {
-					
-					List<WebElement> offerList = getunlimitedvoucherSaveOfferList();
-		
-					for( WebElement offerListE1 : offerList ) {
-			
-						if( offerListE1.getText().trim().equals( offerName ) ) {
-					
-							return true;
-			
-						}	
-					}
-		
-					return false;	
-					}
-	
-				
-				public Boolean isOfferInOnetimeSavedList( String offerName ) throws FormException {
-					
-					List<WebElement> offerList = getonetimevoucherSaveOfferList();
-		
-					for( WebElement offerListE1 : offerList ) {
-			
-						if( offerListE1.getText().trim().equals( offerName ) ) {
-					
-							return true;
-			
-						}	
-					}
-		
-					return false;	
-					}
-	
-	
-				
-				
 				
 				public List<WebElement> getOfferList()  throws FormException {
-		
-					String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
-					String subPath = "//tr[contains(@class, 'activatedRow-cycle')]//td[@class='column_description']";
-		
-					List<WebElement> offerList = getListByXPath(rootPath, rootPath + subPath);
-					System.out.println(offerList);
-					return offerList;
-				}
-		
-				public List<WebElement> getSaveOfferList()  throws FormException {
-			
-					String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
-					String subPath = "//tr[contains(@class, 'savedRow-cycle2')]//td[@class='column_description']";
-					List<WebElement> offerList = getListByXPath(rootPath, rootPath + subPath);
-					System.out.println(offerList);
-					return offerList;
-				}
-			
-				
-				public List<WebElement> getunlimitedvoucherSaveOfferList()  throws FormException {
 					
 					String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
-					String subPath = "//tr[7]//td[@class='column_description']";
+					String subPath = "//tr[contains(@class, 'contentRow cycle')]//td[@class='column_description']";
+		
 					List<WebElement> offerList = getListByXPath(rootPath, rootPath + subPath);
 					System.out.println(offerList);
 					return offerList;
 				}
-			
-				public List<WebElement> getonetimevoucherSaveOfferList()  throws FormException {
-					
-					String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
-					String subPath = "//tr[8]//td[@class='column_description']";
-					List<WebElement> offerList = getListByXPath(rootPath, rootPath + subPath);
-					System.out.println(offerList);
-					return offerList;
-				}
-			
-				
+		
 				
 				public WebElement getOfferListByName( String OFFER_NAME) throws FormException {
 		
@@ -891,57 +797,7 @@ private Alert file_input;
 				    }
 				  }
 				
-				
-				
-				public void TestFileupload() throws InterruptedException, AWTException, FormException, MessagingException {
-					{
-					StringSelection ss = new StringSelection(System.getProperty( "user.dir" )+ ("\\src\\test\\resources\\input\\catalogmanager\\Offers\\VoucherCodes.csv" )); 
-					try{
-						System.setProperty("java.export", "DISPLAY=:0");
-						System.setProperty("java.awt.headless", "true");
-						except=HeadlessException.class;
-					
-					Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss,null);
-					}
-					catch(Exception ex){
-						final Exception ex1;
-					}
-					Robot r = new Robot();
-					
-					r.delay(75);
-					  r.keyPress(KeyEvent.VK_ENTER);
-					  //Releaseing the Enter Key
-					  r.keyRelease(KeyEvent.VK_ENTER);
-					  /*
-					   * Now we are going to trigger CTRL+V action so first we will press CTRL and then V and finally will
-					   * release these key.
-					   */
-					  r.keyPress(KeyEvent.VK_CONTROL);   
-					  r.keyPress(KeyEvent.VK_V);
-					  
-					  r.keyRelease(KeyEvent.VK_V);   
-					  r.keyRelease(KeyEvent.VK_CONTROL);
-					  r.mouseMove(1156,505);
-					  int mask1 = InputEvent.getMaskForButton(1);
-					  r.mousePress(mask1);
-					  r.mouseMove(1152,629);
-					  int mask2 = InputEvent.getMaskForButton(1);
-					  r.mousePress(mask2);
-					  r.delay(75);
-					  r.mouseRelease(mask2);
-					  r.delay(5000);
-					  
-					  r.mouseMove(675,448);
-					  r.mouseMove(621,746);
-					  int mask3 = InputEvent.getMaskForButton(1);
-					  r.mousePress(mask3);
-					  r.delay(75);
-					  r.mouseRelease(mask3);
-					  r.delay(1000);
-					}
-					}
-
-				
+								
 				public void TestAlert() throws InterruptedException, AWTException {
 					{
 					  headlessMessage = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -954,6 +810,10 @@ private Alert file_input;
 					  r.mouseMove(675,448);
 					  int mask1 = InputEvent.getMaskForButton(1);
 					  r.mousePress(mask1);
+					  r.keyPress(KeyEvent.VK_ENTER);
+						 
+					  r.keyRelease(KeyEvent.VK_ENTER);
+					  
 					  r.delay(75);
 					  r.mouseRelease(mask1);
 					  r.delay(1000);

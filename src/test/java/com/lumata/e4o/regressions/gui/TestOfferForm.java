@@ -129,7 +129,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			clickActivationTab().saveBtn();
 			
-			offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+			offer_status=offerForm.isOfferInList(OFFER_NAME);
 			
 			if(offer_status==true)
 			{
@@ -163,7 +163,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		String resourcePath1 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_ProductType;
 		String resourceFile1 = jsonFileName_ProductType;
 
-	    setupProductTypes = new JSONProductTypes(resourcePath1,resourceFile1);
+		setupProductTypes = new JSONProductTypes(resourcePath1,resourceFile1);
 	    
 
 		ProductTypesForm productTypesForm = new ProductTypesForm(seleniumWebDriver,setupProductTypes,TIMEOUT, ATTEMPT_TIMEOUT);
@@ -194,7 +194,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				}
 				else
 				{
-					//Assert.assertTrue(status,"The creation of Product Failed!");
+					  Assert.assertTrue(status,"The creation of Product Failed!");
 					AssertJUnit.fail("The Product Types creation Failed!");
 					Reporter.log("Creation of Product Types Failed!");
 				}
@@ -212,7 +212,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
 	seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
-
+	
 	
 	int numberOfOffer=setupOffer.getList().size();
 	for (int index = 0; index < numberOfOffer-3; index++) {
@@ -254,7 +254,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			clickActivationTab().saveBtn();
 			
-			offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+			offer_status=offerForm.isOfferInList(OFFER_NAME);
 			
 			if(offer_status==true)
 			{
@@ -329,7 +329,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			clickActivationTab().saveBtn();
 			
-			offer_status=offerForm.isOfferInSavedList(OFFER_NAME);
+			offer_status=offerForm.isOfferInList(OFFER_NAME);
 			
 			if(offer_status==true)
 			{
@@ -360,226 +360,226 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				Boolean status=false;
 				String resourcePath1 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_ProductType;
 				String resourceFile1 = jsonFileName_ProductType;
-				
+			
 		        setupProductTypes = new JSONProductTypes(resourcePath1,resourceFile1);
 				ProductTypesForm productTypesForm = new ProductTypesForm(seleniumWebDriver,setupProductTypes,TIMEOUT, ATTEMPT_TIMEOUT);
 				productTypesForm.openForm();	
-				int numbProdType = setupProductTypes.getList().size();
-				Reporter.log("numProductType -> " + numbProdType, LOG_TO_STD_OUT);
-			
-		        for (int index1 = 0; index1 < numbProdType; index1++) {
-				JsonCurrentElement current1 = setupProductTypes.getCurrentElementById(index1);
-				if ( current1.getEnabled() ){
-				
-				productTypesForm.openForm();
-				product_type_name=Format.addTimestamp("TestProductType" + "_");
-				productTypesForm.configureProductType(product_type_name,"TestProductType");
-				
-				for (JsonCharacteristicElement chElem : setupProductTypes.getCharacteristicsList()) {
-			
-					if ( chElem.getEnabled() ) {
-				
-						productTypesForm.addCharacteristicButton();
-						productTypesForm.fillCharacteristicElement(Format.addTimestamp(chElem.getName()),chElem);
-						productTypesForm.saveCharacteristic();
-					
-				
-						productTypesForm.saveProductType();
-						status=productTypesForm.isProductTypeInList(product_type_name);
-						if(status==true)
-						{
-							Assert.assertTrue(status);
-							Reporter.log("Product Types Created Succesfully!");
-						}
-						else
-						{
-							Assert.assertTrue(status,"The creation of Product Failed!");
-							AssertJUnit.fail("The Product Types creation Failed!");
-							Reporter.log("Creation of Product Types Failed!");
-				}
-			}
+  				int numbProdType = setupProductTypes.getList().size();
+  				Reporter.log("numProductType -> " + numbProdType, LOG_TO_STD_OUT);
+  			
+  		        for (int index1 = 0; index1 < numbProdType; index1++) {
+  				JsonCurrentElement current1 = setupProductTypes.getCurrentElementById(index1);
+  				if ( current1.getEnabled() ){
+  				
+  				productTypesForm.openForm();
+  				product_type_name=Format.addTimestamp("TestProductType" + "_");
+  				productTypesForm.configureProductType(product_type_name,"TestProductType");
+  				
+  				for (JsonCharacteristicElement chElem : setupProductTypes.getCharacteristicsList()) {
+  			
+  					if ( chElem.getEnabled() ) {
+  				
+  						productTypesForm.addCharacteristicButton();
+  						productTypesForm.fillCharacteristicElement(Format.addTimestamp(chElem.getName()),chElem);
+  						productTypesForm.saveCharacteristic();
+  					
+  				
+  						productTypesForm.saveProductType();
+  						status=productTypesForm.isProductTypeInList(product_type_name);
+  						if(status==true)
+  						{
+  							Assert.assertTrue(status);
+  							Reporter.log("Product Types Created Succesfully!");
+  						}
+  						else
+  						{
+  							Assert.assertTrue(status,"The creation of Product Failed!");
+  							AssertJUnit.fail("The Product Types creation Failed!");
+  							Reporter.log("Creation of Product Types Failed!");
+  				}
+  			}
+  
+  				}	
+  	
+  			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
+  				
+  			boolean offer_status;
+  			
+  			offerForm.
+  			openForm().
+  
+  			clickEditSavedOffer();
+  			offerForm.setName("XYZ");
+  			offerForm.clickOfferContentTab();
+  			offerForm.setProductType(product_type_name);
+  			offerForm.clickPriceTab();
+  			offerForm.clickEditPriceButton();
+  			offerForm.setPriceChannel("Ch B");
+  			offerForm.clickAvailabilityTab().
+  			setStockAvailability( "12" );				
+  			offerForm.clickActivationTab().saveBtn();
+  			offer_status=offerForm.isOfferInList("XYZ");
+  			Reporter.log("Editing of \"Offers Form\"."+"XYZ", LOG_TO_STD_OUT);
+  			
+  			if(offer_status==true)
+  			{
+  				AssertJUnit.assertTrue(offer_status);
+  				Reporter.log("Offer Edited Succesfully!");
+  	
+  			}
+  			else
+  			{
+  				AssertJUnit.fail("The Offer editing Failed!");
+  				Reporter.log("Editing of Offer Failed!");
+  			}
+  			
+  			}
+  		        }
+  			}
+  			
+  			@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
+  			@Test( enabled=TEST_ENABLED, priority = 5 )
+  			public void testUc28_05_activate_saved_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
+  					@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
+  			
+  			  //Activate an already saved offer
+  			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
 
-				}	
-	
-			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
+  			boolean offer_status;
+  			
+  			offerForm.clickEditSavedOffer();
+  			
+  			offerForm.clickActivationTab().ActivationBtn();
+  			
+  			offer_status=offerForm.isOfferInList("XYZ");
 				
-			boolean offer_status;
-			
-			offerForm.
-			openForm().
+			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
+				
+  			//offer_status=true;
+  			if(offer_status==true)
+  			{
+  				AssertJUnit.assertTrue(offer_status);
+  				Reporter.log("Offer Activated Succesfully!");
+  				
+  			}
+  			else
+  			{
+  				
+  				AssertJUnit.fail("The Offer activation Failed!");
+  				Reporter.log("Activation of Offer Failed!");
+  			}
+  
+  	}
+  
+  
+  		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
+  		@Test( enabled=TEST_ENABLED, priority = 6 )
+  		public void testUc28_06_addOffer_UnlimitedVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
+  				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException, IOException {
+  		
+  		String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
+  		String resourceFile2 = jsonFileName_Offer;
+  		setupOffer = new JSONOffers(resourcePath2,resourceFile2);
+  
+  		Boolean offer_status=false;
+  
+  		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+  		Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
+  
+  
+  		int numberOfOffer=setupOffer.getList().size();
+  		for (int index = 3; index < numberOfOffer; index++) {
+  			
+  		JsonCurrentElement current =setupOffer.getCurrentElementById(index);
+  		if(current.getEnabled()==true)
+  		{
+  			
+  			final String OFFER_NAME = Format.addTimestamp( setupOffer.getName() + "_" );
+  			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
 
-			clickEditSavedOffer();
-			offerForm.setName("XYZ");
-			offerForm.clickOfferContentTab();
-			offerForm.setProductType(product_type_name);
-			offerForm.clickPriceTab();
-			offerForm.clickEditPriceButton();
-			offerForm.setPriceChannel("Ch B");
-			offerForm.clickAvailabilityTab().
-			setStockAvailability( "12" );				
-			offerForm.clickActivationTab().saveBtn();
-			offer_status=offerForm.isOfferInSavedList("XYZ");
-			Reporter.log("Editing of \"Offers Form\"."+"XYZ", LOG_TO_STD_OUT);
-			
-			if(offer_status==true)
-			{
-				AssertJUnit.assertTrue(offer_status);
-				Reporter.log("Offer Edited Succesfully!");
-	
-			}
-			else
-			{
-				AssertJUnit.fail("The Offer editing Failed!");
-				Reporter.log("Editing of Offer Failed!");
-			}
-			
-			}
-		        }
-			}
-			
-			@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
-			@Test( enabled=TEST_ENABLED, priority = 5 )
-			public void testUc28_05_activate_saved_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-					@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
-			
-			//Activate an already saved offer
-			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
-			
-			boolean offer_status;
-			
-			offerForm.clickEditSavedOffer();
-			
-			offerForm.clickActivationTab().ActivationBtn();
-			
-			offer_status=true;
-			if(offer_status==true)
-			{
-				AssertJUnit.assertTrue(offer_status);
-				Reporter.log("Offer Activated Succesfully!");
-				
-			}
-			else
-			{
-				
-				AssertJUnit.fail("The Offer activation Failed!");
-				Reporter.log("Activation of Offer Failed!");
-			}
-
-	}
-
-
-		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
-		@Test( enabled=TEST_ENABLED, priority = 6 )
-		public void testUc28_06_addOffer_UnlimitedVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException, IOException {
-		
-		String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
-		String resourceFile2 = jsonFileName_Offer;
-		setupOffer = new JSONOffers(resourcePath2,resourceFile2);
-
-		Boolean offer_status=false;
-
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
-
-
-		int numberOfOffer=setupOffer.getList().size();
-		for (int index = 3; index < numberOfOffer; index++) {
-			
-		JsonCurrentElement current =setupOffer.getCurrentElementById(index);
-		if(current.getEnabled()==true)
-		{
-			
-			final String OFFER_NAME = Format.addTimestamp( setupOffer.getName() + "_" );
-			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
-		    
-				
-				offerForm.
-				openForm().
-				
-				clickAddOffer();
-				offerForm.setName( OFFER_NAME );
-				setDescription = offerForm.setDescription(setupOffer.getDescription());
-				offerForm.setTerms(setupOffer.getTermsAndConditions());
-				
-				setupOffer.getVoucher();
-				
-				offerForm.setUnlimitedVoucher(VoucherType.Unlimited.toString());
-				
-				offerForm.clickVoucherDefinitionTab();
-				
-				offerForm.setUnlimitedVoucherCode("Armjy");
-				
-				offerForm.setExternalSupplier("Mobistar");
-				
-				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-				   //get current date time with Date()
-				   Date date = new Date(ATTEMPT_TIMEOUT);
-				   System.out.println(dateFormat.format(date));
-				   Calendar cal = Calendar.getInstance();
-				   System.out.println(dateFormat.format(cal.getTime()));
-				   offerForm.setVoucherExpiryDate(dateFormat.format(cal.getTime()));
-				
-				offerForm.clickPriceTab();
-			
-			List<JSONPricesElement> prices = setupOffer.getOffersPrices();
-			
-			if ( prices != null && prices.size() != 0 ) {
-
-				for (JSONPricesElement price : prices) {
-					
-					
-
-					for (String channel : price.getChannels()) {
-						offerForm.clickAddPriceButton();
-						offerForm.setPriceChannel(channel);
-					}
-				}
-			}
-			
-			
-				offerForm.clickNotificationTab().addNotitification().
-			
-				clickAvailabilityTab().setStockAvailability( setupOffer.getStock() );				
-				
-				offerForm.setOfferstartdate(dateFormat.format(cal.getTime()));
-				
-				offerForm.setOfferenddate(dateFormat.format(cal.getTime()));
-				
-				offerForm.clickActivationTab().saveBtn().closeAlertAndGetItsText();
-				
-				offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
-				
-				offer_status=offerForm.isOfferInUnlimitedSavedList(OFFER_NAME);
-				
-				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
-				
-				//offerForm.UnlimitedVoucherAlertHandling();
-				
-				offer_status=true;
-				
-				if(offer_status==true)
-				{
-					Assert.assertTrue(offer_status);
-					Reporter.log("Offer Created Succesfully!");
-					
-				}
-				else
-				{
-					
-					AssertJUnit.fail("The Offer creation Failed!");
-					Reporter.log("Creation of Offer Failed!");
-				}
-		}
-
-		}
-
-	}
+  				
+  				offerForm.
+  				openForm().
+  				
+  				clickAddOffer();
+  				offerForm.setName( OFFER_NAME );
+  				setDescription = offerForm.setDescription(setupOffer.getDescription());
+  				offerForm.setTerms(setupOffer.getTermsAndConditions());
+  				
+  				setupOffer.getVoucher();
+  				
+  				offerForm.setUnlimitedVoucher(VoucherType.Unlimited.toString());
+  				
+  				offerForm.clickVoucherDefinitionTab();
+  				
+  				offerForm.setUnlimitedVoucherCode("Armjy");
+  				
+  				offerForm.setExternalSupplier("Mobistar");
+  				
+  				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+  				     //get current date time with Date()
+  				   Date date = new Date(ATTEMPT_TIMEOUT);
+  				   System.out.println(dateFormat.format(date));
+  				   Calendar cal = Calendar.getInstance();
+  				   System.out.println(dateFormat.format(cal.getTime()));
+  				   offerForm.setVoucherExpiryDate(dateFormat.format(cal.getTime()));
+  				
+  				offerForm.clickPriceTab();
+  			
+  			List<JSONPricesElement> prices = setupOffer.getOffersPrices();
+  			
+  			if ( prices != null && prices.size() != 0 ) {
+  
+  				for (JSONPricesElement price : prices) {
+  					
+  					
+  
+  					for (String channel : price.getChannels()) {
+  						offerForm.clickAddPriceButton();
+  						offerForm.setPriceChannel(channel);
+  					}
+  				}
+  			}
+  			
+  			
+  				offerForm.clickNotificationTab().addNotitification().
+  			
+  				clickAvailabilityTab().setStockAvailability( setupOffer.getStock() );				
+  				
+  				offerForm.setOfferstartdate(dateFormat.format(cal.getTime()));
+  				
+  				offerForm.setOfferenddate(dateFormat.format(cal.getTime()));
+  				
+  				offerForm.clickActivationTab().saveBtn().closeAlertAndGetItsText();
+  				
+  				offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+  				
+  				offer_status=offerForm.isOfferInList(OFFER_NAME);
+  				
+  				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
+  				
+  				if(offer_status==true)
+  				{
+  						
+  					Assert.assertTrue(offer_status);
+  					Reporter.log("Offer Created Succesfully!");
+  					
+  				}
+  				else
+  				{
+  					
+  					AssertJUnit.fail("The Offer creation Failed!");
+  					Reporter.log("Creation of Offer Failed!");
+  				}
+  		}
+  
+  		}
+  
+  			}
 	
 		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
 		@Test( enabled=TEST_ENABLED, priority = 7 )
 		public void testUc28_07_addOffer_OneTimeVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-
 				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException, IOException, InterruptedException, AWTException, MessagingException {
 			String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
 			String resourceFile2 = jsonFileName_Offer;
@@ -616,18 +616,14 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			offerForm.clickVoucherDefinitionTab();
 			
-			offerForm.setOneTimeBrowseFile("");
+			offerForm.setOneTimeBrowseFile(DEFAULT_RESOURCE_FOLDER_ROOT+ "input/catalogmanager/Offers/VoucherCodes.csv");
 			
-
-			offerForm.TestFileupload();
+			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
 			
-			//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
-			
-
 			offerForm.setExternalSupplier("Mobistar");
 			
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			   //get current date time with Date()
+			    //get current date time with Date()
 			   Date date = new Date(ATTEMPT_TIMEOUT);
 			   System.out.println(dateFormat.format(date));
 			   Calendar cal = Calendar.getInstance();
@@ -635,15 +631,17 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			   
 			   offerForm.setVoucherExpiryDate(dateFormat.format(cal.getTime()));
 			   
-			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(10000, TimeUnit.SECONDS);
+			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
 				
-			   offerForm.clickImportVoucherCodes();
+			   offerForm.clickImportVoucherCodes()
 				
+			   .handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+				
+			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+			  
+			   offerForm.TestAlert();
 			   offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 				
-			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-				
-			   offerForm.TestAlert();
 			   
 			   offerForm.clickPriceTab();
 				
@@ -678,29 +676,21 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			offerForm.clickActivationTab().saveBtn().closeAlertAndGetItsText();
 			
-			offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
-			
-			offer_status=offerForm.isOfferInOnetimeSavedList(OFFER_NAME);
-			
 			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
 			
 			offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
-			
-			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
-			
-			offer_status=true;
-			
-			offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+			offer_status=offerForm.isOfferInList(OFFER_NAME);
 			
 			if(offer_status==true)
-			{
 				
+			{
 				Assert.assertTrue(offer_status);
 				Reporter.log("Offer Created Succesfully!");
 				
 			}
 			else
 			{
+				
 				
 				AssertJUnit.fail("The Offer creation Failed!");
 				Reporter.log("Creation of Offer Failed!");
@@ -713,7 +703,3 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
 		
 					}
-
-
-
-
