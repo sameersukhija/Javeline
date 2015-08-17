@@ -4,10 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONException;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.WebElement;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.validating.Format;
@@ -20,12 +22,18 @@ import com.lumata.e4o.gui.common.INotificationForm;
 import com.lumata.e4o.gui.common.NotificationForm;
 import com.lumata.e4o.gui.common.NotificationForm.NotificationChannel;
 import com.lumata.e4o.gui.common.NotificationForm.NotificationTongue;
+import com.lumata.e4o.json.gui.campaignmanager.CampaignCfg;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCampaign_;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaigns;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCriteria;
+import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
+
 
 public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWizard, INotificationForm {
 
 	private JSONCampaigns campaignCfg;
 	private NotificationForm notificationForm;
+	public JSONCampaigns campaign;
 	
 	private enum WizardTab {
 		Definition, Scheduling, Dialogue, Target, Limits, Activation
@@ -343,6 +351,19 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 		
 	}
 
+	
+	public CampaignsForm configureCampaigns(String name, String description,String type, Boolean boolean1) throws FormException, JSONException {
+		
+		searchByName(name);
+		if(null!=description)
+			setCampaignDescription(description);
+		if(null!=type)
+			setCampaignType(type);
+				return this;
+
+	}
+
+	
 	public CampaignsForm setCampaignExecutionModeModel() throws FormException {
 		
 		setCampaignExecutionMode( ExecutionMode.Model );
@@ -841,6 +862,7 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 		
 	}
 	
+	
 	public CampaignsForm setCampaignSchedulingMultipleRecurrencePatternDayOfWeek( String dayOfWeek ) throws FormException {
 		
 		String campaignSchedulingMultipleRecurrencePatternDaysOfWeekXPath = "//td[@class='headers' and contains( text(), 'Recurrence pattern' )]/parent::tr/parent::tbody//table[@class='recurrenceWidget']//label[starts-with(text(), '" + dayOfWeek + "')]/parent::span/input";
@@ -854,6 +876,8 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 		return this;
 		
 	}
+	
+	
 	
 	public CampaignsForm cleanAllCampaignSchedulingMultipleRecurrencePatternDayOfWeek() throws FormException {
 		
@@ -1045,6 +1069,21 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 		
 	}
 	
+	public CampaignsForm setCampaignSchedulingMultipleExecutionPeriodType(String value) throws FormException {
+		
+		String CampaignSchedulingMultipleExecutionPeriodType="//table[@class='tableList Form marginTop20px']/tbody//tr[5]/td[2]/table/tbody/tr/td/select";
+		selectByXPathAndVisibleText(CampaignSchedulingMultipleExecutionPeriodType, value);		
+	
+		return this;
+		
+	}
+	
+	public String getsetCampaignSchedulingMultipleExecutionPeriodType() throws FormException
+	{
+		return super.getValueByXPath("//table[@class='tableList Form marginTop20px']/tbody//tr[5]/td[2]/table/tbody/tr/td/select");
+	}
+
+	
 	public CampaignsForm setCampaignSchedulingMultipleExecutionPeriod( String executionPeriod ) throws FormException {
 		
 		String campaignSchedulingMultipleExecutionPeriodXPath = "//td[@class='headers' and contains( text(), 'Execution Period' )]/parent::tr//input";
@@ -1054,6 +1093,8 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 		return this;
 		
 	}
+	
+	
 	
 	public CampaignsForm setCampaignSchedulingMultipleStartDate( Calendar startDate ) throws FormException {
 		
@@ -1465,6 +1506,37 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 		
 	}
 	
+	public Boolean confirmCampaignAlert(Boolean accept) throws FormException {
+		
+		Alert popupAlert = null;
+		Boolean pressed = null;
+		
+		
+		try {
+		
+			popupAlert = selenium.selectAlert();
+			String popupalertText = popupAlert.getText();
+			System.out.println(popupalertText);
+			if ( popupAlert != null ) { 
+				
+				if ( accept )
+					popupAlert.accept();
+				else 
+					popupAlert.dismiss();
+				
+				pressed = Boolean.TRUE; 
+			}
+			
+		} catch (NoAlertPresentException e) {
+			
+			// nothing to do
+			pressed = Boolean.TRUE;
+		}
+		
+		return pressed;
+	}
+	
+	
 	public CampaignsForm openTargetTab() throws FormException {
 		
 		clickXPath( getWizardTabXPath( WizardTab.Target ) );
@@ -1679,6 +1751,61 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 		
 	}
 	
+	
+	public Boolean isCampaignInActivatedList( String campaignName ) throws FormException {
+		
+		List<WebElement> campaignList = getCampaignActivationList(campaignName);
+
+		for( WebElement campaignListE1 : campaignList ) {
+
+			if( campaignListE1.getText().trim().equals( campaignName ) ) {
+		
+				return true;
+
+			}	
+		}
+
+		return false;	
+		}
+
+	
+	public Boolean isCampaignNameInList(String strCampaignName)
+			throws FormException {
+
+		List<WebElement> campaignList = getCampaignList();
+
+		for (WebElement campaignEl : campaignList) {
+
+			if (campaignEl.getText().trim().equals(strCampaignName)) {
+
+				return true;
+
+			}
+
+		}
+
+		return false;
+
+	}
+	
+	public List<WebElement> getCampaignActivationList(String CAMPAIGN_NAME)  throws FormException {
+		
+		String rootPath = "//div[text()='"+CAMPAIGN_NAME+"']//ancestor::tr[1]";
+		String subPath = "/td[3]//div[@class='gwt-Label showPopupLink']";
+		List<WebElement> campaignList = getListByXPath(rootPath, rootPath + subPath);
+		System.out.println(campaignList);
+		return campaignList;
+	}
+
+	public List<WebElement> getCampaignList()  throws FormException {
+		
+		List<WebElement> campaignList = super.getListByXPath(
+				"//td[3]",
+				"//div[@class='gwt-Label showPopupLink']");
+
+		return campaignList;
+	}
+
 	public CampaignsForm configureGWTCalendarByXPath( String xpath, Calendar date ) throws FormException, JSONException {
 		
 		GWTCalendarForm.
@@ -1686,6 +1813,74 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 			openByXPath( xpath ).
 			setDate( date );
 		
+		return this;
+		
+	}
+	
+	public CampaignsForm setCriteriaCampaign() throws FormException {
+		
+	super.clickXPath("//table[@class='tableList rulesTable marginTop10px']/tbody/tr[@class='contentRow cycle1 ruleNotApplied']//div[@class='criterionContainer']/table/tbody/tr/td[3]//button[@id='gwt-debug-BtnCampaignModelCreationECAdd']");
+		
+	return this;
+		
+	}
+	
+	public String getCriteriaCampaign() throws FormException {
+		
+		String addcriteria = "//table[@class='tableList rulesTable marginTop10px']/tbody/tr[@class='contentRow cycle1 ruleNotApplied']//div[@class='criterionContainer']/table/tbody/tr/td[3]//button[@id='gwt-debug-BtnCampaignModelCreationECAdd']";
+		
+		return getValueByXPath( addcriteria );
+		
+	}
+	
+	public CampaignsForm campaignEditButton(String campName) throws FormException{
+		
+		
+		super.clickXPath("//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-edit']");
+		
+		return this;
+	}	
+
+	
+	public CampaignsForm campaignCopyButton(String campName) throws FormException{
+		
+		
+		super.clickXPath("//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-copy']");
+		
+		return this;
+	}
+	
+	
+	public CampaignsForm campaignStopButton(String campName) throws FormException{
+		
+		
+		super.clickXPath("//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-stop']");
+		
+		return this;
+	}	
+
+	public CampaignsForm campaignDeleteButton(String campName) throws FormException{
+		
+		
+		super.clickXPath("//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-delete']");
+		
+		return this;
+	}	
+
+	public CampaignsForm configureCriteria(String subscriber, String SubNO) throws JSONException, FormException {
+		
+		String criteriaXPathRow = "//table[@class='tableList rulesTable marginTop10px']//div[@class='criterionContainer']"; 
+		String criteriaXPathRow1 = criteriaXPathRow + "//table/tbody/tr[1]";
+		String criteriaXPathRowAValue = criteriaXPathRow1 + "//*[@id='gwt-debug-TextCampaignModelCreationECValue']";
+		String criteriaXPathRowAType = criteriaXPathRow1 + "//*[@id='gwt-debug-ListCampaignModelCreationECType']";
+		
+		/** configure criteria */
+		
+		clickXPath( criteriaXPathRowAType );
+		selectDropDownListItem(subscriber);
+				
+		typeByXPath( criteriaXPathRowAValue, SubNO); 
+				
 		return this;
 		
 	}
@@ -1706,6 +1901,20 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 		
 	}
 
-	
+	public String closeAlertAndGetItsText() {
+	    boolean acceptNextAlert = true;
+		try {
+	      Alert alert = selenium.selectAlert();
+	      String alertText = alert.getText();
+	      if (acceptNextAlert) {
+	        alert.accept();
+	      } else {
+	        alert.dismiss();
+	      }
+	      return alertText;
+	    } finally {
+	      acceptNextAlert = true;
+	    }
+	  }
 	
 }

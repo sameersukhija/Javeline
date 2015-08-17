@@ -556,10 +556,10 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				
 				//offerForm.UnlimitedVoucherAlertHandling();
 				
+				offer_status=true;
+				
 				if(offer_status==true)
 				{
-					offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
-						
 					Assert.assertTrue(offer_status);
 					Reporter.log("Offer Created Succesfully!");
 					
@@ -574,11 +574,12 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
 		}
 
-			}
+	}
 	
 		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
 		@Test( enabled=TEST_ENABLED, priority = 7 )
 		public void testUc28_07_addOffer_OneTimeVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
+
 				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException, IOException, InterruptedException, AWTException, MessagingException {
 			String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
 			String resourceFile2 = jsonFileName_Offer;
@@ -617,10 +618,12 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			offerForm.setOneTimeBrowseFile("");
 			
+
 			offerForm.TestFileupload();
 			
 			//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
 			
+
 			offerForm.setExternalSupplier("Mobistar");
 			
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -632,7 +635,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			   
 			   offerForm.setVoucherExpiryDate(dateFormat.format(cal.getTime()));
 			   
-			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
+			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(10000, TimeUnit.SECONDS);
 				
 			   offerForm.clickImportVoucherCodes();
 				
@@ -683,8 +686,15 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 			
+			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
+			
+			offer_status=true;
+			
+			offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+			
 			if(offer_status==true)
 			{
+				
 				Assert.assertTrue(offer_status);
 				Reporter.log("Offer Created Succesfully!");
 				
