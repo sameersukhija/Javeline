@@ -41,7 +41,6 @@ import com.lumata.e4o.testing.common.TCOwner;
 import com.lumata.e4o.testing.common.TCOwners;
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
-@Test
 @TCOwners(
 	@TCOwner( name="Sameer Sukhija", email="sameer.sukhija@lumatagroup.com" )
 )
