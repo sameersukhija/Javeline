@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -184,10 +186,12 @@ public class BonusForm extends AdministrationForm {
 	}
 
 	public List<WebElement> getBonusNameList() throws FormException {
-
+		String rootXpath="//div[text()='Bonus']//ancestor::table[@class='tableList']//tr[contains(@class,'contentRow cycle')]";
+		String subPath="//td[contains(@class,'column_description')][1]";
+		//WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 20);
+		//wait.until(ExpectedConditions.(By.xpath(rootXpath)));
 		List<WebElement> bonusList = super.getListByXPath(
-				"//tr[contains(@class,'contentRow cycle')]",
-				"//td[contains(@class,'column_description')][1]");
+				rootXpath,subPath);
 
 		return bonusList;
 
