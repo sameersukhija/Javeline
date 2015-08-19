@@ -60,7 +60,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 	
 	@Test( enabled=TEST_ENABLED, priority = 1 )
 	public void testUc34_01CreateCampaign_ExistingModel() throws FormException {
-			
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Calendar startDate = Calendar.getInstance();
 		
 		Calendar endDate = Calendar.getInstance();
@@ -127,7 +127,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 					
 	@Test( enabled=TEST_ENABLED, priority = 2 )
 	public void testUc34_02CreateCampaign_MulSch_ExistingModel() throws FormException{
-			
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Calendar startDate = Calendar.getInstance();
 		
 		Calendar endDate = Calendar.getInstance();
@@ -218,7 +218,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 	
 	@Test( enabled=TEST_ENABLED, priority = 3 )
 	public void testUc34_03CampaignNotificationSimpleScheduling() throws FormException {
-		
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Calendar startDate = Calendar.getInstance();
 		
 		Calendar endDate = Calendar.getInstance();
@@ -295,6 +295,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 	
 	@Test( enabled=TEST_ENABLED, priority = 4 )
 	public void testUc34_04_EditcampaignForm() throws FormException {
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Boolean status=false;
 		campaignsForm.
 		openForm()
@@ -335,7 +336,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 
 	@Test( enabled=TEST_ENABLED, priority = 5 )
 	public void testUc34_05_CopycampaignForm() throws FormException {
-		
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Calendar startDate = Calendar.getInstance();
 		
 		Calendar endDate = Calendar.getInstance();
@@ -398,6 +399,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 
 	@Test( enabled=TEST_ENABLED, priority = 6 )
 	public void testUc34_06_DeletecampaignForm() throws FormException {
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Boolean status=false;
 		campaignsForm.
 		openForm()
