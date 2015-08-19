@@ -118,7 +118,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		Boolean campaignModel_created=false;
 		Boolean offer_created=false;
 		Boolean campaign_created=false;
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 		//create Subscriber
 		Boolean subscriber_exists = DAOSubscribers.getInstance( mysqlMaster ).isSubscriber(9890234567L);
 		if(!subscriber_exists)

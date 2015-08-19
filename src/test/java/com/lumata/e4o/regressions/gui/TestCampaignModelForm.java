@@ -224,7 +224,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	@Test( enabled=TEST_ENABLED, priority = 4 )
 	public void testUc33_04CampaignModelDelete() throws FormException {
 		Boolean status=false;
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
 		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
@@ -257,7 +257,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	@Test( enabled=TEST_ENABLED, priority = 5 )
 	public void testUc33_05CopyCampaignModel() throws FormException {
 		Boolean status=false;
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
 	
 		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );

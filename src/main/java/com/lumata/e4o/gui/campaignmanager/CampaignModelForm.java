@@ -13,6 +13,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -61,7 +63,10 @@ public CampaignModelForm( SeleniumWebDriver selenium,long timeout, long interval
 	
 	public CampaignModelForm open() throws FormException {
 		
-		super.open().clickId( "gwt-debug-InputCMCampaignModel" );
+		super.open();
+		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 30);
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("gwt-debug-InputCMCampaignModel")));
+		this.clickId( "gwt-debug-InputCMCampaignModel" );
 		
 		return this;
 		

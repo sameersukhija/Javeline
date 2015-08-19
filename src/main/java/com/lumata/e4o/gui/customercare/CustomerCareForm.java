@@ -3,8 +3,9 @@ package com.lumata.e4o.gui.customercare;
 
 import org.omg.CORBA.TIMEOUT;
 import org.openqa.selenium.By;
-
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
@@ -85,6 +86,8 @@ public class CustomerCareForm extends Form {
 
 			setPrefix(prefix);
 		}
+		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 30);
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("gwt-debug-InputCCSubscriberID")));
 		setSubscriberMsisdn(msisdn).clickSearchButton();
 
 		return this;

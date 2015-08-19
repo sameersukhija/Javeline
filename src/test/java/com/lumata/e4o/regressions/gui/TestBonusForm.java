@@ -240,7 +240,7 @@ public class TestBonusForm extends ParentTestCase {
 					Reporter.log("Failed to delete internal bonus",LOG_TO_STD_OUT);
 				}
 
-			if (bonusForm.isBonusNameInList(BONUS_NAME_EXTERNAL)) {
+			//if (bonusForm.isBonusNameInList(BONUS_NAME_EXTERNAL)) {
 				bStatus=bonusForm.clickDeleteButton(BONUS_NAME_EXTERNAL);
 				if (bStatus==true) {
 					Assert.assertTrue(true,
@@ -253,7 +253,7 @@ public class TestBonusForm extends ParentTestCase {
 					Assert.fail("Failed to delete bonus");
 					Reporter.log("Failed to delete bonus",LOG_TO_STD_OUT);
 				}
-			}
+			//}
 		}
 	}
 }

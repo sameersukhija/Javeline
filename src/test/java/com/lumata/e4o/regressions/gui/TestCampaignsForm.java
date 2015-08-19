@@ -9,6 +9,9 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.AssertJUnit;
 import org.testng.Reporter;
@@ -106,8 +109,9 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 			confirmCampaignActivation();	
 			
 			/** Verify activated Campaign exists or not **/
-			
-			Boolean campaign_status = campaignsForm.isCampaignInActivatedList("CAMPAIGN_09");
+			WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 30);
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Campaign List']//ancestor::table[@class='tableList']")));
+			Boolean campaign_status = campaignsForm.isCampaignNameInList("CAMPAIGN_09");
 			Reporter.log("Creation of \"Campaign Form\".", LOG_TO_STD_OUT);
 			
 			if(campaign_status==true)
@@ -197,7 +201,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 			
 			/** Verify activated Campaign exists or not **/
 			
-			Boolean campaign_status = campaignsForm.isCampaignInActivatedList("CAMPAIGN_14");
+			Boolean campaign_status = campaignsForm.isCampaignNameInList("CAMPAIGN_14");
 			Reporter.log("Creation of \"Campaign Form\".", LOG_TO_STD_OUT);
 			
 			if(campaign_status==true)
@@ -273,7 +277,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 			confirmCampaignActivation();	
 		/** Verify activated Campaign exists or not **/
 		
-		Boolean campaign_status = campaignsForm.isCampaignInActivatedList("CAMPAIGN_15 (Notification)");
+		Boolean campaign_status = campaignsForm.isCampaignNameInList("CAMPAIGN_15 (Notification)");
 		Reporter.log("Creation of \"Campaign Form\".", LOG_TO_STD_OUT);
 		
 		if(campaign_status==true)
@@ -316,7 +320,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 		openActivationTab();
 		campaignsForm.saveBtn().
 		confirmCampaignAlert(status);		
-		status = campaignsForm.isCampaignInActivatedList("CAMPAIGN_14 (Notification)");
+		status = campaignsForm.isCampaignNameInList("CAMPAIGN_14 (Notification)");
 		Reporter.log("Creation of \"Campaign Form\".", LOG_TO_STD_OUT);
 		
 		if(status==true)
@@ -380,7 +384,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 		
 		/** Verify activated Campaign exists or not **/
 		
-		Boolean campaign_status = campaignsForm.isCampaignInActivatedList("CAMPAIGN_18");
+		Boolean campaign_status = campaignsForm.isCampaignNameInList("CAMPAIGN_18");
 		Reporter.log("Copy of \"Campaign Form\".", LOG_TO_STD_OUT);
 		
 		if(campaign_status==true)
