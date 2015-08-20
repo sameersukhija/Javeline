@@ -676,7 +676,7 @@ return this;
 		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow' ) and position() = " + eventRow + " ]//td[@class='column_commodity']"; 
 		String actionXPathRow = eventXPathRow + "//table[@class='commodityContainer']/tbody/tr[" + actionRow + "]";
 		String actionXPathRowAType = actionXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationEAType']";
-		//String actionXPathRowAUnit = actionXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']";			
+		String actionXPathRowAUnit = actionXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']";			
 		String actionXPathRowAAutoAllocation = actionXPathRow + "//*[contains(text(), '::AUTO_ALLOCATE::') ]/parent::select";
 		
 		
@@ -684,15 +684,15 @@ return this;
 		clickXPath( actionXPathRowAType ).
 		selectDropDownListItem( action.getName() );
 		
-		//if( null != action.getOption() ) { 
+		if( null != action.getOption() ) { 
 			
-			//if( action.getName().matches( ruleActionPattern ) ) {
+			if( action.getName().matches( ruleActionPattern ) ) {
 				
-				//selectByXPathAndVisibleText( actionXPathRowAAutoAllocation.replace( "::AUTO_ALLOCATE::" , action.getOption() ), action.getOption() );
+				selectByXPathAndVisibleText( actionXPathRowAAutoAllocation.replace( "::AUTO_ALLOCATE::" , action.getOption() ), action.getOption() );
 				
-			//} else { selectByXPathAndVisibleText( actionXPathRowAUnit, action.getOption() ); }
+			} else { selectByXPathAndVisibleText( actionXPathRowAUnit, action.getOption() ); }
 		
-		//}
+		}
 				
 		return this;
 		
@@ -705,21 +705,21 @@ return this;
 		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow' ) and position() = " + eventRow + " ]//td[@class='column_commodity']"; 
 		String actionXPathRow = eventXPathRow + "//table[@class='commodityContainer']/tbody/tr[" + actionRow + "]";
 		String actionXPathRowAType = actionXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationEAType']";
-		//String actionXPathRowAUnit = actionXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']";			
+		String actionXPathRowAUnit = actionXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']";			
 		String actionXPathRowAAutoAllocation = actionXPathRow + "//*[contains(text(), '::AUTO_ALLOCATE::') ]/parent::select";
 		/** configure action */
 		clickXPath( actionXPathRowAType ).
 		selectDropDownListItem( action.getName1() );
 		
-		//if( null != action.getOption1() ) { 
+		if( null != action.getOption1() ) { 
 			
-			//if( action.getName1().matches( ruleActionPattern ) ) {
+			if( action.getName1().matches( ruleActionPattern ) ) {
 				
-				//selectByXPathAndVisibleText( actionXPathRowAAutoAllocation.replace( "::AUTO_ALLOCATE::" , action.getOption1() ), action.getOption1() );
+				selectByXPathAndVisibleText( actionXPathRowAAutoAllocation.replace( "::AUTO_ALLOCATE::" , action.getOption1() ), action.getOption1() );
 				
-			//} else { selectByXPathAndVisibleText( actionXPathRowAUnit, action.getOption1() ); }
+			} else { selectByXPathAndVisibleText( actionXPathRowAUnit, action.getOption1() ); }
 		
-		//}
+		}
 				
 		return this;
 		
@@ -735,15 +735,15 @@ return this;
 		clickXPath( actionXPathRowAType ).
 		selectDropDownListItem( action.getName2() );
 		
-		//if( null != action.getOption2() ) { 
+		if( null != action.getOption2() ) { 
 			
-			//if( action.getName2().matches( ruleActionPattern ) ) {
+			if( action.getName2().matches( ruleActionPattern ) ) {
 				
-				//selectByXPathAndVisibleText( actionXPathRowAUnit.replace( "::AUTO_ALLOCATE::" , action.getOption2() ), action.getOption2() );
+				selectByXPathAndVisibleText( actionXPathRowAUnit.replace( "::AUTO_ALLOCATE::" , action.getOption2() ), action.getOption2() );
 				
-			//} else { selectByXPathAndVisibleText( actionXPathRowAUnit, action.getOption2() ); }
+			} else { selectByXPathAndVisibleText( actionXPathRowAUnit, action.getOption2() ); }
 		
-		//}
+		}
 				
 		return this;
 		

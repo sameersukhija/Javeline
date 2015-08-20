@@ -1734,13 +1734,12 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 	public CampaignsForm confirmCampaignActivation() {
 		
 		try {
-			
+
 			Alert confirmLogout = selenium.selectAlert();
 			
 			while( null != confirmLogout ) {
 			
 				confirmLogout.accept(); 
-				
 				confirmLogout = selenium.selectAlert();
 				
 			}
