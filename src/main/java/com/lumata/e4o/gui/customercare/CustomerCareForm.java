@@ -68,6 +68,8 @@ public class CustomerCareForm extends Form {
 	}
 
 	public CustomerCareForm clickClearButton() throws FormException{
+		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 30);
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("gwt-debug-BtnCCClean")));
 		super.clickId( "gwt-debug-BtnCCClean" );
 		return this;
 	}

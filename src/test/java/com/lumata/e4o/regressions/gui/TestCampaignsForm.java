@@ -60,7 +60,6 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
 	}
-	
 	@Test( enabled=TEST_ENABLED, priority = 1 )
 	public void testUc34_01CreateCampaign_ExistingModel() throws FormException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -83,18 +82,18 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 			/** configure definition tab **/
 			openDefinitionTab().
 			setCampaignModel("CMS_09").
-			setCampaignName( "CAMPAIGN_09" ).
+			setCampaignName( "CAMPAIGN_0910" ).
 			setCampaignDescription( "CAMPAIGN_09" + " description" ).
 			setByPassMediaType( false );
 			/** configure single scheduling tab **/
 			campaignsForm.openSchedulingTab();
 			campaignsForm.setCampaignSingleSchedulingType();		
-			campaignsForm.setCampaignSingleSchedulingExecutionStart( startDate );
+			//campaignsForm.setCampaignSingleSchedulingExecutionStart( startDate );
 			campaignsForm.setCampaignSingleSchedulingExecutionEndRelative( 101 );
 			
-			campaignsForm.setCampaignSingleSchedulingProvisioningStartDate( startDate );
+			//campaignsForm.setCampaignSingleSchedulingProvisioningStartDate( startDate );
 			
-			campaignsForm.setCampaignSingleSchedulingProvisioningEndDate( provEndDate );
+			//campaignsForm.setCampaignSingleSchedulingProvisioningEndDate( provEndDate );
 			/** configure dialog tab **/
 			campaignsForm.openDialogTab().
 			setCampaignDialogueEmailAddress( "" ).
@@ -105,13 +104,18 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 			saveDialogueNotification();
 			/** configure activation tab **/
 			campaignsForm.openActivationTab().
-			activateBtn().
-			confirmCampaignActivation();	
-			
+			activateBtn();
+			//confirmCampaignActivation();
+			for (int i=0; i<=3;i++)
+			{
+				WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 40);
+				wait.until(ExpectedConditions.alertIsPresent());
+				campaignsForm.handleJavascriptAlertAcceptDismiss(true);
+			}
 			/** Verify activated Campaign exists or not **/
 			WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 30);
 			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Campaign List']//ancestor::table[@class='tableList']")));
-			Boolean campaign_status = campaignsForm.isCampaignNameInList("CAMPAIGN_09");
+			Boolean campaign_status = campaignsForm.isCampaignNameInList("CAMPAIGN_0910");
 			Reporter.log("Creation of \"Campaign Form\".", LOG_TO_STD_OUT);
 			
 			if(campaign_status==true)
@@ -251,10 +255,10 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 			/** configure single scheduling tab **/
 			openSchedulingTab().
 			setCampaignSingleSchedulingType().			
-			setCampaignSingleSchedulingExecutionStart( startDate ).
-			setCampaignSingleSchedulingExecutionEndAbsolute( endDate ).
-			setCampaignSingleSchedulingProvisioningStartDate( startDate ).
-			setCampaignSingleSchedulingProvisioningEndDate( provEndDate ).
+			//setCampaignSingleSchedulingExecutionStart( startDate ).
+			//setCampaignSingleSchedulingExecutionEndAbsolute( endDate ).
+			//setCampaignSingleSchedulingProvisioningStartDate( startDate ).
+			//setCampaignSingleSchedulingProvisioningEndDate( provEndDate ).
 			/** configure dialog tab **/
 			openDialogTab().
 			setCampaignDialogueEmailAddress( "" ).
@@ -363,12 +367,12 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 		/** configure single scheduling tab **/
 		campaignsForm.openSchedulingTab();
 		campaignsForm.setCampaignSingleSchedulingType();		
-		campaignsForm.setCampaignSingleSchedulingExecutionStart( startDate );
+		//campaignsForm.setCampaignSingleSchedulingExecutionStart( startDate );
 		campaignsForm.setCampaignSingleSchedulingExecutionEndRelative( 101 );
 		
-		campaignsForm.setCampaignSingleSchedulingProvisioningStartDate( startDate );
+		//campaignsForm.setCampaignSingleSchedulingProvisioningStartDate( startDate );
 		
-		campaignsForm.setCampaignSingleSchedulingProvisioningEndDate( provEndDate );
+		//campaignsForm.setCampaignSingleSchedulingProvisioningEndDate( provEndDate );
 		/** configure dialog tab **/
 		campaignsForm.openDialogTab().
 		setCampaignDialogueEmailAddress( "" ).
