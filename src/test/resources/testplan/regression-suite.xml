@@ -106,15 +106,16 @@
   </test>
   
   <test name="Product Creation Testcase">
-	<parameter name="supplier_jsonFilePath" value="input/catalogmanager/suppliers"/>
-	<parameter name="supplier_jsonFileName" value="supplierName"/>
 	<parameter name="productType_jsonFilePath" value="input/catalogmanager/productTypes"/>
 	<parameter name="productType_jsonFileName" value="newProductType"/>
+	<parameter name="product_jsonFilePath" value="input/catalogmanager/products"/>
+	<parameter name="product_jsonFileName" value="productsTemplate"/>
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestProductsForm">
       </class>
     </classes>	
   </test>
+  
   <test name="Offer Form TestCases">
 	<parameter name="jsonFilePath_Offer" value="input/catalogmanager/Offers"/>
 	<parameter name="jsonFileName_Offer" value="oneOfferTest"/>
