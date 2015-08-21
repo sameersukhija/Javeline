@@ -475,12 +475,12 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 		Mysql mysql = (Mysql)parameters.getParameterValue( GeneratorParameterType.mysql );
 		
 		for( int rp = 1; rp <= repeat; rp++ ) {
-		
+			
 			Long msisdn = Long.valueOf( fieldMsisdn.getMsisdn() );
 			
 			ArrayList<Token> tokens;
 			
-			if( null == event_date ) { tokens = DAOToken.getInstance( mysql ).getAvailableActiveTokens( msisdn ); }
+			if( event_date == null ) { tokens = DAOToken.getInstance( mysql ).getAvailableActiveTokens( msisdn ); }
 			else { tokens = DAOToken.getInstance( mysql ).getAvailableActiveTokensByEventDate( msisdn, event_date ); }
 			
 			int allocation_calls = 0;
@@ -581,6 +581,89 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 					logger.error( Log.FAILED.createMessage( e.getMessage() ) );
 				
 				}
+				
+			}
+		
+		}
+		
+	}
+	
+	public void xmlrpcAllTokenAccepting() throws GeneratorException, NumberFormatException, FieldException {
+		
+		xmlrpcAllTokenAccepting( null );
+		
+	}
+	
+	public void xmlrpcAllTokenAccepting( Calendar event_date ) throws GeneratorException, NumberFormatException, FieldException {
+		
+		actionType = SubscriberAction.tokenAllocation;
+		
+		configureParameters();
+		
+		Server server = (Server)parameters.getParameterValue( GeneratorParameterType.server );
+		
+		User user = (User)parameters.getParameterValue( GeneratorParameterType.user );
+		
+		Mysql mysql = (Mysql)parameters.getParameterValue( GeneratorParameterType.mysql );
+		
+		for( int rp = 1; rp <= repeat; rp++ ) {
+			
+			Long msisdn = Long.valueOf( fieldMsisdn.getMsisdn() );
+			
+			ArrayList<Token> tokens;
+			
+			tokens = DAOToken.getInstance( mysql ).getAvailableAllocatedTokens( msisdn );
+			
+			// TO DO
+			//if( event_date == null ) { tokens = DAOToken.getInstance( mysql ).getAvailableAllocatedTokens( msisdn ); }
+			//else { tokens = DAOToken.getInstance( mysql ).getAvailableAllocatedTokens( msisdn, event_date ); }
+			
+			int tokensToAccept = tokens.size();
+			
+			int accepting_calls = 0;
+			
+			for( int tta = 0; tta < tokensToAccept; tta++ ) {
+				
+				ArrayList<CatalogOffers> offers = DAOToken.getInstance( mysql ).getAssociatedOffers( msisdn, tokens.get( tta ).getTokenCode() );
+				
+				if( offers.size() > 0 ) {
+				
+					int offerToAcceptIndex = (int)( Math.random() * ( offers.size() ) );
+										
+					final Object[] offer_id = new Integer[]{ Integer.valueOf( offers.get( offerToAcceptIndex ).getOfferId() ) };
+				
+					try {
+					
+						XMLRPCRequest.offeroptimizer_accept().call( 	
+							server, 
+							xmlrpcBody(
+								authentication( user ),
+								string( msisdn ),
+								string( tokens.get( tta ).getTokenCode() ),
+								arrayInt( offer_id ),
+								string( "web" )
+							),
+							xmlrpcOptions(
+								storeRequestAsResource( "xmlrpc/request/", "request.xml" ),
+								storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
+							)
+						);
+						
+						accepting_calls++;
+						
+						logger.info( Log.CREATING.createMessage( "accepting ( " + accepting_calls + " )" ) );
+						
+					} catch (XMLRPCException e) {
+						
+						logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+					
+					} catch (Exception e) {
+						
+						logger.error( Log.FAILED.createMessage( e.getMessage() ) );
+					
+					}
+					
+				}	
 				
 			}
 		
