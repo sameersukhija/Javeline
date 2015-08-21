@@ -8,15 +8,25 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.json.JSONException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
 import com.lumata.e4o.gui.common.GWTCalendarForm;
+import com.lumata.e4o.json.gui.catalogmanager.JSONProducts;
+import com.lumata.e4o.json.gui.catalogmanager.JSONProducts.CharacteristicType;
+import com.lumata.e4o.json.gui.catalogmanager.JSONProducts.JsonProdCharacteristicElement;
+import com.lumata.e4o.json.gui.catalogmanager.JSONProducts.JsonProductType;
+import com.lumata.e4o.json.gui.catalogmanager.JSONProducts.JsonRelatedProducts;
+import com.lumata.e4o.json.gui.catalogmanager.JSONProducts.JsonSpecificChar;
 
 /**
  * @author parvinder.bhogra@lumatagroup.com
@@ -25,7 +35,7 @@ import com.lumata.e4o.gui.common.GWTCalendarForm;
 public class ProductsForm extends CatalogueManagerForm {
 	
 	// TO REVIEW
-	//private JSONOffers offerCfg;
+	private JSONProducts prdCfg;
 
 	public enum ProductCharacteristicType {
 		
@@ -48,13 +58,13 @@ public class ProductsForm extends CatalogueManagerForm {
 	}
 	
 	// TO REVIEW
-//	public ProductsForm( SeleniumWebDriver selenium, JSONOffers offerCfg, long timeout, long interval ) {
-//			
-//		super(selenium, timeout, interval);
-//
-//		this.offerCfg = offerCfg;
-//		
-//	}
+	public ProductsForm( SeleniumWebDriver selenium, JSONProducts prdCfg, long timeout, long interval ) {
+			
+		super(selenium, timeout, interval);
+
+		this.prdCfg = prdCfg;
+		
+	}
 
 	public ProductsForm( SeleniumWebDriver selenium,long timeout, long interval ) {
 		
@@ -91,7 +101,13 @@ public class ProductsForm extends CatalogueManagerForm {
 	public String getSupplier() throws FormException {
 		return super.getValueById("gwt-debug-ListBox-VPProductEdit-LBDistribution");
 	}
-	
+	public ProductsForm setInternalProductName(String Name) throws FormException {
+		super.selectByIdAndVisibleText("gwt-debug-ListBox-VPProductEdit-distributionBonusesLB", Name);
+		return this;
+	}
+	public String getInternalProductName() throws FormException {
+		return super.getValueById("gwt-debug-ListBox-VPProductEdit-distributionBonusesLB");
+	}
 	//Set Product Name while configuring product definition
 	public ProductsForm setProductName(String productName) throws FormException {
 		super.sendKeysById("gwt-debug-TextBox-VPProductEdit-productNameTB", productName);
@@ -165,26 +181,28 @@ public class ProductsForm extends CatalogueManagerForm {
 	}
 	
 	//OK button after adding the characteristic
-	public ProductsForm caharcteristicOKButton() throws FormException {
+	public ProductsForm characteristicOKButton() throws FormException {
 		super.clickBycssSelector("table.buttonPanel>tbody>tr>td>button[name=\"btn-ok\"]");
 		return this;
 	}
 	
 	//add a product from an external supplier
-	public ProductsForm addExternalProduct(String supplierName, String productName, String description, String termsAndCondition,String ImageUrl, List<String> ProductType,String cost,String price,String stock,Calendar startDate,Calendar endDate) throws FormException {
-		configureDefinition(supplierName,productName,description,termsAndCondition,ImageUrl);
-		configureProductTypeCharacteristic(ProductType);
-		configureCostPrice(cost, price);
-		configureAvailability(stock,startDate,endDate);
-		saveProductButton();
-		return this;
-	}
+//	public ProductsForm addExternalProduct(String supplierName, String productName, String description, String termsAndCondition,String ImageUrl, List<JSONProducts.JsonProdCharacteristicElement> chars,String cost,String price,String stock,String startDate,String endDate) throws FormException {
+//		configureDefinition(supplierName,productName,description,termsAndCondition,ImageUrl);
+//		configureProductTypeCharacteristic(ProductType);
+//		configureCostPrice(cost, price);
+//		configureAvailability(stock,startDate,endDate);
+//		saveProductButton();
+//		return this;
+//	}
 	
-	public ProductsForm configureDefinition(String supplierName, String productName, String description, String termsAndCondition,String imageUrl) throws FormException {
+	public ProductsForm configureExternalDefinition(String supplierName, String productName, String description, String termsAndCondition,String imageUrl) throws FormException {
 		
 		addProductButton();
-		setSupplier(supplierName);
-		setProductName(productName);
+		if(null != supplierName)
+			setSupplier(supplierName);
+		if(null != productName)
+			setProductName(productName);
 		if(null != description) {
 			setProductDescription(description);
 		}
@@ -200,18 +218,58 @@ public class ProductsForm extends CatalogueManagerForm {
 		return this;
 	
 	}
-	
-	public ProductsForm configureProductTypeCharacteristic(List<String> productTypes) throws FormException {
+public ProductsForm configureInternalDefinition(String supplierName, String productName,String termsAndCondition,String imageUrl) throws FormException {
 		
-		openCharacteristicsTab();
-		
-		for(int i=0;i<productTypes.size();i++) {
-			addCharacteristicButton();
-			setCharacteristicType("Product Types");
-			selectByXPathAndVisibleText("//td[text()='Product types']//ancestor::tr[1]//select[@class='gwt-ListBox']", productTypes.get(i));
-			caharcteristicOKButton();
+		addProductButton();
+		if(null != supplierName)
+			setSupplier(supplierName);
+		if(null != productName)
+			setInternalProductName(productName);
+		if (null != imageUrl) {
+			setProductImageUrl(imageUrl);
 		}
 		
+		if (null != termsAndCondition) {
+			setTermsAndCondition(termsAndCondition);
+		}
+		
+		return this;
+	
+	}
+	public ProductsForm configureProductCharacteristic(JsonProdCharacteristicElement chel) throws FormException,JSONSException {
+		
+		if(chel.getType().equals(CharacteristicType.ProductType))
+		{
+			JsonProductType prodTypes = chel.getProductTypes();
+			List<String> values=prodTypes.getValue();
+			for(int i=0;i<values.size();i++) {
+				addCharacteristicButton();
+				setCharacteristicType("Product Types");
+				selectByXPathAndVisibleText("//td[text()='Product types']//ancestor::tr[1]//select[@class='gwt-ListBox']", values.get(i));
+				characteristicOKButton();
+			}
+		}
+		if(chel.getType().equals(CharacteristicType.RelatedProducts))
+		{
+			JsonRelatedProducts relProd = chel.getRelatedProducts();
+			List<String> values=relProd.getValue();
+			for(int i=0;i<values.size();i++) {
+				addCharacteristicButton();
+				setCharacteristicType("Related Products");
+				selectByXPathAndVisibleText("//td[text()='Products']//ancestor::tr[1]//select[@class='gwt-ListBox']", values.get(i));
+				characteristicOKButton();
+			}
+		}
+		if(chel.getType().equals(CharacteristicType.ProductSpecific))
+		{
+			JsonSpecificChar specific = chel.getProductSpecific();
+			addCharacteristicButton();
+			setCharacteristicType("Product Specific Characteristics");
+			sendKeysByXPath("//td[text()='Name']//ancestor::tr[1]//input[@class='gwt-TextBox']", specific.getName());
+			sendKeysByXPath("//td[text()='Value']//ancestor::tr[1]//input[@class='gwt-TextBox']", specific.getValue());
+			
+			characteristicOKButton();
+		}
 		return this;
 	}
 	
@@ -250,7 +308,7 @@ public class ProductsForm extends CatalogueManagerForm {
 		return this;
 	}
 	
-	public ProductsForm configureAvailability(String stock,Calendar startDate, Calendar endDate) throws FormException {
+	public ProductsForm configureAvailability(String stock,String startDate, String endDate) throws FormException {
 		
 		openAvailabilityTab();
 		
@@ -289,21 +347,41 @@ public class ProductsForm extends CatalogueManagerForm {
 		return this;
 		
 	}
+	public ProductsForm editProductByName(String name) throws FormException{
+		String editButtonXpath= "//table[contains(@class,'page-ProductPageView')]//tr[3]//table[contains(@class,'tableList')]//div[text()='"+ name +"']//ancestor::tr[1]//td[6]//button[@name='btn-edit']";
+		this.clickXPath(editButtonXpath);
+		return this;
+	}
+	public ProductsForm deleteProductByName(String name) throws FormException{
+		String editButtonXpath= "//table[contains(@class,'page-ProductPageView')]//tr[3]//table[contains(@class,'tableList')]//div[text()='"+ name +"']//ancestor::tr[1]//td[6]//button[@name='btn-delete']";
+		this.clickXPath(editButtonXpath);
+		return this;
+	}
 	
+	public Boolean isProductEditable(String name) throws FormException{
+		String editButtonXpath= "//table[contains(@class,'page-ProductPageView')]//tr[3]//table[contains(@class,'tableList')]//div[text()='"+ name +"']//ancestor::tr[1]//td[6]//button[@name='btn-edit']";
+		
+		return selenium.getWrappedDriver().findElement(By.xpath(editButtonXpath)).isEnabled();
+	}
+	
+	public Boolean isProductDeletable(String name) throws FormException{
+		String editButtonXpath= "//table[contains(@class,'page-ProductPageView')]//tr[3]//table[contains(@class,'tableList')]//div[text()='"+ name +"']//ancestor::tr[1]//td[6]//button[@name='btn-delete']";
+		
+		return selenium.getWrappedDriver().findElement(By.xpath(editButtonXpath)).isEnabled();
+	}
 	// TO ADD the corresponding get method
-	public ProductsForm setProductAvailabilityStartDate( Calendar provisioningStartDate ) throws FormException {
+	public ProductsForm setProductAvailabilityStartDate( String provisioningStartDate ) throws FormException {
 		
 		String productAvailabilityStartDateXPath = ".//*[@id='gwt-debug-DatePicker-VPProductEdit-startDateDB']";
 		
-		try {
 			
-			configureGWTCalendarByXPath( productAvailabilityStartDateXPath, resolveDateField(Format.getMysqlDate( provisioningStartDate )) );
-		
-		} catch (ParseException e) {
-			
-			throw new FormException( e.getMessage(), e );
-			
-		}
+			//configureGWTCalendarByXPath( productAvailabilityStartDateXPath, resolveDateField(Format.getMysqlDate( provisioningStartDate )) );
+			configureGWTCalendarByXPath( productAvailabilityStartDateXPath, resolveDateField(provisioningStartDate ));
+//		} catch (ParseException e) {
+//			
+//			throw new FormException( e.getMessage(), e );
+//			
+//		}
 				
 		return this;
 		
@@ -320,42 +398,42 @@ public class ProductsForm extends CatalogueManagerForm {
 	}
 	
 	// TO ADD the corresponding get method
-	public ProductsForm setProductAvailabilityStartDate( String provisioningStartDate ) throws FormException {
-		
-		setProductAvailabilityStartDate( super.getDate( provisioningStartDate ) );
-		
-		return this;
-		
-	}
-	
+//	public ProductsForm setProductAvailabilityStartDate( String provisioningStartDate ) throws FormException {
+//		
+//		setProductAvailabilityStartDate( super.getDate( provisioningStartDate ) );
+//		
+//		return this;
+//		
+//	}
+//	
 	// TO ADD the corresponding get method
-	public ProductsForm setProductAvailabilityEndDate( Calendar provisioningEndDate ) throws FormException {
+	public ProductsForm setProductAvailabilityEndDate( String provisioningEndDate ) throws FormException {
 		
 		String productAvailabilityEndDateXPath = ".//*[@id='gwt-debug-DatePicker-VPProductEdit-endDateDB']";
 		
-		try {
+		//try {
 			
-			configureGWTCalendarByXPath( productAvailabilityEndDateXPath, resolveDateField(Format.getMysqlDate( provisioningEndDate )) );
+			configureGWTCalendarByXPath( productAvailabilityEndDateXPath, resolveDateField(provisioningEndDate ) );
 			lastWebElement.sendKeys( Keys.RETURN );
 		
-		} catch (ParseException e) {
+		//} catch (ParseException e) {
 			
-			throw new FormException( e.getMessage(), e );
+	//		throw new FormException( e.getMessage(), e );
 			
-		}
+		//}
 				
 		return this;
 		
 	}
 	
 	// TO ADD the corresponding get method
-	public ProductsForm setProductAvailabilityEndDate( String provisioningEndDate ) throws FormException {
-		
-		setProductAvailabilityEndDate( super.getDate( provisioningEndDate ) );
-		
-		return this;
-		
-	}
+//	public ProductsForm setProductAvailabilityEndDate( String provisioningEndDate ) throws FormException {
+//		
+//		setProductAvailabilityEndDate( super.getDate( provisioningEndDate ) );
+//		
+//		return this;
+//		
+//	}
 	
 	public List<WebElement> getProductList() throws FormException {
 		
@@ -367,6 +445,12 @@ public class ProductsForm extends CatalogueManagerForm {
 		
 		return productList;
 		
+	}
+	public ProductsForm clickRefreshButton() throws FormException
+	{	WebDriverWait wait = new WebDriverWait(selenium.getWrappedDriver(), 30);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//table[contains(@class,'page-ProductPageView')]//tr[1]//button[@name='btn-refresh' and @title='Refresh']")));
+		super.clickXPath("//table[contains(@class,'page-ProductPageView')]//tr[1]//button[@name='btn-refresh' and @title='Refresh']");
+		return this;
 	}
 	
 	public Boolean isProductInList( String productName ) throws FormException {

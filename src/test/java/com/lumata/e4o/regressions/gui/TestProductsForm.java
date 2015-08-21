@@ -23,6 +23,9 @@ import com.lumata.e4o.gui.catalogmanager.ProductTypesForm;
 import com.lumata.e4o.gui.catalogmanager.ProductsForm;
 import com.lumata.e4o.gui.catalogmanager.SuppliersForm;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes;
+import com.lumata.e4o.json.gui.catalogmanager.JSONProducts;
+import com.lumata.e4o.json.gui.catalogmanager.JSONProducts.CharacteristicType;
+import com.lumata.e4o.json.gui.catalogmanager.JSONProducts.JsonProdCharacteristicElement;
 import com.lumata.e4o.json.gui.catalogmanager.JSONSuppliers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristicElement;
 import com.lumata.e4o.testing.common.ParentTestCase;
@@ -46,49 +49,65 @@ public class TestProductsForm extends ParentTestCase {
 	private Boolean supplier_created=false;
 	private Boolean pdtype_created=false;
 	
-	@Parameters({"supplier_jsonFilePath","supplier_jsonFileName","productType_jsonFilePath","productType_jsonFileName","networkEnvironmentParams","seleniumWebDriverParams"})
-	@Test( enabled=TEST_ENABLED, timeOut=800000L, priority = 1 )
-	public void testEndtoEndProductCreation( @Optional("input/catalogmanager/suppliers") String supplier_jsonFilePath, @Optional("supplierList") String supplier_jsonFileName,@Optional("input/catalogmanager/productTypes") String productType_jsonFilePath, @Optional("newProductType") String productType_jsonFileName,String networkEnvironmentParams,String seleniumWebDriverParams) throws FormException, JSONException, JSONSException {
-		Boolean status=false;
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		Reporter.log("Creation of \"Supplier Form\".", LOG_TO_STD_OUT);
-		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + supplier_jsonFilePath;
-		String resourceFile = supplier_jsonFileName;
+	@Parameters({"product_jsonFilePath","product_jsonFileName"})
+	@Test( enabled=TEST_ENABLED, timeOut=1000000L, priority = 1 )
+	public void testUc27_01createNewInternalProduct( 
+			@Optional("input/catalogmanager/products") String product_jsonFilePath,
+			@Optional("productsTemplate") String product_jsonFileName) throws FormException, JSONException, JSONSException {
+		
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
+		String prod_resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + product_jsonFilePath;
+		String prod_resourceFile = product_jsonFileName;
 
-		Reporter.log("\"Supplier\" is filled with reosurce file : ",
+		Reporter.log("\"Product\" is filled with reosurce file : ",
 				LOG_TO_STD_OUT);
-		Reporter.log("Resource path -> " + resourcePath, LOG_TO_STD_OUT);
-		Reporter.log("Resource file -> " + resourceFile, LOG_TO_STD_OUT);
-		setupSupplier=new JSONSuppliers(resourcePath, resourceFile);
-		SuppliersForm suppliersForm = new SuppliersForm( seleniumWebDriver,setupSupplier, TIMEOUT, ATTEMPT_TIMEOUT );
+		Reporter.log("Resource path -> " + prod_resourcePath, LOG_TO_STD_OUT);
+		Reporter.log("Resource file -> " + prod_resourceFile, LOG_TO_STD_OUT);
+		JSONProducts setupProduct=new JSONProducts(prod_resourcePath, prod_resourceFile);
+		ProductsForm pdForm=new ProductsForm(seleniumWebDriver, setupProduct,TIMEOUT, ATTEMPT_TIMEOUT);
+		pdForm.openForm();
 		
-		suppliersForm.openForm();
-		JSONArray suppliers = setupSupplier.getList();
+		int numbProds = setupProduct.getList().size();
 		
-		for( int supplierIndex = 0; supplierIndex < suppliers.length(); supplierIndex++ ) {
+		for (int index = 0; index < numbProds; index++) {
 			
-			setupSupplier.setSupplierById( supplierIndex );
-			if( setupSupplier.getEnabled() ) {
-				supplierName=Format.addTimestamp(setupSupplier.getName() + "_");
-				logger.info("Creating Supplier Name:" + supplierName);
-				suppliersForm.configureSupplier(supplierName,setupSupplier.getEmail(),setupSupplier.getPhone(),setupSupplier.getWebsite());
-				suppliersForm.saveSupplier();
-				status=suppliersForm.isSupplierInList(supplierName);
-				if(status==true)
-				{
-					Assert.assertTrue(status);
-					logger.info("Created Supplier Succesfully:" + supplierName);
-					supplier_created=true;
-					
-				}
-				else{
-					Assert.fail("The Supplier creation Failed!");
-					Reporter.log("Creation of Supplier Failed!",LOG_TO_STD_OUT);
-				}
-			}
-		}
+			JsonCurrentElement current = setupProduct.getCurrentElementById(index);
+			
+			if ( current.getEnabled() ){
 		
-		if(supplier_created==true) {
+				if(setupProduct.getType().equals("internal"))
+				{
+					pdForm.configureInternalDefinition(setupProduct.getSupplier(), setupProduct.getName(),setupProduct.getTermsAndCondition(), setupProduct.getImageUrl());
+					pdForm.configureCostPrice(setupProduct.getCost(),setupProduct.getPrice());
+					pdForm.configureAvailability(setupProduct.getStock(),setupProduct.getStartDate(),setupProduct.getEndDate());
+					pdForm.saveProductButton();
+					pdForm.clickRefreshButton();
+					Boolean stat=pdForm.isProductInList(setupProduct.getName());
+					if(stat==true)
+					{
+						Assert.assertTrue(stat);
+						logger.info("Created Product Succesfully:" + setupProduct.getName());
+					}
+					else{
+						Assert.fail("The Product creation Failed!");
+						Reporter.log("Creation of Product Failed!",LOG_TO_STD_OUT);
+					}
+				}
+				
+			}
+		}		
+	}
+	
+	@Parameters({"productType_jsonFilePath","productType_jsonFileName","product_jsonFilePath","product_jsonFileName"})
+	@Test( enabled=TEST_ENABLED, timeOut=800000L, priority = 2 )
+	public void testUc27_03createNewExternalProductWithPDType(
+			@Optional("input/catalogmanager/productTypes") String productType_jsonFilePath, 
+			@Optional("newProductType") String productType_jsonFileName,
+			@Optional("input/catalogmanager/products") String product_jsonFilePath,
+			@Optional("productsTemplate") String product_jsonFileName) throws FormException, JSONException, JSONSException {
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
 		
 			Boolean pd_type_status=false;
 			Reporter.log("Creation of \"Product Types Form\".", LOG_TO_STD_OUT);
@@ -103,9 +122,9 @@ public class TestProductsForm extends ParentTestCase {
 			
 			setupProductTypes = new JSONProductTypes(Pdt_resourcePath, Pdt_resourceFile);
 	
-			ProductTypesForm productTypesForm= new ProductTypesForm(seleniumWebDriver,setupProductTypes,TIMEOUT, ATTEMPT_TIMEOUT);
-			
-			productTypesForm.clickId( "gwt-debug-actrule-catalog-productTypes" );
+			ProductTypesForm productTypesForm = new ProductTypesForm(seleniumWebDriver,setupProductTypes,TIMEOUT, ATTEMPT_TIMEOUT);
+			productTypesForm.openForm();
+			//productTypesForm.clickId( "gwt-debug-actrule-catalog-productTypes" );
 			int numbProdType = setupProductTypes.getList().size();
 			
 			for (int index = 0; index < numbProdType; index++) {
@@ -113,7 +132,7 @@ public class TestProductsForm extends ParentTestCase {
 				JsonCurrentElement current = setupProductTypes.getCurrentElementById(index);
 				
 				if ( current.getEnabled() ){
-					productTypeName=Format.addTimestamp(setupProductTypes.getName() + "_");
+					productTypeName=setupProductTypes.getName();
 					productTypesForm.configureProductType(productTypeName,setupProductTypes.getDescription());
 					for (JsonCharacteristicElement chElem : setupProductTypes.getCharacteristicsList()) {
 				
@@ -138,31 +157,312 @@ public class TestProductsForm extends ParentTestCase {
 					}
 				}
 			}
-		}
 		
 		if(pdtype_created==true) {
 			
-			ProductsForm pdForm=new ProductsForm(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-			pdForm.clickId( "gwt-debug-actrule-catalog-products" );
-			productName="Products";
-			List<String> pdType_list=new ArrayList<String>();
-			pdType_list.add(productTypeName);
-			Calendar startDate = Calendar.getInstance();
-			startDate.add( Calendar.DATE, 10 );
-			Calendar endDate = Calendar.getInstance();
-			endDate.add( Calendar.DATE, 20 );
-			pdForm.addExternalProduct(supplierName, productName, "new Product", null, null, pdType_list,"20","15","100",startDate,endDate);
-			Boolean stat=pdForm.isProductInList(productName);
+			String prod_resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + product_jsonFilePath;
+			String prod_resourceFile = product_jsonFileName;
+
+			Reporter.log("\"Product\" is filled with reosurce file : ",
+					LOG_TO_STD_OUT);
+			Reporter.log("Resource path -> " + prod_resourcePath, LOG_TO_STD_OUT);
+			Reporter.log("Resource file -> " + prod_resourceFile, LOG_TO_STD_OUT);
+			JSONProducts setupProduct=new JSONProducts(prod_resourcePath, prod_resourceFile);
+			ProductsForm pdForm=new ProductsForm(seleniumWebDriver, setupProduct,TIMEOUT, ATTEMPT_TIMEOUT);
+			pdForm.openForm();
+			
+			int numbProds = setupProduct.getList().size();
+			
+			for (int index = 1; index < numbProds-3; index++) {
+				
+				JsonCurrentElement current = setupProduct.getCurrentElementById(index);
+				
+				if ( current.getEnabled() ){
+			
+					if(setupProduct.getType().equals("external"))
+					{
+						pdForm.configureExternalDefinition(setupProduct.getSupplier(), setupProduct.getName(), setupProduct.getDescription(), setupProduct.getTermsAndCondition(), setupProduct.getImageUrl());
+						pdForm.openCharacteristicsTab();
+						for(JsonProdCharacteristicElement chel : setupProduct.getCharacteristicsList())
+						{
+							if(chel.getEnabled())
+							pdForm.configureProductCharacteristic(chel);
+						}
+					}
+					pdForm.configureCostPrice(setupProduct.getCost(),setupProduct.getPrice());
+					pdForm.configureAvailability(setupProduct.getStock(),setupProduct.getStartDate(),setupProduct.getEndDate());
+					pdForm.saveProductButton();
+					pdForm.clickRefreshButton();
+					Boolean stat=pdForm.isProductInList(setupProduct.getName());
+					if(stat==true)
+					{
+						Assert.assertTrue(stat);
+						logger.info("Created Product Succesfully:" + setupProduct.getName());
+					}
+					else{
+						Assert.fail("The Product creation Failed!");
+						Reporter.log("Creation of Product Failed!",LOG_TO_STD_OUT);
+					}
+				}
+			}		
+		}
+	}
+	@Parameters({"product_jsonFilePath","product_jsonFileName"})
+	@Test( enabled=TEST_ENABLED, timeOut=800000L, priority = 3 )
+	public void testUc27_02createNewExternalProductWithAllChars(
+			@Optional("input/catalogmanager/products") String product_jsonFilePath,
+			@Optional("productsTemplate") String product_jsonFileName) throws FormException, JSONException, JSONSException {
+		
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			String prod_resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + product_jsonFilePath;
+			String prod_resourceFile = product_jsonFileName;
+
+			Reporter.log("\"Product\" is filled with reosurce file : ",
+					LOG_TO_STD_OUT);
+			Reporter.log("Resource path -> " + prod_resourcePath, LOG_TO_STD_OUT);
+			Reporter.log("Resource file -> " + prod_resourceFile, LOG_TO_STD_OUT);
+			JSONProducts setupProduct=new JSONProducts(prod_resourcePath, prod_resourceFile);
+			ProductsForm pdForm=new ProductsForm(seleniumWebDriver, setupProduct,TIMEOUT, ATTEMPT_TIMEOUT);
+			pdForm.openForm();
+			
+			
+				JsonCurrentElement current = setupProduct.getCurrentElementById(2);
+				
+				if ( current.getEnabled() ){
+			
+					if(setupProduct.getType().equals("external"))
+					{
+						pdForm.configureExternalDefinition(setupProduct.getSupplier(), setupProduct.getName(), setupProduct.getDescription(), setupProduct.getTermsAndCondition(), setupProduct.getImageUrl());
+						pdForm.openCharacteristicsTab();
+						for(JsonProdCharacteristicElement chel : setupProduct.getCharacteristicsList())
+						{
+							if(chel.getEnabled())
+							pdForm.configureProductCharacteristic(chel);
+						}
+					}
+					pdForm.configureCostPrice(setupProduct.getCost(),setupProduct.getPrice());
+					pdForm.configureAvailability(setupProduct.getStock(),setupProduct.getStartDate(),setupProduct.getEndDate());
+					pdForm.saveProductButton();
+					pdForm.clickRefreshButton();
+					Boolean stat=pdForm.isProductInList(setupProduct.getName());
+					if(stat==true)
+					{
+						Assert.assertTrue(stat);
+						logger.info("Created Product Succesfully:" + setupProduct.getName());
+					}
+					else{
+						Assert.fail("The Product creation Failed!");
+						Reporter.log("Creation of Product Failed!",LOG_TO_STD_OUT);
+					}
+				}
+			}	
+	
+	@Parameters({"product_jsonFilePath","product_jsonFileName"})
+	@Test( enabled=TEST_ENABLED, timeOut=800000L, priority = 4 )
+	public void testUc27_04createNewExternalProductWithRelatedProduct(
+			@Optional("input/catalogmanager/products") String product_jsonFilePath,
+			@Optional("productsTemplate") String product_jsonFileName) throws FormException, JSONException, JSONSException {
+		
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			String prod_resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + product_jsonFilePath;
+			String prod_resourceFile = product_jsonFileName;
+
+			Reporter.log("\"Product\" is filled with reosurce file : ",
+					LOG_TO_STD_OUT);
+			Reporter.log("Resource path -> " + prod_resourcePath, LOG_TO_STD_OUT);
+			Reporter.log("Resource file -> " + prod_resourceFile, LOG_TO_STD_OUT);
+			JSONProducts setupProduct=new JSONProducts(prod_resourcePath, prod_resourceFile);
+			ProductsForm pdForm=new ProductsForm(seleniumWebDriver, setupProduct,TIMEOUT, ATTEMPT_TIMEOUT);
+			pdForm.openForm();
+			
+			
+				JsonCurrentElement current = setupProduct.getCurrentElementById(3);
+				
+				if ( current.getEnabled() ){
+			
+					if(setupProduct.getType().equals("external"))
+					{
+						pdForm.configureExternalDefinition(setupProduct.getSupplier(), setupProduct.getName(), setupProduct.getDescription(), setupProduct.getTermsAndCondition(), setupProduct.getImageUrl());
+						pdForm.openCharacteristicsTab();
+						for(JsonProdCharacteristicElement chel : setupProduct.getCharacteristicsList())
+						{
+							if(chel.getEnabled())
+							pdForm.configureProductCharacteristic(chel);
+						}
+					}
+					pdForm.configureCostPrice(setupProduct.getCost(),setupProduct.getPrice());
+					pdForm.configureAvailability(setupProduct.getStock(),setupProduct.getStartDate(),setupProduct.getEndDate());
+					pdForm.saveProductButton();
+					pdForm.clickRefreshButton();
+					Boolean stat=pdForm.isProductInList(setupProduct.getName());
+					if(stat==true)
+					{
+						Assert.assertTrue(stat);
+						logger.info("Created Product Succesfully:" + setupProduct.getName());
+					}
+					else{
+						Assert.fail("The Product creation Failed!");
+						Reporter.log("Creation of Product Failed!",LOG_TO_STD_OUT);
+					}
+				}
+			}
+	
+	@Parameters({"product_jsonFilePath","product_jsonFileName"})
+	@Test( enabled=TEST_ENABLED, timeOut=800000L, priority = 5 )
+	public void testUc27_05createNewExternalProductWithSpecChars(
+			@Optional("input/catalogmanager/products") String product_jsonFilePath,
+			@Optional("productsTemplate") String product_jsonFileName) throws FormException, JSONException, JSONSException {
+		
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			String prod_resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + product_jsonFilePath;
+			String prod_resourceFile = product_jsonFileName;
+
+			Reporter.log("\"Product\" is filled with reosurce file : ",
+					LOG_TO_STD_OUT);
+			Reporter.log("Resource path -> " + prod_resourcePath, LOG_TO_STD_OUT);
+			Reporter.log("Resource file -> " + prod_resourceFile, LOG_TO_STD_OUT);
+			JSONProducts setupProduct=new JSONProducts(prod_resourcePath, prod_resourceFile);
+			ProductsForm pdForm=new ProductsForm(seleniumWebDriver, setupProduct,TIMEOUT, ATTEMPT_TIMEOUT);
+			pdForm.openForm();
+			
+			
+				JsonCurrentElement current = setupProduct.getCurrentElementById(4);
+				
+				if ( current.getEnabled() ){
+			
+					if(setupProduct.getType().equals("external"))
+					{
+						pdForm.configureExternalDefinition(setupProduct.getSupplier(), setupProduct.getName(), setupProduct.getDescription(), setupProduct.getTermsAndCondition(), setupProduct.getImageUrl());
+						pdForm.openCharacteristicsTab();
+						for(JsonProdCharacteristicElement chel : setupProduct.getCharacteristicsList())
+						{
+							if(chel.getEnabled())
+							pdForm.configureProductCharacteristic(chel);
+						}
+					}
+					pdForm.configureCostPrice(setupProduct.getCost(),setupProduct.getPrice());
+					pdForm.configureAvailability(setupProduct.getStock(),setupProduct.getStartDate(),setupProduct.getEndDate());
+					pdForm.saveProductButton();
+					pdForm.clickRefreshButton();
+					Boolean stat=pdForm.isProductInList(setupProduct.getName());
+					if(stat==true)
+					{
+						Assert.assertTrue(stat);
+						logger.info("Created Product Succesfully:" + setupProduct.getName());
+					}
+					else{
+						Assert.fail("The Product creation Failed!");
+						Reporter.log("Creation of Product Failed!",LOG_TO_STD_OUT);
+					}
+				}
+			}
+	@Test( enabled=TEST_ENABLED, timeOut=800000L, priority = 6 )
+	public void testUc27_06editInternalProduct() throws FormException, JSONException, JSONSException {
+		
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			
+			ProductsForm pdForm=new ProductsForm(seleniumWebDriver,TIMEOUT, ATTEMPT_TIMEOUT);
+			pdForm.openForm();
+			pdForm.editProductByName("Points");
+			pdForm.openCostAndPriceTab();
+			pdForm.setUnitaryCost("50");
+			pdForm.setListPrice("40");
+			pdForm.openAvailabilityTab();
+			pdForm.setAvailabilityStock("30");
+			pdForm.saveProductButton();
+			
+				
+			
+	}
+	@Test( enabled=TEST_ENABLED, timeOut=800000L, priority = 6 )
+	public void testUc27_07editExternalProduct() throws FormException, JSONException, JSONSException {
+		
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			
+			ProductsForm pdForm=new ProductsForm(seleniumWebDriver,TIMEOUT, ATTEMPT_TIMEOUT);
+			pdForm.openForm();
+			pdForm.editProductByName("Products4");
+			pdForm.setProductName("Products4Modified");
+			pdForm.openCharacteristicsTab();
+			pdForm.addCharacteristicButton();
+			pdForm.setCharacteristicType("Related Products");
+			pdForm.selectByXPathAndVisibleText("//td[text()='Products']//ancestor::tr[1]//select[@class='gwt-ListBox']", "Products");
+			pdForm.characteristicOKButton();
+			pdForm.openCostAndPriceTab();
+			pdForm.setUnitaryCost("50");
+			pdForm.setListPrice("40");
+			pdForm.openAvailabilityTab();
+			pdForm.setAvailabilityStock("30");
+			pdForm.saveProductButton();
+			pdForm.clickRefreshButton();
+			Boolean stat=pdForm.isProductInList("Products4Modified");
 			if(stat==true)
 			{
 				Assert.assertTrue(stat);
-				logger.info("Created Product Succesfully:" + productName);
+				logger.info("Modified External Product Succesfully:" + "Products4Modified");
 			}
 			else{
-				Assert.fail("The Product creation Failed!");
-				Reporter.log("Creation of Product Failed!",LOG_TO_STD_OUT);
+				Assert.fail("The Product modification Failed!");
+				Reporter.log("Modification of Product Failed!",LOG_TO_STD_OUT);
 			}
-		}
-		
+			
 	}
+	@Test( enabled=TEST_ENABLED, timeOut=800000L, priority = 6 )
+	public void testUc27_08deleteExternalProduct() throws FormException, JSONException, JSONSException {
+		
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			
+			ProductsForm pdForm=new ProductsForm(seleniumWebDriver,TIMEOUT, ATTEMPT_TIMEOUT);
+			pdForm.openForm();
+			pdForm.deleteProductByName("Products4Modified");
+			pdForm.handleJavascriptAlertAcceptDismiss(true);
+			pdForm.clickRefreshButton();
+			Boolean stat=pdForm.isProductInList("Products4Modified");
+			if(!stat)
+			{
+				Assert.assertTrue(true);
+				logger.info("Deleted External Product Succesfully:" + "Products4Modified");
+			}
+			else{
+				Assert.fail("The Product deletion Failed!");
+				Reporter.log("Deletion of Product Failed!",LOG_TO_STD_OUT);
+			}
+			
+	}
+	@Test( enabled=TEST_ENABLED, timeOut=800000L, priority = 7 )
+	public void testUc27_09editUsedProduct() throws FormException, JSONException, JSONSException {
+		
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			
+			ProductsForm pdForm=new ProductsForm(seleniumWebDriver,TIMEOUT, ATTEMPT_TIMEOUT);
+			pdForm.openForm();
+			if(!pdForm.isProductEditable("Products"))
+			{
+				Assert.assertTrue(true);
+				logger.info("A product being used is not editable!");
+			}
+			else{
+				Assert.fail("The Product is editable when it should not be!");
+				Reporter.log("The Product is editable when it should not be!",LOG_TO_STD_OUT);
+			}
+			
+	}
+	@Test( enabled=TEST_ENABLED, timeOut=800000L, priority = 8 )
+	public void testUc27_10deleteUsedProduct() throws FormException, JSONException, JSONSException {
+		
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			
+			ProductsForm pdForm=new ProductsForm(seleniumWebDriver,TIMEOUT, ATTEMPT_TIMEOUT);
+			pdForm.openForm();
+			if(!pdForm.isProductDeletable("Products"))
+			{
+				Assert.assertTrue(true);
+				logger.info("A product being used cannot be deleted!");
+			}
+			else{
+				Assert.fail("The Product is deletable when it should not be!");
+				Reporter.log("The Product is deletable when it should not be!",LOG_TO_STD_OUT);
+			}
+			
+	}		
 }
