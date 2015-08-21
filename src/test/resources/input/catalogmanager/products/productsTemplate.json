@@ -1,0 +1,148 @@
+{
+	"products": [
+	{
+		"enabled" : true,
+		"type" : "internal",
+		"supplier": "Lumata",
+		"name" : "Points",
+		"image" : null,
+		"TnC" : null,
+		"cost" : "100",
+		"price" : "100",
+		"stock" : "100",
+		"startDate" : "@current",
+		"EndDate" : "@current+1month",
+		"characteristics" : null
+		},
+		{
+		"enabled" : true,
+		"type" : "external",
+		"supplier" : "Mobistar",
+		"name" : "Products",
+		"description": "automated product",
+		"image" : null,
+		"TnC" : null,
+		"cost" : "100",
+		"price" : "100",
+		"stock" : "100",
+		"startDate" : "@current",
+		"EndDate" : "@current+1month",
+		"characteristics" : [
+		{
+		
+			"enabled" : true,
+			"type" : "ProductType",
+			"ProductType" : {
+			"value" : ["newProduct"]
+			},
+			"ProductSpecific" : null,
+			"RelatedProducts" : null
+		}
+		]
+		
+	},
+	{
+		"enabled" : true,
+		"type" : "external",
+		"supplier" : "Mobistar",
+		"name" : "Products2",
+		"description": "automated product",
+		"image" : null,
+		"TnC" : null,
+		"cost" : "100",
+		"price" : "100",
+		"stock" : "100",
+		"startDate" : null,
+		"EndDate" : null,
+		"characteristics" : [
+		{
+		
+			"enabled" : true,
+			"type" : "ProductType",
+			"ProductType" : {
+			"value" : ["newProduct"]
+			},
+			"ProductSpecific" : null,
+			"RelatedProducts" : null
+		},
+		{
+		
+			"enabled" : true,
+			"type" : "ProductSpecific",
+			"ProductType" : null,
+			"ProductSpecific" : {
+				"name" : "new",
+				"value" : "100"
+			},
+			"RelatedProducts" : null
+		},
+		{
+		
+			"enabled" : true,
+			"type" : "RelatedProducts",
+			"ProductType" : null,
+			"ProductSpecific" : null,
+			"RelatedProducts" : {
+				"value" : ["Products"]
+			}
+		}
+		]
+		
+	},
+	{
+		"enabled" : true,
+		"type" : "external",
+		"supplier" : "Mobistar",
+		"name" : "Products3",
+		"description": "automated product",
+		"image" : null,
+		"TnC" : null,
+		"cost" : "100",
+		"price" : "100",
+		"stock" : "100",
+		"startDate" : null,
+		"EndDate" : null,
+		"characteristics" : [
+		{
+		
+			"enabled" : true,
+			"type" : "RelatedProducts",
+			"ProductType" : null,
+			"ProductSpecific" : null,
+			"RelatedProducts" : {
+				"value" : ["Products"]
+			}
+		}
+		]
+		
+	},
+	{
+		"enabled" : true,
+		"type" : "external",
+		"supplier" : "Mobistar",
+		"name" : "Products4",
+		"description": "automated product",
+		"image" : null,
+		"TnC" : null,
+		"cost" : "100",
+		"price" : "100",
+		"stock" : "100",
+		"startDate" : null,
+		"EndDate" : null,
+		"characteristics" : [
+		{
+		
+			"enabled" : true,
+			"type" : "ProductSpecific",
+			"ProductType" : null,
+			"ProductSpecific" : {
+				"name" : "new",
+				"value" : "100"
+			},
+			"RelatedProducts" : null
+		}
+		]
+		
+	}
+	]
+}	
