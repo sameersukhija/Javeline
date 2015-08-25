@@ -168,6 +168,10 @@ public class BonusForm extends AdministrationForm {
 
 	public Boolean clickDeleteButton(String strBonusName) throws FormException {
 		try {
+			WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 20);
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='"
+					+ strBonusName
+					+ "']//ancestor::tr[contains(@class,'contentRow cycle')]//td[6]//button[@name='btn-delete']")));
 			super.clickXPath("//div[text()='"
 					+ strBonusName
 					+ "']//ancestor::tr[contains(@class,'contentRow cycle')]//td[6]//button[@name='btn-delete']");
