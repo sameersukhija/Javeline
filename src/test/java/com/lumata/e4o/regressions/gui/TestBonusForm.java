@@ -226,7 +226,7 @@ public class TestBonusForm extends ParentTestCase {
 	@Test(enabled = TEST_ENABLED, timeOut = TESTNG_TIMEOUT, priority = 4)
 	public void testUc06_04DeleteBonus() throws FormException {
 	Boolean bStatus;
-		if (bonusForm.isBonusNameInList(BONUS_NAME_INTERNAL)) {
+		//if (bonusForm.isBonusNameInList(BONUS_NAME_INTERNAL)) {
 			bStatus=bonusForm.clickDeleteButton(BONUS_NAME_INTERNAL);
 			if (bStatus==true) {
 				Assert.assertTrue(true,
@@ -254,6 +254,6 @@ public class TestBonusForm extends ParentTestCase {
 					Reporter.log("Failed to delete bonus",LOG_TO_STD_OUT);
 				}
 			//}
-		}
+		//}
 	}
 }
