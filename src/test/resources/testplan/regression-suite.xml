@@ -2,9 +2,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Regression Suite" verbose="1" parallel="false">
 
-  <listeners>
+  <!--listeners>
     <listener class-name="com.lumata.e4o.testing.common.TestNGReportListener"/>
-  </listeners>
+  </listeners-->
 	<test name="Run Expired Data">
    <parameter name="environment" value="e4o_regression"/>
 	<parameter name="tenant" value="tenantMaster"/>
@@ -19,7 +19,7 @@
 	
 	<parameter name="e4oReleaseParam" value="2.4.2.2.0" />
   
-  <parameter name="networkEnvironmentParams" value="{ 'envFile':'e4o_regression', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule1', 'guiUser':'superman' }"/>
+  <parameter name="networkEnvironmentParams" value="{ 'envFile':'e4o_qa7_noida', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule1', 'guiUser':'superman' }"/>
   <!-- selenium_driver_type: local or remote -->  
   <!-- 	selenium_capability
   		platform -> {WINDOWS|XP|VISTA|MAC|LINUX|UNIX|ANDROID} ( note: only WINDOWS and LINUX are available in our environments )
@@ -27,7 +27,7 @@
   		version -> the version of the used browser
   -->
   <!-- parameter name="seleniumWebDriverParams" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://192.168.56.152:4444/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/ -->  
-   <parameter name="seleniumWebDriverParams" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/>  
+   <parameter name="seleniumWebDriverParams" value="{ 'type':'local', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/>  
   <test name="Sales Channel Creation Testcase">
 	<parameter name="channel_jsonFilePath" value="input/administrationmanager/salesChannels"/>
 	<parameter name="channel_jsonFileName" value="salesChannelsList"/>
@@ -140,6 +140,14 @@
   <test name="Campaign Creation Testcase">
 	<classes>
       <class name="com.lumata.e4o.regressions.gui.TestCampaignsForm">
+      </class>
+    </classes>	
+  </test>
+  <test name="offer purchase">
+  <parameter name="jsonFilePath_Offer" value="input/catalogmanager/Offers"/>
+	<parameter name="jsonFileName_Offer" value="purchaseOffer"/>
+    <classes>
+      <class name="com.lumata.e4o.testplan.functional.e2e.PurchaseOfferFormCustomerCare">
       </class>
     </classes>	
   </test>

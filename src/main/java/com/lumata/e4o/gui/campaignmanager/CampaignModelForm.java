@@ -64,8 +64,9 @@ public CampaignModelForm( SeleniumWebDriver selenium,long timeout, long interval
 	public CampaignModelForm open() throws FormException {
 		
 		super.open();
-		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 30);
-		wait.until(ExpectedConditions.elementToBeClickable(By.id("gwt-debug-InputCMCampaignModel")));
+		waitForPageLoad();
+//		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 30);
+//		wait.until(ExpectedConditions.elementToBeClickable(By.id("gwt-debug-InputCMCampaignModel")));
 		this.clickId( "gwt-debug-InputCMCampaignModel" );
 		
 		return this;
