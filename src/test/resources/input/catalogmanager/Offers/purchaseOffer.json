@@ -1,0 +1,55 @@
+{
+	"offers": [
+		{
+			"enabled": true,
+			"name": "PurchaseOffer",
+			"definition" : {
+				"externalId" : null,
+				"description": "Offer for purchase from CC",
+				"labels" : null,
+				"voucher": "none",
+				"imageUrlOffer": null,
+				"termsAndConditions": null
+			},
+			"voucher" : null,
+			"offer" : {
+				"content" : [
+					
+					{
+						"type" : "Products",
+						"product" : "Products2",
+						"productType" : null,
+						"quantity" : 20,
+						"offers" : null
+					}
+					
+				],
+				"relatedOffers" : null
+			},
+			"prices" : [
+				{
+					"prices" : null,
+					"conditions" : null,
+					"channels" : [ "Campaign manager" ]
+				}
+			],
+			"notification" : null,
+			"eligibility": null,
+			"availability" : {
+				"stock" : "10",
+				"reservations" : [
+					{
+						"channel" : "Campaign manager",
+						"quantity" : 5
+					}],
+				"provisioningStart": null,
+				"provisioningEnd": null,
+				"limitPerSubscribers" : null
+			},
+			"errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            }
+		}
+]
+}

@@ -446,20 +446,22 @@ private Alert file_input;
 			super.clickId("gwt-debug-Anchor-actrule-catalog-product-steps-stockValidity");
 			return this;
 		}
-		
-		public OffersForm setStockAvailability( String stock ) throws FormException {
+		public OffersForm setAvailableOffers(String stock) throws FormException{
+			this.clickXPath("//td[text()='Available Offers']//ancestor::tr[1]//button");
+			if(null != stock)
+			this.sendKeysById("gwt-debug-TextBox-VPOfferEdit-qtyTB", stock);
+			this.clickXPath("//td[contains(text(),'Available Stock')]//ancestor::tr[1]//ancestor::table[3]//button[@title='Save']");
+			return this;
+		}
+		public OffersForm setStockReservation( String channel,String quan ) throws FormException {
 			
-			super.clickXPath("//td[text()='Available Offers']//ancestor::tr[1]//button");
-				
-			super.clickXPath("//td[contains(text(),'Available Stock')]//ancestor::tr[1]//ancestor::table[3]//button[@title='Save']");
-			
-			super.clickXPath("//div[text()='Channel']//ancestor::table//button[@name='btn-add']");
+			this.clickXPath("//div[text()='Channel']//ancestor::table//button[@name='btn-add']");
 			//super.clickXPath("//tr[3]/td/table/tbody/tr[3]/td/button");
 			//super.sendKeysByXPath("//div[text()='Reservation']//ancestor::table//input", stock);
+			this.selectByIdAndVisibleText("gwt-debug-ListBox-VPOfferEdit-channelsLB", channel);
+			this.sendKeysByXPath("//input[@id='gwt-debug-TextBox-VPOfferEdit-qtyTB']",quan);
 			
-			super.sendKeysByXPath("//input[@id='gwt-debug-TextBox-VPOfferEdit-qtyTB']",stock);
-			
-			super.clickXPath("//div[text()='Reservation']//ancestor::table//button[@title='Save']");
+			this.clickXPath("//div[text()='Reservation']//ancestor::table//button[@title='Save']");
 			
 			return this;
 				
@@ -739,20 +741,17 @@ private Alert file_input;
 	
 	
 				public OffersForm setProductType(String productTypes) throws FormException {
-		
-					super.clickBycssSelector("table.verticalPanelInternalMargin > tbody > tr > td > table.tableList > tbody > tr.cycle2.headers > td.column_description > button[name='btn-add']");
 					super.selectByIdAndVisibleText("gwt-debug-ListBox-OfferContentPopUp-lbType", "Product Types");
 					super.selectByXPathAndVisibleText("//table[@class='margin10px']/tbody/tr/td/table[@class='tableList Form']/tbody/tr[5][@class='cycle1']/td[2]/select", productTypes);
-					super.clickName("btn-ok");
 					return this;
 				}
 	
-		
+				public OffersForm setProductQuantity(String quan) throws FormException{
+					super.typeByXPath("//input[@id='gwt-debug-TextBox-OfferContentPopUp-prodStock']",quan);
+					return this;
+				}
 				public OffersForm setProductName(String productName) throws FormException {
-					super.clickBycssSelector("table.verticalPanelInternalMargin > tbody > tr > td > table.tableList > tbody > tr.cycle2.headers > td.column_description > button[name='btn-add']");
 					super.selectByXPathAndVisibleText(".//*[@id='gwt-debug-ListBox-OfferContentPopUp-lbProd']", productName);
-					super.typeByXPath("//input[@id='gwt-debug-TextBox-OfferContentPopUp-prodStock']","12");
-					super.clickName("btn-ok");
 					return this;
 				}
 	
@@ -764,13 +763,10 @@ private Alert file_input;
 
 				
 				public OffersForm setOfferName(String offerName) throws FormException {
-					super.clickBycssSelector("table.verticalPanelInternalMargin > tbody > tr > td > table.tableList > tbody > tr.cycle2.headers > td.column_description > button[name='btn-add']");
 					super.selectByIdAndVisibleText("gwt-debug-ListBox-OfferContentPopUp-lbType", "Offers");
 					super.selectByXPathAndVisibleText("//table[@class='margin10px']/tbody/tr/td/table[@class='tableList Form']/tbody/tr[4][@class='cycle2']/td[2]/select", offerName);
 			
-					super.clickName("btn-ok");
-			
-					super.clickXPath("//td[@class='dialogMiddleCenter']//table[@class='buttonPanel']/tbody/tr/td/button[@name='btn-cancel']");
+					//super.clickXPath("//td[@class='dialogMiddleCenter']//table[@class='buttonPanel']/tbody/tr/td/button[@name='btn-cancel']");
 					
 					return this;
 				}
@@ -863,11 +859,11 @@ private Alert file_input;
 //	{
 //		return super.getValueByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-descriptionTextBox']");
 //	}
-//	public OffersForm addCharacteristicButton() throws FormException
-//	{
-//		super.clickXPath("//div[text()='Create product type']//ancestor::div[2]//button[@title='Add']");
-//		return this;
-//	}
+public OffersForm addCharacteristicButton() throws FormException
+	{
+	super.clickBycssSelector("table.verticalPanelInternalMargin > tbody > tr > td > table.tableList > tbody > tr.cycle2.headers > td.column_description > button[name='btn-add']");
+	return this;
+	}
 //	public OffersForm setCharacteristicName(String ch_name) throws FormException
 //	{
 //		super.sendKeysByXPath("//td[contains(text(),'Characteristic Name')]//ancestor::tr[1]//input", ch_name);
@@ -961,10 +957,10 @@ private Alert file_input;
 //	}
 //	
 //	
-//	public OffersForm saveCharacteristic() throws FormException{
-//		super.clickName( "btn-ok" );
-//		return this;
-//	}
+public OffersForm saveCharacteristic() throws FormException{
+super.clickName( "btn-ok" );
+return this;
+}
 //	public OffersForm saveProductType() throws FormException {
 //		super.clickName( "btn-save" );
 //		

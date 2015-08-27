@@ -70,10 +70,13 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		
 	}
 	
-	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
+	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","networkEnvironmentParams",
+		"seleniumWebDriverParams"})
 	@Test( enabled=TEST_ENABLED, priority = 1 )
 	public void testUc28_01addProduct_content_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-			@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
+			@Optional("newOffers") String jsonFileName_Offer,
+			String networkEnvironmentParams,
+			String seleniumWebDriverParams) throws FormException, JSONException, JSONSException {
 	String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
 	String resourceFile2 = jsonFileName_Offer;
 	setupOffer = new JSONOffers(resourcePath2,resourceFile2);
@@ -102,8 +105,8 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			setName( OFFER_NAME ).
 		    setDescription(setupOffer.getDescription()).
 			setTerms(setupOffer.getTermsAndConditions()).
-			clickOfferContentTab();
-			offerForm.setProductName("Products");
+			clickOfferContentTab().addCharacteristicButton();
+			offerForm.setProductName("Products").setProductQuantity("12").saveCharacteristic();
 			
 			offerForm.clickPriceTab();
 		
@@ -125,7 +128,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		
 			offerForm.clickNotificationTab().addNotitification().
 		
-			clickAvailabilityTab().setStockAvailability( setupOffer.getStock() ).				
+			clickAvailabilityTab().setAvailableOffers( setupOffer.getStock() ).				
 			
 			clickActivationTab().saveBtn();
 			
@@ -231,8 +234,8 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			setName( OFFER_NAME ).
 		    setDescription(setupOffer.getDescription()).
 			setTerms(setupOffer.getTermsAndConditions()).
-			clickOfferContentTab().
-			setProductType(product_type_name). 
+			clickOfferContentTab().addCharacteristicButton().
+			setProductType(product_type_name).saveCharacteristic().
 			clickPriceTab();
 		
 		List<JSONPricesElement> prices = setupOffer.getOffersPrices();
@@ -250,7 +253,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		}
 			offerForm.clickNotificationTab().addNotitification().
 		
-			clickAvailabilityTab().setStockAvailability( setupOffer.getStock() ).				
+			clickAvailabilityTab().setAvailableOffers( setupOffer.getStock() ).				
 			
 			clickActivationTab().saveBtn();
 			
@@ -304,9 +307,9 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			setName( OFFER_NAME ).
 		    setDescription(setupOffer.getDescription()).
 			setTerms(setupOffer.getTermsAndConditions()).
-			clickOfferContentTab();
+			clickOfferContentTab().addCharacteristicButton();
 			
-			offerForm.setOfferName(Content_OFFERNAME);
+			offerForm.setOfferName(Content_OFFERNAME).saveCharacteristic();
 			
 			offerForm.clickPriceTab();
 		
@@ -325,7 +328,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		}
 			offerForm.clickNotificationTab().addNotitification().
 		
-			clickAvailabilityTab().setStockAvailability( setupOffer.getStock() ).				
+			clickAvailabilityTab().setAvailableOffers( setupOffer.getStock() ).				
 			
 			clickActivationTab().saveBtn();
 			
@@ -410,13 +413,13 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
   
   			clickEditSavedOffer();
   			offerForm.setName("XYZ");
-  			offerForm.clickOfferContentTab();
-  			offerForm.setProductType(product_type_name);
+  			offerForm.clickOfferContentTab().addCharacteristicButton();
+  			offerForm.setProductType(product_type_name).saveCharacteristic();
   			offerForm.clickPriceTab();
   			offerForm.clickEditPriceButton();
   			offerForm.setPriceChannel("Ch B");
   			offerForm.clickAvailabilityTab().
-  			setStockAvailability( "12" );				
+  			setAvailableOffers( "12" );				
   			offerForm.clickActivationTab().saveBtn();
   			offer_status=offerForm.isOfferInList("XYZ");
   			Reporter.log("Editing of \"Offers Form\"."+"XYZ", LOG_TO_STD_OUT);
@@ -544,7 +547,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
   			
   				offerForm.clickNotificationTab().addNotitification().
   			
-  				clickAvailabilityTab().setStockAvailability( setupOffer.getStock() );				
+  				clickAvailabilityTab().setAvailableOffers( setupOffer.getStock() );				
   				
   				offerForm.setOfferstartdate(dateFormat.format(cal.getTime()));
   				
