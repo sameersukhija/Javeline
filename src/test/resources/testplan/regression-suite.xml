@@ -147,7 +147,7 @@
   <parameter name="jsonFilePath_Offer" value="input/catalogmanager/Offers"/>
 	<parameter name="jsonFileName_Offer" value="purchaseOffer"/>
     <classes>
-      <class name="com.lumata.e4o.testplan.functional.e2e.PurchaseOfferFormCustomerCare">
+      <class name="com.lumata.e4o.testplan.functional.e2e.PurchaseOfferFromCustomerCare">
       </class>
     </classes>	
   </test>
