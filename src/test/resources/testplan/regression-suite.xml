@@ -116,19 +116,19 @@
     </classes>	
   </test>
   
-  <test name="Offer Form TestCases">
+  <!--test name="Offer Form TestCases">
 	<parameter name="jsonFilePath_Offer" value="input/catalogmanager/Offers"/>
 	<parameter name="jsonFileName_Offer" value="oneOfferTest"/>
 	<parameter name="jsonFilePath_ProductType" value="input/catalogmanager/productTypes"/>
 	<parameter name="jsonFileName_ProductType" value="newOffer_ProductType"/>
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestOfferForm">
-      <!--methods>
+      <methods>
 			<include name="testUc28_07_addOffer_OneTimeVoucher_OfferForm"/>
-		</methods-->
+		</methods>
       </class>
     </classes>	
-  </test>
+  </test-->
   <test name="Campaign Model Testcases">
 	<parameter name="jsonFilePath" value="input/campaignmanager/campaignModels"/>
 	<parameter name="jsonFileName" value="newCampaignModel"/>
