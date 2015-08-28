@@ -79,9 +79,9 @@ private Alert file_input;
 		return this;
 	}
 	
-	public OffersForm clickEditSavedOffer() throws FormException, JSONSException {
+	public OffersForm clickEditSavedOffer( String offername) throws FormException, JSONSException {
 			
-		clickXPath("//table[@class='tableList']//tr[@class='contentRow cycle1 savedRow-cycle2'][2]//button[@name='btn-edit' and @title='Edit']" );
+		clickXPath("//div[text()='"+offername+"']//ancestor::tr[1]//td[7]//button[@title='Edit']" );
 		
 		return this;
 		
@@ -447,10 +447,11 @@ private Alert file_input;
 			return this;
 		}
 		public OffersForm setAvailableOffers(String stock) throws FormException{
+			if(null != stock){
 			this.clickXPath("//td[text()='Available Offers']//ancestor::tr[1]//button");
-			if(null != stock)
 			this.sendKeysById("gwt-debug-TextBox-VPOfferEdit-qtyTB", stock);
 			this.clickXPath("//td[contains(text(),'Available Stock')]//ancestor::tr[1]//ancestor::table[3]//button[@title='Save']");
+		}
 			return this;
 		}
 		public OffersForm setStockReservation( String channel,String quan ) throws FormException {
@@ -697,7 +698,7 @@ private Alert file_input;
 				public List<WebElement> getOfferList()  throws FormException {
 					
 					String rootPath = "//table[contains(@class,'OfferPageView')]//tr[3]//table[contains(@class, 'tableList')]";
-					String subPath = "//tr[contains(@class, 'contentRow cycle')]//td[@class='column_description']";
+					String subPath = "//tr[contains(@class, 'cycle')]//td[@class='column_description']";
 		
 					List<WebElement> offerList = getListByXPath(rootPath, rootPath + subPath);
 					System.out.println(offerList);

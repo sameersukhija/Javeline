@@ -55,7 +55,8 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	public String product_type_name=null;
 	public String product_Name=null;
 	public String offerName=null;
-	public String Content_OFFERNAME=null; 
+	public String Content_OFFERNAME=null;
+	public String edit_offerName=null;
 	public String Voucher="One Time Use";
 	public String expiryDate=null;
 	private OffersForm setDescription;
@@ -225,6 +226,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	{
 		
 		final String OFFER_NAME = Format.addTimestamp( setupOffer.getName() + "_" );
+		edit_offerName=OFFER_NAME;
 		OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
 	    
 			offerForm.
@@ -411,7 +413,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
   			offerForm.
   			openForm().
   
-  			clickEditSavedOffer();
+  			clickEditSavedOffer(edit_offerName);
   			offerForm.setName("XYZ");
   			offerForm.clickOfferContentTab().addCharacteristicButton();
   			offerForm.setProductType(product_type_name).saveCharacteristic();
@@ -450,7 +452,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
   			boolean offer_status;
   			
-  			offerForm.clickEditSavedOffer();
+  			offerForm.clickEditSavedOffer("XYZ");
   			
   			offerForm.clickActivationTab().ActivationBtn();
   			

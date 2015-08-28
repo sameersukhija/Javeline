@@ -585,8 +585,8 @@ public class OfferRankValidationScenario extends ParentTestCase {
 					setName( OFFER_NAME ).
 				    setDescription(getOfferJson().getDescription()).
 					setTerms(getOfferJson().getTermsAndConditions()).
-					clickOfferContentTab().
-					setProductType(getProductTypeName()). 
+					clickOfferContentTab().addCharacteristicButton().
+					setProductType(getProductTypeName()).saveCharacteristic().
 					clickPriceTab();
 				
 				List<JSONPricesElement> prices = getOfferJson().getOffersPrices();
