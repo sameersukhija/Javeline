@@ -31,7 +31,7 @@
 			}
 							],
 			"availability" : {
-				"stock" : "100",
+				"stock" : "10",
 				"reservations" : null,
 				"provisioningStart": null,
 				"provisioningEnd": null,
@@ -85,7 +85,7 @@
 			}
 							],
 			"availability" : {
-				"stock" : "50",
+				"stock" : "5",
 				"reservations" : null,
 				"provisioningStart": "2014-05-01",
 				"provisioningEnd": "2014-05-01",
@@ -140,7 +140,7 @@
 							],
 
 			"availability" : {
-				"stock" : "50",
+				"stock" : "5",
 				"reservations" : null,
 				"provisioningStart": "2014-05-01",
 				"provisioningEnd": "2014-05-01",

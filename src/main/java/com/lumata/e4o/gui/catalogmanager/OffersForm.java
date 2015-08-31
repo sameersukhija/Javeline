@@ -767,11 +767,14 @@ private Alert file_input;
 					super.selectByIdAndVisibleText("gwt-debug-ListBox-OfferContentPopUp-lbType", "Offers");
 					super.selectByXPathAndVisibleText("//table[@class='margin10px']/tbody/tr/td/table[@class='tableList Form']/tbody/tr[4][@class='cycle2']/td[2]/select", offerName);
 			
-					//super.clickXPath("//td[@class='dialogMiddleCenter']//table[@class='buttonPanel']/tbody/tr/td/button[@name='btn-cancel']");
+					
 					
 					return this;
 				}
-		
+				public OffersForm cancelCharacteristic() throws FormException{
+					this.clickXPath("//td[@class='dialogMiddleCenter']//table[@class='buttonPanel']/tbody/tr/td/button[@name='btn-cancel']");
+					return this;
+				}
 				
 				public String getOfferName() throws FormException
 				{

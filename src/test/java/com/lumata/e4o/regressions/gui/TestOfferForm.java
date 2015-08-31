@@ -56,7 +56,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	public String product_Name=null;
 	public String offerName=null;
 	public String Content_OFFERNAME=null;
-	public String edit_offerName=null;
+	public String edit_offer=null;
 	public String Voucher="One Time Use";
 	public String expiryDate=null;
 	private OffersForm setDescription;
@@ -71,15 +71,12 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		
 	}
 	
-	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","networkEnvironmentParams",
-		"seleniumWebDriverParams"})
+	@Parameters({"jsonFilePath1_Offer","jsonFileName1_Offer"})
 	@Test( enabled=TEST_ENABLED, priority = 1 )
-	public void testUc28_01addProduct_content_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-			@Optional("newOffers") String jsonFileName_Offer,
-			String networkEnvironmentParams,
-			String seleniumWebDriverParams) throws FormException, JSONException, JSONSException {
-	String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
-	String resourceFile2 = jsonFileName_Offer;
+	public void testUc28_01addProduct_content_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath1_Offer,
+			@Optional("newOffers") String jsonFileName1_Offer) throws FormException, JSONException, JSONSException {
+	String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath1_Offer;
+	String resourceFile2 = jsonFileName1_Offer;
 	setupOffer = new JSONOffers(resourcePath2,resourceFile2);
 
 	Boolean offer_status=false;
@@ -107,7 +104,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		    setDescription(setupOffer.getDescription()).
 			setTerms(setupOffer.getTermsAndConditions()).
 			clickOfferContentTab().addCharacteristicButton();
-			offerForm.setProductName("Products").setProductQuantity("12").saveCharacteristic();
+			offerForm.setProductName("Products").setProductQuantity("20").saveCharacteristic();
 			
 			offerForm.clickPriceTab();
 		
@@ -153,10 +150,10 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	}
 	
 	
-	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer","jsonFilePath_ProductType","jsonFileName_ProductType"})
+	@Parameters({"jsonFilePath1_Offer","jsonFileName1_Offer","jsonFilePath_ProductType","jsonFileName_ProductType"})
 	@Test( enabled=TEST_ENABLED, priority = 2 )
-	public void testUc28_02_addproducttype_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-		@Optional("newOffers") String jsonFileName_Offer,@Optional ("/input/catalogmanager/productTypes") String jsonFilePath_ProductType,
+	public void testUc28_02_addproducttype_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath1_Offer,
+		@Optional("newOffers") String jsonFileName1_Offer,@Optional ("/input/catalogmanager/productTypes") String jsonFilePath_ProductType,
 		@Optional ("newOffer_ProductType") String jsonFileName_ProductType) throws FormException, JSONException, JSONSException {
 	
 		Boolean status=false;
@@ -206,8 +203,8 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		}
 	
 	
-	String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
-	String resourceFile2 = jsonFileName_Offer;
+	String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath1_Offer;
+	String resourceFile2 = jsonFileName1_Offer;
 	setupOffer = new JSONOffers(resourcePath2,resourceFile2);
 	
 	
@@ -216,7 +213,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
 	seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
-	
+
 	
 	int numberOfOffer=setupOffer.getList().size();
 	for (int index = 0; index < numberOfOffer-3; index++) {
@@ -226,7 +223,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	{
 		
 		final String OFFER_NAME = Format.addTimestamp( setupOffer.getName() + "_" );
-		edit_offerName=OFFER_NAME;
+		edit_offer=OFFER_NAME;
 		OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
 	    
 			offerForm.
@@ -277,13 +274,13 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	}
 	}
 	
-	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
+	@Parameters({"jsonFilePath1_Offer","jsonFileName1_Offer"})
 	@Test( enabled=TEST_ENABLED, priority = 3)
-	public void testUc28_3_addOffer_content_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-			@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
+	public void testUc28_3_addOffer_content_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath1_Offer,
+			@Optional("newOffers") String jsonFileName1_Offer) throws FormException, JSONException, JSONSException {
 				
-	String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
-	String resourceFile2 = jsonFileName_Offer;
+	String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath1_Offer;
+	String resourceFile2 = jsonFileName1_Offer;
 	setupOffer = new JSONOffers(resourcePath2,resourceFile2);
 
 	Boolean offer_status=false;
@@ -311,7 +308,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			setTerms(setupOffer.getTermsAndConditions()).
 			clickOfferContentTab().addCharacteristicButton();
 			
-			offerForm.setOfferName(Content_OFFERNAME).saveCharacteristic();
+			offerForm.setOfferName(Content_OFFERNAME).saveCharacteristic().cancelCharacteristic();
 			
 			offerForm.clickPriceTab();
 		
@@ -406,14 +403,14 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
   
   				}	
   	
-  			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
+  				OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
   				
   			boolean offer_status;
   			
   			offerForm.
   			openForm().
   
-  			clickEditSavedOffer(edit_offerName);
+  			clickEditSavedOffer(edit_offer);
   			offerForm.setName("XYZ");
   			offerForm.clickOfferContentTab().addCharacteristicButton();
   			offerForm.setProductType(product_type_name).saveCharacteristic();
@@ -442,13 +439,13 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
   		        }
   			}
   			
-  			@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
+  			@Parameters({"jsonFilePath1_Offer","jsonFileName1_Offer"})
   			@Test( enabled=TEST_ENABLED, priority = 5 )
-  			public void testUc28_05_activate_saved_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-  					@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException {
+  			public void testUc28_05_activate_saved_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath1_Offer,
+  					@Optional("newOffers") String jsonFileName1_Offer) throws FormException, JSONException, JSONSException {
   			
   			  //Activate an already saved offer
-  			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
+  				OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
 
   			boolean offer_status;
   			
@@ -477,13 +474,13 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
   	}
   
   
-  		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
+  		@Parameters({"jsonFilePath1_Offer","jsonFileName1_Offer"})
   		@Test( enabled=TEST_ENABLED, priority = 6 )
-  		public void testUc28_06_addOffer_UnlimitedVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-  				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException, IOException {
+  		public void testUc28_06_addOffer_UnlimitedVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath1_Offer,
+  				@Optional("newOffers") String jsonFileName1_Offer) throws FormException, JSONException, JSONSException, IOException {
   		
-  		String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
-  		String resourceFile2 = jsonFileName_Offer;
+  		String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath1_Offer;
+  		String resourceFile2 = jsonFileName1_Offer;
   		setupOffer = new JSONOffers(resourcePath2,resourceFile2);
   
   		Boolean offer_status=false;
@@ -563,8 +560,11 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
   				
   				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
   				
+  				//offerForm.UnlimitedVoucherAlertHandling();
+  				
   				if(offer_status==true)
   				{
+  					offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
   						
   					Assert.assertTrue(offer_status);
   					Reporter.log("Offer Created Succesfully!");
@@ -582,12 +582,12 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
   
   			}
 	
-		@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
+		@Parameters({"jsonFilePath1_Offer","jsonFileName1_Offer"})
 		@Test( enabled=TEST_ENABLED, priority = 7 )
-		public void testUc28_07_addOffer_OneTimeVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath_Offer,
-				@Optional("newOffers") String jsonFileName_Offer) throws FormException, JSONException, JSONSException, IOException, InterruptedException, AWTException, MessagingException {
-			String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
-			String resourceFile2 = jsonFileName_Offer;
+		public void testUc28_07_addOffer_OneTimeVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath1_Offer,
+				@Optional("newOffers") String jsonFileName1_Offer) throws FormException, JSONException, JSONSException, IOException, InterruptedException, AWTException, MessagingException {
+			String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath1_Offer;
+			String resourceFile2 = jsonFileName1_Offer;
 			setupOffer = new JSONOffers(resourcePath2,resourceFile2);
 
 			Boolean offer_status=false;
@@ -621,7 +621,8 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			offerForm.clickVoucherDefinitionTab();
 			
-			offerForm.setOneTimeBrowseFile(DEFAULT_RESOURCE_FOLDER_ROOT+ "input/catalogmanager/Offers/VoucherCodes.csv");
+			offerForm.setOneTimeBrowseFile(System.getProperty( "user.dir" )+"\\src\\test\\resources\\input\\catalogmanager\\Offers\\VoucherCodes.csv");
+			//offerForm.clickBycssSelector("button[name=btn-importer]");
 			
 			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
 			
@@ -681,13 +682,15 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			offerForm.clickActivationTab().saveBtn().closeAlertAndGetItsText();
 			
+			offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+			
+			offer_status=offerForm.isOfferInList(OFFER_NAME);
+			
 			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
 			
 			offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
-			offer_status=offerForm.isOfferInList(OFFER_NAME);
 			
 			if(offer_status==true)
-				
 			{
 				Assert.assertTrue(offer_status);
 				Reporter.log("Offer Created Succesfully!");
@@ -695,7 +698,6 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			}
 			else
 			{
-				
 				
 				AssertJUnit.fail("The Offer creation Failed!");
 				Reporter.log("Creation of Offer Failed!");
@@ -707,4 +709,4 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		}	
 
 		
-					}
+				}
