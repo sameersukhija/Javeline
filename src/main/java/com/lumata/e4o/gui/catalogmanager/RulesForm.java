@@ -15,6 +15,7 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.json.gui.catalogmanager.JSONRuleChannel;
 import com.lumata.e4o.json.gui.catalogmanager.JSONRules;
+
 //created by Isha Vyas
 public class RulesForm extends OfferOptimisationForm {
 
@@ -26,14 +27,18 @@ public class RulesForm extends OfferOptimisationForm {
 
 	};
 
-	public enum optimizationAlgorithm {
+	public enum OptimizationAlgorithm {
 
-		RandomAssigment("Random Assigment"), BestOffer("Best Offer"), Historybased(
-				"History based"), Stockbased("Stock based}"), PreferenceBased(
-				"Preference Based"), CustomBased("Custom Based");
+		RandomAssigment("Random Assigment"), 
+		BestOffer("Best Offer"), 
+		Historybased("History based"), 
+		Stockbased("Stock based}"), 
+		PreferenceBased("Preference Based"), 
+		CustomBased("Custom Based");
+		
 		private String value;
 
-		optimizationAlgorithm(String value) {
+		OptimizationAlgorithm(String value) {
 
 			this.value = value;
 		}
@@ -41,15 +46,20 @@ public class RulesForm extends OfferOptimisationForm {
 		public String value() {
 
 			return this.value;
+			
 		}
+		
 	}
 
-	public enum expiredOfferBehaviour {
-		Selectvalue("Select value..."), Pickupnewoffer("Pick up new offer"), Bypassoffervaliditydate(
-				"Bypass offer validity date");
+	public enum ExpiredOfferBehaviour {
+		
+		Selectvalue("Select value..."), 
+		Pickupnewoffer("Pick up new offer"), 
+		Bypassoffervaliditydate("Bypass offer validity date");
+		
 		private String value;
 
-		expiredOfferBehaviour(String value) {
+		ExpiredOfferBehaviour(String value) {
 
 			this.value = value;
 		}
@@ -85,11 +95,10 @@ public class RulesForm extends OfferOptimisationForm {
 	}
 
 	// Click Add button to add new Rule
-	public RulesForm clickAddBtn() throws FormException {
+	public RulesForm addBtn() throws FormException {
 		
 		super.clickName("btn-add");
 
-		//super.clickLink("Add");
 		return this;
 
 	}
@@ -113,8 +122,7 @@ public class RulesForm extends OfferOptimisationForm {
 	// Set RuleDescription
 	public RulesForm setDescription(String description) throws FormException {
 
-		super.sendKeysByXPath("//textarea[@ng-model='ruleset.description']",
-				description);
+		super.sendKeysByXPath("//textarea[@ng-model='ruleset.description']", description );
 
 		return this;
 
@@ -123,8 +131,7 @@ public class RulesForm extends OfferOptimisationForm {
 	// Get RuleDescription
 	public String getDescription() throws FormException {
 
-		return super
-				.getValueByXPath("//textarea[@ng-model='ruleset.description']");
+		return super.getValueByXPath("//textarea[@ng-model='ruleset.description']");
 
 	}
 
@@ -134,47 +141,72 @@ public class RulesForm extends OfferOptimisationForm {
 		return this;
 	}
 
-	// Select Channel Type
-	public RulesForm setChannel(JSONArray channelRules) throws FormException {
+	// Set Channels Type
+	public RulesForm setChannels(JSONArray channelRules) throws FormException {
 		super.multiselectByXPathAndVisibleText( "//select[@multiple]", ruleCfg.getRuleChannelsAsArray());
 		return this;
 
 	}
 
+	// Set Channel Type
+	public RulesForm setChannel( String channelName ) throws FormException {
+		super.multiselectByXPathAndVisibleText( "//select[@multiple]", channelName );
+		return this;
+
+	}
+	
 	// Select OptimizationAlgorithm
-	public RulesForm setAlgorithm(String text) throws FormException {
-		super.selectByNameAndVisibleText("algorithm", text);
+	public RulesForm setAlgorithm( OptimizationAlgorithm algorithm ) throws FormException {
+		return setAlgorithm(algorithm.value());
+	}
+	
+	// Select OptimizationAlgorithm
+	public RulesForm setAlgorithm(String algorithm) throws FormException {
+		super.selectByNameAndVisibleText("algorithm", algorithm);
 		return this;
 	}
+	
 	public String getAlgorithm() throws FormException {
 		return super.getValueByName("algorithm");
 		
 	}
 
 	// Set MaxNumber of Offers
-	public RulesForm setMaxNumberOfOffers(String text) throws FormException {
-		super.sendKeysByName("usage", text);
+	public RulesForm setMaxNumberOfOffers( Integer maxNumberOfOffers ) throws FormException {
+		super.sendKeysByName("usage", String.valueOf( maxNumberOfOffers ));
+		return this;
+	}
+	
+	// Set MaxNumber of Offers
+	public RulesForm setMaxNumberOfOffers( String maxNumberOfOffers ) throws FormException {
+		super.sendKeysByName("usage", maxNumberOfOffers);
 		return this;
 	}
 
 	// Select ExpiredOfferBehaviour
-	public RulesForm setExpiredOfferBehaviour(String text) throws FormException {
-		super.selectByNameAndVisibleText("redeemExpiredOfferBehavior", text);
+	public RulesForm setExpiredOfferBehaviour( ExpiredOfferBehaviour expiredOfferBehaviour ) throws FormException {
+		return setExpiredOfferBehaviour( expiredOfferBehaviour.value() );
+	}
+	
+	// Select ExpiredOfferBehaviour
+	public RulesForm setExpiredOfferBehaviour( String expiredOfferBehaviour ) throws FormException {
+		super.selectByNameAndVisibleText("redeemExpiredOfferBehavior", expiredOfferBehaviour);
 		return this;
 	}
+	
 	public String getExpiredOfferBehaviour() throws FormException {
 		return super.getValueByName("redeemExpiredOfferBehavior");
 	}
 
 	// Click on save button of saveRule
-	public RulesForm saveRule() throws FormException {
+	public RulesForm saveBtn() throws FormException {
 
 		super.clickXPath("//a[@name='btn-add']");
 
 		return this;
 
 	}
-	public RulesForm editSaveRule() throws FormException {
+	public RulesForm editRule() throws FormException {
 
 		super.clickXPath("//a[@name='btn-edit']");
 
@@ -183,7 +215,7 @@ public class RulesForm extends OfferOptimisationForm {
 	}
 
 	// Click on Cancel Button
-	public RulesForm cancelRule() throws FormException {
+	public RulesForm cancelBtn() throws FormException {
 
 		super.clickXPath("//a[@name='btn-cancel']");
 
@@ -192,28 +224,28 @@ public class RulesForm extends OfferOptimisationForm {
 	}
 
 	// Check YesRadiobutton of KeepOfferConsistent over multiple redraws
-	public RulesForm clickKeepOfferConsistentYes() throws FormException {
+	public RulesForm setKeepOfferConsistentYes() throws FormException {
 
 		super.clickId("keepOffersConsistent-yes");
 		return this;
 	}
 
 	// Check NoRadioButton of KeepOfferConsistent over multiple redraws
-	public RulesForm clickKeepOfferConsistentNo() throws FormException {
+	public RulesForm setKeepOfferConsistentNo() throws FormException {
 
 		super.clickId("keepOffersConsistent-no");
 		return this;
 	}
 
 	// Click Yes RadioButton of IncludePreviouslyAcceptedOffer
-	public RulesForm clickPrevioslyAcceptedOfferYes() throws FormException {
+	public RulesForm setPrevioslyAcceptedOfferYes() throws FormException {
 
 		super.clickId("previousOffersDrawnIncluded-yes");
 		return this;
 	}
 
 	// Click No RadioButton of IncludePreviouslyAcceptedOffer
-	public RulesForm clickPrevioslyAcceptedOfferNo() throws FormException {
+	public RulesForm setPrevioslyAcceptedOfferNo() throws FormException {
 
 		super.clickId("previousOffersDrawnIncluded-no");
 		return this;
@@ -322,7 +354,7 @@ public class RulesForm extends OfferOptimisationForm {
 
 	}
 	
-public List<WebElement> getRuleList() throws FormException {
+	public List<WebElement> getRuleList() throws FormException {
 		//waitForPageLoad();
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class ,'e4ol-list')]")));
 		List<WebElement> ruleList = super.getListByXPath("//div[contains(@class ,'e4ol-list')]","//div[contains(@class , 'e4ol-list__cell ng-binding')]");
@@ -348,7 +380,8 @@ public List<WebElement> getRuleList() throws FormException {
 		return false;
 		
 	}
-public RulesForm editRuleByName( String strRuleName ) throws FormException {
+	
+	public RulesForm editRuleByName( String strRuleName ) throws FormException {
 		
 		List<WebElement> ruleList = getRuleList();
 				
@@ -365,24 +398,25 @@ public RulesForm editRuleByName( String strRuleName ) throws FormException {
 		return this;
 		
 	}
-public RulesForm copyRuleByName( String strRuleName ) throws FormException {
-	
-	List<WebElement> ruleList = getRuleList();
-			
-	for( int i=0;i<ruleList.size();i++) {
+
+	public RulesForm copyRuleByName( String strRuleName ) throws FormException {
 		
-		if(ruleList.get(i).getText().trim().equals( strRuleName ) ) {
-			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class ,'e4ol-list')]//div[contains(@class , 'e4ol-list__row')]["+(i+2)+"]//a[@name='btn-copy']")));
-			this.clickXPath("//div[contains(@class ,'e4ol-list')]//div[contains(@class , 'e4ol-list__row')]["+(i+2)+"]//a[@name='btn-copy']");
-			break;
+		List<WebElement> ruleList = getRuleList();
+				
+		for( int i=0;i<ruleList.size();i++) {
+			
+			if(ruleList.get(i).getText().trim().equals( strRuleName ) ) {
+				wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class ,'e4ol-list')]//div[contains(@class , 'e4ol-list__row')]["+(i+2)+"]//a[@name='btn-copy']")));
+				this.clickXPath("//div[contains(@class ,'e4ol-list')]//div[contains(@class , 'e4ol-list__row')]["+(i+2)+"]//a[@name='btn-copy']");
+				break;
+				
+			}
 			
 		}
 		
+		return this;
+		
 	}
-	
-	return this;
-	
-}
 
 	// old methods which will become obsolete later on. I kept it as its
 	// impacting other test cases right now. To remove compilation issue I am
@@ -398,12 +432,10 @@ public RulesForm copyRuleByName( String strRuleName ) throws FormException {
 
 				if (ruleCfg.getEnabled()) {
 
-					clickLink("Add")
-							.configureRule()
-							.saveRule()
-							.manageErrorAction(
-									ruleCfg.getErrorActions().getString(
-											"ELEMENT_ALREADY_EXISTS"));
+					clickLink("Add");
+					configureRule().
+					saveBtn().
+					manageErrorAction( ruleCfg.getErrorActions().getString( "ELEMENT_ALREADY_EXISTS"));
 
 				}
 
@@ -417,19 +449,15 @@ public RulesForm copyRuleByName( String strRuleName ) throws FormException {
 
 	public RulesForm configureRule() throws FormException, JSONException {
 
-		sendKeysByName("name", ruleCfg.getName())
-				.sendKeysByXPath("//textarea[@ng-model='ruleset.description']",
-						ruleCfg.getDescription())
-				.selectByNameAndVisibleText("tokenType", ruleCfg.getTokenType())
-				.multiselectByXPathAndVisibleText("//select[@multiple]",
-						ruleCfg.getRuleChannelsAsArray())
-				.configureRuleChannels()
-				.selectByNameAndVisibleText("algorithm",
-						ruleCfg.getOptimizationAlgorithm())
-				.sendKeysByName("usage", ruleCfg.getMaximumNumberOfOffers());
+		sendKeysByName("name", ruleCfg.getName()).
+		sendKeysByXPath("//textarea[@ng-model='ruleset.description']", ruleCfg.getDescription() ).
+		selectByNameAndVisibleText("tokenType", ruleCfg.getTokenType() ).
+		multiselectByXPathAndVisibleText("//select[@multiple]", ruleCfg.getRuleChannelsAsArray());
+		configureRuleChannels().
+		selectByNameAndVisibleText("algorithm", ruleCfg.getOptimizationAlgorithm()).
+		sendKeysByName("usage", ruleCfg.getMaximumNumberOfOffers());
 
-		selectByNameAndVisibleText("redeemExpiredOfferBehavior",
-				ruleCfg.getExpiredOfferBehaviour());
+		selectByNameAndVisibleText("redeemExpiredOfferBehavior", ruleCfg.getExpiredOfferBehaviour());
 
 		if (ruleCfg.getKeepOffersConsistentAcrossMultipleRedraws()) {
 			clickId("keepOffersConsistent-yes");
@@ -447,8 +475,7 @@ public RulesForm copyRuleByName( String strRuleName ) throws FormException {
 
 	}
 
-	public RulesForm configureRuleChannels() throws JSONException,
-			FormException {
+	public RulesForm configureRuleChannels() throws JSONException, FormException {
 
 		Map<String, JSONRuleChannel> ruleChannels = ruleCfg.getRuleChannels();
 
@@ -493,36 +520,38 @@ public RulesForm copyRuleByName( String strRuleName ) throws FormException {
 
 		if (status) {
 
-			clickXPath("//div[@class='gwt-DialogBox errorDialog']//button")
-					.openAngularFrame();
+			clickXPath("//div[@class='gwt-DialogBox errorDialog']//button");
+					
+			super.openAngularFrame();
 
 			switch (ElementErrorActionType.valueOf(errorAction)) {
 
-			case RETURN_ERROR: {
-
-				throw new FormException("Error in the form navigation");
-
-			}
-			case ABORT_CANCEL: {
-
-				cancelRule();
-
-				break;
-			}
-			case ADD_TIMESTAMP_TO_FIELD: {
-
-				String name_with_timestamp = ruleCfg.getName()
-						+ "_"
-						+ String.valueOf(TimeUnit.MILLISECONDS.toSeconds(System
-								.currentTimeMillis()));
-
-				ruleCfg.setName(name_with_timestamp);
-
-				clearByName("name").sendKeysByName("name", ruleCfg.getName())
-						.saveRule();
-
-				break;
-			}
+				case RETURN_ERROR: {
+	
+					throw new FormException("Error in the form navigation");
+	
+				}
+				case ABORT_CANCEL: {
+	
+					cancelBtn();
+	
+					break;
+				}
+				case ADD_TIMESTAMP_TO_FIELD: {
+	
+					String name_with_timestamp = ruleCfg.getName()
+							+ "_"
+							+ String.valueOf(TimeUnit.MILLISECONDS.toSeconds(System
+									.currentTimeMillis()));
+	
+					ruleCfg.setName(name_with_timestamp);
+	
+					clearByName("name").sendKeysByName("name", ruleCfg.getName());
+					
+					saveBtn();
+	
+					break;
+				}
 
 			}
 
@@ -537,132 +566,9 @@ public RulesForm copyRuleByName( String strRuleName ) throws FormException {
 	}
 
 	@Override
-	public RulesForm clickName(String name) throws FormException {
-
-		super.clickName(name);
-
-		return this;
-
-	}
-
-	@Override
-	public RulesForm clickXPath(String xpath) throws FormException {
-
-		super.clickXPath(xpath);
-
-		return this;
-
-	}
-
-	@Override
-	public RulesForm clickLink(String link) throws FormException {
-
-		super.clickLink(link);
-
-		return this;
-
-	}
-
-	@Override
-	public RulesForm sendKeysByName(String name, String text)
-			throws FormException {
-
-		super.sendKeysByName(name, text);
-
-		return this;
-
-	}
-
-	@Override
-	public RulesForm sendKeysByXPath(String xpath, String text)
-			throws FormException {
-
-		super.sendKeysByXPath(xpath, text);
-
-		return this;
-
-	}
-
-	@Override
-	public RulesForm sendKeysByLink(String link, String text)
-			throws FormException {
-
-		super.sendKeysByLink(link, text);
-
-		return this;
-
-	}
-
-	@Override
-	public RulesForm selectByName(String name, String label)
-			throws FormException {
-
-		super.selectByName(name, label);
-
-		return this;
-
-	}
-
-	@Override
-	public RulesForm clearByName(String xpath) throws FormException {
-
-		super.clearByName(xpath);
-
-		return this;
-
-	}
-
-	@Override
-	public RulesForm typeByName(String name, String text) throws FormException {
-
-		super.typeByName(name, text);
-
-		return this;
-
-	}
-
-	@Override
-	public RulesForm multiselectByXPathAndVisibleText(String xpath,
-			JSONArray list) throws FormException {
-
-		super.multiselectByXPathAndVisibleText(xpath, list);
-
-		return this;
-
-	}
-
-	@Override
-	public RulesForm selectByNameAndVisibleText(String name, String text)
-			throws FormException {
-
-		super.selectByNameAndVisibleText(name, text);
-
-		return this;
-
-	}
-
-	@Override
-	public RulesForm openAngularFrame() throws FormException {
-
-		super.openAngularFrame();
-
-		return this;
-
-	}
-
-	@Override
-	public RulesForm closeAngularFrame() throws FormException {
-
-		super.closeAngularFrame();
-
-		return this;
-
-	}
-	
-	@Override
-	
 	public RulesForm goToHome() throws FormException{
-			close();
+	
+		close();
 		
 		super.goToHome();
 		

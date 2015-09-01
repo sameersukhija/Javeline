@@ -3,6 +3,7 @@ package com.lumata.e4o.testplan.functional.e2e;
 import static com.lumata.e4o.gui.common.NotificationForm.NotificationChannel.SMS;
 import static com.lumata.e4o.gui.common.NotificationForm.NotificationTongue.English;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +19,9 @@ import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.administrationmanager.SalesChannelsForm;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
+import com.lumata.e4o.gui.catalogmanager.RulesForm;
+import com.lumata.e4o.gui.catalogmanager.RulesForm.ExpiredOfferBehaviour;
+import com.lumata.e4o.gui.catalogmanager.RulesForm.OptimizationAlgorithm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm.TokenFormat;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm.TokenValidityType;
@@ -30,13 +34,16 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 public class ConfigureGUIToGiveTokens extends ParentTestCase {
 	
 	private SalesChannelsForm salesChannelsForm;
-	private TokenTypeForm tokenTypeForm;
+	private TokenTypeForm tokenTypesForm;
+	private RulesForm rulesForm;
 	private CampaignsForm campaignsForm;
 	
 	private final String CHANNEL_NAME_PREFIX = "Ch ";
 	private final Integer NUMBER_OF_SALES_CHANNELS = 3;
 	private final String TOKEN_TYPE_NAME_PREFIX = "TokenType";
 	private final Integer NUMBER_OF_TOKEN_TYPES = 3;
+	private final String RULE_NAME_PREFIX = "Rule";
+	private final Integer NUMBER_OF_RULES = 3;
 	
 	@BeforeClass
 	public void initCampaignsForm() throws NetworkEnvironmentException, FormException {		
@@ -44,8 +51,11 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 		/** SalesChannels Form **/
 		salesChannelsForm = new SalesChannelsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		/** SalesChannels Form **/
-		tokenTypeForm = new TokenTypeForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
+		/** Token Type Form **/
+		tokenTypesForm = new TokenTypeForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
+		
+		/** Rules Form **/
+		rulesForm = new RulesForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
 		/** Campaigns Form **/
 		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
@@ -80,15 +90,15 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 	@Test( enabled=false, priority = 2 )
 	public void configurTokenTypes() throws FormException {
 		
-		tokenTypeForm.openForm();
+		tokenTypesForm.openForm();
 		
 		for( int n = 1; n <= NUMBER_OF_TOKEN_TYPES; n++ ) {
 
 			String tokenTypeName = TOKEN_TYPE_NAME_PREFIX + Character.toString ((char) ( 64 + n ) );
 			
-			if( !tokenTypeForm.isTokenTypeInList( tokenTypeName ) ) {
+			if( !tokenTypesForm.isTokenTypeInList( tokenTypeName ) ) {
 			
-				tokenTypeForm.
+				tokenTypesForm.
 					addBtn().
 					setName( tokenTypeName ).
 					setDescription( tokenTypeName ).
@@ -103,39 +113,82 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 			
 		}
 		
-		tokenTypeForm.goToHome();
+		tokenTypesForm.goToHome();
 		
 	}
 
-	@Test( enabled=false, priority = 2 )
+	@Test( enabled=true, priority = 3 )
 	public void configurRules() throws FormException {
+
+		ArrayList<String> salesChannels = new ArrayList<String>();
 		
-		tokenTypeForm.openForm();
+		for( int n = 1; n <= NUMBER_OF_SALES_CHANNELS; n++ ) {
+		
+			String salesChannelName = CHANNEL_NAME_PREFIX + Character.toString ((char) ( 64 + n) );
+			
+			salesChannels.add( salesChannelName );
+			
+		}
+		
+		ArrayList<String> tokenTypes = new ArrayList<String>();
 		
 		for( int n = 1; n <= NUMBER_OF_TOKEN_TYPES; n++ ) {
-
+		
 			String tokenTypeName = TOKEN_TYPE_NAME_PREFIX + Character.toString ((char) ( 64 + n ) );
 			
-			if( !tokenTypeForm.isTokenTypeInList( tokenTypeName ) ) {
+			tokenTypes.add( tokenTypeName );
 			
-				tokenTypeForm.
+		}
+		
+		rulesForm.openForm();
+		
+		for( int n = 1; n <= NUMBER_OF_RULES; n++ ) {
+						
+			String ruleName = RULE_NAME_PREFIX + Character.toString ((char) ( 64 + n ) );
+			
+			if( !rulesForm.isRuleNameInList( ruleName ) ) {
+								
+				rulesForm.
 					addBtn().
-					setName( tokenTypeName ).
-					setDescription( tokenTypeName ).
-					setFormat( TokenFormat.imm5 ).
-					setValidityType( TokenValidityType.Relative ).
-					setValidityValue( 100 ).
-					setValidityUnit( TokenValidityUnit.days ).
-					setUnlimitedRedraw( true ).
+					setName( ruleName ).
+					setDescription( ruleName ).
+					setTokenType( tokenTypes.get( ( n - 1 ) % tokenTypes.size() ) ).
+					setChannel( salesChannels.get( ( n - 1 ) % salesChannels.size() ) ).
+					setAlgorithm( OptimizationAlgorithm.RandomAssigment ).
+					setKeepOfferConsistentYes().setPrevioslyAcceptedOfferYes().
+					setMaxNumberOfOffers( 10 ).
+					setExpiredOfferBehaviour( ExpiredOfferBehaviour.Pickupnewoffer ).
 					saveBtn();
 				
 			}
 			
 		}
 		
-		tokenTypeForm.goToHome();
+		rulesForm.goToHome();
 		
 	}
+	
+	
+	
+	
+	
+	
+//	final String RULE_TYPE_NAME = Format.addTimestamp( "Rule_" );
+//	ruleTypeForm.openForm();
+//	//ruleTypeForm.waitForVisibilityOfElement();
+//	ruleTypeForm.clickAddBtn();
+//	ruleTypeForm.setName(RULE_TYPE_NAME);
+//	ruleTypeForm.setDescription(RULE_TYPE_NAME + " Description" );	
+//	ruleTypeForm.setTokenType("TType_1427787040383");
+//	ruleTypeForm.setChannel("Campaign manager");
+//	
+//	ruleTypeForm.setAlgorithm(RulesForm.optimizationAlgorithm.RandomAssigment.value());
+//	ruleTypeForm.clickKeepOfferConsistentNo();
+//	ruleTypeForm.clickPrevioslyAcceptedOfferNo();
+//	ruleTypeForm.setMaxNumberOfOffers("1");
+//	ruleTypeForm.setExpiredOfferBehaviour(RulesForm.expiredOfferBehaviour.Pickupnewoffer.value());
+//	Assert.assertTrue(ruleTypeForm.formIsValid());
+//	ruleTypeForm.saveRule();
 	
 	
 	

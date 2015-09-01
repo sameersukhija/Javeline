@@ -431,25 +431,25 @@ public class OfferRankValidationScenario extends ParentTestCase {
 			getRuleJson().setRuleById(ruleTypeIndex);
 
 			rulesForm.openForm();
-			rulesForm.clickAddBtn();
+			rulesForm.addBtn();
 			rulesForm.setName(getRuleName());
 			rulesForm.setDescription(getRuleName() + " Description");
 			// Use token which created in this class
 			rulesForm.setTokenType(getTokenName());
-			rulesForm.setChannel(getRuleJson().getRuleChannelsAsArray());
+			rulesForm.setChannels(getRuleJson().getRuleChannelsAsArray());
 			rulesForm.configureRuleChannels();
 			rulesForm
-					.setAlgorithm(RulesForm.optimizationAlgorithm.RandomAssigment
+					.setAlgorithm(RulesForm.OptimizationAlgorithm.RandomAssigment
 							.value());
-			rulesForm.clickKeepOfferConsistentNo();
-			rulesForm.clickPrevioslyAcceptedOfferNo();
+			rulesForm.setKeepOfferConsistentNo();
+			rulesForm.setPrevioslyAcceptedOfferNo();
 			rulesForm
 					.setMaxNumberOfOffers(jsonRules.getMaximumNumberOfOffers());
 			rulesForm
-					.setExpiredOfferBehaviour(RulesForm.expiredOfferBehaviour.Pickupnewoffer
+					.setExpiredOfferBehaviour(RulesForm.ExpiredOfferBehaviour.Pickupnewoffer
 							.value());
 			Assert.assertTrue(rulesForm.formIsValid());
-			rulesForm.saveRule();
+			rulesForm.saveBtn();
 			status=rulesForm.isRuleNameInList("RuleEndToEnd401");
 			rulesForm.close();
 		}
