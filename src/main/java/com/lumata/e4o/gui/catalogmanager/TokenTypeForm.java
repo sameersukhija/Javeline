@@ -2,6 +2,7 @@ package com.lumata.e4o.gui.catalogmanager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -200,9 +201,23 @@ public class TokenTypeForm extends OfferOptimisationForm {
 	}
 
 	public List<WebElement> getTokenTypeList() throws FormException {
+		
 		super.waitVisibleElement(By.xpath("//div[@class='e4ol-list']"));
-		List<WebElement> tokenTypeList = super.searchListByXPath( "//div[@class='e4ol-list']", "//div[contains(@class,'e4ol-list__row ng-scope')]//div[contains(@class, 'e4ol-list__cell e4ol-list__cell--text ng-binding')]" );
-
+		
+		List<WebElement> tokenTypeList = new ArrayList<WebElement>();
+		
+		try {
+			
+			tokenTypeList = super.searchListByXPath( "//div[@class='e4ol-list']", "//div[contains(@class,'e4ol-list__row ng-scope')]//div[contains(@class, 'e4ol-list__cell e4ol-list__cell--text ng-binding')]" );
+		
+		} catch( FormException fe ) {
+			
+			/** in case of empty list **/;
+		
+		}
+		
+		System.out.println( "TOKEN TYPE LIST: " + tokenTypeList );
+		
 		return tokenTypeList;
 		
 	}
@@ -267,6 +282,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 	} 
 	
 	public TokenTypeForm addBtn() throws FormException {
+		
 		super.waitVisibleElement(By.linkText("Add"));
 		super.clickLink( "Add" );
 		
@@ -279,8 +295,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		List<WebElement> tokenTypeList = getTokenTypeList();
 		
 		for( int el = 0; el <= tokenTypeList.size(); el++ ) {
-			System.out.println(tokenTypeList.get(el).getText());
-						
+									
 			if( tokenTypeList.get( el ).getText().trim().equals( tokenTypeName ) ) {
 
 				WebElement editBtn = super.search( SearchBy.XPATH , "//div[@class='e4ol-list']/div["+ (el+2) +"]/div[2]/a[@name='btn-edit']" );
@@ -300,9 +315,6 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		}
 		
 		return this;
-		
-			
-		
 		
 	}
 	
@@ -350,6 +362,14 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 	}
 	
+	public TokenTypeForm setFormat( TokenFormat format ) throws FormException {
+		
+		setFormat( format.value() );
+		
+		return this;
+		
+	}
+	
 	public TokenTypeForm setFormat( String format ) throws FormException {
 		
 		super.selectByNameAndVisibleText( "format", format );
@@ -364,6 +384,14 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		
 	}
 	
+	public TokenTypeForm setValidityType( TokenValidityType validityType ) throws FormException {
+		
+		setValidityType( validityType.value() );
+		
+		return this;
+		
+	}
+	
 	public TokenTypeForm setValidityType( String validityType ) throws FormException {
 		
 		super.selectByXPathAndVisibleText( "//select[@name='schedulingType']", validityType );
@@ -374,7 +402,15 @@ public class TokenTypeForm extends OfferOptimisationForm {
 	
 	public String getValidityType() throws FormException {
 		
-		return ( super.getValueByXPath( "//select[@name='schedulingType']" ).equals( "DAYS" ) ? TokenValidityType.Relative.name() : TokenValidityType.Absolute.name() );
+		return ( super.getValueByXPath( "//select[@name='schedulingType']" ).equals( "DAYS" ) ? TokenValidityType.Relative.value() : TokenValidityType.Absolute.value() );
+		
+	}
+	
+	public TokenTypeForm setValidityValue( Integer validityValue ) throws FormException {
+		
+		setValidityValue( String.valueOf( validityValue ) );
+		
+		return this;
 		
 	}
 	
@@ -385,8 +421,9 @@ public class TokenTypeForm extends OfferOptimisationForm {
 		return this;
 		
 	}
-	public Calendar parsePlaceHolderDate(String date_string) throws ParseException,FormException
-	{
+	
+	public Calendar parsePlaceHolderDate(String date_string) throws ParseException,FormException {
+		
 		Calendar date = Calendar.getInstance();
 		
 		try {
@@ -408,11 +445,22 @@ public class TokenTypeForm extends OfferOptimisationForm {
 			throw new FormException( e.getMessage(), e );
 			
 		}
+		
 		return date;
+		
 	}
+	
 	public String getValidityValue() throws FormException {
 		
 		return super.getValueByName( "validity.value" );
+		
+	}
+	
+	public TokenTypeForm setValidityUnit( TokenValidityUnit validityUnit ) throws FormException {
+		
+		setValidityUnit( validityUnit.value() );
+		
+		return this;
 		
 	}
 	
@@ -426,7 +474,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 	
 	public String getValidityUnit() throws FormException {
 
-		return TokenValidityUnit.values()[ Integer.valueOf( super.getValueByName( "validity.unit" ) )].name();
+		return TokenValidityUnit.values()[ Integer.valueOf( super.getValueByName( "validity.unit" ) )].value();
 		
 	}
 	

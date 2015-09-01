@@ -409,23 +409,23 @@ public abstract class ParentTestCase {
 	private void initNetworkEnvironment( String networkEnvironmentParams ) throws TestNGException {
 				
 		Reporter.log( Log.LOADING.createMessage( "initNetworkEnvironment" , "environment" ), LOG_TO_STD_OUT );
-				
+			
 		try {
 			
 			if( networkEnvironmentParams.isEmpty() ) {
 				
 				Reporter.log( Log.LOADING.createMessage( "initNetworkEnvironment" , "default network environment configuration ( " + DEFAULT_ENV_FILE + " )" ), LOG_TO_STD_OUT );
-								
+							
 				env = new NetworkEnvironment( DEFAULT_RESOURCE_FOLDER_ENVIRONMENTS, DEFAULT_ENV_FILE, IOFileUtils.IOLoadingType.FILE );
 				
 			} else {
 				
 				this.networkEnvironmentParams = networkEnvironmentParams;
-				
+					
 				jsonNetworkEnvironmentParams = new JSONObject( this.networkEnvironmentParams );
-				
+					
 				Reporter.log( Log.LOADING.createMessage( "initNetworkEnvironment" , "custom network environment configuration ( " + jsonNetworkEnvironmentParams.getString( "envFile" ) + " )" ), LOG_TO_STD_OUT );
-								
+										
 				env = new NetworkEnvironment( DEFAULT_RESOURCE_FOLDER_ENVIRONMENTS, jsonNetworkEnvironmentParams.getString( "envFile" ), IOFileUtils.IOLoadingType.FILE );
 			
 			}

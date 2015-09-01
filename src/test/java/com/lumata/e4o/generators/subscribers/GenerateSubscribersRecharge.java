@@ -15,18 +15,18 @@ import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.Pa
 
 public class GenerateSubscribersRecharge extends ParentTestCase {
 
-	final boolean GENERATE_FIXED_SUBSCRIBER = false;
+	final boolean GENERATE_FIXED_SUBSCRIBER = true;
 	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE = false;
 	final boolean GENERATE_INCREMENTAL_SUBSCRIBER_RANDOM_RECHARGE_AND_SUBSCRIBERS = false;
-	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = true;
+	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = false;
 	final boolean GENERATE_RANDOM_SUBSCRIBERS = false;
 	
 	@Test( enabled = GENERATE_FIXED_SUBSCRIBER )
 	public void generateFixedSubscriber() throws GeneratorException {
 		
 		final Long FIXED_MSISDN = 3399900001L;
-		final Long RECHARGE_TO_GENERATE = 20L;
+		final Long RECHARGE_TO_GENERATE = 10L;
 						
 		Generator.subscribers()
 					.server( guiServer )

@@ -65,7 +65,7 @@ public class ChangeRemoteSystemDate {
 		
 			YEAR = 2015;
 			MONTH = Calendar.JULY;
-			DAY = 01;
+			DAY = 1;
 			HOUR = 10;
 			MINUTE = 00;
 			SECOND = 00;
@@ -74,7 +74,7 @@ public class ChangeRemoteSystemDate {
 				
 		date.set( YEAR, MONTH, DAY, HOUR, MINUTE, SECOND );
 		
-		date.add( Calendar.DAY_OF_MONTH, 40 );
+		//date.add( Calendar.DAY_OF_MONTH, 40 );
 				
 		ekcServer.setServerDatetime( date, true );
 		

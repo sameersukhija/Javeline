@@ -3,18 +3,14 @@ package com.lumata.e4o.testplan.functional.webservices.xmlrpc;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static org.hamcrest.Matchers.*;
-
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.annotations.mysql.Column;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
@@ -32,10 +28,7 @@ import com.lumata.e4o.schema.tenant.Token;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
-import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
-import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
-import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.*;
 
 public class XLRPCRequest_OfferOptimizer_ResendAllActiveTokens {
 	
