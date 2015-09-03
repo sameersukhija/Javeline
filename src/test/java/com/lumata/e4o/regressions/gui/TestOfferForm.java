@@ -582,10 +582,12 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
   
   			}
 	
-		@Parameters({"jsonFilePath1_Offer","jsonFileName1_Offer"})
+		@Parameters({"jsonFilePath1_Offer","jsonFileName1_Offer","networkEnvironmentParams","seleniumWebDriverParams"})
 		@Test( enabled=TEST_ENABLED, priority = 7 )
 		public void testUc28_07_addOffer_OneTimeVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath1_Offer,
-				@Optional("newOffers") String jsonFileName1_Offer) throws FormException, JSONException, JSONSException, IOException, InterruptedException, AWTException, MessagingException {
+				@Optional("newOffers") String jsonFileName1_Offer,
+				String networkEnvironmentParams,
+				String seleniumWebDriverParams) throws FormException, JSONException, JSONSException, IOException, InterruptedException, AWTException, MessagingException {
 			String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath1_Offer;
 			String resourceFile2 = jsonFileName1_Offer;
 			setupOffer = new JSONOffers(resourcePath2,resourceFile2);
@@ -594,7 +596,6 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
 	seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
-
 
 	int numberOfOffer=setupOffer.getList().size();
 	for (int index = 3; index < numberOfOffer; index++) {
@@ -645,8 +646,8 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				
 			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
 			  
-			   offerForm.TestAlert();
-			   offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+			   //offerForm.TestAlert();
+			   //offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 				
 			   
 			   offerForm.clickPriceTab();
