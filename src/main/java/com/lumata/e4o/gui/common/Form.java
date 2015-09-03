@@ -3,6 +3,7 @@ package com.lumata.e4o.gui.common;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -30,9 +31,6 @@ import com.lumata.common.testing.selenium.SeleniumUtils;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.selenium.SeleniumUtils.SearchBy;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.catalogmanager.OffersForm;
-import com.lumata.e4o.schema.tenant.CatalogProductTypes;
-import com.lumata.e4o.schema.tenant.CatalogProductTypes.Fields;
 
 public abstract class Form {
 	
@@ -695,9 +693,21 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 	
 	}
 	
+	private Form multiselectByVisibleText( SeleniumUtils.SearchBy by, String tag, String elem ) throws FormException {
+		
+		return multiselectByVisibleText( by, tag, new JSONArray( Arrays.asList( elem ) ) );
+	
+	}
+	
 	public Form multiselectByXPathAndVisibleText( String xpath, JSONArray list ) throws FormException {
 		
 		return multiselectByVisibleText( SearchBy.XPATH, xpath, list );	
+		
+	}
+	
+	public Form multiselectByXPathAndVisibleText( String xpath, String elem ) throws FormException {
+		
+		return multiselectByVisibleText( SearchBy.XPATH, xpath, elem );	
 		
 	}
 	

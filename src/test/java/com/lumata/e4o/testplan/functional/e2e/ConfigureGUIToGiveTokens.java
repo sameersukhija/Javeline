@@ -1,118 +1,307 @@
 package com.lumata.e4o.testplan.functional.e2e;
 
-import java.lang.reflect.Method;
+import static com.lumata.e4o.gui.common.NotificationForm.NotificationChannel.SMS;
+import static com.lumata.e4o.gui.common.NotificationForm.NotificationTongue.English;
 
-import org.json.JSONException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.common.testing.system.Server;
-import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.administrationmanager.SalesChannelsForm;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
 import com.lumata.e4o.gui.catalogmanager.RulesForm;
+import com.lumata.e4o.gui.catalogmanager.RulesForm.ExpiredOfferBehaviour;
+import com.lumata.e4o.gui.catalogmanager.RulesForm.OptimizationAlgorithm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
-import com.lumata.e4o.gui.security.Authorization;
-import com.lumata.e4o.json.gui.administrationmanager.JSONSalesChannels;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCampaigns;
-import com.lumata.e4o.json.gui.catalogmanager.JSONRules;
-import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
+import com.lumata.e4o.gui.catalogmanager.TokenTypeForm.TokenFormat;
+import com.lumata.e4o.gui.catalogmanager.TokenTypeForm.TokenValidityType;
+import com.lumata.e4o.gui.catalogmanager.TokenTypeForm.TokenValidityUnit;
+import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
-public class ConfigureGUIToGiveTokens {
 
-	private static final Logger logger = LoggerFactory.getLogger( ConfigureGUIToGiveTokens.class );
+@TCSeleniumWebDriver
+public class ConfigureGUIToGiveTokens extends ParentTestCase {
 	
-	private int TIMEOUT = 60000;
-	private int ATTEMPT_TIMEOUT = 200;
+	private SalesChannelsForm salesChannelsForm;
+	private TokenTypeForm tokenTypesForm;
+	private RulesForm rulesForm;
+	private CampaignsForm campaignsForm;
 	
-	private final boolean testEnabled = true;
+	private final String CHANNEL_NAME_PREFIX = "Ch ";
+	private final Integer NUMBER_OF_SALES_CHANNELS = 3;
+	private final String TOKEN_TYPE_NAME_PREFIX = "TokenType";
+	private final Integer NUMBER_OF_TOKEN_TYPES = 3;
+	private final String RULE_NAME_PREFIX = "Rule";
+	private final Integer NUMBER_OF_RULES = 3;
 	
-	private SeleniumWebDriver seleniumWebDriver;
-	private NetworkEnvironment env;
-			
-	/* 	Initialize Environment */
-	@Parameters({"browser", "environment", "gui_server", "tenant", "user"})
 	@BeforeClass
-	public void init( @Optional("FIREFOX") String browser, @Optional("E4O_VM_NE") String environment, @Optional("actrule") String gui_server, @Optional("tenant") String tenant, @Optional("superman") String user ) throws NetworkEnvironmentException, FormException {		
+	public void initCampaignsForm() throws NetworkEnvironmentException, FormException {		
 		
-		logger.info( Log.LOADING.createMessage( "init" , "environment" ) );
+		/** SalesChannels Form **/
+		salesChannelsForm = new SalesChannelsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		/** Create environment configuration */
-		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+		/** Token Type Form **/
+		tokenTypesForm = new TokenTypeForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		/** Create Selenium WebDriver instance */
-		Server gui = env.getServer( gui_server );
-		seleniumWebDriver = new SeleniumWebDriver( gui.getBrowser( browser ), gui.getLink() );
+		/** Rules Form **/
+		rulesForm = new RulesForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		/** Login */
-		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).login( gui.getUser( user ) ).navigate() );
+		/** Campaigns Form **/
+		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
 	}
 	
-	/* 	Initialize TestCase Name */
-	@BeforeMethod
-	protected void startSession(Method method) throws Exception {
-		seleniumWebDriver.setTestName( method.getName() ); 	
-	}
-	
-	@Parameters({"salesChannelsList"})
-	@Test( enabled=testEnabled, priority = 1 )
-	public void configureSalesChannels( @Optional("salesChannelsList") String salesChannelsList ) throws FormException, JSONException, JSONSException {
+	//@Test( enabled=TEST_ENABLED, priority = 1 )
+	@Test( enabled=false, priority = 1 )
+	public void configureSalesChannels() throws FormException {
 		
-		SalesChannelsForm salesChannelsForm = new SalesChannelsForm( seleniumWebDriver, new JSONSalesChannels( "input/administrationmanager/salesChannels", salesChannelsList ), TIMEOUT, ATTEMPT_TIMEOUT );
+		salesChannelsForm.open();
 		
-		Assert.assertTrue( salesChannelsForm.open().addSalesChannels().navigate() );
+		for( int n = 1; n <= NUMBER_OF_SALES_CHANNELS; n++ ) {
+			
+			String salesChannelName = CHANNEL_NAME_PREFIX + Character.toString ((char) ( 64 + n) );
+			
+			if( !salesChannelsForm.isSalesChannelExisting( salesChannelName ) ) {
 				
-	}
-	
-	@Parameters({"tokenTypeList"})
-	@Test( enabled=testEnabled, priority = 2 )
-	public void configureTokeType( @Optional("tokenTypeList") String tokenTypeList ) throws FormException, JSONException, JSONSException {
-		
-		TokenTypeForm tokenTypeForm = new TokenTypeForm( seleniumWebDriver, new JSONTokenType( "input/catalogmanager/tokenTypes", tokenTypeList ), TIMEOUT, ATTEMPT_TIMEOUT );
-		
-		Assert.assertTrue( tokenTypeForm.openForm().addTokenTypes().close().navigate() );
-		
-	}
-	
-	@Parameters({"ruleList"})
-	@Test( enabled=testEnabled, priority = 3 )
-	public void configureRules( @Optional("ruleList") String ruleList ) throws FormException, JSONException, JSONSException {
-		
-		RulesForm rulesForm = new RulesForm( seleniumWebDriver, new JSONRules( "input/catalogmanager/rules", ruleList ), TIMEOUT, ATTEMPT_TIMEOUT );
-		
-		Assert.assertTrue( rulesForm.openForm().addRules().close().navigate() );
+				salesChannelsForm.
+					clickAddButton().
+					setSalesChannelName( salesChannelName ).
+					saveSalesChannel().
+					activateSalesChannel( salesChannelName );
+				
+			}
+			
+		}
 		
 	}
-	
-	@Parameters({"campaignModelList"})
-	@Test( enabled = true, priority = 4 )
-	public void configureCampaignModel( @Optional("campaignModelList") String campaignModelList ) throws JSONSException, FormException, JSONException {
 
-		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, new JSONCampaignModel( "input/campaignmanager/campaignModels", campaignModelList ), TIMEOUT, ATTEMPT_TIMEOUT );
-						
-		Assert.assertTrue( campaignModelForm.open().addCampaignModels().navigate() );		
-				
-    }
-	
-	@AfterClass
-	public void end() throws FormException {		
-		Assert.assertTrue( Authorization.getInstance( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT).quit().navigate() );		
-	}
+	//@Test( enabled=TEST_ENABLED, priority = 2 )
+	@Test( enabled=false, priority = 2 )
+	public void configurTokenTypes() throws FormException {
 		
+		tokenTypesForm.openForm();
+		
+		for( int n = 1; n <= NUMBER_OF_TOKEN_TYPES; n++ ) {
+
+			String tokenTypeName = TOKEN_TYPE_NAME_PREFIX + Character.toString ((char) ( 64 + n ) );
+			
+			if( !tokenTypesForm.isTokenTypeInList( tokenTypeName ) ) {
+			
+				tokenTypesForm.
+					addBtn().
+					setName( tokenTypeName ).
+					setDescription( tokenTypeName ).
+					setFormat( TokenFormat.imm5 ).
+					setValidityType( TokenValidityType.Relative ).
+					setValidityValue( 100 ).
+					setValidityUnit( TokenValidityUnit.days ).
+					setUnlimitedRedraw( true ).
+					saveBtn();
+				
+			}
+			
+		}
+		
+		tokenTypesForm.goToHome();
+		
+	}
+
+	@Test( enabled=true, priority = 3 )
+	public void configurRules() throws FormException {
+
+		ArrayList<String> salesChannels = new ArrayList<String>();
+		
+		for( int n = 1; n <= NUMBER_OF_SALES_CHANNELS; n++ ) {
+		
+			String salesChannelName = CHANNEL_NAME_PREFIX + Character.toString ((char) ( 64 + n) );
+			
+			salesChannels.add( salesChannelName );
+			
+		}
+		
+		ArrayList<String> tokenTypes = new ArrayList<String>();
+		
+		for( int n = 1; n <= NUMBER_OF_TOKEN_TYPES; n++ ) {
+		
+			String tokenTypeName = TOKEN_TYPE_NAME_PREFIX + Character.toString ((char) ( 64 + n ) );
+			
+			tokenTypes.add( tokenTypeName );
+			
+		}
+		
+		rulesForm.openForm();
+		
+		for( int n = 1; n <= NUMBER_OF_RULES; n++ ) {
+						
+			String ruleName = RULE_NAME_PREFIX + Character.toString ((char) ( 64 + n ) );
+			
+			if( !rulesForm.isRuleNameInList( ruleName ) ) {
+								
+				rulesForm.
+					addBtn().
+					setName( ruleName ).
+					setDescription( ruleName ).
+					setTokenType( tokenTypes.get( ( n - 1 ) % tokenTypes.size() ) ).
+					setChannel( salesChannels.get( ( n - 1 ) % salesChannels.size() ) ).
+					setAlgorithm( OptimizationAlgorithm.RandomAssigment ).
+					setKeepOfferConsistentYes().setPrevioslyAcceptedOfferYes().
+					setMaxNumberOfOffers( 10 ).
+					setExpiredOfferBehaviour( ExpiredOfferBehaviour.Pickupnewoffer ).
+					saveBtn();
+				
+			}
+			
+		}
+		
+		rulesForm.goToHome();
+		
+	}
+	
+	
+	
+	
+	
+	
+//	final String RULE_TYPE_NAME = Format.addTimestamp( "Rule_" );
+//	ruleTypeForm.openForm();
+//	//ruleTypeForm.waitForVisibilityOfElement();
+//	ruleTypeForm.clickAddBtn();
+//	ruleTypeForm.setName(RULE_TYPE_NAME);
+//	ruleTypeForm.setDescription(RULE_TYPE_NAME + " Description" );	
+//	ruleTypeForm.setTokenType("TType_1427787040383");
+//	ruleTypeForm.setChannel("Campaign manager");
+//	
+//	ruleTypeForm.setAlgorithm(RulesForm.optimizationAlgorithm.RandomAssigment.value());
+//	ruleTypeForm.clickKeepOfferConsistentNo();
+//	ruleTypeForm.clickPrevioslyAcceptedOfferNo();
+//	ruleTypeForm.setMaxNumberOfOffers("1");
+//	ruleTypeForm.setExpiredOfferBehaviour(RulesForm.expiredOfferBehaviour.Pickupnewoffer.value());
+//	Assert.assertTrue(ruleTypeForm.formIsValid());
+//	ruleTypeForm.saveRule();
+	
+	
+	
+//	@Test( enabled=TEST_ENABLED, priority = 1 )
+//	public void testUc34_01CreateCampaign_ExistingModel() throws FormException {
+//		
+//		//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+//		
+//		Calendar startDate = Calendar.getInstance();
+//		
+//		Calendar endDate = Calendar.getInstance();
+//		
+//		Calendar provEndDate = (Calendar)endDate.clone();
+//		
+//		
+//		/**
+//		 * Campaign Notification
+//		 * - simple scheduling
+//		 * - absolute end date
+//		 * - restricted no sample target
+//		 */
+//		campaignsForm.
+//		openForm().
+//		addBtn().		
+//		/** configure definition tab **/
+//		openDefinitionTab().
+//		setCampaignModel("CMS_09").
+//		setCampaignName( "CAMPAIGN_0910" ).
+//		setCampaignDescription( "CAMPAIGN_09" + " description" ).
+//		setByPassMediaType( false );
+//		/** configure single scheduling tab **/
+//		campaignsForm.openSchedulingTab();
+//		campaignsForm.setCampaignSingleSchedulingType();		
+//		//campaignsForm.setCampaignSingleSchedulingExecutionStart( startDate );
+//		campaignsForm.setCampaignSingleSchedulingExecutionEndRelative( 101 );
+//		
+//		//campaignsForm.setCampaignSingleSchedulingProvisioningStartDate( startDate );
+//		
+//		//campaignsForm.setCampaignSingleSchedulingProvisioningEndDate( provEndDate );
+//		/** configure dialog tab **/
+//		campaignsForm.openDialogTab().
+//		setCampaignDialogueEmailAddress( "" ).
+//		openDialogueNotification().
+//		editDialogueNotification( English, SMS ).
+//		setDialogueNotificationMessage( "campaign notification message ( ###campaign_name### )" ).
+//		saveDialogueNotificationEditing().
+//		saveDialogueNotification();
+//		/** configure activation tab **/
+//		campaignsForm.openActivationTab().
+//		activateBtn();
+//		//confirmCampaignActivation();
+//		for (int i=0; i<=3;i++)
+//		{
+//			WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 40);
+//			wait.until(ExpectedConditions.alertIsPresent());
+//			campaignsForm.handleJavascriptAlertAcceptDismiss(true);
+//		}
+//		/** Verify activated Campaign exists or not **/
+//		WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 30);
+//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Campaign List']//ancestor::table[@class='tableList']")));
+//		Boolean campaign_status = campaignsForm.isCampaignNameInList("CAMPAIGN_0910");
+//		Reporter.log("Creation of \"Campaign Form\".", LOG_TO_STD_OUT);
+//		
+//		if(campaign_status==true) {
+//			Assert.assertTrue(campaign_status);
+//			Reporter.log("Campaign created and activated Succesfully!");
+//		
+//		}
+//		else {
+//			Assert.fail("The Campaign creation Failed!");
+//			Reporter.log("Creation of Campaign Failed!");
+//		}
+//			
+//	}
+	
+//	@Parameters({"salesChannelsList"})
+//	@Test( enabled=true, priority = 1 )
+//	public void configureSalesChannels( @Optional("salesChannelsList") String salesChannelsList ) throws FormException, JSONException, JSONSException {
+//		
+//		SalesChannelsForm salesChannelsForm = new SalesChannelsForm( seleniumWebDriver, new JSONSalesChannels( "input/administrationmanager/salesChannels", salesChannelsList ), TIMEOUT, ATTEMPT_TIMEOUT );
+//		
+//		Assert.assertTrue( salesChannelsForm.open().addSalesChannels().navigate() );
+//				
+//	}
+	
+//	@Parameters({"tokenTypeList"})
+//	@Test( enabled=testEnabled, priority = 2 )
+//	public void configureTokeType( @Optional("tokenTypeList") String tokenTypeList ) throws FormException, JSONException, JSONSException {
+//		
+//		TokenTypeForm tokenTypeForm = new TokenTypeForm( seleniumWebDriver, new JSONTokenType( "input/catalogmanager/tokenTypes", tokenTypeList ), TIMEOUT, ATTEMPT_TIMEOUT );
+//		
+//		Assert.assertTrue( tokenTypeForm.openForm().addTokenTypes().close().navigate() );
+//		
+//	}
+//	
+//	@Parameters({"ruleList"})
+//	@Test( enabled=testEnabled, priority = 3 )
+//	public void configureRules( @Optional("ruleList") String ruleList ) throws FormException, JSONException, JSONSException {
+//		
+//		RulesForm rulesForm = new RulesForm( seleniumWebDriver, new JSONRules( "input/catalogmanager/rules", ruleList ), TIMEOUT, ATTEMPT_TIMEOUT );
+//		
+//		Assert.assertTrue( rulesForm.openForm().addRules().close().navigate() );
+//		
+//	}
+//	
+//	@Parameters({"campaignModelList"})
+//	@Test( enabled = true, priority = 4 )
+//	public void configureCampaignModel( @Optional("campaignModelList") String campaignModelList ) throws JSONSException, FormException, JSONException {
+//
+//		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, new JSONCampaignModel( "input/campaignmanager/campaignModels", campaignModelList ), TIMEOUT, ATTEMPT_TIMEOUT );
+//						
+//		Assert.assertTrue( campaignModelForm.open().addCampaignModels().navigate() );		
+//				
+//    }
+//		
 }

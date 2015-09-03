@@ -498,7 +498,8 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 						),
 						xmlrpcOptions(
 							storeRequestAsResource( "xmlrpc/request/", "request.xml" ),
-							storeResponseAsResource( "xmlrpc/response/", "response.xml" )	
+							storeResponseAsResource( "xmlrpc/response/", "response.xml" ),
+							sleep( 2000L )
 						)
 					);
 					

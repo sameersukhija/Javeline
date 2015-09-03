@@ -4,12 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import junit.framework.Assert;
 import static org.hamcrest.Matchers.*;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -42,8 +42,8 @@ import com.lumata.e4o.schema.tenant.Statuses;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.schema.tenant.SupportedRatePlan;
 import com.lumata.e4o.system.cdr.CDR;
-
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
+
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;

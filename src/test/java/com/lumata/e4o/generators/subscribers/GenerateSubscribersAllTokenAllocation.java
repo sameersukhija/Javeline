@@ -14,7 +14,7 @@ import com.lumata.e4o.testing.common.TCMysqlMaster;
 @TCMysqlMaster
 public class GenerateSubscribersAllTokenAllocation extends ParentTestCase {
 
-	final boolean GENERATE_FIXED_SUBSCRIBER = false;
+	final boolean GENERATE_FIXED_SUBSCRIBER = true;
 	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE = false;
 	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = false;
@@ -36,7 +36,7 @@ public class GenerateSubscribersAllTokenAllocation extends ParentTestCase {
 					
 	}
 
-	@Test( enabled = true )
+	@Test( enabled = false )
 	public void allocateAllTokensWithFixedMultiSubscribers() throws GeneratorException, NumberFormatException, FieldException {
 			
 		//final Long[] FIXED_MSISDN = { 393669393643L, 393356848728L, 393280654379L  };

@@ -97,7 +97,8 @@ public class SalesChannelsForm extends AdministrationForm {
 		return this;
 		
 	}
-public String getSalesChannelName() throws FormException {
+
+	public String getSalesChannelName() throws FormException {
 		
 		return this.getValueById("gwt-debug-TextBox-ChannelDialogBox-nameTextBox");
 		
@@ -128,7 +129,8 @@ public String getSalesChannelName() throws FormException {
 		return this;
 		
 	}
-public SalesChannelsForm editSalesChannel( String salesChannel ) throws FormException {
+
+	public SalesChannelsForm editSalesChannel( String salesChannel ) throws FormException {
 		
 		String tableListOfChannelXPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
 		String rowSalesChannelXPath = tableListOfChannelXPath + "//div[text()='" + salesChannel + "']//parent::td//parent::tr";
@@ -140,17 +142,19 @@ public SalesChannelsForm editSalesChannel( String salesChannel ) throws FormExce
 		
 	}
 
-public SalesChannelsForm deleteSalesChannel( String salesChannel ) throws FormException {
-	
-	String tableListOfChannelXPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
-	String rowSalesChannelXPath = tableListOfChannelXPath + "//div[text()='" + salesChannel + "']//parent::td//parent::tr";
-	String btnEditSalesChannelXPath = rowSalesChannelXPath + "//button[@name='btn-delete']";
 
-	clickXPath( btnEditSalesChannelXPath );
-	confirmDialog();
-	return this;
+	public SalesChannelsForm deleteSalesChannel( String salesChannel ) throws FormException {
 	
-}
+		String tableListOfChannelXPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
+		String rowSalesChannelXPath = tableListOfChannelXPath + "//div[text()='" + salesChannel + "']//parent::td//parent::tr";
+		String btnEditSalesChannelXPath = rowSalesChannelXPath + "//button[@name='btn-delete']";
+	
+		clickXPath( btnEditSalesChannelXPath );
+		confirmDialog();
+		return this;
+		
+	}
+	
 	public Boolean isSalesChannelActive( String salesChannel ) throws FormException {
 		
 		String tableListOfChannelXPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
@@ -166,7 +170,8 @@ public SalesChannelsForm deleteSalesChannel( String salesChannel ) throws FormEx
 		return false;
 		
 	}
-public Boolean isSalesChannelDeactivated( String salesChannel ) throws FormException {
+
+	public Boolean isSalesChannelDeactivated( String salesChannel ) throws FormException {
 		
 		String tableListOfChannelXPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
 		String rowSalesChannelXPath = tableListOfChannelXPath + "//div[text()='" + salesChannel + "']//parent::td//parent::tr";
@@ -181,33 +186,35 @@ public Boolean isSalesChannelDeactivated( String salesChannel ) throws FormExcep
 		return false;
 		
 	}
-public List<WebElement> getSalesChannelList() throws FormException {
-	String rootPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
-	String subPath = "//tr[contains(@class, 'contentRow cycle')]//td[@class='column_description']";
-	WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 20);
-	wait.until(ExpectedConditions.elementToBeClickable(By.xpath(rootPath)));
-	List<WebElement> salesChannelList = getListByXPath(rootPath, rootPath + subPath);
-	return salesChannelList;
 	
-}
-	
-public Boolean isSalesChannelExisting( String salesChannel ) throws FormException {
-	
-	List<WebElement> salesChannelList = getSalesChannelList();
-	
-	for( WebElement salesChannelWe : salesChannelList ) {
-		
-		if( salesChannelWe.getText().trim().equals(salesChannel)) {
-			
-			return true;
-			
-		}
+	public List<WebElement> getSalesChannelList() throws FormException {
+		String rootPath = "//table//div[text()='" + TABLE_SALES_CHANNELS_TITLE_ + "']//parent::td//parent::tr//parent::tbody";
+		String subPath = "//tr[contains(@class, 'contentRow cycle')]//td[@class='column_description']";
+		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 20);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(rootPath)));
+		List<WebElement> salesChannelList = getListByXPath(rootPath, rootPath + subPath);
+		return salesChannelList;
 		
 	}
 	
-	return false;
+	public Boolean isSalesChannelExisting( String salesChannel ) throws FormException {
 	
-} 
+		List<WebElement> salesChannelList = getSalesChannelList();
+		
+		for( WebElement salesChannelWe : salesChannelList ) {
+			
+			if( salesChannelWe.getText().trim().equals(salesChannel)) {
+				
+				return true;
+				
+			}
+			
+		}
+		
+		return false;
+		
+	} 
+	
 	public SalesChannelsForm manageErrorAction( String errorAction ) throws FormException {
 		
 		try {
@@ -241,8 +248,8 @@ public Boolean isSalesChannelExisting( String salesChannel ) throws FormExceptio
 					
 					salesChannelsCfg.setName( name_with_timestamp );					
 					
-					clearById( "gwt-debug-TextBox-ChannelDialogBox-nameTextBox" ).
-					sendKeysById( "gwt-debug-TextBox-ChannelDialogBox-nameTextBox", salesChannelsCfg.getName() ).
+					super.clearById( "gwt-debug-TextBox-ChannelDialogBox-nameTextBox" ).
+					sendKeysById( "gwt-debug-TextBox-ChannelDialogBox-nameTextBox", salesChannelsCfg.getName() );
 					saveSalesChannel();					
 					
 					break; 				
@@ -269,51 +276,6 @@ public Boolean isSalesChannelExisting( String salesChannel ) throws FormExceptio
 	public SalesChannelsForm cancelSalesChannel() throws FormException {
 		
 		super.clickName( "btn-cancel" );
-		
-		return this;
-		
-	}
-	
-	@Override
-	public SalesChannelsForm clickId( String id ) throws FormException {
-		
-		super.clickId( id );
-		
-		return this;
-		
-	}
-	
-	@Override
-	public SalesChannelsForm clickXPath( String xpath ) throws FormException {
-		
-		super.clickXPath( xpath );
-		
-		return this;
-		
-	}
-	
-	@Override
-	public SalesChannelsForm sendKeysById( String id, String text ) throws FormException {
-		
-		super.sendKeysById( id, text );
-		
-		return this;
-	
-	}
-	
-	@Override
-	public SalesChannelsForm clearById( String id ) throws FormException {
-		
-		super.clearById( id );
-		
-		return this;
-		
-	}
-	
-	@Override
-	public SalesChannelsForm confirmDialog() {
-		
-		super.confirmDialog();
 		
 		return this;
 		

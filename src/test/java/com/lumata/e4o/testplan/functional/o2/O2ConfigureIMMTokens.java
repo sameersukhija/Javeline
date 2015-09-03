@@ -1,56 +1,30 @@
 package com.lumata.e4o.testplan.functional.o2;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-
-import junit.framework.Assert;
-import static org.hamcrest.Matchers.*;
-
-import org.apache.commons.lang3.RandomStringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.annotations.mysql.Column;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.system.User;
-import com.lumata.common.testing.utils.Arithmetic;
-import com.lumata.e4o.dao.tenant.DAOConf;
-import com.lumata.e4o.dao.tenant.DAONetworks;
-import com.lumata.e4o.dao.tenant.DAOProfiles;
-import com.lumata.e4o.dao.tenant.DAOStatuses;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
-import com.lumata.e4o.dao.tenant.DAOSupportedRatePlan;
-import com.lumata.e4o.dao.tenant.DAOConf.ConfTag;
 import com.lumata.e4o.dao.tenant.DAOToken;
 import com.lumata.e4o.dao.tenant.DAOTokenLabel;
-import com.lumata.e4o.schema.tenant.Conf;
-import com.lumata.e4o.schema.tenant.Networks;
-import com.lumata.e4o.schema.tenant.Profiles;
-import com.lumata.e4o.schema.tenant.Statuses;
-import com.lumata.e4o.schema.tenant.Subscribers;
-import com.lumata.e4o.schema.tenant.SupportedRatePlan;
-import com.lumata.e4o.schema.tenant.Token;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
-import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
-import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.*;
 
 public class O2ConfigureIMMTokens {
 	
-	private static final Logger logger = LoggerFactory.getLogger( O2ConfigureIMMTokens.class );
+	//private static final Logger logger = LoggerFactory.getLogger( O2ConfigureIMMTokens.class );
 	
 	public enum ExtendedParameters {
 		tongue, gender, salary, imei, imsi, hobbies 
