@@ -19,6 +19,8 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.JSONSException;
@@ -589,7 +591,10 @@ private Alert file_input;
 					
 					public OffersForm setOneTimeBrowseFile(String CSVFILE) throws FormException, JSONSException, IOException {
 						System.out.println("The csv file path is" + CSVFILE);
-						WebElement el=selenium.getWrappedDriver().findElement(By.xpath("//table[@class='verticalPanelInternalMargin']/tbody//table[@class='tableList Form']/tbody/tr[1][@class='cycle1']//table[@class='importPanel']/tbody/tr/td[1]//input[@name='uploadFormElement']"));			
+						
+						RemoteWebDriver re=(RemoteWebDriver)selenium.getWrappedDriver();
+						re.setFileDetector(new LocalFileDetector());
+						WebElement el=re.findElement(By.xpath("//table[@class='verticalPanelInternalMargin']/tbody//table[@class='tableList Form']/tbody/tr[1][@class='cycle1']//table[@class='importPanel']/tbody/tr/td[1]//input[@name='uploadFormElement']"));			
 						el.sendKeys(CSVFILE);
 						
 					return this;
