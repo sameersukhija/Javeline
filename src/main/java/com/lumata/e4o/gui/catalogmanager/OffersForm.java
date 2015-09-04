@@ -8,6 +8,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -21,6 +22,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.RemoteWebElement;
 
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.JSONSException;
@@ -591,10 +593,12 @@ private Alert file_input;
 					
 					public OffersForm setOneTimeBrowseFile(String CSVFILE) throws FormException, JSONSException, IOException {
 						System.out.println("The csv file path is" + CSVFILE);
-						
-						RemoteWebDriver re=(RemoteWebDriver)selenium.getWrappedDriver();
-						re.setFileDetector(new LocalFileDetector());
-						WebElement el=re.findElement(By.xpath("//table[@class='verticalPanelInternalMargin']/tbody//table[@class='tableList Form']/tbody/tr[1][@class='cycle1']//table[@class='importPanel']/tbody/tr/td[1]//input[@name='uploadFormElement']"));			
+//						URL remote=new URL("http://ci.lumata.int/wd/hub");
+//						RemoteWebDriver re=new RemoteWebDriver(remote,selenium.getCapability());
+//						RemoteWebDriver  re=(RemoteWebDriver)selenium.getWrappedDriver();
+//						re.setFileDetector(new LocalFileDetector());
+						WebElement el=selenium.getWrappedDriver().findElement(By.xpath("//table[@class='verticalPanelInternalMargin']/tbody//table[@class='tableList Form']/tbody/tr[1][@class='cycle1']//table[@class='importPanel']/tbody/tr/td[1]//input[@name='uploadFormElement']"));
+						//((RemoteWebElement)el).setFileDetector(new LocalFileDetector());
 						el.sendKeys(CSVFILE);
 						
 					return this;
