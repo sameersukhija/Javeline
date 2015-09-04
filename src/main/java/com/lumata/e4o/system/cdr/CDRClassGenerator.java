@@ -12,8 +12,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+
 
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.io.IOFileUtils;
@@ -26,12 +27,15 @@ import com.lumata.e4o.system.cdr.fields.BundleBalance;
 import com.lumata.e4o.system.cdr.fields.BundleName;
 import com.lumata.e4o.system.cdr.fields.BundlePurchased;
 import com.lumata.e4o.system.cdr.fields.ChannelName;
+import com.lumata.e4o.system.cdr.fields.Code;
 import com.lumata.e4o.system.cdr.fields.Date;
 import com.lumata.e4o.system.cdr.fields.DeactivationDate;
 import com.lumata.e4o.system.cdr.fields.Delay;
 import com.lumata.e4o.system.cdr.fields.Delete;
 import com.lumata.e4o.system.cdr.fields.Download;
 import com.lumata.e4o.system.cdr.fields.Duration;
+import com.lumata.e4o.system.cdr.fields.ExpiryDate;
+import com.lumata.e4o.system.cdr.fields.Format;
 import com.lumata.e4o.system.cdr.fields.Location;
 import com.lumata.e4o.system.cdr.fields.Msisdn;
 import com.lumata.e4o.system.cdr.fields.NewAddress;
@@ -47,9 +51,9 @@ import com.lumata.e4o.system.cdr.fields.NewRatePlan;
 import com.lumata.e4o.system.cdr.fields.NewSalary;
 import com.lumata.e4o.system.cdr.fields.NewSponsor;
 import com.lumata.e4o.system.cdr.fields.NewStatus;
-import com.lumata.e4o.system.cdr.fields.NewSubProfile;
 import com.lumata.e4o.system.cdr.fields.NewSubscriptionDate;
 import com.lumata.e4o.system.cdr.fields.NewTongue;
+import com.lumata.e4o.system.cdr.fields.OfferName;
 import com.lumata.e4o.system.cdr.fields.OldAddress;
 import com.lumata.e4o.system.cdr.fields.OldGender;
 import com.lumata.e4o.system.cdr.fields.OldHobbies;
@@ -63,10 +67,10 @@ import com.lumata.e4o.system.cdr.fields.OldRatePlan;
 import com.lumata.e4o.system.cdr.fields.OldSalary;
 import com.lumata.e4o.system.cdr.fields.OldSponsor;
 import com.lumata.e4o.system.cdr.fields.OldStatus;
-import com.lumata.e4o.system.cdr.fields.OldSubProfile;
 import com.lumata.e4o.system.cdr.fields.OldSubscriptionDate;
 import com.lumata.e4o.system.cdr.fields.OldTongue;
 import com.lumata.e4o.system.cdr.fields.Partner;
+import com.lumata.e4o.system.cdr.fields.PartnerName;
 import com.lumata.e4o.system.cdr.fields.RawData;
 import com.lumata.e4o.system.cdr.fields.RechargeAmount;
 import com.lumata.e4o.system.cdr.fields.ShortCode;
@@ -74,7 +78,6 @@ import com.lumata.e4o.system.cdr.fields.Sms;
 import com.lumata.e4o.system.cdr.fields.TenantId;
 import com.lumata.e4o.system.cdr.fields.Terminating;
 import com.lumata.e4o.system.cdr.fields.Text;
-import com.lumata.e4o.system.cdr.fields.Time;
 import com.lumata.e4o.system.cdr.fields.Type;
 import com.lumata.e4o.system.cdr.fields.Upload;
 import com.lumata.e4o.system.cdr.fields.ValidityDate;
@@ -83,7 +86,7 @@ import com.lumata.e4o.system.field.types.FieldMethod;
 
 public class CDRClassGenerator {	
 	
-	private static final Logger logger = LoggerFactory.getLogger( CDRClassGenerator.class );
+//	private static final Logger logger = LoggerFactory.getLogger( CDRClassGenerator.class );
 	
 	StringBuilder import_classes;
 	boolean import_calendar_package;
@@ -154,6 +157,11 @@ public class CDRClassGenerator {
 		VoucherRedemption {	
 			public List<Class<? extends Annotation>> fields() {
 				return Arrays.asList( Msisdn.class, VoucherCode.class, Date.class, Location.class, Partner.class );
+			}
+		},
+		VoucherUpload {	
+			public List<Class<? extends Annotation>> fields() {
+				return Arrays.asList( Code.class, PartnerName.class, OfferName.class, ExpiryDate.class, Format.class );
 			}
 		},
 		LifeCycle {	

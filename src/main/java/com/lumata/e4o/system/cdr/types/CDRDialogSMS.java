@@ -31,6 +31,14 @@ public class CDRDialogSMS extends CDR {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
 	}
 
+	public void cleanMsisdnStrategyIncrement()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement(); }
+	}
+
+	public void cleanMsisdnStrategyRandom()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
+	}
+
 	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
 	}
@@ -47,21 +55,16 @@ public class CDRDialogSMS extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
-	public void cleanMsisdnStrategyIncrement()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement(); }
-	}
-
-	public void cleanMsisdnStrategyRandom()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
-	}
-
-	@Address( position = 1 )
-	public String getAddress() throws FieldException  {
-		return this.address.getLong();
-	}
-
 	public void setAddressStrategyFixed( final Long value ) throws FieldException  {
 		if( this.address != null ) { this.address.setLongStrategyFixed( value ); }
+	}
+
+	public void cleanAddressStrategyIncrement()  {
+		if( this.address != null ) { this.address.cleanLongStrategyIncrement(); }
+	}
+
+	public void cleanAddressStrategyRandom()  {
+		if( this.address != null ) { this.address.cleanLongStrategyRandom(); }
 	}
 
 	public void setAddressStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
@@ -76,12 +79,9 @@ public class CDRDialogSMS extends CDR {
 		if( this.address != null ) { this.address.cleanLongStrategyFixed(); }
 	}
 
-	public void cleanAddressStrategyIncrement()  {
-		if( this.address != null ) { this.address.cleanLongStrategyIncrement(); }
-	}
-
-	public void cleanAddressStrategyRandom()  {
-		if( this.address != null ) { this.address.cleanLongStrategyRandom(); }
+	@Address( position = 1 )
+	public String getAddress() throws FieldException  {
+		return this.address.getLong();
 	}
 
 	@Date( position = 2 )
@@ -91,6 +91,14 @@ public class CDRDialogSMS extends CDR {
 
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
+	}
+
+	public void cleanDateStrategyIncrement()  {
+		if( this.date != null ) { this.date.cleanDateStrategyIncrement(); }
+	}
+
+	public void cleanDateStrategyRandom()  {
+		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
 	public void setDateFormat( String format ) throws FieldException  {
@@ -109,14 +117,6 @@ public class CDRDialogSMS extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
 	}
 
-	public void cleanDateStrategyIncrement()  {
-		if( this.date != null ) { this.date.cleanDateStrategyIncrement(); }
-	}
-
-	public void cleanDateStrategyRandom()  {
-		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
-	}
-
 	@ShortCode( position = 3 )
 	public String getShortCode() throws FieldException  {
 		return this.short_code.getString();
@@ -128,6 +128,14 @@ public class CDRDialogSMS extends CDR {
 
 	public void setShortCodeStrategyFixed( final String value ) throws FieldException  {
 		if( this.short_code != null ) { this.short_code.setStringStrategyFixed( value ); }
+	}
+
+	public void cleanShortCodeStrategyIncrement()  {
+		if( this.short_code != null ) { this.short_code.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanShortCodeStrategyRandom()  {
+		if( this.short_code != null ) { this.short_code.cleanStringStrategyRandom(); }
 	}
 
 	public void setShortCodeStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
@@ -146,14 +154,6 @@ public class CDRDialogSMS extends CDR {
 		if( this.short_code != null ) { this.short_code.cleanStringLength(); }
 	}
 
-	public void cleanShortCodeStrategyIncrement()  {
-		if( this.short_code != null ) { this.short_code.cleanStringStrategyIncrement(); }
-	}
-
-	public void cleanShortCodeStrategyRandom()  {
-		if( this.short_code != null ) { this.short_code.cleanStringStrategyRandom(); }
-	}
-
 	@ChannelName( position = 4 )
 	public String getChannelName() throws FieldException  {
 		return this.channel_name.getString();
@@ -165,6 +165,14 @@ public class CDRDialogSMS extends CDR {
 
 	public void setChannelNameStrategyFixed( final String value ) throws FieldException  {
 		if( this.channel_name != null ) { this.channel_name.setStringStrategyFixed( value ); }
+	}
+
+	public void cleanChannelNameStrategyIncrement()  {
+		if( this.channel_name != null ) { this.channel_name.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanChannelNameStrategyRandom()  {
+		if( this.channel_name != null ) { this.channel_name.cleanStringStrategyRandom(); }
 	}
 
 	public void setChannelNameStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
@@ -183,14 +191,6 @@ public class CDRDialogSMS extends CDR {
 		if( this.channel_name != null ) { this.channel_name.cleanStringLength(); }
 	}
 
-	public void cleanChannelNameStrategyIncrement()  {
-		if( this.channel_name != null ) { this.channel_name.cleanStringStrategyIncrement(); }
-	}
-
-	public void cleanChannelNameStrategyRandom()  {
-		if( this.channel_name != null ) { this.channel_name.cleanStringStrategyRandom(); }
-	}
-
 	@Text( position = 5 )
 	public String getText() throws FieldException  {
 		return this.text.getString();
@@ -202,6 +202,14 @@ public class CDRDialogSMS extends CDR {
 
 	public void setTextStrategyFixed( final String value ) throws FieldException  {
 		if( this.text != null ) { this.text.setStringStrategyFixed( value ); }
+	}
+
+	public void cleanTextStrategyIncrement()  {
+		if( this.text != null ) { this.text.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanTextStrategyRandom()  {
+		if( this.text != null ) { this.text.cleanStringStrategyRandom(); }
 	}
 
 	public void setTextStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
@@ -218,14 +226,6 @@ public class CDRDialogSMS extends CDR {
 
 	public void cleanTextLength()  {
 		if( this.text != null ) { this.text.cleanStringLength(); }
-	}
-
-	public void cleanTextStrategyIncrement()  {
-		if( this.text != null ) { this.text.cleanStringStrategyIncrement(); }
-	}
-
-	public void cleanTextStrategyRandom()  {
-		if( this.text != null ) { this.text.cleanStringStrategyRandom(); }
 	}
 
 }

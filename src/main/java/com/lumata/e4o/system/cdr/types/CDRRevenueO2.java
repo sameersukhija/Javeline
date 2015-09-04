@@ -29,6 +29,14 @@ public class CDRRevenueO2 extends CDR {
 		if( this.rawData != null ) { this.rawData.setStringStrategyFixed( value ); }
 	}
 
+	public void cleanRawDataStrategyIncrement()  {
+		if( this.rawData != null ) { this.rawData.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanRawDataStrategyRandom()  {
+		if( this.rawData != null ) { this.rawData.cleanStringStrategyRandom(); }
+	}
+
 	public void setRawDataStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
 		if( this.rawData != null ) { this.rawData.setStringStrategyIncrement( value, start_value, increment ); }
 	}
@@ -45,21 +53,16 @@ public class CDRRevenueO2 extends CDR {
 		if( this.rawData != null ) { this.rawData.cleanStringLength(); }
 	}
 
-	public void cleanRawDataStrategyIncrement()  {
-		if( this.rawData != null ) { this.rawData.cleanStringStrategyIncrement(); }
-	}
-
-	public void cleanRawDataStrategyRandom()  {
-		if( this.rawData != null ) { this.rawData.cleanStringStrategyRandom(); }
-	}
-
-	@RechargeAmount( position = 1 )
-	public String getRechargeAmount() throws FieldException  {
-		return this.recharge_amount.getLong();
-	}
-
 	public void setRechargeAmountStrategyFixed( final Long value ) throws FieldException  {
 		if( this.recharge_amount != null ) { this.recharge_amount.setLongStrategyFixed( value ); }
+	}
+
+	public void cleanRechargeAmountStrategyIncrement()  {
+		if( this.recharge_amount != null ) { this.recharge_amount.cleanLongStrategyIncrement(); }
+	}
+
+	public void cleanRechargeAmountStrategyRandom()  {
+		if( this.recharge_amount != null ) { this.recharge_amount.cleanLongStrategyRandom(); }
 	}
 
 	public void setRechargeAmountStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
@@ -74,12 +77,9 @@ public class CDRRevenueO2 extends CDR {
 		if( this.recharge_amount != null ) { this.recharge_amount.cleanLongStrategyFixed(); }
 	}
 
-	public void cleanRechargeAmountStrategyIncrement()  {
-		if( this.recharge_amount != null ) { this.recharge_amount.cleanLongStrategyIncrement(); }
-	}
-
-	public void cleanRechargeAmountStrategyRandom()  {
-		if( this.recharge_amount != null ) { this.recharge_amount.cleanLongStrategyRandom(); }
+	@RechargeAmount( position = 1 )
+	public String getRechargeAmount() throws FieldException  {
+		return this.recharge_amount.getLong();
 	}
 
 }

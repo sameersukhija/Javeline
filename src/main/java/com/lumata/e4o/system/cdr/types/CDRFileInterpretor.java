@@ -29,6 +29,14 @@ public class CDRFileInterpretor extends CDR {
 		if( this.text != null ) { this.text.setStringStrategyFixed( value ); }
 	}
 
+	public void cleanTextStrategyIncrement()  {
+		if( this.text != null ) { this.text.cleanStringStrategyIncrement(); }
+	}
+
+	public void cleanTextStrategyRandom()  {
+		if( this.text != null ) { this.text.cleanStringStrategyRandom(); }
+	}
+
 	public void setTextStrategyIncrement( final String value, final Integer start_value, final Integer increment ) throws FieldException  {
 		if( this.text != null ) { this.text.setStringStrategyIncrement( value, start_value, increment ); }
 	}
@@ -43,14 +51,6 @@ public class CDRFileInterpretor extends CDR {
 
 	public void cleanTextLength()  {
 		if( this.text != null ) { this.text.cleanStringLength(); }
-	}
-
-	public void cleanTextStrategyIncrement()  {
-		if( this.text != null ) { this.text.cleanStringStrategyIncrement(); }
-	}
-
-	public void cleanTextStrategyRandom()  {
-		if( this.text != null ) { this.text.cleanStringStrategyRandom(); }
 	}
 
 }

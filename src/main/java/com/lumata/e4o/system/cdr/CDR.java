@@ -41,12 +41,15 @@ import com.lumata.e4o.system.cdr.fields.BundleBalance;
 import com.lumata.e4o.system.cdr.fields.BundleName;
 import com.lumata.e4o.system.cdr.fields.BundlePurchased;
 import com.lumata.e4o.system.cdr.fields.ChannelName;
+import com.lumata.e4o.system.cdr.fields.Code;
 import com.lumata.e4o.system.cdr.fields.Date;
 import com.lumata.e4o.system.cdr.fields.DeactivationDate;
 import com.lumata.e4o.system.cdr.fields.Delay;
 import com.lumata.e4o.system.cdr.fields.Delete;
 import com.lumata.e4o.system.cdr.fields.Download;
 import com.lumata.e4o.system.cdr.fields.Duration;
+import com.lumata.e4o.system.cdr.fields.ExpiryDate;
+import com.lumata.e4o.system.cdr.fields.Format;
 import com.lumata.e4o.system.cdr.fields.Location;
 import com.lumata.e4o.system.cdr.fields.Msisdn;
 import com.lumata.e4o.system.cdr.fields.NewAddress;
@@ -65,6 +68,7 @@ import com.lumata.e4o.system.cdr.fields.NewStatus;
 import com.lumata.e4o.system.cdr.fields.NewSubProfile;
 import com.lumata.e4o.system.cdr.fields.NewSubscriptionDate;
 import com.lumata.e4o.system.cdr.fields.NewTongue;
+import com.lumata.e4o.system.cdr.fields.OfferName;
 import com.lumata.e4o.system.cdr.fields.OldAddress;
 import com.lumata.e4o.system.cdr.fields.OldGender;
 import com.lumata.e4o.system.cdr.fields.OldHobbies;
@@ -82,6 +86,7 @@ import com.lumata.e4o.system.cdr.fields.OldSubProfile;
 import com.lumata.e4o.system.cdr.fields.OldSubscriptionDate;
 import com.lumata.e4o.system.cdr.fields.OldTongue;
 import com.lumata.e4o.system.cdr.fields.Partner;
+import com.lumata.e4o.system.cdr.fields.PartnerName;
 import com.lumata.e4o.system.cdr.fields.RawData;
 import com.lumata.e4o.system.cdr.fields.RechargeAmount;
 import com.lumata.e4o.system.cdr.fields.ShortCode;
@@ -89,7 +94,6 @@ import com.lumata.e4o.system.cdr.fields.Sms;
 import com.lumata.e4o.system.cdr.fields.TenantId;
 import com.lumata.e4o.system.cdr.fields.Terminating;
 import com.lumata.e4o.system.cdr.fields.Text;
-import com.lumata.e4o.system.cdr.fields.Time;
 import com.lumata.e4o.system.cdr.fields.Type;
 import com.lumata.e4o.system.cdr.fields.Upload;
 import com.lumata.e4o.system.cdr.fields.ValidityDate;
@@ -316,7 +320,22 @@ public class CDR {
 	@Text
 	protected FieldString text;
 	
-		
+	@Code
+	protected FieldString code;
+	
+	@PartnerName
+	protected FieldString partnerName;
+	
+	@OfferName
+	protected FieldString offerName;
+	
+	@ExpiryDate
+	protected FieldDate expiryDate;
+	
+	@Format
+	protected FieldEnum format;
+	
+	
 	public enum Parameters {
 		env, 
 		tenant,
@@ -448,6 +467,28 @@ public class CDR {
 		}
 		
 	};
+	
+	@Format
+	public enum VOUCHER_FORMAT implements IFieldEnum { 
+		
+		PLAIN_TEXT("Plain Text"), 
+		AZTEC_CODE("Aztec Code"), 
+		BARCODE("Barcode"), 
+		QR_CODE("QR Code"),
+		URL("URL"),
+		TEST("TEST");
+		
+		private String value;
+		
+		VOUCHER_FORMAT( String value ) { 
+			this.value = value; 
+		}
+		
+		public String value() {
+			return this.value;
+		}
+		
+	};
 		
 	public CDR() {
 		
@@ -530,6 +571,12 @@ public class CDR {
 		this.short_code = new FieldString();
 		this.channel_name = new FieldString();
 		this.text = new FieldString();
+		
+		this.code = new FieldString();
+		this.partnerName = new FieldString();
+		this.offerName = new FieldString();
+		this.expiryDate = new FieldDate();
+		this.format = new FieldEnum( VOUCHER_FORMAT.values() );
 		
 	}
 	

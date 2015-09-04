@@ -32,6 +32,14 @@ public class CDRRevenueInvoice extends CDR {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyFixed( value ); }
 	}
 
+	public void cleanMsisdnStrategyIncrement()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement(); }
+	}
+
+	public void cleanMsisdnStrategyRandom()  {
+		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
+	}
+
 	public void setMsisdnStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
 		if( this.msisdn != null ) { this.msisdn.setMsisdnStrategyIncrement( value, increment ); }
 	}
@@ -48,14 +56,6 @@ public class CDRRevenueInvoice extends CDR {
 		if( this.msisdn != null ) { this.msisdn.cleanMsisdnOptions(); }
 	}
 
-	public void cleanMsisdnStrategyIncrement()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyIncrement(); }
-	}
-
-	public void cleanMsisdnStrategyRandom()  {
-		if( this.msisdn != null ) { this.msisdn.cleanMsisdnStrategyRandom(); }
-	}
-
 	@Date( position = 1 )
 	public String getDate()  {
 		return this.date.getDate();
@@ -63,6 +63,14 @@ public class CDRRevenueInvoice extends CDR {
 
 	public void setDateStrategyFixed( final Calendar date ) throws FieldException  {
 		if( this.date != null ) { this.date.setDateStrategyFixed( date ); }
+	}
+
+	public void cleanDateStrategyIncrement()  {
+		if( this.date != null ) { this.date.cleanDateStrategyIncrement(); }
+	}
+
+	public void cleanDateStrategyRandom()  {
+		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
 	}
 
 	public void setDateFormat( String format ) throws FieldException  {
@@ -81,21 +89,16 @@ public class CDRRevenueInvoice extends CDR {
 		if( this.date != null ) { this.date.cleanDateStrategyFixed(); }
 	}
 
-	public void cleanDateStrategyIncrement()  {
-		if( this.date != null ) { this.date.cleanDateStrategyIncrement(); }
-	}
-
-	public void cleanDateStrategyRandom()  {
-		if( this.date != null ) { this.date.cleanDateStrategyRandom(); }
-	}
-
-	@AmountInvoice( position = 2 )
-	public String getAmountInvoice() throws FieldException  {
-		return this.amountInvoice.getLong();
-	}
-
 	public void setAmountInvoiceStrategyFixed( final Long value ) throws FieldException  {
 		if( this.amountInvoice != null ) { this.amountInvoice.setLongStrategyFixed( value ); }
+	}
+
+	public void cleanAmountInvoiceStrategyIncrement()  {
+		if( this.amountInvoice != null ) { this.amountInvoice.cleanLongStrategyIncrement(); }
+	}
+
+	public void cleanAmountInvoiceStrategyRandom()  {
+		if( this.amountInvoice != null ) { this.amountInvoice.cleanLongStrategyRandom(); }
 	}
 
 	public void setAmountInvoiceStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
@@ -110,21 +113,21 @@ public class CDRRevenueInvoice extends CDR {
 		if( this.amountInvoice != null ) { this.amountInvoice.cleanLongStrategyFixed(); }
 	}
 
-	public void cleanAmountInvoiceStrategyIncrement()  {
-		if( this.amountInvoice != null ) { this.amountInvoice.cleanLongStrategyIncrement(); }
-	}
-
-	public void cleanAmountInvoiceStrategyRandom()  {
-		if( this.amountInvoice != null ) { this.amountInvoice.cleanLongStrategyRandom(); }
-	}
-
-	@Balance( position = 3 )
-	public String getBalance() throws FieldException  {
-		return this.balance.getLong();
+	@AmountInvoice( position = 2 )
+	public String getAmountInvoice() throws FieldException  {
+		return this.amountInvoice.getLong();
 	}
 
 	public void setBalanceStrategyFixed( final Long value ) throws FieldException  {
 		if( this.balance != null ) { this.balance.setLongStrategyFixed( value ); }
+	}
+
+	public void cleanBalanceStrategyIncrement()  {
+		if( this.balance != null ) { this.balance.cleanLongStrategyIncrement(); }
+	}
+
+	public void cleanBalanceStrategyRandom()  {
+		if( this.balance != null ) { this.balance.cleanLongStrategyRandom(); }
 	}
 
 	public void setBalanceStrategyIncrement( final Long value, final Integer increment ) throws FieldException  {
@@ -139,12 +142,9 @@ public class CDRRevenueInvoice extends CDR {
 		if( this.balance != null ) { this.balance.cleanLongStrategyFixed(); }
 	}
 
-	public void cleanBalanceStrategyIncrement()  {
-		if( this.balance != null ) { this.balance.cleanLongStrategyIncrement(); }
-	}
-
-	public void cleanBalanceStrategyRandom()  {
-		if( this.balance != null ) { this.balance.cleanLongStrategyRandom(); }
+	@Balance( position = 3 )
+	public String getBalance() throws FieldException  {
+		return this.balance.getLong();
 	}
 
 	@Type( position = 4 )
@@ -154,6 +154,14 @@ public class CDRRevenueInvoice extends CDR {
 
 	public void setTypeStrategyFixed( final Enum<? extends IFieldEnum> value ) throws FieldException  {
 		if( this.type != null ) { this.type.setEnumStrategyFixed( value ); }
+	}
+
+	public void cleanTypeStrategyIncrement()  {
+		if( this.type != null ) { this.type.cleanEnumStrategyIncrement(); }
+	}
+
+	public void cleanTypeStrategyRandom()  {
+		if( this.type != null ) { this.type.cleanEnumStrategyRandom(); }
 	}
 
 	public void setTypeStrategyIncrement( final Enum<? extends IFieldEnum> value, final Integer increment ) throws FieldException  {
@@ -166,14 +174,6 @@ public class CDRRevenueInvoice extends CDR {
 
 	public void cleanTypeStrategyFixed()  {
 		if( this.type != null ) { this.type.cleanEnumStrategyFixed(); }
-	}
-
-	public void cleanTypeStrategyIncrement()  {
-		if( this.type != null ) { this.type.cleanEnumStrategyIncrement(); }
-	}
-
-	public void cleanTypeStrategyRandom()  {
-		if( this.type != null ) { this.type.cleanEnumStrategyRandom(); }
 	}
 
 }
