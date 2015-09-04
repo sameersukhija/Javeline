@@ -151,10 +151,10 @@
       </class>
     </classes>	
   </test>
-   <!--test name="xmlrpc">
+   <test name="xmlrpc">
     <classes>
       <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_GetSubsriberByKey">
       </class>
     </classes>	
-  </test-->
+  </test>
 </suite>
