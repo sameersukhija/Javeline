@@ -48,9 +48,9 @@ public class XMLRPCResponseSubscriber extends XMLRPCResponseObject {
 		return new XMLRPCResponseValidator(builPath(PROFILE), matcher, String.class, "profile");
 	}
 	
-	public XMLRPCResponseValidator rate_plan(Matcher<String> matcher) {
+	public XMLRPCResponseValidator rate_plan(Matcher<Integer> matcher) {
 		
-		return new XMLRPCResponseValidator(builPath(RATEPLAN), matcher, String.class, "rate_plan");
+		return new XMLRPCResponseValidator(builPath(RATEPLAN), matcher, Integer.class, "rate_plan");
 	
 	}
 	
