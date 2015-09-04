@@ -37,6 +37,7 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 	private final Long IMSI = 990888L;
 	private final String PROFILE_NAME = "prepaid";
 	private final String RATE_PLAN_NAME = "FUN";
+	private final String RATE_PLAN_ID = "1";
 	private final String STATUS_NAME = "active";
 	private final String IN_TAG = "QAIN";
 	private final String NETWORK_NAME = "mobile";
@@ -114,7 +115,7 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 	
 	}
 		
-	/** The test fails because the rate_plan is an integer instead of a string */
+	/** Note: The test will fail when the fix EFOGC-4333 will be resolved, because the rate_plan must return back the name instead of the id */
 	@Test(enabled=TEST_ENABLED, priority = 1 )
 	public void testGetSubscriberByIMSI() throws Exception {
 		
@@ -132,7 +133,8 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 				subscriberResponse().msisdn( equalTo( MSISDN ) ),
 				subscriberResponse().subscriptionDate( equalTo( Format.getMysqlDate( subscriber.getSubscriptionDate() ) ) ),
 				subscriberResponse().profile( equalTo( PROFILE_NAME ) ),
-				subscriberResponse().rate_plan( equalTo( RATE_PLAN_NAME ) ),
+				/** condition on RATE_PLAN_ID to change in RATE_PLAN_NAME when the EFOGC-4333 will be resolved **/
+				subscriberResponse().rate_plan( equalTo( RATE_PLAN_ID ) ),
 				subscriberResponse().status( equalTo( STATUS_NAME ) ),
 				subscriberResponse().inTag( equalTo( IN_TAG ) ),
 				subscriberResponse().imsi( equalTo( IMSI ) )
@@ -214,6 +216,30 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 				sleep(100L)
 			)
 		);
+	}
+	
+	/** The test fails because needs the fix EFOGC-4333 */
+	@Test(enabled=TEST_ENABLED, priority = 5 )
+	public void testGetSubscriberByIMSI_waiting_for_fix_EFOGC_4333() throws Exception {
+		
+		XMLRPCRequest.subscribermanager_getSubscriberByKey().call(
+			guiServer, 
+			xmlrpcBody(
+				authentication(user),				
+				subscriber( 
+					params(
+						param( ExtendedParameters.imsi, IMSI )	
+					)																
+				)
+			),
+			xmlrpcValidator(
+				subscriberResponse().rate_plan( equalTo( RATE_PLAN_NAME ) )
+				),
+			xmlrpcOptions(
+				sleep( 100L )	
+			)
+		);
+						
 	}
 	
 }
