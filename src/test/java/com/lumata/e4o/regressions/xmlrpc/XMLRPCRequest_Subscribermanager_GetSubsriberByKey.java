@@ -18,7 +18,6 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.validating.Format;
@@ -38,7 +37,6 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 	private final Long IMSI = 990888L;
 	private final String PROFILE_NAME = "prepaid";
 	private final String RATE_PLAN_NAME = "FUN";
-	private final int RATE_PLAN_ID=1;
 	private final String STATUS_NAME = "active";
 	private final String IN_TAG = "QAIN";
 	private final String NETWORK_NAME = "mobile";
@@ -134,7 +132,7 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 				subscriberResponse().msisdn( equalTo( MSISDN ) ),
 				subscriberResponse().subscriptionDate( equalTo( Format.getMysqlDate( subscriber.getSubscriptionDate() ) ) ),
 				subscriberResponse().profile( equalTo( PROFILE_NAME ) ),
-				subscriberResponse().rate_plan( equalTo( RATE_PLAN_ID ) ),
+				subscriberResponse().rate_plan( equalTo( RATE_PLAN_NAME ) ),
 				subscriberResponse().status( equalTo( STATUS_NAME ) ),
 				subscriberResponse().inTag( equalTo( IN_TAG ) ),
 				subscriberResponse().imsi( equalTo( IMSI ) )
@@ -195,17 +193,27 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 	}
 	
 	// Method to test Authentication Failure
-		@Test(enabled = TEST_ENABLED, priority = 4)
-		public void testAuthenticatinFailure() throws Exception {
-			XMLRPCRequest.subscribermanager_getSubscriberByKey()
-					.call(guiServer,
-							xmlrpcBody(
-									authentication("superman", "bGppYm1NSUhJMm43"),
-									subscriber(params(param(
-											ExtendedParameters.imsi, IMSI)))),
-							xmlrpcValidator(fault().code(equalTo(1)), fault()
-									.message(equalTo("authentication failure"))),
-							xmlrpcOptions(sleep(100L)));
-		}
+	@Test(enabled = TEST_ENABLED, priority = 4)
+	public void testAuthenticatinFailure() throws Exception {
+		XMLRPCRequest.subscribermanager_getSubscriberByKey().call(
+			guiServer,
+			xmlrpcBody(
+				authentication("superman", "bGppYm1NSUhJMm43"),
+				subscriber(
+					params(
+						param(
+						ExtendedParameters.imsi, IMSI)
+					)
+				)
+			),
+			xmlrpcValidator(
+				fault().code(equalTo(1)), 
+				fault().message(equalTo("authentication failure"))
+			),
+			xmlrpcOptions(
+				sleep(100L)
+			)
+		);
+	}
 	
 }

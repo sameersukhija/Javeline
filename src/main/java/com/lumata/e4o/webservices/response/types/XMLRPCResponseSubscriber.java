@@ -1,12 +1,7 @@
 package com.lumata.e4o.webservices.response.types;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import org.hamcrest.Matcher;
 
-import com.lumata.e4o.gui.xmlrpc.XMLRPCSubscriber;
-import com.lumata.e4o.schema.xmlrpc.XMLRPCOffer;
 import com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseObject;
 import com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidator;
 
@@ -48,9 +43,9 @@ public class XMLRPCResponseSubscriber extends XMLRPCResponseObject {
 		return new XMLRPCResponseValidator(builPath(PROFILE), matcher, String.class, "profile");
 	}
 	
-	public XMLRPCResponseValidator rate_plan(Matcher<Integer> matcher) {
+	public XMLRPCResponseValidator rate_plan(Matcher<String> matcher) {
 		
-		return new XMLRPCResponseValidator(builPath(RATEPLAN), matcher, Integer.class, "rate_plan");
+		return new XMLRPCResponseValidator(builPath(RATEPLAN), matcher, String.class, "rate_plan");
 	
 	}
 	
