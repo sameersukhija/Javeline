@@ -40,6 +40,7 @@ import java.awt.AWTException;
 import javax.mail.MessagingException;
 
 import org.json.JSONException;
+import org.junit.Ignore;
 
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
@@ -581,9 +582,9 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
   		}
   
   			}
-	
+  		@Ignore
 		@Parameters({"jsonFilePath1_Offer","jsonFileName1_Offer","networkEnvironmentParams","seleniumWebDriverParams"})
-		@Test( enabled=TEST_ENABLED, priority = 7 )
+		@Test( enabled=false, priority = 7 )
 		public void testUc28_07_addOffer_OneTimeVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath1_Offer,
 				@Optional("newOffers") String jsonFileName1_Offer,
 				String networkEnvironmentParams,
@@ -622,10 +623,11 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			offerForm.clickVoucherDefinitionTab();
 			
-			offerForm.setOneTimeBrowseFile(System.getProperty( "user.dir" )+"\\src\\test\\resources\\input\\catalogmanager\\Offers\\VoucherCodes.csv");
+			offerForm.setOneTimeBrowseFile("VoucherCodes.csv");
+			
 			//offerForm.clickBycssSelector("button[name=btn-importer]");
 			
-			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
+			//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
 			
 			offerForm.setExternalSupplier("Mobistar");
 			
@@ -637,23 +639,14 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			   System.out.println(dateFormat.format(cal.getTime()));
 			   
 			   offerForm.setVoucherExpiryDate(dateFormat.format(cal.getTime()));
+			   offerForm.clickImportVoucherCodes();
 			   
 			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
-				
-			   offerForm.clickImportVoucherCodes()
-				
-			   .handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+			   offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+			   offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 				
 			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
 			  
-			   //offerForm.TestAlert();
-			   //offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
-				
-			   
-			   offerForm.clickPriceTab();
-				
-			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-				
 			   offerForm.clickPriceTab();
 				
 			   
