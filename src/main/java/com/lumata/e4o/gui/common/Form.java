@@ -161,6 +161,14 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 		
 	}
 	
+	public Form waitVisibleElementByXPath( String xpath ) {
+		
+		waitVisibleElement( By.xpath( xpath ) );
+		
+		return this;
+		
+	}
+	
 	public void click(String forName, String xpath) throws FormException {
 		
 		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName + ", xpath: " + xpath));

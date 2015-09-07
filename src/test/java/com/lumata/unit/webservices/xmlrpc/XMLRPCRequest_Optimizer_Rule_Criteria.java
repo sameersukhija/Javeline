@@ -149,7 +149,7 @@ public class XMLRPCRequest_Optimizer_Rule_Criteria {
 
 		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, new JSONCampaignModel( "input/campaignmanager/campaignModels", campaignModelList ), TIMEOUT, ATTEMPT_TIMEOUT );
 						
-		Assert.assertTrue( campaignModelForm.open()
+		Assert.assertTrue( campaignModelForm.openForm()
 							.addCampaignModels()
 							.navigate() 
 		);		

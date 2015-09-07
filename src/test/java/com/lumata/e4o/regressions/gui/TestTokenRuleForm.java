@@ -175,7 +175,7 @@ public class TestTokenRuleForm extends ParentTestCase {
 		rulesForm = new RulesForm(seleniumWebDriver, TIMEOUT,
 				ATTEMPT_TIMEOUT);
 		rulesForm.openForm();
-		rulesForm.editRuleByName(RULE_NAME);
+		rulesForm.editByName(RULE_NAME);
 		rulesForm.setDescription("edited description");
 		rulesForm.setAlgorithm("Best Offer");
 		rulesForm.setKeepOfferConsistentNo();
@@ -183,7 +183,7 @@ public class TestTokenRuleForm extends ParentTestCase {
 		rulesForm.setExpiredOfferBehaviour("Bypass offer validity date");
 		rulesForm.editRule();
 		
-		rulesForm.editRuleByName(RULE_NAME);
+		rulesForm.editByName(RULE_NAME);
 		OffoptimRuleset ruleSet = DAORuleSet.getInstance(mysqlMaster)
 				.getRuleSetByName(RULE_NAME);
 		Assert.assertEquals(rulesForm.getName(),
@@ -207,13 +207,13 @@ public class TestTokenRuleForm extends ParentTestCase {
 		rulesForm = new RulesForm(seleniumWebDriver, TIMEOUT,
 				ATTEMPT_TIMEOUT);
 		rulesForm.openForm();
-		rulesForm.copyRuleByName(RULE_NAME);
+		rulesForm.copyByName(RULE_NAME);
 		String copied_rule_name=Format.addTimestamp("Rule_");
 		rulesForm.typeByName("name", copied_rule_name);
 		rulesForm.setDescription("copied rule");
 		rulesForm.saveBtn();
 		
-		rulesForm.editRuleByName(copied_rule_name);
+		rulesForm.editByName(copied_rule_name);
 		OffoptimRuleset ruleSet = DAORuleSet.getInstance(mysqlMaster)
 				.getRuleSetByName(copied_rule_name);
 		Assert.assertEquals(rulesForm.getName(),ruleSet.getName());

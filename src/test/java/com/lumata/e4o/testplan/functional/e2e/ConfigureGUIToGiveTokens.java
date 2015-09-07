@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
@@ -18,6 +15,7 @@ import org.testng.annotations.Test;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.administrationmanager.SalesChannelsForm;
+import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
 import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.RulesForm.ExpiredOfferBehaviour;
@@ -36,6 +34,7 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 	private SalesChannelsForm salesChannelsForm;
 	private TokenTypeForm tokenTypesForm;
 	private RulesForm rulesForm;
+	private CampaignModelForm campaignModelsForm;
 	private CampaignsForm campaignsForm;
 	
 	private final String CHANNEL_NAME_PREFIX = "Ch ";
@@ -44,6 +43,8 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 	private final Integer NUMBER_OF_TOKEN_TYPES = 3;
 	private final String RULE_NAME_PREFIX = "Rule";
 	private final Integer NUMBER_OF_RULES = 3;
+	private final String CAMPAIGN_MODEL_NAME_PREFIX = "CampaignModel";
+	private final Integer NUMBER_OF_CAMPAIGN_MODELS = 3;
 	
 	@BeforeClass
 	public void initCampaignsForm() throws NetworkEnvironmentException, FormException {		
@@ -57,13 +58,16 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 		/** Rules Form **/
 		rulesForm = new RulesForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
+		/** Campaign Model Form **/
+		campaignModelsForm = new CampaignModelForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
+		
 		/** Campaigns Form **/
 		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
 	}
 	
 	//@Test( enabled=TEST_ENABLED, priority = 1 )
-	@Test( enabled=false, priority = 1 )
+	@Test( enabled=true, priority = 1 )
 	public void configureSalesChannels() throws FormException {
 		
 		salesChannelsForm.open();
@@ -87,8 +91,8 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 	}
 
 	//@Test( enabled=TEST_ENABLED, priority = 2 )
-	@Test( enabled=false, priority = 2 )
-	public void configurTokenTypes() throws FormException {
+	@Test( enabled=true, priority = 2 )
+	public void configureTokenTypes() throws FormException {
 		
 		tokenTypesForm.openForm();
 		
@@ -108,9 +112,21 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 					setValidityUnit( TokenValidityUnit.days ).
 					setUnlimitedRedraw( true ).
 					saveBtn();
+									
+			} else { 			
+				
+				tokenTypesForm.
+					editByName( tokenTypeName ).
+					setDescription( tokenTypeName ).
+					setFormat( TokenFormat.imm5 ).
+					setValidityType( TokenValidityType.Relative ).
+					setValidityValue( 100 ).
+					setValidityUnit( TokenValidityUnit.days ).
+					setUnlimitedRedraw( true ).
+					editSaveBtn();
 				
 			}
-			
+						
 		}
 		
 		tokenTypesForm.goToHome();
@@ -118,7 +134,7 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 	}
 
 	@Test( enabled=true, priority = 3 )
-	public void configurRules() throws FormException {
+	public void configureRules() throws FormException {
 
 		ArrayList<String> salesChannels = new ArrayList<String>();
 		
@@ -160,6 +176,19 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 					setExpiredOfferBehaviour( ExpiredOfferBehaviour.Pickupnewoffer ).
 					saveBtn();
 				
+			} else {
+				
+				rulesForm.
+					editByName( ruleName ).
+					setDescription( ruleName ).
+					setTokenType( tokenTypes.get( ( n - 1 ) % tokenTypes.size() ) ).
+					setChannel( salesChannels.get( ( n - 1 ) % salesChannels.size() ) ).
+					setAlgorithm( OptimizationAlgorithm.RandomAssigment ).
+					setKeepOfferConsistentYes().setPrevioslyAcceptedOfferYes().
+					setMaxNumberOfOffers( 10 ).
+					setExpiredOfferBehaviour( ExpiredOfferBehaviour.Pickupnewoffer ).
+					saveBtn();
+				
 			}
 			
 		}
@@ -168,8 +197,48 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 		
 	}
 	
-	
-	
+	//@Test( enabled=TEST_ENABLED, priority = 2 )
+	@Test( enabled=false, priority = 4 )
+	public void configureCampaignModels() throws FormException {
+		
+		campaignModelsForm.openForm();
+		
+		for( int n = 1; n <= NUMBER_OF_CAMPAIGN_MODELS; n++ ) {
+		
+			String campaignModelName = CAMPAIGN_MODEL_NAME_PREFIX + Character.toString ((char) ( 64 + n ) );
+			
+			campaignModelsForm.
+				addBtn().
+				setModelName( campaignModelName ).
+				setModelDescription( campaignModelName ).
+				cancelBtn();
+			
+		}
+		
+//		for( int n = 1; n <= NUMBER_OF_TOKEN_TYPES; n++ ) {
+//
+//			String tokenTypeName = TOKEN_TYPE_NAME_PREFIX + Character.toString ((char) ( 64 + n ) );
+//			
+//			if( !tokenTypesForm.isTokenTypeInList( tokenTypeName ) ) {
+//			
+//				tokenTypesForm.
+//					addBtn().
+//					setName( tokenTypeName ).
+//					setDescription( tokenTypeName ).
+//					setFormat( TokenFormat.imm5 ).
+//					setValidityType( TokenValidityType.Relative ).
+//					setValidityValue( 100 ).
+//					setValidityUnit( TokenValidityUnit.days ).
+//					setUnlimitedRedraw( true ).
+//					saveBtn();
+//				
+//			}
+//			
+//		}
+//		
+//		tokenTypesForm.goToHome();
+		
+	}
 	
 	
 	

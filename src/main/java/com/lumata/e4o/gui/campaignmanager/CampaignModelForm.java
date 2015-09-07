@@ -6,20 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
 
-import com.gargoylesoftware.htmlunit.AlertHandler;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.Form;
@@ -30,7 +23,6 @@ import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCriteria;
 import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
 import com.lumata.e4o.json.gui.campaignmanager.JSONNotification;
-import com.thoughtworks.selenium.webdriven.commands.AlertOverride;
 
 public class CampaignModelForm extends CampaignManagerForm {
 
@@ -61,9 +53,9 @@ public CampaignModelForm( SeleniumWebDriver selenium,long timeout, long interval
 
 	}
 	
-	public CampaignModelForm open() throws FormException {
+	public CampaignModelForm openForm() throws FormException {
 		
-		super.open();
+		super.openForm();
 		waitForPageLoad();
 //		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 30);
 //		wait.until(ExpectedConditions.elementToBeClickable(By.id("gwt-debug-InputCMCampaignModel")));
@@ -72,7 +64,7 @@ public CampaignModelForm( SeleniumWebDriver selenium,long timeout, long interval
 		return this;
 		
 	}
-	public CampaignModelForm campaignModelAddButton() throws FormException{
+	public CampaignModelForm addBtn() throws FormException{
 		super.clickId("gwt-debug-BtnCampaignModelAdd");
 		return this;
 		
@@ -257,7 +249,7 @@ return this;
 	
 
 	
-	public CampaignModelForm cancelCampaignModel() throws FormException {
+	public CampaignModelForm cancelBtn() throws FormException {
 		
 		final String cancelCampaignModelButtonXPath = campaignModelFormXPath + "//button[@id='gwt-debug-BtnCampaignModelCreationCancel']";
 		
@@ -959,7 +951,7 @@ return this;
 				}
 				case ABORT_CANCEL: {  
 										
-					cancelCampaignModel();				
+					cancelBtn();				
 					
 					break; 				
 				}

@@ -1,5 +1,6 @@
 package com.lumata.e4o.gui.catalogmanager;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -355,10 +356,21 @@ public class RulesForm extends OfferOptimisationForm {
 	}
 	
 	public List<WebElement> getRuleList() throws FormException {
-		//waitForPageLoad();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class ,'e4ol-list')]")));
-		List<WebElement> ruleList = super.getListByXPath("//div[contains(@class ,'e4ol-list')]","//div[contains(@class , 'e4ol-list__cell ng-binding')]");
-
+		
+		super.waitVisibleElementByXPath("//div[contains(@class ,'e4ol-list')]");
+		
+		List<WebElement> ruleList = new ArrayList<WebElement>();
+		
+		try {
+		
+			ruleList = super.getListByXPath("//div[contains(@class ,'e4ol-list')]","//div[contains(@class , 'e4ol-list__cell ng-binding')]");
+			
+		} catch( FormException fe ) {
+			
+			/** in case of empty list **/;
+		
+		}
+		
 		return ruleList;
 		
 	}
@@ -381,7 +393,7 @@ public class RulesForm extends OfferOptimisationForm {
 		
 	}
 	
-	public RulesForm editRuleByName( String strRuleName ) throws FormException {
+	public RulesForm editByName( String strRuleName ) throws FormException {
 		
 		List<WebElement> ruleList = getRuleList();
 				
@@ -399,7 +411,7 @@ public class RulesForm extends OfferOptimisationForm {
 		
 	}
 
-	public RulesForm copyRuleByName( String strRuleName ) throws FormException {
+	public RulesForm copyByName( String strRuleName ) throws FormException {
 		
 		List<WebElement> ruleList = getRuleList();
 				

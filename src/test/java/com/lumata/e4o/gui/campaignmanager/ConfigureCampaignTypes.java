@@ -67,7 +67,7 @@ public class ConfigureCampaignTypes {
 		
 		CampaignTypeForm campaignTypeForm = new CampaignTypeForm( seleniumWebDriver, new JSONCampaignType( "input/campaignmanager/campaignTypes", campaignTypeList ), TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Assert.assertTrue( campaignTypeForm.open().addCampaignTypes().navigate() );
+		Assert.assertTrue( campaignTypeForm.openForm().addCampaignTypes().navigate() );
 		
 	}
 	

@@ -24,7 +24,7 @@ public class ConfigureCampaignModel extends ParentTestCase {
 
 		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, new JSONCampaignModel( "input/campaignmanager/campaignModels", campaignModelList ), TIMEOUT, ATTEMPT_TIMEOUT );
 						
-		Assert.assertTrue( campaignModelForm.open().addCampaignModels().navigate() );		
+		Assert.assertTrue( campaignModelForm.openForm().addCampaignModels().navigate() );		
 				
     }
 		

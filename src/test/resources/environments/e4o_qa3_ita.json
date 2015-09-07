@@ -121,7 +121,7 @@
   },
   "services": {
     "ssh": {
-      "actrule": {
+      "actrule1": {
 	      "hostName": "md1-sa029-e4o01",
 	      "hostAddress": "10.120.38.36",
 	        "hostPort": "22",
@@ -133,7 +133,7 @@
 	          }
 	        }
       },
-      "collector": {
+      "collector1": {
 	      "hostName": "md1-sa029-e4o01",
 	      "hostAddress": "10.120.38.36",
 	        "hostPort": "22",

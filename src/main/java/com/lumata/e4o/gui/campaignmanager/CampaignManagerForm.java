@@ -17,7 +17,7 @@ public class CampaignManagerForm extends Form {
 		
 	}
 
-	protected Form open() throws FormException {
+	protected Form openForm() throws FormException {
 		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 30);
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("gwt-debug-BarCaptionHomeCampaign")));
 		return clickId( "gwt-debug-BarCaptionHomeCampaign" );

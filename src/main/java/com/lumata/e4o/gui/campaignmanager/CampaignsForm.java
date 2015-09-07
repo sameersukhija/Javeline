@@ -181,7 +181,7 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 	
 	public CampaignsForm openForm() throws FormException {
 		
-		super.open().clickId( "gwt-debug-InputCMCampaignCreation" );
+		super.openForm().clickId( "gwt-debug-InputCMCampaignCreation" );
 		
 		return this;
 		

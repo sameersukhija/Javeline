@@ -71,7 +71,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		campaignModel=new JSONCampaignModel(resourcePath, resourceFile);
 		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,campaignModel, TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		campaignModelForm.open();
+		campaignModelForm.openForm();
 		JSONArray campaignModels = campaignModel.getList();
 		
 		for( int camapignModelIndex = 0; camapignModelIndex < campaignModels.length(); camapignModelIndex++ ) {
@@ -80,7 +80,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			if( campaignModel.getEnabled() ) {
 			
-				campaignModelForm.campaignModelAddButton();
+				campaignModelForm.addBtn();
 				campModelName="CSM_14";
 				
 				campaignModelForm.configureCampaignModel(campModelName, campaignModel.getDescription(), campaignModel.getcampaignType(), campaignModel.getuseHierarchy());
@@ -126,7 +126,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		campaignModel=new JSONCampaignModel(resourcePath, resourceFile);
 		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,campaignModel, TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		campaignModelForm.open();
+		campaignModelForm.openForm();
 		JSONArray campaignModels = campaignModel.getList();
 		
 		for( int camapignModelIndex = 0; camapignModelIndex < campaignModels.length(); camapignModelIndex++ ) {
@@ -135,7 +135,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			if( campaignModel.getEnabled() ) {
 			
-				campaignModelForm.campaignModelAddButton();
+				campaignModelForm.addBtn();
 				campModelName="CMS_09";
 				campaignModelForm.configureCampaignModel(campModelName, campaignModel.getDescription(), campaignModel.getcampaignType(), campaignModel.getuseHierarchy());
 				Map<String, JSONEvent_> events = campaignModel.getEvents();
@@ -183,7 +183,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		campaignModel=new JSONCampaignModel(resourcePath, resourceFile);
 		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,campaignModel, TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		campaignModelForm.open();
+		campaignModelForm.openForm();
 		JSONArray campaignModels = campaignModel.getList();
 		
 		for( int camapignModelIndex = 0; camapignModelIndex < campaignModels.length(); camapignModelIndex++ ) {
@@ -228,7 +228,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
 		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		campaignModelForm.open();
+		campaignModelForm.openForm();
 	
 				campaignModelForm.campaignModelDeleteButton("CSM_14").closeAlertAndGetItsText();
 				
@@ -262,7 +262,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	
 		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		campaignModelForm.open();
+		campaignModelForm.openForm();
 			
 			
 				campaignModelForm.campaignModelCopyButton(campModelName);

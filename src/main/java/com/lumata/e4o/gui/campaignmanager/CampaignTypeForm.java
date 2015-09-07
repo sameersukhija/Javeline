@@ -29,9 +29,9 @@ public class CampaignTypeForm extends CampaignManagerForm {
 		
 	}	
 	
-	public CampaignTypeForm open() throws FormException {
+	public CampaignTypeForm openForm() throws FormException {
 		
-		super.open().clickId( "gwt-debug-InputCMCampaignType" );
+		super.openForm().clickId( "gwt-debug-InputCMCampaignType" );
 		
 		return this;
 		

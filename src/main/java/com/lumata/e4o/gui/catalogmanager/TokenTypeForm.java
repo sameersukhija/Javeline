@@ -202,7 +202,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 
 	public List<WebElement> getTokenTypeList() throws FormException {
 		
-		super.waitVisibleElement(By.xpath("//div[@class='e4ol-list']"));
+		super.waitVisibleElementByXPath("//div[@class='e4ol-list']");
 		
 		List<WebElement> tokenTypeList = new ArrayList<WebElement>();
 		
@@ -215,8 +215,6 @@ public class TokenTypeForm extends OfferOptimisationForm {
 			/** in case of empty list **/;
 		
 		}
-		
-		System.out.println( "TOKEN TYPE LIST: " + tokenTypeList );
 		
 		return tokenTypeList;
 		

@@ -118,7 +118,7 @@ public class ConfigureCampaignToGiveTokens {
 
 		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, new JSONCampaignModel( "input/campaignmanager/campaignModels", "campaignModelList" ), TIMEOUT, ATTEMPT_TIMEOUT );
 						
-		Assert.assertTrue( campaignModelForm.open()
+		Assert.assertTrue( campaignModelForm.openForm()
 							.addCampaignModels()
 							.navigate() 
 		);		

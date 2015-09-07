@@ -476,7 +476,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 	setCampaignModelJson(new JSONCampaignModel(resourcePath, resourceFile));
 	CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,getCampaignModelJson(), TIMEOUT, ATTEMPT_TIMEOUT );
 	
-	campaignModelForm.open();
+	campaignModelForm.openForm();
 	JSONArray campaignModels = getCampaignModelJson().getList();
 	
 	for( int camapignModelIndex = 0; camapignModelIndex < campaignModels.length(); camapignModelIndex++ ) {
@@ -485,7 +485,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		
 		if( getCampaignModelJson().getEnabled() ) {
 		
-			campaignModelForm.campaignModelAddButton();
+			campaignModelForm.addBtn();
 			setCampaignModelName(Format.addTimestamp(getCampaignModelJson().getName() + "_"));
 			campaignModelForm.configureCampaignModel(getCampaignModelName(), getCampaignModelJson().getDescription(), getCampaignModelJson().getcampaignType(), getCampaignModelJson().getuseHierarchy());
 			Map<String, JSONEvent_> events = getCampaignModelJson().getEvents();

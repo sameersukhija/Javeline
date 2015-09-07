@@ -88,7 +88,7 @@ public class GUIConfigurator {
 					}
 					case campaignModels: {
 						CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, new JSONCampaignModel( guiConfig.getString( JSONKey.folder.name() ), guiConfig.getString( JSONKey.file.name() ) ), timeout, attempt_timeout );
-						success = campaignModelForm.open().addCampaignModels().navigate();
+						success = campaignModelForm.openForm().addCampaignModels().navigate();
 						break;
 					}
 					case loyalty: {
