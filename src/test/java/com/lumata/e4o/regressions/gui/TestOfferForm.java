@@ -40,7 +40,6 @@ import java.awt.AWTException;
 import javax.mail.MessagingException;
 
 import org.json.JSONException;
-import org.junit.Ignore;
 
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
@@ -582,7 +581,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
   		}
   
   			}
-  		@Ignore
+  		
 		@Parameters({"jsonFilePath1_Offer","jsonFileName1_Offer","networkEnvironmentParams","seleniumWebDriverParams"})
 		@Test( enabled=false, priority = 7 )
 		public void testUc28_07_addOffer_OneTimeVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath1_Offer,
