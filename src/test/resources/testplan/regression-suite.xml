@@ -2,9 +2,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Regression Suite" verbose="1" parallel="false">
 
-  <!--listeners>
+  <listeners>
     <listener class-name="com.lumata.e4o.testing.common.TestNGReportListener"/>
-  </listeners-->
+  </listeners>
 	<test name="Run Expired Data">
    <parameter name="environment" value="e4o_regression"/>
 	<parameter name="tenant" value="tenantMaster"/>
