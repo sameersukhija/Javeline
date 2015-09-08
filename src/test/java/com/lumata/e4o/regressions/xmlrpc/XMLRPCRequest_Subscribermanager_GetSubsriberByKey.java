@@ -82,6 +82,8 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 				)
 			);
 			
+			subscriber = DAOSubscribers.getInstance( mysqlMaster ).getSubscriber( MSISDN );
+			
 		} else {
 			
 			XMLRPCRequest.subscribermanager_updateSubscriber().call( 
