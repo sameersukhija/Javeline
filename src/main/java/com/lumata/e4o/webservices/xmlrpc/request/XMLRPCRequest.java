@@ -13,7 +13,6 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.network.RestClient;
 import com.lumata.common.testing.system.Server;
-import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponse;
 import com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidator;
 
@@ -544,7 +543,7 @@ public class XMLRPCRequest {
 							
 							actual = xmlPath.getLong( validator.getPath() );
 							
-							validation = actual.equals( Long.valueOf( Format.toNumeric( expected ) ) );							
+							validation = validator.getMatcher().matches( actual );							
 							
 							break;
 						}
@@ -552,7 +551,7 @@ public class XMLRPCRequest {
 							
 							actual = Integer.valueOf( xmlPath.getString( validator.getPath() ) );
 							
-							validation = actual.equals( Integer.valueOf( Format.toNumeric( expected ) ) );
+							validation = validator.getMatcher().matches( actual );
 							
 							break;
 						}
@@ -560,15 +559,15 @@ public class XMLRPCRequest {
 							
 							actual = Short.valueOf( xmlPath.getString( validator.getPath() ) );
 							
-							validation = actual.equals( Short.valueOf( Format.toNumeric( expected ) ) );
+							validation = validator.getMatcher().matches( actual );
 							
 							break;
 						}
 						case "String": {
 							
-							actual = '"' + xmlPath.getString( validator.getPath() ) + '"';	
+							actual = xmlPath.getString( validator.getPath() );	
 							
-							validation = actual.equals( expected );
+							validation = validator.getMatcher().matches( actual );
 							
 							break;
 						}
@@ -579,7 +578,7 @@ public class XMLRPCRequest {
 							if( value.isEmpty() ) { actual = "null"; } 
 							else { actual = Date.valueOf( value ); }
 															
-							validation = actual.equals( expected );	
+							validation = validator.getMatcher().matches( actual );
 							
 							break;
 						}

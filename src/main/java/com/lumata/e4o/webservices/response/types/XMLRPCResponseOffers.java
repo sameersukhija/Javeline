@@ -1,7 +1,6 @@
 package com.lumata.e4o.webservices.response.types;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.hamcrest.Matcher;
 
@@ -21,13 +20,13 @@ public class XMLRPCResponseOffers extends XMLRPCResponseObject {
 
 	public void offer() {
 				
-		//".offer.findAll {}"
+		//".offer.findAll { offer_name = "OFF1" }"
 		
 	}
 	
 	public XMLRPCResponseValidator size( Matcher<Integer> matcher ) {
 		
-		return new XMLRPCResponseValidator( builPath( SIZE_TAG_ ), matcher, Integer.class, "offers size" );
+		return new XMLRPCResponseValidator( buildPath( SIZE_TAG_ ), matcher, Integer.class, "offers size" );
 		
 	}
 	
@@ -41,7 +40,7 @@ public class XMLRPCResponseOffers extends XMLRPCResponseObject {
 		
 		ArrayList<XMLRPCResponseValidator> offersValidatorArray = new ArrayList<XMLRPCResponseValidator>();
 		
-		offersValidatorArray.add( new XMLRPCResponseValidator(  builPath( SIZE_TAG_ ), equalTo( offers.size() ), Integer.class, "offers size"  ) );
+		offersValidatorArray.add( new XMLRPCResponseValidator(  buildPath( SIZE_TAG_ ), equalTo( offers.size() ), Integer.class, "offers size"  ) );
 		
 		for( int offerIndex = 0; offerIndex < offers.size(); offerIndex++ ) {
 			

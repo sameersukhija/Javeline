@@ -15,7 +15,7 @@ public class XMLRPCResponseOfferPack extends XMLRPCResponseObject {
 
 	public XMLRPCResponseValidator id( Matcher<Integer> matcher ) {
 		
-		return new XMLRPCResponseValidator( builPath( ID_TAG_ ), matcher, Integer.class, "offerPack id" );		
+		return new XMLRPCResponseValidator( buildPath( ID_TAG_ ), matcher, Integer.class, "offerPack id" );		
 		
 	}
 

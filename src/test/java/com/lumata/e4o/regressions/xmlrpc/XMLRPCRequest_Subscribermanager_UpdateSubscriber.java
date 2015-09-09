@@ -15,13 +15,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.annotations.mysql.Column;
-import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.common.testing.system.Server;
-import com.lumata.common.testing.system.User;
 import com.lumata.e4o.dao.tenant.DAOConf;
 import com.lumata.e4o.dao.tenant.DAONetworks;
 import com.lumata.e4o.dao.tenant.DAOProfiles;
@@ -40,6 +35,8 @@ import com.lumata.e4o.schema.tenant.Statuses;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.schema.tenant.SupportedRatePlan;
 import com.lumata.e4o.system.cdr.CDR;
+import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCMysqlMaster;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
@@ -48,7 +45,8 @@ import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.*;
 import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.*;
 
-public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
+@TCMysqlMaster
+public class XMLRPCRequest_Subscribermanager_UpdateSubscriber extends ParentTestCase {
 	
 	private static final Logger logger = LoggerFactory.getLogger( XMLRPCRequest_Subscribermanager_UpdateSubscriber.class );
 	
@@ -58,10 +56,6 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 		tongue, gender, salary, imei, imsi, hobbies, options 
 	}
 	
-	NetworkEnvironment env;
-	Server actruleServer;
-	User superman;
-	Mysql mysql;
 	DAOSubscribers daoSubscribers;
 	SimpleDateFormat sdf;
 	Calendar today;
@@ -155,16 +149,7 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	@BeforeClass
 	public void init( @Optional("E4O_VM") String environment, @Optional("tenant") String tenant, @Optional("actrule") String gui_server, @Optional("superman") String user ) throws NetworkEnvironmentException, GeneratorException {		
 		
-		/** Create environment configuration */
-		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-
-		actruleServer = env.getServer( gui_server );
-		
-		superman = actruleServer.getUser( user );
-		
-		mysql = new Mysql( env.getDataSource( tenant ) );
-		
-		daoSubscribers = DAOSubscribers.getInstance( mysql );
+		daoSubscribers = DAOSubscribers.getInstance( mysqlMaster );
 		
 		sdf = new SimpleDateFormat( "yyyy-MM-dd" );
 		
@@ -214,16 +199,16 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 		networkOverLength = RandomStringUtils.randomNumeric( ( getColumnLenght( Subscribers.class, Subscribers.Fields.network_id ) + 1 ) );
 		
 		/** insert hobbies **/
-		Generator.subscribers().environment( env ).mysql( mysql ).insertDefaultHobbies();
+		Generator.subscribers().environment( env ).mysql( mysqlMaster ).insertDefaultHobbies();
 		
 		/** insert options **/
-		Generator.subscribers().environment( env ).mysql( mysql ).insertOptions( "option_", 1024L );
+		Generator.subscribers().environment( env ).mysql( mysqlMaster ).insertOptions( "option_", 1024L );
 						
 	}
 	
 	private Long getExitingMsisdn() {
 		
-		ArrayList<Subscribers> subscribers = DAOSubscribers.getInstance( mysql ).getSubscriberList();
+		ArrayList<Subscribers> subscribers = DAOSubscribers.getInstance( mysqlMaster ).getSubscriberList();
 		
 		if( subscribers.size() >= 0 ) {
 			
@@ -237,7 +222,7 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	
 	private SupportedRatePlan getFirstValidRatePlan() {
 		
-		ArrayList<SupportedRatePlan> supportedRatePlan = DAOSupportedRatePlan.getInstance( mysql ).getAvailableRatePlanList();
+		ArrayList<SupportedRatePlan> supportedRatePlan = DAOSupportedRatePlan.getInstance( mysqlMaster ).getAvailableRatePlanList();
 		
 		if( supportedRatePlan.size() > 0 ) {
 			
@@ -251,13 +236,13 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	
 	private Profiles getProfileByValidRatePlan( Byte profileId ) {
 				
-		return DAOProfiles.getInstance( mysql ).getProfileById( Integer.valueOf( profileId.toString() ) );
+		return DAOProfiles.getInstance( mysqlMaster ).getProfileById( Integer.valueOf( profileId.toString() ) );
 		
 	}
 	
 	private Statuses getStatusByProfileId( Byte profileId ) {
 		
-		return DAOStatuses.getInstance( mysql ).getStatusByProfileId( profileId );
+		return DAOStatuses.getInstance( mysqlMaster ).getStatusByProfileId( profileId );
 				
 	}
 
@@ -265,7 +250,7 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 		
 		Conf confObj = new Conf();
 		
-		ArrayList<Conf> confValueListByName = DAOConf.getInstance( mysql ).getCurrentValueByName( confTag );
+		ArrayList<Conf> confValueListByName = DAOConf.getInstance( mysqlMaster ).getCurrentValueByName( confTag );
 		
 		if( null != confValueListByName && confValueListByName.size() > 0 ) {
 			
@@ -281,7 +266,7 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 		
 		Networks network = new Networks();
 		
-		ArrayList<Networks> networks = DAONetworks.getInstance( mysql ).getAvailableNetworks();
+		ArrayList<Networks> networks = DAONetworks.getInstance( mysqlMaster ).getAvailableNetworks();
 		
 		if( null != networks && networks.size() > 0 ) {
 			
@@ -315,9 +300,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithNullMsisdn() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdnNull,
 										subscriptionDateNull,
@@ -347,9 +332,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithNullSubscriptionDate() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDateNull,
@@ -380,9 +365,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithNullRatePlan() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -414,9 +399,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithNullStatus() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -447,9 +432,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void createSubscriberWithNullInTag() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_createSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -480,9 +465,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithNullNetwork() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -514,9 +499,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithNullProfile() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -545,9 +530,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithoutOptionalParameters() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -576,9 +561,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithWrongMsisdn() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdnWrong,
 										subscriptionDate,
@@ -608,9 +593,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithWrongSubscriptionDate() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDateWrong,
@@ -640,9 +625,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithWrongProfile() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -672,9 +657,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithWrongRatePlan() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -704,9 +689,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithWrongStatus() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -736,9 +721,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithWrongInTag() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -768,9 +753,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithWrongNetwork() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -800,9 +785,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithOverLengthMsisdn() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdnOverLength,
 										subscriptionDate,
@@ -832,9 +817,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithOverLengthSubscriptionDate() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDateOverLength,
@@ -864,9 +849,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithOverLengthProfile() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -896,9 +881,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithOverLengthRatePlan() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -928,9 +913,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithOverLengthStatus() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -960,9 +945,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithOverLengthInTag() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -992,9 +977,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithOverLengthNetwork() throws Exception {
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1023,14 +1008,14 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	@Test(enabled=TEST_ENABLED, priority = 23 )
 	public void updateSubscriberWithNotValidProfile() throws Exception {
 		
-		Profiles notValidProfile = DAOProfiles.getInstance( mysql ).getNotValidProfileByRatePlan( supportedRatePlan );
+		Profiles notValidProfile = DAOProfiles.getInstance( mysqlMaster ).getNotValidProfileByRatePlan( supportedRatePlan );
 		
 		String notValidProfileStr = ( null != notValidProfile ? String.valueOf( notValidProfile.getProfileId() ) : "" ); 
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1060,9 +1045,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersNotExisting() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1093,9 +1078,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersEmptyTongue() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1126,9 +1111,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersWrongTongue() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1159,9 +1144,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersCorrectTongue() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1192,9 +1177,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersEmptyGender() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1226,9 +1211,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersWrongGender() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1260,9 +1245,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersCorrectGender() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1293,9 +1278,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersEmptySalary() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1327,9 +1312,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersWrongSalary() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1361,9 +1346,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersCorrectSalary() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1394,9 +1379,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersEmptyImei() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1428,9 +1413,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersWrongImei() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1462,9 +1447,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersCorrectImei() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1495,9 +1480,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersEmptyImsi() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1529,9 +1514,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersWrongImsi() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1563,9 +1548,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersCorrectImsi() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1596,9 +1581,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersEmptyHobbies() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1629,9 +1614,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersWrongHobbies() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1673,9 +1658,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 		hobbies.setLength( hobbies.length() - 2 );
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1706,9 +1691,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersEmptyOptions() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1739,9 +1724,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 	public void updateSubscriberWithExtendedParametersWrongOptions() throws Exception {
 				
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,
@@ -1821,7 +1806,7 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 		
 		StringBuilder otpions = new StringBuilder();
 		
-		ArrayList<SetOptions> optionsList = DAOSetOptions.getInstance( mysql ).getOptionsList();
+		ArrayList<SetOptions> optionsList = DAOSetOptions.getInstance( mysqlMaster ).getOptionsList();
 				
 		for( SetOptions option : optionsList ) {
 			
@@ -1832,9 +1817,9 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber {
 		otpions.setLength( otpions.length() - 2 );
 		
 		XMLRPCRequest.subscribermanager_updateSubscriber().call( 
-							actruleServer, 
+							guiServer, 
 							xmlrpcBody(
-								authentication( superman ),
+								authentication( user ),
 								subscriber( 
 										msisdn,
 										subscriptionDate,

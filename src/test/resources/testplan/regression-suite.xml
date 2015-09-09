@@ -153,8 +153,10 @@
   </test>
    <test name="xmlrpc">
     <classes>
-      <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_GetSubsriberByKey">
-      </class>
+      <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_GetSubsriberByKey"></class>
+      <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_CreateSubscriber"></class>
+      <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_UpdateSubscriber"></class>
+      <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_DeleteSubscriber"></class>
     </classes>	
   </test>
 </suite>

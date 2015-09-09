@@ -18,13 +18,13 @@ public class XMLRPCResponsePrice extends XMLRPCResponseObject {
 	
 	public XMLRPCResponseValidator price( Matcher<Integer> matcher ) {
 			
-		return new XMLRPCResponseValidator( builPath( PRICE_TAG_ ), matcher, String.class, "price name" );		
+		return new XMLRPCResponseValidator( buildPath( PRICE_TAG_ ), matcher, String.class, "price name" );		
 		
 	}
 
 	public XMLRPCResponseValidator currency( Matcher<String> matcher ) {
 		
-		return new XMLRPCResponseValidator( builPath( CURRENCY_TAG_ ), matcher, String.class, "price currency" );		
+		return new XMLRPCResponseValidator( buildPath( CURRENCY_TAG_ ), matcher, String.class, "price currency" );		
 		
 	}
 

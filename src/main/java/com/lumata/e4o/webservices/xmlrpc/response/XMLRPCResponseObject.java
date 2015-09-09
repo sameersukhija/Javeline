@@ -23,7 +23,7 @@ public abstract class XMLRPCResponseObject {
 		this.relativeRoot = relativeRoot;
 	} 
 	
-	protected String builPath( String tag ) {
+	protected String buildPath( String tag ) {
 		return this.root + this.relativeRoot + tag;
 	}
 

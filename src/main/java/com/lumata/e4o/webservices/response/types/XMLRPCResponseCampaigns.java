@@ -17,7 +17,7 @@ public class XMLRPCResponseCampaigns extends XMLRPCResponseObject {
 
 	public XMLRPCResponseValidator size( Matcher<String> matcher ) {
 		
-		return new XMLRPCResponseValidator( builPath( SIZE_TAG_ ), matcher, Integer.class, "campaigns size" );
+		return new XMLRPCResponseValidator( buildPath( SIZE_TAG_ ), matcher, Integer.class, "campaigns size" );
 		
 	}
 

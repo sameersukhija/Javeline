@@ -18,13 +18,13 @@ public class XMLRPCResponseToken extends XMLRPCResponseObject {
 	
 	public XMLRPCResponseValidator msisdn( Matcher<Integer> matcher ) {
 			
-		return new XMLRPCResponseValidator( builPath( MSISDN_TAG_ ), matcher, Long.class, "token msisdn" );		
+		return new XMLRPCResponseValidator( buildPath( MSISDN_TAG_ ), matcher, Long.class, "token msisdn" );		
 		
 	}
 
 	public XMLRPCResponseValidator id( Matcher<String> matcher ) {
 		
-		return new XMLRPCResponseValidator( builPath( ID_TAG_ ), matcher, Integer.class, "token id" );		
+		return new XMLRPCResponseValidator( buildPath( ID_TAG_ ), matcher, Integer.class, "token id" );		
 		
 	}
 

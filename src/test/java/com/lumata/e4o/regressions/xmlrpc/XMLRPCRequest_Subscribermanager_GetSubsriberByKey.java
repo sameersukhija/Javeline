@@ -13,6 +13,7 @@ import static com.lumata.e4o.webservices.response.types.XMLRPCResponseSubscriber
 import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.fault;
 import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.success;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -133,6 +134,7 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 			),
 			xmlrpcValidator(
 				subscriberResponse().msisdn( equalTo( MSISDN ) ),
+				subscriberResponse().msisdn( greaterThan( 3399900000L ) ),
 				subscriberResponse().subscriptionDate( equalTo( Format.getMysqlDate( subscriber.getSubscriptionDate() ) ) ),
 				subscriberResponse().profile( equalTo( PROFILE_NAME ) ),
 				/** condition on RATE_PLAN_ID to change in RATE_PLAN_NAME when the EFOGC-4333 will be resolved **/

@@ -3,18 +3,14 @@ package com.lumata.e4o.regressions.xmlrpc;
 import static org.hamcrest.Matchers.*;
 
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.common.testing.system.Server;
-import com.lumata.common.testing.system.User;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
+import com.lumata.e4o.generators.common.Generator;
 import com.lumata.e4o.schema.tenant.Subscribers;
+import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCMysqlMaster;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
@@ -22,31 +18,15 @@ import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 import static com.lumata.e4o.webservices.xmlrpc.response.XMLRPCResponseValidatorMethods.*;
 
-public class XMLRPCRequest_Subscribermanager_DeleteSubscriber {
+@TCMysqlMaster
+public class XMLRPCRequest_Subscribermanager_DeleteSubscriber extends ParentTestCase {
 	
-	final boolean TEST_ENABLED = false;
-	
-	NetworkEnvironment env;
-	Server actruleServer;
-	User superman;
-	Mysql mysql;
 	DAOSubscribers daoSubscribers;
 			
-	/* 	Initialize Environment */
-	@Parameters({"environment", "tenant", "gui_server", "user"})
 	@BeforeClass
-	public void init( @Optional("E4O_VM") String environment, @Optional("tenant") String tenant, @Optional("actrule") String gui_server, @Optional("superman") String user ) throws NetworkEnvironmentException {		
+	public void init() throws NetworkEnvironmentException {		
 		
-		/** Create environment configuration */
-		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-
-		actruleServer = env.getServer( gui_server );
-		
-		superman = actruleServer.getUser( user );
-		
-		mysql = new Mysql( env.getDataSource( tenant ) );
-		
-		daoSubscribers = DAOSubscribers.getInstance( mysql );
+		daoSubscribers = DAOSubscribers.getInstance( mysqlMaster );
 		
 	}
 
@@ -56,9 +36,9 @@ public class XMLRPCRequest_Subscribermanager_DeleteSubscriber {
 		Long msisdn = null;
 		
 		XMLRPCRequest.subscribermanager_deleteSubscriber().call( 
-				actruleServer, 
+				guiServer, 
 				xmlrpcBody(
-					authentication( superman ),
+					authentication( user ),
 					subscriber( 
 							msisdn
 					)
@@ -82,9 +62,9 @@ public class XMLRPCRequest_Subscribermanager_DeleteSubscriber {
 		if( !daoSubscribers.isSubscriber( msisdn ) ) {
 		
 			XMLRPCRequest.subscribermanager_deleteSubscriber().call( 
-					actruleServer, 
+					guiServer, 
 					xmlrpcBody(
-						authentication( superman ),
+						authentication( user ),
 						subscriber( 
 								msisdn
 						)
@@ -105,14 +85,27 @@ public class XMLRPCRequest_Subscribermanager_DeleteSubscriber {
 	@Test(enabled=TEST_ENABLED, priority = 3 )
 	public void deleteSubscriberWidthExistingMsisdn() throws Exception {
 	
-		Subscribers subscriber = daoSubscribers.getAvailableSubscriber();
+		final Long FIXED_MSISDN = 3399999999L;
+		final Boolean HAS_SMS_CHANNEL = true;
+		final Boolean HAS_MAIL_CHANNEL = true;
+		final Long SUBSCRIBERS_TO_GENERATE = 1L;
+		
+		Generator.subscribers()
+			.environment( env )
+			.mysql( mysqlMaster )
+			.msisdnFixed( FIXED_MSISDN )
+			.subscriberHasSMSChannel( HAS_SMS_CHANNEL )
+			.subscriberHasMAILChannel( HAS_MAIL_CHANNEL )
+			.insertIntoEnvironment( SUBSCRIBERS_TO_GENERATE );
+		
+		Subscribers subscriber = daoSubscribers.getSubscriber( FIXED_MSISDN );
 		
 		if( null != subscriber ) {
 		
 			XMLRPCRequest.subscribermanager_deleteSubscriber().call( 
-					actruleServer, 
+					guiServer, 
 					xmlrpcBody(
-						authentication( superman ),
+						authentication( user ),
 						subscriber( 
 							subscriber.getMsisdn()
 						)

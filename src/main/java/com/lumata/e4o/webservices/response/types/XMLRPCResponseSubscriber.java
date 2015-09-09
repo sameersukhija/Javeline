@@ -28,48 +28,48 @@ public class XMLRPCResponseSubscriber extends XMLRPCResponseObject {
 	
 	public XMLRPCResponseValidator msisdn(Matcher<Long> matcher) {
 		
-		return new XMLRPCResponseValidator(builPath(MSISDN), matcher, Long.class, "msisdn");
+		return new XMLRPCResponseValidator(buildPath(MSISDN), matcher, Long.class, "msisdn");
 
 	}
 	
 	public XMLRPCResponseValidator subscriptionDate(Matcher<String> matcher) {
 		
-		return new XMLRPCResponseValidator(builPath(SUBSCRIPTION_DATE), matcher, String.class, "subscription_date");
+		return new XMLRPCResponseValidator(buildPath(SUBSCRIPTION_DATE), matcher, String.class, "subscription_date");
 	
 	}
 	
 	public XMLRPCResponseValidator profile(Matcher<String> matcher) {
 		
-		return new XMLRPCResponseValidator(builPath(PROFILE), matcher, String.class, "profile");
+		return new XMLRPCResponseValidator(buildPath(PROFILE), matcher, String.class, "profile");
 	}
 	
 	public XMLRPCResponseValidator rate_plan(Matcher<String> matcher) {
 		
-		return new XMLRPCResponseValidator(builPath(RATEPLAN), matcher, String.class, "rate_plan");
+		return new XMLRPCResponseValidator(buildPath(RATEPLAN), matcher, String.class, "rate_plan");
 	
 	}
 	
 	public XMLRPCResponseValidator status(Matcher<String>matcher) {
 		
-		return new XMLRPCResponseValidator(builPath(STATUS), matcher, String.class, "status");
+		return new XMLRPCResponseValidator(buildPath(STATUS), matcher, String.class, "status");
 	
 	}
 	
 	public XMLRPCResponseValidator inTag(Matcher<String>matcher) {
 		
-		return new XMLRPCResponseValidator(builPath(INTAG), matcher, String.class, "in_tag");
+		return new XMLRPCResponseValidator(buildPath(INTAG), matcher, String.class, "in_tag");
 	
 	}
 	
 	public XMLRPCResponseValidator imsi(Matcher<Long> matcher) {
 		
-		return new XMLRPCResponseValidator(builPath(IMSI), matcher, Long.class, "imsi");
+		return new XMLRPCResponseValidator(buildPath(IMSI), matcher, Long.class, "imsi");
 
 	}
 	
 	public XMLRPCResponseValidator imei(Matcher<Long> matcher) {
 		
-		return new XMLRPCResponseValidator(builPath(IMEI), matcher, Long.class, "imei");
+		return new XMLRPCResponseValidator(buildPath(IMEI), matcher, Long.class, "imei");
 
 	}
 
