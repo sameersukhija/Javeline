@@ -40,6 +40,7 @@ import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.SuppliersForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.gui.customercare.CustomerCareCreateSubscriberForm;
+import com.lumata.e4o.gui.customercare.CustomerCareForm;
 import com.lumata.e4o.gui.customercare.CustomerCarePurchasesForm;
 import com.lumata.e4o.gui.customercare.CustomerCareTokensForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
@@ -203,23 +204,25 @@ public class PurchaseOfferFromCustomerCare extends ParentTestCase {
 		Boolean status=false;
 		CustomerCareCreateSubscriberForm customerCareCreateSubscriberForm = new CustomerCareCreateSubscriberForm(
 				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		CustomerCareForm customerCareForm = new CustomerCareForm(
+				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 		
 			
 		try{
 		
-		customerCareCreateSubscriberForm.open();
+			customerCareForm.open();
 		// Enter msisdn
 		
-		customerCareCreateSubscriberForm.inputSubscriberId(number);
+		customerCareForm.setSubscriberMsisdn(number);
 		// Click AddButton
-		customerCareCreateSubscriberForm.clickCustomerCareAddButton();
+		customerCareForm.clickCustomerCareAddButton();
 		// Enter Language
 		customerCareCreateSubscriberForm.enterLanguage("ENG");
 		// Click add button
 		customerCareCreateSubscriberForm.clickCustomerCareCreateAdd();
-		customerCareCreateSubscriberForm.clickClearButton();
-		status=customerCareCreateSubscriberForm.subscriberPhoneNumberExists(null, "9890234567");
-		customerCareCreateSubscriberForm.clickClearButton();
+		customerCareForm.clickClearButton();
+		status=customerCareForm.subscriberPhoneNumberExists(null, "9890234567");
+		customerCareForm.clickClearButton();
 		//status=customerCareCreateSubscriberForm.searchById("gwt-debug-BtnCCInfoEdit").isDisplayed();
 		}catch (FormException e)
 		{
