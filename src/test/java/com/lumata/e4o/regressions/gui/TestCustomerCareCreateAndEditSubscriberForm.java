@@ -34,9 +34,8 @@ public class TestCustomerCareCreateAndEditSubscriberForm extends ParentTestCase 
 	private static final Logger logger = LoggerFactory
 			.getLogger(TestCustomerCareCreateAndEditSubscriberForm.class);
 	private CustomerCareCreateSubscriberForm customerCareCreateSubscriberForm;
-	private CustomerCareForm customerCareForm;
 	private Subscribers subscriber = null;
-	private final Long MSISDN = 22368919522L;
+	private final Long MSISDN = 22578449322L;
 	private final String STATUS = "active (prepaid)";
 	private final String RATE_PLAN_NAME = "FUN";
 	private final String INTAG = "QAIN";
@@ -56,15 +55,14 @@ public class TestCustomerCareCreateAndEditSubscriberForm extends ParentTestCase 
 		int ATTEMPT_TIMEOUT = 200;
 		customerCareCreateSubscriberForm = new CustomerCareCreateSubscriberForm(
 				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-		customerCareForm = new CustomerCareForm(
-				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 		Reporter.log("Open CustomerCare Tab.", LOG_TO_STD_OUT);
-		customerCareForm.open();
+		customerCareCreateSubscriberForm.open();
 		// Enter msisdn
 		Reporter.log("Enter subscriber id", LOG_TO_STD_OUT);
-		customerCareForm.setSubscriberMsisdn(String.valueOf(MSISDN));
+		customerCareCreateSubscriberForm.setSubscriberMsisdn(String
+				.valueOf(MSISDN));
 		// Click AddButton
-		customerCareForm.clickCustomerCareAddButton();
+		customerCareCreateSubscriberForm.clickCustomerCareAddButton();
 		customerCareCreateSubscriberForm.selectRatePlan(RATE_PLAN_NAME);
 		customerCareCreateSubscriberForm.selectStatus(STATUS);
 		customerCareCreateSubscriberForm.selectInTag(INTAG);
@@ -74,8 +72,8 @@ public class TestCustomerCareCreateAndEditSubscriberForm extends ParentTestCase 
 		customerCareCreateSubscriberForm.enterLanguage(TONGUE);
 		// Click add button
 		customerCareCreateSubscriberForm.clickCustomerCareCreateAdd();
-		customerCareForm.clickClearButton();
-		if (customerCareForm.subscriberPhoneNumberExists(null,
+		customerCareCreateSubscriberForm.clickClearButton();
+		if (customerCareCreateSubscriberForm.subscriberPhoneNumberExists(null,
 				String.valueOf(MSISDN))) {
 			Assert.assertTrue(true,
 					"Subscriber created successfully and exists");
@@ -113,21 +111,21 @@ public class TestCustomerCareCreateAndEditSubscriberForm extends ParentTestCase 
 	/**
 	 * UC14-01 testcase covers edit RatePlan under CustomerCare Section and
 	 * verifying it in database
+	 * 
+	 * @throws Exception
 	 */
 	@Test(enabled = TEST_ENABLED, priority = 2)
-	public void testUC14_01EditRatePlan() throws FormException {
+	public void testUC14_01EditRatePlan() throws FormException, Exception {
 		customerCareCreateSubscriberForm = new CustomerCareCreateSubscriberForm(
 				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-		customerCareForm = new CustomerCareForm(
-				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-
 		Reporter.log("Open CustomerCare Tab.", LOG_TO_STD_OUT);
-		customerCareForm.clickClearButton();
+		customerCareCreateSubscriberForm.clickClearButton();
 		// Enter msisdn
 		Reporter.log("Enter subscriber id which need to edit", LOG_TO_STD_OUT);
-		customerCareForm
-				.searchMsisdnByPhoneNumber(null, String.valueOf(MSISDN));
+		customerCareCreateSubscriberForm.searchMsisdnByPhoneNumber(null,
+				String.valueOf(MSISDN));
 		customerCareCreateSubscriberForm.editRatePlan("NEO");
+		Thread.sleep(10);
 		subscriber = DAOSubscribers.getInstance(mysqlMaster).getSubscriber(
 				MSISDN);
 		Assert.assertEquals(subscriber.getRatePlanId(), Byte.valueOf("2"));
@@ -138,11 +136,11 @@ public class TestCustomerCareCreateAndEditSubscriberForm extends ParentTestCase 
 	/**
 	 * UC14-02 testcase covers adding of Channel in existing subscriber under
 	 * CustomerCareSection and verifying it in database.
+	 * 
+	 * @throws Exception
 	 */
 	@Test(enabled = TEST_ENABLED, priority = 3)
-	public void testUC14_01EditChannel() throws FormException {
-		customerCareForm = new CustomerCareForm(
-				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+	public void testUC14_02EditChannel() throws FormException, Exception {
 		CustomerCareProfileForm customerCareProfileForm = new CustomerCareProfileForm(
 				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 		customerCareProfileForm.open();
@@ -150,6 +148,7 @@ public class TestCustomerCareCreateAndEditSubscriberForm extends ParentTestCase 
 		customerCareProfileForm.clickAddChannelButton();
 		customerCareProfileForm.addChannel("SMS", String.valueOf(MSISDN),
 				"Active");
+		Thread.sleep(20);
 		subscriber = DAOSubscribers.getInstance(mysqlMaster).getSubscriber(
 				MSISDN);
 		Assert.assertEquals(subscriber.getChannelIdList(), "1");

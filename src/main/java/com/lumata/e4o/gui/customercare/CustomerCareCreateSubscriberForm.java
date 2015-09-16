@@ -8,7 +8,7 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.Form;
 
-public class CustomerCareCreateSubscriberForm extends Form {
+public class CustomerCareCreateSubscriberForm extends CustomerCareForm {
 
 	public CustomerCareCreateSubscriberForm(SeleniumWebDriver selenium,
 			long timeout, long interval) {
@@ -76,10 +76,23 @@ public class CustomerCareCreateSubscriberForm extends Form {
 
 	public CustomerCareCreateSubscriberForm editRatePlan(String strRatePlan)
 			throws FormException {
-		super.clickId("gwt-debug-BtnCCInfoEdit");
+		clickEditButton();
 		selectRatePlan(strRatePlan);
-		super.clickName("btn-save");
+		clickSaveButton();
 		handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+		return this;
+	}
+	
+	public CustomerCareCreateSubscriberForm clickEditButton() throws FormException
+	{
+		super.clickId("gwt-debug-BtnCCInfoEdit");
+		return this;
+	}
+	
+
+	public CustomerCareCreateSubscriberForm clickSaveButton() throws FormException
+	{
+		super.clickName("btn-save");
 		return this;
 	}
 

@@ -204,25 +204,22 @@ public class PurchaseOfferFromCustomerCare extends ParentTestCase {
 		Boolean status=false;
 		CustomerCareCreateSubscriberForm customerCareCreateSubscriberForm = new CustomerCareCreateSubscriberForm(
 				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-		CustomerCareForm customerCareForm = new CustomerCareForm(
-				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-		
 			
 		try{
 		
-			customerCareForm.open();
+			customerCareCreateSubscriberForm.open();
 		// Enter msisdn
 		
-		customerCareForm.setSubscriberMsisdn(number);
+			customerCareCreateSubscriberForm.setSubscriberMsisdn(number);
 		// Click AddButton
-		customerCareForm.clickCustomerCareAddButton();
+			customerCareCreateSubscriberForm.clickCustomerCareAddButton();
 		// Enter Language
 		customerCareCreateSubscriberForm.enterLanguage("ENG");
 		// Click add button
 		customerCareCreateSubscriberForm.clickCustomerCareCreateAdd();
-		customerCareForm.clickClearButton();
-		status=customerCareForm.subscriberPhoneNumberExists(null, "9890234567");
-		customerCareForm.clickClearButton();
+		customerCareCreateSubscriberForm.clickClearButton();
+		status=customerCareCreateSubscriberForm.subscriberPhoneNumberExists(null, "9890234567");
+		customerCareCreateSubscriberForm.clickClearButton();
 		//status=customerCareCreateSubscriberForm.searchById("gwt-debug-BtnCCInfoEdit").isDisplayed();
 		}catch (FormException e)
 		{
