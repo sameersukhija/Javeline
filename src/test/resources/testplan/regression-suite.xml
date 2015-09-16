@@ -19,7 +19,7 @@
 	
 	<parameter name="e4oReleaseParam" value="2.4.2.3.0" />
   
-  <parameter name="networkEnvironmentParams" value="{ 'envFile':'e4o_regression', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule1', 'guiUser':'superman' }"/>
+  <parameter name="networkEnvironmentParams" value="{ 'envFile':'e4o_vm', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule1', 'guiUser':'superman' }"/>
   <!-- selenium_driver_type: local or remote -->  
   <!-- 	selenium_capability
   		platform -> {WINDOWS|XP|VISTA|MAC|LINUX|UNIX|ANDROID} ( note: only WINDOWS and LINUX are available in our environments )
@@ -157,6 +157,12 @@
       <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_CreateSubscriber"></class>
       <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_UpdateSubscriber"></class>
       <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_DeleteSubscriber"></class>
+    </classes>	
+  </test>
+   <test name="Customer Care TestCases">
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestCustomerCareCreateAndEditSubscriberForm">
+      </class>
     </classes>	
   </test>
 </suite>

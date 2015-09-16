@@ -110,6 +110,13 @@ public class CustomerCareForm extends Form {
 		return this;
 
 	}
+	
+	public CustomerCareForm clickCustomerCareAddButton() throws FormException
+	{
+		super.clickId("gwt-debug-BtnCCAdd");
+		return this;
+	}
+	
 
 	@Override
 	public CustomerCareForm clickId(String id) throws FormException {

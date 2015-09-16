@@ -42,6 +42,7 @@ import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.SuppliersForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.gui.customercare.CustomerCareCreateSubscriberForm;
+import com.lumata.e4o.gui.customercare.CustomerCareForm;
 import com.lumata.e4o.gui.customercare.CustomerCareTokensForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
 import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
@@ -245,15 +246,14 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		CustomerCareCreateSubscriberForm customerCareCreateSubscriberForm = new CustomerCareCreateSubscriberForm(
 				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 		
-			
 		try{
 		
-		customerCareCreateSubscriberForm.open();
+			customerCareCreateSubscriberForm.open();
 		// Enter msisdn
 		
-		customerCareCreateSubscriberForm.inputSubscriberId(number);
+			customerCareCreateSubscriberForm.setSubscriberMsisdn(number);
 		// Click AddButton
-		customerCareCreateSubscriberForm.clickCustomerCareAddButton();
+			customerCareCreateSubscriberForm.clickCustomerCareAddButton();
 		// Enter Language
 		customerCareCreateSubscriberForm.enterLanguage("ENG");
 		// Click add button
