@@ -65,9 +65,9 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 )
 @TCSeleniumWebDriver
 @TCMysqlMaster
-public class OfferRankValidationScenario extends ParentTestCase {
+public class TestOfferRankValidationScenario extends ParentTestCase {
 	
-	private static final Logger logger = LoggerFactory.getLogger( OfferRankValidationScenario.class );
+	private static final Logger logger = LoggerFactory.getLogger( TestOfferRankValidationScenario.class );
 	
 	private JSONSuppliers setupSupplier=null;
 	private String supplierName=null;
@@ -548,10 +548,10 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		openActivationTab().
 		activateBtn().
 		confirmCampaignActivation();
-		//campaignsForm.waitForPageLoad();
+		campaignsForm.waitForPageLoad();
 		//WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 40);
 		//wait.until(ExpectedConditions.alertIsPresent());
-		//campaignsForm.confirmCampaignActivation();
+		campaignsForm.confirmCampaignActivation();
 	}
 	public Boolean configureOffers(String jsonPath,String jsonFileName) throws JSONSException
 	{

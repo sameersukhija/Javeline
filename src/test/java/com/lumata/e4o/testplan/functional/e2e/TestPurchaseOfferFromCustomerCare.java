@@ -67,9 +67,9 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 )
 @TCSeleniumWebDriver
 @TCMysqlMaster
-public class PurchaseOfferFromCustomerCare extends ParentTestCase {
+public class TestPurchaseOfferFromCustomerCare extends ParentTestCase {
 
-	private static final Logger logger = LoggerFactory.getLogger( PurchaseOfferFromCustomerCare.class );
+	private static final Logger logger = LoggerFactory.getLogger( TestPurchaseOfferFromCustomerCare.class );
 	public String OFFER_NAME=null;
 	
 	JSONOffers setupOffer=null;
