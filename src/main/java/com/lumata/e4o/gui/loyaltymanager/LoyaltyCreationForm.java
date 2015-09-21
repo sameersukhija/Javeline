@@ -2,13 +2,22 @@ package com.lumata.e4o.gui.loyaltymanager;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
+import org.json.JSONException;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,11 +26,23 @@ import com.lumata.common.testing.json.ErrorModificableElement;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.common.testing.validating.Format;
+import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
+import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
+import com.lumata.e4o.gui.campaignmanager.CampaignsForm.WizardTab;
+import com.lumata.e4o.gui.catalogmanager.OffersForm;
+import com.lumata.e4o.gui.common.Form;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
+import com.lumata.e4o.gui.common.GWTCalendarForm;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler.SaveResult;
+import com.lumata.e4o.json.gui.campaignmanager.JSONAction;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCriteria;
+import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
 import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation;
 import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation.LoyaltyTypes;
+
 
 public class LoyaltyCreationForm extends LoyaltyManagerForm {
 
@@ -34,13 +55,17 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 	 * 
 	 */
 	private JSONLoyaltiesCreation loyaltiesCreationCfg;
-	
+	private enum WizardTab {
+		Definition, Scheduling, Awarded, Redeemed,  Activation
+	}
 	/**
 	 * 
 	 * @param selenium
 	 * @param timeout
 	 * @param interval
 	 */
+	
+	
 	public LoyaltyCreationForm(SeleniumWebDriver selenium, JSONLoyaltiesCreation configuration, long timeout, long interval) {
 		
 		super(selenium, timeout, interval);
@@ -64,116 +89,210 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 	 * @throws FormException
 	 * @throws JSONSException
 	 */
-	public LoyaltyCreationForm addLoyaltyPrograms() throws FormException, JSONSException {
 	
-		int numbProdType = loyaltiesCreationCfg.getList().size();
+	
+	public LoyaltyCreationForm Management() throws FormException {
 		
-		for (int index = 0; index < numbProdType; index++) {
-			
-			JsonCurrentElement current = loyaltiesCreationCfg.getCurrentElementById(index);
-			
-			if ( current.getEnabled() ) {
-				
-				List<String> element2fill = null;
-				LoyaltyTypes type = loyaltiesCreationCfg.getType();
-				WebElement addButtonElement = null;
-				
-				final String openSubSectionXPath = "//table[contains(@class,'page-ConfigurationProgramWidget')]//td[contains(text(),'"+type+"')]";
-				final String addButtonXPath = openSubSectionXPath + "//ancestor::tr[3]//button[@title='Add']";
-				
-				Boolean buttonPressed = Boolean.FALSE;
-				int count = 0;
-				
-				do {
-					
-					count++;
-					
-					if ( count == 10 ) {
-						
-						String message = getClass().getSimpleName() + " error : add button for sub-section \""+type+"\" NOT found!";
-						
-						logger.error(message);
-						
-						throw new FormException(message);
-					}
-					
-					// if button 'Add' not visible
-					// open sub-section
-					try {
-						addButtonElement = selenium.getWrappedDriver().findElement(By.xpath(addButtonXPath));
-						
-						Boolean subSectionOpen = addButtonElement.isDisplayed();
-						
-						// switch sub-section
-						if ( !subSectionOpen ) {
-							logger.debug("Sub-section \""+type+"\" NOT open, open it.");
-							
-							clickXPath(openSubSectionXPath);
-							
-							try {
-								Thread.sleep(1_000);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-						}
-						else 
-							logger.debug("Sub-section \""+type+"\" already open.");
-							
-						clickXPath(addButtonXPath);
-						
-						buttonPressed = Boolean.TRUE;
-						
-					} catch ( NotFoundException e ) {
-						// try again Sam!
-					}	
-				}
-				while ( !buttonPressed );
-				
-				if ( type.equals(LoyaltyTypes.Points) ) 
-					element2fill = loyaltiesCreationCfg.getClasses();
-				else  // badges
-					element2fill = loyaltiesCreationCfg.getBadges();
-
-				// this is the rule of displayed popup
-				//div[contains(text(),'Add new program')]//ancestor::table//input
-				
-				List<WebElement> nameAndDesc = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Add new program')]//ancestor::table//input"));
-				
-				String name = loyaltiesCreationCfg.getName();
-				String desc = loyaltiesCreationCfg.getDescription();
-				
-				// name
-				nameAndDesc.get(0).sendKeys(name);
-				
-				//div[contains(text(),'Add new program')]//ancestor::table//tr[contains(text(),'Name')]
-				
-				// description
-				if ( desc != null && desc.length() != 0 )
-					nameAndDesc.get(1).sendKeys(desc);
-			
-				// handle error on program name
-				LoyaltyNameSaveHandler handler = new LoyaltyNameSaveHandler( 	selenium.getWrappedDriver(), loyaltiesCreationCfg.getCurrentElement());
-				
-				SaveResult saveResult = handler.saveAction();
-				
-				// if save name pass continue to configuration
-				if ( 	saveResult.equals(SaveResult.SavedCorrectly) || 
-						saveResult.equals(SaveResult.SavedWithTimestamp) )
-					configureLoyaltyProgram( type, element2fill).
-					saveLoyaltyProgram();
-			}
-		}
+		super.open().clickXPath( "//div[text()='Management']" );
 		
 		return this;
 	}
-
-	/**
-	 * 
-	 */
-	private void saveLoyaltyProgram() {
+	public LoyaltyCreationForm clickaddnewBadge() throws FormException, JSONSException {
+	
 		
+		LoyaltyTypes type = loyaltiesCreationCfg.getType();
+		
+		final String openSubSectionXPath = "//table[contains(@class,'page-ConfigurationProgramWidget')]//td[contains(text(),'"+type+"')]";
+		final String addButtonXPath = openSubSectionXPath + "//ancestor::tr[3]//button[@title='Add']";
+		super.clickXPath(openSubSectionXPath);					
+		super.clickXPath(addButtonXPath);
+	
+		return this;
+	}
+	
+	public LoyaltyCreationForm clickaddLoyaltyPrograms() throws FormException, JSONSException {
+			
+			super.clickXPath("//div[contains(text(),'Add new program')]//ancestor::table//input");
+	
+	return this;
+	
+	}
+	
+	public LoyaltyCreationForm addLoyaltyProgramName(String name) throws FormException, JSONSException {
+		
+			super.sendKeysByXPath("//div[contains(text(),'Add new program')]//ancestor::table/tbody//tr[@class='cycle1']/td[2]//input", name);
+		
+	return this;
+	}
+				
+	public LoyaltyCreationForm addLoyaltyProgramDesc(String desc) throws FormException, JSONSException {
+		
+			super.sendKeysByXPath("//div[contains(text(),'Add new program')]//ancestor::table/tbody//tr[@class='cycle2']/td[2]//input", desc);
+		
+	return this;
+	
+	}
+	
+	public LoyaltyCreationForm clickaddLoyaltyBadgeTypes() throws FormException, JSONSException {
+		
+		super.clickXPath("//div[contains(text(),'Edit program')]//ancestor::tbody//button[@title='Add']");
+
+	return this;
+	}
+	
+	public LoyaltyCreationForm addBadgesTypeName(List<String> badgeTypeList) throws FormException, JSONSException {
+		
+		for (String badgeType : badgeTypeList) {
+		super.clickXPath("//div[contains(text(),'Edit program')]//ancestor::tbody//button[@title='Add']");
+
+		super.sendKeysByXPath("//div[contains(text(),'New Badge Type')]//ancestor::table/tbody//tr[@class='cycle1']/td[2]//input",badgeType);
+		super.clickXPath("//div[text()='New Badge Type']//ancestor::tbody//*[@title='Save']");
+		}
+		return this;
+	}
+	
+	public LoyaltyCreationForm clickclosebutton() throws FormException, JSONSException {
+		
+		super.clickXPath("//button[@name='btn-close']");
+		waitForPageLoad();
+
+	return this;
+	}
+	
+	public LoyaltyCreationForm clickActivatebutton() throws FormException, JSONSException {
+		
+		waitForPageLoad();
+		super.clickXPath("//div[@class='marginTop10px']/div/table/tbody/tr[2]/td/table[@class='gwt-DisclosurePanel DPGraph gwt-DisclosurePanel-open']/tbody/tr[2]/td/div/table[@class='content']/tbody/tr/td/table[@class='tableList']/tbody/tr[@class='contentRow cycle2 savedRow-cycle2']/td[3]/table/tbody/tr/td[5]/button[@title='Activate']");
+		
+	return this;
+	}
+	
+	
+	public LoyaltyCreationForm clickEditBadgeCreation() throws FormException, JSONSException {
+		
+		super.clickXPath("//div[contains(text(),'Program: BadgesProgram')]//ancestor::tbody/tr/td[3]//button[@title='Edit']");
+
+	return this;
 	}
 
+	public LoyaltyCreationForm clickaddBadgeLoyaltyPrograms() throws FormException, JSONSException {
+		
+		clickXPath("//div[contains(text(),'Badges')]/ancestor::tbody/tr[@class='cycle2 terminatedRow-cycle2 headers']/td//button[@title='Add']");
+
+	return this;
+	}
+	
+	public LoyaltyCreationForm addBadgeLoyaltyProgramName(String name) throws FormException, JSONSException {
+		
+		super.sendKeysByXPath("//div[contains(text(),'Badge creation')]//ancestor::table/tbody//tr[@class='cycle1']/td[2]//input", name);
+	
+	return this;
+	}
+	
+	public LoyaltyCreationForm addBadgeLoyaltyProgramDesc(String desc) throws FormException, JSONSException {
+		
+		super.sendKeysByXPath("//div[contains(text(),'Badge creation')]//ancestor::table/tbody//tr[@class='cycle2']/td[2]//input", desc);
+	
+	return this;
+	}
+	
+	public LoyaltyCreationForm selectBadgeTypeName(String badgeType) throws FormException, JSONSException {
+		
+		super.selectByXPathAndVisibleText("//table[@class='marginTop10px marginBottom10px']/tbody/tr/td/table[@class='tableList Form']/tbody//tr[3]/td[2]//select", badgeType);
+
+	return this;
+	}
+
+	public LoyaltyCreationForm saveLoyaltyProgram() throws FormException {
+		
+		super.clickName( "btn-save" );
+		handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+	    
+	return this;
+	}
+
+	public LoyaltyCreationForm ActivateLoyaltyProgram() throws FormException {
+		
+		super.clickXPath( "//table[@class='buttonPanel marginTop10px']/tbody/tr/td[5]/button[@name='btn-activate']" );
+		
+	return this;
+	}
+	
+	public LoyaltyCreationForm openSchedulingTab() throws FormException {
+		
+		super.clickXPath( getWizardTabXPath( WizardTab.Scheduling ) );
+		
+	return this;
+		
+	}
+	
+	public LoyaltyCreationForm openAwardedTab() throws FormException {
+		
+		super.clickXPath( getWizardTabXPath( WizardTab.Awarded ) );
+		
+	return this;
+		
+	}
+	
+	public LoyaltyCreationForm openRedeemedTab() throws FormException {
+		
+		super.clickXPath( getWizardTabXPath( WizardTab.Redeemed ) );
+		
+	return this;
+		
+	}
+	
+	
+	public LoyaltyCreationForm openActivationTab() throws FormException {
+		
+		super.clickXPath( getWizardTabXPath( WizardTab.Activation ) );
+		
+	return this;
+		
+	}
+	
+	public LoyaltyCreationForm clickRefresh() throws FormException {
+		
+		super.clickXPath( "//table[@class='gwt-DecoratedTabPanel tab-LoyaltyTab']//table[@class='padding10px page-ConfigurationProgramWidget']//button[@title='Refresh']");
+	   
+	return this;
+	}
+	
+	private String getWizardTabXPath( WizardTab wizardTab ) {
+		
+		String wizardDefinitionTabXPath = "//div[contains(@class, 'dialogMiddleCenterInner dialogContent')]//a[text()='" + wizardTab.name() + "']";
+		
+		return wizardDefinitionTabXPath;
+		
+	}
+	public Boolean isLoyaltyInList( String loyaltyName ) throws FormException {
+		
+		List<WebElement> loyaltyList = getLoyaltyList(loyaltyName);
+
+		for( WebElement loyaltyListE1 : loyaltyList ) {
+
+			if( loyaltyListE1.getText().trim().equals( loyaltyName ) ) {
+		
+				return true;
+
+			}	
+		}
+
+		return false;	
+	}
+
+	
+	public List<WebElement> getLoyaltyList(String strBadgeName)  throws FormException {
+		
+		String rootPath = "//table/tbody/tr/td/table/tbody/tr[4]";
+		String subPath = "//div[text()='" + strBadgeName + "']";
+
+		List<WebElement> loyaltyList = getListByXPath(rootPath, rootPath + subPath);
+		System.out.println(loyaltyList);
+		return loyaltyList;
+	}
+
+	
 	/**
 	 * This method fills the classes/badges into program displayed UI
 	 * 
@@ -262,6 +381,10 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 		/**
 		 * 
 		 */
+		
+		
+
+		
 		private WebElement saveElement = null;
 		
 		@Override
@@ -501,6 +624,344 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 			return resp;
 		}
 	}
+	
+	private Calendar resolveDateField(String StringDateField) throws FormException {
+		
+		Calendar date = Calendar.getInstance();
+		if( PlaceHolderDate.getInstance( StringDateField ).isPlaceHolderDate() )
+			date = PlaceHolderDate.getInstance( StringDateField ).parse();						
+		else 		
+			try {
+				date.setTime( new SimpleDateFormat("yyyy-MM-dd").parse( StringDateField ) );
+			} catch (ParseException e) {
+				throw new FormException("Error during SingleExecutionStart parsing " + StringDateField);
+			}
+				
+		return date;
+	}
+
+	public LoyaltyCreationForm  configureGWTCalendarByXPath( String xpath, Calendar date ) throws FormException, JSONException {
+		
+		GWTCalendarForm.
+			create( selenium, timeout, interval ).
+			openByXPath( xpath ).
+			setDate( date );
+		
+		return this;
+		
+	}
+	public LoyaltyCreationForm setLoyaltySchedulingExecutionStart( Calendar executionStartDate ) throws FormException {
+		
+		try {
+			
+			setLoyaltySchedulingExecutionStart( Format.getMysqlDateTime( executionStartDate ) );
+		
+		} catch (ParseException e) {
+			
+			throw new FormException( e.getMessage(), e );
+			
+		}
+		
+		return this;
+		
+	}
+	
+	public LoyaltyCreationForm setLoyaltySchedulingExecutionStart( String executionStartDate ) throws FormException {
+		
+		String loyaltySchedulingExecutionStartXPath = "//table[@class='marginTop10px marginBottom10px']/tbody/tr/td/table[@class='tableList Form']/tbody/tr[@class='cycle1'][1]//td[2]/input";
+		
+		configureGWTCalendarByXPath( loyaltySchedulingExecutionStartXPath, resolveDateField( executionStartDate ) );
+				
+		return this;
+		
+	}
+	
+	public String getLoyaltySchedulingExecutionStart() throws FormException {
+
+		return super.getValueByXPath("//table[@class='marginTop10px marginBottom10px']/tbody/tr/td/table[@class='tableList Form']/tbody/tr[@class='cycle1'][1]//td[2]/input");
+
+	}
+
+		
+	public LoyaltyCreationForm setLoyaltySchedulingExecutionEnd( Calendar executionEndDate ) throws FormException {
+		
+		try {
+			
+			setLoyaltySchedulingExecutionEnd( Format.getMysqlDateTime( executionEndDate ) );
+		
+		} catch (ParseException e) {
+			
+			throw new FormException( e.getMessage(), e );
+			
+		}
+		
+		return this;
+		
+	}
+	
+	public LoyaltyCreationForm setLoyaltySchedulingExecutionEnd( String executionEndDate ) throws FormException {
+		
+		String loyaltySchedulingExecutionEndXPath = "//table[@class='marginTop10px marginBottom10px']/tbody/tr/td/table[@class='tableList Form']/tbody/tr[@class='cycle2']//td[2]/input";
+		
+		configureGWTCalendarByXPath( loyaltySchedulingExecutionEndXPath, resolveDateField( executionEndDate ) );
+				
+		return this;
+		
+	}
+
+	public String getLoyaltySchedulingExecutionEnd() throws FormException {
+
+		return super.getValueByXPath("//table[@class='marginTop10px marginBottom10px']/tbody/tr/td/table[@class='tableList Form']/tbody/tr[@class='cycle2']//td[2]/input");
+
+	}
+
+	public LoyaltyCreationForm setLoyaltyRedeemDays( String redeemDays ) throws FormException {
+		
+		String loyaltyRedeemdaysXPath = "//table[@class='marginTop10px marginBottom10px']/tbody/tr/td/table[@class='tableList Form']/tbody/tr[@class='cycle1'][2]//td[2]/input";
+				
+		super.sendKeysByXPath(loyaltyRedeemdaysXPath, redeemDays);
+		
+		return this;
+		
+	}
+	
+	public String getLoyaltyRedeemDays() throws FormException {
+
+		return super.getValueByXPath("//table[@class='marginTop10px marginBottom10px']/tbody/tr/td/table[@class='tableList Form']/tbody/tr[@class='cycle1'][2]//td[2]/input");
+
+	}
+	
+	public LoyaltyCreationForm seteventType( String events ) throws FormException {
+		
+		String loyaltyAwardeventXPath = "//table[@class='tableList rulesTable marginTop10px']/tbody//tr[2]/td/div[@class='act-ListBoxHolder act-ListBoxHolder-horizontal']/table/tbody/tr/td[@class='act-ListBox']";
+		clickXPath( loyaltyAwardeventXPath ).
+		selectDropDownListItem( events );		
+		
+		return this;
+		
+	}
+	
+	public String geteventType() throws FormException {
+
+		return super.getValueByXPath("//table[@class='tableList rulesTable marginTop10px']/tbody//tr[2]/td/div[@class='act-ListBoxHolder act-ListBoxHolder-horizontal']/table/tbody/tr/td[@class='act-ListBox']");
+
+	}
+	
+	public LoyaltyCreationForm setcriteriaType( String criteria ) throws FormException {
+		
+		String loyaltyAwardcriteriaXPath = "//div[@class='act-ListBoxHolder act-ListBoxHolder-horizontal']/table/tbody/tr/td[@class='act-ListBox act-ListBox-selected']";
+		clickXPath( loyaltyAwardcriteriaXPath ).
+		selectDropDownListItem( criteria );		
+		return this;
+		
+	}
+	
+	public String getcriteriaType() throws FormException {
+
+		return super.getValueByXPath("//div[@class='act-ListBoxHolder act-ListBoxHolder-horizontal']/table/tbody/tr/td[@class='act-ListBox act-ListBox-selected']");
+
+	}
+	
+	public LoyaltyCreationForm setcriteriaValue( String Value ) throws FormException {
+		
+		String loyaltyAwardcriteriavalueXPath = "//input[@id='gwt-debug-TextCampaignModelCreationECValue']";
+		sendKeysByXPath( loyaltyAwardcriteriavalueXPath,Value );
+		
+		return this;
+		
+	}
+	
+	public String getcriteriaValue() throws FormException {
+
+		return super.getValueByXPath("//input[@id='gwt-debug-TextCampaignModelCreationECValue']");
+
+	}
+	
+	
+	public LoyaltyCreationForm setActionType( String action ) throws FormException {
+		
+		String loyaltyAwardactionXPath = "//td[@id='gwt-debug-ListCampaignModelCreationEAType']";
+		clickXPath( loyaltyAwardactionXPath ).
+		selectDropDownListItem( action );		
+		return this;
+		
+	}
+	
+	public String getactionType() throws FormException {
+
+		return super.getValueByXPath("//td[@id='gwt-debug-ListCampaignModelCreationEAType']");
+
+	}
+	
+	public LoyaltyCreationForm setactionValue( String option ) throws FormException {
+		
+		String loyaltyAwardactionXPath = "//table[@class='commodityContainer']/tbody/tr/td[6]/select[@class='gwt-ListBox']";
+		selectByXPathAndVisibleText( loyaltyAwardactionXPath,option );
+		
+		return this;
+		
+	}
+	
+	public String getactionValue() throws FormException {
+
+		return super.getValueByXPath("//table[@class='commodityContainer']/tbody/tr/td[6]/select[@class='gwt-ListBox']");
+
+	}
+	
+	public LoyaltyCreationForm clickAwardedcheckbox() throws FormException {
+		
+		super.clickXPath("//tr[@class='contentRow cycle2']/td[5]//span[@class='gwt-CheckBox']/input");
+		
+		return this;
+		
+	}
+	
+	
+	public LoyaltyCreationForm clickAwardNotificationbutton() throws FormException {
+		
+		super.clickXPath("//button[@name='btn-notification']");
+		
+		return this;
+		
+	}
+	
+	public LoyaltyCreationForm clickAwardNotificationEditbutton() throws FormException {
+		
+		super.clickXPath("//button[@id='gwt-debug-BtnCampaignModelCreationENENGEdit']");
+		
+		return this;
+		
+	}
+	
+	public LoyaltyCreationForm AwardNotificationMessage(String NotifMessage) throws FormException {
+		
+		super.sendKeysByXPath("//textarea[@id='gwt-debug-TextCampaignModelCreationENEValue']", NotifMessage);
+		
+		super.clickXPath("//button[@id='gwt-debug-BtnCampaignModelCreationENESave']");
+		
+		super.clickXPath("//button[@id='gwt-debug-BtnCampaignModelCreationENOk']");
+		
+		return this;
+		
+	}
+	
+	public String getAwardNotificationMessage() throws FormException {
+
+		return super.getValueByXPath("//textarea[@id='gwt-debug-TextCampaignModelCreationENEValue']");
+
+	}
+	
+	public LoyaltyCreationForm addAwardedEventButton() throws JSONException, FormException {
+		
+		super.clickXPath( "//table[@class='tableList rulesTable marginTop10px']/tbody/tr[3]/td[@class='column_eventType']/button[@name='btn-add']" );
+			
+		return this;
+		
+	}
+	
+	public LoyaltyCreationForm addRedeemedEventButton() throws JSONException, FormException {
+		
+		super.clickXPath( "//table[@class='tableList rulesTable marginTop10px']/tbody/tr[3]/td[@class='column_eventType']/button[@name='btn-add']" );
+			
+		return this;
+		
+	}
+	
+	public LoyaltyCreationForm addAwardedCriteriaButton() throws JSONException, FormException {
+		
+		super.clickXPath( "//td[@class='column_criteria']/table/tbody/tr/td/table/tbody/tr/td/div[@class='criterionContainer']/table/tbody/tr/td[3]/button[@class='gwt-Button']" );
+			
+		return this;
+		
+	}
+
+	
+	public LoyaltyCreationForm addAwardedActionButton() throws JSONException, FormException {
+		
+		super.clickXPath( "//button[@id='gwt-debug-BtnCampaignModelCreationEAAdd']" );
+			
+		return this;
+		
+	}
+
+	
+	public LoyaltyCreationForm addAwardedCriteria( Integer eventRow ) throws FormException {
+		
+		
+		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow cycle2' ) and position() = " + eventRow + " ]//td[@class='column_criteria']"; 
+		String criteriaXPathRowAAdd = eventXPathRow + "//*[@id='gwt-debug-BtnCampaignModelCreationECAdd']";
+		
+		clickXPath( criteriaXPathRowAAdd );
+		
+		return this;
+		
+	}
+	
+	
+	public Boolean handleJavascriptAlertAcceptDismiss(Boolean accept) {
+		
+		Alert popupAlert = null;
+		Boolean pressed = null;
+		
+		try {
+			
+			popupAlert = selenium.selectAlert();
+		    	
+			if ( popupAlert != null ) { 
+				
+				if ( accept )
+					popupAlert.accept();
+				else 
+					popupAlert.dismiss();
+				
+				pressed = Boolean.TRUE; 
+			}
+			
+		} catch (NoAlertPresentException e) {
+			
+			// nothing to do
+			pressed = Boolean.TRUE;
+		}
+		
+		return pressed;
+	}
+	
+		
+	protected Form open1() throws FormException {
+		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 30);
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("gwt-debug-BarCaptionHomeCampaign")));
+		return clickId( "gwt-debug-BarCaptionHomeCampaign" );
+		
+	}
+
+	public Boolean isLoyaltyProgramInList(String loyaltyName ) throws FormException{
+		
+		List<WebElement> loyaltyList1 = getLoyaltyListProgram(loyaltyName);
+
+		for( WebElement loyaltyListE1 : loyaltyList1 ) {
+
+			if( loyaltyListE1.getText().trim().equals( loyaltyName ) ) {
+		
+				return true;
+
+			}	
+		}
+
+		return false;	
+	}
+
+	
+	public List<WebElement> getLoyaltyListProgram(String strBadgePName)  throws FormException {
+		
+		String rootPath = "//div[@class='dialogMiddleCenterInner dialogContent']/table/tbody/tr/td/table/tbody/tr/td/div/div/table/tbody/tr/td/table/tbody";
+		String subPath = "//tr[@class='contentRow cycle2 activatedRow-cycle2']/td/div[text()='" + strBadgePName + "']";
+
+		List<WebElement> loyaltyList1 = getListByXPath(rootPath, rootPath + subPath);
+		System.out.println(loyaltyList1);
+		return loyaltyList1;
+	}
+
+	
 	
 //	private LoyaltyCreateCfg createCfg;
 //	private LoyaltyManageCfg manageCfg;

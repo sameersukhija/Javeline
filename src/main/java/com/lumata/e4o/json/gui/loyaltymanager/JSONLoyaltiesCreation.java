@@ -1,16 +1,22 @@
 package com.lumata.e4o.json.gui.loyaltymanager;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.JsonConfigurationFile;
+import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
 
 public class JSONLoyaltiesCreation extends JsonConfigurationFile {
 
-	public JSONLoyaltiesCreation(String path, String jsonFile) throws JSONSException {
+	public JSONLoyaltiesCreation(String folder, String file) throws JSONSException {
 		
-		super(path, jsonFile);
+		super(folder, file);
 	}
 
 	/**
@@ -52,6 +58,31 @@ public class JSONLoyaltiesCreation extends JsonConfigurationFile {
     public String getName() throws JSONSException { 	
     	
 		return getCurrentElement().getStringFromPath("name"); 		
+	}	
+    
+    public String geteventType() throws JSONSException { 	
+    	
+		return getCurrentElement().getStringFromPath("eventType"); 		
+	}	
+    
+    public String getcriteriaType() throws JSONSException { 	
+    	
+		return getCurrentElement().getStringFromPath("criteriaType"); 		
+	}	
+    
+    public String getcriteriaValue() throws JSONSException { 	
+    	
+		return getCurrentElement().getStringFromPath("criteriaValue"); 		
+	}	
+    
+    public String getactionType() throws JSONSException { 	
+    	
+		return getCurrentElement().getStringFromPath("actionType"); 		
+	}	
+    
+    public String getactionValue() throws JSONSException { 	
+    	
+		return getCurrentElement().getStringFromPath("option"); 		
 	}	
     
     /**
@@ -135,5 +166,23 @@ public class JSONLoyaltiesCreation extends JsonConfigurationFile {
 	public String getElementsSectionLabel() {
 
 		return "loyalties";
+	}
+
+		public Map<String, JSONEvent_> getEvents() throws JSONException { 		
+    	
+		Map<String, JSONEvent_> events = new LinkedHashMap<String, JSONEvent_>();
+		
+		JSONArray jsonEvents = getCurrentElement().getJSONArrayFromPath( "events" );
+		
+		for( int j = 0; j < jsonEvents.length(); j++ ) {
+			
+			String eventName = "event" + j;
+			
+			events.put( eventName, new JSONEvent_( jsonEvents.getJSONObject( j ) ) );
+			
+		}
+		
+		return events;  		
+	
 	}
 }

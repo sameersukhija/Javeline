@@ -1,0 +1,23 @@
+{
+	"loyalties": [
+		{
+			"enabled" : true,
+			"name" : "BadgesLoyaltyProgram",
+			"description" : "The badges description",
+			"type" : "Badges",
+			"classes" : null,
+			"badges" : [ "Archery", "Astronomy", "Camping"],
+			"eventType" : "Revenue",
+			"criteriaType" : "Subscriber.Msisdn",
+			"criteriaValue" : "9717207081",
+			"actionType" : "Rulesets.Rule_1",
+			"option" : "Allocate offer immediately",
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			},
+			"delete" : false
+		}
+
+]
+}
