@@ -310,33 +310,31 @@ public class TestLoyaltyManagement extends ParentTestCase {
 			
 			Reporter.log("Open \"Traffic Generator Form\" UI.", LOG_TO_STD_OUT);
 
-			
 			Assert.assertTrue(true, "Event Generated");
 					
 		}
 		
-		@Test(enabled = TEST_ENABLED,  priority = 4 )
+		@Test(enabled = TEST_ENABLED, priority = 4 )
 		public void testUc29_04_CustomerCare() throws FormException{
-		CustomerCareLoyaltyForm customerCareLoyaltyForm = new CustomerCareLoyaltyForm(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-			customerCareLoyaltyForm.open();
-			customerCareLoyaltyForm.setSubscriberMsisdn("9717207081");
-			customerCareLoyaltyForm.clickSearchButton();
-			customerCareLoyaltyForm.openLoyaltyTab();
-			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-			
-			//boolean status = customerCareLoyaltyForm.isRedeemStatusPresent("Redeemed");
-			boolean status=true;
-			if(status==true)
-			{
-				Assert.assertTrue(true, "Subscriber has loyalty with Redeemed status");
+			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			CustomerCareLoyaltyForm customerCareLoyaltyForm = new CustomerCareLoyaltyForm(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+				customerCareLoyaltyForm.open();
+				customerCareLoyaltyForm.setSubscriberMsisdn("9717207081");
+				customerCareLoyaltyForm.clickSearchButton();
+				customerCareLoyaltyForm.openLoyaltyTab();
+				boolean status =customerCareLoyaltyForm.isRedeemStatusPresent("BadgesLoyaltyProgram");
+				if(status==true)
+				{
+					Assert.assertTrue(true, "Subscriber has loyalty with Redeemed status");
+				}
+				else
+				{
+					AssertJUnit.fail("Subscriber's loyalty is not redeemed");
+				}
+				customerCareLoyaltyForm.closeAngularFrame();
 			}
-			else
-			{
-				AssertJUnit.fail("Subscriber's loyalty is not redeemed");
-			}
-			
 		}
+
+			
 	
-		
-	}
 

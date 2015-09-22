@@ -161,6 +161,14 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 		
 	}
 	
+	public Form waitVisibleElementByXPath( String xpath ) {
+		
+		waitVisibleElement( By.xpath( xpath ) );
+		
+		return this;
+		
+	}
+	
 	public void click(String forName, String xpath) throws FormException {
 		
 		logger.info(Log.CHECKING.createMessage(selenium.getTestName(), "for " + forName + ", xpath: " + xpath));
@@ -903,7 +911,11 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 		return switchToFrame( SeleniumUtils.SearchBy.NAME, frame,timeout, attempt_timeout );
 		
 	}
-	
+public Form switchToFrameByXPath( String frame,Long timeout,Long attempt_timeout) throws FormException {
+		
+		return switchToFrame( SeleniumUtils.SearchBy.XPATH, frame,timeout, attempt_timeout );
+		
+	}
 	public Form switchToFrameByClassName( String frame ,Long timeout,Long attempt_timeout) throws FormException {
 		
 		return switchToFrame( SeleniumUtils.SearchBy.CLASS_NAME, frame,timeout,attempt_timeout);
