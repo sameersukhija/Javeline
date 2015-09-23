@@ -42,6 +42,7 @@ import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.SuppliersForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.gui.customercare.CustomerCareCreateSubscriberForm;
+import com.lumata.e4o.gui.customercare.CustomerCareForm;
 import com.lumata.e4o.gui.customercare.CustomerCareTokensForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
 import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
@@ -64,9 +65,9 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 )
 @TCSeleniumWebDriver
 @TCMysqlMaster
-public class OfferRankValidationScenario extends ParentTestCase {
+public class TestOfferRankValidationScenario extends ParentTestCase {
 	
-	private static final Logger logger = LoggerFactory.getLogger( OfferRankValidationScenario.class );
+	private static final Logger logger = LoggerFactory.getLogger( TestOfferRankValidationScenario.class );
 	
 	private JSONSuppliers setupSupplier=null;
 	private String supplierName=null;
@@ -245,15 +246,14 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		CustomerCareCreateSubscriberForm customerCareCreateSubscriberForm = new CustomerCareCreateSubscriberForm(
 				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 		
-			
 		try{
 		
-		customerCareCreateSubscriberForm.open();
+			customerCareCreateSubscriberForm.open();
 		// Enter msisdn
 		
-		customerCareCreateSubscriberForm.inputSubscriberId(number);
+			customerCareCreateSubscriberForm.setSubscriberMsisdn(number);
 		// Click AddButton
-		customerCareCreateSubscriberForm.clickCustomerCareAddButton();
+			customerCareCreateSubscriberForm.clickCustomerCareAddButton();
 		// Enter Language
 		customerCareCreateSubscriberForm.enterLanguage("ENG");
 		// Click add button
@@ -548,10 +548,10 @@ public class OfferRankValidationScenario extends ParentTestCase {
 		openActivationTab().
 		activateBtn().
 		confirmCampaignActivation();
-		//campaignsForm.waitForPageLoad();
+		campaignsForm.waitForPageLoad();
 		//WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 40);
 		//wait.until(ExpectedConditions.alertIsPresent());
-		//campaignsForm.confirmCampaignActivation();
+		campaignsForm.confirmCampaignActivation();
 	}
 	public Boolean configureOffers(String jsonPath,String jsonFileName) throws JSONSException
 	{
@@ -602,7 +602,7 @@ public class OfferRankValidationScenario extends ParentTestCase {
 						}
 					}
 				}
-					offerForm.clickNotificationTab().addNotitification().
+					offerForm.clickNotificationTab().addNotification().
 					//EligibilityCriteria(setupProductTypes, OFFER_NAME).
 					clickAvailabilityTab().setAvailableOffers( getOfferJson().getStock() ).				
 					clickActivationTab().ActivationBtn();

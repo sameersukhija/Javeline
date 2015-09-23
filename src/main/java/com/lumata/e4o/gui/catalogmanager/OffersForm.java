@@ -1020,7 +1020,7 @@ return this;
 		super.clickId("gwt-debug-Anchor-actrule-catalog-offer-offerNotification");
 		return this;
 	}
-	public OffersForm addNotitification() throws FormException {
+	public OffersForm addNotification() throws FormException {
 		
 		
 	    super.clickName("btn-notification");

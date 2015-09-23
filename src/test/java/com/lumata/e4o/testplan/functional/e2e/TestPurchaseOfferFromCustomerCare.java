@@ -40,6 +40,7 @@ import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.SuppliersForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.gui.customercare.CustomerCareCreateSubscriberForm;
+import com.lumata.e4o.gui.customercare.CustomerCareForm;
 import com.lumata.e4o.gui.customercare.CustomerCarePurchasesForm;
 import com.lumata.e4o.gui.customercare.CustomerCareTokensForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
@@ -66,9 +67,9 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 )
 @TCSeleniumWebDriver
 @TCMysqlMaster
-public class PurchaseOfferFromCustomerCare extends ParentTestCase {
+public class TestPurchaseOfferFromCustomerCare extends ParentTestCase {
 
-	private static final Logger logger = LoggerFactory.getLogger( PurchaseOfferFromCustomerCare.class );
+	private static final Logger logger = LoggerFactory.getLogger( TestPurchaseOfferFromCustomerCare.class );
 	public String OFFER_NAME=null;
 	
 	JSONOffers setupOffer=null;
@@ -136,7 +137,7 @@ public class PurchaseOfferFromCustomerCare extends ParentTestCase {
 			}
 			
 			
-				offerForm.clickNotificationTab().addNotitification().
+				offerForm.clickNotificationTab().addNotification().
 			
 				clickAvailabilityTab().setAvailableOffers( setupOffer.getStock() );	
 				List<JSONReservationElement> reserv=setupOffer.getReservations();
@@ -203,16 +204,15 @@ public class PurchaseOfferFromCustomerCare extends ParentTestCase {
 		Boolean status=false;
 		CustomerCareCreateSubscriberForm customerCareCreateSubscriberForm = new CustomerCareCreateSubscriberForm(
 				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-		
 			
 		try{
 		
-		customerCareCreateSubscriberForm.open();
+			customerCareCreateSubscriberForm.open();
 		// Enter msisdn
 		
-		customerCareCreateSubscriberForm.inputSubscriberId(number);
+			customerCareCreateSubscriberForm.setSubscriberMsisdn(number);
 		// Click AddButton
-		customerCareCreateSubscriberForm.clickCustomerCareAddButton();
+			customerCareCreateSubscriberForm.clickCustomerCareAddButton();
 		// Enter Language
 		customerCareCreateSubscriberForm.enterLanguage("ENG");
 		// Click add button

@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Regression Suite" verbose="1" parallel="false">
 
-  <listeners>
+ <listeners>
     <listener class-name="com.lumata.e4o.testing.common.TestNGReportListener"/>
   </listeners>
 	<test name="Run Expired Data">
@@ -64,7 +64,7 @@
   <parameter name="offer_jsonPath" value="input/catalogmanager/Offers"/>
   <parameter name="offer_jsonFileName" value="newOffers"/>
     <classes>
-      <class name="com.lumata.e4o.testplan.functional.e2e.OfferRankValidationScenario">        
+      <class name="com.lumata.e4o.testplan.functional.e2e.TestOfferRankValidationScenario">        
       </class>
     </classes>	
   </test>
@@ -147,7 +147,13 @@
   <parameter name="jsonFilePath_Offer" value="input/catalogmanager/Offers"/>
 	<parameter name="jsonFileName_Offer" value="purchaseOffer"/>
     <classes>
-      <class name="com.lumata.e4o.testplan.functional.e2e.PurchaseOfferFromCustomerCare">
+      <class name="com.lumata.e4o.testplan.functional.e2e.TestPurchaseOfferFromCustomerCare">
+      </class>
+    </classes>	
+  </test>
+  <test name="Customer Care TestCases">
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestCustomerCareCreateAndEditSubscriberForm">
       </class>
     </classes>	
   </test>
