@@ -16,8 +16,8 @@ public class XMLRPCRequest_Offeroptimizer_Accept extends ParentTestCase {
 	public void callXMLRPCCRequest() throws Exception {
 		
 		final String msisdn = "3399900001";
-		final String token_code = "JRXTA";
-		final Object[] offer_id = new Integer[]{ 1001 };		
+		final String token_code = "7M7DQ";
+		final Object[] offer_id = new Integer[]{ 1000 };		
 		final String userAcceptChannel = "web";
 		
 		XMLRPCRequest.offeroptimizer_accept().call( 	

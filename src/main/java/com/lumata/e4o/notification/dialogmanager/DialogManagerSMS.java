@@ -58,7 +58,7 @@ public final class DialogManagerSMS {
 	public static final String          NOTIF_LOGS_ID_RECEIPT     = "";
 	public static final String          MESSAGE_TEXT              = "Text Message";
 	
-	public static final MessageContent 	MESSAGE_CONTENT 		  = new SMSMessageContent( "Text Message" ); 
+	public static final MessageContent 	MESSAGE_CONTENT 		  = new SMSMessageContent( "Text Message", false ); 
  	
 	private DialogManagerMessage dmMessage;
 	private Identifier<Long, Long> identifier;

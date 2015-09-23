@@ -55,7 +55,7 @@ public final class DialogManagerMessageUtils {
 	public static final String          NOTIF_LOGS_TEXT           = "textMessage";
 	public static final String          NOTIF_LOGS_TENANT_ID      = String.valueOf(TENANT_ID);
 	public static final String          NOTIF_LOGS_ID_RECEIPT     = "";
-	public static final MessageContent  MESSAGE_TEXT			  = new SMSMessageContent("sms text message");
+	public static final MessageContent  MESSAGE_TEXT			  = new SMSMessageContent("sms text message", false);
 	public static List<TimeWindow>      timeWindowList      = new ArrayList<TimeWindow>();
 	public static Map<String, Variable> variables           = new HashMap<String, Variable>();
 	public static Map<String, String>   notifLogs           = new HashMap<String, String>();

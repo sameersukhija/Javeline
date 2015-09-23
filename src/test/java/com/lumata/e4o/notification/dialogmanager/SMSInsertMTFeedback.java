@@ -49,7 +49,7 @@ public class SMSInsertMTFeedback extends ParentTestCase {
 		
 		Reporter.log( Log.GETTING.createMessage( this.getClass().getSimpleName(), "insert sms feedback in the jmailer daily table" ), LOG_TO_STD_OUT );
 		
-		Boolean generateFeedbackError = true;
+		Boolean generateFeedbackError = false;
 		
 		if( messageList != null && messageList.size() > 0 ) {
 			

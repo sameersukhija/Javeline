@@ -17,7 +17,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.ScheduledMessage;
 
 import com.lumata.common.testing.database.Mysql;
-import com.lumatagroup.dialogmanager.internal.commons.driver.PollingRequest;
+import com.lumatagroup.dialogmanager.internal.commons.driver.strategy.feedback.PollingFeedbackRequest;
 
 //TODO
 public class DialogManagerConnection {
@@ -151,8 +151,8 @@ public class DialogManagerConnection {
 		System.out.println("-- END --");
 	}
 	
-	public static List<PollingRequest> readFromScheduled() throws Exception {
-		List<PollingRequest> smsList = new ArrayList<PollingRequest>();
+	public static List<PollingFeedbackRequest> readFromScheduled() throws Exception {
+		List<PollingFeedbackRequest> smsList = new ArrayList<PollingFeedbackRequest>();
 		
 		// http://activemq.apache.org/hello-world.html
 		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(BROKER_URL);
@@ -194,7 +194,7 @@ public class DialogManagerConnection {
 			//System.out.println("UniqueNotificationId: " + message.getUniqueNotificationId());
 			
 			ObjectMessage objMessage = (ObjectMessage) scheduled;
-			PollingRequest dmMessageRead = (PollingRequest) objMessage.getObject();
+			PollingFeedbackRequest dmMessageRead = (PollingFeedbackRequest) objMessage.getObject();
 			smsList.add(dmMessageRead);
 		}
 		
@@ -202,7 +202,7 @@ public class DialogManagerConnection {
 	}
 	
 	// TODO
-	public static void insertIntoMt(Mysql mysql, PollingRequest sms) throws Exception {
+	public static void insertIntoMt(Mysql mysql, PollingFeedbackRequest sms) throws Exception {
 		
 //		String mtDate = new SimpleDateFormat("yyyyMMdd").format(sms.getSendingDate());
 //		

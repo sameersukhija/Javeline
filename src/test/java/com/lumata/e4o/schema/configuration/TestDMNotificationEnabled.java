@@ -29,7 +29,7 @@ public class TestDMNotificationEnabled extends ParentTestCase {
 	@Parameters({"tenant", "notifXMLFolder", "notifXMLFile"})
 	@Test
 	public void configureDMNotifications( @Optional("tenant") String tenant, @Optional("input/configuration") String notifXMLFolder, @Optional("notif.xml") String notifXMLFile ) throws SQLException, IOFileException {
-		
+		notifXMLFile = "notif_EFOGC_4060.xml";
 		// check if notif.xml entry is present in the files_meta table
 		FilesMeta fm = new FilesMeta();
 		

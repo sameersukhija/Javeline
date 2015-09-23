@@ -23,10 +23,10 @@ import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.database.MysqlUtils;
 import com.lumata.common.testing.system.DataSource;
 import com.lumata.common.testing.system.Service;
-import com.lumatagroup.dialogmanager.internal.commons.driver.PollingRequest;
 import com.lumatagroup.dialogmanager.commons.message.DialogManagerMessage;
 import com.lumatagroup.dialogmanager.commons.message.MessageContent;
 import com.lumatagroup.dialogmanager.driver.RemoteQueuePollingNotificationInfo;
+import com.lumatagroup.dialogmanager.internal.commons.driver.strategy.feedback.PollingFeedbackRequest;
 
 
 
@@ -315,9 +315,9 @@ public class ActiveMQ {
 					
 			ObjectMessage objMessage = (ObjectMessage) message;
 			
-			if( objMessage.getObject() instanceof PollingRequest ) {
+			if( objMessage.getObject() instanceof PollingFeedbackRequest ) {
 			
-				PollingRequest pr = (PollingRequest)objMessage.getObject();
+				PollingFeedbackRequest pr = (PollingFeedbackRequest)objMessage.getObject();
 			
 				RemoteQueuePollingNotificationInfo sms = (RemoteQueuePollingNotificationInfo)pr.getRequest();
 			

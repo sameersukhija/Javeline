@@ -98,7 +98,7 @@
       "user": "actusr",
       "password": "YGRramxt"
     },
-    "dm": {
+    "dmMaster": {
       "hostName": "dm",
       "hostAddress": "10.120.38.36",
       "hostPort": "3306",
@@ -108,7 +108,7 @@
       "user": "dialog_manager",
       "password": "aXJnSEpyY3U="
     },
-    "jmailer": {
+    "jmailerMaster": {
       "hostName": "jmailer_it",
       "hostAddress": "10.120.38.36",
       "hostPort": "3306",
@@ -173,7 +173,7 @@
 	      }
 	 },
 	 "activemq": {
-	 	"dm": {
+	 	"dm1": {
 	      "hostName": "md1-sa029-e4o01",
 	      "hostAddress": "10.120.38.36",
 	        "hostPort": "61616",
