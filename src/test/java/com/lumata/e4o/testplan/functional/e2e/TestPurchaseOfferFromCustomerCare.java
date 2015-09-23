@@ -137,7 +137,7 @@ public class TestPurchaseOfferFromCustomerCare extends ParentTestCase {
 			}
 			
 			
-				offerForm.clickNotificationTab().addNotitification().
+				offerForm.clickNotificationTab().addNotification().
 			
 				clickAvailabilityTab().setAvailableOffers( setupOffer.getStock() );	
 				List<JSONReservationElement> reserv=setupOffer.getReservations();

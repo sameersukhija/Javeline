@@ -602,7 +602,7 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 						}
 					}
 				}
-					offerForm.clickNotificationTab().addNotitification().
+					offerForm.clickNotificationTab().addNotification().
 					//EligibilityCriteria(setupProductTypes, OFFER_NAME).
 					clickAvailabilityTab().setAvailableOffers( getOfferJson().getStock() ).				
 					clickActivationTab().ActivationBtn();

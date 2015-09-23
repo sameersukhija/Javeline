@@ -124,7 +124,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		}
 		
 		
-			offerForm.clickNotificationTab().addNotitification().
+			offerForm.clickNotificationTab().addNotification().
 		
 			clickAvailabilityTab().setAvailableOffers( setupOffer.getStock() ).				
 			
@@ -250,7 +250,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				}
 			}
 		}
-			offerForm.clickNotificationTab().addNotitification().
+			offerForm.clickNotificationTab().addNotification().
 		
 			clickAvailabilityTab().setAvailableOffers( setupOffer.getStock() ).				
 			
@@ -325,7 +325,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 				}
 			}
 		}
-			offerForm.clickNotificationTab().addNotitification().
+			offerForm.clickNotificationTab().addNotification().
 		
 			clickAvailabilityTab().setAvailableOffers( setupOffer.getStock() ).				
 			
@@ -544,7 +544,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
   			}
   			
   			
-  				offerForm.clickNotificationTab().addNotitification().
+  				offerForm.clickNotificationTab().addNotification().
   			
   				clickAvailabilityTab().setAvailableOffers( setupOffer.getStock() );				
   				
@@ -665,7 +665,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		}
 		
 		
-			offerForm.clickNotificationTab().addNotitification();
+			offerForm.clickNotificationTab().addNotification();
 		
 			offerForm.clickAvailabilityTab();
 			
