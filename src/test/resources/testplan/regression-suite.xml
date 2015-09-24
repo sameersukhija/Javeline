@@ -163,7 +163,7 @@
     <parameter name="campaignModel_jsonFilePath" value="input/campaignmanager/campaignModels"/>
 	<parameter name="campaignModel_jsonFileName" value="endToEndCampaignModelForCustomerCare"/>
     <classes>
-      <class name="com.lumata.e4o.testplan.functional.e2e.TestCampaignStatusFromCustomerCare">
+      <class name="com.lumata.e4o.testplan.functional.e2e.TestCampaignFromCustomerCare">
       </class>
     </classes>	
   </test>
