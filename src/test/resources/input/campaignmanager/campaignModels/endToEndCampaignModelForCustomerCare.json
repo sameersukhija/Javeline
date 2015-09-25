@@ -1,0 +1,33 @@
+{
+	"campaignModels": [
+		{
+			"enabled": true,
+			"name": "Model",
+			"description": "CustomerCareModel",
+			"campaignType": null,
+			"useHierarchy": false,
+			"errorActions": {
+				"elementAlreadyExists": "ABORT"			
+			},
+			"events": [				
+				{	
+					"eventType":"Campaign start", 
+					"criteria":[
+					{ "type":"Subscriber.Msisdn","operator" : "=", "value" : "33488800002", "delete" : false} 
+					],
+					"actions": [
+						{ "name": "Accept Offer.Accept Offer 1","name1":"Accept Offer.Accept Offer 2","name2":"Accept Offer.Accept Offer 3","option": null,"option1": null,"option2": null,"delete": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		}
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+	
+}

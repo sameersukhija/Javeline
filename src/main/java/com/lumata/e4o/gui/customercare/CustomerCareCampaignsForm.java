@@ -11,11 +11,28 @@ public class CustomerCareCampaignsForm  extends CustomerCareForm {
 		
 	}
 
-	protected CustomerCareCampaignsForm openCampaignTab() throws FormException {
+	public CustomerCareCampaignsForm openCampaignTab() throws FormException {
 		
 		clickId( "gwt-debug-BtnCCBarInfoCampaigns" );
 		
 		return this;
+		
+	}
+	
+	public String getCampaignStatus(String strCampaignName) throws FormException{
+		return this.getTextByXPath("//div[@class='gwt-Label' and text()='"+strCampaignName+"']//ancestor::tr[contains(@class,'contentRow cycle')]/td[2]");
+		
+	}
+	
+	public boolean isActivatedStatePresent(String strCampaignName) throws FormException{
+		
+		String strStatus = getCampaignStatus(strCampaignName);
+		System.out.println("status is"+strStatus);
+		if(strStatus.equals("activated"))
+		{
+			return true;
+		}
+		return false;
 		
 	}
 	

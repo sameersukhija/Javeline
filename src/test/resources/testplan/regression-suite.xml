@@ -45,6 +45,8 @@
     </classes>
   </test>
  <test name="Commodities Payment Mean TestCases">
+ <parameter name="commodities_jsonFilePath" value="input/administration/commodities"/>
+ <parameter name="commodities_jsonFileName" value="commoditiesPaymentMean"/>
 	<classes>
       <class name="com.lumata.e4o.regressions.gui.TestPaymentMeanForm">
       </class>
@@ -154,6 +156,14 @@
   <test name="Customer Care TestCases">
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestCustomerCareCreateAndEditSubscriberForm">
+      </class>
+    </classes>	
+  </test>
+  <test name="CustomerCareCampaigntab TestCases">
+    <parameter name="campaignModel_jsonFilePath" value="input/campaignmanager/campaignModels"/>
+	<parameter name="campaignModel_jsonFileName" value="endToEndCampaignModelForCustomerCare"/>
+    <classes>
+      <class name="com.lumata.e4o.testplan.functional.e2e.TestCampaignFromCustomerCare">
       </class>
     </classes>	
   </test>
