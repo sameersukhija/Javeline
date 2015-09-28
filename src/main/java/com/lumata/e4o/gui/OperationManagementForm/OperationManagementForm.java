@@ -194,14 +194,5 @@ import com.lumata.e4o.gui.common.Form;
 			return pressed;
 		}
 		
-		
 
-		//input[@id='gwt-debug-InputGUITrafficGeneratorEventSubID']
-		//div[@id='gwt-debug-InputOPTrafficGenerator']
-		//select[@id='gwt-debug-ListGUITrafficGeneratorEventClass']
-		//button[@id='gwt-debug-BtnGUITrafficGeneratorEventParametersAdd']
-		//input[@id='gwt-debug-InputGUITrafficGeneratorEventParameterName']
-		//input[@id='gwt-debug-InputGUITrafficGeneratorEventParameterValue']
-		//button[@id='gwt-debug-FormGUITrafficGeneratorEventParameterApply']
-		//button[@id='gwt-debug-BtnGUITrafficGeneratorEventExecute']
 }
