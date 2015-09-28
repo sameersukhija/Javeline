@@ -7,14 +7,16 @@ import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.JsonConfigurationFile;
+import com.lumata.e4o.json.common.JsonConfig;
 import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
 
 public class JSONLoyaltiesCreation extends JsonConfigurationFile {
 
-	public JSONLoyaltiesCreation(String folder, String file) throws JSONSException {
+		public JSONLoyaltiesCreation(String folder, String file) throws JSONSException {
 		
 		super(folder, file);
 	}
@@ -84,7 +86,10 @@ public class JSONLoyaltiesCreation extends JsonConfigurationFile {
     	
 		return getCurrentElement().getStringFromPath("option"); 		
 	}	
-    
+   
+    public Boolean getEnabled() throws JSONException {
+		return getCurrentElement().getBooleanFromPath( "enabled" );
+	}
     /**
 	 * This method returns the "description" of current element.
 	 * The current element must be selected with "setCurrentElementById" method.
@@ -168,21 +173,26 @@ public class JSONLoyaltiesCreation extends JsonConfigurationFile {
 		return "loyalties";
 	}
 
-		public Map<String, JSONEvent_> getEvents() throws JSONException { 		
+		public Map<String, JSONEvent_> getEvents() throws JSONException, JSONSException { 		
     	
 		Map<String, JSONEvent_> events = new LinkedHashMap<String, JSONEvent_>();
 		
-		JSONArray jsonEvents = getCurrentElement().getJSONArrayFromPath( "events" );
+		List<Object> jsonEvents = getCurrentElement().getJsonListFromPath( "events" );
 		
-		for( int j = 0; j < jsonEvents.length(); j++ ) {
+		for( int j = 0; j < ((JSONArray) jsonEvents).length(); j++ ) {
 			
 			String eventName = "event" + j;
 			
-			events.put( eventName, new JSONEvent_( jsonEvents.getJSONObject( j ) ) );
+			events.put( eventName, new JSONEvent_( ((JSONArray) jsonEvents).getJSONObject( j ) ) );
 			
 		}
 		
 		return events;  		
 	
 	}
+
+		
+		
+	
+		
 }

@@ -1,23 +1,31 @@
-{
-	"loyalties": [
-		{
-			"enabled" : true,
-			"name" : "BadgesLoyaltyProgram",
-			"description" : "The badges description",
-			"type" : "Badges",
-			"classes" : null,
-			"badges" : [ "Archery", "Astronomy", "Camping"],
-			"eventType" : "Revenue",
-			"criteriaType" : "Subscriber.Msisdn",
-			"criteriaValue" : "9717207081",
-			"actionType" : "Rulesets.Rule_1",
-			"option" : "Allocate offer immediately",
-			"errorActions" : {
+{"loyalties": [
+  {
+    "enabled" : true,
+		"name": "BadgesLoyaltyProgram",
+		"description": "The badges description",
+		"badges": "Astronomy",
+		"RedeemDays" : "1",
+		"eventType" : "Revenue",
+		"criteriaType" : "Subscriber.Msisdn",
+		"criteriaValue" : "9717207081",
+		"actionType" : "Rulesets.Rule_1",
+		"option" : "Allocate offer immediately",
+		"NotifMsg" : "Loyalty Award Notification",
+		
+		"eventType1" : "Revenue",
+		"criteriaType1" : "Subscriber.Msisdn",
+		"criteriaValue1" : "9717207081",
+		"actionType1" : "Rulesets.Rule_1",
+		"option1" : "Allocate offer immediately",
+		"NotifMsg1" : "Loyalty Redemption Notification",
+		"errorActions" : {
 				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
-				"GENERAL_ERROR" : "RETURN_ERROR" 
-			},
-			"delete" : false
-		}
-
-]
+				"GENERAL_ERROR" : "RETURN_ERROR",
+				"delete" : false}
+  }
+	]
 }
+
+	
+	
+	

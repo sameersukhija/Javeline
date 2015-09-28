@@ -98,7 +98,8 @@ import com.lumata.e4o.gui.common.Form;
 			
 		}
 
-		public  OperationManagementForm SetSubscriberId(String Subsid) throws FormException {
+		
+		public  OperationManagementForm<JSONTrafficGeneratorEvent> SetSubscriberId(String Subsid) throws FormException {
 			
 			super.sendKeysByXPath("//input[@id='gwt-debug-InputGUITrafficGeneratorEventSubID']", Subsid );
 			
