@@ -99,100 +99,57 @@ public class TestLoyaltyManagementE2E<jsonFilePath1_Loyalty> extends ParentTestC
 	private TrafficGeneratorEvent TrafficGeneratorForm;
 	private OperationManagementForm OperationManagementForm;
 	@BeforeMethod
-	public void initOfferForm( Method method ) throws NetworkEnvironmentException, FormException {		
+	public void initOfferForm( Method method ) throws  FormException {		
 	
 		seleniumWebDriver.setTestName( method.getName() );
 		
 	}
 	
 	@Parameters({"jsonFilePath_Loyalty", "jsonFileName_Loyalty","jsonFilePath1_Loyalty", "jsonFileName1_Loyalty",
-		"jsonFilePath_Traffic", "jsonFileName_Traffic",
-		"networkEnvironmentParams","seleniumWebDriverParams"})
+		"jsonFilePath_Traffic", "jsonFileName_Traffic"})
 	@Test( enabled=true, priority = 1 ,timeOut=1500000)
 	public void testUc29_EndtoEndScenario_LoyaltyProgramManagement(@Optional("/input/loyalties") 
 	String jsonFilePath_Loyalty,@Optional("loyaltyCreationTemplate") 
 	String jsonFileName_Loyalty, @Optional("/input/loyalties") String jsonFilePath1_Loyalty,
 	@Optional("loyalty_manage") String jsonFileName1_Loyalty,@Optional("/input/traffic_generator") String jsonFilePath_Traffic,
-	@Optional("recharge_event")	String jsonFileName_Traffic, String networkEnvironmentParams,
-	String seleniumWebDriverParams)  throws FormException, JSONException, JSONSException,ParseException {
+	@Optional("recharge_event")	String jsonFileName_Traffic)  throws FormException, JSONException, JSONSException,ParseException {
 		
+			
 		Boolean loyalty_created=false;
+		
+		Boolean loyalty_managed=false;
 		
 		Boolean event_created=false;
 		
 		Boolean redeem_status=false;
 		
-		Reporter.log("Creation of \"Loyalty Creation Form\".", LOG_TO_STD_OUT);
-
-		String resourcePath =DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Loyalty;
-			
-		String resourceFile = jsonFileName_Loyalty;
+		//create Loyaltycreation Badges Program for Loyalty Management
 		
-		setupLoyaltiesCreation = new JSONLoyaltiesCreation(resourcePath, resourceFile);
-
-		Reporter.log("\"Loyalty Creation\" is filled with resource file : ",
-				LOG_TO_STD_OUT);
-		Reporter.log("Resource path -> " + resourcePath, LOG_TO_STD_OUT);
 		
-		Reporter.log("Resource file -> " + resourceFile, LOG_TO_STD_OUT);
-
-		Reporter.log("Open \"Loyalty Creation Form\" UI.", LOG_TO_STD_OUT);
-
-		int numbProdType = setupLoyaltiesCreation.getList().size();
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			
+		loyalty_created = CreateLoyaltyProgram(jsonFilePath_Loyalty, jsonFileName_Loyalty);
 		
-		for (int index = 0; index < numbProdType; index++) {
-			
-			JsonCurrentElement current = setupLoyaltiesCreation.getCurrentElementById(index);
-			
-			if (current.getEnabled()==true)  {
-			
-				loyaltyCreationForm = new LoyaltyCreationForm(seleniumWebDriver,
-						setupLoyaltiesCreation, TIMEOUT, ATTEMPT_TIMEOUT);
-
-				
-				setupLoyaltiesCreation.getType();
-				
-				loyaltyCreationForm.open();
-				
-				element2fill =setupLoyaltiesCreation.getBadges();
-				
-				loyaltyCreationForm.clickaddnewBadge(setupLoyaltiesCreation.getType());
-				
-				loyaltyCreationForm.clickaddLoyaltyPrograms();
-				
-				loyaltyCreationForm.addLoyaltyProgramName(setupLoyaltiesCreation.getName());
-		
-				loyaltyCreationForm.addLoyaltyProgramDesc(setupLoyaltiesCreation.getDescription());
-				
-				loyaltyCreationForm.saveLoyaltyProgram();
-			}
+		if(loyalty_created==true)
+		{
+			Assert.assertTrue(loyalty_created);
+			logger.info("Created Badges loyalty Program Succesfully");
+						
 		}
-				loyaltyCreationForm.addBadgesTypeName(setupLoyaltiesCreation.getBadges());
-				
-				loyaltyCreationForm.clickclosebutton();
-				
-				Reporter.log("Check general status of form", LOG_TO_STD_OUT);
-
-				loyalty_status=loyaltyCreationForm.isLoyaltyInList(setupLoyaltiesCreation.getName());
-				if(loyalty_status==true)
-				{
-					Assert.assertTrue(loyalty_status);
-					Reporter.log("Loyalty Program Created Succesfully!");
-					
-				}
-				else
-				{
-					
-					Assert.fail("The Loyalty Program creation Failed!");
-					Reporter.log("Creation of Loyalty Program Failed!");
-				}
+		else{
+				Assert.fail("The loyalty Management Program  Failed!");
+				Reporter.log("Creation of loyalty Management Program Failed!",LOG_TO_STD_OUT);
+			}	
 	
-				
+	
+		
+		
+		
 		//create LoyaltyMananagement Program to use existing Loyalty Program Type
-				loyalty_created=ManageExistingLoyaltyProgram(jsonFilePath1_Loyalty, jsonFileName1_Loyalty);
-				if(loyalty_created==true)
+				loyalty_managed=ManageExistingLoyaltyProgram(jsonFilePath1_Loyalty, jsonFileName1_Loyalty);
+				if(loyalty_managed==true)
 				{
-					Assert.assertTrue(loyalty_created);
+					Assert.assertTrue(loyalty_managed);
 					logger.info("Created loyalty Management Program Succesfully");
 								
 				}
@@ -201,7 +158,7 @@ public class TestLoyaltyManagementE2E<jsonFilePath1_Loyalty> extends ParentTestC
 						Reporter.log("Creation of loyalty Management Program Failed!",LOG_TO_STD_OUT);
 					}	
 	
-	
+
 
 
 	//Generate revenue recharge event usin Traffic Generator
@@ -232,6 +189,78 @@ public class TestLoyaltyManagementE2E<jsonFilePath1_Loyalty> extends ParentTestC
 		}	
 }
 	
+
+public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileName_Loyalty) throws JSONSException, FormException{
+	
+	Reporter.log("Creation of \"Loyalty Creation Form\".", LOG_TO_STD_OUT);
+
+	String resourcePath =DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Loyalty;
+		
+	String resourceFile = jsonFileName_Loyalty;
+	
+	setupLoyaltiesCreation = new JSONLoyaltiesCreation(resourcePath, resourceFile);
+
+	Reporter.log("\"Loyalty Creation\" is filled with resource file : ",
+			LOG_TO_STD_OUT);
+	Reporter.log("Resource path -> " + resourcePath, LOG_TO_STD_OUT);
+	
+	Reporter.log("Resource file -> " + resourceFile, LOG_TO_STD_OUT);
+
+	Reporter.log("Open \"Loyalty Creation Form\" UI.", LOG_TO_STD_OUT);
+
+	int numbProdType = setupLoyaltiesCreation.getList().size();
+	
+	for (int index = 0; index < numbProdType; index++) {
+		
+		JsonCurrentElement current = setupLoyaltiesCreation.getCurrentElementById(index);
+		
+		if (current.getEnabled()==true)  {
+		
+			loyaltyCreationForm = new LoyaltyCreationForm(seleniumWebDriver,
+					setupLoyaltiesCreation, TIMEOUT, ATTEMPT_TIMEOUT);
+
+			
+			setupLoyaltiesCreation.getType();
+			
+			loyaltyCreationForm.open();
+			
+			element2fill =setupLoyaltiesCreation.getBadges();
+			
+			loyaltyCreationForm.clickaddnewBadge(setupLoyaltiesCreation.getType());
+			
+			loyaltyCreationForm.clickaddLoyaltyPrograms();
+			
+			loyaltyCreationForm.addLoyaltyProgramName(setupLoyaltiesCreation.getName());
+	
+			loyaltyCreationForm.addLoyaltyProgramDesc(setupLoyaltiesCreation.getDescription());
+			
+			loyaltyCreationForm.saveLoyaltyProgram();
+		}
+	}
+			loyaltyCreationForm.addBadgesTypeName(setupLoyaltiesCreation.getBadges());
+			
+			loyaltyCreationForm.clickclosebutton();
+			
+			Reporter.log("Check general status of form", LOG_TO_STD_OUT);
+
+			loyalty_status=loyaltyCreationForm.isLoyaltyInList(setupLoyaltiesCreation.getName());
+			
+			if(loyalty_status==true)
+			{
+				Assert.assertTrue(loyalty_status);
+				Reporter.log("Loyalty Program Created Succesfully!");
+				
+			}
+			else
+			{
+				
+				Assert.fail("The Loyalty Program creation Failed!");
+				Reporter.log("Creation of Loyalty Program Failed!");
+			}
+			
+			return loyalty_status;
+	}
+
 	public Boolean ManageExistingLoyaltyProgram(String jsonFilePath1_Loyalty,String jsonFileName1_Loyalty) throws JSONSException, FormException{
 	
 		
@@ -424,7 +453,7 @@ public class TestLoyaltyManagementE2E<jsonFilePath1_Loyalty> extends ParentTestC
 						
 		}
 			}
-		return loyalty_status;
+		return LOG_TO_STD_OUT;
 		}
 		
 	public Boolean CustomerCare() throws FormException{

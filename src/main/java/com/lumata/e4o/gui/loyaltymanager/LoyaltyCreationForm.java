@@ -159,7 +159,7 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 	
 	public Boolean isLoyaltyInList( String loyaltyName ) throws FormException {
 		
-		List<WebElement> loyaltyList = getLoyaltyList(loyaltyName);
+		List<WebElement> loyaltyList = getLoyaltyList();
 
 		for( WebElement loyaltyListE1 : loyaltyList ) {
 
@@ -174,15 +174,16 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 	}
 
 	
-	public List<WebElement> getLoyaltyList(String strBadgeName)  throws FormException {
+	public List<WebElement> getLoyaltyList()  throws FormException {
 		
-		String rootPath = "//table/tbody/tr/td/table/tbody/tr[4]";
-		String subPath = "//div[text()='" + strBadgeName + "']";
+		String rootPath = "//div[text()='Programs']//ancestor::table[contains(@class,'DisclosurePanel-open')]";
+		String subPath = "//table[@class='tableList']/tbody/tr[contains(@class,'contentRow cycle')]/td[contains(@class,'column_nameLong')]";
 
 		List<WebElement> loyaltyList = getListByXPath(rootPath, rootPath + subPath);
 		System.out.println(loyaltyList);
 		return loyaltyList;
 	}
+	
 
 	public LoyaltyCreationForm clickclosebutton() throws FormException, JSONSException {
 		
