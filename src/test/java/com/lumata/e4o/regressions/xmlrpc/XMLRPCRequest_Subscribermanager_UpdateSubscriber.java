@@ -20,6 +20,7 @@ import com.lumata.common.testing.log.Log;
 import com.lumata.e4o.dao.tenant.DAOConf;
 import com.lumata.e4o.dao.tenant.DAONetworks;
 import com.lumata.e4o.dao.tenant.DAOProfiles;
+import com.lumata.e4o.dao.tenant.DAOSetHobbies;
 import com.lumata.e4o.dao.tenant.DAOSetOptions;
 import com.lumata.e4o.dao.tenant.DAOStatuses;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
@@ -30,11 +31,11 @@ import com.lumata.e4o.generators.common.Generator;
 import com.lumata.e4o.schema.tenant.Conf;
 import com.lumata.e4o.schema.tenant.Networks;
 import com.lumata.e4o.schema.tenant.Profiles;
+import com.lumata.e4o.schema.tenant.SetHobbies;
 import com.lumata.e4o.schema.tenant.SetOptions;
 import com.lumata.e4o.schema.tenant.Statuses;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.schema.tenant.SupportedRatePlan;
-import com.lumata.e4o.system.cdr.CDR;
 import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.e4o.testing.common.TCMysqlMaster;
 import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
@@ -199,7 +200,8 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber extends ParentTest
 		networkOverLength = RandomStringUtils.randomNumeric( ( getColumnLenght( Subscribers.class, Subscribers.Fields.network_id ) + 1 ) );
 		
 		/** insert hobbies **/
-		Generator.subscribers().environment( env ).mysql( mysqlMaster ).insertDefaultHobbies();
+		//Generator.subscribers().environment( env ).mysql( mysqlMaster ).insertDefaultHobbies();
+		Generator.subscribers().environment( env ).mysql( mysqlMaster ).insertHobbies( "hobby_", 64L );
 		
 		/** insert options **/
 		Generator.subscribers().environment( env ).mysql( mysqlMaster ).insertOptions( "option_", 1024L );
@@ -1649,9 +1651,17 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber extends ParentTest
 			
 		StringBuilder hobbies = new StringBuilder();
 		
-		for( CDR.HOBBIES hobby : CDR.HOBBIES.values() ) {
+//		for( CDR.HOBBIES hobby : CDR.HOBBIES.values() ) {
+//			
+//			hobbies.append( hobby.name() + ", " );
+//			
+//		}
+		
+		ArrayList<SetHobbies> hobbiesList = DAOSetHobbies.getInstance( mysqlMaster ).getHobbiesList();
+		
+		for( SetHobbies hobby : hobbiesList ) {
 			
-			hobbies.append( hobby.name() + ", " );
+			hobbies.append( hobby.getHobbiesName() + ", " );
 			
 		}
 		

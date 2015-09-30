@@ -29,7 +29,10 @@ public class TestDMNotificationEnabled extends ParentTestCase {
 	@Parameters({"tenant", "notifXMLFolder", "notifXMLFile"})
 	@Test
 	public void configureDMNotifications( @Optional("tenant") String tenant, @Optional("input/configuration") String notifXMLFolder, @Optional("notif.xml") String notifXMLFile ) throws SQLException, IOFileException {
-		notifXMLFile = "notif_EFOGC_4060_MC.xml";
+		//notifXMLFile = "notif_EFOGC_4060_MC.xml";
+		//notifXMLFile = "notif_EFOGC_4060_unsupported_tags.xml";
+		//notifXMLFile = "notif_EFOGC_4060_ignore_unformatted_tags.xml";
+		notifXMLFile = "notif_EFOGC_4060_new_parameters_true.xml";
 		// check if notif.xml entry is present in the files_meta table
 		FilesMeta fm = new FilesMeta();
 		

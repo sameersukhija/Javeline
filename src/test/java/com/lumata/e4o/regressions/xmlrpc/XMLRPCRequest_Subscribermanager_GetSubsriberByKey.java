@@ -35,7 +35,7 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 	
 	private Subscribers subscriber = null;
 	private final Long MSISDN = 3399900001L;
-	private final Long IMSI = 990888L;
+	private final Long IMSI = 1234567890L;
 	private final String PROFILE_NAME = "prepaid";
 	private final String RATE_PLAN_NAME = "FUN";
 	private final String RATE_PLAN_ID = "1";

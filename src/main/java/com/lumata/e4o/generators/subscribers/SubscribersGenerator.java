@@ -423,6 +423,28 @@ public class SubscribersGenerator implements IGeneratorSubscriberParameters {
 				
 	}
 	
+	public void insertHobbies( final String prefix, final Long qtyHobbies ) throws GeneratorException {
+		
+		actionType = SubscriberAction.insertOptions;
+		
+		configureParameters();
+			
+		for( long hb = 1; hb <= qtyHobbies; hb++ ) {
+		
+			SetHobbies hobby = new SetHobbies();
+			
+			hobby.setHobbies( (long)hb );
+			
+			hobby.setHobbiesName( prefix + hb );
+			
+			addSets( hobby );
+		
+			logger.info( Log.STORED.createMessage( "hobby ( " + hobby.getHobbies() + " - " + hobby.getHobbiesName() + " )" ) );
+			
+		}		
+				
+	}
+	
 	public void insertOptions( final String prefix, final Long qtyOptions ) throws GeneratorException {
 		
 		actionType = SubscriberAction.insertOptions;
