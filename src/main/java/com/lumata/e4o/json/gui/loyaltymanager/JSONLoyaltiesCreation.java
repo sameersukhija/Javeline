@@ -1,16 +1,24 @@
 package com.lumata.e4o.json.gui.loyaltymanager;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.JsonConfigurationFile;
+import com.lumata.e4o.json.common.JsonConfig;
+import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
 
 public class JSONLoyaltiesCreation extends JsonConfigurationFile {
 
-	public JSONLoyaltiesCreation(String path, String jsonFile) throws JSONSException {
+		public JSONLoyaltiesCreation(String folder, String file) throws JSONSException {
 		
-		super(path, jsonFile);
+		super(folder, file);
 	}
 
 	/**
@@ -54,6 +62,34 @@ public class JSONLoyaltiesCreation extends JsonConfigurationFile {
 		return getCurrentElement().getStringFromPath("name"); 		
 	}	
     
+    public String geteventType() throws JSONSException { 	
+    	
+		return getCurrentElement().getStringFromPath("eventType"); 		
+	}	
+    
+    public String getcriteriaType() throws JSONSException { 	
+    	
+		return getCurrentElement().getStringFromPath("criteriaType"); 		
+	}	
+    
+    public String getcriteriaValue() throws JSONSException { 	
+    	
+		return getCurrentElement().getStringFromPath("criteriaValue"); 		
+	}	
+    
+    public String getactionType() throws JSONSException { 	
+    	
+		return getCurrentElement().getStringFromPath("actionType"); 		
+	}	
+    
+    public String getactionValue() throws JSONSException { 	
+    	
+		return getCurrentElement().getStringFromPath("option"); 		
+	}	
+   
+    public Boolean getEnabled() throws JSONException {
+		return getCurrentElement().getBooleanFromPath( "enabled" );
+	}
     /**
 	 * This method returns the "description" of current element.
 	 * The current element must be selected with "setCurrentElementById" method.
@@ -136,4 +172,27 @@ public class JSONLoyaltiesCreation extends JsonConfigurationFile {
 
 		return "loyalties";
 	}
+
+		public Map<String, JSONEvent_> getEvents() throws JSONException, JSONSException { 		
+    	
+		Map<String, JSONEvent_> events = new LinkedHashMap<String, JSONEvent_>();
+		
+		List<Object> jsonEvents = getCurrentElement().getJsonListFromPath( "events" );
+		
+		for( int j = 0; j < ((JSONArray) jsonEvents).length(); j++ ) {
+			
+			String eventName = "event" + j;
+			
+			events.put( eventName, new JSONEvent_( ((JSONArray) jsonEvents).getJSONObject( j ) ) );
+			
+		}
+		
+		return events;  		
+	
+	}
+
+		
+		
+	
+		
 }

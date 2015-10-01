@@ -1,0 +1,15 @@
+{"EventGeneration": [
+{"enabled" : true,
+	"subscriber_id": "9890234567",
+	"source": "REVENUE_RECHARGE_CDR",
+	"event_class": "revenue",
+	"event_name":  "recharge", 
+	"event_value": "1", 
+	"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+				"GENERAL_ERROR" : "RETURN_ERROR",
+				"delete" : false}
+}
+  ]
+
+}
