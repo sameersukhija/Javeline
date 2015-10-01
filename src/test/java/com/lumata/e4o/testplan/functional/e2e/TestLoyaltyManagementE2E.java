@@ -17,15 +17,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.AssertJUnit;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
 
-import com.lumata.e4o.gui.OperationManagementForm.OperationManagementForm;
+//import com.lumata.e4o.gui.OperationManagementForm.OperationManagementForm;
 import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
 import com.lumata.e4o.gui.customercare.CustomerCareLoyaltyForm;
 import com.lumata.e4o.gui.loyaltymanager.LoyaltyCreationForm;
@@ -41,7 +38,7 @@ import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.e4o.testing.common.TCOwner;
 import com.lumata.e4o.testing.common.TCOwners;
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
-import com.lumata.e4o.testplan.functional.e2e.OfferRankValidationScenario;
+//import com.lumata.e4o.testplan.functional.e2e.OfferRankValidationScenario;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
 import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
 import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation;
@@ -97,7 +94,7 @@ public class TestLoyaltyManagementE2E<jsonFilePath1_Loyalty> extends ParentTestC
 	private JsonConfigurationFile loyalties;
 	private Map<String, JSONEvent_> awarded;
 	private TrafficGeneratorEvent TrafficGeneratorForm;
-	private OperationManagementForm OperationManagementForm;
+	//private OperationManagementForm OperationManagementForm;
 	@BeforeMethod
 	public void initOfferForm( Method method ) throws  FormException {		
 	
@@ -414,10 +411,10 @@ public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileN
 			String resourceFile = jsonFileName_Traffic;
 			
 			TrafficEvent = new TrafficGeneratorEvent(resourcePath, resourceFile);
-			
+			/*
 			OperationManagementForm<TrafficGeneratorEvent> operationsForm = new OperationManagementForm<TrafficGeneratorEvent>(seleniumWebDriver,
 					TrafficEvent, TIMEOUT, ATTEMPT_TIMEOUT);
-		
+			*/
 			JSONArray TM =  TrafficEvent.getList();
 			
 			
@@ -426,7 +423,7 @@ public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileN
 				TrafficEvent.setTrafficById( index );
 				
 				if( TrafficEvent.getEnabled() ) {
-		
+			/*
 			operationsForm.open();
 
 			operationsForm.clickTrafficGenerator();
@@ -448,7 +445,7 @@ public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileN
 			operationsForm.clickEventExecuteButton();
 			
 			operationsForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
-			
+			*/
 			Reporter.log("Open \"Traffic Generator Form\" UI.", LOG_TO_STD_OUT);
 
 			Assert.assertTrue(true, "Event Generated");
