@@ -1,58 +1,36 @@
 package com.lumata.e4o.testplan.functional.e2e;
 
-import org.testng.annotations.Test;
-import org.testng.Assert;
-import org.testng.AssertJUnit;
-
 import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
-//import com.lumata.e4o.gui.OperationManagementForm.OperationManagementForm;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
-import com.lumata.e4o.gui.customercare.CustomerCareLoyaltyForm;
-import com.lumata.e4o.gui.loyaltymanager.LoyaltyCreationForm;
-import com.lumata.e4o.gui.loyaltymanager.LoyaltyManagerForm;
-import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.customercare.CustomerCareLoyaltyForm;
+import com.lumata.e4o.gui.loyaltymanager.LoyaltyCreationForm;
 import com.lumata.e4o.gui.loyaltymanager.LoyaltyManagmentForm;
-import com.lumata.e4o.gui.operationmanager.TrafficGenerator;
+import com.lumata.e4o.gui.operationmanager.OperationManagementForm;
+import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation;
+import com.lumata.e4o.json.gui.loyaltymanager.LoyaltyManageCfg;
+import com.lumata.e4o.json.gui.operationmanager.TrafficGeneratorEvent;
 import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.e4o.testing.common.TCOwner;
 import com.lumata.e4o.testing.common.TCOwners;
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
-//import com.lumata.e4o.testplan.functional.e2e.OfferRankValidationScenario;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
-import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
-import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation;
-import com.lumata.e4o.json.gui.loyaltymanager.LoyaltyManageCfg;
-import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation.LoyaltyTypes;
-import com.lumata.e4o.json.gui.operationmanager.TrafficGeneratorEvent;
-import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.json.ErrorModificableElement;
-import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
-import com.lumata.common.testing.json.HasJsonElements;
-import com.lumata.common.testing.json.JsonConfigurationElement;
-import com.lumata.common.testing.json.JsonConfigurationFile;
-import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
-import com.thoughtworks.selenium.webdriven.commands.WaitForPageToLoad;
+
 
 @TCOwners(
 		@TCOwner( name="Sameer Sukhija", email="sameer.sukhija@lumatagroup.com" )
@@ -77,24 +55,14 @@ public class TestLoyaltyManagementE2E<jsonFilePath1_Loyalty> extends ParentTestC
 	
 	private LoyaltyCreationForm loyaltyCreationForm = null;
 
-	private List<String> element2fill;
+//	private List<String> element2fill;
 
 	public String Loyalty_NAME;
 
 	Boolean loyalty_status;
 
-	private Map<String, JSONEvent_> events;
-
-	private JSONLoyaltiesCreation LoyaltiesCreation;
-
-	private String jsonFilePath1_Loyalty;
-	private String resourcePath1;
-	private String resourceFile1;
 	private LoyaltyManagmentForm LoyaltyManagmentForm;
-	private JsonConfigurationFile loyalties;
-	private Map<String, JSONEvent_> awarded;
-	private TrafficGeneratorEvent TrafficGeneratorForm;
-	//private OperationManagementForm OperationManagementForm;
+	
 	@BeforeMethod
 	public void initOfferForm( Method method ) throws  FormException {		
 	
@@ -223,7 +191,7 @@ public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileN
 			
 			loyaltyCreationForm.open();
 			
-			element2fill =setupLoyaltiesCreation.getBadges();
+			//element2fill =setupLoyaltiesCreation.getBadges();
 			
 			loyaltyCreationForm.clickaddnewBadge(setupLoyaltiesCreation.getType());
 			
@@ -411,10 +379,10 @@ public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileN
 			String resourceFile = jsonFileName_Traffic;
 			
 			TrafficEvent = new TrafficGeneratorEvent(resourcePath, resourceFile);
-			/*
+			
 			OperationManagementForm<TrafficGeneratorEvent> operationsForm = new OperationManagementForm<TrafficGeneratorEvent>(seleniumWebDriver,
 					TrafficEvent, TIMEOUT, ATTEMPT_TIMEOUT);
-			*/
+		
 			JSONArray TM =  TrafficEvent.getList();
 			
 			
@@ -423,7 +391,7 @@ public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileN
 				TrafficEvent.setTrafficById( index );
 				
 				if( TrafficEvent.getEnabled() ) {
-			/*
+		
 			operationsForm.open();
 
 			operationsForm.clickTrafficGenerator();
@@ -445,7 +413,7 @@ public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileN
 			operationsForm.clickEventExecuteButton();
 			
 			operationsForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
-			*/
+			
 			Reporter.log("Open \"Traffic Generator Form\" UI.", LOG_TO_STD_OUT);
 
 			Assert.assertTrue(true, "Event Generated");
