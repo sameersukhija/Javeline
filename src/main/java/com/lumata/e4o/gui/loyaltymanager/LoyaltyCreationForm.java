@@ -2,13 +2,22 @@ package com.lumata.e4o.gui.loyaltymanager;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
+import org.json.JSONException;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,11 +26,19 @@ import com.lumata.common.testing.json.ErrorModificableElement;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+import com.lumata.common.testing.validating.Format;
+import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.common.Form;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
+import com.lumata.e4o.gui.common.GWTCalendarForm;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler.SaveResult;
+import com.lumata.e4o.json.gui.campaignmanager.JSONAction;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCriteria;
+import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
 import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation;
 import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation.LoyaltyTypes;
+
 
 public class LoyaltyCreationForm extends LoyaltyManagerForm {
 
@@ -41,9 +58,11 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 	 * @param timeout
 	 * @param interval
 	 */
+	
+	
 	public LoyaltyCreationForm(SeleniumWebDriver selenium, JSONLoyaltiesCreation configuration, long timeout, long interval) {
 		
-		super(selenium, timeout, interval);
+		super(selenium, null, timeout, interval);
 		
 		this.loyaltiesCreationCfg = configuration;
 	}
@@ -64,116 +83,116 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 	 * @throws FormException
 	 * @throws JSONSException
 	 */
-	public LoyaltyCreationForm addLoyaltyPrograms() throws FormException, JSONSException {
 	
-		int numbProdType = loyaltiesCreationCfg.getList().size();
+	
+	
+	public LoyaltyCreationForm clickaddnewBadge(LoyaltyTypes loyaltyTypes) throws FormException, JSONSException {
+	
 		
-		for (int index = 0; index < numbProdType; index++) {
-			
-			JsonCurrentElement current = loyaltiesCreationCfg.getCurrentElementById(index);
-			
-			if ( current.getEnabled() ) {
-				
-				List<String> element2fill = null;
-				LoyaltyTypes type = loyaltiesCreationCfg.getType();
-				WebElement addButtonElement = null;
-				
-				final String openSubSectionXPath = "//table[contains(@class,'page-ConfigurationProgramWidget')]//td[contains(text(),'"+type+"')]";
-				final String addButtonXPath = openSubSectionXPath + "//ancestor::tr[3]//button[@title='Add']";
-				
-				Boolean buttonPressed = Boolean.FALSE;
-				int count = 0;
-				
-				do {
-					
-					count++;
-					
-					if ( count == 10 ) {
-						
-						String message = getClass().getSimpleName() + " error : add button for sub-section \""+type+"\" NOT found!";
-						
-						logger.error(message);
-						
-						throw new FormException(message);
-					}
-					
-					// if button 'Add' not visible
-					// open sub-section
-					try {
-						addButtonElement = selenium.getWrappedDriver().findElement(By.xpath(addButtonXPath));
-						
-						Boolean subSectionOpen = addButtonElement.isDisplayed();
-						
-						// switch sub-section
-						if ( !subSectionOpen ) {
-							logger.debug("Sub-section \""+type+"\" NOT open, open it.");
-							
-							clickXPath(openSubSectionXPath);
-							
-							try {
-								Thread.sleep(1_000);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-						}
-						else 
-							logger.debug("Sub-section \""+type+"\" already open.");
-							
-						clickXPath(addButtonXPath);
-						
-						buttonPressed = Boolean.TRUE;
-						
-					} catch ( NotFoundException e ) {
-						// try again Sam!
-					}	
-				}
-				while ( !buttonPressed );
-				
-				if ( type.equals(LoyaltyTypes.Points) ) 
-					element2fill = loyaltiesCreationCfg.getClasses();
-				else  // badges
-					element2fill = loyaltiesCreationCfg.getBadges();
-
-				// this is the rule of displayed popup
-				//div[contains(text(),'Add new program')]//ancestor::table//input
-				
-				List<WebElement> nameAndDesc = selenium.getWrappedDriver().findElements(By.xpath("//div[contains(text(),'Add new program')]//ancestor::table//input"));
-				
-				String name = loyaltiesCreationCfg.getName();
-				String desc = loyaltiesCreationCfg.getDescription();
-				
-				// name
-				nameAndDesc.get(0).sendKeys(name);
-				
-				//div[contains(text(),'Add new program')]//ancestor::table//tr[contains(text(),'Name')]
-				
-				// description
-				if ( desc != null && desc.length() != 0 )
-					nameAndDesc.get(1).sendKeys(desc);
-			
-				// handle error on program name
-				LoyaltyNameSaveHandler handler = new LoyaltyNameSaveHandler( 	selenium.getWrappedDriver(), loyaltiesCreationCfg.getCurrentElement());
-				
-				SaveResult saveResult = handler.saveAction();
-				
-				// if save name pass continue to configuration
-				if ( 	saveResult.equals(SaveResult.SavedCorrectly) || 
-						saveResult.equals(SaveResult.SavedWithTimestamp) )
-					configureLoyaltyProgram( type, element2fill).
-					saveLoyaltyProgram();
-			}
-		}
+		//LoyaltyTypes type = loyaltiesCreationCfg.getType();
 		
+		final String openSubSectionXPath = "//table[contains(@class,'page-ConfigurationProgramWidget')]//td[contains(text(),'"+loyaltyTypes+"')]";
+		final String addButtonXPath = openSubSectionXPath + "//ancestor::tr[3]//button[@title='Add']";
+		super.clickXPath(openSubSectionXPath);					
+		super.clickXPath(addButtonXPath);
+	
 		return this;
 	}
-
-	/**
-	 * 
-	 */
-	private void saveLoyaltyProgram() {
+	
+	public LoyaltyCreationForm clickaddLoyaltyPrograms() throws FormException, JSONSException {
+			
+			super.clickXPath("//div[contains(text(),'Add new program')]//ancestor::table//input");
+	
+	return this;
+	
+	}
+	
+	public LoyaltyCreationForm addLoyaltyProgramName(String name) throws FormException, JSONSException {
 		
+			super.sendKeysByXPath("//div[contains(text(),'Add new program')]//ancestor::table/tbody//tr[@class='cycle1']/td[2]//input", name);
+		
+	return this;
+	}
+				
+	public LoyaltyCreationForm addLoyaltyProgramDesc(String desc) throws FormException, JSONSException {
+		
+			super.sendKeysByXPath("//div[contains(text(),'Add new program')]//ancestor::table/tbody//tr[@class='cycle2']/td[2]//input", desc);
+		
+	return this;
+	
+	}
+	
+	public LoyaltyCreationForm clickaddLoyaltyBadgeTypes() throws FormException, JSONSException {
+		
+		super.clickXPath("//div[contains(text(),'Edit program')]//ancestor::tbody//button[@title='Add']");
+
+	return this;
+	}
+	
+	public LoyaltyCreationForm addBadgesTypeName(List<String> badgeTypeList) throws FormException, JSONSException {
+		
+		for (String badgeType : badgeTypeList) {
+		super.clickXPath("//div[contains(text(),'Edit program')]//ancestor::tbody//button[@title='Add']");
+
+		super.sendKeysByXPath("//div[contains(text(),'New Badge Type')]//ancestor::table/tbody//tr[@class='cycle1']/td[2]//input",badgeType);
+		super.clickXPath("//div[text()='New Badge Type']//ancestor::tbody//*[@title='Save']");
+		}
+		return this;
+	}
+	
+	public LoyaltyCreationForm saveLoyaltyProgram() throws FormException {
+		
+		super.clickName( "btn-save" );
+		handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+	    
+	return this;
 	}
 
+	
+	public LoyaltyCreationForm clickRefresh() throws FormException {
+		
+		super.clickXPath( "//table[@class='gwt-DecoratedTabPanel tab-LoyaltyTab']//table[@class='padding10px page-ConfigurationProgramWidget']//button[@title='Refresh']");
+	   
+	return this;
+	}
+	
+	
+	public Boolean isLoyaltyInList( String loyaltyName ) throws FormException {
+		
+		List<WebElement> loyaltyList = getLoyaltyList();
+
+		for( WebElement loyaltyListE1 : loyaltyList ) {
+
+			if( loyaltyListE1.getText().trim().equals( loyaltyName ) ) {
+		
+				return true;
+
+			}	
+		}
+
+		return false;	
+	}
+
+	
+	public List<WebElement> getLoyaltyList()  throws FormException {
+		
+		String rootPath = "//div[text()='Programs']//ancestor::table[contains(@class,'DisclosurePanel-open')]";
+		String subPath = "//table[@class='tableList']/tbody/tr[contains(@class,'contentRow cycle')]/td[contains(@class,'column_nameLong')]";
+
+		List<WebElement> loyaltyList = getListByXPath(rootPath, rootPath + subPath);
+		System.out.println(loyaltyList);
+		return loyaltyList;
+	}
+	
+
+	public LoyaltyCreationForm clickclosebutton() throws FormException, JSONSException {
+		
+		super.clickXPath("//button[@name='btn-close']");
+		waitForPageLoad();
+
+	return this;
+	}
+	
 	/**
 	 * This method fills the classes/badges into program displayed UI
 	 * 
@@ -262,6 +281,10 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 		/**
 		 * 
 		 */
+		
+		
+
+		
 		private WebElement saveElement = null;
 		
 		@Override
@@ -501,6 +524,25 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 			return resp;
 		}
 	}
+	
+
+	
+
+	
+	
+	
+	
+	
+	protected Form open1() throws FormException {
+		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 30);
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("gwt-debug-BarCaptionHomeCampaign")));
+		return clickId( "gwt-debug-BarCaptionHomeCampaign" );
+		
+	}
+
+	
+
+	
 	
 //	private LoyaltyCreateCfg createCfg;
 //	private LoyaltyManageCfg manageCfg;

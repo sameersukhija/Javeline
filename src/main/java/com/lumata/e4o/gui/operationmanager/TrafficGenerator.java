@@ -12,6 +12,12 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 
 public class TrafficGenerator extends Operations {
 
+	public TrafficGenerator(SeleniumWebDriver selenium, long timeout,
+			long interval) {
+		super(selenium, timeout, interval);
+		// TODO Auto-generated constructor stub
+	}
+
 	private static final Logger logger = LoggerFactory.getLogger(TrafficGenerator.class);
 	
 	public static boolean open( SeleniumWebDriver selenium, long timeout, long interval ) {
