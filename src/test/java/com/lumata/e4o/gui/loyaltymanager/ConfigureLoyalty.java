@@ -48,7 +48,7 @@ public class ConfigureLoyalty extends ParentUITestCase {
 
 		Reporter.log("Apply setup on UI.", PRINT2STDOUT__);
 
-		loyaltyCreationForm.addLoyaltyPrograms();
+		//loyaltyCreationForm.addLoyaltyPrograms();
 
 		Reporter.log("Check general status of form", PRINT2STDOUT__);
 
