@@ -106,13 +106,15 @@ public class TestLoyaltyManagementE2E<jsonFilePath1_Loyalty> extends ParentTestC
 	}
 	
 	@Parameters({"jsonFilePath_Loyalty", "jsonFileName_Loyalty","jsonFilePath1_Loyalty", "jsonFileName1_Loyalty",
-		"jsonFilePath_Traffic", "jsonFileName_Traffic"})
+		"jsonFilePath_Traffic", "jsonFileName_Traffic","networkEnvironmentParams","seleniumWebDriverParams"})
 	@Test( enabled=true, priority = 1 ,timeOut=1500000)
 	public void testUc29_EndtoEndScenario_LoyaltyProgramManagement(@Optional("/input/loyalties") 
 	String jsonFilePath_Loyalty,@Optional("loyaltyCreationTemplate") 
 	String jsonFileName_Loyalty, @Optional("/input/loyalties") String jsonFilePath1_Loyalty,
 	@Optional("loyalty_manage") String jsonFileName1_Loyalty,@Optional("/input/traffic_generator") String jsonFilePath_Traffic,
-	@Optional("recharge_event")	String jsonFileName_Traffic)  throws FormException, JSONException, JSONSException,ParseException {
+	@Optional("recharge_event")	String jsonFileName_Traffic,
+	String networkEnvironmentParams,
+	String seleniumWebDriverParams)  throws FormException, JSONException, JSONSException,ParseException {
 		
 			
 		Boolean loyalty_created=false;
@@ -460,7 +462,7 @@ public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileN
 			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 			CustomerCareLoyaltyForm customerCareLoyaltyForm = new CustomerCareLoyaltyForm(seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
 				customerCareLoyaltyForm.open();
-				customerCareLoyaltyForm.setSubscriberMsisdn("9717207081");
+				customerCareLoyaltyForm.setSubscriberMsisdn("9890234567");
 				customerCareLoyaltyForm.clickSearchButton();
 				customerCareLoyaltyForm.openLoyaltyTab();
 				boolean status =customerCareLoyaltyForm.isRedeemStatusPresent("BadgesLoyaltyProgram");

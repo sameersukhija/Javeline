@@ -1,6 +1,6 @@
 {"EventGeneration": [
 {"enabled" : true,
-	"subscriber_id": "9717207081",
+	"subscriber_id": "9890234567",
 	"source": "REVENUE_RECHARGE_CDR",
 	"event_class": "revenue",
 	"event_name":  "recharge", 
