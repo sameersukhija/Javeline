@@ -204,7 +204,7 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber extends ParentTest
 		Generator.subscribers().environment( env ).mysql( mysqlMaster ).insertHobbies( "hobby_", 64L );
 		
 		/** insert options **/
-		Generator.subscribers().environment( env ).mysql( mysqlMaster ).insertOptions( "option_", 1024L );
+		Generator.subscribers().environment( env ).mysql( mysqlMaster ).insertOptions( "option_", 256L );
 						
 	}
 	
