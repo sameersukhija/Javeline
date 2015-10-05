@@ -25,7 +25,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.e4o.gui.OperationManagementForm.OperationManagementForm;
+import com.lumata.e4o.gui.operationmanager.OperationManagementForm;
 import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
 import com.lumata.e4o.gui.customercare.CustomerCareLoyaltyForm;
 import com.lumata.e4o.gui.loyaltymanager.LoyaltyCreationForm;
@@ -105,7 +105,7 @@ public class TestLoyaltyManagementE2E<jsonFilePath1_Loyalty> extends ParentTestC
 	}
 	
 	@Parameters({"jsonFilePath_Loyalty", "jsonFileName_Loyalty","jsonFilePath1_Loyalty", "jsonFileName1_Loyalty",
-		"jsonFilePath_Traffic", "jsonFileName_Traffic","networkEnvironmentParams","seleniumWebDriverParams"})
+		"jsonFilePath_Traffic", "jsonFileName_Traffic"})
 	@Test( enabled=true, priority = 1 ,timeOut=1500000)
 	public void testUc29_EndtoEndScenario_LoyaltyProgramManagement(@Optional("/input/loyalties") 
 	String jsonFilePath_Loyalty,@Optional("loyaltyCreationTemplate") 
