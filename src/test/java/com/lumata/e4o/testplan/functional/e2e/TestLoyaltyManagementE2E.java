@@ -111,9 +111,7 @@ public class TestLoyaltyManagementE2E<jsonFilePath1_Loyalty> extends ParentTestC
 	String jsonFilePath_Loyalty,@Optional("loyaltyCreationTemplate") 
 	String jsonFileName_Loyalty, @Optional("/input/loyalties") String jsonFilePath1_Loyalty,
 	@Optional("loyalty_manage") String jsonFileName1_Loyalty,@Optional("/input/traffic_generator") String jsonFilePath_Traffic,
-	@Optional("recharge_event")	String jsonFileName_Traffic,
-	String networkEnvironmentParams,
-	String seleniumWebDriverParams)  throws FormException, JSONException, JSONSException,ParseException {
+	@Optional("recharge_event")	String jsonFileName_Traffic)  throws FormException, JSONException, JSONSException,ParseException {
 		
 			
 		Boolean loyalty_created=false;
