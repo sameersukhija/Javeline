@@ -167,6 +167,18 @@
       </class>
     </classes>	
   </test>
+  <test name="loyalty Creation End to End">
+  <parameter name="jsonFilePath_Loyalty" value="input/loyalties"/>
+	<parameter name="jsonFileName_Loyalty" value="loyaltyCreationTemplate"/>
+	<parameter name="jsonFilePath1_Loyalty" value="input/loyalties"/>
+	<parameter name="jsonFileName1_Loyalty" value="loyalty_manage"/>
+	<parameter name="jsonFilePath_Traffic" value="input/traffic_generator"/>
+	<parameter name="jsonFileName_Traffic" value="recharge_event"/>
+    <classes>
+      <class name="com.lumata.e4o.testplan.functional.e2e.TestLoyaltyManagementE2E">
+      </class>
+    </classes>	
+  </test>
    <test name="xmlrpc">
     <classes>
       <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_GetSubsriberByKey"></class>
