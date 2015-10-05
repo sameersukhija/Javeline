@@ -138,7 +138,7 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 				subscriberResponse().subscriptionDate( equalTo( Format.getMysqlDate( subscriber.getSubscriptionDate() ) ) ),
 				subscriberResponse().profile( equalTo( PROFILE_NAME ) ),
 				/** condition on RATE_PLAN_ID to change in RATE_PLAN_NAME when the EFOGC-4333 will be resolved **/
-				subscriberResponse().rate_plan( equalTo( RATE_PLAN_ID ) ),
+				subscriberResponse().rate_plan( equalTo( RATE_PLAN_NAME ) ),
 				subscriberResponse().status( equalTo( STATUS_NAME ) ),
 				subscriberResponse().inTag( equalTo( IN_TAG ) ),
 				subscriberResponse().imsi( equalTo( IMSI ) )
@@ -220,30 +220,6 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 				sleep(100L)
 			)
 		);
-	}
-	
-	/** The test fails because needs the fix EFOGC-4333 */
-	@Test(enabled=TEST_ENABLED, priority = 5 )
-	public void testGetSubscriberByIMSI_waiting_for_fix_EFOGC_4333() throws Exception {
-		
-		XMLRPCRequest.subscribermanager_getSubscriberByKey().call(
-			guiServer, 
-			xmlrpcBody(
-				authentication(user),				
-				subscriber( 
-					params(
-						param( ExtendedParameters.imsi, IMSI )	
-					)																
-				)
-			),
-			xmlrpcValidator(
-				subscriberResponse().rate_plan( equalTo( RATE_PLAN_NAME ) )
-				),
-			xmlrpcOptions(
-				sleep( 100L )	
-			)
-		);
-						
 	}
 	
 }
