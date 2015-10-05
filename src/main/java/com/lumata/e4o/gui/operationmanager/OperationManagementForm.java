@@ -1,48 +1,9 @@
-package com.lumata.e4o.gui.OperationManagementForm;
+package com.lumata.e4o.gui.operationmanager;
 	
-import java.math.BigInteger;
-import java.security.SecureRandom;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONException;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.NotFoundException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.json.ErrorModificableElement;
-import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
-import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
-import com.lumata.common.testing.selenium.SeleniumWebDriver;
-import com.lumata.common.testing.validating.Format;
-import com.lumata.e4o.common.PlaceHolderDate;
-import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.common.Form;
-import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
-import com.lumata.e4o.gui.common.GWTCalendarForm;
-import com.lumata.e4o.gui.common.FormSaveConfigurationHandler.SaveResult;
-import com.lumata.e4o.gui.operationmanager.Operations;
-import com.lumata.e4o.json.gui.campaignmanager.JSONAction;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCriteria;
-import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
-import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation;
-import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation.LoyaltyTypes;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
@@ -54,7 +15,7 @@ import com.lumata.e4o.gui.common.Form;
 		/**
 		 * 
 		 */
-		private static final Logger logger = LoggerFactory.getLogger(OperationManagementForm.class);
+//		private static final Logger logger = LoggerFactory.getLogger(OperationManagementForm.class);
 		
 		/**
 		 * 
