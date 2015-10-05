@@ -308,7 +308,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			setTerms(setupOffer.getTermsAndConditions()).
 			clickOfferContentTab().addCharacteristicButton();
 			
-			offerForm.setOfferName(Content_OFFERNAME).saveCharacteristic().cancelCharacteristic();
+			offerForm.setOfferName(Content_OFFERNAME).saveCharacteristic();
 			
 			offerForm.clickPriceTab();
 		
