@@ -60,8 +60,9 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
 	}
+	@Parameters({"networkEnvironmentParams","seleniumWebDriverParams"})
 	@Test( enabled=TEST_ENABLED, priority = 1 )
-	public void testUc34_01CreateCampaign_ExistingModel() throws FormException {
+	public void testUc34_01CreateCampaign_ExistingModel(String networkEnvironmentParams,String seleniumWebDriverParams) throws FormException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Calendar startDate = Calendar.getInstance();
 		
@@ -96,7 +97,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 			//campaignsForm.setCampaignSingleSchedulingProvisioningEndDate( provEndDate );
 			/** configure dialog tab **/
 			campaignsForm.openDialogTab().
-			setCampaignDialogueEmailAddress( "" ).
+			//setCampaignDialogueEmailAddress( "" ).
 			openDialogueNotification().
 			editDialogueNotification( English, SMS ).
 			setDialogueNotificationMessage( "campaign notification message ( ###campaign_name### )" ).
@@ -189,7 +190,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 			setCampaignSchedulingMultipleRangeOfRecurrenceValueEndDate( endDate ).
 			/** configure dialog tab **/
 			openDialogTab().
-			setCampaignDialogueEmailAddress( "" ).
+			//setCampaignDialogueEmailAddress( "" ).
 			setDialogueNotificationDaysOfNotificationBeforeExecution( 1 ).
 			openDialogueNotification().
 			editDialogueNotification( English, SMS ).
@@ -261,7 +262,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 			//setCampaignSingleSchedulingProvisioningEndDate( provEndDate ).
 			/** configure dialog tab **/
 			openDialogTab().
-			setCampaignDialogueEmailAddress( "" ).
+			//setCampaignDialogueEmailAddress( "" ).
 			openDialogueNotification().
 			editDialogueNotification( English, SMS ).
 			setDialogueNotificationMessage( "campaign notification message ( ###campaign_name### )" ).
@@ -375,7 +376,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 		//campaignsForm.setCampaignSingleSchedulingProvisioningEndDate( provEndDate );
 		/** configure dialog tab **/
 		campaignsForm.openDialogTab().
-		setCampaignDialogueEmailAddress( "" ).
+		//setCampaignDialogueEmailAddress( "" ).
 		openDialogueNotification().
 		editDialogueNotification( English, SMS ).
 		setDialogueNotificationMessage( "campaign notification message ( ###campaign_name### )" ).
