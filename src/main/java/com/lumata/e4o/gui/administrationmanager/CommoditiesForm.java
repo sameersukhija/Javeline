@@ -531,7 +531,32 @@ public class CommoditiesForm extends AdministrationForm {
 //
 //		return resp;
 //}
+public Boolean isPaymentMeanInList( String paymentMean ) throws FormException {
+		
+		List<WebElement> paymentMeanList = getPaymentMeanList();
+				
+		for( WebElement paymentMeanEl : paymentMeanList ) {
+			
+			if( paymentMeanEl.getText().trim().equals(paymentMean)) {
+				
+				return true;
+				
+			}
+			
+		}
+		
+		return false;
+		
+	}
+public List<WebElement> getPaymentMeanList() throws FormException {
 	
+	String rootPath = "//table[contains(@class, 'page-BillablePageView')]";
+	String subPath = "//tr[contains(@class, 'contentRow cycle')]//td[@class='column_description']";
+
+	List<WebElement> paymentMeanList = getListByXPath(rootPath, rootPath + subPath);
+	return paymentMeanList;
+		
+}
 	public CommoditiesForm clickEditCommoditiesPaymentMeanbutton(String currency) throws FormException, JSONSException {
 		
 		String editXpath="//div[text()='"+currency+"']//ancestor::tr[1]//td[3]//button[@title='Edit']";

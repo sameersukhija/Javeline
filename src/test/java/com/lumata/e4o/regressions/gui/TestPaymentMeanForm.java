@@ -119,9 +119,17 @@ public class TestPaymentMeanForm extends ParentTestCase{
 				commoditiesForm.saveCommodityPaymentMean();
 		
 				Reporter.log("Check general status of form", LOG_TO_STD_OUT);
-
-				Assert.assertTrue(commoditiesForm.navigate(),
-				"Status error during configuration!");
+				Boolean status=commoditiesForm.isPaymentMeanInList(setupCommodities.getName());
+				if(status==true)
+				{
+					Assert.assertTrue(status);
+					Reporter.log("Payment Mean Created Succesfully!");
+				}
+				else
+				{
+					//Assert.assertTrue(status,"The creation of Product Failed!");
+					Assert.fail("The Payment Mean creation Failed!");
+				}
 			}
 		}
 	
@@ -169,13 +177,20 @@ public class TestPaymentMeanForm extends ParentTestCase{
 					commoditiesForm.clickEditCommoditiesPaymentMeanbutton(setupCommodities.getName());
 						
 					commoditiesForm.setEditCommodityPaymentMean(setupCommodities.getNewCurrency());
-			
+					commoditiesForm.saveEditCommodityPaymentMean();
 					Reporter.log("Apply setup on UI.", LOG_TO_STD_OUT);
 			
-					Assert.assertEquals(commoditiesForm.saveEditCommodityPaymentMean(),
-				"Status error during edit!");
-
-					Reporter.log("Check general status of form", LOG_TO_STD_OUT);
+					Boolean status=commoditiesForm.isPaymentMeanInList(setupCommodities.getNewCurrency());
+					if(status==true)
+					{
+						Assert.assertTrue(status);
+						Reporter.log("Payment Mean Edited Succesfully!");
+					}
+					else
+					{
+						//Assert.assertTrue(status,"The creation of Product Failed!");
+						Assert.fail("The Payment Mean modification Failed!");
+					}
 				}
 			}
 		}
@@ -217,7 +232,7 @@ public class TestPaymentMeanForm extends ParentTestCase{
 			 */
 			if ( setupCommodities.getCurrentElement().getDelete() ) 
 			{
-				Assert.assertTrue(commoditiesForm.deleteCommoditiesPaymentMean(setupCommodities.getName()),"Status error during cleanup!");
+				Assert.assertTrue(commoditiesForm.deleteCommoditiesPaymentMean(setupCommodities.getNewCurrency()),"Status error during cleanup!");
 			}
 		}
 
