@@ -86,10 +86,17 @@ public class JSONLoyaltiesCreation extends JsonConfigurationFile {
     	
 		return getCurrentElement().getStringFromPath("option"); 		
 	}	
+    
+    public String getBadgesType() throws JSONSException {
+		
+		  return getCurrentElement().getStringFromPath("badgesType"); 		
+	}
    
+    
     public Boolean getEnabled() throws JSONException {
 		return getCurrentElement().getBooleanFromPath( "enabled" );
 	}
+    
     /**
 	 * This method returns the "description" of current element.
 	 * The current element must be selected with "setCurrentElementById" method.
@@ -166,6 +173,8 @@ public class JSONLoyaltiesCreation extends JsonConfigurationFile {
 		
 		return resp;
 	}	
+	
+	
 	
 	@Override
 	public String getElementsSectionLabel() {
