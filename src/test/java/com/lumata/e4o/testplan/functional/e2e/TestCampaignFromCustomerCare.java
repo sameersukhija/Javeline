@@ -31,8 +31,11 @@ import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
 import com.lumata.e4o.gui.customercare.CustomerCareCampaignsForm;
 import com.lumata.e4o.gui.customercare.CustomerCareCreateSubscriberForm;
+import com.lumata.e4o.gui.customercare.CustomerCareHistoryForm;
+import com.lumata.e4o.gui.customercare.CustomerCareProfileForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
 import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
+import com.lumata.e4o.schema.global.NotifLogs;
 import com.lumata.e4o.schema.tenant.Subscribers;
 import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.e4o.testing.common.TCMysqlMaster;
@@ -57,7 +60,7 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 	private JSONCampaignModel campaignModelJson = null;
 	private String campaignModelName = null;
 	private String campaign_name = null;
-	private final Long MSISDN = 33488800002L;
+	private final Long MSISDN = 44871004956L;
 	private final String STATUS = "active (prepaid)";
 	private final String RATE_PLAN_NAME = "FUN";
 	private final String INTAG = "QAIN";
@@ -65,6 +68,7 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 	private final Long IMEI = 4567L;
 	private final String TONGUE = "ENG";
 	private final Date date = Calendar.getInstance().getTime();
+	private NotifLogs notiflogs = null;
 	Boolean status = false;
 	int TIMEOUT = 60000;
 	int ATTEMPT_TIMEOUT = 200;
@@ -109,9 +113,56 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 
 	}
 
+	/**
+	 * UC22-03 Verify Notification history under history tab of customer care
+	 * for particular time window
+	 */
+	@Test(enabled = TEST_ENABLED, priority = 2)
+	public void testUc2203_verifyNotificationHistoryTab() throws FormException {
+		CustomerCareHistoryForm customerCareHistoryForm = new CustomerCareHistoryForm(
+				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		customerCareHistoryForm.clickSearchButton();
+		customerCareHistoryForm.openHistoryTab();
+		customerCareHistoryForm.clickNotificationHistoryRefreshButton();
+		String status = customerCareHistoryForm
+				.getNotificationHistoryStatus(getCampaignName());
+		String strChannelName = customerCareHistoryForm
+				.getChannel(getCampaignName());
+		Assert.assertEquals(status, "NOT_SENT");
+		Assert.assertEquals(strChannelName, "SMS");
+		Reporter.log("Status verified with Channel", LOG_TO_STD_OUT);
+	}
+
+	/*
+	 * UC22-01 Verify bonus detail under history tab of customer care for
+	 * particular time window
+	 */
+	@Test(enabled = TEST_ENABLED, priority = 3)
+	public void testUc2201_verifyBonusDetailHistoryTab() throws FormException {
+		CustomerCareHistoryForm customerCareHistoryForm = new CustomerCareHistoryForm(
+				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		customerCareHistoryForm.openHistoryTab();
+		customerCareHistoryForm.clickBonusDetailsRefreshButton();
+		String strRewardName = customerCareHistoryForm
+				.getRewardName(getCampaignName());
+		String strRewardQuantity = customerCareHistoryForm
+				.getRewardQuantity(getCampaignName());
+		String strOperationType = customerCareHistoryForm
+				.getOperationType(getCampaignName());
+		Assert.assertEquals(strRewardName, "Points");
+		Assert.assertEquals(strRewardQuantity, "10");
+		Assert.assertEquals(strOperationType, "credit");
+		Reporter.log(
+				"Bonus as points verified in Bonus Details section of Historytab of CustomerCare",
+				LOG_TO_STD_OUT);
+	}
+
 	private void createSubscriber() throws FormException {
 		customerCareCreateSubscriberForm = new CustomerCareCreateSubscriberForm(
 				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		CustomerCareProfileForm customerCareProfileForm = new CustomerCareProfileForm(
+				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+
 		Reporter.log("Open CustomerCare Tab.", LOG_TO_STD_OUT);
 		customerCareCreateSubscriberForm.open();
 		subscriber = DAOSubscribers.getInstance(mysqlMaster).getSubscriber(
@@ -132,6 +183,13 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 			customerCareCreateSubscriberForm.enterLanguage(TONGUE);
 			// Click add button
 			customerCareCreateSubscriberForm.clickCustomerCareCreateAdd();
+
+			customerCareProfileForm.open();
+			customerCareProfileForm.clickChannel();
+			customerCareProfileForm.clickAddChannelButton();
+			customerCareProfileForm.addChannel("SMS", String.valueOf(MSISDN),
+					"Active");
+
 			Reporter.log("Subscriber created successfully");
 		}
 	}

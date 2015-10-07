@@ -1,6 +1,5 @@
 package com.lumata.e4o.testplan.functional.e2e;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,6 +40,7 @@ import com.lumata.e4o.gui.catalogmanager.SuppliersForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.gui.customercare.CustomerCareCreateSubscriberForm;
 import com.lumata.e4o.gui.customercare.CustomerCareForm;
+import com.lumata.e4o.gui.customercare.CustomerCareHistoryForm;
 import com.lumata.e4o.gui.customercare.CustomerCarePurchasesForm;
 import com.lumata.e4o.gui.customercare.CustomerCareTokensForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
@@ -62,191 +62,214 @@ import com.lumata.e4o.testing.common.TCOwner;
 import com.lumata.e4o.testing.common.TCOwners;
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
-@TCOwners(
-	@TCOwner( name="Parvinder Bhogra", email="parvinder.bhogra@lumatagroup.com" )
-)
+@TCOwners(@TCOwner(name = "Parvinder Bhogra", email = "parvinder.bhogra@lumatagroup.com"))
 @TCSeleniumWebDriver
 @TCMysqlMaster
 public class TestPurchaseOfferFromCustomerCare extends ParentTestCase {
 
-	private static final Logger logger = LoggerFactory.getLogger( TestPurchaseOfferFromCustomerCare.class );
-	public String OFFER_NAME=null;
-	
-	JSONOffers setupOffer=null;
-	@Parameters({"jsonFilePath_Offer","jsonFileName_Offer"})
-	@Test(enabled=TEST_ENABLED,priority = 1 ,timeOut=1500000)
-	public void testUC20_01purchaseOfferFromCustomerCare(String jsonFilePath_Offer,String jsonFileName_Offer) throws JSONSException,FormException{
-		
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
-		String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_Offer;
-		String resourceFile2 = jsonFileName_Offer;
-		setupOffer = new JSONOffers(resourcePath2,resourceFile2);
+	private static final Logger logger = LoggerFactory
+			.getLogger(TestPurchaseOfferFromCustomerCare.class);
+	public String OFFER_NAME = null;
+	private CustomerCareHistoryForm customerCareHistoryForm;
 
-		Boolean offer_status=false;
+	JSONOffers setupOffer = null;
+
+	@Parameters({ "jsonFilePath_Offer", "jsonFileName_Offer" })
+	@Test(enabled = TEST_ENABLED, priority = 1, timeOut = 1500000)
+	public void testUC20_01purchaseOfferFromCustomerCare(
+			String jsonFilePath_Offer, String jsonFileName_Offer)
+			throws JSONSException, FormException {
+
+		seleniumWebDriver.getWrappedDriver().manage().timeouts()
+				.implicitlyWait(40, TimeUnit.SECONDS);
+		String resourcePath2 = DEFAULT_RESOURCE_FOLDER_ROOT
+				+ jsonFilePath_Offer;
+		String resourceFile2 = jsonFileName_Offer;
+		setupOffer = new JSONOffers(resourcePath2, resourceFile2);
+
+		Boolean offer_status = false;
 
 		Reporter.log("Creation of \"Offers Form\".", LOG_TO_STD_OUT);
 
-		int numberOfOffer=setupOffer.getList().size();
+		int numberOfOffer = setupOffer.getList().size();
 		for (int index = 0; index < numberOfOffer; index++) {
-			
-		JsonCurrentElement current =setupOffer.getCurrentElementById(index);
-		if(current.getEnabled()==true)
-		{
-			
-			OFFER_NAME= Format.addTimestamp( setupOffer.getName() + "_" );
-			OffersForm offerForm = new OffersForm( seleniumWebDriver,setupOffer, TIMEOUT, ATTEMPT_TIMEOUT );
-		    
-				offerForm.
-				openForm().
-				
+
+			JsonCurrentElement current = setupOffer
+					.getCurrentElementById(index);
+			if (current.getEnabled() == true) {
+
+				OFFER_NAME = Format.addTimestamp(setupOffer.getName() + "_");
+				OffersForm offerForm = new OffersForm(seleniumWebDriver,
+						setupOffer, TIMEOUT, ATTEMPT_TIMEOUT);
+
+				offerForm.openForm().
+
 				clickAddOffer();
-				offerForm.setName(OFFER_NAME).
-			    setDescription(setupOffer.getDescription()).
-				setTerms(setupOffer.getTermsAndConditions()).
-				clickOfferContentTab();
-				
-				List<JSONOfferContentElement> list_offer_content=setupOffer.getOfferContents();
-				if(list_offer_content!=null && list_offer_content.size()!=0)
-				{
-					for(JSONOfferContentElement offercon:list_offer_content)
-					{
-					//JsonCurrentElement cur=list_offer_content.get(j);
-						System.out.println("the type of offercontent is "+ offercon.getOfferContentType());
-					if(offercon.getOfferContentType().equals(OfferContentType.Products))
-					{
-						offerForm.addCharacteristicButton();
-						offerForm.setProductName(offercon.getProduct()).setProductQuantity(Integer.toString(offercon.getQuantity())).saveCharacteristic();
+				offerForm.setName(OFFER_NAME)
+						.setDescription(setupOffer.getDescription())
+						.setTerms(setupOffer.getTermsAndConditions())
+						.clickOfferContentTab();
+
+				List<JSONOfferContentElement> list_offer_content = setupOffer
+						.getOfferContents();
+				if (list_offer_content != null
+						&& list_offer_content.size() != 0) {
+					for (JSONOfferContentElement offercon : list_offer_content) {
+						// JsonCurrentElement cur=list_offer_content.get(j);
+						System.out.println("the type of offercontent is "
+								+ offercon.getOfferContentType());
+						if (offercon.getOfferContentType().equals(
+								OfferContentType.Products)) {
+							offerForm.addCharacteristicButton();
+							offerForm
+									.setProductName(offercon.getProduct())
+									.setProductQuantity(
+											Integer.toString(offercon
+													.getQuantity()))
+									.saveCharacteristic();
+						}
 					}
-				}
 				}
 				offerForm.clickPriceTab();
-			
-			List<JSONPricesElement> prices = setupOffer.getOffersPrices();
-			
-			if ( prices != null && prices.size() != 0 ) {
 
-				for (JSONPricesElement price : prices) {
-					
-					
+				List<JSONPricesElement> prices = setupOffer.getOffersPrices();
 
-					for (String channel : price.getChannels()) {
-						offerForm.clickAddPriceButton();
-						offerForm.setPriceChannel(channel);
+				if (prices != null && prices.size() != 0) {
+
+					for (JSONPricesElement price : prices) {
+
+						for (String channel : price.getChannels()) {
+							offerForm.clickAddPriceButton();
+							offerForm.setPriceChannel(channel);
+						}
 					}
 				}
-			}
-			
-			
+
 				offerForm.clickNotificationTab().addNotification().
-			
-				clickAvailabilityTab().setAvailableOffers( setupOffer.getStock() );	
-				List<JSONReservationElement> reserv=setupOffer.getReservations();
-				if(reserv!=null && reserv.size()!=0)
-				{
-					for(JSONReservationElement crres : reserv)
-					offerForm.setStockReservation(crres.getChannel(), Integer.toString(crres.getQuantity()));
+
+				clickAvailabilityTab()
+						.setAvailableOffers(setupOffer.getStock());
+				List<JSONReservationElement> reserv = setupOffer
+						.getReservations();
+				if (reserv != null && reserv.size() != 0) {
+					for (JSONReservationElement crres : reserv)
+						offerForm.setStockReservation(crres.getChannel(),
+								Integer.toString(crres.getQuantity()));
 				}
 				offerForm.clickActivationTab().ActivationBtn();
-				
-				offer_status=offerForm.isOfferInList(OFFER_NAME);
-				
-				if(offer_status==true)
-				{
+
+				offer_status = offerForm.isOfferInList(OFFER_NAME);
+
+				if (offer_status == true) {
 					Assert.assertTrue(offer_status);
 					Reporter.log("Offer Created Succesfully!");
-					
-				}
-				else
-				{
-					
+
+				} else {
+
 					AssertJUnit.fail("The Offer creation Failed!");
 					Reporter.log("Creation of Offer Failed!");
 				}
-	}
-
-		
-		
-		}
-		Boolean subscriber_created=false;
-		Boolean subscriber_exists = DAOSubscribers.getInstance( mysqlMaster ).isSubscriber(9890234567L);
-		if(!subscriber_exists)
-		{
-			subscriber_created=createSubscriber("9890234567");
-		
-			if(subscriber_created==false)
-			{
-				Assert.fail("The Subscriber creation Failed!");
-				Reporter.log("Creation of Subscriber Failed!",LOG_TO_STD_OUT);
-			
-			
 			}
-			else{
+
+		}
+		Boolean subscriber_created = false;
+		Boolean subscriber_exists = DAOSubscribers.getInstance(mysqlMaster)
+				.isSubscriber(9890234567L);
+		if (!subscriber_exists) {
+			subscriber_created = createSubscriber("9890234567");
+
+			if (subscriber_created == false) {
+				Assert.fail("The Subscriber creation Failed!");
+				Reporter.log("Creation of Subscriber Failed!", LOG_TO_STD_OUT);
+
+			} else {
 				Assert.assertTrue(subscriber_created);
 				logger.info("Created Subscriber Succesfully");
 			}
 		}
-		//Purchase offer from customercare
-		Boolean purchased=purchaseOffer();
-		if(purchased==false)
-		{
+		// Purchase offer from customercare
+		Boolean purchased = purchaseOffer();
+		if (purchased == false) {
 			Assert.fail("The Purchase of Offer Failed!");
-			Reporter.log("The Purchase of Offer Failed!",LOG_TO_STD_OUT);
-		
-		
-		}
-		else{
+			Reporter.log("The Purchase of Offer Failed!", LOG_TO_STD_OUT);
+
+		} else {
 			Assert.assertTrue(purchased);
 			logger.info("Purchased offer Succesfully");
 		}
-}
-	public Boolean createSubscriber(String number)
-	{
-		Boolean status=false;
+	}
+
+	@Test(enabled = TEST_ENABLED, priority = 2, timeOut = 1500000)
+	public void testUc22_02verifyPurchaseDetailHistoryTab()
+			throws FormException {
+
+		customerCareHistoryForm = new CustomerCareHistoryForm(
+				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		customerCareHistoryForm.open();
+		customerCareHistoryForm.setSubscriberMsisdn("9890234567");
+		customerCareHistoryForm.clickSearchButton();
+		customerCareHistoryForm.openHistoryTab();
+		customerCareHistoryForm.clickPurchaseDetailsRefreshButton();
+		Boolean purchaseDetail = customerCareHistoryForm
+				.isOfferNameInList(OFFER_NAME);
+		if (purchaseDetail == true) {
+			Assert.assertTrue(purchaseDetail);
+			Reporter.log("offer purchase successfully and logged in history tab");
+		} else {
+			Assert.fail("No record found in History tab for purchase detail");
+			Reporter.log("No record found in History tab for purchase detail",
+					LOG_TO_STD_OUT);
+		}
+	}
+
+	public Boolean createSubscriber(String number) {
+		Boolean status = false;
 		CustomerCareCreateSubscriberForm customerCareCreateSubscriberForm = new CustomerCareCreateSubscriberForm(
 				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-			
-		try{
-		
+
+		try {
+
 			customerCareCreateSubscriberForm.open();
-		// Enter msisdn
-		
+			// Enter msisdn
+
 			customerCareCreateSubscriberForm.setSubscriberMsisdn(number);
-		// Click AddButton
+			// Click AddButton
 			customerCareCreateSubscriberForm.clickCustomerCareAddButton();
-		// Enter Language
-		customerCareCreateSubscriberForm.enterLanguage("ENG");
-		// Click add button
-		customerCareCreateSubscriberForm.clickCustomerCareCreateAdd();
-		customerCareCreateSubscriberForm.clickClearButton();
-		status=customerCareCreateSubscriberForm.subscriberPhoneNumberExists(null, "9890234567");
-		customerCareCreateSubscriberForm.clickClearButton();
-		//status=customerCareCreateSubscriberForm.searchById("gwt-debug-BtnCCInfoEdit").isDisplayed();
-		}catch (FormException e)
-		{
-			Reporter.log("Exception occured while creating Subscriber!"+e.getMessage());
+			// Enter Language
+			customerCareCreateSubscriberForm.enterLanguage("ENG");
+			// Click add button
+			customerCareCreateSubscriberForm.clickCustomerCareCreateAdd();
+			customerCareCreateSubscriberForm.clickClearButton();
+			status = customerCareCreateSubscriberForm
+					.subscriberPhoneNumberExists(null, "9890234567");
+			customerCareCreateSubscriberForm.clickClearButton();
+			// status=customerCareCreateSubscriberForm.searchById("gwt-debug-BtnCCInfoEdit").isDisplayed();
+		} catch (FormException e) {
+			Reporter.log("Exception occured while creating Subscriber!"
+					+ e.getMessage());
 		}
 		return status;
 	}
-	public Boolean purchaseOffer()
-	{
-		Boolean status=false;
+
+	public Boolean purchaseOffer() {
+		Boolean status = false;
 		CustomerCarePurchasesForm purchase = new CustomerCarePurchasesForm(
 				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-		try{
-			
+		try {
+
 			purchase.open();
-			purchase.searchMsisdnByPhoneNumber(null,"9890234567");
+			purchase.searchMsisdnByPhoneNumber(null, "9890234567");
 			purchase.openPurchasesTab().purchaseOffer(OFFER_NAME);
 			purchase.setPurchaseQuantity("1");
 			purchase.setChannel("Campaign manager").clickOKButton();
 			purchase.handleJavascriptAlertAcceptDismiss(true);
 			purchase.confirmDialog();
-			status=purchase.isPurchaseSuccessfull(OFFER_NAME);
-		}catch (FormException e)
-		{
-			Reporter.log("Exception occured while purchasing offer!"+e.getMessage());
+			status = purchase.isPurchaseSuccessfull(OFFER_NAME);
+		} catch (FormException e) {
+			Reporter.log("Exception occured while purchasing offer!"
+					+ e.getMessage());
 		}
-		
+
 		return status;
 	}
 }

@@ -666,8 +666,11 @@ return this;
 				
 		String ruleActionPattern = "^Rulesets[.].*";		
 		
+				
 		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow' ) and position() = " + eventRow + " ]//td[@class='column_commodity']"; 
+	
 		String actionXPathRow = eventXPathRow + "//table[@class='commodityContainer']/tbody/tr[" + actionRow + "]";
+		String actionValuePath = actionXPathRow+"//input[@id='gwt-debug-TextCampaignModelCreationEAValue']";
 		String actionXPathRowAType = actionXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationEAType']";
 		String actionXPathRowAUnit = actionXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']";			
 		String actionXPathRowAAutoAllocation = actionXPathRow + "//*[contains(text(), '::AUTO_ALLOCATE::') ]/parent::select";
@@ -675,7 +678,10 @@ return this;
 		
 		/** configure action */
 		clickXPath( actionXPathRowAType ).
-		selectDropDownListItem( action.getName() );
+		selectDropDownListItem( action.getName());
+		if (null!= action.getValue()){
+		sendKeysByXPath(actionValuePath, action.getValue());
+		}
 		
 		if( null != action.getOption() ) { 
 			
@@ -686,10 +692,12 @@ return this;
 			} else { selectByXPathAndVisibleText( actionXPathRowAUnit, action.getOption() ); }
 		
 		}
+		
 				
 		return this;
 		
 	}
+	
 	
 	public CampaignModelForm configureAction1( JSONAction action, Integer eventRow, Integer actionRow ) throws JSONException, FormException {
 		

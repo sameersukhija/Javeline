@@ -13,10 +13,10 @@
 				{	
 					"eventType":"Campaign start", 
 					"criteria":[
-					{ "type":"Subscriber.Msisdn","operator" : "=", "value" : "33488800002", "delete" : false} 
+					{ "type":"Subscriber.Msisdn","operator" : "=", "value" : "44871004956", "delete" : false} 
 					],
 					"actions": [
-						{ "name": "Accept Offer.Accept Offer 1","name1":"Accept Offer.Accept Offer 2","name2":"Accept Offer.Accept Offer 3","option": null,"option1": null,"option2": null,"delete": false }							
+						{ "name": "Commodities.Credit.Points", "value": "10", "option":null, "time": null, "delete": false}							
 					],
 					"beneficiary": true,
 					"notifications": null,
