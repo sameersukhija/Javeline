@@ -32,7 +32,8 @@ public class TestDMNotificationEnabled extends ParentTestCase {
 		//notifXMLFile = "notif_EFOGC_4060_MC.xml";
 		//notifXMLFile = "notif_EFOGC_4060_unsupported_tags.xml";
 		//notifXMLFile = "notif_EFOGC_4060_ignore_unformatted_tags.xml";
-		notifXMLFile = "notif_EFOGC_4060_new_parameters_true.xml";
+		//notifXMLFile = "notif_EFOGC_4060_new_parameters_true.xml";
+		//notifXMLFile = "notif_EFOGC_4091_channel_priority.xml";
 		// check if notif.xml entry is present in the files_meta table
 		FilesMeta fm = new FilesMeta();
 		

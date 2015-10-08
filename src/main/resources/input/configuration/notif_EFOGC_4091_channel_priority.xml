@@ -1,0 +1,363 @@
+<NotifConfiguration>\n            
+    
+    <defaults>\n                        
+        
+        <default>\n                                    
+            
+            <!-- filters -->\n                                    
+            
+            <channel_name>SMS</channel_name>\n                                    
+            
+            <!-- properties -->\n                                    
+            
+            <!-- encoding_charset -->\n                                    
+            
+            <!-- queue -->\n                                    
+            
+            <!-- bypass_time_window -->\n                                    
+            
+            <bypass_time_window>\n                                                
+                
+                <start_time>08:00</start_time>\n                                                
+                
+                <end_time>23:59</end_time>\n                                                
+                
+                <restart_time>08:00</restart_time>\n                                    
+            
+            </bypass_time_window>\n                                    
+            
+            <!-- retry -->\n                                    
+            
+            <priority>8</priority>\n                                    
+            
+            <!--<formatters><formatter>com.act750.notif.format.NotifTagFormatter</formatter></formatters>-->\n                                    
+            
+            <source>Lumata \|/</source>\n                                    
+            
+            <retry>\n                                                
+                
+                <max_retries>3</max_retries>\n                                                
+                
+                <one_attempt_per_day>false</one_attempt_per_day>\n                                    
+            
+            </retry>\n                                    
+            
+            <expiration_period>2</expiration_period>\n                                    
+            
+            <max_expiration_delay>60</max_expiration_delay>\n                                    
+            
+            <support_destination_missing>false</support_destination_missing>\n                               
+            
+            <support_unformatted_tags>true</support_unformatted_tags>\n                                    
+            
+            <ignore_unformatted_content>true</ignore_unformatted_content>\n                                 
+            
+            <queue>\n                                                
+                
+                <module_id>module_id</module_id>\n                                                
+                
+                <feature_id></feature_id>\n                                    
+            
+            </queue>\n                        
+        
+        </default>\n                        
+        
+        <default>\n                                    
+            
+            <!-- filters -->\n                                    
+            
+            <channel_name>MAIL</channel_name>\n                                    
+            
+            <!-- properties -->\n                                    
+            
+            <!-- encoding_charset -->\n                                    
+            
+            <!-- queue -->\n                                    
+            
+            <!-- bypass_time_window -->\n                                    
+            
+            <bypass_time_window>\n                                                
+                
+                <start_time>08:00</start_time>\n                                                
+                
+                <end_time>23:59</end_time>\n                                                
+                
+                <restart_time>08:00</restart_time>\n                                    
+            
+            </bypass_time_window>\n                                    
+            
+            <!-- retry -->\n                                    
+            
+            <priority>8</priority>\n                                    
+            
+            <!--<formatters><formatter>com.act750.notif.format.NotifTagFormatter</formatter></formatters>-->\n                                    
+            
+            <source>Lumata \|/</source>\n                                    
+            
+            <expiration_period>2</expiration_period>\n                                    
+            
+            <max_expiration_delay>12</max_expiration_delay>\n                                    
+            
+            <support_destination_missing>true</support_destination_missing>\n                               
+            
+            <support_unformatted_tags>true</support_unformatted_tags>\n                                    
+            
+            <ignore_unformatted_content>true</ignore_unformatted_content>\n                                 
+            
+            <queue>\n                                                
+                
+                <module_id>module_id</module_id>\n                                                
+                
+                <feature_id></feature_id>\n                                    
+            
+            </queue>\n                        
+        
+        </default>\n                        
+    
+    </defaults>\n            
+    
+    <rules>\n 
+        
+        <rule>\n                                    
+            
+            <!-- filters -->\n                                    
+            
+            <channel_name>SMS</channel_name>\n                                    
+            
+            <module_name>CampaignManager</module_name>\n                                    
+            
+            <!-- bypass_time_window -->\n                                    
+            
+            <bypass_time_window>\n                                                
+                
+                <start_time>08:00</start_time>\n                                                
+                
+                <end_time>20:00</end_time>\n                                                
+                
+                <restart_time>08:00</restart_time>\n                                    
+            
+            </bypass_time_window>\n                                    
+            
+            <priority>3</priority>\n                                    
+            
+            <queue>\n                                                
+                
+                <module_id>module_id</module_id>\n                                                
+                
+                <feature_id>feature_id</feature_id>\n                                    
+            
+            </queue>\n                        
+        
+        </rule>
+        <rule>\n                                    
+            
+            <!-- filters -->\n                                    
+            
+            <channel_name>SMS</channel_name>\n                                    
+            
+            <module_name>CampaignProvisioning</module_name>\n                                    
+            
+            <!-- bypass_time_window -->\n                                    
+            
+            <bypass_time_window>\n                                                
+                
+                <start_time>17:28</start_time>\n                                                
+                
+                <end_time>20:00</end_time>\n                                                
+                
+                <restart_time>17:28</restart_time>\n                                    
+            
+            </bypass_time_window>\n                                    
+            
+            <priority>4</priority>\n                                    
+            
+            <queue>\n                                                
+                
+                <module_id>module_id</module_id>\n                                                
+                
+                <feature_id>feature_id</feature_id>\n                                    
+            
+            </queue>\n                        
+        
+        </rule>
+        <rule>\n                                    
+            
+            <!-- filters -->\n                                    
+            
+            <channel_name>SMS</channel_name>\n                                    
+            
+            <module_name>Catalog</module_name>\n                                    
+            
+            <!-- bypass_time_window -->\n                                    
+            
+            <bypass_time_window>\n                                                
+                
+                <start_time>08:00</start_time>\n                                                
+                
+                <end_time>20:00</end_time>\n                                                
+                
+                <restart_time>08:00</restart_time>\n                                    
+            
+            </bypass_time_window>\n                                    
+            
+            <priority>7</priority>\n                                    
+            
+            <queue>\n                                                
+                
+                <module_id>module_id</module_id>\n                                                
+                
+                <feature_id>feature_id</feature_id>\n                                    
+            
+            </queue>\n                        
+        
+        </rule>
+        <rule>\n                                    
+            
+            <channel_name>SMS</channel_name>\n                                    
+            
+            <module_name>Solution</module_name>\n                                    
+            
+            <bypass_destination_lookup>true</bypass_destination_lookup>\n                        
+            <priority>9</priority>\n                                    
+            
+            <!-- low priority-->\n                                    
+            
+            <source>Lumata \|/</source>\n                                    
+            
+            <retry>\n                                                
+                
+                <max_retries>3</max_retries>\n                                                
+                
+                <one_attempt_per_day>false</one_attempt_per_day>\n                                    
+            
+            </retry>\n                                    
+            
+            <queue>\n                                                
+                
+                <module_id>module_id</module_id>\n                                                
+                
+                <feature_id>feature_id</feature_id>\n                                    
+            
+            </queue>\n                        
+        
+        </rule>\n
+        
+        <rule>\n                                    
+            
+            <!-- filters -->\n                                    
+            
+            <channel_name>MAIL</channel_name>\n                                    
+            
+            <module_name>CampaignManager</module_name>\n                                    
+            
+            <!-- bypass_time_window -->\n                                    
+            
+            <bypass_time_window>\n                                                
+                
+                <start_time>08:00</start_time>\n                                                
+                
+                <end_time>20:00</end_time>\n                                                
+                
+                <restart_time>08:00</restart_time>\n                                    
+            
+            </bypass_time_window>\n                                    
+            
+            <priority>3</priority>\n                                    
+            
+            <queue>\n                                                
+                
+                <module_id>module_id</module_id>\n                                                
+                
+                <feature_id>feature_id</feature_id>\n                                    
+            
+            </queue>\n                        
+        
+        </rule>
+        <rule>\n                                    
+            
+            <!-- filters -->\n                                    
+            
+            <channel_name>MAIL</channel_name>\n                                    
+            
+            <module_name>CampaignProvisioning</module_name>\n                                    
+            
+            <!-- bypass_time_window -->\n                                    
+            
+            <bypass_time_window>\n                                                
+                
+                <start_time>08:00</start_time>\n                                                
+                
+                <end_time>20:00</end_time>\n                                                
+                
+                <restart_time>08:00</restart_time>\n                                    
+            
+            </bypass_time_window>\n                                    
+            
+            <priority>4</priority>\n                                    
+            
+            <queue>\n                                                
+                
+                <module_id>module_id</module_id>\n                                                
+                
+                <feature_id>feature_id</feature_id>\n                                    
+            
+            </queue>\n                        
+        
+        </rule>\n    
+        
+        <rule>\n                                    
+            
+            <!-- filters -->\n                                    
+            
+            <channel_name>MAIL</channel_name>\n                                    
+            
+            <module_name>Catalog</module_name>\n                                    
+            
+            <!-- bypass_time_window -->\n                                    
+            
+            <bypass_time_window>\n                                                
+                
+                <start_time>08:00</start_time>\n                                                
+                
+                <end_time>20:00</end_time>\n                                                
+                
+                <restart_time>08:00</restart_time>\n                                    
+            
+            </bypass_time_window>\n                                    
+            
+            <priority>7</priority>\n                                    
+            
+            <queue>\n                                                
+                
+                <module_id>module_id</module_id>\n                                                
+                
+                <feature_id>feature_id</feature_id>\n                                    
+            
+            </queue>\n                        
+        
+        </rule>
+        <rule>\n                                    
+            
+            <channel_name>MAIL</channel_name>\n                                    
+            
+            <module_name>Solution</module_name>\n                                    
+            
+            <bypass_destination_lookup>true</bypass_destination_lookup>\n                                    
+            
+            <priority>9</priority>\n                                    
+            
+            <!-- low priority-->\n                                    
+            
+            <queue>\n                                                
+                
+                <module_id>module_id</module_id>\n                                                
+                
+                <feature_id>feature_id</feature_id>\n                                    
+            
+            </queue>\n                        
+        
+        </rule>\n                        
+    
+    </rules>\n
+
+</NotifConfiguration>

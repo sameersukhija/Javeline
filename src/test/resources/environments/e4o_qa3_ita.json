@@ -79,7 +79,7 @@
       "password": "YGRramxt"
     },
     "tenantMaster": {
-      "hostName": "tenant",
+      "hostName": "operator",
       "hostAddress": "10.120.38.36",
       "hostPort": "3306",
       "maxActive": 100,
@@ -89,7 +89,7 @@
       "password": "YGRramxt"
     },
     "tenantReport": {
-      "hostName": "tenant",
+      "hostName": "operator",
       "hostAddress": "10.120.38.36",
       "hostPort": "3301",
       "maxActive": 100,
