@@ -77,6 +77,20 @@ public class XMLRPCRequestMethods {
 		
 	}
 	
+	public static XMLRPCRequestMethods bool( Boolean value ) {
+		
+		StringBuilder valuePOSTBody = new StringBuilder();
+		
+		valuePOSTBody.append( "<param><value><boolean>");
+		
+		if( null != value ) { valuePOSTBody.append( value.booleanValue()?"1":"0" ); }
+		
+		valuePOSTBody.append("</boolean></value></param>" );
+		
+		return new XMLRPCRequestMethods( valuePOSTBody );
+		
+	}
+	
 	public static XMLRPCRequestMethods integer( Integer value ) {
 		
 		StringBuilder valuePOSTBody = new StringBuilder();

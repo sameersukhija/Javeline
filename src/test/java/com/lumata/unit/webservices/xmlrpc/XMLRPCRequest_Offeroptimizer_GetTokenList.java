@@ -22,9 +22,10 @@ public class XMLRPCRequest_Offeroptimizer_GetTokenList extends ParentTestCase {
 				authentication( user ),
 				string( msisdn ),
 				string(""),
-				string("")
-				//arrayString( "active", "offers_allocated", "consumed" ),
-				//string("loyalty")
+				string(""),
+				arrayString("consumed"),
+				string("campaign"),
+				bool(true)
 			),
 			xmlrpcOptions(
 				storeRequestAsResource( "xmlrpc/request/", "request.xml" ),
