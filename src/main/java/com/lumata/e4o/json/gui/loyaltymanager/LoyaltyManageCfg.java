@@ -13,6 +13,8 @@ import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.JsonConfigurationElement;
 import com.lumata.common.testing.json.JsonConfigurationFile;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
+import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCriteria;
 import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
 import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation.LoyaltyTypes;
 
@@ -26,7 +28,7 @@ import org.json.JSONObject;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.e4o.json.common.JsonConfig;
 
-public class LoyaltyManageCfg extends JsonConfig {
+public class LoyaltyManageCfg<JSONEvent1_> extends JsonConfig {
 	private JsonConfig currentLoyaltyMgr;
 
 public LoyaltyManageCfg(String folder, String file) throws JSONSException {
@@ -72,6 +74,7 @@ public LoyaltyManageCfg(String folder, String file) throws JSONSException {
 	 * It returns the "badges" array for "Badges Program" type
 	 * 
 	 * @return List<String> of classes or an exception if current element is NOT a "Badges Program" type
+	 * @throws FormException 
 	 * 
 	 * @throws JSONSException 
 	 */
@@ -81,7 +84,7 @@ public LoyaltyManageCfg(String folder, String file) throws JSONSException {
 		//return "loyalties";
 	//}
 
-	public void setLoyaltyById( Integer currentLoyaltyMgrId ) throws JSONException {
+	public void setLoyaltyById( Integer currentLoyaltyMgrId ) throws JSONException, FormException {
 		
 		this.currentLoyaltyMgr = new JsonConfig( getList().getJSONObject( currentLoyaltyMgrId ) );
 				
@@ -110,34 +113,35 @@ private JsonCurrentElement currentInstance2Configure = null;
 		//super(path, jsonFile);
 	//}
 	
-	public JSONArray getList() throws JSONException {
+	public JSONArray getList() throws FormException, JSONException {
 	
 	return (JSONArray)getJSONArrayFromPath("loyalties");
 			
 }
 
-	public Boolean getEnabled() throws JSONException {
+	public Boolean getEnabled() throws  FormException, JSONException {
 		return currentLoyaltyMgr.getBooleanFromPath( "enabled" );
 	}
 
 
-	public String getDefinitionName() throws JSONException {
+	public String getDefinitionName()  throws FormException, JSONException {
 		return currentLoyaltyMgr.getStringFromPath("name");
 	}
 
-	public String getDefinitionDescription() throws JSONException {
+	public String getDefinitionDescription() throws FormException, JSONException {
 		return currentLoyaltyMgr.getStringFromPath("description");
 	}
 
 	
-	public String getDefinitionBadges() throws JSONException {
+	public String getDefinitionBadges()  throws FormException, JSONException {
 		return currentLoyaltyMgr.getStringFromPath("badges");
 	}
 	
-	public String getSchedulingRedeemDays() throws JSONException {
+	public String getSchedulingRedeemDays()  throws FormException, JSONException {
 		return currentLoyaltyMgr.getStringFromPath("RedeemDays");
 	}
 	
+
 	public JSONArray getJSONArrayFromPath( String path ) throws JSONException {
 		
 		Object obj = getObjectFromPath( path );
@@ -172,6 +176,45 @@ private JsonCurrentElement currentInstance2Configure = null;
 	
 	}
 		
+	
+	public Map<String, JSONCriteria> getAwardedcriteria() throws JSONException { 		
+    	
+		Map<String, JSONCriteria> criteria = new LinkedHashMap<String, JSONCriteria>();
+		
+		JSONArray jsonEvents = currentLoyaltyMgr.getJSONArrayFromPath( "criteria" );
+		
+		for( int j = 0; j < jsonEvents.length(); j++ ) {
+			
+			String eventName = "event" + j;
+			
+			criteria.put( eventName, new JSONCriteria( jsonEvents.getJSONObject( j ) ) );
+			
+		}
+		
+		return criteria;  		
+	
+	}
+		
+	
+	public Map<String, JSONEvent_> getRedeemedEvents() throws JSONException { 		
+    	
+		Map<String, JSONEvent_> redeemed = new LinkedHashMap<String, JSONEvent_>();
+		
+		JSONArray jsonEvents = currentLoyaltyMgr.getJSONArrayFromPath( "redeemed" );
+		
+		for( int j = 0; j < jsonEvents.length(); j++ ) {
+			
+			String eventName = "event" + j;
+			
+			redeemed.put( eventName, new JSONEvent_( jsonEvents.getJSONObject( j ) ) );
+			
+		}
+		
+		return redeemed;  		
+	
+	}
+	
+	
 	public Object getObjectFromPath( String path ) {
 		
 		if( null != path && null != root ) {
@@ -243,7 +286,7 @@ private JsonCurrentElement currentInstance2Configure = null;
 	
 	public JSONEvent_ getEventByIndex( Integer eventIndex ) throws JSONException {
 		
-		return new JSONEvent_( currentLoyaltyMgr.getJSONArrayFromPath( "events" ).getJSONObject( eventIndex ) );
+		return new JSONEvent_( currentLoyaltyMgr.getJSONArrayFromPath( "awarded" ).getJSONObject( eventIndex ) );
 		
 	}
 	
@@ -254,11 +297,23 @@ private JsonCurrentElement currentInstance2Configure = null;
 	}
 	
 
+	public JSONEvent_ getEventByIndex1( Integer eventIndex ) throws JSONException {
+		
+		return new JSONEvent_( currentLoyaltyMgr.getJSONArrayFromPath( "redeemed" ).getJSONObject( eventIndex ) );
+		
+	}
+	
+	public JSONEvent_ getEventByName1( String eventName ) throws JSONException, JSONSException {
+		
+		return getRedeemedEvents().get( eventName );
+		
+	}
+	
 	public JSONObject getErrorActions() throws JSONException {
 		return currentLoyaltyMgr.getJSONObjectFromPath( "errorActions" );
 	}
 	
-	public void setcurrentLoyaltyMgrById( Integer currentLoyaltyMgrId ) throws JSONException {
+	public void setcurrentLoyaltyMgrById( Integer currentLoyaltyMgrId )  throws FormException, JSONException {
 		
 		this.currentLoyaltyMgr = new JsonConfig( getList().getJSONObject( currentLoyaltyMgrId) );
 				
@@ -269,50 +324,11 @@ private JsonCurrentElement currentInstance2Configure = null;
 	}
 
 
-	public String getAwardedEventType() throws JSONException {
-		return currentLoyaltyMgr.getStringFromPath("eventType");
-	}
-
-
-	public String getAwardedCriteriaType() throws JSONException, JSONSException {
-		return currentLoyaltyMgr.getStringFromPath("criteriaType");
-	}
-
-	public String getAwardedCriteriaValue() throws JSONException, JSONSException {
-		return currentLoyaltyMgr.getStringFromPath("criteriaValue");
-	}
-
-	public String  getAwardedActionType() throws JSONException, JSONSException {
-		return currentLoyaltyMgr.getStringFromPath("actionType");
-	}
-
-	public String getAwardedOption() throws JSONException, JSONSException {
-		return currentLoyaltyMgr.getStringFromPath("option");
-	}
 	
 	public String getAwardedNotificationMessage() throws JSONException, JSONSException {
 		return currentLoyaltyMgr.getStringFromPath("NotifMsg");
 	}
 	
-	public String getRedeemedEventType() throws JSONException {
-		return currentLoyaltyMgr.getStringFromPath("eventType1");
-	}
-
-	public String getRedeemedCriteriaType() throws JSONException {
-		return currentLoyaltyMgr.getStringFromPath("criteriaType1");
-	}
-
-	public String getRedeemedCriteriaValue() throws JSONException {
-		return currentLoyaltyMgr.getStringFromPath("criteriaValue1");
-	}
-
-	public String getRedeemedActionType() throws JSONException {
-		return currentLoyaltyMgr.getStringFromPath("actionType1");
-	}
-
-	public String getRedeemedOption() throws JSONException {
-		return currentLoyaltyMgr.getStringFromPath("option1");
-	}
 	
 	public String getRedeemedNotificationMessage() throws JSONException {
 		return currentLoyaltyMgr.getStringFromPath("NotifMsg1");

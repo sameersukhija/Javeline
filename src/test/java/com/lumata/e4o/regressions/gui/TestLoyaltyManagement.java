@@ -21,6 +21,7 @@ import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+
 import com.lumata.e4o.gui.loyaltymanager.LoyaltyCreationForm;
 import com.lumata.common.testing.exceptions.IOFileException;
 import com.lumata.common.testing.exceptions.JSONSException;
@@ -34,6 +35,7 @@ import com.lumata.e4o.testing.common.TCOwner;
 import com.lumata.e4o.testing.common.TCOwners;
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCriteria;
 import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
 import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation;
 import com.lumata.e4o.json.gui.loyaltymanager.LoyaltyManageCfg;
@@ -61,7 +63,7 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 
 	private JSONLoyaltiesCreation setupLoyaltiesCreation = null;
 
-	private LoyaltyManageCfg setupLoyaltiesManagement = null;
+	private LoyaltyManageCfg<?> setupLoyaltiesManagement = null;
 	
 	
 	
@@ -82,8 +84,9 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 	private String resourceFile1;
 	private LoyaltyManagmentForm LoyaltyManagmentForm;
 	private JsonConfigurationFile loyalties;
-	private Map<String, JSONEvent_> awarded;
+	private JSONEvent_ awarded;
 	private String jsonFileName1_Loyalty;
+	private LoyaltyManagmentForm clickEditBadgeCreationV2;
 	@BeforeMethod
 	public void initOfferForm( Method method ) throws  FormException {		
 	
@@ -93,9 +96,9 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 	
 	@Parameters({"jsonFilePath_Loyalty", "jsonFileName_Loyalty"})
 	@Test(enabled = TEST_ENABLED,  priority = 1 )
-	public void testUc29_01CreateLoyaltyProgram(@Optional("/input/loyalties") String jsonFilePath_Loyalty,@Optional("loyalty_create") String jsonFileName_Loyalty) throws FormException, JSONException, JSONSException {
+	public void testUc29_01CreateLoyaltyProgram(@Optional("/input/loyalties") String jsonFilePath_Loyalty,
+		@Optional("loyalty_create") String jsonFileName_Loyalty) throws FormException, JSONException, JSONSException {
 	
-		
 	seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		
 	Reporter.log("Creation of \"Loyalty Creation Form\".", LOG_TO_STD_OUT);
@@ -126,7 +129,6 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 					setupLoyaltiesCreation, TIMEOUT, ATTEMPT_TIMEOUT);
 
 			
-			
 			setupLoyaltiesCreation.getType();
 			
 			loyaltyCreationForm.open();
@@ -134,8 +136,6 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 			element2fill =setupLoyaltiesCreation.getBadges();
 			
 			loyaltyCreationForm.clickaddnewBadge(setupLoyaltiesCreation.getType());
-			
-			loyaltyCreationForm.clickaddLoyaltyPrograms();
 			
 			loyaltyCreationForm.addLoyaltyProgramName(setupLoyaltiesCreation.getName());
 	
@@ -145,6 +145,8 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 		}
 	}
 			loyaltyCreationForm.addBadgesTypeName(setupLoyaltiesCreation.getBadges());
+			
+			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			
 			loyaltyCreationForm.clickclosebutton();
 			
@@ -169,7 +171,8 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 
 	@Parameters({"jsonFilePath1_Loyalty", "jsonFileName1_Loyalty"})
 	@Test(enabled = TEST_ENABLED,  priority = 2 )
-	public void testUc29_02testManageExistingLoyaltyProgram(@Optional("/input/loyalties") String jsonFilePath1_Loyalty,@Optional("loyalty_manage") String jsonFileName1_Loyalty) throws FormException, JSONException, JSONSException {
+	public void testUc29_02testManageExistingLoyaltyProgram(@Optional("/input/loyalties") String jsonFilePath1_Loyalty,
+	  @Optional("loyalty_manage") String jsonFileName1_Loyalty) throws FormException, JSONException, JSONSException {
 		
 		Calendar startDate = Calendar.getInstance();
 		
@@ -181,7 +184,7 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 			
 		String resourceFile1 = jsonFileName1_Loyalty;
 		
-		setupLoyaltiesManagement = new LoyaltyManageCfg(resourcePath1, resourceFile1);
+		setupLoyaltiesManagement = new LoyaltyManageCfg<Object>(resourcePath1, resourceFile1);
 
 		LoyaltyManagmentForm = new LoyaltyManagmentForm(seleniumWebDriver,
 				setupLoyaltiesManagement,TIMEOUT, ATTEMPT_TIMEOUT);
@@ -205,6 +208,7 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 			
 			if( setupLoyaltiesManagement.getEnabled() ) {
 			
+				
 				LoyaltyManagmentForm.Management();
 						
 				LoyaltyManagmentForm.clickEditBadgeCreation("BadgesProgramNew");
@@ -216,6 +220,8 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 				LoyaltyManagmentForm.addBadgeLoyaltyProgramDesc(setupLoyaltiesManagement.getDefinitionDescription());
 				
 				LoyaltyManagmentForm.selectBadgeTypeName(setupLoyaltiesManagement.getDefinitionBadges());
+				
+				Map<String, JSONEvent_> awarded =setupLoyaltiesManagement.getAwardedEvents();
 				
 				LoyaltyManagmentForm.openSchedulingTab();
 				
@@ -229,19 +235,7 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 				
 				LoyaltyManagmentForm.addAwardedEventButton();
 				
-				LoyaltyManagmentForm.seteventType(setupLoyaltiesManagement.getAwardedEventType());
-				
-				LoyaltyManagmentForm.addAwardedCriteriaButton();
-				
-				LoyaltyManagmentForm.setcriteriaType(setupLoyaltiesManagement.getAwardedCriteriaType());
-				
-				LoyaltyManagmentForm.setcriteriaValue(setupLoyaltiesManagement.getAwardedCriteriaValue());
-				
-				LoyaltyManagmentForm.addAwardedActionButton();
-				
-				LoyaltyManagmentForm.setActionType(setupLoyaltiesManagement.getAwardedActionType());
-				
-				LoyaltyManagmentForm.setactionValue(setupLoyaltiesManagement.getAwardedOption());
+				LoyaltyManagmentForm.addEvents(awarded);
 				
 				LoyaltyManagmentForm.clickAwardNotificationbutton();
 				
@@ -253,19 +247,9 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 				
 				LoyaltyManagmentForm.addRedeemedEventButton();
 				
-				LoyaltyManagmentForm.seteventType(setupLoyaltiesManagement.getRedeemedEventType());
+				Map<String, JSONEvent_> redeemed =setupLoyaltiesManagement.getRedeemedEvents();
 				
-				LoyaltyManagmentForm.addAwardedCriteriaButton();
-				
-				LoyaltyManagmentForm.setcriteriaType(setupLoyaltiesManagement.getRedeemedCriteriaType());
-				
-				LoyaltyManagmentForm.setcriteriaValue(setupLoyaltiesManagement.getRedeemedCriteriaValue());
-				
-				LoyaltyManagmentForm.addAwardedActionButton();
-				
-				LoyaltyManagmentForm.setActionType(setupLoyaltiesManagement.getRedeemedActionType());
-				
-				LoyaltyManagmentForm.setactionValue(setupLoyaltiesManagement.getRedeemedOption());
+				LoyaltyManagmentForm.addEventsr(redeemed);
 				
 				LoyaltyManagmentForm.clickAwardNotificationbutton();
 				
@@ -282,7 +266,6 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 				loyalty_status=LoyaltyManagmentForm.isLoyaltyProgramInList(setupLoyaltiesManagement.getDefinitionName());
 				
 				LoyaltyManagmentForm.clickclosebutton();
-				
 				
 				Reporter.log("Check general status of form", LOG_TO_STD_OUT);
 				
@@ -307,13 +290,12 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 	
 	}
 
-	@Parameters({"jsonFilePath_Loyalty", "jsonFileName_Loyalty","jsonFilePath1_Loyalty", "jsonFileName1_Loyalty","seleniumWebDriverParams","networkEnvironmentParams"})
+	@Parameters({"jsonFilePath_Loyalty", "jsonFileName_Loyalty","jsonFilePath1_Loyalty", "jsonFileName1_Loyalty"})
 	@Test(enabled = TEST_ENABLED,  priority = 3 )
 	public void testUc29_03EditLoyaltyProgram(@Optional("/input/loyalties") String jsonFilePath_Loyalty,
 			@Optional("loyalty_create") String jsonFileName_Loyalty,
 			@Optional("/input/loyalties") String jsonFilePath1_Loyalty,
-			@Optional("loyalty_manage") String jsonFileName1_Loyalty,
-			String seleniumWebDriverParams,String networkEnvironmentParams) 
+			@Optional("loyalty_manage") String jsonFileName1_Loyalty) 
 					throws FormException, JSONException, JSONSException {
 	
 	Boolean loyalty_managed=false;
@@ -359,8 +341,6 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 	}
 			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	
-			loyalty_status=true;
-
 			loyaltyCreationForm.clickclosebutton();
 			
 			Reporter.log("Check general status of form", LOG_TO_STD_OUT);
@@ -380,7 +360,7 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 			}
 
 			//Edit LoyaltyMananagement Program to use existing Loyalty Program Type
-					loyalty_managed=ManageExistingLoyaltyProgram(jsonFilePath1_Loyalty, jsonFileName1_Loyalty);
+					loyalty_managed=ManageExistingLoyaltyProgram();
 					if(loyalty_managed==true)
 					{
 						Assert.assertTrue(loyalty_managed);
@@ -388,24 +368,17 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 									
 					}
 					else{
-							Assert.fail("The loyalty Management Program  Failed!");
+							Assert.fail("The loyalty Management Program  Modification Failed!");
 							Reporter.log("Modification of loyalty Management Program Failed!",LOG_TO_STD_OUT);
 						}	
 	}
 	
 	
-	public Boolean ManageExistingLoyaltyProgram(String jsonFilePath1_Loyalty,String jsonFileName1_Loyalty) throws JSONSException, FormException{
+	public Boolean ManageExistingLoyaltyProgram() throws  FormException, JSONSException{
 	
-		Reporter.log("Management of \"Loyalty Management Form\".", LOG_TO_STD_OUT);
-
-		String resourcePath1 =DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath1_Loyalty;
-			
-		String resourceFile1 = jsonFileName1_Loyalty;
 		
-		setupLoyaltiesManagement = new LoyaltyManageCfg(resourcePath1, resourceFile1);
-
 		LoyaltyManagmentForm = new LoyaltyManagmentForm(seleniumWebDriver,
-				setupLoyaltiesManagement,TIMEOUT, ATTEMPT_TIMEOUT);
+				null, TIMEOUT, ATTEMPT_TIMEOUT);
 
 		
 		Reporter.log("\"Loyalty Creation\" is filled with resource file : ",
@@ -416,15 +389,6 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 
 		Reporter.log("Open \"Loyalty Creation Form\" UI.", LOG_TO_STD_OUT);
 
-		
-		JSONArray LoyaltyM =  setupLoyaltiesManagement.getList();
-		
-		
-		for (int index = 0; index < LoyaltyM.length(); index++) {
-			
-			setupLoyaltiesManagement.setLoyaltyById( index );
-			
-			if( setupLoyaltiesManagement.getEnabled() ) {
 			
 				LoyaltyManagmentForm.Management();
 									
@@ -436,15 +400,15 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 		
 				LoyaltyManagmentForm.editBadgeLoyaltyProgramDesc("BadgesLoyaltyProgram latest Description");
 				
-				LoyaltyManagmentForm.selectBadgeTypeName(setupLoyaltiesManagement.getDefinitionBadges());
+				LoyaltyManagmentForm.selectBadgeTypeName("Archery");
 				
 				LoyaltyManagmentForm.openAwardedTab();
 				
-				LoyaltyManagmentForm.setcriteriaValue("9890234567");
+				LoyaltyManagmentForm.setcriteriaValue("9650450905");
 				
 				LoyaltyManagmentForm.openRedeemedTab();
 				
-				LoyaltyManagmentForm.setcriteriaValue("9890234567");
+				LoyaltyManagmentForm.setcriteriaValue("9650450905");
 			
 				LoyaltyManagmentForm.openActivationTab();
 				
@@ -452,10 +416,9 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 				
 				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				
-				loyalty_status=LoyaltyManagmentForm.isLoyaltyProgramInList(setupLoyaltiesManagement.getDefinitionName());
+				loyalty_status=LoyaltyManagmentForm.isLoyaltyProgramInList("BadgesLoyaltyProgramLatest");
 				
 				LoyaltyManagmentForm.clickclosebutton();
-				
 				
 				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				
@@ -466,18 +429,17 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 				if(loyalty_status==true)
 				{
 					Assert.assertTrue(loyalty_status);
-					Reporter.log("Loyalty Program Created Succesfully!");
+					Reporter.log("Loyalty Program modified Succesfully!");
 					
 				}
 				else
 				{
 					
-					Assert.fail("The Loyalty Program creation Failed!");
-					Reporter.log("Creation of Loyalty Program Failed!");
+					Assert.fail("The Loyalty Program Modification Failed!");
+					Reporter.log("Modification of Loyalty Program Failed!");
 				}
+			
 		
-			}
-		}
 	
 		return loyalty_status;
 		}
@@ -500,9 +462,9 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 				
 				LoyaltyManagmentForm.clickcopyOKButton();
 				
-				LoyaltyManagmentForm.clickEditBadgeCreationV2("BadgesProgramNew");
+				clickEditBadgeCreationV2 = LoyaltyManagmentForm.clickEditBadgeCreationV2("BadgesProgramNew", "2.0");
 				
-				LoyaltyManagmentForm.clickaeditBadgeLoyaltyProgramscopy();
+				LoyaltyManagmentForm.clickaeditBadgeLoyaltyProgramscopy("BadgesLoyaltyProgramLatest");
 				
 				LoyaltyManagmentForm.openActivationTab();
 				
@@ -546,15 +508,15 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 
 				LoyaltyManagmentForm.Management();
 				
-				LoyaltyManagmentForm.clickEditBadgeCreationV2("BadgesProgramNew");
+				LoyaltyManagmentForm.clickEditBadgeCreationV2("BadgesProgramNew","2.0");
 				
-				LoyaltyManagmentForm.clickDeleteBadgeManagementProgram();
+				LoyaltyManagmentForm.clickDeleteBadgeManagementProgram("BadgesLoyaltyProgramLatest(Copy)");
 				
 				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				
 				LoyaltyManagmentForm.clickclosebutton();
 				
-				LoyaltyManagmentForm.clickDeleteBadgeLoyaltyPrograms("BadgesProgramNew");
+				LoyaltyManagmentForm.clickDeleteBadgeLoyaltyPrograms("BadgesProgramNew","2.0").closeAlertAndGetItsText();
 				
 				LoyaltyManagmentForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 				

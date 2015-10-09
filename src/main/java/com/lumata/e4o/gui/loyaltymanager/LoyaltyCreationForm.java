@@ -116,13 +116,13 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 		return this;
 	}
 	
-	public LoyaltyCreationForm clickaddLoyaltyPrograms() throws FormException, JSONSException {
+	//public LoyaltyCreationForm clickaddLoyaltyPrograms() throws FormException, JSONSException {
 			
-			super.clickXPath("//div[contains(text(),'Add new program')]//ancestor::table//input");
+		//	super.clickXPath("//div[contains(text(),'Add new program')]//ancestor::table//input");
 	
-		return this;
+		//return this;
 	
-	}
+	//}
 	
 	
 	
@@ -221,8 +221,9 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 
 	public LoyaltyCreationForm clickclosebutton() throws FormException, JSONSException {
 		
-		super.clickXPath("//button[@name='btn-close']");
 		waitForPageLoad();
+		super.clickXPath("//button[@name='btn-close']");
+		
 
 	return this;
 	}
