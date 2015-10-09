@@ -14,7 +14,7 @@ public class XMLRPCRequest_Offeroptimizer_GetTokenList extends ParentTestCase {
 	@Test(enabled=true, priority = 1 )
 	public void callXMLRPCCRequest() throws Exception {
 		
-		final String msisdn = "3399900001";
+		final String msisdn = "1000100";
 		
 		XMLRPCRequest.offeroptimizer_getTokensList().call( 	
 			guiServer, 
@@ -22,9 +22,9 @@ public class XMLRPCRequest_Offeroptimizer_GetTokenList extends ParentTestCase {
 				authentication( user ),
 				string( msisdn ),
 				string(""),
-				string(""),
-				arrayString( "active", "offers_allocated", "consumed" ),
-				string("loyalty")
+				string("")
+				//arrayString( "active", "offers_allocated", "consumed" ),
+				//string("loyalty")
 			),
 			xmlrpcOptions(
 				storeRequestAsResource( "xmlrpc/request/", "request.xml" ),
