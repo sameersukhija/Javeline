@@ -111,7 +111,8 @@ public class TestLoyaltyManagementE2E<jsonFilePath1_Loyalty> extends ParentTestC
 	String jsonFilePath_Loyalty,@Optional("loyaltyCreationTemplate") 
 	String jsonFileName_Loyalty, @Optional("/input/loyalties") String jsonFilePath1_Loyalty,
 	@Optional("loyalty_manage") String jsonFileName1_Loyalty,@Optional("/input/traffic_generator") String jsonFilePath_Traffic,
-	@Optional("recharge_event")	String jsonFileName_Traffic)  throws FormException, JSONException, JSONSException,ParseException {
+	@Optional("recharge_event")	String jsonFileName_Traffic)
+	throws FormException, JSONException, JSONSException,ParseException {
 		
 			
 		Boolean loyalty_created=false;
@@ -227,8 +228,6 @@ public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileN
 			
 			loyaltyCreationForm.clickaddnewBadge(setupLoyaltiesCreation.getType());
 			
-			loyaltyCreationForm.clickaddLoyaltyPrograms();
-			
 			loyaltyCreationForm.addLoyaltyProgramName(setupLoyaltiesCreation.getName());
 	
 			loyaltyCreationForm.addLoyaltyProgramDesc(setupLoyaltiesCreation.getDescription());
@@ -260,6 +259,7 @@ public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileN
 			return loyalty_status;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Boolean ManageExistingLoyaltyProgram(String jsonFilePath1_Loyalty,String jsonFileName1_Loyalty) throws JSONSException, FormException{
 	
 		
@@ -273,7 +273,7 @@ public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileN
 			
 		String resourceFile1 = jsonFileName1_Loyalty;
 		
-		setupLoyaltiesManagement = new LoyaltyManageCfg(resourcePath1, resourceFile1);
+		setupLoyaltiesManagement = new LoyaltyManageCfg<Object>(resourcePath1, resourceFile1);
 
 		LoyaltyManagmentForm = new LoyaltyManagmentForm(seleniumWebDriver,
 				setupLoyaltiesManagement,TIMEOUT, ATTEMPT_TIMEOUT);
@@ -299,7 +299,7 @@ public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileN
 			
 				LoyaltyManagmentForm.Management();
 						
-				LoyaltyManagmentForm.clickEditBadgeCreation();
+				LoyaltyManagmentForm.clickEditBadgeCreation("BadgesProgram");
 				
 				LoyaltyManagmentForm.clickaddBadgeLoyaltyPrograms();
 				
@@ -308,6 +308,8 @@ public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileN
 				LoyaltyManagmentForm.addBadgeLoyaltyProgramDesc(setupLoyaltiesManagement.getDefinitionDescription());
 				
 				LoyaltyManagmentForm.selectBadgeTypeName(setupLoyaltiesManagement.getDefinitionBadges());
+				
+				Map<String, JSONEvent_> awarded =setupLoyaltiesManagement.getAwardedEvents();
 				
 				LoyaltyManagmentForm.openSchedulingTab();
 				
@@ -321,19 +323,7 @@ public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileN
 				
 				LoyaltyManagmentForm.addAwardedEventButton();
 				
-				LoyaltyManagmentForm.seteventType(setupLoyaltiesManagement.getAwardedEventType());
-				
-				LoyaltyManagmentForm.addAwardedCriteriaButton();
-				
-				LoyaltyManagmentForm.setcriteriaType(setupLoyaltiesManagement.getAwardedCriteriaType());
-				
-				LoyaltyManagmentForm.setcriteriaValue(setupLoyaltiesManagement.getAwardedCriteriaValue());
-				
-				LoyaltyManagmentForm.addAwardedActionButton();
-				
-				LoyaltyManagmentForm.setActionType(setupLoyaltiesManagement.getAwardedActionType());
-				
-				LoyaltyManagmentForm.setactionValue(setupLoyaltiesManagement.getAwardedOption());
+				LoyaltyManagmentForm.addEvents(awarded);
 				
 				LoyaltyManagmentForm.clickAwardNotificationbutton();
 				
@@ -345,19 +335,9 @@ public Boolean CreateLoyaltyProgram(String jsonFilePath_Loyalty,String jsonFileN
 				
 				LoyaltyManagmentForm.addRedeemedEventButton();
 				
-				LoyaltyManagmentForm.seteventType(setupLoyaltiesManagement.getRedeemedEventType());
+				Map<String, JSONEvent_> redeemed =setupLoyaltiesManagement.getRedeemedEvents();
 				
-				LoyaltyManagmentForm.addAwardedCriteriaButton();
-				
-				LoyaltyManagmentForm.setcriteriaType(setupLoyaltiesManagement.getRedeemedCriteriaType());
-				
-				LoyaltyManagmentForm.setcriteriaValue(setupLoyaltiesManagement.getRedeemedCriteriaValue());
-				
-				LoyaltyManagmentForm.addAwardedActionButton();
-				
-				LoyaltyManagmentForm.setActionType(setupLoyaltiesManagement.getRedeemedActionType());
-				
-				LoyaltyManagmentForm.setactionValue(setupLoyaltiesManagement.getRedeemedOption());
+				LoyaltyManagmentForm.addEventsr(redeemed);
 				
 				LoyaltyManagmentForm.clickAwardNotificationbutton();
 				

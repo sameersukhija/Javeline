@@ -56,20 +56,77 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 		return this;
 	}
 	
-	public LoyaltyManagmentForm clickEditBadgeCreation() throws FormException, JSONSException {
+	public LoyaltyManagmentForm clickEditBadgeCreation(String strBadgePName) throws FormException, JSONSException {
 		
-		super.clickXPath("//div[contains(text(),'Program: BadgesProgram')]//ancestor::tbody/tr/td[3]//button[@title='Edit']");
+		//waitForPageLoad();
+		super.clickXPath("//div[contains(text(),'" + strBadgePName + "')]//ancestor::tbody/tr/td[3]//button[@title='Edit']");
 
 	return this;
 	}
 	
+	public LoyaltyManagmentForm clickeditBadgeLoyaltyPrograms(String strBadgePName) throws FormException, JSONSException {
+		
+		clickXPath("//div[contains(text(),'Badges')]/ancestor::tbody/tr[6]/td/div[text()='" + strBadgePName + "']/../../td[9]/table/tbody/tr/td/button[@name='btn-edit']");
 
+	return this;
+	}
+	
+	
+	
+
+	public LoyaltyManagmentForm clickDeleteBadgeManagementProgram(String strBadgePName) throws FormException, JSONSException {
+		
+		
+		super.clickXPath("//div[text()='" + strBadgePName + "']/../../td/table/tbody/tr/td/button[@name='btn-delete']");
+
+		waitForPageLoad();
+		
+		return this;
+	}
+
+	
+	
 	public LoyaltyManagmentForm clickaddBadgeLoyaltyPrograms() throws FormException, JSONSException {
 		
 		clickXPath("//div[contains(text(),'Badges')]/ancestor::tbody/tr[@class='cycle2 terminatedRow-cycle2 headers']/td//button[@title='Add']");
 
 	return this;
 	}
+	
+	
+	
+	public LoyaltyManagmentForm clickEditBadgeCreationV2(String strBadgePName, String version) throws FormException, JSONSException {
+		
+		//waitForPageLoad();
+		super.clickXPath("//div[contains(text(),'" + strBadgePName + "')]//ancestor::tbody/tr/td/div[text()='" + version + "']/../../td[3]//button[@title='Edit' ]");
+
+	return this;
+	}
+	
+	public LoyaltyManagmentForm clickaeditBadgeLoyaltyProgramscopy(String strBadgePName) throws FormException, JSONSException {
+		
+		clickXPath("//div[text()='" + strBadgePName + "']/../../td/table/tbody/tr/td/button[@name='btn-copy']");
+
+	return this;
+	}
+	
+	public LoyaltyManagmentForm clickcopyBadgeLoyaltyPrograms(String strBadgePName) throws FormException, JSONSException {
+		
+		waitForPageLoad();
+
+		clickXPath("//div[contains(text(),'" + strBadgePName + "')]//ancestor::tbody/tr/td[3]//button[@title='Copy']");
+
+	return this;
+	}
+	
+	
+	public LoyaltyManagmentForm clickDeleteBadgeLoyaltyPrograms(String strBadgePName, String version) throws FormException, JSONSException {
+		
+		clickXPath("//div[contains(text(),'" + strBadgePName + "')]//ancestor::tbody/tr/td/div[text()='" + version + "']/../../td[3]//button[@title='Delete' ]");
+
+	return this;
+	}
+	
 	
 	public LoyaltyManagmentForm addBadgeLoyaltyProgramName(String name) throws FormException, JSONSException {
 		
@@ -79,6 +136,13 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 	}
 	
 
+	public LoyaltyManagmentForm editBadgeLoyaltyProgramName(String name) throws FormException, JSONSException {
+		
+		super.sendKeysByXPath("//div[contains(text(),'Badge update')]//ancestor::table/tbody//tr[@class='cycle1']/td[2]//input", name);
+	
+	return this;
+	}
+	
 	public LoyaltyManagmentForm addBadgeLoyaltyProgramDesc(String desc) throws FormException, JSONSException {
 		
 		super.sendKeysByXPath("//div[contains(text(),'Badge creation')]//ancestor::table/tbody//tr[@class='cycle2']/td[2]//input", desc);
@@ -86,9 +150,43 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 	return this;
 	}
 
+	
+	public LoyaltyManagmentForm editBadgeLoyaltyProgramDesc(String desc) throws FormException, JSONSException {
+		
+		super.sendKeysByXPath("//div[contains(text(),'Badge update')]//ancestor::table/tbody//tr[@class='cycle2']/td[2]//input", desc);
+	
+	return this;
+	}
+
 	public LoyaltyManagmentForm selectBadgeTypeName(String badgeType) throws FormException, JSONSException {
 		
 		super.selectByXPathAndVisibleText("//table[@class='marginTop10px marginBottom10px']/tbody/tr/td/table[@class='tableList Form']/tbody//tr[3]/td[2]//select", badgeType);
+
+	return this;
+	}
+	
+	
+	public LoyaltyManagmentForm addBadgeLoyaltyProgramCopyVersion(String version) throws FormException, JSONSException {
+		
+		super.sendKeysByXPath("//div[@class='dialogMiddleCenterInner dialogContent']/table/tbody/tr/td/table[@class='margin10px']/tbody/tr[1]/td/table[@class='tableList Form']/tbody/tr[1]/td[2]/input", version);
+	
+	return this;
+	}
+	
+	
+	public LoyaltyManagmentForm addBadgeLoyaltyProgramCopyVersionDesc(String versionDesc) throws FormException, JSONSException {
+		
+		super.sendKeysByXPath("//div[@class='dialogMiddleCenterInner dialogContent']/table/tbody/tr/td/table[@class='margin10px']/tbody/tr[1]/td/table[@class='tableList Form']/tbody/tr[2]/td[2]/input", versionDesc);
+	
+	return this;
+	}
+	
+	
+	public LoyaltyManagmentForm clickcopyOKButton() throws FormException, JSONSException {
+		
+		clickXPath("//button[@name='btn-ok']");
+		
+		waitForPageLoad();
 
 	return this;
 	}
@@ -129,6 +227,14 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 		return this;
 	
 }
+	
+	public LoyaltyManagmentForm configureCriteria( JSONEvent_ event ) throws JSONException, FormException {
+
+		event.getCriteria();
+		
+		return this;
+		
+	}
 	
 	
 	
@@ -246,19 +352,34 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 		
 	}
 	
-	public LoyaltyManagmentForm addEvents(Map<String, JSONEvent_> events) throws JSONException, FormException {
+	public LoyaltyManagmentForm addEvents(Map<String, JSONEvent_> awarded) throws JSONException, FormException {
 		
 		
 		int eventRow = 1;
 		
-		for( String eventName : events.keySet() ) {
+		for( String eventName : awarded.keySet() ) {
 			
 			eventRow++;
 			
+			configureEvent( awarded.get( eventName ), eventRow );
+						
+		}
+		
+		return this;
+		
+	}
+	
+	
+	public LoyaltyManagmentForm addEventsr(Map<String, JSONEvent_> redeemed) throws JSONException, FormException {
+		
+		
+		int eventRow = 1;
+		
+		for( String eventName : redeemed.keySet() ) {
 			
-			//addAwardedEventButton();
+			eventRow++;
 			
-			configureEvent( events.get( eventName ), eventRow );
+			configureEvent( redeemed.get( eventName ), eventRow );
 						
 		}
 		
@@ -270,30 +391,27 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 		
 		String loyaltyAwardeventXPath = "//table[@class='tableList rulesTable marginTop10px']/tbody//tr[2]/td/div[@class='act-ListBoxHolder act-ListBoxHolder-horizontal']/table/tbody/tr/td[@class='act-ListBox']";
 		clickXPath( loyaltyAwardeventXPath ).
-		
-		//String eventXPath ="//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[" + eventRow + "]//*[@id='gwt-debug-ListCampaignModelCreationETType']";
-		//clickXPath( eventXPath ).
 		selectDropDownListItem( event.getEventType() );
-		//addCriterae(event,eventRow);
-		//addActions( event, eventRow );
+		addCriterae(event,eventRow);
+		addActions( event, eventRow );
 		
 		return this;
 		
 	}
 	
-	public LoyaltyManagmentForm addCriterae( JSONEvent_ event, Integer eventRow ) throws JSONException, FormException {
+	public LoyaltyManagmentForm addCriterae(JSONEvent_ event, Integer eventRow ) throws JSONException, FormException {
 
 		Map<String, JSONCriteria> criteria = event.getCriteria();
 		
-		int criteriaRow = 0;
+		int criteriaRow = 1;
 		
-		for( String criteriaName : criteria.keySet() ) {
+		for( String criteriaName :criteria.keySet() ) {
 					
 			addCriteria( eventRow );
 			
 			criteriaRow++;
 						
-			configureCriteria( criteria.get( criteriaName ), eventRow, criteriaRow );
+			configureCriteria(criteria.get( criteriaName ),  criteriaRow );
 												
 		}
 		
@@ -301,19 +419,11 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 		
 	}
 	
-	public LoyaltyManagmentForm configureCriteria( JSONCriteria criteria, Integer eventRow, Integer criteriaRow ) throws JSONException, FormException {
+	public LoyaltyManagmentForm configureCriteria( JSONCriteria criteria, Integer criteriaRow ) throws JSONException, FormException {
 		
-		//String loyaltyAwardcriteriaXPath = "//div[@class='act-ListBoxHolder act-ListBoxHolder-horizontal']/table/tbody/tr/td[@class='act-ListBox act-ListBox-selected']";
-		//clickXPath( loyaltyAwardcriteriaXPath ).
-		//selectDropDownListItem( criteria );
-		//String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow cycle2' ) and position() = " + eventRow + " ]//td[@class='column_criteria']"; 
-		//String criteriaXPathRow = eventXPathRow + "//div[@class='criterionContainer']//table/tbody/tr["+ criteriaRow + "]";
-		//String criteriaXPathRowAValue = criteriaXPathRow + "//*[@id='gwt-debug-TextCampaignModelCreationECValue']";
 		String loyaltyAwardcriteriaXPath = "//div[@class='act-ListBoxHolder act-ListBoxHolder-horizontal']/table/tbody/tr/td[@class='act-ListBox act-ListBox-selected']";
 		String loyaltyAwardcriteriavalueXPath = "//input[@id='gwt-debug-TextCampaignModelCreationECValue']";
-		//sendKeysByXPath( loyaltyAwardcriteriavalueXPath,Value );
 		
-	
 		/** configure action */
 		
 		clickXPath( loyaltyAwardcriteriaXPath ).
@@ -326,8 +436,6 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 	}
 		
 	public LoyaltyManagmentForm addCriteria( Integer eventRow ) throws FormException {
-		
-		//super.clickXPath( "//td[@class='column_criteria']/table/tbody/tr/td/table/tbody/tr/td/div[@class='criterionContainer']/table/tbody/tr/td[3]/button[@class='gwt-Button']" );
 		
 		String eventXPathRow = "//td[@class='column_criteria']/table/tbody/tr/td/table/tbody/tr/td/div[@class='criterionContainer']"; 
 		String criteriaXPathRowAAdd = eventXPathRow + "/table/tbody/tr/td[3]/button[@class='gwt-Button']";
@@ -358,15 +466,11 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 		
 	}
 
-	public LoyaltyManagmentForm configureAction( JSONAction action, Integer eventRow, Integer actionRow ) throws JSONException, FormException {
+	public LoyaltyManagmentForm configureAction( JSONAction action, Integer eventRow, Integer criteriaRow) throws JSONException, FormException {
 		
 		String ruleActionPattern = "^Rulesets[.].*";		
-		
-		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow' ) and position() = " + eventRow + " ]//td[@class='column_commodity']"; 
-		String actionXPathRow = eventXPathRow + "//table[@class='commodityContainer']/tbody/tr[" + actionRow + "]";
-		String actionXPathRowAType = actionXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationEAType']";
-		String actionXPathRowAUnit = actionXPathRow + "//*[@id='gwt-debug-ListCampaignModelCreationEAUnit']";			
-		String actionXPathRowAAutoAllocation = actionXPathRow + "//*[contains(text(), '::AUTO_ALLOCATE::') ]/parent::select";
+		String actionXPathRowAType =  "//td[@id='gwt-debug-ListCampaignModelCreationEAType']";
+		String actionXPathRowAUnit = "//table[@class='commodityContainer']/tbody/tr/td[6]/select[@class='gwt-ListBox']";			
 		
 		
 		/** configure action */
@@ -377,19 +481,20 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 			
 			if( action.getName().matches( ruleActionPattern ) ) {
 				
-				selectByXPathAndVisibleText( actionXPathRowAAutoAllocation.replace( "::AUTO_ALLOCATE::" , action.getOption() ), action.getOption() );
+				selectByXPathAndVisibleText( actionXPathRowAUnit,action.getOption() );
 				
-			} else { selectByXPathAndVisibleText( actionXPathRowAUnit, action.getOption() ); }
+			} 
+		
 		
 		}
 				
 		return this;
-		
+				
 	}
 	
 	public LoyaltyManagmentForm addAction( Integer eventRow ) throws FormException {
-		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow' ) and position() = " + eventRow + " ]//td[@class='column_commodity']"; 
-		String actionXPathRowAAdd = eventXPathRow + "//*[@id='gwt-debug-BtnCampaignModelCreationEAAdd']";
+		
+		String actionXPathRowAAdd = "//button[@id='gwt-debug-BtnCampaignModelCreationEAAdd']";
 		
 		clickXPath( actionXPathRowAAdd );
 		
@@ -397,17 +502,17 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 		
 		
 	}
-	public LoyaltyManagmentForm seteventType(String awardedEventType ) throws FormException {
+	public LoyaltyManagmentForm seteventType(  JSONEvent_ event  ) throws FormException {
 		
 		String loyaltyAwardeventXPath = "//table[@class='tableList rulesTable marginTop10px']/tbody//tr[2]/td/div[@class='act-ListBoxHolder act-ListBoxHolder-horizontal']/table/tbody/tr/td[@class='act-ListBox']";
 		clickXPath( loyaltyAwardeventXPath ).
-		selectDropDownListItem(awardedEventType );		
+		selectDropDownListItem(event.getEventType() );		
 		
 		return this;
 		
 	}
 	
-	public String geteventType(String Etype) throws FormException {
+	public String geteventType(JSONEvent_ event) throws FormException {
 
 		return super.getValueByXPath("//table[@class='tableList rulesTable marginTop10px']/tbody//tr[2]/td/div[@class='act-ListBoxHolder act-ListBoxHolder-horizontal']/table/tbody/tr/td[@class='act-ListBox']");
 
@@ -516,10 +621,10 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 	}
 
 	
-	public LoyaltyManagmentForm addAwardedCriteria( Integer eventRow ) throws FormException {
+	public LoyaltyManagmentForm addAwardedCriteria( Map<String, JSONEvent_> awarded ) throws FormException {
 		
 		
-		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow cycle2' ) and position() = " + eventRow + " ]//td[@class='column_criteria']"; 
+		String eventXPathRow = "//*[@id='gwt-debug-FormCampaignModelCreationRules']//tr[contains(@class, 'contentRow cycle2' ) and position() = " + awarded + " ]//td[@class='column_criteria']"; 
 		String criteriaXPathRowAAdd = eventXPathRow + "//*[@id='gwt-debug-BtnCampaignModelCreationECAdd']";
 		
 		clickXPath( criteriaXPathRowAAdd );
@@ -569,6 +674,14 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 	return this;
 	}
 	
+	
+	public LoyaltyManagmentForm SaveLoyaltyProgram() throws FormException {
+		
+		super.clickXPath( "//button[@name='btn-save']" );
+		
+	return this;
+	}
+	
 	public Boolean isLoyaltyProgramInList(String loyaltyName ) throws FormException{
 		
 		List<WebElement> loyaltyList1 = getLoyaltyListProgram(loyaltyName);
@@ -589,7 +702,7 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 	public List<WebElement> getLoyaltyListProgram(String strBadgePName)  throws FormException {
 		
 		String rootPath = "//div[@class='dialogMiddleCenterInner dialogContent']/table/tbody/tr/td/table/tbody/tr/td/div/div/table/tbody/tr/td/table/tbody";
-		String subPath = "//tr[@class='contentRow cycle2 activatedRow-cycle2']/td/div[text()='" + strBadgePName + "']";
+		String subPath = "//tr/td/div[text()='" + strBadgePName + "']";
 
 		List<WebElement> loyaltyList1 = getListByXPath(rootPath, rootPath + subPath);
 		System.out.println(loyaltyList1);
@@ -604,6 +717,23 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 	return this;
 	}
 	
+	public String closeAlertAndGetItsText() {
+	    boolean acceptNextAlert = true;
+		try {
+	      Alert alert = selenium.selectAlert();
+	      String alertText = alert.getText();
+	      if (acceptNextAlert) {
+	        alert.accept();
+	      } else {
+	        alert.dismiss();
+	      }
+	      return alertText;
+	    } finally {
+	      acceptNextAlert = true;
+	    }
+	  }
+	
+	
 	public LoyaltyManagmentForm clickActivatebutton(String strBadgePName) throws FormException, JSONSException {
 		
 		waitForPageLoad();
@@ -611,13 +741,19 @@ public class LoyaltyManagmentForm extends LoyaltyManagerForm {
 		String subPath=("/table[@class='tableList']/tbody/tr/td/div[text()='" + strBadgePName + "']//ancestor::tbody/tr[@class='contentRow cycle2 savedRow-cycle2']/td[3]/table/tbody/tr/td[5]/button[@title='Activate']");
 		super.clickXPath(rootPath, rootPath + subPath);
 		
-
-		//div[@class='marginTop10px']/div/table/tbody/tr[3]/td/table[@class='gwt-DisclosurePanel DPGraph gwt-DisclosurePanel-open']/tbody/tr[2]/td/div/table[@class='content']/tbody/tr/td/table[@class='tableList']/tbody/tr[1]/td/div[text()='Program: LoyaltyRewards']//ancestor::tbody/tr[@class='contentRow cycle2 savedRow-cycle2']/td[3]/table/tbody/tr/td[5]/button[@title='Activate']
-
-		
 	return this;
 	}
 	
+	
+	public LoyaltyManagmentForm clickDeactivatebutton(String strBadgePName) throws FormException, JSONSException {
+		
+		
+		String rootPath=("//table[@class='gwt-DisclosurePanel DPGraph gwt-DisclosurePanel-open']/tbody/tr/td/div/table[@class='content']/tbody/tr/td/table[@class='tableList']/tbody/tr/td");
+		String subPath=("/div[text()='Program: BadgesProgram']//ancestor::tbody/tr[@class='contentRow cycle2 provisioningStoppedRow-cycle2']/td/table/tbody/tr/td/button[@name='btn-deactivate']");
+		super.clickXPath(rootPath, rootPath + subPath);
+		
+	return this;
+	}
 	public Boolean handleJavascriptAlertAcceptDismiss(Boolean accept) {
 		
 		Alert popupAlert = null;

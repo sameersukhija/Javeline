@@ -89,8 +89,6 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 	public LoyaltyCreationForm clickaddnewBadge(LoyaltyTypes loyaltyTypes) throws FormException, JSONSException {
 	
 		
-		//LoyaltyTypes type = loyaltiesCreationCfg.getType();
-		
 		final String openSubSectionXPath = "//table[contains(@class,'page-ConfigurationProgramWidget')]//td[contains(text(),'"+loyaltyTypes+"')]";
 		final String addButtonXPath = openSubSectionXPath + "//ancestor::tr[3]//button[@title='Add']";
 		super.clickXPath(openSubSectionXPath);					
@@ -99,13 +97,34 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 		return this;
 	}
 	
-	public LoyaltyCreationForm clickaddLoyaltyPrograms() throws FormException, JSONSException {
-			
-			super.clickXPath("//div[contains(text(),'Add new program')]//ancestor::table//input");
+	public LoyaltyCreationForm clickeditBadge(LoyaltyTypes loyaltyTypes) throws FormException, JSONSException {
 	
-	return this;
-	
+		
+		final String openSubSectionXPath = "//table[contains(@class,'page-ConfigurationProgramWidget')]//td[contains(text(),'"+loyaltyTypes+"')]";
+		super.clickXPath(openSubSectionXPath);					
+		
+		return this;
 	}
+	
+	
+	public LoyaltyCreationForm clickeditBadgeName(String strBadgePName ) throws FormException, JSONSException {
+	
+			
+		final String editButtonXPath = "//div[text()='" + strBadgePName + "']/../../td[3]//Button[@name='btn-edit']";
+		super.clickXPath(editButtonXPath);
+	
+		return this;
+	}
+	
+	//public LoyaltyCreationForm clickaddLoyaltyPrograms() throws FormException, JSONSException {
+			
+		//	super.clickXPath("//div[contains(text(),'Add new program')]//ancestor::table//input");
+	
+		//return this;
+	
+	//}
+	
+	
 	
 	public LoyaltyCreationForm addLoyaltyProgramName(String name) throws FormException, JSONSException {
 		
@@ -136,10 +155,25 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 
 		super.sendKeysByXPath("//div[contains(text(),'New Badge Type')]//ancestor::table/tbody//tr[@class='cycle1']/td[2]//input",badgeType);
 		super.clickXPath("//div[text()='New Badge Type']//ancestor::tbody//*[@title='Save']");
+		
 		}
 		return this;
 	}
 	
+	
+	public LoyaltyCreationForm editLoyaltyBadgeType(String badgeType) throws FormException, JSONSException {
+			
+			super.clickXPath("//div[contains(text(),'Edit program')]//ancestor::tbody//button[@title='Add']");
+
+			super.sendKeysByXPath("//div[contains(text(),'New Badge Type')]//ancestor::table/tbody//tr[@class='cycle1']/td[2]//input",badgeType);
+			
+			super.clickXPath("//div[text()='New Badge Type']//ancestor::tbody//*[@title='Save']");
+		
+		return this;
+		}
+			
+	
+
 	public LoyaltyCreationForm saveLoyaltyProgram() throws FormException {
 		
 		super.clickName( "btn-save" );
@@ -187,8 +221,9 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 
 	public LoyaltyCreationForm clickclosebutton() throws FormException, JSONSException {
 		
-		super.clickXPath("//button[@name='btn-close']");
 		waitForPageLoad();
+		super.clickXPath("//button[@name='btn-close']");
+		
 
 	return this;
 	}
@@ -241,6 +276,36 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 		return this;
 	}		
 
+
+	public Boolean isLoyaltyInEList( String loyaltyName ) throws FormException {
+		
+		List<WebElement> loyaltyEList = getLoyaltyEList();
+
+		for( WebElement loyaltyEListE1 : loyaltyEList ) {
+
+			if( loyaltyEListE1.getText().trim().equals( loyaltyName ) ) {
+		
+				return true;
+
+			}	
+		}
+
+		return false;	
+	}
+
+	
+	public List<WebElement> getLoyaltyEList()  throws FormException {
+		
+		String rootPath = "//div[@class='dialogMiddleCenterInner dialogContent']/table/tbody/tr/td//table[@class='margin10px']";
+		String subPath = "/tbody/tr[1]/td/table/tbody/tr/td//table[@class='tableList']/tbody/tr/td[@class='column_nameLong']";
+		//table[@class='tableList']/tbody/tr/td[@class='column_nameLong']/div[text()='Bronze']
+		List<WebElement> loyaltyEList = getListByXPath(rootPath, rootPath + subPath);
+		System.out.println(loyaltyEList);
+		return loyaltyEList;
+	}
+	
+
+	
 	/**
 	 * 
 	 * Handler for program name
@@ -533,16 +598,7 @@ public class LoyaltyCreationForm extends LoyaltyManagerForm {
 	
 	
 	
-	protected Form open1() throws FormException {
-		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 30);
-		wait.until(ExpectedConditions.elementToBeClickable(By.id("gwt-debug-BarCaptionHomeCampaign")));
-		return clickId( "gwt-debug-BarCaptionHomeCampaign" );
-		
-	}
 
-	
-
-	
 	
 //	private LoyaltyCreateCfg createCfg;
 //	private LoyaltyManageCfg manageCfg;

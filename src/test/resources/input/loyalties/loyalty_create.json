@@ -1,0 +1,18 @@
+{
+	"loyalties": [
+		{
+			"enabled" : true,
+			"name" : "BadgesProgramNew",
+			"description" : "The badges description",
+			"type" : "Badges",
+			"classes" : null,
+			"badges" : ["Camping","Astronomy"],
+			"badgesType" : "Archery",
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			},
+			"delete" : false
+		}		
+	]
+}

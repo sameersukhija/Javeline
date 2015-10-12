@@ -28,6 +28,7 @@ public class JSONEvent_ extends JsonConfig {
 	public String getEventType() {
 		return getStringFromPath( "eventType");
 	}
+	
 	public String getEventType1() {
 		return getStringFromPath( "eventType1");
 	}
