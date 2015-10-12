@@ -337,14 +337,15 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 			
 			loyaltyCreationForm.editLoyaltyBadgeType(setupLoyaltiesCreation.getBadgesType());
 		
+			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			
+			loyalty_status=loyaltyCreationForm.isLoyaltyInEList(setupLoyaltiesCreation.getBadgesType());
+		
 			
 		}
 	}
+		
 			
-			
-			loyalty_status=loyaltyCreationForm.isLoyaltyInEList(setupLoyaltiesCreation.getName());
-	
 			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	
 			loyaltyCreationForm.clickclosebutton();
@@ -512,6 +513,8 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 				
 				LoyaltyManagmentForm.clickclosebutton();
 				
+				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				
 				LoyaltyManagmentForm.clickDeleteBadgeLoyaltyPrograms("BadgesProgramNew","2.0").closeAlertAndGetItsText();
 				
 				LoyaltyManagmentForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
@@ -520,8 +523,7 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 				
 				AssertJUnit.assertTrue("Loyalty Program deleted successfully",true);
 				
-				System.out.println("Loyalty_status"+ loyalty_status);
-		
+				
 			}
 }
 
