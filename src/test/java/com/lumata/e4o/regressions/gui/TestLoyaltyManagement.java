@@ -338,8 +338,13 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 			loyaltyCreationForm.editLoyaltyBadgeType(setupLoyaltiesCreation.getBadgesType());
 		
 			
+			
 		}
 	}
+			
+			
+			loyalty_status=loyaltyCreationForm.isLoyaltyInEList(setupLoyaltiesCreation.getName());
+	
 			seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	
 			loyaltyCreationForm.clickclosebutton();
