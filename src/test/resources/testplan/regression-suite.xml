@@ -167,6 +167,16 @@
       </class>
     </classes>	
   </test>
+  <test name="Loyalty Form Testcases">
+ <parameter name="jsonFilePath_Loyalty2" value="input/loyalties"/>
+ <parameter name="jsonFileName_Loyalty2" value="loyalty_create"/>
+    <parameter name="jsonFilePath_Loyalty3" value="input/loyalties"/>
+    <parameter name="jsonFileName_Loyalty3" value="loyalty_manage"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestLoyaltyManagement">
+      </class>
+    </classes>
+  </test>
   <test name="loyalty Creation End to End">
   <parameter name="jsonFilePath_Loyalty" value="input/loyalties"/>
 	<parameter name="jsonFileName_Loyalty" value="loyaltyCreationTemplate"/>
