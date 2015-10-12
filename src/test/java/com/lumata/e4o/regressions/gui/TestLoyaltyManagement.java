@@ -298,6 +298,7 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 			@Optional("loyalty_manage") String jsonFileName1_Loyalty) 
 					throws FormException, JSONException, JSONSException {
 	
+	Boolean loyalty_status=false;
 	Boolean loyalty_managed=false;
 	
 	Reporter.log("Creation of \"Loyalty Creation Form\".", LOG_TO_STD_OUT);
@@ -388,7 +389,8 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 		Reporter.log("Resource file -> " + resourceFile1, LOG_TO_STD_OUT);
 
 		Reporter.log("Open \"Loyalty Creation Form\" UI.", LOG_TO_STD_OUT);
-
+			
+			try{
 			
 				LoyaltyManagmentForm.Management();
 									
@@ -425,26 +427,15 @@ public class TestLoyaltyManagement<jsonFilePath1_Loyalty> extends ParentTestCase
 				Reporter.log("Check general status of form", LOG_TO_STD_OUT);
 				
 				System.out.println("Loyalty_status"+ loyalty_status);
-				
-				if(loyalty_status==true)
-				{
-					Assert.assertTrue(loyalty_status);
-					Reporter.log("Loyalty Program modified Succesfully!");
-					
-				}
-				else
-				{
-					
-					Assert.fail("The Loyalty Program Modification Failed!");
-					Reporter.log("Modification of Loyalty Program Failed!");
-				}
 			
-		
-	
-		return loyalty_status;
+			}catch (FormException e)
+			{
+				Reporter.log("Exception occured while modifying BadgeLoyaltyProgram!"+e.getMessage());
+			}
+			return loyalty_status;
 		}
-	
 
+	
 	
 	@Test(enabled = TEST_ENABLED,  priority = 4 )
 	public void testUc29_04testCopyExistingLoyaltyProgram() throws FormException, Throwable{
