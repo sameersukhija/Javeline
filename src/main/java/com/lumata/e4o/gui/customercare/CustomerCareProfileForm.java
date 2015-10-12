@@ -30,7 +30,7 @@ public class CustomerCareProfileForm extends CustomerCareForm {
 	}
 
 	public CustomerCareProfileForm clickAddChannelButton() throws FormException {
-		super.clickXPath("//table[contains(@class,'gwt-DisclosurePanel DPGraph gwt-DisclosurePanel-open')]//button[contains(@name,'btn-add')]");
+		super.clickXPath("//table[contains(@class,'page-SubscriberInformationPageView')]//td[text()='Channels']//ancestor::table[contains(@class,'gwt-DisclosurePanel DPGraph gwt-DisclosurePanel-open')]//button[contains(@name,'btn-add')]");
 		return this;
 	}
 
