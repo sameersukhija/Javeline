@@ -642,7 +642,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			   offerForm.setVoucherExpiryDate(dateFormat.format(cal.getTime()));
 			   offerForm.clickImportVoucherCodes();
 			   
-			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
+			   //seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
 			   offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 			   offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 				
