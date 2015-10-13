@@ -646,8 +646,8 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			   //seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
 			   for (int i=0; i<=2;i++)
 				{
-					WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 40);
-					wait.until(ExpectedConditions.alertIsPresent());
+					//WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 40);
+					//wait.until(ExpectedConditions.alertIsPresent());
 					offerForm.handleJavascriptAlertAcceptDismiss(true);
 				}
 				
