@@ -34,11 +34,10 @@ import com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequest;
 public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTestCase {
 	
 	private Subscribers subscriber = null;
-	private final Long MSISDN = 3399900001L;
-	private final Long IMSI = 1234567890L;
+	private final Long MSISDN = 3399999999L;
+	private final Long IMSI = 1234567890123456789L;
 	private final String PROFILE_NAME = "prepaid";
 	private final String RATE_PLAN_NAME = "FUN";
-	private final String RATE_PLAN_ID = "1";
 	private final String STATUS_NAME = "active";
 	private final String IN_TAG = "QAIN";
 	private final String NETWORK_NAME = "mobile";
@@ -47,9 +46,9 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 	private final Long IMSI_NULL = null;
 	
 	/** NO VALID VALUES **/
-	private final Long IMSI_NO_EXISTING = 111111111111L;
+	private final Long IMSI_NO_EXISTING = 1111111111111111111L;
 	
-	@BeforeClass
+	@BeforeClass(groups={"a"})
 	public void initEnv() throws ParseException, Exception {
 		
 		subscriber = DAOSubscribers.getInstance( mysqlMaster ).getSubscriber( MSISDN );
@@ -199,7 +198,7 @@ public class XMLRPCRequest_Subscribermanager_GetSubsriberByKey extends ParentTes
 	}
 	
 	// Method to test Authentication Failure
-	@Test(enabled = TEST_ENABLED, priority = 4)
+	@Test(enabled = TEST_ENABLED, priority = 4 )
 	public void testAuthenticatinFailure() throws Exception {
 		XMLRPCRequest.subscribermanager_getSubscriberByKey().call(
 			guiServer,

@@ -51,7 +51,7 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber extends ParentTest
 	
 	private static final Logger logger = LoggerFactory.getLogger( XMLRPCRequest_Subscribermanager_UpdateSubscriber.class );
 	
-	final boolean TEST_ENABLED = true;
+	//final boolean TEST_ENABLED = true;
 	
 	public enum ExtendedParameters {
 		tongue, gender, salary, imei, imsi, hobbies, options 

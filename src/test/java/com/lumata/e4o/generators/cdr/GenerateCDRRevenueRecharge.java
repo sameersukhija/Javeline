@@ -1,47 +1,28 @@
 package com.lumata.e4o.generators.cdr;
 
+import java.lang.reflect.Method;
 import java.util.Calendar;
 
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.Reporter;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.IOFileException;
-import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.common.testing.system.Service;
-import com.lumata.common.testing.system.User;
+import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.cdr.types.CDRRevenueRecharge;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
+import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCSSHService;
+import com.lumata.e4o.testing.common.TCSSHServices;
 
-public class GenerateCDRRevenueRecharge {
-	
-	NetworkEnvironment env;
-	Service sshService;
-	String sshUser = "root";
-	User superman;
-			
-	/* 	Initialize Environment */
-	@Parameters({"environment", "gui_server", "user"})
-	@BeforeClass
-	public void init( @Optional("E4O_VM_NE") String environment, @Optional("collector") String collectorServer, @Optional("superman") String user ) throws NetworkEnvironmentException {		
-		environment = "E4O_QA2_NE";
-		/** Create environment configuration */
-		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
+@TCSSHServices(
+	@TCSSHService( ssh_server = "collector1", ssh_user = "root" )
+)
+public class GenerateCDRRevenueRecharge extends ParentTestCase {
 
-		sshService = env.getService( Service.Type.ssh, collectorServer );
-		
-		sshUser = "root";
-		
-	}
-	
 	@Test( enabled = true )
-	//@Test( enabled = true )
-	public void cdr_revenue_strategies() throws IOFileException, FieldException {
+	public void cdr_revenue_strategies( Method method ) throws IOFileException, FieldException {
 
 		System.out.println( "-----------------------------" );
 		System.out.println( "cdr_revenue_strategies" );
@@ -63,8 +44,8 @@ public class GenerateCDRRevenueRecharge {
 		FieldDateIncrement increment = new FieldDateIncrement();
 		increment.setDayIncrement( 1 );
 		
-		//cdrRevenue.setMsisdnStrategyFixed( 3399900001L );
-		cdrRevenue.setMsisdnStrategyRandom( 3399900001L, 3399900100L);		
+		cdrRevenue.setMsisdnStrategyFixed( 3399900001L );
+		//cdrRevenue.setMsisdnStrategyRandom( 3399900001L, 3399900100L);		
 		cdrRevenue.setDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		cdrRevenue.setDateStrategyFixed( date );
 		cdrRevenue.setAmountStrategyRandom( 100L, 1000L );
@@ -72,13 +53,17 @@ public class GenerateCDRRevenueRecharge {
 		cdrRevenue.setValidityDateStrategyFixed( date );
 		cdrRevenue.setDeactivationDateStrategyFixed( date );
 		
-		cdrRevenue.addLines( 300 );
+		cdrRevenue.addLines( 50 );
 		
 		cdrRevenue.print();
 		
 		cdrRevenue.save();
 		
-		cdrRevenue.send( sshService, "/nfsdata/files/cdr/deposit/REVENUE_RECHARGE_CDR/", sshUser );
+		final String REMOTE_FOLDER = "/nfsdata/files/cdr/deposit/REVENUE_RECHARGE_CDR/";
+		
+		cdrRevenue.send( sshl.get( "collector1", "root" ).getService(), REMOTE_FOLDER, sshl.get( "collector1", "root" ).getUser() );
+		
+		Reporter.log( Log.SAVED.createMessage( method.getName(), fileName + " in remote server"), LOG_TO_STD_OUT );
 		
 	}
 

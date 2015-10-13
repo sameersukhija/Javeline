@@ -2,48 +2,24 @@ package com.lumata.e4o.generators.cdr;
 
 import java.util.Calendar;
 
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.IOFileException;
-import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.io.IOFileUtils;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.common.testing.system.Service;
-import com.lumata.common.testing.system.User;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.cdr.CDR.DELETE;
 import com.lumata.e4o.system.cdr.types.CDRLifeCycleDelete;
 import com.lumata.e4o.system.fields.FieldDateIncrement;
 import com.lumata.e4o.testing.common.ParentTestCase;
+import com.lumata.e4o.testing.common.TCSSHService;
+import com.lumata.e4o.testing.common.TCSSHServices;
 
-
-public class GenerateCDRLifeCycleDelete  {
-	
-	NetworkEnvironment env;
-	Service sshService;
-	String sshUser = "root";
-	User superman;
-			
-	/* 	Initialize Environment */
-	@Parameters({"environment", "gui_server", "user"})
-	@BeforeClass
-	public void init( @Optional("E4O_VM") String environment, @Optional("collector") String collectorServer, @Optional("superman") String user ) throws NetworkEnvironmentException {		
-		environment = "E4O_POC_NE";
-		/** Create environment configuration */
-		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
-
-		sshService = env.getService( Service.Type.ssh, collectorServer );
-		
-		sshUser = "root";
-		
-	}
+@TCSSHServices(
+	@TCSSHService( ssh_server = "nfsdata", ssh_user = "root" )
+)
+public class GenerateCDRLifeCycleDelete extends ParentTestCase {
 	
 	@Test( enabled = true )
-	//@Test( enabled = true )
 	public void cdr_lifecycle_preferences() throws IOFileException, FieldException {
 		
 		System.out.println( "-----------------------------" );
@@ -64,17 +40,19 @@ public class GenerateCDRLifeCycleDelete  {
 		FieldDateIncrement increment = new FieldDateIncrement();
 		increment.setDayIncrement( 1 );
 	
-		cdrLCP.setMsisdnStrategyIncrement( 3399900001L, 1 );
+		cdrLCP.setMsisdnStrategyIncrement( 3399900201L, 1 );
 		cdrLCP.setDateStrategyFixed( date );
 		cdrLCP.setDeleteStrategyFixed( DELETE.YES );
 				
-		cdrLCP.addLines( 10 );
+		cdrLCP.addLines( 100 );
 				
 		cdrLCP.print();
 		
 		cdrLCP.save();
 		
-		//cdrLCP.send( sshService, "/nfsdata/files/cdr/deposit/LIFECYCLE_DELETE_CDR/", sshUser );
+		final String REMOTE_FOLDER = "/nfsdata/files/cdr/deposit/LIFECYCLE_DELETE_CDR/";
+		
+		cdrLCP.send( sshl.get( "nfsdata", "root" ).getService(), REMOTE_FOLDER, sshl.get( "nfsdata", "root" ).getUser() );
 		
 		System.out.println( "File name: " + cdrLCP.getFileName() );
 		

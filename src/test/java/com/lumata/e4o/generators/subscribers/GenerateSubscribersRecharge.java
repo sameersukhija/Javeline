@@ -15,10 +15,10 @@ import static com.lumata.e4o.webservices.xmlrpc.request.types.XMLRPCParameter.Pa
 
 public class GenerateSubscribersRecharge extends ParentTestCase {
 
-	final boolean GENERATE_FIXED_SUBSCRIBER = false;
+	final boolean GENERATE_FIXED_SUBSCRIBER = true;
 	final boolean GENERATE_FIXED_SUBSCRIBER_WITH_OPTION = false;
 	final boolean GENERATE_FIXED_SUBSCRIBER_RANDOM_RECHARGE = false;
-	final boolean GENERATE_INCREMENTAL_SUBSCRIBER_RANDOM_RECHARGE_AND_SUBSCRIBERS = true;
+	final boolean GENERATE_INCREMENTAL_SUBSCRIBER_RANDOM_RECHARGE_AND_SUBSCRIBERS = false;
 	final boolean GENERATE_INCREMENTAL_SUBSCRIBERS = false;
 	final boolean GENERATE_RANDOM_SUBSCRIBERS = false;
 	

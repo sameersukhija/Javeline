@@ -52,7 +52,7 @@ public class XMLRPCRequest_Subscribermanager_CreateSubscriber extends ParentTest
 	
 	private static final Logger logger = LoggerFactory.getLogger( XMLRPCRequest_Subscribermanager_CreateSubscriber.class );
 	
-	final boolean TEST_ENABLED = true;
+	//final boolean TEST_ENABLED = true;
 	
 	public enum ExtendedParameters {
 		tongue, gender, salary, imei, imsi, hobbies, options 
@@ -1797,7 +1797,8 @@ public class XMLRPCRequest_Subscribermanager_CreateSubscriber extends ParentTest
 	
 	}
 	
-	@Test(enabled=TEST_ENABLED, priority = 42 )
+	//@Test(enabled=TEST_ENABLED, priority = 42 )
+	@Test(enabled=true, priority = 42 )
 	public void createSubscriberWithExtendedParametersCorrectHobbies() throws Exception {
 			
 		StringBuilder hobbies = new StringBuilder();
@@ -1978,7 +1979,8 @@ public class XMLRPCRequest_Subscribermanager_CreateSubscriber extends ParentTest
 //	
 //	}
 	
-	@Test(enabled=TEST_ENABLED, priority = 46 )
+	//@Test(enabled=TEST_ENABLED, priority = 46 )
+	@Test(enabled=true, priority = 46 )
 	public void createSubscriberWithExtendedParametersCorrectOptions() throws Exception {
 		
 		StringBuilder otpions = new StringBuilder();

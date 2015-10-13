@@ -4,19 +4,10 @@ import java.lang.reflect.Method;
 import java.util.Calendar;
 
 import org.testng.Reporter;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.exceptions.IOFileException;
-import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.common.testing.log.Log;
-import com.lumata.common.testing.system.NetworkEnvironment;
-import com.lumata.common.testing.system.Service;
-import com.lumata.common.testing.system.User;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FieldException;
 import com.lumata.e4o.system.cdr.types.CDRDialogSMS;
@@ -80,7 +71,7 @@ public class GenerateCDRDialogSms extends ParentTestCase {
 					
 		Reporter.log( Log.PUTTING.createMessage( method.getName(), fileName ), LOG_TO_STD_OUT );
 		
-		//cdrDialogSms.send( sshl.get( "nfsdata", "root" ).getService(), REMOTE_FOLDER, sshl.get( "nfsdata", "root" ).getUser() );
+		cdrDialogSms.send( sshl.get( "nfsdata", "root" ).getService(), REMOTE_FOLDER, sshl.get( "nfsdata", "root" ).getUser() );
 		
 		cdrDialogSms.print();
 				
