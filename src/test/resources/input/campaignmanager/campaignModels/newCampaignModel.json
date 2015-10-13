@@ -17,7 +17,7 @@
 					{ "type":"Subscriber.Msisdn","type1":"Subscriber.Msisdn",type2:"Subscriber.Msisdn","operator" : "=","operator1":"=","operator2":"<", "value" : "393886933857", "value1":"9650450905", "value2":"24562","delete" : false} 
 					],
 					"actions": [
-						{ "name": "Accept Offer.Accept Offer 1","name1":"Accept Offer.Accept Offer 2","name2":"Accept Offer.Accept Offer 3","option": null,"option1": null,"option2": null,"delete": false }							
+						{ "name": "Accept Offer.Accept Offer 1","value": null,"name1":"Accept Offer.Accept Offer 2","value1":null,"name2":"Accept Offer.Accept Offer 3","value2": null,"option": null,"option1": null,"option2": null,"delete": false }							
 					],
 					"beneficiary": true,
 					"notifications": null,

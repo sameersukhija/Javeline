@@ -65,6 +65,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 @TCOwners(@TCOwner(name = "Parvinder Bhogra", email = "parvinder.bhogra@lumatagroup.com"))
 @TCSeleniumWebDriver
 @TCMysqlMaster
+
 public class TestPurchaseOfferFromCustomerCare extends ParentTestCase {
 
 	private static final Logger logger = LoggerFactory
@@ -74,7 +75,7 @@ public class TestPurchaseOfferFromCustomerCare extends ParentTestCase {
 
 	JSONOffers setupOffer = null;
 
-	@Parameters({ "jsonFilePath_Offer", "jsonFileName_Offer" })
+	@Parameters({ "jsonFilePath_Offer", "jsonFileName_Offer"})
 	@Test(enabled = TEST_ENABLED, priority = 1, timeOut = 1500000)
 	public void testUC20_01purchaseOfferFromCustomerCare(
 			String jsonFilePath_Offer, String jsonFileName_Offer)
@@ -205,9 +206,6 @@ public class TestPurchaseOfferFromCustomerCare extends ParentTestCase {
 
 		customerCareHistoryForm = new CustomerCareHistoryForm(
 				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-		customerCareHistoryForm.open();
-		customerCareHistoryForm.setSubscriberMsisdn("9890234567");
-		customerCareHistoryForm.clickSearchButton();
 		customerCareHistoryForm.openHistoryTab();
 		customerCareHistoryForm.clickPurchaseDetailsRefreshButton();
 		Boolean purchaseDetail = customerCareHistoryForm
