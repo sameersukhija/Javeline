@@ -1,4 +1,6 @@
 package com.lumata.e4o.regressions.gui;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.AssertJUnit;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -641,12 +643,15 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			   
 			   offerForm.setVoucherExpiryDate(dateFormat.format(cal.getTime()));
 			   offerForm.clickImportVoucherCodes();
-			   
 			   //seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
-			   offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
-			   offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+			   for (int i=0; i<=2;i++)
+				{
+					WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 40);
+					wait.until(ExpectedConditions.alertIsPresent());
+					offerForm.handleJavascriptAlertAcceptDismiss(true);
+				}
 				
-			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+			   //seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
 			  
 			   offerForm.clickPriceTab();
 				
