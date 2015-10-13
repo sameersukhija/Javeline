@@ -644,12 +644,13 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			   offerForm.setVoucherExpiryDate(dateFormat.format(cal.getTime()));
 			   offerForm.clickImportVoucherCodes();
 			   //seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
-			   for (int i=0; i<=2;i++)
-				{
+			  // for (int i=0; i<=2;i++)
+				//{
 					//WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 40);
 					//wait.until(ExpectedConditions.alertIsPresent());
 					offerForm.handleJavascriptAlertAcceptDismiss(true);
-				}
+				//}
+			   offerForm.clickXPath("//div[contains(@class,'dialogMiddleCenterInner dialogContent')]//button[@name='btn-ok']");
 				
 			   //seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
 			  
