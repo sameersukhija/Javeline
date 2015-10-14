@@ -2,10 +2,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Regression Suite" verbose="1" parallel="false">
 
- <!--listeners>
+ <listeners>
     <listener class-name="com.lumata.e4o.testing.common.TestNGReportListener"/>
-  </listeners-->
-	<!--test name="Run Expired Data">
+  </listeners>
+	<test name="Run Expired Data">
    <parameter name="environment" value="e4o_regression"/>
 	<parameter name="tenant" value="tenantMaster"/>
 	<classes>
@@ -15,7 +15,7 @@
 		</methods>
 		</class>
 	</classes>
-	</test-->
+	</test>
 	
 	<parameter name="e4oReleaseParam" value="2.4.2.3.0" />
   
@@ -28,7 +28,7 @@
   -->
   <!-- parameter name="seleniumWebDriverParams" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://192.168.56.152:4444/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/ -->  
    <parameter name="seleniumWebDriverParams" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox'} } }"/>  
-  <!--test name="Sales Channel Creation Testcase">
+  <test name="Sales Channel Creation Testcase">
 	<parameter name="channel_jsonFilePath" value="input/administrationmanager/salesChannels"/>
 	<parameter name="channel_jsonFileName" value="salesChannelsList"/>
     <classes>
@@ -116,7 +116,7 @@
       <class name="com.lumata.e4o.regressions.gui.TestProductsForm">
       </class>
     </classes>	
-  </test-->
+  </test>
   
   <test name="Offer Form TestCases">
 	<parameter name="jsonFilePath1_Offer" value="input/catalogmanager/Offers"/>
@@ -125,13 +125,10 @@
 	<parameter name="jsonFileName_ProductType" value="newOffer_ProductType"/>
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestOfferForm">
-      <methods>
-			<include name="testUc28_07_addOffer_OneTimeVoucher_OfferForm"/>
-		</methods>
       </class>
     </classes>	
   </test>
-  <!--test name="Campaign Model Testcases">
+  <test name="Campaign Model Testcases">
 	<parameter name="jsonFilePath" value="input/campaignmanager/campaignModels"/>
 	<parameter name="jsonFileName" value="newCampaignModel"/>
     <classes>
@@ -186,5 +183,5 @@
       <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_UpdateSubscriber"></class>
       <class name="com.lumata.e4o.regressions.xmlrpc.XMLRPCRequest_Subscribermanager_DeleteSubscriber"></class>
     </classes>	
-  </test-->
+  </test>
 </suite>
