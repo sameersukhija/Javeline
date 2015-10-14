@@ -1,4 +1,6 @@
 package com.lumata.e4o.regressions.gui;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.AssertJUnit;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -19,8 +21,10 @@ import org.testng.annotations.Parameters;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
+import com.lumata.common.testing.system.NetworkEnvironment;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
+import com.lumata.common.testing.network.SFTPClient;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.catalogmanager.OffersForm;
 import com.lumata.e4o.gui.catalogmanager.ProductTypesForm;
@@ -583,7 +587,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
   			}
   		
 		@Parameters({"jsonFilePath1_Offer","jsonFileName1_Offer","networkEnvironmentParams","seleniumWebDriverParams"})
-		@Test( enabled=false, priority = 7 )
+		@Test( enabled=TEST_ENABLED, priority = 1 )
 		public void testUc28_07_addOffer_OneTimeVoucher_OfferForm(@Optional("/input/catalogmanager/Offers") String jsonFilePath1_Offer,
 				@Optional("newOffers") String jsonFileName1_Offer,
 				String networkEnvironmentParams,
@@ -622,7 +626,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			
 			offerForm.clickVoucherDefinitionTab();
 			
-			offerForm.setOneTimeBrowseFile("VoucherCodes.csv");
+			offerForm.setOneTimeBrowseFile("/tmp/VoucherCodes.csv");
 			
 			//offerForm.clickBycssSelector("button[name=btn-importer]");
 			
@@ -639,12 +643,16 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 			   
 			   offerForm.setVoucherExpiryDate(dateFormat.format(cal.getTime()));
 			   offerForm.clickImportVoucherCodes();
-			   
-			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
-			   offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
-			   offerForm.handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+			   //seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
+			  // for (int i=0; i<=2;i++)
+				//{
+					//WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 40);
+					//wait.until(ExpectedConditions.alertIsPresent());
+					offerForm.handleJavascriptAlertAcceptDismiss(true);
+				//}
+			   offerForm.clickXPath("//div[contains(@class,'dialogMiddleCenterInner dialogContent')]//button[@name='btn-ok']");
 				
-			   seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+			   //seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
 			  
 			   offerForm.clickPriceTab();
 				
@@ -699,7 +707,6 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
 	}
 		
-		}	
-
+		}
 		
 				}

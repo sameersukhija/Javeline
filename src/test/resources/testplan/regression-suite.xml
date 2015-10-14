@@ -125,9 +125,6 @@
 	<parameter name="jsonFileName_ProductType" value="newOffer_ProductType"/>
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestOfferForm">
-      <!--methods>
-			<include name="testUc28_07_addOffer_OneTimeVoucher_OfferForm"/>
-		</methods-->
       </class>
     </classes>	
   </test>

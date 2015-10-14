@@ -532,7 +532,28 @@
 			                    </property>
 			                </properties -->					        	          		
 			        	</configuration>
-			      	</plugin>			
+			      	</plugin>
+			      	<plugin>
+ 						<groupId>org.codehaus.mojo</groupId>
+	 					<artifactId>exec-maven-plugin</artifactId>
+ 						<version>1.4.0</version>
+						 <executions>
+						  <execution>
+						   <id>upload-test-file</id>
+						   <phase>process-test-resources</phase>
+						   <goals>
+						   	<goal>exec</goal>
+						   </goals>
+						   <configuration>
+						    <executable>scp</executable>
+						    <arguments>
+						     <argument>./src/test/resources/input/catalogmanager/Offers/VoucherCodes.csv</argument>
+						     <argument>prod@md1-pa051-tch04.mgn:/tmp/</argument>
+						    </arguments>
+						   </configuration>
+						  </execution>
+						 </executions>
+						</plugin>		
 				</plugins>
 			</build>
 		</profile>
