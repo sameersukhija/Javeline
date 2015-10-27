@@ -2,7 +2,7 @@ package com.lumata.e4o.json.gui.administrationmanager;
 
 import java.io.File;
 import java.io.IOException;
-
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,12 +70,12 @@ public class JSONNotifications extends JsonConfigurationFile {
 	 * @return File object
 	 * @throws JSONSException 
 	 */
-	public File getMailNotificationFile() throws JSONSException {
+	public File getMailNotificationFile(Path creationFolder, List<String> data, String creationPrefix, TempFileExtension creationExtension) throws JSONSException {
 
 		File resp = null;
 		
 		try {
-			resp = TempFileHandling.createTempTestFile( getMailTemplate(), getTemplateName(), TempFileExtension.HTML);
+			resp = TempFileHandling.createTempTestFile( creationFolder,data, creationPrefix, TempFileExtension.HTML);
 		}
 		catch ( IOException e ) {
 			

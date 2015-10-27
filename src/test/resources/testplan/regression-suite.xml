@@ -52,6 +52,14 @@
       </class>
     </classes>	
   </test>
+  <test name="Notification Template">
+  <parameter name="jsonFilePath_notif" value="input/administrationmanager/notifications"/>
+	<parameter name="jsonFileName_notif" value="newNotification"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestNotificationTemplate">
+      </class>
+    </classes>	
+  </test>
   <test name="Rank Validation Scenario">
   <parameter name="supplier_jsonFilePath" value="input/catalogmanager/suppliers"/>
   <parameter name="supplier_jsonFileName" value="endToEndSupplier"/>
