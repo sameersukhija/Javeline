@@ -1,0 +1,49 @@
+{
+	"Users": [
+		{
+			"enabled": true,
+			"name": "Sameer",
+			"email": "sameer.sukhija@lumatagroup.com",
+			"password": "sameer",
+			"confirmpassword": "sameer",
+			"agency" : "PBS_SAMEER",
+			"group" : "loginmanagement",
+			"permission" : "Manager",
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			},
+			"delete" : false},
+		
+		  {
+			"enabled": true,
+			"name": "Rajesh",
+			"email": "rajesh.singh@lumatagroup.com",
+			"password": "rajesh",
+			"confirmpassword": "rajesh",
+			"agency" : "PBS_SAMEER",
+			"group" : "loginmanagement",
+			"permission" : "Editor",
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			},
+			"delete" : false},
+		
+			{
+			"enabled": true,
+			"name": "Sanjay",
+			"email": "sanjay.singh@lumatagroup.com",
+			"password": "sanjay",
+			"confirmpassword": "sanjay",
+			"agency" : "PBS_SAMEER",
+			"group" : "loginmanagement",
+			"permission" : "Reader",
+			"errorActions" : {
+				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
+				"GENERAL_ERROR" : "RETURN_ERROR" 
+			},
+			"delete" : false
+		}
+	]
+}

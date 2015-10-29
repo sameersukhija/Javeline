@@ -32,7 +32,7 @@ public class JSONLMGroup extends JsonConfig {
 	}
 	
 	public String getName() throws JSONException {
-		if( null == this.currentGroup ) { System.out.println( "NULLLLLL" ); }
+		if( null == this.currentGroup ) { System.out.println( "NULL" ); }
 		return currentGroup.getStringFromPath( "name" );
 	}
 
@@ -55,6 +55,23 @@ public class JSONLMGroup extends JsonConfig {
 	public JSONArray getTabs() throws JSONException {
 		return currentGroup.getJSONArrayFromPath( "tabs" );
 	}
+	
+	public String getCampaignsTab() throws JSONException {
+		return currentGroup.getStringFromPath( "CampaignsTab" );
+	}
+	
+	public String getCampaignCreationTab() throws JSONException {
+		return currentGroup.getStringFromPath( "CampaignCreationTab" );
+	}
+	
+	public String getCampaignModelTab() throws JSONException {
+		return currentGroup.getStringFromPath( "CampaignModelTab" );
+	}
+	
+	public String getCatalogueTab() throws JSONException {
+		return currentGroup.getStringFromPath( "CatalogueTab" );
+	}
+	
 	
 	public JSONLMGroup getGroupById( Integer currentGroupId ) throws JSONException, JSONSException {
 		
