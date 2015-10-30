@@ -17,7 +17,7 @@ import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
+import com.lumata.e4o.gui.campaignmanager.CampaignModelFormOld;
 //import com.lumata.e4o.gui.loyaltymanager.LoyaltyManagementForm.WizardTab;
 import com.lumata.e4o.gui.common.GWTCalendarForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONAction;

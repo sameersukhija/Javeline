@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,8 +43,6 @@ public abstract class Form {
 	protected boolean status;
 	protected WebElement lastWebElement;
 	protected WebDriverWait wait;
-
-		
 	
 	public Form(SeleniumWebDriver selenium, long timeout, long interval) {
 		
@@ -53,12 +52,14 @@ public abstract class Form {
 		this.wait = new WebDriverWait(this.selenium.getWrappedDriver(), this.timeout );
 		
 	}
+	
 	public Form selectRadioGroupByName( String name, Integer option ) throws FormException {
 		
 		return selectRadioGroup( SearchBy.NAME, name, option );
 		
 	}
-public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws FormException {
+
+	public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws FormException {
 		
 		List<WebElement> radioGroup = searchList( by, tag );
 		
@@ -75,6 +76,7 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 		return this;
 		
 	}
+	
 	public Calendar getDate( String dateStr ) {
 		
 		Calendar date = Calendar.getInstance();
@@ -133,6 +135,14 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 	    
 		});
 	
+	}
+	
+	public Form implicitlyWait( Integer timeValue , TimeUnit timeUnit ) {
+		
+		this.selenium.getWrappedDriver().manage().timeouts().implicitlyWait( timeValue, timeUnit );
+		
+		return this;
+		
 	}
 	
 	public Form maximize() {
@@ -401,6 +411,19 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 		
 	    return parentEl;          
 	}
+
+	public WebElement getChildElementByXpath( WebElement el, String xpath ) throws FormException {
+	    
+		WebElement childEl = null;
+	    
+		if( null != el ) {
+	        
+			childEl =  el.findElement( By.xpath( xpath ) );
+					
+		}
+		
+	    return childEl;          
+	}
 	
 	private String getValue( SeleniumUtils.SearchBy by, String tag ) throws FormException {
 		
@@ -615,7 +638,7 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 		}
 		
 		Select select = new Select( lastWebElement );
-		
+
 		select.selectByVisibleText( text );
 		
 		return this;
@@ -911,11 +934,13 @@ public Form selectRadioGroup( SearchBy by, String tag, Integer option ) throws F
 		return switchToFrame( SeleniumUtils.SearchBy.NAME, frame,timeout, attempt_timeout );
 		
 	}
-public Form switchToFrameByXPath( String frame,Long timeout,Long attempt_timeout) throws FormException {
+
+	public Form switchToFrameByXPath( String frame,Long timeout,Long attempt_timeout) throws FormException {
 		
 		return switchToFrame( SeleniumUtils.SearchBy.XPATH, frame,timeout, attempt_timeout );
 		
 	}
+	
 	public Form switchToFrameByClassName( String frame ,Long timeout,Long attempt_timeout) throws FormException {
 		
 		return switchToFrame( SeleniumUtils.SearchBy.CLASS_NAME, frame,timeout,attempt_timeout);
@@ -927,6 +952,12 @@ public Form switchToFrameByXPath( String frame,Long timeout,Long attempt_timeout
 		lastWebElement = search( by, tag );
 				
 		return lastWebElement.isSelected();
+		
+	}
+	
+	public Boolean isCheckedById( String id ) throws FormException {
+		
+		return isChecked( SeleniumUtils.SearchBy.ID, id );
 		
 	}
 	
@@ -946,9 +977,26 @@ public Form switchToFrameByXPath( String frame,Long timeout,Long attempt_timeout
 		
 	}
 	
+	public Alert getDialog() {
+		
+		Alert dialog = null;
+		
+		try {
+			
+			dialog = selenium.selectAlert();
+			
+			@SuppressWarnings("unused")
+			String dialogText = dialog.getText();
+			
+		} catch (NoAlertPresentException e) {}
+		
+		return dialog;
+		
+	}
+	
 	public Form confirmDialog() {
 		
-		Alert dialog = selenium.selectAlert();
+		Alert dialog = getDialog();
 		
 		if( null != dialog ) { dialog.accept(); }
 		
@@ -958,7 +1006,7 @@ public Form switchToFrameByXPath( String frame,Long timeout,Long attempt_timeout
 	
 	public Form abortDialog() {
 		
-		Alert dialog = selenium.selectAlert();
+		Alert dialog = getDialog();
 		
 		if( null != dialog ) { dialog.dismiss(); }
 		
@@ -1148,5 +1196,7 @@ public Form switchToFrameByXPath( String frame,Long timeout,Long attempt_timeout
 		return click( SeleniumUtils.SearchBy.CSS, string );
 		
 	}
+	
+	
 
 }

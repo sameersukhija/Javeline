@@ -140,7 +140,7 @@ public class VoucherCodes {
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
-			key = "",
+			key = "MUL",
 			defaultValue = "null",
 			extra = "",
 			length = 11,

@@ -75,7 +75,7 @@ public class JSONNotifications extends JsonConfigurationFile {
 		File resp = null;
 		
 		try {
-			resp = TempFileHandling.createTempTestFile( creationFolder,data, creationPrefix, TempFileExtension.HTML);
+			resp = TempFileHandling.getInstance().createTempTestFile( creationFolder,data, creationPrefix, TempFileExtension.HTML);
 		}
 		catch ( IOException e ) {
 			

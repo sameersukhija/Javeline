@@ -41,7 +41,7 @@ public class Conf {
 			field = "position",
 			type = "tinyint(1) unsigned",
 			mysqlType = "tinyint",
-			javaType = "Integer",
+			javaType = "Boolean",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,

@@ -21,6 +21,8 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONRules;
 public class RulesForm extends OfferOptimisationForm {
 
 	private JSONRules ruleCfg;
+	
+	private final String CHANNEL_ROW_XPATH = "//div[contains(@class,'e4ol-list__cell--text') and contains(text(),'{channelName}')]/parent::div";
 
 	public enum ElementErrorActionType {
 
@@ -33,7 +35,7 @@ public class RulesForm extends OfferOptimisationForm {
 		RandomAssigment("Random Assigment"), 
 		BestOffer("Best Offer"), 
 		Historybased("History based"), 
-		Stockbased("Stock based}"), 
+		Stockbased("Stock based"), 
 		PreferenceBased("Preference Based"), 
 		CustomBased("Custom Based");
 		
@@ -61,6 +63,27 @@ public class RulesForm extends OfferOptimisationForm {
 		private String value;
 
 		ExpiredOfferBehaviour(String value) {
+
+			this.value = value;
+		}
+
+		public String value() {
+
+			return this.value;
+		}
+
+	}
+
+	public enum MaxOffersPerTimePeriodUnit {
+		
+		Selectvalue("Select value..."), 
+		Day("Day"), 
+		Week("Week"),
+		Month("Month");
+		
+		private String value;
+
+		MaxOffersPerTimePeriodUnit(String value) {
 
 			this.value = value;
 		}
@@ -150,10 +173,49 @@ public class RulesForm extends OfferOptimisationForm {
 	}
 
 	// Set Channel Type
-	public RulesForm setChannel( String channelName ) throws FormException {
+	public RulesForm addChannel( String channelName ) throws FormException {
 		super.multiselectByXPathAndVisibleText( "//select[@multiple]", channelName );
 		return this;
 
+	}
+	
+	// Get Selected Channels
+	private List<WebElement> getSelectedChannels( String xpath ) throws FormException {
+		
+		List<WebElement> salesChannels = super.searchListByXPath( "//ul[@class='select2-choices']", xpath );
+
+		return salesChannels;
+		
+	}
+
+	// Get Selected Channels
+	public List<WebElement> getSelectedChannels() throws FormException {
+		
+		return getSelectedChannels( "//li[@class='select2-search-choice']" );
+		
+	}
+	
+	// Remove All Selected Channels
+	public RulesForm removeAllSelectedChannels() throws FormException {
+		
+		List<WebElement> salesChannels = this.getSelectedChannels( "//a[@class='select2-search-choice-close']" );
+		
+		while( salesChannels.size() > 0 ) {
+			
+			WebElement salesChannel = salesChannels.get(0);
+			
+			salesChannel.click();
+			
+			try {			
+				
+				salesChannels = this.getSelectedChannels( "//a[@class='select2-search-choice-close']" );
+			
+			} catch( FormException fe ) { break; }
+			
+		}
+
+		return this;
+		
 	}
 	
 	// Select OptimizationAlgorithm
@@ -167,6 +229,7 @@ public class RulesForm extends OfferOptimisationForm {
 		return this;
 	}
 	
+	// Get OptimizationAlgorithm
 	public String getAlgorithm() throws FormException {
 		return super.getValueByName("algorithm");
 		
@@ -207,6 +270,16 @@ public class RulesForm extends OfferOptimisationForm {
 		return this;
 
 	}
+
+	// Click on save button of editRule
+	public RulesForm saveEditBtn() throws FormException {
+
+		super.clickXPath("//a[@name='btn-edit']");
+
+		return this;
+
+	}
+
 	public RulesForm editRule() throws FormException {
 
 		super.clickXPath("//a[@name='btn-edit']");
@@ -252,25 +325,136 @@ public class RulesForm extends OfferOptimisationForm {
 		return this;
 	}
 
-	// Set MaxNumberofOffers
-	public RulesForm selectMaxOffersFromChannel(String text)
-			throws FormException {
-		super.sendKeysByXPath("//input[@ng-model='channel.maxOffers']", text);
+	// Reset MaxOffersPerAllocation for a specific channel
+	public RulesForm resetMaxOffersPerAllocation( String channelName ) throws FormException {
+		
+		String MAX_OFFERS_PER_ALLOCATION_XPATH = CHANNEL_ROW_XPATH.replace( "{channelName}", channelName ) + "//input[@ng-model='channel.maxOffers']";
+		
+		super.sendKeysByXPath( MAX_OFFERS_PER_ALLOCATION_XPATH, "" );
+		
 		return this;
+		
 	}
 
-	// Click on CheckMandatoryBox
-	public RulesForm checkMandatoryBox() throws FormException {
-		super.clickXPath("//input[@ng-model='channel.mandatory']");
-		return this;
+	// Set MaxOffersPerAllocation for a specific channel
+	public RulesForm setMaxOffersPerAllocation( String channelName, Integer maxOffersPerAllocation ) throws FormException {
+		
+		return setMaxOffersPerAllocation( channelName, String.valueOf( maxOffersPerAllocation ) );
+	
 	}
 
-	// Set Priority if Mandatory
-	public RulesForm setPriorityIfMandatory(String text) throws FormException {
-		super.sendKeysByXPath("//input[@ng-model='channel.priority']", text);
+	// Set MaxOffersPerAllocation for a specific channel
+	public RulesForm setMaxOffersPerAllocation( String channelName, String maxOffersPerAllocation ) throws FormException {
+		
+		String MAX_OFFERS_PER_ALLOCATION_XPATH = CHANNEL_ROW_XPATH.replace( "{channelName}", channelName ) + "//input[@ng-model='channel.maxOffers']";
+		
+		super.sendKeysByXPath( MAX_OFFERS_PER_ALLOCATION_XPATH, maxOffersPerAllocation );
+
 		return this;
+	
+	}
+
+	// Reset MaxOffersPerTimePeriodValue for a specific channel
+	public RulesForm resetMaxOffersInTimePeriodValue( String channelName ) throws FormException {
+		
+		String MAX_OFFERS_PER_TIME_PERIOD_XPATH = CHANNEL_ROW_XPATH.replace( "{channelName}", channelName ) + "//input[@ng-model='channel.maxOfferInPeriod']";
+		
+		super.sendKeysByXPath( MAX_OFFERS_PER_TIME_PERIOD_XPATH, "" );
+		
+		return this;
+		
+	}
+
+	// Set MaxOffersPerTimePeriodValue for a specific channel
+	public RulesForm setMaxOffersInTimePeriodValue( String channelName, Integer maxOffersInTimePeriodValue ) throws FormException {
+		
+		return setMaxOffersInTimePeriodValue( channelName, String.valueOf( maxOffersInTimePeriodValue ) );
+	
+	}
+
+	// Set MaxOffersPerTimePeriodValue for a specific channel
+	public RulesForm setMaxOffersInTimePeriodValue( String channelName, String maxOffersInTimePeriodValue ) throws FormException {
+		
+		String MAX_OFFERS_PER_TIME_PERIOD_XPATH = CHANNEL_ROW_XPATH.replace( "{channelName}", channelName ) + "//input[@ng-model='channel.maxOfferInPeriod']";
+		
+		super.sendKeysByXPath( MAX_OFFERS_PER_TIME_PERIOD_XPATH, maxOffersInTimePeriodValue );
+
+		return this;
+	
+	}
+
+	// Reset MaxOffersPerTimePeriodUnit for a specific channel
+	public RulesForm resetMaxOffersInTimePeriodUnit( String channelName ) throws FormException {
+		
+		return setMaxOffersInTimePeriodUnit( channelName, MaxOffersPerTimePeriodUnit.Selectvalue );
+		
+	}
+
+	// Set MaxOffersPerTimePeriodUnit for a specific channel
+	public RulesForm setMaxOffersInTimePeriodUnit( String channelName, MaxOffersPerTimePeriodUnit maxOffersInTimePeriodUnit ) throws FormException {
+		
+		return setMaxOffersInTimePeriodUnit( channelName, maxOffersInTimePeriodUnit.value() );
+	
+	}
+
+	// Set MaxOffersPerTimePeriodUnit for a specific channel
+	public RulesForm setMaxOffersInTimePeriodUnit( String channelName, String maxOffersInTimePeriodUnit ) throws FormException {
+		
+		String MAX_OFFERS_PER_TIME_PERIOD_XPATH = CHANNEL_ROW_XPATH.replace( "{channelName}", channelName ) + "//select[@name='period']";
+		
+		super.selectByXPathAndVisibleText( MAX_OFFERS_PER_TIME_PERIOD_XPATH, maxOffersInTimePeriodUnit );
+		
+		return this;
+	
 	}
 	
+	// Check Mandatory box
+	public RulesForm checkMandatoryChannel( String channelName ) throws FormException {
+		
+		String MANDATORY_CHANNEL_XPATH = CHANNEL_ROW_XPATH.replace( "{channelName}", channelName ) + "//input[@ng-model='channel.mandatory']";
+		
+		if(!super.isSelectedByXPath(MANDATORY_CHANNEL_XPATH) ) {
+			
+			super.clickXPath(MANDATORY_CHANNEL_XPATH);
+		
+		}
+				
+		return this;
+		
+	}
+
+	// Uncheck Mandatory box
+	public RulesForm uncheckMandatoryChannel( String channelName ) throws FormException {
+		
+		String MANDATORY_CHANNEL_XPATH = CHANNEL_ROW_XPATH.replace( "{channelName}", channelName ) + "//input[@ng-model='channel.mandatory']";
+		
+		if(super.isSelectedByXPath(MANDATORY_CHANNEL_XPATH) ) {
+			
+			super.clickXPath(MANDATORY_CHANNEL_XPATH);
+		
+		}
+				
+		return this;
+		
+	}
+	
+	// Set Priority if Mandatory
+	public RulesForm setPriorityChannel( String channelName, Integer priority ) throws FormException {
+		
+		return setPriorityChannel( channelName, String.valueOf( priority ) );
+	
+	}
+	
+	// Set Priority if Mandatory
+	public RulesForm setPriorityChannel( String channelName, String priority ) throws FormException {
+		
+		String PRIORITY_CHANNEL_XPATH = CHANNEL_ROW_XPATH.replace( "{channelName}", channelName ) + "//input[@ng-model='channel.priority']";
+		
+		super.sendKeysByXPath( PRIORITY_CHANNEL_XPATH, priority );
+		
+		return this;
+	
+	}
 	
 	private Boolean isFieldInvalid(WebElement el) throws FormException {
 		WebElement e1 = super.search(SeleniumUtils.SearchBy.XPATH,

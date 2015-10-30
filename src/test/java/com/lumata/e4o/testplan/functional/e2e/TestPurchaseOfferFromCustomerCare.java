@@ -29,7 +29,7 @@ import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
 import com.lumata.e4o.dao.tenant.DAOTokenType;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
+import com.lumata.e4o.gui.campaignmanager.CampaignModelFormOld;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
 import com.lumata.e4o.gui.campaignmanager.ConfigureCampaignModel;
 import com.lumata.e4o.gui.catalogmanager.OffersForm;

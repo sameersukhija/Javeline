@@ -24,7 +24,7 @@ public class ChangeRemoteSystemDate {
 	@Parameters({"environment", "gui_server", "user"})
 	@BeforeClass
 	public void init( @Optional("E4O_VM_NE") String environment, @Optional("actrule") String gui_server, @Optional("superman") String user ) throws NetworkEnvironmentException {		
-		environment = "E4O_QA3_NE";
+		environment = "E4O_QA4_NE";
 		
 		/** Create environment configuration */
 		env = new NetworkEnvironment( "input/environments", environment, IOFileUtils.IOLoadingType.RESOURCE );
@@ -41,7 +41,7 @@ public class ChangeRemoteSystemDate {
 	@Test(enabled=true, priority = 1 )
 	public void changeRemoteSystemDateViaSSH() throws Exception {
 		
-		Boolean now = true;
+		Boolean now = false;
 		
 		Calendar date = Calendar.getInstance();
 		
@@ -64,8 +64,8 @@ public class ChangeRemoteSystemDate {
 		} else {
 		
 			YEAR = 2015;
-			MONTH = Calendar.JULY;
-			DAY = 1;
+			MONTH = Calendar.JANUARY;
+			DAY = 27;
 			HOUR = 10;
 			MINUTE = 00;
 			SECOND = 00;

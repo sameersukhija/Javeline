@@ -6,8 +6,6 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.lumata.e4o.json.common.JsonConfig;
 
@@ -17,8 +15,6 @@ import com.lumata.e4o.json.common.JsonConfig;
  */
 public class JSONEvent_ extends JsonConfig {
 
-	private static final  Logger logger = LoggerFactory.getLogger( JSONEvent_.class );
-	
 	public JSONEvent_( JSONObject eventCfg ) {
 		
 		super( eventCfg );
@@ -29,12 +25,8 @@ public class JSONEvent_ extends JsonConfig {
 		return getStringFromPath( "eventType");
 	}
 	
-	public String getEventType1() {
-		return getStringFromPath( "eventType1");
-	}
-
-	
 	public Map<String, JSONCriteria> getCriteria() throws JSONException{
+		
 		Map<String, JSONCriteria> criteria = new LinkedHashMap<String, JSONCriteria>();
 		
 		JSONArray jsonCriteria = getJSONArrayFromPath( "criteria" );
@@ -121,6 +113,14 @@ public class JSONEvent_ extends JsonConfig {
 		
 		return ( null != obj ? true : false );
 		
+	}
+	
+	public Boolean getDelete() {
+		return getBooleanFromPath( "delete");
+	}
+	
+	public Boolean getEdit() {
+		return getBooleanFromPath( "edit");
 	}
 
 }

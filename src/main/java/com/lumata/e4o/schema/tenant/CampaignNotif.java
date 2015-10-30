@@ -83,7 +83,7 @@ public class CampaignNotif {
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
-			key = "UNI",
+			key = "MUL",
 			defaultValue = "null",
 			extra = "",
 			length = 20,

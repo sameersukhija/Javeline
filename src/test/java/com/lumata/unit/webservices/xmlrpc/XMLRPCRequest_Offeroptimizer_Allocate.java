@@ -9,14 +9,13 @@ import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCComponent.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCOption.*;
 import static com.lumata.e4o.webservices.xmlrpc.request.XMLRPCRequestMethods.*;
 
-
 public class XMLRPCRequest_Offeroptimizer_Allocate extends ParentTestCase {
 	
 	@Test(enabled=TEST_ENABLED, priority = 1 )
 	public void callXMLRPCCRequest() throws Exception {
 		
 		final String msisdn = "3399900001";
-		final String token_code = "br-817b9";
+		final String token_code = "K3MJA";
 		
 		XMLRPCRequest.offeroptimizer_allocate().call( 	
 			guiServer, 

@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @Table( "subscribers" )
 public class Subscribers { 
 
-	public enum Fields { msisdn, imei, imsi, subscription_date, profile_id, rate_plan_id, status_id, service_id_list, channel_id_list, network_id, tongue, ucg, ucg_start_date, in_tag, hobbies, options, tariff_plan, gender, salary, update_time }
+	public enum Fields { msisdn, imei, imsi, subscription_date, profile_id, rate_plan_id, status_id, service_id_list, channel_id_list, network_id, tongue, ucg, ucg_start_date, in_tag, hobbies, options, tariff_plan, buyer_profile, ucg_std, gender, salary, update_time }
 
 	@Column(
 			table = "subscribers",
@@ -343,6 +343,44 @@ public class Subscribers {
 
 	@Column(
 			table = "subscribers",
+			field = "buyer_profile",
+			type = "smallint(5) unsigned",
+			mysqlType = "smallint",
+			javaType = "Short",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 5,
+			comment = "",
+			getMethod = "getBuyerProfile",
+			setMethod = "setBuyerProfile"
+	)
+	private Short buyer_profile;
+
+	@Column(
+			table = "subscribers",
+			field = "ucg_std",
+			type = "tinyint(3) unsigned",
+			mysqlType = "tinyint",
+			javaType = "Byte",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 3,
+			comment = "",
+			getMethod = "getUcgStd",
+			setMethod = "setUcgStd"
+	)
+	private Byte ucg_std;
+
+	@Column(
+			table = "subscribers",
 			field = "gender",
 			type = "enum('COMPANY','FEMALE','MALE','UNDEFINED')",
 			mysqlType = "enum",
@@ -420,6 +458,8 @@ public class Subscribers {
 		this.hobbies = rs.getString( Subscribers.Fields.hobbies.name() );
 		this.options = rs.getString( Subscribers.Fields.options.name() );
 		this.tariff_plan = rs.getShort( Subscribers.Fields.tariff_plan.name() );
+		this.buyer_profile = rs.getShort( Subscribers.Fields.buyer_profile.name() );
+		this.ucg_std = rs.getByte( Subscribers.Fields.ucg_std.name() );
 		this.gender = rs.getString( Subscribers.Fields.gender.name() );
 		this.salary = rs.getFloat( Subscribers.Fields.salary.name() );
 		this.update_time = rs.getTimestamp( Subscribers.Fields.update_time.name() );
@@ -445,6 +485,8 @@ public class Subscribers {
 		this.hobbies = jo.getString( Subscribers.Fields.hobbies.name() );
 		this.options = jo.getString( Subscribers.Fields.options.name() );
 		this.tariff_plan = (short)jo.getInt( Subscribers.Fields.tariff_plan.name() );
+		this.buyer_profile = (short)jo.getInt( Subscribers.Fields.buyer_profile.name() );
+		this.ucg_std = (byte)jo.getInt( Subscribers.Fields.ucg_std.name() );
 		this.gender = jo.getString( Subscribers.Fields.gender.name() );
 		this.salary = (float)jo.getDouble( Subscribers.Fields.salary.name() );
 		this.update_time = new Timestamp( Format.getMysqlDateTime( jo.getString( Subscribers.Fields.update_time.name() ) ).getTime() );
@@ -689,6 +731,34 @@ public class Subscribers {
 
 	}
 
+	public Short getBuyerProfile() {
+
+		return this.buyer_profile;
+
+	}
+
+	public Subscribers setBuyerProfile( Short buyer_profile ) {
+
+		this.buyer_profile = buyer_profile;
+
+		return this;
+
+	}
+
+	public Byte getUcgStd() {
+
+		return this.ucg_std;
+
+	}
+
+	public Subscribers setUcgStd( Byte ucg_std ) {
+
+		this.ucg_std = ucg_std;
+
+		return this;
+
+	}
+
 	public String getGender() {
 
 		return this.gender;
@@ -759,6 +829,8 @@ public class Subscribers {
 			.append( "\"hobbies\": \"" ).append( this.getHobbies() ).append( "\", " )
 			.append( "\"options\": \"" ).append( this.getOptions() ).append( "\", " )
 			.append( "\"tariff_plan\": \"" ).append( this.getTariffPlan() ).append( "\", " )
+			.append( "\"buyer_profile\": \"" ).append( this.getBuyerProfile() ).append( "\", " )
+			.append( "\"ucg_std\": \"" ).append( this.getUcgStd() ).append( "\", " )
 			.append( "\"gender\": \"" ).append( this.getGender() ).append( "\", " )
 			.append( "\"salary\": \"" ).append( this.getSalary() ).append( "\", " )
 			.append( "\"update_time\": \"" ).append( this.getUpdateTime() ).append( "\"" )

@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "recommended_campaigns" )
 public class RecommendedCampaigns { 
 
-	public enum Fields { msisdn, agg_date, profile_id, status_id, network_id, arpu_id, model_name }
+	public enum Fields { msisdn, agg_date, profile_id, status_id, network_id, arpu_id, seniority_id, model_name }
 
 	@Column(
 			table = "recommended_campaigns",
@@ -133,6 +133,25 @@ public class RecommendedCampaigns {
 
 	@Column(
 			table = "recommended_campaigns",
+			field = "seniority_id",
+			type = "tinyint(4) unsigned",
+			mysqlType = "tinyint",
+			javaType = "Byte",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "0",
+			extra = "",
+			length = 4,
+			comment = "",
+			getMethod = "getSeniorityId",
+			setMethod = "setSeniorityId"
+	)
+	private Byte seniority_id;
+
+	@Column(
+			table = "recommended_campaigns",
 			field = "model_name",
 			type = "varchar(50)",
 			mysqlType = "varchar",
@@ -161,6 +180,7 @@ public class RecommendedCampaigns {
 		this.status_id = rs.getByte( RecommendedCampaigns.Fields.status_id.name() );
 		this.network_id = rs.getByte( RecommendedCampaigns.Fields.network_id.name() );
 		this.arpu_id = rs.getByte( RecommendedCampaigns.Fields.arpu_id.name() );
+		this.seniority_id = rs.getByte( RecommendedCampaigns.Fields.seniority_id.name() );
 		this.model_name = rs.getString( RecommendedCampaigns.Fields.model_name.name() );
 
 	}
@@ -173,6 +193,7 @@ public class RecommendedCampaigns {
 		this.status_id = (byte)jo.getInt( RecommendedCampaigns.Fields.status_id.name() );
 		this.network_id = (byte)jo.getInt( RecommendedCampaigns.Fields.network_id.name() );
 		this.arpu_id = (byte)jo.getInt( RecommendedCampaigns.Fields.arpu_id.name() );
+		this.seniority_id = (byte)jo.getInt( RecommendedCampaigns.Fields.seniority_id.name() );
 		this.model_name = jo.getString( RecommendedCampaigns.Fields.model_name.name() );
 
 	}
@@ -261,6 +282,20 @@ public class RecommendedCampaigns {
 
 	}
 
+	public Byte getSeniorityId() {
+
+		return this.seniority_id;
+
+	}
+
+	public RecommendedCampaigns setSeniorityId( Byte seniority_id ) {
+
+		this.seniority_id = seniority_id;
+
+		return this;
+
+	}
+
 	public String getModelName() {
 
 		return this.model_name;
@@ -292,6 +327,7 @@ public class RecommendedCampaigns {
 			.append( "\"status_id\": \"" ).append( this.getStatusId() ).append( "\", " )
 			.append( "\"network_id\": \"" ).append( this.getNetworkId() ).append( "\", " )
 			.append( "\"arpu_id\": \"" ).append( this.getArpuId() ).append( "\", " )
+			.append( "\"seniority_id\": \"" ).append( this.getSeniorityId() ).append( "\", " )
 			.append( "\"model_name\": \"" ).append( this.getModelName() ).append( "\"" )
 			.append( " }" );
 

@@ -105,6 +105,17 @@ public class DAOCatalogOffers extends DAO {
 		
 	}
 	
+	public CatalogOffers getCatalogOffersByName( String offerName ) {
+		
+		String query = select().
+						from( new CatalogOffers() ).
+						where( op( CatalogOffers.Fields.offer_name ).eq( offerName ) ).
+						build(); 
+		
+		return getCatalogOffers( query );	
+		
+	}
+	
 	public ArrayList<CatalogOffers> getAllCatalogOffers() {
 		
 		String query = select().

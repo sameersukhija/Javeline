@@ -32,7 +32,7 @@ import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
 import com.lumata.e4o.dao.tenant.DAOTokenType;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
+import com.lumata.e4o.gui.campaignmanager.CampaignModelFormOld;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
 import com.lumata.e4o.gui.campaignmanager.ConfigureCampaignModel;
 import com.lumata.e4o.gui.catalogmanager.OffersForm;
@@ -474,7 +474,7 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 	Reporter.log("Resource file -> " + resourceFile, LOG_TO_STD_OUT);
 	try{
 	setCampaignModelJson(new JSONCampaignModel(resourcePath, resourceFile));
-	CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,getCampaignModelJson(), TIMEOUT, ATTEMPT_TIMEOUT );
+	CampaignModelFormOld campaignModelForm = new CampaignModelFormOld( seleniumWebDriver,getCampaignModelJson(), TIMEOUT, ATTEMPT_TIMEOUT );
 	
 	campaignModelForm.openForm();
 	JSONArray campaignModels = getCampaignModelJson().getList();
@@ -487,7 +487,7 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 		
 			campaignModelForm.addBtn();
 			setCampaignModelName(Format.addTimestamp(getCampaignModelJson().getName() + "_"));
-			campaignModelForm.configureCampaignModel(getCampaignModelName(), getCampaignModelJson().getDescription(), getCampaignModelJson().getcampaignType(), getCampaignModelJson().getuseHierarchy());
+			campaignModelForm.configureCampaignModel(getCampaignModelName(), getCampaignModelJson().getDescription(), getCampaignModelJson().getType(), getCampaignModelJson().getuseHierarchy());
 			Map<String, JSONEvent_> events = getCampaignModelJson().getEvents();
 			campaignModelForm.addEvents(events);
 			campaignModelForm.saveCampaignModel();

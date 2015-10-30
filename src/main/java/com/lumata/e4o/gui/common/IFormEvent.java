@@ -1,0 +1,56 @@
+package com.lumata.e4o.gui.common;
+
+import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.campaignmanager.CampaignModelForm.ActionTimeDurationType;
+
+public interface IFormEvent {
+    Object cancelBtn() throws FormException;
+    Object saveBtn() throws FormException;
+    Object addEventBtn() throws FormException;
+    Object addEventsBtn( Integer numberOfEvents ) throws FormException;
+    Object deleteEventBtn() throws FormException;
+	Object selectEvent( Integer eventRowIndex ) throws FormException;	
+	Object selectEventType( String eventType ) throws FormException;	
+	Object selectEventType( Integer eventRowIndex, String eventType ) throws FormException;
+    Object addCriteriaBtn() throws FormException;
+    Object addCriteriaBtn( Integer eventRowIndex ) throws FormException;
+    Object addCriteriasBtn( Integer numberOfcriteria ) throws FormException;
+    Object addCriteriasBtn( Integer eventRowIndex, Integer numberOfcriteria ) throws FormException;
+    Object addActionBtn() throws FormException;
+    Object addActionBtn( Integer eventRowIndex ) throws FormException;
+    Object addActionsBtn( Integer numberOfActions ) throws FormException;
+    Object addActionsBtn( Integer eventRowIndex, Integer numberOfActions ) throws FormException;
+	Object selectEventAction( Integer eventActionRowIndex ) throws FormException;
+	Object setEventActionValue( String actionValue ) throws FormException;
+	Object setEventActionType( String actionType ) throws FormException;
+	Object setEventActionUnit( String actionUnit ) throws FormException;
+	Object setEventActionOption( String actionOption ) throws FormException;
+	Object setEventAction( String actionType, String actionValue, String actionUnit, String actionOption ) throws FormException;
+	Object setEventAction( Integer eventActionRowIndex, String actionType, String actionValue, String actionUnit, String actionOption ) throws FormException;
+	Object setEventAction( Integer eventRowIndex, Integer eventActionRowIndex, String actionType, String actionValue, String actionUnit, String actionOption ) throws FormException;
+	Object deleteEventAction() throws FormException;
+	Object deleteEventAction( Integer eventActionRowIndex ) throws FormException;
+	Object deleteEventAction( Integer eventRowIndex, Integer eventActionRowIndex ) throws FormException;
+	Object addActionTimeBtn() throws FormException;
+    Object addActionTimeBtn( Integer eventActionRowIndex ) throws FormException;
+    Object addActionTimeBtn( Integer eventRowIndex, Integer eventActionRowIndex ) throws FormException;
+    Object cancelActionTimeBtn() throws FormException;
+    Object saveActionTimeBtn() throws FormException;
+	Object setActionTimeStartTime( String startTimeValue ) throws FormException;
+	Object setActionTimeDurationType( ActionTimeDurationType durationType ) throws FormException;
+	Object setActionTimeDurationType( String durationType ) throws FormException;
+	Object setActionTimeDurationTypeRelative() throws FormException;
+	Object setActionTimeDurationTypeAbsolute() throws FormException;
+	Object setActionTimeDurationValue( String durationValue ) throws FormException;
+	Object setActionTimeDurationTypeRelativeUnit( String durationRelativeUnit ) throws FormException;
+	Object setActionTimeDurationTypeAbsoluteUnit( String durationAbsoluteUnit ) throws FormException;
+	Object setActionTimeDurationRelative( String durationValue, String durationRelativeUnit ) throws FormException;
+	Object setActionTimeDurationAbsolute( String durationValue, String durationAbsoluteUnit ) throws FormException;
+	Object isBeneficiaryEnabled() throws FormException;
+	Object isBeneficiaryEnabled( Integer eventRowIndex ) throws FormException;
+	Object setBeneficiary( Integer eventRowIndex, Boolean beneficiaryEnabled ) throws FormException;
+	Object setBeneficiaryEnabled() throws FormException;
+	Object setBeneficiaryEnabled( Integer eventRowIndex ) throws FormException;
+	Object setBeneficiaryDisabled() throws FormException;
+	Object setBeneficiaryDisabled( Integer eventRowIndex ) throws FormException;
+}

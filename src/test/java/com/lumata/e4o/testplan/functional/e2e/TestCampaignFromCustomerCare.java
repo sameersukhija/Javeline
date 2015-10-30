@@ -27,7 +27,7 @@ import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
+import com.lumata.e4o.gui.campaignmanager.CampaignModelFormOld;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
 import com.lumata.e4o.gui.customercare.CustomerCareCampaignsForm;
 import com.lumata.e4o.gui.customercare.CustomerCareCreateSubscriberForm;
@@ -55,7 +55,7 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 			.getLogger(TestCampaignFromCustomerCare.class);
 	private CustomerCareCreateSubscriberForm customerCareCreateSubscriberForm;
 	private CampaignsForm campaignsForm;
-	private CampaignModelForm campaignModelForm;
+	private CampaignModelFormOld campaignModelForm;
 	private Subscribers subscriber = null;
 	private JSONCampaignModel campaignModelJson = null;
 	private String campaignModelName = null;
@@ -212,7 +212,7 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 		Reporter.log("Resource path -> " + resourcePath, LOG_TO_STD_OUT);
 		Reporter.log("Resource file -> " + resourceFile, LOG_TO_STD_OUT);
 		campaignModelJson = new JSONCampaignModel(resourcePath, resourceFile);
-		campaignModelForm = new CampaignModelForm(seleniumWebDriver,
+		campaignModelForm = new CampaignModelFormOld(seleniumWebDriver,
 				campaignModelJson, TIMEOUT, ATTEMPT_TIMEOUT);
 
 		campaignModelForm.openForm();
@@ -232,7 +232,7 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 				campaignModelForm.configureCampaignModel(
 						getCampaignModelName(),
 						campaignModelJson.getDescription(),
-						campaignModelJson.getcampaignType(),
+						campaignModelJson.getType(),
 						campaignModelJson.getuseHierarchy());
 				Map<String, JSONEvent_> events = campaignModelJson.getEvents();
 				campaignModelForm.addEvents(events);
