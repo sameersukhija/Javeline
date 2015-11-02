@@ -15,7 +15,7 @@ public class XMLRPCRequest_Offeroptimizer_Allocate extends ParentTestCase {
 	public void callXMLRPCCRequest() throws Exception {
 		
 		final String msisdn = "3399900001";
-		final String token_code = "K3MJA";
+		final String token_code = "TPQA6";
 		
 		XMLRPCRequest.offeroptimizer_allocate().call( 	
 			guiServer, 

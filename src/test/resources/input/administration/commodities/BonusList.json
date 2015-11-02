@@ -7,20 +7,17 @@
 			"defaultPeriodType": "Days",
 			"defaultQuantityPeriod": "5",
 			"unitaryCost": "10",
-			"listPrice": "10",
-			
-		},
-		{
+			"listPrice": "10"			
+		},{
 			"type": "External",
 			"account":"mainAccount",
 			"accountType": "OTHER",
 			"defaultValidityType": "Fixed",
 			"defaultPeriodStart": "BeginningOfCurrentPeriod",
-			"defaultPeriodType": "Weeks",
+			"defaultPeriodType": "Months",
 			"defaultQuantityPeriod": "5",
 			"unitaryCost": "10",
-			"listPrice": "10",
-			
+			"listPrice": "10"			
 		}
 	]
 }
