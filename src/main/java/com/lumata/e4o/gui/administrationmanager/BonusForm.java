@@ -132,7 +132,7 @@ public class BonusForm extends AdministrationForm {
 	public Boolean deleteBtn(String bonusName) throws FormException {
 		try {
 			super.clickXPath( BONUS_LIST_ROW_PREFIX_XPATH.replace( "{bonusName}", bonusName ) + "//button[@name='btn-delete']" );
-			handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
+			super.confirmDialog(); // .handleJavascriptAlertAcceptDismiss(Boolean.TRUE);
 			return true;
 		} catch (FormException e) {
 			logger.error("Error during deleting bonus" + e.getMessage());

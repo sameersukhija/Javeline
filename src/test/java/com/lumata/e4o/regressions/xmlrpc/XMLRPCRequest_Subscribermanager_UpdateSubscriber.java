@@ -1646,7 +1646,8 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber extends ParentTest
 	
 	}
 	
-	@Test(enabled=false, priority = 42 )
+	@Test(enabled=TEST_ENABLED, priority = 42 )
+	//@Test(enabled=true, priority = 42 )
 	public void updateSubscriberWithExtendedParametersCorrectHobbies() throws Exception {
 			
 		StringBuilder hobbies = new StringBuilder();
@@ -1811,7 +1812,8 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber extends ParentTest
 //	
 //	}
 	
-	@Test(enabled=false, priority = 46 )
+	@Test(enabled=TEST_ENABLED, priority = 46 )
+	//@Test(enabled=true, priority = 46 )
 	public void updateSubscriberWithExtendedParametersCorrectOptions() throws Exception {
 		
 		StringBuilder otpions = new StringBuilder();

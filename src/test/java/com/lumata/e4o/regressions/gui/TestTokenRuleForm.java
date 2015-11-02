@@ -35,7 +35,6 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 @TCMysqlMaster
 public class TestTokenRuleForm extends ParentTestCase {
 
-
 	private RulesForm rulesForm;
 	private TokenTypeForm tokenTypeForm;
 	private JSONTokenType jsonTokenType;
