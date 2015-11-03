@@ -81,7 +81,7 @@ public class TestNotificationTemplate extends ParentTestCase{
 		}
 		
 		}
-	@Test(enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT,priority=2)
+	@Test(enabled=false, timeOut=TESTNG_TIMEOUT,priority=2)
 	@Parameters({"jsonFilePath_notif","jsonFileName_notif"})
 	public void testUc10_03CreateNewMailTemplate(@Optional("input/administrationmanager/notifications/") String jsonFilePath_notif, @Optional("newNotification") String jsonFileName_notif) throws JSONSException,FormException
 	{
