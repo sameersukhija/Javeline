@@ -570,7 +570,7 @@
 						    <executable>scp</executable>
 						    <arguments>
 						     <argument>./src/test/resources/input/catalogmanager/Offers/VoucherCodes.csv</argument>
-						     <argument>./src/test/resources/input/catalogmanager/Offers/*.html</argument>
+						     <!--argument>./src/test/resources/input/catalogmanager/Offers/*.html</argument-->
 						     <argument>prod@md1-pa051-tch04.mgn:/tmp/</argument>
 						    </arguments>
 						   </configuration>
