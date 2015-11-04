@@ -43,8 +43,6 @@ public class TestTokenTypeForm extends ParentTestCase {
 	public void testUc23_01CreateNewTokenRelative(@Optional String jsonFilePath_tokenType,
 			@Optional String jsonFileName_tokenType) throws FormException,
 			JSONException, JSONSException {
-		seleniumWebDriver.getWrappedDriver().manage().timeouts()
-				.implicitlyWait(30, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Token Form\".", LOG_TO_STD_OUT);
 		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT
 				+ jsonFilePath_tokenType;
@@ -163,7 +161,7 @@ public class TestTokenTypeForm extends ParentTestCase {
 	@Test(enabled = TEST_ENABLED, timeOut = TESTNG_TIMEOUT, priority = 2)
 	public void testUc23_01CreateNewTokenAbsolute() throws FormException, JSONException,
 			JSONSException,ParseException{
-	
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		JSONArray tokenTypes = jsonTokenType.getList();	
 		for (int tokenTypeIndex = 0; tokenTypeIndex < tokenTypes.length(); tokenTypeIndex++) {
 			if(tokenTypeIndex==1)
@@ -290,7 +288,7 @@ public class TestTokenTypeForm extends ParentTestCase {
 	@Test(enabled = TEST_ENABLED, timeOut = TESTNG_TIMEOUT, priority = 3)
 	public void testUc23_04CreateNewTokenInvalid() throws FormException, JSONException,
 			JSONSException {
-
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Assert.assertTrue(TOKEN_TYPE_NAME.length() > 0);
 
 		/** save form with duplicated token type **/
@@ -315,7 +313,7 @@ public class TestTokenTypeForm extends ParentTestCase {
 	@Test(enabled = TEST_ENABLED, timeOut = TESTNG_TIMEOUT, priority = 4)
 	public void testUc23_02EditTokenNameDisabled() throws FormException, JSONException,
 			JSONSException {
-
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Assert.assertTrue(TOKEN_TYPE_NAME.length() > 0);
 		
 		tokenTypeForm.openForm().editByName(TOKEN_TYPE_NAME);
@@ -335,6 +333,7 @@ public class TestTokenTypeForm extends ParentTestCase {
 	@Test(enabled = TEST_ENABLED, timeOut = TESTNG_TIMEOUT, priority = 5)
 	public void testUc23_03EditToken() throws FormException, JSONException,
 			JSONSException {
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Assert.assertTrue(TOKEN_TYPE_NAME.length() > 0);
 		
 		tokenTypeForm.openForm().editByName(TOKEN_TYPE_NAME);
