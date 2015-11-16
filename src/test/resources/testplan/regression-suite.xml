@@ -137,10 +137,10 @@
     </classes>	
   </test>
   <test name="Campaign Model Testcases">
-	<parameter name="jsonFilePath" value="input/campaignmanager/campaignModels"/>
-	<parameter name="jsonFileName" value="newCampaignModel"/>
+	<parameter name="jsonFilePath_cm" value="input/campaignmanager/campaignModels"/>
+	<parameter name="jsonFileName_cm" value="newCampaignModelOld"/>
     <classes>
-      <class name="com.lumata.e4o.regressions.gui.TestCampaignModelForm">
+      <class name="com.lumata.e4o.regressions.gui.TestCampaignModelFormOld">
       </class>
     </classes>
   </test>

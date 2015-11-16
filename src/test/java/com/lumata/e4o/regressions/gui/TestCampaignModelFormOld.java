@@ -42,8 +42,6 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 @TCSeleniumWebDriver
 public class TestCampaignModelFormOld extends ParentTestCase{
 	
-	private final boolean TEST_ENABLED = false;
-
 	private static final JSONCriteria JSONCriteria = null;
 	private JSONCampaignModel campaignModel=null;
 	private String campModelName=null;
@@ -55,16 +53,15 @@ public class TestCampaignModelFormOld extends ParentTestCase{
 		
 	}
 	
-	@Parameters({"jsonFilePath","jsonFileName"})
+	@Parameters({"jsonFilePath_cm","jsonFileName_cm"})
 	@Test( enabled=TEST_ENABLED, priority = 1 )
-	//@Test( enabled=true, priority = 1 )
-	public void testUc33_01CampaignModelCreation( @Optional("input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName) throws FormException, JSONException, JSONSException {
+	public void testUc33_01CampaignModelCreation( @Optional("input/campaignmanager/campaignModels") String jsonFilePath_cm, @Optional("newCampaignModel") String jsonFileName_cm) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
 
-		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath;
-		String resourceFile = jsonFileName;
+		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_cm;
+		String resourceFile = jsonFileName_cm;
 
 		Reporter.log("\"Campaign Model \" is filled with resource file : ",
 				LOG_TO_STD_OUT);
@@ -110,16 +107,15 @@ public class TestCampaignModelFormOld extends ParentTestCase{
 	}
 	
 	
-	@Parameters({"jsonFilePath","jsonFileName"})
+	@Parameters({"jsonFilePath_cm","jsonFileName_cm"})
 	@Test( enabled=TEST_ENABLED, priority = 2 )
-	//@Test( enabled=true, priority = 2 )
-	public void testUc33_02CampaignModelMultipleEvents_Criteria_Action( @Optional("/input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName) throws FormException, JSONException, JSONSException {
+	public void testUc33_02CampaignModelMultipleEvents_Criteria_Action( @Optional("/input/campaignmanager/campaignModels") String jsonFilePath_cm, @Optional("newCampaignModel") String jsonFileName_cm) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
 
-		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath;
-		String resourceFile = jsonFileName;
+		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_cm;
+		String resourceFile = jsonFileName_cm;
 
 		Reporter.log("\"Campaign Model \" is filled with resource file : ",
 				LOG_TO_STD_OUT);
@@ -143,7 +139,7 @@ public class TestCampaignModelFormOld extends ParentTestCase{
 				Map<String, JSONEvent_> events = campaignModel.getEvents();
 				
 				campaignModelForm.addEvents(events);
-//				campaignModelForm.addEvents2(events);
+				campaignModelForm.addEvents2(events);
 				//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				
 				campaignModelForm.saveCampaignModel();
@@ -167,16 +163,15 @@ public class TestCampaignModelFormOld extends ParentTestCase{
 	}
 
 
-	@Parameters({"jsonFilePath","jsonFileName"})
+	@Parameters({"jsonFilePath_cm","jsonFileName_cm"})
 	@Test( enabled=TEST_ENABLED, priority = 3 )
-	//@Test( enabled=true, priority = 3 )
-	public void testUc33_03EditCampaignModel( @Optional("/input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName) throws FormException, JSONException, JSONSException {
+	public void testUc33_03EditCampaignModel( @Optional("/input/campaignmanager/campaignModels") String jsonFilePath_cm, @Optional("newCampaignModel") String jsonFileName_cm) throws FormException, JSONException, JSONSException {
 		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
 
-		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath;
-		String resourceFile = jsonFileName;
+		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_cm;
+		String resourceFile = jsonFileName_cm;
 
 		Reporter.log("\"Campaign Model \" is filled with resource file : ",
 				LOG_TO_STD_OUT);
@@ -200,7 +195,7 @@ public class TestCampaignModelFormOld extends ParentTestCase{
 				
 				Map<String, JSONEvent_> events = campaignModel.getEvents();
 				
-//				campaignModelForm.EditEvents(events);
+				campaignModelForm.EditEvents(events);
 				
 				//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				
@@ -226,7 +221,6 @@ public class TestCampaignModelFormOld extends ParentTestCase{
 	
 	
 	@Test( enabled=TEST_ENABLED, priority = 4 )
-	//@Test( enabled=true, priority = 4 )
 	public void testUc33_04CampaignModelDelete() throws FormException {
 		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
@@ -259,8 +253,7 @@ public class TestCampaignModelFormOld extends ParentTestCase{
 			}
 	
 	
-	//@Test( enabled=TEST_ENABLED, priority = 5 )
-	@Test( enabled=true, priority = 5 )
+	@Test( enabled=TEST_ENABLED, priority = 5 )
 	public void testUc33_05CopyCampaignModel() throws FormException {
 		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
@@ -274,8 +267,6 @@ public class TestCampaignModelFormOld extends ParentTestCase{
 				campaignModelForm.campaignModelCopyButton(campModelName);
 				
 				campaignModelForm.CopyconfigureCriteria("25678");
-				
-				//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				
 				campaignModelForm.saveEditedCampaignModel();
 				campaignModelForm.confirmCampaignModelAlert(status);
