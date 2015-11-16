@@ -372,7 +372,8 @@ public Boolean verifyCharacteristicAdditionForProductType(String charName) throw
 		
 		String rootPath = "//table[contains(@class, 'page-ProductTypePageView')]";
 		String subPath = "//tr[contains(@class, 'contentRow cycle')]//td[@class='column_description']";
-	
+		WebDriverWait wait= new WebDriverWait(selenium.getWrappedDriver(), 15);
+		wait.until(ExpectedConditions.elementToBeClickable(super.search( SearchBy.XPATH,"//table[contains(@class, 'page-ProductTypePageView')]")));
 		List<WebElement> productTypeList = getListByXPath(rootPath, rootPath + subPath);
 		return productTypeList;
 			
@@ -444,7 +445,7 @@ public Boolean verifyCharacteristicAdditionForProductType(String charName) throw
 	public List<WebElement> getcharListForProductType(String productTypeName) throws FormException {
 		
 		//editProductTypeByName(productTypeName);
-		String rootPath = "//table[contains(@class, 'tableList')]";
+		String rootPath = "//div[contains(@class,'dialogContent')]//table[contains(@class, 'tableList marginTop')]";
 		String subPath = "//tr[contains(@class,\"contentRow cycle\")]//td[@class=\"column_description\"][1]";
 	
 		List<WebElement>charList = getListByXPath(rootPath, rootPath + subPath);

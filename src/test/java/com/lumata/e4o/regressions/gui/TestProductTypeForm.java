@@ -32,15 +32,15 @@ public class TestProductTypeForm extends ParentTestCase{
 	private String productTypeName=null;
 	
 	@Test(enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT,priority=1)
-	@Parameters({"jsonFilePath","jsonFileName"})
-	public void testUc26_01CreateNewProductType(@Optional("input/catalogmanager/productTypes/") String jsonFilePath, @Optional("productTypeList") String jsonFileName) throws JSONSException,FormException
+	@Parameters({"jsonFilePath_pdType","jsonFileName_pdtype"})
+	public void testUc26_01CreateNewProductType(@Optional("input/catalogmanager/productTypes/") String jsonFilePath_pdType, @Optional("productTypeList") String jsonFileName_pdtype) throws JSONSException,FormException
 	{
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Boolean status=false;
 		Reporter.log("Creation of \"Product Types Form\".", LOG_TO_STD_OUT);
 
-		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath;
-		String resourceFile = jsonFileName;
+		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_pdType;
+		String resourceFile = jsonFileName_pdtype;
 
 		Reporter.log("\"Product Types\" is filled with reosurce file : ",
 				LOG_TO_STD_OUT);

@@ -107,8 +107,8 @@
   </test>
   
   <test name="ProductType Creation Testcase">
-	<parameter name="jsonFilePath" value="input/catalogmanager/productTypes"/>
-	<parameter name="jsonFileName" value="productTypeList"/>
+	<parameter name="jsonFilePath_pdType" value="input/catalogmanager/productTypes"/>
+	<parameter name="jsonFileName_pdtype" value="productTypeList"/>
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestProductTypeForm">
       </class>
