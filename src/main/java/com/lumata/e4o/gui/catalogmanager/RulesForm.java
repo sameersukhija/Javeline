@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -139,7 +140,9 @@ public class RulesForm extends OfferOptimisationForm {
 	// Get RuleName
 	public String getName() throws FormException {
 
-		return super.getValueByName("name");
+		//return super.getValueByName("name");
+		String value =  (String)((JavascriptExecutor) selenium.getWrappedDriver()).executeScript("return document.getElementsByName(\"name\")[0].value");
+		return value;
 
 	}
 
@@ -494,8 +497,8 @@ public class RulesForm extends OfferOptimisationForm {
 	public Boolean formIsValid() throws FormException {
 
 		WebElement name = super.search(SeleniumUtils.SearchBy.NAME, "name");
-		WebElement description = super.search(SeleniumUtils.SearchBy.NAME,
-				"description");
+		WebElement description = super.search(SeleniumUtils.SearchBy.XPATH,
+				"//textarea[@ng-model='ruleset.description']");
 		WebElement tokenType = super.search(SeleniumUtils.SearchBy.NAME,
 				"tokenType");
 		WebElement channel = super.search(SeleniumUtils.SearchBy.XPATH,
