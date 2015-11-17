@@ -153,23 +153,23 @@ public class TestOfferOptimizerMaxOfferPerTimePeriod extends ParentTestCase {
 		
 	}
 	
-	@Test( enabled=TEST_ENABLED, priority = 2 )
-	public void configureCampaignModels() throws FormException {
-		
-		campaignModelsForm.
-			openForm().
-			addBtn().
-			setName( CAMPAIGN_MODEL ).
-			setDescription( CAMPAIGN_MODEL + " description" ).
-			addEventBtn().
-			selectEventType( 1, "Revenue" ).
-			addActionBtn().
-			selectEventAction( 1 ).
-			setEventActionType( "Rulesets.RuleAB" ).
-			setBeneficiaryEnabled().
-			saveBtn();
-		
-	}
+	//@Test( enabled=TEST_ENABLED, priority = 2 )
+//	public void configureCampaignModels() throws FormException {
+//		
+//		campaignModelsForm.
+//			openForm().
+//			addBtn().
+//			setName( CAMPAIGN_MODEL ).
+//			setDescription( CAMPAIGN_MODEL + " description" ).
+//			addEventBtn().
+//			selectEventType( 1, "Revenue" ).
+//			addActionBtn().
+//			selectEventAction( 1 ).
+//			setEventActionType( "Rulesets.RuleAB" ).
+//			setBeneficiaryEnabled().
+//			saveBtn();
+//		
+//	}
 	
 	//@Test( enabled=TEST_ENABLED, priority = 2 )
 	@Test( enabled=true, priority = 2 )

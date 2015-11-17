@@ -82,7 +82,7 @@ public class TestCampaignModelFormOld extends ParentTestCase{
 				campaignModelForm.addBtn();
 				campModelName="CSM_14";
 				
-				campaignModelForm.configureCampaignModel(campModelName, campaignModel.getDescription(), campaignModel.getType(), campaignModel.getuseHierarchy());
+				campaignModelForm.configureCampaignModel(campModelName, campaignModel.getDescription(), campaignModel.getcampaignType(), campaignModel.getuseHierarchy());
 				Map<String, JSONEvent_> events = campaignModel.getEvents();
 				campaignModelForm.addEvents(events);
 				campaignModelForm.saveCampaignModel();
@@ -135,7 +135,7 @@ public class TestCampaignModelFormOld extends ParentTestCase{
 			
 				campaignModelForm.addBtn();
 				campModelName="CMS_09";
-				campaignModelForm.configureCampaignModel(campModelName, campaignModel.getDescription(), campaignModel.getType(), campaignModel.getuseHierarchy());
+				campaignModelForm.configureCampaignModel(campModelName, campaignModel.getDescription(), campaignModel.getcampaignType(), campaignModel.getuseHierarchy());
 				Map<String, JSONEvent_> events = campaignModel.getEvents();
 				
 				campaignModelForm.addEvents(events);

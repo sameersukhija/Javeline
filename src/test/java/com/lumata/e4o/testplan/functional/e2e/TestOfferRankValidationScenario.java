@@ -5,8 +5,6 @@ import static com.lumata.e4o.gui.common.NotificationForm.NotificationChannel.SMS
 import static com.lumata.e4o.gui.common.NotificationForm.NotificationTongue.English;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +13,6 @@ import java.util.concurrent.TimeUnit;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -28,21 +24,16 @@ import org.testng.annotations.Test;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
-import com.lumata.e4o.dao.tenant.DAOTokenType;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.campaignmanager.CampaignModelFormOld;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
-import com.lumata.e4o.gui.campaignmanager.ConfigureCampaignModel;
 import com.lumata.e4o.gui.catalogmanager.OffersForm;
 import com.lumata.e4o.gui.catalogmanager.ProductTypesForm;
-import com.lumata.e4o.gui.catalogmanager.ProductsForm;
 import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.SuppliersForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.gui.customercare.CustomerCareCreateSubscriberForm;
-import com.lumata.e4o.gui.customercare.CustomerCareForm;
 import com.lumata.e4o.gui.customercare.CustomerCareTokensForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
 import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
@@ -53,7 +44,6 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONSuppliers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONPricesElement;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristicElement;
-import com.lumata.e4o.schema.tenant.TokenType;
 import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.e4o.testing.common.TCMysqlMaster;
 import com.lumata.e4o.testing.common.TCOwner;
@@ -487,11 +477,10 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 		
 			campaignModelForm.addBtn();
 			setCampaignModelName(Format.addTimestamp(getCampaignModelJson().getName() + "_"));
-			campaignModelForm.configureCampaignModel(getCampaignModelName(), getCampaignModelJson().getDescription(), getCampaignModelJson().getType(), getCampaignModelJson().getuseHierarchy());
+			campaignModelForm.configureCampaignModel(getCampaignModelName(), getCampaignModelJson().getDescription(), getCampaignModelJson().getcampaignType(), getCampaignModelJson().getuseHierarchy());
 			Map<String, JSONEvent_> events = getCampaignModelJson().getEvents();
 			campaignModelForm.addEvents(events);
 			campaignModelForm.saveCampaignModel();
-			//need a method to validate campaignmodel creation
 			campaignModelForm.confirmCampaignModelAlert(true);
 			status=campaignModelForm.isCampaignModelNameInList(getCampaignModelName());
 		}

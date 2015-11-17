@@ -232,7 +232,7 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 				campaignModelForm.configureCampaignModel(
 						getCampaignModelName(),
 						campaignModelJson.getDescription(),
-						campaignModelJson.getType(),
+						campaignModelJson.getcampaignType(),
 						campaignModelJson.getuseHierarchy());
 				Map<String, JSONEvent_> events = campaignModelJson.getEvents();
 				campaignModelForm.addEvents(events);

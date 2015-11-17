@@ -1,7 +1,6 @@
 package com.lumata.e4o.gui.common;
 
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelForm.ActionTimeDurationType;
 
 public interface IFormEvent {
     Object cancelBtn() throws FormException;
@@ -37,9 +36,9 @@ public interface IFormEvent {
     Object cancelActionTimeBtn() throws FormException;
     Object saveActionTimeBtn() throws FormException;
 	Object setActionTimeStartTime( String startTimeValue ) throws FormException;
-	Object setActionTimeDurationType( ActionTimeDurationType durationType ) throws FormException;
-	Object setActionTimeDurationType( String durationType ) throws FormException;
-	Object setActionTimeDurationTypeRelative() throws FormException;
+//	Object setActionTimeDurationType( String durationType ) throws FormException;
+//	Object setActionTimeDurationType( String durationType ) throws FormException;
+Object setActionTimeDurationTypeRelative() throws FormException;
 	Object setActionTimeDurationTypeAbsolute() throws FormException;
 	Object setActionTimeDurationValue( String durationValue ) throws FormException;
 	Object setActionTimeDurationTypeRelativeUnit( String durationRelativeUnit ) throws FormException;

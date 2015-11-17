@@ -41,7 +41,7 @@ public class JSONCampaignModel extends JsonConfig {
 	public String getDescription() throws JSONException {
 		return currentCampaignModel.getStringFromPath( "description" );
 	}
-	public String getType() throws JSONException {
+	public String getcampaignType() throws JSONException {
 		return currentCampaignModel.getStringFromPath( "campaignType" );
 	}
 	public Boolean getuseHierarchy() throws JSONException {
@@ -90,18 +90,6 @@ public class JSONCampaignModel extends JsonConfig {
 	
 	public void setName( String name ) {
 		setObjectFromPath( "name" , name );
-	}
-	
-	public Boolean getDelete() {
-		return currentCampaignModel.getBooleanFromPath( "delete" );
-	}
-	
-	public Boolean getEdit() {
-		return currentCampaignModel.getBooleanFromPath( "edit" );
-	}
-	
-	public Boolean getCopy() {
-		return currentCampaignModel.getBooleanFromPath( "copy" );
 	}
 	
 }

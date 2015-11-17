@@ -1,226 +1,296 @@
 package com.lumata.e4o.regressions.gui;
 
+import org.testng.Assert;
+import org.testng.AssertJUnit;
+
+import static org.testng.AssertJUnit.assertTrue;
+
+import org.testng.AssertJUnit;
+
 import java.lang.reflect.Method;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.testng.Assert;
 import org.testng.Reporter;
+import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
 
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.log.Log;
+import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
+import com.lumata.e4o.gui.catalogmanager.SuppliersForm;
+import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
+import com.lumata.e4o.json.gui.campaignmanager.JSONCriteria;
+import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
+import com.lumata.e4o.json.gui.catalogmanager.JSONSuppliers;
 import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.e4o.testing.common.TCOwner;
 import com.lumata.e4o.testing.common.TCOwners;
 import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 
-@TCOwners({
-	@TCOwner( name="Arcangelo Di Pasquale", email="arcangelo.dipasquale@lumatagroup.com" ),
-	@TCOwner( name="Sameer Sukhija", email="sameer.sukhija@lumatagroup.com" )
-})
+@TCOwners(
+		@TCOwner( name="Sameer Sukhija", email="sameer.sukhija@lumatagroup.com" )
+	)
 @TCSeleniumWebDriver
-public class TestCampaignModelForm extends ParentTestCase {
-	
-	private final boolean TEST_ENABLED = false;
-	
+
+	public class TestCampaignModelForm extends ParentTestCase{
+	private static final JSONCriteria JSONCriteria = null;
 	private JSONCampaignModel campaignModel=null;
-	
+	private String campModelName=null;
+	private String campModelCopyName=null;
 	@BeforeMethod
-	public void initCampaignsForm( Method method ) throws NetworkEnvironmentException, FormException {		
-		
+	public void initCampaignModelForm( Method method ) throws NetworkEnvironmentException, FormException {		
+	
 		seleniumWebDriver.setTestName( method.getName() );
 		
 	}
 	
-	private void initTest() {
+	@Parameters({"jsonFilePath","jsonFileName"})
+	
+	@Test( enabled=TEST_ENABLED, priority = 1 )
+	public void testUc33_01CampaignModelCreation( @Optional("input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName) throws FormException, JSONException, JSONSException {
+		Boolean status=false;
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		Reporter.log( Log.CREATING.createMessage( "Creation of \"Campaign Model Form\"." ), LOG_TO_STD_OUT);
-	}
-	
-	private JSONCampaignModel getCampaignModel( String jsonFilePath, String jsonFileName, Integer campaignModelIndex ) throws JSONSException {
+		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
+
+		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath;
+		String resourceFile = jsonFileName;
+
+		Reporter.log("\"Campaign Model \" is filled with resource file : ",
+				LOG_TO_STD_OUT);
+		Reporter.log("Resource path -> " + resourcePath, LOG_TO_STD_OUT);
+		Reporter.log("Resource file -> " + resourceFile, LOG_TO_STD_OUT);
+		campaignModel=new JSONCampaignModel(resourcePath, resourceFile);
+		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,campaignModel, TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		initTest();
+		campaignModelForm.openForm();
+		JSONArray campaignModels = campaignModel.getList();
 		
-		if( null != jsonFilePath && null != jsonFileName ) {
+		for( int camapignModelIndex = 0; camapignModelIndex < campaignModels.length(); camapignModelIndex++ ) {
 			
-			String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath;
-			String resourceFile = jsonFileName;
+			campaignModel.setCampaignModelById( camapignModelIndex );
 			
-			Reporter.log( Log.LOADING.createMessage( "\"Campaign Model \" is filled with resource file : " ), LOG_TO_STD_OUT);
-			Reporter.log( Log.LOADING.createMessage( "Resource path -> " + resourcePath ), LOG_TO_STD_OUT);
-			Reporter.log( Log.LOADING.createMessage( "Resource file -> " + resourceFile ), LOG_TO_STD_OUT);
+			if( campaignModel.getEnabled() ) {
 			
-			campaignModel = new JSONCampaignModel(resourcePath, resourceFile);
-			campaignModel.setCampaignModelById( campaignModelIndex );
-			
-			Reporter.log( Log.LOADING.createMessage( "Loading Campaign Model ( " + campaignModel.getName() + " )" ), LOG_TO_STD_OUT);
-			
-			return campaignModel;
+				campaignModelForm.addBtn();
+				campModelName="CSM_14";
+				
+				campaignModelForm.configureCampaignModel(campModelName, campaignModel.getDescription(), campaignModel.getcampaignType(), campaignModel.getuseHierarchy());
+				Map<String, JSONEvent_> events = campaignModel.getEvents();
+				campaignModelForm.addEvents(events);
+				campaignModelForm.saveCampaignModel();
+
+				campaignModelForm.confirmCampaignModelAlert(status);
+				status=campaignModelForm.isCampaignModelNameInList(campModelName);
+				if(status==true)
+
+				{
+
+					AssertJUnit.assertTrue("Campaign Model created successfully", true);
+					Reporter.log("Campaign Model created successfully",LOG_TO_STD_OUT);
+				}
+				else
+				{
+					Assert.fail("campaign model didn't create successfully");
+					Reporter.log("Campaign Model didn't create successfully", LOG_TO_STD_OUT);
+				}
+				
+			}
 		}
-		
-		return null;
-		
 	}
 	
-	private void checkResult(Boolean status) {
-		String message = "Campaign Model created successfully";
-		if( !status ) { message = "Campaign Model didn't create successfully"; }
-		Reporter.log( Log.CHECKING.createMessage( message ),LOG_TO_STD_OUT);
-		Assert.assertTrue(status, message);
-	}
 	
 	@Parameters({"jsonFilePath","jsonFileName"})
-	@Test( enabled=TEST_ENABLED, timeOut=TESTNG_TIMEOUT, priority = 1 )
-	public void testUc33_01CampaignModelCreation( @Optional("input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName) throws FormException, JSONSException {
-		
-		Integer campaignModelIndex = 0;
-		
-		campaignModel = getCampaignModel( jsonFilePath, jsonFileName, campaignModelIndex );
-		
-		if( null != campaignModel && campaignModel.getEnabled() && !campaignModel.getEdit() ) {
-						
-			CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,campaignModel, TIMEOUT, ATTEMPT_TIMEOUT );
-			
-			campaignModelForm.
-				openForm().
-				addBtn().
-				addGeneralInfo(campaignModel).
-				addEvents(campaignModel.getEvents()).
-				saveBtn().
-				abortDialog();
-			
-			checkResult(campaignModelForm.isCampaignModelInList(campaignModel.getName()));
-			
-		}
 	
-	}
-	
-	@Parameters({"jsonFilePath","jsonFileName"})	
 	@Test( enabled=TEST_ENABLED, priority = 2 )
-	public void testUc33_02CampaignModelMultipleEvents_Criteria_Action( @Optional("/input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName) throws FormException, JSONSException {
-		
-		Integer campaignModelIndex = 1;
-		
-		campaignModel = getCampaignModel( jsonFilePath, jsonFileName, campaignModelIndex );
-		
-		if( null != campaignModel && campaignModel.getEnabled() ) {
-						
-			CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,campaignModel, TIMEOUT, ATTEMPT_TIMEOUT );
-			
-			campaignModelForm.
-				openForm().
-				addBtn().
-				addGeneralInfo(campaignModel).
-				addEvents(campaignModel.getEvents()).
-				saveBtn().
-				abortDialog();
-			
-			checkResult(campaignModelForm.isCampaignModelInList(campaignModel.getName()));
-			
-		}
+	public void testUc33_02CampaignModelMultipleEvents_Criteria_Action( @Optional("/input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName) throws FormException, JSONException, JSONSException {
+		Boolean status=false;
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
 
+		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath;
+		String resourceFile = jsonFileName;
+
+		Reporter.log("\"Campaign Model \" is filled with resource file : ",
+				LOG_TO_STD_OUT);
+		Reporter.log("Resource path -> " + resourcePath, LOG_TO_STD_OUT);
+		Reporter.log("Resource file -> " + resourceFile, LOG_TO_STD_OUT);
+		campaignModel=new JSONCampaignModel(resourcePath, resourceFile);
+		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,campaignModel, TIMEOUT, ATTEMPT_TIMEOUT );
+		
+		campaignModelForm.openForm();
+		JSONArray campaignModels = campaignModel.getList();
+		
+		for( int camapignModelIndex = 0; camapignModelIndex < campaignModels.length(); camapignModelIndex++ ) {
+			
+			campaignModel.setCampaignModelById( camapignModelIndex );
+			
+			if( campaignModel.getEnabled() ) {
+			
+				campaignModelForm.addBtn();
+				campModelName="CMS_09";
+				campaignModelForm.configureCampaignModel(campModelName, campaignModel.getDescription(), campaignModel.getcampaignType(), campaignModel.getuseHierarchy());
+				Map<String, JSONEvent_> events = campaignModel.getEvents();
+				
+				campaignModelForm.addEvents(events);
+				campaignModelForm.addEvents2(events);
+				//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				
+				campaignModelForm.saveCampaignModel();
+				campaignModelForm.confirmCampaignModelAlert(status);
+				status=campaignModelForm.isCampaignModelNameInList(campModelName);
+				if(status==true)
+				{
+
+					AssertJUnit.assertTrue("Campaign Model created successfully", true);
+					Reporter.log("Campaign Model created successfully",LOG_TO_STD_OUT);
+				    
+				}
+				else
+				{
+					Assert.fail("campaign model didn't create successfully");
+					Reporter.log("Campaign Model didn't create successfully", LOG_TO_STD_OUT);
+				}
+				
+			}
+		}
 	}
 
-	@Parameters({"jsonFilePath","jsonFileName"})	
+
+	@Parameters({"jsonFilePath","jsonFileName"})
+	
 	@Test( enabled=TEST_ENABLED, priority = 3 )
-	public void testUc33_03EditCampaignModel( @Optional("/input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName ) throws FormException, JSONSException {
-		
-		Integer campaignModelIndex = 2;
-		
-		campaignModel = getCampaignModel( jsonFilePath, jsonFileName, campaignModelIndex );
-		
-		if( null != campaignModel && campaignModel.getEnabled() && campaignModel.getEdit() ) {
-						
-			CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,campaignModel, TIMEOUT, ATTEMPT_TIMEOUT );
-			
-			if( campaignModelForm.openForm().isCampaignModelInList(campaignModel.getName()) ) {
-				
-				campaignModelForm.
-					editBtn(campaignModel.getName()).
-					addGeneralInfo(campaignModel).
-					addEvents(campaignModel.getEvents()).
-					saveEditBtn().
-					abortDialog();
-					
-				checkResult(campaignModelForm.isCampaignModelInList(campaignModel.getName()));
-			
-			} else {
-				
-				checkResult(false);
-			
-			}
-			
-		}
+	public void testUc33_03EditCampaignModel( @Optional("/input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName) throws FormException, JSONException, JSONSException {
+		Boolean status=false;
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
 
+		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath;
+		String resourceFile = jsonFileName;
+
+		Reporter.log("\"Campaign Model \" is filled with resource file : ",
+				LOG_TO_STD_OUT);
+		Reporter.log("Resource path -> " + resourcePath, LOG_TO_STD_OUT);
+		Reporter.log("Resource file -> " + resourceFile, LOG_TO_STD_OUT);
+		campaignModel=new JSONCampaignModel(resourcePath, resourceFile);
+		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,campaignModel, TIMEOUT, ATTEMPT_TIMEOUT );
+		
+		campaignModelForm.openForm();
+		JSONArray campaignModels = campaignModel.getList();
+		
+		for( int camapignModelIndex = 0; camapignModelIndex < campaignModels.length(); camapignModelIndex++ ) {
+			
+			campaignModel.setCampaignModelById( camapignModelIndex );
+			
+			if( campaignModel.getEnabled() ) {
+			
+				campaignModelForm.campaignModelEditButton(campModelName);
+				
+				Map<String, JSONEvent_> events = campaignModel.getEvents();
+				
+				campaignModelForm.EditEvents(events);
+				
+				//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				
+				campaignModelForm.saveEditedCampaignModel();
+				campaignModelForm.confirmCampaignModelAlert(status);
+				status=campaignModelForm.isCampaignModelNameInList(campModelName);
+				if(status==true)
+				{
+					AssertJUnit.assertTrue("Campaign Model updated successfully", true);
+					Reporter.log("Campaign Model updated successfully",LOG_TO_STD_OUT);
+				    
+				}
+				else
+				{
+					Assert.fail("campaign model didn't update successfully");
+					Reporter.log("Campaign Model didn't update successfully", LOG_TO_STD_OUT);
+				}
+				
+			}
+		}
 	}
 	
-	@Parameters({"jsonFilePath","jsonFileName"})
+	
+	
 	@Test( enabled=TEST_ENABLED, priority = 4 )
-	public void testUc33_04CampaignModelDelete( @Optional("/input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName ) throws FormException, JSONSException {
+	public void testUc33_04CampaignModelDelete() throws FormException {
+		Boolean status=false;
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
+		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		Integer campaignModelIndex = 3;
-		
-		campaignModel = getCampaignModel( jsonFilePath, jsonFileName, campaignModelIndex );
-		
-		if( null != campaignModel && campaignModel.getEnabled() && campaignModel.getDelete() ) {
-			
-			CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,campaignModel, TIMEOUT, ATTEMPT_TIMEOUT );
-			
-			if( campaignModelForm.openForm().isCampaignModelInList(campaignModel.getName()) ) {
-				
-				campaignModelForm.
-					deleteBtn(campaignModel.getName()).
-					confirmDialog();
-					
-				checkResult(!campaignModelForm.isCampaignModelInList(campaignModel.getName()));
-			
-			} else {
-				
-				checkResult(false);
-			
-			}
-			
-		}
-		
-	}
-		
-	@Parameters({"jsonFilePath","jsonFileName"})
-	@Test( enabled=TEST_ENABLED, priority = 5 )
-	public void testUc33_05CopyCampaignModel( @Optional("/input/campaignmanager/campaignModels") String jsonFilePath, @Optional("newCampaignModel") String jsonFileName ) throws FormException, JSONSException {
-		
-		Integer campaignModelIndex = 4;
-		
-		campaignModel = getCampaignModel( jsonFilePath, jsonFileName, campaignModelIndex );
-		
-		if( null != campaignModel && campaignModel.getEnabled() && campaignModel.getCopy() ) {
-			
-			CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,campaignModel, TIMEOUT, ATTEMPT_TIMEOUT );
-			
-			if( campaignModelForm.openForm().isCampaignModelInList(campaignModel.getName()) ) {
-				
-				campaignModelForm.
-					copyBtn(campaignModel.getName()).
-					addEvents(campaignModel.getEvents()).
-					saveCopyBtn().
-					confirmDialog();
-					
-				checkResult(campaignModelForm.isCampaignModelInList(campaignModel.getName()+ " (Copy Model)"));
-			
-			} else {
-				
-				checkResult(false);
-			
-			}
-			
-		}
-		
-	}
+		campaignModelForm.openForm();
 	
+				campaignModelForm.campaignModelDeleteButton("CSM_14").closeAlertAndGetItsText();
+				
+				//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				
+				campaignModelForm.confirmCampaignModelAlert(status);
+				
+				status=campaignModelForm.isCampaignModelNameInList("CSM_14");
+				
+				if(status!=true)
+				{
+
+					AssertJUnit.assertTrue("Campaign Model deleted successfully", true);
+					Reporter.log("Campaign Model deleted successfully",LOG_TO_STD_OUT);
+				    
+				}
+				else
+				{
+					Assert.fail("campaign model didn't delete successfully");
+					Reporter.log("Campaign Model didn't delete successfully", LOG_TO_STD_OUT);
+				}
+				
+			}
+	
+	
+	@Test( enabled=TEST_ENABLED, priority = 5 )
+	public void testUc33_05CopyCampaignModel() throws FormException {
+		Boolean status=false;
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
+	
+		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
+		
+		campaignModelForm.openForm();
+			
+			
+				campaignModelForm.campaignModelCopyButton(campModelName);
+				
+				campaignModelForm.CopyconfigureCriteria("25678");
+				
+				//seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				
+				campaignModelForm.saveEditedCampaignModel();
+				campaignModelForm.confirmCampaignModelAlert(status);
+				status=campaignModelForm.isCampaignModelNameInList("CMS_09 (Copy Model)");
+				
+				if(status==true)
+				{
+					AssertJUnit.assertTrue("Campaign Model copied successfully", true);
+					Reporter.log("Campaign Model copied successfully",LOG_TO_STD_OUT);
+				    
+				}
+				else
+				{
+					Assert.fail("campaign model didn't copy successfully");
+					Reporter.log("Campaign Model didn't copy successfully", LOG_TO_STD_OUT);
+				}
+				
+			}
 }
+
+		
+
+	
+
