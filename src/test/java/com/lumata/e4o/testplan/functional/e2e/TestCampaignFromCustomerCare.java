@@ -121,7 +121,7 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 	public void testUc2203_verifyNotificationHistoryTab() throws FormException {
 		CustomerCareHistoryForm customerCareHistoryForm = new CustomerCareHistoryForm(
 				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-		customerCareHistoryForm.clickSearchButton();
+		//customerCareHistoryForm.clickSearchButton();
 		customerCareHistoryForm.openHistoryTab();
 		customerCareHistoryForm.clickNotificationHistoryRefreshButton();
 		String status = customerCareHistoryForm
