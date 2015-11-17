@@ -284,9 +284,9 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 				.openDialogueNotification()
 				.editDialogueNotification(English, SMS)
 				.setDialogueNotificationMessage("campaign notification message")
-				.saveDialogueNotificationEditing().saveDialogueNotification().
+				.saveDialogueNotificationEditing().saveDialogueNotification().confirmDialog();
 				/** configure target tab **/
-				openTargetTab().setCampaignTargetTargetingMode(Restricted)
+		campaignsForm.openTargetTab().setCampaignTargetTargetingMode(Restricted)
 				.setCampaignTargetTargetingRestrictedModeCriteria()
 				.setCampaignTargetTargetingRestrictedConfigureASampleNoSample()
 				.

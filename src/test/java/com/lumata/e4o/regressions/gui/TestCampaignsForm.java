@@ -53,16 +53,11 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 	private CampaignsForm campaignsForm;
 	
 	
-	@BeforeClass
-	public void initCampaignsForm() throws NetworkEnvironmentException, FormException {		
-	
-		/** Campaigns Form **/
-		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
-		
-	}
-	@Test( enabled=TEST_ENABLED, priority = 1 )
+
+@Test( enabled=TEST_ENABLED, priority = 1 )
 	public void testUc34_01CreateCampaign_ExistingModel() throws FormException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		Calendar startDate = Calendar.getInstance();
 		
 		Calendar endDate = Calendar.getInstance();
@@ -101,7 +96,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 			editDialogueNotification( English, SMS ).
 			setDialogueNotificationMessage( "campaign notification message ( ###campaign_name### )" ).
 			saveDialogueNotificationEditing().
-			saveDialogueNotification();
+			saveDialogueNotification().confirmDialog();
 			/** configure activation tab **/
 			campaignsForm.openActivationTab().
 			activateBtn();
@@ -136,6 +131,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 	@Test( enabled=TEST_ENABLED, priority = 2 )
 	public void testUc34_02CreateCampaign_MulSch_ExistingModel() throws FormException{
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		Calendar startDate = Calendar.getInstance();
 		
 		Calendar endDate = Calendar.getInstance();
@@ -196,7 +192,8 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 			setDialogueNotificationMessage( "Test Campaign notification message" ).
 			saveDialogueNotificationEditing().
 			saveDialogueNotification().
-			setCampaignDialogueApplyCampaignToNotifiedOnly().
+			confirmDialog();
+			campaignsForm.setCampaignDialogueApplyCampaignToNotifiedOnly().
 			setCampaignDialogueNotificationTime( "00:00" );
 			/** configure activation tab **/
 			campaignsForm.openActivationTab().
@@ -240,7 +237,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 		 * - absolute end date
 		 * - restricted no sample target
 		 */
-		
+		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		campaignsForm.
 			openForm().
 			addBtn().		
@@ -266,9 +263,9 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 			editDialogueNotification( English, SMS ).
 			setDialogueNotificationMessage( "campaign notification message ( ###campaign_name### )" ).
 			saveDialogueNotificationEditing().
-			saveDialogueNotification().
+			saveDialogueNotification().confirmDialog();
 			/** configure target tab **/
-			openTargetTab().
+		campaignsForm.openTargetTab().
 			setCampaignTargetTargetingMode( Restricted ).
 			setCampaignTargetTargetingRestrictedModeCriteria();
 			campaignsForm.setCriteriaCampaign();
@@ -304,6 +301,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 	@Test( enabled=TEST_ENABLED, priority = 4 )
 	public void testUc34_04_EditcampaignForm() throws FormException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		Boolean status=false;
 		campaignsForm.
 		openForm()
@@ -345,6 +343,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 	@Test( enabled=TEST_ENABLED, priority = 5 )
 	public void testUc34_05_CopycampaignForm() throws FormException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		Calendar startDate = Calendar.getInstance();
 		
 		Calendar endDate = Calendar.getInstance();
@@ -380,7 +379,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 		editDialogueNotification( English, SMS ).
 		setDialogueNotificationMessage( "campaign notification message ( ###campaign_name### )" ).
 		saveDialogueNotificationEditing().
-		saveDialogueNotification();
+		saveDialogueNotification().confirmDialog();
 		/** configure activation tab **/
 		campaignsForm.openActivationTab().
 		activateBtn().
@@ -408,6 +407,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 	@Test( enabled=TEST_ENABLED, priority = 6 )
 	public void testUc34_06_DeletecampaignForm() throws FormException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		Boolean status=false;
 		campaignsForm.
 		openForm()

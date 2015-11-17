@@ -526,10 +526,11 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 		setDialogueNotificationMessage( "campaign notification message" ).
 		saveDialogueNotificationEditing().
 		saveDialogueNotification().
+		confirmDialog();
 		//setCampaignDialogueApplyCampaignToNotifiedOnly().
 		//setCampaignDialogueNotificationTime( "00:00" ).
 		/** configure target tab **/
-		openTargetTab().
+		campaignsForm.openTargetTab().
 		setCampaignTargetTargetingMode( Restricted ).
 		setCampaignTargetTargetingRestrictedModeCriteria().
 		setCampaignTargetTargetingRestrictedConfigureASampleNoSample().
