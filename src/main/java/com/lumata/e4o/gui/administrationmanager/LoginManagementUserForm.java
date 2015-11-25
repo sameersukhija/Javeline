@@ -149,7 +149,7 @@ public class LoginManagementUserForm extends LoginManagementForm {
 		  }
 		
 		public Boolean isUserinList(String USERNAME) throws FormException{
-			List<WebElement> userList = getuserList(USERNAME);
+			List<WebElement> userList = getuserList();
 
 			for( WebElement UserListE1 : userList ) {
 
@@ -164,7 +164,7 @@ public class LoginManagementUserForm extends LoginManagementForm {
 		}
 
 		
-		public List<WebElement> getuserList(String User_Name)  throws FormException {
+		public List<WebElement> getuserList()  throws FormException {
 
 			String rootPath = "//table[contains(@class,'UserPageView')]";
 			String subPath = "//td[@class='column_name']//div[@class='gwt-Label']";

@@ -3,10 +3,14 @@ package com.lumata.e4o.regressions.gui;
 import org.testng.AssertJUnit;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.junit.internal.matchers.Each;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -33,10 +37,12 @@ import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.administrationmanager.LoginManagementAgencyForm;
 import com.lumata.e4o.gui.administrationmanager.LoginManagementGroupForm;
 import com.lumata.e4o.gui.administrationmanager.LoginManagementUserForm;
+import com.lumata.e4o.gui.customercare.CustomerCareForm.Tab;
 import com.lumata.e4o.gui.security.Authorization;
 import com.lumata.e4o.json.gui.administrationmanager.JSONLMAgency;
 import com.lumata.e4o.json.gui.administrationmanager.JSONLMGroup;
 import com.lumata.e4o.json.gui.administrationmanager.JSONLMUser;
+import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONPricesElement;
 import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.e4o.testing.common.TCOwner;
 import com.lumata.e4o.testing.common.TCOwners;
@@ -45,11 +51,15 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		@TCOwner( name="Sameer Sukhija", email="sameer.sukhija@lumatagroup.com" )
 	)
 @TCSeleniumWebDriver
-public class TestLoginManagementUser extends ParentTestCase{
+public class TestLoginManagementUser<JSONTabsElement> extends ParentTestCase{
 	private JSONLMUser setupLM=null;
 	private JSONLMAgency setupLMA=null;
 	private String groupName;
 	private JSONLMGroup setupLMG;
+	private Object ctabs;
+	private LoginManagementGroupForm setAddCampaignsTab;
+	private JSONArray jsonObject;
+	private String TabName;
 	@BeforeMethod
 	public void initLMForm( Method method ) throws NetworkEnvironmentException, FormException {		
 	
@@ -59,9 +69,11 @@ public class TestLoginManagementUser extends ParentTestCase{
 	    
 	
 	@Parameters({"jsonFilePath_LMA","jsonFileName_LMA"})
-	@Test(enabled=true, priority = 1 )
+	@Test(enabled = TEST_ENABLED, priority = 1 )
 	public void testUc03_01addAgency_LoginManagementForm(@Optional("input/administrationmanager/loginmanagement") String jsonFilePath_LMA,
 			@Optional("Agency") String jsonFileName_LMA) throws JSONSException, FormException, JSONException {
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
 		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_LMA;
 		String resourceFile = jsonFileName_LMA;
 			
@@ -84,7 +96,6 @@ public class TestLoginManagementUser extends ParentTestCase{
 				loginManagementAgencyForm.clickRefreshButton();
 				
 				Boolean status = loginManagementAgencyForm.isAgencyinList(setupLMA.getName());
-				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				System.out.println(status);
 				if(status==true)
 				{
@@ -104,17 +115,20 @@ public class TestLoginManagementUser extends ParentTestCase{
 	}
 	
 	
+	@SuppressWarnings({ "unchecked", "unused" })
 	@Parameters({"jsonFilePath_LMG","jsonFileName_LMG"})
-	@Test(enabled=true, priority = 2 )
+	@Test(enabled = TEST_ENABLED, priority = 2 )
 	public void testUc01_01addgroups_LoginManagementForm(@Optional("input/administrationmanager/loginmanagement") String jsonFilePath_LMG,
-			@Optional("groups") String jsonFileName_LMG) throws JSONSException, FormException, JSONException {
+			@Optional("groups") String jsonFileName_LMG ) throws JSONSException, FormException, JSONException {
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
 		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_LMG;
 		String resourceFile = jsonFileName_LMG;
 		JSONLMGroup setupLMG=null;
 		
 		JSONLMGroup jsonLMGroup = new JSONLMGroup( resourcePath,resourceFile );
 		setupLMG=new JSONLMGroup(resourcePath,resourceFile);
-		LoginManagementGroupForm loginManagementGroupForm = new LoginManagementGroupForm(	seleniumWebDriver, setupLMG, TIMEOUT, ATTEMPT_TIMEOUT  );
+		LoginManagementGroupForm loginManagementGroupForm = new LoginManagementGroupForm(seleniumWebDriver, setupLMG, TIMEOUT, ATTEMPT_TIMEOUT  );
 		loginManagementGroupForm.open();
 		JSONArray LoginFormG = jsonLMGroup.getList();
 		
@@ -126,21 +140,25 @@ public class TestLoginManagementUser extends ParentTestCase{
 				loginManagementGroupForm.clickAddButton();
 				loginManagementGroupForm.setGroupName(setupLMG.getName());
 				loginManagementGroupForm.setGroupIsRemovable(setupLMG.getIsRemovable());
+				System.out.println("ISREMOVABLE"+setupLMG.getIsRemovable());
 				loginManagementGroupForm.setGroupHasAgencies(setupLMG.getHasAgencies());
+				
 				loginManagementGroupForm.setGroupUserAddition(setupLMG.getCanUsersBeAdded());
 				loginManagementGroupForm.setGroupUserselectedinList(setupLMG.getCanBeSelectedInGroupList());
-				loginManagementGroupForm.ClickTabsButton();
-				loginManagementGroupForm.setAddCampaignsTab(setupLMG.getCampaignsTab());
-				loginManagementGroupForm.ClickTabsButton();
-				loginManagementGroupForm.AddCampaignCreationTab(setupLMG.getCampaignCreationTab());
-				loginManagementGroupForm.ClickTabsButton();
-				loginManagementGroupForm.AddCampaignModelTab(setupLMG.getCampaignModelTab());
-				loginManagementGroupForm.ClickTabsButton();
-				loginManagementGroupForm.AddCatalogueTab(setupLMG.getCatalogueTab());
+				 int ctab=setupLMG.getTabs().size();
+				 for (int i=1; i<ctab; i++ ){
+					  loginManagementGroupForm.ClickTabsButton();
+				  for ( String ctabs : setupLMG.getTabs()) {
+					  	 loginManagementGroupForm.ClickTabsButton();
+					  		  
+						  loginManagementGroupForm.setAddCampaignsTab(ctabs);
+						  break;
+			      }
+			
+					}
 				loginManagementGroupForm.ClickSaveGroup().closeAlertAndGetItsText();
 				loginManagementGroupForm.clickRefreshButton();
 				Boolean status = loginManagementGroupForm.isGroupinList(setupLMG.getName());
-				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				System.out.println(status);
 				if(status==true)
 				{
@@ -155,22 +173,26 @@ public class TestLoginManagementUser extends ParentTestCase{
 					Reporter.log("Creation of Group Failed!");
 				}
 	}
-
+		
 		}
 	}
+		
+
 			
-	@Test(enabled=true, priority = 3 )
+	@Test(enabled = TEST_ENABLED, priority = 3 )
 	public void testUc01_02editgroups_LoginManagementForm() throws JSONSException, FormException, JSONException {
+				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				LoginManagementGroupForm loginManagementGroupForm = new LoginManagementGroupForm( seleniumWebDriver, setupLMG, TIMEOUT, ATTEMPT_TIMEOUT  );
 				loginManagementGroupForm.open();
 				loginManagementGroupForm.editGroup("administration");
 				loginManagementGroupForm.setGroupName("superadmin");
+				loginManagementGroupForm.setGroupIsRemovable(false);
+				loginManagementGroupForm.setGroupUserAddition(true);
 				
 				loginManagementGroupForm.ClickSaveGroup().closeAlertAndGetItsText();
 				loginManagementGroupForm.clickRefreshButton();
 				Boolean status = loginManagementGroupForm.isGroupinList("superadmin");
 				
-				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				System.out.println(status);
 				if(status==true)
 				{
@@ -187,14 +209,14 @@ public class TestLoginManagementUser extends ParentTestCase{
 	}
 
 		
-	@Test(enabled=true, priority = 4 )
+	@Test(enabled = TEST_ENABLED, priority = 4 )
 	public void testUc01_03Deletegroup_LoginManagementForm() throws JSONSException, FormException, JSONException {
+				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				LoginManagementGroupForm loginManagementGroupForm = new LoginManagementGroupForm( seleniumWebDriver, setupLMG, TIMEOUT, ATTEMPT_TIMEOUT  );
 				loginManagementGroupForm.open();
 				loginManagementGroupForm.deleteGroup("superadmin").closeAlertAndGetItsText();;
 				loginManagementGroupForm.clickRefreshButton();
 				Boolean status = loginManagementGroupForm.isGroupinList("superadmin");
-				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				System.out.println(status);
 				if(status==false)
 				{
@@ -214,9 +236,11 @@ public class TestLoginManagementUser extends ParentTestCase{
 	
 	
 	@Parameters({"jsonFilePath_LM","jsonFileName_LM"})
-	@Test(enabled=true, priority = 5 )
+	@Test(enabled = TEST_ENABLED, priority = 5 )
 	public void testUc02_01adduser_LoginManagementForm(@Optional("input/administrationmanager/loginmanagement") String jsonFilePath_LM,
 			@Optional("User") String jsonFileName_LM) throws JSONSException, FormException, JSONException {
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
 		String resourcePath = DEFAULT_RESOURCE_FOLDER_ROOT + jsonFilePath_LM;
 		String resourceFile = jsonFileName_LM;
 			
@@ -237,14 +261,14 @@ public class TestLoginManagementUser extends ParentTestCase{
 				loginManagementUserForm.setUserpassword(setupLM.getpassword());
 				loginManagementUserForm.setUserconfirmpassword(setupLM.getconfirmpassword());
 				loginManagementUserForm.ClickTabsButton();
+				loginManagementUserForm.setAddLoginManagementGroup(setupLM.getgroupname());
 				loginManagementUserForm.setAgencyName(setupLM.getAgencyName());
 				
-				loginManagementUserForm.setAddLoginManagementGroup(setupLM.getgroupname());
+				
 				loginManagementUserForm.setAddUserPermission(setupLM.getpermission());
 				loginManagementUserForm.ClickSaveUser().closeAlertAndGetItsText();
 				loginManagementUserForm.clickRefreshButton();
 				Boolean status = loginManagementUserForm.isUserinList(setupLM.getName());
-				seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 				System.out.println(status);
 				if(status==true)
 				{
@@ -265,21 +289,21 @@ public class TestLoginManagementUser extends ParentTestCase{
 	
 	
 	
-	@Test(enabled=true, priority = 6 )
+	@Test(enabled = TEST_ENABLED, priority = 6 )
 	public void testUc02_02Edituser_LoginManagementForm() throws FormException {
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		LoginManagementUserForm loginManagementUserForm = new LoginManagementUserForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT  );
 		loginManagementUserForm.open();
 		loginManagementUserForm.clickEditButton("Rajesh");
+		
 		loginManagementUserForm.setUseremail("Rajesh.ksingh@yahoo.com");
 		loginManagementUserForm.setUserpassword("raj");
 		loginManagementUserForm.setUserconfirmpassword("raj");
-		
 		loginManagementUserForm.setAddLoginManagementGroup("loginmanagement");
 		loginManagementUserForm.setAddUserPermission( "Manager");
 		loginManagementUserForm.ClickSaveUser().closeAlertAndGetItsText();
 		loginManagementUserForm.clickRefreshButton();
 		Boolean status = loginManagementUserForm.isUserinList("Rajesh");
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		System.out.println(status);
 		if(status==true)
 				{
@@ -296,8 +320,9 @@ public class TestLoginManagementUser extends ParentTestCase{
 	}
 
 
-	@Test(enabled=true, priority = 7 )
+	@Test(enabled = TEST_ENABLED, priority = 7 )
 	public void testUc02_03Copyuser_LoginManagementForm() throws FormException {
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		LoginManagementUserForm loginManagementUserForm = new LoginManagementUserForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT  );
 		loginManagementUserForm.open();
 		loginManagementUserForm.clickCopyButton("Rajesh");
@@ -309,7 +334,6 @@ public class TestLoginManagementUser extends ParentTestCase{
 		loginManagementUserForm.ClickSaveUser().closeAlertAndGetItsText();
 		loginManagementUserForm.clickRefreshButton();
 		Boolean status = loginManagementUserForm.isUserinList("Rajesh (Copy)");
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		System.out.println(status);
 		if(status==true)
 				{
@@ -326,15 +350,15 @@ public class TestLoginManagementUser extends ParentTestCase{
 	}
 
 
-	@Test(enabled=true, priority = 8 )
+	@Test(enabled = TEST_ENABLED, priority = 8 )
 	public void testUc02_04DeleteUser_LoginManagementForm() throws FormException {
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		LoginManagementUserForm loginManagementUserForm = new LoginManagementUserForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT  );
 		loginManagementUserForm.open();
 		loginManagementUserForm.clickDeleteButton("Rajesh (Copy)");
 		loginManagementUserForm.closeAlertAndGetItsText();
 		loginManagementUserForm.clickRefreshButton();
 		Boolean status = loginManagementUserForm.isUserinList("Rajesh (Copy)");
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		System.out.println(status);
 		if(status==false)
 				{

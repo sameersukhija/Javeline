@@ -1,5 +1,4 @@
-{
-	"groups": [
+{"groups": [
 		{
 			"enabled": true,
 			"name": "administration",
@@ -7,16 +6,11 @@
 			"hasAgencies": true,
 			"canUsersBeAdded": true,
 			"canBeSelectedInGroupList": true,
-			"CampaignsTab": "Campaigns",
-			"CampaignCreationTab": "Campaigns_Creation",
-			"CampaignModelTab" : "Campaigns_Models",
-			"CatalogueTab" : "Catalogue",
-			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
-				"GENERAL_ERROR" : "RETURN_ERROR" 
-			},
-			"delete" : false
-				},
+			"tabs": [
+			"Campaigns",
+			"Campaigns_Creation"
+			]
+		},
 		{
 			"enabled": true,
 			"name": "loginmanagement",
@@ -24,14 +18,10 @@
 			"hasAgencies": true,
 			"canUsersBeAdded": true,
 			"canBeSelectedInGroupList": true,
-			"CampaignsTab": "Campaigns",
-			"CampaignCreationTab": "Campaigns_Creation",
-			"CampaignModelTab" : "Campaigns_Models",
-			"CatalogueTab" : "Catalogue",
-			"errorActions" : {
-				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
-				"GENERAL_ERROR" : "RETURN_ERROR" },
-			"delete" : false
-			}
+			"tabs": [
+			"Campaigns",
+			"Campaigns_Creation"
 			]
+		}
+	]
 }

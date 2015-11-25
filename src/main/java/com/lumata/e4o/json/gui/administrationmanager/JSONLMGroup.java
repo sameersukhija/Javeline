@@ -1,11 +1,19 @@
 package com.lumata.e4o.json.gui.administrationmanager;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.lumata.common.testing.exceptions.JSONSException;
+import com.lumata.common.testing.json.JsonConfigurationElement;
+import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.json.common.JsonConfig;
+import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONPricesElement;
+import com.lumata.e4o.json.gui.loyaltymanager.JSONLoyaltiesCreation.LoyaltyTypes;
 
 /**
  * @author <a href="mailto:arcangelo.dipasquale@lumatagroup.com">Arcangelo Di Pasquale</a>
@@ -13,7 +21,11 @@ import com.lumata.e4o.json.common.JsonConfig;
  */
 public class JSONLMGroup extends JsonConfig {
 
+	
 	private JsonConfig currentGroup;
+	private Object object;
+	private List<String> resp;
+	
 	
 	public JSONLMGroup( String folder, String file ) throws JSONSException {
 		
@@ -52,9 +64,24 @@ public class JSONLMGroup extends JsonConfig {
 		return currentGroup.getBooleanFromPath( "canBeSelectedInGroupList" );
 	}
 
-	public JSONArray getTabs() throws JSONException {
-		return currentGroup.getJSONArrayFromPath( "tabs" );
+	public String getTabs1()  throws FormException, JSONException {
+		return currentGroup.getStringFromPath("tabs");
 	}
+	
+	public List<String> getTabs() throws JSONSException {
+		
+		List<String> resp = null;
+	   	
+		List<String> raw = currentGroup.getStringList("tabs");
+			
+		resp = new ArrayList<String>();
+		
+		for (Object object : raw) 
+				resp.add(object.toString());
+		
+		return resp;
+	}
+	
 	
 	public String getCampaignsTab() throws JSONException {
 		return currentGroup.getStringFromPath( "CampaignsTab" );

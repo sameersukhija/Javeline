@@ -1,7 +1,9 @@
 package com.lumata.e4o.gui.administrationmanager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +24,9 @@ public class LoginManagementGroupForm extends LoginManagementForm {
 	
 	String groupTableXPath = "//table[@class='gwt-DecoratedTabPanel tab-LoginManagementPageView']//table[@class='tableList']//div[text()='List of groups']/parent::td/parent::tr/parent::tbody";
 	String groupTableElementXPath = groupTableXPath + "//tr[contains(@class, 'contentRow')]";
+	private JSONLMGroup setupLMG;
+	private String ctabs;
+	private int i=1;	
 	
 	public class LoginManagementGroup {
 		
@@ -170,9 +175,11 @@ public class LoginManagementGroupForm extends LoginManagementForm {
 	}
 	
 	public LoginManagementGroupForm setGroupIsRemovable(Boolean boolean1) throws FormException {
+		if (false != boolean1)
+		{
 		
 		clickXPath ("//td[contains(text(), 'Is removable')]/parent::tr//input");
-		
+		}
 		return this;
 		
 	}
@@ -184,8 +191,10 @@ public class LoginManagementGroupForm extends LoginManagementForm {
 	
 	public LoginManagementGroupForm setGroupHasAgencies(Boolean boolean1) throws FormException {
 		
+		if (false != boolean1)
+		{	
 		clickXPath ("//td[contains(text(), 'Has agencies')]/parent::tr//input");
-		
+		}
 		return this;
 		
 	}
@@ -197,8 +206,10 @@ public class LoginManagementGroupForm extends LoginManagementForm {
 	
 	public LoginManagementGroupForm setGroupUserAddition(Boolean boolean1) throws FormException {
 		
+		if (false != boolean1)
+		{	
 		clickXPath ("//td[contains(text(), 'Can users be added')]/parent::tr//input");
-		
+		}
 		return this;
 		
 	}
@@ -210,8 +221,10 @@ public class LoginManagementGroupForm extends LoginManagementForm {
 	
 	public LoginManagementGroupForm setGroupUserselectedinList(Boolean boolean1) throws FormException {
 		
+		if (false != boolean1)
+		{	
 		clickXPath ("//td[contains(text(), 'Can be selected in group list')]/parent::tr//input");
-		
+		}
 		return this;
 		
 	}
@@ -234,23 +247,24 @@ public class LoginManagementGroupForm extends LoginManagementForm {
 		
 	}
 	
-	public LoginManagementGroupForm setAddCampaignsTab(String jsonArray) throws FormException {
+	public LoginManagementGroupForm setAddCampaignsTab(String jsonArray) throws FormException, JSONSException {
 		
-		super.selectByXPathAndVisibleText("//table[@class='tableList']/tbody/tr[@class='cycle2']//td/div/table/tbody/tr/td/select[@class='gwt-ListBox']",jsonArray);
-				
-		return this;
+		super.selectByXPathAndVisibleText("//table[@class='tableList']/tbody/tr[@class='cycle2']//tr[1]/td/div/table/tbody/tr/td/select[@class='gwt-ListBox']", jsonArray);	
+		AddCampaignCreationTab( jsonArray);
+	       return this;
 		}
+	
 	
 	public String getAddCampaignsTab() throws FormException {
 		
-		return super.getValueByXPath( "//table[@class='tableList']/tbody/tr[@class='cycle2']//td/div/table/tbody/tr/td/select[@class='gwt-ListBox']");
+		return super.getValueByXPath( "//table[@class='tableList']/tbody/tr[@class='cycle2']//tr[1]/td/div/table/tbody/tr/td/select[@class='gwt-ListBox']");
 	
 	}
 
 	public LoginManagementGroupForm AddCampaignCreationTab(String jsonArray) throws FormException {
 		
-		super.selectByXPathAndVisibleText("//table[@class='tableList']/tbody/tr[@class='cycle2']//tr[2]/td/div/table/tbody/tr/td/select[@class='gwt-ListBox']",  jsonArray);
-				
+		super.selectByXPathAndVisibleText("//table[@class='tableList']/tbody/tr[@class='cycle2']//tr[2]/td/div/table/tbody/tr/td/select[@class='gwt-ListBox']", jsonArray);
+		
 		return this;
 		}
 	
@@ -321,7 +335,7 @@ public class LoginManagementGroupForm extends LoginManagementForm {
 	}
 
 	public Boolean isGroupinList(String GROUPNAME) throws FormException{
-		List<WebElement> groupList = getgroupList(GROUPNAME);
+		List<WebElement> groupList = getgroupList();
 
 		for( WebElement GroupListE1 : groupList ) {
 
@@ -336,7 +350,7 @@ public class LoginManagementGroupForm extends LoginManagementForm {
 	}
 
 	
-	public List<WebElement> getgroupList(String Group_Name)  throws FormException {
+	public List<WebElement> getgroupList()  throws FormException {
 
 		String rootPath = "//table[contains(@class,'GroupPageView')]";
 		String subPath = "//td[@class='column_name']//div[@class='gwt-Label']";

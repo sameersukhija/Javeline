@@ -79,7 +79,7 @@ public class LoginManagementAgencyForm extends LoginManagementForm {
 	  }
 	
 	public Boolean isAgencyinList(String AgencyName) throws FormException{
-		List<WebElement> agencyList = getagencyList(AgencyName);
+		List<WebElement> agencyList = getagencyList();
 
 		for( WebElement AgencyListE1 : agencyList ) {
 
@@ -94,7 +94,7 @@ public class LoginManagementAgencyForm extends LoginManagementForm {
 	}
 
 	
-	public List<WebElement> getagencyList(String Agency_Name)  throws FormException {
+	public List<WebElement> getagencyList()  throws FormException {
 
 		String rootPath = "//table[contains(@class,'AgencyPageView')]";
 		String subPath = "//td[@class='column_name']//div[@class='gwt-Label']";
