@@ -34,6 +34,8 @@ import com.lumata.common.testing.system.Server;
 import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.e4o.exceptions.CommoditiesException;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.administrationmanager.AdministrationForm;
+import com.lumata.e4o.gui.administrationmanager.AdministrationManagementConfigureForm;
 import com.lumata.e4o.gui.administrationmanager.LoginManagementAgencyForm;
 import com.lumata.e4o.gui.administrationmanager.LoginManagementGroupForm;
 import com.lumata.e4o.gui.administrationmanager.LoginManagementUserForm;
@@ -51,7 +53,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 		@TCOwner( name="Sameer Sukhija", email="sameer.sukhija@lumatagroup.com" )
 	)
 @TCSeleniumWebDriver
-public class TestLoginManagementUser<JSONTabsElement> extends ParentTestCase{
+public class TestLoginManagement extends ParentTestCase{
 	private JSONLMUser setupLM=null;
 	private JSONLMAgency setupLMA=null;
 	private String groupName;
@@ -69,7 +71,7 @@ public class TestLoginManagementUser<JSONTabsElement> extends ParentTestCase{
 	    
 	
 	@Parameters({"jsonFilePath_LMA","jsonFileName_LMA"})
-	@Test(enabled = TEST_ENABLED, priority = 1 )
+	@Test(enabled = TEST_ENABLED, priority = 9 )
 	public void testUc03_01addAgency_LoginManagementForm(@Optional("input/administrationmanager/loginmanagement") String jsonFilePath_LMA,
 			@Optional("Agency") String jsonFileName_LMA) throws JSONSException, FormException, JSONException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -373,6 +375,5 @@ public class TestLoginManagementUser<JSONTabsElement> extends ParentTestCase{
 					Reporter.log("User deletion Failed!");
 				}
 	}
-
-
+	
 }			
