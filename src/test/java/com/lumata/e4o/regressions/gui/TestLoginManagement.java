@@ -10,7 +10,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.junit.internal.matchers.Each;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -35,7 +34,6 @@ import com.lumata.common.testing.io.IOFileUtils;
 import com.lumata.e4o.exceptions.CommoditiesException;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.administrationmanager.AdministrationForm;
-import com.lumata.e4o.gui.administrationmanager.AdministrationManagementConfigureForm;
 import com.lumata.e4o.gui.administrationmanager.LoginManagementAgencyForm;
 import com.lumata.e4o.gui.administrationmanager.LoginManagementGroupForm;
 import com.lumata.e4o.gui.administrationmanager.LoginManagementUserForm;
@@ -71,7 +69,7 @@ public class TestLoginManagement extends ParentTestCase{
 	    
 	
 	@Parameters({"jsonFilePath_LMA","jsonFileName_LMA"})
-	@Test(enabled = TEST_ENABLED, priority = 9 )
+	@Test(enabled = TEST_ENABLED, priority = 1 )
 	public void testUc03_01addAgency_LoginManagementForm(@Optional("input/administrationmanager/loginmanagement") String jsonFilePath_LMA,
 			@Optional("Agency") String jsonFileName_LMA) throws JSONSException, FormException, JSONException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -375,5 +373,6 @@ public class TestLoginManagement extends ParentTestCase{
 					Reporter.log("User deletion Failed!");
 				}
 	}
+	
 	
 }			
