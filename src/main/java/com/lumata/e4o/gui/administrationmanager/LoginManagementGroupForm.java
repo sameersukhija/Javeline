@@ -247,10 +247,9 @@ public class LoginManagementGroupForm extends LoginManagementForm {
 		
 	}
 	
-	public LoginManagementGroupForm setAddCampaignsTab(String jsonArray) throws FormException, JSONSException {
+	public LoginManagementGroupForm setTabName(String tabName, int rowId) throws FormException, JSONSException {
 		
-		super.selectByXPathAndVisibleText("//table[@class='tableList']/tbody/tr[@class='cycle2']//tr[1]/td/div/table/tbody/tr/td/select[@class='gwt-ListBox']", jsonArray);	
-		AddCampaignCreationTab( jsonArray);
+		super.selectByXPathAndVisibleText("//table[@class='tableList']/tbody/tr[@class='cycle2']//tr["+ rowId+"]/td/div/table/tbody/tr/td/select[@class='gwt-ListBox']", tabName);	
 	       return this;
 		}
 	
@@ -261,46 +260,6 @@ public class LoginManagementGroupForm extends LoginManagementForm {
 	
 	}
 
-	public LoginManagementGroupForm AddCampaignCreationTab(String jsonArray) throws FormException {
-		
-		super.selectByXPathAndVisibleText("//table[@class='tableList']/tbody/tr[@class='cycle2']//tr[2]/td/div/table/tbody/tr/td/select[@class='gwt-ListBox']", jsonArray);
-		
-		return this;
-		}
-	
-	public String getAddCampaignCreationTab() throws FormException {
-		
-		return super.getValueByXPath( "//table[@class='tableList']/tbody/tr[@class='cycle2']//tr[2]/td/div/table/tbody/tr/td/select[@class='gwt-ListBox']");
-	
-	}
-
-	public LoginManagementGroupForm AddCampaignModelTab(String jsonArray) throws FormException {
-		
-		super.selectByXPathAndVisibleText("//table[@class='tableList']/tbody/tr[@class='cycle2']//tr[3]/td/div/table/tbody/tr/td/select[@class='gwt-ListBox']",  jsonArray);
-				
-		return this;
-		}
-	
-	public String getAddCampaignModelTab() throws FormException {
-		
-		return super.getValueByXPath( "//table[@class='tableList']/tbody/tr[@class='cycle2']//tr[3]/td/div/table/tbody/tr/td/select[@class='gwt-ListBox']");
-	
-	}
-
-	public LoginManagementGroupForm AddCatalogueTab(String jsonArray) throws FormException {
-		
-		super.selectByXPathAndVisibleText("//table[@class='tableList']/tbody/tr[@class='cycle2']//tr[4]/td/div/table/tbody/tr/td/select[@class='gwt-ListBox']",  jsonArray);
-				
-		return this;
-		}
-	
-	public String getAddCatalogueTab() throws FormException {
-		
-		return super.getValueByXPath( "//table[@class='tableList']/tbody/tr[@class='cycle2']//tr[4]/td/div/table/tbody/tr/td/select[@class='gwt-ListBox']");
-	
-	}
-
-	
 	public LoginManagementGroupForm ClickSaveGroup() throws FormException {
 		
 		super.clickXPath("//button[@name='btn-save']");

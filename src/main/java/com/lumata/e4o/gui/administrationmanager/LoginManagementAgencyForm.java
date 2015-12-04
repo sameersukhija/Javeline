@@ -97,7 +97,7 @@ public class LoginManagementAgencyForm extends LoginManagementForm {
 	public List<WebElement> getagencyList()  throws FormException {
 
 		String rootPath = "//table[contains(@class,'AgencyPageView')]";
-		String subPath = "//td[@class='column_name']//div[@class='gwt-Label']";
+		String subPath = "//tr[contains(@class,'contentRow cycle')]//td[@class='column_name']//div[@class='gwt-Label']";
 		
 		List<WebElement> agencyList = getListByXPath(rootPath, rootPath + subPath);
 		System.out.println(agencyList);

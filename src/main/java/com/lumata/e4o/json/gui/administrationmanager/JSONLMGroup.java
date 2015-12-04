@@ -64,10 +64,6 @@ public class JSONLMGroup extends JsonConfig {
 		return currentGroup.getBooleanFromPath( "canBeSelectedInGroupList" );
 	}
 
-	public String getTabs1()  throws FormException, JSONException {
-		return currentGroup.getStringFromPath("tabs");
-	}
-	
 	public List<String> getTabs() throws JSONSException {
 		
 		List<String> resp = null;
@@ -80,23 +76,6 @@ public class JSONLMGroup extends JsonConfig {
 				resp.add(object.toString());
 		
 		return resp;
-	}
-	
-	
-	public String getCampaignsTab() throws JSONException {
-		return currentGroup.getStringFromPath( "CampaignsTab" );
-	}
-	
-	public String getCampaignCreationTab() throws JSONException {
-		return currentGroup.getStringFromPath( "CampaignCreationTab" );
-	}
-	
-	public String getCampaignModelTab() throws JSONException {
-		return currentGroup.getStringFromPath( "CampaignModelTab" );
-	}
-	
-	public String getCatalogueTab() throws JSONException {
-		return currentGroup.getStringFromPath( "CatalogueTab" );
 	}
 	
 	

@@ -146,14 +146,9 @@ public class TestLoginManagement extends ParentTestCase{
 				loginManagementGroupForm.setGroupUserAddition(setupLMG.getCanUsersBeAdded());
 				loginManagementGroupForm.setGroupUserselectedinList(setupLMG.getCanBeSelectedInGroupList());
 				 int ctab=setupLMG.getTabs().size();
-				 for (int i=1; i<ctab; i++ ){
+				 for (int i=0; i<ctab; i++ ){
 					  loginManagementGroupForm.ClickTabsButton();
-				  for ( String ctabs : setupLMG.getTabs()) {
-					  	 loginManagementGroupForm.ClickTabsButton();
-					  		  
-						  loginManagementGroupForm.setAddCampaignsTab(ctabs);
-						  break;
-			      }
+					  loginManagementGroupForm.setTabName(setupLMG.getTabs().get(i),i+1);
 			
 					}
 				loginManagementGroupForm.ClickSaveGroup().closeAlertAndGetItsText();
@@ -186,9 +181,12 @@ public class TestLoginManagement extends ParentTestCase{
 				loginManagementGroupForm.open();
 				loginManagementGroupForm.editGroup("administration");
 				loginManagementGroupForm.setGroupName("superadmin");
-				loginManagementGroupForm.setGroupIsRemovable(false);
+				loginManagementGroupForm.setGroupIsRemovable(true);
 				loginManagementGroupForm.setGroupUserAddition(true);
-				
+				loginManagementGroupForm.ClickTabsButton();
+				loginManagementGroupForm.setTabName("CustomerCare", 3);
+				loginManagementGroupForm.ClickTabsButton();
+				loginManagementGroupForm.setTabName("CustomerCare_Token", 4);
 				loginManagementGroupForm.ClickSaveGroup().closeAlertAndGetItsText();
 				loginManagementGroupForm.clickRefreshButton();
 				Boolean status = loginManagementGroupForm.isGroupinList("superadmin");
