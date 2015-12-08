@@ -1774,7 +1774,6 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 		List<WebElement> campaignList = getCampaignList();
 
 		for (WebElement campaignEl : campaignList) {
-
 			if (campaignEl.getText().trim().equals(strCampaignName)) {
 
 				return true;
@@ -1799,8 +1798,8 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 	public List<WebElement> getCampaignList()  throws FormException {
 		
 		List<WebElement> campaignList = super.getListByXPath(
-				"//td[3]",
-				"//div[@class='gwt-Label showPopupLink']");
+				"//table[contains(@class,'CampaignActivationTab')]//table[@class='tableList']",
+				"//tr[contains(@class,'contentRow cycle')]//td[@class='column_campaignName']");
 
 		return campaignList;
 	}

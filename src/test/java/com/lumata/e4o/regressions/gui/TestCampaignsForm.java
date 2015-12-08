@@ -1,36 +1,19 @@
 package com.lumata.e4o.regressions.gui;
 
-import java.lang.reflect.Method;
 import java.util.Calendar;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.AssertJUnit;
 import org.testng.Reporter;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.lumata.common.testing.exceptions.JSONSException;
-import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
-import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelFormOld;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCampaign_;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCampaigns;
-import com.lumata.e4o.json.gui.campaignmanager.JSONCriteria;
-import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
 
 import static com.lumata.e4o.gui.common.NotificationForm.NotificationChannel.*;
 import static com.lumata.e4o.gui.common.NotificationForm.NotificationTongue.*;
@@ -53,7 +36,6 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 	private CampaignsForm campaignsForm;
 	
 	
-
 @Test( enabled=TEST_ENABLED, priority = 1 )
 	public void testUc34_01CreateCampaign_ExistingModel() throws FormException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -201,7 +183,8 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 			confirmCampaignActivation();	
 			
 			/** Verify activated Campaign exists or not **/
-			
+			WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 30);
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Campaign List']//ancestor::table[@class='tableList']")));
 			Boolean campaign_status = campaignsForm.isCampaignNameInList("CAMPAIGN_14");
 			Reporter.log("Creation of \"Campaign Form\".", LOG_TO_STD_OUT);
 			
@@ -277,7 +260,8 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 			activateBtn().
 			confirmCampaignActivation();	
 		/** Verify activated Campaign exists or not **/
-		
+			WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 30);
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Campaign List']//ancestor::table[@class='tableList']")));
 		Boolean campaign_status = campaignsForm.isCampaignNameInList("CAMPAIGN_15 (Notification)");
 		Reporter.log("Creation of \"Campaign Form\".", LOG_TO_STD_OUT);
 		
@@ -304,8 +288,8 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		Boolean status=false;
 		campaignsForm.
-		openForm()
-		.campaignEditButton("CAMPAIGN_14").
+		openForm();
+		campaignsForm.campaignEditButton("CAMPAIGN_14").
 			
 		/** configure definition tab **/
 		openDefinitionTab().
@@ -321,7 +305,9 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 		campaignsForm.setCampaignTargetTargetingRestrictedConfigureASampleNoSample().
 		openActivationTab();
 		campaignsForm.saveBtn().
-		confirmCampaignAlert(status);		
+		confirmCampaignAlert(status);
+		WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 30);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Campaign List']//ancestor::table[@class='tableList']")));
 		status = campaignsForm.isCampaignNameInList("CAMPAIGN_14 (Notification)");
 		Reporter.log("Creation of \"Campaign Form\".", LOG_TO_STD_OUT);
 		
@@ -386,7 +372,8 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 		confirmCampaignActivation();	
 		
 		/** Verify activated Campaign exists or not **/
-		
+		WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 30);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Campaign List']//ancestor::table[@class='tableList']")));
 		Boolean campaign_status = campaignsForm.isCampaignNameInList("CAMPAIGN_18");
 		Reporter.log("Copy of \"Campaign Form\".", LOG_TO_STD_OUT);
 		
@@ -425,7 +412,8 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 		closeAlertAndGetItsText();
 		
 		campaignsForm.confirmCampaignAlert(status);
-		
+		WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 30);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Campaign List']//ancestor::table[@class='tableList']")));
 		status = campaignsForm.isCampaignNameInList("CAMPAIGN_18");
 		
 		Reporter.log("Deletion of \"Campaign Form\".", LOG_TO_STD_OUT);
