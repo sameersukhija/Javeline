@@ -17,7 +17,7 @@
 	</classes>
 	</test>
 	
-	<parameter name="e4oReleaseParam" value="2.4.2.5.3" />
+	<parameter name="e4oReleaseParam" value="2.4.2.8.0" />
   
   <parameter name="networkEnvironmentParams" value="{ 'envFile':'e4o_regression', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule1', 'guiUser':'superman' }"/>
   <!-- selenium_driver_type: local or remote -->  

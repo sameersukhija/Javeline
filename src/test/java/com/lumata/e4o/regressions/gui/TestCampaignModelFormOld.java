@@ -219,15 +219,14 @@ public class TestCampaignModelFormOld extends ParentTestCase{
 	}
 	
 	
-	
 	@Test( enabled=TEST_ENABLED, priority = 4 )
 	public void testUc33_04CampaignModelDelete() throws FormException {
 		Boolean status=false;
-		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
-		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
-		CampaignModelFormOld campaignModelForm = new CampaignModelFormOld( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		campaignModelForm.openForm();
+		Reporter.log("Creation of \"Campaign Model Form\".", LOG_TO_STD_OUT);
+		CampaignModelFormOld campaignModelForm = new CampaignModelFormOld( seleniumWebDriver,TIMEOUT, ATTEMPT_TIMEOUT );
+		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+		//campaignModelForm.openForm();
 	
 				campaignModelForm.campaignModelDeleteButton("CSM_14").closeAlertAndGetItsText();
 				
@@ -261,7 +260,7 @@ public class TestCampaignModelFormOld extends ParentTestCase{
 	
 		CampaignModelFormOld campaignModelForm = new CampaignModelFormOld( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
-		campaignModelForm.openForm();
+//		campaignModelForm.openForm();
 			
 			
 				campaignModelForm.campaignModelCopyButton(campModelName);
