@@ -34,6 +34,7 @@ import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.SuppliersForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.gui.customercare.CustomerCareCreateSubscriberForm;
+import com.lumata.e4o.gui.customercare.CustomerCareProfileForm;
 import com.lumata.e4o.gui.customercare.CustomerCareTokensForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
 import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
@@ -249,7 +250,12 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 		// Click add button
 		customerCareCreateSubscriberForm.clickCustomerCareCreateAdd();
 		customerCareCreateSubscriberForm.clickClearButton();
-		status=customerCareCreateSubscriberForm.subscriberPhoneNumberExists(null, "9890234567");
+		status=customerCareCreateSubscriberForm.subscriberPhoneNumberExists(null, number);
+		CustomerCareProfileForm customerCareProfileForm = new CustomerCareProfileForm(
+				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		customerCareProfileForm.clickChannel().clickAddChannelButton().addChannel("SMS", number,
+				"Active");
+		customerCareProfileForm.waitForPageLoad();
 		customerCareCreateSubscriberForm.clickClearButton();
 		//status=customerCareCreateSubscriberForm.searchById("gwt-debug-BtnCCInfoEdit").isDisplayed();
 		}catch (FormException e)

@@ -19,6 +19,7 @@ import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.catalogmanager.OffersForm;
 import com.lumata.e4o.gui.customercare.CustomerCareCreateSubscriberForm;
 import com.lumata.e4o.gui.customercare.CustomerCareHistoryForm;
+import com.lumata.e4o.gui.customercare.CustomerCareProfileForm;
 import com.lumata.e4o.gui.customercare.CustomerCarePurchasesForm;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONReservationElement;
@@ -208,7 +209,12 @@ public class TestPurchaseOfferFromCustomerCare extends ParentTestCase {
 			customerCareCreateSubscriberForm.clickCustomerCareCreateAdd();
 			customerCareCreateSubscriberForm.clickClearButton();
 			status = customerCareCreateSubscriberForm
-					.subscriberPhoneNumberExists(null, "9890234567");
+					.subscriberPhoneNumberExists(null, number);
+			CustomerCareProfileForm customerCareProfileForm = new CustomerCareProfileForm(
+					seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+			customerCareProfileForm.clickChannel().clickAddChannelButton().addChannel("SMS", number,
+					"Active");
+			customerCareProfileForm.waitForPageLoad();
 			customerCareCreateSubscriberForm.clickClearButton();
 			// status=customerCareCreateSubscriberForm.searchById("gwt-debug-BtnCCInfoEdit").isDisplayed();
 		} catch (FormException e) {
