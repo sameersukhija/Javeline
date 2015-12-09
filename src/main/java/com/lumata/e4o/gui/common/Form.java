@@ -976,6 +976,11 @@ public abstract class Form {
 		return this;
 		
 	}
+	public Form scrollTo(WebElement el){
+		JavascriptExecutor jsexec = (JavascriptExecutor) selenium.getWrappedDriver();
+		jsexec.executeScript("arguments[0].scrollIntoView();", el);
+		return this;
+	}
 	
 	public Alert getDialog() {
 		

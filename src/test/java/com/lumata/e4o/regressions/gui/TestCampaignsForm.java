@@ -35,7 +35,6 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 
 	private CampaignsForm campaignsForm;
 	
-	
 @Test( enabled=TEST_ENABLED, priority = 1 )
 	public void testUc34_01CreateCampaign_ExistingModel() throws FormException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -338,7 +337,7 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 		
 		Boolean status=false;
 		campaignsForm.
-		openForm().
+		//openForm().
 		campaignCopyButton("CAMPAIGN_14 (Notification)").
 		
 		/** configure definition tab **/
@@ -362,9 +361,9 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 		campaignsForm.openDialogTab().
 		//setCampaignDialogueEmailAddress( "" ).
 		openDialogueNotification().
-		editDialogueNotification( English, SMS ).
-		setDialogueNotificationMessage( "campaign notification message ( ###campaign_name### )" ).
-		saveDialogueNotificationEditing().
+		editDialogueNotification( English, SMS );
+		campaignsForm.setDialogueNotificationMessage( "campaign notification message ( ###campaign_name### )" );
+		campaignsForm.saveDialogueNotificationEditing().
 		saveDialogueNotification().confirmDialog();
 		/** configure activation tab **/
 		campaignsForm.openActivationTab().

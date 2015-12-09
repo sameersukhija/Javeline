@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.json.JSONException;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 
@@ -1833,8 +1834,10 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 	
 	public CampaignsForm campaignEditButton(String campName) throws FormException{
 		
-		
-		super.clickXPath("//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-edit']");
+		String xpathEditButton="//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-edit']";
+		WebElement el=selenium.getWrappedDriver().findElement(By.xpath(xpathEditButton));
+		super.scrollTo(el);
+		super.clickXPath(xpathEditButton);
 		
 		return this;
 	}	
@@ -1842,25 +1845,29 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 	
 	public CampaignsForm campaignCopyButton(String campName) throws FormException{
 		
-		
-		super.clickXPath("//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-copy']");
-		
+		String xpathCopyButton="//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-copy']";
+		WebElement el=selenium.getWrappedDriver().findElement(By.xpath(xpathCopyButton));
+		super.scrollTo(el);
+		super.clickXPath(xpathCopyButton);
 		return this;
 	}
 	
 	
 	public CampaignsForm campaignStopButton(String campName) throws FormException{
 		
-		
-		super.clickXPath("//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-stop']");
+		String xpathStopButton="//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-stop']";
+		WebElement el=selenium.getWrappedDriver().findElement(By.xpath(xpathStopButton));
+		super.scrollTo(el);
+		super.clickXPath(xpathStopButton);
 		
 		return this;
 	}	
 
 	public CampaignsForm campaignDeleteButton(String campName) throws FormException{
-		
-		
-		super.clickXPath("//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-delete']");
+		String xpathDelButton="//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-delete']";
+		WebElement el=selenium.getWrappedDriver().findElement(By.xpath(xpathDelButton));
+		super.scrollTo(el);
+		super.clickXPath(xpathDelButton);
 		
 		return this;
 	}	
