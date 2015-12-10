@@ -31,7 +31,7 @@ public class CampaignSubstatesForm extends AdministrationForm {
 		return this;
 	}
 
-	public CampaignSubstatesForm enterSubstateName(String strName)
+	public CampaignSubstatesForm setName(String strName)
 			throws FormException {
 		waitForPageLoad();
 		this.sendKeysByXPath(
@@ -40,7 +40,7 @@ public class CampaignSubstatesForm extends AdministrationForm {
 		return this;
 	}
 
-	public CampaignSubstatesForm enterSubstateDescription(String strDescription)
+	public CampaignSubstatesForm setDescription(String strDescription)
 			throws FormException {
 		this.sendKeysByXPath(
 				"//td[@class='dialogMiddleCenter']//ancestor::tr[contains(@class,'cycle2')]//input",
@@ -80,7 +80,7 @@ public class CampaignSubstatesForm extends AdministrationForm {
 		}
 	}
 
-	public List<WebElement> getCampaingSubstateNameList() throws FormException {
+	public List<WebElement> getSubstateNameList() throws FormException {
 		String rootPath = "//table[contains(@class, 'page-CampaignSubstatesPageView')]//table[@class='tableList']";
 		String subPath = "//tr[contains(@class, 'contentRow cycle')]//td[@class='column_name'][1]";
 
@@ -89,10 +89,10 @@ public class CampaignSubstatesForm extends AdministrationForm {
 		return templateList;
 	}
 
-	public boolean isCampaignNameinList(String strCampaignSubstateName)
+	public boolean isSubstateinList(String strCampaignSubstateName)
 			throws FormException {
 		waitForPageLoad();
-		List<WebElement> campaignSubstateList = getCampaingSubstateNameList();
+		List<WebElement> campaignSubstateList = getSubstateNameList();
 
 		for (WebElement campaignSubstateElementEl : campaignSubstateList) {
 

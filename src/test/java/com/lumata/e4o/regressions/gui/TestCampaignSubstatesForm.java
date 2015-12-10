@@ -11,7 +11,6 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.administrationmanager.BonusForm;
 import com.lumata.e4o.gui.administrationmanager.CampaignSubstatesForm;
 import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.e4o.testing.common.TCOwner;
@@ -36,9 +35,7 @@ public class TestCampaignSubstatesForm extends ParentTestCase {
 	 * 
 	 */
 	@Test(enabled = TEST_ENABLED, timeOut = TESTNG_TIMEOUT, priority = 1)
-	public void testUc09_01CreateCampaignSubstates(
-			@Optional String networkEnvironmentParams,
-			@Optional String seleniumWebDriverParams) throws FormException {
+	public void testUc09_01CreateCampaignSubstates() throws FormException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts()
 				.implicitlyWait(30, TimeUnit.SECONDS);
 		Reporter.log("Creation of \"Campaign Substates Form\".", LOG_TO_STD_OUT);
@@ -46,11 +43,11 @@ public class TestCampaignSubstatesForm extends ParentTestCase {
 				TIMEOUT, ATTEMPT_TIMEOUT);
 		campaignSubstatesForm.open();
 		campaignSubstatesForm.addCampaignSubstates();
-		campaignSubstatesForm.enterSubstateName("test_campaignsubstate");
+		campaignSubstatesForm.setName("test_campaignsubstate");
 		campaignSubstatesForm
-				.enterSubstateDescription("test_campaignsubstatedescription");
+				.setDescription("test_campaignsubstatedescription");
 		campaignSubstatesForm.clickSaveButton();
-		if (campaignSubstatesForm.isCampaignNameinList("test_campaignsubstate")) {
+		if (campaignSubstatesForm.isSubstateinList("test_campaignsubstate")) {
 			Assert.assertTrue(true, "CampaignSubstate created successfully");
 			Reporter.log("CampaignSubstate created successfully",
 					LOG_TO_STD_OUT);
@@ -67,9 +64,7 @@ public class TestCampaignSubstatesForm extends ParentTestCase {
 	 * section.Campaign substate edited successfully and verified on UI.
 	 */
 	@Test(enabled = TEST_ENABLED, timeOut = TESTNG_TIMEOUT, priority = 2)
-	public void testUc09_02EditCampaignSubstates(
-			@Optional String networkEnvironmentParams,
-			@Optional String seleniumWebDriverParams) throws FormException {
+	public void testUc09_02EditCampaignSubstates() throws FormException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts()
 				.implicitlyWait(30, TimeUnit.SECONDS);
 		campaignSubstatesForm = new CampaignSubstatesForm(seleniumWebDriver,
@@ -77,10 +72,10 @@ public class TestCampaignSubstatesForm extends ParentTestCase {
 		campaignSubstatesForm.open();
 		campaignSubstatesForm.clickeditButton("test_campaignsubstate");
 		campaignSubstatesForm
-				.enterSubstateName("test_campaignsubstate_updated");
+				.setName("test_campaignsubstate_updated");
 		campaignSubstatesForm.clickSaveButton();
 		if (campaignSubstatesForm
-				.isCampaignNameinList("test_campaignsubstate_updated")) {
+				.isSubstateinList("test_campaignsubstate_updated")) {
 			Assert.assertTrue(true, "CampaignSubstate updated successfully");
 			Reporter.log("CampaignSubstate edited successfully", LOG_TO_STD_OUT);
 		} else {
@@ -96,9 +91,7 @@ public class TestCampaignSubstatesForm extends ParentTestCase {
 	 */
 
 	@Test(enabled = TEST_ENABLED, timeOut = TESTNG_TIMEOUT, priority = 3)
-	public void testUc09_03DeleteCampaignSubstates(
-			@Optional String networkEnvironmentParams,
-			@Optional String seleniumWebDriverParams) throws FormException {
+	public void testUc09_03DeleteCampaignSubstates() throws FormException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts()
 				.implicitlyWait(30, TimeUnit.SECONDS);
 		campaignSubstatesForm = new CampaignSubstatesForm(seleniumWebDriver,
