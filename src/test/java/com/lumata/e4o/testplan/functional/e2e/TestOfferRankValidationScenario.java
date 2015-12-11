@@ -82,7 +82,7 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 		"rule_jsonPath",
 		"rule_jsonFileName",
 		"campaignModel_jsonPath",
-		"campaignModel_jsonFileName",
+		"campaignModel_jsonName",
 		"offer_jsonPath",
 		"offer_jsonFileName"
 		})
@@ -96,7 +96,7 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 			@Optional("input/catalogmanager/rules") String rule_jsonPath,
 			@Optional("NewRuleList") String rule_jsonFileName,
 			@Optional("input/campaignmanager/campaignModels") String campaignModel_jsonPath,
-			@Optional("endToEndCampaignModel") String campaignModel_jsonFileName,
+			@Optional("endToEndCampaignModel") String campaignModel_jsonName,
 			@Optional("input/catalogmanager/Offers") String offer_jsonPath,
 			@Optional("newOffers") String offer_jsonFileName
 			) throws FormException, JSONException, JSONSException,ParseException {
@@ -194,7 +194,7 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 				Reporter.log("Creation of Token Type Failed!",LOG_TO_STD_OUT);
 			}
 		//create a campaign Model using the Rule created above
-		campaignModel_created=createCampaignModel(campaignModel_jsonPath, campaignModel_jsonFileName);
+		campaignModel_created=createCampaignModel(campaignModel_jsonPath, campaignModel_jsonName);
 		if(campaignModel_created==true)
 		{
 			Assert.assertTrue(campaignModel_created);

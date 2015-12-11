@@ -76,7 +76,7 @@
   <parameter name="rule_jsonPath" value="input/catalogmanager/rules"/>
   <parameter name="rule_jsonFileName" value="NewRuleList"/>
   <parameter name="campaignModel_jsonPath" value="input/campaignmanager/campaignModels"/>
-  <parameter name="campaignModel_jsonFileName" value="endToEndCampaignModel"/>
+  <parameter name="campaignModel_jsonName" value="endToEndCampaignModel"/>
   <parameter name="offer_jsonPath" value="input/catalogmanager/Offers"/>
   <parameter name="offer_jsonFileName" value="newOffers"/>
     <classes>
