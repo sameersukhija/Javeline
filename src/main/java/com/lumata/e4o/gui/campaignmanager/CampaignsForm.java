@@ -182,7 +182,10 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 	
 	public CampaignsForm openForm() throws FormException {
 		
-		super.openForm().clickId( "gwt-debug-InputCMCampaignCreation" );
+		super.openForm();
+		/*fix done on 15th Dec 2015 to make the element visible*/
+		super.scrollTo(selenium.getWrappedDriver().findElement(By.id("gwt-debug-InputCMCampaignCreation")));
+		super.clickId( "gwt-debug-InputCMCampaignCreation" );
 		
 		return this;
 		
@@ -1775,6 +1778,7 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 		List<WebElement> campaignList = getCampaignList();
 
 		for (WebElement campaignEl : campaignList) {
+			/*fix done on 15th Dec 2015 to make the element visible*/
 			super.scrollTo(campaignEl);
 			if (campaignEl.getText().trim().equals(strCampaignName)) {
 
