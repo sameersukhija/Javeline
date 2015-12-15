@@ -31,7 +31,7 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 	@TCOwner( name="Sameer Sukhija", email="sameer.sukhija@lumatagroup.com" )
 )
 @TCSeleniumWebDriver
-public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
+public class TestCampaignsForm extends ParentTestCase {
 
 	private CampaignsForm campaignsForm;
 	
@@ -395,8 +395,8 @@ public class TestCampaignsForm<CampaignForm> extends ParentTestCase {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		Boolean status=false;
-		campaignsForm.
-		openForm()
+		campaignsForm
+		//openForm()
 		/** Stopping an activated Campaign **/
 		
 		.campaignStopButton("CAMPAIGN_18").

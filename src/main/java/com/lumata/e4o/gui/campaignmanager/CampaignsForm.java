@@ -1775,6 +1775,7 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 		List<WebElement> campaignList = getCampaignList();
 
 		for (WebElement campaignEl : campaignList) {
+			super.scrollTo(campaignEl);
 			if (campaignEl.getText().trim().equals(strCampaignName)) {
 
 				return true;
@@ -1800,7 +1801,7 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 		
 		List<WebElement> campaignList = super.getListByXPath(
 				"//table[contains(@class,'CampaignActivationTab')]//table[@class='tableList']",
-				"//tr[contains(@class,'contentRow cycle')]//td[@class='column_campaignName']");
+				"//tr[contains(@class,'contentRow cycle')]//td[@class='column_campaignName']/div");
 
 		return campaignList;
 	}

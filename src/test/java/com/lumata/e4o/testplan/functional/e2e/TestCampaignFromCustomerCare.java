@@ -11,6 +11,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -260,7 +263,8 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 		campaignsForm = new CampaignsForm(seleniumWebDriver, TIMEOUT,
 				ATTEMPT_TIMEOUT);
 		Calendar endDate = Calendar.getInstance();
-
+		seleniumWebDriver.getWrappedDriver().manage().timeouts()
+		.implicitlyWait(30, TimeUnit.SECONDS);
 		Calendar provEndDate = (Calendar) endDate.clone();
 		setCampaignName(Format.addTimestamp("Campaign_"));
 		campaignsForm
@@ -292,6 +296,8 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 				.
 				/** configure activation tab **/
 				openActivationTab().activateBtn().confirmCampaignActivation();
+		WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 30);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//table[contains(@class,'CampaignActivationTab')]//table[@class='tableList']")));
 		Boolean campaign_status = campaignsForm
 				.isCampaignNameInList(getCampaignName());
 		Reporter.log("Creation of \"Campaign Form\".", LOG_TO_STD_OUT);
