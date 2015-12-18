@@ -1260,7 +1260,7 @@ public class XMLRPCRequest_Subscribermanager_UpdateSubscriber extends ParentTest
 										inTag,
 										network,
 										params(
-											param( ExtendedParameters.gender, "MALE" )	
+											param( ExtendedParameters.gender, 1 )	
 										),
 										services()																
 								)
