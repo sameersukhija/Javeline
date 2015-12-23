@@ -9,6 +9,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import com.lumata.common.testing.selenium.SeleniumUtils;
@@ -319,7 +320,7 @@ public class TokenTypeForm extends OfferOptimisationForm {
 	
 	public TokenTypeForm setName( String name ) throws FormException {
 		
-		super.sendKeysByName( "name", name );
+		super.sendKeysByXPath("//input[@ng-model='tokenType.name']", name);
 		
 		return this;
 		
@@ -327,7 +328,9 @@ public class TokenTypeForm extends OfferOptimisationForm {
 	
 	public String getName() throws FormException {
 		
-		return super.getValueByName( "name" );
+		//return super.getValueByXPath("//input[@ng-disabled=\"disabledFields['name']\"]");
+		String value =  (String)((JavascriptExecutor) selenium.getWrappedDriver()).executeScript("return document.getElementsByName(\"name\")[0].value");
+		return value;
 		
 	}
 
@@ -622,8 +625,8 @@ public class TokenTypeForm extends OfferOptimisationForm {
 	public Boolean isTokenNameFieldDisabled() throws FormException
 	{
 		Boolean status=false;
-		String isDisabled =super.search( SeleniumUtils.SearchBy.NAME, "name" ).getAttribute("disabled");
-		if(isDisabled.equals("true"))
+		String isDisabled = (String)((JavascriptExecutor) selenium.getWrappedDriver()).executeScript("return document.getElementsByName(\"name\")[0].getAttribute(\"disabled\")");
+		if(isDisabled.equals("disabled"))
 		{
 			status=true;
 		}

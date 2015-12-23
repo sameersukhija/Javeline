@@ -37,7 +37,7 @@ import com.lumata.e4o.exceptions.GeneratorException;
 import com.lumata.e4o.generators.common.Generator;
 import com.lumata.e4o.generators.subscribers.GenerateSubscribers;
 import com.lumata.e4o.gui.administrationmanager.SalesChannelsForm;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
+import com.lumata.e4o.gui.campaignmanager.CampaignModelFormOld;
 import com.lumata.e4o.gui.catalogmanager.ConfigureRules;
 import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
@@ -147,7 +147,7 @@ public class XMLRPCRequest_Optimizer_Rule_Criteria {
 	@Test( enabled = CONFIGURE_CAMPAIGN_MODEL, priority = 4 )
 	public void configureCampaignModel( @Optional("campaignModelOptimizationRuleList") String campaignModelList ) throws CampaignModelException, JSONSException, IOFileException, FormException, JSONException {
 
-		CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, new JSONCampaignModel( "input/campaignmanager/campaignModels", campaignModelList ), TIMEOUT, ATTEMPT_TIMEOUT );
+		CampaignModelFormOld campaignModelForm = new CampaignModelFormOld( seleniumWebDriver, new JSONCampaignModel( "input/campaignmanager/campaignModels", campaignModelList ), TIMEOUT, ATTEMPT_TIMEOUT );
 						
 		Assert.assertTrue( campaignModelForm.openForm()
 							.addCampaignModels()

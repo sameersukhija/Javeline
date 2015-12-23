@@ -31,7 +31,7 @@ public class GenerateSubscribersOfferPurchase extends ParentTestCase {
 		
 		short offerId = 2;
 		
-		ArrayList<OfferStock> offerStock = DAOOfferStock.getInstance( mysqlMaster ).getOfferStockByOffer( offerId );
+		ArrayList<OfferStock> offerStock = DAOOfferStock.getInstance( mysqlMaster ).getOfferStockList( offerId );
 		
 		if( offerStock.size() >= 2 ) {
 			

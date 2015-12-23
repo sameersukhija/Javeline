@@ -4,5 +4,5 @@ currentDate=false
 
 # specific date setting
 if [ "$currentDate" = false ] ; then
-	date +%DT -s "2015-08-26 16:00:58"
+	date +%DT -s "2015-10-27 10:00:00"
 fi

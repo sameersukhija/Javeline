@@ -40,7 +40,7 @@ public class TestBonusForm extends ParentTestCase {
 	private String BONUS_NAME_EXTERNAL;
 
 	@Test(enabled = TEST_ENABLED, timeOut = TESTNG_TIMEOUT, priority = 1)
-	@Parameters({ "jsonFilePath_Bonus", "jsonFileName_Bonus" })
+	@Parameters({ "jsonFilePath_Bonus", "jsonFileName_Bonus"})
 	/**
 	 * 
 	 * UC06-01 UC06 create a new Bonus  Bonus is created 
@@ -205,7 +205,7 @@ public class TestBonusForm extends ParentTestCase {
 		}
 
 		if (bonusForm.isBonusNameInList(BONUS_NAME_EXTERNAL)) {
-			if (bonusForm.isButtonLimitDisable(BONUS_NAME_EXTERNAL)) {
+			if (bonusForm.isBalanceLimitBtnDisable(BONUS_NAME_EXTERNAL)) {
 				Assert.assertTrue(true,
 						"Limit button is disabled for External bonus");
 				Reporter.log("Limit button is disabled for External bonus",
@@ -226,7 +226,6 @@ public class TestBonusForm extends ParentTestCase {
 	@Test(enabled = TEST_ENABLED, timeOut = TESTNG_TIMEOUT, priority = 4)
 	public void testUc06_04DeleteBonus() throws FormException {
 	Boolean bStatus;
-		//if (bonusForm.isBonusNameInList(BONUS_NAME_INTERNAL)) {
 			bStatus=bonusForm.clickDeleteButton(BONUS_NAME_INTERNAL);
 			if (bStatus==true) {
 				Assert.assertTrue(true,
@@ -240,7 +239,6 @@ public class TestBonusForm extends ParentTestCase {
 					Reporter.log("Failed to delete internal bonus",LOG_TO_STD_OUT);
 				}
 
-			//if (bonusForm.isBonusNameInList(BONUS_NAME_EXTERNAL)) {
 				bStatus=bonusForm.clickDeleteButton(BONUS_NAME_EXTERNAL);
 				if (bStatus==true) {
 					Assert.assertTrue(true,
@@ -253,7 +251,5 @@ public class TestBonusForm extends ParentTestCase {
 					Assert.fail("Failed to delete bonus");
 					Reporter.log("Failed to delete bonus",LOG_TO_STD_OUT);
 				}
-			//}
-		//}
 	}
 }

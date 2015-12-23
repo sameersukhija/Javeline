@@ -26,7 +26,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.lumata.e4o.gui.operationmanager.OperationManagementForm;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
+import com.lumata.e4o.gui.campaignmanager.CampaignModelFormOld;
 import com.lumata.e4o.gui.customercare.CustomerCareLoyaltyForm;
 import com.lumata.e4o.gui.loyaltymanager.LoyaltyCreationForm;
 import com.lumata.e4o.gui.loyaltymanager.LoyaltyManagerForm;

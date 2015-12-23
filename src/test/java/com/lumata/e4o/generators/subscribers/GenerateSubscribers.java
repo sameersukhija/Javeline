@@ -36,7 +36,7 @@ public class GenerateSubscribers extends ParentTestCase {
 	@Test( enabled = GENERATE_INCREMENTAL_SUBSCRIBERS )
 	public void generateIncrementalSubscribers() throws GeneratorException {
 		
-		final Long STARTED_MSISDN = 3399900201L;
+		final Long STARTED_MSISDN = 3399900001L;
 		final Integer INCREMENT = 1;
 		final Boolean HAS_SMS_CHANNEL = true;
 		final Boolean HAS_MAIL_CHANNEL = true;

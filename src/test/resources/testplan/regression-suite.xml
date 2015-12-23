@@ -17,7 +17,7 @@
 	</classes>
 	</test>
 	
-	<parameter name="e4oReleaseParam" value="2.4.2.3.0" />
+	<parameter name="e4oReleaseParam" value="2.4.2.9.0" />
   
   <parameter name="networkEnvironmentParams" value="{ 'envFile':'e4o_regression', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule1', 'guiUser':'superman' }"/>
   <!-- selenium_driver_type: local or remote -->  
@@ -52,6 +52,20 @@
       </class>
     </classes>	
   </test>
+  <test name="Notification Template">
+  <parameter name="jsonFilePath_notif" value="input/administrationmanager/notifications"/>
+	<parameter name="jsonFileName_notif" value="newNotification"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestNotificationTemplate">
+      </class>
+    </classes>	
+  </test>
+  <test name="CampaignSubstates TestCases">
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestCampaignSubstatesForm">
+      </class>
+    </classes>	
+  </test>
   <test name="Rank Validation Scenario">
   <parameter name="supplier_jsonFilePath" value="input/catalogmanager/suppliers"/>
   <parameter name="supplier_jsonFileName" value="endToEndSupplier"/>
@@ -62,7 +76,7 @@
   <parameter name="rule_jsonPath" value="input/catalogmanager/rules"/>
   <parameter name="rule_jsonFileName" value="NewRuleList"/>
   <parameter name="campaignModel_jsonPath" value="input/campaignmanager/campaignModels"/>
-  <parameter name="campaignModel_jsonFileName" value="endToEndCampaignModel"/>
+  <parameter name="campaignModel_jsonName" value="endToEndCampaignModel"/>
   <parameter name="offer_jsonPath" value="input/catalogmanager/Offers"/>
   <parameter name="offer_jsonFileName" value="newOffers"/>
     <classes>
@@ -99,8 +113,8 @@
   </test>
   
   <test name="ProductType Creation Testcase">
-	<parameter name="jsonFilePath" value="input/catalogmanager/productTypes"/>
-	<parameter name="jsonFileName" value="productTypeList"/>
+	<parameter name="jsonFilePath_pdType" value="input/catalogmanager/productTypes"/>
+	<parameter name="jsonFileName_pdtype" value="productTypeList"/>
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestProductTypeForm">
       </class>
@@ -129,10 +143,10 @@
     </classes>	
   </test>
   <test name="Campaign Model Testcases">
-	<parameter name="jsonFilePath" value="input/campaignmanager/campaignModels"/>
-	<parameter name="jsonFileName" value="newCampaignModel"/>
+	<parameter name="jsonFilePath_cm" value="input/campaignmanager/campaignModels"/>
+	<parameter name="jsonFileName_cm" value="newCampaignModelOld"/>
     <classes>
-      <class name="com.lumata.e4o.regressions.gui.TestCampaignModelForm">
+      <class name="com.lumata.e4o.regressions.gui.TestCampaignModelFormOld">
       </class>
     </classes>
   </test>

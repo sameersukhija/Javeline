@@ -15,7 +15,7 @@ public class XMLRPCRequest_Offeroptimizer_RefuseAll extends ParentTestCase {
 	public void callXMLRPCCRequest() throws Exception {
 		
 		final String msisdn = "3399900001";
-		final String token_code = "4TT6P";
+		final String token_code = "T6GQA";
 		final String userAcceptChannel = "web";
 		
 		XMLRPCRequest.offeroptimizer_refuseAll().call( 	

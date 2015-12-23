@@ -12,7 +12,7 @@ import com.lumata.common.testing.annotations.mysql.Column;
 @Table( "offoptim_ruleset" )
 public class OffoptimRuleset { 
 
-	public enum Fields { ruleset_id, name, description, algorithm_id, token_type_id, token_resend_notification, offers_to_return, keep_offers_consistent, allow_redeemed_offers, allocation_time_validity_amount, allocation_time_validity_unit, redeem_expired_offer_behavior }
+	public enum Fields { ruleset_id, name, description, algorithm_id, token_type_id, token_resend_notification, offers_to_return, keep_offers_consistent, allow_redeemed_offers, allow_allocated_offers, allocation_time_validity_amount, allocation_time_validity_unit, redeem_expired_offer_behavior }
 
 	@Column(
 			table = "offoptim_ruleset",
@@ -36,7 +36,7 @@ public class OffoptimRuleset {
 	@Column(
 			table = "offoptim_ruleset",
 			field = "name",
-			type = "varchar(20)",
+			type = "varchar(50)",
 			mysqlType = "varchar",
 			javaType = "String",
 			categoryType = "String",
@@ -45,7 +45,7 @@ public class OffoptimRuleset {
 			key = "UNI",
 			defaultValue = "null",
 			extra = "",
-			length = 20,
+			length = 50,
 			comment = "",
 			getMethod = "getName",
 			setMethod = "setName"
@@ -187,6 +187,25 @@ public class OffoptimRuleset {
 
 	@Column(
 			table = "offoptim_ruleset",
+			field = "allow_allocated_offers",
+			type = "tinyint(4)",
+			mysqlType = "tinyint",
+			javaType = "Byte",
+			categoryType = "Number",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "1",
+			extra = "",
+			length = 4,
+			comment = "",
+			getMethod = "getAllowAllocatedOffers",
+			setMethod = "setAllowAllocatedOffers"
+	)
+	private Byte allow_allocated_offers;
+
+	@Column(
+			table = "offoptim_ruleset",
 			field = "allocation_time_validity_amount",
 			type = "int(11)",
 			mysqlType = "int",
@@ -256,6 +275,7 @@ public class OffoptimRuleset {
 		this.offers_to_return = rs.getInt( OffoptimRuleset.Fields.offers_to_return.name() );
 		this.keep_offers_consistent = rs.getByte( OffoptimRuleset.Fields.keep_offers_consistent.name() );
 		this.allow_redeemed_offers = rs.getByte( OffoptimRuleset.Fields.allow_redeemed_offers.name() );
+		this.allow_allocated_offers = rs.getByte( OffoptimRuleset.Fields.allow_allocated_offers.name() );
 		this.allocation_time_validity_amount = rs.getInt( OffoptimRuleset.Fields.allocation_time_validity_amount.name() );
 		this.allocation_time_validity_unit = rs.getString( OffoptimRuleset.Fields.allocation_time_validity_unit.name() );
 		this.redeem_expired_offer_behavior = rs.getString( OffoptimRuleset.Fields.redeem_expired_offer_behavior.name() );
@@ -273,6 +293,7 @@ public class OffoptimRuleset {
 		this.offers_to_return = (int)jo.getInt( OffoptimRuleset.Fields.offers_to_return.name() );
 		this.keep_offers_consistent = (byte)jo.getInt( OffoptimRuleset.Fields.keep_offers_consistent.name() );
 		this.allow_redeemed_offers = (byte)jo.getInt( OffoptimRuleset.Fields.allow_redeemed_offers.name() );
+		this.allow_allocated_offers = (byte)jo.getInt( OffoptimRuleset.Fields.allow_allocated_offers.name() );
 		this.allocation_time_validity_amount = (int)jo.getInt( OffoptimRuleset.Fields.allocation_time_validity_amount.name() );
 		this.allocation_time_validity_unit = jo.getString( OffoptimRuleset.Fields.allocation_time_validity_unit.name() );
 		this.redeem_expired_offer_behavior = jo.getString( OffoptimRuleset.Fields.redeem_expired_offer_behavior.name() );
@@ -405,6 +426,20 @@ public class OffoptimRuleset {
 
 	}
 
+	public Byte getAllowAllocatedOffers() {
+
+		return this.allow_allocated_offers;
+
+	}
+
+	public OffoptimRuleset setAllowAllocatedOffers( Byte allow_allocated_offers ) {
+
+		this.allow_allocated_offers = allow_allocated_offers;
+
+		return this;
+
+	}
+
 	public Integer getAllocationTimeValidityAmount() {
 
 		return this.allocation_time_validity_amount;
@@ -467,6 +502,7 @@ public class OffoptimRuleset {
 			.append( "\"offers_to_return\": \"" ).append( this.getOffersToReturn() ).append( "\", " )
 			.append( "\"keep_offers_consistent\": \"" ).append( this.getKeepOffersConsistent() ).append( "\", " )
 			.append( "\"allow_redeemed_offers\": \"" ).append( this.getAllowRedeemedOffers() ).append( "\", " )
+			.append( "\"allow_allocated_offers\": \"" ).append( this.getAllowAllocatedOffers() ).append( "\", " )
 			.append( "\"allocation_time_validity_amount\": \"" ).append( this.getAllocationTimeValidityAmount() ).append( "\", " )
 			.append( "\"allocation_time_validity_unit\": \"" ).append( this.getAllocationTimeValidityUnit() ).append( "\", " )
 			.append( "\"redeem_expired_offer_behavior\": \"" ).append( this.getRedeemExpiredOfferBehavior() ).append( "\"" )

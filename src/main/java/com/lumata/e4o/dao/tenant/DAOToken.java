@@ -18,9 +18,11 @@ import org.slf4j.LoggerFactory;
 import com.lumata.common.testing.database.Mysql;
 import com.lumata.common.testing.log.Log;
 import com.lumata.common.testing.validating.Format;
+import com.lumata.e4o.schema.tenant.Campaigns;
 import com.lumata.e4o.schema.tenant.CatalogOffers;
 import com.lumata.e4o.schema.tenant.OffoptimCustomerItems;
 import com.lumata.e4o.schema.tenant.OffoptimCustomerPack;
+import com.lumata.e4o.schema.tenant.OffoptimRuleset;
 import com.lumata.e4o.schema.tenant.Token;
 
 public class DAOToken extends DAO {
@@ -239,7 +241,58 @@ public class DAOToken extends DAO {
 								)
 						).build();
 		
+		logger.info( Log.CREATING.createMessage( query ) );
+		
+		return getTokenList( query );
+		
+	}
+	
+	public ArrayList<Token> getAvailableActiveTokensByExpirationDate( Long msisdn, Calendar expiration_date ) {
+		
+		String query = select().
+						from( new Token() ).
+						where( 
+								op( Token.Fields.msisdn ).eq( msisdn ), 
+								and(
+									op( Token.Fields.last_redeem_date ).is( NULL ),
+									op( Token.Fields.consumed_date ).is( NULL ),
+									op( Token.Fields.expiration_date ).get( sdf.format( expiration_date.getTime() ) )
+								)
+						).build();
+		
 		logger.debug( Log.CREATING.createMessage( query ) );
+		
+		return getTokenList( query );
+		
+	}
+	
+	public ArrayList<Token> getAvailableActiveTokensByCampaign( Long msisdn, String campaignName, String rulesetName, Calendar expiration_date ) {
+		
+		String query = select().
+						from( new Token() ).
+						join( new Campaigns() ).
+						on(
+							op( Token.Fields.feature_id ).eq( Campaigns.Fields.campaign_id ) 	
+						).
+						join( new OffoptimRuleset() ).
+						on(
+							op( Token.Fields.ruleset_id ).eq( OffoptimRuleset.Fields.ruleset_id )							
+						).
+						where( 
+								op( Token.Fields.msisdn ).eq( msisdn ), 
+								and(
+									op( Token.Fields.last_redeem_date ).is( NULL ),
+									op( Token.Fields.consumed_date ).is( NULL ),
+									op( Campaigns.Fields.campaign_name ).eq( campaignName ),
+									op( OffoptimRuleset.Fields.name ).eq( rulesetName )
+								),
+								and(
+									op( Token.Fields.expiration_date ).let( Campaigns.Fields.end_date )
+								)
+						).						
+						build();
+		
+		logger.info( Log.CREATING.createMessage( query ) );
 		
 		return getTokenList( query );
 		

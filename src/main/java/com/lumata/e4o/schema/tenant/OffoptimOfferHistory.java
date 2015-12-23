@@ -15,7 +15,26 @@ import com.lumata.common.testing.validating.Format;
 @Table( "offoptim_offer_history" )
 public class OffoptimOfferHistory { 
 
-	public enum Fields { offer_id, today_consumed, yesterday_consumed, last_modified_date }
+	public enum Fields { agg_date, offer_id, channel_id, consumed, average_2Be_consumed_per_day }
+
+	@Column(
+			table = "offoptim_offer_history",
+			field = "agg_date",
+			type = "date",
+			mysqlType = "date",
+			javaType = "Date",
+			categoryType = "Date",
+			isNull = false,
+			isAutoincrement = false,
+			key = "PRI",
+			defaultValue = "null",
+			extra = "",
+			length = 0,
+			comment = "",
+			getMethod = "getAggDate",
+			setMethod = "setAggDate"
+	)
+	private Date agg_date;
 
 	@Column(
 			table = "offoptim_offer_history",
@@ -38,26 +57,26 @@ public class OffoptimOfferHistory {
 
 	@Column(
 			table = "offoptim_offer_history",
-			field = "today_consumed",
-			type = "int(11)",
-			mysqlType = "int",
-			javaType = "Integer",
+			field = "channel_id",
+			type = "smallint(6) unsigned",
+			mysqlType = "smallint",
+			javaType = "Short",
 			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
-			key = "",
-			defaultValue = "1",
+			key = "PRI",
+			defaultValue = "null",
 			extra = "",
-			length = 11,
+			length = 6,
 			comment = "",
-			getMethod = "getTodayConsumed",
-			setMethod = "setTodayConsumed"
+			getMethod = "getChannelId",
+			setMethod = "setChannelId"
 	)
-	private Integer today_consumed;
+	private Short channel_id;
 
 	@Column(
 			table = "offoptim_offer_history",
-			field = "yesterday_consumed",
+			field = "consumed",
 			type = "int(11)",
 			mysqlType = "int",
 			javaType = "Integer",
@@ -69,48 +88,64 @@ public class OffoptimOfferHistory {
 			extra = "",
 			length = 11,
 			comment = "",
-			getMethod = "getYesterdayConsumed",
-			setMethod = "setYesterdayConsumed"
+			getMethod = "getConsumed",
+			setMethod = "setConsumed"
 	)
-	private Integer yesterday_consumed;
+	private Integer consumed;
 
 	@Column(
 			table = "offoptim_offer_history",
-			field = "last_modified_date",
-			type = "date",
-			mysqlType = "date",
-			javaType = "Date",
-			categoryType = "Date",
+			field = "average_2Be_consumed_per_day",
+			type = "int(11)",
+			mysqlType = "int",
+			javaType = "Integer",
+			categoryType = "Number",
 			isNull = false,
 			isAutoincrement = false,
 			key = "",
 			defaultValue = "null",
 			extra = "",
-			length = 0,
+			length = 11,
 			comment = "",
-			getMethod = "getLastModifiedDate",
-			setMethod = "setLastModifiedDate"
+			getMethod = "getAverage2BeConsumedPerDay",
+			setMethod = "setAverage2BeConsumedPerDay"
 	)
-	private Date last_modified_date;
+	private Integer average_2Be_consumed_per_day;
 
 
 	public OffoptimOfferHistory() {} 
 
 	public OffoptimOfferHistory( ResultSet rs ) throws SQLException {
 
+		this.agg_date = rs.getDate( OffoptimOfferHistory.Fields.agg_date.name() );
 		this.offer_id = rs.getInt( OffoptimOfferHistory.Fields.offer_id.name() );
-		this.today_consumed = rs.getInt( OffoptimOfferHistory.Fields.today_consumed.name() );
-		this.yesterday_consumed = rs.getInt( OffoptimOfferHistory.Fields.yesterday_consumed.name() );
-		this.last_modified_date = rs.getDate( OffoptimOfferHistory.Fields.last_modified_date.name() );
+		this.channel_id = rs.getShort( OffoptimOfferHistory.Fields.channel_id.name() );
+		this.consumed = rs.getInt( OffoptimOfferHistory.Fields.consumed.name() );
+		this.average_2Be_consumed_per_day = rs.getInt( OffoptimOfferHistory.Fields.average_2Be_consumed_per_day.name() );
 
 	}
 
 	public OffoptimOfferHistory( JSONObject jo ) throws JSONException, ParseException {
 
+		this.agg_date = Format.getMysqlDateTime( jo.getString( OffoptimOfferHistory.Fields.agg_date.name() ) );
 		this.offer_id = (int)jo.getInt( OffoptimOfferHistory.Fields.offer_id.name() );
-		this.today_consumed = (int)jo.getInt( OffoptimOfferHistory.Fields.today_consumed.name() );
-		this.yesterday_consumed = (int)jo.getInt( OffoptimOfferHistory.Fields.yesterday_consumed.name() );
-		this.last_modified_date = Format.getMysqlDateTime( jo.getString( OffoptimOfferHistory.Fields.last_modified_date.name() ) );
+		this.channel_id = (short)jo.getInt( OffoptimOfferHistory.Fields.channel_id.name() );
+		this.consumed = (int)jo.getInt( OffoptimOfferHistory.Fields.consumed.name() );
+		this.average_2Be_consumed_per_day = (int)jo.getInt( OffoptimOfferHistory.Fields.average_2Be_consumed_per_day.name() );
+
+	}
+
+	public Date getAggDate() {
+
+		return this.agg_date;
+
+	}
+
+	public OffoptimOfferHistory setAggDate( Date agg_date ) {
+
+		this.agg_date = agg_date;
+
+		return this;
 
 	}
 
@@ -128,43 +163,43 @@ public class OffoptimOfferHistory {
 
 	}
 
-	public Integer getTodayConsumed() {
+	public Short getChannelId() {
 
-		return this.today_consumed;
+		return this.channel_id;
 
 	}
 
-	public OffoptimOfferHistory setTodayConsumed( Integer today_consumed ) {
+	public OffoptimOfferHistory setChannelId( Short channel_id ) {
 
-		this.today_consumed = today_consumed;
+		this.channel_id = channel_id;
 
 		return this;
 
 	}
 
-	public Integer getYesterdayConsumed() {
+	public Integer getConsumed() {
 
-		return this.yesterday_consumed;
+		return this.consumed;
 
 	}
 
-	public OffoptimOfferHistory setYesterdayConsumed( Integer yesterday_consumed ) {
+	public OffoptimOfferHistory setConsumed( Integer consumed ) {
 
-		this.yesterday_consumed = yesterday_consumed;
+		this.consumed = consumed;
 
 		return this;
 
 	}
 
-	public Date getLastModifiedDate() {
+	public Integer getAverage2BeConsumedPerDay() {
 
-		return this.last_modified_date;
+		return this.average_2Be_consumed_per_day;
 
 	}
 
-	public OffoptimOfferHistory setLastModifiedDate( Date last_modified_date ) {
+	public OffoptimOfferHistory setAverage2BeConsumedPerDay( Integer average_2Be_consumed_per_day ) {
 
-		this.last_modified_date = last_modified_date;
+		this.average_2Be_consumed_per_day = average_2Be_consumed_per_day;
 
 		return this;
 
@@ -181,10 +216,11 @@ public class OffoptimOfferHistory {
 		StringBuilder str = new StringBuilder();
 
 		str.append( "{ " )
+			.append( "\"agg_date\": \"" ).append( this.getAggDate() ).append( "\", " )
 			.append( "\"offer_id\": \"" ).append( this.getOfferId() ).append( "\", " )
-			.append( "\"today_consumed\": \"" ).append( this.getTodayConsumed() ).append( "\", " )
-			.append( "\"yesterday_consumed\": \"" ).append( this.getYesterdayConsumed() ).append( "\", " )
-			.append( "\"last_modified_date\": \"" ).append( this.getLastModifiedDate() ).append( "\"" )
+			.append( "\"channel_id\": \"" ).append( this.getChannelId() ).append( "\", " )
+			.append( "\"consumed\": \"" ).append( this.getConsumed() ).append( "\", " )
+			.append( "\"average_2Be_consumed_per_day\": \"" ).append( this.getAverage2BeConsumedPerDay() ).append( "\"" )
 			.append( " }" );
 
 		return str.toString();

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.json.JSONException;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 
@@ -181,7 +182,10 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 	
 	public CampaignsForm openForm() throws FormException {
 		
-		super.openForm().clickId( "gwt-debug-InputCMCampaignCreation" );
+		super.openForm();
+		/*fix done on 15th Dec 2015 to make the element visible*/
+		super.scrollTo(selenium.getWrappedDriver().findElement(By.id("gwt-debug-InputCMCampaignCreation")));
+		super.clickId( "gwt-debug-InputCMCampaignCreation" );
 		
 		return this;
 		
@@ -1774,7 +1778,8 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 		List<WebElement> campaignList = getCampaignList();
 
 		for (WebElement campaignEl : campaignList) {
-
+			/*fix done on 15th Dec 2015 to make the element visible*/
+			super.scrollTo(campaignEl);
 			if (campaignEl.getText().trim().equals(strCampaignName)) {
 
 				return true;
@@ -1799,8 +1804,8 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 	public List<WebElement> getCampaignList()  throws FormException {
 		
 		List<WebElement> campaignList = super.getListByXPath(
-				"//td[3]",
-				"//div[@class='gwt-Label showPopupLink']");
+				"//table[contains(@class,'CampaignActivationTab')]//table[@class='tableList']",
+				"//tr[contains(@class,'contentRow cycle')]//td[@class='column_campaignName']/div");
 
 		return campaignList;
 	}
@@ -1834,8 +1839,10 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 	
 	public CampaignsForm campaignEditButton(String campName) throws FormException{
 		
-		
-		super.clickXPath("//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-edit']");
+		String xpathEditButton="//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-edit']";
+		WebElement el=selenium.getWrappedDriver().findElement(By.xpath(xpathEditButton));
+		super.scrollTo(el);
+		super.clickXPath(xpathEditButton);
 		
 		return this;
 	}	
@@ -1843,25 +1850,29 @@ public class CampaignsForm extends CampaignManagerForm implements IForm, IFormWi
 	
 	public CampaignsForm campaignCopyButton(String campName) throws FormException{
 		
-		
-		super.clickXPath("//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-copy']");
-		
+		String xpathCopyButton="//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-copy']";
+		WebElement el=selenium.getWrappedDriver().findElement(By.xpath(xpathCopyButton));
+		super.scrollTo(el);
+		super.clickXPath(xpathCopyButton);
 		return this;
 	}
 	
 	
 	public CampaignsForm campaignStopButton(String campName) throws FormException{
 		
-		
-		super.clickXPath("//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-stop']");
+		String xpathStopButton="//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-stop']";
+		WebElement el=selenium.getWrappedDriver().findElement(By.xpath(xpathStopButton));
+		super.scrollTo(el);
+		super.clickXPath(xpathStopButton);
 		
 		return this;
 	}	
 
 	public CampaignsForm campaignDeleteButton(String campName) throws FormException{
-		
-		
-		super.clickXPath("//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-delete']");
+		String xpathDelButton="//td[@class='column_campaignName']//div[text()='"+campName+"']//ancestor::tr[1]//button[@name='btn-delete']";
+		WebElement el=selenium.getWrappedDriver().findElement(By.xpath(xpathDelButton));
+		super.scrollTo(el);
+		super.clickXPath(xpathDelButton);
 		
 		return this;
 	}	

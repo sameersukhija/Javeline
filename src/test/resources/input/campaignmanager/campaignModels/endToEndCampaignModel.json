@@ -2,8 +2,8 @@
 	"campaignModels": [
 		{
 			"enabled": true,
-			"name": "Model",
-			"description": "Model",
+			"name": "CSM_14",
+			"description": "CSM_14",
 			"campaignType": null,
 			"useHierarchy": false,
 			"errorActions": {
@@ -16,7 +16,7 @@
 					{ "type":"Subscriber.Msisdn","operator" : "=", "value" : "9890234567", "delete" : false} 
 					],
 					"actions": [
-						{ "name": "Rulesets.RuleEndToEnd401", "value": null, "option":"Allocate offer immediately", "time": null, "delete": false }							
+						{ "name": "Rulesets.RuleEndToEnd401", "value": null, "option":"Allocate offer immediately", "unit": null, "time": null, "delete": false }							
 					],
 					"beneficiary": true,
 					"notifications": null,

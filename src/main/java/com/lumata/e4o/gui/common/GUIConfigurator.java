@@ -14,7 +14,7 @@ import com.lumata.common.testing.system.User;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.administrationmanager.SalesChannelsForm;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
+import com.lumata.e4o.gui.campaignmanager.CampaignModelFormOld;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
 import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
@@ -87,7 +87,7 @@ public class GUIConfigurator {
 						break;
 					}
 					case campaignModels: {
-						CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver, new JSONCampaignModel( guiConfig.getString( JSONKey.folder.name() ), guiConfig.getString( JSONKey.file.name() ) ), timeout, attempt_timeout );
+						CampaignModelFormOld campaignModelForm = new CampaignModelFormOld( seleniumWebDriver, new JSONCampaignModel( guiConfig.getString( JSONKey.folder.name() ), guiConfig.getString( JSONKey.file.name() ) ), timeout, attempt_timeout );
 						success = campaignModelForm.openForm().addCampaignModels().navigate();
 						break;
 					}

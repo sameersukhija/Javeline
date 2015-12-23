@@ -5,8 +5,6 @@ import static com.lumata.e4o.gui.common.NotificationForm.NotificationChannel.SMS
 import static com.lumata.e4o.gui.common.NotificationForm.NotificationTongue.English;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +13,6 @@ import java.util.concurrent.TimeUnit;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -28,21 +24,17 @@ import org.testng.annotations.Test;
 import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.json.JsonConfigurationFile.JsonCurrentElement;
 import com.lumata.common.testing.validating.Format;
-import com.lumata.e4o.common.PlaceHolderDate;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
-import com.lumata.e4o.dao.tenant.DAOTokenType;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
+import com.lumata.e4o.gui.campaignmanager.CampaignModelFormOld;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
-import com.lumata.e4o.gui.campaignmanager.ConfigureCampaignModel;
 import com.lumata.e4o.gui.catalogmanager.OffersForm;
 import com.lumata.e4o.gui.catalogmanager.ProductTypesForm;
-import com.lumata.e4o.gui.catalogmanager.ProductsForm;
 import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.SuppliersForm;
 import com.lumata.e4o.gui.catalogmanager.TokenTypeForm;
 import com.lumata.e4o.gui.customercare.CustomerCareCreateSubscriberForm;
-import com.lumata.e4o.gui.customercare.CustomerCareForm;
+import com.lumata.e4o.gui.customercare.CustomerCareProfileForm;
 import com.lumata.e4o.gui.customercare.CustomerCareTokensForm;
 import com.lumata.e4o.json.gui.campaignmanager.JSONCampaignModel;
 import com.lumata.e4o.json.gui.campaignmanager.JSONEvent_;
@@ -53,7 +45,6 @@ import com.lumata.e4o.json.gui.catalogmanager.JSONSuppliers;
 import com.lumata.e4o.json.gui.catalogmanager.JSONTokenType;
 import com.lumata.e4o.json.gui.catalogmanager.JSONOffers.JSONPricesElement;
 import com.lumata.e4o.json.gui.catalogmanager.JSONProductTypes.JsonCharacteristicElement;
-import com.lumata.e4o.schema.tenant.TokenType;
 import com.lumata.e4o.testing.common.ParentTestCase;
 import com.lumata.e4o.testing.common.TCMysqlMaster;
 import com.lumata.e4o.testing.common.TCOwner;
@@ -91,7 +82,7 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 		"rule_jsonPath",
 		"rule_jsonFileName",
 		"campaignModel_jsonPath",
-		"campaignModel_jsonFileName",
+		"campaignModel_jsonName",
 		"offer_jsonPath",
 		"offer_jsonFileName"
 		})
@@ -105,7 +96,7 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 			@Optional("input/catalogmanager/rules") String rule_jsonPath,
 			@Optional("NewRuleList") String rule_jsonFileName,
 			@Optional("input/campaignmanager/campaignModels") String campaignModel_jsonPath,
-			@Optional("endToEndCampaignModel") String campaignModel_jsonFileName,
+			@Optional("endToEndCampaignModel") String campaignModel_jsonName,
 			@Optional("input/catalogmanager/Offers") String offer_jsonPath,
 			@Optional("newOffers") String offer_jsonFileName
 			) throws FormException, JSONException, JSONSException,ParseException {
@@ -203,7 +194,7 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 				Reporter.log("Creation of Token Type Failed!",LOG_TO_STD_OUT);
 			}
 		//create a campaign Model using the Rule created above
-		campaignModel_created=createCampaignModel(campaignModel_jsonPath, campaignModel_jsonFileName);
+		campaignModel_created=createCampaignModel(campaignModel_jsonPath, campaignModel_jsonName);
 		if(campaignModel_created==true)
 		{
 			Assert.assertTrue(campaignModel_created);
@@ -259,7 +250,12 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 		// Click add button
 		customerCareCreateSubscriberForm.clickCustomerCareCreateAdd();
 		customerCareCreateSubscriberForm.clickClearButton();
-		status=customerCareCreateSubscriberForm.subscriberPhoneNumberExists(null, "9890234567");
+		status=customerCareCreateSubscriberForm.subscriberPhoneNumberExists(null, number);
+		CustomerCareProfileForm customerCareProfileForm = new CustomerCareProfileForm(
+				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
+		customerCareProfileForm.clickChannel().clickAddChannelButton().addChannel("SMS", number,
+				"Active");
+		customerCareProfileForm.waitForPageLoad();
 		customerCareCreateSubscriberForm.clickClearButton();
 		//status=customerCareCreateSubscriberForm.searchById("gwt-debug-BtnCCInfoEdit").isDisplayed();
 		}catch (FormException e)
@@ -474,7 +470,7 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 	Reporter.log("Resource file -> " + resourceFile, LOG_TO_STD_OUT);
 	try{
 	setCampaignModelJson(new JSONCampaignModel(resourcePath, resourceFile));
-	CampaignModelForm campaignModelForm = new CampaignModelForm( seleniumWebDriver,getCampaignModelJson(), TIMEOUT, ATTEMPT_TIMEOUT );
+	CampaignModelFormOld campaignModelForm = new CampaignModelFormOld( seleniumWebDriver,getCampaignModelJson(), TIMEOUT, ATTEMPT_TIMEOUT );
 	
 	campaignModelForm.openForm();
 	JSONArray campaignModels = getCampaignModelJson().getList();
@@ -491,7 +487,6 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 			Map<String, JSONEvent_> events = getCampaignModelJson().getEvents();
 			campaignModelForm.addEvents(events);
 			campaignModelForm.saveCampaignModel();
-			//need a method to validate campaignmodel creation
 			campaignModelForm.confirmCampaignModelAlert(true);
 			status=campaignModelForm.isCampaignModelNameInList(getCampaignModelName());
 		}
@@ -537,10 +532,11 @@ public class TestOfferRankValidationScenario extends ParentTestCase {
 		setDialogueNotificationMessage( "campaign notification message" ).
 		saveDialogueNotificationEditing().
 		saveDialogueNotification().
+		confirmDialog();
 		//setCampaignDialogueApplyCampaignToNotifiedOnly().
 		//setCampaignDialogueNotificationTime( "00:00" ).
 		/** configure target tab **/
-		openTargetTab().
+		campaignsForm.openTargetTab().
 		setCampaignTargetTargetingMode( Restricted ).
 		setCampaignTargetTargetingRestrictedModeCriteria().
 		setCampaignTargetTargetingRestrictedConfigureASampleNoSample().

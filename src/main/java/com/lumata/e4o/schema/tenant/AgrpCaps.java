@@ -15,7 +15,7 @@ import com.lumata.common.testing.validating.Format;
 @Table( "agrp_caps" )
 public class AgrpCaps { 
 
-	public enum Fields { cap, transaction_id, task_name, creation_time, completion_date }
+	public enum Fields { cap, transaction_id, host, task_name, creation_time, completion_date }
 
 	@Column(
 			table = "agrp_caps",
@@ -54,6 +54,25 @@ public class AgrpCaps {
 			setMethod = "setTransactionId"
 	)
 	private String transaction_id;
+
+	@Column(
+			table = "agrp_caps",
+			field = "host",
+			type = "varchar(255)",
+			mysqlType = "varchar",
+			javaType = "String",
+			categoryType = "String",
+			isNull = false,
+			isAutoincrement = false,
+			key = "",
+			defaultValue = "null",
+			extra = "",
+			length = 255,
+			comment = "",
+			getMethod = "getHost",
+			setMethod = "setHost"
+	)
+	private String host;
 
 	@Column(
 			table = "agrp_caps",
@@ -119,6 +138,7 @@ public class AgrpCaps {
 
 		this.cap = rs.getString( AgrpCaps.Fields.cap.name() );
 		this.transaction_id = rs.getString( AgrpCaps.Fields.transaction_id.name() );
+		this.host = rs.getString( AgrpCaps.Fields.host.name() );
 		this.task_name = rs.getString( AgrpCaps.Fields.task_name.name() );
 		this.creation_time = rs.getTimestamp( AgrpCaps.Fields.creation_time.name() );
 		this.completion_date = rs.getTimestamp( AgrpCaps.Fields.completion_date.name() );
@@ -129,6 +149,7 @@ public class AgrpCaps {
 
 		this.cap = jo.getString( AgrpCaps.Fields.cap.name() );
 		this.transaction_id = jo.getString( AgrpCaps.Fields.transaction_id.name() );
+		this.host = jo.getString( AgrpCaps.Fields.host.name() );
 		this.task_name = jo.getString( AgrpCaps.Fields.task_name.name() );
 		this.creation_time = new Timestamp( Format.getMysqlDateTime( jo.getString( AgrpCaps.Fields.creation_time.name() ) ).getTime() );
 		this.completion_date = new Timestamp( Format.getMysqlDateTime( jo.getString( AgrpCaps.Fields.completion_date.name() ) ).getTime() );
@@ -158,6 +179,20 @@ public class AgrpCaps {
 	public AgrpCaps setTransactionId( String transaction_id ) {
 
 		this.transaction_id = transaction_id;
+
+		return this;
+
+	}
+
+	public String getHost() {
+
+		return this.host;
+
+	}
+
+	public AgrpCaps setHost( String host ) {
+
+		this.host = host;
 
 		return this;
 
@@ -218,6 +253,7 @@ public class AgrpCaps {
 		str.append( "{ " )
 			.append( "\"cap\": \"" ).append( this.getCap() ).append( "\", " )
 			.append( "\"transaction_id\": \"" ).append( this.getTransactionId() ).append( "\", " )
+			.append( "\"host\": \"" ).append( this.getHost() ).append( "\", " )
 			.append( "\"task_name\": \"" ).append( this.getTaskName() ).append( "\", " )
 			.append( "\"creation_time\": \"" ).append( this.getCreationTime() ).append( "\", " )
 			.append( "\"completion_date\": \"" ).append( this.getCompletionDate() ).append( "\"" )

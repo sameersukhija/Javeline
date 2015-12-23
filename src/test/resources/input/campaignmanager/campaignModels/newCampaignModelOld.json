@@ -1,0 +1,34 @@
+{
+	"campaignModels": [
+		{
+			"enabled": true,
+			"name": "CMS_09",
+			"description": "CampaignStartModel",
+			"campaignType": null,
+			"useHierarchy": false,
+			"errorActions": {
+				"elementAlreadyExists": "ABORT"			
+			},
+			"events": [				
+				{	
+					"eventType":"Campaign start",
+					"eventType1":"Campaign start", 
+					"criteria":[
+					{ "type":"Subscriber.Msisdn","type1":"Subscriber.Msisdn",type2:"Subscriber.Msisdn","operator" : "=","operator1":"=","operator2":"<", "value" : "393886933857", "value1":"9650450905", "value2":"24562","delete" : false} 
+					],
+					"actions": [
+						{ "name": "Accept Offer.Accept Offer 1","value": null,"name1":"Accept Offer.Accept Offer 2","value1":null,"name2":"Accept Offer.Accept Offer 3","value2": null,"option": null,"option1": null,"option2": null,"delete": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false
+				}
+			],
+			"delete": false
+		}
+	],
+	"errorActions": {
+		"MODEL_ALREADY_EXISTS": "ABORT"	
+	}
+	
+}

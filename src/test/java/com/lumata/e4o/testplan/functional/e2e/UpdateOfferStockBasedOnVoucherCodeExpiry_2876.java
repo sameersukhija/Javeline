@@ -60,7 +60,7 @@ public class UpdateOfferStockBasedOnVoucherCodeExpiry_2876 {
 		
 		Integer validVouchers = DAOVoucher.getInstance( mysql ).getValidVouchers( offerId, 8 );
 		
-		ArrayList<OfferStock> offerStock = DAOOfferStock.getInstance( mysql ).getOfferStockByOffer( offerId );
+		ArrayList<OfferStock> offerStock = DAOOfferStock.getInstance( mysql ).getOfferStockList( offerId );
 				
 		System.out.println( "### Before reduction with " + validVouchers + " valid vouchers ###" );
 				

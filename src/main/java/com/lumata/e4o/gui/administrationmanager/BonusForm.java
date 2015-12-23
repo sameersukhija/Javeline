@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -127,20 +128,15 @@ public class BonusForm extends AdministrationForm {
 		return this;
 	}
 
-	public Boolean isButtonLimitDisable(String strBonusName)
-			throws FormException {
-		Boolean status = false;
-		String isDisabled = super
-				.search(SeleniumUtils.SearchBy.XPATH,
-						"//div[text()='"
-								+ strBonusName
-								+ "']//ancestor::tr[contains(@class,'contentRow cycle')]//td[6]//button[@name='btn-limit']")
-				.getAttribute("disabled");
-		if (isDisabled.equals("true")) {
+	public Boolean isBalanceLimitBtnDisable(String bonusName) throws FormException {
+		String value = "new";
+		Long index=(Long)((JavascriptExecutor) selenium.getWrappedDriver()).executeScript("return document.getElementsByName(\"btn-limit\").length");
+		value =  (String)((JavascriptExecutor) selenium.getWrappedDriver()).executeScript("return document.getElementsByName(\"btn-limit\")["+(index-1)+"].getAttribute(\"disabled\")");
+		if(value.equals(""))
 			return true;
-		}
-		return status;
-
+		else
+			return false;
+		
 	}
 
 	public BonusForm enterLimitValue(String strText) throws FormException {

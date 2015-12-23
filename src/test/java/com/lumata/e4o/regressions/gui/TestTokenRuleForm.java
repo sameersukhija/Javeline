@@ -35,7 +35,6 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 @TCMysqlMaster
 public class TestTokenRuleForm extends ParentTestCase {
 
-
 	private RulesForm rulesForm;
 	private TokenTypeForm tokenTypeForm;
 	private JSONTokenType jsonTokenType;
@@ -150,7 +149,6 @@ public class TestTokenRuleForm extends ParentTestCase {
 					.setMaxNumberOfOffers(jsonRules.getMaximumNumberOfOffers());
 			rulesForm
 					.setExpiredOfferBehaviour(jsonRules.getExpiredOfferBehaviour());
-			Assert.assertTrue(rulesForm.formIsValid());
 			rulesForm.saveBtn();
 			if (rulesForm.isRuleNameInList(RULE_NAME)) {
 				Assert.assertTrue(true, "Rule created successfully");
@@ -209,7 +207,7 @@ public class TestTokenRuleForm extends ParentTestCase {
 		rulesForm.openForm();
 		rulesForm.copyByName(RULE_NAME);
 		String copied_rule_name=Format.addTimestamp("Rule_");
-		rulesForm.typeByName("name", copied_rule_name);
+		rulesForm.setName(copied_rule_name);
 		rulesForm.setDescription("copied rule");
 		rulesForm.saveBtn();
 		

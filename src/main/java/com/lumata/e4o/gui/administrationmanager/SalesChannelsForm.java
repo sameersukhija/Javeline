@@ -179,9 +179,9 @@ public class SalesChannelsForm extends AdministrationForm {
 		String btnActivate=rowSalesChannelXPath + "//button[@name='btn-activate']";
 		WebDriverWait wait=new WebDriverWait(selenium.getWrappedDriver(), 20);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(btnActivate)));
-		WebElement we = search( SeleniumUtils.SearchBy.XPATH, btnActivateSalesChannelXPath );
+		WebElement we = search( SeleniumUtils.SearchBy.XPATH, btnActivate );
 		
-		if( we.getAttribute( "style" ).contains( "display: none;" ) ) { return true; }
+		if( we.getAttribute( "aria-hidden").equalsIgnoreCase("false")) { return true; }
 				
 		return false;
 		

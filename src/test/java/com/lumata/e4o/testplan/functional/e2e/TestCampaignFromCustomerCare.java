@@ -11,6 +11,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -27,7 +30,7 @@ import com.lumata.common.testing.exceptions.JSONSException;
 import com.lumata.common.testing.validating.Format;
 import com.lumata.e4o.dao.tenant.DAOSubscribers;
 import com.lumata.e4o.exceptions.FormException;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
+import com.lumata.e4o.gui.campaignmanager.CampaignModelFormOld;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
 import com.lumata.e4o.gui.customercare.CustomerCareCampaignsForm;
 import com.lumata.e4o.gui.customercare.CustomerCareCreateSubscriberForm;
@@ -55,7 +58,7 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 			.getLogger(TestCampaignFromCustomerCare.class);
 	private CustomerCareCreateSubscriberForm customerCareCreateSubscriberForm;
 	private CampaignsForm campaignsForm;
-	private CampaignModelForm campaignModelForm;
+	private CampaignModelFormOld campaignModelForm;
 	private Subscribers subscriber = null;
 	private JSONCampaignModel campaignModelJson = null;
 	private String campaignModelName = null;
@@ -121,7 +124,7 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 	public void testUc2203_verifyNotificationHistoryTab() throws FormException {
 		CustomerCareHistoryForm customerCareHistoryForm = new CustomerCareHistoryForm(
 				seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT);
-		customerCareHistoryForm.clickSearchButton();
+		//customerCareHistoryForm.clickSearchButton();
 		customerCareHistoryForm.openHistoryTab();
 		customerCareHistoryForm.clickNotificationHistoryRefreshButton();
 		String status = customerCareHistoryForm
@@ -212,7 +215,7 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 		Reporter.log("Resource path -> " + resourcePath, LOG_TO_STD_OUT);
 		Reporter.log("Resource file -> " + resourceFile, LOG_TO_STD_OUT);
 		campaignModelJson = new JSONCampaignModel(resourcePath, resourceFile);
-		campaignModelForm = new CampaignModelForm(seleniumWebDriver,
+		campaignModelForm = new CampaignModelFormOld(seleniumWebDriver,
 				campaignModelJson, TIMEOUT, ATTEMPT_TIMEOUT);
 
 		campaignModelForm.openForm();
@@ -260,7 +263,8 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 		campaignsForm = new CampaignsForm(seleniumWebDriver, TIMEOUT,
 				ATTEMPT_TIMEOUT);
 		Calendar endDate = Calendar.getInstance();
-
+		seleniumWebDriver.getWrappedDriver().manage().timeouts()
+		.implicitlyWait(30, TimeUnit.SECONDS);
 		Calendar provEndDate = (Calendar) endDate.clone();
 		setCampaignName(Format.addTimestamp("Campaign_"));
 		campaignsForm
@@ -284,14 +288,16 @@ public class TestCampaignFromCustomerCare extends ParentTestCase {
 				.openDialogueNotification()
 				.editDialogueNotification(English, SMS)
 				.setDialogueNotificationMessage("campaign notification message")
-				.saveDialogueNotificationEditing().saveDialogueNotification().
+				.saveDialogueNotificationEditing().saveDialogueNotification().confirmDialog();
 				/** configure target tab **/
-				openTargetTab().setCampaignTargetTargetingMode(Restricted)
+		campaignsForm.openTargetTab().setCampaignTargetTargetingMode(Restricted)
 				.setCampaignTargetTargetingRestrictedModeCriteria()
 				.setCampaignTargetTargetingRestrictedConfigureASampleNoSample()
 				.
 				/** configure activation tab **/
 				openActivationTab().activateBtn().confirmCampaignActivation();
+		WebDriverWait wait=new WebDriverWait(seleniumWebDriver.getWrappedDriver(), 30);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//table[contains(@class,'CampaignActivationTab')]//table[@class='tableList']")));
 		Boolean campaign_status = campaignsForm
 				.isCampaignNameInList(getCampaignName());
 		Reporter.log("Creation of \"Campaign Form\".", LOG_TO_STD_OUT);

@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 import com.lumata.common.testing.exceptions.NetworkEnvironmentException;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.administrationmanager.SalesChannelsForm;
-import com.lumata.e4o.gui.campaignmanager.CampaignModelForm;
+import com.lumata.e4o.gui.campaignmanager.CampaignModelFormOld;
 import com.lumata.e4o.gui.campaignmanager.CampaignsForm;
 import com.lumata.e4o.gui.catalogmanager.RulesForm;
 import com.lumata.e4o.gui.catalogmanager.RulesForm.ExpiredOfferBehaviour;
@@ -31,10 +31,12 @@ import com.lumata.e4o.testing.common.TCSeleniumWebDriver;
 @TCSeleniumWebDriver
 public class ConfigureGUIToGiveTokens extends ParentTestCase {
 	
+	private final boolean TEST_ENABLED = true;
+		
 	private SalesChannelsForm salesChannelsForm;
 	private TokenTypeForm tokenTypesForm;
 	private RulesForm rulesForm;
-	private CampaignModelForm campaignModelsForm;
+	private CampaignModelFormOld campaignModelsForm;
 	private CampaignsForm campaignsForm;
 	
 	private final String CHANNEL_NAME_PREFIX = "Ch ";
@@ -59,15 +61,14 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 		rulesForm = new RulesForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
 		/** Campaign Model Form **/
-		campaignModelsForm = new CampaignModelForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
+		campaignModelsForm = new CampaignModelFormOld( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
 		/** Campaigns Form **/
 		campaignsForm = new CampaignsForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT );
 		
 	}
 	
-	//@Test( enabled=TEST_ENABLED, priority = 1 )
-	@Test( enabled=true, priority = 1 )
+	@Test( enabled=TEST_ENABLED, priority = 1 )
 	public void configureSalesChannels() throws FormException {
 		
 		salesChannelsForm.open();
@@ -90,8 +91,7 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 		
 	}
 
-	//@Test( enabled=TEST_ENABLED, priority = 2 )
-	@Test( enabled=true, priority = 2 )
+	@Test( enabled=TEST_ENABLED, priority = 2 )
 	public void configureTokenTypes() throws FormException {
 		
 		tokenTypesForm.openForm();
@@ -133,7 +133,7 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 		
 	}
 
-	@Test( enabled=true, priority = 3 )
+	@Test( enabled=TEST_ENABLED, priority = 3 )
 	public void configureRules() throws FormException {
 
 		ArrayList<String> salesChannels = new ArrayList<String>();
@@ -169,7 +169,7 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 					setName( ruleName ).
 					setDescription( ruleName ).
 					setTokenType( tokenTypes.get( ( n - 1 ) % tokenTypes.size() ) ).
-					setChannel( salesChannels.get( ( n - 1 ) % salesChannels.size() ) ).
+					addChannel( salesChannels.get( ( n - 1 ) % salesChannels.size() ) ).
 					setAlgorithm( OptimizationAlgorithm.RandomAssigment ).
 					setKeepOfferConsistentYes().setPrevioslyAcceptedOfferYes().
 					setMaxNumberOfOffers( 10 ).
@@ -182,7 +182,7 @@ public class ConfigureGUIToGiveTokens extends ParentTestCase {
 					editByName( ruleName ).
 					setDescription( ruleName ).
 					setTokenType( tokenTypes.get( ( n - 1 ) % tokenTypes.size() ) ).
-					setChannel( salesChannels.get( ( n - 1 ) % salesChannels.size() ) ).
+					addChannel( salesChannels.get( ( n - 1 ) % salesChannels.size() ) ).
 					setAlgorithm( OptimizationAlgorithm.RandomAssigment ).
 					setKeepOfferConsistentYes().setPrevioslyAcceptedOfferYes().
 					setMaxNumberOfOffers( 10 ).

@@ -1,6 +1,8 @@
 package com.lumata.e4o.gui.administrationmanager;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +20,10 @@ import com.lumata.common.testing.json.ErrorModificableElement;
 import com.lumata.common.testing.json.HasErrorActions.ElementErrorConditionType;
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.common.testing.utils.TempFileHandling;
+import com.lumata.common.testing.utils.TempFileHandling.TempFileExtension;
 import com.lumata.e4o.exceptions.FormException;
 import com.lumata.e4o.gui.common.FormSaveConfigurationHandler;
+import com.lumata.e4o.gui.common.NotificationForm;
 import com.lumata.e4o.json.gui.administrationmanager.JSONNotifications;
 import com.lumata.e4o.json.gui.administrationmanager.JSONNotifications.NotificationLanguage;
 import com.lumata.e4o.json.gui.administrationmanager.JSONNotifications.NotificationType;
@@ -49,6 +53,11 @@ public class NotificationsForm extends AdministrationForm {
 		this.notificationsCfg = inputCfg;
 	}
 
+public NotificationsForm(SeleniumWebDriver selenium, long timeout, long interval) {
+		
+		super(selenium, timeout, interval);
+		
+	}
 	/**
 	 * 
 	 */
@@ -58,8 +67,86 @@ public class NotificationsForm extends AdministrationForm {
 		
 		return this;
 	}
+	public NotificationsForm addNotification() throws FormException{
+		this.clickXPath( "//button[@title='Add a notification']" );
+		return this;
+	}
+	public NotificationsForm setChannelType(JSONNotifications.NotificationType channel) throws FormException{
+		selectByXPathAndVisibleText( "//td[contains(text(),'Choose channel')]/ancestor::tr[1]//select", channel.name());
+		return this;
+	}
+	public String getChannelType() throws FormException{
+		return this.getValueByXPath("//td[contains(text(),'Choose channel')]/ancestor::tr[1]//select");
+	}
+	public NotificationsForm setLanguage(JSONNotifications.NotificationLanguage language) throws FormException{
+		selectByXPathAndVisibleText( "//td[contains(text(),'Choose language')]/ancestor::tr[1]//select", language.name());
+		return this;
+	}
+	public String getLanguage() throws FormException{
+		return this.getValueByXPath("//td[contains(text(),'Choose language')]/ancestor::tr[1]//select");
+	}
+	public NotificationsForm channelOKButton() throws FormException{
+		this.clickXPath("//div[text()='Choose channel']/ancestor::div[2]//button[@title='OK']");
+		return this;
+	}
+	public NotificationsForm setSMSMessage(String sms) throws FormException{
+		this.sendKeysByXPath("//textarea[contains(@id,'TextCampaignModelCreationENEValue')]", sms);
+		return this;
+	}
+	public NotificationsForm saveTemplate() throws FormException{
+		this.clickXPath("//button[@id='gwt-debug-BtnCampaignModelCreationENESaveTemplate']");
+		return this;
+	}
+	public NotificationsForm setTemplateName(String name) throws FormException{
+		this.sendKeysByXPath("//td[contains(text(),'Template Name')]//ancestor::tr[1]//input", name);
+		return this;
+	}
+	public NotificationsForm templateOKButton() throws FormException{
+		this.clickXPath("//div[text()='Template Name']/ancestor::div[2]//button[@title='OK']");
+		return this;
+	}
+	public NotificationsForm setMailObject(String mail_object) throws FormException{
+		this.sendKeysByXPath("//td[contains(text(),'Object')]//ancestor::tr[1]//input", mail_object);
+		return this;
+	}
+	public String getMailObject() throws FormException{
+		return this.getValueByXPath("//td[contains(text(),'Object')]//ancestor::tr[1]//input");
+	}
+	public NotificationsForm uploadContentFile(String tmp_path) throws FormException{
+		selenium.getWrappedDriver().findElement(By.xpath("//form[contains(@action,'dialogImport')]//input[@name='uploadFormElement']")).sendKeys(tmp_path);
+		return this;
+	}
+	public NotificationsForm clickImportButton() throws FormException{
+		this.clickXPath("//table[@class='tableList Form']//table[@class='importPanel']//button[@name='btn-importer']");
+		return this;
+	}
+public Boolean isTemplateInList( String templateName ) throws FormException {
+		
+		List<WebElement> templateList = getTemplateList();
+				
+		for( WebElement templateEl : templateList ) {
+			
+			if( templateEl.getText().trim().equals(templateName)) {
+				
+				return true;
+				
+			}
+			
+		}
+		
+		return false;
+		
+	} 
+public List<WebElement> getTemplateList() throws FormException {
 	
-	/**
+	String rootPath = "//table[contains(@class, 'page-NotificationsPageView')]//table[@class='tableList']";
+	String subPath = "//tr[contains(@class, 'contentRow cycle')]//td[@class='column_name'][1]";
+
+	List<WebElement> templateList = getListByXPath(rootPath, rootPath + subPath);
+	return templateList;
+		
+}
+	/** 
 	 * 
 	 * @return
 	 * @throws FormException
@@ -77,7 +164,7 @@ public class NotificationsForm extends AdministrationForm {
 			 * Only "enabled" notifications will be configured
 			 */
 			if ( notificationsCfg.getCurrentElement().getEnabled() ) {
-				clickXPath( "//button[@title='Add a notification']" );
+				
 				
 				createNotification().
 				saveNotification();
@@ -94,7 +181,7 @@ public class NotificationsForm extends AdministrationForm {
 	 * @throws FormException
 	 * @throws JSONSException
 	 */
-	public NotificationsForm createNotification() throws FormException, JSONSException {
+public NotificationsForm createNotification() throws FormException, JSONSException {
 		
 		NotificationType currentType = notificationsCfg.getNotificationType();
 		NotificationLanguage currentLang = notificationsCfg.getNotificationLanguage();
@@ -119,10 +206,12 @@ public class NotificationsForm extends AdministrationForm {
 //			uploadElement.clear();
 			
 //			File templateFile = notificationsCfg.getMailNotificationFile();
-			
+			Path dir_path=Paths.get(System.getProperty( "user.dir" ) + "/src/test/resources/input/administrationmanager/notifications/");
+			List<String> lis=new ArrayList<String>();
+			lis.add(notificationsCfg.getContentFile());
 			try {
 				TempFileHandling.uploadFile( 	uploadElement,
-												notificationsCfg.getMailNotificationFile().toPath());
+												notificationsCfg.getMailNotificationFile(dir_path,lis, notificationsCfg.getTemplateName(),TempFileExtension.HTML).toPath());
 			} catch (IOException e1) {
 				e1.printStackTrace();
 				throw new FormException(e1.getMessage());
@@ -155,7 +244,7 @@ public class NotificationsForm extends AdministrationForm {
 
 		// Template name
 		//td[contains(text(),'Template Name')]//ancestor::tr[1]//input
-		sendKeysByXPath("//td[contains(text(),'Template Name')]//ancestor::tr[1]//input", notificationsCfg.getTemplateName());
+		
 		
 		// manage errors
 		SaveNotifTemplateHandler handler = new SaveNotifTemplateHandler(	selenium.getWrappedDriver(), 
@@ -225,8 +314,9 @@ public class NotificationsForm extends AdministrationForm {
 		} catch ( FormException e ) {
 
 			logger.error("Error during delete \"Notifications \" : " + e.getMessage());
-			
 			resp = Boolean.FALSE;
+			throw e;
+			
 		}
 
 		return resp;

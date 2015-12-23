@@ -1,0 +1,46 @@
+{
+    "notifications": [
+        {
+        	"enabled": true,
+           	"chooseChannel"	: "SMS",
+			"chooseLanguage": "English",
+			"mailObject" 	: null,
+			"textMessage"	: "Hi!You are being provisioned for following campaign- ###campaign_name### ",
+			"templateName"	: "SMSTemplate",
+			"contentFile"	: null,
+            "errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+            "delete": false
+        },
+	{
+        	"enabled": true,
+           	"chooseChannel"	: "SMS",
+			"chooseLanguage": "English",
+			"mailObject" 	: null,
+			"textMessage"	: "Hi!You are being provisioned and being offered an offer.",
+			"templateName"	: "SMSDelTemp",
+			"contentFile"	: null,
+            "errorActions" : {
+                    "ELEMENT_AREADY_EXISTS" : "ABORT_CANCEL",
+                    "GENERAL_ERROR" : "RETURN_ERROR" 
+            },
+            "delete": true
+        },
+        {
+            "enabled": true,
+            "chooseChannel": "MAIL",
+            "chooseLanguage": "English",
+            "mailObject": "First Send Voucher",
+            "textMessage": null,
+            "templateName": "SampleMAIL",
+            "contentFile": "<html>\n<body>\nFIRST\nFIRST\nFIRST\n\nHello ###subscriber_msisdn### your offer is ###offer_name### !<br>\nThis is the FIRST send and you voucher code is ###voucher_code### .\n\nOffer External Id : ###offer_external_id### <br>\nOffer Description : <br> ###offer_description### <br>\n\nThe ###subscriber_msisdn### has the following list of active vouchers : ###all_active_voucher_code### <br>\n\n</body>",
+            "errorActions": {
+                "ELEMENT_AREADY_EXISTS": "ABORT_CANCEL",
+                "GENERAL_ERROR": "RETURN_ERROR"
+            },
+            "delete": false
+        }
+    ]
+}

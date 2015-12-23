@@ -41,7 +41,7 @@ public class ChangeRemoteSystemDate {
 	@Test(enabled=true, priority = 1 )
 	public void changeRemoteSystemDateViaSSH() throws Exception {
 		
-		Boolean now = true;
+		Boolean now = false;
 		
 		Calendar date = Calendar.getInstance();
 		
@@ -64,14 +64,14 @@ public class ChangeRemoteSystemDate {
 		} else {
 		
 			YEAR = 2015;
-			MONTH = Calendar.JULY;
-			DAY = 1;
+			MONTH = Calendar.OCTOBER;
+			DAY = 27;
 			HOUR = 10;
 			MINUTE = 00;
 			SECOND = 00;
 			
 		}
-				
+			
 		date.set( YEAR, MONTH, DAY, HOUR, MINUTE, SECOND );
 		
 		//date.add( Calendar.DAY_OF_MONTH, 40 );

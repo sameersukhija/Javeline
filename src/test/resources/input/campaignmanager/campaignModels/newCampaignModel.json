@@ -2,6 +2,32 @@
 	"campaignModels": [
 		{
 			"enabled": true,
+			"name": "CSM_14",
+			"description": "CSM_14",
+			"campaignType": null,
+			"useHierarchy": false,
+			"errorActions": {
+				"elementAlreadyExists": "ABORT"			
+			},
+			"events": [				
+				{	
+					"eventType":"Campaign start", 
+					"criteria":[
+						{ "type":"Subscriber.Msisdn","operator" : "=", "value": "393886933857", "delete": false, "edit": false } 
+					],
+					"actions": [
+						{ "name": "Accept Offer.Accept Offer 1", "value": null, "option":null, "unit": null, "time": null, "delete": false, "edit": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false, 
+					"edit": false
+				}
+			],
+			"delete": false, 
+			"edit": false
+		},{
+			"enabled": true,
 			"name": "CMS_09",
 			"description": "CampaignStartModel",
 			"campaignType": null,
@@ -11,24 +37,129 @@
 			},
 			"events": [				
 				{	
-					"eventType":"Campaign start",
-					"eventType1":"Campaign start", 
+					"eventType":"Campaign start", 
 					"criteria":[
-					{ "type":"Subscriber.Msisdn","type1":"Subscriber.Msisdn",type2:"Subscriber.Msisdn","operator" : "=","operator1":"=","operator2":"<", "value" : "393886933857", "value1":"9650450905", "value2":"24562","delete" : false} 
+						{ "type":"Subscriber.Msisdn","operator" : "=", "value" : "393886933857", "delete" : false, "edit": false } 
 					],
 					"actions": [
-						{ "name": "Accept Offer.Accept Offer 1","value": null,"name1":"Accept Offer.Accept Offer 2","value1":null,"name2":"Accept Offer.Accept Offer 3","value2": null,"option": null,"option1": null,"option2": null,"delete": false }							
+						{ "name": "Accept Offer.Accept Offer 1", "value": null, "option":null, "unit": null, "time": null, "delete": false, "edit": false }							
 					],
 					"beneficiary": true,
 					"notifications": null,
-					"delete": false
+					"delete": false, 
+					"edit": false
+				},{	
+					"eventType":"Campaign start", 
+					"criteria":[
+						{ "type":"Subscriber.Msisdn","operator" : "=", "value" : "9650450905", "delete" : false, "edit": false } 
+					],
+					"actions": [
+						{ "name": "Accept Offer.Accept Offer 2", "value": null, "option":null, "unit": null, "time": null, "delete": false, "edit": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false, 
+					"edit": false
 				}
 			],
-			"delete": false
+			"delete": false, 
+			"edit": false
+		},{
+			"enabled": true,
+			"name": "CMS_09",
+			"description": "CampaignStartModel",
+			"campaignType": null,
+			"useHierarchy": false,
+			"errorActions": {
+				"elementAlreadyExists": "ABORT"			
+			},
+			"events": [				
+				{	
+					"eventType":"Campaign start", 
+					"criteria":[
+						{ "type": "Subscriber.Msisdn","operator": "=", "value": "393886933857", "delete": false, "edit": true } 
+					],
+					"actions": [
+						{ "name": "Accept Offer.Accept Offer 1", "value": null, "option":null, "unit": null, "time": null, "delete": false, "edit": true }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false, 
+					"edit": true
+				},{	
+					"eventType":"Campaign start", 
+					"criteria":[
+						{ "type": "Subscriber.Msisdn","operator": "=", "value": "9650450905", "delete": false, "edit": true },
+						{ "type": "Subscriber.Msisdn","operator": "=", "value": "24562", "delete": false, "edit": false }
+					],
+					"actions": [
+						{ "name": "Accept Offer.Accept Offer 2", "value": null, "option": null, "unit": null, "time": null, "delete": false, "edit": true },
+						{ "name": "Accept Offer.Accept Offer 3", "value": null, "option": null, "unit": null, "time": null, "delete": false, "edit": false }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false, 
+					"edit": true
+				}
+			],
+			"delete": false, 
+			"edit": true
+		},{
+			"enabled": true,
+			"name": "CSM_14",
+			"description": "CSM_14",
+			"campaignType": null,
+			"useHierarchy": false,
+			"errorActions": {
+				"elementAlreadyExists": "ABORT"			
+			},
+			"events": [],
+			"delete": true, 
+			"edit": false
+		},{
+			"enabled": true,
+			"name": "CMS_09",
+			"description": "CampaignStartModel",
+			"campaignType": null,
+			"useHierarchy": false,
+			"errorActions": {
+				"elementAlreadyExists": "ABORT"			
+			},
+			"events": [				
+				{	
+					"eventType":"Campaign start", 
+					"criteria":[
+						{ "type": "Subscriber.Msisdn","operator": "=", "value": "393886933857", "delete": false, "edit": true } 
+					],
+					"actions": [
+						{ "name": "Accept Offer.Accept Offer 1", "value": null, "option":null, "unit": null, "time": null, "delete": false, "edit": true }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false, 
+					"edit": true
+				},{	
+					"eventType":"Campaign start", 
+					"criteria":[
+						{ "type": "Subscriber.Msisdn","operator": "=", "value": "9650450905", "delete": false, "edit": true },
+						{ "type": "Subscriber.Msisdn","operator": "=", "value": "25678", "delete": false, "edit": true }
+					],
+					"actions": [
+						{ "name": "Accept Offer.Accept Offer 2", "value": null, "option": null, "unit": null, "time": null, "delete": false, "edit": true },
+						{ "name": "Accept Offer.Accept Offer 3", "value": null, "option": null, "unit": null, "time": null, "delete": false, "edit": true }							
+					],
+					"beneficiary": true,
+					"notifications": null,
+					"delete": false, 
+					"edit": true
+				}
+			],
+			"delete": false, 
+			"edit": false,
+			"copy": true
 		}
 	],
 	"errorActions": {
 		"MODEL_ALREADY_EXISTS": "ABORT"	
 	}
-	
 }
