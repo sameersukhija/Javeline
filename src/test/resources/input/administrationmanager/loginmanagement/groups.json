@@ -1,0 +1,30 @@
+{"groups": [
+{
+			"enabled": true,
+			"edit" : false,
+			"name": "loginmanagement_new",
+			"isRemovable": true,
+			"hasAgencies": true,
+			"canUsersBeAdded": true,
+			"canBeSelectedInGroupList": true,
+			"tabs": [
+			"Campaigns",
+			"Campaigns_Creation"
+			]
+		},
+		{
+			"enabled": true,
+			"edit": true,
+			"name": "administration",
+			"isRemovable": true,
+			"hasAgencies": true,
+			"canUsersBeAdded": true,
+			"canBeSelectedInGroupList": true,
+			"tabs": [
+			"Campaigns",
+			"Campaigns_Creation"
+			]
+		}
+		
+	]
+}

@@ -63,6 +63,30 @@
   <test name="CampaignSubstates TestCases">
     <classes>
       <class name="com.lumata.e4o.regressions.gui.TestCampaignSubstatesForm">
+   </class>
+   </classes>
+   </test>
+  <test name="Test Login Management Agencies">
+  <parameter name="jsonFilePath_LMA" value="input/administrationmanager/loginmanagement"/>
+	<parameter name="jsonFileName_LMA" value="Agency"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestLoginManagementAgency">
+      </class>
+    </classes>	
+  </test>
+  <test name="Test Login Management Groups">
+  <parameter name="jsonFilePath_LMG" value="input/administrationmanager/loginmanagement"/>
+	<parameter name="jsonFileName_LMG" value="groups"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestLoginManagementGroup">
+      </class>
+    </classes>	
+  </test>
+  <test name="Test Login Management Groups">
+  <parameter name="jsonFilePath_LM" value="input/administrationmanager/loginmanagement"/>
+	<parameter name="jsonFileName_LM" value="User"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestLoginManagementUser">
       </class>
     </classes>	
   </test>

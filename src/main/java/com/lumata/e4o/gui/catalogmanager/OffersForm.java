@@ -383,6 +383,7 @@ private Alert file_input;
 	
 	
 	public OffersForm setTerms( String TC ) throws FormException {
+		
 		if (null != TC)
 		{
 		super.clickXPath("//td[contains(text(),'Terms')]//ancestor::tr[1]//button");
@@ -872,7 +873,7 @@ private Alert file_input;
 //	{
 //		return super.getValueByXPath("//div[text()='Create product type']//ancestor::div[2]//input[@id='gwt-debug-TextBox-ProductTypeDialogBox-descriptionTextBox']");
 //	}
-public OffersForm addCharacteristicButton() throws FormException
+	public OffersForm addCharacteristicButton() throws FormException
 	{
 	super.clickBycssSelector("table.verticalPanelInternalMargin > tbody > tr > td > table.tableList > tbody > tr.cycle2.headers > td.column_description > button[name='btn-add']");
 	return this;
