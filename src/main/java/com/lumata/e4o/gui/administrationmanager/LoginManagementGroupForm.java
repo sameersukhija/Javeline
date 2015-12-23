@@ -72,7 +72,7 @@ public class LoginManagementGroupForm extends LoginManagementForm {
 	public LoginManagementGroupForm open() throws FormException {
 		
 		super.open().clickId( "gwt-debug-actrule-administration-loginManagement-group" );
-		
+		waitForPageLoad();
 		return this;
 		
 	}	

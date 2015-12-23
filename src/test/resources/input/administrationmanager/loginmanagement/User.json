@@ -7,7 +7,7 @@
 			"password": "sameer",
 			"confirmpassword": "sameer",
 			"agency" : "PBS_SAMEER",
-			"group" : "loginmanagement",
+			"group" : "loginmanagement_new",
 			"permission" : "Manager",
 			"errorActions" : {
 				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
@@ -22,7 +22,7 @@
 			"password": "rajesh",
 			"confirmpassword": "rajesh",
 			"agency" : "PBS_SAMEER",
-			"group" : "loginmanagement",
+			"group" : "loginmanagement_new",
 			"permission" : "Editor",
 			"errorActions" : {
 				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
@@ -37,7 +37,7 @@
 			"password": "sanjay",
 			"confirmpassword": "sanjay",
 			"agency" : "PBS_SAMEER",
-			"group" : "loginmanagement",
+			"group" : "loginmanagement_new",
 			"permission" : "Reader",
 			"errorActions" : {
 				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",

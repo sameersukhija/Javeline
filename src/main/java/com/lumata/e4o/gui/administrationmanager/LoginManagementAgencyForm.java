@@ -19,7 +19,7 @@ public class LoginManagementAgencyForm extends LoginManagementForm {
 	public LoginManagementAgencyForm open() throws FormException {
 		
 		super.open().clickId( "gwt-debug-actrule-administration-loginManagement-agency" );
-		
+		waitForPageLoad();
 		return this;
 		
 	}	
