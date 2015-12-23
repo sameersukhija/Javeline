@@ -38,6 +38,9 @@ public class JSONLMGroup extends JsonConfig {
 		return (JSONArray)getJSONArrayFromPath( "groups" );
 				
 	}
+	public Boolean getEdit() throws JSONException {
+		return currentGroup.getBooleanFromPath( "edit" );
+	}
 	
 	public Boolean getEnabled() throws JSONException {
 		return currentGroup.getBooleanFromPath( "enabled" );

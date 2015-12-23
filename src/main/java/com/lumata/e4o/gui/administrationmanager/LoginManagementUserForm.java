@@ -3,10 +3,12 @@ package com.lumata.e4o.gui.administrationmanager;
 import java.util.List;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
 import com.lumata.e4o.exceptions.FormException;
+import com.lumata.e4o.gui.security.Authorization;
 
 public class LoginManagementUserForm extends LoginManagementForm {
 
@@ -16,10 +18,11 @@ public class LoginManagementUserForm extends LoginManagementForm {
 		
 	}
 	
+	
 	public LoginManagementUserForm open() throws FormException {
 		
 		super.open().clickId( "gwt-debug-actrule-administration-loginManagement-user" );
-		
+		waitForPageLoad();
 		return this;
 		
 	}	
@@ -79,7 +82,7 @@ public class LoginManagementUserForm extends LoginManagementForm {
 		}
 		
 		
-		public LoginManagementUserForm ClickTabsButton() throws FormException {
+		public LoginManagementUserForm clickTabsButton() throws FormException {
 			
 			clickXPath ("//table[@class='tableList']/tbody/tr[@class='cycle2']/td/table/tbody/tr/td/button[@class='gwt-Button gwt-Button[disabled]']");
 			
@@ -148,6 +151,42 @@ public class LoginManagementUserForm extends LoginManagementForm {
 		    }
 		  }
 		
+		
+		
+		
+		public List<WebElement> getUserPermissionList()  throws FormException {
+
+			String rootPath = "//table[@class='tableList']/tbody/tr[@class='cycle2']";
+			String subPath = "//td/div/table/tbody/tr/td[2]/select[@class='gwt-ListBox']";
+			//clickXPath(rootPath,rootPath+subPath);
+			
+			List<WebElement> PermissionList = getListByXPath(rootPath, rootPath + subPath);
+			System.out.println(PermissionList);
+			return PermissionList;
+		}
+		
+		public Boolean isGroupPermissionModified(String groupPermission) throws FormException{
+
+			String value=null;
+			String GP=getValueByXPath("//table[@class='tableList']/tbody/tr[@class='cycle2']//td/div/table/tbody/tr/td[2]/select");
+	        if(groupPermission.equals("Manager"))
+	        	value="10";
+	        else if (groupPermission.equals("Editor"))
+	        	value="20";
+	        else if (groupPermission.equals("Reader"))
+	        	value="30";
+	        if (GP.equals(value))
+	        {
+	            System.out.println("Group Permission modified Successfully");
+		   
+	    		return true;
+
+	        }        
+			
+			return false;	
+		}
+	
+		
 		public Boolean isUserinList(String USERNAME) throws FormException{
 			List<WebElement> userList = getuserList();
 
@@ -162,7 +201,6 @@ public class LoginManagementUserForm extends LoginManagementForm {
 		
 			return false;	
 		}
-
 		
 		public List<WebElement> getuserList()  throws FormException {
 
@@ -173,7 +211,67 @@ public class LoginManagementUserForm extends LoginManagementForm {
 			System.out.println(userList);
 			return userList;
 		}
+
 		
+		public Boolean isUserloggedin(String USERNAME) throws FormException{
+
+			String USER=getText(USERNAME, "//table/tbody/tr/td[3]//div[text()='" + USERNAME +  "']");
+	        
+	        if (USERNAME.equals(USER))
+	        {
+	            System.out.println("Rajesh logged into E4O Successfully");
+		   
+	    		return true;
+
+	        }        
+			
+			return false;	
+		}
+		/**
+		* Click on logout and accept if alert popup is displayed
+		*
+		* @param selenium
+		* @throws FormException
+		*/
+		
+		public  LoginManagementUserForm logout() throws FormException {
+			
+			clickId( "gwt-debug-Logout E4O" );
+				
+			try {
+				
+				Alert confirmLogout = selenium.selectAlert();
+				
+				if ( confirmLogout != null ) { confirmLogout.accept(); }
+			
+			} catch (NoAlertPresentException e) {
+				
+				status = true;
+			
+			}
+			
+			return this;
+		
+		}
+
+		/**
+		* Logout and close browser
+		*
+		* @param selenium
+		* @throws FormException
+		*/
+		public  LoginManagementUserForm quit() throws FormException {
+			
+			logout();
+		
+			selenium.close();
+		
+			return this;
+		
+		}
+
+		
+				
 
 
 }	

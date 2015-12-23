@@ -27,7 +27,7 @@
   		version -> the version of the used browser
   -->
   <!-- parameter name="seleniumWebDriverParams" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://192.168.56.152:4444/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox' } } }"/ -->  
-   <parameter name="seleniumWebDriverParams" value="{ 'type':'remote', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox'} } }"/>  
+   <parameter name="seleniumWebDriverParams" value="{ 'type':'local', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'LINUX', 'browserName': 'firefox'} } }"/>  
   <test name="Sales Channel Creation Testcase">
 	<parameter name="channel_jsonFilePath" value="input/administrationmanager/salesChannels"/>
 	<parameter name="channel_jsonFileName" value="salesChannelsList"/>
@@ -49,6 +49,30 @@
  <parameter name="commodities_jsonFileName" value="commoditiesPaymentMean"/>
 	<classes>
       <class name="com.lumata.e4o.regressions.gui.TestPaymentMeanForm">
+      </class>
+    </classes>	
+  </test>
+  <test name="Test Login Management Agencies">
+  <parameter name="jsonFilePath_LMA" value="input/administrationmanager/loginmanagement"/>
+	<parameter name="jsonFileName_LMA" value="Agency"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestLoginManagementAgency">
+      </class>
+    </classes>	
+  </test>
+  <test name="Test Login Management Groups">
+  <parameter name="jsonFilePath_LMG" value="input/administrationmanager/loginmanagement"/>
+	<parameter name="jsonFileName_LMG" value="groups"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestLoginManagementGroup">
+      </class>
+    </classes>	
+  </test>
+  <test name="Test Login Management Groups">
+  <parameter name="jsonFilePath_LM" value="input/administrationmanager/loginmanagement"/>
+	<parameter name="jsonFileName_LM" value="User"/>
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestLoginManagementUser">
       </class>
     </classes>	
   </test>

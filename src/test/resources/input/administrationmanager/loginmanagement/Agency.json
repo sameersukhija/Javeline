@@ -5,7 +5,7 @@
 			"name": "PBS_SAMEER",
 			"address": "PBS,Sec-62,Noida",
 			"phone": "9650450905",
-				"errorActions" : {
+			"errorActions" : {
 				"ELEMENT_AREADY_EXISTS" : "ADD_TIMESTAMP_TO_FIELD",
 				"GENERAL_ERROR" : "RETURN_ERROR"},
 			"delete" : false}

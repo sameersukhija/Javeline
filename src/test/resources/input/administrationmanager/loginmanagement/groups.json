@@ -1,7 +1,8 @@
 {"groups": [
-		{
+{
 			"enabled": true,
-			"name": "administration",
+			"edit" : false,
+			"name": "loginmanagement_new",
 			"isRemovable": true,
 			"hasAgencies": true,
 			"canUsersBeAdded": true,
@@ -13,7 +14,8 @@
 		},
 		{
 			"enabled": true,
-			"name": "loginmanagement",
+			"edit": true,
+			"name": "administration",
 			"isRemovable": true,
 			"hasAgencies": true,
 			"canUsersBeAdded": true,
@@ -23,5 +25,6 @@
 			"Campaigns_Creation"
 			]
 		}
+		
 	]
 }
