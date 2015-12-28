@@ -66,7 +66,7 @@ public class TestLoginManagementUser extends ParentTestCase{
 				
 				
 				loginManagementUserForm.setAddUserPermission(setupLM.getpermission());
-				loginManagementUserForm.ClickSaveUser().closeAlertAndGetItsText();
+				loginManagementUserForm.clickSaveUser().closeAlertAndGetItsText();
 				loginManagementUserForm.clickRefreshButton();
 				Boolean status = loginManagementUserForm.isUserinList(setupLM.getName());
 				System.out.println(status);
@@ -102,10 +102,11 @@ public class TestLoginManagementUser extends ParentTestCase{
 		loginManagementUserForm.setUserconfirmpassword("raj");
 		loginManagementUserForm.setAddLoginManagementGroup("loginmanagement");
 		loginManagementUserForm.setAddUserPermission( "Manager");
-		loginManagementUserForm.ClickSaveUser().closeAlertAndGetItsText();
+		loginManagementUserForm.clickSaveUser().closeAlertAndGetItsText();
 		loginManagementUserForm.open();
 		loginManagementUserForm.clickEditButton("Rajesh");
 		Boolean status = loginManagementUserForm.isGroupPermissionModified("Manager");
+		loginManagementUserForm.clickCancel();
 		System.out.println(status);
 		if(status==true)
 				{
@@ -134,7 +135,7 @@ public class TestLoginManagementUser extends ParentTestCase{
 		loginManagementUserForm.setUserconfirmpassword("rajesh");
 		loginManagementUserForm.setAddLoginManagementGroup("loginmanagement");
 		loginManagementUserForm.setAddUserPermission( "Manager");
-		loginManagementUserForm.ClickSaveUser().closeAlertAndGetItsText();
+		loginManagementUserForm.clickSaveUser().closeAlertAndGetItsText();
 		loginManagementUserForm.clickRefreshButton();
 		Boolean status = loginManagementUserForm.isUserinList("Rajesh (Copy)");
 		System.out.println(status);
