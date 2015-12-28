@@ -82,7 +82,7 @@
       </class>
     </classes>	
   </test>
-  <test name="Test Login Management Groups">
+  <test name="Test Login Management Users">
   <parameter name="jsonFilePath_LM" value="input/administrationmanager/loginmanagement"/>
 	<parameter name="jsonFileName_LM" value="User"/>
     <classes>
