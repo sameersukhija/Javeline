@@ -5,6 +5,7 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 
 import com.lumata.common.testing.selenium.SeleniumWebDriver;
+//import com.lumata.common.testing.system.LdapUser;
 import com.lumata.common.testing.system.Security;
 import com.lumata.common.testing.system.User;
 import com.lumata.e4o.exceptions.FormException;
@@ -37,6 +38,8 @@ public class Authorization extends Form {
 		
 	}
 	
+	
+	
 	public Authorization login( String user, String password ) throws FormException {
 			
 		maximize().		
@@ -59,6 +62,27 @@ public class Authorization extends Form {
 
 	}
 	
+	public Authorization loginwithAgency( String user, String password, String Agency) throws FormException {
+		
+		maximize().		
+		waitVisibleElementById( "gwt-debug-FormLogin" ).
+		clickId( "gwt-debug-InputLoginUsername" ).
+		sendKeysById( "gwt-debug-InputLoginUsername", user ).
+		sendKeysById( "gwt-debug-InputLoginPassword", password ).
+		clickXPath(".//*[@id='gwt-debug-ListLoginAgency']/option[text()='" + Agency + "']");
+		
+		clickId( "gwt-debug-ButtonLoginAuthentication" );
+		return this;
+
+	}
+	
+		
+	public Authorization verifyuser( String user ) throws FormException {
+		
+	user=super.getTextByXPath("//table/tbody/tr/td[3]//div");
+	return this;
+
+	}
 	/**
 	 * This methods looks for a popup related double session and handle it according <b>forceLogin</b> :<br>
 	 * <li> if TRUE, it forces new login ( another session can be dropped by DUT ) 
@@ -77,7 +101,7 @@ public class Authorization extends Form {
 			if ( confirmForceLogin != null ) {
 				
 				if ( forceLogin ) { 
-					
+	//				
 					confirmForceLogin.accept();
 				
 				} else {
@@ -190,8 +214,16 @@ public class Authorization extends Form {
 	* @param selenium
 	* @throws FormException
 	*/
-	public Authorization quit() throws FormException {
+	public Authorization logoute4o() throws FormException {
 	
+		logout();
+	
+		return this;
+	
+	}
+
+	public Authorization quit() throws FormException {
+		
 		logout();
 	
 		selenium.close();
@@ -199,5 +231,4 @@ public class Authorization extends Form {
 		return this;
 	
 	}
-
 }

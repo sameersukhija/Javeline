@@ -128,7 +128,8 @@ public class LoginManagementUserForm extends LoginManagementForm {
 					
 			return this;
 			}
-public LoginManagementUserForm clickCancel() throws FormException {
+		
+		public LoginManagementUserForm clickCancel() throws FormException {
 			
 			super.clickXPath("//button[@name='btn-cancel']");
 					
