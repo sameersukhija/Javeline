@@ -38,6 +38,7 @@ public class TestLoginManagementLdapUser extends ParentTestCase{
 	}
 	    
 		
+	
 	@Test(enabled = TEST_ENABLED, priority = 1 )
 	public void testUc40_01ConfigureLdap_LoginManagementForm() throws FormException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50,TimeUnit.SECONDS);
@@ -87,6 +88,7 @@ public class TestLoginManagementLdapUser extends ParentTestCase{
 	}
 
 	
+	
 	@Test(enabled = TEST_ENABLED, priority = 2 )
 	
 	public void testUc40_02LoginLdapUser_agency_LoginManagementForm() throws FormException {
@@ -94,7 +96,7 @@ public class TestLoginManagementLdapUser extends ParentTestCase{
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		
 		Authorization authorizationForm = new Authorization( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT  );
-		authorizationForm.logoute4o();
+		authorizationForm.logout();
 		authorizationForm.loginwithAgency("Rajesh", "super2010Man", "PBS_SAMEER");
 		LoginManagementUserForm loginManagementUserForm = new LoginManagementUserForm( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT  );
 		

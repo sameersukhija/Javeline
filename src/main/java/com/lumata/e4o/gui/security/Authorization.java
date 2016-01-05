@@ -214,13 +214,7 @@ public class Authorization extends Form {
 	* @param selenium
 	* @throws FormException
 	*/
-	public Authorization logoute4o() throws FormException {
 	
-		logout();
-	
-		return this;
-	
-	}
 
 	public Authorization quit() throws FormException {
 		
