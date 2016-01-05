@@ -38,9 +38,8 @@ public class TestLoginManagementLdapUser extends ParentTestCase{
 	}
 	    
 		
-	@Parameters({"seleniumWebDriverParams","networkEnvironmentParams"})
 	@Test(enabled = TEST_ENABLED, priority = 1 )
-	public void testUc40_01ConfigureLdap_LoginManagementForm(String seleniumWebDriverParams, String networkEnvironmentParams) throws FormException {
+	public void testUc40_01ConfigureLdap_LoginManagementForm() throws FormException {
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(50,TimeUnit.SECONDS);
 
 		Authorization authorizationForm = new Authorization( seleniumWebDriver, TIMEOUT, ATTEMPT_TIMEOUT  );
@@ -88,11 +87,9 @@ public class TestLoginManagementLdapUser extends ParentTestCase{
 	}
 
 	
-	@Parameters({"seleniumWebDriverParams","networkEnvironment"})
-	
 	@Test(enabled = TEST_ENABLED, priority = 2 )
 	
-	public void testUc40_02LoginLdapUser_agency_LoginManagementForm(String seleniumWebDriverParams,String networkEnvironment) throws FormException {
+	public void testUc40_02LoginLdapUser_agency_LoginManagementForm() throws FormException {
 	
 		seleniumWebDriver.getWrappedDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		
