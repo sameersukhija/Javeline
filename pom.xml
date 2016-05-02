@@ -4,17 +4,17 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<parent>
-	 	<groupId>com.lumata</groupId>
+	 	<groupId>com.g4s</groupId>
 	 	<artifactId>group-base</artifactId>
 	 	<version>5.0-SNAPSHOT</version>
 	</parent>
 	
-	<groupId>com.lumata.common</groupId>
-	<artifactId>lumata-common-testing</artifactId>
+	<groupId>com.g4s.common</groupId>
+	<artifactId>g4s-common-testing</artifactId>
 	<!--   version>1.0.1</version -->
 	<version>1.0.4-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>lumata-common-testing</name>	
+	<name>g4s-common-testing</name>	
 	
 	<properties>
 		<!-- 		
