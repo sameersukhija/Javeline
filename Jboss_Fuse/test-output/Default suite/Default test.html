@@ -1,0 +1,605 @@
+<html>
+<head>
+<title>TestNG:  Default test</title>
+<link href="../testng.css" rel="stylesheet" type="text/css" />
+<link href="../my-testng.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+.log { display: none;} 
+.stack-trace { display: none;} 
+</style>
+<script type="text/javascript">
+<!--
+function flip(e) {
+  current = e.style.display;
+  if (current == 'block') {
+    e.style.display = 'none';
+    return 0;
+  }
+  else {
+    e.style.display = 'block';
+    return 1;
+  }
+}
+
+function toggleBox(szDivId, elem, msg1, msg2)
+{
+  var res = -1;  if (document.getElementById) {
+    res = flip(document.getElementById(szDivId));
+  }
+  else if (document.all) {
+    // this is the way old msie versions work
+    res = flip(document.all[szDivId]);
+  }
+  if(elem) {
+    if(res == 0) elem.innerHTML = msg1; else elem.innerHTML = msg2;
+  }
+
+}
+
+function toggleAllBoxes() {
+  if (document.getElementsByTagName) {
+    d = document.getElementsByTagName('div');
+    for (i = 0; i < d.length; i++) {
+      if (d[i].className == 'log') {
+        flip(d[i]);
+      }
+    }
+  }
+}
+
+// -->
+</script>
+
+</head>
+<body>
+<h2 align='center'>Default test</h2><table border='1' align="center">
+<tr>
+<td>Tests passed/Failed/Skipped:</td><td>0/0/2</td>
+</tr><tr>
+<td>Started on:</td><td>Tue Jan 05 10:57:19 IST 2016</td>
+</tr>
+<tr><td>Total time:</td><td>56 seconds (56421 ms)</td>
+</tr><tr>
+<td>Included groups:</td><td></td>
+</tr><tr>
+<td>Excluded groups:</td><td></td>
+</tr>
+</table><p/>
+<small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED CONFIGURATIONS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser.init()'><b>init</b><br>Test class: com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser<br>Parameters: { 'envFile':'e4o_qa5_noida', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule1', 'guiUser':'superman' }, { 'type':'local', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'WINDOWS', 'browserName': 'firefox' } } }<br/>
+<a href="#Output-453034154" onClick='toggleBox("Output-453034154", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-453034154" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-453034154">
+[ configure ] LOADING configuration<br/>
+[ configure ] ENABLING selenium web driver<br/>
+[ initNetworkEnvironment ] LOADING environment<br/>
+[ initNetworkEnvironment ] LOADING custom network environment configuration ( e4o_qa5_noida )<br/>
+[ initSeleniumWebDriver ] LOADING default gui server ( actrule1 )<br/>
+[ initSeleniumWebDriver ] LOADING default gui user ( superman )<br/>
+[ initSeleniumWebDriver ] LOADING custom selenium web driver configuration ( {"remote":{"selenium_hub":"http://ci.lumata.int/wd/hub","capability":{"platform":"WINDOWS","browserName":"firefox"}},"local":{"firefox":{},"browserName":"firefox"},"type":"local"} )<br/>
+</div>
+</td>
+<td><div><pre>org.testng.TestNGException: 
+Failed to connect to binary FirefoxBinary(C:\Program Files (x86)\Mozilla Firefox\firefox.exe) on port 7055; process output follows: 
+{&quot;d&quot;:&quot;C:\\Users\\BDII12~1.BDI\\AppData\\Local\\Temp\\anonymous2834783879989619608webdriver-profile\\extensions\\fxdriver@googlecode.com&quot;,&quot;e&quot;:false,&quot;v&quot;:&quot;2.45.0&quot;,&quot;st&quot;:1451971643013,&quot;mt&quot;:1451971642617}},&quot;app-global&quot;:{&quot;{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;7.5.0.9082&quot;,&quot;st&quot;:1444303946000},&quot;{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;43.0.3&quot;,&quot;st&quot;:1451460200813,&quot;mt&quot;:1451460200235}}}
+1451971651129	addons.xpi	DEBUG	No changes found
+1451971651135	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651136	addons.xpi	DEBUG	Loading bootstrap scope from C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651141	addons.xpi	DEBUG	Calling bootstrap method startup on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for XPIProvider
+1451971651183	addons.manager	DEBUG	Provider finished startup: XPIProvider
+1451971651183	addons.manager	DEBUG	Starting provider: LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Provider finished startup: LightweightThemeManager
+1451971651184	addons.manager	DEBUG	Starting provider: GMPProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for GMPProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: GMPProvider
+1451971651190	addons.manager	DEBUG	Starting provider: PluginProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for PluginProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: PluginProvider
+1451971651191	addons.manager	DEBUG	Completed startup sequence
+1451971651305	addons.xpi-utils	DEBUG	Starting async load of XPI database C:\Users\BDII12~1.BDI\AppData\Local\Temp\anonymous2834783879989619608webdriver-profile\extensions.json
+*** Blocklist::_loadBlocklistFromFile: blocklist is disabled
+1451971651414	addons.manager	DEBUG	Starting provider: &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Registering shutdown blocker for &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Provider finished startup: &lt;unnamed-provider&gt;
+1451971651506	addons.xpi-utils	DEBUG	Async JSON file read took 0 MS
+1451971651506	addons.xpi-utils	DEBUG	Finished async read of XPI database, parsing...
+1451971651508	addons.xpi-utils	DEBUG	Successfully read XPI database
+1451971653460	addons.manager	DEBUG	Starting provider: PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Registering shutdown blocker for PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Provider finished startup: PreviousExperimentProvider
+JavaScript error: resource://skype_ff_extension-at-jetpack/skype_ff_extension/data/c2c_options_menu_localization.js, line 189: TypeError: document.getElementById(...) is null
+1451971689954	addons.xpi	DEBUG	Calling bootstrap method shutdown on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971690110	addons.manager	DEBUG	shutdown
+1451971690111	addons.manager	DEBUG	Calling shutdown blocker for XPIProvider
+1451971690111	addons.xpi	DEBUG	shutdown
+1451971690111	addons.xpi-utils	DEBUG	shutdown
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for LightweightThemeManager
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for GMPProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for PluginProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for &lt;unnamed-provider&gt;
+1451971690115	addons.manager	DEBUG	Calling shutdown blocker for PreviousExperimentProvider
+1451971690118	addons.xpi	DEBUG	Notifying XPI shutdown observers
+1451971690122	addons.manager	DEBUG	Async provider shutdown done
+
+Build info: version: &apos;2.45.0&apos;, revision: &apos;5017cb8e7ca8e37638dc3091b2440b90a1d8686f&apos;, time: &apos;2015-02-27 09:10:26&apos;
+System info: host: &apos;BDII1286&apos;, ip: &apos;10.120.65.25&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.7.0_72&apos;
+Driver info: driver.version: SeleniumWebDriver
+	at com.lumata.e4o.testing.common.ParentTestCase.initSeleniumWebDriver(ParentTestCase.java:596)
+	at com.lumata.e4o.testing.common.ParentTestCase.init(ParentTestCase.java:309)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:564)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:213)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:138)
+	at org.testng.internal.TestMethodWorker.invokeBeforeClassMethods(TestMethodWorker.java:175)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:107)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+Caused by: com.thoughtworks.selenium.SeleniumException: Failed to connect to binary FirefoxBinary(C:\Program Files (x86)\Mozilla Firefox\firefox.exe) on port 7055; process output follows: 
+{&quot;d&quot;:&quot;C:\\Users\\BDII12~1.BDI\\AppData\\Local\\Temp\\anonymous2834783879989619608webdriver-profile\\extensions\\fxdriver@googlecode.com&quot;,&quot;e&quot;:false,&quot;v&quot;:&quot;2.45.0&quot;,&quot;st&quot;:1451971643013,&quot;mt&quot;:1451971642617}},&quot;app-global&quot;:{&quot;{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;7.5.0.9082&quot;,&quot;st&quot;:1444303946000},&quot;{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;43.0.3&quot;,&quot;st&quot;:1451460200813,&quot;mt&quot;:1451460200235}}}
+1451971651129	addons.xpi	DEBUG	No changes found
+1451971651135	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651136	addons.xpi	DEBUG	Loading bootstrap scope from C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651141	addons.xpi	DEBUG	Calling bootstrap method startup on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for XPIProvider
+1451971651183	addons.manager	DEBUG	Provider finished startup: XPIProvider
+1451971651183	addons.manager	DEBUG	Starting provider: LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Provider finished startup: LightweightThemeManager
+1451971651184	addons.manager	DEBUG	Starting provider: GMPProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for GMPProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: GMPProvider
+1451971651190	addons.manager	DEBUG	Starting provider: PluginProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for PluginProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: PluginProvider
+1451971651191	addons.manager	DEBUG	Completed startup sequence
+1451971651305	addons.xpi-utils	DEBUG	Starting async load of XPI database C:\Users\BDII12~1.BDI\AppData\Local\Temp\anonymous2834783879989619608webdriver-profile\extensions.json
+*** Blocklist::_loadBlocklistFromFile: blocklist is disabled
+1451971651414	addons.manager	DEBUG	Starting provider: &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Registering shutdown blocker for &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Provider finished startup: &lt;unnamed-provider&gt;
+1451971651506	addons.xpi-utils	DEBUG	Async JSON file read took 0 MS
+1451971651506	addons.xpi-utils	DEBUG	Finished async read of XPI database, parsing...
+1451971651508	addons.xpi-utils	DEBUG	Successfully read XPI database
+1451971653460	addons.manager	DEBUG	Starting provider: PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Registering shutdown blocker for PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Provider finished startup: PreviousExperimentProvider
+JavaScript error: resource://skype_ff_extension-at-jetpack/skype_ff_extension/data/c2c_options_menu_localization.js, line 189: TypeError: document.getElementById(...) is null
+1451971689954	addons.xpi	DEBUG	Calling bootstrap method shutdown on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971690110	addons.manager	DEBUG	shutdown
+1451971690111	addons.manager	DEBUG	Calling shutdown blocker for XPIProvider
+1451971690111	addons.xpi	DEBUG	shutdown
+1451971690111	addons.xpi-utils	DEBUG	shutdown
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for LightweightThemeManager
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for GMPProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for PluginProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for &lt;unnamed-provider&gt;
+1451971690115	addons.manager	DEBUG	Calling shutdown blocker for PreviousExperimentProvider
+1451971690118	addons.xpi	DEBUG	Notifying XPI shutdown observers
+1451971690122	addons.manager	DEBUG	Async provider shutdown done
+
+Build info: version: &apos;2.45.0&apos;, revision: &apos;5017cb8e7ca8e37638dc3091b2440b90a1d8686f&apos;, time: &apos;2015-02-27 09:10:26&apos;
+System info: host: &apos;BDII1286&apos;, ip: &apos;10.120.65.25&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.7.0_72&apos;
+Driver info: driver.version: SeleniumWebDriver
+	at com.lumata.common.testing.selenium.SeleniumWebDriver.getInstance(SeleniumWebDriver.java:301)
+	at com.lumata.e4o.testing.common.ParentTestCase.initSeleniumWebDriver(ParentTestCase.java:582)
+	... 25 more
+Caused by: org.openqa.selenium.WebDriverException: Failed to connect to binary FirefoxBinary(C:\Program Files (x86)\Mozilla Firefox\firefox.exe) on port 7055; process output follows: 
+{&quot;d&quot;:&quot;C:\\Users\\BDII12~1.BDI\\AppData\\Local\\Temp\\anonymous2834783879989619608webdriver-profile\\extensions\\fxdriver@googlecode.com&quot;,&quot;e&quot;:false,&quot;v&quot;:&quot;2.45.0&quot;,&quot;st&quot;:1451971643013,&quot;mt&quot;:1451971642617}},&quot;app-global&quot;:{&quot;{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;7.5.0.9082&quot;,&quot;st&quot;:1444303946000},&quot;{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;43.0.3&quot;,&quot;st&quot;:1451460200813,&quot;mt&quot;:1451460200235}}}
+1451971651129	addons.xpi	DEBUG	No changes found
+1451971651135	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651136	addons.xpi	DEBUG	Loading bootstrap scope from C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651141	addons.xpi	DEBUG	Calling bootstrap method startup on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for XPIProvider
+1451971651183	addons.manager	DEBUG	Provider finished startup: XPIProvider
+1451971651183	addons.manager	DEBUG	Starting provider: LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Provider finished startup: LightweightThemeManager
+1451971651184	addons.manager	DEBUG	Starting provider: GMPProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for GMPProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: GMPProvider
+1451971651190	addons.manager	DEBUG	Starting provider: PluginProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for PluginProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: PluginProvider
+1451971651191	addons.manager	DEBUG	Completed startup sequence
+1451971651305	addons.xpi-utils	DEBUG	Starting async load of XPI database C:\Users\BDII12~1.BDI\AppData\Local\Temp\anonymous2834783879989619608webdriver-profile\extensions.json
+*** Blocklist::_loadBlocklistFromFile: blocklist is disabled
+1451971651414	addons.manager	DEBUG	Starting provider: &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Registering shutdown blocker for &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Provider finished startup: &lt;unnamed-provider&gt;
+1451971651506	addons.xpi-utils	DEBUG	Async JSON file read took 0 MS
+1451971651506	addons.xpi-utils	DEBUG	Finished async read of XPI database, parsing...
+1451971651508	addons.xpi-utils	DEBUG	Successfully read XPI database
+1451971653460	addons.manager	DEBUG	Starting provider: PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Registering shutdown blocker for PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Provider finished startup: PreviousExperimentProvider
+JavaScript error: resource://skype_ff_extension-at-jetpack/skype_ff_extension/data/c2c_options_menu_localization.js, line 189: TypeError: document.getElementById(...) is null
+1451971689954	addons.xpi	DEBUG	Calling bootstrap method shutdown on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971690110	addons.manager	DEBUG	shutdown
+1451971690111	addons.manager	DEBUG	Calling shutdown blocker for XPIProvider
+1451971690111	addons.xpi	DEBUG	shutdown
+1451971690111	addons.xpi-utils	DEBUG	shutdown
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for LightweightThemeManager
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for GMPProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for PluginProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for &lt;unnamed-provider&gt;
+1451971690115	addons.manager	DEBUG	Calling shutdown blocker for PreviousExperimentProvider
+1451971690118	addons.xpi	DEBUG	Notifying XPI shutdown observers
+1451971690122	addons.manager	DEBUG	Async provider shutdown done
+
+Build info: version: &apos;2.45.0&apos;, revision: &apos;5017cb8e7ca8e37638dc3091b2440b90a1d8686f&apos;, time: &apos;2015-02-27 09:10:26&apos;
+System info: host: &apos;BDII1286&apos;, ip: &apos;10.120.65.25&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.7.0_72&apos;
+Driver info: driver.version: SeleniumWebDriver
+	at org.openqa.selenium.firefox.internal.NewProfileExtensionConnection.start(NewProfileExtensionConnection.java:130)
+	at org.openqa.selenium.firefox.FirefoxDriver.startClient(FirefoxDriver.java:246)
+	at org.openqa.selenium.remote.RemoteWebDriver.&lt;init&gt;(RemoteWebDriver.java:114)
+	at org.openqa.selenium.firefox.FirefoxDriver.&lt;init&gt;(FirefoxDriver.java:191)
+	at org.openqa.selenium.firefox.FirefoxDriver.&lt;init&gt;(FirefoxDriver.java:186)
+	at org.openqa.selenium.firefox.FirefoxDriver.&lt;init&gt;(FirefoxDriver.java:182)
+	at org.openqa.selenium.firefox.FirefoxDriver.&lt;init&gt;(FirefoxDriver.java:95)
+	at com.lumata.common.testing.selenium.SeleniumWebDriver.getLocalWebDriver(SeleniumWebDriver.java:473)
+	at com.lumata.common.testing.selenium.SeleniumWebDriver.getInstance(SeleniumWebDriver.java:251)
+	... 26 more
+Caused by: org.openqa.selenium.firefox.NotConnectedException: Unable to connect to host 127.0.0.1 on port 7055 after 45000 ms. Firefox console output:
+{&quot;d&quot;:&quot;C:\\Users\\BDII12~1.BDI\\AppData\\Local\\Temp\\anonymous2834783879989619608webdriver-profile\\extensions\\fxdriver@googlecode.com&quot;,&quot;e&quot;:false,&quot;v&quot;:&quot;2.45.0&quot;,&quot;st&quot;:1451971643013,&quot;mt&quot;:1451971642617}},&quot;app-global&quot;:{&quot;{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;7.5.0.9082&quot;,&quot;st&quot;:1444303946000},&quot;{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;43.0.3&quot;,&quot;st&quot;:1451460200813,&quot;mt&quot;:1451460200235}}}
+1451971651129	addons.xpi	DEBUG	No changes found
+1451971651135	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651136	addons.xpi	DEBUG	Loading bootstrap scope from C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651141	addons.xpi	DEBUG	Calling bootstrap method startup on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for XPIProvider
+1451971651183	addons.manager	DEBUG	Provider finished startup: XPIProvider
+1451971651183	addons.manager	DEBUG	Starting provider: LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Provider finished startup: LightweightThemeManager
+1451971651184	addons.manager	DEBUG	Starting provider: GMPProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for GMPProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: GMPProvider
+1451971651190	addons.manager	DEBUG	Starting provider: PluginProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for PluginProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: PluginProvider
+1451971651191	addons.manager	DEBUG	Completed startup sequence
+1451971651305	addons.xpi-utils	DEBUG	Starting async load of XPI database C:\Users\BDII12~1.BDI\AppData\Local\Temp\anonymous2834783879989619608webdriver-profile\extensions.json
+*** Blocklist::_loadBlocklistFromFile: blocklist is disabled
+1451971651414	addons.manager	DEBUG	Starting provider: &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Registering shutdown blocker for &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Provider finished startup: &lt;unnamed-provider&gt;
+1451971651506	addons.xpi-utils	DEBUG	Async JSON file read took 0 MS
+1451971651506	addons.xpi-utils	DEBUG	Finished async read of XPI database, parsing...
+1451971651508	addons.xpi-utils	DEBUG	Successfully read XPI database
+1451971653460	addons.manager	DEBUG	Starting provider: PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Registering shutdown blocker for PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Provider finished startup: PreviousExperimentProvider
+JavaScript error: resource://skype_ff_extension-at-jetpack/skype_ff_extension/data/c2c_options_menu_localization.js, line 189: TypeError: document.getElementById(...) is null
+1451971689954	addons.xpi	DEBUG	Calling bootstrap method shutdown on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971690110	addons.manager	DEBUG	shutdown
+1451971690111	addons.manager	DEBUG	Calling shutdown blocker for XPIProvider
+1451971690111	addons.xpi	DEBUG	shutdown
+1451971690111	addons.xpi-utils	DEBUG	shutdown
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for LightweightThemeManager
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for GMPProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for PluginProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for &lt;unnamed-provider&gt;
+1451971690115	addons.manager	DEBUG	Calling shutdown blocker for PreviousExperimentProvider
+1451971690118	addons.xpi	DEBUG	Notifying XPI shutdown observers
+1451971690122	addons.manager	DEBUG	Async provider shutdown done
+
+	at org.openqa.selenium.firefox.internal.NewProfileExtensionConnection.start(NewProfileExtensionConnection.java:118)
+	... 34 more
+</pre></div><a href='#' onClick='toggleBox("stack-trace453034154", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace453034154'><pre>org.testng.TestNGException: 
+Failed to connect to binary FirefoxBinary(C:\Program Files (x86)\Mozilla Firefox\firefox.exe) on port 7055; process output follows: 
+{&quot;d&quot;:&quot;C:\\Users\\BDII12~1.BDI\\AppData\\Local\\Temp\\anonymous2834783879989619608webdriver-profile\\extensions\\fxdriver@googlecode.com&quot;,&quot;e&quot;:false,&quot;v&quot;:&quot;2.45.0&quot;,&quot;st&quot;:1451971643013,&quot;mt&quot;:1451971642617}},&quot;app-global&quot;:{&quot;{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;7.5.0.9082&quot;,&quot;st&quot;:1444303946000},&quot;{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;43.0.3&quot;,&quot;st&quot;:1451460200813,&quot;mt&quot;:1451460200235}}}
+1451971651129	addons.xpi	DEBUG	No changes found
+1451971651135	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651136	addons.xpi	DEBUG	Loading bootstrap scope from C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651141	addons.xpi	DEBUG	Calling bootstrap method startup on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for XPIProvider
+1451971651183	addons.manager	DEBUG	Provider finished startup: XPIProvider
+1451971651183	addons.manager	DEBUG	Starting provider: LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Provider finished startup: LightweightThemeManager
+1451971651184	addons.manager	DEBUG	Starting provider: GMPProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for GMPProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: GMPProvider
+1451971651190	addons.manager	DEBUG	Starting provider: PluginProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for PluginProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: PluginProvider
+1451971651191	addons.manager	DEBUG	Completed startup sequence
+1451971651305	addons.xpi-utils	DEBUG	Starting async load of XPI database C:\Users\BDII12~1.BDI\AppData\Local\Temp\anonymous2834783879989619608webdriver-profile\extensions.json
+*** Blocklist::_loadBlocklistFromFile: blocklist is disabled
+1451971651414	addons.manager	DEBUG	Starting provider: &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Registering shutdown blocker for &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Provider finished startup: &lt;unnamed-provider&gt;
+1451971651506	addons.xpi-utils	DEBUG	Async JSON file read took 0 MS
+1451971651506	addons.xpi-utils	DEBUG	Finished async read of XPI database, parsing...
+1451971651508	addons.xpi-utils	DEBUG	Successfully read XPI database
+1451971653460	addons.manager	DEBUG	Starting provider: PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Registering shutdown blocker for PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Provider finished startup: PreviousExperimentProvider
+JavaScript error: resource://skype_ff_extension-at-jetpack/skype_ff_extension/data/c2c_options_menu_localization.js, line 189: TypeError: document.getElementById(...) is null
+1451971689954	addons.xpi	DEBUG	Calling bootstrap method shutdown on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971690110	addons.manager	DEBUG	shutdown
+1451971690111	addons.manager	DEBUG	Calling shutdown blocker for XPIProvider
+1451971690111	addons.xpi	DEBUG	shutdown
+1451971690111	addons.xpi-utils	DEBUG	shutdown
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for LightweightThemeManager
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for GMPProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for PluginProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for &lt;unnamed-provider&gt;
+1451971690115	addons.manager	DEBUG	Calling shutdown blocker for PreviousExperimentProvider
+1451971690118	addons.xpi	DEBUG	Notifying XPI shutdown observers
+1451971690122	addons.manager	DEBUG	Async provider shutdown done
+
+Build info: version: &apos;2.45.0&apos;, revision: &apos;5017cb8e7ca8e37638dc3091b2440b90a1d8686f&apos;, time: &apos;2015-02-27 09:10:26&apos;
+System info: host: &apos;BDII1286&apos;, ip: &apos;10.120.65.25&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.7.0_72&apos;
+Driver info: driver.version: SeleniumWebDriver
+	at com.lumata.e4o.testing.common.ParentTestCase.initSeleniumWebDriver(ParentTestCase.java:596)
+	at com.lumata.e4o.testing.common.ParentTestCase.init(ParentTestCase.java:309)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:564)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:213)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:138)
+	at org.testng.internal.TestMethodWorker.invokeBeforeClassMethods(TestMethodWorker.java:175)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:107)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+Caused by: com.thoughtworks.selenium.SeleniumException: Failed to connect to binary FirefoxBinary(C:\Program Files (x86)\Mozilla Firefox\firefox.exe) on port 7055; process output follows: 
+{&quot;d&quot;:&quot;C:\\Users\\BDII12~1.BDI\\AppData\\Local\\Temp\\anonymous2834783879989619608webdriver-profile\\extensions\\fxdriver@googlecode.com&quot;,&quot;e&quot;:false,&quot;v&quot;:&quot;2.45.0&quot;,&quot;st&quot;:1451971643013,&quot;mt&quot;:1451971642617}},&quot;app-global&quot;:{&quot;{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;7.5.0.9082&quot;,&quot;st&quot;:1444303946000},&quot;{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;43.0.3&quot;,&quot;st&quot;:1451460200813,&quot;mt&quot;:1451460200235}}}
+1451971651129	addons.xpi	DEBUG	No changes found
+1451971651135	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651136	addons.xpi	DEBUG	Loading bootstrap scope from C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651141	addons.xpi	DEBUG	Calling bootstrap method startup on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for XPIProvider
+1451971651183	addons.manager	DEBUG	Provider finished startup: XPIProvider
+1451971651183	addons.manager	DEBUG	Starting provider: LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Provider finished startup: LightweightThemeManager
+1451971651184	addons.manager	DEBUG	Starting provider: GMPProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for GMPProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: GMPProvider
+1451971651190	addons.manager	DEBUG	Starting provider: PluginProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for PluginProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: PluginProvider
+1451971651191	addons.manager	DEBUG	Completed startup sequence
+1451971651305	addons.xpi-utils	DEBUG	Starting async load of XPI database C:\Users\BDII12~1.BDI\AppData\Local\Temp\anonymous2834783879989619608webdriver-profile\extensions.json
+*** Blocklist::_loadBlocklistFromFile: blocklist is disabled
+1451971651414	addons.manager	DEBUG	Starting provider: &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Registering shutdown blocker for &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Provider finished startup: &lt;unnamed-provider&gt;
+1451971651506	addons.xpi-utils	DEBUG	Async JSON file read took 0 MS
+1451971651506	addons.xpi-utils	DEBUG	Finished async read of XPI database, parsing...
+1451971651508	addons.xpi-utils	DEBUG	Successfully read XPI database
+1451971653460	addons.manager	DEBUG	Starting provider: PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Registering shutdown blocker for PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Provider finished startup: PreviousExperimentProvider
+JavaScript error: resource://skype_ff_extension-at-jetpack/skype_ff_extension/data/c2c_options_menu_localization.js, line 189: TypeError: document.getElementById(...) is null
+1451971689954	addons.xpi	DEBUG	Calling bootstrap method shutdown on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971690110	addons.manager	DEBUG	shutdown
+1451971690111	addons.manager	DEBUG	Calling shutdown blocker for XPIProvider
+1451971690111	addons.xpi	DEBUG	shutdown
+1451971690111	addons.xpi-utils	DEBUG	shutdown
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for LightweightThemeManager
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for GMPProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for PluginProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for &lt;unnamed-provider&gt;
+1451971690115	addons.manager	DEBUG	Calling shutdown blocker for PreviousExperimentProvider
+1451971690118	addons.xpi	DEBUG	Notifying XPI shutdown observers
+1451971690122	addons.manager	DEBUG	Async provider shutdown done
+
+Build info: version: &apos;2.45.0&apos;, revision: &apos;5017cb8e7ca8e37638dc3091b2440b90a1d8686f&apos;, time: &apos;2015-02-27 09:10:26&apos;
+System info: host: &apos;BDII1286&apos;, ip: &apos;10.120.65.25&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.7.0_72&apos;
+Driver info: driver.version: SeleniumWebDriver
+	at com.lumata.common.testing.selenium.SeleniumWebDriver.getInstance(SeleniumWebDriver.java:301)
+	at com.lumata.e4o.testing.common.ParentTestCase.initSeleniumWebDriver(ParentTestCase.java:582)
+	... 25 more
+Caused by: org.openqa.selenium.WebDriverException: Failed to connect to binary FirefoxBinary(C:\Program Files (x86)\Mozilla Firefox\firefox.exe) on port 7055; process output follows: 
+{&quot;d&quot;:&quot;C:\\Users\\BDII12~1.BDI\\AppData\\Local\\Temp\\anonymous2834783879989619608webdriver-profile\\extensions\\fxdriver@googlecode.com&quot;,&quot;e&quot;:false,&quot;v&quot;:&quot;2.45.0&quot;,&quot;st&quot;:1451971643013,&quot;mt&quot;:1451971642617}},&quot;app-global&quot;:{&quot;{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;7.5.0.9082&quot;,&quot;st&quot;:1444303946000},&quot;{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;43.0.3&quot;,&quot;st&quot;:1451460200813,&quot;mt&quot;:1451460200235}}}
+1451971651129	addons.xpi	DEBUG	No changes found
+1451971651135	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651136	addons.xpi	DEBUG	Loading bootstrap scope from C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651141	addons.xpi	DEBUG	Calling bootstrap method startup on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for XPIProvider
+1451971651183	addons.manager	DEBUG	Provider finished startup: XPIProvider
+1451971651183	addons.manager	DEBUG	Starting provider: LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Provider finished startup: LightweightThemeManager
+1451971651184	addons.manager	DEBUG	Starting provider: GMPProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for GMPProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: GMPProvider
+1451971651190	addons.manager	DEBUG	Starting provider: PluginProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for PluginProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: PluginProvider
+1451971651191	addons.manager	DEBUG	Completed startup sequence
+1451971651305	addons.xpi-utils	DEBUG	Starting async load of XPI database C:\Users\BDII12~1.BDI\AppData\Local\Temp\anonymous2834783879989619608webdriver-profile\extensions.json
+*** Blocklist::_loadBlocklistFromFile: blocklist is disabled
+1451971651414	addons.manager	DEBUG	Starting provider: &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Registering shutdown blocker for &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Provider finished startup: &lt;unnamed-provider&gt;
+1451971651506	addons.xpi-utils	DEBUG	Async JSON file read took 0 MS
+1451971651506	addons.xpi-utils	DEBUG	Finished async read of XPI database, parsing...
+1451971651508	addons.xpi-utils	DEBUG	Successfully read XPI database
+1451971653460	addons.manager	DEBUG	Starting provider: PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Registering shutdown blocker for PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Provider finished startup: PreviousExperimentProvider
+JavaScript error: resource://skype_ff_extension-at-jetpack/skype_ff_extension/data/c2c_options_menu_localization.js, line 189: TypeError: document.getElementById(...) is null
+1451971689954	addons.xpi	DEBUG	Calling bootstrap method shutdown on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971690110	addons.manager	DEBUG	shutdown
+1451971690111	addons.manager	DEBUG	Calling shutdown blocker for XPIProvider
+1451971690111	addons.xpi	DEBUG	shutdown
+1451971690111	addons.xpi-utils	DEBUG	shutdown
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for LightweightThemeManager
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for GMPProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for PluginProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for &lt;unnamed-provider&gt;
+1451971690115	addons.manager	DEBUG	Calling shutdown blocker for PreviousExperimentProvider
+1451971690118	addons.xpi	DEBUG	Notifying XPI shutdown observers
+1451971690122	addons.manager	DEBUG	Async provider shutdown done
+
+Build info: version: &apos;2.45.0&apos;, revision: &apos;5017cb8e7ca8e37638dc3091b2440b90a1d8686f&apos;, time: &apos;2015-02-27 09:10:26&apos;
+System info: host: &apos;BDII1286&apos;, ip: &apos;10.120.65.25&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.7.0_72&apos;
+Driver info: driver.version: SeleniumWebDriver
+	at org.openqa.selenium.firefox.internal.NewProfileExtensionConnection.start(NewProfileExtensionConnection.java:130)
+	at org.openqa.selenium.firefox.FirefoxDriver.startClient(FirefoxDriver.java:246)
+	at org.openqa.selenium.remote.RemoteWebDriver.&lt;init&gt;(RemoteWebDriver.java:114)
+	at org.openqa.selenium.firefox.FirefoxDriver.&lt;init&gt;(FirefoxDriver.java:191)
+	at org.openqa.selenium.firefox.FirefoxDriver.&lt;init&gt;(FirefoxDriver.java:186)
+	at org.openqa.selenium.firefox.FirefoxDriver.&lt;init&gt;(FirefoxDriver.java:182)
+	at org.openqa.selenium.firefox.FirefoxDriver.&lt;init&gt;(FirefoxDriver.java:95)
+	at com.lumata.common.testing.selenium.SeleniumWebDriver.getLocalWebDriver(SeleniumWebDriver.java:473)
+	at com.lumata.common.testing.selenium.SeleniumWebDriver.getInstance(SeleniumWebDriver.java:251)
+	... 26 more
+Caused by: org.openqa.selenium.firefox.NotConnectedException: Unable to connect to host 127.0.0.1 on port 7055 after 45000 ms. Firefox console output:
+{&quot;d&quot;:&quot;C:\\Users\\BDII12~1.BDI\\AppData\\Local\\Temp\\anonymous2834783879989619608webdriver-profile\\extensions\\fxdriver@googlecode.com&quot;,&quot;e&quot;:false,&quot;v&quot;:&quot;2.45.0&quot;,&quot;st&quot;:1451971643013,&quot;mt&quot;:1451971642617}},&quot;app-global&quot;:{&quot;{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;7.5.0.9082&quot;,&quot;st&quot;:1444303946000},&quot;{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;:{&quot;d&quot;:&quot;C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}&quot;,&quot;e&quot;:true,&quot;v&quot;:&quot;43.0.3&quot;,&quot;st&quot;:1451460200813,&quot;mt&quot;:1451460200235}}}
+1451971651129	addons.xpi	DEBUG	No changes found
+1451971651135	addons.xpi	DEBUG	Registering manifest for C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651136	addons.xpi	DEBUG	Loading bootstrap scope from C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{82AF8DCA-6DE9-405D-BD5E-43525BDAD38A}.xpi
+1451971651141	addons.xpi	DEBUG	Calling bootstrap method startup on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for XPIProvider
+1451971651183	addons.manager	DEBUG	Provider finished startup: XPIProvider
+1451971651183	addons.manager	DEBUG	Starting provider: LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Registering shutdown blocker for LightweightThemeManager
+1451971651183	addons.manager	DEBUG	Provider finished startup: LightweightThemeManager
+1451971651184	addons.manager	DEBUG	Starting provider: GMPProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for GMPProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: GMPProvider
+1451971651190	addons.manager	DEBUG	Starting provider: PluginProvider
+1451971651190	addons.manager	DEBUG	Registering shutdown blocker for PluginProvider
+1451971651190	addons.manager	DEBUG	Provider finished startup: PluginProvider
+1451971651191	addons.manager	DEBUG	Completed startup sequence
+1451971651305	addons.xpi-utils	DEBUG	Starting async load of XPI database C:\Users\BDII12~1.BDI\AppData\Local\Temp\anonymous2834783879989619608webdriver-profile\extensions.json
+*** Blocklist::_loadBlocklistFromFile: blocklist is disabled
+1451971651414	addons.manager	DEBUG	Starting provider: &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Registering shutdown blocker for &lt;unnamed-provider&gt;
+1451971651414	addons.manager	DEBUG	Provider finished startup: &lt;unnamed-provider&gt;
+1451971651506	addons.xpi-utils	DEBUG	Async JSON file read took 0 MS
+1451971651506	addons.xpi-utils	DEBUG	Finished async read of XPI database, parsing...
+1451971651508	addons.xpi-utils	DEBUG	Successfully read XPI database
+1451971653460	addons.manager	DEBUG	Starting provider: PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Registering shutdown blocker for PreviousExperimentProvider
+1451971653461	addons.manager	DEBUG	Provider finished startup: PreviousExperimentProvider
+JavaScript error: resource://skype_ff_extension-at-jetpack/skype_ff_extension/data/c2c_options_menu_localization.js, line 189: TypeError: document.getElementById(...) is null
+1451971689954	addons.xpi	DEBUG	Calling bootstrap method shutdown on {82AF8DCA-6DE9-405D-BD5E-43525BDAD38A} version 7.5.0.9082
+1451971690110	addons.manager	DEBUG	shutdown
+1451971690111	addons.manager	DEBUG	Calling shutdown blocker for XPIProvider
+1451971690111	addons.xpi	DEBUG	shutdown
+1451971690111	addons.xpi-utils	DEBUG	shutdown
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for LightweightThemeManager
+1451971690112	addons.manager	DEBUG	Calling shutdown blocker for GMPProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for PluginProvider
+1451971690113	addons.manager	DEBUG	Calling shutdown blocker for &lt;unnamed-provider&gt;
+1451971690115	addons.manager	DEBUG	Calling shutdown blocker for PreviousExperimentProvider
+1451971690118	addons.xpi	DEBUG	Notifying XPI shutdown observers
+1451971690122	addons.manager	DEBUG	Async provider shutdown done
+
+	at org.openqa.selenium.firefox.internal.NewProfileExtensionConnection.start(NewProfileExtensionConnection.java:118)
+	... 34 more
+</pre></div></td>
+<td>0</td>
+<td>com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser@315351de</td></tr>
+</table><p>
+<table width='100%' border='1' class='invocation-skipped'>
+<tr><td colspan='4' align='center'><b>SKIPPED CONFIGURATIONS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser.startSession()'><b>startSession</b><br>Test class: com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser</td>
+<td></td>
+<td>0</td>
+<td>com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser@315351de</td></tr>
+<tr>
+<td title='com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser.initLMForm()'><b>initLMForm</b><br>Test class: com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser</td>
+<td></td>
+<td>0</td>
+<td>com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser@315351de</td></tr>
+<tr>
+<td title='com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser.startSession()'><b>startSession</b><br>Test class: com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser</td>
+<td></td>
+<td>0</td>
+<td>com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser@315351de</td></tr>
+<tr>
+<td title='com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser.initLMForm()'><b>initLMForm</b><br>Test class: com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser</td>
+<td></td>
+<td>0</td>
+<td>com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser@315351de</td></tr>
+<tr>
+<td title='com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser.tearDown()'><b>tearDown</b><br>Test class: com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser</td>
+<td></td>
+<td>0</td>
+<td>com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser@315351de</td></tr>
+<tr>
+<td title='com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser.tearDown()'><b>tearDown</b><br>Test class: com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser</td>
+<td></td>
+<td>0</td>
+<td>com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser@315351de</td></tr>
+<tr>
+<td title='com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser.end()'><b>end</b><br>Test class: com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser</td>
+<td></td>
+<td>0</td>
+<td>com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser@315351de</td></tr>
+</table><p>
+<table width='100%' border='1' class='invocation-skipped'>
+<tr><td colspan='4' align='center'><b>SKIPPED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser.testUc40_01ConfigureLdap_LoginManagementForm()'><b>testUc40_01ConfigureLdap_LoginManagementForm</b><br>Test class: com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser<br>Parameters: { 'type':'local', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'WINDOWS', 'browserName': 'firefox' } } }, { 'envFile':'e4o_qa5_noida', 'schemaGlobal': 'global', 'schemaMaster': 'tenantMaster', 'schemaReport': 'tenantReport', 'guiServer':'actrule1', 'guiUser':'superman' }</td>
+<td></td>
+<td>0</td>
+<td>com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser@315351de</td></tr>
+<tr>
+<td title='com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser.testUc40_02LoginLdapUser_agency_LoginManagementForm()'><b>testUc40_02LoginLdapUser_agency_LoginManagementForm</b><br>Test class: com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser<br>Parameters: { 'type':'local', 'local': { 'browserName':'firefox', 'firefox': {} }, 'remote': { 'selenium_hub':'http://ci.lumata.int/wd/hub', 'capability': { 'platform': 'WINDOWS', 'browserName': 'firefox' } } }, not-found</td>
+<td></td>
+<td>0</td>
+<td>com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser@315351de</td></tr>
+</table><p>
+</body>
+</html>

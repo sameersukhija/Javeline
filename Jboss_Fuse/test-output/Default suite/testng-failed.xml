@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Default suite]">
+  <parameter name="networkEnvironmentParams" value="{ &#039;envFile&#039;:&#039;e4o_qa5_noida&#039;, &#039;schemaGlobal&#039;: &#039;global&#039;, &#039;schemaMaster&#039;: &#039;tenantMaster&#039;, &#039;schemaReport&#039;: &#039;tenantReport&#039;, &#039;guiServer&#039;:&#039;actrule1&#039;, &#039;guiUser&#039;:&#039;superman&#039; }"/>
+  <parameter name="seleniumWebDriverParams" value="{ &#039;type&#039;:&#039;local&#039;, &#039;local&#039;: { &#039;browserName&#039;:&#039;firefox&#039;, &#039;firefox&#039;: {} }, &#039;remote&#039;: { &#039;selenium_hub&#039;:&#039;http://ci.lumata.int/wd/hub&#039;, &#039;capability&#039;: { &#039;platform&#039;: &#039;WINDOWS&#039;, &#039;browserName&#039;: &#039;firefox&#039; } } }"/>
+  <parameter name="networkEnvironment" value="not-found"/>
+  <test name="Default test(failed)">
+    <classes>
+      <class name="com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser">
+        <methods>
+          <include name="init"/>
+          <include name="testUc40_01ConfigureLdap_LoginManagementForm"/>
+          <include name="testUc40_02LoginLdapUser_agency_LoginManagementForm"/>
+        </methods>
+      </class> <!-- com.lumata.e4o.regressions.gui.TestLoginManagementLdapUser -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->
